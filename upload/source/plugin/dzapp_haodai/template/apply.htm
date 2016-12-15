@@ -1,0 +1,46 @@
+<!--{subtemplate common/header}-->
+<link rel="stylesheet" type="text/css" href="source/plugin/dzapp_haodai/images/apply.css">
+<style>
+    #wp .wp {
+        width: 960px !important;
+    }
+    .wp {
+        width: 960px !important;
+    }
+</style>
+<div id="pt" class="bm cl">
+	<div class="z">
+		<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a> <em>&rsaquo;</em> <a href="{echo rewrite_index();}">{lang dzapp_haodai:apply_htm_1}</a> <em>&rsaquo;</em> {lang dzapp_haodai:apply_htm_2}
+	</div>
+	<div class="y">
+		{$zones[$city]}<a href="plugin.php?id=dzapp_haodai:city" title="{lang dzapp_haodai:switch_city}">[{lang dzapp_haodai:switch_city}]</a>
+	</div>
+</div>
+<div id="ct" class="wp cl">
+    <div class="mn">
+        <div class="bm">
+<div class="bm_h bbs">
+<h3 class="xs2">{lang dzapp_haodai:apply_htm_3}</h3>
+</div>
+<div class="bm_c" style="padding:20px;">
+<input type="hidden" name="month" value="{$_GET[month]}" />
+<input type="hidden" name="money" value="{$_GET[money]}" />
+<input type="hidden" name="xd_id" value="{$_GET[xd_id]}" />
+<input type="hidden" name="xd_type" value="{$_GET[xd_type]}" />
+<input type="hidden" name="formhash" value="{FORMHASH}" />
+<table width="100%" cellpadding="0" cellspacing="0" align="center" class="tfm">
+  <tr>
+    <td colspan="2">
+      <iframe src="http://interface.api.haodai.com/h5tuiguang/cff?ref={HD_REF}&sid={$current_host}" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" style="width:100%;height:450px;"></iframe>
+    </td>
+  </tr>
+	<th colspan="2" class=" answer xs2 xw1">{lang dzapp_haodai:apply_htm_248}</th>
+	<tr>
+		<td colspan="2" class="answer2"><br>{lang dzapp_haodai:apply_htm_249}<br>{lang dzapp_haodai:apply_htm_250}<b>400-8055-855</b></td>
+	</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!--{subtemplate common/footer}-->

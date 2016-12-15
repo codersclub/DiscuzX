@@ -1,0 +1,22 @@
++======================================+
+   Discuz! X3.3 Release 20170101
++======================================+
+兼容 PHP7
+优化SQL查询
+修复安全问题
+
++--------------------------------------+
+往日版本( Old Version )
++--------------------------------------+
+Discuz! X1 Beta Release 20100501
+Discuz! X1 Release 20100518
+Discuz! X1 Release 20100601
+Discuz! X1 Release 20100613
+Discuz! X1 Release 20100723
+Discuz! X1.5RC Release 20100901
+Discuz! X1.5
+Discuz! X2
+Discuz! X2.5
+Discuz! X3
+Discuz! X3.1
+Discuz! X3.2
