@@ -10,5 +10,6 @@ Crossday Discuz! Board（以下简称 Discuz!，中国国家版权局著作权�
 +----------------------------------+
 Discuz! 讨论区：          http://www.discuz.net
 Discuz! 应用中心：        http://addon.discuz.com
+Discuz! 开放平台：        http://open.discuz.net
 Discuz! BUG 反馈：        http://www.discuz.net/forum-70-1.html
 
