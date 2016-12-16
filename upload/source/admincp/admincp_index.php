@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: admincp_index.php 36299 2016-12-15 06:35:18Z nemohou $
+ *      $Id: admincp_index.php 36306 2016-12-16 08:12:49Z nemohou $
  */
 
 if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
@@ -190,6 +190,27 @@ if($membersmod || $threadsmod || $postsmod || $medalsmod || $blogsmod || $pictur
 	);
 }
 showtablefooter();
+
+if(isfounder()) {
+	$filecheck = C::t('common_cache')->fetch('checktools_filecheck_result');
+	if($filecheck) {
+		list($modifiedfiles, $deletedfiles, $unknownfiles, $doubt) = unserialize($filecheck['cachevalue']);
+		$filecheckresult = "<em class=\"edited\">$lang[filecheck_modify]: $modifiedfiles</em> &nbsp; ".
+			"<em class=\"del\">$lang[filecheck_delete]: $deletedfiles</em> &nbsp; ".
+			"<em class=\"unknown\">$lang[filecheck_unknown]: $unknownfiles</em> &nbsp; ".
+			"<em class=\"unknown\">$lang[filecheck_doubt]: $doubt</em> &nbsp; ".
+			$lang['filecheck_last_homecheck'].': '.dgmdate($filecheck['dateline'], 'u').' <a href="'.ADMINSCRIPT.'?action=checktools&operation=filecheck&step=3">['.$lang['filecheck_view_list'].']</a>';
+	} else {
+		$filecheckresult = '';
+	}
+
+	showtableheader($lang['nav_filecheck'].' <a href="javascript:;" onclick="ajaxget(\''.ADMINSCRIPT.'?action=checktools&operation=filecheck&homecheck=yes\', \'filecheck_div\')">['.$lang['filecheck_check_now'].']</a>', 'nobottom fixpadding');
+	echo '<tr><td><div id="filecheck_div">'.$filecheckresult.'</div></td></tr>';
+	showtablefooter();
+	if(TIMESTAMP - $filecheck['dateline'] > 86400 * 7) {
+		echo '<script>ajaxget(\''.ADMINSCRIPT.'?action=checktools&operation=filecheck&homecheck=yes\', \'filecheck_div\');</script>';
+	}
+}
 
 showtableheader('home_onlines', 'nobottom fixpadding');
 echo '<tr><td>'.$onlines.'</td></tr>';

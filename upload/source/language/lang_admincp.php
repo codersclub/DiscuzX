@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_admincp.php 36278 2016-12-09 07:52:35Z nemohou $
+ *      $Id: lang_admincp.php 36306 2016-12-16 08:12:49Z nemohou $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -5917,6 +5917,9 @@ $lang = array
 	'filecheck_doubt' => '一周内更新',
 	'filecheck_check_ok' => '正确',
 	'filecheck_status' => '状态',
+	'filecheck_check_now' => '立即检测',
+	'filecheck_view_list' => '查看文件列表',
+	'filecheck_last_homecheck' => '最后校验时间',
 
 	'hookcheck_start' => '开 始',
 	'hookcheck_verifying' => '正在进行嵌入点校验，请稍候......',

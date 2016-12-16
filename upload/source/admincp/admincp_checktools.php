@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: admincp_checktools.php 36278 2016-12-09 07:52:35Z nemohou $
+ *      $Id: admincp_checktools.php 36306 2016-12-16 08:12:49Z nemohou $
  */
 
 if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
@@ -17,13 +17,21 @@ if(!isfounder()) cpmsg('noaccess_isfounder', '', 'error');
 
 if($operation == 'filecheck') {
 
-	$step = max(1, intval($_GET['step']));
-	shownav('tools', 'nav_filecheck');
-	showsubmenusteps('nav_filecheck', array(
-		array('nav_filecheck_confirm', $step == 1),
-		array('nav_filecheck_verify', $step == 2),
-		array('nav_filecheck_completed', $step == 3)
-	));
+	$homecheck = !empty($_GET['homecheck']);
+
+	if(!$homecheck) {
+		$step = max(1, intval($_GET['step']));
+		shownav('tools', 'nav_filecheck');
+		showsubmenusteps('nav_filecheck', array(
+			array('nav_filecheck_confirm', $step == 1),
+			array('nav_filecheck_verify', $step == 2),
+			array('nav_filecheck_completed', $step == 3)
+		));
+	} else {
+		define('FOOTERDISABLED', true);
+		$step = 3;
+	}
+
 	if($step == 1) {
 		cpmsg(cplang('filecheck_tips_step1'), 'action=checktools&operation=filecheck&step=2', 'button', '', FALSE);
 	} elseif($step == 2) {
@@ -31,7 +39,12 @@ if($operation == 'filecheck') {
 	} elseif($step == 3) {
 
 		if(!$discuzfiles = @file('./source/admincp/discuzfiles.md5')) {
-			cpmsg('filecheck_nofound_md5file', '', 'error');
+			if(!$homecheck) {
+				cpmsg('filecheck_nofound_md5file', '', 'error');
+			} else {
+				ajaxshowheader();
+				ajaxshowfooter();
+			}
 		}
 
 		$md5data = array();
@@ -119,6 +132,28 @@ if($operation == 'filecheck') {
 				$fileststus && $dirlist[$fileststus][$dir][basename($file)] = array('', '');
 			}
 		}
+
+		$modifiedfiles = count($modifylist);
+		$deletedfiles = count($dellist);
+		$unknownfiles = count($addlist);
+		$doubt = intval($doubt);
+
+		C::t('common_cache')->insert(array(
+			'cachekey' => 'checktools_filecheck_result',
+			'cachevalue' => serialize(array($modifiedfiles, $deletedfiles, $unknownfiles, $doubt)),
+			'dateline' => $_G['timestamp'],
+		), false, true);
+
+		if($homecheck) {
+			ajaxshowheader();
+			echo "<em class=\"edited\">$lang[filecheck_modify]: $modifiedfiles</em> &nbsp; ".
+				"<em class=\"del\">$lang[filecheck_delete]: $deletedfiles</em> &nbsp; ".
+				"<em class=\"unknown\">$lang[filecheck_unknown]: $unknownfiles</em> &nbsp; ".
+				"<em class=\"unknown\">$lang[filecheck_doubt]: $doubt</em>  &nbsp; ".
+				$lang['filecheck_last_homecheck'].': '.dgmdate(TIMESTAMP, 'u').' <a href="'.ADMINSCRIPT.'?action=checktools&operation=filecheck&step=3">['.$lang['filecheck_view_list'].']</a>';
+			ajaxshowfooter();
+		}
+
 		$result = $resultjs = '';
 		$dirnum = 0;
 		foreach($dirlist as $status => $filelist) {
@@ -134,11 +169,6 @@ if($operation == 'filecheck') {
 			$result .= '</tbody>';
 			$resultjs .= '$(\'status_'.$status.'\').style.display=\'none\';';
 		}
-
-		$modifiedfiles = count($modifylist);
-		$deletedfiles = count($dellist);
-		$unknownfiles = count($addlist);
-		$doubt = intval($doubt);
 
 		$result .= '<script>function showresult(o) {'.$resultjs.'$(\'status_\' + o).style.display=\'\';}</script>';
 		showtips('filecheck_tips');

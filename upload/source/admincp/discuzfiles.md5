@@ -83,7 +83,7 @@ e48263dce4356396f52bfbcfb5071c64 *source/admincp/admincp_block.php
 dda34ea9edc3f37fb7f3c8bae9d587e0 *source/admincp/admincp_blogcategory.php
 20479a5ebcc8c8de3dac7a61764af979 *source/admincp/admincp_blogrecyclebin.php
 ac14d324de325ee9485caca992f796c1 *source/admincp/admincp_card.php
-f394fe161b022e06f3d505fd2cce2b70 *source/admincp/admincp_checktools.php
+615d2c26ecb9e7818cbce80d286a5adb *source/admincp/admincp_checktools.php
 b40bc52669c410d5fbedaaf37550fb01 *source/admincp/admincp_click.php
 85ef3aadb8fad22f669b99e44da52649 *source/admincp/admincp_cloud.php
 b3d0837eef87b5ebfd0b7a1e177eed64 *source/admincp/admincp_cloudaddons.php
@@ -103,7 +103,7 @@ d71f49a5a00dfb6350c83c2459e5d689 *source/admincp/admincp_forums.php
 813040e4f5aac34d57418cf2b86ce38f *source/admincp/admincp_founder.php
 9100bd5f83e6bffb1d80750b17a608da *source/admincp/admincp_grid.php
 377b4f5663f9d281437cbb1292a54e40 *source/admincp/admincp_group.php
-42ab9d72b92b3c53b629909adbf96ec7 *source/admincp/admincp_index.php
+10b8d370374958030ef1242aa7833950 *source/admincp/admincp_index.php
 bfc548c408092bbd9cb683440a743a2e *source/admincp/admincp_login.php
 b83851a2371b917115ade4d6ba6e7863 *source/admincp/admincp_logs.php
 1bb4886383e494b58807893cdd465f70 *source/admincp/admincp_magics.php
@@ -1073,7 +1073,7 @@ e6f1091f01a20d35925c95d7a62222bc *source/language/home/lang_magic.php
 664d74dbc5ba16c367af3436eaf17e4c *source/language/home/lang_template.php
 d41d8cd98f00b204e9800998ecf8427e *source/language/index.htm
 0e1469673cc7b512bfaef290d974a046 *source/language/lang_action.php
-e7be828f8db8155e3db272af02a6f4dc *source/language/lang_admincp.php
+8c17d7e8e3c40290b5b600d1dc27e5f3 *source/language/lang_admincp.php
 b9c66d9e883a768cac74ae0e90ce6ee7 *source/language/lang_admincp_cloud.php
 d6a2fb315dab1868cca8e9a7944bb5d9 *source/language/lang_admincp_login.php
 2fcb38a6248b7a00684b532818968c0f *source/language/lang_admincp_menu.php
