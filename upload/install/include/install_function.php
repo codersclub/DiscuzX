@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: install_function.php 36287 2016-12-12 03:59:05Z nemohou $
+ *      $Id: install_function.php 36311 2016-12-19 01:47:34Z nemohou $
  */
 
 if(!defined('IN_COMSENZ')) {
@@ -140,14 +140,9 @@ function env_check(&$env_items) {
 		} elseif($key == 'diskspace') {
 			if(function_exists('disk_free_space')) {
 				$space = disk_free_space(ROOT_PATH);
-				if($space > 1048576) {
-					if($space > 1073741824) {
-						$space = floor($space / 1073741824).'GB';
-					} else {
-						$space = floor($space / 1048576).'MB';
-					}
-				}
-				$env_items[$key]['current'] = $space;
+				$env_items[$key]['status'] = $space > $item['r'] ? 1 : 0;
+				$env_items[$key]['r'] = format_space($item['r']);
+				$env_items[$key]['current'] = format_space($space);
 			} else {
 				$env_items[$key]['current'] = 'unknow';
 			}
@@ -1733,4 +1728,14 @@ function install_extra_setting() {
 	foreach($settings as $key => $val) {
 		$db->query("REPLACE INTO {$tablepre}common_setting SET skey='$key', svalue='".addslashes(serialize($val))."'");
 	}
+}
+function format_space($space) {
+    if($space > 1048576) {
+		if($space > 1073741824) {
+			return floor($space / 1073741824).'GB';
+		} else {
+			return floor($space / 1048576).'MB';
+		}
+	}
+	return $space;
 }

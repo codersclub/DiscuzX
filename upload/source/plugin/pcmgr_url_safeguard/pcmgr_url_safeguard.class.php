@@ -14,11 +14,11 @@ if(!defined('IN_DISCUZ')) {
 class plugin_pcmgr_url_safeguard{
 	function _include_js(){
 		global $_G;
-		$jsscript = '<script src="http://pc1.gtimg.com/js/jquery-1.4.4.min.js" type="text/javascript"></script>';
+		$jsscript = '<script src="'.$_G['scheme'].'://pc1.gtimg.com/js/jquery-1.4.4.min.js" type="text/javascript"></script>';
 		$jsscript .= '<script type="text/javascript">jQuery.noConflict();</script>';
 		$jsscript .= "<script type=\"text/javascript\">(function(d){j=d.createElement('script');j.src='//openapi.guanjia.qq.com/fcgi-bin/getdzjs?cmd=urlquery_" . $_G['config']['output']['charset'] . "_" . $_G['config']['output']['language'] . "';j.setAttribute('ime-cfg','lt=2');d.getElementsByTagName('head')[0].appendChild(j)})(document)</script>";
 
-		$jsscript .= '<link rel="stylesheet" type="text/css" href="http://s.pc.qq.com/discuz/css/style.css" />';
+		$jsscript .= '<link rel="stylesheet" type="text/css" href="'.$_G['scheme'].'://s.pc.qq.com/discuz/css/style.css" />';
 		return $jsscript;
 	}
 }

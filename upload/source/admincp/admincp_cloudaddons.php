@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: admincp_cloudaddons.php 35706 2015-12-01 06:15:03Z nemohou $
+ *      $Id: admincp_cloudaddons.php 36311 2016-12-19 01:47:34Z nemohou $
  */
 if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
@@ -30,7 +30,11 @@ if(!$operation) {
 		$extra .= '&'.addslashes($_GET['extra']);
 	}
 	$url = cloudaddons_url($extra);
-	echo '<script type="text/javascript">location.href=\''.$url.'\';</script>';
+	if($_G['isHTTPS']) {
+		echo '<script type="text/javascript">window.open(\''.$url.'\');</script>';
+	} else {
+		echo '<script type="text/javascript">location.href=\''.$url.'\';</script>';
+	}
 
 } elseif($operation == 'download') {
 	$step = intval($_GET['step']);

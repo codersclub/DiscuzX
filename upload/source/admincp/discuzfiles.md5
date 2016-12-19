@@ -86,7 +86,7 @@ ac14d324de325ee9485caca992f796c1 *source/admincp/admincp_card.php
 615d2c26ecb9e7818cbce80d286a5adb *source/admincp/admincp_checktools.php
 b40bc52669c410d5fbedaaf37550fb01 *source/admincp/admincp_click.php
 85ef3aadb8fad22f669b99e44da52649 *source/admincp/admincp_cloud.php
-b3d0837eef87b5ebfd0b7a1e177eed64 *source/admincp/admincp_cloudaddons.php
+2aeb7e0c601d5986bb9986c515e04e53 *source/admincp/admincp_cloudaddons.php
 a7564ff1d1d99de04603d6a6f588a6e5 *source/admincp/admincp_collection.php
 93c0cd010c921640c9bc5c06aa6c9394 *source/admincp/admincp_comment.php
 6558bce5672e89e7e974deb172fa4912 *source/admincp/admincp_counter.php
@@ -324,7 +324,7 @@ ba8f93e2baa105875cbca0152cdd8645 *source/class/class_sphinx.php
 1a50bfab1b9481e9302157185480936c *source/class/class_tag.php
 c06d0078f78d3c10743914daa92a2822 *source/class/class_task.php
 f84a8ef882403ab585f1fcda9993ae8b *source/class/class_template.php
-02586f739f8c898944389c53515a7f9b *source/class/class_xml.php
+a38d1ee63a97ac42ed1f42ffe61cbf0b *source/class/class_xml.php
 0243c69f103b8167e4e75aae836b3886 *source/class/class_zip.php
 6ae7355eb5c58e09663781b4aa285ff9 *source/class/db/db_driver_mysql.php
 85f6aea709d5982cef153e32fb504ac0 *source/class/db/db_driver_mysqli.php
@@ -332,7 +332,7 @@ fb05c4f082d4098a9e567b2d56cb8344 *source/class/db/db_driver_mysqli_slave.php
 e28eb546c80966c63d5cca19063b7d53 *source/class/db/db_driver_mysql_slave.php
 d41d8cd98f00b204e9800998ecf8427e *source/class/db/index.htm
 1ceced2869a2fa890163e144db1397a0 *source/class/discuz/discuz_admincp.php
-a7662f8720f48cf37455056e69caf7cd *source/class/discuz/discuz_application.php
+5127987cb99cd702f99922465148c68d *source/class/discuz/discuz_application.php
 5bb1ba4480bcfd862809bf5f5951d5cf *source/class/discuz/discuz_base.php
 b0b7df7926c2cdd89957cca31ba54c41 *source/class/discuz/discuz_block.php
 65b49f9945e59899ad73b61f343e585a *source/class/discuz/discuz_censor.php
@@ -382,7 +382,7 @@ f44c81f0cf86f12e234da0e7f03d11f0 *source/class/helper/helper_json.php
 cd6ed5c1af415245d93e3235c8ede908 *source/class/helper/helper_log.php
 5385476aea9b3fb11a4e82607755229e *source/class/helper/helper_makehtml.php
 10279125c8f8700d2538bef2b2115d73 *source/class/helper/helper_manyou.php
-04e433744de5aa6a07b80cb6da97d42d *source/class/helper/helper_mobile.php
+f57ebeb0cb3a17f2880db75d8c0701a1 *source/class/helper/helper_mobile.php
 7475503d83d1bf22546c71ae2ec630d5 *source/class/helper/helper_notification.php
 239adbca6a95f305233fd10859f4eb72 *source/class/helper/helper_output.php
 7f6bfc8f913438196c7abe21865c6805 *source/class/helper/helper_page.php

@@ -4,7 +4,7 @@
  *		[Discuz!] (C)2001-2099 Comsenz Inc.
  *		This is NOT a freeware, use is subject to license terms
  *
- *		$Id: DiscuzTips.php 33303 2013-05-23 03:35:36Z andyzheng $
+ *		$Id: DiscuzTips.php 36311 2016-12-19 01:47:34Z nemohou $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -28,6 +28,9 @@ class Cloud_Service_DiscuzTips {
 	public function show() {
 		global $_G;
 		if($_G['inajax']) {
+			return '';
+		}
+		if($_G['isHTTPS']) {
 			return '';
 		}
 		$clientVersion = '2';

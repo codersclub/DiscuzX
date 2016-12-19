@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: class_xml.php 27449 2012-02-01 05:32:35Z zhangguosheng $
+ *      $Id: class_xml.php 36311 2016-12-19 01:47:34Z nemohou $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -63,7 +63,7 @@ class XMLparse {
 	function parse(&$data) {
 		$this->document = array();
 		$this->stack	= array();
-		return xml_parse($this->parser, $data, true) && !$this->failed ? $this->document : '';
+		return xml_parse($this->parser, $data, true) && !$this->failed ? $this->document : array();
 	}
 
 	function open(&$parser, $tag, $attributes) {

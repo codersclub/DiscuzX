@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: helper_mobile.php 36278 2016-12-09 07:52:35Z nemohou $
+ *      $Id: helper_mobile.php 36311 2016-12-19 01:47:34Z nemohou $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -41,7 +41,7 @@ class helper_mobile {
 			parse_str($_SERVER['QUERY_STRING'], $query);
 			$query['mobile'] = 'no';
 			$query_sting_tmp = http_build_query($query);
-			$_G['setting']['mobile']['pageurl'] = $_G['siteurl'].substr($_G['PHP_SELF'], 1).$query_sting_tmp;
+			$_G['setting']['mobile']['pageurl'] = $_G['siteurl'].substr($_G['PHP_SELF'], 1).'?'.$query_sting_tmp;
 			unset($query_sting_tmp);
 			dsetcookie('dismobilemessage', '1', 3600);
 			showmessage('not_in_mobile');

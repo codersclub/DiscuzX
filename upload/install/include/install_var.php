@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: install_var.php 36287 2016-12-12 03:59:05Z nemohou $
+ *      $Id: install_var.php 36311 2016-12-19 01:47:34Z nemohou $
  */
 
 if(!defined('IN_COMSENZ')) {
@@ -75,7 +75,7 @@ $env_items = array
 	'gdversion' => array('r' => '1.0', 'b' => '2.0'),
 	'curl' => array('r' => 'notset', 'b' => 'enable'),
 	'opcache' => array('r' => 'notset', 'b' => 'enable'),
-	'diskspace' => array('r' => '30MB', 'b' => 'notset'),
+	'diskspace' => array('r' => 30 * 1024 * 1024, 'b' => 'notset'),
 );
 
 $dirfile_items = array
