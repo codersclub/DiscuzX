@@ -376,7 +376,7 @@ d41d8cd98f00b204e9800998ecf8427e *source/class/forum/index.htm
 6b28f204ff769711574ada68e6c7a901 *source/class/helper/helper_access.php
 79feb45e4626dbba96e19ea147fff3e2 *source/class/helper/helper_antitheft.php
 59220a31da954b7d2227f336dbb6f0c3 *source/class/helper/helper_attach.php
-7022fd0d4c037305b08aa3702a6add1e *source/class/helper/helper_dbtool.php
+c4737977ff68df3313785461f86f9921 *source/class/helper/helper_dbtool.php
 7c04f9ac826ce41bebc85493a079d5a5 *source/class/helper/helper_form.php
 f44c81f0cf86f12e234da0e7f03d11f0 *source/class/helper/helper_json.php
 cd6ed5c1af415245d93e3235c8ede908 *source/class/helper/helper_log.php
@@ -1205,7 +1205,7 @@ c4cc92f6de3bddcbe452039bba167d4f *source/module/misc/misc_diyhelp.php
 44ee478ce8ef8877022f03a236e0b8aa *source/module/misc/misc_error.php
 aed09ee91f0152cf394e8fe7eb83d007 *source/module/misc/misc_faq.php
 0c2a7a825561f1cbb9d74112086bc430 *source/module/misc/misc_getatuser.php
-2c8398a01bce554423a72d1ed9408e6a *source/module/misc/misc_imgcropper.php
+670249a9c4264680aeaef53d39d9da8e *source/module/misc/misc_imgcropper.php
 0131e5eb18245cf4191f92b940a0ea45 *source/module/misc/misc_initsys.php
 c41c71f883fd0e79e84bd620edc6e747 *source/module/misc/misc_invite.php
 9f78eea5aef9b4d27aa5159edba88316 *source/module/misc/misc_manyou.php

@@ -3,7 +3,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: misc_imgcropper.php 36267 2016-11-11 09:03:24Z nemohou $
+ *      $Id: misc_imgcropper.php 36314 2016-12-19 08:02:23Z nemohou $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -14,11 +14,13 @@ $_GET['img'] = htmlspecialchars($_GET['img']);
 $_GET['bid'] = intval($_GET['bid']);
 $_GET['picflag'] = intval($_GET['picflag']);
 $_GET['ictype'] = !empty($_GET['ictype']) ? 'block' : '';
+$_GET['width'] = intval($_GET['width']);
+$_GET['height'] = intval($_GET['height']);
 
 if(!submitcheck('imgcroppersubmit')) {
 	if($_GET['op'] == 'loadcropper') {
-		$cboxwidth = $_GET['width'] > 50 ? intval($_GET['width']) : 300;
-		$cboxheight = $_GET['height'] > 50 ? intval($_GET['height']) : 300;
+		$cboxwidth = $_GET['width'] > 50 ? $_GET['width'] : 300;
+		$cboxheight = $_GET['height'] > 50 ? $_GET['height'] : 300;
 
 		$cbgboxwidth = $cboxwidth + 300;
 		$cbgboxheight = $cboxheight + 300;

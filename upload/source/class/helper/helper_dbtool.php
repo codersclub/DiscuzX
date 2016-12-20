@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: helper_dbtool.php 31034 2012-07-11 04:03:30Z zhangjie $
+ *      $Id: helper_dbtool.php 36319 2016-12-20 02:03:23Z nemohou $
  */
 if (!defined('IN_DISCUZ')) {
 	exit('Access Denied');
@@ -13,7 +13,8 @@ if (!defined('IN_DISCUZ')) {
 class helper_dbtool {
 
 	public static function dbversion() {
-		return DB::result_first("SELECT VERSION()");
+		$db = & DB::object();
+		return $db->version();
 	}
 
 	public static function dbsize() {

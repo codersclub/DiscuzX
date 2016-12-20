@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: install_function.php 36311 2016-12-19 01:47:34Z nemohou $
+ *      $Id: install_function.php 36313 2016-12-19 07:06:44Z nemohou $
  */
 
 if(!defined('IN_COMSENZ')) {
@@ -152,8 +152,12 @@ function env_check(&$env_items) {
 			$opcache_data = function_exists('opcache_get_configuration') ? opcache_get_configuration() : array();
 			$env_items[$key]['current'] = !empty($opcache_data['directives']['opcache.enable']) ? $lang['enable'] : $lang['disable'];
 		} elseif($key == 'curl') {
-			$v = curl_version();
-			$env_items[$key]['current'] = function_exists('curl_init') && function_exists('curl_version') ? $lang['enable'].' '.$v['version'] : $lang['disable'];
+			if(function_exists('curl_init') && function_exists('curl_version')){
+				$v = curl_version();
+				$env_items[$key]['current'] = $lang['enable'].' '.$v['version'];
+			}else{
+				$env_items[$key]['current'] = $lang['disable'];
+			}
 		}
 
 		$env_items[$key]['status'] = 1;
