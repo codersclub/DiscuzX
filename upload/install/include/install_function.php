@@ -139,10 +139,7 @@ function env_check(&$env_items) {
 			unset($tmp);
 		} elseif($key == 'diskspace') {
 			if(function_exists('disk_free_space')) {
-				$space = disk_free_space(ROOT_PATH);
-				$env_items[$key]['status'] = $space > $item['r'] ? 1 : 0;
-				$env_items[$key]['r'] = format_space($item['r']);
-				$env_items[$key]['current'] = format_space($space);
+				$env_items[$key]['current'] = disk_free_space(ROOT_PATH);
 			} else {
 				$env_items[$key]['current'] = 'unknow';
 			}
@@ -195,6 +192,10 @@ function show_env_result(&$env_items, &$dirfile_items, &$func_items, &$filesock_
 					$error_code = ENV_CHECK_ERROR;
 				}
 			}
+		}
+		if($key == 'diskspace') {
+			$item['current'] = format_space($item['current']);
+			$item['r'] = format_space($item['r']);
 		}
 		if(VIEW_OFF) {
 			$env_str .= "\t\t<runCondition name=\"$key\" status=\"$status\" Require=\"$item[r]\" Best=\"$item[b]\" Current=\"$item[current]\"/>\n";

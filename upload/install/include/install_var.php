@@ -75,7 +75,7 @@ $env_items = array
 	'gdversion' => array('r' => '1.0', 'b' => '2.0'),
 	'curl' => array('r' => 'notset', 'b' => 'enable'),
 	'opcache' => array('r' => 'notset', 'b' => 'enable'),
-	'diskspace' => array('r' => 30 * 1024 * 1024, 'b' => 'notset'),
+	'diskspace' => array('r' => 30 * 1048576, 'b' => 'notset'),
 );
 
 $dirfile_items = array
