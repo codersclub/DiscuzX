@@ -1,3 +1,7 @@
+![Discuz](http://git.oschina.net/uploads/images/2016/1222/210445_0d4ab69a_1157835.png)
+
+ **15 年梦想，我们 17 前行，愿 Discuz! 能永远的活在 Fans 们的指尖和心中** 
+
 ### **简介** 
 
 Discuz! X 官方 Git/SVN (https://git.oschina.net/ComsenzDiscuz/DiscuzX) ，简体中文 UTF8 版本，其他版本请自行转码或者在 Discuz! 官方站下载安装包
