@@ -789,7 +789,7 @@ ea0804418f05dc8372abb669d3b4c67e *source/function/function_blog.php
 1f719213dcd973d4fc1ba9c32e53383e *source/function/function_cloudaddons.php
 77f06f33b827d1155c5c3c2f28bc7909 *source/function/function_collection.php
 90ee4789682564336c6043e19dc2dcb8 *source/function/function_comment.php
-c0f18f403dce9a8fbc001761bd600489 *source/function/function_core.php
+3db07b798e015607661ad9de1d74f165 *source/function/function_core.php
 9bc78bc4596f7711cd5d338a791bc9be *source/function/function_credit.php
 dc26872be5adc5364f42bc0335c4b504 *source/function/function_delete.php
 160406afb012cbe8f93ce949a8bcb4bf *source/function/function_discuzcode.php
@@ -1206,7 +1206,7 @@ c4cc92f6de3bddcbe452039bba167d4f *source/module/misc/misc_diyhelp.php
 aed09ee91f0152cf394e8fe7eb83d007 *source/module/misc/misc_faq.php
 0c2a7a825561f1cbb9d74112086bc430 *source/module/misc/misc_getatuser.php
 670249a9c4264680aeaef53d39d9da8e *source/module/misc/misc_imgcropper.php
-0131e5eb18245cf4191f92b940a0ea45 *source/module/misc/misc_initsys.php
+9a85bd4b036ae0fd179429e7523e1fc2 *source/module/misc/misc_initsys.php
 c41c71f883fd0e79e84bd620edc6e747 *source/module/misc/misc_invite.php
 9f78eea5aef9b4d27aa5159edba88316 *source/module/misc/misc_manyou.php
 6fba6243a1f3df7466accb774e11230c *source/module/misc/misc_mobile.php
