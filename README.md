@@ -1,6 +1,6 @@
 ![Discuz](http://git.oschina.net/uploads/images/2016/1222/210445_0d4ab69a_1157835.png)
 
- **15 年梦想，我们 17 前行，愿 Discuz! 能永远的活在 Fans 们的指尖和心中** 
+ **15 年梦想，我们 17 前行，愿 Discuz! 能永远活在 Fans 们的指尖和心中** 
 
 ### **简介** 
 
