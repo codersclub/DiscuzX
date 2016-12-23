@@ -12,3 +12,7 @@ Discuz! X 官方 Git/SVN (https://git.oschina.net/ComsenzDiscuz/DiscuzX) ，简�
 - Discuz! 应用中心：http://addon.discuz.com
 - Discuz! 开放平台：http://open.discuz.net
 
+----------------------------------------
+### **公告**
+
+【2016.12.23】HTTPS 的兼容问题已经处理了，并会不断完善细节。还是那句话，HTTPS 的普及是互联网全方位的事情，Discuz! 里面有很多第三方网站是不兼容的，这在 Discuz! 自身是无能为力的事情，虽然目前 HTTPS 下已经不影响正常使用了，但是目前还是不建议大家全面升级 HTTPS。同时，应用中心平台自己也会按照自己的方式运作，也请大家不要再发布关于HTTPS的评论，否则一律删除。请把注意力转移到 PHP 7 的兼容问题 和 Disuz! 的 BUG 上面，谢谢！
