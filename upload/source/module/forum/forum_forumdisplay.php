@@ -430,7 +430,7 @@ if($filter && $filter != 'hot') {
 							}
 						} elseif($field == 'typeid' || $field == 'sortid') {
 							$fieldstr = $field == 'typeid' ? 'intype' : 'insort';
-							$filterarr[$fieldstr] = $value;
+							$filterarr[$fieldstr] = dintval($value);
 						}
 						$sp = ' ';
 					}
