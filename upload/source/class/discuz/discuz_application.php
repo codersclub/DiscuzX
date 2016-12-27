@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: discuz_application.php 36311 2016-12-19 01:47:34Z nemohou $
+ *      $Id: discuz_application.php 36327 2016-12-23 05:11:48Z nemohou $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -700,11 +700,12 @@ class discuz_application extends discuz_base{
 			}
 		} else {
 			$styleid = !empty($this->var['cookie']['styleid']) ? $this->var['cookie']['styleid'] : 0;
-		}
-		if(intval(!empty($this->var['forum']['styleid']))) {
-			$this->var['cache']['style_default']['styleid'] = $styleid = $this->var['forum']['styleid'];
-		} elseif(intval(!empty($this->var['category']['styleid']))) {
-			$this->var['cache']['style_default']['styleid'] = $styleid = $this->var['category']['styleid'];
+
+			if(intval(!empty($this->var['forum']['styleid']))) {
+				$this->var['cache']['style_default']['styleid'] = $styleid = $this->var['forum']['styleid'];
+			} elseif(intval(!empty($this->var['category']['styleid']))) {
+				$this->var['cache']['style_default']['styleid'] = $styleid = $this->var['category']['styleid'];
+			}
 		}
 
 		$styleid = intval($styleid);

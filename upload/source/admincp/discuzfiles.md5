@@ -150,7 +150,7 @@ d44745dad9ecd4a464394605476ad4f2 *source/admincp/admincp_tradelog.php
 fbf03d461e9ba987c58da873bf8ba7ba *source/admincp/admincp_usertag.php
 12239882821e8b44f0bfde0aea4b7ca8 *source/admincp/admincp_verify.php
 43e76d8a206583cdc0513694f5e42dbe *source/admincp/cloud/cloud_connect.php
-89e45dd38211f97da4ac1243d6ec0e2b *source/admincp/cloud/cloud_doctor.php
+c808278a6c2040bff1c31512403b6221 *source/admincp/cloud/cloud_doctor.php
 741fa6beac9a1c8f3f2fec547b2f1ce7 *source/admincp/cloud/cloud_manyou.php
 15b5fcd8e57d2e453200d6735cddd77f *source/admincp/cloud/cloud_qqgroup.php
 406bbc50da1e093b713756f0fdb8fd10 *source/admincp/cloud/cloud_search.php
@@ -332,7 +332,7 @@ fb05c4f082d4098a9e567b2d56cb8344 *source/class/db/db_driver_mysqli_slave.php
 e28eb546c80966c63d5cca19063b7d53 *source/class/db/db_driver_mysql_slave.php
 d41d8cd98f00b204e9800998ecf8427e *source/class/db/index.htm
 1ceced2869a2fa890163e144db1397a0 *source/class/discuz/discuz_admincp.php
-5127987cb99cd702f99922465148c68d *source/class/discuz/discuz_application.php
+40da13e223cb05cc928547674f5db7db *source/class/discuz/discuz_application.php
 5bb1ba4480bcfd862809bf5f5951d5cf *source/class/discuz/discuz_base.php
 b0b7df7926c2cdd89957cca31ba54c41 *source/class/discuz/discuz_block.php
 65b49f9945e59899ad73b61f343e585a *source/class/discuz/discuz_censor.php
@@ -1154,7 +1154,7 @@ c268a7ae77c66e008ffe8decbc56fa12 *source/module/forum/forum_ajax.php
 bdd5d6283fce2cb038b890f54ecc2a35 *source/module/forum/forum_announcement.php
 015002fd98d4ef2d509142d5ac97b256 *source/module/forum/forum_attachment.php
 28031a26398547ff20359989263cd3b6 *source/module/forum/forum_collection.php
-68113d637f03c9f1e1ee4dab01da2c87 *source/module/forum/forum_forumdisplay.php
+5003d22a3b396fb833651aaa7acda188 *source/module/forum/forum_forumdisplay.php
 90d2edb38e859c8e96f40ed914969e05 *source/module/forum/forum_group.php
 69eaf8ffb0d30188d8fb4b595c904afa *source/module/forum/forum_guide.php
 044aabe6823ceff3bd01b082776d5fe5 *source/module/forum/forum_image.php

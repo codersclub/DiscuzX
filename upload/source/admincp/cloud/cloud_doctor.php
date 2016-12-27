@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: cloud_doctor.php 33991 2013-09-16 07:25:00Z nemohou $
+ *      $Id: cloud_doctor.php 36329 2016-12-26 08:47:27Z nemohou $
  */
 if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
@@ -187,17 +187,6 @@ if(submitcheck('setidkeysubmit')) {
 	showtagfooter('tbody');
 
 	showtagheader('tbody', 'cloud_tbody_api_test', false);
-	showtagfooter('tbody');
-
-	showtagheader('tbody', '', true);
-	showtablerow('', array('class="td24"'), array(
-		'<strong>'.cplang('cloud_doctor_dns_manyou').'</strong>',
-		$doctorService->checkDNSResult(2, $_G['setting'])
-	));
-	showtablerow('', array('class="td24"'), array(
-		'<strong>'.cplang('cloud_doctor_dns_manyou_test').'</strong>',
-		$doctorService->showTestJS(2)
-	));
 	showtagfooter('tbody');
 
 	showtagheader('tbody', 'cloud_tbody_manyou_test', false);
