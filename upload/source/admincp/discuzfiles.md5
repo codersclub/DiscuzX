@@ -178,8 +178,8 @@ b6ffa4ce57ce4e698868219e60e49e8a *source/admincp/moderate/moderate_reply.php
 80a918eda876b0ac2b28f93d897d9e9d *source/admincp/moderate/moderate_share.php
 d641d691ec1480dae89272c5df2a38e5 *source/admincp/moderate/moderate_thread.php
 96bbf89620d30c72c1dab0e8b8eca17d *source/admincp/robots.txt
-8d344d872c009a3a2ef906c8f81b0f54 *source/archiver/common/footer.php
-fd6e60c5c49ed651ea4d9f744dde2f36 *source/archiver/common/header.php
+55cafecd7c08bd6ddfd714c400a0db14 *source/archiver/common/footer.php
+94154f0be8f45a8b4078746531326736 *source/archiver/common/header.php
 d41d8cd98f00b204e9800998ecf8427e *source/archiver/common/index.htm
 6c78d7d7558299f534c3ad51fde36594 *source/archiver/forum/discuz.php
 e1661099fcf4579fb4ba139cf60a6098 *source/archiver/forum/forumdisplay.php
@@ -792,7 +792,7 @@ ea0804418f05dc8372abb669d3b4c67e *source/function/function_blog.php
 3db07b798e015607661ad9de1d74f165 *source/function/function_core.php
 9bc78bc4596f7711cd5d338a791bc9be *source/function/function_credit.php
 dc26872be5adc5364f42bc0335c4b504 *source/function/function_delete.php
-160406afb012cbe8f93ce949a8bcb4bf *source/function/function_discuzcode.php
+75f4e9461b11697699a9e4f504884b31 *source/function/function_discuzcode.php
 9270deaa36c685a3f408bb9cee2db317 *source/function/function_domain.php
 aaca86dc933b77a2313a4d463cf356a6 *source/function/function_ec_credit.php
 0ec712f7540f4657a455fddedd343111 *source/function/function_editor.php

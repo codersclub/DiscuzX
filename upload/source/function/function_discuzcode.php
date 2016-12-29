@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: function_discuzcode.php 36284 2016-12-12 00:47:50Z nemohou $
+ *      $Id: function_discuzcode.php 36331 2016-12-28 01:08:45Z nemohou $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -16,7 +16,7 @@ include template('forum/discuzcode');
 $_G['forum_discuzcode'] = array(
 	'pcodecount' => -1,
 	'codecount' => 0,
-	'codehtml' => '',
+	'codehtml' => array(),
 	'passwordlock' => array(),
 	'smiliesreplaced' => 0,
 	'seoarray' => array(
