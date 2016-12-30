@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: mobile.class.php 36278 2016-12-09 07:52:35Z nemohou $
+ *      $Id: mobile.class.php 36332 2016-12-30 01:44:19Z nemohou $
  */
 
 define("MOBILE_PLUGIN_VERSION", "4");
@@ -12,7 +12,7 @@ define("REQUEST_METHOD_DOMAIN", 'http://wsq.discuz.com');
 
 class mobile_core {
 
-	function result($result) {
+	static function result($result) {
 		global $_G;
 		ob_end_clean();
 		function_exists('ob_gzhandler') ? ob_start('ob_gzhandler') : ob_start();
@@ -27,7 +27,7 @@ class mobile_core {
 		exit;
 	}
 
-	function format($result) {
+	static function format($result) {
 		switch (gettype($result)) {
 			case 'array':
 				foreach($result as $_k => $_v) {
@@ -44,7 +44,7 @@ class mobile_core {
 		return $result;
 	}
 
-	function json($encode) {
+	static function json($encode) {
 		if(!empty($_GET['debug']) && defined('DISCUZ_DEBUG') && DISCUZ_DEBUG) {
 			return debug($encode);
 		}
@@ -52,7 +52,7 @@ class mobile_core {
 		return CJSON::encode($encode);
 	}
 
-	function getvalues($variables, $keys, $subkeys = array()) {
+	static function getvalues($variables, $keys, $subkeys = array()) {
 		$return = array();
 		foreach($variables as $key => $value) {
 			foreach($keys as $k) {
@@ -70,14 +70,14 @@ class mobile_core {
 		return $return;
 	}
 
-	function arraystring($array) {
+	static function arraystring($array) {
 		foreach($array as $k => $v) {
 			$array[$k] = is_array($v) ? mobile_core::arraystring($v) : (string)$v;
 		}
 		return $array;
 	}
 
-	function variable($variables = array()) {
+	static function variable($variables = array()) {
 		global $_G;
 		if(in_array('mobileoem', $_G['setting']['plugins']['available'])) {
 			$check = C::t('#mobileoem#mobileoem_member')->fetch($_G['uid']);
@@ -172,7 +172,7 @@ class mobile_core {
 		return $xml;
 	}
 
-	function diconv_array($variables, $in_charset, $out_charset) {
+	static function diconv_array($variables, $in_charset, $out_charset) {
 		foreach($variables as $_k => $_v) {
 			if(is_array($_v)) {
 				$variables[$_k] = mobile_core::diconv_array($_v, $in_charset, $out_charset);
@@ -183,7 +183,7 @@ class mobile_core {
 		return $variables;
 	}
 
-	function make_cors($request_method, $origin = '') {
+	static function make_cors($request_method, $origin = '') {
 
 		$origin = $origin ? $origin : REQUEST_METHOD_DOMAIN;
 
@@ -218,7 +218,7 @@ class mobile_core {
 
 	}
 
-	function usergroupIconId($groupid) {
+	static function usergroupIconId($groupid) {
 		global $_G;
 		if($_G['cache']['usergroupIconId']) {
 			return $_G['cache']['usergroupIconId']['variable'][$groupid];
@@ -249,7 +249,7 @@ class mobile_core {
 		}
 	}
 
-	function activeHook($module, $mobileapihook, &$param, $isavariables = false) {
+	static function activeHook($module, $mobileapihook, &$param, $isavariables = false) {
 		global $_G;
 		if($isavariables) {
 			$mobileapihook[$module] = array(

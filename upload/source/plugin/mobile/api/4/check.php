@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: check.php 35031 2014-10-23 08:11:31Z nemohou $
+ *      $Id: check.php 36332 2016-12-30 01:44:19Z nemohou $
  */
 
 if(!defined('IN_MOBILE_API')) {
@@ -30,7 +30,7 @@ if(in_array('mobile', $_G['setting']['plugins']['available'])) {
 		}
 		loadcache('userstats');
 		$array = array(
-			'discuzversion' => DISCUZ_VERSION,
+			'discuzversion' => 'X3.2',
 			'charset' => CHARSET,
 			'version' => MOBILE_PLUGIN_VERSION,
 			'pluginversion' => $_G['setting']['plugins']['version']['mobile'],
