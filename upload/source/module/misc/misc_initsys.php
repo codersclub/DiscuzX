@@ -33,7 +33,7 @@ $plugins = array('qqconnect', 'cloudstat', 'soso_smilies', 'security', 'mobile',
 $opens = array('mobile', 'pcmgr_url_safeguard', 'security', 'cloudcaptcha');
 $checkcloses = array('cloudcaptcha');
 
-$cloudapps = array('qqconnect' => 'connect', 'cloudstat' => 'stats', 'soso_smilies' => 'smilies', 'cloudsearch' => 'search', 'security' => 'security', 'manyou' => 'manyou', 'cloudunion' => 'union', 'cloudcaptcha' => 'captcha');
+$cloudapps = array('qqconnect' => 'connect', 'cloudstat' => 'stats', 'soso_smilies' => 'smilies', 'security' => 'security', 'manyou' => 'manyou', 'cloudcaptcha' => 'captcha');
 
 $apps = C::t('common_setting')->fetch('cloud_apps', true);
 if (!$apps) {
