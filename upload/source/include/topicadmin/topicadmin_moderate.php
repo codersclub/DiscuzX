@@ -400,6 +400,27 @@ if(!submitcheck('modsubmit')) {
 					deletethread($tids, true, true);
 					$updatemodlog = FALSE;
 				}
+				
+				if($_G['group']['allowbanuser'] && ($_GET['banuser'] || $_GET['userdelpost']) && $_G['deleteauthorids']) {
+					$members = C::t('common_member')->fetch_all($_G['deleteauthorids']);
+					$banuins = array();
+					foreach($members as $member) {
+						if(($_G['cache']['usergroups'][$member['groupid']]['type'] == 'system' &&
+							in_array($member['groupid'], array(1, 2, 3, 6, 7, 8))) || $_G['cache']['usergroups'][$member['groupid']]['type'] == 'special') {
+							continue;
+						}
+						$banuins[$member['uid']] = $member['uid'];
+					}
+					if($banuins) {
+						if($_GET['banuser']) {
+							C::t('common_member')->update($banuins, array('groupid' => 4));
+						}
+						    
+						if($_GET['userdelpost']) {
+							deletememberpost($banuins);
+						}
+					}
+				}				    
 
 				$forumstickthreads = $_G['setting']['forumstickthreads'];
 				$forumstickthreads = !empty($forumstickthreads) ? dunserialize($forumstickthreads) : array();

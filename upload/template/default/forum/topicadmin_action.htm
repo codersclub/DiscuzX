@@ -187,6 +187,19 @@
 				<ul id="reasonselect" style="display: none"><!--{echo modreasonselect()}--></ul>
 			</div>
 		</div>
+	    <!--{if $_GET[action] == 'delpost' && $_G['group']['allowbanuser']}-->
+	        <div class="c">
+	            <div class="tpclg">
+		            <h4 class="cl">
+		                <p class="y">
+		                    <label for="userban"><input type="checkbox" name="banuser" id="userban" class="pc" />{lang topicadmin_banuser}</label>
+		                    <label for="userdelpost"><input type="checkbox" name="userdelpost" id="userdelpost" class="pc" />{lang topicadmin_userdelpost}</label>
+		                </p>
+		                <span>{lang topicadmin_useropt}:</span>
+		            </h4>
+		        </div>
+	        </div>
+	    <!--{/if}-->
 		<div class="o pns">
 			<!--{if $_GET[action] == 'delpost'}-->
 			<label for="crimerecord"><input type="checkbox" name="crimerecord" id="crimerecord" class="pc" />{lang crimerecord}</label>
