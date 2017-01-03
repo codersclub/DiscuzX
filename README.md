@@ -17,5 +17,5 @@ Discuz! X 官方 Git/SVN (https://git.oschina.net/ComsenzDiscuz/DiscuzX) ，简�
 
 ### **感谢 Fans**
 
-- DiscuzFans https://git.oschina.net/sinlody/DiscuzFans
-- DiscuzLite https://git.oschina.net/3dming/DiscuzL
+- DiscuzFans：https://git.oschina.net/sinlody/DiscuzFans
+- DiscuzLite：https://git.oschina.net/3dming/DiscuzL
