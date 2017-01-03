@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: function_delete.php 34074 2013-10-08 01:30:38Z nemohou $
+ *      $Id: function_delete.php 36334 2017-01-03 01:32:35Z nemohou $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -1033,18 +1033,18 @@ function deletehtml($htmlname, $count = 1) {
 }
 
 function deletememberpost($uids) {
-	global $_G;    
+	global $_G;
 	require_once libfile('function/post');
 	loadcache('posttableids');
-	
+
 	foreach($uids as $uid) {
-		$tidsdelete = array();		
+		$tidsdelete = array();
 		$posttables = empty($_G['cache']['posttableids']) ? array(0) : $_G['cache']['posttableids'];
 		foreach($posttables as $posttableid) {
 			$pidsthread = $pidsdelete = array();
 			$postlist = C::t('forum_post')->fetch_all_by_authorid($posttableid, $uid, false);
 			if($postlist) {
-				foreach($postlist as $post) {        								
+				foreach($postlist as $post) {
 					if($post['first']) {
 						$tidsdelete[] = $post['tid'];
 					}

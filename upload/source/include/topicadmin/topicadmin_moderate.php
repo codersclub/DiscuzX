@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: topicadmin_moderate.php 33825 2013-08-19 08:32:40Z nemohou $
+ *      $Id: topicadmin_moderate.php 36334 2017-01-03 01:32:35Z nemohou $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -400,7 +400,7 @@ if(!submitcheck('modsubmit')) {
 					deletethread($tids, true, true);
 					$updatemodlog = FALSE;
 				}
-				
+
 				if($_G['group']['allowbanuser'] && ($_GET['banuser'] || $_GET['userdelpost']) && $_G['deleteauthorids']) {
 					$members = C::t('common_member')->fetch_all($_G['deleteauthorids']);
 					$banuins = array();
@@ -415,12 +415,12 @@ if(!submitcheck('modsubmit')) {
 						if($_GET['banuser']) {
 							C::t('common_member')->update($banuins, array('groupid' => 4));
 						}
-						    
+
 						if($_GET['userdelpost']) {
 							deletememberpost($banuins);
 						}
 					}
-				}				    
+				}
 
 				$forumstickthreads = $_G['setting']['forumstickthreads'];
 				$forumstickthreads = !empty($forumstickthreads) ? dunserialize($forumstickthreads) : array();

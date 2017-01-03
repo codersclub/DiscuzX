@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: function_cloudaddons.php 36284 2016-12-12 00:47:50Z nemohou $
+ *      $Id: function_cloudaddons.php 36333 2016-12-30 02:29:39Z nemohou $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -416,7 +416,7 @@ function versioncompatible($versions) {
 	$versions = strip_tags($versions);
 	foreach(explode(',', $versions) as $version) {
 		list($version) = explode(' ', trim($version));
-		if($version && ($currentversion === $version || $version === 'X3' || $version === 'X3.1')) {
+		if($version && ($currentversion === $version || $version === 'X3' || $version === 'X3.1' || $version === 'X3.2')) {
 			return true;
 		}
 	}
