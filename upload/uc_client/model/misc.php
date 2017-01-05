@@ -141,7 +141,7 @@ class miscmodel {
 		$s = $sep = '';
 		if($arr && is_array($arr)) {
 			foreach($arr as $k => $v) {
-				$s .= $sep.$k.UC_ARRAY_SEP_1.$v;
+				$s .= $sep.addslashes($k).UC_ARRAY_SEP_1.$v;
 				$sep = UC_ARRAY_SEP_2;
 			}
 		}

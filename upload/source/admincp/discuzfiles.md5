@@ -3240,7 +3240,7 @@ f75f60d1250abd0aec04d0e5f8bfed26 *uc_client/model/cache.php
 87d25e6d940ccc1358c63e83e21474a3 *uc_client/model/friend.php
 7215ee9c7d9dc229d2921a40e899ec5f *uc_client/model/index.htm
 d6436d71a2819b37a7260fa97b6f17c1 *uc_client/model/mail.php
-abcfd963b15d8217d245d2e51752e283 *uc_client/model/misc.php
+9c93f16da795a26ab5e469c57d7c7606 *uc_client/model/misc.php
 c22ad587652e2ee02013568e16b082d7 *uc_client/model/note.php
 dae12ca4a1b3ad7fac19da5d44424900 *uc_client/model/pm.php
 d7b379d38fbc0e8a120454a334a54499 *uc_client/model/tag.php
@@ -3402,7 +3402,7 @@ c0dec6b7bcbf660a3fe9d9de1d782629 *uc_server/model/feed.php
 87d25e6d940ccc1358c63e83e21474a3 *uc_server/model/friend.php
 7215ee9c7d9dc229d2921a40e899ec5f *uc_server/model/index.htm
 d6436d71a2819b37a7260fa97b6f17c1 *uc_server/model/mail.php
-c04536ee2c75e7df47f7f6570a0eb01d *uc_server/model/misc.php
+cfdb8225d6915def60262ad1c7a3c96b *uc_server/model/misc.php
 6d38f75ef9683f15d93626e25e779e5e *uc_server/model/note.php
 bb9c95148eda27df11628934ac5e3963 *uc_server/model/plugin.php
 dae12ca4a1b3ad7fac19da5d44424900 *uc_server/model/pm.php
