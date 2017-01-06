@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: home_space.php 33660 2013-07-29 07:51:05Z nemohou $
+ *      $Id: home_space.php 36337 2017-01-05 06:34:27Z nemohou $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -92,6 +92,8 @@ if(empty($space)) {
 	if(in_array($space['groupid'], array(4, 5, 6)) && ($_G['adminid'] != 1 && $space['uid'] != $_G['uid'])) {
 		$_GET['do'] = $do = 'profile';
 	}
+
+	$encodeusername = rawurlencode($space['username']);
 
 	if($do != 'profile' && $do != 'index' && !ckprivacy($do, 'view')) {
 		$_G['privacy'] = 1;
