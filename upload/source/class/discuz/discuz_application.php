@@ -734,6 +734,9 @@ class discuz_application extends discuz_base{
 			$unallowmobile = true;
 		}
 
+		if(getgpc('forcemobile')) {
+			dsetcookie('dismobilemessage', '1', 3600);
+		}
 
 		$mobile = getgpc('mobile');
 		$mobileflag = isset($this->var['mobiletpl'][$mobile]);

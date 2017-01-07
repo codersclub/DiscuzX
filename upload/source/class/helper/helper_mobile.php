@@ -39,11 +39,10 @@ class helper_mobile {
 			ob_start();
 			$_G['forcemobilemessage'] = true;
 			parse_str($_SERVER['QUERY_STRING'], $query);
-			$query['mobile'] = 'no';
+			$query['forcemobile'] = '1';
 			$query_sting_tmp = http_build_query($query);
-			$_G['setting']['mobile']['pageurl'] = $_G['siteurl'].substr($_G['PHP_SELF'], 1).'?'.$query_sting_tmp;
+			$_G['setting']['mobile']['pageurl'] = $_G['siteurl'].basename($_G['PHP_SELF']).'?'.$query_sting_tmp;
 			unset($query_sting_tmp);
-			dsetcookie('dismobilemessage', '1', 3600);
 			showmessage('not_in_mobile');
 			exit;
 		}
