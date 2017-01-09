@@ -34,7 +34,9 @@ function setvalue(obj) {
 	if(varnamev) {
 		parent.$(varnamev).value = setv;
 	}
-	if(fun) eval('parent.'+fun+'("'+setv+'")');
+        if(fun && (fun == 'sethtml_color' || fun == 'spaceDiy.setBgColor' || fun == 'spaceDiy.setTextColor' || fun == 'spaceDiy.setLinkColor')) {
+            eval('parent.'+fun+'("'+setv+'")');
+        }
 }
 
 function v(v) {
