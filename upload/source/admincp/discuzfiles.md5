@@ -332,7 +332,7 @@ fb05c4f082d4098a9e567b2d56cb8344 *source/class/db/db_driver_mysqli_slave.php
 e28eb546c80966c63d5cca19063b7d53 *source/class/db/db_driver_mysql_slave.php
 d41d8cd98f00b204e9800998ecf8427e *source/class/db/index.htm
 1ceced2869a2fa890163e144db1397a0 *source/class/discuz/discuz_admincp.php
-40da13e223cb05cc928547674f5db7db *source/class/discuz/discuz_application.php
+3bc2ed9220d3fe06cd210ace72cbe3a1 *source/class/discuz/discuz_application.php
 5bb1ba4480bcfd862809bf5f5951d5cf *source/class/discuz/discuz_base.php
 b0b7df7926c2cdd89957cca31ba54c41 *source/class/discuz/discuz_block.php
 65b49f9945e59899ad73b61f343e585a *source/class/discuz/discuz_censor.php
@@ -382,7 +382,7 @@ f44c81f0cf86f12e234da0e7f03d11f0 *source/class/helper/helper_json.php
 cd6ed5c1af415245d93e3235c8ede908 *source/class/helper/helper_log.php
 5385476aea9b3fb11a4e82607755229e *source/class/helper/helper_makehtml.php
 10279125c8f8700d2538bef2b2115d73 *source/class/helper/helper_manyou.php
-f57ebeb0cb3a17f2880db75d8c0701a1 *source/class/helper/helper_mobile.php
+f467fbd2185aaf87818699c642a09a9a *source/class/helper/helper_mobile.php
 7475503d83d1bf22546c71ae2ec630d5 *source/class/helper/helper_notification.php
 239adbca6a95f305233fd10859f4eb72 *source/class/helper/helper_output.php
 7f6bfc8f913438196c7abe21865c6805 *source/class/helper/helper_page.php
@@ -719,7 +719,7 @@ abd512fece315d07b28d7765a979caae *source/class/task/task_gift.php
 d7a4bcad63d5d32061c4d7db49db5c79 *source/class/task/task_post.php
 f9fabd8329b3a8a91c7a8996bd0bc4cc *source/class/task/task_profile.php
 163b0fa720322c66fa18e0232af5e6a8 *source/class/task/task_promotion.php
-609549d067aee8e25a87f576fe704942 *source/discuz_version.php
+4670220a1d74b814fa4b78fd3b2b1984 *source/discuz_version.php
 8d583a87b95d0226538632a5eae66429 *source/function/cache/cache_admingroups.php
 50b0811c23739eef7c549d94569b6a32 *source/function/cache/cache_advs.php
 c2ed12ab185274b06d67e7ec03867f1e *source/function/cache/cache_albumcategory.php
@@ -789,7 +789,7 @@ ea0804418f05dc8372abb669d3b4c67e *source/function/function_blog.php
 b0f83c415816a9cca680e183595a3218 *source/function/function_cloudaddons.php
 77f06f33b827d1155c5c3c2f28bc7909 *source/function/function_collection.php
 90ee4789682564336c6043e19dc2dcb8 *source/function/function_comment.php
-3db07b798e015607661ad9de1d74f165 *source/function/function_core.php
+0cae133c0921e5bf780505a0026f3704 *source/function/function_core.php
 9bc78bc4596f7711cd5d338a791bc9be *source/function/function_credit.php
 6b84825949097e1d3671b613b2551e04 *source/function/function_delete.php
 75f4e9461b11697699a9e4f504884b31 *source/function/function_discuzcode.php
@@ -1182,7 +1182,7 @@ f2968429502566df71423fa8e651abcc *source/module/home/home_editor.php
 833b20dca51f50b527bd7094f38449df *source/module/home/home_medal.php
 b7d3d05c415f65d5d649f0bee7d4e2ff *source/module/home/home_misc.php
 f1b870c5761d00a8631df0254912b510 *source/module/home/home_rss.php
-4dff78c1a3cfe8b02e73be18b4236c55 *source/module/home/home_space.php
+e0b740aa833ab6e2b959d199c7163dd8 *source/module/home/home_space.php
 94af87e639388f08ac6705059b0cc7a3 *source/module/home/home_spacecp.php
 22c6f9270d736915123ada2a4306ae49 *source/module/home/home_task.php
 d41d8cd98f00b204e9800998ecf8427e *source/module/home/index.htm
@@ -1308,7 +1308,7 @@ ac78be5dd57e58e17d402ecc97fd5a26 *static/image/admincp/discuz_qr.jpg
 ce9acb45e3a7976cbd58dc01ff8e0b51 *static/image/admincp/feed.gif
 e5693552ba3a59f22e475c90d810a4d5 *static/image/admincp/float.gif
 ee37d5084e855e1512fd5634c42c26a0 *static/image/admincp/footerbanner.gif
-b26a8c952f981a3b1f7b120cdf8db503 *static/image/admincp/getcolor.htm
+a02e4542e525b6ff28e5df331ea87ef1 *static/image/admincp/getcolor.htm
 18cc02e9fa0644b3ea1f7ca4779d5882 *static/image/admincp/headerbanner.gif
 d41d8cd98f00b204e9800998ecf8427e *static/image/admincp/index.htm
 2ba48a4a1d1cfe826dac55a8ce09e05f *static/image/admincp/intercat.gif
@@ -3391,7 +3391,7 @@ d4fbe5acd2ebfd7d4fd42ecaaccdcdf0 *uc_server/lib/sendmail.inc.php
 1de1da419a09ff6291701703cbbe1cd4 *uc_server/lib/uccode.class.php
 8da5f3c1c732b976acad7556f7e7e8c7 *uc_server/lib/upload.class.php
 dd8f21e6948c6c12ae073a59fcea5895 *uc_server/lib/xml.class.php
-52e47d2086e1f8db1d3223a0c72eb9c1 *uc_server/model/admin.php
+8f57519b49823172f3cfdaa1ea8b019f *uc_server/model/admin.php
 4a0b4c85f1e53dd995b9785f8811846a *uc_server/model/app.php
 5cbfa5b5ff6bf0bfd4aee2419bdc72c4 *uc_server/model/badword.php
 98e515fbe29d48e52abe70d28849b148 *uc_server/model/base.php
