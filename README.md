@@ -5,6 +5,9 @@ Discuz! X 官方 Git/SVN (https://git.oschina.net/ComsenzDiscuz/DiscuzX) ，简�
 ### **声明**
 您可以 Fork 本站代码，但未经许可 **禁止** 在本产品的整体或任何部分基础上以发展任何派生版本、修改版本或第三方版本用于 **重新分发** 
 
+### **版本更新说明**
+X3.3 将提高 Release 的更新频率，以 10 天为单位更新一次 Release，同时更新 MD5 文件，日常提交不再更新 MD5 文件
+
 ### **相关网站**
  
 - Discuz! 官方站：http://www.discuz.net
