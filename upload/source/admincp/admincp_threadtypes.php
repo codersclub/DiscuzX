@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: admincp_threadtypes.php 32161 2012-11-20 02:37:41Z zhangjie $
+ *      $Id: admincp_threadtypes.php 36345 2017-01-12 01:55:04Z nemohou $
  */
 
 if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
@@ -47,7 +47,7 @@ if(!$operation) {
 		$query = C::t('forum_threadtype')->fetch_all_for_order();
 		foreach($query as $type) {
 			$tmpstr = "<a href=\"".ADMINSCRIPT."?action=threadtypes&operation=export&sortid=$type[typeid]\" class=\"act nowrap\">$lang[export]</a>";
-			$threadtypes .= showtablerow('', array('class="td25"', 'class="td28"', '', 'class="td29"', 'title="'.cplang('forums_threadtypes_forums_comment').'"'), array(
+			$threadtypes .= showtablerow('', array('class="td25"', 'class="td28"', 'class="td29"', 'class="td29"', 'title="'.cplang('forums_threadtypes_forums_comment').'"'), array(
 				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$type[typeid]\">",
 				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"displayordernew[$type[typeid]]\" value=\"$type[displayorder]\">",
 				"<input type=\"text\" class=\"txt\" size=\"15\" name=\"namenew[$type[typeid]]\" value=\"".dhtmlspecialchars($type['name'])."\">",
@@ -65,7 +65,7 @@ var rowtypedata = [
 	[
 		[1, '', 'td25'],
 		[1, '<input type="text" class="txt" name="newdisplayorder[]" size="2" value="">', 'td28'],
-		[1, '<input type="text" class="txt" name="newname[]" size="15">'],
+		[1, '<input type="text" class="txt" name="newname[]" size="15">', 'td29'],
 		[1, '<input type="text" class="txt" name="newdescription[]" size="30" value="">', 'td29'],
 		[2, '']
 	],
@@ -81,7 +81,7 @@ var rowtypedata = [
 
 		showformheader("threadtypes&", 'enctype', 'threadtypeform');
 		showtableheader('');
-		showsubtitle(array('', 'display_order', 'name', 'description', 'forums_relation', '', ''), 'header', array('', 'width="60"', 'width="110"', 'width="210"', '', 'width="90"', 'width="60"'));
+		showsubtitle(array('', 'display_order', cplang('name').' '.cplang('tiny_bbcode_support'), 'description', 'forums_relation', '', ''), 'header', array('', 'width="60"', 'width="110"', 'width="210"', '', 'width="90"', 'width="60"'));
 		echo $threadtypes;
 		echo '<tr><td class="td25"></td><td colspan="5"><div>'.'<span class="filebtn"><input type="hidden" name="importtype" value="file" /><input type="file" name="importfile" class="pf" size="1" onchange="uploadthreadtypexml($(\'threadtypeform\'), \''.ADMINSCRIPT.'?action=threadtypes&operation=import\');" /><a class="addtr" href="JavaScript:;">'.$lang['import'].'</a></span>'.'<a href="###" onclick="addrow(this, 0)" class="addtr">'.$lang['threadtype_infotypes_add'].'</a></div></td>';
 

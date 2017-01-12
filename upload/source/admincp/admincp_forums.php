@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: admincp_forums.php 36284 2016-12-12 00:47:50Z nemohou $
+ *      $Id: admincp_forums.php 36345 2017-01-12 01:55:04Z nemohou $
  */
 
 if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
@@ -1067,7 +1067,7 @@ EOT;
 
 					showtagheader('div', 'threadtypes_manage', $forum['threadtypes']['status']);
 					showtableheader('forums_edit_threadtypes', 'noborder fixpadding');
-					showsubtitle(array('delete', 'display_order', 'forums_edit_threadtypes_name', 'forums_edit_threadtypes_icon', 'enable', 'forums_edit_threadtypes_moderators'));
+					showsubtitle(array('delete', 'display_order', cplang('forums_edit_threadtypes_name').' '.cplang('tiny_bbcode_support'), 'forums_edit_threadtypes_icon', 'enable', 'forums_edit_threadtypes_moderators'));
 					echo $typeselect;
 					echo '<tr><td colspan="7"><div><a href="###" onclick="addrow(this, 0)" class="addtr">'.cplang('threadtype_infotypes_add').'</a></div></td></tr>';
 					showtablefooter();

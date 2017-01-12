@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: function_forum.php 36278 2016-12-09 07:52:35Z nemohou $
+ *      $Id: function_forum.php 36345 2017-01-12 01:55:04Z nemohou $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -1148,7 +1148,17 @@ function safefilter(&$data) {
 			safefilter($data[$k]);
 		}
 	} else {
-		$data = strip_tags($data);
+		$data = str_replace(array(
+			'[/color]', '[b]', '[/b]', '[s]', '[/s]', '[i]', '[/i]', '[u]', '[/u]',
+			), array(
+			'</font>', '<b>', '</b>', '<strike>', '</strike>', '<i>', '</i>', '<u>', '</u>'
+			), preg_replace(array(
+			"/\[color=([#\w]+?)\]/i",
+			"/\[color=((rgb|rgba)\([\d\s,]+?\))\]/i",
+			), array(
+			"<font color=\"\\1\">",
+			"<font style=\"color:\\1\">",
+			), strip_tags($data)));
 	}
 }
 

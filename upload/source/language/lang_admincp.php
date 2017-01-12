@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: lang_admincp.php 36306 2016-12-16 08:12:49Z nemohou $
+ *      $Id: lang_admincp.php 36345 2017-01-12 01:55:04Z nemohou $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -271,6 +271,8 @@ $lang = array
 
 	'admincp_maptext' => '管理中心导航(ESC键)',
 	'admincp_maptitle' => '管理中心导航',
+
+	'tiny_bbcode_support' => '<em>(支持[color][b][u][i][s])</em>',
 
 	'nav_newwin' => '新窗口打开',
 	'nav_index' => '首页',
