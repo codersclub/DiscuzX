@@ -67,7 +67,7 @@
 		</div>
 	</div>
 	<div class="o pns cl{if empty($_GET['infloat'])} mtm{/if}">
-		<button type="submit" id="commentsubmit" class="pn pnc z" value="true" name="commentsubmit" tabindex="3"{if !$seccodecheck} onmouseover="checkpostrule('seccheck_comment', 'ac=reply&infloat=yes&handlekey=$_GET[handlekey]');this.onmouseover=null"{/if}><span>{lang publish}</span></button>
+		<button type="submit" id="commentsubmit" class="pn pnc z" value="true" name="commentsubmit" tabindex="3"{if !$seccodecheck && !$secqaacheck} onmouseover="checkpostrule('seccheck_comment', 'ac=reply&infloat=yes&handlekey=$_GET[handlekey]');this.onmouseover=null"{/if}><span>{lang publish}</span></button>
 		<span class="y">{lang comment_message1} <strong id="checklen">200</strong> {lang comment_message2}</span>
 	</div>
 </form>
