@@ -169,7 +169,7 @@ Created & Modified by Alice, Monkey, Lushnis, Pony, Dfox & DragonLee.
 
 /** forum::viewthread,group::viewthread,home::task,misc::stat,home::space **/
 	/* 进度条 */
-		.pbg { height: 10px; background: url({IMGDIR}/pllb.png) 0 0 repeat-x; -webkit-border-radius: 0 6px 6px 0; -moz-border-radius: 0 6px 6px 0; border-radius: 0 6px 6px 0; }
+		.pbg { height: 16px; background: url({IMGDIR}/pllb.png) 0 0 repeat-x; -webkit-border-radius: 0 6px 6px 0; -moz-border-radius: 0 6px 6px 0; border-radius: 0 6px 6px 0; }
 		.pbr { height: 16px; width: 470px; background-image: url({IMGDIR}/pllb.png); background-color: #5AAF4A; background-position: 0 -16px; background-repeat: repeat-x; -webkit-border-radius: 0 6px 6px 0; -moz-border-radius: 0 6px 6px 0; border-radius: 0 6px 6px 0; }
 		.pbg2 { display: block; height: 10px; width: 130px; margin: 0 auto; background: url({IMGDIR}/ico_jdt.png) 0 -10px repeat-x; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
 		.pbr2 { display: block; height: 10px; background: url({IMGDIR}/ico_jdt.png) 0 0 repeat-x; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
