@@ -34,7 +34,7 @@
 var reasons = {lang report_reason_message};
 var reasonstring = '';
 for (i=0; i<reasons.length; i++) {
-	reasonstring += '<label><input type="radio" name="report_select" class="pr" onclick="$(\'report_other\').style.display=\'' + (i < reasons.length -1 ? 'none' : '') + '\';$(\'report_msg\').style.display=\'' + (i < reasons.length -1 ? 'none' : '') + '\'" value="' + reasons[i] + '"> ' + reasons[i] + '</label><br />';
+	reasonstring += '<label><input type="radio" name="report_select" class="pr" onclick="' + (i < reasons.length -1 ? '$(\'report_message\').innerHTML=this.value;' : '') + '$(\'report_other\').style.display=\'' + (i < reasons.length -1 ? 'none' : '') + '\';$(\'report_msg\').style.display=\'' + (i < reasons.length -1 ? 'none' : '') + '\'" value="' + reasons[i] + '"> ' + reasons[i] + '</label><br />';
 }
 $('report_reasons').innerHTML = reasonstring;
 </script>
