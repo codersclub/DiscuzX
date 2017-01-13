@@ -430,7 +430,7 @@ function build_cache_setting() {
 				$domain = $defaultcurhost;
 			}
 			if($domain != '{CURHOST}') {
-				$domain = 'http://'.$domain.$_G['siteport'].'/';
+				$domain = $_G['scheme'].'://'.$domain.$_G['siteport'].'/';
 			}
 			if($repflag) {
 				$output['str']['search'][$app] = "<a href=\"{$app}.php";
@@ -816,7 +816,7 @@ function get_cachedata_mainnav() {
 		if($nav['type'] == 0) {
 			$domainkey = substr($purl['path'], 0, -strlen(strrchr($purl['path'], '.')));
 			if(!empty($_G['setting']['domain']['app'][$domainkey]) && !in_array(strtolower($nav['title']), array('follow', 'guide', 'collection', 'blog', 'album', 'favorite', 'friend', 'share', 'doing'))) {
-				$nav['url'] = 'http://'.$_G['setting']['domain']['app'][$domainkey];
+				$nav['url'] = $_G['scheme'].'://'.$_G['setting']['domain']['app'][$domainkey];
 			}
 		}
 
@@ -845,7 +845,7 @@ function get_cachedata_footernav() {
 					continue;
 				} else {
 					$domain = $_G['setting']['domain']['app']['forum'] ? $_G['setting']['domain']['app']['forum'] : ($_G['setting']['domain']['app']['default'] ? $_G['setting']['domain']['app']['default'] : '');
-					$nav['url'] = ($domain ? 'http://'.$domain.'/' : '').$nav['url'];
+					$nav['url'] = ($domain ? $_G['scheme'].'://'.$domain.'/' : '').$nav['url'];
 				}
 			}
 		}
