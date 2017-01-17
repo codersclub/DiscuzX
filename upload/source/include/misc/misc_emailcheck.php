@@ -36,7 +36,7 @@ if($uid && isemail($email) && $time > TIMESTAMP - 86400) {
 	} elseif($ucresult == -6) {
 		showmessage('profile_email_duplicate', '', array(), array('return' => true));
 	}
-	if($member['groupid'] == 8) {
+	if($_G['setting']['regverify'] == 1 && $member['groupid'] == 8) {
 		$membergroup = C::t('common_usergroup')->fetch_by_credits($member['credits']);
 		$setarr['groupid'] = $membergroup['groupid'];
 	}
