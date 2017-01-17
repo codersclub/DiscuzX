@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: function_admincp.php 36299 2016-12-15 06:35:18Z nemohou $
+ *      $Id: function_admincp.php 36353 2017-01-17 07:19:28Z nemohou $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -705,7 +705,7 @@ function showsetting($setname, $varname, $value, $type = 'radio', $disabled = ''
 			if($code[$i] != '') {
 				if($code[$i]{0} == '#') {
 					$css .= strtoupper($code[$i]).' ';
-				} elseif(preg_match('/^http:\/\//i', $code[$i])) {
+				} elseif(preg_match('/^(https?:)?\/\//i', $code[$i])) {
 					$css .= 'url(\''.$code[$i].'\') ';
 				} else {
 					$css .= 'url(\''.$stylestuff['imgdir']['subst'].'/'.$code[$i].'\') ';

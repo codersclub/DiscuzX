@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: cache_styles.php 36278 2016-12-09 07:52:35Z nemohou $
+ *      $Id: cache_styles.php 36353 2017-01-17 07:19:28Z nemohou $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -35,10 +35,10 @@ function build_cache_styles() {
 		if(strstr($data['boardimg'], ',')) {
 			$flash = explode(",", $data['boardimg']);
 			$flash[0] = trim($flash[0]);
-			$flash[0] = preg_match('/^http:\/\//i', $flash[0]) ? $flash[0] : $data['styleimgdir'].'/'.$flash[0];
+			$flash[0] = preg_match('/^(https?:)?\/\//i', $flash[0]) ? $flash[0] : $data['styleimgdir'].'/'.$flash[0];
 			$data['boardlogo'] = "<embed src=\"".$flash[0]."\" width=\"".trim($flash[1])."\" height=\"".trim($flash[2])."\" type=\"application/x-shockwave-flash\" wmode=\"transparent\"></embed>";
 		} else {
-			$data['boardimg'] = preg_match('/^http:\/\//i', $data['boardimg']) ? $data['boardimg'] : $data['styleimgdir'].'/'.$data['boardimg'];
+			$data['boardimg'] = preg_match('/^(https?:)?\/\//i', $data['boardimg']) ? $data['boardimg'] : $data['styleimgdir'].'/'.$data['boardimg'];
 			$data['boardlogo'] = "<img src=\"$data[boardimg]\" alt=\"".$_G['setting']['bbname']."\" border=\"0\" />";
 		}
 		$data['bold'] = $data['nobold'] ? 'normal' : 'bold';
@@ -82,7 +82,7 @@ function setcssbackground(&$data, $code) {
 				if($codes[$i]{0} == '#') {
 					$css .= strtoupper($codes[$i]).' ';
 					$codevalue = strtoupper($codes[$i]);
-				} elseif(preg_match('/^http:\/\//i', $codes[$i])) {
+				} elseif(preg_match('/^(https?:)?\/\//i', $codes[$i])) {
 					$css .= 'url("'.$codes[$i].'") ';
 				} else {
 					$css .= 'url("'.$data['styleimgdir'].'/'.$codes[$i].'") ';
@@ -122,9 +122,9 @@ function writetocsscache($data) {
 
 			$cssdata = preg_replace_callback("/\{([A-Z0-9]+)\}/", 'writetocsscache_callback_1', $cssdata);
 			$cssdata = preg_replace("/<\?.+?\?>\s*/", '', $cssdata);
-			$cssdata = !preg_match('/^http:\/\//i', $data['styleimgdir']) ? preg_replace("/url\(([\"'])?".preg_quote($data['styleimgdir'], '/')."/i", "url(\\1$_G[siteurl]$data[styleimgdir]", $cssdata) : $cssdata;
-			$cssdata = !preg_match('/^http:\/\//i', $data['imgdir']) ? preg_replace("/url\(([\"'])?".preg_quote($data['imgdir'], '/')."/i", "url(\\1$_G[siteurl]$data[imgdir]", $cssdata) : $cssdata;
-			$cssdata = !preg_match('/^http:\/\//i', $data['staticurl']) ? preg_replace("/url\(([\"'])?".preg_quote($data['staticurl'], '/')."/i", "url(\\1$_G[siteurl]$data[staticurl]", $cssdata) : $cssdata;
+			$cssdata = !preg_match('/^(https?:)?\/\//i', $data['styleimgdir']) ? preg_replace("/url\(([\"'])?".preg_quote($data['styleimgdir'], '/')."/i", "url(\\1$_G[siteurl]$data[styleimgdir]", $cssdata) : $cssdata;
+			$cssdata = !preg_match('/^(https?:)?\/\//i', $data['imgdir']) ? preg_replace("/url\(([\"'])?".preg_quote($data['imgdir'], '/')."/i", "url(\\1$_G[siteurl]$data[imgdir]", $cssdata) : $cssdata;
+			$cssdata = !preg_match('/^(https?:)?\/\//i', $data['staticurl']) ? preg_replace("/url\(([\"'])?".preg_quote($data['staticurl'], '/')."/i", "url(\\1$_G[siteurl]$data[staticurl]", $cssdata) : $cssdata;
 			if($entry == 'module.css') {
 				$cssdata = preg_replace('/\/\*\*\s*(.+?)\s*\*\*\//', '[\\1]', $cssdata);
 			}

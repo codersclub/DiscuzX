@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: admincp_styles.php 34498 2014-05-12 02:51:02Z nemohou $
+ *      $Id: admincp_styles.php 36353 2017-01-17 07:19:28Z nemohou $
  */
 
 if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
@@ -483,7 +483,7 @@ function imgpre_resize(obj) {
 function imgpre_update(id, obj) {
 	url = obj.value;
 	if(url) {
-		re = /^http:\/\//i;
+		re = /^(https?:)?\/\//i;
 		var matches = re.exec(url);
 		if(matches == null) {
 			url = ($('styleimgdir').value ? $('styleimgdir').value : ($('imgdir').value ? $('imgdir').value : 'static/image/common')) + '/' + url;
@@ -537,7 +537,7 @@ function imgpre_switch(id) {
 					$bgimg = $stylestuff[$predefinedvar]['subst'][1];
 					$bgextra = implode(' ', array_slice($stylestuff[$predefinedvar]['subst'], 2));
 					$stylestuff[$predefinedvar]['subst'] = $stylestuff[$predefinedvar]['subst'][0];
-					$bgimgpre = $bgimg ? (preg_match('/^http:\/\//i', $bgimg) ? $bgimg : ($stylestuff['styleimgdir']['subst'] ? $stylestuff['styleimgdir']['subst'] : ($stylestuff['imgdir']['subst'] ? $stylestuff['imgdir']['subst'] : 'static/image/common')).'/'.$bgimg) : 'static/image/common/none.gif';
+					$bgimgpre = $bgimg ? (preg_match('/^(https?:)?\/\//i', $bgimg) ? $bgimg : ($stylestuff['styleimgdir']['subst'] ? $stylestuff['styleimgdir']['subst'] : ($stylestuff['imgdir']['subst'] ? $stylestuff['imgdir']['subst'] : 'static/image/common')).'/'.$bgimg) : 'static/image/common/none.gif';
 					$comment .= '<div id="bgpre_'.$stylestuff[$predefinedvar]['id'].'" onclick="imgpre_switch('.$stylestuff[$predefinedvar]['id'].')" style="background-image:url('.$bgimgpre.');cursor:pointer;float:right;width:350px;height:40px;overflow:hidden;border: 1px solid #ccc"></div>'.$lang['styles_edit_'.$predefinedvar.'_comment'].$lang['styles_edit_bg'];
 					$extra = '<br /><input name="stylevarbgimg['.$stylestuff[$predefinedvar]['id'].']" value="'.$bgimg.'" onchange="imgpre_update('.$stylestuff[$predefinedvar]['id'].', this)" type="text" class="txt" style="margin:5px 0;" />'.
 						'<br /><input name="stylevarbgextra['.$stylestuff[$predefinedvar]['id'].']" value="'.$bgextra.'" type="text" class="txt" />';
