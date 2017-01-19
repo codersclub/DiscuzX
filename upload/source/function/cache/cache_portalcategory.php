@@ -30,9 +30,9 @@ function build_cache_portalcategory() {
 	$channelrootdomain = !empty($domain['root']) && !empty($domain['root']['channel']) ? $domain['root']['channel'] : '';
 	$portaldomain = '';
 	if(!empty($domain['app']['portal'])) {
-		$portaldomain = 'http://'.$domain['app']['portal'].$_G['siteroot'];
+		$portaldomain = $_G['scheme'].'://'.$domain['app']['portal'].$_G['siteroot'];
 	} elseif(!empty($domain['app']['default'])) {
-		$portaldomain = 'http://'.$domain['app']['default'].$_G['siteroot'];
+		$portaldomain = $_G['scheme'].'://'.$domain['app']['default'].$_G['siteroot'];
 	} else {
 		$portaldomain = $_G['siteurl'];
 	}
@@ -55,7 +55,7 @@ function build_cache_portalcategory() {
 		$value['topid'] = $topid;
 
 		if($channelrootdomain && $data[$topid]['domain']){
-			$url = 'http://'.$data[$topid]['domain'].'.'.$channelrootdomain.'/';
+			$url = $_G['scheme'].'://'.$data[$topid]['domain'].'.'.$channelrootdomain.'/';
 			if($foldername) {
 
 				if(!empty($value['upid'])) {
