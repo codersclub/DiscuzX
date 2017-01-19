@@ -13,7 +13,7 @@ if(!defined('IN_MOBILE_API')) {
 
 class mobile_api_sub {
 
-	function getvariable() {
+	public static function getvariable() {
 		global $_G;
 		if(empty($_G['forum'])) {
 			$allowpost = 0;

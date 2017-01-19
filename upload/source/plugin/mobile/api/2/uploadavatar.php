@@ -134,7 +134,7 @@ class mobile_api {
 		return uc_fopen2(UC_API.'/index.php', 500000, $postdata, '', TRUE, UC_IP, 20);
 	}
 
-	function error($errstr) {
+	public static function error($errstr) {
 		$variable = array(
 			'uploadavatar' => $errstr,
 		);

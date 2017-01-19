@@ -30,7 +30,7 @@ $defaultversions = array(
 	'wechat' => 4,
 );
 
-if(!in_array($_GET['module'], $modules)) {
+if(!isset($_GET['module']) || !in_array($_GET['module'], $modules)) {
 	mobile_core::result(array('error' => 'module_not_exists'));
 }
 $_GET['version'] = !empty($_GET['version']) ? intval($_GET['version']) : (!$defaultversions[$_GET['module']] ? 1 : $defaultversions[$_GET['module']]);
