@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: admincp_setting.php 36297 2016-12-15 03:13:27Z nemohou $
+ *      $Id: admincp_setting.php 36349 2017-01-16 03:05:23Z nemohou $
  */
 if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
@@ -2289,7 +2289,7 @@ EOT;
 						C::t('common_member_profile')->clear_cache($uid);
 						C::t('common_member_field_home')->clear_cache($uid);
 						C::t('common_member_field_forum')->clear_cache($uid);
-						C::t('common_member_verify')->clear_cache($uid);		
+						C::t('common_member_verify')->clear_cache($uid);
 					} elseif($k == 'forum_thread_forumdisplay') {
 						memory('rm', $id, 'forumdisplay_');
 					} elseif($k == 'forumindex') {

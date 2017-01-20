@@ -2,7 +2,7 @@
 	[Discuz!] (C)2001-2099 Comsenz Inc.
 	This is NOT a freeware, use is subject to license terms
 
-	$Id: bbcode.js 36348 2017-01-13 06:36:44Z nemohou $
+	$Id: bbcode.js 36359 2017-01-20 05:06:45Z nemohou $
 */
 
 var re, DISCUZCODE = [];
@@ -201,7 +201,7 @@ function dstag(options, text, tagname) {
 			prepend = '[align=' + align + ']' + prepend;
 			append += '[/align]';
 		} else {
-			prepend += '\n';
+			append += '\n';
 		}
 	}
 	return prepend + recursion(tagname, text, 'dstag') + append;
@@ -212,7 +212,7 @@ function ptag(options, text, tagname) {
 		return '\n';
 	}
 	if(trim(options) == '') {
-		return text;
+		return text + '\n';
 	}
 
 	var lineHeight = null;
@@ -314,10 +314,7 @@ function html2bbcode(str) {
 		return str;
 	}
 
-	str = str.replace(/<\/p><p>/ig, '<br>');
-	str = str.replace(/<\/div><div>/ig, '<br>');
-
-	str = str.replace(/<div[^>]*blockcode[^>]*><blockquote>([\s\S]*?)<\/blockquote><\/div>([\s\S]*?)(<br[^>]*>)?/ig, function($1, $2) {return codetag($2);});
+	str = str.replace(/<div\sclass=["']?blockcode["']?>[\s\S]*?<blockquote>([\s\S]+?)<\/blockquote>[\s\S]*?<\/div>/ig, function($1, $2) {return codetag($2);});
 
 	if(!fetchCheckbox('bbcodeoff') && allowbbcode) {
 		var postbg = '';
@@ -663,11 +660,8 @@ function recursion(tagname, text, dofunction, extraargs) {
 		}
 
 		var localbegin = optionend + 1;
-		if(tagbegin != 0 || tagname != 'div') {
-			var localtext = eval(dofunction)(tagoptions, text.substr(localbegin, tagend - localbegin), tagname, extraargs);
-		}else{
-			var localtext = text.substr(localbegin, tagend - localbegin);
-		}
+		var localtext = eval(dofunction)(tagoptions, text.substr(localbegin, tagend - localbegin), tagname, extraargs);
+
 		text = text.substring(0, tagbegin) + localtext + text.substring(tagend + close_tag_len);
 
 		beginsearchpos = tagbegin + localtext.length;

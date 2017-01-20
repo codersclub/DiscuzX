@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: uc.php 36357 2017-01-20 01:56:30Z nemohou $
+ *      $Id: uc.php 36358 2017-01-20 02:05:50Z nemohou $
  */
 
 error_reporting(0);
