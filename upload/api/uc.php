@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: uc.php 36303 2016-12-15 09:11:58Z nemohou $
+ *      $Id: uc.php 36357 2017-01-20 01:56:30Z nemohou $
  */
 
 error_reporting(0);
@@ -83,8 +83,7 @@ class uc_note {
 		return xml_serialize($arr, $htmlon);
 	}
 
-	function uc_note() {
-
+	function _construct() {
 	}
 
 	function test($get, $post) {
