@@ -594,7 +594,7 @@ class showActivity {
 
 	public static $init = false;
 
-	function init() {
+	public static function init() {
 		global $_G;
 		if(!$_G['wechat']['setting']['wsq_allow'] || !in_array($_G['tid'], (array)$_G['wechat']['setting']['showactivity']['tids'])) {
 			return false;
