@@ -467,9 +467,9 @@ function build_cache_setting() {
 					$data['topnavs'][$id]['code'] = preg_replace_callback($value, create_function('$matches', 'return '.$output['preg']['replace'][$key].';'), $nav['code']);
 				}
 			}
-			foreach($data['plugins']['jsmenu'] as $key => $nav) {
+			foreach($data['plugins']['jsmenu'] as $id => $nav) {
 				foreach ($output['preg']['search'] as $key => $value) {
-					$data['plugins']['jsmenu'][$key]['url'] = preg_replace_callback($value, create_function('$matches', 'return '.$output['preg']['replace'][$key].';'), $nav['url']);
+					$data['plugins']['jsmenu'][$id]['url'] = preg_replace_callback($value, create_function('$matches', 'return '.$output['preg']['replace'][$key].';'), $nav['url']);
 				}
 			}
 		}
