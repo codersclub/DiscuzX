@@ -2242,11 +2242,11 @@ EOT;
 			$cache_config['wincache'] ? cplang('open') : cplang('closed'),
 			$cache_type == 'wincache' ? $do_clear_link : '--'
 			);
-			$wincache = array('Yac',
-				$cache_extension['yac'] ? cplang('setting_memory_php_enable') : cplang('setting_memory_php_disable'),
-				$cache_config['yac'] ? cplang('open') : cplang('closed'),
-				$cache_type == 'yac' ? $do_clear_link : '--'
-				);
+		$yac = array('Yac',
+			$cache_extension['yac'] ? cplang('setting_memory_php_enable') : cplang('setting_memory_php_disable'),
+			$cache_config['yac'] ? cplang('open') : cplang('closed'),
+			$cache_type == 'yac' ? $do_clear_link : '--'
+			);
 		showtablerow('', array('width="100"', 'width="120"', 'width="120"'), $redis);
 		showtablerow('', '', $memcache);
 		showtablerow('', '', $apc);
