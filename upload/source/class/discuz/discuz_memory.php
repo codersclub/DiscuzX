@@ -30,7 +30,7 @@ class discuz_memory extends discuz_base
 		$this->extension['eaccelerator'] = function_exists('eaccelerator_get');
 		$this->extension['wincache'] = function_exists('wincache_ucache_meminfo') && wincache_ucache_meminfo();
 		$this->extension['xcache'] = function_exists('xcache_get');
-	  $this->extension['yac'] = extension_loaded('yac');
+	  $this->extension['yac'] = extension_loaded('Yac');
 	}
 
 	public function init($config) {

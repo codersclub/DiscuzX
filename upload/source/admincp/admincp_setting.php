@@ -2242,7 +2242,7 @@ EOT;
 			$cache_config['wincache'] ? cplang('open') : cplang('closed'),
 			$cache_type == 'wincache' ? $do_clear_link : '--'
 			);
-			$wincache = array('yac',
+			$wincache = array('Yac',
 				$cache_extension['yac'] ? cplang('setting_memory_php_enable') : cplang('setting_memory_php_disable'),
 				$cache_config['yac'] ? cplang('open') : cplang('closed'),
 				$cache_type == 'yac' ? $do_clear_link : '--'

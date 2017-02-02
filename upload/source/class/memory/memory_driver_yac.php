@@ -25,7 +25,13 @@ class memory_driver_yac
 	}
 
 	public function getMulti($keys) {
-		return $this->object->get($keys);
+		$result  =  $this->object->get($keys);
+    foreach ($result as $key => $value) {
+     if($value===false){
+       unset($result[$key]);
+     }
+    }
+    return $result;
 	}
 
 	public function set($key, $value, $ttl = 0) {
