@@ -17,7 +17,7 @@ class memory_driver_yac
   private $object = null;
 
 	public function init($config) {
-     $object = new yac();
+     $this->object = new yac();
 	}
 
 	public function get($key) {
