@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: config_global_default.php 36287 2016-12-12 03:59:05Z nemohou $
+ *      $Id: config_global_default.php 36362 2017-02-04 02:02:03Z nemohou $
  */
 
 $_config = array();
@@ -111,11 +111,12 @@ $_config['memory']['memcache']['port'] = 11211;			// memcache 服务器端口
 $_config['memory']['memcache']['pconnect'] = 1;			// memcache 是否长久连接
 $_config['memory']['memcache']['timeout'] = 1;			// memcache 服务器连接超时
 
-$_config['memory']['apc'] = 1;							// 启动对 apc 的支持
+$_config['memory']['apc'] = 1;							// 启动对 APC 的支持
+$_config['memory']['apcu'] = 1;							// 启动对 APCu 的支持
 $_config['memory']['xcache'] = 1;						// 启动对 xcache 的支持
 $_config['memory']['eaccelerator'] = 1;					// 启动对 eaccelerator 的支持
 $_config['memory']['wincache'] = 1;						// 启动对 wincache 的支持
-$_config['memory']['yac'] = 1;     //启动对 YAC的支持
+$_config['memory']['yac'] = 1;     						//启动对 YAC的支持
 // 服务器相关设置
 $_config['server']['id']		= 1;			// 服务器编号，多webserver的时候，用于标识当前服务器的ID
 

@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: admincp_setting.php 36349 2017-01-16 03:05:23Z nemohou $
+ *      $Id: admincp_setting.php 36362 2017-02-04 02:02:03Z nemohou $
  */
 if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
@@ -2247,6 +2247,11 @@ EOT;
 			$cache_config['yac'] ? cplang('open') : cplang('closed'),
 			$cache_type == 'yac' ? $do_clear_link : '--'
 			);
+		$apcu = array('APCu',
+			$cache_extension['apcu'] ? cplang('setting_memory_php_enable') : cplang('setting_memory_php_disable'),
+			$cache_config['apcu'] ? cplang('open') : cplang('closed'),
+			$cache_type == 'apcu' ? $do_clear_link : '--'
+			);
 		showtablerow('', array('width="100"', 'width="120"', 'width="120"'), $redis);
 		showtablerow('', '', $memcache);
 		showtablerow('', '', $apc);
@@ -2254,6 +2259,7 @@ EOT;
 		showtablerow('', '', $ea);
 		showtablerow('', '', $wincache);
 		showtablerow('', '', $yac);
+		showtablerow('', '', $apcu);
 		showtablefooter();
 
 		if(!isset($setting['memory'])) {
