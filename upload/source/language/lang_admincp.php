@@ -1537,7 +1537,7 @@ $lang = array
 	'setting_cachethread_coefficient_forum_comment' => '将会覆盖以前的缓存系数值，可以按住 CTRL 多选',
 
 	'setting_memory' => '内存优化',
-	'setting_memory_tips' => '<li>启用内存优化功能将会大幅度提升程序性能和服务器的负载能力，内存优化功能需要服务器系统以及PHP扩展模块支持</li><li>目前支持的内存优化接口有 Memcache、eAccelerator、Alternative PHP Cache(APC)、Xcache、Redis 五种，优化系统将会依据当前服务器环境依次选用接口</li><li>内存接口的主要设置位于 config_global.php 当中，您可以通过编辑 config_global.php 进行高级设置</li>',
+	'setting_memory_tips' => '<li>启用内存优化功能将会大幅度提升程序性能和服务器的负载能力，内存优化功能需要服务器系统以及PHP扩展模块支持</li><li>目前支持的内存优化接口有 Memcache、eAccelerator、Alternative PHP Cache(APC)、YAC、Xcache、Redis 五种，优化系统将会依据当前服务器环境依次选用接口</li><li>内存接口的主要设置位于 config_global.php 当中，您可以通过编辑 config_global.php 进行高级设置</li>',
 	'setting_memory_status' => '当前内存工作状态',
 	'setting_memory_php_enable' => '支持',
 	'setting_memory_php_disable' => '不支持',

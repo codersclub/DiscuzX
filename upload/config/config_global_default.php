@@ -115,6 +115,7 @@ $_config['memory']['apc'] = 1;							// 启动对 apc 的支持
 $_config['memory']['xcache'] = 1;						// 启动对 xcache 的支持
 $_config['memory']['eaccelerator'] = 1;					// 启动对 eaccelerator 的支持
 $_config['memory']['wincache'] = 1;						// 启动对 wincache 的支持
+$_config['memory']['yac'] = 1;     //启动对 YAC的支持
 // 服务器相关设置
 $_config['server']['id']		= 1;			// 服务器编号，多webserver的时候，用于标识当前服务器的ID
 

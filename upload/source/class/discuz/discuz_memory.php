@@ -29,6 +29,8 @@ class discuz_memory extends discuz_base
 		$this->extension['xcache'] = function_exists('xcache_get');
 		$this->extension['eaccelerator'] = function_exists('eaccelerator_get');
 		$this->extension['wincache'] = function_exists('wincache_ucache_meminfo') && wincache_ucache_meminfo();
+		$this->extension['xcache'] = function_exists('xcache_get');
+		$this->extension['yac'] = extension_loaded('Yac');
 	}
 
 	public function init($config) {
@@ -52,7 +54,7 @@ class discuz_memory extends discuz_base
 			}
 		}
 
-		foreach(array('apc', 'eaccelerator', 'xcache', 'wincache') as $cache) {
+		foreach(array('apc', 'eaccelerator', 'xcache', 'wincache','yac') as $cache) {
 			if(!is_object($this->memory) && $this->extension[$cache] && $this->config[$cache]) {
 				$class_name = 'memory_driver_'.$cache;
 				$this->memory = new $class_name();
