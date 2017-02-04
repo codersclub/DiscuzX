@@ -315,7 +315,7 @@ function convertOperate($id = 0) {
 }
 
 function getEvilList($type, $start, $ppp) {
-	$datas = $data = '';
+	$datas = $data = array();
 	$evilids = array();
 
 	if ($type == 'member') {
