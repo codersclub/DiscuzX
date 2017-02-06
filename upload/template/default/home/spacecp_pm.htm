@@ -123,7 +123,7 @@
 			<!--{if $_G[inajax]}--><span><a href="javascript:;" onclick="hideWindow('$_GET[handlekey]');" class="flbc" title="{lang close}">{lang close}</a></span><!--{/if}-->
 		</h3>
 		<div id="$plid">
-			<form id="pmignoreform_{$plid}" name="pmignoreform_{$plid}" method="post" autocomplete="off" action="home.php?mod=spacecp&ac=pm&op=pm_ignore&plid=$plid&username=$username"  {if $_G[inajax]}onsubmit="ajaxpost(this.id, 'return_$_GET[handlekey]');"{/if}>
+			<form id="pmignoreform_{$plid}" name="pmignoreform_{$plid}" method="post" autocomplete="off" action="home.php?mod=spacecp&ac=pm&op=pm_ignore&plid=$plid&username={echo urlencode($username)}"  {if $_G[inajax]}onsubmit="ajaxpost(this.id, 'return_$_GET[handlekey]');"{/if}>
 				<!--{if $_G[inajax]}--><input type="hidden" name="handlekey" value="$_GET[handlekey]" /><!--{/if}-->
 				<input type="hidden" name="referer" value="{echo dreferer()}" />
 				<input type="hidden" name="pmignoresubmit" value="true" />
