@@ -553,9 +553,9 @@ function parseflv($url, $width = 0, $height = 0) {
 		$flv = $url;
 	} elseif(strpos($lowerurl, 'v.youku.com/v_show/') !== FALSE) {
 		$ctx = stream_context_create(array('http' => array('timeout' => 10)));
-		if(preg_match("/^http:\/\/v.youku.com\/v_show\/id_([^\/]+)(.html|)/i", $url, $matches)) {
-			$flv = 'http://player.youku.com/player.php/sid/'.$matches[1].'/v.swf';
-			$iframe = 'http://player.youku.com/embed/'.$matches[1];
+		if(preg_match("/^https?:\/\/v.youku.com\/v_show\/id_([^\/]+)(.html|)/i", $url, $matches)) {
+			$flv = 'https://player.youku.com/player.php/sid/'.$matches[1].'/v.swf';
+			$iframe = 'https://player.youku.com/embed/'.$matches[1];
 			if(!$width && !$height) {
 				$api = 'http://v.youku.com/player/getPlayList/VideoIDS/'.$matches[1];
 				$str = stripslashes(file_get_contents($api, false, $ctx));
@@ -600,9 +600,9 @@ function parseflv($url, $width = 0, $height = 0) {
 			}
 		}
 	} elseif(strpos($lowerurl, 'www.youtube.com/watch?') !== FALSE) {
-		if(preg_match("/^http:\/\/www.youtube.com\/watch\?v=([^\/&]+)&?/i", $url, $matches)) {
-			$flv = 'http://www.youtube.com/v/'.$matches[1].'&hl=zh_CN&fs=1';
-			$iframe = 'http://www.youtube.com/embed/'.$matches[1];
+		if(preg_match("/^https?:\/\/www.youtube.com\/watch\?v=([^\/&]+)&?/i", $url, $matches)) {
+			$flv = 'https://www.youtube.com/v/'.$matches[1].'&hl=zh_CN&fs=1';
+			$iframe = 'https://www.youtube.com/embed/'.$matches[1];
 			if(!$width && !$height) {
 				$str = file_get_contents($url, false, $ctx);
 				if(!empty($str) && preg_match("/'VIDEO_HQ_THUMB':\s'(.+?)'/i", $str, $image)) {
