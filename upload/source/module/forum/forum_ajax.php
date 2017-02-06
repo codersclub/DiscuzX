@@ -280,6 +280,17 @@ if($_GET['action'] == 'checkusername') {
 		$query = C::t('forum_forumfield')->fetch($fid);
 		$forum_field['threadtypes'] = dunserialize($query['threadtypes']);
 		$forum_field['threadsorts'] = dunserialize($query['threadsorts']);
+
+		if($forum_field['threadtypes']['types']) {
+			safefilter($forum_field['threadtypes']['types']);
+		}
+		if($forum_field['threadtypes']['options']['name']) {
+			safefilter($forum_field['threadtypes']['options']['name']);
+		}
+		if($forum_field['threadsorts']['types']) {
+			safefilter($forum_field['threadsorts']['types']);
+		}
+
 		unset($query);
 		$forum_field = daddslashes($forum_field);
 		$todaytime = strtotime(dgmdate(TIMESTAMP, 'Ymd'));
