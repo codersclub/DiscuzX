@@ -39,7 +39,7 @@ class discuz_memory extends discuz_base
 				if(!$this->memory->enable) {
 					$this->memory = null;
 				} else {
-					$this->type = $cache;
+					$this->type = $this->memory->cacheName;
 					$this->enable = true;
 				}
 			}
