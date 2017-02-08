@@ -6,16 +6,21 @@
  *
  *      $Id: memory_driver_xcache.php 27449 2012-02-01 05:32:35Z zhangguosheng $
  */
-
-if(!defined('IN_DISCUZ')) {
+if (!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-class memory_driver_xcache
-{
+class memory_driver_xcache {
 
+	public $cacheName = 'XCache';
+	public $enable;
+
+	public function env() {
+		return function_exists('xcache_get');
+	}
+	
 	public function init($config) {
-
+		$this->enable = $this->env();
 	}
 
 	public function get($key) {

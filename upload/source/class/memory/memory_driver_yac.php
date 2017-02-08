@@ -12,10 +12,19 @@ if (!defined('IN_DISCUZ')) {
 
 class memory_driver_yac {
 
+	public $cacheName = 'Yac';
 	private $object = null;
+	public $enable;
+
+	public function env() {
+		return extension_loaded('Yac');
+	}
 
 	public function init($config) {
-		$this->object = new yac();
+		$this->enable = $this->env();
+		if ($this->enable) {
+			$this->object = new yac();
+		}
 	}
 
 	public function get($key) {

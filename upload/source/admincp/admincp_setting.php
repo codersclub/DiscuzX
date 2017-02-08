@@ -2210,56 +2210,27 @@ EOT;
 		$cache_extension = C::memory()->extension;
 		$cache_config = C::memory()->config;
 		$cache_type = C::memory()->type;
-
-		$redis = array('Redis',
-			$cache_extension['redis'] ? cplang('setting_memory_php_enable') : cplang('setting_memory_php_disable'),
-			$cache_config['redis']['server'] ? cplang('open') : cplang('closed'),
-			$cache_type == 'redis' ? $do_clear_link : '--'
-			);
-
-		$memcache = array('memcache',
-			$cache_extension['memcache'] ? cplang('setting_memory_php_enable') : cplang('setting_memory_php_disable'),
-			$cache_config['memcache']['server'] ? cplang('open') : cplang('closed'),
-			$cache_type == 'memcache' ? $do_clear_link : '--'
-			);
-		$apc = array('APC',
-			$cache_extension['apc'] ? cplang('setting_memory_php_enable') : cplang('setting_memory_php_disable'),
-			$cache_config['apc'] ? cplang('open') : cplang('closed'),
-			$cache_type == 'apc' ? $do_clear_link : '--'
-			);
-		$xcache = array('Xcache',
-			$cache_extension['xcache'] ? cplang('setting_memory_php_enable') : cplang('setting_memory_php_disable'),
-			$cache_config['xcache'] ? cplang('open') : cplang('closed'),
-			$cache_type == 'xcache' ? $do_clear_link : '--'
-			);
-		$ea = array('eAccelerator',
-			$cache_extension['eaccelerator'] ? cplang('setting_memory_php_enable') : cplang('setting_memory_php_disable'),
-			$cache_config['eaccelerator'] ? cplang('open') : cplang('closed'),
-			$cache_type == 'eaccelerator' ? $do_clear_link : '--'
-			);
-		$wincache = array('wincache',
-			$cache_extension['wincache'] ? cplang('setting_memory_php_enable') : cplang('setting_memory_php_disable'),
-			$cache_config['wincache'] ? cplang('open') : cplang('closed'),
-			$cache_type == 'wincache' ? $do_clear_link : '--'
-			);
-		$yac = array('Yac',
-			$cache_extension['yac'] ? cplang('setting_memory_php_enable') : cplang('setting_memory_php_disable'),
-			$cache_config['yac'] ? cplang('open') : cplang('closed'),
-			$cache_type == 'yac' ? $do_clear_link : '--'
-			);
-		$apcu = array('APCu',
-			$cache_extension['apcu'] ? cplang('setting_memory_php_enable') : cplang('setting_memory_php_disable'),
-			$cache_config['apcu'] ? cplang('open') : cplang('closed'),
-			$cache_type == 'apcu' ? $do_clear_link : '--'
-			);
-		showtablerow('', array('width="100"', 'width="120"', 'width="120"'), $redis);
-		showtablerow('', '', $memcache);
-		showtablerow('', '', $apc);
-		showtablerow('', '', $xcache);
-		showtablerow('', '', $ea);
-		showtablerow('', '', $wincache);
-		showtablerow('', '', $yac);
-		showtablerow('', '', $apcu);
+		
+		$dir = DISCUZ_ROOT.'./source/class/memory';		
+		$qaadir = dir($dir);
+		$cachelist = array();
+		while($entry = $qaadir->read()) {
+			if(!in_array($entry, array('.', '..')) && preg_match("/^memory\_driver\_[\w\.]+$/", $entry) && substr($entry, -4) == '.php' && strlen($entry) < 30 && is_file($dir.'/'.$entry)) {
+				$cache = str_replace(array('.php', 'memory_driver_'), '', $entry);
+				$class_name = 'memory_driver_'.$cache;
+				$memory = new $class_name();
+				$available = is_array($cache_config[$cache]) ? !empty($cache_config[$cache]['server']) : !empty($cache_config[$cache]);
+				$cachelist[] = array($memory->cacheName,
+					$memory->env($config) ? cplang('setting_memory_php_enable') : cplang('setting_memory_php_disable'),
+					$available ? cplang('open') : cplang('closed'),
+					$cache_type == $cache ? $do_clear_link : '--'
+				);
+			}
+		}
+		
+		foreach($cachelist as $cache) {
+			showtablerow('', array('width="100"', 'width="120"', 'width="120"'), $cache);
+		}
 		showtablefooter();
 
 		if(!isset($setting['memory'])) {

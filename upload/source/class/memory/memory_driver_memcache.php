@@ -6,20 +6,27 @@
  *
  *      $Id: memory_driver_memcache.php 27449 2012-02-01 05:32:35Z zhangguosheng $
  */
-
-if(!defined('IN_DISCUZ')) {
+if (!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-class memory_driver_memcache
-{
+class memory_driver_memcache {
+
+	public $cacheName = 'MemCache';
 	public $enable;
 	public $obj;
 
+	public function env() {
+		return extension_loaded('memcache');
+	}
+
 	public function init($config) {
-		if(!empty($config['server'])) {
+		if (!$this->env()) {
+			$this->enable = false;
+		}
+		if (!empty($config['server'])) {
 			$this->obj = new Memcache;
-			if($config['pconnect']) {
+			if ($config['pconnect']) {
 				$connect = @$this->obj->pconnect($config['server'], $config['port']);
 			} else {
 				$connect = @$this->obj->connect($config['server'], $config['port']);
@@ -35,6 +42,7 @@ class memory_driver_memcache
 	public function getMulti($keys) {
 		return $this->obj->get($keys);
 	}
+
 	public function set($key, $value, $ttl = 0) {
 		return $this->obj->set($key, $value, MEMCACHE_COMPRESSED, $ttl);
 	}

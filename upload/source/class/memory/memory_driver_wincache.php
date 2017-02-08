@@ -6,16 +6,21 @@
  *
  *      $Id: memory_driver_wincache.php 31432 2012-08-28 03:04:18Z zhangguosheng $
  */
-
-if(!defined('IN_DISCUZ')) {
+if (!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-class memory_driver_wincache
-{
+class memory_driver_wincache {
+
+	public $cacheName = 'WinCache';
+	public $enable;
+
+	public function env() {
+		return function_exists('wincache_ucache_meminfo') && wincache_ucache_meminfo();
+	}
 
 	public function init($config) {
-
+		$this->enable = $this->env();
 	}
 
 	public function get($key) {

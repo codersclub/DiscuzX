@@ -6,16 +6,21 @@
  *
  *      $Id: memory_driver_eaccelerator.php 30457 2012-05-30 01:48:49Z zhangguosheng $
  */
-
-if(!defined('IN_DISCUZ')) {
+if (!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-class memory_driver_eaccelerator
-{
+class memory_driver_eaccelerator {
+
+	public $cacheName = 'eAccelerator';
+	public $enable;
+	
+	public function env() {
+		return function_exists('eaccelerator_get');
+	}
 
 	public function init($config) {
-
+		$this->enable = $this->env();
 	}
 
 	public function get($key) {
