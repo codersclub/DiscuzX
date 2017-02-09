@@ -2223,7 +2223,7 @@ EOT;
 				$cachelist[] = array($memory->cacheName,
 					$memory->env($config) ? cplang('setting_memory_php_enable') : cplang('setting_memory_php_disable'),
 					$available ? cplang('open') : cplang('closed'),
-					$cache_type == $cache ? $do_clear_link : '--'
+					$cache_type == $memory->cacheName ? $do_clear_link : '--'
 				);
 			}
 		}
