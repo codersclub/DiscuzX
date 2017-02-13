@@ -23,6 +23,7 @@ class memory_driver_memcache {
 	public function init($config) {
 		if (!$this->env()) {
 			$this->enable = false;
+			return;
 		}
 		if (!empty($config['server'])) {
 			$this->obj = new Memcache;

@@ -23,6 +23,7 @@ class memory_driver_redis {
 	function init($config) {
 		if(!$this->env()) {
 			$this->enable = false;
+			return;
 		}
 
 		if (!empty($config['server'])) {
