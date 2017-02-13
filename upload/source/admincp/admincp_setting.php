@@ -2210,8 +2210,8 @@ EOT;
 		$cache_extension = C::memory()->extension;
 		$cache_config = C::memory()->config;
 		$cache_type = C::memory()->type;
-		
-		$dir = DISCUZ_ROOT.'./source/class/memory';		
+
+		$dir = DISCUZ_ROOT.'./source/class/memory';
 		$qaadir = dir($dir);
 		$cachelist = array();
 		while($entry = $qaadir->read()) {
@@ -2227,7 +2227,7 @@ EOT;
 				);
 			}
 		}
-		
+
 		foreach($cachelist as $cache) {
 			showtablerow('', array('width="100"', 'width="120"', 'width="120"'), $cache);
 		}

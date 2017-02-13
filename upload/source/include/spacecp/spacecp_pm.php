@@ -375,7 +375,7 @@ if($_GET['op'] == 'checknewpm') {
 		showmessage('operating_too_fast', '', array('waittime' => $waittime), array('return' => true));
 	}
 	$username = $_GET['username'];
-	
+
 	if(!$username || !uc_get_user($username)) {
 		showmessage('pm_ignore_error_nopm');
 	}

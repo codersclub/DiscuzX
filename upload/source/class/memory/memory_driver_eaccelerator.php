@@ -14,7 +14,7 @@ class memory_driver_eaccelerator {
 
 	public $cacheName = 'eAccelerator';
 	public $enable;
-	
+
 	public function env() {
 		return function_exists('eaccelerator_get');
 	}

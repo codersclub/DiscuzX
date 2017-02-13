@@ -15,7 +15,7 @@ class memory_driver_redis {
 	public $cacheName = 'Redis';
 	var $enable;
 	var $obj;
-	
+
 	public function env() {
 		return extension_loaded('redis');
 	}
@@ -34,7 +34,7 @@ class memory_driver_redis {
 					$connect = @$this->obj->connect($config['server'], $config['port']);
 				}
 			} catch (RedisException $e) {
-				
+
 			}
 			$this->enable = $connect ? true : false;
 			if ($this->enable) {

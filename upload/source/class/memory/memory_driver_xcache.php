@@ -18,7 +18,7 @@ class memory_driver_xcache {
 	public function env() {
 		return function_exists('xcache_get');
 	}
-	
+
 	public function init($config) {
 		$this->enable = $this->env();
 	}

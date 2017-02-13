@@ -14,11 +14,11 @@ class memory_driver_apcu {
 
 	public $cacheName = 'APCu';
 	public $enable;
-	
+
 	public function env() {
 		return function_exists('apcu_cache_info') && @apcu_cache_info();
 	}
-	
+
 	public function init($config) {
 		$this->enable = $this->env();
 	}
