@@ -32,7 +32,7 @@ class memory_driver_file {
 			$this->enable = false;
 		}
 	}
-
+	
 	private function cachefile($key) {
 		return str_replace('_', '/', $key).'/'.$key;
 	}
