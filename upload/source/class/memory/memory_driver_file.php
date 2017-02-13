@@ -38,11 +38,11 @@ class memory_driver_file {
 	}
 
 	public function get($key) {
-		$data = false;
+		$data = array();
 		@include_once DISCUZ_ROOT.$this->path.$this->cachefile($key).'.php';
 		if($data !== false) {
 			if($data['exp'] && $data['exp'] < TIMESTAMP) {
-				return false;
+				return array();
 			}
 			return $data['data'];
 		}
