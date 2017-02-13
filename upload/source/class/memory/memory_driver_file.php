@@ -38,18 +38,19 @@ class memory_driver_file {
 	}
 
 	public function get($key) {
-		$data = false;
+		$data = null;
 		@include_once DISCUZ_ROOT.$this->path.$this->cachefile($key).'.php';
-		if($data !== false) {
+		if($data !== null) {
 			if($data['exp'] && $data['exp'] < TIMESTAMP) {
-				return false;
+				return array();
 			}
 			return $data['data'];
 		}
+		return array();
 	}
 
-	public function set($key, $value, $ttl = 0) {
-		$file = DISCUZ_ROOT.$this->path.$this->cachefile($key).'.php';
+	public function set($key, $value, $ttl = 0) {		
+		$file = DISCUZ_ROOT.$this->path.$this->cachefile($key).'.php';		
 		dmkdir(dirname($file));
 		$data = array(
 		    'exp' => $ttl ? TIMESTAMP + $ttl : 0,
