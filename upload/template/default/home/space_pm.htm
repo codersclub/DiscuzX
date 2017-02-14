@@ -363,7 +363,7 @@
 						<tr>
 							<th>{lang ignore_list}</th>
 							<td>
-								<textarea id="ignorelist" name="ignorelist" cols="40" rows="3" class="pt" onkeydown="ctrlEnter(event, 'ignoresubmit');">$ignorelist</textarea>
+								<textarea id="ignorelist" name="ignorelist" cols="40" rows="3" class="pt" onkeydown="ctrlEnter(event, 'ignoresubmit');">{echo htmlspecialchars($ignorelist)}</textarea>
 								<div class="d">{lang ignore_member_pm_message}</div>
 							</td>
 						</tr>
