@@ -424,9 +424,9 @@ d41d8cd98f00b204e9800998ecf8427e *source/class/memory/index.htm
 1e35072da7b92ac96d403679d76543fa *source/class/memory/memory_driver_apc.php
 364805654ff2af0fbce42811e9fbd2e6 *source/class/memory/memory_driver_apcu.php
 9c96bd705b9fd5cf3ea2bef7fe6ca5df *source/class/memory/memory_driver_eaccelerator.php
-9a0a642aab5f3515455740dd43270977 *source/class/memory/memory_driver_file.php
-84f3bf537cc66d0da213bb5fa37ef765 *source/class/memory/memory_driver_memcache.php
-07a2cd45dceba03c03ed9a07d6b92890 *source/class/memory/memory_driver_redis.php
+1a72aed1ba07c081a9c68b9bcc637535 *source/class/memory/memory_driver_file.php
+180500c56a1b96c1e037f3912b2a0227 *source/class/memory/memory_driver_memcache.php
+94f8281f4fc8872f638a09ae228e3175 *source/class/memory/memory_driver_redis.php
 8c7f65df61b3f14f2ee37c75898d6eed *source/class/memory/memory_driver_wincache.php
 717cfdbae201aa8a248d75ae5722d1c5 *source/class/memory/memory_driver_xcache.php
 56f6173531e5ed99ea1152ae8e3a1ae9 *source/class/memory/memory_driver_yac.php
@@ -643,7 +643,7 @@ cd142f7d9d56f6f5cdf20ba8bcb80841 *source/class/table/table_forum_sofa.php
 292ba4a8221d934d4069e1e82d0bbb9c *source/class/table/table_forum_spacecache.php
 40059149d0a0675213c0b0ac29b99fa4 *source/class/table/table_forum_statlog.php
 368ec5a3d526adbc74c66eba78a5ae0a *source/class/table/table_forum_thread.php
-c5c0b3b03071062b92aaee68d55831e5 *source/class/table/table_forum_threadaddviews.php
+162b9dc329cba0cc0e4a3c75525f3e1e *source/class/table/table_forum_threadaddviews.php
 588140e7c65c8722818cb1150222c795 *source/class/table/table_forum_threadcalendar.php
 2923528d736502648736bf1cad609fa7 *source/class/table/table_forum_threadclass.php
 be2090d1c36d55a9a7948f23f08535cb *source/class/table/table_forum_threadclosed.php
@@ -1172,7 +1172,7 @@ cb51cfe16559084716000b0725fb111a *source/module/forum/forum_rss.php
 9eacb72a42d21156d35b2a8956cc0fdc *source/module/forum/forum_tag.php
 571fc4f66dc650cdf4548ff0d8d60e40 *source/module/forum/forum_topicadmin.php
 e7d4e8fed8d979a928cd8960eec25f2d *source/module/forum/forum_trade.php
-6a8ed2029e8999663fed93a1b5862e30 *source/module/forum/forum_viewthread.php
+1bb14c8ce1111236abf47a66714ff4bc *source/module/forum/forum_viewthread.php
 d41d8cd98f00b204e9800998ecf8427e *source/module/forum/index.htm
 6ac2bc80c87d24ef37a87e02cf9f31cd *source/module/group/group_attentiongroup.php
 8263a15c6d7dc0246cf7426d16cd9195 *source/module/group/group_index.php
@@ -2939,7 +2939,7 @@ f889751eb9e455fed31d782272af3003 *template/default/home/space_magic_mybox_opreat
 4490e2e9d7a55f691662916ba6de7a56 *template/default/home/space_menu.htm
 e89c61eae28804a2c51b145dd9353238 *template/default/home/space_notice.htm
 f29ffdea85f26b61e694574ed7f633e1 *template/default/home/space_plugin.htm
-a992cfb032e83fc42a3c3d5cf4465dff *template/default/home/space_pm.htm
+2b97b583e4755c6b28ca08d10bf8ed38 *template/default/home/space_pm.htm
 c1f3ed0d23e80ed3cfd33afda9433625 *template/default/home/space_pm_node.htm
 cbfb462a1269283ac208c9c8fcd83bdc *template/default/home/space_poll.htm
 f6a093129e0566392a9d7f5919394aa6 *template/default/home/space_privacy.htm

@@ -32,20 +32,20 @@ class memory_driver_file {
 			$this->enable = false;
 		}
 	}
-	
+
 	private function cachefile($key) {
 		return str_replace('_', '/', $key).'/'.$key;
 	}
-	
+
 	public function get($key) {
 		$file = DISCUZ_ROOT.$this->path.$this->cachefile($key).'.php';
-		if(!file_exists($file)) {			
+		if(!file_exists($file)) {
 			return false;
 		}
 		$data = null;
 		@include $file;
 		if($data !== null) {
-			if($data['exp'] && $data['exp'] < TIMESTAMP) {		
+			if($data['exp'] && $data['exp'] < TIMESTAMP) {
 				return false;
 			} else {
 				return $data['data'];
@@ -69,8 +69,8 @@ class memory_driver_file {
 	public function rm($key) {
 		return @unlink(DISCUZ_ROOT.$this->path.$this->cachefile($key));
 	}
-	
-	private function dir_clear($dir) {		
+
+	private function dir_clear($dir) {
 		if($directory = @dir($dir)) {
 			while($entry = $directory->read()) {
 				$filename = $dir.'/'.$entry;
@@ -83,7 +83,7 @@ class memory_driver_file {
 					}
 				}
 			}
-			$directory->close();			
+			$directory->close();
 		}
 	}
 
