@@ -15,7 +15,6 @@ class memory_driver_file {
 	public $cacheName = 'File';
 	public $enable;
 	public $path;
-	public $cacheData;
 
 	public function env() {
 		return true;
@@ -38,13 +37,13 @@ class memory_driver_file {
 		return str_replace('_', '/', $key).'/'.$key;
 	}
 	
-	private function _get($key) {
+	public function get($key) {
 		$file = DISCUZ_ROOT.$this->path.$this->cachefile($key).'.php';
 		if(!file_exists($file)) {			
 			return false;
 		}
 		$data = null;
-		@include_once $file;
+		@include $file;
 		if($data !== null) {
 			if($data['exp'] && $data['exp'] < TIMESTAMP) {		
 				return false;
@@ -55,13 +54,6 @@ class memory_driver_file {
 			return false;
 		}
 	}
-	
-	public function get($key) {
-		if(!isset($this->cacheData[$key])) {
-			$this->cacheData[$key] = $this->_get($key);
-		}
-		return $this->cacheData[$key];
-	}
 
 	public function set($key, $value, $ttl = 0) {
 		$file = DISCUZ_ROOT.$this->path.$this->cachefile($key).'.php';
@@ -71,7 +63,6 @@ class memory_driver_file {
 		    'data' => $value,
 		);
 		file_put_contents($file, "<?php\n\$data = ".var_export($data, 1).";\n");
-		$this->cacheData[$key] = $value;
 		return true;
 	}
 
