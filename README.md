@@ -7,6 +7,7 @@ Discuz! X 官方 Git/SVN (https://git.oschina.net/ComsenzDiscuz/DiscuzX) ，简�
 
 ### **版本更新说明**
 X3.3 将提高 Release 的更新频率，以 10 天为单位更新一次 Release，同时更新 MD5 文件，日常提交不再更新 MD5 文件
+[重点更新日志](https://git.oschina.net/ComsenzDiscuz/DiscuzX/wikis/%E9%87%8D%E7%82%B9%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97)
 
 ### **相关网站**
  
