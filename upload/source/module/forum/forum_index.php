@@ -467,6 +467,7 @@ function get_index_page_guest_cache() {
 				$('debuginfo').innerHTML = '. This page is cached  at $updatetime $gzip .';
 			}
 			</script>";
+		echo '</body></html>';
 		exit();
 	}
 }
