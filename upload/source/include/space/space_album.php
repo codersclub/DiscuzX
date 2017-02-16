@@ -99,7 +99,7 @@ if($id) {
 	$seodata = array('album' => $album['albumname'], 'user' => $album['username'], 'depict' => $album['depict']);
 	list($navtitle, $metadescription, $metakeywords) = get_seosetting('album', $seodata);
 	if(empty($navtitle)) {
-		$navtitle = $album['albumname'].' - '.lang('space', 'sb_album', array('who' => $album['username']));
+		$navtitle = (empty($album['albumname']) ? '' : $album['albumname'].' - ').lang('space', 'sb_album', array('who' => $album['username']));
 		$nobbname = false;
 	} else {
 		$nobbname = true;
