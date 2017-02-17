@@ -21,4 +21,4 @@ X3.3 将提高 Release 的更新频率，以 10 天为单位更新一次 Release
 - DiscuzLite：https://git.oschina.net/3dming/DiscuzL
 
 ### **DxGit Forker 交流群**
-[QQ群 62652633](http://shang.qq.com/wpa/qunwpa?idkey=5c7c9ff98ebd001751bcda84b47c77830c554f729c72c247957cd86bdd83aa47)
+[QQ群 62652633](http://shang.qq.com/wpa/qunwpa?idkey=5c7c9ff98ebd001751bcda84b47c77830c554f729c72c247957cd86bdd83aa47) 本群仅限 Fork 本 Git 的用户加入，入群请提供您 Fork 的地址
