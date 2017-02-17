@@ -96,16 +96,10 @@ if(!submitcheck('modsubmit')) {
 				$groupterms = dunserialize($memberfieldforum['groupterms']);
 				unset($memberfieldforum);
 				if($member && $member['groupid'] != 4) {
-					$extgroupidsarray = array();
-					foreach(array_unique(array_merge($member['extgroupids'], array(4))) as $extgroupid) {
-						if($extgroupid) {
-							$extgroupidsarray[] = $extgroupid;
-						}
-					}
-					$extgroupidsnew = implode("\t", $extgroupidsarray);
 					$banexpiry = TIMESTAMP + $_G['setting']['warningexpiration'] * 86400;
+					$groupterms['main'] = array('time' => $banexpiry, 'adminid' => $member['adminid'], 'groupid' => $member['groupid']);
 					$groupterms['ext'][4] = $banexpiry;
-					C::t('common_member')->update($post['authorid'], array('groupid' => 4, 'groupexpiry' => groupexpiry($groupterms)));
+					C::t('common_member')->update($post['authorid'], array('groupid' => 4, 'adminid' => -1, 'groupexpiry' => groupexpiry($groupterms)));
 					C::t('common_member_field_forum')->update($post['authorid'], array('groupterms' => serialize($groupterms)));
 				}
 			}
