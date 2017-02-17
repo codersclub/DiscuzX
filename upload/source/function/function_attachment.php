@@ -108,21 +108,28 @@ function parseattach($attachpids, $attachtags, &$postlist, $skipaids = array()) 
 		$attach['url'] = ($attach['remote'] ? $_G['setting']['ftp']['attachurl'] : $_G['setting']['attachurl']).'forum/';
 		$attach['dbdateline'] = $attach['dateline'];
 		$attach['dateline'] = dgmdate($attach['dateline'], 'u');
-		$postlist[$attach['pid']]['attachments'][$attach['aid']] = $attach;
+		$hideattachs = $_G['adminid'] != 1 && $_G['setting']['bannedmessages'] & 1 && (($postlist[$attach['pid']]['authorid'] && !$postlist[$attach['pid']]['username'])
+				|| ($postlist[$attach['pid']]['groupid'] == 4 || $postlist[$attach['pid']]['groupid'] == 5) || $postlist[$attach['pid']]['status'] == -1 || $postlist[$attach['pid']]['memberstatus'])
+				|| $_G['adminid'] != 1 && $postlist[$attach['pid']]['status'] & 1 || $postlist[$attach['pid']]['first'] && $_G['forum_threadpay'];
+		if(!$hideattachs) {
+			$postlist[$attach['pid']]['attachments'][$attach['aid']] = $attach;
+		}
 		if(!defined('IN_MOBILE_API') && !empty($attachtags[$attach['pid']]) && is_array($attachtags[$attach['pid']]) && in_array($attach['aid'], $attachtags[$attach['pid']])) {
 			$findattach[$attach['pid']][$attach['aid']] = "/\[attach\]$attach[aid]\[\/attach\]/i";
 			$attached = 1;
 		}
 
-		if(!$attached) {
+		if(!$attached) {			
 			if($attach['isimage']) {
-				$postlist[$attach['pid']]['imagelist'][] = $attach['aid'];
-				$postlist[$attach['pid']]['imagelistcount']++;
+				if(!$hideattachs) {
+					$postlist[$attach['pid']]['imagelist'][] = $attach['aid'];
+					$postlist[$attach['pid']]['imagelistcount']++;
+				}
 				if($postlist[$attach['pid']]['first']) {
 					$GLOBALS['firstimgs'][] = $attach['aid'];
 				}
 			} else {
-				if(!$_G['forum_skipaidlist'] || !in_array($attach['aid'], $_G['forum_skipaidlist'])) {
+				if(!$hideattachs && (!$_G['forum_skipaidlist'] || !in_array($attach['aid'], $_G['forum_skipaidlist']))) {
 					$postlist[$attach['pid']]['attachlist'][] = $attach['aid'];
 				}
 			}
