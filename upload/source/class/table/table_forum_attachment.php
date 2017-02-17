@@ -26,6 +26,7 @@ class table_forum_attachment extends discuz_table
 	}
 
 	public function update_download($aid, $count = 1) {
+		$this->clear_cache($aid);
 		return DB::query("UPDATE %t SET downloads=downloads+%d WHERE aid IN (%n)", array($this->_table, $count, (array)$aid), false, true);
 	}
 
