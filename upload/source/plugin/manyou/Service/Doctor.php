@@ -173,7 +173,7 @@ class Cloud_Service_Doctor {
 			var checkPosition = '$position';
 			var discuzTime = '$time';
 		</script>
-		<script type="text/javascript" src="http://discuz.gtimg.cn/cloud/scripts/doctor.js?v=$rand" charset="utf-8"></script>
+		<script type="text/javascript" src="//discuz.gtimg.cn/cloud/scripts/doctor.js?v=$rand" charset="utf-8"></script>
 EOF;
 		echo $output;
 	}
