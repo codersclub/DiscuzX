@@ -119,7 +119,7 @@ function parseattach($attachpids, $attachtags, &$postlist, $skipaids = array()) 
 			$attached = 1;
 		}
 
-		if(!$attached) {			
+		if(!$attached) {
 			if($attach['isimage']) {
 				if(!$hideattachs) {
 					$postlist[$attach['pid']]['imagelist'][] = $attach['aid'];
