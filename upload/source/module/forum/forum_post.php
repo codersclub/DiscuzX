@@ -16,6 +16,7 @@ cknewuser();
 
 require_once libfile('class/credit');
 require_once libfile('function/post');
+require_once libfile('function/forumlist');
 
 
 $pid = intval(getgpc('pid'));
@@ -108,6 +109,9 @@ if($_GET['action'] == 'edit' || $_GET['action'] == 'reply') {
 
 	if($thread['closed'] == 1 && !$_G['forum']['ismoderator']) {
 		showmessage('post_thread_closed');
+	}
+	if(!$thread['isgroup'] && $post_autoclose = checkautoclose($thread)) {
+		showmessage($post_autoclose, '', array('autoclose' => $_G['forum']['autoclose']));
 	}
 }
 
