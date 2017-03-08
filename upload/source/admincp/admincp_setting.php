@@ -1754,7 +1754,7 @@ EOF;
 		$setting['secqaa'] = dunserialize($setting['secqaa']);
 		$start_limit = ($page - 1) * 10;
 		$secqaanums = C::t('common_secquestion')->count();
-		$multipage = multi($secqaanums, 10, $page, ADMINSCRIPT.'?action=setting&operation=sec&anchor=secqaa');
+		$multipage = multi($secqaanums, 10, $page, ADMINSCRIPT.'?action=setting&operation=seccheck&anchor=secqaa');
 
 
 		echo <<<EOT
