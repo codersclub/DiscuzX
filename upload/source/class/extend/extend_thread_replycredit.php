@@ -19,7 +19,7 @@ class extend_thread_replycredit extends extend_thread_base {
 		if($this->group['allowreplycredit']) {
 			$_GET['replycredit_extcredits'] = intval($_GET['replycredit_extcredits']);
 			$_GET['replycredit_times'] = intval($_GET['replycredit_times']);
-			$_GET['replycredit_membertimes'] = intval($_GET['replycredit_membertimes']);
+			$_GET['replycredit_membertimes'] = intval($_GET['replycredit_membertimes']) > 0 && intval($_GET['replycredit_membertimes']) <= 10 ? intval($_GET['replycredit_membertimes']) : 1;
 			$_GET['replycredit_random'] = intval($_GET['replycredit_random']);
 
 			$_GET['replycredit_random'] = $_GET['replycredit_random'] < 0 || $_GET['replycredit_random'] > 99 ? 0 : $_GET['replycredit_random'] ;
@@ -88,7 +88,7 @@ class extend_thread_replycredit extends extend_thread_base {
 				$replycredit_rule = isset($parameters['replycredit_rule']) && $parameters['replycredit_rule'] ? $parameters['replycredit_rule'] : array();
 				$_POST['replycredit_extcredits'] = intval($_POST['replycredit_extcredits']);
 				$_POST['replycredit_times'] = intval($_POST['replycredit_times']);
-				$_POST['replycredit_membertimes'] = intval($_POST['replycredit_membertimes']) > 0 ? intval($_POST['replycredit_membertimes']) : 1;
+				$_POST['replycredit_membertimes'] = intval($_POST['replycredit_membertimes']) > 0 && intval($_POST['replycredit_membertimes']) <= 10 ? intval($_POST['replycredit_membertimes']) : 1;
 				$_POST['replycredit_random'] = intval($_POST['replycredit_random']) < 0 || intval($_POST['replycredit_random']) > 99 ? 0 : intval($_POST['replycredit_random']) ;
 				if($_POST['replycredit_extcredits'] > 0 && $_POST['replycredit_times'] > 0) {
 					$replycredit = $_POST['replycredit_extcredits'] * $_POST['replycredit_times'];
