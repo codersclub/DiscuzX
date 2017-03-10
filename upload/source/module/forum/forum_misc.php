@@ -26,7 +26,7 @@ if($_GET['action'] == 'paysucceed') {
 	exit;
 
 } elseif($_GET['action'] == 'attachcredit') {
-	if($_GET['formhash'] != FORMHASH) {
+	if($_GET['formhash'] != FORMHASH || !$_G['uid']) {
 		showmessage('undefined_action', NULL);
 	}
 
