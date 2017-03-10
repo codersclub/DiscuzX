@@ -16,8 +16,7 @@ function checkautoclose($thread) {
 
 	if(!$_G['forum']['ismoderator'] && $_G['forum']['autoclose']) {
 		$closedby = $_G['forum']['autoclose'] > 0 ? 'dateline' : 'lastpost';
-		$_G['forum']['autoclose'] = abs($_G['forum']['autoclose']);
-		if(TIMESTAMP - $thread[$closedby] > $_G['forum']['autoclose'] * 86400) {
+		if(TIMESTAMP - $thread[$closedby] > abs($_G['forum']['autoclose']) * 86400) {
 			return 'post_thread_closed_by_'.$closedby;
 		}
 	}
