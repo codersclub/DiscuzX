@@ -39,6 +39,7 @@ $lang = array
 	'threadlist_sortids' => '分类信息',
 	'threadlist_sortids_comment' => '设置特定分类信息的主题。注意: 全选或全不选均为不进行任何过滤',
 	'threadlist_sortids_all' => '全部的分类信息',
+	'threadlist_reply' => '无回复主题过滤',
 	'threadlist_digest' => '精华主题过滤',
 	'threadlist_digest_comment' => '设置特定的主题范围。注意: 全选或全不选均为不进行任何过滤',
 	'threadlist_digest_0' => '普通主题',
