@@ -261,13 +261,13 @@ class block_thread extends discuz_block {
 		$digest		= isset($parameter['digest']) ? $parameter['digest'] : 0;
 		$stick		= isset($parameter['stick']) ? $parameter['stick'] : 0;
 		$orderby	= isset($parameter['orderby']) ? (in_array($parameter['orderby'],array('lastpost','dateline','replies','views','heats','recommends')) ? $parameter['orderby'] : 'lastpost') : 'lastpost';
-		$lastposter  = !empty($parameter['lastposter']) ? $parameter['lastposter'] : '';
+		$lastposter = !empty($parameter['lastposter']) ? $parameter['lastposter'] : '';
 		$lastpost	= isset($parameter['lastpost']) ? intval($parameter['lastpost']) : 0;
 		$postdateline	= isset($parameter['postdateline']) ? intval($parameter['postdateline']) : 0;
 		$titlelength	= !empty($parameter['titlelength']) ? intval($parameter['titlelength']) : 40;
 		$summarylength	= !empty($parameter['summarylength']) ? intval($parameter['summarylength']) : 80;
 		$recommend	= !empty($parameter['recommend']) ? 1 : 0;
-		$reply    = !empty($parameter['reply']);
+		$reply      = !empty($parameter['reply']);
 		$keyword	= !empty($parameter['keyword']) ? $parameter['keyword'] : '';
 		$tagkeyword	= !empty($parameter['tagkeyword']) ? $parameter['tagkeyword'] : '';
 		$typeids	= !empty($parameter['typeids']) ? explode(',',$parameter['typeids']) : array();
