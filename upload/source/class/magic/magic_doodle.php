@@ -38,13 +38,13 @@ class magic_doodle {
 	function show() {
 		global $_G;
 		magicshowtips(lang('magic/doodle', 'doodle_info'));
-		echo <<<SCRIPT
+		echo '
 <p>
-	<input type="hidden" name="showid" value="$_GET[showid]" />
-	<input type="hidden" name="mtarget" value="$_GET[target]" />
-	<input type="hidden" name="from" value="$_GET[from]" />
+	<input type="hidden" name="showid" value="'.htmlspecialchars($_GET[showid]).'" />
+	<input type="hidden" name="mtarget" value="'.htmlspecialchars($_GET[target]).'" />
+	<input type="hidden" name="from" value="'.htmlspecialchars($_GET[from]).'" />
 </p>
-SCRIPT;
+';
 	}
 
 }
