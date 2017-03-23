@@ -31,6 +31,7 @@ $page = max(1, intval($_GET['page']));
 $action = $_GET['action'];
 $operation = $_GET['operation'];
 $start_limit = ($page - 1) * $_G['tpp'];
+$_GET['idtype'] = dhtmlspecialchars($_GET['idtype']);
 
 $comma = $typeadd = $filteradd = $forumperm = $targetgroupperm = '';
 $magicarray = is_array($_G['cache']['magics']) ? $_G['cache']['magics'] : array();
