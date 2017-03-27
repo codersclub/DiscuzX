@@ -54,7 +54,7 @@ if($_GET['op'] == 'delete') {
 			C::t('home_favorite')->delete($favid);
 			if($_G['setting']['cloud_status']) {
 				$favoriteService = Cloud::loadClass('Service_Client_Favorite');
-				$favoriteService->remove($_G['uid'], $favid);
+				$favoriteService->remove($_G['uid'], $favid, TIMESTAMP);
 			}
 			showmessage('do_success', 'home.php?mod=space&uid='.$_G['uid'].'&do=favorite&view=me&type='.$_GET['type'].'&quickforward=1', array('favid' => $favid, 'id' => $thevalue['id']), array('showdialog'=>1, 'showmsg' => true, 'closetime' => true, 'locationtime' => 3));
 		}
