@@ -212,7 +212,7 @@ class db_driver_mysql
 	}
 
 	function escape_string($str) {
-		return mysql_escape_string($str);
+		return mysql_real_escape_string($str);
 	}
 
 	function close() {
