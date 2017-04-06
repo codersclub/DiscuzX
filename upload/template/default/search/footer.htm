@@ -30,7 +30,7 @@
 
 <div id="ft" class="w cl">
 	<em>Powered by <strong><a href="http://www.discuz.net" target="_blank">Discuz!</a></strong> <em>$_G['setting']['version']</em><!--{if !empty($_G['setting']['boardlicensed'])}--> <a href="http://license.comsenz.com/?pid=1&host=$_SERVER[HTTP_HOST]" target="_blank">Licensed</a><!--{/if}--></em> &nbsp;
-	<em>&copy; 2001-2013 <a href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a></em>
+	<em>&copy; 2001-2017 <a href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a></em>
 	<span class="pipe">|</span>
 	<!--{loop $_G['setting']['footernavs'] $nav}--><!--{if $nav['available'] && ($nav['type'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1)) ||
 			!$nav['type'] && ($nav['id'] == 'stat' && $_G['group']['allowstatdata'] || $nav['id'] == 'report' && $_G['uid'] || $nav['id'] == 'archiver'))}-->$nav[code]<span class="pipe">|</span><!--{/if}--><!--{/loop}-->
