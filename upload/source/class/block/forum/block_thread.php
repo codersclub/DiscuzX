@@ -45,6 +45,10 @@ class block_thread extends discuz_block {
 				'type' => 'mselect',
 				'value' => array()
 			),
+			'reply' => array(
+				'title' => 'threadlist_reply',
+				'type' => 'radio'
+			),
 			'digest' => array(
 				'title' => 'threadlist_digest',
 				'type' => 'mcheckbox',
@@ -189,6 +193,7 @@ class block_thread extends discuz_block {
 					'sorturl' => array('name' => lang('blockclass', 'blockclass_thread_field_sorturl'), 'formtype' => 'text', 'datatype' => 'string'),
 					'posts' => array('name' => lang('blockclass', 'blockclass_thread_field_posts'), 'formtype' => 'text', 'datatype' => 'int'),
 					'todayposts' => array('name' => lang('blockclass', 'blockclass_thread_field_todayposts'), 'formtype' => 'text', 'datatype' => 'int'),
+					'lastposter' => array('name' => lang('blockclass', 'blockclass_thread_field_lastposter'), 'formtype' => 'string', 'datatype' => 'string'),
 					'lastpost' => array('name' => lang('blockclass', 'blockclass_thread_field_lastpost'), 'formtype' => 'date', 'datatype' => 'date'),
 					'dateline' => array('name' => lang('blockclass', 'blockclass_thread_field_dateline'), 'formtype' => 'date', 'datatype' => 'date'),
 					'replies' => array('name' => lang('blockclass', 'blockclass_thread_field_replies'), 'formtype' => 'text', 'datatype' => 'int'),
@@ -256,11 +261,13 @@ class block_thread extends discuz_block {
 		$digest		= isset($parameter['digest']) ? $parameter['digest'] : 0;
 		$stick		= isset($parameter['stick']) ? $parameter['stick'] : 0;
 		$orderby	= isset($parameter['orderby']) ? (in_array($parameter['orderby'],array('lastpost','dateline','replies','views','heats','recommends')) ? $parameter['orderby'] : 'lastpost') : 'lastpost';
+		$lastposter	= !empty($parameter['lastposter']) ? $parameter['lastposter'] : '';
 		$lastpost	= isset($parameter['lastpost']) ? intval($parameter['lastpost']) : 0;
 		$postdateline	= isset($parameter['postdateline']) ? intval($parameter['postdateline']) : 0;
 		$titlelength	= !empty($parameter['titlelength']) ? intval($parameter['titlelength']) : 40;
 		$summarylength	= !empty($parameter['summarylength']) ? intval($parameter['summarylength']) : 80;
 		$recommend	= !empty($parameter['recommend']) ? 1 : 0;
+		$reply		= !empty($parameter['reply']);
 		$keyword	= !empty($parameter['keyword']) ? $parameter['keyword'] : '';
 		$tagkeyword	= !empty($parameter['tagkeyword']) ? $parameter['tagkeyword'] : '';
 		$typeids	= !empty($parameter['typeids']) ? explode(',',$parameter['typeids']) : array();
@@ -343,6 +350,10 @@ class block_thread extends discuz_block {
 			$sqlfrom .= " $joinmethod JOIN `".DB::table('forum_forumrecommend')."` fc ON fc.tid=t.tid";
 		}
 
+		if($reply) {
+			$sql .= " AND t.replies>'0'";
+		}
+
 		if($tagids) {
 			$sqlfrom .= " $joinmethod JOIN `".DB::table('common_tagitem')."` tim ON tim.tagid IN (".dimplode(array_keys($tagids)).") AND tim.itemid=t.tid AND tim.idtype='tid' ";
 		}
@@ -383,6 +394,7 @@ class block_thread extends discuz_block {
 					'avatar_big' => avatar(($data['author'] ? $data['authorid'] : 0), 'big', true, false, false, $_G['setting']['ucenterurl']),
 					'posts' => $data['posts'],
 					'todayposts' => $data['todayposts'],
+					'lastposter' => str_replace('\\\'', '&#39;', addslashes($data['lastposter'])),
 					'lastpost' => $data['lastpost'],
 					'dateline' => $data['dateline'],
 					'replies' => $data['replies'],
