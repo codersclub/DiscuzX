@@ -67,7 +67,7 @@ class memory_driver_file {
 	}
 
 	public function rm($key) {
-		return @unlink(DISCUZ_ROOT.$this->path.$this->cachefile($key));
+		return @unlink(DISCUZ_ROOT.$this->path.$this->cachefile($key).'.php');
 	}
 
 	private function dir_clear($dir) {
