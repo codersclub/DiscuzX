@@ -121,7 +121,8 @@ if(submitcheck('connectsubmit')) {
 			showmessage('submit_invalid');
 		}
 
-		$connectService = Cloud::loadClass('Service_Connect');
+		require_once DISCUZ_ROOT.'/source/plugin/qqconnect/lib/Connect.php';
+		$connectService = new Cloud_Service_Connect();
 		$connectService->connectMergeMember();
 
 		if($_G['member']['conuin'] && $_G['member']['conuinsecret']) {
@@ -137,7 +138,8 @@ if(submitcheck('connectsubmit')) {
 
 			$arr['version'] = 'qzone1.0';
 
-			$utilService = Cloud::loadClass('Service_Util');
+			require_once DISCUZ_ROOT.'/source/plugin/qqconnect/lib/Util.php';
+			$utilService = new Cloud_Service_Util();
 			$result = $connectService->connectOutputPhp('http://api.discuz.qq.com/connect/getSignature?' . $utilService->httpBuildQuery($arr, '', '&'));
 			if ($result['status'] == 0) {
 				$connectService->connectAjaxOuputMessage('[wb=' . $result['result']['username'] . ']' . $result['result']['signature_url'] . '[/wb]', 0);

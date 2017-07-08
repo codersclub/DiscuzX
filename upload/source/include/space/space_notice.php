@@ -127,10 +127,6 @@ if($view == 'userapp') {
 
 	if($newnotify) {
 		C::t('home_notification')->ignore($_G['uid'], $type, $category, true, true);
-		if($_G['setting']['cloud_status']) {
-			$noticeService = Cloud::loadClass('Service_Client_Notification');
-			$noticeService->setNoticeFlag($_G['uid'], TIMESTAMP);
-		}
 	}
 	helper_notification::update_newprompt($_G['uid'], ($type ? $type : $category));
 	if($_G['setting']['my_app_status']) {

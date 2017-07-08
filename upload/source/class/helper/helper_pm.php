@@ -39,22 +39,6 @@ class helper_pm {
 		loaducenter();
 		$return = uc_pm_send($fromid, $toid, addslashes($subject), addslashes($message), 1, $replypmid, $isusername, $type);
 		if($return > 0 && $fromid) {
-			if($_G['setting']['cloud_status']) {
-				$msgService = Cloud::loadClass('Cloud_Service_Client_Message');
-				if(is_numeric($toid)) {
-					$msgService->add($toid, $fromid, $author, $_G['timestamp']);
-				} else {
-					$senduids = array();
-					foreach(C::t('common_member')->fetch_all_by_username(explode(',', $toid)) as $touser) {
-						$senduids[$touser['uid']] = $touser['uid'];
-					}
-					if($senduids) {
-						$msgService->add($senduids, $fromid, $author, $_G['timestamp']);
-					}
-				}
-
-
-			}
 			foreach(explode(',', $fromid) as $v) {
 				useractionlog($fromid, 'pmid');
 			}

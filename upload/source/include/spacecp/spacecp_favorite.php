@@ -30,10 +30,6 @@ if($_GET['op'] == 'delete') {
 				C::t('forum_forum')->update_forum_counter($deletecounter['fids'], 0, 0, 0, 0, -1);
 			}
 			C::t('home_favorite')->delete($_GET['favorite'], false, $_G['uid']);
-			if($_G['setting']['cloud_status']) {
-				$favoriteService = Cloud::loadClass('Service_Client_Favorite');
-				$favoriteService->remove($_G['uid'], $_GET['favorite'], TIMESTAMP);
-			}
 		}
 		showmessage('favorite_delete_succeed', 'home.php?mod=space&uid='.$_G['uid'].'&do=favorite&view=me&type='.$_GET['type'].'&quickforward=1');
 	} else {
@@ -52,10 +48,6 @@ if($_GET['op'] == 'delete') {
 					break;
 			}
 			C::t('home_favorite')->delete($favid);
-			if($_G['setting']['cloud_status']) {
-				$favoriteService = Cloud::loadClass('Service_Client_Favorite');
-				$favoriteService->remove($_G['uid'], $favid, TIMESTAMP);
-			}
 			showmessage('do_success', 'home.php?mod=space&uid='.$_G['uid'].'&do=favorite&view=me&type='.$_GET['type'].'&quickforward=1', array('favid' => $favid, 'id' => $thevalue['id']), array('showdialog'=>1, 'showmsg' => true, 'closetime' => true, 'locationtime' => 3));
 		}
 	}
@@ -141,10 +133,7 @@ if($_GET['op'] == 'delete') {
 			'dateline' => TIMESTAMP
 		);
 		$favid = C::t('home_favorite')->insert($arr, true);
-		if($_G['setting']['cloud_status']) {
-			$favoriteService = Cloud::loadClass('Service_Client_Favorite');
-			$favoriteService->add($arr['uid'], $favid, $arr['id'], $arr['idtype'], $arr['title'], $arr['description'], TIMESTAMP);
-		}
+		
 		switch($type) {
 			case 'thread':
 				C::t('forum_thread')->increase($id, array('favtimes'=>1));

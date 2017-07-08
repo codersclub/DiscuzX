@@ -236,7 +236,6 @@ $menu['tools'] = array(
 	$isfounder ? array('menu_tools_fileperms', 'tools_fileperms') : null,
 	$isfounder ? array('menu_tools_filecheck', 'checktools_filecheck') : null,
 	$isfounder ? array('menu_tools_hookcheck', 'checktools_hookcheck') : null,
-	$isfounder ? array('menu_cloud_doctor', 'cloud_doctor') : null,
 );
 if($isfounder) {
 	$topmenu['founder'] = '';

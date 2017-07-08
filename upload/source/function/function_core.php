@@ -1038,10 +1038,6 @@ function output() {
 	if(defined('IN_MOBILE')) {
 		mobileoutput();
 	}
-	if(!defined('IN_MOBILE') && !defined('IN_ARCHIVER')) {
-		$tipsService = Cloud::loadClass('Service_DiscuzTips');
-		$tipsService->show();
-	}
 	$havedomain = implode('', $_G['setting']['domain']['app']);
 	if($_G['setting']['rewritestatus'] || !empty($havedomain)) {
 		$content = ob_get_contents();

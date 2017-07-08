@@ -63,62 +63,6 @@ if(!empty($srchfid) && !is_numeric($srchfid)) {
 	$forumselect = str_replace('<option value="'.$srchfid.'">', '<option value="'.$srchfid.'" selected="selected">', $forumselect);
 }
 
-$mySearchData = $_G['setting']['my_search_data'];
-if($mySearchData['status'] && !$srchfrom && !$searchid) {
-	if (!$_G['setting']['my_siteid']) {
-		dheader('Location: index.php');
-	}
-	$appService = Cloud::loadClass('Service_App');
-	if($appService->getCloudAppStatus('search') && $searchparams) {
-		$source = 'discuz';
-		$cloudSource = array('collectionsearch', 'hotsearch');
-		if(!empty($_GET['srhlocality'])) {
-			$sourcetype = explode('::', $_GET['srhlocality']);
-			if($sourcetype[0] == 'forum') {
-				$source = $sourcetype[1] == 'index' ? 'forum' : ($sourcetype[1] == 'forumdisplay' ? 'forum_forum' : 'forum_thread');
-			} elseif($sourcetype[0] == 'portal') {
-				$source = $sourcetype[1] == 'view' ? 'article' : ($sourcetype[1] == 'list' ? 'portal_list': 'portal');
-			} elseif($sourcetype[0] == 'group') {
-				$source = $sourcetype[1] == 'viewthread' ? 'group_thread' : ($sourcetype[1] == 'group' ? 'group_forum' : 'group');
-			} elseif($sourcetype[0] == 'home') {
-				$source = 'home'.(empty($sourcetype[1]) ? '' : '_'.$sourcetype[1]);
-			} elseif($sourcetype[0] == 'misc' && $sourcetype[1] == 'ranklist') {
-				$source = 'toplist';
-			}
-		} elseif(in_array($_GET['source'], $cloudSource)) {
-			$source = $_GET['source'];
-		}
-
-		$params = array();
-		$params['source'] = $source;
-
-		$params['q'] = $keyword;
-		$params['module'] = 'forum';
-		if($srhfid) {
-			$params['fId'] = $srhfid;
-		}
-		if($_GET['adv']) {
-			$params['isAdv'] = 1;
-		}
-		if(!empty($_GET['author'])) {
-			$params['author']=$_GET['author'];
-		}
-		if(!empty($_GET['scope'])) {
-			$params['scope']=$_GET['scope'];
-		}
-		if(!empty($_GET['orderField'])) {
-			$params['orderField']=$_GET['orderField'];
-		}
-		$searchparams['params'] = array_merge($searchparams['params'], $params);
-
-		$utilService = Cloud::loadClass('Service_Util');
-		$url = $searchparams['url'] . '?' . $utilService->httpBuildQuery($searchparams['params'], '', '&');
-		$utilService->redirect($url);
-		die;
-	}
-
-}
-
 if(!submitcheck('searchsubmit', 1)) {
 
 	if($_GET['adv']) {

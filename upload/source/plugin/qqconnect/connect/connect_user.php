@@ -38,7 +38,8 @@ if($op == 'get') {
 
 	if($conuin && $conuinsecret && $conopenid) {
 		try {
-			$connectOAuthClient = Cloud::loadClass('Service_Client_ConnectOAuth');
+			require_once DISCUZ_ROOT.'/source/plugin/qqconnect/lib/ConnectOAuth.php';
+			$connectOAuthClient = new Cloud_Service_Client_ConnectOAuth();
 			$connect_user_info = $connectOAuthClient->connectGetUserInfo($conopenid, $conuin, $conuinsecret);
 		} catch(Exception $e) {
 			connect_error_output();

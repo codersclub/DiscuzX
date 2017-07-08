@@ -1000,24 +1000,6 @@ function set_atlist_cookie($uids) {
 	dsetcookie('atlist', implode(',', $uids).($tmp ? ','.implode(',', $tmp) : ''), 86400 * 360);
 }
 
-function cloud_referer_related() {
-	global $_G;
-	$my_search_data = $_G['setting']['my_search_data'];
-	if (viewthread_is_search_referer() && $my_search_data['status']) {
-		$appService = Cloud::loadClass('Service_App');
-		if($appService->getCloudAppStatus('search')) {
-			$_params = array('s_site_gid' => $_G['groupid'],
-							'response_type' => 'js',
-							'referer' => $_SERVER['HTTP_REFERER'],
-						);
-			$utilService = Cloud::loadClass('Service_Util');
-			$signUrl = $utilService->generateSiteSignUrl($_params);
-			$my_search_se_url = 'http://search.discuz.qq.com/api/site/se?' . $signUrl . "";
-		}
-	}
-	return $my_search_se_url;
-}
-
 function viewthread_is_search_referer() {
 	$regex = "((http|https)\:\/\/)?";
 	$regex .= "([a-z]*.)?(ask.com|yahoo.com|cn.yahoo.com|bing.com|baidu.com|soso.com|google.com|google.cn)(.[a-z]{2,3})?\/";

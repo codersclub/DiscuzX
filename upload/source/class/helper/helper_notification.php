@@ -112,16 +112,6 @@ class helper_notification {
 			$pkId = C::t('home_notification')->insert($setarr, true);
 		}
 		$banType = array('task');
-		if($_G['setting']['cloud_status'] && !in_array($type, $banType)) {
-			$noticeService = Cloud::loadClass('Service_Client_Notification');
-			if($oldnote['id']) {
-				$noticeService->update($touid, $pkId, $setarr['from_num'], $setarr['dateline'], $note);
-			} else {
-				$extra = $type == 'post' ? array('pId' => $notevars['pid']) : array();
-				$extra['notekey'] = $note;
-				$noticeService->add($touid, $pkId, $type, $setarr['authorid'], $setarr['author'], $setarr['from_id'], $setarr['from_idtype'], $setarr['note'], $setarr['from_num'], $setarr['dateline'], $extra);
-			}
-		}
 
 		if(empty($oldnote['new'])) {
 			C::t('common_member')->increase($touid, array('newprompt' => 1));

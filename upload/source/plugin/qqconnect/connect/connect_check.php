@@ -11,7 +11,8 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-$utilService = Cloud::loadClass('Service_Util');
+require_once DISCUZ_ROOT.'/source/plugin/qqconnect/lib/Util.php';
+$utilService = new Cloud_Service_Util();
 
 $op = !empty($_GET['op']) ? $_GET['op'] : '';
 if (!in_array($op, array('cookie'))) {

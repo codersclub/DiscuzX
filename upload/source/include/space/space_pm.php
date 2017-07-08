@@ -171,10 +171,6 @@ if($_GET['subop'] == 'view') {
 	}
 	$newpmcount = $newpm + $announcepm;
 	if($_G['member']['newpm']) {
-		if($newpm && $_G['setting']['cloud_status']) {
-			$msgService = Cloud::loadClass('Cloud_Service_Client_Message');
-			$msgService->setMsgFlag($_G['uid'], $_G['timestamp']);
-		}
 		C::t('common_member')->update($_G['uid'], array('newpm' => 0));
 		uc_pm_ignore($_G['uid']);
 	}

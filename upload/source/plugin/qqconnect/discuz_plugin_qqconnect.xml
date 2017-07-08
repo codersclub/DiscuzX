@@ -11,7 +11,7 @@
 			<item id="datatables"><![CDATA[]]></item>
 			<item id="directory"><![CDATA[qqconnect/]]></item>
 			<item id="copyright"><![CDATA[Comsenz Inc.]]></item>
-			<item id="version"><![CDATA[1.18.2]]></item>
+			<item id="version"><![CDATA[2.0]]></item>
 			<item id="__modules">
 				<item id="0">
 					<item id="name"><![CDATA[connect]]></item>
@@ -42,7 +42,7 @@
 				<item id="2">
 					<item id="name"><![CDATA[admincp]]></item>
 					<item id="param"><![CDATA[ac=setting]]></item>
-					<item id="menu"><![CDATA[QQ互联]]></item>
+					<item id="menu"><![CDATA[设置]]></item>
 					<item id="url"><![CDATA[]]></item>
 					<item id="type"><![CDATA[3]]></item>
 					<item id="adminid"><![CDATA[0]]></item>
@@ -65,29 +65,15 @@
 					<item id="navsubname"><![CDATA[]]></item>
 					<item id="navsuburl"><![CDATA[]]></item>
 				</item>
-				<item id="4">
-					<item id="name"><![CDATA[admincp]]></item>
-					<item id="param"><![CDATA[ac=service]]></item>
-					<item id="menu"><![CDATA[其他]]></item>
-					<item id="url"><![CDATA[]]></item>
-					<item id="type"><![CDATA[3]]></item>
-					<item id="adminid"><![CDATA[0]]></item>
-					<item id="displayorder"><![CDATA[1]]></item>
-					<item id="navtitle"><![CDATA[]]></item>
-					<item id="navicon"><![CDATA[]]></item>
-					<item id="navsubname"><![CDATA[]]></item>
-					<item id="navsuburl"><![CDATA[]]></item>
-				</item>
 			</item>
 		</item>
-		<item id="version"><![CDATA[X3.2]]></item>
+		<item id="version"><![CDATA[X3.2,X3.3]]></item>
 		<item id="installfile"><![CDATA[install.php]]></item>
-		<item id="upgradefile"><![CDATA[upgrade.php]]></item>
-		<item id="enablefile"><![CDATA[switch.php]]></item>
-		<item id="disablefile"><![CDATA[switch.php]]></item>
+		<item id="upgradefile"><![CDATA[upgrade.php]]></item>		
 		<item id="language">
 			<item id="scriptlang">
 				<item id="qqconnect_closed"><![CDATA[抱歉，QQ互联功能尚未开启]]></item>
+				<item id="connect_appid_desc"><![CDATA[请填写在“<a href="http://connect.qq.com" target="_blank">QQ互联</a>”申请的 appid 和 appkey]]></item>
 				<item id="connect_app_invalid"><![CDATA[抱歉，QQ互联功能暂时不可用]]></item>
 				<item id="connect_register_bind_already"><![CDATA[抱歉，该用户已绑定过另一个QQ用户，无法再次绑定]]></item>
 				<item id="connect_register_uinlimit"><![CDATA[抱歉，每个QQ帐号只能注册 {limit} 个帐号]]></item>

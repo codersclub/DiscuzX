@@ -238,7 +238,7 @@ EOT;
 	require libfile("cloud/$operation", 'admincp');
 
 } elseif(in_array($operation, array('manyou', 'connect', 'security', 'stats', 'search', 'smilies', 'qqgroup', 'union', 'storage'))) {
-	if($cloudstatus != 'cloud') {
+/*	if($cloudstatus != 'cloud') {
 		cpmsg('cloud_open_first', '', 'succeed', array(), '<p class="marginbot"><a href="###" onclick="top.location = \''.ADMINSCRIPT.'?frames=yes&action=plugins\'" class="lightlink">'.cplang('message_redirect').'</a></p><script type="text/JavaScript">setTimeout("top.location = \''.ADMINSCRIPT.'?frames=yes&action=plugins\'", 3000);</script>');
 	}
 
@@ -251,7 +251,7 @@ EOT;
 			cpmsg('cloud_application_disable', 'action=plugins', 'error');
 		}
 	}
-
+*/
 	require libfile("cloud/$operation", 'admincp');
 
 } else {

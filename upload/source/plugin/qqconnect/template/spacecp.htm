@@ -532,28 +532,7 @@
 
 <!--{if $_G['member']['conisbind']}-->
 	<p class="pbm bbda xi1">{lang qqconnect:connect_config_bindinfo}</p>
-	<!--{if $_G['member']['is_feed']}-->
-	<form action="connect.php?mod=config" method="post" autocomplete="off" class="mbw bbda">
-		<input type="hidden" name="formhash" value="{FORMHASH}">
-		<table cellspacing="0" cellpadding="0" class="tfm">
-			<tr>
-				<th>{lang qqconnect:connect_config_bind_setting}</th>
-				<td>
-					<label for="ispublisht"><input type="checkbox" id="ispublisht" name="ispublisht" class="pc" value="1" {if $_G[member][conispublisht]}checked="checked"{/if} /> {lang qqconnect:connect_config_default_pulish_t_title}</label>
-				</td>
-			</tr>
-			<tr>
-				<th></th>
-				<td>
-					<input type="hidden" name="op" value="config"/>
-					<button type="submit" name="connectsubmit" value="yes" class="pn pnc"><strong>{lang qqconnect:connect_config_save}</strong></button>
-				</td>
-			</tr>
-		</table>
-	</form>
-	<!--{else}-->
 	<br />
-	<!--{/if}-->
 
 	<!--{if $_G[member][conisregister]}-->
 	<h2>

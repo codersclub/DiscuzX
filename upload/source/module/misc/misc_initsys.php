@@ -29,30 +29,9 @@ if($_G['config']['output']['tplrefresh']) {
 	cleartemplatecache();
 }
 
-$plugins = array('qqconnect', 'cloudstat', 'soso_smilies', 'security', 'mobile', 'pcmgr_url_safeguard', 'manyou', 'cloudcaptcha', 'wechat');
-$opens = array('mobile', 'pcmgr_url_safeguard', 'security', 'cloudcaptcha');
+$plugins = array('mobile', 'wechat');
+$opens = array('mobile');
 $checkcloses = array('cloudcaptcha');
-
-$cloudapps = array('qqconnect' => 'connect', 'cloudstat' => 'stats', 'soso_smilies' => 'smilies', 'security' => 'security', 'manyou' => 'manyou', 'cloudcaptcha' => 'captcha');
-
-$apps = C::t('common_setting')->fetch('cloud_apps', true);
-if (!$apps) {
-	$apps = array();
-}
-
-if (!is_array($apps)) {
-	$apps = dunserialize($apps);
-}
-
-unset($apps[0]);
-
-if($apps) {
-	foreach($cloudapps as $key => $appname) {
-		if($apps[$appname]['status'] == 'normal') {
-			$opens[] = $key;
-		}
-	}
-}
 
 require_once libfile('function/plugin');
 require_once libfile('function/admincp');
@@ -102,30 +81,6 @@ foreach($plugins as $pluginid) {
 		if(file_exists($plugindir.'/'.$pluginarray['installfile'])) {
 			@include_once $plugindir.'/'.$pluginarray['installfile'];
 		}
-	}
-}
-
-if(!array_key_exists('security', $apps)) {
-	Cloud::loadFile('Service_Client_Cloud');
-	$Cloud_Service_Client_Cloud = new Cloud_Service_Client_Cloud;
-	$return = $Cloud_Service_Client_Cloud->appOpenWithRegister('security');
-	if($return['errCode']) {
-		$plugin = C::t('common_plugin')->fetch_by_identifier('security');
-		C::t('common_plugin')->update($plugin['pluginid'], array('available' => 0));
-	}
-	if($return['result']) {
-		if($return['result']['sId'] && $return['result']['sKey']) {
-			C::t('common_setting')->update_batch(array('my_siteid' => $return['result']['sId'], 'my_sitekey' => $return['result']['sKey']));
-			updatecache('setting');
-		}
-	}
-}
-
-loadcache('setting', 1);
-if(!$_G['setting']['my_siteid']) {
-	foreach($checkcloses as $pluginid) {
-		$plugin = C::t('common_plugin')->fetch_by_identifier($pluginid);
-		C::t('common_plugin')->update($plugin['pluginid'], array('available' => 0));
 	}
 }
 

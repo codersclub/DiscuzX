@@ -50,8 +50,7 @@ if($_G['collection']['ratenum']) {
 if(!$op || $op == 'related') {
 	$isteamworkers = in_array($_G['uid'], array_keys($collectionteamworker));
 
-	$cloud_apps = (array)unserialize($_G['setting']['cloud_apps']);
-	$search_status = $cloud_apps['search']['status'] == 'normal' ? TRUE : FALSE;
+	$search_status = FALSE;
 
 	if(!$op && $op != 'related') {
 		if($_G['collection']['uid'] == $_G['uid']) {

@@ -28,7 +28,7 @@ if(empty($_POST)) {
 		showmessage('qqconnect:connect_login_first', $referer);
 	}
 
-	$_G['qc']['connect_is_feed'] = true;
+	$_G['qc']['connect_is_feed'] = false;
 
 	$_G['qc']['connect_app_id'] = $_G['setting']['connectappid'];
 	$_G['qc']['connect_openid'] = $conopenid;
@@ -65,14 +65,8 @@ if(empty($_POST)) {
 	dsetcookie('client_created', TIMESTAMP, $cookie_expires);
 	dsetcookie('client_token', 1, $cookie_expires);
 
-	if(!$_G['setting']['connect']['oauth2']) {
-		if (!$conuin || !$conuinsecret || !$conopenid) {
-			showmessage('qqconnect:connect_get_request_token_failed');
-		}
-	} else {
-		if (!$conuintoken || !$conopenid) {
-			showmessage('qqconnect:connect_get_request_token_failed');
-		}
+	if (!$conuintoken || !$conopenid) {
+		showmessage('qqconnect:connect_get_request_token_failed');
 	}
 
 	if(C::t('#qqconnect#common_member_connect')->fetch_fields_by_openid($conopenid, 'uid')) {
