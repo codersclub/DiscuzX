@@ -44,9 +44,6 @@
 			var focusautoshow = window.setInterval('showfocus(\'next\', 1);', 5000);
 		</script>
 	<!--{/if}-->
-	<!--{if $_G['uid'] && $_G['member']['allowadmincp'] == 1 && $_G['setting']['showpatchnotice'] == 1}-->
-		<div class="focus patch" id="patch_notice"></div>
-	<!--{/if}-->
 
 	<!--{ad/footerbanner/wp a_f/1}--><!--{ad/footerbanner/wp a_f/2}--><!--{ad/footerbanner/wp a_f/3}-->
 	<!--{ad/float/a_fl/1}--><!--{ad/float/a_fr/2}-->
@@ -101,10 +98,7 @@
 	<!--{if !isset($_G['cookie']['sendmail'])}-->
 	<script type="text/javascript" src="home.php?mod=misc&ac=sendmail&rand=$_G[timestamp]"></script>
 	<!--{/if}-->
-
-	<!--{if $_G[uid] && $_G['member']['allowadmincp'] == 1 && !isset($_G['cookie']['checkpatch'])}-->
-	<script type="text/javascript" src="misc.php?mod=patch&action=checkpatch&rand=$_G[timestamp]"></script>
-	<!--{/if}-->
+	
 <!--{/if}-->
 
 <!--{if $_GET['diy'] == 'yes'}-->

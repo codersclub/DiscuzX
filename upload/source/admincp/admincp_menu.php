@@ -242,8 +242,7 @@ if($isfounder) {
 
 	$menu['founder'] = array(
 		array('menu_founder_perm', 'founder_perm'),
-		array('menu_setting_mail', 'setting_mail'),
-		array('menu_patch', 'patch'),
+		array('menu_setting_mail', 'setting_mail'),		
 		array('menu_setting_uc', 'setting_uc'),
 		array('menu_db', 'db_export'),
 		array('menu_membersplit', 'membersplit_check'),
