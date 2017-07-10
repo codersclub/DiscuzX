@@ -1751,7 +1751,7 @@ if($_GET['step'] == 'start') {
 		}
 		show_msg("用户勋章数据升级完毕", "$theurl?step=data&op=$nextop");
 	} elseif($_GET['op'] == 'closeswitch') {
-		$nextop = 'end';
+		$nextop = 'clearCloud';
 		if($first_to_2_5) {
 			$newsettings = array();
 			$newsettings['strongpw'] = 0;
@@ -1759,6 +1759,21 @@ if($_GET['step'] == 'start') {
 			C::t('common_setting')->update_batch($newsettings);
 		}
 		show_msg("数据升级结束", "$theurl?step=data&op=$nextop");
+	} elseif($_GET['op'] == 'clearCloud') {
+		$nextop = 'end';
+		
+		$plugins = array('qqconnect', 'cloudstat', 'soso_smilies', 'security', 'pcmgr_url_safeguard', 'manyou', 'cloudcaptcha');
+		foreach($plugins as $pluginid) {			
+			$plugin = C::t('common_plugin')->fetch_by_identifier($pluginid);
+			if($plugin) {
+				$modules = unserialize($plugin['modules']);
+				$modules['system'] = 0;
+				$modules = serialize($modules);
+				C::t('common_plugin')->update($plugin['pluginid'], array('modules' => $modules));
+			}			
+		}
+		
+		show_msg("云平台插件已降为非系统级插件", "$theurl?step=data&op=$nextop");		
 	} else {
 
 		$deletevar = array('app', 'home');//config中需要删除的项目
@@ -1891,20 +1906,6 @@ if($_GET['step'] == 'start') {
 	show_msg("默认风格已恢复，进入下一步", "$theurl?step=cache");
 
 } elseif ($_GET['step'] == 'cache') {
-	$appService = Cloud::loadClass('Service_App');
-	try {
-		$cloudstatus = $appService->checkCloudStatus();
-	} catch (Exception $e) {
-	}
-	$result = false;
-	if($cloudstatus == 'cloud' && !$appService->getCloudAppStatus('search')) {
-		try{
-			$cloudAppService = Cloud::loadClass('Service_Client_Cloud');
-			$result = $cloudAppService->appOpen();
-		} catch(Exception $e) {
-		}
-	}
-
 
 	if($result == true) {
 		$opensoso = '<br><br>友情提示：<br>为更好的降低论坛搜索时的数据压力，本次升级已经帮本站开通纵横搜索服务。<br>你可以在 <a href=\\\'../admin.php?frames=yes&action=cloud&operation=search\\\' target=\\\'_blank\\\'>站点后台-&gt;应用-&gt;纵横搜索 进行管理</a>。';
