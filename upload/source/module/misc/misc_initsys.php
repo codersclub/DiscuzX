@@ -29,7 +29,7 @@ if($_G['config']['output']['tplrefresh']) {
 	cleartemplatecache();
 }
 
-$plugins = array('mobile', 'wechat');
+$plugins = array('qqconnect', 'mobile', 'wechat');
 $opens = array('mobile');
 $checkcloses = array('cloudcaptcha');
 
