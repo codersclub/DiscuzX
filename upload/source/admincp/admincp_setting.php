@@ -1665,8 +1665,7 @@ EOF;
 		showtips('setting_sec_code_tips', 'seccode_tips', $_GET['anchor'] == 'seccode');
 
 		showtableheader('', '', 'id="seccode"'.($_GET['anchor'] != 'seccode' ? ' style="display: none"' : ''));
-		showtitle('setting_sec_seccode_rule_setting');
-		showsetting('setting_sec_seccode_cloudip', 'settingnew[seccodedata][cloudip]', $setting['seccodedata']['cloudip'], 'radio');
+		showtitle('setting_sec_seccode_rule_setting');		
 		showsetting('setting_sec_seccode_rule_register', array('settingnew[seccodedata][rule][register][allow]', array(
 			array(2, cplang('setting_sec_seccode_rule_register_auto'), array('secrule_register' => '')),
 			array(1, cplang('setting_sec_seccode_rule_register_on'), array('secrule_register' => 'none')),

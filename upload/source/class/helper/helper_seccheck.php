@@ -307,16 +307,6 @@ class helper_seccheck {
 		}
 		if(method_exists('helper_seccheck', 'rule_'.$rule)) {
 			$return = call_user_func(array('helper_seccheck', 'rule_'.$rule), $param);
-			if(!isset($_G['cookie']['seccloud'])) {
-				if($_G['setting']['seccodedata']['cloudip'] && !$return[0]) {
-					$return[0] = captcha::isneed();
-					if($return[0]) {
-						dsetcookie('seccloud', 1);
-					}
-				}
-			} else {
-				$return[0] = true;
-			}
 			return $return;
 		} else {
 			return array();

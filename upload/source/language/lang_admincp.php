@@ -6857,7 +6857,7 @@ $lang = array
 	'postsplit_move_threads_per_time_1000' => '1000 (推荐独立服务器用户使用，可提高处理速度)',
 	'postsplit_manage_submit' => '确认分表',
 
-	'optimizer_security_tips' => '<li>体检可以帮助您发现网站问题，消除安全风险</li><li>设置项安全检测</li><li>产品新版本及安全补丁检测</li><li>安装插件安全及更新检测</li>',
+	'optimizer_security_tips' => '<li>体检可以帮助您发现网站问题，消除安全风险</li><li>设置项安全检测</li><li>安装插件安全及更新检测</li>',
 	'optimizer_check_unit_optimizer_plugin' => '检测应用是否有新的更新',
 	'optimizer_check_unit_optimizer_upgrade' => '查看是否有新的产品版本',
 	'optimizer_check_unit_optimizer_patch' => '检测产品是有有漏洞补丁发布',

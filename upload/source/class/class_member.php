@@ -80,8 +80,7 @@ class logging_ctl {
 
 			$loginhash = !empty($_GET['loginhash']) && preg_match('/^\w+$/', $_GET['loginhash']) ? $_GET['loginhash'] : '';
 
-			if(!($_G['member_loginperm'] = logincheck($_GET['username']))) {
-				captcha::report($_G['clientip']);
+			if(!($_G['member_loginperm'] = logincheck($_GET['username']))) {				
 				showmessage('login_strike');
 			}
 			if($_GET['fastloginfield']) {

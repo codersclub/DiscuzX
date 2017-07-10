@@ -166,8 +166,7 @@ $menu['group'] = array(
 );
 
 $menu['safe'] = array(
-	array('menu_safe_setting', 'setting_sec'),
-	array('menu_safe_security', 'cloud_security'),
+	array('menu_safe_setting', 'setting_sec'),	
 	array('menu_safe_seccheck', 'setting_seccheck'),
 	array('menu_security', 'optimizer_security'),
 	array('menu_safe_accountguard', 'setting_accountguard'),

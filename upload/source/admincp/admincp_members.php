@@ -1527,9 +1527,6 @@ EOF;
 			}
 			if(!$member['adminid']) {
 				$member_status = C::t('common_member_status')->fetch($member['uid']);
-				if($member_status) {
-					captcha::report($member_status['lastip']);
-				}
 			}
 		} elseif($member['groupid'] == 4 || $member['groupid'] == 5) {
 			if(!empty($member['groupterms']['main']['groupid'])) {
@@ -2208,8 +2205,7 @@ EOF;
 					'dateline' => $_G['timestamp'],
 					'expiration' => $expiration,
 				);
-				C::t('common_banned')->insert($data);
-				captcha::report($_GET['ip1new'].'.'.$_GET['ip2new'].'.'.$_GET['ip3new'].'.'.$_GET['ip4new']);
+				C::t('common_banned')->insert($data);				
 			}
 
 			if(is_array($_GET['expirationnew'])) {

@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 cpheader();
 $operation = $operation ? $operation : '';
 
-$anchor = in_array($_GET['anchor'], array('base', 'edit', 'verify', 'verify1', 'verify2', 'verify3', 'verify4', 'verify5', 'verify6', 'verify7', 'authstr', 'refusal', 'pass')) ? $_GET['anchor'] : 'base';
+$anchor = in_array($_GET['anchor'], array('base', 'edit', 'verify', 'verify1', 'verify2', 'verify3', 'verify4', 'verify5', 'verify6', 'authstr', 'refusal', 'pass')) ? $_GET['anchor'] : 'base';
 $current = array($anchor => 1);
 $navmenu = array();
 
@@ -22,7 +22,7 @@ if($operation == 'verify') {
 	$anchor = in_array($_GET['anchor'], array('authstr', 'refusal', 'pass', 'add')) ? $_GET['anchor'] : 'authstr';
 	$current = array($anchor => 1);
 	if($anchor == 'add') {
-		if(!submitcheck('addverifysubmit') || $vid < 0 || $vid > 7) {
+		if(!submitcheck('addverifysubmit') || $vid < 0 || $vid > 6) {
 			$navmenu[0] = array('members_verify_nav_authstr', 'verify&operation=verify&anchor=authstr&do='.$vid, 0);
 			$navmenu[1] = array('members_verify_nav_refusal', 'verify&operation=verify&anchor=refusal&do='.$vid, 0);
 			$navmenu[2] = array('members_verify_nav_pass', 'verify&operation=verify&anchor=pass&do='.$vid, 0);
@@ -204,7 +204,7 @@ EOF;
 			} elseif ($anchor == 'authstr') {
 				$_GET['flag'] = 0;
 			}
-			$intkeys = array('uid', 'verifytype', 'flag', 'verify1', 'verify2', 'verify3', 'verify4', 'verify5', 'verify6', 'verify7');
+			$intkeys = array('uid', 'verifytype', 'flag', 'verify1', 'verify2', 'verify3', 'verify4', 'verify5', 'verify6');
 			$strkeys = array();
 			$randkeys = array();
 			$likekeys = array('username');
@@ -635,8 +635,8 @@ EOF;
 		showformheader("verify");
 		showtableheader('members_verify_setting', 'fixpadding');
 		showsubtitle(array('members_verify_available', 'members_verify_id', 'members_verify_title', ''), 'header');
-		for($i = 1; $i < 8; $i++) {
-			$readonly = $i == 6 || $i == 7 ? true : false;
+		for($i = 1; $i < 7; $i++) {
+			$readonly = $i == 6 ? true : false;
 			$url = parse_url($_G['setting']['verify'][$i]['icon']);
 			if(!$url['host'] && $_G['setting']['verify'][$i]['icon'] && strpos($_G['setting']['verify'][$i]['icon'], $_G['setting']['attachurl'].'common/') === false) {
 				$_G['setting']['verify'][$i]['icon'] = $_G['setting']['attachurl'].'common/'.$_G['setting']['verify'][$i]['icon'];
