@@ -112,12 +112,8 @@ if(!$operation) {
 		$pendtime = $_GET['pendtime'];
 		$mstarttime = $_GET['mstarttime'];
 		$mendtime = $_GET['mendtime'];
-
-		$appService = Cloud::loadClass('Service_App');
-		$secStatus = $appService->getCloudAppStatus('security');
-		if($secStatus){
-			$security = $_GET['security'];
-		}
+		
+		$secStatus = false;		
 
 		$searchsubmit = $_GET['searchsubmit'];
 

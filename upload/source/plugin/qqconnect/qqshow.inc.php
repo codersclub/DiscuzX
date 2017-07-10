@@ -15,7 +15,8 @@ if(!$_G['uid']) {
 	showmessage('not_loggedin', NULL, array(), array('login' => 1));
 }
 
-$connectService = Cloud::loadClass('Service_Connect');
+require_once DISCUZ_ROOT.'/source/plugin/qqconnect/lib/Connect.php';
+$connectService = new Cloud_Service_Connect();
 $connectService->connectMergeMember();
 
 if($_G['member']['conisbind']) {

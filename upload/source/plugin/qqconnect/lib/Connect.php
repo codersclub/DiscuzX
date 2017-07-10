@@ -123,7 +123,8 @@ class Cloud_Service_Connect {
 		$params['sig'] = $this->connectGetSig($params, $this->connectGetSigKey());
 
 		$jsurl = $_G['connect']['discuz_new_feed_url'];
-		$utilService = Cloud::loadClass('Service_Util');
+		require_once DISCUZ_ROOT.'/source/plugin/qqconnect/lib/Util.php';
+		$utilService = new Cloud_Service_Util();		
 		$jsurl .= '?' . $utilService->httpBuildQuery($params, '', '&');
 
 		return $jsurl;
@@ -395,7 +396,8 @@ class Cloud_Service_Connect {
 
 		$url = urlencode($url);
 
-		$utilService = Cloud::loadClass('Service_Util');
+		require_once DISCUZ_ROOT.'/source/plugin/qqconnect/lib/Util.php';
+		$utilService = new Cloud_Service_Util();		
 		$param_str = urlencode($utilService->httpBuildQuery($params, '', '&'));
 
 		$base_string = $method.'&'.$url.'&'.$param_str;
@@ -554,7 +556,8 @@ class Cloud_Service_Connect {
 	function connectCookieLoginReport($loginTimes) {
 		global $_G;
 
-		$utilService = Cloud::loadClass('Service_Util');
+		require_once DISCUZ_ROOT.'/source/plugin/qqconnect/lib/Util.php';
+		$utilService = new Cloud_Service_Util();		
 		$response = '';
 
 		if ($loginTimes) {

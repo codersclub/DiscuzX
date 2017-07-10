@@ -466,10 +466,7 @@ var rowtypedata = [
 		C::t('forum_forum')->delete_by_fid($source);
 		C::t('home_favorite')->delete_by_id_idtype($source, 'fid');
 		C::t('forum_moderator')->delete_by_fid($source);
-		C::t('common_member_forum_buylog')->delete_by_fid($target);
-
-		$log_handler = Cloud::loadClass('Cloud_Service_SearchHelper');
-		$log_handler->myThreadLog('mergeforum', array('fid' => $source, 'otherid' => $target));
+		C::t('common_member_forum_buylog')->delete_by_fid($target);		
 
 		$query = C::t('forum_access')->fetch_all_by_fid_uid($source);
 		foreach($query as $access) {
@@ -1872,10 +1869,7 @@ EOT;
 		deletethread($tids);
 		deletedomain($fid, 'forum');
 		deletedomain($fid, 'subarea');
-		if($currow + $pp > $total) {
-
-			$log_handler = Cloud::loadClass('Cloud_Service_SearchHelper');
-			$log_handler->myThreadLog('delforum', array('fid' => $fid));
+		if($currow + $pp > $total) {			
 			C::t('forum_forum')->delete_by_fid($fid);
 			C::t('common_nav')->delete_by_type_identifier(5, $fid);
 			C::t('home_favorite')->delete_by_id_idtype($fid, 'fid');

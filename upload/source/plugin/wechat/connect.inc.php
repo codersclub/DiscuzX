@@ -20,8 +20,9 @@ $_G['connect']['callback_url'] = $_G['siteurl'].'plugin.php?id=wechat:connect&op
 parse_str(substr($_GET['referer'], 1), $refererarray);
 $referer = 'http://wsq.discuz.com/'.$_GET['referer'];
 
-try {
-	$connectOAuthClient = Cloud::loadClass('Service_Client_ConnectOAuth');
+try {	
+	require_once DISCUZ_ROOT.'/source/plugin/qqconnect/lib/ConnectOAuth.php';
+	$connectOAuthClient = new Cloud_Service_Client_ConnectOAuth();
 } catch(Exception $e) {
 	showmessage('qqconnect:connect_app_invalid');
 }
@@ -74,8 +75,9 @@ if($op == 'init') {
 
 	$params = $_GET;
 
-	if(!isset($params['receive'])) {
-		$utilService = Cloud::loadClass('Service_Util');
+	if(!isset($params['receive'])) {		
+		require_once DISCUZ_ROOT.'/source/plugin/qqconnect/lib/Util.php';
+		$utilService = new Cloud_Service_Util();
 		echo '<script type="text/javascript">setTimeout("window.location.href=\'plugin.php?receive=yes&'.str_replace("'", "\'", $utilService->httpBuildQuery($_GET, '', '&')).'\'", 1)</script>';
 		exit;
 	}

@@ -52,7 +52,6 @@ INSERT INTO pre_common_cron VALUES ('10','1','system','每日验证问答更新'
 INSERT INTO pre_common_cron VALUES ('11','1','system','每日标签更新','cron_tag_daily.php','1269746633','1269792000','-1','-1','0','0');
 INSERT INTO pre_common_cron VALUES ('12','1','system','每日勋章更新','cron_medal_daily.php','1269746634','1269792000','-1','-1','0','0');
 INSERT INTO pre_common_cron VALUES ('13','1','system','清理过期动态','cron_cleanfeed.php','1269746634','1269792000','-1','-1','0','0');
-INSERT INTO pre_common_cron VALUES ('14','1','system','每日获取安全补丁','cron_checkpatch_daily.php','1269746639','1269792000','-1','-1','2','22');
 INSERT INTO pre_common_cron VALUES ('15','1','system','定时发布主题','cron_publish_halfhourly.php','1269746639','1269792000','-1','-1','-1','0	30');
 INSERT INTO pre_common_cron VALUES ('16','1','system','每周广播归档','cron_follow_daily.php','1269746639','1269792000','-1','-1','02','0');
 INSERT INTO pre_common_cron VALUES ('17','1','system','更新每日查看数','cron_todayviews_daily.php','1321500558','1321556400','-1','-1','3','0	5	10	15	20	25	30	35	40	45	50	55');

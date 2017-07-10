@@ -1177,9 +1177,7 @@ EOF;
 		}
 
 		if($_GET['groupidnew'] != $member['groupid'] && (in_array($_GET['groupidnew'], array(4, 5)) || in_array($member['groupid'], array(4, 5)))) {
-			$my_opt = in_array($_GET['groupidnew'], array(4, 5)) ? 'banuser' : 'unbanuser';
-			$log_handler = Cloud::loadClass('Cloud_Service_SearchHelper');
-			$log_handler->myThreadLog($my_opt, array('uid' => $member['uid']));
+			$my_opt = in_array($_GET['groupidnew'], array(4, 5)) ? 'banuser' : 'unbanuser';			
 			banlog($member['username'], $member['groupid'], $_GET['groupidnew'], $groupexpirynew, $_GET['reason']);
 		}
 
@@ -1549,11 +1547,6 @@ EOF;
 				uc_user_deleteavatar($member['uid']);
 			}
 		}
-		if(!empty($my_data) && !empty($mylogtype)) {
-			$log_handler = Cloud::loadClass('Cloud_Service_SearchHelper');
-			$log_handler->myThreadLog($mylogtype, $my_data);
-		}
-
 
 		$setarr['adminid'] = $adminidnew;
 		$setarr['groupid'] = $groupidnew;
@@ -3185,7 +3178,7 @@ function notifymembers($operation, $variable) {
 	if(!function_exists('sendmail')) {
 		include libfile('function/mail');
 	}
-	if($_GET['notifymember'] && in_array($_GET['notifymembers'], array('pm', 'notice', 'email', 'mobile'))) {
+	if($_GET['notifymember'] && in_array($_GET['notifymembers'], array('pm', 'notice', 'email'))) {
 		$uids = searchmembers($search_condition, $pertask, $current);
 
 		require_once libfile('function/discuzcode');
@@ -3207,64 +3200,50 @@ function notifymembers($operation, $variable) {
 			$urladd .= '&gpmid='.$gpmid;
 		}
 		$members = C::t('common_member')->fetch_all($uids);
-		if($_GET['notifymembers'] == 'mobile') {
-			$toUids = array_keys($members);
-			if($_G['setting']['cloud_status'] && !empty($toUids)) {
-				try {
-					$noticeService = Cloud::loadClass('Service_Client_Notification');
-					$fromType = $_GET['system'] ? 1 : 2;
-					$noticeService->addSiteMasterUserNotify($toUids, $subject, $message, $_G['uid'], $_G['username'], $fromType, TIMESTAMP);
-				} catch (Cloud_Service_Client_RestfulException $e) {
-					cpmsg('['.$e->getCode().']'.$e->getMessage(), '', 'error');
+		foreach($members as $member) {
+			if($_GET['notifymembers'] == 'pm') {
+				C::t('common_member_grouppm')->insert(array(
+					'uid' => $member['uid'],
+					'gpmid' => $gpmid,
+					'status' => 0
+				), false, true);
+				$newpm = setstatus(2, 1, $member['newpm']);
+				C::t('common_member')->update($member['uid'], array('newpm'=>$newpm));
+			} elseif($_GET['notifymembers'] == 'notice') {
+				notification_add($member['uid'], 'system', 'system_notice', array('subject' => $subject, 'message' => $message.$addmsg, 'from_id' => 0, 'from_idtype' => 'sendnotice'), 1);
+			} elseif($_GET['notifymembers'] == 'email') {
+				if(!sendmail("$member[username] <$member[email]>", $subject, $message.$addmsg)) {
+					runlog('sendmail', "$member[email] sendmail failed.");
 				}
-
 			}
-		} else {
-			foreach($members as $member) {
-				if($_GET['notifymembers'] == 'pm') {
-					C::t('common_member_grouppm')->insert(array(
-						'uid' => $member['uid'],
-						'gpmid' => $gpmid,
-						'status' => 0
-					), false, true);
-					$newpm = setstatus(2, 1, $member['newpm']);
-					C::t('common_member')->update($member['uid'], array('newpm'=>$newpm));
-				} elseif($_GET['notifymembers'] == 'notice') {
-					notification_add($member['uid'], 'system', 'system_notice', array('subject' => $subject, 'message' => $message.$addmsg, 'from_id' => 0, 'from_idtype' => 'sendnotice'), 1);
-				} elseif($_GET['notifymembers'] == 'email') {
-					if(!sendmail("$member[username] <$member[email]>", $subject, $message.$addmsg)) {
-						runlog('sendmail', "$member[email] sendmail failed.");
+
+			$log = array();
+			if($_GET['updatecredittype'] == 0) {
+				foreach($setarr as $key => $val) {
+					if(empty($val)) continue;
+					$val = intval($val);
+					$id = intval($key);
+					$id = !$id && substr($key, 0, -1) == 'extcredits' ? intval(substr($key, -1, 1)) : $id;
+					if(0 < $id && $id < 9) {
+							$log['extcredits'.$id] = $val;
 					}
 				}
-
-				$log = array();
-				if($_GET['updatecredittype'] == 0) {
-					foreach($setarr as $key => $val) {
-						if(empty($val)) continue;
-						$val = intval($val);
-						$id = intval($key);
-						$id = !$id && substr($key, 0, -1) == 'extcredits' ? intval(substr($key, -1, 1)) : $id;
-						if(0 < $id && $id < 9) {
-								$log['extcredits'.$id] = $val;
-						}
+				$logtype = 'RPR';
+			} else {
+				foreach($setarr as $val) {
+					if(empty($val)) continue;
+					$id = intval($val);
+					$id = !$id && substr($val, 0, -1) == 'extcredits' ? intval(substr($val, -1, 1)) : $id;
+					if(0 < $id && $id < 9) {
+						$log['extcredits'.$id] = '-1';
 					}
-					$logtype = 'RPR';
-				} else {
-					foreach($setarr as $val) {
-						if(empty($val)) continue;
-						$id = intval($val);
-						$id = !$id && substr($val, 0, -1) == 'extcredits' ? intval(substr($val, -1, 1)) : $id;
-						if(0 < $id && $id < 9) {
-							$log['extcredits'.$id] = '-1';
-						}
-					}
-					$logtype = 'RPZ';
 				}
-				include_once libfile('function/credit');
-				credit_log($member['uid'], $logtype, $member['uid'], $log);
-
-				$continue = TRUE;
+				$logtype = 'RPZ';
 			}
+			include_once libfile('function/credit');
+			credit_log($member['uid'], $logtype, $member['uid'], $log);
+
+			$continue = TRUE;
 		}
 	}
 
@@ -3306,15 +3285,7 @@ function notifymembers($operation, $variable) {
 
 function banlog($username, $origgroupid, $newgroupid, $expiration, $reason, $status = 0) {
 	global $_G, $_POST;
-	$cloud_apps = dunserialize($_G['setting']['cloud_apps']);
-	if (isset($_POST['bannew']) && $_POST['formhash'] && $cloud_apps['security']['status'] == 'normal') {
-		$securityService = Cloud::loadClass('Service_Security');
-		if ($_POST['bannew']) {
-			$securityService->logBannedMember($username, $reason);
-		} else {
-			$securityService->updateMemberRecover($username);
-		}
-    }
+	$cloud_apps = dunserialize($_G['setting']['cloud_apps']);	
 	writelog('banlog', dhtmlspecialchars("$_G[timestamp]\t{$_G[member][username]}\t$_G[groupid]\t$_G[clientip]\t$username\t$origgroupid\t$newgroupid\t$expiration\t$reason\t$status"));
 }
 

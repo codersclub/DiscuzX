@@ -261,12 +261,10 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		}
 		$threadlist = C::t('forum_thread')->fetch_all($tids);
 
-		$log_handler = Cloud::loadClass('Cloud_Service_SearchHelper');
 		foreach($postlist as $post) {
 			$post['lastpost'] = $threadlist[$post['tid']]['lastpost'];
 
 			$pidarray[] = $post['pid'];
-			$log_handler->myPostLog('validate', array('pid' => $post['pid']));
 			if(getstatus($post['status'], 3) == 0) {
 				updatepostcredits('+', $post['authorid'], 'reply', $post['fid']);
 				$attachcount = C::t('forum_attachment_n')->count_by_id('tid:'.$post['tid'], 'pid', $post['pid']);
