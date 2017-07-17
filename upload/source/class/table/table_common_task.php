@@ -70,7 +70,7 @@ class table_common_task extends discuz_table
 			case 'canapply':
 			case 'new':
 			default:
-				$status = "'".TIMESTAMP."' > starttime AND (mt.taskid IS NULL OR (ABS(mt.status)='1' AND t.period>0))";
+				$status = "'".TIMESTAMP."' > starttime AND (endtime=0 OR endtime>'".TIMESTAMP."') AND (mt.taskid IS NULL OR (ABS(mt.status)='1' AND t.period>0))";
 				break;
 		}
 		return DB::fetch_all("SELECT t.*, mt.csc, mt.dateline FROM %t t
