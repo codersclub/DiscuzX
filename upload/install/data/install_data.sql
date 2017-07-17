@@ -146,7 +146,6 @@ INSERT INTO pre_common_nav VALUES ('','0','门户','Portal','portal.php','1','0'
 INSERT INTO pre_common_nav VALUES ('','0','论坛','BBS','forum.php','2','0','0','1','2','0','0','0', 0, '', '', '', 0, '');
 INSERT INTO pre_common_nav VALUES ('','0','群组','Group','group.php','3','0','0','-1','7','0','0','0', 0, '', '', '', 0, '');
 INSERT INTO pre_common_nav VALUES ('','0','动态','Space','home.php','4','0','0','-1','8','0','0','0', 0, '', '', '', 0, '');
-INSERT INTO pre_common_nav VALUES ('','0','游戏','Manyou','userapp.php','5','0','0','1','6','0','0','0', 0, '', '', '', 0, '');
 INSERT INTO pre_common_nav VALUES ('','0','插件','Plugin','#','6','0','0','1','9','0','0','0', 0, '', '', '', 0, '');
 INSERT INTO pre_common_nav VALUES ('','0','帮助','Help','misc.php?mod=faq','7','0','0','0','10','0','0','0', 0, '', '', '', 0, '');
 INSERT INTO pre_common_nav VALUES ('','0','排行榜','Ranklist','misc.php?mod=ranklist','8','0','0','-1','16','0','0','0',  0, '', '', '', 0, '');
