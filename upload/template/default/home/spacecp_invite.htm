@@ -119,13 +119,8 @@
 					</div>
 				<!--{/if}-->
 				<table cellspacing="0" cellpadding="0" width="100%" class="tfm mbm">
-					<caption class="cl">
-					<!--{if $appid}-->
-						<div class="avt z" style="margin-right: 5px;"><img src="http://appicon.manyou.com/logos/{$appid}" alt="{$appinfo[appname]}" /></div>
-						<h2 class="wx">{lang friend_invite_play}$appinfo[appname]</h2>
-					<!--{else}-->
+					<caption class="cl">					
 						<h2 class="wx">{lang friend_invite_link}</h2>
-					<!--{/if}-->
 						<p class="mtn mbn">{lang friend_invite_message}</p>
 						<!--{if $creditnum && $list}--><p>{lang click_link_copy}</p><!--{/if}-->
 					</caption>
@@ -188,8 +183,7 @@
 			<form method="post" autocomplete="off" action="home.php?mod=spacecp&ac=invite&type=mail&appid=$appid&ref">
 				<input type="hidden" name="formhash" value="{FORMHASH}" />
 				<h2 class="xs2">{lang send_invitation_email}<!--{if $appid}-->{lang friend_play_together}$appinfo[appname]<!--{/if}--></h2>
-				<div class="mtn bm bmn">
-					<script type="text/javascript" src="http://widgets.manyou.com/misc/scripts/ab.js" charset="utf-8"></script>
+				<div class="mtn bm bmn">					
 					<table cellspacing="0" cellpadding="0" class="tfm mbm">
 						<caption>
 							<p>{lang send_invitation_email_message}</p>
