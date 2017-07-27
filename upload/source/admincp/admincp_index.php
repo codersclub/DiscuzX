@@ -338,7 +338,7 @@ showtablerow('', array('class="vtop td24 lineheight"', 'class="lineheight"'), ar
 	<a href="http://www.discuz.net/redirect.php?service" class="lightlink2" target="_blank">&#x8D2D;&#x4E70;&#x6388;&#x6743;</a>,
 	<a href="http://www.discuz.net/" class="lightlink2" target="_blank">&#x8BA8;&#x8BBA;&#x533A;</a>,
 	<a href="'.ADMINSCRIPT.'?action=cloudaddons" class="lightlink2" target="_blank">Discuz! &#24212;&#29992;&#20013;&#24515;</a>,
-	<a href="https://git.oschina.net/ComsenzDiscuz/DiscuzX" class="lightlink2" target="_blank">Discuz! X Git</a>
+	<a href="https://gitee.com/ComsenzDiscuz/DiscuzX" class="lightlink2" target="_blank">Discuz! X Git</a>
 '));
 showtablefooter();
 
