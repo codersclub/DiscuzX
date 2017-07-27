@@ -61,8 +61,6 @@ INSERT INTO pre_common_cron VALUES ('20','1','system','更新版块最后发表(
 
 INSERT INTO pre_common_friendlink VALUES ('1','0','官方论坛','http://www.discuz.net','提供最新 Discuz! 产品新闻、软件下载与技术交流','static/image/common/logo_88_31.gif','2');
 INSERT INTO pre_common_friendlink VALUES ('2','4','专用主机','http://www.verydz.com/','','','2');
-INSERT INTO pre_common_friendlink VALUES ('3','2','漫游平台','http://www.manyou.com/','','','2');
-INSERT INTO pre_common_friendlink VALUES ('4','3','Yeswan','http://www.yeswan.com','','','2');
 INSERT INTO pre_common_friendlink VALUES ('5','1','Comsenz','http://www.comsenz.com','','','2');
 
 
