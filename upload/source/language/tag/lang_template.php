@@ -23,6 +23,7 @@ $lang = array (
   'related_blog' => '相关日志',
   'related_thread' => '相关帖子',
   'replies' => '回复/查看',
+  'price' => '售价',
 );
 
 ?>
