@@ -17,7 +17,7 @@
 				<!--{hook/global_usernav_extra2}-->
 				<a href="member.php?mod=logging&action=logout&formhash={FORMHASH}">{lang logout}</a>
 			<!--{elseif !empty($_G['cookie']['loginuser'])}-->
-				<strong><a id="loginuser">$_G['cookie']['loginuser']</a></strong>
+				<strong><a id="loginuser"><!--{echo dhtmlspecialchars($_G['cookie']['loginuser'])}--></a></strong>
 				<a href="member.php?mod=logging&action=login" onclick="showWindow('login', this.href)">{lang activation}</a>
 				<a href="member.php?mod=logging&action=logout&formhash={FORMHASH}">{lang logout}</a>
 			<!--{else}-->
