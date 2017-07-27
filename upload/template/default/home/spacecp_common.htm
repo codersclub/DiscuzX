@@ -29,13 +29,6 @@
 		</p>
 	</form>
 
-<!--{elseif $_GET['op'] == 'getuserapp'}-->
-
-	<!--{loop $my_userapp $value}-->
-	<!--{if $value['allowsidenav']}-->
-	<li><!--{if $value[appstatus]}--><span class="{if $value[appstatus]==1}appnew{else}apphot{/if}"></span><!--{/if}--><a href="userapp.php?mod=app&id=$value[appid]"><img {if $value[icon]}src="$value[icon]" onerror="this.onerror=null;this.src='http://appicon.manyou.com/icons/$value[appid]'"{else} src="http://appicon.manyou.com/icons/$value[appid]"{/if}>$value[appname]</a></li>
-	<!--{/if}-->
-	<!--{/loop}-->
 <!--{elseif $_GET['op']=='modifyunitprice'}-->
 
 	<h3 class="flb">

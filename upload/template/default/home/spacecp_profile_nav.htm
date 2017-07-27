@@ -13,9 +13,7 @@
 			<!--{loop $_G['setting']['verify'] $vid $verify}-->
 				<!--{if $verify['available'] && (empty($verify['groupid']) || in_array($_G['groupid'], $verify['groupid']))}-->
 					<!--{if $vid != 7}-->
-					<li $opactives['verify'.$vid]><a href="home.php?mod=spacecp&ac=profile&op=verify&vid=$vid">$verify['title']</a></li>
-					<!--{elseif $_G['setting']['my_app_status'] && $vid == 7}-->
-					<li $opactives[videophoto]><a href="home.php?mod=spacecp&ac=videophoto">{lang video_certification}</a></li>
+						<li $opactives['verify'.$vid]><a href="home.php?mod=spacecp&ac=profile&op=verify&vid=$vid">$verify['title']</a></li>					
 					<!--{/if}-->
 				<!--{/if}-->
 			<!--{/loop}-->

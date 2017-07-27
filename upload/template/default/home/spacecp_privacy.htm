@@ -222,9 +222,7 @@
 							<!--{loop $icons $key $icon}-->
 							<!--{eval $uid = $uids[$key];$icon_uid="$icon|$uid";}-->
 							<label>
-							<!--{if is_numeric($icon)}-->
-								<img src="http://appicon.manyou.com/icons/{$icon}" alt="" class="vm" />
-							<!--{else}-->
+							<!--{if is_numeric($icon)}-->								
 								<img src="{STATICURL}image/feed/{$icon}.gif" alt="" class="vm" />
 							<!--{/if}-->
 								<input type="checkbox" class="pc" name="privacy[filter_icon][$icon_uid]" value="1" checked="checked" /> 

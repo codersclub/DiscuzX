@@ -28,65 +28,6 @@
 				<!--{/if}-->
 			</ul>
 
-		<!--{if $view=='userapp'}-->
-
-			<script type="text/javascript">
-				function manyou_add_userapp(hash, url) {
-					if(isUndefined(url)) {
-						$(hash).innerHTML = "<tr><td colspan=\"2\">{lang successfully_ignored_information}</td></tr>";
-					} else {
-						$(hash).innerHTML = "<tr><td colspan=\"2\">{lang is_guide_you_in}</td></tr>";
-					}
-					var x = new Ajax();
-					x.get('home.php?mod=misc&ac=ajax&op=deluserapp&hash='+hash, function(s){
-						if(!isUndefined(url)) {
-							location.href = url;
-						}
-					});
-				}
-			</script>
-
-			<div class="ct_vw cl">
-				<div class="ct_vw_sd">
-					<ul class="mtw">
-						<!--{if $list}--><li><a href="home.php?mod=space&do=notice&view=userapp">{lang all_applications_news}</a></li><!--{/if}-->
-						<!--{loop $apparr $type $val}-->
-						<li class="mtn">
-							<a href="home.php?mod=userapp&id=$val[0][appid]&uid=$space[uid]" title="$val[0][typename]"><img src="http://appicon.manyou.com/icons/$val[0][appid]" alt="$val[0][typename]" class="vm" /></a>
-							<a href="home.php?mod=space&do=notice&view=userapp&type=$val[0][appid]"> <!--{eval echo count($val);}--> {lang unit} $val[0][typename] <!--{if $val[0][type]}-->{lang request}<!--{else}-->{lang invite}<!--{/if}--></a>
-						</li>
-						<!--{/loop}-->
-					</ul>
-				</div>
-				<div class="ct_vw_mn">
-					<!--{if $list}-->
-						<!--{loop $list $key $invite}-->
-							<h4 class="mtw mbm">
-								<a href="home.php?mod=space&do=notice&view=userapp&op=del&appid=$invite[0][appid]" class="y xg1">{lang ignore_invitations_application}</a>
-								<a href="home.php?mod=userapp&id=$invite[0][appid]&uid=$space[uid]" title="$apparr[$invite[0][appid]]"><img src="http://appicon.manyou.com/icons/$invite[0][appid]" alt="$apparr[$invite[0][appid]]" class="vm" /></a>
-								{lang notice_you_have} <!--{eval echo count($invite);}--> {lang unit} $invite[0][typename] <!--{if $invite[0][type]}-->{lang request}<!--{else}-->{lang invite}<!--{/if}-->
-							</h4>
-							<div class="xld xlda">
-							<!--{loop $invite $value}-->
-								<dl class="bbda cl">
-									<dd class="m avt mbn">
-										<a href="home.php?mod=space&uid=$value[fromuid]"><!--{avatar($value[fromuid],small)}--></a>
-									</dd>
-									<dt id="$value[hash]">
-										<div class="xw0 xi3">$value[myml]</div>
-									</dt>
-								</dl>
-							<!--{/loop}-->
-							</div>
-						<!--{/loop}-->
-						<!--{if $multi}--><div class="pgs cl">$multi</div><!--{/if}-->
-					<!--{else}-->
-						<div class="emp">{lang no_request_applications_invite}</div>
-					<!--{/if}-->
-				</div>
-			</div>
-
-		<!--{else}-->
 			<!--{if empty($list)}-->
 			<div class="emp mtw ptw hm xs2">
 				<!--{if $new == 1}-->
@@ -150,8 +91,6 @@
 
 				<!--{if $multi}--><div class="pgs cl">$multi</div><!--{/if}-->
 			<!--{/if}-->
-
-		<!--{/if}-->
 		</div>
 	</div>
 	<div class="appl">

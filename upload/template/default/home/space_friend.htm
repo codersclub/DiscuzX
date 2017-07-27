@@ -128,32 +128,7 @@
 										<input type="text" name="searchkey" class="px vm" size="20" value="" onclick="if(this.value=='{lang search_friend}')this.value='';" />&nbsp;<button type="submit" class="pn vm"><em>{lang search}</em></button>
 									</form>
 								</div>
-							</div>
-
-							<!--{if $_G['setting']['my_app_status']}-->
-								<script type="text/javascript">
-									function my_sync_tip(msg, close_time) {;
-										showDialog(msg, 'notice');
-									}
-									function my_sync_friend() {
-										my_sync_tip('{lang syn_friend}', 0);
-										var my_scri = document.createElement("script");
-										document.getElementsByTagName("head")[0].appendChild(my_scri);
-										my_scri.charset = "UTF-8";
-										var url = "http://uchome.manyou.com/user/syncFriends";
-										my_scri.src = url + "?sId=$_G['setting'][my_siteid]&uUchId=$space[uid]&ts=$_G[timestamp]&key=<!--{eval echo md5($_G['setting'][my_siteid] . $_G['setting'][my_sitekey] . $space[uid] . $_G[timestamp]);}-->";
-									}
-								</script>
-								<div class="bm mtm">
-									<div class="bm_h cl">
-										<h3>{lang cannot_find_friend}</h3>
-									</div>
-									<div class="bm_c">
-										<p>{lang click_syn}</p>
-										<p class="pns mtm hm"><button type="button" onclick="my_sync_friend(); return false;" title="{lang friend_manyou_message}" class="pn"><em>{lang refresh_friend}</em></button></p>
-									</div>
-								</div>
-							<!--{/if}-->
+							</div>							
 
 							<div class="bm mtm">
 								<div class="bm_h cl">

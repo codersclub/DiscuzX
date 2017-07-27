@@ -26,9 +26,6 @@
 						<li$actives[we]><a href="home.php?mod=space&do=home&view=we">{lang friend_feed}</a></li>
 						<li$actives[me]><a href="home.php?mod=space&do=home&view=me">{lang my_feed}</a></li>
 						<li$actives[all]><a href="home.php?mod=space&do=home&view=all">{lang view_all}</a></li>
-						<!--{if $_G['setting']['my_app_status']}-->
-						<li$actives[app]><a href="home.php?mod=space&do=home&view=app">{lang view_app_feed}</a></li>
-						<!--{/if}-->
 						<!--{hook/space_home_navlink}-->
 					</ul>
 				</div>
@@ -343,10 +340,7 @@
 					<ul class="tb cl">
 						<li$actives[we]><a href="home.php?mod=space&do=home&view=we">{lang friend_feed}</a></li>
 						<li$actives[me]><a href="home.php?mod=space&do=home&view=me">{lang my_feed}</a></li>
-						<li$actives[all]><a href="home.php?mod=space&do=home&view=all">{lang view_all}</a></li>
-						<!--{if $_G['setting']['my_app_status']}-->
-						<li$actives[app]><a href="home.php?mod=space&do=home&view=app">{lang view_app_feed}</a></li>
-						<!--{/if}-->
+						<li$actives[all]><a href="home.php?mod=space&do=home&view=all">{lang view_all}</a></li>						
 						<!--{hook/space_home_navlink}-->
 						<!--{if $_G['setting']['magicstatus'] && $_G['setting']['magics']['thunder']}-->
 						<li class="y"><a id="a_magic_thunder" href="home.php?mod=magic&mid=thunder" onclick="showWindow('magics', this.href, 'get', 0)" style="padding-left: 18px; background: url({STATICURL}image/magic/thunder.small.gif) no-repeat 0 50%;">{$_G[setting][magics][thunder]}</a></li>
@@ -369,12 +363,6 @@
 					<!--{/if}-->
 					<a href="home.php?mod=space&do=home&view=all&order=dateline"$orderactives[dateline]>{lang newest_feed}</a><span class="pipe">|</span>
 					<a href="home.php?mod=space&do=home&view=all&order=hot"$orderactives[hot]>{lang hot_feed}</a>
-				</p>
-			<!--{elseif $_GET[view] == 'app' && $_G['setting']['my_app_status']}-->
-				<p class="tbmu">
-					<a href="home.php?mod=space&do=home&view=app&type=we"$typeactives[we]>{lang what_friend_playing}</a><span class="pipe">|</span>
-					<a href="home.php?mod=space&do=home&view=app&type=me"$typeactives[me]>{lang own}</a><span class="pipe">|</span>
-					<a href="home.php?mod=space&do=home&view=app&type=all"$typeactives[all]>{lang what_everybody_playing}</a>
 				</p>
 			<!--{elseif $groups}-->
 				<p class="tbmu">
@@ -432,24 +420,20 @@
 				</ul>
 			<!--{/if}-->
 
-			<!--{if $list}-->
-				<!--{if $_GET[view] == 'app' && $_G['setting']['my_app_status']}-->
-					<!--{template home/space_home_feed_app}-->
-				<!--{else}-->
-					<!--{loop $list $day $values}-->
-						<!--{if $_GET['view']!='hot'}-->
-							<h4 class="et">
-								<!--{if $day=='yesterday'}-->{lang yesterday}<!--{elseif $day=='today'}-->{lang today}<!--{else}-->$day<!--{/if}-->
-							</h4>
-						<!--{/if}-->
+			<!--{if $list}-->				
+				<!--{loop $list $day $values}-->
+					<!--{if $_GET['view']!='hot'}-->
+						<h4 class="et">
+							<!--{if $day=='yesterday'}-->{lang yesterday}<!--{elseif $day=='today'}-->{lang today}<!--{else}-->$day<!--{/if}-->
+						</h4>
+					<!--{/if}-->
 
-						<ul class="el">
-						<!--{loop $values $value}-->
-							<!--{template home/space_feed_li}-->
-						<!--{/loop}-->
-						</ul>
+					<ul class="el">
+					<!--{loop $values $value}-->
+						<!--{template home/space_feed_li}-->
 					<!--{/loop}-->
-				<!--{/if}-->
+					</ul>
+				<!--{/loop}-->				
 			<!--{elseif $feed_users}-->
 				<div class="xld xlda mtm">
 				<!--{loop $feed_users $day $users}-->
@@ -490,7 +474,7 @@
 				<!--{/loop}-->
 				</div>
 			<!--{else}-->
-				<p class="emp"><!--{if $_GET[view] == 'app' && $_G['setting']['my_app_status']}-->{lang no_app_feed}<!--{else}-->{lang no_feed}<!--{/if}--></p>
+				<p class="emp">{lang no_feed}</p>
 			<!--{/if}-->
 
 			<!--{if $filtercount}-->
@@ -541,8 +525,6 @@
 	<!--{/if}-->
 </div>
 <!--{/if}-->
-
-<!--{eval helper_manyou::checkupdate();}-->
 
 <script type="text/javascript">
 	function filter_more(id) {

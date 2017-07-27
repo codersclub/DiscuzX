@@ -364,16 +364,7 @@ function succeedhandle_$_GET['handlekey'] (url, message, values) {
 						<tr>
 							<th>{lang show_message}</th>
 							<td><input type="text" name="showmessage" value="$para[showmessage]" class="px" />  {lang show_message_tips}</td>
-						</tr>
-						<!--{elseif $blockname == 'myapp'}-->
-						<!--{eval $para['logotype'] = empty($para['logotype']) ? 'icon' : $para['logotype'];}-->
-						<tr>
-							<th>{lang myapp_img}</th>
-							<td>
-								<label><input type="radio" name="logotype" value="logo"{if $para[logotype] == 'logo'} checked="checked"{/if}>{lang big}</label>
-								<label><input type="radio" name="logotype" value="icon"{if $para[logotype] == 'icon'} checked="checked"{/if}>{lang small}</label>
-							</td>
-						</tr>
+						</tr>						
 						<!--{/if}-->
 					</table>
 				</div>
