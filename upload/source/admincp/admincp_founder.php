@@ -420,7 +420,6 @@ function getactionarray() {
 	$isfounder = false;
 	require './source/admincp/admincp_menu.php';
 	require './source/admincp/admincp_perm.php';
-	require './source/admincp/menu/menu_cloud.php';
 	unset($menu['cloud'][0]);
 	unset($topmenu['index'], $menu['index']);
 	$actioncat = $actionarray = array();
