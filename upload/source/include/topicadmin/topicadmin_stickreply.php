@@ -23,7 +23,7 @@ if(empty($topiclist)) {
 	showmessage('admin_nopermission', NULL);
 }
 $sticktopiclist = $posts = array();
-foreach($topiclist as $pid) {
+foreach($topiclist as $pid) {	
 	$post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $pid, false);
 	$sticktopiclist[$pid] = $post['position'];
 }
@@ -41,6 +41,10 @@ if(!submitcheck('modsubmit')) {
 
 	if($_GET['stickreply']) {
 		foreach($sticktopiclist as $pid => $postnum) {
+			$post = C::t('forum_post')->fetch_all_by_pid('tid:'.$_G['tid'], $pid, false);			
+			if($post[$pid]['tid'] != $_G['tid']) {
+				continue;
+			}
 			C::t('forum_poststick')->insert(array(
 				'tid' => $_G['tid'],
 				'pid' => $pid,
