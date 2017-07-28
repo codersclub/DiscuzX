@@ -570,29 +570,7 @@ function getblockhtml($blockname,$parameters = array()) {
 			break;
 
 		case 'myapp':
-			$html = '';
-			$listclass = 'ptm ml mls cl';
-			$userapps = C::t('home_userapp')->fetch_all_by_uid_appid($uid, 0, 'menuorder', 'DESC', 0, $shownum);
-			$appids = array();
-			foreach($userapps as $app) {
-				$appids[$app['appid']] = $app['appid'];
-			}
-			if(!empty($appids)) {
-				$myapps = C::t('common_myapp')->fetch_all($appids);
-			}
-			foreach($userapps as $value) {
-				$value['iconstatus'] = $myapps[$value['appid']]['iconstatus'];
-				if(!empty($value['appname'])) {
-					$replace = array('appid'=>$value['appid'], 'appname'=>$value['appname']);
-					$parameters['logotype'] = !empty($parameters['logotype']) && in_array($parameters['logotype'], array('icon', 'logo')) ? $parameters['logotype'] : 'logo';
-					if($parameters['logotype'] == 'icon') {
-						$listclass = 'xl xl1 cl';
-						$replace['icon'] = getmyappiconpath($value['appid'], $value['iconstatus']);
-					}
-					$html .= lang('space', 'myapp_li_'.$parameters['logotype'], $replace);
-				}
-			}
-			$html = !$html ? '<p class="emp">'.lang('space','block_myapp_no_content').($space['self'] ? lang('space', 'block_myapp_no_content_publish', $space) : '').'</p>' : '<ul class="'.$listclass.'">'.$html.'</ul>';
+			$html = '';		
 			break;
 		case 'block1':
 		case 'block2':

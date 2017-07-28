@@ -30,18 +30,6 @@ if($op == 'ignore') {
 	}
 	$formid = random(8);
 
-} elseif($op == 'getuserapp') {
-	getuserapp();
-	if(empty($_GET['subop'])) {
-		$my_userapp = array();
-		foreach($_G['my_userapp'] as $value) {
-			if($value['allowsidenav'] && !isset($_G['cache']['userapp'][$value['appid']])) {
-				$my_userapp[] = $value;
-			}
-		}
-	} else {
-		$my_userapp = $_G['my_menu'];
-	}
 } elseif($op == 'closefeedbox') {
 
 	dsetcookie('closefeedbox', 1);
