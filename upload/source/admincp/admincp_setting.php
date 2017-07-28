@@ -2521,7 +2521,7 @@ EOT;
 	if($operation == 'uc' && is_writeable('./config/config_ucenter.php') && $isfounder) {
 		require_once './config/config_ucenter.php';
 
-		$ucdbpassnew = $settingnew['uc']['dbpass'] == '********' ? addslashes(UC_DBPW) : $settingnew['uc']['dbpass'];
+		$ucdbpassnew = $settingnew['uc']['dbpass'] == '********' ? addslashes(UC_DBPW) : addslashes($settingnew['uc']['dbpass']);
 		$settingnew['uc']['key'] = addslashes($settingnew['uc']['key'] == '********' ? addslashes(UC_KEY) : $settingnew['uc']['key']);
 
 		if($settingnew['uc']['connect']) {
