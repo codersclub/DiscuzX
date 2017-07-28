@@ -295,7 +295,7 @@ SEARCH;
 
 	if(submitcheck('crimesearch', 1)) {
 		include_once libfile('function/member');
-		list($count, $clist) = crime('search', $crimeaction, $username, $operator, $startime, $endtime, $keyword, $start, $lpp);
+		list($count, $clist) = crime('search', $crimeaction, $username, $operator, $starttime, $endtime, $keyword, $start, $lpp);
 
 		showtablefooter();
 		showtableheader($lang[members_ban_crime_record], 'fixpadding', '', 5);

@@ -249,8 +249,8 @@ function crime($fun) {
 		list(, $uid, $action) = $arg_list;
 		return $crimerecord->$fun($uid, $action);
 	} elseif($fun == 'search') {
-		list(, $action, $username, $operator, $startime, $endtime, $reason, $start, $limit) = $arg_list;
-		return $crimerecord->$fun($action, $username, $operator, $startime, $endtime, $reason, $start, $limit);
+		list(, $action, $username, $operator, $starttime, $endtime, $reason, $start, $limit) = $arg_list;
+		return $crimerecord->$fun($action, $username, $operator, $starttime, $endtime, $reason, $start, $limit);
 	} elseif($fun == 'actions') {
 		return crime_action_ctl::$actions;
 	}
