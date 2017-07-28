@@ -120,7 +120,7 @@ class pmmodel {
 		}
 		if($touids) {
 			foreach($touids as $key => $value) {
-				if($uid == $value || !$value) {
+				if($uid == $value || !$value || !preg_match("/^[0-9]+$/", $value)) {
 					return false;
 				}
 				$relastionship[] = $this->relationship($uid, $value);
