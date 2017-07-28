@@ -36,6 +36,7 @@ $modcachelist = array(
 			'domainwhitelist', 'albumcategory'),
 	'space'		=> array('fields_required', 'fields_optional', 'custominfo'),
 	'group'		=> array('grouptype', 'diytemplatenamegroup'),
+	'topicadmin'	=> array('usergroups'),
 );
 
 $mod = !in_array(C::app()->var['mod'], $modarray) ? 'index' : C::app()->var['mod'];
@@ -55,16 +56,11 @@ if(C::app()->var['mod'] == 'group') {
 C::app()->cachelist = $cachelist;
 C::app()->init();
 
-
 loadforum();
-
 
 set_rssauth();
 
-
 runhooks();
-
-
 
 $navtitle = str_replace('{bbname}', $_G['setting']['bbname'], $_G['setting']['seotitle']['forum']);
 $_G['setting']['threadhidethreshold'] = 1;
