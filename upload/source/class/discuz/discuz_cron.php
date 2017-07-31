@@ -48,6 +48,9 @@ class discuz_cron
 				if(!@include $cronfile) {
 					return false;
 				}
+			}else{
+				$data = array('available' => '0');
+				C::t('common_cron')->update($cron['cronid'], $data);
 			}
 
 		}
