@@ -81,16 +81,11 @@ if($id) {
 	showmessage('invite_code_error', '', array(), array('return' => true));
 }
 
-$userapp = array();
-if($appid) {
-	$userapp = C::t('common_myapp')->fetch($appid);
-}
-
 $space = getuserbyuid($uid);
 if(empty($space)) {
 	showmessage('space_does_not_exist', '', array(), array('return' => true));
 }
-$jumpurl = $appid ? "userapp.php?mod=app&id=$appid&my_extra=invitedby_bi_{$uid}_$_GET[c]&my_suffix=Lw%3D%3D" : 'home.php?mod=space&uid='.$uid;
+$jumpurl = 'home.php?mod=space&uid='.$uid;
 if($acceptconfirm) {
 
 	dsetcookie('invite_auth', '');

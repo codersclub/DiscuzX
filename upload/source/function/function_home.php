@@ -92,25 +92,9 @@ function ckstart($start, $perpage) {
 
 
 function get_my_app() {
-	global $_G;
-
-	if($_G['setting']['my_app_status']) {
-		foreach(C::t('common_myapp')->fetch_all_by_flag(1, '=', 'DESC') as $value) {
-			$_G['my_app'][$value['appid']] = $value;
-		}
-	}
 }
 
 function get_my_userapp() {
-	global $_G;
-
-	if($_G['setting']['my_app_status'] && $_G['uid']) {
-		foreach(C::t('home_userapp')->fetch_all_by_uid_appid($_G['uid'], 0, 'displayorder') as $value) {
-			if(!empty($value['appname'])) {
-				$_G['my_userapp'][$value['appid']] = $value;
-			}
-		}
-	}
 }
 
 function getspace($uid) {

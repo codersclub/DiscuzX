@@ -15,7 +15,7 @@ $root = '<a href="'.ADMINSCRIPT.'?action=adv">'.cplang('adv_admin').'</a>';
 
 $operation = $operation ? $operation : 'list';
 
-$defaulttargets = array('portal', 'home', 'member', 'forum', 'group', 'userapp', 'plugin');
+$defaulttargets = array('portal', 'home', 'member', 'forum', 'group', 'plugin');
 
 if(!empty($_GET['preview'])) {
 	$_GET['advnew'][$_GET['advnew']['style']]['url'] = $_GET['TMPadvnew'.$_GET['advnew']['style']] ? $_GET['TMPadvnew'.$_GET['advnew']['style']] : $_GET['advnew'.$_GET['advnew']['style']];

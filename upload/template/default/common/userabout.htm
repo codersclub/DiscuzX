@@ -1,26 +1,8 @@
 <!--{hook/global_userabout_top $_G['basescript'].'::'.CURMODULE}-->
 <ul>
 	<!--{loop $_G['setting']['spacenavs'] $nav}-->
-		<!--{if $nav['available'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1))}-->
-			<!--{if in_array($nav['code'], array('userpanelarea1', 'userpanelarea2'))}-->
-				<!--{if !empty($_G[my_panelapp]) && $_G['setting']['my_app_status']}-->
-					<!--{if $nav['code']=='userpanelarea1' && !empty($_G[my_panelapp][1])}-->
-						<!--{loop $_G[my_panelapp][1] $appid $app}-->
-							<li>
-								<a href="userapp.php?mod=app&id=$app[appid]" title="$app[appname]"><img {if $app[icon]}src="$app[icon]" onerror="this.onerror=null;this.src='http://appicon.manyou.com/icons/$app[appid]'"{else} src="http://appicon.manyou.com/icons/$app[appid]"{/if} name="$appid" alt="$app[appname]" />$app[appname]</a>
-							</li>
-						<!--{/loop}-->
-					<!--{elseif $nav['code']=='userpanelarea2' && !empty($_G[my_panelapp][2])}-->
-						<!--{loop $_G[my_panelapp][2] $appid $app}-->
-							<li>
-								<a href="userapp.php?mod=app&id=$app[appid]" title="$app[appname]"><img {if $app[icon]}src="$app[icon]" onerror="this.onerror=null;this.src='http://appicon.manyou.com/icons/$app[appid]'"{else} src="http://appicon.manyou.com/icons/$app[appid]"{/if} name="$appid" alt="$app[appname]" />$app[appname]</a>
-							</li>
-						<!--{/loop}-->
-					<!--{/if}-->
-				<!--{/if}-->
-			<!--{else}-->
+		<!--{if $nav['available'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1))}-->			
 			$nav[code]
-			<!--{/if}-->
 		<!--{/if}-->
 	<!--{/loop}-->
 </ul>

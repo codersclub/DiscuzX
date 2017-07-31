@@ -135,17 +135,7 @@ if($op == 'comment') {
 
 
 } elseif($op == 'deluserapp') {
-
-	if(empty($_G['uid'])) {
-		showmessage('no_privilege_guest');
-	}
-	$hash = trim($_GET['hash']);
-	if(C::t('common_myinvite')->count_by_hash_touid($hash, $_G['uid'])) {
-		C::t('common_myinvite')->delete_by_hash_touid($hash, $_G['uid']);
-		showmessage('do_success');
-	} else {
-		showmessage('no_privilege_deluserapp');
-	}
+	
 } elseif($op == 'delnotice') {
 
 	if(empty($_G['uid'])) {

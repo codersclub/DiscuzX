@@ -91,7 +91,7 @@ function deletemember($uids, $delpost = true) {
 
 	foreach(array('home_doing', 'home_share', 'home_album', 'common_credit_rule_log', 'common_credit_rule_log_field',
 		'home_pic', 'home_blog', 'home_blogfield', 'home_class', 'home_clickuser',
-		'home_userapp', 'home_userappfield', 'home_show', 'forum_collectioncomment', 'forum_collectionfollow', 'forum_collectionteamworker') as $table) {
+		'home_show', 'forum_collectioncomment', 'forum_collectionfollow', 'forum_collectionteamworker') as $table) {
 		C::t($table)->delete_by_uid($arruids);
 	}
 	C::t('common_member')->delete($arruids, 1, 1);

@@ -33,36 +33,6 @@ $opactives[$view] = 'class="a"';
 $categorynum = $newprompt = array();
 if($view == 'userapp') {
 
-	space_merge($space, 'status');
-
-	if($_GET['op'] == 'del') {
-		$appid = intval($_GET['appid']);
-		C::t('common_myinvite')->delete_by_appid_touid($appid, $_G['uid']);
-		showmessage('do_success', "home.php?mod=space&do=notice&view=userapp&quickforward=1");
-	}
-
-	$filtrate = 0;
-	$count = 0;
-	$apparr = array();
-	$type = intval($_GET['type']);
-	foreach(C::t('common_myinvite')->fetch_all_by_touid($_G['uid']) as $value) {
-		$count++;
-		$key = md5($value['typename'].$value['type']);
-		$apparr[$key][] = $value;
-		if($filtrate) {
-			$filtrate--;
-		} else {
-			if($count < $perpage) {
-				if($type && $value['appid'] == $type) {
-					$list[$key][] = $value;
-				} elseif(!$type) {
-					$list[$key][] = $value;
-				}
-			}
-		}
-	}
-	$mynotice = $count;
-
 } else {
 
 	if(!empty($_GET['ignore'])) {
