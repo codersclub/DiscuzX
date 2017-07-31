@@ -2026,7 +2026,7 @@ function check_diy_perm($topic = array(), $flag = '') {
 function strhash($string, $operation = 'DECODE', $key = '') {
 	$key = md5($key != '' ? $key : getglobal('authkey'));
 	if($operation == 'DECODE') {
-		$hashcode = gzuncompress(base64_decode(($string)));
+		$hashcode = gzuncompress(base64_decode($string));
 		$string = substr($hashcode, 0, -16);
 		$hash = substr($hashcode, -16);
 		unset($hashcode);
