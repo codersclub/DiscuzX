@@ -17,7 +17,7 @@ class adv_subnavbanner {
 	var $name = 'subnavbanner_name';
 	var $description = 'subnavbanner_desc';
 	var $copyright = '<a href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a>';
-	var $targets = array('portal', 'home', 'member', 'forum', 'group', 'userapp', 'plugin', 'custom');
+	var $targets = array('portal', 'home', 'member', 'forum', 'group', 'plugin', 'custom');
 	var $imagesizes = array('468x40', '468x60', '658x60', '728x90', '760x90', '950x90');
 
 	function getsetting() {

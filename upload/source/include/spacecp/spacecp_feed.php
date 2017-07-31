@@ -66,20 +66,6 @@ if($_GET['op'] == 'delete') {
 		}
 		showmessage('do_success', dreferer(), array('feedid' => $feedid), array('showdialog'=>1, 'showmsg' => true, 'closetime' => true));
 	}
-} elseif($_GET['op'] == 'getapp') {
-
-	$cp_mode = 1;
-	$_GET['start'] = intval($_GET['start']);
-	if($_GET['start'] < 1) {
-		$_GET['start'] = $_G['setting']['feedmaxnum']<50?50:$_G['setting']['feedmaxnum'];
-		$_GET['start'] = $_GET['start'] + 1;
-	}
-	$_G['home_tpl_getmore'] = 1;
-
-	require_once libfile('userapp/index', 'include');
-
-	include_once template('userapp_index');
-	exit();
 
 } elseif($_GET['op'] == 'getcomment') {
 

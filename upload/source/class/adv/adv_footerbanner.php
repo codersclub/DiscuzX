@@ -17,7 +17,7 @@ class adv_footerbanner {
 	var $name = 'footerbanner_name';
 	var $description = 'footerbanner_desc';
 	var $copyright = '<a href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a>';
-	var $targets = array('portal', 'home', 'member', 'forum', 'group', 'search', 'userapp', 'plugin', 'custom');
+	var $targets = array('portal', 'home', 'member', 'forum', 'group', 'search', 'plugin', 'custom');
 	var $imagesizes = array('468x60', '658x60', '728x90', '760x90', '950x90', '950x130');
 
 	function getsetting() {

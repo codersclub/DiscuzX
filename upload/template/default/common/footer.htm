@@ -141,7 +141,6 @@
 	</script>
 <!--{/if}-->
 
-<!--{if $_G['basescript'] != 'userapp'}-->
 <div id="scrolltop">
 	<!--{if $_G[fid] && $_G['mod'] == 'viewthread'}-->
 	<span><a href="forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]&extra=$_GET[extra]&page=$page{if $_GET[from]}&from=$_GET[from]{/if}" onclick="showWindow('reply', this.href)" class="replyfast" title="{lang fastreply}"><b>{lang fastreply}</b></a></span>
@@ -158,7 +157,6 @@
 	<!--{/if}-->
 </div>
 <script type="text/javascript">_attachEvent(window, 'scroll', function () { showTopLink(); });checkBlind();</script>
-<!--{/if}-->
 <!--{if isset($_G['makehtml'])}-->
 	<script type="text/javascript" src="{$_G[setting][jspath]}html2dynamic.js?{VERHASH}"></script>
 	<script type="text/javascript">

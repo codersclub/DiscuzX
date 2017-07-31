@@ -17,7 +17,7 @@ class adv_cornerbanner {
 	var $name = 'cornerbanner_name';
 	var $description = 'cornerbanner_desc';
 	var $copyright = '<a href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a>';
-	var $targets = array('portal', 'home', 'member', 'forum', 'group', 'userapp', 'plugin', 'custom');
+	var $targets = array('portal', 'home', 'member', 'forum', 'group', 'plugin', 'custom');
 	var $imagesizes = array('300x250', '290x200', '250x180');
 
 	function getsetting() {

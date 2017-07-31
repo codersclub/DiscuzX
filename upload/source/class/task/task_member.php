@@ -26,8 +26,7 @@ class task_member {
 			'type' => 'mradio',
 			'value' => array(
 				array('favorite', 'member_complete_var_act_favorite'),
-				array('magic', 'member_complete_var_act_magic'),
-				array('userapp', 'member_complete_var_act_userapp'),
+				array('magic', 'member_complete_var_act_magic'),				
 			),
 			'default' => 'favorite',
 			'sort' => 'complete',
@@ -58,14 +57,6 @@ class task_member {
 				'value' => $value,
 				'expiration' => $_G['timestamp'],
 			), false, true);
-		} elseif($act == 'userapp') {
-			$num = C::t('home_userapp')->count_by_uid($_G['uid']);
-			C::t('forum_spacecache')->insert(array(
-				'uid' => $_G['uid'],
-				'variable' => 'userapp'.$task['taskid'],
-				'value' => $num,
-				'expiration' => $_G['timestamp'],
-			), false, true);
 		}
 	}
 
@@ -88,10 +79,6 @@ class task_member {
 		} elseif($taskvars['act'] == 'magic') {
 			$maxtime = $taskvars['time'] ? $task['applytime']+3600*$taskvars['time'] : 0;
 			$num = C::t('common_magiclog')->count_by_action_uid_dateline(2, $_G['uid'], $task['applytime'], $maxtime);
-		} elseif($taskvars['act'] == 'userapp') {
-			$userapp = C::t('forum_spacecache')->fetch($_G['uid'], 'userapp'.$task['taskid']);
-			$userapp = $userapp['value'];
-			$num = C::t('home_userapp')->count_by_uid($_G['uid']) - $userapp;
 		}
 
 		if($num && $num >= $taskvars['num']) {
