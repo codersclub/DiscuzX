@@ -11,7 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-if(file_exists(DISCUZ_ROOT.'./data/install.lock') || file_exists(DISCUZ_ROOT.'./data/update.lock')) {
+if(file_exists(DISCUZ_ROOT.'./data/install.lock') && file_exists(DISCUZ_ROOT.'./data/update.lock')) {
     exit('Access Denied');
 }
 
