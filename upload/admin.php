@@ -22,6 +22,7 @@ require './source/function/function_admincp.php';
 require './source/function/function_cache.php';
 
 $discuz = C::app();
+$discuz->init_cron = false;
 $discuz->init();
 
 $admincp = new discuz_admincp();
