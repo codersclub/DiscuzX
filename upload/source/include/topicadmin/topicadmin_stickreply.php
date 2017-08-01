@@ -23,7 +23,7 @@ if(empty($topiclist)) {
 	showmessage('admin_nopermission', NULL);
 }
 $sticktopiclist = $posts = array();
-foreach($topiclist as $pid) {	
+foreach($topiclist as $pid) {
 	$post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $pid, false);
 	$sticktopiclist[$pid] = $post['position'];
 }

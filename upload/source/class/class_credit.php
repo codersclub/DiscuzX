@@ -235,7 +235,7 @@ class credit {
 		}
 	}
 	
-	function fequencycheck($uids) {
+	function frequencycheck($uids) {
 		global $_G;
 		if(empty($_G['config']['security']['creditsafe']['second']) || empty($_G['config']['security']['creditsafe']['times'])) {
 			return true;
@@ -245,7 +245,7 @@ class credit {
 			$v = intval(memory('get', $key));
 			memory('set', $key, ++$v, $_G['config']['security']['creditsafe']['second']);
 			if($v > $_G['config']['security']['creditsafe']['times']) {
-				system_error('credit fequency limit', true);
+				system_error('credit frequency limit', true);
 				return false;
 			}
 		}
@@ -257,7 +257,7 @@ class credit {
 
 		if(!$uids) $uids = intval($_G['uid']);
 		$uids = is_array($uids) ? $uids : array($uids);
-		$this->fequencycheck($uids);
+		$this->frequencycheck($uids);
 		if($uids && ($creditarr || $this->extrasql)) {
 			if($this->extrasql) $creditarr = array_merge($creditarr, $this->extrasql);
 			$sql = array();
