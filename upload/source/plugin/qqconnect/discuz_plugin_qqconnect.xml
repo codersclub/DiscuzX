@@ -73,7 +73,7 @@
 		<item id="language">
 			<item id="scriptlang">
 				<item id="qqconnect_closed"><![CDATA[抱歉，QQ互联功能尚未开启]]></item>
-				<item id="connect_appid_desc"><![CDATA[请填写在“<a href="http://connect.qq.com" target="_blank">QQ互联</a>”申请的 appid 和 appkey]]></item>
+				<item id="connect_appid_desc"><![CDATA[请填写在QQ互联(connect.qq.com)申请的 appid 和 appkey]]></item>
 				<item id="connect_app_invalid"><![CDATA[抱歉，QQ互联功能暂时不可用]]></item>
 				<item id="connect_register_bind_already"><![CDATA[抱歉，该用户已绑定过另一个QQ用户，无法再次绑定]]></item>
 				<item id="connect_register_uinlimit"><![CDATA[抱歉，每个QQ帐号只能注册 {limit} 个帐号]]></item>
