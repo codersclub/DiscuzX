@@ -2,7 +2,10 @@
 	<h2 class="mt bbda">{lang setup}</h2>
 	<ul>
 		<li$actives[avatar]><a href="home.php?mod=spacecp&ac=avatar">{lang memcp_avatar}</a></li>
-		<li$actives[profile]><a href="home.php?mod=spacecp&ac=profile">{lang memcp_profile}</a></li>		
+		<li$actives[profile]><a href="home.php?mod=spacecp&ac=profile">{lang memcp_profile}</a></li>
+		<!--{if $_G['setting']['verify']['enabled'] && allowverify()}-->
+			<li$actives[verify]><a href="{if $_G['setting']['verify']['enabled']}home.php?mod=spacecp&ac=profile&op=verify{else}home.php?mod=spacecp&ac=videophoto{/if}">{lang memcp_verify}</a></li>
+		<!--{/if}-->
 		<li$actives[credit]><a href="home.php?mod=spacecp&ac=credit">{lang memcp_credit}</a></li>
 		<li$actives[usergroup]><a href="home.php?mod=spacecp&ac=usergroup">{lang memcp_usergroup}</a></li>
 		<li$actives[privacy]><a href="home.php?mod=spacecp&ac=privacy">{lang memcp_privacy}</a></li>

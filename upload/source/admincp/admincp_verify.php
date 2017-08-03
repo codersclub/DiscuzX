@@ -631,7 +631,6 @@ EOF;
 	shownav('user', 'nav_members_verify');
 	showsubmenu('members_verify_setting');
 	if(!submitcheck('verifysubmit')) {
-		showtips('members_verify_setting_tips');
 		showformheader("verify");
 		showtableheader('members_verify_setting', 'fixpadding');
 		showsubtitle(array('members_verify_available', 'members_verify_id', 'members_verify_title', ''), 'header');
