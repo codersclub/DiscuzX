@@ -504,7 +504,6 @@ if($operation == 'ad') {
 			array('adv_admin_setting', 'adv&operation=setting', 1),
 			array('adv_admin_list', 'adv&operation=list', 0),
 			array('adv_admin_listall', 'adv&operation=ad', 0),
-			array('adv_admin_discuzunion', 'http://union.discuz.qq.com/?ADTAG=CP.DISCUZ. ADSET.TAG', 0, 1, 1)
 		));
 
 		$advexpiration = C::t('common_setting')->fetch('advexpiration', true);
@@ -530,7 +529,6 @@ if($operation == 'ad') {
 		array('adv_admin_setting', 'adv&operation=setting', 0),
 		array('adv_admin_list', 'adv&operation=list', 1),
 		array('adv_admin_listall', 'adv&operation=ad', 0),
-		array('adv_admin_discuzunion', 'http://union.discuz.qq.com/?ADTAG=CP.DISCUZ. ADSET.TAG', 0, 1, 1),
 	));
 	showtips('adv_list_tip');
 

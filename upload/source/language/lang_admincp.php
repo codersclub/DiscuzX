@@ -6223,7 +6223,7 @@ $lang = array
 	'adv_custom_edit' => '编辑自定义广告位',
 	'adv_custom_delete' => '删除此自定义广告位吗？',
 	'adv_customnamenew' => '请输入此自定义广告位的新名称:',
-	'adv_list_tip' => '<li>您可以使用“自定义广告位”在页面的任意位置添加广告位。<li>系统广告位位于 source/class/adv/ 目录中，插件广告位位于 source/plugin/插件目录/adv/ 目录中。</li><li>插件开发人员在设计新的广告位前请务必仔细阅读《<a href="http://open.discuz.net/?!devdoc" target="_blank">Discuz! 技术文档</a>》中的内容。</li><li><a href="http://union.discuz.qq.com/?ADTAG=CP.DISCUZ. ADSET.TIP1" target="_blank">Discuz!联盟</a>免费提供更丰富的广告形式，让您赚取更丰厚的广告收益，快来看看吧。</li>',
+	'adv_list_tip' => '<li>您可以使用“自定义广告位”在页面的任意位置添加广告位。<li>系统广告位位于 source/class/adv/ 目录中，插件广告位位于 source/plugin/插件目录/adv/ 目录中。</li><li>插件开发人员在设计新的广告位前请务必仔细阅读《<a href="http://open.discuz.net/?!devdoc" target="_blank">Discuz! 技术文档</a>》中的内容。</li>',
 	'adv_custom_target' => '自定义投放范围，输入站点根目录程序文件名(无扩展名)，多个用逗号分隔',
 
 	'adv_edit' => '编辑广告',
