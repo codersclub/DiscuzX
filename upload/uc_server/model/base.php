@@ -357,9 +357,17 @@ class base {
 	}
 
 	function input($k) {
-		if($k == 'uid' && !preg_match("/^[0-9]+$/", $this->input[$k])){
-			return NULL;
-		}
+		if($k == 'uid') {
+		    if(is_array($this->input[$k])) {
+		        foreach ($this->input[$k] as $value) {
+		            if(!preg_match("/^[0-9]+$/", $value)) {
+		                return NULL;
+		            }
+		        }
+		    } elseif(!preg_match("/^[0-9]+$/", $this->input[$k])) {
+		        return NULL;
+		    }
+		}		
 		return isset($this->input[$k]) ? (is_array($this->input[$k]) ? $this->input[$k] : trim($this->input[$k])) : NULL;
 	}
 
