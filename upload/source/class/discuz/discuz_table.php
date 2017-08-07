@@ -18,6 +18,8 @@ class discuz_table extends discuz_base
 	public $data = array();
 
 	public $methods = array();
+	
+	public $empty_ttl = 30;
 
 	protected $_table;
 	protected $_pk;
@@ -92,7 +94,11 @@ class discuz_table extends discuz_base
 		if(!empty($id)) {
 			if($force_from_db || ($data = $this->fetch_cache($id)) === false) {
 				$data = DB::fetch_first('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field($this->_pk, $id));
-				if(!empty($data)) $this->store_cache($id, $data);
+				if(!empty($data)) {
+					$this->store_cache($id, $data);
+				} else {
+					$this->store_cache($id, array(), $this->empty_ttl);
+				}
 			}
 		}
 		return $data;
@@ -111,6 +117,12 @@ class discuz_table extends discuz_base
 					while($value = DB::fetch($query)) {
 						$data[$value[$this->_pk]] = $value;
 						$this->store_cache($value[$this->_pk], $value);
+					}
+				}
+				$diff_ids = array_diff($ids, array_keys($data));
+				if(!empty($diff_ids)) {
+					foreach($diff_ids as $diff_id) {
+						$this->store_cache($diff_id, array(), $this->empty_ttl);
 					}
 				}
 			}

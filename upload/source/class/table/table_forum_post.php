@@ -19,7 +19,8 @@ class table_forum_post extends discuz_table
 
 		$this->_table = 'forum_post';
 		$this->_pk    = 'pid';
-
+		$this->_pre_cache_key = 'forum_post_';
+		$this->_cache_ttl = 0;
 		parent::__construct();
 	}
 
