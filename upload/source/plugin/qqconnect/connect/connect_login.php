@@ -36,7 +36,7 @@ if($op == 'init') {
 		}
 	}
 
-	$callback = $_G['connect']['callback_url'] . '&referer=' . urlencode($_GET['referer']) . (!empty($_GET['isqqshow']) ? '&isqqshow=yes' : '');
+	$callback = $_G['connect']['callback_url'] . '&referer=' . urlencode($_GET['referer']);
 
 	try {
 		dsetcookie('con_request_uri', $callback);
@@ -141,7 +141,7 @@ if($op == 'init') {
 			showmessage('qqconnect:connect_register_bind_uin_already', $referer, array('username' => $_G['member']['username']));
 		}
 
-		$isqqshow = !empty($_GET['isqqshow']) ? 1 : 0;
+		$isqqshow = 0;
 
 		$current_connect_member = C::t('#qqconnect#common_member_connect')->fetch($_G['uid']);
 		if($_G['member']['conisbind'] && $current_connect_member['conopenid']) {

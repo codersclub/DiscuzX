@@ -28,7 +28,7 @@ if(!empty($_POST)) {
 	$conispublishfeed = 0;
 	$conispublisht = 0;
 
-	$is_use_qqshow = !empty($_GET['use_qqshow']) ? 1 : 0;
+	$is_use_qqshow = 0;
 
 	if ($conopenid) {
 		C::t('#qqconnect#common_member_connect')->insert(array('uid' => $uid, 'conuin' => $conuin, 'conuinsecret' => $conuinsecret, 'conuintoken' => $conuintoken, 'conopenid' => $conopenid, 'conispublishfeed' => $conispublishfeed, 'conispublisht' => $conispublisht, 'conisregister' => '0', 'conisqzoneavatar' => '0', 'conisfeed' => $user_auth_fields, 'conisqqshow' => $is_use_qqshow), false, true);

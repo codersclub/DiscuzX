@@ -36,7 +36,7 @@ if($op == 'init') {
 		}
 	}
 
-	$callback = $_G['connect']['callback_url'] . '&referer=' . urlencode($_GET['referer']) . (!empty($_GET['isqqshow']) ? '&isqqshow=yes' : '');
+	$callback = $_G['connect']['callback_url'] . '&referer=' . urlencode($_GET['referer']);
 
 	if(!$_G['setting']['connect']['oauth2']) {
 		dsetcookie('con_request_token');

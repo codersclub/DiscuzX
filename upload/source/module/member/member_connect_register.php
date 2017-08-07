@@ -76,13 +76,8 @@ if(empty($_POST)) {
 	$conispublishfeed = 0;
 	$conispublisht = 0;
 
-	$is_qzone_avatar = !empty($_GET['use_qzone_avatar']) ? 1 : 0;
-	$is_use_qqshow = !empty($_GET['use_qqshow']) ? 1 : 0;
-	if(!empty($_GET['use_qzone_avatar_qqshow'])) {
-		$is_qzone_avatar = $is_use_qqshow = 1;
-	}
 	$userdata = array();
-	$userdata['avatarstatus'] = $is_qzone_avatar;
+	$userdata['avatarstatus'] = 0;
 	$userdata['conisbind'] = 1;
 
 	C::t('#qqconnect#common_member_connect')->insert(array(
@@ -94,9 +89,9 @@ if(empty($_POST)) {
 		'conispublishfeed' => $conispublishfeed,
 		'conispublisht' => $conispublisht,
 		'conisregister' => '1',
-		'conisqzoneavatar' => $is_qzone_avatar,
+		'conisqzoneavatar' => '0',
 		'conisfeed' => '1',
-		'conisqqshow' => $is_use_qqshow,
+		'conisqqshow' => '0',
 	));
 
 	dsetcookie('connect_js_name', 'user_bind', 86400);

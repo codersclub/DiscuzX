@@ -111,18 +111,6 @@ $connect_app_id = $_G['qc']['connect_app_id'];
 $connect_openid = $_G['qc']['connect_openid'];
 }
 <!--{block return}-->
-	<!--{if $connect_app_id && $connect_openid}-->
-	<div class="rfm">
-		<table>
-			<tr>
-				<th></th>
-				<td>
-					<label  for="use_qzone_avatar_qqshow"><input type="checkbox" name="use_qzone_avatar_qqshow" id="use_qzone_avatar_qqshow" class="pc" value="1" checked="checked" tabindex="1" />{lang qqconnect:connect_register_use_qzone_avatar_qqshow}</label>
-				</td>
-			</tr>
-		</table>
-	</div>
-	<!--{/if}-->
 	<input type="hidden" id="auth_hash" name="auth_hash" value="{$_G['qc']['connect_auth_hash']}" />
 	<input type="hidden" id="is_notify" name="is_notify" value="{$_G['qc']['connect_is_notify']}" />
 	<input type="hidden" id="is_feed" name="is_feed" value="{$_G['qc']['connect_is_feed']}" />
@@ -145,8 +133,7 @@ $connect_tab_2 = $_GET['ac'] == 'bind' ? ' class="a"' : '';
 <!--{block js2}-->	
 	<!--{if $_GET['ac'] == 'bind' || $_G['setting']['regconnect']}-->
 	<div id="loggingbox" class="loggingbox">
-		<div class="loging_tit cl">
-			<div class="z avt" style="display:block;"><img src="{$_G[connect][avatar_url]}/$connect_app_id/$connect_openid" width="48" height="48" /></div>
+		<div class="loging_tit cl">			
 			<div class="z">
 				<p class="welcome mbn cl" style="clear:both; width:100%; "><strong>Hi</strong>,<strong>$_G['member']['username']</strong>, <span class="xg2">{lang connect_member_login_tip}</span></p>
 				<ul class="tb cl z">
@@ -171,7 +158,6 @@ $js2 = str_replace(array("'", "\r", "\n"), array("\'", '', ''), $js2);
 				<input type="hidden" id="is_notify" name="is_notify" value="{$_G['qc']['connect_is_notify']}" />
 				<input type="hidden" id="is_feed" name="is_feed" value="{$_G['qc']['connect_is_feed']}" />
 				<!--{if $_G['qc']['uinlimit']}-->
-				<!--<div class="bm xi1 xw1"><div class="bm_c"><img src="{IMGDIR}/connect_qq.gif" alt="QQ" class="vm" />&nbsp;{lang qqconnect:connect_uin_limit}</div></div>-->
 				<div class="rfm">
 					<table>
 						<tr>
@@ -238,18 +224,7 @@ $js2 = str_replace(array("'", "\r", "\n"), array("\'", '', ''), $js2);
 							<td><input type="text" name="answer" id="loginanswer_$loginhash" autocomplete="off" size="36" class="txt" tabindex="1" /></td>
 						</tr>
 					</table>
-				</div>
-
-				<div class="rfm">
-					<table>
-						<tr>
-							<th></th>
-							<td>
-								<p><label for="use_qqshow_bind"><input type="checkbox" name="use_qqshow" id="use_qqshow_bind" class="pc" value="1" checked="checked" tabindex="1" /> {lang qqconnect:connect_register_use_qqshow}</label></p>
-							</td>
-						</tr>
-					</table>
-				</div>
+				</div>				
 			</div>
 			<div class="rfm mbw bw0">
 				<table>

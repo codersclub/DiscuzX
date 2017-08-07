@@ -129,17 +129,7 @@ function settab(m,n){
 				$htmls[$field['fieldid']]
 			</li>
 		<!--{/if}-->
-	<!--{/loop}-->
-	
-	<!--{if $isconnect}-->
-		<li>
-			<label><strong>{lang qqconnect:connect_register_avatar}:</strong></label>
-			<input type="checkbox" name="use_qzone_avatar" id="use_qzone_avatar" class="pc" value="1" checked="checked" tabindex="1" /> {lang qqconnect:connect_register_use_qzone_avatar}
-			<input type="checkbox" name="use_qqshow" id="use_qqshow" class="pc" value="1" checked="checked" tabindex="1" /> {lang qqconnect:connect_register_use_qqshow}
-		</li>
-	<!--{/if}-->
-	
-	
+	<!--{/loop}-->		
 </ul>
 	<!--{if $seccodecheck || $secqaacheck}-->
 		{eval $sechash = random(8);}
