@@ -18,8 +18,7 @@ class discuz_table extends discuz_base
 	public $data = array();
 
 	public $methods = array();
-	
-	protected $_empty_ttl;
+
 	protected $_table;
 	protected $_pk;
 	protected $_pre_cache_key;
@@ -30,12 +29,6 @@ class discuz_table extends discuz_base
 		if(!empty($para)) {
 			$this->_table = $para['table'];
 			$this->_pk = $para['pk'];
-		}		
-		if(!isset($this->_empty_ttl) && ($empty_ttl = getglobal('config/cache/empty_ttl'))) {
-			$this->_empty_ttl = $empty_ttl;
-		}
-		if(empty($this->_empty_ttl)) {
-			$this->_empty_ttl = 30;
 		}
 		if(isset($this->_pre_cache_key) && (($ttl = getglobal('setting/memory/'.$this->_table)) !== null || ($ttl = $this->_cache_ttl) !== null) && memory('check')) {
 			$this->_cache_ttl = $ttl;
@@ -94,16 +87,12 @@ class discuz_table extends discuz_base
 		}
 	}
 
-	public function fetch($id, $force_from_db = false){				
+	public function fetch($id, $force_from_db = false){
 		$data = array();
 		if(!empty($id)) {
 			if($force_from_db || ($data = $this->fetch_cache($id)) === false) {
 				$data = DB::fetch_first('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field($this->_pk, $id));
-				if(!empty($data)) {
-					$this->store_cache($id, $data);
-				} else {
-					$this->store_cache($id, array(), $this->_empty_ttl);
-				}
+				if(!empty($data)) $this->store_cache($id, $data);
 			}
 		}
 		return $data;
@@ -122,12 +111,6 @@ class discuz_table extends discuz_base
 					while($value = DB::fetch($query)) {
 						$data[$value[$this->_pk]] = $value;
 						$this->store_cache($value[$this->_pk], $value);
-					}
-				}
-				$diff_ids = array_diff($ids, array_keys($data));
-				if(!empty($diff_ids)) {
-					foreach($diff_ids as $diff_id) {
-						$this->store_cache($diff_id, array(), $this->_empty_ttl);
 					}
 				}
 			}
