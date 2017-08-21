@@ -166,9 +166,7 @@ INSERT INTO pre_common_nav VALUES ('', '0', '相册', '', 'home.php?mod=space&do
 INSERT INTO pre_common_nav VALUES ('', '0', '分享', '', 'home.php?mod=space&do=share', 'share', 0, 0, -1, 4, 0, 0, 0, 0, '{STATICURL}image/feed/share.gif', '添加', 'home.php?mod=spacecp&ac=share', 2, '');
 INSERT INTO pre_common_nav VALUES ('', '0', '记录', '', 'home.php?mod=space&do=doing', 'doing', 0, 0, -1, 5, 0, 0, 0, 0, '{STATICURL}image/feed/doing.gif', '', '', 2, '');
 INSERT INTO pre_common_nav VALUES ('', '0', '广播', '', 'home.php?mod=follow', 'follow', 0, 0, -1, 6, 0, 0, 0, 0, '{STATICURL}image/feed/follow.gif', '', '', 2, '');
-INSERT INTO pre_common_nav VALUES ('', '0', '{userpanelarea1}', '', '', '', 0, 0, 1, 7, 0, 0, 0, 0, '', '', '', 2, '');
 INSERT INTO pre_common_nav VALUES ('', '0', '{hr}', '', '', '', 0, 1, 1, 8, 0, 0, 0, 0, '', '', '', 2, '');
-INSERT INTO pre_common_nav VALUES ('', '0', '{userpanelarea2}', '', '', '', 0, 0, 1, 9, 0, 0, 0, 0, '', '', '', 2, '');
 
 INSERT INTO pre_common_nav VALUES ('', '0', '好友', '', 'home.php?mod=space&do=friend', 'friend', 0, 0, 0, 1, 0, 0, 0, 0, '{STATICURL}image/feed/friend_b.png', '', '', 3, '');
 INSERT INTO pre_common_nav VALUES ('', '0', '帖子', '', 'forum.php?mod=guide&view=my', 'thread', 0, 0, 0, 2, 0, 0, 0, 0, '{STATICURL}image/feed/thread_b.png', '', '', 3, '');
