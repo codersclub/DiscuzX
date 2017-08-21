@@ -922,15 +922,11 @@ function get_cachedata_spacenavs() {
 		}
 		$nav['subcode'] = $nav['allowsubnew'] ? '<span><a href="'.$nav['suburl'].'"'.($nav['target'] == 1 ? ' target="_blank"' : '').$nav['extra'].'>'.$nav['subname'].'</a></span>' : '';
 		if($nav['name'] != '{hr}') {
-			if(in_array($nav['name'], array('{userpanelarea1}', '{userpanelarea2}'))) {
-				$nav['code'] = str_replace(array('{', '}'), '', $nav['name']);
-			} else {
 				$nav['code'] = '<li>'.$nav['subcode'].'<a href="'.$nav['url'].'"'.($nav['title'] ? ' title="'.$nav['title'].'"' : '').($nav['target'] == 1 ? ' target="_blank"' : '').'>'.$nav['icon'].$nav['name'].'</a></li>';
-			}
 		} else {
 			$nav['code'] = '</ul><hr class="da" /><ul>';
 		}
-		$id = $nav['type'] == 0 && !in_array($nav['name'], array('{userpanelarea1}', '{userpanelarea2}')) ? $nav['identifier'] : 100 + $nav['id'];
+		$id = $nav['type'] == 0  ? $nav['identifier'] : 100 + $nav['id'];
 		$data['spacenavs'][$id] = array('available' => $nav['available'], 'navname' => $nav['name'], 'code' => $nav['code'], 'level' => $nav['level']);
 	}
 	return $data['spacenavs'];
