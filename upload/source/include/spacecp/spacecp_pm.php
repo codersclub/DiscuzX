@@ -376,7 +376,7 @@ if($_GET['op'] == 'checknewpm') {
 	}
 	$username = $_GET['username'];
 
-	if(!$username || !uc_get_user($username)) {
+	if(!$username || !uc_get_user(addslashes($username))) {
 		showmessage('pm_ignore_error_nopm');
 	}
 
