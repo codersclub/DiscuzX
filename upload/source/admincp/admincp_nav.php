@@ -582,12 +582,12 @@ EOT;
 				showtablerow('', array('class="td25"', 'class="td25"', '', ''), array(
 					in_array($nav['type'], array('2', '1')) ? "<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$nav[id]\">" : '<input type="checkbox" class="checkbox" value="" disabled="disabled" />',
 					"<input type=\"text\" class=\"txt\" size=\"2\" name=\"displayordernew[$nav[id]]\" value=\"$nav[displayorder]\">",
-					!in_array($nav['name'], array('{userpanelarea1}', '{userpanelarea2}', '{hr}')) ? ("<input type=\"text\" class=\"txt\" size=\"15\" name=\"namenew[$nav[id]]\" value=\"".dhtmlspecialchars($nav['name'])."\">".
+					!in_array($nav['name'], array('{hr}')) ? ("<input type=\"text\" class=\"txt\" size=\"15\" name=\"namenew[$nav[id]]\" value=\"".dhtmlspecialchars($nav['name'])."\">".
 					($nav['icon'] ? '<img src="'.$navicon.'" width="16" height="16" class="vmiddle" />' : '')) : "<input type=\"hidden\" name=\"namenew[$nav[id]]\" value=\"$nav[name]\">".cplang('nav_spacenav_'.str_replace(array('{', '}'), '', $nav['name']), array('navname' => $_G['setting']['navs'][5]['navname'])),
 					$nav['type'] == '0' || $nav['name'] == '{hr}' ? $nav['url'] : "<input type=\"text\" class=\"txt\" size=\"15\" name=\"urlnew[$nav[id]]\" value=\"".dhtmlspecialchars($nav['url'])."\">",
 					cplang($nav['type'] == '0' ? 'inbuilt' : ($nav['type'] == '3' ? 'nav_plugin' : ($nav['type'] == '4' ? 'channel' : 'custom'))),
 					"<input class=\"checkbox\" type=\"checkbox\" name=\"availablenew[$nav[id]]\" value=\"1\" ".($nav['available'] ? 'checked' : '').">",
-					!in_array($nav['name'], array('{userpanelarea1}', '{userpanelarea2}', '{hr}')) ? "<a href=\"".ADMINSCRIPT."?action=nav&operation=spacenav&do=edit&id=$nav[id]\" class=\"act\">$lang[edit]</a>" : ''
+					!in_array($nav['name'], array('{hr}')) ? "<a href=\"".ADMINSCRIPT."?action=nav&operation=spacenav&do=edit&id=$nav[id]\" class=\"act\">$lang[edit]</a>" : ''
 				));
 			}
 			echo '<tr><td colspan="1"></td><td colspan="7"><div><a href="###" onclick="addrow(this, 0, 0)" class="addtr">'.$lang['nav_spacenav_add'].'</a> &nbsp; <a href="###" onclick="addrow(this, 1, 0)" class="addtr">'.$lang['nav_spacenav_add_hr'].'</a></div></td></tr>';
