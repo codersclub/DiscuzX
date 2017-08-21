@@ -87,9 +87,6 @@ $_config['db']['common']['slave_except_table'] = '';
  * 当 memcache 无法启用时，会自动开启另外的两种优化模式
  */
 
-//空值缓存有效期，默认30秒
-$_config['cache']['empty_ttl'] = 30;
-
 //内存变量前缀, 可更改,避免同服务器中的程序引用错乱
 $_config['memory']['prefix'] = 'discuz_';
 
