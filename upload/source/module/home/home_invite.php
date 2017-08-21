@@ -66,12 +66,12 @@ if($id) {
 
 	$id = 0;
 	$invite_code = space_key($uid, $appid);
-	if($_GET['c'] != $invite_code) {
+	if($_GET['c'] !== $invite_code) {
 		showmessage('invite_code_error', '', array(), array('return' => true));
 	}
 	$inviteuser = getuserbyuid($uid);
 	loadcache('usergroup_'.$inviteuser['groupid']);
-	if(!empty($_G['cache']['usergroup_'.$inviteuser['groupid']]) && $_G['cache']['usergroup_'.$inviteuser['groupid']]['inviteprice']) {
+	if(!empty($_G['cache']['usergroup_'.$inviteuser['groupid']]) && (!$_G['cache']['usergroup_'.$inviteuser['groupid']]['allowinvite'] || $_G['cache']['usergroup_'.$inviteuser['groupid']]['inviteprice'])) {
 		showmessage('invite_code_error', '', array(), array('return' => true));
 	}
 

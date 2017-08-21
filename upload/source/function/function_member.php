@@ -184,14 +184,14 @@ function getinvite() {
 		$appid = intval($cookies[2]);
 
 		$invite_code = space_key($uid, $appid);
-		if($code == $invite_code) {
-			$inviteprice = 0;
+		if($code === $invite_code) {
 			$member = getuserbyuid($uid);
 			if($member) {
 				$usergroup = C::t('common_usergroup')->fetch($member['groupid']);
-				$inviteprice = $usergroup['inviteprice'];
+				if(!$usergroup['allowinvite'] || $usergroup['inviteprice'] > 0) return array();
+			} else {
+				return array();
 			}
-			if($inviteprice > 0) return array();
 			$result['uid'] = $uid;
 			$result['appid'] = $appid;
 		}
