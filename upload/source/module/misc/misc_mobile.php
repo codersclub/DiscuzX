@@ -55,6 +55,21 @@ if($_GET['view'] == true) {
 	ob_start();
 	include template('mobile/forum/discuz');
 } else {
+	if($_G['setting']['domain']['app']['mobile']) {
+		$url = 'http://'.$_G['setting']['domain']['app']['mobile'];
+		$file = 'newmobiledomain.png';
+	} elseif($_G['setting']['mobile']['allowmnew']) {
+		$url = $_G['siteurl'].'m/';
+		$file = 'newmobileurl.png';
+	} else {
+		$url = $_G['siteurl'];
+		$file = 'newmobile.png';
+	}
+	$qrimg = DISCUZ_ROOT.'./data/cache/'.$file;
+	if(!file_exists($qrimg)) {
+		require_once DISCUZ_ROOT.'source/plugin/mobile/qrcode.class.php';
+		QRcode::png($url, $qrimg, QR_ECLEVEL_Q, 4);
+	}
 	include template('mobile/common/preview');
 }
 function output_preview() {
