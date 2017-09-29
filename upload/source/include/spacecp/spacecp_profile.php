@@ -178,8 +178,6 @@ if(submitcheck('profilesubmit')) {
 	if($_GET['deletefile'] && is_array($_GET['deletefile'])) {
 		foreach($_GET['deletefile'] as $key => $value) {
 			if(isset($_G['cache']['profilesetting'][$key]) && $_G['cache']['profilesetting'][$key]['formtype'] == 'file') {
-				@unlink(getglobal('setting/attachdir').'./profile/'.$space[$key]);
-				@unlink(getglobal('setting/attachdir').'./profile/'.$verifyinfo['field'][$key]);
 				$verifyarr[$key] = $setarr[$key] = '';
 			}
 		}
@@ -215,17 +213,14 @@ if(submitcheck('profilesubmit')) {
 				$attach['attachment'] = dhtmlspecialchars(trim($attach['attachment']));
 				if($vid && $verifyconfig['available'] && isset($verifyconfig['field'][$key])) {
 					if(isset($verifyinfo['field'][$key])) {
-						@unlink(getglobal('setting/attachdir').'./profile/'.$verifyinfo['field'][$key]);
 						$verifyarr[$key] = $attach['attachment'];
 					}
 					continue;
 				}
 				if(isset($setarr[$key]) && $_G['cache']['profilesetting'][$key]['needverify']) {
-					@unlink(getglobal('setting/attachdir').'./profile/'.$verifyinfo['field'][$key]);
 					$verifyarr[$key] = $attach['attachment'];
 					continue;
 				}
-				@unlink(getglobal('setting/attachdir').'./profile/'.$space[$key]);
 				$setarr[$key] = $attach['attachment'];
 			}
 
