@@ -787,6 +787,9 @@ class discuz_application extends discuz_base{
 			}
 			dheader("location:$mobileurl");
 		}
+		if($this->var['setting']['mobile']['allowmnew'] && !defined('IN_MOBILE_API')) {
+			dheader("location:".$this->var['siteurl'].'m/');
+		}
 		if($mobile === '3' && empty($this->var['setting']['mobile']['wml'])) {
 			return false;
 		}
