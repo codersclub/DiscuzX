@@ -1,6 +1,6 @@
 ### **简介** 
 
-Discuz! X 官方 Git (https://gitee.com/ComsenzDiscuz/DiscuzX) ，简体中文 UTF8 版本，其他版本请自行转码或者[附件](http://gitee.com/ComsenzDiscuz/DiscuzX/attach_files)中下载
+Discuz! X 官方 Git (https://gitee.com/ComsenzDiscuz/DiscuzX) ，简体中文 UTF8 版本，其他版本请自行转码或者在[附件](http://gitee.com/ComsenzDiscuz/DiscuzX/attach_files)中下载编码转换工具
 
 ### **声明**
 您可以 Fork 本站代码，但未经许可 **禁止** 在本产品的整体或任何部分基础上以发展任何派生版本、修改版本或第三方版本用于 **重新分发** 
