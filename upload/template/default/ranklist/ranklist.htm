@@ -37,7 +37,7 @@
 				<!--{eval unset($memberlist[0]);}-->
 				<!--{loop $memberlist $member}-->
 					<li>
-						<a href="home.php?mod=space&uid=$member[uid]&do=profile" target="_blank" id="bid_$member[uid]" {if $member[note]} onmouseover="showTip(this)" tip="$member[username]: $member[note]"{/if}>$member[avatar]</a>
+						<a href="home.php?mod=space&uid=$member[uid]&do=profile" target="_blank" id="bid_$member[uid]" {if $member[note]} onmouseover="showTip(this)" tip="$member[username]: {echo htmlspecialchars($member[note])}"{/if}>$member[avatar]</a>
 					</li>
 				<!--{/loop}-->
 				</ul>
