@@ -36,13 +36,7 @@ class extend_thread_image extends extend_thread_base {
 		$values = array('fid' => $fid, 'tid' => $tid, 'pid' => $pid, 'coverimg' => '');
 		$param = array();
 		if($this->forum['picstyle']) {
-			if(!setthreadcover($pid, 0, $threadimageaid) && !defined('IN_MOBILE')) {
-				$imglist = array();
-				preg_match_all("/(\[img\]|\[img=\d{1,4}[x|\,]\d{1,4}\])\s*([^\[\<\r\n]+?)\s*\[\/img\]/is", $this->param['message'], $imglist, PREG_SET_ORDER);
-				$values['coverimg'] = "<p id=\"showsetcover\">".lang('message', 'post_newthread_set_cover')."<span id=\"setcoverwait\"></span></p><script>if($('forward_a')){\$('forward_a').style.display='none';setTimeout(\"$('forward_a').style.display=''\", 5000);};ajaxget('forum.php?mod=ajax&action=setthreadcover&tid=$tid&pid=$pid&fid=$fid&imgurl={$imglist[0][2]}&newthread=1', 'showsetcover', 'setcoverwait')</script>";
-				$param['clean_msgforward'] = 1;
-				$param['timeout'] = $param['refreshtime'] = 15;
-			}
+			setthreadcover($pid, 0, $threadimageaid);
 		}
 
 		if($threadimageaid) {
