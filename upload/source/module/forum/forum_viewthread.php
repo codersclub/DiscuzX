@@ -875,7 +875,7 @@ if($_G['forum_cachepid']) {
 	foreach(C::t('forum_postcache')->fetch_all($_G['forum_cachepid']) as $postcache) {
 		if($postcache['rate']) {
 			$postcache['rate'] = dunserialize($postcache['rate']);
-			$postlist[$postcache['pid']]['ratelog'] = $postcache['rate']['ratelogs'];
+			$postlist[$postcache['pid']]['ratelog'] = dhtmlspecialchars($postcache['rate']['ratelogs']);
 			$postlist[$postcache['pid']]['ratelogextcredits'] = $postcache['rate']['extcredits'];
 			$postlist[$postcache['pid']]['totalrate'] = $postcache['rate']['totalrate'];
 		}
