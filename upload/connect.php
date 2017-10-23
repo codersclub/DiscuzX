@@ -16,6 +16,7 @@ if($_GET['mod'] == 'register') {
 
 define('APPTYPEID', 126);
 define('CURSCRIPT', 'connect');
+define('NOT_IN_MOBILE_API', 1);
 
 require_once './source/class/class_core.php';
 require_once './source/function/function_home.php';

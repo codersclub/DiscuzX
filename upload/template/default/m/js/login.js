@@ -130,7 +130,7 @@ var login = {
 			TOOLS.openNewPage(DOMAIN + 'member.php?mod=' + login.regname + '&mobile=2');
 		});
 		$('.qqLogin').on('click', function () {
-				var url = DOMAIN + 'plugin.php?id=qqconnect:connect&op=init'+ '&referer=' + encodeURIComponent(location.search);
+				var url = DOMAIN + 'connect.php?mod=login&op=init&referer=' + encodeURIComponent(location.search);
 				TOOLS.openNewPage(url);
 		});
 		$('.wxLogin').on('click', function () {
