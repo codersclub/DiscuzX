@@ -18,7 +18,7 @@ var login = {
 				TOOLS.showTips('登录成功', true);
 				setTimeout(function(){
 					if (TOOLS.getQuery('referer')) {
-						TOOLS.openNewPage(TOOLS.getQuery('referer'));
+						TOOLS.openNewPage(unescape(TOOLS.getQuery('referer')));
 					} else {
 						TOOLS.openNewPage('?a=index');
 					}
