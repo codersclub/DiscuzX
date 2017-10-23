@@ -712,6 +712,10 @@ class discuz_application extends discuz_base{
 				$this->var['cache']['style_default']['styleid'] = $styleid = $this->var['category']['styleid'];
 			}
 		}
+		
+		if($this->var['setting']['mobile']['allowmnew'] && !defined('IN_MOBILE_API') && $this->var['setting']['styleid2']) {
+			$styleid = $this->var['setting']['styleid2'];
+		}
 
 		$styleid = intval($styleid);
 

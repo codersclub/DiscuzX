@@ -171,7 +171,7 @@ if($operation == 'admin') {
 			$isdefault3 = $id == $defaultid3 ? 'checked' : '';
 			$mobile1exists = file_exists($style['directory'].'/mobile');
 			$d1exists = file_exists($style['directory'].'/mobile');
-			$d2exists = file_exists($style['directory'].'/touch');
+			$d2exists = file_exists($style['directory'].'/touch') || file_exists($style['directory'].'/m');
 			$d3exists = file_exists($style['directory'].'/wml');
 			$available = $style['available'] ? 'checked' : NULL;
 			$preview = file_exists($style['directory'].'/preview.jpg') ? $style['directory'].'/preview.jpg' : './static/image/admincp/stylepreview.gif';
