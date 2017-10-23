@@ -713,7 +713,7 @@ class discuz_application extends discuz_base{
 			}
 		}
 		
-		if($this->var['setting']['mobile']['allowmnew'] && !defined('IN_MOBILE_API') && $this->var['setting']['styleid2']) {
+		if(defined('IN_NEWMOBILE') && $this->var['setting']['mobile']['allowmnew'] && $this->var['setting']['styleid2']) {
 			$styleid = $this->var['setting']['styleid2'];
 		}
 
