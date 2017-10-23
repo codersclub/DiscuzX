@@ -76,27 +76,17 @@ var dataLoaded = function (data) {
 		infoHtml += template.render('infoTpl', {'name': infoDatas[key][0], 'value': value + ' ' + unit});
 	}
 	$('#infonav').html(infoHtml);
-	if (window.location.hash == '#logout') {
-		TOOLS.dget(DOMAIN + 'plugin.php?id=wechat&ac=logout&hash=' + data.Variables.formhash, null, null, null, 'text/plain', false, false);
-	}
 };
 
 var bindEvent = function (data) {
 	$("#forumlist").append('版块');
 	if (data.Variables.member_uid == data.Variables.space.uid) {
-		if (F == 'wx') {
-			if (!TOOLS.isWX()) {
-				$('#switchMember').on('click', function () {
-					TOOLS.openNewPage(window.location.search + '&login=yes');
-				});
-				$('#switchText').html('帐号切换');
-			} else {
-				$('#switchMember').on('click', function () {
-					TOOLS.openNewPage('?a=account&referer=none');
-				});
-			}
-			$('#switchNav').show();
-		}
+		$('#switchMember').on('click', function () {
+			TOOLS.dget(API_URL + "module=login&mlogout=yes&version=4&hash=" + data.Variables.formhash, null, function() {
+				TOOLS.openNewPage('?a=index');	
+			}, null, 'text/plain', false, false);			
+		});
+		$('#switchNav').show();
 	} else {
 		$('#profileNav').show();
 	}
@@ -116,17 +106,6 @@ var bindEvent = function (data) {
 	$('#mypost').on('click', function () {
 		TOOLS.openNewPage('?a=mythread&ac=reply');
 	});
-	if (TOOLS.isWX()) {
-		$('#myfavorite').on('click', function () {
-			TOOLS.openNewPage('?a=myfavorite&ac=list');
-		});
-		$('#myviewedsite').on('click', function () {
-			TOOLS.openNewPage('?a=myviewedsite');
-		});
-	} else {
-		$('#myfavorite').parent().hide();
-		$('#myviewedsite').parent().hide();
-	}
 	$(".backBtn").click(function () {
 		TOOLS.pageBack('?a=index');
 	});
