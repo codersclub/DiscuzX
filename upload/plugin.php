@@ -9,7 +9,7 @@
 
 define('APPTYPEID', 127);
 define('CURSCRIPT', 'plugin');
-
+define('NOT_IN_MOBILE_API', 1);
 
 require './source/class/class_core.php';
 
