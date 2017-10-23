@@ -18,6 +18,10 @@ $discuz->init_mobile = false;
 
 $discuz->init();
 
+if(!file_exists(DISCUZ_ROOT . $_G['style']['tpldir'] . '/m')) {
+	$_G['style']['tpldir'] = './template/default';
+}
+
 if ($_GET['c'] == 'static') {
 	$path = DISCUZ_ROOT . $_G['style']['tpldir'] . '/m/js/';
 	$bpath = DISCUZ_ROOT . 'template/default/m/js/';

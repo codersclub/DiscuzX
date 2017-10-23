@@ -631,8 +631,7 @@ function setthreadcover($pid, $tid = 0, $aid = 0, $countimg = 0, $imgurl = '') {
 			$tid = empty($tid) ? $attach['tid'] : $tid;
 			$picsource = ($attach['remote'] ? $_G['setting']['ftp']['attachurl'] : $_G['setting']['attachurl']).'forum/'.$attach['attachment'];
 		} else {
-			$attachtable = 'pid:'.$pid;
-			$picsource = $imgurl;
+			return true;
 		}
 
 		$basedir = !$_G['setting']['attachdir'] ? (DISCUZ_ROOT.'./data/attachment/') : $_G['setting']['attachdir'];
