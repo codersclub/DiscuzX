@@ -667,6 +667,12 @@ function parseflv($url, $width = 0, $height = 0) {
 				$imgurl = trim($image[1]);
 			}
 		}
+	} elseif(strpos($lowerurl, 'v.qq.com/x/page/') !== FALSE) {
+		if(preg_match("/https?:\/\/v.qq.com\/x\/page\/([^\/]+)(.html|)/i", $url, $matches)) {
+			$vid = explode(".html", $matches[1]);
+			$flv = 'https://imgcache.qq.com/tencentvideo_v1/playerv3/TPout.swf?vid='.$vid[0];
+			$iframe = 'https://v.qq.com/iframe/player.html?vid='.$vid[0];
+		}
 	}
 	if($flv) {
 		if(!$width && !$height) {
