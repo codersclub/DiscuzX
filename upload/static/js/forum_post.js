@@ -185,23 +185,6 @@ function postsubmit(theform) {
 	theform.submit();
 }
 
-function relatekw(subject, message) {
-	if(isUndefined(subject) || subject == -1) {
-		subject = $('subject').value;
-		subject = subject.replace(/<\/?[^>]+>|\[\/?.+?\]|"/ig, "");
-		subject = subject.replace(/\s{2,}/ig, ' ');
-	}
-	if(isUndefined(message) || message == -1) {
-		message = getEditorContents();
-		message = message.replace(/<\/?[^>]+>|\[\/?.+?\]|"/ig, "");
-		message = message.replace(/\s{2,}/ig, ' ');
-	}
-	subject = (BROWSER.ie && document.charset == 'utf-8' ? encodeURIComponent(subject) : subject);
-	message = (BROWSER.ie && document.charset == 'utf-8' ? encodeURIComponent(message) : message);
-	message = message.replace(/&/ig, '', message).substr(0, 500);
-	ajaxget('forum.php?mod=relatekw&subjectenc=' + subject + '&messageenc=' + message, 'tagselect');
-}
-
 function switchicon(iconid, obj) {
 	$('iconid').value = iconid;
 	$('icon_img').src = obj.src;

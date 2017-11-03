@@ -97,7 +97,7 @@
 				<!--{hook/spacecp_blog_top}-->
 				<table cellspacing="0" cellpadding="0" class="tfm">
 					<tr>
-						<td><input type="text" id="subject" name="subject" value="$blog[subject]" size="60" {if $_GET[op] != 'edit'}onblur="relatekw();"{/if} class="px" style="width: 63%;" /></td>
+						<td><input type="text" id="subject" name="subject" value="$blog[subject]" size="60" class="px" style="width: 63%;" /></td>
 					</tr>
 					<tr>
 						<td>
@@ -138,7 +138,7 @@
 					</tr>
 					<tr>
 						<th>{lang label}</th>
-						<td class="pns"><input type="text" class="px vm" size="40" id="tag" name="tag" value="$blog[tag]" /> <button type="button" name="clickbutton[]" onclick="relatekw();" class="pn vm"><em>{lang auto_keyword}</em></button></td>
+						<td class="pns"><input type="text" class="px vm" size="40" id="tag" name="tag" value="$blog[tag]" /></td>
 					</tr>
 
 				<!--{if $blog['uid'] && $blog['uid']!=$_G['uid']}-->
