@@ -34,10 +34,13 @@
 								<script type="text/javascript">document.write(AC_FL_RunContent('<!--{echo implode("','", $uc_avatarflash);}-->'));</script>
 							<!--{else}-->							
 								<!--{template home/spacecp_avatar_body}-->
-							<!--{/if}-->
+							<!--{/if}-->							
 						</td>
 					</tr>
 				</table>
+				<!--{if empty($_GET['old'])}-->
+				    <a href="home.php?mod=spacecp&ac=avatar&old=1" class="xg1">{lang setting_my_new_avatar_old}</a>				
+				<!--{/if}-->
 				<input type="hidden" name="formhash" value="{FORMHASH}" />
 			</form>
 			<!--{hook/spacecp_avatar_bottom}-->
