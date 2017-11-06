@@ -24,7 +24,7 @@ $modules = array('extends', 'buyattachment', 'buythread', 'checkpost', 'connect'
 	'modcp', 'topicadmin', 'forumimage', 'newthreads', 'signin', 'smiley', 'threadrecommend', 'check', 'mobilesign',
 	'wsqindex', 'wsqsiteinfo', 'recommend',
 	'wechat', 'wechat_clearlogin', 'checkinfo', 'seccodehtml',
-	'showactivity', 'bestanswer', 'forummisc', 'checkcookie', 'viewcomment', 'plugin');
+	'showactivity', 'bestanswer', 'forummisc', 'checkcookie', 'checknewpm', 'viewcomment', 'plugin');
 
 $defaultversions = array(
 	'wechat' => 4,

@@ -626,7 +626,7 @@ var dataLoaded = function (json, isInit) {
 			var script = document.createElement("script");
 			script.language = "javascript";
 			script.type = "text/javascript";
-			script.src = SITE_INFO.siteUrl + '/home.php?mod=spacecp&ac=pm&op=checknewpm&rand=' + Math.random();
+			script.src = API_URL + 'version=4&module=checknewpm&rand=' + Math.random();
 			var heads = document.getElementsByTagName('head');
 			if (heads.length) {
 				heads[heads.length - 1].appendChild(script);
