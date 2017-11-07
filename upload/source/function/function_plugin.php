@@ -184,8 +184,11 @@ function updatepluginlanguage($pluginarray) {
 	}
 	foreach(array('script', 'template', 'install', 'system') as $type) {
 		loadcache('pluginlanguage_'.$type, 1);
+		if(empty($_G['cache']['pluginlanguage_'.$type])) {             
+			$_G['cache']['pluginlanguage_'.$type] = array();             
+		}
 		if($type != 'system') {
-			if(!empty($pluginarray['language'][$type.'lang'])) {
+			if(!empty($pluginarray['language'][$type.'lang'])) {				
 				$_G['cache']['pluginlanguage_'.$type][$pluginarray['plugin']['identifier']] = $pluginarray['language'][$type.'lang'];
 			}
 		} else {
