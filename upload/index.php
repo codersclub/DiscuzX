@@ -124,8 +124,16 @@ if(!empty($url)) {
 	} elseif(isset($_GET['fromuser']) && $_GET['fromuser']) {
 		$url .= sprintf('%sfromuser=%s', $delimiter, rawurlencode($_GET['fromuser']));
 	}
-	header("HTTP/1.1 301 Moved Permanently");
-	header("location: $url");
+	$parse = parse_url($url);
+	if(!isset($parse['host']) && file_exists($parse['path'])) {
+		if(!empty($parse['query'])) {
+			parse_str($parse['query'], $_GET);
+		}
+		require './'.$parse['path'];
+	} else {
+		header("HTTP/1.1 301 Moved Permanently");
+		header("location: $url");
+	}
 } else {
 	require './'.$_ENV['curapp'].'.php';
 }
