@@ -46,7 +46,7 @@ http://www.comsenz.com
 
 			.tpcl table { width: 100%; }
 				.tpcl td { vertical-align: top; padding: 5px; }
-			.tpcl .labeltxt { display: block; cursor: pointer; width: 100%; background: url(../../{IMGDIR}/arrwd.gif) no-repeat 100% 8px; }
+			.tpcl .labeltxt { display: block; cursor: pointer; width: 100%; background: url({IMGDIR}/arrwd.gif) no-repeat 100% 8px; }
 				.copt .labeltxt { float: left; cursor: default; width: 45px; background: none; color: #09C; }
 			.tpcl .pc { margin: 3px; }
 				.ie7 .tpcl .pc { margin-top: -2px; }
