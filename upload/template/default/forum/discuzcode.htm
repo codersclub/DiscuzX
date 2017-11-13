@@ -298,20 +298,21 @@ function attachinpost($attach, $post) {
 				<!--{if $attach['description']}--><br />$attach[description]<!--{/if}-->
 				<!--{if $attach['readperm']}--><br />{lang readperm}: $attach[readperm]<!--{/if}-->
 	<!--{/if}-->
-	<!--{if !IS_ROBOT && !$guestviewthumb}-->
-		<!--{if $attach['price']}-->
-			<br />{lang price}: $attach[price] {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][unit]}{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][title]}	&nbsp;<a href="forum.php?mod=misc&action=viewattachpayments&aid=$attach[aid]" onclick="showWindow('attachpay', this.href)" target="_blank">[{lang pay_view}]</a>
-			<!--{if !$attach['payed']}-->
-				&nbsp;[<a href="forum.php?mod=misc&action=attachpay&aid=$attach[aid]&tid=$attach[tid]" onclick="showWindow('attachpay', this.href)" target="_blank">{lang attachment_buy}</a>]
-			<!--{/if}-->
-		<!--{/if}-->
-		<!--{if !$attach['attachimg'] && $_G['getattachcredits']}--><br />{lang attachcredits}: $_G[getattachcredits]<!--{/if}-->
-				</div>
-				<div class="tip_horn"></div>
-			</div>
-		<!--{if $musiccode}-->
-			<br />
-		<!--{/if}-->
+	<!--{if !IS_ROBOT}-->
+		<!--{if !$guestviewthumb}-->
+				<!--{if $attach['price']}-->
+					<br />{lang price}: $attach[price] {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][unit]}{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][title]}	&nbsp;<a href="forum.php?mod=misc&action=viewattachpayments&aid=$attach[aid]" onclick="showWindow('attachpay', this.href)" target="_blank">[{lang pay_view}]</a>
+					<!--{if !$attach['payed']}-->
+						&nbsp;[<a href="forum.php?mod=misc&action=attachpay&aid=$attach[aid]&tid=$attach[tid]" onclick="showWindow('attachpay', this.href)" target="_blank">{lang attachment_buy}</a>]
+					<!--{/if}-->
+				<!--{/if}-->
+				<!--{if !$attach['attachimg'] && $_G['getattachcredits']}--><br />{lang attachcredits}: $_G[getattachcredits]<!--{/if}-->
+						</div>
+						<div class="tip_horn"></div>
+					</div>
+				<!--{if $musiccode}-->
+					<br />
+				<!--{/if}-->
 		<!--{else}-->
 					</div>
 			</div>
