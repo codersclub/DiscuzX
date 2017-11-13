@@ -476,6 +476,8 @@ function build_cache_setting() {
 	}
 	$data['output'] = $output;
 	$data['connect'] = in_array('qqconnect', $data['plugins']['available']) ? $data['connect'] : array();
+	
+	$data['parseflv'] = get_cachedata_discuzcode_parseflv();
 
 	savecache('setting', $data);
 	$_G['setting'] = $data;
@@ -1018,6 +1020,22 @@ function get_cachedata_threadprofile_nodeparse($id, $type, $name, $s, $e, $extra
 	$hash = random(8);
 	$_G['cachedata_threadprofile_code'][$id][$type]['{'.$hash.'}'] = array($name, $s, $e, $extra);
 	return '{'.$hash.'}';
+}
+
+function get_cachedata_discuzcode_parseflv() {
+	$mediadir = DISCUZ_ROOT.'./source/function/media';
+	$parseflv = array();
+	if(file_exists($mediadir)) {
+		$mediadirhandle = dir($mediadir);	
+		while($entry = $mediadirhandle->read()) {
+			if(!in_array($entry, array('.', '..')) && preg_match("/^media\_([\_\w]+)\.php$/", $entry, $entryr) && substr($entry, -4) == '.php' && is_file($mediadir.'/'.$entry)) {
+				$checkurl = array();
+				@include_once libfile('media/'.$entryr[1], 'function');
+				$parseflv[$entryr[1]] = $checkurl;
+			}
+		}
+	}	
+	return $parseflv;
 }
 
 function writetojscache() {

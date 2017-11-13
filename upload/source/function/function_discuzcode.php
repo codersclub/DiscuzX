@@ -543,137 +543,29 @@ function highlightword($text, $words, $prepend) {
 }
 
 function parseflv($url, $width = 0, $height = 0) {
+	global $_G;
 	$lowerurl = strtolower($url);
-	$flv = $iframe = $imgurl = '';
-	if($lowerurl != str_replace(array('player.youku.com/player.php/sid/','tudou.com/v/','player.ku6.com/refer/'), '', $lowerurl)) {
-		$flv = $url;
-	} elseif(strpos($lowerurl, 'v.youku.com/v_show/') !== FALSE) {
-		$ctx = stream_context_create(array('http' => array('timeout' => 10)));
-		if(preg_match("/^https?:\/\/v.youku.com\/v_show\/id_([^\/]+)(.html|)/i", $url, $matches)) {
-			$flv = 'https://player.youku.com/player.php/sid/'.$matches[1].'/v.swf';
-			$iframe = 'https://player.youku.com/embed/'.$matches[1];
-			if(!$width && !$height) {
-				$api = 'http://v.youku.com/player/getPlayList/VideoIDS/'.$matches[1];
-				$str = stripslashes(file_get_contents($api, false, $ctx));
-				if(!empty($str) && preg_match("/\"logo\":\"(.+?)\"/i", $str, $image)) {
-					$url = substr($image[1], 0, strrpos($image[1], '/')+1);
-					$filename = substr($image[1], strrpos($image[1], '/')+2);
-					$imgurl = $url.'0'.$filename;
-				}
-			}
-		}
-	} elseif(strpos($lowerurl, 'tudou.com/programs/view/') !== FALSE) {
-		if(preg_match("/^http:\/\/(www.)?tudou.com\/programs\/view\/([^\/]+)/i", $url, $matches)) {
-			$flv = 'http://www.tudou.com/v/'.$matches[2];
-			$iframe = 'http://www.tudou.com/programs/view/html5embed.action?code='.$matches[2];
-			if(!$width && !$height) {
-				$str = file_get_contents($url, false, $ctx);
-				if(!empty($str) && preg_match("/<span class=\"s_pic\">(.+?)<\/span>/i", $str, $image)) {
-					$imgurl = trim($image[1]);
-				}
-			}
-		}
-	} elseif(strpos($lowerurl, 'v.ku6.com/show/') !== FALSE) {
-		if(preg_match("/^http:\/\/v.ku6.com\/show\/([^\/]+).html/i", $url, $matches)) {
-			$flv = 'http://player.ku6.com/refer/'.$matches[1].'/v.swf';
-			if(!$width && !$height) {
-				$api = 'http://vo.ku6.com/fetchVideo4Player/1/'.$matches[1].'.html';
-				$str = file_get_contents($api, false, $ctx);
-				if(!empty($str) && preg_match("/\"picpath\":\"(.+?)\"/i", $str, $image)) {
-					$imgurl = str_replace(array('\u003a', '\u002e'), array(':', '.'), $image[1]);
-				}
-			}
-		}
-	} elseif(strpos($lowerurl, 'v.ku6.com/special/show_') !== FALSE) {
-		if(preg_match("/^http:\/\/v.ku6.com\/special\/show_\d+\/([^\/]+).html/i", $url, $matches)) {
-			$flv = 'http://player.ku6.com/refer/'.$matches[1].'/v.swf';
-			if(!$width && !$height) {
-				$api = 'http://vo.ku6.com/fetchVideo4Player/1/'.$matches[1].'.html';
-				$str = file_get_contents($api, false, $ctx);
-				if(!empty($str) && preg_match("/\"picpath\":\"(.+?)\"/i", $str, $image)) {
-					$imgurl = str_replace(array('\u003a', '\u002e'), array(':', '.'), $image[1]);
-				}
-			}
-		}
-	} elseif(strpos($lowerurl, 'www.youtube.com/watch?') !== FALSE) {
-		if(preg_match("/^https?:\/\/www.youtube.com\/watch\?v=([^\/&]+)&?/i", $url, $matches)) {
-			$flv = 'https://www.youtube.com/v/'.$matches[1].'&hl=zh_CN&fs=1';
-			$iframe = 'https://www.youtube.com/embed/'.$matches[1];
-			if(!$width && !$height) {
-				$str = file_get_contents($url, false, $ctx);
-				if(!empty($str) && preg_match("/'VIDEO_HQ_THUMB':\s'(.+?)'/i", $str, $image)) {
-					$url = substr($image[1], 0, strrpos($image[1], '/')+1);
-					$filename = substr($image[1], strrpos($image[1], '/')+3);
-					$imgurl = $url.$filename;
-				}
-			}
-		}
-	} elseif(strpos($lowerurl, 'video.sina.com.cn/v/b/') !== FALSE) {
-		if(preg_match("/^http:\/\/video.sina.com.cn\/v\/b\/(\d+)-(\d+).html/i", $url, $matches)) {
-			$flv = 'http://vhead.blog.sina.com.cn/player/outer_player.swf?vid='.$matches[1];
-			if(!$width && !$height) {
-				$api = 'http://interface.video.sina.com.cn/interface/common/getVideoImage.php?vid='.$matches[1];
-				$str = file_get_contents($api, false, $ctx);
-				if(!empty($str)) {
-					$imgurl = str_replace('imgurl=', '', trim($str));
-				}
-			}
-		}
-	} elseif(strpos($lowerurl, 'you.video.sina.com.cn/b/') !== FALSE) {
-		if(preg_match("/^http:\/\/you.video.sina.com.cn\/b\/(\d+)-(\d+).html/i", $url, $matches)) {
-			$flv = 'http://vhead.blog.sina.com.cn/player/outer_player.swf?vid='.$matches[1];
-			if(!$width && !$height) {
-				$api = 'http://interface.video.sina.com.cn/interface/common/getVideoImage.php?vid='.$matches[1];
-				$str = file_get_contents($api, false, $ctx);
-				if(!empty($str)) {
-					$imgurl = str_replace('imgurl=', '', trim($str));
-				}
-			}
-		}
-	} elseif(strpos($lowerurl, 'http://my.tv.sohu.com/u/') !== FALSE) {
-		if(preg_match("/^http:\/\/my.tv.sohu.com\/u\/[^\/]+\/(\d+)/i", $url, $matches)) {
-			$flv = 'http://v.blog.sohu.com/fo/v4/'.$matches[1];
-			if(!$width && !$height) {
-				$api = 'http://v.blog.sohu.com/videinfo.jhtml?m=view&id='.$matches[1].'&outType=3';
-				$str = file_get_contents($api, false, $ctx);
-				if(!empty($str) && preg_match("/\"cutCoverURL\":\"(.+?)\"/i", $str, $image)) {
-					$imgurl = str_replace(array('\u003a', '\u002e'), array(':', '.'), $image[1]);
-				}
-			}
-		}
-	} elseif(strpos($lowerurl, 'http://v.blog.sohu.com/u/') !== FALSE) {
-		if(preg_match("/^http:\/\/v.blog.sohu.com\/u\/[^\/]+\/(\d+)/i", $url, $matches)) {
-			$flv = 'http://v.blog.sohu.com/fo/v4/'.$matches[1];
-			if(!$width && !$height) {
-				$api = 'http://v.blog.sohu.com/videinfo.jhtml?m=view&id='.$matches[1].'&outType=3';
-				$str = file_get_contents($api, false, $ctx);
-				if(!empty($str) && preg_match("/\"cutCoverURL\":\"(.+?)\"/i", $str, $image)) {
-					$imgurl = str_replace(array('\u003a', '\u002e'), array(':', '.'), $image[1]);
-				}
-			}
-		}
-	} elseif(strpos($lowerurl, 'http://www.56.com') !== FALSE) {
-
-		if(preg_match("/^http:\/\/www.56.com\/\S+\/play_album-aid-(\d+)_vid-(.+?).html/i", $url, $matches)) {
-			$flv = 'http://player.56.com/v_'.$matches[2].'.swf';
-			$matches[1] = $matches[2];
-		} elseif(preg_match("/^http:\/\/www.56.com\/\S+\/([^\/]+).html/i", $url, $matches)) {
-			$flv = 'http://player.56.com/'.$matches[1].'.swf';
-		}
-		if(!$width && !$height && !empty($matches[1])) {
-			$api = 'http://vxml.56.com/json/'.str_replace('v_', '', $matches[1]).'/?src=out';
-			$str = file_get_contents($api, false, $ctx);
-			if(!empty($str) && preg_match("/\"img\":\"(.+?)\"/i", $str, $image)) {
-				$imgurl = trim($image[1]);
-			}
-		}
-	} elseif(strpos($lowerurl, 'v.qq.com/x/page/') !== FALSE) {
-		if(preg_match("/https?:\/\/v.qq.com\/x\/page\/([^\/]+)(.html|)/i", $url, $matches)) {
-			$vid = explode(".html", $matches[1]);
-			$flv = 'https://imgcache.qq.com/tencentvideo_v1/playerv3/TPout.swf?vid='.$vid[0];
-			$iframe = 'https://v.qq.com/iframe/player.html?vid='.$vid[0];
-		}
+	$flv = $iframe = $imgurl = '';		
+	if(empty($_G['setting']['parseflv']) || !is_array($_G['setting']['parseflv'])) {
+		return FALSE;
 	}
+	
+	foreach($_G['setting']['parseflv'] as $script => $checkurl) {
+		$check = FALSE;
+		foreach($checkurl as $row) {
+			if(strpos($lowerurl, $row) !== FALSE) {
+			    $check = TRUE;
+			    break;
+			}
+		}
+		if($check) {
+			@include_once libfile('media/'.$script, 'function');
+			if(function_exists('media_'.$script)) {
+			    list($flv, $iframe, $url, $imgurl) = call_user_func('media_'.$script, $url, $width, $height);
+			}
+			break;
+		}
+	}	    	
 	if($flv) {
 		if(!$width && !$height) {
 			return array('flv' => $flv, 'imgurl' => $imgurl);
