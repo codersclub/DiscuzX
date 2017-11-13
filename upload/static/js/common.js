@@ -1572,7 +1572,47 @@ function getClipboardData() {
 }
 
 function setCopy(text, msg) {
-	$F('_setCopy', arguments);
+	var cp = document.createElement('textarea');
+	cp.style.fontSize = '12pt';
+	cp.style.border = '0';
+	cp.style.padding = '0';
+	cp.style.margin = '0';
+	cp.style.position = 'absolute';
+	cp.style.left = '-9999px';
+	var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+	cp.style.top = yPosition + 'px';
+	cp.setAttribute('readonly', '');
+	cp.value = text;
+	$('append_parent').appendChild(cp);
+	cp.select();
+	cp.setSelectionRange(0, cp.value.length);
+	try {
+		var success = document.execCommand('copy', false, null);
+	} catch (e) {
+		var success = false;
+	}
+	$('append_parent').removeChild(cp);
+
+	if(success) {
+		if(msg) {
+			showPrompt(null, null, '<span>' + msg + '</span>', 1500);
+		}
+	} else if(BROWSER.ie) {
+		var r = clipboardData.setData('Text', text);
+		if(r) {
+			if(msg) {
+				showPrompt(null, null, '<span>' + msg + '</span>', 1500);
+			}
+		} else {
+			showDialog('<div class="c"><div style="width: 200px; text-align: center;">复制失败，请选择“允许访问”</div></div>', 'alert');
+		}
+	} else {
+		var msg = '<div class="c"><div style="width: 200px; text-align: center; text-decoration:underline;">点此复制到剪贴板</div>' +
+		AC_FL_RunContent('id', 'clipboardswf', 'name', 'clipboardswf', 'devicefont', 'false', 'width', '200', 'height', '40', 'src', STATICURL + 'image/common/clipboard.swf', 'menu', 'false',  'allowScriptAccess', 'sameDomain', 'swLiveConnect', 'true', 'wmode', 'transparent', 'style' , 'margin-top:-20px') + '</div>';
+		showDialog(msg, 'info');
+		text = text.replace(/[\xA0]/g, ' ');
+		CLIPBOARDSWFDATA = text;
+	}
 }
 
 function copycode(obj) {
