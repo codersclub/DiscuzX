@@ -859,6 +859,7 @@ EOT;
 		showformheader('misc&operation=stamp');
 		/*search={"nav_thread_stamp":"action=misc&operation=stamp","add":"action=misc&operation=stamp&anchor=add"}*/
 		showtips('misc_stamp_addtips');
+		/*search*/
 		showtableheader();
 		showsubtitle(array('add', 'misc_stamp_type', 'misc_stamp_id', 'misc_stamp_imagename', 'smilies_edit_image', 'smilies_edit_filename'));
 
