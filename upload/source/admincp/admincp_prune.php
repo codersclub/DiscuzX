@@ -57,6 +57,7 @@ if(!submitcheck('prunesubmit')) {
 		array('prune_search', !$searchsubmit),
 		array('nav_prune', $searchsubmit)
 	));
+	/*search={"nav_prune":"action=prune"}*/
 	showtips('prune_tips');
 	echo <<<EOT
 <script type="text/javascript" src="static/js/calendar.js"></script>
@@ -94,6 +95,7 @@ EOT;
 	showtablefooter();
 	showformfooter();
 	showtagfooter('div');
+	/*search*/
 
 } else {
 

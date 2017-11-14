@@ -221,7 +221,9 @@ if($operation == 'admin') {
 			array('import', 'styles&operation=import', '0'),
 			array('cloudaddons_style_link', 'cloudaddons')
 		), '<a href="'.ADMINSCRIPT.'?action=styles&operation=upgradecheck" class="bold" style="float:right;padding-right:40px;">'.$lang['plugins_validator'].'</a>');
+		/*search={"styles_admin":"action=styles"}*/
 		showtips('styles_admin_tips');
+		/*search*/
 		showformheader('styles');
 		showhiddenfields(array('updatecsscache' => 0));
 		showtableheader();

@@ -100,6 +100,7 @@ if(!$operation) {
 		array('search', 'recyclebinpost&operation=search', 1),
 		array('clean', 'recyclebinpost&operation=clean', 0)
 	));
+	/*search={"nav_recyclebinpost":"action=recyclebinpost","search":"action=recyclebinpost&operation=search"}*/
 	echo <<<EOT
 <script type="text/javascript" src="static/js/calendar.js"></script>
 <script type="text/JavaScript">
@@ -125,6 +126,7 @@ EOT;
 	showtablefooter();
 	showformfooter();
 	showtagfooter('div');
+	/*search*/
 
 	if(submitcheck('searchsubmit')) {
 
@@ -162,12 +164,14 @@ EOT;
 			array('search', 'recyclebinpost&operation=search', 0),
 			array('clean', 'recyclebinpost&operation=clean', 1)
 		));
+		/*search={"nav_recyclebinpost":"action=recyclebinpost","clean":"action=recyclebinpost&operation=clean"}*/
 		showformheader('recyclebinpost&operation=clean');
 		showtableheader('recyclebinpost_clean');
 		showsetting('recyclebinpost_clean_days', 'days', '30', 'text');
 		showsubmit('cleanrbsubmit');
 		showtablefooter();
 		showformfooter();
+		/*search*/
 
 	} else {
 

@@ -56,7 +56,9 @@ if($operation == 'newreport') {
 		array('report_resolved', 'report&operation=resolved', 0),
 		array('report_receiveuser', 'report&operation=receiveuser', 0)
 	));
+	/*search={"nav_report":"action=report"}*/
 	showtips('report_tips');
+	/*search*/
 	showformheader('report&operation=newreport');
 	showtableheader();
 	$curcredits = $_G['setting']['creditstransextra'][8] ? $_G['setting']['creditstransextra'][8] : $_G['setting']['creditstrans'];

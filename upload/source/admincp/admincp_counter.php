@@ -462,7 +462,9 @@ if(submitcheck('forumsubmit', 1)) {
 
 	shownav('tools', 'nav_updatecounters');
 	showsubmenu('nav_updatecounters');
+	/*search={"nav_updatecounters":"action=counter"}*/
 	showtips('counter_tips');
+	/*search*/
 	showformheader('counter');
 	showtableheader();
 	showsubtitle(array('', 'counter_amount'));

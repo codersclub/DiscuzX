@@ -530,7 +530,9 @@ if($operation == 'ad') {
 		array('adv_admin_list', 'adv&operation=list', 1),
 		array('adv_admin_listall', 'adv&operation=ad', 0),
 	));
+	/*search={"adv_admin":"action=adv","adv_admin_list":"action=adv&operation=list"}*/
 	showtips('adv_list_tip');
+	/*search*/
 
 	$advs = getadvs();
 	showtableheader('', 'fixpadding');

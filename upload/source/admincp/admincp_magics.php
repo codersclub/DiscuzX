@@ -23,6 +23,7 @@ if($operation == 'admin') {
 			array('admin', 'magics&operation=admin', 1),
 			array('nav_magics_confer', 'members&operation=confermagic', 0)
 		));
+		/*search={"nav_magics":"action=magics"}*/
 		showtips('magics_tips');
 
 		$settings = C::t('common_setting')->fetch_all(array('magicstatus', 'magicdiscount'));
@@ -31,6 +32,7 @@ if($operation == 'admin') {
 		showsetting('magics_config_open', 'settingsnew[magicstatus]', $settings['magicstatus'], 'radio');
 		showsetting('magics_config_discount', 'settingsnew[magicdiscount]', $settings['magicdiscount'], 'text');
 		showtablefooter();
+		/*search*/
 
 		showtableheader('magics_list', 'fixpadding');
 		$newmagics = getmagics();

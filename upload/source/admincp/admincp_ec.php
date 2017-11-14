@@ -78,6 +78,7 @@ if($operation == 'alipay') {
 			array('nav_ec_inviteorders', 'ec&operation=inviteorders', 0)
 		));
 
+		/*search={"nav_ec":"action=setting&operation=ec","nav_ec_alipay":"action=ec&operation=alipay"}*/
 		showtips('ec_alipay_tips');
 		showformheader('ec&operation=alipay');
 
@@ -92,6 +93,7 @@ if($operation == 'alipay') {
 		showsetting('ec_alipay_partner', 'settingsnew[ec_partner]', $ec_partner, 'text');
 		showsetting('ec_alipay_securitycode', 'settingsnew[ec_securitycode]', $ec_securitycodemask, 'text');
 		showtablefooter();
+		/*search*/
 
 		showtableheader('', 'notop');
 		showsubmit('alipaysubmit');
@@ -191,6 +193,7 @@ EOT;
 			array('nav_ec_inviteorders', 'ec&operation=inviteorders', 0)
 		));
 
+		/*search={"nav_ec":"action=setting&operation=ec","nav_ec_tenpay":"action=ec&operation=tenpay"}*/
 		showtips('ec_tenpay_tips');
 		showformheader('ec&operation=tenpay');
 
@@ -213,6 +216,7 @@ EOT;
 			'<a href="'.ADMINSCRIPT.'?action=ec&operation=tenpay&checktype=goods" target="_blank">'.$lang['ec_alipay_checklink_goods'].'</a><br />'
 		);
 		showtablefooter();
+		/*search*/
 
 		showtableheader('', 'notop');
 		showsubmit('tenpaysubmit');
@@ -271,6 +275,7 @@ EOT;
 			array('nav_ec_tradelog', 'tradelog', 0),
 			array('nav_ec_inviteorders', 'ec&operation=inviteorders', 0)
 		));
+		/*search={"nav_ec":"action=setting&operation=ec","nav_ec_orders":"action=ec&operation=orders"}*/
 		showtips('ec_orders_tips');
 		showtagheader('div', 'ordersearch', !submitcheck('searchsubmit', 1));
 		showformheader('ec&operation=orders');
@@ -291,6 +296,7 @@ EOT;
 		showtablefooter();
 		showformfooter();
 		showtagfooter('div');
+		/*search*/
 
 		if(submitcheck('searchsubmit', 1)) {
 
@@ -404,11 +410,13 @@ EOT;
 			array('nav_ec_inviteorders', 'ec&operation=inviteorders', 0)
 		));
 
+		/*search={"nav_ec":"action=setting&operation=ec","nav_ec_credit":"action=ec&operation=credit"}*/
 		showtips('ec_credit_tips');
 		showformheader('ec&operation=credit');
 		showtableheader('ec_credit', 'nobottom');
 		showsetting('ec_credit_maxcreditspermonth', 'ec_creditnew[maxcreditspermonth]', $ec_credit['maxcreditspermonth'], 'text');
 		showtablefooter('</tbody>');
+		/*search*/
 
 		showtableheader('ec_credit_rank', 'notop fixpadding');
 		showsubtitle(array('ec_credit_rank', 'ec_credit_between', 'ec_credit_sellericon', 'ec_credit_buyericon'));

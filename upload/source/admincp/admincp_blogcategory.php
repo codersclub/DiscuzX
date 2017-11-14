@@ -26,6 +26,7 @@ if($operation == 'list') {
 			array('list', 'blogcategory', 1)
 		));
 
+		/*search={"blogcategory":"action=blogcategory"}*/
 		showformheader('blogcategory');
 		showtableheader();
 		showsetting('system_category_stat', 'settingnew[blogcategorystat]', $_G['setting']['blogcategorystat'], 'radio', '', 1);
@@ -41,6 +42,7 @@ if($operation == 'list') {
 		echo '<tr><td class="td25">&nbsp;</td><td colspan="3"><div><a class="addtr" onclick="addrow(this, 0, 0)" href="###">'.cplang('blogcategory_addcategory').'</a></div></td></tr>';
 		showtablefooter();
 		echo '</td></tr>';
+		/*search*/
 
 		showtableheader('', 'notop');
 		showsubmit('editsubmit');

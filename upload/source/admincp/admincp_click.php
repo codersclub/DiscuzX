@@ -24,7 +24,9 @@ if(empty($operation)) {
 			array('click_edit_picid', 'click&idtype=picid', $idtype == 'picid' ? 1 : 0),
 			array('click_edit_aid', 'click&idtype=aid', $idtype == 'aid' ? 1 : 0),
 		));
+		/*search={"nav_click":"action=click"}*/
 		showtips('click_edit_tips');
+		/*search*/
 		showformheader('click&idtype='.$idtype);
 		showtableheader();
 		showtablerow('', array('class="td25"', 'class="td28"', 'class="td25"', 'class="td25"', '', '', '', 'class="td23"', 'class="td25"'), array(

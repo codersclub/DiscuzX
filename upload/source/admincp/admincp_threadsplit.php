@@ -31,6 +31,7 @@ if($operation == 'manage') {
 			array('nav_threadsplit_manage', 'threadsplit&operation=manage', 1),
 			array('nav_threadsplit_move', 'threadsplit&operation=move', 0),
 		));
+		/*search={"nav_threadsplit":"action=threadsplit","nav_threadsplit_manage":"action=threadsplit&operation=manage"}*/
 		showtips('threadsplit_manage_tips');
 		showformheader('threadsplit&operation=manage');
 		showtableheader('threadsplit_manage_table_orig');
@@ -52,6 +53,7 @@ if($operation == 'manage') {
 		showtablefooter();
 		showsubmit('threadsplit_update_submit', 'threadsplit_manage_update', '', '<a href="?action=threadsplit&operation=addnewtable" style="border-style: solid; border-width: 1px;" class="btn">'.$lang['threadsplit_manage_table_add'].'</a>&nbsp;<a href="?action=threadsplit&operation=forumarchive" style="border-style: solid; border-width: 1px;" class="btn">'.$lang['threadsplit_manage_forum_update'].'</a>');
 		showformfooter();
+		/*search*/
 	} else {
 		$threadtable_info = array();
 		$_GET['memo'] = !empty($_GET['memo']) ? $_GET['memo'] : array();
@@ -151,6 +153,7 @@ EOT;
 			array('nav_threadsplit_manage', 'threadsplit&operation=manage', 0),
 			array('nav_threadsplit_move', 'threadsplit&operation=move', 1),
 		));
+		/*search={"nav_threadsplit":"action=threadsplit","nav_threadsplit_move":"action=threadsplit&operation=move"}*/
 		showtips('threadsplit_move_tips');
 		showtagheader('div', 'threadsearch', !submitcheck('threadsplit_move_search'));
 		showformheader('threadsplit&operation=move', '', 'threadform');
@@ -323,6 +326,7 @@ EOT;
 			}
 			showformfooter();
 			showtagfooter('div');
+			/*search*/
 
 		}
 	} else {

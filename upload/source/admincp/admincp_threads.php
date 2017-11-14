@@ -74,10 +74,13 @@ EOT;
 		array('threads_search', !$_GET['searchsubmit']),
 		array('nav_maint_threads', $_GET['searchsubmit'])
 	));
+	/*search={"nav_maint_threads":"action=threads","newlist":"action=threads"}*/
 	if(empty($newlist)) {
 		$search_tips = 1;
 		showtips('threads_tips');
 	}
+	/*search*/
+	/*search={"nav_maint_threads":"action=threads","search":"action=threads&search=true"}*/
 	showtagheader('div', 'threadsearch', !submitcheck('searchsubmit', 1) && empty($newlist));
 	showformheader('threads'.($operation ? '&operation='.$operation : ''), '', 'threadforum');
 	showhiddenfields(array('page' => $page, 'pp' => $_GET['pp'] ? $_GET['pp'] : $_GET['perpage']));
@@ -149,6 +152,7 @@ EOT;
 	showtablefooter();
 	showformfooter();
 	showtagfooter('div');
+	/*search*/
 	if(submitcheck('searchsubmit', 1) || $newlist) {
 		$operation == 'group' && $_GET['inforum'] = 'isgroup';
 

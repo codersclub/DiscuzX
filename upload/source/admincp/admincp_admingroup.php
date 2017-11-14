@@ -228,6 +228,7 @@ if(!$operation) {
 			$_GET['id'] = $gid = $group['groupid'];
 			$mgids[] = $gid;
 
+			/*search={"admingroup":"action=admingroup","admingroup_edit_threadperm":"action=admingroup&operation=edit&anchor=threadperm"}*/
 			showmultititle();
 			showtableheader();
 			showtagheader('tbody', 'threadperm', $_GET['anchor'] == 'threadperm');
@@ -264,7 +265,9 @@ if(!$operation) {
 			showsetting('admingroup_edit_edit_trade', 'allowedittradenew', $group['allowedittrade'], 'radio');
 			showsetting('admingroup_edit_usertag', 'alloweditusertagnew', $group['alloweditusertag'], 'radio');
 			showtagfooter('tbody');
+			/*search*/
 
+			/*search={"admingroup":"action=admingroup","admingroup_edit_postperm":"action=admingroup&operation=edit&anchor=postperm"}*/
 			showtagheader('tbody', 'postperm', $_GET['anchor'] == 'postperm');
 			showtitle('admingroup_edit_postperm');
 			showsetting('admingroup_edit_edit_post', 'alloweditpostnew', $group['alloweditpost'], 'radio');
@@ -274,7 +277,9 @@ if(!$operation) {
 			showsetting('admingroup_edit_stick_post', 'allowstickreplynew', $group['allowstickreply'], 'radio');
 			showsetting('admingroup_edit_manage_tag', 'allowmanagetagnew', $group['allowmanagetag'], 'radio');
 			showtagfooter('tbody');
+			/*search*/
 
+			/*search={"admingroup":"action=admingroup","admingroup_edit_modcpperm":"action=admingroup&operation=edit&anchor=modcpperm"}*/
 			showtagheader('tbody', 'modcpperm', $_GET['anchor'] == 'modcpperm');
 			showtitle('admingroup_edit_modcpperm');
 			showsetting('admingroup_edit_mod_post', 'allowmodpostnew', $group['allowmodpost'], 'radio');
@@ -289,7 +294,9 @@ if(!$operation) {
 			showsetting('admingroup_edit_clear_recycle', 'allowclearrecyclenew', $group['allowclearrecycle'], 'radio');
 			showsetting('admingroup_edit_view_log', 'allowviewlognew', $group['allowviewlog'], 'radio');
 			showtagfooter('tbody');
+			/*search*/
 
+			/*search={"admingroup":"action=admingroup","admingroup_edit_spaceperm":"action=admingroup&operation=edit&anchor=spaceperm"}*/
 			showtagheader('tbody', 'spaceperm', $_GET['anchor'] == 'spaceperm');
 			showtitle('admingroup_edit_spaceperm');
 			showsetting('admingroup_edit_manage_feed', 'managefeednew', $group['managefeed'], 'radio');
@@ -306,7 +313,9 @@ if(!$operation) {
 			showsetting('admingroup_edit_manage_magic', 'managemagicnew', $group['managemagic'], 'radio');
 			showsetting('admingroup_edit_manage_click', 'manageclicknew', $group['manageclick'], 'radio');
 			showtagfooter('tbody');
+			/*search*/
 
+			/*search={"admingroup":"action=admingroup","admingroup_edit_otherperm":"action=admingroup&operation=edit&anchor=otherperm"}*/
 			showtagheader('tbody', 'otherperm', $_GET['anchor'] == 'otherperm');
 			showtitle('admingroup_edit_otherperm');
 			showsetting('admingroup_edit_view_ip', 'allowviewipnew', $group['allowviewip'], 'radio');
@@ -314,7 +323,9 @@ if(!$operation) {
 			showsetting('admingroup_edit_allow_make_html', 'allowmakehtmlnew', $group['allowmakehtml'], 'radio');
 			showtagfooter('tbody');
 			showtablefooter();
+			/*search*/
 
+			/*search={"admingroup":"action=admingroup","admingroup_edit_portalperm":"action=admingroup&operation=edit&anchor=portalperm"}*/
 			showtagheader('div', 'portalperm', $_GET['anchor'] == 'portalperm');
 			showtableheader();
 			showtagheader('tbody', '', true);
@@ -328,6 +339,7 @@ if(!$operation) {
 			showtagfooter('tbody');
 			showtablefooter();
 			showtagfooter('div');
+			/*search*/
 
 			showsubmit('groupsubmit');
 

@@ -48,10 +48,12 @@ if(!submitcheck('doingsubmit')) {
 		array('doing_search', !$searchsubmit),
 		array('nav_doing', $searchsubmit)
 	));
+	/*search={"nav_doing":"action=doing"}*/
 	if(empty($newlist)) {
 		$search_tips = 1;
 		showtips('doing_tips');
 	}
+	/*search*/
 	echo <<<EOT
 <script type="text/javascript" src="static/js/calendar.js"></script>
 <script type="text/JavaScript">
@@ -62,6 +64,7 @@ function page(number) {
 </script>
 EOT;
 	showtagheader('div', 'searchposts', !$searchsubmit && empty($newlist));
+	/*search={"nav_doing":"action=doing","search":"action=doing&search=true"}*/
 	showformheader("doing".(!empty($_GET['search']) ? '&search=true' : ''), '', 'doingforum');
 	showhiddenfields(array('page' => $page, 'pp' => $_GET['pp'] ? $_GET['pp'] : $_GET['perpage']));
 	showtableheader();
@@ -77,6 +80,7 @@ EOT;
 	showtablefooter();
 	showformfooter();
 	showtagfooter('div');
+	/*search*/
 
 } else {
 

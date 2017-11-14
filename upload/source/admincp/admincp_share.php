@@ -50,7 +50,9 @@ if(!submitcheck('sharesubmit')) {
 		array('share_search', !$searchsubmit),
 		array('nav_share', $searchsubmit)
 	));
+	/*search={"nav_share":"action=share"}*/
 	showtips('share_tips');
+	/*search*/
 	echo <<<EOT
 <script type="text/javascript" src="static/js/calendar.js"></script>
 <script type="text/JavaScript">
@@ -61,6 +63,7 @@ function page(number) {
 </script>
 EOT;
 	showtagheader('div', 'searchposts', !$searchsubmit && empty($newlist));
+	/*search={"nav_share":"action=share","search":"action=share&search=true"}*/
 	showformheader("share".(!empty($_GET['search']) ? '&search=true' : ''), '', 'shareforum');
 	showhiddenfields(array('page' => $page, 'pp' => $_GET['pp'] ? $_GET['pp'] : $_GET['perpage']));
 	showtableheader();
@@ -81,6 +84,7 @@ EOT;
 	showtablefooter();
 	showformfooter();
 	showtagfooter('div');
+	/*search*/
 
 } else {
 	$sids = authcode($sids, 'DECODE');

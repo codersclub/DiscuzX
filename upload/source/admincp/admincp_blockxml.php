@@ -30,6 +30,7 @@ if($operation == 'add') {
 			array('add', 'blockxml&operation=add', 1)
 		));
 
+		/*search={"blockxml":"action=blockxml","search":"action=blockxml&operation=add"}*/
 		showtips('blockxml_tips');
 		showformheader('blockxml&operation=add');
 		showtableheader('blockxml_add');
@@ -41,6 +42,7 @@ if($operation == 'add') {
 		showsubmit('addsubmit');
 		showtablefooter();
 		showformfooter();
+		/*search*/
 	}
 
 } elseif($operation == 'edit' && !empty($_GET['id'])) {
