@@ -105,7 +105,7 @@ if($op == 'thread') {
 			$total = C::t('forum_thread')->count_by_fid_typeid_displayorder($_G['fid'], $_GET['typeid'], 0, '>=');
 			$tpage = ceil($total / $_G['tpp']);
 			$page = min($tpage, $page);
-			$multipage = multi($total, $_G['tpp'], $page, "$cpscript?mod=modcp&amp;action=$_GET[action]&amp;op=$op&amp;fid=$_G[fid]&amp;do=$do");
+			$multipage = multi($total, $_G['tpp'], $page, "$cpscript?mod=modcp&amp;action=$_GET[action]&amp;op=$op&amp;fid=$_G[fid]&amp;do=$do&amp;posttableid=$posttableid");
 			if($total) {
 				$start = ($page - 1) * $_G['tpp'];
 				$threads = C::t('forum_thread')->fetch_all_by_fid_typeid_displayorder($_G['fid'], $_GET['typeid'], 0, '>=', $start, $_G['tpp']);
@@ -120,7 +120,7 @@ if($op == 'thread') {
 				$total = $result['count'];
 				$tpage = ceil($total / $_G['tpp']);
 				$page = min($tpage, $page);
-				$multipage = multi($total, $_G['tpp'], $page, "$cpscript?mod=modcp&amp;action=$_GET[action]&amp;op=$op&amp;fid=$_G[fid]&amp;do=$do");
+				$multipage = multi($total, $_G['tpp'], $page, "$cpscript?mod=modcp&amp;action=$_GET[action]&amp;op=$op&amp;fid=$_G[fid]&amp;do=$do&amp;posttableid=$posttableid");
 				if($total) {
 					$start = ($page - 1) * $_G['tpp'];
 					$threads = C::t('forum_thread')->fetch_all_by_tid_fid_displayorder(explode(',', $result['tids']), null, null, 'lastpost', $start, $_G['tpp']);
@@ -341,7 +341,7 @@ if($op == 'post') {
 			$total = $result['count'];
 			$tpage = ceil($total / $_G['tpp']);
 			$page = min($tpage, $page);
-			$multipage = multi($total, $_G['tpp'], $page, "$cpscript?mod=modcp&amp;action=$_GET[action]&amp;op=$op&amp;fid=$_G[fid]&amp;do=$do");
+			$multipage = multi($total, $_G['tpp'], $page, "$cpscript?mod=modcp&amp;action=$_GET[action]&amp;op=$op&amp;fid=$_G[fid]&amp;do=$do&amp;posttableid=$posttableid");
 			if($total && $result['pids']) {
 				$start = ($page - 1) * $_G['tpp'];
 				$tids = array();
