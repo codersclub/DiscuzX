@@ -209,7 +209,7 @@ function convertip_full($ip, $ipdatafile) {
 		$ipaddr = '- Unknown';
 	}
 
-	return '- '.$ipaddr;
+	return '- '.diconv($ipaddr, 'GBK');
 
 }
 
