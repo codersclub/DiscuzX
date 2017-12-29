@@ -20,9 +20,4 @@ Discuz! X 官方 Git (https://gitee.com/ComsenzDiscuz/DiscuzX) ，简体中文 U
 [QQ群 62652633](http://shang.qq.com/wpa/qunwpa?idkey=5c7c9ff98ebd001751bcda84b47c77830c554f729c72c247957cd86bdd83aa47) 本群仅限 Fork 本 Git 的用户加入，入群请提供您 Fork 的地址（不知道啥是Fork？[看这里](http://git.mydoc.io/?t=180700))
 
 ### **友情提示**
-从 2017-07-08 起本 Git 已进入 X3.4 功能范畴，X3.3 已发布 Release 并不再更新，安全补丁更新也会优先在 Git 发布，历史版本的 Discuz! X 可自行对照[更新历史](https://gitee.com/ComsenzDiscuz/DiscuzX/commits/master)修改。
-
-X3.4 版本主旨在清除云平台相关功能，由于涉及删除文件，非正常方式的更新和升级将导致运行错误。升级前请严格遵循升级规范，建立文件夹 old，旧程序除了 data、config、uc_client、uc_server 目录以外的程序移动进入 old 目录中后再更新新版文件。
-
-### **优秀 Fork 版本**
-你 Fork 的 Discuz 有什么特色特点，请在“项目点评”中自荐，同时注明你 Fork 版的特色，优秀的 Fork 我会在此处进行推荐！
+X3.4 从 2018 年 1 月 1 日起只在本站发布 Git 版 ZIP 包，官方论坛不再发布 ZIP 包
