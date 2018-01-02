@@ -21,3 +21,14 @@ Discuz! X 官方 Git (https://gitee.com/ComsenzDiscuz/DiscuzX) ，简体中文 U
 
 ### **友情提示**
 X3.4 从 2018 年 1 月 1 日起只在本站发布 Git 版 ZIP 包，官方论坛不再发布 ZIP 包
+
+### **升级提示**
+从 X3.2、X3.3 升级
+- 备份数据库 
+- 建立文件夹 old，旧程序除了 data ，  config， uc_client, uc_server 目录以外的程序移动进入 old 目录中
+- 上传 X3.4 程序（压缩包中 upload 目录中的文件）， 如上传时候提示覆盖目录，请选择“是”
+- 如果您不再需要云平台相关插件，请上传安装包 utility 目录中的 clearcloud.php 到论坛 install 目录，执行后将会把云平台相关应用进行降级操作
+- 升级完毕，进入后台，更新缓存，并测试功能 X3.4
+其中的QQ互联功能已升级为允许使用QQ互联官方的 appid，新站点必须到 http://connect.qq.com/ 申请，升级上来的站点不受影响
+
+X3.4 自身升级，直接覆盖文件即可
