@@ -20,7 +20,7 @@ if(empty($attach)) {
 }
 
 if($operation == 'delete') {
-	if(!$_G['group']['allowmanagearticle'] && $_G['uid'] != $attach['uid']) {
+	if(!$_G['group']['allowmanagearticle'] && ($_G['uid'] != $attach['uid'] || $aid != $attach['aid'])) {
 		showmessage('portal_attachment_nopermission_delete');
 	}
 	if($aid) {
