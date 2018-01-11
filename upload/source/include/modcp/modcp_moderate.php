@@ -411,7 +411,7 @@ if($op == 'replies') {
 
 	if(submitcheck('modsubmit')) {
 		if(!empty($moderation['ignore'])) {
-			C::t('forum_thread')->update_by_tid_displayorder($moderation['ignore'], -2, array('displayorder'=>-3), $modfids);
+			C::t('forum_thread')->update_by_tid_displayorder($moderation['ignore'], -2, array('displayorder'=>-3), ($modfids ? explode(',', $modfids) : null));
 			updatemoderate('tid', $moderation['ignore'], 1);
 		}
 		$threadsmod = 0;
@@ -421,7 +421,7 @@ if($op == 'replies') {
 		if(!empty($moderation['delete'])) {
 			$deletetids = array();
 			$recyclebintids = '0';
-			foreach(C::t('forum_thread')->fetch_all_by_tid_displayorder($moderation['delete'], $pstat, '=', $modfids) as $thread) {
+			foreach(C::t('forum_thread')->fetch_all_by_tid_displayorder($moderation['delete'], $pstat, '=', ($modfids ? explode(',', $modfids) : null)) as $thread) {
 				if($modforums['recyclebins'][$thread['fid']]) {
 					$recyclebintids .= ','.$thread['tid'];
 				} else {
