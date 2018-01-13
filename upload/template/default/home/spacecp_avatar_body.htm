@@ -1,6 +1,6 @@
 <div id="avatardesigner">
 	<div id="avatarfileselector">
-		<input type="file" name="Filedata" id="avatarfile" accept="image/*" onchange="this.form.submit();" />
+		<input type="file" name="Filedata" id="avatarfile" accept="image/*" />
 	</div>
 	<div id="avataradjuster">
 		<img id="avatarimage" style="visibility: hidden;" onload="forceSelectorInsideAvatar();" />
@@ -33,15 +33,15 @@
 	</div>
 </div>														
 
-<script src="static/js/mobile/jquery.min.js?{VERHASH}"></script>
+<script src="{STATICURL}js/mobile/jquery.min.js?{VERHASH}"></script>
 <script type="text/javascript">
 	jQuery.noConflict();
 	var data = "{echo implode(",", $uc_avatarflash);}".split(',');
 </script>
 
-<link rel="stylesheet" href="static/avatar/avatar.css?{VERHASH}" />							
-<script src="static/avatar/jquery-ui.min.js?{VERHASH}"></script>
-<script src="static/avatar/avatar.js?{VERHASH}"></script>
+<link rel="stylesheet" href="{STATICURL}avatar/avatar.css?{VERHASH}" />							
+<script src="{STATICURL}avatar/jquery-ui.min.js?{VERHASH}"></script>
+<script src="{STATICURL}avatar/avatar.js?{VERHASH}"></script>
 
-<iframe name="uploadframe" id="uploadframe" style="display: none;" onload="uploadAvatarDone();"></iframe>
-<iframe name="rectframe" id="rectframe" style="display: none;" onload="rectAvatarDone();"></iframe>
+<iframe name="uploadframe" id="uploadframe" style="display: none;"></iframe>
+<iframe name="rectframe" id="rectframe" style="display: none;"></iframe>

@@ -398,9 +398,9 @@ class usercontrol extends base {
 
 		if(getgpc('base64', 'G')){
 			if($success) {
-				return "success";
+				return "<script>window.parent.postMessage('success','*');</script>";
 			} else {
-				return "failure";
+				return "<script>window.parent.postMessage('failure','*');</script>";
 			}
 		}else{
 			if($success) {

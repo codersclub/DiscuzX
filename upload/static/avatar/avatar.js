@@ -16,9 +16,8 @@ jQuery('#avatarcanvas').attr('width', (dwidth-150));
 jQuery('#avatarcanvas').attr('height', dheight-25);
 jQuery('#avatardisplaycanvas').attr('width', dwidth-20);
 jQuery('#avatardisplaycanvas').attr('height', dheight-25);
-var src = data[data.indexOf('src')+1].replace('images/camera.swf?inajax=1','index.php?m=user&a=uploadavatar');
-$('avatarform').action = src; 
-$('avatarform').target ='uploadframe'; 
+$('avatarform').target ='uploadframe';
+$('avatarfile').onchange = uploadAvatarDone;
 
 jQuery(document).ready(function () {
     jQuery("#selector")
@@ -41,37 +40,32 @@ jQuery(document).ready(function () {
     jQuery("#slider").append("<div style='position: absolute; top: -2px; left: 100px; width: 3px; height: 6px; background-color: black;'>&nbsp;</div>" );
 });
 
-function uploadAvatarDone() {
-    var iframe = $('uploadframe'); 
-    var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-    if (!iframeDocument.body) return;
-    var imageSrc = iframeDocument.body.innerHTML;
-    if (!imageSrc) return;
+window.addEventListener('message', receiveMessage, false);
 
-    if (imageSrc.indexOf('/')===-1) { // server returns error message
-        if (imageSrc!=-4) { // ie11 bug?: called twice, the value in the second time is -4
-            alert(imageSrc);
-        }
+function receiveMessage(event) {
+    var msgdata = event.data;
+    if (typeof(msgdata) !== 'string') {
         return;
-    }    
-    try {
-        var av = $('avatarfile');
-        av.value = '';
-        if(av.value){
-            av.type = "text";
-            av.type = "file";
-        }
-    } catch(e){}
-    jQuery('#avatarfileselector').hide();
-    jQuery('#avatardisplayer').hide();
-    jQuery('#avataradjuster').show();
-    jQuery('#selector').css('left', Math.floor((dwidth-300)/2));
-    jQuery('#selector').css('top', Math.floor((dheight-150)/2));
-    jQuery('#selector').width(150);
-    jQuery('#selector').height(150);    
-    imageSrc += "?" + (new Date());
-    $('avatarimage').src = imageSrc;
-    jQuery("#slider").slider('value', 50);
+    }
+    rectAvatarDone(msgdata);
+}
+
+function uploadAvatarDone() {
+    if (this.files && this.files[0]) {
+        var fr = new FileReader();
+        fr.onload = function(e) {
+            jQuery('#avatarfileselector').hide();
+            jQuery('#avatardisplayer').hide();
+            jQuery('#avataradjuster').show();
+            jQuery('#selector').css('left', Math.floor((dwidth-300)/2));
+            jQuery('#selector').css('top', Math.floor((dheight-150)/2));
+            jQuery('#selector').width(150);
+            jQuery('#selector').height(150);
+            $('avatarimage').src = e.target.result;
+            jQuery("#slider").slider('value', 50);
+        };       
+        fr.readAsDataURL(this.files[0]);
+    }
 }
 
 function showAvatarFileSelector() {
@@ -189,6 +183,8 @@ function saveAvatar() {
     canvas.width = tw;
     canvas.height = th;
     var ctx = canvas.getContext("2d");
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, tw, th);
     ctx.drawImage(img, sl, st, sw, sh, 0, 0, tw, th);
     var dataURL = canvas.toDataURL("image/jpeg");
     jQuery('#avatar1').val(dataURL.substr(dataURL.indexOf(",") + 1));
@@ -204,6 +200,8 @@ function saveAvatar() {
     canvas.width = tw;
     canvas.height = th;
     var ctx = canvas.getContext("2d");
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, tw, th);
     ctx.drawImage(img, sl, st, sw, sh, 0, 0, tw, th);
     var dataURL = canvas.toDataURL("image/jpeg");
     jQuery('#avatar2').val(dataURL.substr(dataURL.indexOf(",") + 1));
@@ -223,12 +221,14 @@ function saveAvatar() {
     canvas.width = tw;
     canvas.height = th;
     var ctx = canvas.getContext("2d");
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, tw, th);
     ctx.drawImage(img, sl, st, sw, sh, 0, 0, tw, th);
     var dataURL = canvas.toDataURL("image/jpeg");
     jQuery('#avatar3').val(dataURL.substr(dataURL.indexOf(",") + 1));
 
     var src = $('avatarform').action;
-    $('avatarform').action = src.replace('&a=uploadavatar', '&a=rectavatar&base64=yes');
+    $('avatarform').action = data[data.indexOf('src')+1].replace('images/camera.swf?inajax=1', 'index.php?m=user&a=rectavatar&base64=yes');
     $('avatarform').target='rectframe'; 
 }
 
@@ -291,11 +291,7 @@ function refreshAvatarCanvasForDisplay() {
     ctx.fillText('以上是您头像的三种尺寸', dwidth - 200, 180);        
 }
 
-function rectAvatarDone() {
-    var iframe = $('rectframe'); 
-    var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-    if (!iframeDocument.body) return;
-    var res = iframeDocument.body.innerHTML;
+function rectAvatarDone(res) {
     if (!res) return;
     if (res=='success') {
         jQuery('#avatardisplayer').show();
