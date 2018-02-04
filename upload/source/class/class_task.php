@@ -589,19 +589,19 @@ class task {
 		global $_G;
 
 		$exists = FALSE;
-		if($_G['forum_extgroupids']) {
-			$_G['forum_extgroupids'] = explode("\t", $_G['forum_extgroupids']);
-			if(in_array($gid, $_G['forum_extgroupids'])) {
+		if($_G['member']['extgroupids']) {
+			$_G['member']['extgroupids'] = explode("\t", $_G['member']['extgroupids']);
+			if(in_array($gid, $_G['member']['extgroupids'])) {
 				$exists = TRUE;
 			} else {
-				$_G['forum_extgroupids'][] = $gid;
+				$_G['member']['extgroupids'][] = $gid;
 			}
-			$_G['forum_extgroupids'] = implode("\t", $_G['forum_extgroupids']);
+			$_G['member']['extgroupids'] = implode("\t", $_G['member']['extgroupids']);
 		} else {
-			$_G['forum_extgroupids'] = $gid;
+			$_G['member']['extgroupids'] = $gid;
 		}
 
-		C::t('common_member')->update($_G['uid'], array('extgroupids' => $_G['forum_extgroupids']), 'UNBUFFERED');
+		C::t('common_member')->update($_G['uid'], array('extgroupids' => $_G['member']['extgroupids']), 'UNBUFFERED');
 
 		if($day) {
 			$memberfieldforum = C::t('common_member_field_forum')->fetch($_G['uid']);
