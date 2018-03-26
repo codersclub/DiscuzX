@@ -11,11 +11,23 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+function _isLocalip($ip) {
+	$iplong = ip2long($ip);	
+	return ($iplong >= 167772160 && $iplong <= 184549375) ||
+		($iplong >= 2886729728 && $iplong <= 2887778303) ||
+		($iplong >= 1681915904 && $iplong <= 1686110207) ||
+		($iplong >= 3232235520 && $iplong <= 3232301055) || 
+		($iplong >= 150994944 && $iplong <= 167772159);
+}
+
 function _dfsockopen($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE, $ip = '', $timeout = 15, $block = TRUE, $encodetype  = 'URLENCODE', $allowcurl = TRUE, $position = 0, $files = array()) {
 	$return = '';
 	$matches = parse_url($url);
 	$scheme = $matches['scheme'];
 	$host = $matches['host'];
+	if(filter_var($host, FILTER_VALIDATE_IP) && _isLocalip($host) || $ip && _isLocalip($ip)) {
+		return '';
+	}
 	$path = $matches['path'] ? $matches['path'].($matches['query'] ? '?'.$matches['query'] : '') : '/';
 	$port = !empty($matches['port']) ? $matches['port'] : ($scheme == 'http' ? '80' : '');
 	$boundary = $encodetype == 'URLENCODE' ? '' : random(40);
