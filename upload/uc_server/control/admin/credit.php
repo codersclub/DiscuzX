@@ -130,7 +130,7 @@ class control extends adminbase {
 			}
 			if($app = $this->cache['apps'][$appid]) {
 				$apifilename = isset($app['apifilename']) && $app['apifilename'] ? $app['apifilename'] : 'uc.php';
-				if($app['extra']['apppath'] && @include $app['extra']['apppath'].'./api/'.$apifilename) {
+				if($app['extra']['apppath'] && substr(strrchr($apifilename, '.'), 1, 10) == 'php' && @include $app['extra']['apppath'].'./api/'.$apifilename) {
 					$uc_note = new uc_note();
 					$data = trim($uc_note->getcreditsettings('', ''));
 				} else {

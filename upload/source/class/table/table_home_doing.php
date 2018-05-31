@@ -83,7 +83,7 @@ class table_home_doing extends discuz_table
 					$keywords[$i] = addslashes(stripsearchkey($keywords[$i]));
 					if(preg_match("/\{(\d+)\}/", $keywords[$i])) {
 						$keywords[$i] = preg_replace("/\\\{(\d+)\\\}/", ".{0,\\1}", preg_quote($keywords[$i], '/'));
-						$sqlkeywords .= " $or message REGEXP '".$keywords[$i]."'";
+						$sqlkeywords .= " $or message REGEXP '".addslashes(stripsearchkey($keywords[$i]))."'";
 					} else {
 						$sqlkeywords .= " $or message LIKE '%".$keywords[$i]."%'";
 					}

@@ -218,7 +218,7 @@ class table_home_blog extends discuz_table
 				$keywords[$i] = daddslashes($keywords[$i]);
 				if(preg_match("/\{(\d+)\}/", $keywords[$i])) {
 					$keywords[$i] = preg_replace("/\\\{(\d+)\\\}/", ".{0,\\1}", preg_quote($keywords[$i], '/'));
-					$sqlkeywords .= " $or b.subject REGEXP '".$keywords[$i]."' OR bf.message REGEXP '".$keywords[$i]."'";
+					$sqlkeywords .= " $or b.subject REGEXP '".$keywords[$i]."' OR bf.message REGEXP '".addslashes(stripsearchkey($keywords[$i]))."'";
 				} else {
 					$sqlkeywords .= " $or b.subject LIKE '%".$keywords[$i]."%' OR bf.message LIKE '%".$keywords[$i]."%'";
 				}
