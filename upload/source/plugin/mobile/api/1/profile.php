@@ -23,7 +23,7 @@ class mobile_api {
 	function output() {
 		global $_G;
 		$data = $GLOBALS['space'];
-		unset($data['password'], $data['email'], $data['regip'], $data['lastip'], $data['regip_loc'], $data['lastip_loc']);
+		unset($data['password'], $data['email'], $data['regip'], $data['lastip'], $data['regip_loc'], $data['lastip_loc'], $data['qq'], $data['alipay'], $data['icq'], $data['yahoo'], $data['msn'], $data['taobao'], $data['mobile'], $data['telephone'], $data['idcard'], $data['idcardtype'], $data['address'], $data['realname'], $data['zipcode']);
 		$variable = array(
 			'space' => $data,
 			'extcredits' => $_G['setting']['extcredits'],

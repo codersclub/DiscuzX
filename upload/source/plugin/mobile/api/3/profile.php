@@ -26,7 +26,7 @@ class mobile_api {
 		if($_G['uid'] && $data['uid'] == $_G['uid']) {
 			$data['favthreads'] = C::t('home_favorite')->count_by_uid_idtype($_G['uid'], 'tid');
 		}
-		unset($data['password'], $data['email'], $data['regip'], $data['lastip'], $data['regip_loc'], $data['lastip_loc']);
+		unset($data['password'], $data['email'], $data['regip'], $data['lastip'], $data['regip_loc'], $data['lastip_loc'], $data['qq'], $data['alipay'], $data['icq'], $data['yahoo'], $data['msn'], $data['taobao'], $data['mobile'], $data['telephone'], $data['idcard'], $data['idcardtype'], $data['address'], $data['realname'], $data['zipcode']);
 		$variable = array(
 			'space' => $data,
 			'extcredits' => $_G['setting']['extcredits'],
