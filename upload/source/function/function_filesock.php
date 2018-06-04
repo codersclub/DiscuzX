@@ -20,12 +20,20 @@ function _isLocalip($ip) {
 		($iplong >= 150994944 && $iplong <= 167772159);
 }
 
+function _isip($host) {
+	if(function_exists('filter_var')) {
+		return filter_var($host, FILTER_VALIDATE_IP) !== false;
+	} else {
+		return preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $host);
+	}
+}
+
 function _dfsockopen($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE, $ip = '', $timeout = 15, $block = TRUE, $encodetype  = 'URLENCODE', $allowcurl = TRUE, $position = 0, $files = array()) {
 	$return = '';
 	$matches = parse_url($url);
 	$scheme = $matches['scheme'];
 	$host = $matches['host'];
-	if(filter_var($host, FILTER_VALIDATE_IP) && _isLocalip($host) || $ip && _isLocalip($ip)) {
+	if(_isip($host) && _isLocalip($host) || $ip && _isLocalip($ip)) {
 		return '';
 	}
 	$path = $matches['path'] ? $matches['path'].($matches['query'] ? '?'.$matches['query'] : '') : '/';
