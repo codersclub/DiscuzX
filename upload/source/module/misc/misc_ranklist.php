@@ -170,7 +170,7 @@ function getranklist_members($offset = 0, $limit = 20) {
 	$topusers = C::t('home_show')->fetch_all_by_unitprice($offset, $limit, true);
 	foreach($topusers as $member) {
 		$member['avatar'] = avatar($member['uid'], 'small');
-		$member['note'] = dhtmlspecialchars(dhtmlspecialchars($member['note']));
+		$member['note'] = htmlspecialchars(dhtmlspecialchars($member['note']));
 		$members[] = $member;
 	}
 	return $members;
