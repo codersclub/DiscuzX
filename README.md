@@ -31,4 +31,4 @@ Discuz! X 官方 Git (https://gitee.com/ComsenzDiscuz/DiscuzX) ，简体中文 U
 X3.4 自身升级，直接覆盖文件即可
 
 ### **友情提示**
-X3.4 漏洞和相关修补同样适用于 X3.2、X3.3 版本，请注意更新
+由于 X3.2、X3.3 已停更，X3.4 漏洞和相关修补同样适用于 X3.2、X3.3 版本，请随时关注[更新列表](https://gitee.com/ComsenzDiscuz/DiscuzX/commits/master)，您可进行手动修补，让自己的站点时随刻保持最安全的状态
