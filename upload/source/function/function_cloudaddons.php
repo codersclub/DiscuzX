@@ -15,10 +15,10 @@ $addonsource = $_G['config']['addonsource'] ? $_G['config']['addonsource'] : ($_
 $addon = $addonsource ?
 	$_G['config']['addon'][$addonsource] :
 	array(
-		'website_url' => 'http://addon.discuz.com',
-		'download_url' => 'http://addon.discuz.com/index.php',
+		'website_url' => 'https://addon.discuz.com',
+		'download_url' => 'https://addon.discuz.com/index.php',
 		'download_ip' => '',
-		'check_url' => 'http://addon1.discuz.com/md5/',
+		'check_url' => 'https://addon1.discuz.com/md5/',
 		'check_ip' => '',
 	);
 
@@ -34,7 +34,7 @@ function cloudaddons_md5($file) {
 
 function cloudaddons_getuniqueid() {
 	global $_G;
-	if(CLOUDADDONS_WEBSITE_URL == 'http://addon.discuz.com') {
+	if(CLOUDADDONS_WEBSITE_URL == 'https://addon.discuz.com') {
 		return $_G['setting']['siteuniqueid'] ? $_G['setting']['siteuniqueid'] : C::t('common_setting')->fetch('siteuniqueid');
 	} else {
 		if(!$_G['setting']['addon_uniqueid']) {
