@@ -70,7 +70,7 @@ $filesock_items = array('fsockopen', 'pfsockopen', 'stream_socket_client', 'curl
 $env_items = array
 (
 	'os' => array('c' => 'PHP_OS', 'r' => 'notset', 'b' => 'unix'),
-	'php' => array('c' => 'PHP_VERSION', 'r' => '5.2', 'b' => '7.0'),
+	'php' => array('c' => 'PHP_VERSION', 'r' => '5.3', 'b' => '7.1'),
 	'attachmentupload' => array('r' => 'notset', 'b' => '2M'),
 	'gdversion' => array('r' => '1.0', 'b' => '2.0'),
 	'curl' => array('r' => 'notset', 'b' => 'enable'),
