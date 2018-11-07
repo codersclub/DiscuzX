@@ -34,4 +34,4 @@ X3.4 自身升级，直接覆盖文件即可
 - 本站不再发布其他编码的版本，请下载后自行通过转码工具转码
 - Release 版本号不再更新，固定在 R20180101
 - 由于 X3.2、X3.3 已停更，X3.4 漏洞和相关修补同样适用于 X3.2、X3.3 版本，请随时关注[更新列表] 
-   (https://gitee.com/ComsenzDiscuz/DiscuzX/commits/master)，您可进行手动修补，让自己的站点时随刻保持最安全的状态
+   (https://gitee.com/ComsenzDiscuz/DiscuzX/commits/master) ，您可进行手动修补，让自己的站点时随刻保持最安全的状态
