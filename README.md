@@ -8,8 +8,8 @@ Discuz! X 官方 Git (https://gitee.com/ComsenzDiscuz/DiscuzX) ，简体中文 U
 ### **相关网站**
  
 - Discuz! 官方站：http://www.discuz.net
-- Discuz! 应用中心：http://addon.discuz.com
-- Discuz! 开放平台：http://open.discuz.net
+- Discuz! 应用中心：https://addon.discuz.com
+- Discuz! 开放平台：https://open.discuz.net
 
 ### **感谢 Fans**
 
