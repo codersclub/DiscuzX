@@ -80,7 +80,7 @@
 					<tr>
 						<th>{lang subdomain}</th>
 						<td>
-							http://<input type="text" name="domain" class="px" value="$_G[forum][domain]" style="width: 100px;" />.{$_G['setting']['domain']['root']['group']}
+							{$_G['scheme']}://<input type="text" name="domain" class="px" value="$_G[forum][domain]" style="width: 100px;" />.{$_G['setting']['domain']['root']['group']}
 							<p class="d">
 								{lang group_domain_message}<br/>
 								<!--{if $_G[forum][domain] && $consume}-->{lang group_edit_domain_message}<!--{/if}-->

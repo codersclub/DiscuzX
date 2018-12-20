@@ -163,7 +163,7 @@ SEARCH;
 					($value['htmlmade'] ? "[<a href='$htmlname' target='_blank'>HTML</a>]" : '')
 					."<a href=\"portal.php?mod=topic&topicid=$topicid\" target=\"_blank\">".$value[title]."</a>"
 					.($value['closed'] ? ' ['.cplang('topic_closed_yes').']' : ''),
-					$value['domain'] && !empty($_G['setting']['domain']['root']['topic']) ? 'http://'.$value['domain'].'.'.$_G['setting']['domain']['root']['topic'] : '',
+					$value['domain'] && !empty($_G['setting']['domain']['root']['topic']) ? $_G['scheme'].'://'.$value['domain'].'.'.$_G['setting']['domain']['root']['topic'] : '',
 					$value['name'],
 					"<a href=\"home.php?mod=space&uid=$value[uid]&do=profile\" target=\"_blank\">$value[username]</a>",
 					dgmdate($value[dateline]),

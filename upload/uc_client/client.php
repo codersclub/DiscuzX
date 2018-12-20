@@ -223,82 +223,8 @@ function uc_fopen2($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE
 }
 
 function uc_fopen($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE, $ip = '', $timeout = 15, $block = TRUE) {
-	$return = '';
-	$matches = parse_url($url);
-	!isset($matches['scheme']) && $matches['scheme'] = '';
-	!isset($matches['host']) && $matches['host'] = '';
-	!isset($matches['path']) && $matches['path'] = '';
-	!isset($matches['query']) && $matches['query'] = '';
-	!isset($matches['port']) && $matches['port'] = '';
-	$scheme = $matches['scheme'];
-	$host = $matches['host'];
-	$path = $matches['path'] ? $matches['path'].($matches['query'] ? '?'.$matches['query'] : '') : '/';
-	$port = !empty($matches['port']) ? $matches['port'] : 80;
-	if($post) {
-		$out = "POST $path HTTP/1.0\r\n";
-		$header = "Accept: */*\r\n";
-		$header .= "Accept-Language: zh-cn\r\n";
-		$header .= "Content-Type: application/x-www-form-urlencoded\r\n";
-		$header .= "User-Agent: $_SERVER[HTTP_USER_AGENT]\r\n";
-		$header .= "Host: $host\r\n";
-		$header .= 'Content-Length: '.strlen($post)."\r\n";
-		$header .= "Connection: Close\r\n";
-		$header .= "Cache-Control: no-cache\r\n";
-		$header .= "Cookie: $cookie\r\n\r\n";
-		$out .= $header.$post;
-	} else {
-		$out = "GET $path HTTP/1.0\r\n";
-		$header = "Accept: */*\r\n";
-		$header .= "Accept-Language: zh-cn\r\n";
-		$header .= "User-Agent: $_SERVER[HTTP_USER_AGENT]\r\n";
-		$header .= "Host: $host\r\n";
-		$header .= "Connection: Close\r\n";
-		$header .= "Cookie: $cookie\r\n\r\n";
-		$out .= $header;
-	}
-
-	$fpflag = 0;
-	if(!$fp = @fsocketopen(($ip ? $ip : $host), $port, $errno, $errstr, $timeout)) {
-		$context = array(
-			'http' => array(
-				'method' => $post ? 'POST' : 'GET',
-				'header' => $header,
-				'content' => $post,
-				'timeout' => $timeout,
-			),
-		);
-		$context = stream_context_create($context);
-		$fp = @fopen($scheme.'://'.($ip ? $ip : $host).':'.$port.$path, 'b', false, $context);
-		$fpflag = 1;
-	}
-
-	if(!$fp) {
-		return '';
-	} else {
-		stream_set_blocking($fp, $block);
-		stream_set_timeout($fp, $timeout);
-		@fwrite($fp, $out);
-		$status = stream_get_meta_data($fp);
-		if(!$status['timed_out']) {
-			while (!feof($fp) && !$fpflag) {
-				if(($header = @fgets($fp)) && ($header == "\r\n" ||  $header == "\n")) {
-					break;
-				}
-			}
-
-			$stop = false;
-			while(!feof($fp) && !$stop) {
-				$data = fread($fp, ($limit == 0 || $limit > 8192 ? 8192 : $limit));
-				$return .= $data;
-				if($limit) {
-					$limit -= strlen($data);
-					$stop = $limit <= 0;
-				}
-			}
-		}
-		@fclose($fp);
-		return $return;
-	}
+	require_once libfile('function/filesock');
+	return _dfsockopen($url, $limit, $post, $cookie, $bysocket, $ip, $timeout, $block);	
 }
 
 function uc_app_ls() {
@@ -589,7 +515,7 @@ function uc_tag_get($tagname, $nums = 0) {
 function uc_avatar($uid, $type = 'virtual', $returnhtml = 1) {
 	$uid = intval($uid);
 	$uc_input = uc_api_input("uid=$uid");
-	$uc_avatarflash = UC_API.'/images/camera.swf?inajax=1&appid='.UC_APPID.'&input='.$uc_input.'&agent='.md5($_SERVER['HTTP_USER_AGENT']).'&ucapi='.urlencode(str_replace('http://', '', UC_API)).'&avatartype='.$type.'&uploadSize=2048';
+	$uc_avatarflash = UC_API.'/images/camera.swf?inajax=1&appid='.UC_APPID.'&input='.$uc_input.'&agent='.md5($_SERVER['HTTP_USER_AGENT']).'&ucapi='.urlencode(UC_API).'&avatartype='.$type.'&uploadSize=2048';
 	if($returnhtml) {
 		return '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="450" height="253" id="mycamera" align="middle">
 			<param name="allowScriptAccess" value="always" />

@@ -74,7 +74,7 @@ if($catlist) {
 $query = C::t('forum_forum')->fetch_all_subforum_by_fup($fids);
 foreach($query as $forum) {
 	if($_G['setting']['subforumsindex'] && $forumlist[$forum['fup']]['permission'] == 2) {
-		$forumurl = !empty($forum['domain']) && !empty($_G['setting']['domain']['root']['forum']) ? 'http://'.$forum['domain'].'.'.$_G['setting']['domain']['root']['forum'] : 'forum.php?mod=forumdisplay&fid='.$forum['fid'];
+		$forumurl = !empty($forum['domain']) && !empty($_G['setting']['domain']['root']['forum']) ? $_G['scheme'].'://'.$forum['domain'].'.'.$_G['setting']['domain']['root']['forum'] : 'forum.php?mod=forumdisplay&fid='.$forum['fid'];
 		$forumlist[$forum['fup']]['subforums'] .= '<a href="'.$forumurl.'"><u>'.$forum['name'].'</u></a>&nbsp;&nbsp;';
 	}
 	$forumlist[$forum['fup']]['threads'] 	+= $forum['threads'];

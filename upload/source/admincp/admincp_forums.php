@@ -626,7 +626,7 @@ var rowtypedata = [
 			showsetting('forums_edit_extend_forum_horizontal', 'forumcolumnsnew', $mforum[0]['forumcolumns'], 'text');
 			showsetting('forums_edit_extend_cat_sub_horizontal', 'catforumcolumnsnew', $mforum[0]['catforumcolumns'], 'text');
 			if(!empty($_G['setting']['domain']['root']['forum'])) {
-				showsetting('forums_edit_extend_domain', '', '', 'http://<input type="text" name="domainnew" class="txt" value="'.$mforum[0]['domain'].'" style="width:100px; margin-right:0px;" >.'.$_G['setting']['domain']['root']['forum']);
+				showsetting('forums_edit_extend_domain', '', '', $_G['scheme'].'://<input type="text" name="domainnew" class="txt" value="'.$mforum[0]['domain'].'" style="width:100px; margin-right:0px;" >.'.$_G['setting']['domain']['root']['forum']);
 			} else {
 				showsetting('forums_edit_extend_domain', 'domainnew', '', 'text', 'disabled');
 			}
@@ -800,7 +800,7 @@ var rowtypedata = [
 				showsetting('forums_edit_basic_keys', 'keysnew', $forumkeys[$fid], 'text');
 				if(!empty($_G['setting']['domain']['root']['forum'])) {
 					$iname = $multiset ? "multinew[{$_G[showsetting_multi]}][domainnew]" : 'domainnew';
-					showsetting('forums_edit_extend_domain', '', '', 'http://<input type="text" name="'.$iname.'" class="txt" value="'.$forum['domain'].'" style="width:100px; margin-right:0px;" >.'.$_G['setting']['domain']['root']['forum']);
+					showsetting('forums_edit_extend_domain', '', '', $_G['scheme'].'://<input type="text" name="'.$iname.'" class="txt" value="'.$forum['domain'].'" style="width:100px; margin-right:0px;" >.'.$_G['setting']['domain']['root']['forum']);
 				} elseif(!$multiset) {
 					showsetting('forums_edit_extend_domain', 'domainnew', '', 'text', 'disabled');
 				}

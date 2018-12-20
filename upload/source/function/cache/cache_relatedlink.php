@@ -17,7 +17,7 @@ function build_cache_relatedlink() {
 	$data = array();
 	$query = C::t('common_relatedlink')->range();
 	foreach($query as $link) {
-		if(!(strpos($link['url'], '://'))) {
+		if(!preg_match('/^https?:\/\//is', $link['url'])) {
 			$link['url'] = 'http://'.$link['url'];
 		}
 		$data[] = $link;

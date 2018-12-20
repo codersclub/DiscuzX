@@ -21,7 +21,7 @@ $apitype = empty($_GET['attach']) || !preg_match('/^[a-z0-9]+$/i', $_GET['attach
 require_once DISCUZ_ROOT.'./api/trade/api_' . $apitype . '.php';
 
 $PHP_SELF = $_SERVER['PHP_SELF'];
-$_G['siteurl'] = dhtmlspecialchars('http://'.$_SERVER['HTTP_HOST'].preg_replace("/\/+(api\/trade)?\/*$/i", '', substr($PHP_SELF, 0, strrpos($PHP_SELF, '/'))).'/');
+$_G['siteurl'] = dhtmlspecialchars($_G['scheme'].'://'.$_SERVER['HTTP_HOST'].preg_replace("/\/+(api\/trade)?\/*$/i", '', substr($PHP_SELF, 0, strrpos($PHP_SELF, '/'))).'/');
 
 $notifydata = trade_notifycheck('trade');
 

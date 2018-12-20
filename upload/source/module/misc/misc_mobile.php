@@ -11,12 +11,12 @@ if(!defined('IN_DISCUZ')) {
 }
 if($mod == 'mobile' && defined('IN_MOBILE')) {
 	if($_G['setting']['domain']['app']['mobile']) {
-		dheader("Location:http://".$_G['setting']['domain']['app']['mobile']);
+		dheader('Location:'.$_G['scheme'].'://'.$_G['setting']['domain']['app']['mobile']);
 	} else {
-		dheader("Location:".$_G['siteurl'].'forum.php?mobile=yes');
+		dheader('Location:'.$_G['siteurl'].'forum.php?mobile=yes');
 	}
 } elseif(!$_G['setting']['mobile']['allowmobile']) {
-	dheader("Location:".($_G['setting']['domain']['app']['default'] ? "http://".$_G['setting']['domain']['app']['default'] : $_G['siteurl']));
+	dheader("Location:".($_G['setting']['domain']['app']['default'] ? $_G['scheme'].'://'.$_G['setting']['domain']['app']['default'] : $_G['siteurl']));
 }
 include DISCUZ_ROOT.'./source/language/mobile/lang_template.php';
 $_G['lang'] = array_merge($_G['lang'], $lang);
@@ -56,7 +56,7 @@ if($_GET['view'] == true) {
 	include template('mobile/forum/discuz');
 } else {
 	if($_G['setting']['domain']['app']['mobile']) {
-		$url = 'http://'.$_G['setting']['domain']['app']['mobile'];
+		$url = $_G['scheme'].'://'.$_G['setting']['domain']['app']['mobile'];
 		$file = 'newmobiledomain.png';
 	} elseif($_G['setting']['mobile']['allowmnew']) {
 		$url = $_G['siteurl'].'m/';

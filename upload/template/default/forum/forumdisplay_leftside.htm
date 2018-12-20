@@ -4,7 +4,7 @@
 		<!--{loop $leftside['favorites'] $favfid $fdata}-->
 			<dd>
 				<!--{if !empty($_G['cache']['forums'][$favfid]['domain']) && !empty($_G['setting']['domain']['root']['forum'])}-->
-					<a href="http://{$_G['cache']['forums'][$favfid]['domain']}.{$_G['setting']['domain']['root']['forum']}" title="$fdata[0]">$fdata[0]</a>
+					<a href="{$_G['scheme']}://{$_G['cache']['forums'][$favfid]['domain']}.{$_G['setting']['domain']['root']['forum']}" title="$fdata[0]">$fdata[0]</a>
 				<!--{else}-->
 					<a href="forum.php?mod=forumdisplay&fid=$favfid">$fdata[0]</a>
 				<!--{/if}-->
@@ -21,7 +21,7 @@
 	<!--{loop $gdata['sub'] $subfid $name}-->
 		<dd{if $_G['fid'] == $subfid || $_G['forum']['fup'] == $subfid} class="bdl_a"{/if}>
 			<!--{if !empty($_G['cache']['forums'][$subfid]['domain']) && !empty($_G['setting']['domain']['root']['forum'])}-->
-				<a href="http://{$_G['cache']['forums'][$subfid]['domain']}.{$_G['setting']['domain']['root']['forum']}" title="$name">$name</a>
+				<a href="{$_G['scheme']}://{$_G['cache']['forums'][$subfid]['domain']}.{$_G['setting']['domain']['root']['forum']}" title="$name">$name</a>
 			<!--{else}-->
 				<a href="forum.php?mod=forumdisplay&fid=$subfid" title="$name">$name</a>
 			<!--{/if}-->

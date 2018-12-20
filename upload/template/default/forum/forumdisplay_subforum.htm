@@ -8,7 +8,7 @@
 		<table cellspacing="0" cellpadding="0" class="fl_tb">
 			<tr>
 			<!--{loop $sublist $sub}-->
-			<!--{eval $forumurl = !empty($sub['domain']) && !empty($_G['setting']['domain']['root']['forum']) ? 'http://'.$sub['domain'].'.'.$_G['setting']['domain']['root']['forum'] : 'forum.php?mod=forumdisplay&fid='.$sub['fid'];}-->
+			<!--{eval $forumurl = !empty($sub['domain']) && !empty($_G['setting']['domain']['root']['forum']) ? $_G['scheme'].'://'.$sub['domain'].'.'.$_G['setting']['domain']['root']['forum'] : 'forum.php?mod=forumdisplay&fid='.$sub['fid'];}-->
 			<!--{if $_G['forum']['forumcolumns']}-->
 				<!--{if $sub['orderid'] && ($sub['orderid'] % $_G['forum']['forumcolumns'] == 0)}-->
 					</tr>

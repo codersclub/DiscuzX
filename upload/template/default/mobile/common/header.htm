@@ -116,7 +116,7 @@ body {background: #FFF; background-image:none; line-height: 130%; font-size: 10p
 </head>
 <body>
 <!--{if $_G['setting']['domain']['app']['mobile']}-->
-	{eval $nav = 'http://'.$_G['setting']['domain']['app']['mobile'];}
+	{eval $nav = $_G['scheme'].'://'.$_G['setting']['domain']['app']['mobile'];}
 <!--{else}-->
 	{eval $nav = "forum.php";}
 <!--{/if}-->

@@ -100,7 +100,7 @@ class task {
 				$task['allowapply'] = $task['allowapply'] > 0 ? 1 : 0;
 			}
 			$task['icon'] = $task['icon'] ? $task['icon'] : 'task.gif';
-			if(strtolower(substr($task['icon'], 0, 7)) != 'http://') {
+			if(!preg_match('/^https?:\/\//is', $task['icon'])) {
 				$escript = explode(':', $task['scriptname']);
 				if(count($escript) > 1 && file_exists(DISCUZ_ROOT.'./source/plugin/'.$escript[0].'/task/task_'.$escript[1].'.gif')) {
 					$task['icon'] = 'source/plugin/'.$escript[0].'/task/task_'.$escript[1].'.gif';
@@ -161,7 +161,7 @@ class task {
 				break;
 		}
 		$this->task['icon'] = $this->task['icon'] ? $this->task['icon'] : 'task.gif';
-		if(strtolower(substr($this->task['icon'], 0, 7)) != 'http://') {
+		if(!preg_match('/^https?:\/\//is', $this->task['icon'])) {
 			$escript = explode(':', $this->task['scriptname']);
 			if(count($escript) > 1 && file_exists(DISCUZ_ROOT.'./source/plugin/'.$escript[0].'/task/task_'.$escript[1].'.gif')) {
 				$this->task['icon'] = 'source/plugin/'.$escript[0].'/task/task_'.$escript[1].'.gif';

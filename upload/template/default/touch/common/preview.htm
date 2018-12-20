@@ -10,7 +10,7 @@
 				<p class="mbw xg2">{lang login_mobile_join}</p>
 				<p class="hm mbw" style="font-size: 18px; color: #F60;">
 					<!--{if $_G['setting']['domain']['app']['mobile']}-->
-						http://{$_G['setting']['domain']['app']['mobile']}
+						{$_G['scheme']}://{$_G['setting']['domain']['app']['mobile']}
 					<!--{else}-->
 						{$_G['siteurl']}forum.php
 					<!--{/if}-->

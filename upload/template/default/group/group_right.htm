@@ -139,7 +139,7 @@
 		<div class="bm_c">
 			<p>
 				<!--{if $_G['setting']['allowgroupdomain'] && !empty($_G['setting']['domain']['root']['group']) && !empty($_G['forum']['domain'])}-->
-				<a href="http://{$_G[forum][domain]}.{$_G['setting']['domain']['root']['group']}" id="group_link"></a>
+				<a href="{$_G['scheme']}://{$_G[forum][domain]}.{$_G['setting']['domain']['root']['group']}" id="group_link"></a>
 				<!--{else}-->
 				<a href="forum.php?mod=group&fid={$_G[fid]}" id="group_link"></a>
 				<!--{/if}-->

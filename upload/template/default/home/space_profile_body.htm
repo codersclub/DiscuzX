@@ -20,7 +20,7 @@
 		<!--{/if}-->
 		<ul class="pf_l cl pbm mbm">
 			<!--{if $_G['setting']['allowspacedomain'] && $_G['setting']['domain']['root']['home'] && checkperm('domainlength') && !empty($space['domain'])}-->
-			<!--{eval $spaceurl = 'http://'.$space['domain'].'.'.$_G['setting']['domain']['root']['home'];}-->
+			<!--{eval $spaceurl = $_G['scheme'].'://'.$space['domain'].'.'.$_G['setting']['domain']['root']['home'];}-->
 			<li><em>{lang second_domain}</em><a href="$spaceurl" onclick="setCopy('$spaceurl', '{lang copy_space_address}');return false;">$spaceurl</a></li>
 			<!--{/if}-->
 			<!--{if $_G[setting][homepagestyle]}-->

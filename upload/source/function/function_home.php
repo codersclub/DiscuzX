@@ -251,11 +251,11 @@ function space_domain($space) {
 	if($_G['setting']['allowspacedomain'] && $_G['setting']['domain']['root']['home']) {
 		space_merge($space, 'field_home');
 		if($space['domain']) {
-			$space['domainurl'] = 'http://'.$space['domain'].'.'.$_G['setting']['domain']['root']['home'];
+			$space['domainurl'] = $_G['scheme'].'://'.$space['domain'].'.'.$_G['setting']['domain']['root']['home'];
 		}
 	}
 	if(!empty($_G['setting']['domain']['app']['home'])) {
-		$space['domainurl'] = 'http://'.$_G['setting']['domain']['app']['home'].'/?'.$space['uid'];
+		$space['domainurl'] = $_G['scheme'].'://'.$_G['setting']['domain']['app']['home'].'/?'.$space['uid'];
 	} elseif(empty($space['domainurl'])) {
 		$space['domainurl'] = $_G['siteurl'].'?'.$space['uid'];
 	}

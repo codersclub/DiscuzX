@@ -134,7 +134,7 @@ function save_announce($id = 0, $starttime, $endtime, $subject, $type, $message,
 
 	if(empty($subject) || empty($message)) {
 		acpmsg('modcp_ann_empty');
-	} elseif($type == 1 && substr(strtolower($message), 0, 7) != 'http://') {
+	} elseif($type == 1 && !preg_match('/^https?:\/\//is', $message)) {
 		acpmsg('modcp_ann_urlerror');
 	} else {
 		$data = array('author'=>$_G['username'], 'subject'=>$subject, 'type'=>$type, 'starttime'=>$starttime, 'endtime'=>$endtime,

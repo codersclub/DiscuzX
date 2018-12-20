@@ -255,7 +255,7 @@ function procthread($thread, $timeformat = 'd') {
 	$pagelinks = '';
 	if($postsnum  > $_G['ppp']) {
 		if($_G['setting']['domain']['app']['forum'] || $_G['setting']['domain']['app']['default']) {
-			$domain = 'http://'.($_G['setting']['domain']['app']['forum'] ? $_G['setting']['domain']['app']['forum'] : ($_G['setting']['domain']['app']['default'] ? $_G['setting']['domain']['app']['default'] : '')).'/';
+			$domain = $_G['scheme'].'://'.($_G['setting']['domain']['app']['forum'] ? $_G['setting']['domain']['app']['forum'] : ($_G['setting']['domain']['app']['default'] ? $_G['setting']['domain']['app']['default'] : '')).'/';
 		} else {
 			$domain = $_G['siteurl'];
 		}

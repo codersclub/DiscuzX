@@ -442,7 +442,7 @@ SCRIPT;
 		showsetting('setindex', 'setindex', $setindex, 'radio');
 		if($cate['level'] == 0) {
 			if(!empty($_G['setting']['domain']['root']['channel'])) {
-				showsetting('forums_edit_extend_domain', '', '', 'http://<input type="text" class="txt" name="domain" class="txt" value="'.$cate['domain'].'" style="width:100px; margin-right:0px;" >.'.$_G['setting']['domain']['root']['channel']);
+				showsetting('forums_edit_extend_domain', '', '', $_G['scheme'].'://<input type="text" class="txt" name="domain" class="txt" value="'.$cate['domain'].'" style="width:100px; margin-right:0px;" >.'.$_G['setting']['domain']['root']['channel']);
 			} else {
 				showsetting('forums_edit_extend_domain', 'domain', '', 'text', 'disabled');
 			}

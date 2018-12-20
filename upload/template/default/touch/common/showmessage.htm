@@ -34,7 +34,7 @@
 <header class="header">
 	<div class="hdc cl">
 		<!--{if $_G['setting']['domain']['app']['mobile']}-->
-			{eval $nav = 'http://'.$_G['setting']['domain']['app']['mobile'];}
+			{eval $nav = $_G['scheme'].'://'.$_G['setting']['domain']['app']['mobile'];}
 		<!--{else}-->
 			{eval $nav = "forum.php";}
 		<!--{/if}-->

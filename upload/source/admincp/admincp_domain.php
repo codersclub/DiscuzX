@@ -75,7 +75,7 @@ if($operation == 'app') {
 		}
 
 		if($_GET['appnew']['mobile'] != $olddomain['mobile']) {
-			C::t('common_nav')->update_by_identifier('mobile', array('url' => (!$_GET['appnew']['mobile'] ? 'forum.php?mobile=yes' : 'http://'.$_GET['appnew']['mobile'])));
+			C::t('common_nav')->update_by_identifier('mobile', array('url' => (!$_GET['appnew']['mobile'] ? 'forum.php?mobile=yes' : $_G['scheme'].'://'.$_GET['appnew']['mobile'])));
 		}
 
 		C::t('common_setting')->update('domain',$_G['setting']['domain']);
