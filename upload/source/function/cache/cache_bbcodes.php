@@ -42,8 +42,7 @@ function build_cache_bbcodes() {
 				break;
 		}
 		if(preg_match("/\{(RANDOM|MD5)\}/", $bbcode['replacement'])) {
-			$search = str_replace('is', 'ies', $search);
-			$replace = '\''.str_replace('{RANDOM}', '_\'.random(6).\'', str_replace('{MD5}', '_\'.md5(\'\\1\').\'', $bbcode['replacement'])).'\'';
+			$replace = str_replace('{RANDOM}', '', str_replace('{MD5}', '', $bbcode['replacement']));
 		} else {
 			$replace = $bbcode['replacement'];
 		}
