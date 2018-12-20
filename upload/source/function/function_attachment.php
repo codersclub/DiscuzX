@@ -112,6 +112,9 @@ function parseattach($attachpids, $attachtags, &$postlist, $skipaids = array()) 
 				|| ($postlist[$attach['pid']]['groupid'] == 4 || $postlist[$attach['pid']]['groupid'] == 5) || $postlist[$attach['pid']]['status'] == -1 || $postlist[$attach['pid']]['memberstatus'])
 				|| $_G['adminid'] != 1 && $postlist[$attach['pid']]['status'] & 1 || $postlist[$attach['pid']]['first'] && $_G['forum_threadpay'];
 		if(!$hideattachs) {
+			if(defined('IN_MOBILE_API')) {
+				$attach['aidencode'] = packaids($attach);
+			}
 			$postlist[$attach['pid']]['attachments'][$attach['aid']] = $attach;
 		}
 		if(!defined('IN_MOBILE_API') && !empty($attachtags[$attach['pid']]) && is_array($attachtags[$attach['pid']]) && in_array($attach['aid'], $attachtags[$attach['pid']])) {

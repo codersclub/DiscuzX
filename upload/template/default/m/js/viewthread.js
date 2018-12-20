@@ -736,11 +736,11 @@ var attachListInit = function(post) {
     var ret = post.message, skipaid = [];
     ret = ret.replace(/\[attach\](\d+)\[\/attach\]/ig, function($0, $1) {
         skipaid.push($1);
-        return '<b>' + ' <a href="' + (post.attachments[$1]['payed'] ? SITE_INFO.siteUrl + 'forum.php?mod=attachment&aid=' + post.attachments[$1]['aid'] : '###') + '">' + post.attachments[$1]['filename'] + ' (' + post.attachments[$1]['attachsize'] + ')</a></b> ';
+        return '<b>' + ' <a href="' + (post.attachments[$1]['payed'] ? SITE_INFO.siteUrl + 'forum.php?mod=attachment&aid=' + post.attachments[$1]['aidencode'] : '###') + '">' + post.attachments[$1]['filename'] + ' (' + post.attachments[$1]['attachsize'] + ')</a></b> ';
     });
     for(var i in post.attachlist) {
         if(!TOOLS.in_array(post.attachlist[i], skipaid)) {
-            ret += '<br /><b><i class="circle">●</i> ' + '<a href="' + (post.attachments[post.attachlist[i]]['payed'] ? SITE_INFO.siteUrl + 'forum.php?mod=attachment&aid=' + post.attachments[post.attachlist[i]]['aid'] : '###') + '">' + post.attachments[post.attachlist[i]]['filename'] + ' (' + post.attachments[post.attachlist[i]]['attachsize'] + ')</a></b>';
+            ret += '<br /><b><i class="circle">●</i> ' + '<a href="' + (post.attachments[post.attachlist[i]]['payed'] ? SITE_INFO.siteUrl + 'forum.php?mod=attachment&aid=' + post.attachments[post.attachlist[i]]['aidencode'] : '###') + '">' + post.attachments[post.attachlist[i]]['filename'] + ' (' + post.attachments[post.attachlist[i]]['attachsize'] + ')</a></b>';
         }
     }
     return ret;

@@ -797,8 +797,9 @@ class discuz_application extends discuz_base{
 				dheader('location: '.$this->var['siteurl'].'m/?a=viewthread&tid='.$_GET['tid']);
 			} elseif(($modid == 'forum::forumdisplay' || $modid == 'group::forumdisplay') && !empty($_GET['fid'])) {
 				dheader('location: '.$this->var['siteurl'].'m/?a=index&fid='.$_GET['fid']);
-			}			
-			dheader("location:".$this->var['siteurl'].'m/');
+			} elseif($modid != 'forum::attachment') {
+				dheader("location:".$this->var['siteurl'].'m/');
+			}
 		}
 		if($mobile === '3' && empty($this->var['setting']['mobile']['wml'])) {
 			return false;
