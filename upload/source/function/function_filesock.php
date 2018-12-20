@@ -91,6 +91,7 @@ function _dfsockopen($url, $limit = 0, $post = '', $cookie = '', $bysocket = FAL
 		if($ip) {
 			$httpheader[] = "Host: ".$host;
 		}
+		$httpheader[] = "User-Agent: ".$_SERVER['HTTP_USER_AGENT'];
 		if($httpheader) {
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
 		}
