@@ -11,7 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(0);
 
 define('IN_DISCUZ', TRUE);
 define('DISCUZ_ROOT', '');
