@@ -2,6 +2,8 @@
 
 Discuz! X 官方 Git (https://gitee.com/ComsenzDiscuz/DiscuzX) ，简体中文 UTF8 版本
 
+感谢 Fans 打包，简体GBK、简体UTF8、繁体UTF8转码打包下载：https://gitee.com/3dming/DiscuzL/attach_files
+
 ### **声明**
 您可以 Fork 本站代码，但未经许可 **禁止** 在本产品的整体或任何部分基础上以发展任何派生版本、修改版本或第三方版本用于 **重新分发** 
 
