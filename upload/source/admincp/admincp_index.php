@@ -203,10 +203,7 @@ if(isfounder()) {
 	} else {
 		$filecheckresult = '';
 	}
-
-	showtableheader($lang['nav_filecheck'].' <a href="javascript:;" onclick="ajaxget(\''.ADMINSCRIPT.'?action=checktools&operation=filecheck&homecheck=yes\', \'filecheck_div\')">['.$lang['filecheck_check_now'].']</a>', 'nobottom fixpadding');
-	echo '<tr><td><div id="filecheck_div">'.$filecheckresult.'</div></td></tr>';
-	showtablefooter();
+	
 	if(TIMESTAMP - $filecheck['dateline'] > 86400 * 7) {
 		echo '<script>ajaxget(\''.ADMINSCRIPT.'?action=checktools&operation=filecheck&homecheck=yes\', \'filecheck_div\');</script>';
 	}
@@ -245,7 +242,7 @@ loaducenter();
 showtableheader('home_sys_info', 'fixpadding');
 showtablerow('', array('class="vtop td24 lineheight"', 'class="lineheight smallfont"'), array(
 	cplang('home_discuz_version'),
-	'Discuz! '.DISCUZ_VERSION.' Release '.DISCUZ_RELEASE
+	'Discuz! '.DISCUZ_VERSION.' <a href="https://gitee.com/ComsenzDiscuz/DiscuzX" class="lightlink2" target="_blank">Git</a>'
 ));
 showtablerow('', array('class="vtop td24 lineheight"', 'class="lineheight smallfont"'), array(
 	cplang('home_ucclient_version'),
