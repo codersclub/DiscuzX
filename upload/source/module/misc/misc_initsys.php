@@ -32,9 +32,8 @@ if($_G['config']['output']['tplrefresh']) {
 	cleartemplatecache();
 }
 
-$plugins = array('qqconnect', 'mobile', 'wechat');
+$plugins = array('mobile');
 $opens = array('mobile');
-$checkcloses = array('cloudcaptcha');
 
 require_once libfile('function/plugin');
 require_once libfile('function/admincp');
