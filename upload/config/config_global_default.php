@@ -152,6 +152,7 @@ $_config['cookie']['cookiepath'] 		= '/'; 		// COOKIE作用路径
 $_config['security']['authkey']			= 'asdfasfas';	// 站点加密密钥
 $_config['security']['urlxssdefend']		= true;		// 自身 URL XSS 防御
 $_config['security']['attackevasive']		= 0;		// CC 攻击防御 1|2|4|8
+$_config['security']['onlyremoteaddr']		= 0;		// 用户IP地址获取方式 0=信任HTTP_CLIENT_IP、HTTP_X_FORWARDED_FOR 1=只信任 REMOTE_ADDR
 
 $_config['security']['querysafe']['status']	= 1;		// 是否开启SQL安全检测，可自动预防SQL注入攻击
 $_config['security']['querysafe']['dfunction']	= array('load_file','hex','substring','if','ord','char');
