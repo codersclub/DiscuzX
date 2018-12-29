@@ -762,7 +762,7 @@ CREATE TABLE pre_common_member_field_forum (
   sightml text NOT NULL,
   groupterms text NOT NULL,
   authstr varchar(20) NOT NULL DEFAULT '',
-  groups mediumtext NOT NULL,
+  `groups` mediumtext NOT NULL,
   attentiongroup varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (uid)
 ) TYPE=MyISAM;
@@ -1466,7 +1466,7 @@ CREATE TABLE pre_common_usergroup (
   groupid smallint(6) unsigned NOT NULL AUTO_INCREMENT,
   radminid tinyint(3) NOT NULL DEFAULT '0',
   `type` enum('system','special','member') NOT NULL DEFAULT 'member',
-  system varchar(255) NOT NULL DEFAULT 'private',
+  `system` varchar(255) NOT NULL DEFAULT 'private',
   grouptitle varchar(255) NOT NULL DEFAULT '',
   creditshigher int(10) NOT NULL DEFAULT '0',
   creditslower int(10) NOT NULL DEFAULT '0',
@@ -1763,7 +1763,7 @@ CREATE TABLE pre_forum_announcement (
   starttime int(10) unsigned NOT NULL DEFAULT '0',
   endtime int(10) unsigned NOT NULL DEFAULT '0',
   message text NOT NULL,
-  groups text NOT NULL,
+  `groups` text NOT NULL,
   PRIMARY KEY (id),
   KEY timespan (starttime,endtime)
 ) TYPE=MyISAM;
@@ -2248,7 +2248,7 @@ CREATE TABLE pre_forum_forum (
   posts mediumint(8) unsigned NOT NULL DEFAULT '0',
   todayposts mediumint(8) unsigned NOT NULL DEFAULT '0',
   yesterdayposts mediumint(8) unsigned NOT NULL DEFAULT '0',
-  rank smallint(6) unsigned NOT NULL DEFAULT '0',
+  `rank` smallint(6) unsigned NOT NULL DEFAULT '0',
   oldrank smallint(6) unsigned NOT NULL DEFAULT '0',
   lastpost char(110) NOT NULL DEFAULT '',
   domain char(15) NOT NULL DEFAULT '',

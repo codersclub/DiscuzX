@@ -103,7 +103,7 @@ class table_common_usergroup extends discuz_table
 		if(!$ids) {
 			return null;
 		}
-		return DB::fetch_all('SELECT * FROM %t WHERE (type=\'special\' AND system<>\'private\' AND radminid=\'0\') OR groupid IN (%n) ORDER BY type, system', array($this->_table, $ids), $this->_pk);
+		return DB::fetch_all('SELECT * FROM %t WHERE (type=\'special\' AND `system`<>\'private\' AND radminid=\'0\') OR groupid IN (%n) ORDER BY type, `system`', array($this->_table, $ids), $this->_pk);
 	}
 
 	public function range_orderby_credit() {
@@ -132,7 +132,7 @@ class table_common_usergroup extends discuz_table
 	}
 
 	public function buyusergroup_exists() {
-		return DB::result_first("SELECT COUNT(*) FROM %t WHERE type='special' and system>0", array($this->_table));
+		return DB::result_first("SELECT COUNT(*) FROM %t WHERE type='special' and `system`>0", array($this->_table));
 	}
 }
 

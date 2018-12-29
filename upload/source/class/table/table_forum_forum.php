@@ -197,7 +197,7 @@ class table_forum_forum extends discuz_table
 	}
 
 	public function update_oldrank_and_yesterdayposts() {
-		DB::query("UPDATE ".DB::table($this->_table).' SET oldrank=rank,yesterdayposts=todayposts');
+		DB::query("UPDATE ".DB::table($this->_table).' SET oldrank=`rank`,yesterdayposts=todayposts');
 	}
 	public function update_group_level($levelid, $fid) {
 		if(!intval($levelid) || !intval($fid)) {
