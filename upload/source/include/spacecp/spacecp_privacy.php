@@ -78,26 +78,15 @@ if($operation == 'filter') {
 		list($icon, $uid) = explode('|', $key);
 		$icons[$key] = $icon;
 		$uids[$key] = $uid;
-		if(is_numeric($icon)) {
-			$appids[$key] = $icon;
-		}
 	}
 	foreach ($filter_note as $key => $value) {
 		list($type, $uid) = explode('|', $key);
 		$types[$key] = $type;
 		$uids[$key] = $uid;
-		if(is_numeric($type)) {
-			$appids[$key] = $type;
-		}
 	}
 	if($uids) {
 		foreach(C::t('common_member')->fetch_all($uids) as $uid => $value) {
 			$users[$uid] = $value['username'];
-		}
-	}
-	if($appids) {
-		foreach(C::t('common_myapp')->fetch_all($appids) as $value) {
-			$iconnames[$value['appid']] = $value['appname'];
 		}
 	}
 

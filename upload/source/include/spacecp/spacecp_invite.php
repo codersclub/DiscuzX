@@ -34,7 +34,7 @@ $credittitle = $_G['setting']['extcredits'][$creditname]['title'];
 $creditname = 'extcredits'.$creditname;
 
 $inviteurl = $invite_code = '';
-$appid = empty($_GET['app']) ? 0 : intval($_GET['app']);
+$appid = 0;
 
 $creditkey = 'extcredits'.$creditid;
 $extcredits = $_G['setting']['extcredits'][$creditid];
@@ -48,16 +48,6 @@ $mailvar = array(
 );
 
 $appinfo = array();
-if($appid) {
-	$appinfo = C::t('common_myapp')->fetch($appid);
-	if($appinfo) {
-		$inviteapp = "&amp;app=$appid";
-		$mailvar['appid'] = $appid;
-		$mailvar['appname'] = $appinfo['appname'];
-	} else {
-		$appid = 0;
-	}
-}
 
 if(!$creditnum) {
 	$inviteurl = getinviteurl(0, 0, $appid);
