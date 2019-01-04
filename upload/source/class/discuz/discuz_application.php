@@ -362,7 +362,7 @@ class discuz_application extends discuz_base{
 		if($_SERVER['REQUEST_METHOD'] == 'GET' ) {
 			$temp = $_SERVER['REQUEST_URI'];
 		} elseif(empty ($_GET['formhash'])) {
-			$temp = $_SERVER['REQUEST_URI'].file_get_contents('php://input');
+			$temp = $_SERVER['REQUEST_URI'].http_build_query($_POST);
 		} else {
 			$temp = '';
 		}
