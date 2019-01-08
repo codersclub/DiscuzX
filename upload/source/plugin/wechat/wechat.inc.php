@@ -227,24 +227,6 @@ if($ac == 'bind') {
 	if($wechatuser) {
 		showmessage('wechat:wechat_openid_exists');
 	} else {
-		if($_G['wechat']['setting']['wechat_qrtype']) {
-			$mpmember = C::t('#wechat#common_member_wechatmp')->fetch_by_openid($wxopenid ? $wxopenid : $_GET['wxopenid']);
-			$mpmembers = C::t('common_member')->fetch_all(array_keys($mpmember));
-			if ($mpmembers) {
-				$memberfirst = array_shift($mpmembers);
-				$member = getuserbyuid($memberfirst['uid'], 1);
-				if($member) {
-					setloginstatus($member, 1296000);
-					$url = wsq::wxuserregisterUrl($memberfirst['uid']);
-					if ($ac == 'wxregister') {
-						dheader('location: ' . $url);
-					} else {
-						showmessage('wechat:wechat_member_register_succeed', $url);
-					}
-				}
-			}
-		}
-
 		if(DISCUZ_VERSION < 'X3.0' && $_G['inajax']) {
 			$_GET['username'] = WeChatEmoji::clear($_GET['username']);
 		}
