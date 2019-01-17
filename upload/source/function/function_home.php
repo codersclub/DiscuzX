@@ -316,10 +316,6 @@ function sarray_rand($arr, $num=1) {
 }
 
 function my_showgift() {
-	global $_G, $space;
-	if($_G['setting']['my_showgift'] && $_G['my_userapp'][$_G['home_gift_appid']]) {
-		echo '<script language="javascript" type="text/javascript" src="http://gift.manyou-apps.com/recommend.js"></script>';
-	}
 }
 
 function getsiteurl() {

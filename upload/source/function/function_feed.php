@@ -107,11 +107,7 @@ function mkfeed($feed, $actors=array()) {
 
 	$feed['body_general'] = feed_mktarget($feed['body_general']);
 
-	if(is_numeric($feed['icon'])) {
-		$feed['icon_image'] = "http://appicon.manyou.com/icons/{$feed['icon']}";
-	} else {
-		$feed['icon_image'] = STATICURL."image/feed/{$feed['icon']}.gif";
-	}
+	$feed['icon_image'] = STATICURL."image/feed/{$feed['icon']}.gif";
 
 	$feed['new'] = 0;
 	if($_G['cookie']['home_readfeed'] && $feed['dateline']+300 > $_G['cookie']['home_readfeed']) {
