@@ -1645,7 +1645,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 	include template('common/footer_ajax');
 
 } elseif($_GET['action'] == 'usertag') {
-	if($_G['tid']) {
+	if($_G['tid'] && $_G['group']['alloweditusertag']) {
 		if(!submitcheck('addusertag')) {
 			$recent_use_tag = $lastlog = $polloptions = array();
 			$i = 0;
