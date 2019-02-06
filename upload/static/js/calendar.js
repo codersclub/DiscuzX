@@ -39,8 +39,8 @@ function loadcalendar() {
 	s += '</td><td align="right" colspan="3"><button class="pn" onclick="confirmcalendar();"><em>确定</em></button></td></tr>';
 	s += '</table></div></div>';
 	s += '<div id="calendar_year" onclick="doane(event)" style="display: none;z-index:100001;"><div class="col">';
-	for(var k = 2020; k >= 1931; k--) {
-		s += k != 2020 && k % 10 == 0 ? '</div><div class="col">' : '';
+	for(var k = 2090; k >= 2001; k--) {
+		s += k != 2090 && k % 10 == 0 ? '</div><div class="col">' : '';
 		s += '<a href="javascript:;" onclick="refreshcalendar(' + k + ', mm);$(\'calendar_year\').style.display=\'none\'"><span' + (today.getFullYear() == k ? ' class="calendar_today"' : '') + ' id="calendar_year_' + k + '">' + k + '</span></a><br />';
 	}
 	s += '</div></div>';
