@@ -119,7 +119,7 @@ REPLACE INTO uc_settings(k, v) VALUES ('version', '1.6.0');
 DROP TABLE IF EXISTS uc_badwords;
 CREATE TABLE uc_badwords (
   id smallint(6) unsigned NOT NULL auto_increment,
-  admin varchar(15) NOT NULL default '',
+  `admin` varchar(15) NOT NULL default '',
   find varchar(255) NOT NULL default '',
   replacement varchar(255) NOT NULL default '',
   findpattern varchar(255) NOT NULL default '',
@@ -213,7 +213,7 @@ CREATE TABLE uc_protectedmembers (
   username char(15) NOT NULL default '',
   appid tinyint(1) unsigned NOT NULL default '0',
   dateline int(10) unsigned NOT NULL default '0',
-  admin char(15) NOT NULL default '0',
+  `admin` char(15) NOT NULL default '0',
   UNIQUE KEY(username, appid)
 ) Type=MyISAM;
 
