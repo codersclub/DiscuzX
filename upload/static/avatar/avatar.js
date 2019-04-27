@@ -293,13 +293,12 @@ function refreshAvatarCanvasForDisplay() {
 
 function rectAvatarDone(res) {
     if (!res) return;
-    if (res=='success') {
+    if (res == 'success') {
         jQuery('#avatardisplayer').show();
         refreshAvatarCanvasForDisplay();
         jQuery('#avataradjuster').hide();
         jQuery('#avatarfileselector').hide();            
-    }
-    else {
+    } else if (res == 'failure') {
         alert('上传失败');
     }
 }
