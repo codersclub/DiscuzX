@@ -13,9 +13,6 @@ Discuz! X 官方 Git (https://gitee.com/ComsenzDiscuz/DiscuzX) ，简体中文 U
 
 [DiscuzFans](https://gitee.com/sinlody/DiscuzFans)  [DiscuzLite](https://gitee.com/3dming/DiscuzL)
 
-### **DxGit Forker 交流群**
-[QQ群 62652633](http://shang.qq.com/wpa/qunwpa?idkey=5c7c9ff98ebd001751bcda84b47c77830c554f729c72c247957cd86bdd83aa47) 本群仅限 Fork 本 Git 的用户加入，入群请提供您 Fork 的地址（不知道啥是Fork？[看这里](http://git.mydoc.io/?t=180700))
-
 ### **升级方法**
 [点击阅读](https://gitee.com/ComsenzDiscuz/DiscuzX/wikis/%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95?sort_id=9978)
 
