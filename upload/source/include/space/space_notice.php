@@ -92,7 +92,7 @@ if($view == 'userapp') {
 		}
 
 		$multi = '';
-		$multi = multi($count, $perpage, $page, "home.php?mod=space&do=$do&isread=1");
+		$multi = multi($count, $perpage, $page, "home.php?mod=space&do=$do&view=$view&isread=1");
 	}
 
 	if($newnotify) {
