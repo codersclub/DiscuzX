@@ -15,10 +15,10 @@ $addonsource = $_G['config']['addonsource'] ? $_G['config']['addonsource'] : ($_
 $addon = $addonsource ?
 	$_G['config']['addon'][$addonsource] :
 	array(
-		'website_url' => 'https://addon.discuz.com',
-		'download_url' => 'https://addon.discuz.com/index.php',
+		'website_url' => 'https://addon.dismall.com',
+		'download_url' => 'https://addon.dismall.com/index.php',
 		'download_ip' => '',
-		'check_url' => 'https://addon1.discuz.com/md5/',
+		'check_url' => 'https://addon1.dismall.com/md5/',
 		'check_ip' => '',
 	);
 
