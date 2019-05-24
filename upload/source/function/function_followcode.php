@@ -41,7 +41,7 @@ function followcode($message, $tid = 0, $pid = 0, $length = 0, $allowimg = true)
 	if($_G['setting']['plugins']['func'][HOOKTYPE]['discuzcode']) {
 		$_G['discuzcodemessage'] = & $message;
 		$param = func_get_args();
-		hookscript('discuzcode', 'global', 'funcs', array('param' => $param, 'caller' => 'discuzcode'), 'discuzcode');
+		hookscript('discuzcode', 'global', 'funcs', array('param' => $param, 'caller' => 'followcode'), 'discuzcode');
 	}
 	$_G['delattach'] = array();
 	$message = fparsesmiles($message);
