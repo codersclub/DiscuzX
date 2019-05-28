@@ -242,7 +242,7 @@ loaducenter();
 showtableheader('home_sys_info', 'fixpadding');
 showtablerow('', array('class="vtop td24 lineheight"', 'class="lineheight smallfont"'), array(
 	cplang('home_discuz_version'),
-	'Discuz! '.DISCUZ_VERSION.' <a href="https://gitee.com/ComsenzDiscuz/DiscuzX" class="lightlink2" target="_blank">Git</a>'
+	'Discuz! '.DISCUZ_VERSION.' <a href="https://gitee.com/ComsenzDiscuz/DiscuzX" class="lightlink2" target="_blank">Git</a>&nbsp;&nbsp;&nbsp;<span class="bold"><a href="https://gitee.com/3dming/DiscuzL/attach_files" class="lightlink2" target="_blank">最新版打包下载</a></span>'
 ));
 showtablerow('', array('class="vtop td24 lineheight"', 'class="lineheight smallfont"'), array(
 	cplang('home_ucclient_version'),
