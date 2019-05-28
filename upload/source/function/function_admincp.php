@@ -198,8 +198,10 @@ function showmenu($key, $menus, $return = 0) {
 	if(is_array($menus)) {
 		foreach($menus as $menu) {
 			if($menu[0] && $menu[1]) {
-				list($action, $operation, $do) = explode('_', $menu[1]);
-				$menu[1] = $action.($operation ? '&operation='.$operation.($do ? '&do='.$do : '') : '');
+				if(strpos($menu[1], 'plugins&operation=config') === false){
+					list($action, $operation, $do) = explode('_', $menu[1]);
+					$menu[1] = $action.($operation ? '&operation='.$operation.($do ? '&do='.$do : '') : '');
+				}
 				$body .= '<li><a href="'.(substr($menu[1], 0, 4) == 'http' ? $menu[1] : ADMINSCRIPT.'?action='.$menu[1]).'" hidefocus="true" target="'.($menu[2] ? $menu[2] : 'main').'"'.($menu[3] ? $menu[3] : '').'><em onclick="menuNewwin(this)" title="'.cplang('nav_newwin').'"></em>'.cplang($menu[0]).'</a></li>';
 			} elseif($menu[0] && $menu[2]) {
 				if($menu[2] == 1) {
