@@ -25,7 +25,7 @@
 			<span class="pipe">|</span><a href="admin.php" target="_blank">{lang admincp}</a>
 		<!--{/if}-->
 		<!--{hook/global_usernav_extra2}-->
-		<span class="pipe">|</span><a href="member.php?mod=logging&action=logout&formhash={FORMHASH}">{lang logout}</a>
+		<span class="pipe">|</span><a href="member.php?mod=logging&action=logout&formhash={eval echo formhash();}">{lang logout}</a>
 	</p>
 	<p>
 		<!--{hook/global_usernav_extra3}-->
