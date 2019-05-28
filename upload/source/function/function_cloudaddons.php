@@ -18,7 +18,7 @@ $addon = $addonsource ?
 		'website_url' => 'https://addon.dismall.com',
 		'download_url' => 'https://addon.dismall.com/index.php',
 		'download_ip' => '',
-		'check_url' => 'https://addon1.dismall.com/md5/',
+		'check_url' => 'https://addon.dismall.com/md5/',
 		'check_ip' => '',
 	);
 
@@ -34,7 +34,7 @@ function cloudaddons_md5($file) {
 
 function cloudaddons_getuniqueid() {
 	global $_G;
-	if(CLOUDADDONS_WEBSITE_URL == 'https://addon.discuz.com') {
+	if(CLOUDADDONS_WEBSITE_URL == 'https://addon.dismall.com') {
 		return $_G['setting']['siteuniqueid'] ? $_G['setting']['siteuniqueid'] : C::t('common_setting')->fetch('siteuniqueid');
 	} else {
 		if(!$_G['setting']['addon_uniqueid']) {
@@ -51,7 +51,7 @@ function cloudaddons_url($extra) {
 	global $_G;
 
 	require_once DISCUZ_ROOT.'./source/discuz_version.php';
-	$data = 'siteuniqueid='.rawurlencode(cloudaddons_getuniqueid()).'&siteurl='.rawurlencode($_G['siteurl']).'&sitever='.DISCUZ_VERSION.'/'.DISCUZ_RELEASE.'&sitecharset='.CHARSET.'&mysiteid='.$_G['setting']['my_siteid'];
+	$data = 'siteuniqueid='.rawurlencode(cloudaddons_getuniqueid()).'&siteurl='.rawurlencode($_G['siteurl']).'&sitever='.DISCUZ_VERSION.'/'.DISCUZ_RELEASE.'&sitecharset='.CHARSET.'&mysiteid='.$_G['setting']['my_siteid'].'&addonversion=1';
 	$param = 'data='.rawurlencode(base64_encode($data));
 	$param .= '&md5hash='.substr(md5($data.TIMESTAMP), 8, 8).'&timestamp='.TIMESTAMP;
 	return CLOUDADDONS_DOWNLOAD_URL.'?'.$param.$extra;
