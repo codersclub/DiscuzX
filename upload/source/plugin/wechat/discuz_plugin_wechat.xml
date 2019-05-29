@@ -193,8 +193,8 @@
 					<li>选择“认证服务号”服务的站长请在“开发者中心”的 OAuth2.0 网页授权设置处设置授权回调页面域名为本网站域名</li>
 					]]></item>
 				<item id="wechatapi_tips"><![CDATA[
-					<li>插件开发人员在设计新的微信及 Discuz! 微社区类插件前请务必仔细阅读《<a href="https://open.dismall.net/?!devdoc" target="_blank">Discuz! 技术文库</a>》中的内容</li>
-					<li>开发技术交流，欢迎访问“<a href="https://open.dismall.net/?!bbs" target="_blank">Discuz! 开发者交流</a>”论坛</li>
+					<li>插件开发人员在设计新的微信及 Discuz! 微社区类插件前请务必仔细阅读《<a href="https://open.dismall.com/?!devdoc" target="_blank">Discuz! 技术文库</a>》中的内容</li>
+					<li>开发技术交流，欢迎访问“<a href="https://open.dismall.com/?!bbs" target="_blank">Discuz! 开发者交流</a>”论坛</li>
 					]]></item>
 				<item id="wsq_tips"><![CDATA[
 					<li>完善以下资料后，您的微社区将自动开通，开通后用户可以在微信内阅读您的论坛内容，发帖也将同步到您的论坛</li>
@@ -211,7 +211,7 @@
 				<item id="response_tips"><![CDATA[
 					<li>此处可以设置微信公众号收到消息后的响应内容，默认由本插件自身控制，您可以自定义其中的内容</li>
 					<li>如果您的公众号没有“自定义菜单”服务，并且希望在收到信息后响应微社区的访问功能，请在“响应内容”中填写“LOGIN_WSQ”</li>
-					<li>我们允许其他插件接管此消息的控制权，请仔细阅读《<a href="https://open.dismall.net/?!devdoc" target="_blank">Discuz! 技术文库</a>》中的内容</li>
+					<li>我们允许其他插件接管此消息的控制权，请仔细阅读《<a href="https://open.dismall.com/?!devdoc" target="_blank">Discuz! 技术文库</a>》中的内容</li>
 					]]></item>
 				<item id="discuzqr_tips"><![CDATA[
 					<img src="source/plugin/wechat/image/discuz_qr.jpg" align="left" width="80" /><br />扫描关注Discuz!官方微信<br /><br />获取官方最新动态
