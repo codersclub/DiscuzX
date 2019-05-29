@@ -347,8 +347,8 @@ function block_template($bid) {
 					}
 				}
 			}
-			$blockitem['fields'] = !empty($blockitem['fields']) ? $blockitem['fields'] : array();
 			$blockitem['fields'] = is_array($blockitem['fields']) ? $blockitem['fields'] : dunserialize($blockitem['fields']);
+			$blockitem['fields'] = is_array($blockitem['fields']) ? $blockitem['fields'] : array();
 			if(!empty($blockitem['showstyle'])) {
 				$blockitem['fields']['showstyle'] = dunserialize($blockitem['showstyle']);
 			}
