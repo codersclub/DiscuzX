@@ -83,8 +83,10 @@ class discuz_database {
 		return self::$db->insert_id();
 	}
 
-	public static function fetch($resourceid, $type = MYSQL_ASSOC) {
-		if(self::$db->drivertype == 'mysqli') $type = MYSQLI_ASSOC;
+	public static function fetch($resourceid, $type = null) {
+		if (!isset($type)) {
+			$type = self::$db->drivertype == 'mysqli' ? MYSQLI_ASSOC : MYSQL_ASSOC;
+		}
 		return self::$db->fetch_array($resourceid, $type);
 	}
 
