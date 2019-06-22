@@ -57,7 +57,7 @@ if(!$operation) {
 			$md5total = '';
 			$md5s = array();
 		}
-		$data = cloudaddons_open('&mod=app&ac=download&rid='.$_GET['rid'].'&packnum='.$packnum);
+		$data = cloudaddons_open('&mod=app&ac=download&rid='.$_GET['rid'].'&packnum='.$packnum, '', 60);
 		$_GET['importtxt'] = $data;
 		$array = getimportdata('Discuz! File Pack');
 		if(!$array['Status']) {

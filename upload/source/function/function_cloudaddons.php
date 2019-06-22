@@ -18,7 +18,7 @@ $addon = $addonsource ?
 		'website_url' => 'https://addon.dismall.com',
 		'download_url' => 'https://addon.dismall.com/index.php',
 		'download_ip' => '',
-		'check_url' => 'https://addon.dismall.com/md5/',
+		'check_url' => 'https://addon1.dismall.com/md5/',
 		'check_ip' => '',
 	);
 
