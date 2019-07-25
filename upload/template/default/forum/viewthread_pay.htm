@@ -1,7 +1,7 @@
 <!--{if $thread['freemessage']}-->
 	<div id="postmessage_$pid" class="t_f">$thread[freemessage]</div>
 <!--{/if}-->
-<!--{if (!defined('IN_ARCHIVER'))}-->
+<!--{if (!defined('IN_ARCHIVER') || (defined('IN_ARCHIVER') && !constant('IN_ARCHIVER'))}-->
 	<div class="locked">
 			<a href="javascript:;" class="y viewpay" title="{lang pay}" onclick="showWindow('pay', 'forum.php?mod=misc&action=pay&tid=$_G[tid]&pid=$post[pid]{if !empty($_GET['from'])}&from=$_GET['from']{/if}')">{lang pay}</a>
 			<em class="right">
