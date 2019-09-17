@@ -589,7 +589,9 @@ class discuz_application extends discuz_base{
 						mobile_core::result(array('error' => 'user_banned'));
 					}
 				} elseif((!defined('ALLOWGUEST') || !ALLOWGUEST) && !in_array(CURSCRIPT, array('member', 'api')) && !$this->var['inajax']) {
-					if(!defined('IN_MOBILE_API')) {
+					if(defined('IN_ARCHIVER')) {
+						dheader('location: ../member.php?mod=logging&action=login&referer='.rawurlencode($this->var['siteurl']."archiver/".$this->var['basefilename'].($_SERVER['QUERY_STRING'] ? '?'.$_SERVER['QUERY_STRING'] : '')));
+					} else if(!defined('IN_MOBILE_API')) {
 						dheader('location: member.php?mod=logging&action=login&referer='.rawurlencode($this->var['siteurl'].$this->var['basefilename'].($_SERVER['QUERY_STRING'] ? '?'.$_SERVER['QUERY_STRING'] : '')));
 					} else {
 						mobile_core::result(array('error' => 'to_login'));
