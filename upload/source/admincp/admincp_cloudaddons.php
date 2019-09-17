@@ -57,7 +57,11 @@ if(!$operation) {
 			$md5total = '';
 			$md5s = array();
 		}
-		$data = cloudaddons_open('&mod=app&ac=download&rid='.$_GET['rid'].'&packnum='.$packnum, '', 60);
+		$data = cloudaddons_open('&mod=app&ac=download&rid='.$_GET['rid'].'&packnum='.$packnum, '', 999);
+		if(empty($data)){
+			cpmsg('cloudaddons_downloading', "action=cloudaddons&operation=download&addonids=$_GET[addonids]&i=$addoni&step=1&md5hash=".$_GET['md5hash'].'&timestamp='.$_GET['timestamp'].'&num='.$packnum, 'loading', array('addonid' => $_GET['key'].'.'.$_GET['type']), '<div></div>', FALSE);
+			exit;
+		}
 		$_GET['importtxt'] = $data;
 		$array = getimportdata('Discuz! File Pack');
 		if(!$array['Status']) {

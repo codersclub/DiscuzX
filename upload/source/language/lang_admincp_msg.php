@@ -23,7 +23,7 @@ $lang = array (
   'blogcategory_move_category_failed' => '无法移动日志到指定分类',
   'blogcategory_delete_succeed' => '删除日志分类成功 ',
   'filecheck_nofound_md5file' => '不存在校验文件，无法进行此操作 {upgradeurl}',
-  'cloudaddons_download_error' => '数据下载错误({ErrorCode})',
+  'cloudaddons_download_error' => '数据下载错误({ErrorCode})，<a href="https://www.dismall.com/thread-101-1-1.html" target="_blank">点击查看常见问题解决办法</a>',
   'cloudaddons_downloading' => '应用 {addonid} 下载中，请稍候 ......',
   'collection_admin_updated' => '专辑管理操作成功',
   'counter_member_succeed' => '用户发帖数重建完成',
@@ -630,6 +630,7 @@ $lang = array (
 
   'cloudaddons_check_url_fopen_error' => '您的服务器无法访问应用中心，这将会导致应用无法安装。请联系您的服务商或者网站技术人员，确保您的服务器能够正常访问 addon.dismall.com',
   'cloudaddons_check_gzuncompress_error' => '您的服务器不支持 Zlib，这将会导致应用无法安装。请联系您的服务商或者网站技术人员。',
+  'cloudaddons_check_curl_error' => '您的服务器不支持 CURL，这将会导致应用无法安装。请联系您的服务商或者网站技术人员。',
   'cloudaddons_genuine_message' => '对不起，您安装的不是正版应用，安装程序无法继续执行<br /><br /><a href="admin.php?action=cloudaddons&id={addonid}">点击这里安装正版应用</a>',
 
   'admincp_makehtml_cleanhtml_error' => '对不起，开启生成HTML静态文件时，不能清理HTML文件。',
