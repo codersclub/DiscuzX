@@ -109,7 +109,7 @@ class table_forum_optionvalue extends discuz_table
 		}
 		$sortid = intval($sortid);
 		$this->_table = 'forum_optionvalue'.$sortid;
-		$query = DB::query("SELECT tid FROM %t %i", array($this->_table, $where));
+		$query = DB::query("SELECT tid FROM %t %i", array($this->_table, $where), true);
 		$return = array();
 		while($thread = DB::fetch($query)) {
 			$return[] = $thread['tid'];
