@@ -34,7 +34,7 @@ if($operation == 'downremotefile') {
 	$arrayimageurl = $temp = $imagereplace = array();
 	$string = $_GET['content'];
 	$downremotefile = true;
-	preg_match_all("/\<img.+src=('|\"|)?(.*)(\\1)([\s].*)?\>/ismUe", $string, $temp, PREG_SET_ORDER);
+	preg_match_all("/\<img.+\bsrc\b\s*=('|\"|)?(.*)(\\1)([\s].*)?\>/ismUe", $string, $temp, PREG_SET_ORDER);
 	if(is_array($temp) && !empty($temp)) {
 		foreach($temp as $tempvalue) {
 			$tempvalue[2] = str_replace('\"', '', $tempvalue[2]);
