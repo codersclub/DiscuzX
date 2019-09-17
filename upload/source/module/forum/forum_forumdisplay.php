@@ -599,6 +599,10 @@ if($_G['forum']['picstyle']) {
 	}
 }
 
+if(!empty($_G['cookie']['forumdefstyle'])) {
+	$_G['cookie']['forumdefstyle'] = 1;
+}
+
 if($filter != 'hot' && @ceil($_G['forum_threadcount']/$_G['tpp']) < $page) {
 	$page = 1;
 }
