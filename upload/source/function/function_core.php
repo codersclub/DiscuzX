@@ -494,6 +494,9 @@ function checktplrefresh($maintpl, $subtpl, $timecompare, $templateid, $cachefil
 	}
 
 	if(empty($timecompare) || $tplrefresh == 1 || ($tplrefresh > 1 && !($timestamp % $tplrefresh))) {
+		if(!file_exists(DISCUZ_ROOT.$subtpl)){
+			$subtpl = substr($subtpl, 0, -4).'.php';
+		}
 		if(empty($timecompare) || @filemtime(DISCUZ_ROOT.$subtpl) > $timecompare) {
 			require_once DISCUZ_ROOT.'/source/class/class_template.php';
 			$template = new template();
