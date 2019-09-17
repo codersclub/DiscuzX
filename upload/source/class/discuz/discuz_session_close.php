@@ -144,7 +144,7 @@ class discuz_session_close {
 		return 0;
 	}
 
-	public function fetch_all_by_fid($fid, $limit) {
+	public function fetch_all_by_fid($fid, $limit = 0) {
 		return array();
 	}
 
