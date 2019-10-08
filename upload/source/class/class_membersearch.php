@@ -145,7 +145,7 @@ class membersearch {
 			$uidfield = 'uid';
 			foreach ($tables as $key => $value) {
 				$value = membersearch::gettable($key, $isarchive);
-				$parts[] = "$value as $key";
+				$parts[] = "$value as `$key`";
 				if(! $table1) {
 					$table1 = $key;
 					if($table1 == 'tag') {
