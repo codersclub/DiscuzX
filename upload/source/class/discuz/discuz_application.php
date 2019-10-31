@@ -281,7 +281,7 @@ class discuz_application extends discuz_base{
 		@include DISCUZ_ROOT.'./config/config_global.php';
 		if(empty($_config)) {
 			if(!file_exists(DISCUZ_ROOT.'./data/install.lock')) {
-				header('location: install');
+				header('location: install/');
 				exit;
 			} else {
 				system_error('config_notfound');
