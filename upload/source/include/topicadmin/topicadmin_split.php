@@ -73,7 +73,7 @@ if(!submitcheck('modsubmit')) {
 		$fpost = $row;
 	}
 	C::t('forum_thread')->update($_G['tid'], array('author'=>$fpost['author'], 'authorid'=>$fpost['authorid'],'dateline'=>$fpost['dateline'], 'moderated'=>1));
-	C::t('forum_post')->update('tid:'.$_G['post'], $fpost['pid'], array('subject' => $thread['subject']));
+	C::t('forum_post')->update('tid:'.$_G['post'], $fpost['pid'], array('first' => 1, 'subject' => $thread['subject']));
 
 	$query = C::t('forum_post')->fetch_all_by_tid('tid:'.$_G['tid'], $newtid, false, 'ASC', 0, 1);
 	foreach($query as $row) {
