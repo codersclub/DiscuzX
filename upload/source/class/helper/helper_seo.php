@@ -35,10 +35,10 @@ class helper_seo {
 			if($titletext) {
 				$seotitle = helper_seo::strreplace_strip_split($searchs, $replaces, $titletext);
 			}
-			if($descriptiontext && (isset($_G['makehtml']) || CURSCRIPT == 'forum' || IS_ROBOT || $_G['adminid'] == 1)) {
+			if($descriptiontext) {
 				$seodescription = helper_seo::strreplace_strip_split($searchs, $replaces, $descriptiontext);
 			}
-			if($keywordstext && (isset($_G['makehtml']) || CURSCRIPT == 'forum' || IS_ROBOT || $_G['adminid'] == 1)) {
+			if($keywordstext) {
 				$seokeywords = helper_seo::strreplace_strip_split($searchs, $replaces, $keywordstext);
 			}
 		}
