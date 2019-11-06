@@ -740,7 +740,7 @@ class discuz_application extends discuz_base{
 			return false;
 		}
 
-		if(!$this->var['setting'] || !$this->var['setting']['mobile']['allowmobile'] || !is_array($this->var['setting']['mobile']) || IS_ROBOT) {
+		if(!$this->var['setting'] || !$this->var['setting']['mobile']['allowmobile'] || !is_array($this->var['setting']['mobile'])) {
 			$nomobile = true;
 			$unallowmobile = true;
 		}
