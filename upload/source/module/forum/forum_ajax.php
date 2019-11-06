@@ -396,7 +396,7 @@ if($_GET['action'] == 'checkusername') {
 						continue;
 					}
 					$content = '';
-					if(preg_match('/^(http:\/\/|\.)/i', $imageurl)) {
+					if(preg_match('/^(http(s?):\/\/|\.)/i', $imageurl)) {
 						$content = dfsockopen($imageurl);
 					} elseif(preg_match('/^('.preg_quote(getglobal('setting/attachurl'), '/').')/i', $imageurl)) {
 						$imagereplace['newimageurl'][] = $value[0];
