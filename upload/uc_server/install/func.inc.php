@@ -488,7 +488,7 @@ EOT;
 function show_footer($quit = true) {
 
 	echo <<<EOT
-		<div class="footer">&copy;2001 - 2017 <a href="http://www.comsenz.com/">Comsenz</a> Inc.</div>
+		<div class="footer">Copyright &copy; 2001-2020, Tencent Cloud.</div>
 	</div>
 </div>
 </body>

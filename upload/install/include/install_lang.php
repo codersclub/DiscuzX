@@ -238,7 +238,7 @@ $lang = array(
 	'init_default_style' => '默认风格',
 	'init_default_forum' => '默认版块',
 	'init_default_template' => '默认模板套系',
-	'init_default_template_copyright' => '北京康盛新创科技有限责任公司',
+	'init_default_template_copyright' => '腾讯云计算（北京）有限责任公司',
 
 	'init_dataformat' => 'Y-n-j',
 	'init_modreasons' => '广告/SPAM\r\n恶意灌水\r\n违规内容\r\n文不对题\r\n重复发帖\r\n\r\n我很赞同\r\n精品文章\r\n原创内容',
@@ -252,7 +252,7 @@ $lang = array(
 
 	'license' => '<div class="license"><h1>中文版授权协议 适用于中文用户</h1>
 
-<p>版权所有 (c) 2001-2017，北京康盛新创科技有限责任公司保留所有权利。</p>
+<p>版权所有 (c) 2001-2020，腾讯云计算（北京）有限责任公司(原北京康盛新创科技有限责任公司)保留所有权利。</p>
 
 <p>感谢您选择康盛产品。希望我们的努力能为您提供一个高效快速、强大的站点解决方案，和强大的社区论坛解决方案。康盛公司网址为 http://www.comsenz.com，产品官方讨论区网址为 http://www.discuz.net。</p>
 

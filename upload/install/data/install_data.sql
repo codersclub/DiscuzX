@@ -460,9 +460,9 @@ INSERT INTO pre_common_setting VALUES ('showsettings','7');
 INSERT INTO pre_common_setting VALUES ('showsignatures','1');
 INSERT INTO pre_common_setting VALUES ('sigviewcond','0');
 INSERT INTO pre_common_setting VALUES ('sitemessage','a:5:{s:4:\"time\";s:1:\"3\";s:8:\"register\";s:0:\"\";s:5:\"login\";s:0:\"\";s:9:\"newthread\";s:0:\"\";s:5:\"reply\";s:0:\"\";}');
-INSERT INTO pre_common_setting VALUES ('sitename','Comsenz Inc.');
+INSERT INTO pre_common_setting VALUES ('sitename','DiscuzX');
 INSERT INTO pre_common_setting VALUES ('siteuniqueid','KD1Q6Vbd03ALJ34u');
-INSERT INTO pre_common_setting VALUES ('siteurl','http://www.comsenz.com/');
+INSERT INTO pre_common_setting VALUES ('siteurl','https://www.discuz.net/');
 INSERT INTO pre_common_setting VALUES ('smcols','8');
 INSERT INTO pre_common_setting VALUES ('smrows','5');
 INSERT INTO pre_common_setting VALUES ('smthumb','20');
@@ -738,7 +738,7 @@ INSERT INTO `pre_common_stylevar` (`styleid`, `variable`, `substitute`) VALUES (
 
 
 
-INSERT INTO pre_common_template VALUES ('1','默认模板套系','./template/default','北京康盛新创科技有限责任公司');
+INSERT INTO pre_common_template VALUES ('1','默认模板套系','./template/default','腾讯云计算（北京）有限责任公司');
 
 
 

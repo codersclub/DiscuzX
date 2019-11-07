@@ -2053,7 +2053,7 @@ END;
 function show_footer() {
 	print<<<END
 	</div>
-	<div id="footer">&copy; Comsenz Inc. 2001-2017 http://www.comsenz.com</div>
+	<div id="footer">Copyright &copy; 2001-2020, Tencent Cloud.</div>
 	</div>
 	<br>
 	</body>
