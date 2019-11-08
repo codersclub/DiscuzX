@@ -536,7 +536,7 @@ var rowtypedata = [
 		if(is_array($_GET['typename'])) {
 			foreach($_GET['typename'] AS $key => $val) {
 				if(!$_GET['delete'][$key] && !empty($val)) {
-					DB::update("common_word_type", array('typename' => $val), "`id` = '$key'");
+					DB::update("common_word_type", array('typename' => $val), DB::field("id", $key));
 				}
 			}
 		}
@@ -716,7 +716,7 @@ EOT;
 					'find' => $_GET['find'][$id],
 					'replacement' => $_GET['replace'][$id],
 					'type' => $_GET['wordtype_select'][$id],
-				), "id='$id' AND ('{$_G['adminid']}'='1' OR admin='{$_G['username']}')");
+				), DB::field("id", $id)." AND ('{$_G['adminid']}'='1' OR admin='{$_G['username']}')");
 			}
 		}
 
@@ -1009,7 +1009,7 @@ var rowtypedata = [
 				DB::update('forum_attachtype', array(
 					'extension' => $_GET['extension'][$id],
 					'maxsize' => $_GET['maxsize'][$id] * 1024,
-				), "id='$id'");
+				), DB::field("id", $id));
 			}
 		}
 
@@ -1119,7 +1119,7 @@ var rowtypedata = [
 					if(empty($_GET['availablenew'][$id])) {
 						$newcron['nextrun'] = '0';
 					}
-					DB::update('common_cron', $newcron, "cronid='$id'");
+					DB::update('common_cron', $newcron, DB::field("cronid", $id));
 				}
 			}
 
@@ -1166,7 +1166,7 @@ var rowtypedata = [
 	} else {
 
 		$cronid = empty($_GET['run']) ? $_GET['edit'] : $_GET['run'];
-		$cron = DB::fetch_first("SELECT * FROM ".DB::table('common_cron')." WHERE cronid='$cronid'");
+		$cron = DB::fetch_first("SELECT * FROM ".DB::table('common_cron')." WHERE ".DB::field("cronid", $cronid));
 		if(!$cron) {
 			cpmsg('cron_not_found', '', 'error');
 		}
@@ -1262,7 +1262,7 @@ var rowtypedata = [
 					'hour' => $_GET['hournew'],
 					'minute' => $minutenew,
 					'filename' => trim($_GET['filenamenew']),
-				), "cronid='$cronid'");
+				), DB::field("cronid", $cronid));
 
 				discuz_cron::run($cronid);
 
