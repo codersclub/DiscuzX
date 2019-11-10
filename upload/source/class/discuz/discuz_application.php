@@ -791,7 +791,9 @@ class discuz_application extends discuz_base{
 					$mobileurl = $this->var['siteurl'].'forum.php?mobile=yes';
 				}
 			}
-			dheader("location:$mobileurl");
+			if(!$this->var['setting']['mobile']['otherindex']){
+				dheader("location:$mobileurl");
+			}
 		}
 		if($this->var['setting']['mobile']['allowmnew'] && !defined('IN_MOBILE_API') && !defined('NOT_IN_MOBILE_API')) {
 			$modid = $this->var['basescript'].'::'.CURMODULE;
