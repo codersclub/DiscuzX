@@ -513,6 +513,8 @@ class register_ctl {
 				if($this->extrafile && file_exists($this->extrafile)) {
 					require_once $this->extrafile;
 				}
+			} else {
+				$navtitle = $this->setting['reglinkname'];
 			}
 			$bbrulestxt = nl2br("\n$bbrulestxt\n\n");
 			$dreferer = dreferer();
