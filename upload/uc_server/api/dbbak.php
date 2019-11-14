@@ -585,7 +585,7 @@ if($get['method'] == 'export') {
 			$str .= "\t\t<file_name>$match[0]</file_name>\n";
 			$str .= "\t\t<file_size>".filesize($filename)."</file_size>\n";
 			$str .= "\t\t<file_num>$match[1]</file_num>\n";
-			$str .= "\t\t<file_url>".str_replace(ROOT_PATH, 'http://'.$_SERVER['HTTP_HOST'].'/', $filename)."</file_url>\n";
+			$str .= "\t\t<file_url>".str_replace(ROOT_PATH, ($_SERVER['HTTPS'] == 'on' ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].'/', $filename)."</file_url>\n";
 			$str .= "\t\t<last_modify>".filemtime($filename)."</last_modify>\n";
 			$str .= "\t</file>\n";
 		}
@@ -700,14 +700,14 @@ function arraykeys2($array, $key2) {
 }
 
 function auto_next($get, $sqlfile) {
-	$next_url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?apptype='.$GLOBALS['apptype'].'&code='.urlencode(encode_arr($get));
+	$next_url = ($_SERVER['HTTPS'] == 'on' ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?apptype='.$GLOBALS['apptype'].'&code='.urlencode(encode_arr($get));
 	$out = "<root>\n";
 	$out .= "\t<error errorCode=\"0\" errorMessage=\"ok\" />\n";
 	$out .= "\t<fileinfo>\n";
 	$out .= "\t\t<file_num>$get[volume]</file_num>\n";
 	$out .= "\t\t<file_size>".filesize($sqlfile)."</file_size>\n";
 	$out .= "\t\t<file_name>".basename($sqlfile)."</file_name>\n";
-	$out .= "\t\t<file_url>".str_replace(ROOT_PATH, 'http://'.$_SERVER['HTTP_HOST'].'/', $sqlfile)."</file_url>\n";
+	$out .= "\t\t<file_url>".str_replace(ROOT_PATH, ($_SERVER['HTTPS'] == 'on' ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].'/', $sqlfile)."</file_url>\n";
 	$out .= "\t\t<last_modify>".filemtime($sqlfile)."</last_modify>\n";
 	$out .= "\t</fileinfo>\n";
 	$out .= "\t<nexturl><![CDATA[$next_url]]></nexturl>\n";
