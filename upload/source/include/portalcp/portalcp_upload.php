@@ -34,7 +34,7 @@ if($operation == 'downremotefile') {
 	$arrayimageurl = $temp = $imagereplace = array();
 	$string = $_GET['content'];
 	$downremotefile = true;
-	preg_match_all("/\<img.+\bsrc\b\s*=('|\"|)?(.*)(\\1)([\s].*)?\>/ismUe", $string, $temp, PREG_SET_ORDER);
+	preg_match_all("/\<img.+\bsrc\b\s*=('|\"|)(.*)('|\"|)([\s].*)?\>/ismU", $string, $temp, PREG_SET_ORDER);
 	if(is_array($temp) && !empty($temp)) {
 		foreach($temp as $tempvalue) {
 			$tempvalue[2] = str_replace('\"', '', $tempvalue[2]);
@@ -52,7 +52,7 @@ if($operation == 'downremotefile') {
 					continue;
 				}
 				$content = '';
-				if(preg_match('/^(http:\/\/|\.)/i', $imageurl)) {
+				if(preg_match('/^(http(s?):\/\/|\.)/i', $imageurl)) {
 					$content = dfsockopen($imageurl);
 				} elseif(checkperm('allowdownlocalimg')) {
 					if(preg_match('/^data\/(.*?)\.thumb\.jpg$/i', $imageurl)) {
