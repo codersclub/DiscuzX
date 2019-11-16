@@ -1667,14 +1667,18 @@ function loadimgsize(imgurl, editor, p) {
 	var editor = !editor ? editorid : editor;
 	var s = new Object();
 	var p = !p ? '_image' : p;
+	$(editor + p + '_param_2').value = '';
+	$(editor + p + '_param_3').value = '';
 	s.img = new Image();
 	s.img.src = imgurl;
 	s.loadCheck = function () {
-		if(s.img.complete) {
-			$(editor + p + '_param_2').value = s.img.width ? s.img.width : '';
-			$(editor + p + '_param_3').value = s.img.height ? s.img.height : '';
-		} else {
-			setTimeout(function () {s.loadCheck();}, 100);
+		if($(editor + p + '_param_1').value == imgurl) {
+			if(s.img.complete) {
+				$(editor + p + '_param_2').value = s.img.width ? s.img.width : '';
+				$(editor + p + '_param_3').value = s.img.height ? s.img.height : '';
+			} else {
+				setTimeout(function () {s.loadCheck();}, 100);
+			}
 		}
 	};
 	s.loadCheck();
