@@ -21,7 +21,7 @@ if(defined('UC_SERVER_VERSION')) {
 	define('SOFT_RELEASE', '19700101');
 }
 
-define('INSTALL_LANG', 'SC_GBK');
+define('INSTALL_LANG', 'SC_UTF8');
 
 define('CONFIG', ROOT_PATH.'./data/config.inc.php');
 
@@ -29,8 +29,8 @@ $sqlfile = ROOT_PATH.'./install/uc.sql';
 
 $lockfile = ROOT_PATH.'./data/install.lock';
 
-define('CHARSET', 'gbk');
-define('DBCHARSET', 'gbk');
+define('CHARSET', 'utf-8');
+define('DBCHARSET', 'utf8');
 
 define('ORIG_TABLEPRE', 'uc_');
 
