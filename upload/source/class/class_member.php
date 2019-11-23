@@ -670,9 +670,6 @@ class register_ctl {
 
 			$profile = $verifyarr = array();
 			foreach($_G['cache']['fields_register'] as $field) {
-				if(defined('IN_MOBILE')) {
-					break;
-				}
 				$field_key = $field['fieldid'];
 				$field_val = $_GET[''.$field_key];
 				if($field['formtype'] == 'file' && !empty($_FILES[$field_key]) && $_FILES[$field_key]['error'] == 0) {
