@@ -1250,15 +1250,16 @@ body .ui-tooltip {
     background:url(avatar_back.gif) no-repeat;
 }
 .backfileselection{
-		width: 104px;
+	width: 104px;
     height: 33px;
-		padding: 2px;
+	padding: 2px;
     position:absolute;
     right:0;
     top:0;
     opacity: 0;
     filter:alpha(opacity=0);
-    cursor:pointer;
+	cursor:pointer;
+	border:none;
 }
 .saveAvatardiv{
     width: 104px;
@@ -1271,12 +1272,13 @@ body .ui-tooltip {
 .saveAvatar{
     width: 104px;
     height: 39px;
-		padding: 2px;
+	padding: 2px;
     position:absolute;
     right:0;
     top:0;
     opacity: 0;
-    filter:alpha(opacity=0);
+	filter:alpha(opacity=0);
+	border:none;
     cursor:pointer;
 }
 .finishbuttondiv{
@@ -1285,18 +1287,19 @@ body .ui-tooltip {
     position: absolute;
     right: 60px;
     top: 190px;
-    background:url(avatar_finishbutton.gif) no-repeat;
+	background:url(avatar_finishbutton.gif) no-repeat;
 }
 .finishbutton{
     width: 92px;
     height: 33px;
-		padding: 2px;
+	padding: 2px;
     position:absolute;
     right:0;
     top:0;
     opacity: 0;
     filter:alpha(opacity=0);
     cursor:pointer;
+	border: none;
 }
 #slider .ui-state-default {
     background: white url(arrow_down_big.gif) no-repeat scroll 50% 50%;
