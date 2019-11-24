@@ -19,14 +19,17 @@ $random = isset($_GET['random']) ? $_GET['random'] : '';
 $type = isset($_GET['type']) ? $_GET['type'] : '';
 $check = isset($_GET['check_file_exists']) ? $_GET['check_file_exists'] : '';
 
+// ts=1，表示不用301回复，同时整个URL后面加上图像文件的最后修改时间
+$ts = isset($_GET['ts']) ? $_GET['ts'] : '';
+
 $avatar = './data/avatar/'.get_avatar($uid, $size, $type);
-if(file_exists(dirname(__FILE__).'/'.$avatar)) {
+$avatar_file = dirname(__FILE__).'/'.$avatar;
+if(file_exists($avatar_file)) {
 	if($check) {
 		echo 1;
 		exit;
 	}
-	$random = !empty($random) ? rand(1000, 9999) : '';
-	$avatar_url = empty($random) ? $avatar : $avatar.'?random='.$random;
+	$avatar_url = $avatar;
 } else {
 	if($check) {
 		echo 0;
@@ -34,12 +37,19 @@ if(file_exists(dirname(__FILE__).'/'.$avatar)) {
 	}
 	$size = in_array($size, array('big', 'middle', 'small')) ? $size : 'middle';
 	$avatar_url = 'images/noavatar_'.$size.'.gif';
+	$avatar_file = dirname(__FILE__).'/'.$avatar_url;
 }
 
 if(empty($random)) {
-	header("HTTP/1.1 301 Moved Permanently");
-	header("Last-Modified:".date('r'));
-	header("Expires: ".date('r', time() + 86400));
+	if (empty($ts)) { // 如果不加随机数，也不加最后修改时间
+		header("HTTP/1.1 301 Moved Permanently");
+		header("Last-Modified:".date('r'));
+		header("Expires: ".date('r', time() + 86400));	
+	} else { // 如果不加随机数，加最后修改时间
+		$avatar_url .= '?ts='.filemtime($avatar_file);
+	}
+} else { // 如果加随机数
+	$avatar_url .= '?random='.rand(1000, 9999);
 }
 
 header('Location: '.UC_API.'/'.$avatar_url);
