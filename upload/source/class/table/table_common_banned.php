@@ -36,7 +36,7 @@ class table_common_banned extends discuz_table
 	public function delete_by_id($ids, $adminid, $adminname) {
 		$ids = array_map('intval', (array)$ids);
 		if($ids) {
-			return DB::query('DELETE FROM %t WHERE id IN(%n) AND (1=%d OR admin=%s)', array($this->_table, $ids, $adminid, $adminname));
+			return DB::query('DELETE FROM %t WHERE id IN(%n) AND (1=%d OR `admin`=%s)', array($this->_table, $ids, $adminid, $adminname));
 		}
 		return 0;
 	}
@@ -46,7 +46,7 @@ class table_common_banned extends discuz_table
 	}
 
 	public function update_expiration_by_id($id, $expiration, $isadmin, $admin) {
-		return DB::query('UPDATE %t SET expiration=%d WHERE id=%d AND (1=%d OR admin=%s)', array($this->_table, $expiration, $id, $isadmin, $admin));
+		return DB::query('UPDATE %t SET expiration=%d WHERE id=%d AND (1=%d OR `admin`=%s)', array($this->_table, $expiration, $id, $isadmin, $admin));
 	}
 
 }
