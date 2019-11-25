@@ -24,8 +24,96 @@ if (SWFUpload == undefined) {
 }
 
 SWFUpload.CURSOR = {
-	ARROW : -1,
-	HAND  : -2
+	ARROW: -1,
+	HAND: -2
+};
+
+SWFUpload.EXT_MIME_MAP = {
+	'3gp': 'video/3gpp',
+	'7z': 'application/x-7z-compressed',
+	'aac': 'audio/aac',
+	'abw': 'application/x-abiword',
+	'arc': 'application/x-freearc',
+	'avi': 'video/x-msvideo',
+	'apk': 'application/vnd.android.package-archive',
+	'azw': 'application/vnd.amazon.ebook',
+	'bin': 'application/octet-stream',
+	'bmp': 'image/bmp',
+	'bz': 'application/x-bzip',
+	'bz2': 'application/x-bzip2',
+	'bzip2': 'application/x-bzip2',
+	'chm': 'application/vnd.ms-htmlhelp',
+	'csh': 'application/x-csh',
+	'css': 'text/css',
+	'csv': 'text/csv',
+	'doc': 'application/msword',
+	'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+	'eot': 'application/vnd.ms-fontobject',
+	'epub': 'application/epub+zip',
+	'flv': 'video/x-flv',
+	'gif': 'image/gif',
+	'gz': 'application/gzip',
+	'htm': 'text/html',
+	'html': 'text/html',
+	'ico': 'image/vnd.microsoft.icon',
+	'ics': 'text/calendar',
+	'jar': 'application/java-archive',
+	'jpeg': 'image/jpeg',
+	'jpg': 'image/jpeg',
+	'js': 'text/javascript',
+	'json': 'application/json',
+	'jsonld': 'application/ld+json',
+	'm4a': 'audio/mp4',
+	'mid': 'audio/midi',
+	'midi': 'audio/midi',
+	'mjs': 'text/javascript',
+	'mov': 'video/quicktime',
+	'mkv': 'video/x-matroska',
+	'mp3': 'audio/mpeg',
+	'mp4': 'video/mp4',
+	'mp4a': 'audio/mp4',
+	'mp4v': 'video/mp4',
+	'mpeg': 'video/mpeg',
+	'mpkg': 'application/vnd.apple.installer+xml',
+	'odp': 'application/vnd.oasis.opendocument.presentation',
+	'ods': 'application/vnd.oasis.opendocument.spreadsheet',
+	'odt': 'application/vnd.oasis.opendocument.text',
+	'oga': 'audio/ogg',
+	'ogv': 'video/ogg',
+	'ogx': 'application/ogg',
+	'opus': 'audio/opus',
+	'otf': 'font/otf',
+	'pdf': 'application/pdf',
+	'php': 'application/php',
+	'png': 'image/png',
+	'ppt': 'application/vnd.ms-powerpoint',
+	'pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+	'rar': 'application/x-rar-compressed',
+	'rtf': 'application/rtf',
+	'sh': 'application/x-sh',
+	'svg': 'image/svg+xml',
+	'swf': 'application/x-shockwave-flash',
+	'tar': 'application/x-tar',
+	'tif': 'image/tiff',
+	'tiff': 'image/tiff',
+	'ts': 'video/mp2t',
+	'ttf': 'font/ttf',
+	'txt': 'text/plain',
+	'vsd': 'application/vnd.visio',
+	'wav': 'audio/wav',
+	'wma': 'audio/x-ms-wma',
+	'wmv': 'video/x-ms-asf',
+	'weba': 'audio/webm',
+	'webm': 'video/webm',
+	'webp': 'image/webp',
+	'woff': 'font/woff',
+	'woff2': 'font/woff2',
+	'xhtml': 'application/xhtml+xml',
+	'xls': 'application/vnd.ms-excel',
+	'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+	'xml': 'application/xml',
+	'xul': 'application/vnd.mozilla.xul+xml',
+	'zip': 'application/zip'
 };
 
 SWFUpload.prototype.initSWFUpload = function(userSettings) {
@@ -140,14 +228,41 @@ SWFUpload.prototype.initSettings = function (userSettings) {
 
 	var self = this;
 
+	var exts = "",
+		mimes = "";
+
+	if (this.settings.file_types.indexOf('*.*') < 0) {
+		exts = this.settings.file_types.replace(/\*\./g, '').replace(/;/g, ',');
+		var extsArray = jQuery.grep(exts.split(','), function (s) {
+			return s.length > 0
+		});
+		mimes = jQuery.grep(
+			jQuery.merge(
+				jQuery.map(extsArray, function (ext) {
+					return "." + ext;
+				}),
+				jQuery.map(extsArray, function (ext) {
+					return SWFUpload.EXT_MIME_MAP[ext];
+				})
+			),
+			function (s) {
+				return s.length > 0
+			}
+		);
+		mimes = jQuery.grep(mimes, function (m, i) {
+			return i === jQuery.inArray(m, mimes)
+		}).join(",");
+	}
+
 	var uploader = WebUploader.create({
 		swf: getBasePath() + 'Uploader.swf',
 		server: this.settings.upload_url,
-		pick: '#'+this.settings.button_placeholder_id,
+		pick: '#' + this.settings.button_placeholder_id,
+		compress: false,
 		accept: {
 			title: this.settings.file_types_description,
-			extensions: this.settings.file_types.replace(/\*\.\*/g,'').replace(/\*\./g,'').replace(/;/g,','),
-			mimeTypes: this.settings.file_types.replace(/\*\.\*/g,'').replace(/\*/g,'').replace(/;/g,',')
+			extensions: exts,
+			mimeTypes: mimes
 		},
 		fileVal: this.settings.file_post_name,
 		formData: this.settings.post_params,
@@ -688,6 +803,7 @@ function FileProgress(file, targetID) {
 FileProgress.prototype.setTimer = function(timer) {
 	this.fileProgressElement["FP_TIMER"] = timer;
 };
+
 FileProgress.prototype.getTimer = function(timer) {
 	return this.fileProgressElement["FP_TIMER"] || null;
 };
@@ -713,12 +829,14 @@ FileProgress.prototype.setProgress = function(percentage) {
 
 	this.appear();
 };
+
 FileProgress.prototype.setComplete = function() {
 	this.fileProgressElement.className = "progressContainer blue";
 	this.fileProgressElement.childNodes[3].className = "progressBarComplete";
 	this.fileProgressElement.childNodes[3].style.width = "";
 
 };
+
 FileProgress.prototype.setError = function() {
 	this.fileProgressElement.className = "progressContainer red";
 	this.fileProgressElement.childNodes[3].className = "progressBarError";
@@ -730,6 +848,7 @@ FileProgress.prototype.setError = function() {
 	},
 	5000));
 };
+
 FileProgress.prototype.setCancelled = function() {
 	this.fileProgressElement.className = "progressContainer";
 	this.fileProgressElement.childNodes[3].className = "progressBarError";
@@ -741,6 +860,7 @@ FileProgress.prototype.setCancelled = function() {
 	},
 	2000));
 };
+
 FileProgress.prototype.setStatus = function(status) {
 	this.fileProgressElement.childNodes[2].innerHTML = status;
 };
