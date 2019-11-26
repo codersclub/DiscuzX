@@ -131,7 +131,6 @@ if(!empty($url)) {
 		}
 		require './'.$parse['path'];
 	} else {
-		header("HTTP/1.1 301 Moved Permanently");
 		header("location: $url");
 	}
 } else {
