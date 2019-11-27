@@ -137,7 +137,7 @@ if($method == 'show_license') {
 		'apptagtemplates[fields][url]='.urlencode($lang['tagtemplates_url']);
 
 		$ucapi = preg_replace("/\/$/", '', trim($ucapi));
-		if(empty($ucapi) || !preg_match("/^(http:\/\/)/i", $ucapi)) {
+		if(empty($ucapi) || !preg_match("/^(https?:\/\/)/i", $ucapi)) {
 			show_msg('uc_url_invalid', $ucapi, 0);
 		} else {
 			if(!$ucip) {
