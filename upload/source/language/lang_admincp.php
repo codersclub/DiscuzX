@@ -3536,6 +3536,7 @@ $lang = array
 	'members_ban_delshare' => '分享',
 	'members_ban_postcomment' => '点评',
 	'members_ban_delcomment' => '评论和留言',
+	'members_ban_delprofile' => '用户资料',
 	'members_ban_delavatar' => '头像',
 	'members_ban_reason' => '理由',
 	'members_ban_reason_comment' => '禁止或解禁用户的理由',

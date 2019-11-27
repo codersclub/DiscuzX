@@ -1456,6 +1456,7 @@ EOT;
 						<li style="width: 8%;"><input type="checkbox" value="share" name="clear[share]" class="checkbox">&nbsp;$lang[members_ban_delshare]</li>
 						<li style="width: 8%;"><input type="checkbox" value="avatar" name="clear[avatar]" class="checkbox">&nbsp;$lang[members_ban_delavatar]</li>
 						<li style="width: 8%;"><input type="checkbox" value="comment" name="clear[comment]" class="checkbox">&nbsp;$lang[members_ban_delcomment]</li>
+                        			<li style="width: 8%;"><input type="checkbox" value="profile" name="clear[profile]" class="checkbox">&nbsp;$lang[members_ban_delprofile]</li>
 					</ul>
 				</td>
 			</tr>
@@ -1740,7 +1741,14 @@ EOF;
 					C::t('forum_postcache')->delete($postcomment_cache_pid);
 				}
 			}
-
+            
+			if(in_array('profile', $_GET['clear'])) {
+				C::t('common_member_profile'.$tableext)->delete($member['uid']);
+				C::t('common_member_profile'.$tableext)->insert(array('uid' => $member['uid']));
+                		C::t('common_member_field_forum'.$tableext)->update($member['uid'], array('customstatus' => '', 'sightml' => ''));
+                		C::t('common_member_field_home'.$tableext)->update($member['uid'], array('spacename' => '', 'spacedescription' => ''));
+			}
+            
 			if($membercount) {
 				DB::update('common_member_count'.$tableext, $membercount, "uid='$member[uid]'");
 			}
