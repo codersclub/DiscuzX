@@ -1,0 +1,8 @@
+.vscode/
+upload/config/config_global.php
+upload/config/config_ucenter.php
+upload/data/
+upload/uc_client/data/
+upload/uc_server/data/
+upload/source/plugin/comiis**
+upload/template/comiis*
