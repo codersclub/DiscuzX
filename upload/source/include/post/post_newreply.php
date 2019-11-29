@@ -57,8 +57,8 @@ if($_G['setting']['commentnumber'] && !empty($_GET['comment'])) {
 		showmessage('submitcheck_error', NULL);
 	}
 	$post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $_GET['pid']);
-	if(!$post) {
-		showmessage('post_nonexistence', NULL);
+	if(!$post || !($_G['setting']['commentpostself'] || $post['authorid'] != $_G['uid']) || !(($post['first'] && $_G['setting']['commentfirstpost'] && in_array($_G['group']['allowcommentpost'], array(1, 3)) || (!$post['first'] && in_array($_G['group']['allowcommentpost'], array(2, 3)))))) {
+		showmessage('postcomment_error');
 	}
 	if($thread['closed'] && !$_G['forum']['ismoderator'] && !$thread['isgroup']) {
 		showmessage('post_thread_closed');
