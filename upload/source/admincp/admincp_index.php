@@ -254,6 +254,13 @@ showtablerow('', array(), array(
 showtablefooter();
 showformfooter();
 
+showtableheader('Discuz! &#x5F00;&#x6E90;&#x8D21;&#x732E;&#x8005;', 'fixpadding');
+showtablerow('', array('', 'class="td21" style="text-align:right;"'),
+	'<a href="https://gitee.com/ComsenzDiscuz/DiscuzX/contributors?ref=master" class="lightlink2 smallfont" target="_blank">Click Here To See Them</a>'
+);
+showtablefooter();
+
+
 loaducenter();
 
 if(empty($newversion['newversion']['qqqun'])){
