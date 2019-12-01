@@ -536,6 +536,7 @@ function show_header() {
 	define('SHOW_HEADER', TRUE);
 	global $step;
 	$version = DISCUZ_VERSION;
+	$release = DISCUZ_RELEASE;
 	$install_lang = lang(INSTALL_LANG);
 	$title = lang('title_install');
 	$charset = CHARSET;
@@ -560,7 +561,7 @@ function show_header() {
 <div class="container">
 	<div class="header">
 		<h1>$title</h1>
-		<span>Discuz!$version $install_lang</span>
+		<span>Discuz!$version $install_lang $release</span>
 EOT;
 
 	$step > 0 && show_step($step);
