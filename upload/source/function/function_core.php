@@ -1064,6 +1064,9 @@ function output() {
 		if(diskfreespace(DISCUZ_ROOT.'./'.$_G['setting']['cachethreaddir']) > 1000000) {
 			if($fp = @fopen(CACHE_FILE, 'w')) {
 				flock($fp, LOCK_EX);
+				$content = empty($content) ? ob_get_contents() : $content;
+				$temp_formhash = substr(md5(substr($_G['timestamp'], 0, -3).substr($_G['config']['security']['authkey'], 3, -3)), 8, 8);
+				$content = preg_replace('/(name=[\'|\"]formhash[\'|\"] value=[\'\"]|formhash=)('.constant("FORMHASH").')/ismU', '${1}'.$temp_formhash, $content);
 				fwrite($fp, empty($content) ? ob_get_contents() : $content);
 			}
 			@fclose($fp);

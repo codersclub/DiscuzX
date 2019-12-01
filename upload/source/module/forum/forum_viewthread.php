@@ -1270,16 +1270,23 @@ function viewthread_procpost($post, $lastvisit, $ordertype, $maxposition = 0) {
 	return $post;
 }
 
+function replace_formhash($timestamp, $input) {
+	global $_G;
+	$temp_formhash = substr(md5(substr($timestamp, 0, -3).substr($_G['config']['security']['authkey'], 3, -3)), 8, 8);
+	$formhash = constant("FORMHASH");
+	return preg_replace('/(name=[\'|\"]formhash[\'|\"] value=[\'\"]|formhash=)'.$temp_formhash.'/ismU', '${1}'.$formhash, $input);
+}
+
 function viewthread_loadcache() {
 	global $_G;
-	$_G['forum']['livedays'] = ceil((TIMESTAMP - $_G['forum']['dateline']) / 86400);
-	$_G['forum']['lastpostdays'] = ceil((TIMESTAMP - $_G['forum']['lastthreadpost']) / 86400);
+	$_G['thread']['livedays'] = ceil((TIMESTAMP - $_G['thread']['dateline']) / 86400);	// 本贴子存在了多少天，最少是1天
+	$_G['thread']['lastpostdays'] = ceil((TIMESTAMP - $_G['thread']['lastpost']) / 86400);	// 最后发帖天数，最少1天
+
 	$threadcachemark = 100 - (
-	$_G['forum']['displayorder'] * 15 +
-	$_G['thread']['digest'] * 10 +
-	min($_G['thread']['views'] / max($_G['forum']['livedays'], 10) * 2, 50) +
-	max(-10, (15 - $_G['forum']['lastpostdays'])) +
-	min($_G['thread']['replies'] / $_G['setting']['postperpage'] * 1.5, 15));
+		$_G['thread']['digest'] * 20 +							// 精华，占20分
+		min($_G['thread']['views'] / max($_G['thread']['livedays'], 10) * 2, 50) +	// 阅读数与天数关系，占50分。阅读越多分越高，天数越久分越低
+		max(-10, (15 - $_G['thread']['lastpostdays'])) +				// 最后回复时间，占15分，超过15天开始倒扣分，最多扣10分
+		min($_G['thread']['replies'] / $_G['setting']['postperpage'] * 1.5, 15));	// 帖子页数，占15分，10页以上就是满分
 	if($threadcachemark < $_G['forum']['threadcaches']) {
 
 		$threadcache = getcacheinfo($_G['tid']);
@@ -1288,11 +1295,18 @@ function viewthread_loadcache() {
 			@unlink($threadcache['filename']);
 			define('CACHE_FILE', $threadcache['filename']);
 		} else {
+			$start_time = microtime(TRUE);
+			$filemtime = $threadcache['filemtime'];
+			ob_start(function($input) use (&$filemtime) {
+				return replace_formhash($filemtime, $input);
+			});
 			readfile($threadcache['filename']);
-
 			viewthread_updateviews($_G['forum_thread']['threadtableid']);
-			$_G['setting']['debug'] && debuginfo();
-			$_G['setting']['debug'] ? die('<script type="text/javascript">document.getElementById("debuginfo").innerHTML = " '.($_G['setting']['debug'] ? 'Updated at '.gmdate("H:i:s", $threadcache['filemtime'] + 3600 * 8).', Processed in '.$debuginfo['time'].' second(s), '.$debuginfo['queries'].' Queries'.($_G['gzipcompress'] ? ', Gzip enabled' : '') : '').'";</script></body></html>') : die('</body></html>');
+			$updatetime = dgmdate($filemtime, 'Y-m-d H:i:s');
+			$gzip = $_G['gzipcompress'] ? ', Gzip On' : '';
+			echo '<script type="text/javascript">$("debuginfo") ? $("debuginfo").innerHTML = ", Updated at '.$updatetime.', Processed in '.sprintf("%0.6f", microtime(TRUE) - $start_time).' second(s)'.$gzip.'." : "";</script></body></html>';
+			ob_end_flush();
+			exit();
 		}
 	}
 }
