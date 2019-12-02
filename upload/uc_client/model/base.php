@@ -45,23 +45,27 @@ class base {
 		$this->init_mail();
 	}
 
+	function validate_ip($host) {
+		return function_exists('filter_var') ? filter_var($host, FILTER_VALIDATE_IP) !== false : preg_match('/^((2[0-4]|1\d|[1-9])?\d|25[0-5])(\.(?1)){3}\z/', $host) !== false;
+	}
+
 	function init_var() {
 		$this->time = time();
-		$cip = getenv('HTTP_CLIENT_IP');
-		$xip = getenv('HTTP_X_FORWARDED_FOR');
-		$rip = getenv('REMOTE_ADDR');
-		$srip = $_SERVER['REMOTE_ADDR'];
-		if($cip && strcasecmp($cip, 'unknown')) {
-			$this->onlineip = $cip;
-		} elseif($xip && strcasecmp($xip, 'unknown')) {
-			$this->onlineip = $xip;
-		} elseif($rip && strcasecmp($rip, 'unknown')) {
-			$this->onlineip = $rip;
-		} elseif($srip && strcasecmp($srip, 'unknown')) {
-			$this->onlineip = $srip;
+
+		$this->onlineip = $_SERVER['REMOTE_ADDR'];
+		if (!defined('UC_ONLYREMOTEADDR') || (defined('UC_ONLYREMOTEADDR') && !constant('UC_ONLYREMOTEADDR'))) {
+			if (isset($_SERVER['HTTP_CLIENT_IP']) && $this->validate_ip($_SERVER['HTTP_CLIENT_IP'])) {
+				$this->onlineip = $_SERVER['HTTP_CLIENT_IP'];
+			} elseif(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+				if (strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ",") > 0) {
+					$exp = explode(",", $_SERVER['HTTP_X_FORWARDED_FOR']);
+					$this->onlineip = $this->validate_ip(trim($exp[0])) ? $exp[0] : $this->onlineip;
+				} else {
+					$this->onlineip = $this->validate_ip($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $this->onlineip;
+				}
+			}
 		}
-		preg_match("/[\d\.]{7,15}/", $this->onlineip, $match);
-		$this->onlineip = $match[0] ? $match[0] : 'unknown';
+
 		$this->app['appid'] = UC_APPID;
 	}
 
