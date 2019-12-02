@@ -1,3 +1,14 @@
+### **V3.5分支**
+
+本分支用于进行以下工作：
+
+* UTF8MB4的完全支持
+* InnoDB支持
+* 清理PHP已经废弃的方法
+* IPv6支持的部分工作
+* 如果还有余力的其他工作
+
+
 ### **简介** 
 
 Discuz! X 官方 Git (https://gitee.com/ComsenzDiscuz/DiscuzX) ，简体中文 UTF8 版本
