@@ -41,12 +41,12 @@ class table_common_remote_port extends discuz_table {
 			$orig_tablepre = 'pre_';
 			$tablepre = getglobal('config/db/1/tablepre');
 			$dbcharset = getglobal('config/db/1/dbcharset');
-			$porttable = "CREATE TABLE pre_common_remote_port (id mediumint(8) unsigned NOT NULL default '0' COMMENT '',idtype char(15) NOT NULL default '' COMMENT '',useip char(15) NOT NULL default '' COMMENT '',port smallint(6) unsigned NOT NULL default '0' COMMENT '',PRIMARY KEY (id, idtype)) ENGINE=MyISAM COMMENT=''";
+			$porttable = "CREATE TABLE pre_common_remote_port (id mediumint(8) unsigned NOT NULL default '0' COMMENT '',idtype char(15) NOT NULL default '' COMMENT '',useip char(15) NOT NULL default '' COMMENT '',port smallint(6) unsigned NOT NULL default '0' COMMENT '',PRIMARY KEY (id, idtype)) ENGINE=INNODB COMMENT=''";
 			$porttable = str_replace("\r", "\n", str_replace(' '.$orig_tablepre, ' '.$tablepre, $porttable));
 			$porttable = str_replace("\r", "\n", str_replace(' `'.$orig_tablepre, ' `'.$tablepre, $porttable));
 
 			$type = strtoupper(preg_replace("/^\s*CREATE TABLE\s+.+\s+\(.+?\).*(ENGINE|TYPE)\s*=\s*([a-z]+?).*$/isU", "\\2", $porttable));
-			$type = in_array($type, array('MYISAM', 'HEAP', 'MEMORY')) ? $type : 'MYISAM';
+			$type = in_array($type, array('INNODB', 'MYISAM', 'HEAP', 'MEMORY')) ? $type : 'INNODB';
 			$dbver = DB::$db->version();
 			$porttable = preg_replace("/^\s*(CREATE TABLE\s+.+\s+\(.+?\)).*$/isU", "\\1", $porttable).($dbver > '4.1' ? " ENGINE=$type DEFAULT CHARSET=".$dbcharset : " TYPE=$type");
 			DB::query($porttable);

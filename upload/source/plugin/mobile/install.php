@@ -18,19 +18,19 @@ CREATE TABLE IF NOT EXISTS pre_common_devicetoken (
   `token` char(50) NOT NULL,
   PRIMARY KEY (`uid`),
   KEY `token` (`token`)
-) ENGINE=MyISAM;
+) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS pre_mobile_setting (
   `skey` varchar(255) NOT NULL DEFAULT '',
   `svalue` text NOT NULL,
   PRIMARY KEY (`skey`)
-) ENGINE=MyISAM;
+) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS pre_mobile_wsq_threadlist (
   `skey` int(10) unsigned NOT NULL,
   `svalue` text NOT NULL,
   PRIMARY KEY (`skey`)
-) ENGINE=MyISAM;
+) ENGINE=INNODB;
 
 REPLACE INTO pre_mobile_setting VALUES ('extend_used', '1');
 REPLACE INTO pre_mobile_setting VALUES ('extend_lastupdate', '1343182299');

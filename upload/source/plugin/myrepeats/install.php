@@ -23,7 +23,7 @@ CREATE TABLE cdb_myrepeats (
   `comment` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`uid`,`username`),
   KEY `username` (`username`)
-) TYPE=MyISAM;
+) ENGINE=INNODB;
 
 EOF;
 

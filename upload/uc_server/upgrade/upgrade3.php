@@ -40,7 +40,7 @@ CREATE TABLE uc_pm_members (
   KEY isnew (isnew),
   KEY lastdateline (uid,lastdateline),
   KEY lastupdate (uid,lastupdate)
-) TYPE=MyISAM;
+) ENGINE=INNODB;
 
 DROP TABLE IF EXISTS uc_pm_lists;
 CREATE TABLE uc_pm_lists (
@@ -56,7 +56,7 @@ CREATE TABLE uc_pm_lists (
   KEY pmtype (pmtype),
   KEY min_max (min_max),
   KEY authorid (authorid,dateline)
-) TYPE=MyISAM;
+) ENGINE=INNODB;
 
 DROP TABLE IF EXISTS uc_pm_indexes;
 CREATE TABLE uc_pm_indexes (
@@ -64,7 +64,7 @@ CREATE TABLE uc_pm_indexes (
   plid mediumint(8) unsigned NOT NULL default '0',
   PRIMARY KEY  (pmid),
   KEY plid (plid)
-) TYPE=MyISAM;
+) ENGINE=INNODB;
 
 DROP TABLE IF EXISTS uc_pm_messages_0;
 CREATE TABLE uc_pm_messages_0 (
@@ -77,7 +77,7 @@ CREATE TABLE uc_pm_messages_0 (
   PRIMARY KEY  (pmid),
   KEY plid (plid,delstatus,dateline),
   KEY dateline (plid,dateline)
-) TYPE=MyISAM;
+) ENGINE=INNODB;
 
 DROP TABLE IF EXISTS uc_pm_messages_1;
 CREATE TABLE uc_pm_messages_1 (
@@ -90,7 +90,7 @@ CREATE TABLE uc_pm_messages_1 (
   PRIMARY KEY  (pmid),
   KEY plid (plid,delstatus,dateline),
   KEY dateline (plid,dateline)
-) TYPE=MyISAM;
+) ENGINE=INNODB;
 
 DROP TABLE IF EXISTS uc_pm_messages_2;
 CREATE TABLE uc_pm_messages_2 (
@@ -103,7 +103,7 @@ CREATE TABLE uc_pm_messages_2 (
   PRIMARY KEY  (pmid),
   KEY plid (plid,delstatus,dateline),
   KEY dateline (plid,dateline)
-) TYPE=MyISAM;
+) ENGINE=INNODB;
 
 DROP TABLE IF EXISTS uc_pm_messages_3;
 CREATE TABLE uc_pm_messages_3 (
@@ -116,7 +116,7 @@ CREATE TABLE uc_pm_messages_3 (
   PRIMARY KEY  (pmid),
   KEY plid (plid,delstatus,dateline),
   KEY dateline (plid,dateline)
-) TYPE=MyISAM;
+) ENGINE=INNODB;
 
 DROP TABLE IF EXISTS uc_pm_messages_4;
 CREATE TABLE uc_pm_messages_4 (
@@ -129,7 +129,7 @@ CREATE TABLE uc_pm_messages_4 (
   PRIMARY KEY  (pmid),
   KEY plid (plid,delstatus,dateline),
   KEY dateline (plid,dateline)
-) TYPE=MyISAM;
+) ENGINE=INNODB;
 
 DROP TABLE IF EXISTS uc_pm_messages_5;
 CREATE TABLE uc_pm_messages_5 (
@@ -142,7 +142,7 @@ CREATE TABLE uc_pm_messages_5 (
   PRIMARY KEY  (pmid),
   KEY plid (plid,delstatus,dateline),
   KEY dateline (plid,dateline)
-) TYPE=MyISAM;
+) ENGINE=INNODB;
 
 DROP TABLE IF EXISTS uc_pm_messages_6;
 CREATE TABLE uc_pm_messages_6 (
@@ -155,7 +155,7 @@ CREATE TABLE uc_pm_messages_6 (
   PRIMARY KEY  (pmid),
   KEY plid (plid,delstatus,dateline),
   KEY dateline (plid,dateline)
-) TYPE=MyISAM;
+) ENGINE=INNODB;
 
 DROP TABLE IF EXISTS uc_pm_messages_7;
 CREATE TABLE uc_pm_messages_7 (
@@ -168,7 +168,7 @@ CREATE TABLE uc_pm_messages_7 (
   PRIMARY KEY  (pmid),
   KEY plid (plid,delstatus,dateline),
   KEY dateline (plid,dateline)
-) TYPE=MyISAM;
+) ENGINE=INNODB;
 
 DROP TABLE IF EXISTS uc_pm_messages_8;
 CREATE TABLE uc_pm_messages_8 (
@@ -181,7 +181,7 @@ CREATE TABLE uc_pm_messages_8 (
   PRIMARY KEY  (pmid),
   KEY plid (plid,delstatus,dateline),
   KEY dateline (plid,dateline)
-) TYPE=MyISAM;
+) ENGINE=INNODB;
 
 DROP TABLE IF EXISTS uc_pm_messages_9;
 CREATE TABLE uc_pm_messages_9 (
@@ -194,7 +194,7 @@ CREATE TABLE uc_pm_messages_9 (
   PRIMARY KEY  (pmid),
   KEY plid (plid,delstatus,dateline),
   KEY dateline (plid,dateline)
-) TYPE=MyISAM;
+) ENGINE=INNODB;
 
 REPLACE INTO uc_settings (k, v) VALUES ('privatepmthreadlimit','25');
 REPLACE INTO uc_settings (k, v) VALUES ('chatpmthreadlimit','30');
@@ -484,7 +484,7 @@ function generate_key() {
 
 function createtable($sql, $dbcharset) {
 	$type = strtoupper(preg_replace("/^\s*CREATE TABLE\s+.+\s+\(.+?\).*(ENGINE|TYPE)\s*=\s*([a-z]+?).*$/isU", "\\2", $sql));
-	$type = in_array($type, array('MYISAM', 'HEAP')) ? $type : 'MYISAM';
+	$type = in_array($type, array('INNODB', 'MYISAM', 'HEAP')) ? $type : 'INNODB';
 	return preg_replace("/^\s*(CREATE TABLE\s+.+\s+\(.+?\)).*$/isU", "\\1", $sql).
 	(mysql_get_server_info() > '4.1' ? " ENGINE=$type default CHARSET=".UC_DBCHARSET : " TYPE=$type");
 }

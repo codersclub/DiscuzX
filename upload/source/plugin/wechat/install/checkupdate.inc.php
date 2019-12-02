@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS pre_common_member_wechat (
   `isregister` tinyint(1) unsigned NOT NULL default '0',
   PRIMARY KEY (`uid`),
   UNIQUE KEY `openid` (`openid`)
-) ENGINE=MYISAM;
+) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS pre_mobile_wechat_authcode (
   `sid` char(6) NOT NULL,
@@ -47,13 +47,13 @@ CREATE TABLE IF NOT EXISTS pre_common_member_wechatmp (
   `status` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`uid`),
   KEY `openid` (`openid`)
-) ENGINE=MYISAM;
+) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS pre_mobile_wsq_threadlist (
   `skey` int(10) unsigned NOT NULL,
   `svalue` text NOT NULL,
   PRIMARY KEY (`skey`)
-) ENGINE=MyISAM;
+) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS pre_mobile_wechat_resource (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS pre_mobile_wechat_resource (
   `data` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `type` (`type`)
-) ENGINE=MYISAM;
+) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS pre_mobile_wechat_masssend (
     `id` int(10) unsigned NOT NULL auto_increment,
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS pre_mobile_wechat_masssend (
     `res_errorcount` int(10),
     `res_finish_at` int(10),
     PRIMARY KEY (`id`)
-) ENGINE=MyISAM;
+) ENGINE=INNODB;
 
 EOF;
 

@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS uc_mailqueue (
   PRIMARY KEY  (`mailid`),
   KEY appid (appid),
   KEY level (level,failures)
-) TYPE=MyISAM  AUTO_INCREMENT=1 ;
+) ENGINE=INNODB  AUTO_INCREMENT=1 ;
 
 REPLACE INTO uc_settings (k, v) VALUES ('maildefault', 'username@21cn.com');
 REPLACE INTO uc_settings (k, v) VALUES ('mailsend', '1');
@@ -278,7 +278,7 @@ function generate_key() {
 
 function createtable($sql, $dbcharset) {
 	$type = strtoupper(preg_replace("/^\s*CREATE TABLE\s+.+\s+\(.+?\).*(ENGINE|TYPE)\s*=\s*([a-z]+?).*$/isU", "\\2", $sql));
-	$type = in_array($type, array('MYISAM', 'HEAP')) ? $type : 'MYISAM';
+	$type = in_array($type, array('INNODB', 'MYISAM', 'HEAP')) ? $type : 'INNODB';
 	return preg_replace("/^\s*(CREATE TABLE\s+.+\s+\(.+?\)).*$/isU", "\\1", $sql).
 	(mysql_get_server_info() > '4.1' ? " ENGINE=$type default CHARSET=".UC_DBCHARSET : " TYPE=$type");
 }
