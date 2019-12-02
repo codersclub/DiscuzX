@@ -46,7 +46,7 @@ CREATE TABLE pre_common_admincp_session (
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   adminid smallint(6) unsigned NOT NULL DEFAULT '0',
   panel tinyint(1) NOT NULL DEFAULT '0',
-  ip varchar(15) NOT NULL DEFAULT '',
+  ip varchar(45) NOT NULL DEFAULT '',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   errorcount tinyint(1) NOT NULL DEFAULT '0',
   `storage` mediumtext NOT NULL,
@@ -523,7 +523,7 @@ CREATE TABLE pre_common_domain (
 
 DROP TABLE IF EXISTS pre_common_failedip;
 CREATE TABLE pre_common_failedip (
-  ip char(7) NOT NULL DEFAULT '',
+  ip varchar(45) NOT NULL DEFAULT '',
   lastupdate int(10) unsigned NOT NULL DEFAULT '0',
   count tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (ip,lastupdate),
@@ -532,7 +532,7 @@ CREATE TABLE pre_common_failedip (
 
 DROP TABLE IF EXISTS pre_common_failedlogin;
 CREATE TABLE pre_common_failedlogin (
-  ip char(15) NOT NULL DEFAULT '',
+  ip varchar(45) NOT NULL DEFAULT '',
   username char(32) NOT NULL DEFAULT '',
   count tinyint(1) unsigned NOT NULL DEFAULT '0',
   lastupdate int(10) unsigned NOT NULL DEFAULT '0',
@@ -571,7 +571,7 @@ CREATE TABLE pre_common_invite (
   fusername char(20) NOT NULL DEFAULT '',
   `type` tinyint(1) NOT NULL DEFAULT '0',
   email char(40) NOT NULL DEFAULT '',
-  inviteip char(15) NOT NULL DEFAULT '',
+  inviteip varchar(45) NOT NULL DEFAULT '',
   appid mediumint(8) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   endtime int(10) unsigned NOT NULL DEFAULT '0',
@@ -955,8 +955,8 @@ CREATE TABLE pre_common_member_stat_field (
 DROP TABLE IF EXISTS pre_common_member_status;
 CREATE TABLE pre_common_member_status (
   uid mediumint(8) unsigned NOT NULL,
-  regip char(15) NOT NULL DEFAULT '',
-  lastip char(15) NOT NULL DEFAULT '',
+  regip varchar(45) NOT NULL DEFAULT '',
+  lastip varchar(45) NOT NULL DEFAULT '',
   `port` smallint(6) unsigned NOT NULL DEFAULT '0',
   lastvisit int(10) unsigned NOT NULL DEFAULT '0',
   lastactivity int(10) unsigned NOT NULL DEFAULT '0',
@@ -1162,7 +1162,7 @@ CREATE TABLE pre_common_process (
 
 DROP TABLE IF EXISTS pre_common_regip;
 CREATE TABLE pre_common_regip (
-  ip char(15) NOT NULL DEFAULT '',
+  ip varchar(45) NOT NULL DEFAULT '',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   count smallint(6) NOT NULL DEFAULT '0',
   KEY ip (ip)
@@ -1181,7 +1181,7 @@ DROP TABLE IF EXISTS pre_common_remote_port;
 CREATE TABLE pre_common_remote_port (
   id mediumint(8) unsigned NOT NULL DEFAULT '0',
   idtype char(15) NOT NULL DEFAULT '',
-  useip char(15) NOT NULL DEFAULT '',
+  useip varchar(45) NOT NULL DEFAULT '',
   `port` smallint(6) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (id,idtype)
 ) ENGINE=InnoDB;
@@ -1212,7 +1212,7 @@ CREATE TABLE pre_common_searchindex (
   srchmod tinyint(3) unsigned NOT NULL,
   keywords varchar(255) NOT NULL DEFAULT '',
   searchstring text NOT NULL,
-  useip varchar(15) NOT NULL DEFAULT '',
+  useip varchar(45) NOT NULL DEFAULT '',
   uid mediumint(10) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   expiration int(10) unsigned NOT NULL DEFAULT '0',
@@ -2105,7 +2105,7 @@ CREATE TABLE pre_forum_collectioncomment (
   username varchar(15) NOT NULL DEFAULT '',
   message text NOT NULL,
   dateline int(10) unsigned NOT NULL DEFAULT '0',
-  useip varchar(16) NOT NULL DEFAULT '',
+  useip varchar(45) NOT NULL DEFAULT '',
   `port` smallint(6) unsigned NOT NULL DEFAULT '0',
   rate float NOT NULL DEFAULT '0',
   PRIMARY KEY (cid),
@@ -2557,7 +2557,7 @@ CREATE TABLE pre_forum_order (
   submitdate int(10) unsigned NOT NULL DEFAULT '0',
   confirmdate int(10) unsigned NOT NULL DEFAULT '0',
   email char(40) NOT NULL DEFAULT '',
-  ip char(15) NOT NULL DEFAULT '',
+  ip varchar(45) NOT NULL DEFAULT '',
   UNIQUE KEY orderid (orderid),
   KEY submitdate (submitdate),
   KEY uid (uid,submitdate)
@@ -2631,7 +2631,7 @@ CREATE TABLE pre_forum_post (
   `subject` varchar(80) NOT NULL DEFAULT '',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   message mediumtext NOT NULL,
-  useip varchar(15) NOT NULL DEFAULT '',
+  useip varchar(45) NOT NULL DEFAULT '',
   `port` smallint(6) unsigned NOT NULL DEFAULT '0',
   invisible tinyint(1) NOT NULL DEFAULT '0',
   anonymous tinyint(1) NOT NULL DEFAULT '0',
@@ -2707,7 +2707,7 @@ CREATE TABLE pre_forum_postcomment (
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   `comment` varchar(255) NOT NULL DEFAULT '',
   score tinyint(1) NOT NULL DEFAULT '0',
-  useip varchar(15) NOT NULL DEFAULT '',
+  useip varchar(45) NOT NULL DEFAULT '',
   `port` smallint(6) unsigned NOT NULL DEFAULT '0',
   rpid int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (id),
@@ -2744,7 +2744,7 @@ CREATE TABLE pre_forum_poststick (
 
 DROP TABLE IF EXISTS pre_forum_promotion;
 CREATE TABLE pre_forum_promotion (
-  ip char(15) NOT NULL DEFAULT '',
+  ip varchar(45) NOT NULL DEFAULT '',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   username char(15) NOT NULL DEFAULT '',
   PRIMARY KEY (ip)
@@ -3392,7 +3392,7 @@ CREATE TABLE pre_home_comment (
   idtype varchar(20) NOT NULL DEFAULT '',
   authorid mediumint(8) unsigned NOT NULL DEFAULT '0',
   author varchar(15) NOT NULL DEFAULT '',
-  ip varchar(20) NOT NULL DEFAULT '',
+  ip varchar(45) NOT NULL DEFAULT '',
   `port` smallint(6) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   message text NOT NULL,
@@ -3422,7 +3422,7 @@ CREATE TABLE pre_home_docomment (
   username varchar(15) NOT NULL DEFAULT '',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   message text NOT NULL,
-  ip varchar(20) NOT NULL DEFAULT '',
+  ip varchar(45) NOT NULL DEFAULT '',
   grade smallint(6) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (id),
   KEY doid (doid,dateline),
@@ -3437,7 +3437,7 @@ CREATE TABLE pre_home_doing (
   `from` varchar(20) NOT NULL DEFAULT '',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   message text NOT NULL,
-  ip varchar(20) NOT NULL DEFAULT '',
+  ip varchar(45) NOT NULL DEFAULT '',
   `port` smallint(6) unsigned NOT NULL DEFAULT '0',
   replynum int(10) unsigned NOT NULL DEFAULT '0',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0',

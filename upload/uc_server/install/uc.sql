@@ -5,7 +5,7 @@ CREATE TABLE uc_applications (
   `name` varchar(20) NOT NULL default '',
   url varchar(255) NOT NULL default '',
   authkey varchar(255) NOT NULL default '',
-  ip varchar(15) NOT NULL default '',
+  ip varchar(45) NOT NULL default '',
   viewprourl varchar(255) NOT NULL,
   apifilename varchar( 30 ) NOT NULL DEFAULT 'uc.php',
   charset varchar(8) NOT NULL default '',
@@ -26,7 +26,7 @@ CREATE TABLE uc_members (
   email char(32) NOT NULL DEFAULT '',
   myid char(30)  NOT NULL DEFAULT '',
   myidkey char(16) NOT NULL DEFAULT '',
-  regip char(15) NOT NULL DEFAULT '',
+  regip varchar(45) NOT NULL DEFAULT '',
   regdate int(10) unsigned NOT NULL DEFAULT '0',
   lastloginip int(10) NOT NULL DEFAULT '0',
   lastlogintime int(10) unsigned NOT NULL DEFAULT '0',
@@ -147,7 +147,7 @@ DROP TABLE IF EXISTS uc_domains;
 CREATE TABLE uc_domains (
   id int(10) unsigned NOT NULL auto_increment,
   domain char(40) NOT NULL default '',
-  ip char(15) NOT NULL default '',
+  ip varchar(45) NOT NULL default '',
   PRIMARY KEY  (id)
 ) Type=InnoDB;
 
@@ -201,7 +201,7 @@ CREATE TABLE uc_admins (
 
 DROP TABLE IF EXISTS uc_failedlogins;
 CREATE TABLE uc_failedlogins (
-  ip char(15) NOT NULL default '',
+  ip varchar(45) NOT NULL default '',
   count tinyint(1) unsigned NOT NULL default '0',
   lastupdate int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (ip)
