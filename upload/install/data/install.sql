@@ -1248,10 +1248,7 @@ CREATE TABLE pre_common_secquestion (
 DROP TABLE IF EXISTS pre_common_session;
 CREATE TABLE pre_common_session (
   sid char(6) NOT NULL DEFAULT '',
-  ip1 tinyint(3) unsigned NOT NULL DEFAULT '0',
-  ip2 tinyint(3) unsigned NOT NULL DEFAULT '0',
-  ip3 tinyint(3) unsigned NOT NULL DEFAULT '0',
-  ip4 tinyint(3) unsigned NOT NULL DEFAULT '0',
+  ip varchar(45) NOT NULL DEFAULT '',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   username char(15) NOT NULL DEFAULT '',
   groupid smallint(6) unsigned NOT NULL DEFAULT '0',

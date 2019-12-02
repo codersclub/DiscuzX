@@ -16,7 +16,7 @@ class discuz_session {
 	public $sid = null;
 	public $var;
 	public $isnew = false;
-	private $newguest = array('sid' => 0, 'ip1' => 0, 'ip2' => 0, 'ip3' => 0, 'ip4' => 0,
+	private $newguest = array('sid' => 0, 'ip' => 0,
 		'uid' => 0, 'username' => '', 'groupid' => 7, 'invisible' => 0, 'action' => 0,
 		'lastactivity' => 0, 'fid' => 0, 'tid' => 0, 'lastolupdate' => 0);
 
@@ -38,20 +38,12 @@ class discuz_session {
 	public function set($key, $value) {
 		if(isset($this->newguest[$key])) {
 			$this->var[$key] = $value;
-		} elseif ($key == 'ip') {
-			$ips = explode('.', $value);
-			$this->set('ip1', $ips[0]);
-			$this->set('ip2', $ips[1]);
-			$this->set('ip3', $ips[2]);
-			$this->set('ip4', $ips[3]);
 		}
 	}
 
 	public function get($key) {
 		if(isset($this->newguest[$key])) {
 			return $this->var[$key];
-		} elseif ($key == 'ip') {
-			return $this->get('ip1').'.'.$this->get('ip2').'.'.$this->get('ip3').'.'.$this->get('ip4');
 		}
 	}
 

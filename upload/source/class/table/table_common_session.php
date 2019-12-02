@@ -27,7 +27,7 @@ class table_common_session extends discuz_table
 		}
 		$this->checkpk();
 		$session = parent::fetch($sid);
-		if($session && $ip !== false && $ip != "{$session['ip1']}.{$session['ip2']}.{$session['ip3']}.{$session['ip4']}") {
+		if($session && $ip !== false && $ip != "{$session['ip']}") {
 			$session = array();
 		}
 		if($session && $uid !== false && $uid != $session['uid']) {
@@ -71,7 +71,7 @@ class table_common_session extends discuz_table
 
 			$condition = " sid='{$session[sid]}' ";
 			$condition .= " OR lastactivity<$onlinehold ";
-			$condition .= " OR (uid='0' AND ip1='{$session['ip1']}' AND ip2='{$session['ip2']}' AND ip3='{$session['ip3']}' AND ip4='{$session['ip4']}' AND lastactivity>$guestspan) ";
+			$condition .= " OR (uid='0' AND ".DB::field('ip', $session['ip'])." AND lastactivity>$guestspan) ";
 			$condition .= $session['uid'] ? " OR (uid='{$session['uid']}') " : '';
 			DB::delete('common_session', $condition);
 		}
@@ -89,12 +89,8 @@ class table_common_session extends discuz_table
 		return $data;
 	}
 
-	public function update_by_ipban($ip1, $ip2, $ip3, $ip4) {
-		$ip1 = intval($ip1);
-		$ip2 = intval($ip2);
-		$ip3 = intval($ip3);
-		$ip4 = intval($ip4);
-		return DB::query('UPDATE '.DB::table('common_session')." SET groupid='6' WHERE ('$ip1'='-1' OR ip1='$ip1') AND ('$ip2'='-1' OR ip2='$ip2') AND ('$ip3'='-1' OR ip3='$ip3') AND ('$ip4'='-1' OR ip4='$ip4')");
+	public function update_by_ipban($ip) {
+		return DB::query('UPDATE '.DB::table('common_session')." SET groupid='6' WHERE ".DB::field('ip', $ip));
 	}
 
 	public function update_max_rows($max_rows) {
@@ -122,16 +118,16 @@ class table_common_session extends discuz_table
 
 	public function count_by_ip($ip) {
 		$count = 0;
-		if(!empty($ip) && ($ip = explode('.', $ip)) && count($ip) > 2 ) {
-			$count = DB::result_first('SELECT COUNT(*) FROM '.DB::table('common_session')." WHERE ip1='$ip[0]' AND ip2='$ip[1]' AND ip3='$ip[2]'");
+		if(!empty($ip)) {
+			$count = DB::result_first('SELECT COUNT(*) FROM '.DB::table('common_session')." WHERE ".DB::field('ip', $ip));
 		}
 		return $count;
 	}
 
 	public function fetch_all_by_ip($ip, $start = 0, $limit = 0) {
 		$data = array();
-		if(!empty($ip) && ($ip = explode('.', $ip)) && count($ip) > 2 ) {
-			$data = DB::fetch_all('SELECT * FROM %t WHERE ip1=%d AND ip2=%d AND ip3=%d ORDER BY lastactivity DESC'.DB::limit($start, $limit), array($this->_table, $ip[0], $ip[1], $ip[2]), null);
+		if(!empty($ip)) {
+			$data = DB::fetch_all('SELECT * FROM %t WHERE ip=%d ORDER BY lastactivity DESC'.DB::limit($start, $limit), array($this->_table, $ip), null);
 		}
 		return $data;
 	}
