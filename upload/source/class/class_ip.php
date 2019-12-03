@@ -39,7 +39,7 @@ class ip {
 	}
 
 	public static function convert($ip) {
-		if(!self::_validate_ip($ip)) {
+		if(self::_validate_ip($ip)) {
 			return '- Invalid';
 		} else {
 			if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE)) {
@@ -48,7 +48,7 @@ class ip {
 			if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_RES_RANGE)) {
 				return '- Reserved';
 			}
-			if (array_key_exists('ipdb', $_G['config']) && array_key_exists('setting', $_G['config']['ipdb']) {
+			if (array_key_exists('ipdb', $_G['config']) && array_key_exists('setting', $_G['config']['ipdb'])) {
 				$setting = $_G['config']['ipdb']['setting'];
 				if (!empty($setting['ipv4']) && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
 					$c = 'ip_'.$setting['ipv4'];
