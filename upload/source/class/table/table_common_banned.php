@@ -21,8 +21,8 @@ class table_common_banned extends discuz_table
 		parent::__construct();
 	}
 
-	public function fetch_by_ip($ip1, $ip2, $ip3, $ip4) {
-		return DB::fetch_first('SELECT * FROM %t WHERE (ip1=%d OR ip1=-1) AND (ip2=%d OR ip2=-1) AND (ip3=%d OR ip3=-1) AND (ip4=%d OR ip4=-1)', array($this->_table, $ip1, $ip2, $ip3, $ip4));
+	public function fetch_by_ip($ip) {
+		return DB::fetch_first('SELECT * FROM %t WHERE ip1=%d', array($this->_table, $ip));
 	}
 
 	public function fetch_all_order_dateline() {

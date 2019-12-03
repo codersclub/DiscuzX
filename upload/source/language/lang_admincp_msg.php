@@ -334,6 +334,7 @@ $lang = array (
   'members_access_succeed' => '指定用户站点权限更新成功 ',
   'members_ipban_nopermission' => '只有管理员可以使用“*”通配符',
   'members_ipban_illegal' => '操作错误！您自己的 IP 已经存在于禁止列表中',
+  'members_ipban_cidrerror' => '操作错误！您输入的CIDR地址不合法',
   'members_ipban_invalid' => '新的禁止 IP 已经存在于列表中',
   'members_ipban_succeed' => 'IP 禁止列表更新成功 ',
   'members_profile_edit_title_empty_error' => '栏目标题不能为空',

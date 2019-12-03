@@ -19,7 +19,7 @@ class discuz_session_close {
 	public $sid = null;
 	public $var;
 	public $isnew = false;
-	protected $newguest = array('sid' => 0, 'ip' => 0,
+	protected $newguest = array('sid' => 0, 'ip' => '',
 		'uid' => 0, 'username' => '', 'groupid' => 7, 'invisible' => 0, 'action' => 0,
 		'lastactivity' => 0, 'fid' => 0, 'tid' => 0, 'lastolupdate' => 0);
 

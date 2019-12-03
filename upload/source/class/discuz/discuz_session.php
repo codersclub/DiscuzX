@@ -16,7 +16,7 @@ class discuz_session {
 	public $sid = null;
 	public $var;
 	public $isnew = false;
-	private $newguest = array('sid' => 0, 'ip' => 0,
+	private $newguest = array('sid' => 0, 'ip' => '',
 		'uid' => 0, 'username' => '', 'groupid' => 7, 'invisible' => 0, 'action' => 0,
 		'lastactivity' => 0, 'fid' => 0, 'tid' => 0, 'lastolupdate' => 0);
 
