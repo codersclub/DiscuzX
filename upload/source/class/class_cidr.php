@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: class_cidr.php 6599 2019-12-03 12:00:00Z opensource $
+ *      $Id: class_cidr.php 6510 2019-12-03 12:00:00Z opensource $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -26,13 +26,13 @@ if(!defined('IN_DISCUZ')) {
 
 class cidr {
 
-   /**
-    * compare an IPv4 or IPv6 address with a CIDR address or range
-    *
-    * @param string $address a valid IPv6 address
-    * @param string $subnet a valid IPv6 subnet[/mask]
-    * @return boolean whether $address is within the ip range made up of the subnet and mask
-    */
+	/**
+	* compare an IPv4 or IPv6 address with a CIDR address or range
+	*
+	* @param string $address a valid IPv6 address
+	* @param string $subnet a valid IPv6 subnet[/mask]
+	* @return boolean whether $address is within the ip range made up of the subnet and mask
+	*/
 	public static function match($ip, $cidr) {
 		// make sure we compare ip addresses as case insensitive
 		$ip = strtolower($ip);
@@ -123,13 +123,13 @@ class cidr {
 	}
 
 	/**
-    * Check IPv6 address is within an IP range
-    *
-    * @param string $address a valid IPv6 address
-    * @param string $subnet a valid IPv6 subnet
-    * @param string $mask a valid IPv6 subnet mask
-    * @return boolean whether $address is within the ip range made up of the subnet and mask
-    */
+	* Check IPv6 address is within an IP range
+	*
+	* @param string $address a valid IPv6 address
+	* @param string $subnet a valid IPv6 subnet
+	* @param string $mask a valid IPv6 subnet mask
+	* @return boolean whether $address is within the ip range made up of the subnet and mask
+	*/
 	private static function IPv6Match($ip, $subnet, $mask) {
 		$subnet = inet_pton($subnet);
 		$ip = inet_pton($ip);
@@ -154,13 +154,13 @@ class cidr {
 	}
 
 	/**
-    * Check IPv4 address is within an IP range
-    *
-    * @param string $address a valid IPv4 address
-    * @param string $subnet a valid IPv4 subnet
-    * @param string $mask a valid IPv4 subnet mask
-    * @return boolean whether $address is within the ip rage made up of the subnet and mask
-    */
+	* Check IPv4 address is within an IP range
+	*
+ 	* @param string $address a valid IPv4 address
+	* @param string $subnet a valid IPv4 subnet
+	* @param string $mask a valid IPv4 subnet mask
+	* @return boolean whether $address is within the ip rage made up of the subnet and mask
+	*/
 	private static function IPv4Match($address, $subnet, $mask) {
 		// credit goes to Sam on http://stackoverflow.com/questions/594112/matching-an-ip-to-a-cidr-mask-in-php5
 		if ((ip2long($address) & ~((1 << (32 - $mask)) - 1)) == ip2long($subnet)) {
@@ -170,11 +170,11 @@ class cidr {
 	}
 
 	/**
-    * Compress an IPv6 Address
-    *
-    * @param string $ip a valid IPv6 address or CIDR
-    * @return string IPv6 ip address or CIDR in short form notation
-    */
+	* Compress an IPv6 Address
+	*
+	* @param string $ip a valid IPv6 address or CIDR
+	* @return string IPv6 ip address or CIDR in short form notation
+	*/
 	public static function IPv6_compress($ip) {
 		$bits = explode('/', $ip);
 		// in case this is a CIDR range
@@ -185,11 +185,11 @@ class cidr {
 	}
 
 	/**
-    * Expand an IPv6 Address
-    *
-    * @param string $ip a valid IPv6 address
-    * @return string IPv6 ip address in long form notation
-    */
+	* Expand an IPv6 Address
+	*
+	* @param string $ip a valid IPv6 address
+	* @return string IPv6 ip address in long form notation
+	*/
 	public static function IPv6_expand($ip) {
 		$bits = explode('/', $ip);
 		// in case this is a CIDR range
@@ -219,5 +219,6 @@ class cidr {
 		}
 		return strtolower(implode('/', $bits));
 	}
+
 }
 ?>
