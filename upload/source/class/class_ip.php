@@ -50,13 +50,13 @@ class ip {
 				return '- Reserved';
 			}
 			if (array_key_exists('ipdb', $_G['config']) && array_key_exists('setting', $_G['config']['ipdb'])) {
-				$setting = $_G['config']['ipdb']['setting'];
-				if (!empty($setting['ipv4']) && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-					$c = 'ip_'.$setting['ipv4'];
-				} else if (!empty($setting['ipv6']) && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-					$c = 'ip_'.$setting['ipv6'];
-				} else if (!empty($setting['default'])) {
-					$c = 'ip_'.$setting['default'];
+				$s = $_G['config']['ipdb']['setting'];
+				if (!empty($s['ipv4']) && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+					$c = 'ip_'.$s['ipv4'];
+				} else if (!empty($s['ipv6']) && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+					$c = 'ip_'.$s['ipv6'];
+				} else if (!empty($s['default'])) {
+					$c = 'ip_'.$s['default'];
 				} else {
 					$c = 'ip_tiny';
 				}
