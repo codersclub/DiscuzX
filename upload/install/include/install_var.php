@@ -76,6 +76,7 @@ $env_items = array
 	'curl' => array('r' => 'notset', 'b' => 'enable'),
 	'opcache' => array('r' => 'notset', 'b' => 'enable'),
 	'diskspace' => array('r' => 30 * 1048576, 'b' => 'notset'),
+	'filter_var' => array('f' => 'filter_var', 'r' => 'enable', 'b' => 'enable'),
 );
 
 $dirfile_items = array
