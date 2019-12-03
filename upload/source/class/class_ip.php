@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: class_ip.php 2016 2019-12-03 12:00:00Z opensource $
+ *      $Id: class_ip.php 2017 2019-12-03 12:00:00Z opensource $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -22,7 +22,7 @@ class ip {
 
 	public static function convert($ip) {
 		global $_G;
-		if(self::_validate_ip($ip)) {
+		if(!self::_validate_ip($ip)) {
 			return '- Invalid';
 		} else {
 			if (!(filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE) !== false)) {
