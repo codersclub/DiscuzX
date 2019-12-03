@@ -2186,7 +2186,7 @@ EOF;
 					cpmsg('members_ipban_nopermission', '', 'error');
 				}
 
-				if(ip::get() == $_GET['ipnew']) {
+				if($_G['clientip'] == $_GET['ipnew']) {
 					cpmsg('members_ipban_illegal', '', 'error');
 				}
 

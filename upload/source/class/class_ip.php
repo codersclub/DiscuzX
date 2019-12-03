@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: class_ip.php 2717 2019-12-03 12:00:00Z opensource $
+ *      $Id: class_ip.php 2016 2019-12-03 12:00:00Z opensource $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -16,26 +16,8 @@ class ip {
 	function __construct() {
 	}
 
-	private function _validate_ip($ip) {
-		return function_exists('filter_var') ? filter_var($host, FILTER_VALIDATE_IP) !== false : preg_match('/^((2[0-4]|1\d|[1-9])?\d|25[0-5])(\.(?1)){3}\z/', $host) !== false;
-	}
-
-	public static function get() {
-		global $_G;
-		$ip = $_SERVER['REMOTE_ADDR'];
-		if (!array_key_exists('security', $_G['config']) || !$_G['config']['security']['onlyremoteaddr']) {
-			if (isset($_SERVER['HTTP_CLIENT_IP']) && self::_validate_ip($_SERVER['HTTP_CLIENT_IP'])) {
-				$ip = $_SERVER['HTTP_CLIENT_IP'];
-			} elseif(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-				if (strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ",") > 0) {
-					$exp = explode(",", $_SERVER['HTTP_X_FORWARDED_FOR']);
-					$ip = self::_validate_ip(trim($exp[0])) ? $exp[0] : $ip;
-				} else {
-					$ip = self::_validate_ip($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $ip;
-				}
-			}
-		}
-		return $ip;
+	private static function _validate_ip($ip) {
+		return function_exists('filter_var') ? filter_var($ip, FILTER_VALIDATE_IP) !== false : preg_match('/^((2[0-4]|1\d|[1-9])?\d|25[0-5])(\.(?1)){3}\z/', $ip) !== false;
 	}
 
 	public static function convert($ip) {
@@ -43,17 +25,17 @@ class ip {
 		if(self::_validate_ip($ip)) {
 			return '- Invalid';
 		} else {
-			if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE)) {
+			if (!(filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE) !== false)) {
 				return '- LAN';
 			}
-			if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_RES_RANGE)) {
+			if (!(filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_RES_RANGE) !== false)) {
 				return '- Reserved';
 			}
 			if (array_key_exists('ipdb', $_G['config']) && array_key_exists('setting', $_G['config']['ipdb'])) {
 				$s = $_G['config']['ipdb']['setting'];
-				if (!empty($s['ipv4']) && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+				if (!empty($s['ipv4']) && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) {
 					$c = 'ip_'.$s['ipv4'];
-				} else if (!empty($s['ipv6']) && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+				} else if (!empty($s['ipv6']) && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
 					$c = 'ip_'.$s['ipv6'];
 				} else if (!empty($s['default'])) {
 					$c = 'ip_'.$s['default'];

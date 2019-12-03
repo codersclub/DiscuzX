@@ -38,8 +38,8 @@ class base {
 		$this->init_mail();
 	}
 
-	function validate_ip($host) {
-		return function_exists('filter_var') ? filter_var($host, FILTER_VALIDATE_IP) !== false : preg_match('/^((2[0-4]|1\d|[1-9])?\d|25[0-5])(\.(?1)){3}\z/', $host) !== false;
+	function validate_ip($ip) {
+		return function_exists('filter_var') ? filter_var($ip, FILTER_VALIDATE_IP) !== false : preg_match('/^((2[0-4]|1\d|[1-9])?\d|25[0-5])(\.(?1)){3}\z/', $ip) !== false;
 	}
 
 	function init_var() {
