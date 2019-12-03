@@ -39,6 +39,7 @@ class ip {
 	}
 
 	public static function convert($ip) {
+		global $_G;
 		if(self::_validate_ip($ip)) {
 			return '- Invalid';
 		} else {
