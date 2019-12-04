@@ -127,7 +127,6 @@ function dirfile_check(&$dirfile_items) {
 }
 
 function env_check(&$env_items) {
-	global $lang;
 	foreach($env_items as $key => $item) {
 		if($key == 'php') {
 			$env_items[$key]['current'] = PHP_VERSION;
@@ -147,14 +146,16 @@ function env_check(&$env_items) {
 			$env_items[$key]['current'] = constant($item['c']);
 		} elseif($key == 'opcache') {
 			$opcache_data = function_exists('opcache_get_configuration') ? opcache_get_configuration() : array();
-			$env_items[$key]['current'] = !empty($opcache_data['directives']['opcache.enable']) ? $lang['enable'] : $lang['disable'];
+			$env_items[$key]['current'] = !empty($opcache_data['directives']['opcache.enable']) ? 'enable' : 'disable';
 		} elseif($key == 'curl') {
 			if(function_exists('curl_init') && function_exists('curl_version')){
 				$v = curl_version();
-				$env_items[$key]['current'] = $lang['enable'].' '.$v['version'];
+				$env_items[$key]['current'] = 'enable'.' '.$v['version'];
 			}else{
-				$env_items[$key]['current'] = $lang['disable'];
+				$env_items[$key]['current'] = 'disable';
 			}
+		} elseif(isset($item['f'])) {
+			$env_items[$key]['current'] = function_exists($item['f']) ? 'enable' : 'disable';
 		}
 
 		$env_items[$key]['status'] = 1;
@@ -221,7 +222,7 @@ function show_env_result(&$env_items, &$dirfile_items, &$func_items, &$filesock_
 			$env_str .= "<td>".lang($key)."</td>\n";
 			$env_str .= "<td class=\"padleft\">".lang($item['r'])."</td>\n";
 			$env_str .= "<td class=\"padleft\">".lang($item['b'])."</td>\n";
-			$env_str .= ($status ? "<td class=\"w pdleft1\">" : "<td class=\"nw pdleft1\">").$item['current']."</td>\n";
+			$env_str .= ($status ? "<td class=\"w pdleft1\">" : "<td class=\"nw pdleft1\">").lang($item['current'])."</td>\n";
 			$env_str .= "</tr>\n";
 		}
 	}

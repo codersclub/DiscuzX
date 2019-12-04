@@ -385,21 +385,25 @@ class discuz_application extends discuz_base{
 		return true;
 	}
 
+	private function _validate_ip($ip) {
+		return function_exists('filter_var') ? filter_var($ip, FILTER_VALIDATE_IP) !== false : preg_match('/^((2[0-4]|1\d|[1-9])?\d|25[0-5])(\.(?1)){3}\z/', $ip) !== false;
+	}
+
 	private function _get_client_ip() {
 		$ip = $_SERVER['REMOTE_ADDR'];
 		if (!array_key_exists('security', $this->config) || !$this->config['security']['onlyremoteaddr']) {
-			if (isset($_SERVER['HTTP_CLIENT_IP']) && preg_match('/^([0-9]{1,3}\.){3}[0-9]{1,3}$/', $_SERVER['HTTP_CLIENT_IP'])) {
+			if (isset($_SERVER['HTTP_CLIENT_IP']) && $this->_validate_ip($_SERVER['HTTP_CLIENT_IP'])) {
 				$ip = $_SERVER['HTTP_CLIENT_IP'];
-			} elseif(isset($_SERVER['HTTP_X_FORWARDED_FOR']) AND preg_match_all('#\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}#s', $_SERVER['HTTP_X_FORWARDED_FOR'], $matches)) {
-				foreach ($matches[0] AS $xip) {
-					if (!preg_match('#^(10|172\.16|192\.168)\.#', $xip)) {
-						$ip = $xip;
-						break;
-					}
+			} elseif(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+				if (strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ",") > 0) {
+					$exp = explode(",", $_SERVER['HTTP_X_FORWARDED_FOR']);
+					$ip = $this->_validate_ip(trim($exp[0])) ? $exp[0] : $ip;
+				} else {
+					$ip = $this->_validate_ip($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $ip;
 				}
 			}
 		}
-		return $ip == '::1' ? '127.0.0.1' : $ip;
+		return $ip;
 	}
 
 	private function _init_db() {

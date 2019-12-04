@@ -193,6 +193,14 @@ $_config['remote']['cron'] = 0;
 // $_GET|$_POST的兼容处理，0为关闭，1为开启；开启后即可使用$_G['gp_xx'](xx为变量名，$_GET和$_POST集合的所有变量名)，值为已经addslashes()处理过
 $_config['input']['compatible'] = 1;
 
+/**
+ * IP数据库扩展
+ * $_config['ipdb']下除setting外均可用作自定义扩展IP库设置选项，也欢迎大家PR自己的扩展IP库。
+ */
+$_config['ipdb']['setting']['default'] = 'tiny';	// 系统使用的默认IP库
+$_config['ipdb']['setting']['ipv4'] = '';	// 系统使用的默认IPv4库，留空为使用默认库
+$_config['ipdb']['setting']['ipv6'] = ''; // 系统使用的默认IPv6库，留空为使用默认库
+
 // Addon Setting
 //$_config['addonsource'] = 'xx1';
 //$_config['addon'] = array(

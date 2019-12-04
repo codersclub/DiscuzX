@@ -1730,26 +1730,11 @@ function memory($cmd, $key='', $value='', $ttl = 0, $prefix = '') {
 }
 
 function ipaccess($ip, $accesslist) {
-	return preg_match("/^(".str_replace(array("\r\n", ' '), array('|', ''), preg_quote($accesslist, '/')).")/", $ip);
+	return ip::checkaccess($ip, $accesslist);
 }
 
-function ipbanned($onlineip) {
-	global $_G;
-
-	if($_G['setting']['ipaccess'] && !ipaccess($onlineip, $_G['setting']['ipaccess'])) {
-		return TRUE;
-	}
-
-	loadcache('ipbanned');
-	if(empty($_G['cache']['ipbanned'])) {
-		return FALSE;
-	} else {
-		if($_G['cache']['ipbanned']['expiration'] < TIMESTAMP) {
-			require_once libfile('function/cache');
-			updatecache('ipbanned');
-		}
-		return preg_match("/^(".$_G['cache']['ipbanned']['regexp'].")$/", $onlineip);
-	}
+function ipbanned($ip) {
+	return ip::checkbanned($ip);
 }
 
 function getcount($tablename, $condition) {
