@@ -283,6 +283,7 @@ if($method == 'show_license') {
 		if(empty($dbname)) {
 			show_msg('dbname_invalid', $dbname, 0);
 		} else {
+			if (strpos($dbhost, ":") === FALSE) $dbhost .= ":3306";
 			$mysqlmode = function_exists("mysql_connect") ? 'mysql' : 'mysqli';
 			$link = ($mysqlmode == 'mysql') ? @mysql_connect($dbhost, $dbuser, $dbpw) : new mysqli($dbhost, $dbuser, $dbpw);
 			if(!$link) {
