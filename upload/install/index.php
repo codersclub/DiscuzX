@@ -281,7 +281,7 @@ if($method == 'show_license') {
 		} else {
 			if (strpos($dbhost, ":") === FALSE) $dbhost .= ":3306";
 			$link = new mysqli($dbhost, $dbuser, $dbpw);
-			if($link->errno) {
+			if($link->connect_errno) {
 				$errno = $link->errno;
 				$error = $link->error;
 				if($errno == 1045) {
