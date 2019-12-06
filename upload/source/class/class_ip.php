@@ -71,7 +71,7 @@ class ip {
 			} else {
 				$c = 'ip_tiny';
 			}
-			return $c::convert($ip);
+			return $c::getInstance()->convert($ip);
 		}
 	}
 
