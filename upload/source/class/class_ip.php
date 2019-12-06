@@ -16,13 +16,13 @@ class ip {
 	function __construct() {
 	}
 
-	private static function _validate_ip($ip) {
-		return function_exists('filter_var') ? filter_var($ip, FILTER_VALIDATE_IP) !== false : preg_match('/^((2[0-4]|1\d|[1-9])?\d|25[0-5])(\.(?1)){3}\z/', $ip) !== false;
+	private static function validate_ip($ip) {
+		return filter_var($ip, FILTER_VALIDATE_IP);
 	}
 
 	public static function convert($ip) {
 		global $_G;
-		if(!self::_validate_ip($ip)) {
+		if(!self::validate_ip($ip)) {
 			return '- Invalid';
 		} else {
 			if (!(filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE) !== false)) {

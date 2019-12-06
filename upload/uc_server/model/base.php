@@ -39,7 +39,7 @@ class base {
 	}
 
 	function validate_ip($ip) {
-		return function_exists('filter_var') ? filter_var($ip, FILTER_VALIDATE_IP) !== false : preg_match('/^((2[0-4]|1\d|[1-9])?\d|25[0-5])(\.(?1)){3}\z/', $ip) !== false;
+		return filter_var($ip, FILTER_VALIDATE_IP) !== false;
 	}
 
 	function init_var() {

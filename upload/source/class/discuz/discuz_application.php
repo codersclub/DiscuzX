@@ -385,21 +385,17 @@ class discuz_application extends discuz_base{
 		return true;
 	}
 
-	private function _validate_ip($ip) {
-		return function_exists('filter_var') ? filter_var($ip, FILTER_VALIDATE_IP) !== false : preg_match('/^((2[0-4]|1\d|[1-9])?\d|25[0-5])(\.(?1)){3}\z/', $ip) !== false;
-	}
-
 	private function _get_client_ip() {
 		$ip = $_SERVER['REMOTE_ADDR'];
 		if (!array_key_exists('security', $this->config) || !$this->config['security']['onlyremoteaddr']) {
-			if (isset($_SERVER['HTTP_CLIENT_IP']) && $this->_validate_ip($_SERVER['HTTP_CLIENT_IP'])) {
+			if (isset($_SERVER['HTTP_CLIENT_IP']) && ip::validate_ip($_SERVER['HTTP_CLIENT_IP'])) {
 				$ip = $_SERVER['HTTP_CLIENT_IP'];
 			} elseif(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 				if (strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ",") > 0) {
 					$exp = explode(",", $_SERVER['HTTP_X_FORWARDED_FOR']);
-					$ip = $this->_validate_ip(trim($exp[0])) ? $exp[0] : $ip;
+					$ip = ip::validate_ip(trim($exp[0])) ? $exp[0] : $ip;
 				} else {
-					$ip = $this->_validate_ip($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $ip;
+					$ip = ip::validate_ip($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $ip;
 				}
 			}
 		}
