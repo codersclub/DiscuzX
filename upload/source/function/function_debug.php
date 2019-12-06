@@ -4,7 +4,7 @@
  *      [Discuz!] (C)2001-2099 Comsenz Inc.
  *      This is NOT a freeware, use is subject to license terms
  *
- *      $Id: function_debug.php 28557 2012-03-05 02:50:58Z monkey $
+ *      $Id: function_debug.php 36286 2019-12-06 01:01:50Z oldhu $
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -19,7 +19,7 @@ function debugmessage($ajax = 0) {
 	}
 	global $_G;
 	$debugfile = $_G['adminid'] == 1 ? '_debugadmin.php' : '_debug.php';
-	$akey = md5(TIME);
+	$akey = md5(time().$_G['uid']);
 	if(!defined('DISCUZ_DEBUG') || !DISCUZ_DEBUG || defined('IN_ARCHIVER') || defined('IN_MOBILE')) {
 		return;
 	}
@@ -30,23 +30,28 @@ function debugmessage($ajax = 0) {
 	require_once DISCUZ_ROOT.'./source/discuz_version.php';
 
 	$sqldebug = '';
+	$ismysqli = DB::$driver == 'db_driver_mysqli' ? 1 : 0;
 	$n = $discuz_table = 0;
 	$sqlw = array();
 	$db = & DB::object();
 	$queries = count($db->sqldebug);
 	$links = array();
 	foreach($db->link as $k => $link) {
-		$links[$link->host_info] = $k;
+		$links[$ismysqli ? $link->thread_id : (string)$link] = $k;
 	}
 	$sqltime = 0;
 	foreach ($db->sqldebug as $string) {
 		$sqltime += $string[1];
 		$extra = $dt = '';
 		$n++;
-		$sql = preg_replace('/'.preg_quote($_G['config']['db']['1']['tablepre']).'[\w_]+/', '<font color=blue>\\0</font>', nl2br(htmlspecialchars($string[0])));
+		$sql = preg_replace('/'.preg_quote($_G['config']['db']['1']['tablepre']).'[\w_]+/', '<font color=blue>\\0</font>', nl2br(dhtmlspecialchars($string[0])));
 		$sqldebugrow = '<div id="sql_'.$n.'" style="display:none;padding:0">';
 		if(preg_match('/^SELECT /', $string[0])) {
-			$query = @mysqli_query("EXPLAIN ".$string[0], $string[3]);
+			if($ismysqli) {
+				$query = $string[3]->query("EXPLAIN ".$string[0]);
+			} else {
+				$query = @mysql_query("EXPLAIN ".$string[0], $string[3]);
+			}
 			$i = 0;
 			$sqldebugrow .= '<table style="border-bottom:none">';
 			while($row = DB::fetch($query)) {
@@ -80,7 +85,7 @@ function debugmessage($ajax = 0) {
 		}
 		$sqldebugrow .= '</table></div>'.($extra ? $extra.'<br />' : '').'<br />';
 
-		$sqldebug .= '<li><span style="cursor:pointer" onclick="document.getElementById(\'sql_'.$n.'\').style.display = document.getElementById(\'sql_'.$n.'\').style.display == \'\' ? \'none\' : \'\'">'.$string[1].'s &bull; DBLink '.$links[$string[3]->host_info].$dt.'<br />'.$sql.'</span><br /></li>'.$sqldebugrow;
+		$sqldebug .= '<li><span style="cursor:pointer" onclick="document.getElementById(\'sql_'.$n.'\').style.display = document.getElementById(\'sql_'.$n.'\').style.display == \'\' ? \'none\' : \'\'"><s>'.$string[1].'s</s> &bull; DBLink '.$links[$ismysqli ? $string[3]->thread_id : (string)$string[3]].$dt.'<br />'.$sql.'</span><br /></li>'.$sqldebugrow;
 	}
 	$ajaxhtml = 'data/'.$debugfile.'_ajax.php';
 	if($ajax) {
@@ -89,13 +94,14 @@ function debugmessage($ajax = 0) {
 		file_put_contents(DISCUZ_ROOT.'./'.$ajaxhtml, $sqldebug, FILE_APPEND);
 		return;
 	}
-	file_put_contents(DISCUZ_ROOT.'./'.$ajaxhtml, '<?php if(empty($_GET[\'k\']) || $_GET[\'k\'] != \''.$akey.'\') { exit; } ?><style>body,table { font-size:12px; }table { width:90%;border:1px solid gray; }</style><a href="javascript:;" onclick="location.href=location.href">Refresh</a><br />');
+	file_put_contents(DISCUZ_ROOT.'./'.$ajaxhtml, '<?php ' . _get_addslashes() . ' if(empty($_GET[\'k\']) || $_GET[\'k\'] != \''.$akey.'\') { exit; } ?><style>body,table { font-size:12px; }table { width:90%;border:1px solid gray; }</style><a href="javascript:;" onclick="location.href=location.href">Refresh</a><br />');
 	foreach($sqlw as $k => $v) {
 		$sqlw[$k] = $k.': '.$v;
 	}
 	$sqlw = '('.($discuz_table ? 'discuz_table: '.$discuz_table.($sqlw ? ', ' : '') : '').($sqlw ? '<s>'.implode(', ', $sqlw).'</s>' : '').')';
 
-	$debug = '<?php if(empty($_GET[\'k\']) || $_GET[\'k\'] != \''.$akey.'\') { exit; } ?>';
+	$debug = '<?php ' . _get_addslashes() . ' if(empty($_GET[\'k\']) || $_GET[\'k\'] != \''.$akey.'\') { exit; }';  
+	$debug .= "header('Content-Type: text/html; charset=".CHARSET."'); ?>";
 	if($_G['adminid'] == 1 && !$ajax) {
 		$debug .= '<?php
 if(isset($_GET[\''.$phpinfok.'\'])) { phpinfo(); exit; }
@@ -139,7 +145,8 @@ elseif(isset($_GET[\''.$mysqlplek.'\'])) {
 		?>';
 	}
 	$debug .= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head>';
-	$debug .= "<script src='../static/js/common.js?".VERHASH."'></script><script>
+	$debug .= '<meta http-equiv="Content-Type" content="text/html; charset='.CHARSET.'" />';
+	$debug .= "<script src='../static/js/common.js'></script><script>
 	function switchTab(prefix, current, total, activeclass) {
 	activeclass = !activeclass ? 'a' : activeclass;
 	for(var i = 1; i <= total;i++) {
@@ -169,12 +176,12 @@ EOF;
 		foreach($_G as $k => $v) {
 			if(is_array($v)) {
 				if($k != 'lang') {
-					$_GA .= "<li><a name=\"S_$k\"></a><br />['$k'] => ".nl2br(str_replace('  ','&nbsp;', htmlspecialchars(print_r($v, true)))).'</li>';
+					$_GA .= "<li><a name=\"S_$k\"></a><br />['$k'] => ".nl2br(str_replace('  ','&nbsp;', dhtmlspecialchars(print_r($v, true)))).'</li>';
 				}
 			} elseif(is_object($v)) {
 				$_GA .= "<li><br />['$k'] => <i>object of ".get_class($v)."</i></li>";
 			} else {
-				$_GS .= "<li><br />['$k'] => ".htmlspecialchars($v)."</li>";
+				$_GS .= "<li><br />['$k'] => ".dhtmlspecialchars($v)."</li>";
 			}
 		}
 	}
@@ -194,7 +201,8 @@ EOF;
 		$max += count($mcarray);
 		foreach($mcarray as $key => $value) {
 			$mco .= '<div id="__debug_c_'.(7 + $i).'" style="display:none"><br /><pre>'.print_r($value, 1).'</pre></div>';
-			$mc .= '<a id="__debug_7" href="#debugbar" onclick="switchTab(\'__debug\', 7, '.$max.')">['.$key.']</a>'.($value ? '<s>('.count($value).')</s>' : '');
+			$mc .= '<a id="__debug_'.(7 + $i).'" href="#debugbar" onclick="switchTab(\'__debug\', '.(7 + $i).', '.$max.')">['.$key.']</a>'.($value ? '<s>('.count($value).')</s>' : '');
+			$i++;
 		}
 	}
 	$debug .= '
@@ -202,8 +210,12 @@ EOF;
 		body { font-size:12px; }
 		a, a:hover { color: black;text-decoration:none; }
 		s { text-decoration:none;color: red; }
+		.code { text-decoration:none; color: #00b; cursor:pointer; line-height: 18px; }
 		img { vertical-align:middle; }
 		.w td em { margin-left:10px;font-style: normal; }
+		tr.hbb td{ border-bottom:1px solid #ccc;}
+		table.data tr:hover{ background-color: #ccc;}
+		.hide{ display : none;}
 		#__debugbar__ { padding: 80px 1px 0 1px;  }
 		#__debugbar__ table { width:90%;border:1px solid gray; }
 		#__debugbar__ div { padding-top: 40px; }
@@ -212,7 +224,9 @@ EOF;
 		#__debugbar_s a.a { border-bottom: 1px dotted gray; }
 		#__debug_c_1 ol { margin-left: 20px; padding: 0px; }
 		#__debug_c_4_nav { background:#FFF; border:1px solid black; border-top:none; padding:5px; position: fixed; top:0px; right:0px }
-		</style></head><body>'.
+		</style>
+		<script>function toggle(dom){dom.style.display = dom.style.display != "block" ? "block" : "none";}</script>
+		</head><body>'.
 		'<div id="__debugbarwrap__">'.
 		'<div id="__debugbar_s">
 			<table class="w" width=99%><tr><td valign=top width=50%>'.
@@ -222,9 +236,12 @@ EOF;
 					'<em>包含:</em> '.
 						'<a id="__debug_3" href="#debugbar" onclick="switchTab(\'__debug\', 3, '.$max.')">[文件列表]</a>'.
 						' <s>'.(count($includes) - 1).($_G['debuginfo']['time'] ? ' in '.number_format(($_G['debuginfo']['time'] - $sqltime), 6).'s' : '').'</s><br />'.
+					'<em>执行:</em> '.
+						(isset($_ENV['analysis']['function']) ? '<a id="__debug_9" href="#debugbar" onclick="switchTab(\'__debug\', 9, '.$max.')">[函数列表]</a>'.
+						' <s>'.(count($_ENV['analysis']['function']) - 1).(' in '.number_format(($_ENV['analysis']['function']['sum'] / 1000), 6).'s').'</s>' : '').
 			'<td valign=top>'.
 				'<b style="float:left;width:1em;height:5em">服务器</b>'.
-					'<em>环境:</em> '.PHP_OS.', '.$_SERVER['SERVER_SOFTWARE'].' MySQL/'.DB::result_first("SELECT VERSION()").'<br />'.
+					'<em>环境:</em> '.PHP_OS.', '.$_SERVER['SERVER_SOFTWARE'].' MySQL/'.DB::result_first("SELECT VERSION()").'('.(DB::$driver).')<br />'.
 					$m.
 					'<em>SQL:</em> '.
 						'<a id="__debug_1" href="#debugbar" onclick="switchTab(\'__debug\', 1, '.$max.')">[SQL列表]</a>'.
@@ -266,14 +283,35 @@ EOF;
 		} elseif(preg_match('/^config/', $fn)) {
 			$debug .= '[配置]';
 		}
-		$debug .= $fn.'</li>';
+		if(isset($_ENV['analysis']['file'][$fn]['time'])) {
+			$time = ' (<s>'.$_ENV['analysis']['file'][$fn]['time'].'ms</s>)';
+			$debug .= '<span'.(isset($_ENV['analysis']['file'][$fn]['time']) ? ' class="code" onclick="toggle($(\'f_m_'.$fn.'\'))"' : '').'>'.$fn.$time.'</span>';
+		} else {
+			$debug .= $fn;
+		}
+
+		memory_info($debug, $fn, $_ENV['analysis']['file'][$fn]);
+		$debug .= '</li>';
+	}
+	if(isset($_ENV['analysis']['file']['sum'])) {
+		$debug .= '<li style="color:red">count: '.($_ENV['analysis']['file']['sum']/1000).'s</li>';
 	}
 	$debug .= '<ol></div><div id="__debug_c_5" style="display:none"><ol>';
 	foreach($_COOKIE as $k => $v) {
 		if(strexists($k, $_G['config']['cookie']['cookiepre'])) {
 			$k = '<font color=blue>'.$k.'</font>';
 		}
-		$debug .= "<li><br />['$k'] => ".htmlspecialchars($v)."</li>";
+		$debug .= "<li><br />['$k'] => ".dhtmlspecialchars($v)."</li>";
+	}
+	if(isset($_ENV['analysis']['function'])) {
+		unset($_ENV['analysis']['function']['sum']);
+		$debug .= '<ol></div><div id="__debug_c_9" style="display:none"><ol>';
+		foreach($_ENV['analysis']['function'] as $_fn => $function) {
+			$debug .= '<li> ';
+			$debug .= '<span class="code" onclick="toggle($(\'f_m_'.$_fn.'\'))">'.$_fn.'</span>(<s>'.$function['time'].'ms</s>)';
+			memory_info($debug, $_fn, $function);
+			$debug .= '</table></li>';
+		}
 	}
 	$debug .= '</ol></div><div id="__debug_c_6" style="display:none">'.
 		'<div id="__debug_c_4_nav"><a href="#S_config">Nav:<br />
@@ -291,4 +329,32 @@ EOF;
 	file_put_contents(DISCUZ_ROOT.'./'.$fn, $debug);
 	echo '<iframe src="'.$fn.'?k='.$akey.'" name="_debug_iframe" id="_debug_iframe" style="border-top:1px solid gray;overflow-x:hidden;overflow-y:auto" width="100%" height="120" frameborder="0"></iframe><div id="_debug_div"></div><iframe name="_debug_initframe" id="_debug_initframe" style="display:none"></iframe>';
 }
+
+function memory_info(&$debug, $_fn, $function) {
+	$debug .= '<table id="f_m_'.$_fn.'" class="data hide"><tr class="hbb"><td>memory_usage</td><td>start_memory(bytes)</td><td>stop_memory(bytes)</td><td>diff_memory(bytes)</td></tr>';
+	$debug .= '<tr><td>memory_get_usage</td><td>'.number_format($function['start_memory_get_usage']).'</td><td>'.number_format($function['stop_memory_get_usage']).'</td><td>'.number_format(($function['stop_memory_get_usage']) - ($function['start_memory_get_usage'])).'</td></tr>';
+	$debug .= '<tr><td>memory_get_real_usage</td><td>'.number_format($function['start_memory_get_real_usage']).'</td><td>'.number_format($function['stop_memory_get_real_usage']).'</td><td>'.number_format(($function['stop_memory_get_real_usage']) - ($function['start_memory_get_real_usage'])).'</td></tr>';
+	$debug .= '<tr><td>memory_get_peak_usage</td><td>'.number_format($function['start_memory_get_peak_usage']).'</td><td>'.number_format($function['stop_memory_get_peak_usage']).'</td><td>'.number_format(($function['stop_memory_get_peak_usage']) - ($function['start_memory_get_peak_usage'])).'</td></tr>';
+	$debug .= '<tr><td>memory_get_peak_real_usage</td><td>'.number_format($function['start_memory_get_peak_real_usage']).'</td><td>'.number_format($function['stop_memory_get_peak_real_usage']).'</td><td>'.number_format(($function['stop_memory_get_peak_real_usage']) - ($function['start_memory_get_peak_real_usage'])).'</td></tr>';
+	$debug .= '</table>';
+}
+
+function _get_addslashes() {
+	return ' function daddslashes($string, $force = 1) {
+	if(is_array($string)) {
+		$keys = array_keys($string);
+		foreach($keys as $key) {
+			$val = $string[$key];
+			unset($string[$key]);
+			$string[addslashes($key)] = daddslashes($val, $force);
+		}
+	} else {
+		$string = addslashes($string);
+	}
+	return $string;
+}
+$_GET = daddslashes($_GET); ';
+}
+
+
 ?>
