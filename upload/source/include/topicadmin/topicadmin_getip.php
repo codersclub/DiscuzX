@@ -30,9 +30,7 @@ if(!$member) {
 
 $member['iplocation'] = convertip($member['useip']);
 
-if (filter_var($member['useip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-	$member['useip'] = '[' . $member['useip'] . ']';
-}
+$member['useip'] = ip::to_display($member['useip']);
 
 include template('forum/topicadmin_getip');
 

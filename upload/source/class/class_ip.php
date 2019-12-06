@@ -16,8 +16,34 @@ class ip {
 	function __construct() {
 	}
 
-	private static function validate_ip($ip) {
-		return filter_var($ip, FILTER_VALIDATE_IP);
+	/*
+	 * 将IPv6地址外面加方括号，用于显示
+	 */
+	public static function to_display($ip) {
+		if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+			return '[' . $ip . ']';
+		}
+		return $ip;
+	}
+
+	/*
+	 * 将各种显示格式的IPv6地址处理回标准IPv6格式
+	 * [::1] -> 将方括号去掉
+	 * 
+	 */
+	public static function to_ip($ip) {
+		if (strlen($ip) == 0) return $ip;
+		if (preg_match('/\[((.*?:)+.*)\]/', $ip, $m)) {
+			$ip = $m[1];
+		}
+		return $ip;
+	}
+
+	/*
+	 * 验证IP是否合法，支持v4和v6
+	 */
+	public static function validate_ip($ip) {
+		return filter_var($ip, FILTER_VALIDATE_IP) !== false;
 	}
 
 	public static function convert($ip) {

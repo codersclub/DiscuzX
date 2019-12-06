@@ -30,6 +30,9 @@ foreach($search_condition as $k => $v) {
 	if(in_array($k, array('action', 'operation', 'formhash', 'confirmed', 'submit', 'page', 'deletestart', 'allnum', 'includeuc','includepost','current','pertask','lastprocess','deleteitem')) || $v === '') {
 		unset($search_condition[$k]);
 	}
+	if($k === 'regip') {
+		$search_condition[$k] = ip::to_ip($search_condition[$k]);
+	}
 }
 $search_condition = searchcondition($search_condition);
 $tmpsearch_condition = $search_condition;
