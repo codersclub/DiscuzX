@@ -145,8 +145,8 @@ function magicshowsetting($setname, $varname, $value, $type = 'radio', $width = 
 	echo '<p class="mtm mbn">'.$setname.'</p>';
 	if($type == 'radio') {
 		$value ? $check['true'] = 'checked="checked"' : $check['false'] = 'checked="checked"';
-		echo "<input type=\"radio\" name=\"$varname\" class=\"pr\" value=\"1\" $check[true] /> ".lang('core', 'yes')." &nbsp; &nbsp; \n".
-			"<input type=\"radio\" name=\"$varname\" class=\"pr\" value=\"0\" $check[false] /> ".lang('core', 'no')."\n";
+		echo "<input type=\"radio\" name=\"$varname\" class=\"pr\" value=\"1\" {$check['true']} /> ".lang('core', 'yes')." &nbsp; &nbsp; \n".
+			"<input type=\"radio\" name=\"$varname\" class=\"pr\" value=\"0\" {$check['false']} /> ".lang('core', 'no')."\n";
 	} elseif($type == 'text') {
 		echo "<input type=\"text\" name=\"$varname\" class=\"px p_fre\" value=\"".dhtmlspecialchars($value)."\" size=\"12\" autocomplete=\"off\" />\n";
 	} elseif($type == 'hidden') {
