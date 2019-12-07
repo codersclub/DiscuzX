@@ -81,7 +81,7 @@ class ip {
 
 	public static function checkbanned($ip) {
 		global $_G;
-		if($_G['setting']['ipaccess'] && $this->checkaccess($ip, $_G['setting']['ipaccess'])) {
+		if($_G['setting']['ipaccess'] && self::checkaccess($ip, $_G['setting']['ipaccess'])) {
 			return true;
 		}
 		foreach(C::t('common_banned')->fetch_all_order_dateline() as $banned) {
