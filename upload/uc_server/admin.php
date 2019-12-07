@@ -50,7 +50,7 @@ if(in_array($m, array('admin', 'app', 'badword', 'cache', 'db', 'domain', 'frame
 	include UC_ROOT."control/admin/$m.php";
 	$control = new control();
 	$method = 'on'.$a;
-	if(method_exists($control, $method) && $a{0} != '_') {
+	if(method_exists($control, $method) && $a[0] != '_') {
 		$control->$method();
 	} elseif(method_exists($control, '_call')) {
 		$control->_call('on'.$a, '');
