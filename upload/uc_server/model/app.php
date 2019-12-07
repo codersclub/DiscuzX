@@ -70,14 +70,7 @@ class appmodel {
 
 	function test_api($url, $ip = '') {
 		$this->base->load('misc');
-		if(!$ip) {
-			$ip = $_ENV['misc']->get_host_by_url($url);
-		}
-
-		if($ip < 0) {
-			return FALSE;
-		}
-		return $_ENV['misc']->dfopen($url, 0, '', '', 1, $ip);
+		return $_ENV['misc']->dfopen($url, 0, '', '', 1, '');
 	}
 }
 ?>
