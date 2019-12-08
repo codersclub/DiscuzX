@@ -3719,7 +3719,7 @@ $lang = array
 	'members_repeat' => '马甲',
 
 	'members_ipban' => '禁止 IP',
-	'members_ipban_tips' => '<li>此操作需要在管理组内开启相关权限。</li><li>如果您是站点管理员，可以使用“*”作为通配符禁止某段地址。</li><li>如果您不是站点管理员，您将无法使用“*”且只能对自己添加的项目进行编辑或删除。</li>',
+	'members_ipban_tips' => '<li>此操作需要在管理组内开启相关权限。</li><li>如果您是站点管理员，可以使用CIDR格式禁止某段地址。</li><li>如果您不是站点管理员，您将无法使用CIDR且只能对自己添加的项目进行编辑或删除。</li>',
 	'members_ipban_location' => '地理位置',
 	'members_ipban_input' => '导入禁止 IP 列表',
 	'members_ipban_input_tips' => '<li>此操作需要在管理组内开启相关权限，只有站点管理员可以使用。</li><li>可以使用以前导出的禁止IP列表，也可以手动编写以便批量禁止IP。</li><li>你可以 <a href="admin.php?action=members&operation=ipban&ipact=output">导出现有禁止IP库</a></li>',
