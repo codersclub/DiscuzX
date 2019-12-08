@@ -28,13 +28,13 @@ class ip {
 
 	/*
 	 * 将各种显示格式的IPv6地址处理回标准IPv6格式
-	 * [::1] -> 将方括号去掉
-	 * 
+	 * [::1] -> ::1
+	 * [::1]/16 -> ::1/16
 	 */
 	public static function to_ip($ip) {
 		if (strlen($ip) == 0) return $ip;
-		if (preg_match('/\[((.*?:)+.*)\]/', $ip, $m)) {
-			$ip = $m[1];
+		if (preg_match('/(.*?)\[((.*?:)+.*)\](.*)/', $ip, $m)) { // [xx:xx:xx]格式
+			$ip = $m[1].$m[2].$m[4];
 		}
 		return $ip;
 	}
@@ -44,6 +44,31 @@ class ip {
 	 */
 	public static function validate_ip($ip) {
 		return filter_var($ip, FILTER_VALIDATE_IP) !== false;
+	}
+
+	/*
+	 * 验证是否是合法的CIDR:
+	 * 	- 包含 /
+	 * 	- / 后面大于0
+	 * 	- / 前面是合法的IP
+	 * 返回值：
+	 * 	- TRUE，表示是合法的CIDR，$new_str为处理过的CIDR(IP部分调用了to_ip)
+	 * 	- FALSE, 不是合法的CIDR
+	 */
+	public static function validate_cidr($str, &$new_str) {
+		if(strpos($str, '/') !== false) {
+			list($newip, $mask) = explode('/', $str);
+			if($mask <= 0) {
+				return FALSE;
+			}
+			$newip = self::to_ip($newip);
+			if (!self::validate_ip($newip)) {
+				return FALSE;
+			}
+			$new_str = $newip . "/" . $mask;
+			return TRUE;
+		}
+		return FALSE;
 	}
 
 	public static function convert($ip) {

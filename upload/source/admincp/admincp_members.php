@@ -2171,25 +2171,13 @@ EOF;
 			}
 
 			if($_GET['ipnew'] != '') {
-				$newip = $_GET['ipnew'];
-				if(strpos($newip, '/') !== false) {
-					list($newip, $cidr) = explode('/', $newip);
-					if($cidr <= 0) {
-						cpmsg('members_ipban_cidrerror', '', 'error');
-					}
-				} else {
-					$cidr = false;
-				}
-				// 将可能的IPv6各种表达形式转换回真实IP格式
-				$newip = ip::to_ip($newip);
-				if (!ip::validate_ip($newip)) {
+				$newip = ip::to_ip($_GET['ipnew']);
+				$is_cidr = ip::validate_cidr($newip, $newip);
+				if (!ip::validate_ip($newip) && !$is_cidr) {
 					cpmsg('members_ipban_formaterror', '', 'error');
 				}
-				if ($cidr) {
-					$newip .= "/" . $cidr;
-				}
 				
-				if($_G['adminid'] != 1 && !$cidr) {
+				if($_G['adminid'] != 1 && !$is_cidr) {
 					cpmsg('members_ipban_nopermission', '', 'error');
 				}
 
@@ -2244,6 +2232,7 @@ EOF;
 		} else {
 			$iplist = explode("\n", $_GET['inputipbanlist']);
 			foreach($iplist as $banip) {
+				//TODO: 判断是否有设置CIRD的权限，验证每一段IP和CIDR是否合法
 				if(strpos($banip, ',') !== false) {
 					list($banipaddr, $expiration) = explode(',', $banip);
 					$expiration = strtotime($expiration);
@@ -2255,25 +2244,14 @@ EOF;
 					continue;
 				}
 
-				$ipnew = explode('.', $banipaddr);
-				for($i = 0; $i < 4; $i++) {
-					if(strpos($ipnew[$i], '*') !== false) {
-						$ipnew[$i] = -1;
-					} else {
-						$ipnew[$i] = intval($ipnew[$i]);
-					}
-				}
-				$checkexists = C::t('common_banned')->fetch_by_ip($ipnew[0], $ipnew[1], $ipnew[2], $ipnew[3]);
+				$checkexists = C::t('common_banned')->fetch_by_ip($banipaddr);
 				if($checkexists) {
 					continue;
 				}
 
-				C::app()->session->update_by_ipban($ipnew[0], $ipnew[1], $ipnew[2], $ipnew[3]);
+				C::app()->session->update_by_ipban($banipaddr);
 				$data = array(
-					'ip1' => $ipnew[0],
-					'ip2' => $ipnew[1],
-					'ip3' => $ipnew[2],
-					'ip4' => $ipnew[3],
+					'ip' => $banipaddr,
 					'admin' => $_G['username'],
 					'dateline' => $_G['timestamp'],
 					'expiration' => $expiration,
@@ -2292,11 +2270,8 @@ EOF;
 		dheader('Content-Disposition: attachment; filename=IPBan.csv');
 		dheader('Content-Type: text/plain');
 		foreach(C::t('common_banned')->fetch_all_order_dateline() as $banned) {
-			for($i = 1; $i <= 4; $i++) {
-				$banned['ip'.$i] = $banned['ip'.$i] < 0 ? '*' : $banned['ip'.$i];
-			}
 			$banned['expiration'] = dgmdate($banned['expiration']);
-			echo "$banned[ip1].$banned[ip2].$banned[ip3].$banned[ip4],$banned[expiration]\n";
+			echo "$banned[ip],$banned[expiration]\n";
 		}
 		define('FOOTERDISABLED' , 1);
 		exit();

@@ -160,7 +160,7 @@ if($op == 'edit') {
 } elseif($op == 'ipban' && $_G['group']['allowbanip']) {
 
 	require_once libfile('function/misc');
-	$iptoban = getgpc('ip') ? dhtmlspecialchars(explode('.', getgpc('ip'))) : array('','','','');
+	$iptoban = getgpc('ip') ? dhtmlspecialchars(getgpc('ip')) : '';
 	$updatecheck = $addcheck = $deletecheck = $adderror = 0;
 
 	if(submitcheck('ipbansubmit')) {
@@ -168,10 +168,10 @@ if($op == 'edit') {
 		if($_GET['delete']) {
 			$deletecheck = C::t('common_banned')->delete_by_id($_GET['delete'], $_G['adminid'], $_G['username']);
 		}
-		if($_GET['ip1new'] != '' && $_GET['ip2new'] != '' && $_GET['ip3new'] != '' && $_GET['ip4new'] != '') {
-			$addcheck = ipbanadd($_GET['ip1new'], $_GET['ip2new'], $_GET['ip3new'], $_GET['ip4new'], $_GET['validitynew'], $adderror);
+		if($_GET['ipnew']) {
+			$addcheck = ipbanadd($_GET['ipnew'], $_GET['validitynew'], $adderror);
 			if(!$addcheck) {
-				$iptoban = array($_GET['ip1new'], $_GET['ip2new'], $_GET['ip3new'], $_GET['ip4new']);
+				$iptoban = $_GET['ipnew'];
 			}
 		}
 
@@ -201,7 +201,7 @@ if($op == 'edit') {
 		$banned['disabled'] = $_G['adminid'] != 1 && $banned['admin'] != $_G['member']['username'] ? 'disabled' : '';
 		$banned['dateline'] = dgmdate($banned['dateline'], 'd');
 		$banned['expiration'] = dgmdate($banned['expiration'], 'd');
-		$banned['theip'] = "$banned[ip1].$banned[ip2].$banned[ip3].$banned[ip4]";
+		$banned['theip'] = $banned['ip'];
 		$banned['location'] = convertip($banned['theip']);
 		$iplist[$banned['id']] = $banned;
 	}
@@ -242,46 +242,37 @@ function loadmember(&$uid, &$username, &$error) {
 	return $member;
 }
 
-function ipbanadd($ip1new, $ip2new, $ip3new, $ip4new, $validitynew, &$error) {
+function ipbanadd($ipnew, $validitynew, &$error) {
 	global $_G;
 
-	if($ip1new != '' && $ip2new != '' && $ip3new != '' && $ip4new != '') {
-		$own = 0;
-		$ip = explode('.', $_G['clientip']);
-		for($i = 1; $i <= 4; $i++) {
-
-			if(!is_numeric(${'ip'.$i.'new'}) || ${'ip'.$i.'new'} < 0) {
-				if($_G['adminid'] != 1) {
-					$error = 1;
-					return FALSE;
-				}
-				${'ip'.$i.'new'} = -1;
-				$own++;
-			} elseif(${'ip'.$i.'new'} == $ip[$i - 1]) {
-				$own++;
-			}
-			${'ip'.$i.'new'} = intval(${'ip'.$i.'new'}) > 255 ? 255 : intval(${'ip'.$i.'new'});
+	if($ipnew != '') {
+		$ipnew = ip::to_ip($ipnew);
+		$is_cidr = ip::validate_cidr($newip, $newip);
+		if (!ip::validate_ip($ipnew) && !$is_cidr) {
+			$error = 1;
+			return FALSE;
 		}
-
-		if($own == 4) {
+		
+		if($_G['adminid'] != 1 && !$is_cidr) {
 			$error = 2;
 			return FALSE;
 		}
 
-		$query = DB::query("SELECT * FROM ".DB::table('common_banned')." WHERE (ip1='$ip1new' OR ip1='-1') AND (ip2='$ip2new' OR ip2='-1') AND (ip3='$ip3new' OR ip3='-1') AND (ip4='$ip4new' OR ip4='-1')");
-		if($banned = C::t('common_banned')->fetch_by_ip($ip1new, $ip2new, $ip3new, $ip4new)) {
+		if($_G['clientip'] == $ipnew) {
+			$error = 3;
+			return FALSE;
+		}
+
+		if($banned = C::t('common_banned')->fetch_by_ip($ipnew)) {
 			$error = 3;
 			return FALSE;
 		}
 
 		$expiration = $validitynew > 1 ? (TIMESTAMP + $validitynew * 86400) : TIMESTAMP + 86400;
 
-		C::app()->session->update_by_ipban($ip1new, $ip2new, $ip3new, $ip4new);
+		C::app()->session->update_by_ipban($ipnew);
 		$data = array(
-			'ip1' => $ip1new,
-			'ip2' => $ip2new,
-			'ip3' => $ip3new,
-			'ip4' => $ip4new,
+			'ip' => $ipnew,
 			'admin' => $_G['username'],
 			'dateline' => $_G['timestamp'],
 			'expiration' => $expiration
