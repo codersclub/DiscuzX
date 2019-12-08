@@ -270,7 +270,6 @@ function ipbanadd($ipnew, $validitynew, &$error) {
 
 		$expiration = $validitynew > 1 ? (TIMESTAMP + $validitynew * 86400) : TIMESTAMP + 86400;
 
-		C::app()->session->update_by_ipban($ipnew);
 		$data = array(
 			'ip' => $ipnew,
 			'admin' => $_G['username'],
