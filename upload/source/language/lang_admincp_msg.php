@@ -332,7 +332,7 @@ $lang = array (
   'members_edit_illegal_portal' => '您不能直接禁止该用户，请<a href="{ADMINSCRIPT}?action=portalpermission&uid={uid}" target="_blank">查询其门户相关权限</a>并清除',
   'members_edit_reason_invalid' => '您没有输入执行此变更的理由',
   'members_access_succeed' => '指定用户站点权限更新成功 ',
-  'members_ipban_nopermission' => '只有管理员可以使用“*”通配符',
+  'members_ipban_nopermission' => '只有管理员可以使用CIDR格式禁止某段地址',
   'members_ipban_illegal' => '操作错误！请不要禁止您自己的 IP',
   'members_ipban_invalid' => '新的禁止 IP 已经存在于列表中',
   'members_ipban_formaterror' => '操作错误！您输入的IP地址或CIDR不合法',
