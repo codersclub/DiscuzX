@@ -1,5 +1,10 @@
 <?php
 
+require 'logging.php';
+
+$FAILED = 0;
+$SUCCEEDED = 0;
+
 function starts_with($haystack, $needle)
 {
      $length = strlen($needle);
@@ -21,6 +26,61 @@ function join_paths()
     return implode('/', array_map(function ($s) {
         return rtrim($s, '/');
     }, func_get_args()));
+}
+
+function all_classes_in($file) {
+    $content = file_get_contents($file);
+    $tokens = token_get_all($content);
+    $namespace = '';
+    $fqcns = array();
+    for ($index = 0; isset($tokens[$index]); $index++) {
+        if (!isset($tokens[$index][0])) {
+            continue;
+        }
+        if (T_NAMESPACE === $tokens[$index][0]) {
+            $index += 2; // Skip namespace keyword and whitespace
+            while (isset($tokens[$index]) && is_array($tokens[$index])) {
+                $namespace .= $tokens[$index++][1];
+            }
+        }
+        if (T_CLASS === $tokens[$index][0] && T_WHITESPACE === $tokens[$index + 1][0] && T_STRING === $tokens[$index + 2][0]) {
+            $index += 2; // Skip class keyword and whitespace
+            $fqcns[] = $namespace.'\\'.$tokens[$index][1];
+        }
+    }    
+    return $fqcns;
+}
+
+function all_test_methods_in($class) {
+    $methods = array();
+    foreach (get_class_methods($class) as $method) {
+        if (starts_with($method, "test")) {
+            $methods[] = $method;
+        }
+    } 
+    return $methods;
+}
+
+function try_call_function($instance, $method) {
+    global $FAILED, $SUCCEEDED;
+    try {
+        if (in_array($method, get_class_methods($instance))) {
+            logging\log(LOG_LEVEL_INFO, "    running %s->%s", get_class($instance), $method);
+            call_user_func(array($instance, $method));
+            $SUCCEEDED ++;
+            echo "\r";
+            logging\info(str_pad(sprintf("    %s->%s", get_class($instance), $method), 50, ".") . "PASSED");
+            return TRUE;
+        } else {
+            logging\debug("skipping %s->%s", get_class($instance), $method);
+            return FALSE;
+        }
+    } catch (Exception $e) {
+        echo "\r";
+        logging\info(str_pad(sprintf("    %s->%s", get_class($instance), $method), 50, ".") . "FAILED");
+        $FAILED ++;
+        return FALSE;
+    }
 }
 
 function process_all_files_with_condition($path, $condition, $process_func)
@@ -55,7 +115,35 @@ function alltests_condition($fi)
 
 function call_test_method($file)
 {
-    echo $file . "\n";
+    logging\info("start running tests in %s", $file);
+    @require_once($file);
+    $classes = all_classes_in($file);
+    if (empty($classes)) {
+        logging\info("cannot find classes in %s", $file);
+        return;
+    }
+    foreach ($classes as $class) {
+        $methods = all_test_methods_in($class);
+        if (empty($classes)) {
+            logging\info("no test methods in %s", $class);
+            continue;
+        }
+        $instance = new $class();
+        try_call_function($instance, 'setUp');
+        foreach ($methods as $method) {
+            try_call_function($instance, $method);
+        }
+        try_call_function($instance, 'tearDown');
+    }
+}
+
+function assertTrue($cond) {
+    if (!$cond) throw new Exception();
+}
+
+function assertFalse($cond) {
+    if ($cond) throw new Exception();
 }
 
 process_all_files_with_condition(__DIR__, 'alltests_condition', 'call_test_method');
+logging\info("totally %d failed, %d succeeded.", $FAILED, $SUCCEEDED);
