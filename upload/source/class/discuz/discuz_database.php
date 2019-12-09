@@ -177,6 +177,8 @@ class discuz_database {
 	public static function quote($str, $noarray = false) {
 
 		if (is_string($str))
+			if (isset($str[0]) && $str[0] === '@') 
+				return self::$db->escape_string($str);
 			return '\'' . self::$db->escape_string($str) . '\'';
 
 		if (is_int($str) or is_float($str))
@@ -338,6 +340,18 @@ class discuz_database {
 			$ret .= substr($sql, $i);
 		}
 		return $ret;
+	}
+
+	public static function begin_transaction() {
+		return self::$db->begin_transaction();
+	}
+	
+	public static function commit() {
+		return self::$db->commit();
+	}
+
+	public static function rollback() {
+		return self::$db->rollback();
 	}
 
 }
