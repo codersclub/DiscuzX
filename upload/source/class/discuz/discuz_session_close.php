@@ -120,10 +120,6 @@ class discuz_session_close {
 		return $this->table->count_by_lastactivity_invisible($this->oltimestamp, $type);
 	}
 
-	public function update_by_ipban($ip) {
-		return false;
-	}
-
 	public function update_max_rows($max_rows) {
 		return false;
 	}

@@ -89,10 +89,6 @@ class table_common_session extends discuz_table
 		return $data;
 	}
 
-	public function update_by_ipban($ip) {
-		return DB::query('UPDATE '.DB::table('common_session')." SET groupid='6' WHERE ".DB::field('ip', $ip));
-	}
-
 	public function update_max_rows($max_rows) {
 		return DB::query('ALTER TABLE '.DB::table('common_session').' MAX_ROWS='.dintval($max_rows));
 	}
@@ -127,7 +123,7 @@ class table_common_session extends discuz_table
 	public function fetch_all_by_ip($ip, $start = 0, $limit = 0) {
 		$data = array();
 		if(!empty($ip)) {
-			$data = DB::fetch_all('SELECT * FROM %t WHERE ip=%d ORDER BY lastactivity DESC'.DB::limit($start, $limit), array($this->_table, $ip), null);
+			$data = DB::fetch_all('SELECT * FROM %t WHERE ip=%s ORDER BY lastactivity DESC'.DB::limit($start, $limit), array($this->_table, $ip), null);
 		}
 		return $data;
 	}

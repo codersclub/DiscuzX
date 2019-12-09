@@ -108,10 +108,6 @@ class discuz_session {
 		return $this->table->count_invisible($type);
 	}
 
-	public function update_by_ipban($ip) {
-		return $this->table->update_by_ipban($ip);
-	}
-
 	public function update_max_rows($max_rows) {
 		return $this->table->update_max_rows($max_rows);
 	}
