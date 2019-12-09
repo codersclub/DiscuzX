@@ -34,7 +34,9 @@ class ip {
 	public static function to_ip($ip) {
 		if (strlen($ip) == 0) return $ip;
 		if (preg_match('/(.*?)\[((.*?:)+.*)\](.*)/', $ip, $m)) { // [xx:xx:xx]格式
-			$ip = $m[1].$m[2].$m[4];
+			if (filter_var($m[2], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+				$ip = $m[1].$m[2].$m[4];
+			}
 		}
 		return $ip;
 	}
@@ -69,6 +71,39 @@ class ip {
 			return TRUE;
 		}
 		return FALSE;
+	}
+
+	/*
+	 * 检查$requestIp是否在$ip给出的cidr范围内
+	 */
+	public static function check_ip6($requestIp, $ip)
+	{
+		if (false !== strpos($ip, '/')) {
+			list($address, $netmask) = explode('/', $ip, 2);
+			if ('0' === $netmask) {
+				return (bool) unpack('n*', @inet_pton($address));
+			}
+			if ($netmask < 1 || $netmask > 128) {
+				return false;
+			}
+		} else {
+			$address = $ip;
+			$netmask = 128;
+		}
+		$bytesAddr = unpack('n*', @inet_pton($address));
+		$bytesTest = unpack('n*', @inet_pton($requestIp));
+		if (!$bytesAddr || !$bytesTest) {
+			return false;
+		}
+		for ($i = 1, $ceil = ceil($netmask / 16); $i <= $ceil; ++$i) {
+			$left = $netmask - 16 * ($i - 1);
+			$left = ($left <= 16) ? $left : 16;
+			$mask = ~(0xffff >> $left) & 0xffff;
+			if (($bytesAddr[$i] & $mask) != ($bytesTest[$i] & $mask)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public static function convert($ip) {

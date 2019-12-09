@@ -145,5 +145,13 @@ function assertFalse($cond) {
     if ($cond) throw new Exception();
 }
 
+function assertEqual($a, $b) {
+    if ($a !== $b) throw new Exception();
+}
+
+function assertNotEqual($a, $b) {
+    if ($a === $b) throw new Exception();
+}
+
 process_all_files_with_condition(__DIR__, 'alltests_condition', 'call_test_method');
 logging\info("totally %d failed, %d succeeded.", $FAILED, $SUCCEEDED);
