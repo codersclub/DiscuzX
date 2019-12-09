@@ -2176,19 +2176,17 @@ EOF;
 				if (!ip::validate_ip($newip) && !$is_cidr) {
 					cpmsg('members_ipban_formaterror', '', 'error');
 				}
-				
-				if($_G['adminid'] != 1 && !$is_cidr) {
+
+				if($_G['adminid'] != 1 && $is_cidr) {
 					cpmsg('members_ipban_nopermission', '', 'error');
 				}
 
-				if($_G['clientip'] == $newip) {
+				if(ip::check_ip($_G['clientip'], $newip)) {
 					cpmsg('members_ipban_illegal', '', 'error');
 				}
 
-				foreach(C::t('common_banned')->fetch_all_order_dateline() as $banned) {
-					if ($banned['ip'] == $newip) {
-						cpmsg('members_ipban_invalid', '', 'error');
-					}
+				if($banned = C::t('common_banned')->fetch_by_ip($newip)) {
+					cpmsg('members_ipban_invalid', '', 'error');
 				}
 
 				$expiration = TIMESTAMP + $_GET['validitynew'] * 86400;

@@ -247,18 +247,18 @@ function ipbanadd($ipnew, $validitynew, &$error) {
 
 	if($ipnew != '') {
 		$ipnew = ip::to_ip($ipnew);
-		$is_cidr = ip::validate_cidr($newip, $newip);
+		$is_cidr = ip::validate_cidr($ipnew, $ipnew);
 		if (!ip::validate_ip($ipnew) && !$is_cidr) {
 			$error = 1;
 			return FALSE;
 		}
-		
-		if($_G['adminid'] != 1 && !$is_cidr) {
+
+		if($_G['adminid'] != 1 && $is_cidr) {
 			$error = 2;
 			return FALSE;
 		}
 
-		if($_G['clientip'] == $ipnew) {
+		if(ip::check_ip($_G['clientip'], $ipnew)) {
 			$error = 3;
 			return FALSE;
 		}
