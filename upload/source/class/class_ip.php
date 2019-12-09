@@ -74,8 +74,26 @@ class ip {
 	}
 
 	/*
-	 * 检查$requestIp是否在$ip给出的cidr范围内
+	 * 以下三个函数，检查$requestIp是否在$ip给出的cidr范围内
 	 */
+
+	public static function check_ip($requestIp, $ips)
+	{
+		if (!self::validate_ip($requestIp)) {
+			return false;
+		}
+		if (!\is_array($ips)) {
+			$ips = [$ips];
+		}
+		$method = substr_count($requestIp, ':') > 1 ? 'check_ip6' : 'check_ip4';
+		foreach ($ips as $ip) {
+			if (self::$method($requestIp, $ip)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static function check_ip6($requestIp, $ip)
 	{
 		if (false !== strpos($ip, '/')) {
@@ -104,6 +122,26 @@ class ip {
 			}
 		}
 		return true;
+	}
+
+	public static function check_ip4($requestIp, $ip)
+	{
+		if (false !== strpos($ip, '/')) {
+			list($address, $netmask) = explode('/', $ip, 2);
+			if ('0' === $netmask) {
+				return false;
+			}
+			if ($netmask < 0 || $netmask > 32) {
+				return false;
+			}
+		} else {
+			$address = $ip;
+			$netmask = 32;
+		}
+		if (false === ip2long($address)) {
+			return false;
+		}
+		return 0 === substr_compare(sprintf('%032b', ip2long($requestIp)), sprintf('%032b', ip2long($address)), 0, $netmask);
 	}
 
 	public static function convert($ip) {
@@ -145,7 +183,7 @@ class ip {
 			return true;
 		}
 		foreach(C::t('common_banned')->fetch_all_order_dateline() as $banned) {
-			if (cidr::match($ip, $banned['ip'])) {
+			if (self::check_ip($ip, $banned['ip'])) {
 				return true;
 			}
 		}

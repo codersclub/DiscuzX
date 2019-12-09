@@ -7,12 +7,16 @@ function is_valid($ip)
 
 class TestFilterVar
 {
-    function testFilterIPV6()
+    function testTrue()
     {
         assertTrue(is_valid("64:ff9b::10.10.10.10"));
         assertTrue(is_valid("::1"));
         assertTrue(is_valid("fe80::8902:43d1:fa45:d468"));
         assertTrue(is_valid("FE80::1"));
+    }
+
+    function testFalse()
+    {
         assertFalse(is_valid("[::1]"));
         assertFalse(is_valid("[::1]:8080"));
     }
