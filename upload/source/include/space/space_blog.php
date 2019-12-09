@@ -153,6 +153,7 @@ if($id) {
 	}
 	$blog['tag'] = $blogtag_array;
 	$blogmeta_tag = implode(',', $blogmetatag_array);
+	$blog['postip'] = ip::to_display($blog['postip']);
 
 	$summary = cutstr(strip_tags($blog['message']), 140);
 	$seodata = array('subject' => $blog['subject'], 'user' => $blog['username'], 'summary' => $summary, 'tags' => $blogmeta_tag);

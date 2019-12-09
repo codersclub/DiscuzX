@@ -145,6 +145,9 @@ if($_GET['op'] == 'base') {
 				'amount' => $amount,
 				'price' => $price,
 				'submitdate' => $_G['timestamp'],
+				'email' => $_G['member']['email'],
+				'ip' => $_G['clientip'],
+				'port' => $_G['remoteport'],
 			));
 
 			include template('common/header_ajax');

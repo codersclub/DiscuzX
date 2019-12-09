@@ -150,6 +150,7 @@ if(helper_access::check_module('doing')) {
 			'dateline' => $_G['timestamp'],
 			'message' => $message,
 			'ip' => $_G['clientip'],
+			'port' => $_G['remoteport'],
 			'grade' => $updo['grade']+1
 		);
 
@@ -211,6 +212,9 @@ if($_GET['op'] == 'delete') {
 
 	if(empty($_GET['close'])) {
 		foreach(C::t('home_docomment')->fetch_all_by_doid($doid) as $value) {
+			if(!empty($value['ip'])) {
+				$value['ip'] = ip::to_display($value['ip']);
+			}
 			$tree->setNode($value['id'], $value['upid'], $value);
 			$count++;
 			if($value['authorid'] == $space['uid']) $highlight = $value['id'];

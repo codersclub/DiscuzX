@@ -53,9 +53,10 @@ if($space['lastsendmail']) $space['lastsendmail'] = dgmdate($space['lastsendmail
 
 
 if($_G['uid'] == $space['uid'] || $_G['group']['allowviewip']) {
-	require_once libfile('function/misc');
-	$space['regip_loc'] = convertip($space['regip']);
-	$space['lastip_loc'] = convertip($space['lastip']);
+	$space['regip_loc'] = ip::convert($space['regip']);
+	$space['lastip_loc'] = ip::convert($space['lastip']);
+	$space['regip'] = ip::to_display($space['regip']);
+	$space['lastip'] = ip::to_display($space['lastip']);
 }
 
 $space['buyerrank'] = 0;

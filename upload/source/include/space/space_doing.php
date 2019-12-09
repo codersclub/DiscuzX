@@ -81,6 +81,9 @@ if(empty($count)) {
 if($count) {
 	$query = C::t('home_doing')->fetch_all_search($start, $perpage, 1, $uids, '', $searchkey, '', '' ,'', 1, $doid, $f_index);
 	foreach($query as $value) {
+		if(!empty($value['ip'])) {
+			$value['ip'] = ip::to_display($value['ip']);
+		}
 		if($value['status'] == 0 || $value['uid'] == $_G['uid'] || $_G['adminid'] == 1) {
 			$doids[] = $value['doid'];
 			$dolist[] = $value;
@@ -111,6 +114,9 @@ if($doids) {
 		$newdoids[$value['doid']] = $value['doid'];
 		if(empty($value['upid'])) {
 			$value['upid'] = "do$value[doid]";
+		}
+		if(!empty($value['ip'])) {
+			$value['ip'] = ip::to_display($value['ip']);
 		}
 		$tree->setNode($value['id'], $value['upid'], $value);
 	}

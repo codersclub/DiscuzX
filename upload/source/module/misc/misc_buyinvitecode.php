@@ -44,6 +44,7 @@ if(submitcheck('buysubmit')) {
 			'submitdate' => $_G['timestamp'],
 			'email' => $email,
 			'ip' => $_G['clientip'],
+			'port' => $_G['remoteport'],
 		));
 		include template('common/header_ajax');
 		echo '<form id="payform" action="'.$requesturl.'" method="post"></form><script type="text/javascript" reload="1">$(\'payform\').submit();</script>';

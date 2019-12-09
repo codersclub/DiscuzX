@@ -25,7 +25,7 @@ if(!$_G['uid'] || !($fromuid == $_G['uid'] || $fromuser == $_G['username'])) {
 
 	if($_G['setting']['creditspolicy']['promotion_visit']) {
 		if(!C::t('forum_promotion')->fetch($_G['clientip'])) {
-			C::t('forum_promotion')->insert(array('ip' => $_G['clientip'], 'uid' => $fromuid, 'username' => $fromuser), false, true);
+			C::t('forum_promotion')->insert(array('ip' => $_G['clientip'], 'port' => $_G['remoteport'], 'uid' => $fromuid, 'username' => $fromuser), false, true);
 			updatecreditbyaction('promotion_visit', $fromuid);
 		}
 	}

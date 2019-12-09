@@ -106,7 +106,7 @@
 						<!--{if $dv[uid]==$_G[uid]}--><a href="home.php?mod=spacecp&ac=doing&op=delete&doid=$doid&id=$dv[id]&handlekey=doinghk_{$doid}_$dv[id]" id="{$key}_doing_delete_{$doid}_{$dv[id]}" onclick="showWindow(this.id, this.href, 'get', 0);">{lang delete}</a><!--{/if}-->
 						
 						<!--{if checkperm('managedoing')}-->
-						<span class="pipe">IP: $dv[ip]</span>
+						<span class="pipe">IP: $dv[ip]:$dv[port]</span>
 						<!--{/if}-->
 					</dd>
 				</dl>

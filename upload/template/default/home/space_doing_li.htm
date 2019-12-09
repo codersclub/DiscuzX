@@ -11,7 +11,7 @@
 			 <a href="home.php?mod=spacecp&ac=doing&op=delete&doid=$value[doid]&id=$value[id]&handlekey=doinghk_{$value[doid]}_$value[id]" id="{$_GET[key]}_doing_delete_{$value[doid]}_{$value[id]}" onclick="showWindow(this.id, this.href, 'get', 0);">{lang delete}</a>
 		<!--{/if}-->
 		<!--{if checkperm('managedoing')}-->
-		<span class="xg1 xw0">IP: $value[ip]</span>
+		<span class="xg1 xw0">IP: $value[ip]:$value[port]</span>
 		<!--{/if}-->
 		<div id="{$_GET[key]}_form_{$value[doid]}_{$value[id]}"></div>
 	</li>

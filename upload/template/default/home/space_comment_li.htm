@@ -46,7 +46,9 @@
 			<a href="home.php?mod=spacecp&ac=comment&op=reply&cid=$value[cid]&feedid=$feedid&handlekey=replycommenthk_{$value[cid]}" id="c_$value[cid]_reply" onclick="showWindow(this.id, this.href, 'get', 0);">{lang reply}</a>
 		<!--{/if}-->
         <!--{if checkperm('managecomment')}-->
-			<span class="xg1 xw0">IP: $value[ip]</span>
+			<!--{eval $value[ip] = ip::to_display($value[ip]);}-->
+			<!-- Todo: 暂时找不到值的来源，临时处理。 -->
+			<span class="xg1 xw0">IP: $value[ip]:$value[port]</span>
 		<!--{/if}-->
 			<!--a href="home.php?mod=spacecp&ac=common&op=report&idtype=comment&id=$value[cid]&handlekey=reportcommenthk_{$value[cid]}" id="a_report_$value[cid]" onclick="showWindow(this.id, this.href, 'get', 0);">{lang report}</a-->
 		</span>

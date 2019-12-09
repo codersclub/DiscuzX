@@ -269,7 +269,7 @@ class table_common_member extends discuz_table_archive
 		return false;
 	}
 
-	public function insert($uid, $username, $password, $email, $ip, $groupid, $extdata, $adminid = 0) {
+	public function insert($uid, $username, $password, $email, $ip, $groupid, $extdata, $adminid = 0, $port = 0) {
 		if(($uid = dintval($uid))) {
 			$credits = isset($extdata['credits']) ? $extdata['credits'] : array();
 			$profile = isset($extdata['profile']) ? $extdata['profile'] : array();
@@ -290,6 +290,8 @@ class table_common_member extends discuz_table_archive
 				'uid' => $uid,
 				'regip' => (string)$ip,
 				'lastip' => (string)$ip,
+				'port' => (string)$port,
+				'regport' => (string)$port,
 				'lastvisit' => TIMESTAMP,
 				'lastactivity' => TIMESTAMP,
 				'lastpost' => 0,

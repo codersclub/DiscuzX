@@ -954,6 +954,7 @@ CREATE TABLE pre_common_member_status (
   uid mediumint(8) unsigned NOT NULL,
   regip varchar(45) NOT NULL DEFAULT '',
   lastip varchar(45) NOT NULL DEFAULT '',
+  `regport` smallint(6) unsigned NOT NULL DEFAULT '0',
   `port` smallint(6) unsigned NOT NULL DEFAULT '0',
   lastvisit int(10) unsigned NOT NULL DEFAULT '0',
   lastactivity int(10) unsigned NOT NULL DEFAULT '0',
@@ -2555,6 +2556,7 @@ CREATE TABLE pre_forum_order (
   confirmdate int(10) unsigned NOT NULL DEFAULT '0',
   email char(40) NOT NULL DEFAULT '',
   ip varchar(45) NOT NULL DEFAULT '',
+  `port` smallint(6) unsigned NOT NULL DEFAULT '0',
   UNIQUE KEY orderid (orderid),
   KEY submitdate (submitdate),
   KEY uid (uid,submitdate)
@@ -2742,6 +2744,7 @@ CREATE TABLE pre_forum_poststick (
 DROP TABLE IF EXISTS pre_forum_promotion;
 CREATE TABLE pre_forum_promotion (
   ip varchar(45) NOT NULL DEFAULT '',
+  `port` smallint(6) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   username char(15) NOT NULL DEFAULT '',
   PRIMARY KEY (ip)
@@ -3420,6 +3423,7 @@ CREATE TABLE pre_home_docomment (
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   message text NOT NULL,
   ip varchar(45) NOT NULL DEFAULT '',
+  `port` smallint(6) unsigned NOT NULL DEFAULT '0',
   grade smallint(6) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (id),
   KEY doid (doid,dateline),

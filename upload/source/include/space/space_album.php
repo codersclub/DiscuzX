@@ -192,6 +192,7 @@ if($id) {
 
 	$pic['pic'] = pic_get($pic['filepath'], 'album', $pic['thumb'], $pic['remote'], 0);
 	$pic['size'] = formatsize($pic['size']);
+	$pic['postip'] = ip::to_display($pic['postip']);
 
 	$exifs = array();
 	$allowexif = function_exists('exif_read_data');
