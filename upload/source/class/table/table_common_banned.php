@@ -22,7 +22,7 @@ class table_common_banned extends discuz_table
 	}
 
 	public function fetch_by_ip($ip) {
-		return DB::fetch_first('SELECT * FROM %t WHERE ip=%d', array($this->_table, $ip));
+		return DB::fetch_first('SELECT * FROM %t WHERE ip=%s', array($this->_table, $ip));
 	}
 
 	public function fetch_all_order_dateline() {

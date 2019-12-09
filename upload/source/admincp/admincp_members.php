@@ -2171,9 +2171,9 @@ EOF;
 			}
 
 			if($_GET['ipnew'] != '') {
-				$newip = ip::to_ip($_GET['ipnew']);
-				$is_cidr = ip::validate_cidr($newip, $newip);
-				if (!ip::validate_ip($newip) && !$is_cidr) {
+				$ipnew = ip::to_ip($_GET['ipnew']);
+				$is_cidr = ip::validate_cidr($ipnew, $ipnew);
+				if (!ip::validate_ip($ipnew) && !$is_cidr) {
 					cpmsg('members_ipban_formaterror', '', 'error');
 				}
 
@@ -2181,18 +2181,18 @@ EOF;
 					cpmsg('members_ipban_nopermission', '', 'error');
 				}
 
-				if(ip::check_ip($_G['clientip'], $newip)) {
+				if(ip::check_ip($_G['clientip'], $ipnew)) {
 					cpmsg('members_ipban_illegal', '', 'error');
 				}
 
-				if($banned = C::t('common_banned')->fetch_by_ip($newip)) {
+				if($banned = C::t('common_banned')->fetch_by_ip($ipnew)) {
 					cpmsg('members_ipban_invalid', '', 'error');
 				}
 
 				$expiration = TIMESTAMP + $_GET['validitynew'] * 86400;
 
 				$data = array(
-					'ip' => $newip,
+					'ip' => $ipnew,
 					'admin' => $_G['username'],
 					'dateline' => $_G['timestamp'],
 					'expiration' => $expiration,
