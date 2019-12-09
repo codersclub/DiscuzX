@@ -19,7 +19,7 @@ function debugmessage($ajax = 0) {
 	}
 	global $_G;
 	$debugfile = $_G['adminid'] == 1 ? '_debugadmin.php' : '_debug.php';
-	$akey = md5(time().$_G['uid']);
+	$akey = md5($_G['authkey'].random(8));
 	if(!defined('DISCUZ_DEBUG') || !DISCUZ_DEBUG || defined('IN_ARCHIVER') || defined('IN_MOBILE')) {
 		return;
 	}
