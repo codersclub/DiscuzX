@@ -31,7 +31,7 @@ class miscmodel {
 		if(!$m['host']) {
 			return -1;
 		}
-		if(!preg_match("/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/", $m['host'])) {
+		if(!(filter_var($m['host'], FILTER_VALIDATE_IP) !== false)) {
 			$ip = @gethostbyname($m['host']);
 			if(!$ip || $ip == $m['host']) {
 				return -2;
@@ -46,8 +46,8 @@ class miscmodel {
 		return preg_match("/(https?){1}:\/\/|www\.([^\[\"']+?)?/i", $url);
 	}
 
-	function check_ip($url) {
-		return preg_match("/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/", $url);
+	function check_ip($ip) {
+		return filter_var($ip, FILTER_VALIDATE_IP) !== false;
 	}
 
 	function dfopen2($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE, $ip = '', $timeout = 15, $block = TRUE, $encodetype  = 'URLENCODE') {
