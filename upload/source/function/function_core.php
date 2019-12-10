@@ -1514,22 +1514,20 @@ function dreferer($default = '') {
 	}
 
 	$reurl = parse_url($_G['referer']);
+	$hostwithport = $reurl['host'] . (isset($reurl['port']) ? ':' . $reurl['port'] : '');
 
 	if(!$reurl || (isset($reurl['scheme']) && !in_array(strtolower($reurl['scheme']), array('http', 'https')))) {
 		$_G['referer'] = '';
 	}
 
-	// HTTP_HOST变量中有可能有端口号
-	list($http_host,)=explode(':', $_SERVER['HTTP_HOST']);
-
-	if(!empty($reurl['host']) && !in_array($reurl['host'], array($http_host, 'www.'.$http_host)) && !in_array($http_host, array($reurl['host'], 'www.'.$reurl['host']))) {
-		if(!in_array($reurl['host'], $_G['setting']['domain']['app']) && !isset($_G['setting']['domain']['list'][$reurl['host']])) {
-			$domainroot = substr($reurl['host'], strpos($reurl['host'], '.')+1);
+	if(!empty($hostwithport) && !in_array($hostwithport, array($_SERVER['HTTP_HOST'], 'www.'.$_SERVER['HTTP_HOST'])) && !in_array($_SERVER['HTTP_HOST'], array($hostwithport, 'www.'.$hostwithport))) {
+		if(!in_array($hostwithport, $_G['setting']['domain']['app']) && !isset($_G['setting']['domain']['list'][$hostwithport])) {
+			$domainroot = substr($hostwithport, strpos($hostwithport, '.')+1);
 			if(empty($_G['setting']['domain']['root']) || (is_array($_G['setting']['domain']['root']) && !in_array($domainroot, $_G['setting']['domain']['root']))) {
 				$_G['referer'] = $_G['setting']['domain']['defaultindex'] ? $_G['setting']['domain']['defaultindex'] : 'index.php';
 			}
 		}
-	} elseif(empty($reurl['host'])) {
+	} elseif(empty($hostwithport)) {
 		$_G['referer'] = $_G['siteurl'].'./'.$_G['referer'];
 	}
 
