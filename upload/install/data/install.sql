@@ -2646,7 +2646,7 @@ CREATE TABLE pre_forum_post (
   tags varchar(255) NOT NULL DEFAULT '0',
   `comment` tinyint(1) NOT NULL DEFAULT '0',
   replycredit int(10) NOT NULL DEFAULT '0',
-  position int(8) unsigned NOT NULL,
+  position int(8) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (tid,position),
   UNIQUE KEY pid (pid),
   KEY fid (fid),
@@ -2654,7 +2654,8 @@ CREATE TABLE pre_forum_post (
   KEY dateline (dateline),
   KEY invisible (invisible),
   KEY displayorder (tid,invisible,dateline),
-  KEY `first` (tid,`first`)
+  KEY `first` (tid,`first`),
+  KEY position (position)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_forum_post_location;

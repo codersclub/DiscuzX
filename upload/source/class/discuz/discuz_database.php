@@ -176,11 +176,8 @@ class discuz_database {
 
 	public static function quote($str, $noarray = false) {
 
-		if (is_string($str)) {
-			if (isset($str[0]) && $str[0] === '@') 
-				return self::$db->escape_string($str);
+		if (is_string($str)) 
 			return '\'' . self::$db->escape_string($str) . '\'';
-		}
 
 		if (is_int($str) or is_float($str))
 			return '\'' . $str . '\'';
@@ -443,6 +440,10 @@ class discuz_database_safecheck {
 				}
 				$clean .= $mark ? '' : $str;
 			}
+		}
+
+		if(strpos($clean, '@') !== false) {
+			return '-3';
 		}
 
 		$clean = preg_replace("/[^a-z0-9_\-\(\)#\*\/\"]+/is", "", strtolower($clean));
