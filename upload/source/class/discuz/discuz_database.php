@@ -445,10 +445,6 @@ class discuz_database_safecheck {
 			}
 		}
 
-		if(strpos($clean, '@') !== false) {
-			return '-3';
-		}
-
 		$clean = preg_replace("/[^a-z0-9_\-\(\)#\*\/\"]+/is", "", strtolower($clean));
 
 		if (self::$config['afullnote']) {

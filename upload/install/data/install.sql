@@ -2654,7 +2654,7 @@ CREATE TABLE pre_forum_post (
   KEY dateline (dateline),
   KEY invisible (invisible),
   KEY displayorder (tid,invisible,dateline),
-  KEY `first` (tid,`first`),
+  KEY `first` (tid,`first`)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_forum_post_location;

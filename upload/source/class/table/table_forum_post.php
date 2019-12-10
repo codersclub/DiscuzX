@@ -603,7 +603,19 @@ class table_forum_post extends discuz_table
 	}
 
 	public function insert($tableid, $data, $return_insert_id = false, $replace = false, $silent = false) {
-		return DB::insert(self::get_tablename($tableid), $data, $return_insert_id, $replace, $silent);
+		try {
+			$tablename = self::get_tablename($tableid);
+			DB::begin_transaction();
+			DB::query("select @next_position := IFNULL(max(position), 0) + 1 FROM " . DB::table($tablename) . " WHERE tid = " . $data['tid'] . " FOR UPDATE");
+			$data['position'] = "@next_position";
+			$ret = DB::insert($tablename, $data, $return_insert_id, $replace, $silent);
+			DB::commit();
+			return $ret;
+		} catch (Exception $e) {
+			DB::rollback();
+			return FALSE;
+		}
+
 	}
 
 	public function delete($tableid, $pid, $unbuffered = false) {
