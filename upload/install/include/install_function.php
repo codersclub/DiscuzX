@@ -566,6 +566,9 @@ function show_header() {
 EOT;
 
 	$step > 0 && show_step($step);
+    echo str_repeat('  ', 1024 * 4);
+	flush();
+	ob_flush();
 }
 
 function show_footer($quit = true) {
