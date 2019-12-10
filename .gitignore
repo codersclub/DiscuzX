@@ -1,4 +1,5 @@
 .vscode/
+.idea/
 upload/config/config_global.php
 upload/config/config_ucenter.php
 upload/data/
