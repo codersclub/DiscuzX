@@ -1514,7 +1514,7 @@ function dreferer($default = '') {
 	}
 
 	$reurl = parse_url($_G['referer']);
-	$hostwithport = $reurl['host'].':'.$reurl['port'];//$_SERVER['HTTP_HOST']内可能含端口号
+	$hostwithport = $reurl['host'] . (isset($reurl['port']) ? ':' . $reurl['port'] : '');
 
 	if(!$reurl || (isset($reurl['scheme']) && !in_array(strtolower($reurl['scheme']), array('http', 'https')))) {
 		$_G['referer'] = '';
