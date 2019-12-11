@@ -2191,8 +2191,12 @@ EOF;
 
 				$expiration = TIMESTAMP + $_GET['validitynew'] * 86400;
 
+				list($lower, $upper) = ip::calc_cidr_range($ipnew, true);
+
 				$data = array(
 					'ip' => $ipnew,
+					'lowerip' => $lower,
+					'upperip' => $upper,
 					'admin' => $_G['username'],
 					'dateline' => $_G['timestamp'],
 					'expiration' => $expiration,
@@ -2246,9 +2250,12 @@ EOF;
 				if($checkexists) {
 					continue;
 				}
+				list($lower, $upper) = ip::calc_cidr_range($banipaddr, true);
 
 				$data = array(
 					'ip' => $banipaddr,
+					'lowerip' => $lower,
+					'upperip' => $upper,
 					'admin' => $_G['username'],
 					'dateline' => $_G['timestamp'],
 					'expiration' => $expiration,

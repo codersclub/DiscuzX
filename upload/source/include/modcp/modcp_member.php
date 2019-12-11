@@ -269,9 +269,11 @@ function ipbanadd($ipnew, $validitynew, &$error) {
 		}
 
 		$expiration = $validitynew > 1 ? (TIMESTAMP + $validitynew * 86400) : TIMESTAMP + 86400;
-
+		list($lower, $upper) = ip::calc_cidr_range($ipnew, true);
 		$data = array(
 			'ip' => $ipnew,
+			'lowerip' => $lower,
+			'upperip' => $upper,
 			'admin' => $_G['username'],
 			'dateline' => $_G['timestamp'],
 			'expiration' => $expiration

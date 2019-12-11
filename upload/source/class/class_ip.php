@@ -75,31 +75,70 @@ class ip {
 
 	/*
 	 * 给一个ipv4或v6的cidr，计算最小IP和最大IP
+	 * 如果输入的是一个IP，那最大最小IP都等于其自身
 	 */
-	public static function calc_cidr_range($str) {
+	public static function calc_cidr_range($str, $as_hex = false) {
 		if(self::validate_cidr($str, $str)) {
 			list($ip, $prefix) = explode('/', $str);
-			$ip_bytes = unpack("C*", inet_pton($ip));
-			$total_bytes = count($ip_bytes);
-			$num_diff_bits = 8 * $total_bytes - $prefix;
-			if ($num_diff_bits >= 0) {
-				$num_same_bytes = $prefix >> 3;
-				$same_bytes = array_slice($ip_bytes, 0, $num_same_bytes);
-                                $diff_bytes_start = ($total_bytes === $num_same_bytes) ? array() : array_fill(0, $total_bytes - $num_same_bytes, 0);
-                                $diff_bytes_end = ($total_bytes === $num_same_bytes) ? array() : array_fill(0, $total_bytes - $num_same_bytes, 255);
-                                $start_same_bits = $prefix % 8;
-                                if ($start_same_bits !== 0) {
-                                    $vary_byte = $ip_bytes[$num_same_bytes];
-                                    $diff_bytes_start[0] = $vary_byte & bindec(str_pad(str_repeat('1', $start_same_bits), 8, '0', STR_PAD_RIGHT));
-                                    $diff_bytes_end[0] = $diff_bytes_start[0] + bindec(str_repeat('1', 8 - $start_same_bits));
+		} elseif (filter_var($str, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+			$ip = $str;
+			$prefix = 32;
+		} elseif (filter_var($str, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+			$ip = $str;
+			$prefix = 128;
+		} else {
+			return FALSE;
+		}
+
+		$ip_bytes = unpack("C*", inet_pton($ip));
+		$total_bytes = count($ip_bytes);
+		$num_diff_bits = 8 * $total_bytes - $prefix;
+		if ($num_diff_bits >= 0) {
+			$num_same_bytes = $prefix >> 3;
+			$same_bytes = array_slice($ip_bytes, 0, $num_same_bytes);
+			$diff_bytes_start = ($total_bytes === $num_same_bytes) ? array() : array_fill(0, $total_bytes - $num_same_bytes, 0);
+			$diff_bytes_end = ($total_bytes === $num_same_bytes) ? array() : array_fill(0, $total_bytes - $num_same_bytes, 255);
+			$start_same_bits = $prefix % 8;
+			if ($start_same_bits !== 0) {
+				$vary_byte = $ip_bytes[$num_same_bytes];
+				$diff_bytes_start[0] = $vary_byte & bindec(str_pad(str_repeat('1', $start_same_bits), 8, '0', STR_PAD_RIGHT));
+				$diff_bytes_end[0] = $diff_bytes_start[0] + bindec(str_repeat('1', 8 - $start_same_bits));
+			} 
+			
+			$start_array = array_merge($same_bytes, $diff_bytes_start);
+			$end_array = array_merge($same_bytes, $diff_bytes_end);
+			if ($as_hex) {
+				if ($total_bytes < 16) {
+					$start_array = array_merge(array_fill(0, 16 - $total_bytes, 0), $start_array);
+					$end_array = array_merge(array_fill(0, 16 - $total_bytes, 0), $end_array);
 				}
-				
-				$start = call_user_func_array('pack', array_merge(array("C*"), $same_bytes, $diff_bytes_start));
-				$end = call_user_func_array('pack', array_merge(array("C*"), $same_bytes, $diff_bytes_end));
-				return array($start, $end);
+				$start = join(array_map('chr', $start_array));
+				$end = join(array_map('chr', $end_array));
+				return array($start, $end);	
+			} else {
+				$start = call_user_func_array('pack', array_merge(array("C*"), $start_array));
+				$end = call_user_func_array('pack', array_merge(array("C*"), $end_array));
+				return array($start, $end);	
 			}
-		} 
+		}
+
 		return FALSE;
+	}
+
+	/*
+	 * 将一个IP地址转为16个字符的字符串
+	 */
+	public static function ip_to_hex_str($ip)
+	{
+		if (!self::validate_ip($ip)) {
+			return false;
+		}
+		$ip_bytes = unpack("C*", inet_pton($ip));
+		$total_bytes = count($ip_bytes);
+		if ($total_bytes < 16) {
+			$ip_bytes = array_merge(array_fill(0, 16 - $total_bytes, 0), $ip_bytes);
+		}
+		return join(array_map('chr', $ip_bytes));
 	}
 
 	/*
@@ -211,10 +250,11 @@ class ip {
 		if($_G['setting']['ipaccess'] && self::checkaccess($ip, $_G['setting']['ipaccess'])) {
 			return true;
 		}
-		foreach(C::t('common_banned')->fetch_all_order_dateline() as $banned) {
-			if (self::check_ip($ip, $banned['ip'])) {
-				return true;
-			}
+
+		$ip_hex_str = self::ip_to_hex_str($ip);
+		if ($ip_hex_str) {
+			$ret = DB::result_first("SELECT id from " . DB::table('common_banned') . " WHERE lowerip <='" . $ip_hex_str . "' AND upperip >='" . $ip_hex_str . "'");
+			if ($ret) return true;
 		}
 		return false;
 	}
