@@ -203,6 +203,9 @@ class base {
 	}
 
 	function note_exists() {
+		if(!is_numeric(constant("UC_APPID"))) {
+			return NULL;
+		}
 		$noteexists = $this->db->result_first("SELECT value FROM ".UC_DBTABLEPRE."vars WHERE name='noteexists".UC_APPID."'");
 		if(empty($noteexists)) {
 			return FALSE;
