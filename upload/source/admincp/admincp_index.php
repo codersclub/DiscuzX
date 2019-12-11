@@ -226,6 +226,34 @@ if(isfounder()) {
 	}
 }
 
+showtableheader('&#x8FD0;&#x884C;&#x73AF;&#x5883;&#x68C0;&#x6D4B;', 'fixpadding');
+$env_ok = true;
+$now_ver = array('PHP' => constant('PHP_VERSION'), 'MySQL' => helper_dbtool::dbversion(), 'gethostbyname' => function_exists('gethostbyname'), 'file_get_contents' => function_exists('file_get_contents'), 'xml_parser_create' => function_exists('xml_parser_create'),
+'FileSock Function' => (function_exists('fsockopen') || function_exists('pfsockopen') || function_exists('stream_socket_client') || function_exists('curl_init')), 'GD' => (function_exists('gd_info') ? preg_replace('/[^0-9.]+/', '', gd_info()['GD Version']) : false));
+$req_ver = array('PHP' => '5.3', 'MySQL' => '5.0', 'filter_var' => true, 'gethostbyname' => true, 'file_get_contents' => true, 'xml_parser_create' => true, 'FileSock Function' => true, 'GD' => '1.0');
+$sug_ver = array('PHP' => '7.1', 'MySQL' => '5.7', 'filter_var' => true, 'gethostbyname' => true, 'file_get_contents' => true, 'xml_parser_create' => true, 'FileSock Function' => true, 'GD' => '2.0');
+foreach ($now_ver as $key => $value) {
+	if($req_ver[$key] === true) {
+		if (!$value) {
+			showtablerow('', array('', 'class="td21" style="text-align:right;"'),
+				'<em class="unfixed">'.lang("admincp", "req_not_found", array('req' => $key)).'</em>'
+			);
+			$env_ok = false;
+		}
+	} else if (version_compare($value, $req_ver[$key], '<')) {
+		showtablerow('', array('', 'class="td21" style="text-align:right;"'),
+			'<em class="unfixed">'.lang("admincp", "req_ver_too_low", array('req' => $key, 'now_ver' => $value, 'sug_ver' => $sug_ver[$key], 'req_ver' => $req_ver[$key])).'</em>'
+		);
+		$env_ok = false;
+	}
+}
+if ($env_ok) {
+	showtablerow('', array('', 'class="td21" style="text-align:right;"'),
+		'<em class="fixed">'.lang("admincp", "req_ok", array('version' => constant("DISCUZ_VERSION").' R'.constant("DISCUZ_RELEASE").' '.strtoupper(constant("CHARSET")))).'</em>'
+	);
+}
+showtablefooter();
+
 showtableheader('home_onlines', 'nobottom fixpadding');
 echo '<tr><td>'.$onlines.'</td></tr>';
 showtablefooter();
