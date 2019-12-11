@@ -74,6 +74,35 @@ class ip {
 	}
 
 	/*
+	 * 给一个ipv4或v6的cidr，计算最小IP和最大IP
+	 */
+	public static function calc_cidr_range($str) {
+		if(self::validate_cidr($str, $str)) {
+			list($ip, $prefix) = explode('/', $str);
+			$ip_bytes = unpack("C*", inet_pton($ip));
+			$total_bytes = count($ip_bytes);
+			$num_diff_bits = 8 * $total_bytes - $prefix;
+			if ($num_diff_bits >= 0) {
+				$num_same_bytes = $prefix >> 3;
+				$same_bytes = array_slice($ip_bytes, 0, $num_same_bytes);
+                                $diff_bytes_start = ($total_bytes === $num_same_bytes) ? array() : array_fill(0, $total_bytes - $num_same_bytes, 0);
+                                $diff_bytes_end = ($total_bytes === $num_same_bytes) ? array() : array_fill(0, $total_bytes - $num_same_bytes, 255);
+                                $start_same_bits = $prefix % 8;
+                                if ($start_same_bits !== 0) {
+                                    $vary_byte = $ip_bytes[$num_same_bytes];
+                                    $diff_bytes_start[0] = $vary_byte & bindec(str_pad(str_repeat('1', $start_same_bits), 8, '0', STR_PAD_RIGHT));
+                                    $diff_bytes_end[0] = $diff_bytes_start[0] + bindec(str_repeat('1', 8 - $start_same_bits));
+				}
+				
+				$start = call_user_func_array('pack', array_merge(array("C*"), $same_bytes, $diff_bytes_start));
+				$end = call_user_func_array('pack', array_merge(array("C*"), $same_bytes, $diff_bytes_end));
+				return array($start, $end);
+			}
+		} 
+		return FALSE;
+	}
+
+	/*
 	 * 以下三个函数，检查$requestIp是否在$ip给出的cidr范围内
 	 */
 

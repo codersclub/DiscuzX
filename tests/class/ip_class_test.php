@@ -1,7 +1,7 @@
 <?php
 
 define('IN_DISCUZ', true);
-require '../upload/source/class/class_ip.php';
+require_once '../upload/source/class/class_ip.php';
 
 class TestIp
 {

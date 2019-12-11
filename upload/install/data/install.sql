@@ -159,6 +159,8 @@ DROP TABLE IF EXISTS pre_common_banned;
 CREATE TABLE pre_common_banned (
   id smallint(6) unsigned NOT NULL AUTO_INCREMENT,
   ip varchar(49) NOT NULL DEFAULT '',
+  lowerip varbinary(16) NOT NULL DEFAULT 0x0,
+  upperip varbinary(16) NOT NULL DEFAULT 0x0,
   `admin` varchar(15) NOT NULL DEFAULT '',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   expiration int(10) unsigned NOT NULL DEFAULT '0',
