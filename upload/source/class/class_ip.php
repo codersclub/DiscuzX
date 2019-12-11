@@ -253,7 +253,11 @@ class ip {
 
 		$ip_hex_str = self::ip_to_hex_str($ip);
 		if ($ip_hex_str) {
-			$ret = DB::result_first("SELECT id from " . DB::table('common_banned') . " WHERE lowerip <='" . $ip_hex_str . "' AND upperip >='" . $ip_hex_str . "'");
+			$ret = DB::result_first(
+				"SELECT id from " . DB::table('common_banned') . " WHERE " . 
+					"expiration > " . TIMESTAMP . " AND " .
+					"lowerip <='" . $ip_hex_str . "' AND " .
+					"upperip >='" . $ip_hex_str . "'");
 			if ($ret) return true;
 		}
 		return false;
