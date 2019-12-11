@@ -2632,6 +2632,10 @@ EOT;
 		$ucdbpassnew = $settingnew['uc']['dbpass'] == '********' ? addslashes(UC_DBPW) : addslashes($settingnew['uc']['dbpass']);
 		$settingnew['uc']['key'] = addslashes($settingnew['uc']['key'] == '********' ? addslashes(UC_KEY) : $settingnew['uc']['key']);
 
+		if(!is_numeric($settingnew['uc']['appid'])) {
+			cpmsg('uc_config_appid_error', '', 'error');
+		}
+
 		if(function_exists("mysql_connect") && ini_get("mysql.allow_local_infile")=="1" && constant("UC_DBHOST") != $settingnew['uc']['dbhost']){
 			cpmsg('uc_config_load_data_local_infile_error', '', 'error');
 		}

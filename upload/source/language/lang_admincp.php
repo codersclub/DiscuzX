@@ -15,6 +15,9 @@ if(!defined('IN_DISCUZ')) {
 $lang = array
 (
 
+	'req_ver_too_low' => '您当前系统环境内的 {req} 版本 ({now_ver}) 过低，程序无法按预期正常运行。我们强烈建议您升级到 {sug_ver} 版本，程序正常运行最低要求为 {req_ver} 版本。',
+	'req_not_found' => '您当前系统环境内未安装或开启 {req} 模块，程序无法按预期正常运行。我们强烈建议您安装或开启此模块，以满足程序正常运行的最低要求。',
+	'req_ok' => '您当前系统环境适合当前版本的 Discuz! {version}。',
 	'subscribe_comsenz_email' => '填写您的邮件地址，订阅 Discuz! 官方产品动态、安全提醒、官方新闻',
 	'scan_discuz_qrcode' => '<img src="source/plugin/wechat/image/discuz_qr.jpg" align="left" width="80" /><br />扫描关注Discuz!官方微信<br /><br />获取官方最新动态',
 	'reglinkname_default' => '注册',
@@ -3426,6 +3429,7 @@ $lang = array
 	'members_edit_password_comment' => '如果不更改密码此处请留空',
 	'members_edit_clearquestion' => '清除用户安全提问',
 	'members_edit_status' => '锁定当前用户',
+	'members_edit_freeze' => '冻结当前用户',
 	'members_edit_clearquestion_comment' => '选择“是”将清除用户安全提问，该用户将不需要回答安全提问即可登录；选择“否”为不改变用户的安全提问设置',
 	'members_edit_nickname' => '昵称',
 	'members_edit_gender' => '性别',
