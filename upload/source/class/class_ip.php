@@ -212,8 +212,14 @@ class ip {
 		return 0 === substr_compare(sprintf('%032b', ip2long($requestIp)), sprintf('%032b', ip2long($address)), 0, $netmask);
 	}
 
+	/*
+	 * 将IP转为位置，支持传入CIDR
+	 */
 	public static function convert($ip) {
 		global $_G;
+		if (false !== strpos($ip, '/')) {
+			list($ip, $netmask) = explode('/', $ip, 2);
+		}
 		if(!self::validate_ip($ip)) {
 			return '- Invalid';
 		} else {

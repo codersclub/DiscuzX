@@ -2139,7 +2139,7 @@ EOF;
 				$ipbanned .= showtablerow('', array('class="td25"'), array(
 					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[$banned[id]]\" value=\"$banned[id]\" $disabled />",
 					$theip,
-					convertip($theip, "./"),
+					convertip($theip),
 					$banned[admin],
 					$banned[dateline],
 					"<input type=\"text\" class=\"txt\" size=\"10\" name=\"expirationnew[$banned[id]]\" value=\"$banned[expiration]\" $disabled />"
@@ -2234,7 +2234,7 @@ EOF;
 		} else {
 			$iplist = explode("\n", $_GET['inputipbanlist']);
 			foreach($iplist as $banip) {
-				//TODO: 在批量导入时判断是否有设置CIRD的权限，验证每一段IP和CIDR是否合法
+				//TODO: 在批量导入时判断是否有设置CIRD的权限，验证每一段IP和CIDR是否合法，支持 * ，以导入旧版规则
 				if(strpos($banip, ',') !== false) {
 					list($banipaddr, $expiration) = explode(',', $banip);
 					$expiration = strtotime($expiration);
