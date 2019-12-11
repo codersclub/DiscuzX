@@ -3429,6 +3429,7 @@ $lang = array
 	'members_edit_password_comment' => '如果不更改密码此处请留空',
 	'members_edit_clearquestion' => '清除用户安全提问',
 	'members_edit_status' => '锁定当前用户',
+	'members_edit_freeze' => '冻结当前用户',
 	'members_edit_clearquestion_comment' => '选择“是”将清除用户安全提问，该用户将不需要回答安全提问即可登录；选择“否”为不改变用户的安全提问设置',
 	'members_edit_nickname' => '昵称',
 	'members_edit_gender' => '性别',
