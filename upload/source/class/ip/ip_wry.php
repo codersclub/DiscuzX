@@ -22,7 +22,7 @@ class ip_wry {
 	private $ipAllNum = null;
 
 	private function __construct() {
-		$ipdatafile = constant("DISCUZ_ROOT").'./source/class/ip/ipdata/wry.dat';
+		$ipdatafile = constant("DISCUZ_ROOT").'./data/ipdata/wry.dat';
 		$this->fd = fopen($ipdatafile, 'rb');
 		if (!$this->fd) {
 			throw new ip_wry_init_exception();

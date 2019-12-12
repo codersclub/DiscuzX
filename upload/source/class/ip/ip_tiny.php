@@ -21,7 +21,7 @@ class ip_tiny {
 	private $index = NULL;
 
 	private function __construct() {
-		$ipdatafile = constant("DISCUZ_ROOT").'./source/class/ip/ipdata/tinyipdata.dat';
+		$ipdatafile = constant("DISCUZ_ROOT").'./data/ipdata/tinyipdata.dat';
 		if($this->fp === NULL && $this->fp = fopen($ipdatafile, 'rb')) {
 			$this->offset = unpack('Nlen', fread($this->fp, 4));
 			$this->index  = fread($this->fp, $this->offset['len'] - 4);

@@ -196,6 +196,10 @@ $_config['input']['compatible'] = 1;
 /**
  * IP数据库扩展
  * $_config['ipdb']下除setting外均可用作自定义扩展IP库设置选项，也欢迎大家PR自己的扩展IP库。
+ * 扩展IP库的设置，请使用格式：
+ * 		$_config['ipdb']['扩展ip库名称']['设置项名称'] = '值';
+ * 比如：
+ * 		$_config['ipdb']['redis_ip']['server'] = '172.16.1.8';
  */
 $_config['ipdb']['setting']['default'] = 'tiny';	// 系统使用的默认IP库
 $_config['ipdb']['setting']['ipv4'] = '';	// 系统使用的默认IPv4库，留空为使用默认库
