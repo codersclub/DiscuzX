@@ -11,15 +11,6 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-function _isLocalip($ip) {
-	$iplong = ip2long($ip);
-	return ($iplong >= 167772160 && $iplong <= 184549375) ||
-		($iplong >= 2886729728 && $iplong <= 2887778303) ||
-		($iplong >= 1681915904 && $iplong <= 1686110207) ||
-		($iplong >= 3232235520 && $iplong <= 3232301055) ||
-		($iplong >= 150994944 && $iplong <= 167772159);
-}
-
 function _parse_url($url) {
 	global $_G;
 	$tmp = parse_url($url);
@@ -35,7 +26,7 @@ function _parse_url($url) {
 	if($ip == $tmp['host']) {
 		return false;
 	}
-	if(filter_var($tmp['host'], FILTER_VALIDATE_IP) && _isLocalip($tmp['host'])) {
+	if(!(filter_var($tmp['host'], FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false)) {
 		return false;
 	}
 
@@ -53,7 +44,7 @@ function _parse_url($url) {
 	}
 
 	if($ip) {
-		if(!_isLocalip($ip)) {
+		if(filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false) {
 			$tmp['ip'] = $ip;
 			return $tmp;
 		}
@@ -71,7 +62,7 @@ function _dfsockopen($url, $limit = 0, $post = '', $cookie = '', $bysocket = FAL
 	$ip = isset($matches['ip']) ? $matches['ip'] : $ip;
 	$scheme = $matches['scheme'];
 	$host = $matches['host'];
-	if($ip && _isLocalip($ip)) {
+	if($ip && !(filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false)) {
 		return '';
 	}
 	$path = $matches['path'] ? $matches['path'].($matches['query'] ? '?'.$matches['query'] : '') : '/';

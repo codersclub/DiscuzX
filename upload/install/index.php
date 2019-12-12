@@ -139,7 +139,7 @@ if($method == 'show_license') {
 			if(!$ucip) {
 				$temp = @parse_url($ucapi);
 				$ucip = gethostbyname($temp['host']);
-				if(ip2long($ucip) == -1 || ip2long($ucip) === FALSE) {
+				if(!(filter_var($ucip, FILTER_VALIDATE_IP) !== false)) {
 					show_msg('uc_dns_error', $ucapi, 0);
 				}
 			}
