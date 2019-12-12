@@ -25,8 +25,8 @@
 		<tr><td>{lang regdate}: $space[regdate]</td></tr>
 		<tr><td>{lang last_visit}: $space[lastvisit]</td></tr>
 		<!--{if $_G[uid] == $space[uid] || $_G[group][allowviewip]}-->
-			<tr><td>{lang register_ip}: $space[regip] - $space[regip_loc]</td></tr>
-			<tr><td>{lang last_visit_ip}: $space[lastip] - $space[lastip_loc]</td></tr>
+			<tr><td>{lang register_ip}: $space[regip]:$space[regport] - $space[regip_loc]</td></tr>
+			<tr><td>{lang last_visit_ip}: $space[lastip]:$space[port] - $space[lastip_loc]</td></tr>
 		<!--{/if}-->
 		<tr><td>{lang last_activity_time}: $space[lastactivity]</td></tr>
 		<tr><td>{lang last_post_time}: $space[lastpost]</td></tr>

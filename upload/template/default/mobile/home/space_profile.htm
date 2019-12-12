@@ -62,9 +62,9 @@
         	<td valign="top" >{lang last_visit}: </td><td>$space[lastvisit]</td>
         <!--{if $_G[uid] == $space[uid] || $_G[group][allowviewip]}-->
         <tr>
-        	<td valign="top" >{lang register_ip}: </td><td>$space[regip] - $space[regip_loc]</td>
+        	<td valign="top" >{lang register_ip}: </td><td>$space[regip]:$space[regport] - $space[regip_loc]</td>
         <tr>
-        	<td valign="top" >{lang last_visit_ip}: </td><td>$space[lastip] - $space[lastip_loc]</td>
+        	<td valign="top" >{lang last_visit_ip}: </td><td>$space[lastip]:$space[port] - $space[lastip_loc]</td>
         <!--{/if}-->
         <tr>
         	<td valign="top" >{lang last_activity_time}: </td><td>$space[lastactivity]</td>
