@@ -28,29 +28,19 @@ class helper_antitheft {
 
 	protected static function check_allow($id, $idtype) {
 		global $_G;
-		$ip = ip2long($_G['clientip']);
-		if(!$ip || $ip == -1) return false;
-		if($ip < 0) {
-			$ip = sprintf('%u', $ip);
-		}
 		loadcache('antitheft');
-		$antitheft = $_G['cache']['antitheft'];
-
-		if(isset($antitheft['white'])){
-			if(in_array($ip, (array)$antitheft['white']['single'], true)) {
-				return true;
-			}
-			foreach($antitheft['white']['range'] as $_ip) {
-				if($ip > $_ip['min'] && $ip < $_ip['max']) return true;
+		if($_G['cache']['antitheft']['white']) {
+			foreach(explode("\n", $_G['cache']['antitheft']['white']) as $ctrlip) {
+				if(preg_match("/^(".preg_quote(($ctrlip = trim($ctrlip)), '/').")/", $_G['clientip'])) {
+					return true;
+				}
 			}
 		}
-
-		if(isset($antitheft['black'])){
-			if(in_array($ip, (array)$antitheft['black']['single'], true)) {
-				return false;
-			}
-			foreach($antitheft['black']['range'] as $_ip) {
-				if($ip > $_ip['min'] && $ip < $_ip['max']) return false;
+		if($_G['cache']['antitheft']['black']) {
+			foreach(explode("\n", $_G['cache']['antitheft']['black']) as $ctrlip) {
+				if(preg_match("/^(".preg_quote(($ctrlip = trim($ctrlip)), '/').")/", $_G['clientip'])) {
+					return false;
+				}
 			}
 		}
 		if(!($log = C::t('common_visit')->fetch($ip))) {
@@ -65,7 +55,6 @@ class helper_antitheft {
 			C::t('common_visit')->inc($ip);
 			return true;
 		}
-
 	}
 
 	protected static function make_content($id, $idtype, $dsign) {
