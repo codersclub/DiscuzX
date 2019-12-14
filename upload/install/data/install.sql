@@ -1600,7 +1600,7 @@ CREATE TABLE pre_common_usergroup_field (
 
 DROP TABLE IF EXISTS pre_common_visit;
 CREATE TABLE pre_common_visit (
-  ip int(10) unsigned NOT NULL DEFAULT '0',
+  ip varchar(45) NOT NULL DEFAULT '',
   `view` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (ip),
   KEY ip (ip,`view`)
