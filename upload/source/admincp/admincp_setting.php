@@ -2501,7 +2501,7 @@ EOT;
 				$antitheftsetting = C::t('common_setting')->fetch('antitheftsetting', true);
 				if($_GET['optype'] == 'white' || $_GET['optype'] == 'black') {
 					$ips = explode("\n", $antitheftsetting[$_GET['optype']]);
-					$ips = array_diff(array_map('long2ip', $_GET['ips']), $ips);
+					$ips = array_diff($_GET['ips'], $ips);
 					if($ips) {
 						$antitheftsetting[$_GET['optype']] = $antitheftsetting[$_GET['optype']]."\n".implode("\n", $ips);
 						C::t('common_setting')->update('antitheftsetting', $antitheftsetting);
@@ -2529,12 +2529,10 @@ EOT;
 				$multipage = '';
 				$count = C::t('common_visit')->count();
 				if($count) {
-					require_once libfile('function/misc');
 					foreach(C::t('common_visit')->range($start, $perpage) as $value) {
-						$ip = long2ip($value['ip']);
 						showtablerow('', array('class="td25"', 'class=""', 'class="td28"'), array(
 								"<input type=\"checkbox\" class=\"checkbox\" name=\"ips[]\" value=\"$value[ip]\">",
-								"$ip ".convertip($ip),
+								"$value[ip] ".ip::convert($value[ip]),
 								$value['view'],
 								"<a href=\"$mpurl&optype=white&ips[]=$value[ip]&antitheftsubmit=yes\">$lang[setting_antitheft_addwhitelist]</a> |
 								 <a href=\"$mpurl&optype=black&ips[]=$value[ip]&antitheftsubmit=yes\">$lang[setting_antitheft_addblacklist]</a> |
