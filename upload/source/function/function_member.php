@@ -142,16 +142,12 @@ function failedipcheck($numiptry, $timeiptry) {
 	if(!$numiptry) {
 		return false;
 	}
-	list($ip1, $ip2) = explode('.', $_G['clientip']);
-	$ip = $ip1.'.'.$ip2;
-	return $numiptry <= C::t('common_failedip')->get_ip_count($ip, TIMESTAMP - $timeiptry);
+	return $numiptry <= C::t('common_failedip')->get_ip_count($_G['clientip'], TIMESTAMP - $timeiptry);
 }
 
 function failedip() {
 	global $_G;
-	list($ip1, $ip2) = explode('.', $_G['clientip']);
-	$ip = $ip1.'.'.$ip2;
-	C::t('common_failedip')->insert_ip($ip);
+	C::t('common_failedip')->insert_ip($_G['clientip']);
 }
 
 function getinvite() {
