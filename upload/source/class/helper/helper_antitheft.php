@@ -43,16 +43,16 @@ class helper_antitheft {
 				}
 			}
 		}
-		if(!($log = C::t('common_visit')->fetch($ip))) {
+		if(!($log = C::t('common_visit')->fetch($_G['clientip']))) {
 			C::t('common_visit')->insert(array(
-				'ip' => $ip,
+				'ip' => $_G['clientip'],
 				'view' => 1,
 			));
 			return true;
 		} elseif($log['view'] >= $_G['setting']['antitheft']['max']) {
 			return false;
 		} else {
-			C::t('common_visit')->inc($ip);
+			C::t('common_visit')->inc($_G['clientip']);
 			return true;
 		}
 	}
