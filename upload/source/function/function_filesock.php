@@ -26,7 +26,7 @@ function _parse_url($url) {
 	if($ip == $tmp['host']) {
 		return false;
 	}
-	if(!(filter_var($tmp['host'], FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false)) {
+	if(!(filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false)) {
 		return false;
 	}
 
