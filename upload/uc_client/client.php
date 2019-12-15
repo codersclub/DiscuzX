@@ -213,18 +213,119 @@ function uc_authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {
 	}
 }
 
-function uc_fopen2($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE, $ip = '', $timeout = 15, $block = TRUE) {
+function uc_fopen2($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE, $ip = '', $timeout = 15, $block = TRUE, $encodetype  = 'URLENCODE', $allowcurl = TRUE) {
 	$__times__ = isset($_GET['__times__']) ? intval($_GET['__times__']) + 1 : 1;
 	if($__times__ > 2) {
 		return '';
 	}
 	$url .= (strpos($url, '?') === FALSE ? '?' : '&')."__times__=$__times__";
-	return uc_fopen($url, $limit, $post, $cookie, $bysocket, $ip, $timeout, $block);
+	return uc_fopen($url, $limit, $post, $cookie, $bysocket, $ip, $timeout, $block, $encodetype, $allowcurl);
 }
 
-function uc_fopen($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE, $ip = '', $timeout = 15, $block = TRUE) {
-	require_once libfile('function/filesock');
-	return _dfsockopen($url, $limit, $post, $cookie, $bysocket, $ip, $timeout, $block);	
+function uc_fopen($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE, $ip = '', $timeout = 15, $block = TRUE, $encodetype  = 'URLENCODE', $allowcurl = TRUE) {
+	$return = '';
+	$matches = parse_url($url);
+	$scheme = $matches['scheme'];
+	$host = $matches['host'];
+	$path = $matches['path'] ? $matches['path'].(isset($matches['query']) && $matches['query'] ? '?'.$matches['query'] : '') : '/';
+	$port = !empty($matches['port']) ? $matches['port'] : ($matches['scheme'] == 'https' ? 443 : 80);
+
+	if(function_exists('curl_init') && function_exists('curl_exec') && $allowcurl) {
+		$ch = curl_init();
+		$ip && curl_setopt($ch, CURLOPT_HTTPHEADER, array("Host: ".$host));
+		curl_setopt($ch, CURLOPT_URL, $scheme.'://'.($ip ? $ip : $host).':'.$port.$path);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		if($post) {
+			curl_setopt($ch, CURLOPT_POST, 1);
+			if($encodetype == 'URLENCODE') {
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+			} else {
+				parse_str($post, $postarray);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $postarray);
+			}
+		}
+		if($cookie) {
+			curl_setopt($ch, CURLOPT_COOKIE, $cookie);
+		}
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+		$data = curl_exec($ch);
+		$status = curl_getinfo($ch);
+		$errno = curl_errno($ch);
+		curl_close($ch);
+		if($errno || $status['http_code'] != 200) {
+			return;
+		} else {
+			return !$limit ? $data : substr($data, 0, $limit);
+		}
+	}
+
+	if($post) {
+		$out = "POST $path HTTP/1.0\r\n";
+		$header = "Accept: */*\r\n";
+		$header .= "Accept-Language: zh-cn\r\n";
+		$header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+		$header .= "User-Agent: $_SERVER[HTTP_USER_AGENT]\r\n";
+		$header .= "Host: $host\r\n";
+		$header .= 'Content-Length: '.strlen($post)."\r\n";
+		$header .= "Connection: Close\r\n";
+		$header .= "Cache-Control: no-cache\r\n";
+		$header .= "Cookie: $cookie\r\n\r\n";
+		$out .= $header.$post;
+	} else {
+		$out = "GET $path HTTP/1.0\r\n";
+		$header = "Accept: */*\r\n";
+		$header .= "Accept-Language: zh-cn\r\n";
+		$header .= "User-Agent: $_SERVER[HTTP_USER_AGENT]\r\n";
+		$header .= "Host: $host\r\n";
+		$header .= "Connection: Close\r\n";
+		$header .= "Cookie: $cookie\r\n\r\n";
+		$out .= $header;
+	}
+
+	$fpflag = 0;
+	if(!$fp = @fsocketopen(($scheme == 'https' ? 'ssl://' : '').($scheme == 'https' ? $host : ($ip ? $ip : $host)), $port, $errno, $errstr, $timeout)) {
+		$context = array(
+			'http' => array(
+				'method' => $post ? 'POST' : 'GET',
+				'header' => $header,
+				'content' => $post,
+				'timeout' => $timeout,
+			),
+		);
+		$context = stream_context_create($context);
+		$fp = @fopen($scheme.'://'.($scheme == 'https' ? $host : ($ip ? $ip : $host)).':'.$port.$path, 'b', false, $context);
+		$fpflag = 1;
+	}
+
+	if(!$fp) {
+		return '';
+	} else {
+		stream_set_blocking($fp, $block);
+		stream_set_timeout($fp, $timeout);
+		@fwrite($fp, $out);
+		$status = stream_get_meta_data($fp);
+		if(!$status['timed_out']) {
+			while (!feof($fp) && !$fpflag) {
+				if(($header = @fgets($fp)) && ($header == "\r\n" ||  $header == "\n")) {
+					break;
+				}
+			}
+
+			$stop = false;
+			while(!feof($fp) && !$stop) {
+				$data = fread($fp, ($limit == 0 || $limit > 8192 ? 8192 : $limit));
+				$return .= $data;
+				if($limit) {
+					$limit -= strlen($data);
+					$stop = $limit <= 0;
+				}
+			}
+		}
+		@fclose($fp);
+		return $return;
+	}
 }
 
 function uc_app_ls() {
