@@ -44,7 +44,7 @@ class ip_wry {
 	public static function getInstance() {
 		if (!self::$instance) {
 			try {
-				self::$instance = new ip_tiny();
+				self::$instance = new ip_wry();
 			} catch (Exception $e) {
 				return null;
 			}
