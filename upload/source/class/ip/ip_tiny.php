@@ -34,7 +34,7 @@ class ip_tiny {
 	}
 
 	function __destruct() {
-		if (!$this->fd) {
+		if ($this->fd) {
 			@fclose($this->fd);
 		}
 	}

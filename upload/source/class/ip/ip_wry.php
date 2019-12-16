@@ -36,7 +36,7 @@ class ip_wry {
 	}
 
 	function __destruct() {
-		if (!$this->fd) {
+		if ($this->fd) {
 			@fclose($this->fd);
 		}
 	}
