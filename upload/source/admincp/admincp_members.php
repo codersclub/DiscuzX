@@ -1979,9 +1979,11 @@ EOF;
 		showsetting('members_edit_posts', 'postsnew', $member['posts'], 'text');
 		showsetting('members_edit_digestposts', 'digestpostsnew', $member['digestposts'], 'text');
 		showsetting('members_edit_regip', 'regipnew', $member['regip'], 'text');
+		showsetting('members_edit_regport', 'regportnew', $member['regport'], 'text');
 		showsetting('members_edit_regdate', 'regdatenew', $member['regdate'], 'text');
 		showsetting('members_edit_lastvisit', 'lastvisitnew', $member['lastvisit'], 'text');
 		showsetting('members_edit_lastip', 'lastipnew', $member['lastip'], 'text');
+		showsetting('members_edit_port', 'portnew', $member['port'], 'text');
 		showsetting('members_edit_addsize', 'addsizenew', $member['addsize'], 'text');
 		showsetting('members_edit_addfriend', 'addfriendnew', $member['addfriend'], 'text');
 
@@ -2112,7 +2114,7 @@ EOF;
 		C::t('common_member'.$tableext)->update($uid, $memberupdate);
 		C::t('common_member_field_home'.$tableext)->update($uid, array('addsize' => $addsize, 'addfriend' => $addfriend));
 		C::t('common_member_count'.$tableext)->update($uid, array('posts' => $_GET['postsnew'], 'digestposts' => $_GET['digestpostsnew']));
-		C::t('common_member_status'.$tableext)->update($uid, array('regip' => $_GET['regipnew'], 'lastvisit' => $lastvisitnew, 'lastip' => $_GET['lastipnew'], 'invisible' => $_GET['invisiblenew']));
+		C::t('common_member_status'.$tableext)->update($uid, array('regip' => $_GET['regipnew'], 'regport' => $_GET['regportnew'], 'lastvisit' => $lastvisitnew, 'lastip' => $_GET['lastipnew'], 'port' => $_GET['portnew'], 'invisible' => $_GET['invisiblenew']));
 		C::t('common_member_field_forum'.$tableext)->update($uid, array('customstatus' => $_GET['cstatusnew'], 'sightml' => $sightmlnew));
 		if(!empty($fieldarr)) {
 			C::t('common_member_profile'.$tableext)->update($uid, $fieldarr);
