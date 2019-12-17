@@ -17,6 +17,7 @@
 	<div class="mn">
 		<div class="bm bw0">
 			<h1 class="mt"><img alt="pm" src="{STATICURL}image/feed/nts.gif" class="vm" /> {lang remind}</h1>
+			<!--{if $view != 'all'}-->
 			<ul class="tb cl">
 				<li class="y"><a href="home.php?mod=spacecp&ac=privacy&op=filter" target="_blank" class="xi2">{lang filter_settings}</a></li>
 				<!--{if $_G['notice_structure'][$view] && ($view == 'mypost' || $view == 'interactive')}-->
@@ -27,6 +28,7 @@
 					<li class="a"><a href="home.php?mod=space&do=notice&view=$view"><!--{eval echo lang('template', 'notice_'.$view)}--></a></li>
 				<!--{/if}-->
 			</ul>
+			<!--{/if}-->
 
 			<!--{if empty($list)}-->
 			<div class="emp mtw ptw hm xs2">

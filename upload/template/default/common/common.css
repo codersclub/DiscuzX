@@ -986,8 +986,9 @@ CSS 写作注意事项：
 		.tbn ul a { display: block; height: 33px; line-height: 33px; }
 		.tbn .mt { padding: 10px; }
 
-		.notice_pm, .notice_mypost, .notice_interactive, .notice_system, .notice_manage, .notice_app { float: left; width: 18px; height: 14px; background-image: url({IMGDIR}/ico_notice.png); margin: 11px 5px 5px 0;}
+		.notice_pm, .notice_all, .notice_mypost, .notice_interactive, .notice_system, .notice_manage, .notice_app { float: left; width: 18px; height: 14px; background-image: url({IMGDIR}/ico_notice.png); margin: 11px 5px 5px 0;}
 		.notice_pm { background-position:  0 0;}
+		.notice_all { background-position:  0 -225px; }
 		.notice_mypost { background-position:  0 -33px; }
 		.notice_interactive { background-position:  0 -68px; }
 		.notice_system { background-position:  0 -101px; }

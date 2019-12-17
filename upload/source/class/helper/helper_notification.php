@@ -183,7 +183,9 @@ class helper_notification {
 			$tmpprompt = $_G['member']['newprompt_num'];
 			$num = 0;
 			$updateprompt = 0;
-			if(!empty($tmpprompt[$type])) {
+			if(!$type) {
+				$tmpprompt = [];
+			} elseif(!empty($tmpprompt[$type])) {
 				unset($tmpprompt[$type]);
 				$updateprompt = true;
 			}
