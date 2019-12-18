@@ -30,14 +30,14 @@ class helper_antitheft {
 		global $_G;
 		loadcache('antitheft');
 		if($_G['cache']['antitheft']['white']) {
-			foreach(explode("\n", $_G['cache']['antitheft']['white']) as $ctrlip) {
+			foreach(explode("\n", trim($_G['cache']['antitheft']['white'])) as $ctrlip) {
 				if(preg_match("/^(".preg_quote(($ctrlip = trim($ctrlip)), '/').")/", $_G['clientip'])) {
 					return true;
 				}
 			}
 		}
 		if($_G['cache']['antitheft']['black']) {
-			foreach(explode("\n", $_G['cache']['antitheft']['black']) as $ctrlip) {
+			foreach(explode("\n",trim($_G['cache']['antitheft']['black'])) as $ctrlip) {
 				if(preg_match("/^(".preg_quote(($ctrlip = trim($ctrlip)), '/').")/", $_G['clientip'])) {
 					return false;
 				}

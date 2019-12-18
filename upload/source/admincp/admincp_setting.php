@@ -2493,7 +2493,6 @@ EOT;
 		if($_GET['anchor'] == 'iplist') {
 
 			if(submitcheck('antitheftsubmit', true)) {
-				$_GET['ips'] = dintval($_GET['ips'], true);
 				$url = 'action=setting&operation=antitheft&anchor=iplist&page='.$page;
 				if(empty($_GET['ips'])) {
 					cpmsg('setting_antitheft_choose_ip', $url, 'error');
