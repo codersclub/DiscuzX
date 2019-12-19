@@ -1541,9 +1541,13 @@ $lang = array (
   'connect_fill_profile_to_comment' => '您需要<a href="member.php?mod=connect" class="xi2">完善帐号信息</a> 或 <a href="member.php?mod=connect&ac=bind" class="xi2">绑定已有帐号</a> 后才可以留言',
   'save_to_album' => '保存到相册',
   'usergroup_expired' => '您当前的用户组已经到期，请选择继续续费还是要切换到其他用户组',
-  'freeze_pw_tips' => '您当前的帐号存在安全隐患已经被冻结，请修改密码解除冻结状态',
-  'freeze_email_tips' => '您当前的帐号已经太长时间未登录网站已经被冻结，必须验证邮箱后才能解除冻结状态 <a href="home.php?mod=spacecp&ac=profile&op=password&resend=1" class="xi2">重新接收验证邮件</a>',
+  'freeze_pw_tips' => '您当前的帐号已经被冻结，请修改密码解除冻结状态',
+  'freeze_email_tips' => '您当前的帐号已经被冻结，必须验证邮箱后才能解除冻结状态 <a href="home.php?mod=spacecp&ac=profile&op=password&resend=1" class="xi2">重新接收验证邮件</a>',
+  'freeze_admincp_tips' => '您当前的帐号已经被冻结，必须在本页面填写申诉理由，并经管理中心审核通过后才能解除冻结状态',
   'freeze_reason' => '申诉理由',
   'freeze_reason_comment' => '如果您无法通过邮箱验证，请填写申诉理由',
+  'freeze_reason_admincp_comment' => '如果您认为您的账号不应被冻结，请填写申诉理由',
+  'freeze_remark' => '审核结果',
+  'freeze_remark_comment' => '您已提交 $space[freezemodsubmittimes] 次审核，最后一次审核操作由 $space[freezemodadmin] 于 $space[freezemoddate] 做出',
 );
 ?>

@@ -38,6 +38,8 @@
 					<strong class="xi1">{lang freeze_pw_tips}</strong>
 				<!--{elseif $_G['member']['freeze'] == 2}-->
 					<strong class="xi1">{lang freeze_email_tips}</strong>
+				<!--{elseif $_G['member']['freeze'] == -1}-->
+					<strong class="xi1">{lang freeze_admincp_tips}</strong>
 				<!--{/if}-->
 			</p>
 			<form action="home.php?mod=spacecp&ac=profile" method="post" autocomplete="off">
@@ -68,7 +70,9 @@
 						<td>
 							<input type="text" name="emailnew" id="emailnew" value="$space[email]" class="px" />
 							<p class="d">
-								<!--{if empty($space['newemail'])}-->
+								<!--{if $_G['member']['freeze'] == 2}-->
+									<p class="xi1">{lang freeze_email_tips}</p>
+								<!--{elseif empty($space['newemail'])}-->
 									{lang email_been_active}
 								<!--{else}-->
 									$acitvemessage
@@ -78,12 +82,23 @@
 						</td>
 					</tr>
 
-					<!--{if $_G['member']['freeze'] == 2}-->
+					<!--{if $_G['member']['freeze'] == 2 || $_G['member']['freeze'] == -1}-->
 					<tr>
 						<th>{lang freeze_reason}</th>
 						<td>
 							<textarea rows="3" cols="80" name="freezereson" class="pt">$space[freezereson]</textarea>
-							<p class="d" id="chk_newpassword2">{lang freeze_reason_comment}</p>
+							<!--{if $_G['member']['freeze'] == 2}--><p class="d" id="chk_newpassword2">{lang freeze_reason_comment}</p><!--{/if}-->
+							<!--{if $_G['member']['freeze'] == -1}--><p class="d" id="chk_newpassword2">{lang freeze_reason_admincp_comment}</p><!--{/if}-->
+						</td>
+					</tr>
+					<!--{/if}-->
+
+					<!--{if ($_G['member']['freeze'] == 2 || $_G['member']['freeze'] == -1) && !empty($space[freezemodremark])}-->
+					<tr>
+						<th>{lang freeze_remark}</th>
+						<td>
+							<textarea rows="3" cols="80" name="freezemodremark" class="pt" disabled="disabled">$space[freezemodremark]</textarea>
+							<p class="d" id="chk_newpassword2">{lang freeze_remark_comment}</p>
 						</td>
 					</tr>
 					<!--{/if}-->

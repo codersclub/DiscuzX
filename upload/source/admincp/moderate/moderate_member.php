@@ -38,7 +38,7 @@ if($do == 'mod') {
 			$allmemberprofile = C::t('common_member_profile')->fetch_all($uids, false, 0);
 			foreach($allvalidate as $uid => $member) {
 				$member = array_merge((array)$member, (array)$allmember[$uid], (array)$allmemberstatus[$uid], (array)$allmemberprofile[$uid]);
-				if($member['groupid'] != 8 && $member['freeze'] != 2) {
+				if($member['groupid'] != 8 && !in_array($member['freeze'], array(-1, 2))) {
 					$vuids[$uid] = $uid;
 					continue;
 				}
@@ -169,7 +169,7 @@ EOT;
 
 		$allmembervalidate = $uids ? C::t('common_member_validate')->fetch_all($uids) : C::t('common_member_validate')->range();
 		foreach(C::t('common_member')->fetch_all(array_keys($allmembervalidate), false, 0) as $uid => $member) {
-			if($member['groupid'] == 8 || $member['freeze'] == 2) {
+			if($member['groupid'] == 8 || $member['freeze'] == 2 || $member['freeze'] == -1) {
 				$members[$uid] = $member;
 			}
 		}
