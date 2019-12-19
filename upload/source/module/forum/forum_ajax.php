@@ -451,7 +451,7 @@ if($_GET['action'] == 'checkusername') {
 					$setarr = array(
 						'aid' => $aid,
 						'dateline' => $_G['timestamp'],
-						'filename' => $upload->attach['name'],
+						'filename' => strip_tags(str_replace('"', '', $upload->attach['name'])),
 						'filesize' => $upload->attach['size'],
 						'attachment' => $upload->attach['attachment'],
 						'isimage' => $upload->attach['isimage'],

@@ -1973,7 +1973,11 @@ EOF;
 		}
 		showsetting('members_edit_clearquestion', 'clearquestion', 0, 'radio');
 		showsetting('members_edit_status', 'statusnew', $member['status'], 'radio');
-		showsetting('members_edit_freeze', 'freezenew', $member['freeze'], 'radio');
+		showsetting('members_edit_freeze', array('freezenew', array(
+			array(0, $lang['members_edit_freeze_false']),
+			array(1, $lang['members_edit_freeze_password']),
+			array(-1, $lang['members_edit_freeze_admincp']),
+			array(2, $lang['members_edit_freeze_email']))), $member['freeze'], 'mradio');
 		showsetting('members_edit_email', 'emailnew', $member['email'], 'text');
 		showsetting('members_edit_email_emailstatus', 'emailstatusnew', $member['emailstatus'], 'radio');
 		showsetting('members_edit_posts', 'postsnew', $member['posts'], 'text');
@@ -2095,7 +2099,7 @@ EOF;
 		$addsize = intval($_GET['addsizenew']);
 		$addfriend = intval($_GET['addfriendnew']);
 		$status = intval($_GET['statusnew']) ? -1 : 0;
-		$freeze = intval($_GET['freezenew']) ? -1 : 0;
+		$freeze = in_array($_GET['freezenew'], array(-1, 0, 1, 2)) ? $_GET['freezenew'] : 0;
 		$emailstatusnew = intval($_GET['emailstatusnew']);
 		if(!empty($_G['setting']['connect']['allow'])) {
 			if($member['uinblack'] && empty($_GET['uinblack'])) {

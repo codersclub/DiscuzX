@@ -86,7 +86,7 @@ function parseattach($attachpids, $attachtags, &$postlist, $skipaids = array()) 
 		$attached = 0;
 		$extension = strtolower(fileext($attach['filename']));
 		$attach['ext'] = $extension;
-		$attach['imgalt'] = $attach['isimage'] ? strip_tags(str_replace('"', '\"', $attach['description'] ? $attach['description'] : $attach['filename'])) : '';
+		$attach['imgalt'] = $attach['isimage'] ? strip_tags(str_replace('"', '', $attach['description'] ? $attach['description'] : $attach['filename'])) : '';
 		$attach['attachicon'] = attachtype($extension."\t".$attach['filetype']);
 		$attach['attachsize'] = sizecount($attach['filesize']);
 		if($attach['isimage'] && !$_G['setting']['attachimgpost']) {
