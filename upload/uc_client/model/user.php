@@ -39,7 +39,25 @@ class usermodel {
 	}
 
 	function check_username($username) {
-		$guestexp = '\xA1\xA1|\xAC\xA3|^Guest|^\xD3\xCE\xBF\xCD|\xB9\x43\xAB\xC8';
+		$charset = strtolower(UC_CHARSET);
+		if ($charset === 'utf-8') {
+			// \xE3\x80\x80: utf-8 全角空格
+			// \xE6\xB8\xB8\xE5\xAE\xA2: utf-8 游客
+			// \xE9\x81\x8A\xE5\xAE\xA2: utf-8 遊客
+			$guestexp = '\xE3\x80\x80|\xE6\xB8\xB8\xE5\xAE\xA2|\xE9\x81\x8A\xE5\xAE\xA2';
+		} elseif ($charset === 'gbk') {
+			// \xA1\xA1: GBK 全角空格
+			// \xD3\xCE\xBF\xCD: GBK 游客
+			$guestexp = '\xA1\xA1|\xD3\xCE\xBF\xCD';
+		} elseif ($charset === 'big5') {
+			// \xA1\x40: BIG5 全角空格
+			// \xB9\x43\xAB\xC8: BIG5 遊客
+			$guestexp = '\xA1\x40|\xB9\x43\xAB\xC8';
+		} else {
+			return FALSE;
+		}
+		$guestexp .= '|^Guest';
+
 		$len = $this->dstrlen($username);
 		if($len > 15 || $len < 3 || preg_match("/\s+|^c:\\con\\con|[%,\*\"\s\<\>\&]|$guestexp/is", $username)) {
 			return FALSE;
