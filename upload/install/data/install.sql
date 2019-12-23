@@ -1567,7 +1567,7 @@ CREATE TABLE pre_common_usergroup_field (
   allowbuildgroup tinyint(1) unsigned NOT NULL DEFAULT '0',
   allowgroupdirectpost tinyint(1) unsigned NOT NULL DEFAULT '0',
   allowgroupposturl tinyint(1) unsigned NOT NULL DEFAULT '0',
-  edittimelimit smallint(6) unsigned NOT NULL DEFAULT '0',
+  edittimelimit int(10) unsigned NOT NULL DEFAULT '0',
   allowpostarticle tinyint(1) NOT NULL DEFAULT '0',
   allowdownlocalimg tinyint(1) NOT NULL DEFAULT '0',
   allowdownremoteimg tinyint(1) NOT NULL DEFAULT '0',
