@@ -97,14 +97,9 @@ $_config['memory']['redis']['pconnect'] = 1;
 $_config['memory']['redis']['timeout'] = 0;
 $_config['memory']['redis']['requirepass'] = '';
 /**
- * 是否使用 Redis::SERIALIZER_IGBINARY选项,需要igbinary支持,windows下测试时请关闭，否则会出>现错误Reading from client: Connection reset by peer
- * 支持以下选项，默认使用PHP的serializer
- * [重要] 该选项已经取代原来的 $_config['memory']['redis']['igbinary'] 选项
- * Redis::SERIALIZER_IGBINARY =2
- * Redis::SERIALIZER_PHP =1
- * Redis::SERIALIZER_NONE =0 //则不使用serialize,即无法保存array
+ * 此配置现在已经取消，默认对array使用json进行编码保存，其它数据直接原样保存 
  */
-$_config['memory']['redis']['serializer'] = 1;
+// $_config['memory']['redis']['serializer'] = 1;
 
 $_config['memory']['memcache']['server'] = '';			// memcache 服务器地址
 $_config['memory']['memcache']['port'] = 11211;			// memcache 服务器端口

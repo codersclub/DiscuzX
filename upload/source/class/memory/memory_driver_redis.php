@@ -42,7 +42,7 @@ class memory_driver_redis {
 				if ($config['requirepass']) {
 					$this->obj->auth($config['requirepass']);
 				}
-				@$this->obj->setOption(Redis::OPT_SERIALIZER, $config['serializer']);
+				@$this->obj->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_NONE);
 			}
 		}
 	}

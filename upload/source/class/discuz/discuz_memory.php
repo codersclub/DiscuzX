@@ -58,7 +58,7 @@ class discuz_memory extends discuz_base
 					if($ret !== false && !empty($ret)) {
 						$_ret = array();
 						foreach((array)$ret as $_key => $value) {
-							$_ret[$this->_trim_key($_key)] = $value;
+							$_ret[$this->_trim_key($_key)] = $this->_try_deserialize($_key, $value);
 						}
 						$ret = $_ret;
 					}
@@ -67,14 +67,17 @@ class discuz_memory extends discuz_base
 					$_ret = false;
 					foreach($key as $id) {
 						if(($_ret = $this->memory->get($this->_key($id))) !== false && isset($_ret)) {
-							$ret[$id] = $_ret;
+							$ret[$id] = $this->_try_deserialize($this->_key($id), $_ret);
 						}
 					}
 				}
 				if(empty($ret)) $ret = false;
 			} else {
 				$ret = $this->memory->get($this->_key($key));
-				if(!isset($ret)) $ret = false;
+				if(!isset($ret))
+					$ret = false;
+				else
+					$ret = $this->_try_deserialize($this->_key($key), $ret);
 			}
 		}
 		return $ret;
@@ -86,6 +89,10 @@ class discuz_memory extends discuz_base
 		if($value === false) $value = '';
 		if($this->enable) {
 			$this->userprefix = $prefix;
+			if (is_array($value)) {
+				$value = json_encode($value);
+				$this->memory->set($this->_key($key) . "_type", "array", $ttl);
+			}
 			$ret = $this->memory->set($this->_key($key), $value, $ttl);
 		}
 		return $ret;
@@ -160,6 +167,18 @@ class discuz_memory extends discuz_base
 	private function _trim_key($str) {
 		return substr($str, strlen($this->prefix.$this->userprefix));
 	}
+
+	private function _try_deserialize($key, $data) {
+		$type = $this->memory->get($key . "_type");
+		if ($type && $type === "array") {
+			$value = json_decode($data, true);
+			if ($value !== NULL) {
+				return $value;
+			}
+		}
+		return $data;
+	}
+
 
 	public function getextension() {
 		return $this->extension;
