@@ -1703,6 +1703,9 @@ function getposttable($tableid = 0, $prefix = false) {
 	return table_forum_post::getposttable($tableid, $prefix);
 }
 
+/*
+ * 在get和rm两个命令下，$value传入的是prefix
+ */
 function memory($cmd, $key='', $value='', $ttl = 0, $prefix = '') {
 	if($cmd == 'check') {
 		return  C::memory()->enable ? C::memory()->type : '';
@@ -1720,8 +1723,8 @@ function memory($cmd, $key='', $value='', $ttl = 0, $prefix = '') {
 			case 'set': return C::memory()->set($key, $value, $ttl, $prefix); break;
 			case 'get': return C::memory()->get($key, $value); break;
 			case 'rm': return C::memory()->rm($key, $value); break;
-			case 'inc': return C::memory()->inc($key, $value ? $value : 1); break;
-			case 'dec': return C::memory()->dec($key, $value ? $value : -1); break;
+			case 'inc': return C::memory()->inc($key, $value ? $value : 1, $prefix); break;
+			case 'dec': return C::memory()->dec($key, $value ? $value : -1, $prefix); break;
 		}
 	}
 	return null;

@@ -111,10 +111,11 @@ class discuz_memory extends discuz_base
 		return $ret;
 	}
 
-	public function inc($key, $step = 1) {
+	public function inc($key, $step = 1, $prefix = '') {
 		static $hasinc = null;
 		$ret = false;
 		if($this->enable) {
+			$this->userprefix = $prefix;
 			if(!isset($hasinc)) $hasinc = method_exists($this->memory, 'inc');
 			if($hasinc) {
 				$ret = $this->memory->inc($this->_key($key), $step);
@@ -127,10 +128,11 @@ class discuz_memory extends discuz_base
 		return $ret;
 	}
 
-	public function dec($key, $step = 1) {
+	public function dec($key, $step = 1, $prefix = '') {
 		static $hasdec = null;
 		$ret = false;
 		if($this->enable) {
+			$this->userprefix = $prefix;
 			if(!isset($hasdec)) $hasdec = method_exists($this->memory, 'dec');
 			if($hasdec) {
 				$ret = $this->memory->dec($this->_key($key), $step);
