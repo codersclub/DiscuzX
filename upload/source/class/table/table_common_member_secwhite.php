@@ -18,17 +18,27 @@ class table_common_member_secwhite extends discuz_table
 
 		$this->_table = 'common_member_secwhite';
 		$this->_pk    = 'uid';
+		$this->_pre_cache_key = 'common_member_secwhite_';
+		$this->_cache_ttl = 86400;
 
 		parent::__construct();
 	}
 
 	public function check($uid) {
-		DB::delete($this->_table, "dateline<".(TIMESTAMP-86400));
-		return DB::result_first("SELECT COUNT(*) FROM %t WHERE uid=%d", array($this->_table, $uid));
+		if ($this->_allowmem) {
+			return $this->fetch_cache($uid);
+		} else {
+			DB::delete($this->_table, "dateline<".(TIMESTAMP-86400));
+			return DB::result_first("SELECT COUNT(*) FROM %t WHERE uid=%d", array($this->_table, $uid));	
+		}
 	}
 
 	public function add($uid) {
-		DB::insert($this->_table, array('uid' => $uid, 'dateline' => TIMESTAMP), false, true);
+		if ($this->_allowmem) {
+			$this->store_cache($uid, 1);
+		} else {
+			DB::insert($this->_table, array('uid' => $uid, 'dateline' => TIMESTAMP), false, true);
+		}
 	}
 
 }
