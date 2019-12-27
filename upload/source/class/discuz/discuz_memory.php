@@ -55,6 +55,10 @@ class discuz_memory extends discuz_base
 		}
 	}
 
+
+	/*
+	 * 返回值要从json解回array，同时转编码为当前编码
+	 */
 	public function get($key, $prefix = '') {
 		static $getmulti = null;
 		$ret = false;
@@ -99,7 +103,8 @@ class discuz_memory extends discuz_base
 		if($this->enable) {
 			$this->userprefix = $prefix;
 			if (is_array($value)) {
-				$value = json_encode($value);
+				// json_encode要求utf8
+				$value = json_encode($this->to_utf8($value));
 				$this->memory->set($this->_key($key) . "_type", "array", $ttl);
 			}
 			$ret = $this->memory->set($this->_key($key), $value, $ttl);
@@ -304,10 +309,50 @@ class discuz_memory extends discuz_base
 		if ($type && $type === "array") {
 			$value = json_decode($data, true);
 			if ($value !== NULL) {
-				return $value;
+				return $this->to_charset($value);
 			}
 		}
+		// 非array不涉及编码转换
 		return $data;
+	}
+
+	/*
+	 * 将 $val 从当前编码转为utf-8
+	 * $val 可以是array
+	 */
+	private function to_utf8($val) {
+		$charset = strtolower(CHARSET);
+		if ($charset === 'utf-8') {
+			return $val;
+		}
+		if (is_array($val)) {
+			// array_map会丢失key
+			$data = array();
+			foreach ($val as $k => $v) {
+				$data[$k] = $this->to_utf8($v);
+			}
+			return $data;
+		}
+		return mb_convert_encoding($val, "utf-8", $charset);
+	}
+
+	/*
+	 * 将 $val 从utf-8转为当前编码
+	 * $val 可以是array
+	 */
+	private function to_charset($val) {
+		$charset = strtolower(CHARSET);
+		if ($charset === 'utf-8') {
+			return $val;
+		}
+		if (is_array($val)) {
+			$data = array();
+			foreach ($val as $k => $v) {
+				$data[$k] = $this->to_charset($v);
+			}
+			return $data;
+		}
+		return mb_convert_encoding($val, $charset, "utf-8");
 	}
 
 
