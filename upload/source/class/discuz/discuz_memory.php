@@ -251,6 +251,14 @@ class discuz_memory extends discuz_base
 		return $this->memory->zrem($this->_key($key), $value);
 	}
 
+	public function zscore($key, $member, $prefix = '') {
+		if (!$this->enable || !$this->gotsortedset) {
+			return false;
+		}
+		$this->userprefix = $prefix;
+		return $this->memory->zscore($this->_key($key), $member);
+	}
+
 	public function zcard($key, $prefix = '') {
 		if (!$this->enable || !$this->gotsortedset) {
 			return false;
@@ -259,12 +267,20 @@ class discuz_memory extends discuz_base
 		return $this->memory->zcard($this->_key($key));
 	}
 
-	public function zrevrange($key, $start, $end, $prefix = '') {
+	public function zrevrange($key, $start, $end, $prefix = '', $withscore = false) {
 		if (!$this->enable || !$this->gotsortedset) {
 			return false;
 		}
 		$this->userprefix = $prefix;
-		return $this->memory->zrevrange($this->_key($key), $start, $end);
+		return $this->memory->zrevrange($this->_key($key), $start, $end, $withscore);
+	}
+
+	public function zincrby($key, $member, $value, $prefix = '') {
+		if (!$this->enable || !$this->gotsortedset) {
+			return false;
+		}
+		$this->userprefix = $prefix;
+		return $this->memory->zincrby($this->_key($key), $member, $value);
 	}
 
 	private function _key($str) {

@@ -1711,13 +1711,23 @@ function getposttable($tableid = 0, $prefix = false) {
  * 		$ttl = 用于存储script hash的key, $prefix 会自动成为脚本的第一个参数，其余参数序号顺延
  * zadd 时，参数如下：
  * 		$cmd = 'zadd', $key = key, $value = member, $ttl = score
- * zrevrange 时，参数如下；
+ * zincrby 时，参数如下：
+ * 		$cmd = 'zincrby', $key = key, $value = member, $ttl = value to increase
+ * zrevrange 和 zrevrangewithscore 时，参数如下；
  * 		$cmd = 'zrevrange', $key = key, $value = start, $ttl = end
  */
 function memory($cmd, $key='', $value='', $ttl = 0, $prefix = '') {
+	static $supported_command = array(
+		'set', 'get', 'rm', 'inc', 'dec', 
+		'sadd', 'srem', 'scard', 'smembers', 
+		'hmset', 'hgetall', 
+		'eval', 
+		'zadd', 'zcard', 'zrem', 'zscore', 'zrevrange', 'zincrby', 'zrevrangewithscore' /* 带score返回 */
+	);
+
 	if($cmd == 'check') {
 		return  C::memory()->enable ? C::memory()->type : '';
-	} elseif(C::memory()->enable && in_array($cmd, array('set', 'get', 'rm', 'inc', 'dec', 'sadd', 'srem', 'scard', 'smembers', 'hmset', 'hgetall', 'eval', 'zadd', 'zcard', 'zrem', 'zrevrange'))) {
+	} elseif(C::memory()->enable && in_array($cmd, $supported_command)) {
 		if(defined('DISCUZ_DEBUG') && DISCUZ_DEBUG) {
 			if(is_array($key)) {
 				foreach($key as $k) {
@@ -1742,8 +1752,11 @@ function memory($cmd, $key='', $value='', $ttl = 0, $prefix = '') {
 			case 'eval': return C::memory()->eval($key/*script*/, $value/*args*/, $ttl/*sha key*/, $prefix); break;
 			case 'zadd': return C::memory()->zadd($key, $value, $ttl/*score*/, $prefix); break;
 			case 'zrem': return C::memory()->zrem($key, $value, $prefix); break;
+			case 'zscore': return C::memory()->zscore($key, $value, $prefix); break;
 			case 'zcard': return C::memory()->zcard($key, $value/*prefix*/); break;
 			case 'zrevrange': return C::memory()->zrevrange($key, $value/*start*/, $ttl/*end*/, $prefix); break;
+			case 'zrevrangewithscore': return C::memory()->zrevrange($key, $value/*start*/, $ttl/*end*/, $prefix, true); break;
+			case 'zincrby': return C::memory()->zincrby($key, $value/*member*/, $ttl ? $ttl : 1/*to increase*/, $prefix); break;
 		}
 	}
 	return null;

@@ -191,12 +191,20 @@ class memory_driver_redis {
 		return $this->obj->zRem($key, $member);
 	}
 
+	function zscore($key, $member) {
+		return $this->obj->zScore($key, $member);
+	}
+
 	function zcard($key) {
 		return $this->obj->zCard($key);
 	}
 
-	function zrevrange($key, $start, $end) {
-		return $this->obj->zRevRange($key, $start, $end);
+	function zrevrange($key, $start, $end, $withscore = false) {
+		return $this->obj->zRevRange($key, $start, $end, $withscore);
+	}
+
+	function zincrby($key, $member, $value) {
+		return $this->obj->zIncrBy($key, $value, $member);
 	}
 
 	function sort($key, $opt) {
