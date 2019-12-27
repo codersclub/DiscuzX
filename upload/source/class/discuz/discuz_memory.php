@@ -22,6 +22,11 @@ class discuz_memory extends discuz_base
 	public $enable = false;
 	public $debug = array();
 
+	public $gotset = false; // 是否支持Set数据类型
+	public $gothash = false; // 是否支持Hash数据类型
+	public $goteval = false; // 是否支持lua脚本eval
+	public $gotsortedset = false; // 是否支持SortedSet
+
 	public function __construct() {
 	}
 
@@ -41,6 +46,10 @@ class discuz_memory extends discuz_base
 				} else {
 					$this->type = $this->memory->cacheName;
 					$this->enable = true;
+					$this->gotset = $this->type === 'Redis';
+					$this->gothash = $this->type === 'Redis';
+					$this->goteval = $this->type === 'Redis';
+					$this->gotsortedset = $this->type === 'Redis';
 				}
 			}
 		}
@@ -150,6 +159,112 @@ class discuz_memory extends discuz_base
 			}
 		}
 		return $ret;
+	}
+
+	public function sadd($key, $value, $prefix = '') {
+		if (!$this->enable || !$this->gotset) {
+			return false;
+		}
+		$this->userprefix = $prefix;
+		return $this->memory->sadd($this->_key($key), $value);
+	}
+
+	public function srem($key, $value, $prefix = '') {
+		if (!$this->enable || !$this->gotset) {
+			return false;
+		}
+		$this->userprefix = $prefix;
+		return $this->memory->srem($this->_key($key), $value);
+	}
+
+	public function scard($key, $prefix = '') {
+		if (!$this->enable || !$this->gotset) {
+			return false;
+		}
+		$this->userprefix = $prefix;
+		return $this->memory->scard($this->_key($key));
+	}
+
+	public function smembers($key, $prefix = '') {
+		if (!$this->enable || !$this->gotset) {
+			return false;
+		}
+		$this->userprefix = $prefix;
+		return $this->memory->smembers($this->_key($key));
+	}
+
+	public function hmset($key, $value, $prefix = '') {
+		if (!$this->enable || !$this->gothash) {
+			return false;
+		}
+		$this->userprefix = $prefix;
+		return $this->memory->hmset($this->_key($key), $value);
+	}
+
+	public function hgetall($key, $prefix = '') {
+		if (!$this->enable || !$this->gothash) {
+			return false;
+		}
+		$this->userprefix = $prefix;
+		return $this->memory->hgetall($this->_key($key));
+	}
+
+
+	/*
+	 * 如果设置了sha_key，将脚本load，然后将sha保存在$prefix_$sha_key中
+	 * 如果sha_key中有sha，则执行evalSha
+	 * 如果没有sha_key，则eval脚本
+	 */
+	public function eval($script, $argv, $sha_key, $prefix = '') {
+		if (!$this->enable || !$this->goteval) {
+			return false;
+		}
+		if (!is_array($argv)) {
+			$argv = array();
+		}
+		$this->userprefix = $prefix;
+		if ($sha_key) {
+			$sha = $this->memory->get($this->_key($sha_key));
+			if (!$sha) {
+				$sha = $this->memory->loadscript($script);
+				$this->memory->set($this->_key($sha_key), $sha);
+			}
+			return $this->memory->evalSha($sha, array_merge(array($this->_key('')), $argv));				
+		} else {
+			return $this->memory->eval($script, array_merge(array($this->_key('')), $argv));				
+		}
+	}
+
+	public function zadd($key, $value, $score, $prefix = '') {
+		if (!$this->enable || !$this->gotsortedset) {
+			return false;
+		}
+		$this->userprefix = $prefix;
+		return $this->memory->zadd($this->_key($key), $value, $score);
+	}
+
+	public function zrem($key, $value, $prefix = '') {
+		if (!$this->enable || !$this->gotsortedset) {
+			return false;
+		}
+		$this->userprefix = $prefix;
+		return $this->memory->zrem($this->_key($key), $value);
+	}
+
+	public function zcard($key, $prefix = '') {
+		if (!$this->enable || !$this->gotsortedset) {
+			return false;
+		}
+		$this->userprefix = $prefix;
+		return $this->memory->zcard($this->_key($key));
+	}
+
+	public function zrevrange($key, $start, $end, $prefix = '') {
+		if (!$this->enable || !$this->gotsortedset) {
+			return false;
+		}
+		$this->userprefix = $prefix;
+		return $this->memory->zrevrange($this->_key($key), $start, $end);
 	}
 
 	private function _key($str) {

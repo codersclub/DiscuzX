@@ -115,15 +115,15 @@ class memory_driver_redis {
 		return $this->obj->getSet($key, $value);
 	}
 
-	function sADD($key, $value) {
-		return $this->obj->sADD($key, $value);
+	function sadd($key, $value) {
+		return $this->obj->sAdd($key, $value);
 	}
 
-	function sRemove($key, $value) {
-		return $this->obj->sRemove($key, $value);
+	function srem($key, $value) {
+		return $this->obj->sRem($key, $value);
 	}
 
-	function sMembers($key) {
+	function smembers($key) {
 		return $this->obj->sMembers($key);
 	}
 
@@ -139,12 +139,16 @@ class memory_driver_redis {
 		return $this->obj->expire($key, $second);
 	}
 
-	function sCard($key) {
+	function scard($key) {
 		return $this->obj->sCard($key);
 	}
 
 	function hSet($key, $field, $value) {
 		return $this->obj->hSet($key, $field, $value);
+	}
+
+	function hmset($key, $value) {
+		return $this->obj->hMSet($key, $value);
 	}
 
 	function hDel($key, $field) {
@@ -163,8 +167,36 @@ class memory_driver_redis {
 		return $this->obj->hIncrBy($key, $field, $incr);
 	}
 
-	function hGetAll($key) {
+	function hgetall($key) {
 		return $this->obj->hGetAll($key);
+	}
+
+	function eval($script, $argv) {
+		return $this->obj->eval($script, $argv);
+	}
+
+	function evalsha($sha, $argv) {
+		return $this->obj->evalSha($sha, $argv);
+	}
+
+	function loadscript($script) {
+		return $this->obj->script('load', $script);
+	}
+
+	function zadd($key, $member, $score) {
+		return $this->obj->zAdd($key, $score, $member);
+	}
+
+	function zrem($key, $member) {
+		return $this->obj->zRem($key, $member);
+	}
+
+	function zcard($key) {
+		return $this->obj->zCard($key);
+	}
+
+	function zrevrange($key, $start, $end) {
+		return $this->obj->zRevRange($key, $start, $end);
 	}
 
 	function sort($key, $opt) {
