@@ -56,10 +56,11 @@ class table_common_seccheck extends discuz_table
 
 	public function update_succeed($ssid) {
 		if (!$this->_allowmem) {
-			DB::query("UPDATE %t SET verified=verified+1,succeed=succeed+1 WHERE ssid=%d", array($this->_table, $ssid));
+			return DB::query("UPDATE %t SET verified=verified+1,succeed=succeed+1 WHERE ssid=%d", array($this->_table, $ssid));
 		}
 		memory('inc', $ssid . "_verified", 1, 0, $this->_pre_cache_key);
 		memory('inc', $ssid . "_succeed", 1, 0, $this->_pre_cache_key);
+		return 1; // simulate 1 row changed
 	}
 
 	public function truncate() {
