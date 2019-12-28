@@ -182,6 +182,14 @@ class discuz_memory extends discuz_base
 		return $this->memory->srem($this->_key($key), $value);
 	}
 
+	public function sismember($key, $value, $prefix = '') {
+		if (!$this->enable || !$this->gotset) {
+			return false;
+		}
+		$this->userprefix = $prefix;
+		return $this->memory->sismember($this->_key($key), $value);
+	}
+
 	public function scard($key, $prefix = '') {
 		if (!$this->enable || !$this->gotset) {
 			return false;

@@ -90,7 +90,7 @@ class memory_driver_redis {
 	}
 
 	function rm($key) {
-		return $this->obj->delete($key);
+		return $this->obj->del($key);
 	}
 
 	function setMulti($arr, $ttl = 0) {
@@ -127,8 +127,8 @@ class memory_driver_redis {
 		return $this->obj->sMembers($key);
 	}
 
-	function sIsMember($key, $member) {
-		return $this->obj->sismember($key, $member);
+	function sismember($key, $member) {
+		return $this->obj->sIsMember($key, $member);
 	}
 
 	function keys($key) {
