@@ -159,6 +159,10 @@ if($op == 'edit') {
 
 } elseif($op == 'ipban' && $_G['group']['allowbanip']) {
 
+	if (array_key_exists('security', $_G['config']) && array_key_exists('useipban', $_G['config']['security']) && $_G['config']['security']['useipban'] == 0) {
+		acpmsg('admin_nopermission');
+	}
+
 	require_once libfile('function/misc');
 	$iptoban = getgpc('ip') ? dhtmlspecialchars(getgpc('ip')) : '';
 	$updatecheck = $addcheck = $deletecheck = $adderror = 0;

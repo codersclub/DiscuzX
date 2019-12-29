@@ -426,10 +426,8 @@ class discuz_application extends discuz_base{
 				dsetcookie('sid', $this->var['sid'], 86400);
 			}
 
-			if($this->session->isnew) {
-				if(ipbanned($this->var['clientip'])) {
-					$this->session->set('groupid', 6);
-				}
+			if(ip::checkbanned($this->var['clientip'])) {
+				$this->session->set('groupid', 6);
 			}
 
 			if($this->session->get('groupid') == 6) {

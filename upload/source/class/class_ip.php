@@ -253,6 +253,11 @@ class ip {
 
 	public static function checkbanned($ip) {
 		global $_G;
+
+		if (array_key_exists('security', $_G['config']) && array_key_exists('useipban', $_G['config']['security']) && $_G['config']['security']['useipban'] == 0) {
+			return false;
+		}
+
 		if($_G['setting']['ipaccess'] && self::checkaccess($ip, $_G['setting']['ipaccess'])) {
 			return true;
 		}
