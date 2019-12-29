@@ -61,24 +61,25 @@ function all_test_methods_in($class) {
     return $methods;
 }
 
-function try_call_function($instance, $method) {
+function try_call_function($instance, $method, $count = true) {
     global $FAILED, $SUCCEEDED;
     try {
         if (in_array($method, get_class_methods($instance))) {
-            logging\log(LOG_LEVEL_INFO, "    running %s->%s", get_class($instance), $method);
             call_user_func(array($instance, $method));
-            $SUCCEEDED ++;
-            echo "\r";
-            logging\info(str_pad(sprintf("    %s->%s", get_class($instance), $method), 50, ".") . "PASSED");
+            if ($count) {
+                $SUCCEEDED ++;
+                logging\info(str_pad(sprintf("    %s->%s", get_class($instance), $method), 50, ".") . "PASSED");    
+            }
             return TRUE;
         } else {
             logging\debug("skipping %s->%s", get_class($instance), $method);
             return FALSE;
         }
     } catch (Exception $e) {
-        echo "\r";
         logging\info(str_pad(sprintf("    %s->%s", get_class($instance), $method), 50, ".") . "FAILED");
-        $FAILED ++;
+        if ($count) {
+            $FAILED ++;
+        }
         return FALSE;
     }
 }
@@ -119,7 +120,7 @@ function call_test_method($file)
     @require_once($file);
     $classes = all_classes_in($file);
     if (empty($classes)) {
-        logging\info("cannot find classes in %s", $file);
+        logging\info("    cannot find classes in %s", $file);
         return;
     }
     foreach ($classes as $class) {
@@ -129,11 +130,11 @@ function call_test_method($file)
             continue;
         }
         $instance = new $class();
-        try_call_function($instance, 'setUp');
+        try_call_function($instance, 'setUp', false);
         foreach ($methods as $method) {
             try_call_function($instance, $method);
         }
-        try_call_function($instance, 'tearDown');
+        try_call_function($instance, 'tearDown', false);
     }
 }
 
@@ -153,5 +154,13 @@ function assertNotEqual($a, $b) {
     if ($a === $b) throw new Exception();
 }
 
-process_all_files_with_condition(__DIR__, 'alltests_condition', 'call_test_method');
-logging\info("totally %d failed, %d succeeded.", $FAILED, $SUCCEEDED);
+function runtests_main() {
+    global $FAILED, $SUCCEEDED;
+    process_all_files_with_condition(__DIR__, 'alltests_condition', 'call_test_method');
+    logging\info("");    
+    logging\info("totally %d failed, %d succeeded.", $FAILED, $SUCCEEDED);    
+}
+
+if (!defined("CALL_TESTS_FROM_WEB")) {
+    runtests_main();
+}

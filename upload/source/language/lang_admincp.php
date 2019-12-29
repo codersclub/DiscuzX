@@ -7002,6 +7002,9 @@ $lang = array
 	'setting_manyou_manage' => '漫游应用管理',
 	'setting_manyou_search_manage' => '漫游搜索管理',
 
+	'setting_runtests' => '运行测试用例',
+	'setting_runtests_prompt' => '点击确定，开始运行',
+
 	'connect_menu_setting' => '基本设置',
 	'connect_menu_stat' => '数据统计',
 	'connect_setting_allow' => '开启QQ注册/绑定/登录服务',

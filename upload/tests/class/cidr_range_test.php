@@ -1,8 +1,5 @@
 <?php
 
-define('IN_DISCUZ', true);
-require_once '../upload/source/class/class_ip.php';
-
 class TestCidrRange
 {
 	/*

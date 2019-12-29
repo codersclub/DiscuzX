@@ -16,9 +16,11 @@ $LEVEL_MAPPING = [
 
 $LEVEL = LOG_LEVEL_INFO;
 
+$LOGGING_OUTPUT_FUNC = NULL;
+
 function _log_array($level, $format, $array)
 {
-    global $LEVEL, $LEVEL_MAPPING;
+    global $LEVEL, $LEVEL_MAPPING, $LOGGING_OUTPUT_FUNC;
     if ($LEVEL < $level) {
         return;
     }
@@ -31,7 +33,11 @@ function _log_array($level, $format, $array)
         $level = LOG_LEVEL_DEBUG;
     }
     $level_str = $LEVEL_MAPPING[$level];
-    echo date('Y-m-d H:i:s') . '  ' . $level_str . '   ' . $str;
+    if ($LOGGING_OUTPUT_FUNC) {
+        $LOGGING_OUTPUT_FUNC(date('Y-m-d H:i:s') . '  ' . $level_str . '   ' . $str);
+    } else {
+        echo date('Y-m-d H:i:s') . '  ' . $level_str . '   ' . $str;
+    }
 }
 
 function log($level, $format, ...$args)

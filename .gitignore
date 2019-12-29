@@ -8,3 +8,4 @@ upload/uc_server/data/
 upload/source/plugin/comiis**
 upload/template/comiis*
 .gitignore
+upload/source/admincp/progress.db
