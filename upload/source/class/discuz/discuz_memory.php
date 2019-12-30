@@ -55,10 +55,6 @@ class discuz_memory extends discuz_base
 		}
 	}
 
-
-	/*
-	 * 返回值要从json解回array，同时转编码为当前编码
-	 */
 	public function get($key, $prefix = '') {
 		static $getmulti = null;
 		$ret = false;
@@ -71,7 +67,7 @@ class discuz_memory extends discuz_base
 					if($ret !== false && !empty($ret)) {
 						$_ret = array();
 						foreach((array)$ret as $_key => $value) {
-							$_ret[$this->_trim_key($_key)] = $this->_try_deserialize($_key, $value);
+							$_ret[$this->_trim_key($_key)] = $value;
 						}
 						$ret = $_ret;
 					}
@@ -80,17 +76,14 @@ class discuz_memory extends discuz_base
 					$_ret = false;
 					foreach($key as $id) {
 						if(($_ret = $this->memory->get($this->_key($id))) !== false && isset($_ret)) {
-							$ret[$id] = $this->_try_deserialize($this->_key($id), $_ret);
+							$ret[$id] = $_ret;
 						}
 					}
 				}
 				if(empty($ret)) $ret = false;
 			} else {
 				$ret = $this->memory->get($this->_key($key));
-				if(!isset($ret))
-					$ret = false;
-				else
-					$ret = $this->_try_deserialize($this->_key($key), $ret);
+				if(!isset($ret)) $ret = false;
 			}
 		}
 		return $ret;
@@ -102,11 +95,6 @@ class discuz_memory extends discuz_base
 		if($value === false) $value = '';
 		if($this->enable) {
 			$this->userprefix = $prefix;
-			if (is_array($value)) {
-				// json_encode要求utf8
-				$value = json_encode($this->to_utf8($value));
-				$this->memory->set($this->_key($key) . "_type", "array", $ttl);
-			}
 			$ret = $this->memory->set($this->_key($key), $value, $ttl);
 		}
 		return $ret;
@@ -311,58 +299,6 @@ class discuz_memory extends discuz_base
 	private function _trim_key($str) {
 		return substr($str, strlen($this->prefix.$this->userprefix));
 	}
-
-	private function _try_deserialize($key, $data) {
-		$type = $this->memory->get($key . "_type");
-		if ($type && $type === "array") {
-			$value = json_decode($data, true);
-			if ($value !== NULL) {
-				return $this->to_charset($value);
-			}
-		}
-		// 非array不涉及编码转换
-		return $data;
-	}
-
-	/*
-	 * 将 $val 从当前编码转为utf-8
-	 * $val 可以是array
-	 */
-	private function to_utf8($val) {
-		$charset = strtolower(CHARSET);
-		if ($charset === 'utf-8') {
-			return $val;
-		}
-		if (is_array($val)) {
-			// array_map会丢失key
-			$data = array();
-			foreach ($val as $k => $v) {
-				$data[$k] = $this->to_utf8($v);
-			}
-			return $data;
-		}
-		return mb_convert_encoding($val, "utf-8", $charset);
-	}
-
-	/*
-	 * 将 $val 从utf-8转为当前编码
-	 * $val 可以是array
-	 */
-	private function to_charset($val) {
-		$charset = strtolower(CHARSET);
-		if ($charset === 'utf-8') {
-			return $val;
-		}
-		if (is_array($val)) {
-			$data = array();
-			foreach ($val as $k => $v) {
-				$data[$k] = $this->to_charset($v);
-			}
-			return $data;
-		}
-		return mb_convert_encoding($val, $charset, "utf-8");
-	}
-
 
 	public function getextension() {
 		return $this->extension;

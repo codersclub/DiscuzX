@@ -60,16 +60,16 @@ class memory_driver_redis {
 		if (is_array($key)) {
 			return $this->getMulti($key);
 		}
-		return $this->obj->get($key);
+		return $this->_try_deserialize($this->obj->get($key));
 	}
 
 	function getMulti($keys) {
-		$result = $this->obj->getMultiple($keys);
+		$result = $this->obj->mGet($keys);
 		$newresult = array();
 		$index = 0;
 		foreach ($keys as $key) {
 			if ($result[$index] !== false) {
-				$newresult[$key] = $result[$index];
+				$newresult[$key] = $this->_try_deserialize($result[$index]);
 			}
 			$index++;
 		}
@@ -82,6 +82,9 @@ class memory_driver_redis {
 	}
 
 	function set($key, $value, $ttl = 0) {
+		if (is_array($value)) {
+			$value = serialize($value);
+		}
 		if ($ttl) {
 			return $this->obj->setex($key, $ttl, $value);
 		} else {
@@ -217,6 +220,18 @@ class memory_driver_redis {
 
 	function clear() {
 		return $this->obj->flushAll();
+	}
+
+	private function _try_deserialize($data) {
+		try {
+			$ret = unserialize($data);
+			if ($ret === FALSE) {
+				return $data;
+			}
+			return $ret;
+		} catch (Exception $e) {
+		}
+		return $data;
 	}
 
 }
