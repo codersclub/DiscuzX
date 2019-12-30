@@ -1,6 +1,8 @@
 <?php
 namespace logging;
 
+if (!defined('IN_UNITTESTING')) exit();
+
 define("LOG_LEVEL_SILENCE", 0);
 define("LOG_LEVEL_ERROR", 1);
 define("LOG_LEVEL_WARNING", 2);

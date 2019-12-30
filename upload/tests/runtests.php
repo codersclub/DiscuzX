@@ -1,5 +1,7 @@
 <?php
 
+if (!defined('IN_UNITTESTING')) exit();
+
 require 'logging.php';
 
 $FAILED = 0;
@@ -159,8 +161,4 @@ function runtests_main() {
     process_all_files_with_condition(__DIR__, 'alltests_condition', 'call_test_method');
     logging\info("");    
     logging\info("totally %d failed, %d succeeded.", $FAILED, $SUCCEEDED);    
-}
-
-if (!defined("CALL_TESTS_FROM_WEB")) {
-    runtests_main();
 }

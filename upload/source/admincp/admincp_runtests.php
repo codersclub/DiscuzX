@@ -32,7 +32,7 @@ if ($operation === "start") {
         // id 会自增
         $sl3->exec('create table tests (id INTEGER PRIMARY KEY, message TEXT NOT NULL)');
 
-        define("CALL_TESTS_FROM_WEB", 1);
+        define("IN_UNITTESTING", 1);
         require_once($test_main_file);
         global $LOGGING_OUTPUT_FUNC;
         $LOGGING_OUTPUT_FUNC = function($str) use (&$sl3) {
@@ -95,6 +95,7 @@ showsubmenu('setting_runtests');
         padding: 5px; 
         text-align: left; 
         line-height: 1.3em;
+        font-family: "Fira Code",Menlo,Consolas,monospace;
 }
 </style>
 
@@ -158,6 +159,7 @@ function read_status() {
                         var items = JSON.parse(s);
                         for (i = 0; i < items.length; ++i) {
                                 top.frames['main'].document.getElementById('content').innerHTML += items[i].message + '<br />';
+                                top.frames['main'].scrollTo(0,top.frames['main'].document.body.scrollHeight);
                                 MAX_ID = items[i].id;
                                 if (items[i].message.indexOf('totally') !== -1) return;
                         }
