@@ -316,6 +316,10 @@ SWFUpload.prototype.initSettings = function (userSettings) {
 
 };
 
+SWFUpload.prototype.setUploadURL = function (url) {
+	this.uploader.options.server = url.toString();
+};
+
 SWFUpload.prototype.addPostParam = function (name, value) {
 	this.uploader.options.formData[name] = value;
 };

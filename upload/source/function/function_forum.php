@@ -1002,7 +1002,7 @@ function set_atlist_cookie($uids) {
 
 function viewthread_is_search_referer() {
 	$regex = "((http|https)\:\/\/)?";
-	$regex .= "([a-z]*.)?(ask.com|yahoo.com|cn.yahoo.com|bing.com|baidu.com|soso.com|google.com|google.cn)(.[a-z]{2,3})?\/";
+	$regex .= "([a-z]*.)?(toutiao.com|m.sm.cn|www.so.com|sogou.com|bing.com|baidu.com|google.com|google.cn|google.com.hk)(.[a-z]{2,3})?\/";
 	if(preg_match("/^$regex/", $_SERVER['HTTP_REFERER'])) {
 		return true;
 	}

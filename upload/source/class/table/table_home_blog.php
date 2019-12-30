@@ -32,7 +32,7 @@ class table_home_blog extends discuz_table
 	}
 	public function range($start = 0, $limit = 0, $ordersc = 'DESC', $orderby = 'dateline', $friend = null, $status = null, $uid = null, $dateline = null) {
 		$wheresql = '1';
-		$wheresql .= $friend ? ' AND '.DB::field('friend', $friend) : '';
+		$wheresql .= ($friend !== null) ? ' AND '.DB::field('friend', $friend) : '';
 		$wheresql .= $uid ? ' AND '.DB::field('uid', $uid) : '';
 		$wheresql .= $status ? ' AND '.DB::field('status', $status) : '';
 		$wheresql .= $dateline ? ' AND '.DB::field('dateline', $dateline, '>=') : '';
