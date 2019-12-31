@@ -222,29 +222,30 @@ class ip {
 		}
 		if(!self::validate_ip($ip)) {
 			return '- Invalid';
-		} else {
-			if (!(filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE) !== false)) {
-				return '- LAN';
-			}
-			if (!(filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_RES_RANGE) !== false)) {
-				return '- Reserved';
-			}
-			if (array_key_exists('ipdb', $_G['config']) && array_key_exists('setting', $_G['config']['ipdb'])) {
-				$s = $_G['config']['ipdb']['setting'];
-				if (!empty($s['ipv4']) && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) {
-					$c = 'ip_'.$s['ipv4'];
-				} else if (!empty($s['ipv6']) && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
-					$c = 'ip_'.$s['ipv6'];
-				} else if (!empty($s['default'])) {
-					$c = 'ip_'.$s['default'];
-				} else {
-					$c = 'ip_tiny';
-				}
+		}
+		if (!(filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE) !== false)) {
+			return '- LAN';
+		}
+		if (!(filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_RES_RANGE) !== false)) {
+			return '- Reserved';
+		}
+		if (array_key_exists('ipdb', $_G['config']) && array_key_exists('setting', $_G['config']['ipdb'])) {
+			$s = $_G['config']['ipdb']['setting'];
+			if (!empty($s['fullstack'])) {
+				$c = 'ip_'.$s['fullstack'];
+			} else if (!empty($s['ipv4']) && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) {
+				$c = 'ip_'.$s['ipv4'];
+			} else if (!empty($s['ipv6']) && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
+				$c = 'ip_'.$s['ipv6'];
+			} else if (!empty($s['default'])) {
+				$c = 'ip_'.$s['default'];
 			} else {
 				$c = 'ip_tiny';
 			}
-			return $c::getInstance()->convert($ip);
+		} else {
+			$c = 'ip_tiny';
 		}
+		return $c::getInstance()->convert($ip);
 	}
 
 	public static function checkaccess($ip, $accesslist) {

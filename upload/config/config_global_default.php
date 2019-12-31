@@ -197,8 +197,9 @@ $_config['input']['compatible'] = 1;
  * 比如：
  * 		$_config['ipdb']['redis_ip']['server'] = '172.16.1.8';
  */
-$_config['ipdb']['setting']['default'] = 'tiny';	// 系统使用的默认IP库
-$_config['ipdb']['setting']['ipv4'] = '';	// 系统使用的默认IPv4库，留空为使用默认库
+$_config['ipdb']['setting']['fullstack'] = '';	// 系统使用的全栈IP库，优先级最高
+$_config['ipdb']['setting']['default'] = '';	// 系统使用的默认IP库，优先级最低
+$_config['ipdb']['setting']['ipv4'] = 'tiny';	// 系统使用的默认IPv4库，留空为使用默认库
 $_config['ipdb']['setting']['ipv6'] = 'v6wry'; // 系统使用的默认IPv6库，留空为使用默认库
 
 // Addon Setting
