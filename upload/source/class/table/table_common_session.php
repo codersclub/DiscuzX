@@ -23,8 +23,8 @@ class table_common_session extends discuz_table
 
 		parent::__construct();
 
-		// 依赖Set, Hash, SortedSet数据类型，依赖LUA脚本
-		$this->_allowmem = $this->_allowmem && C::memory()->gotset && C::memory()->gothash && C::memory()->goteval && C::memory()->gotsortedset;
+		// 依赖Set, Hash, SortedSet数据类型，依赖LUA脚本，不能启用cluster
+		$this->_allowmem = $this->_allowmem && !C::memory()->gotcluster && C::memory()->gotset && C::memory()->gothash && C::memory()->goteval && C::memory()->gotsortedset;
 	}
 
 	// 在memory启用的情况下，直接从memory中读取
@@ -511,6 +511,7 @@ class table_common_session extends discuz_table
 				case 'uid':
 					memory('zadd', "idx_uid_group_" . ($value == 0 ? '0' : '1'), $sid, $newdata['lastactivity'], $this->_pre_cache_key);
 					memory('sadd', 'idx_uid_' . $value, $sid, 0, $this->_pre_cache_key);
+					break;
 				default:
 					continue;
 			}
