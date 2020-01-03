@@ -142,7 +142,6 @@ $lang = array
 	'menu_magics' => '道具中心',
 	'menu_medals' => '勋章中心',
 	'menu_misc_help' => '站点帮助',
-	'menu_google' => 'Google 搜索',
 	'menu_ec' => '电子商务',
 	'menu_card' => '充值卡密',
 

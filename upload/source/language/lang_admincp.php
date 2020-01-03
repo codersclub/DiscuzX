@@ -6457,8 +6457,6 @@ $lang = array
 	'cplog_ecommerce_ec_credit' => '信用评级体系',
 	'cplog_tradelog' => '商品交易订单',
 
-	'cplog_google_config' => 'Google 基本设置',
-
 	'cplog_database_export' => '数据备份',
 	'cplog_database_import' => '数据恢复',
 	'cplog_database_importzip' => '资料恢复',
