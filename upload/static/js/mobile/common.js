@@ -615,11 +615,14 @@ var formdialog = {
 			popup.open('<img src="' + IMGDIR + '/imageloading.gif">');
 			var obj = $(this);
 			var formobj = $(this.form);
+			var isFormData = formobj.find("input[type='file']").length > 0;
 			$.ajax({
 				type:'POST',
 				url:formobj.attr('action') + '&handlekey='+ formobj.attr('id') +'&inajax=1',
-				data:formobj.serialize(),
-				dataType:'xml'
+				data:isFormData ? new FormData(formobj[0]) : formobj.serialize(),
+				dataType:'xml',
+				processData:isFormData ? false : true,
+				contentType:isFormData ? false : 'application/x-www-form-urlencoded; charset=UTF-8'
 			})
 			.success(function(s) {
 				popup.open(s.lastChild.firstChild.nodeValue);
