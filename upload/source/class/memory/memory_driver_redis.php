@@ -47,6 +47,22 @@ class memory_driver_redis {
 		}
 	}
 
+	function feature($feature) {
+		switch ($feature) {
+			case 'set': return true;
+			case 'hash': return true;
+			case 'sortedset': return true;
+			case 'eval':
+				$ret = $this->obj->eval("return 1");
+				return ($ret === 1);
+			case 'cluster':
+				$ret = $this->obj->info("cluster");
+				return ($ret['cluster_enabled'] === 1);
+			default:
+				return false;
+		}
+	}
+
 	function &instance() {
 		static $object;
 		if (empty($object)) {
@@ -174,7 +190,7 @@ class memory_driver_redis {
 		return $this->obj->hGetAll($key);
 	}
 
-	function eval($script, $argv) {
+	function evalscript($script, $argv) {
 		return $this->obj->eval($script, $argv);
 	}
 

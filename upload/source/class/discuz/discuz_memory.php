@@ -26,6 +26,7 @@ class discuz_memory extends discuz_base
 	public $gothash = false; // 是否支持Hash数据类型
 	public $goteval = false; // 是否支持lua脚本eval
 	public $gotsortedset = false; // 是否支持SortedSet
+	public $gotcluster = false; // 是否是集群环境
 
 	public function __construct() {
 	}
@@ -46,10 +47,12 @@ class discuz_memory extends discuz_base
 				} else {
 					$this->type = $this->memory->cacheName;
 					$this->enable = true;
-					$this->gotset = $this->type === 'Redis';
-					$this->gothash = $this->type === 'Redis';
-					$this->goteval = $this->type === 'Redis';
-					$this->gotsortedset = $this->type === 'Redis';
+					$this->gotset = method_exists($this->memory, 'feature') && $this->memory->feature('set');
+					$this->gothash = method_exists($this->memory, 'feature') && $this->memory->feature('hash');
+					$this->goteval = method_exists($this->memory, 'feature') && $this->memory->feature('eval');
+					$this->gotsortedset = method_exists($this->memory, 'feature') && $this->memory->feature('sortedset');;
+					$this->gotcluster = method_exists($this->memory, 'feature') && $this->memory->feature('cluster');
+					break;
 				}
 			}
 		}
@@ -216,7 +219,7 @@ class discuz_memory extends discuz_base
 	 * 如果sha_key中有sha，则执行evalSha
 	 * 如果没有sha_key，则eval脚本
 	 */
-	public function eval($script, $argv, $sha_key, $prefix = '') {
+	public function evalscript($script, $argv, $sha_key, $prefix = '') {
 		if (!$this->enable || !$this->goteval) {
 			return false;
 		}
@@ -232,7 +235,7 @@ class discuz_memory extends discuz_base
 			}
 			return $this->memory->evalSha($sha, array_merge(array($this->_key('')), $argv));				
 		} else {
-			return $this->memory->eval($script, array_merge(array($this->_key('')), $argv));				
+			return $this->memory->evalscript($script, array_merge(array($this->_key('')), $argv));				
 		}
 	}
 

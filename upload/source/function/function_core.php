@@ -1750,7 +1750,7 @@ function memory($cmd, $key='', $value='', $ttl = 0, $prefix = '') {
 			case 'sismember': return C::memory()->sismember($key, $value, $prefix); break;
 			case 'hmset': return C::memory()->hmset($key, $value, $prefix); break;
 			case 'hgetall': return C::memory()->hgetall($key, $value/*prefix*/); break;
-			case 'eval': return C::memory()->eval($key/*script*/, $value/*args*/, $ttl/*sha key*/, $prefix); break;
+			case 'eval': return C::memory()->evalscript($key/*script*/, $value/*args*/, $ttl/*sha key*/, $prefix); break;
 			case 'zadd': return C::memory()->zadd($key, $value, $ttl/*score*/, $prefix); break;
 			case 'zrem': return C::memory()->zrem($key, $value, $prefix); break;
 			case 'zscore': return C::memory()->zscore($key, $value, $prefix); break;
