@@ -76,6 +76,10 @@ class ip {
 	/*
 	 * 给一个ipv4或v6的cidr，计算最小IP和最大IP
 	 * 如果输入的是一个IP，那最大最小IP都等于其自身
+	 * $as_hex = true
+	 * 	返回值为 二进制表达的字符串格式
+	 * $as_hex = false
+	 * 	返回值可用inet_ntop轮换为IP字符串表达式 
 	 */
 	public static function calc_cidr_range($str, $as_hex = false) {
 		if(self::validate_cidr($str, $str)) {
@@ -112,8 +116,8 @@ class ip {
 					$start_array = array_merge(array_fill(0, 16 - $total_bytes, 0), $start_array);
 					$end_array = array_merge(array_fill(0, 16 - $total_bytes, 0), $end_array);
 				}
-				$start = join(array_map('chr', $start_array));
-				$end = join(array_map('chr', $end_array));
+				$start = unpack('H*hex', join(array_map('chr', $start_array)))['hex'];
+				$end = unpack('H*hex', join(array_map('chr', $end_array)))['hex'];
 				return array($start, $end);	
 			} else {
 				$start = call_user_func_array('pack', array_merge(array("C*"), $start_array));
@@ -126,7 +130,7 @@ class ip {
 	}
 
 	/*
-	 * 将一个IP地址转为16个字符的字符串
+	 * 将一个IP地址转为16进制表达的字符串
 	 */
 	public static function ip_to_hex_str($ip)
 	{
@@ -138,7 +142,7 @@ class ip {
 		if ($total_bytes < 16) {
 			$ip_bytes = array_merge(array_fill(0, 16 - $total_bytes, 0), $ip_bytes);
 		}
-		return join(array_map('chr', $ip_bytes));
+		return unpack('H*hex', join(array_map('chr', $ip_bytes)))['hex'];
 	}
 
 	/*
@@ -263,16 +267,7 @@ class ip {
 			return true;
 		}
 
-		$ip_hex_str = self::ip_to_hex_str($ip);
-		if ($ip_hex_str) {
-			$ret = DB::result_first(
-				"SELECT id from " . DB::table('common_banned') . " WHERE " . 
-					"expiration > " . TIMESTAMP . " AND " .
-					"lowerip <='" . $ip_hex_str . "' AND " .
-					"upperip >='" . $ip_hex_str . "'");
-			if ($ret) return true;
-		}
-		return false;
+		return C::t('common_banned')->check_banned(TIMESTAMP, $ip);
 	}
 
 }

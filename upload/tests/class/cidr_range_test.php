@@ -42,16 +42,16 @@ class TestCidrRange
 
 	function test_as_hex() {
 		list($start, $end) = ip::calc_cidr_range("::1/64", true);
-		assertEqual("\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", $start);
-		assertEqual("\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\xff\xff\xff\xff", $end);
+		assertEqual("00000000000000000000000000000000", $start);
+		assertEqual("0000000000000000ffffffffffffffff", $end);
 
 		list($start, $end) = ip::calc_cidr_range("fc00:2000:1000::1/34", true);
-		assertEqual("\xfc\x00\x20\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", $start);
-		assertEqual("\xfc\x00\x20\x00\x3f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff", $end);
+		assertEqual("fc002000000000000000000000000000", $start);
+		assertEqual("fc0020003fffffffffffffffffffffff", $end);
 
 		list($start, $end) = ip::calc_cidr_range("172.16.3.8/17", true);
-		assertEqual("\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xac\x10\x00\x00", $start);
-		assertEqual("\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xac\x10\x7f\xff", $end);
+		assertEqual("000000000000000000000000ac100000", $start);
+		assertEqual("000000000000000000000000ac107fff", $end);
 	}
 
 }
