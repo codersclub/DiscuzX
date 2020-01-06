@@ -103,6 +103,19 @@ class table_common_seccheck extends discuz_table
 		$data['verified'] = memory('get', $id . "_verified", $this->_pre_cache_key);
 		return $data;
 	}
+
+	public function delete($ssid) {
+		if (!$this->_allowmem) {
+			return parent::delete($ssid);
+		}
+		$ssid = dintval($ssid);
+		memory('rm', $ssid . "_verified", $this->_pre_cache_key);
+		memory('rm', $ssid . "_succeed", $this->_pre_cache_key);
+		memory('rm', $ssid . "_code", $this->_pre_cache_key);
+		memory('rm', $ssid . "_dateline", $this->_pre_cache_key);
+		return true;
+	}
+
 }
 
 ?>

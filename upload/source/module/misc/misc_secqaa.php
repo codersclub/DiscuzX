@@ -47,7 +47,7 @@ EOF;
 } elseif($_GET['action'] == 'check') {
 
 	include template('common/header_ajax');
-	echo check_secqaa($_GET['secverify'], $idhash) ? 'succeed' : 'invalid';
+	echo helper_seccheck::check_secqaa($_GET['secverify'], $idhash, true) ? 'succeed' : 'invalid';
 	include template('common/footer_ajax');
 
 }

@@ -1347,12 +1347,12 @@ function getfocus_rand($module) {
 	return $focusid;
 }
 
-function check_seccode($value, $idhash, $fromjs = 0, $modid = '') {
-	return helper_seccheck::check_seccode($value, $idhash, $fromjs, $modid);
+function check_seccode($value, $idhash, $fromjs = 0, $modid = '', $verifyonly = false) {
+	return helper_seccheck::check_seccode($value, $idhash, $fromjs, $modid, $verifyonly);
 }
 
-function check_secqaa($value, $idhash) {
-	return helper_seccheck::check_secqaa($value, $idhash);
+function check_secqaa($value, $idhash, $verifyonly = false) {
+	return helper_seccheck::check_secqaa($value, $idhash, $verifyonly);
 }
 
 function seccheck($rule, $param = array()) {

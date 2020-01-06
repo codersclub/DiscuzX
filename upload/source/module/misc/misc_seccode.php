@@ -83,7 +83,7 @@ EOF;
 } elseif($_GET['action'] == 'check') {
 
 	include template('common/header_ajax');
-	echo check_seccode($_GET['secverify'], $_GET['idhash'], 1, $modid) ? 'succeed' : 'invalid';
+	echo helper_seccheck::check_seccode($_GET['secverify'], $_GET['idhash'], 1, $modid, true) ? 'succeed' : 'invalid';
 	include template('common/footer_ajax');
 
 } else {
