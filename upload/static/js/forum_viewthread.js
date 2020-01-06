@@ -809,10 +809,8 @@ function vmessage() {
 			return false;
 		}
 	};
-	$('vreplysubmit').onmouseover = function() {
-		if($('vmessage').value != vf_tips) {
-			ajaxget('forum.php?mod=ajax&action=checkpostrule&ac=reply', 'vfastpostseccheck');
-			$('vreplysubmit').onmouseover = null;
-		}
+	$('vmessage').onfocus = function() {
+		ajaxget('forum.php?mod=ajax&action=checkpostrule&ac=reply', 'vfastpostseccheck');
+		$('vmessage').onfocus = null;
 	};
 }
