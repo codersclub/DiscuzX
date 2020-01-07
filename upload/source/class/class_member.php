@@ -531,7 +531,7 @@ class register_ctl {
 				}
 				$sendurl = false;
 			}
-			if(!$activationauth && $sendurl) {
+			if(!$activationauth) {
 				checkemail($_GET['email']);
 			}
 			if($sendurl) {
