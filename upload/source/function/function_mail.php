@@ -46,7 +46,6 @@ $message
 </html>
 EOT;
 
-	$maildelimiter = $_G['setting']['mail']['maildelimiter'] == 1 ? "\r\n" : ($_G['setting']['mail']['maildelimiter'] == 2 ? "\r" : "\n");
 	$mailusername = isset($_G['setting']['mail']['mailusername']) ? $_G['setting']['mail']['mailusername'] : 1;
 	$_G['setting']['mail']['port'] = $_G['setting']['mail']['port'] ? $_G['setting']['mail']['port'] : 25;
 	$_G['setting']['mail']['mailsend'] = $_G['setting']['mail']['mailsend'] ? $_G['setting']['mail']['mailsend'] : 1;
@@ -61,10 +60,11 @@ EOT;
 
 	$email_subject = '=?'.CHARSET.'?B?'.base64_encode(preg_replace("/[\r|\n]/", '', '['.$_G['setting']['sitename'].'] '.$subject)).'?=';
 	$email_message = chunk_split(base64_encode(str_replace("\n", "\r\n", str_replace("\r", "\n", str_replace("\r\n", "\n", str_replace("\n\r", "\r", $message))))));
-	$host = $_SERVER['HTTP_HOST'];
+	$host = parse_url('http://'.$_SERVER['HTTP_HOST'], PHP_URL_HOST);
 	$version = $_G['setting']['version'];
-	$headers = "From: $email_from{$maildelimiter}X-Priority: 3{$maildelimiter}X-Mailer: $host $version {$maildelimiter}MIME-Version: 1.0{$maildelimiter}Content-type: text/html; charset=".CHARSET."{$maildelimiter}Content-Transfer-Encoding: base64{$maildelimiter}";
 	if($_G['setting']['mail']['mailsend'] == 1) {
+		$maildelimiter = $_G['setting']['mail']['maildelimiter'] == 1 ? "\r\n" : ($_G['setting']['mail']['maildelimiter'] == 2 ? "\r" : "\n");
+		$headers = "From: $email_from{$maildelimiter}X-Mailer: Discuz! $version {$maildelimiter}MIME-Version: 1.0{$maildelimiter}Content-type: text/html; charset=".CHARSET."{$maildelimiter}Content-Transfer-Encoding: base64{$maildelimiter}";
 		if(function_exists('mail') && @mail($email_to, $email_subject, $email_message, $headers)) {
 			return true;
 		}
@@ -80,13 +80,22 @@ EOT;
 
 		$lastmessage = fgets($fp, 512);
 		if(substr($lastmessage, 0, 3) != '220') {
+			fputs($fp, "QUIT\r\n");
 			runlog('SMTP', "{$_G[setting][mail][server]}:{$_G[setting][mail][port]} CONNECT - $lastmessage", 0);
 			return false;
 		}
 
-		fputs($fp, ($_G['setting']['mail']['auth'] ? 'EHLO' : 'HELO')." uchome\r\n");
+		while(1) {
+			if(substr($lastmessage, 3, 1) != '-' || empty($lastmessage)) {
+				break;
+			}
+			$lastmessage = fgets($fp, 512);
+		}
+
+		fputs($fp, ($_G['setting']['mail']['auth'] ? 'EHLO' : 'HELO')." $host\r\n");
 		$lastmessage = fgets($fp, 512);
 		if(substr($lastmessage, 0, 3) != 220 && substr($lastmessage, 0, 3) != 250) {
+			fputs($fp, "QUIT\r\n");
 			runlog('SMTP', "({$_G[setting][mail][server]}:{$_G[setting][mail][port]}) HELO/EHLO - $lastmessage", 0);
 			return false;
 		}
@@ -102,6 +111,7 @@ EOT;
 			fputs($fp, "AUTH LOGIN\r\n");
 			$lastmessage = fgets($fp, 512);
 			if(substr($lastmessage, 0, 3) != 334) {
+				fputs($fp, "QUIT\r\n");
 				runlog('SMTP', "({$_G[setting][mail][server]}:{$_G[setting][mail][port]}) AUTH LOGIN - $lastmessage", 0);
 				return false;
 			}
@@ -109,6 +119,7 @@ EOT;
 			fputs($fp, base64_encode($_G['setting']['mail']['auth_username'])."\r\n");
 			$lastmessage = fgets($fp, 512);
 			if(substr($lastmessage, 0, 3) != 334) {
+				fputs($fp, "QUIT\r\n");
 				runlog('SMTP', "({$_G[setting][mail][server]}:{$_G[setting][mail][port]}) USERNAME - $lastmessage", 0);
 				return false;
 			}
@@ -116,6 +127,7 @@ EOT;
 			fputs($fp, base64_encode($_G['setting']['mail']['auth_password'])."\r\n");
 			$lastmessage = fgets($fp, 512);
 			if(substr($lastmessage, 0, 3) != 235) {
+				fputs($fp, "QUIT\r\n");
 				runlog('SMTP', "({$_G[setting][mail][server]}:{$_G[setting][mail][port]}) PASSWORD - $lastmessage", 0);
 				return false;
 			}
@@ -129,6 +141,7 @@ EOT;
 			fputs($fp, "MAIL FROM: <".preg_replace("/.*\<(.+?)\>.*/", "\\1", $email_from).">\r\n");
 			$lastmessage = fgets($fp, 512);
 			if(substr($lastmessage, 0, 3) != 250) {
+				fputs($fp, "QUIT\r\n");
 				runlog('SMTP', "({$_G[setting][mail][server]}:{$_G[setting][mail][port]}) MAIL FROM - $lastmessage", 0);
 				return false;
 			}
@@ -139,6 +152,7 @@ EOT;
 		if(substr($lastmessage, 0, 3) != 250) {
 			fputs($fp, "RCPT TO: <".preg_replace("/.*\<(.+?)\>.*/", "\\1", $toemail).">\r\n");
 			$lastmessage = fgets($fp, 512);
+			fputs($fp, "QUIT\r\n");
 			runlog('SMTP', "({$_G[setting][mail][server]}:{$_G[setting][mail][port]}) RCPT TO - $lastmessage", 0);
 			return false;
 		}
@@ -146,6 +160,7 @@ EOT;
 		fputs($fp, "DATA\r\n");
 		$lastmessage = fgets($fp, 512);
 		if(substr($lastmessage, 0, 3) != 354) {
+			fputs($fp, "QUIT\r\n");
 			runlog('SMTP', "({$_G[setting][mail][server]}:{$_G[setting][mail][port]}) DATA - $lastmessage", 0);
 			return false;
 		}
@@ -155,7 +170,11 @@ EOT;
 			@date_default_timezone_set('Etc/GMT'.($timeoffset > 0 ? '-' : '+').(abs($timeoffset)));
 		}
 
-		$headers .= 'Message-ID: <'.date('YmdHs').'.'.substr(md5($email_message.microtime()), 0, 6).rand(100000, 999999).'@'.$_SERVER['HTTP_HOST'].">{$maildelimiter}";
+		$maildomain = substr(strrchr($email_from, "@"), 1);
+		$maildelimiter = "\r\n";
+		$headers = "From: $email_from{$maildelimiter}X-Mailer: Discuz! $version {$maildelimiter}MIME-Version: 1.0{$maildelimiter}Content-type: text/html; charset=".CHARSET."{$maildelimiter}Content-Transfer-Encoding: base64{$maildelimiter}";
+		$headers .= 'Message-ID: <'.date('YmdHs').'.'.substr(md5($email_message.microtime()), 0, 6).rand(100000, 999999).'@'.$maildomain.">{$maildelimiter}";
+
 		fputs($fp, "Date: ".date('r')."\r\n");
 		fputs($fp, "To: ".$email_to."\r\n");
 		fputs($fp, "Subject: ".$email_subject."\r\n");
@@ -164,7 +183,9 @@ EOT;
 		fputs($fp, "$email_message\r\n.\r\n");
 		$lastmessage = fgets($fp, 512);
 		if(substr($lastmessage, 0, 3) != 250) {
+			fputs($fp, "QUIT\r\n");
 			runlog('SMTP', "({$_G[setting][mail][server]}:{$_G[setting][mail][port]}) END - $lastmessage", 0);
+			return false;
 		}
 		fputs($fp, "QUIT\r\n");
 
@@ -175,6 +196,9 @@ EOT;
 		ini_set('SMTP', $_G['setting']['mail']['server']);
 		ini_set('smtp_port', $_G['setting']['mail']['port']);
 		ini_set('sendmail_from', $email_from);
+
+		$maildelimiter = "\r\n";
+		$headers = "From: $email_from{$maildelimiter}X-Mailer: Discuz! $version {$maildelimiter}MIME-Version: 1.0{$maildelimiter}Content-type: text/html; charset=".CHARSET."{$maildelimiter}Content-Transfer-Encoding: base64{$maildelimiter}";
 
 		if(function_exists('mail') && @mail($email_to, $email_subject, $email_message, $headers)) {
 			return true;
