@@ -28,7 +28,7 @@ $view_off = getgpc('view_off');
 
 define('VIEW_OFF', $view_off ? TRUE : FALSE);
 
-$allow_method = array('show_license', 'env_check', 'app_reg', 'db_init', 'ext_info', 'install_check', 'tablepre_check');
+$allow_method = array('show_license', 'env_check', 'app_reg', 'db_init', 'ext_info', 'install_check', 'tablepre_check', 'do_db_init', 'check_db_init_progress');
 
 $step = intval(getgpc('step', 'R')) ? intval(getgpc('step', 'R')) : 0;
 $method = getgpc('method');
@@ -341,127 +341,26 @@ if($method == 'show_license') {
 
 		save_config_file(ROOT_PATH.CONFIG, $_config, $default_config);
 
-		$db = new dbstuff;
-
-		$db->connect($dbhost, $dbuser, $dbpw, $dbname, DBCHARSET);
-
 		if(!VIEW_OFF) {
 			show_header();
-			show_install();
+			show_db_install();
 		}
 
-		if(DZUCFULL) {
-			install_uc_server();
-		}
-
-		$sql = file_get_contents($sqlfile);
-		$sql = str_replace("\r\n", "\n", $sql);
-
-		runquery($sql);
-		runquery($extrasql);
-
-		$sql = file_get_contents(ROOT_PATH.'./install/data/install_data.sql');
-		$sql = str_replace("\r\n", "\n", $sql);
-		runquery($sql);
-
-		$onlineip = $_SERVER['REMOTE_ADDR'];
-		$timestamp = time();
-		$backupdir = substr(md5($_SERVER['SERVER_ADDR'].$_SERVER['HTTP_USER_AGENT'].substr($timestamp, 0, 4)), 8, 6);
-		$ret = false;
-		if(is_dir(ROOT_PATH.'data/backup')) {
-			$ret = @rename(ROOT_PATH.'data/backup', ROOT_PATH.'data/backup_'.$backupdir);
-		}
-		if(!$ret) {
-			@mkdir(ROOT_PATH.'data/backup_'.$backupdir, 0777);
-		}
-		if(is_dir(ROOT_PATH.'data/backup_'.$backupdir)) {
-			$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('backupdir', '$backupdir')");
-		}
-		$chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
-		$siteuniqueid = 'DX'.$chars[date('y')%60].$chars[date('n')].$chars[date('j')].$chars[date('G')].$chars[date('i')].$chars[date('s')].substr(md5($onlineip.$timestamp), 0, 4).random(4);
-
-		$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('authkey', '$authkey')");
-		$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('siteuniqueid', '$siteuniqueid')");
-		$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('adminemail', '$email')");
-
-		install_extra_setting();
-
-		$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('backupdir', '".$backupdir."')");
-
-		$password = md5(random(10));
-
-		$db->query("REPLACE INTO {$tablepre}common_member (uid, username, password, adminid, groupid, email, regdate) VALUES ('$uid', '$username', '$password', '1', '1', '$email', '".time()."');");
-
-		$notifyusers = addslashes('a:1:{i:1;a:2:{s:8:"username";s:'.strlen($username).':"'.$username.'";s:5:"types";s:20:"11111111111111111111";}}');
-		$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('notifyusers', '$notifyusers')");
-
-		$db->query("UPDATE {$tablepre}common_cron SET lastrun='0', nextrun='".($timestamp + 3600)."'");
-
-		install_data($username, $uid);
-
-		$testdata = $portalstatus = 1;
-		$groupstatus = $homestatus = 0;
-
-		if($testdata) {
-			install_testdata($username, $uid);
-		}
-
-		if(!$portalstatus) {
-			$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('portalstatus', '0')");
-		}
-
-		if(!$groupstatus) {
-			$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('groupstatus', '0')");
-		}
-
-		if(!$homestatus) {
-			$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('homestatus', '0')");
-		}
-		$yearmonth = date('Ym_', time());
-		loginit($yearmonth.'ratelog');
-		loginit($yearmonth.'illegallog');
-		loginit($yearmonth.'modslog');
-		loginit($yearmonth.'cplog');
-		loginit($yearmonth.'errorlog');
-		loginit($yearmonth.'banlog');
-
-		dir_clear(ROOT_PATH.'./data/template');
-		dir_clear(ROOT_PATH.'./data/cache');
-		dir_clear(ROOT_PATH.'./data/threadcache');
-		dir_clear(ROOT_PATH.'./uc_client/data');
-		dir_clear(ROOT_PATH.'./uc_client/data/cache');
-
-		foreach($serialize_sql_setting as $k => $v) {
-			$v = addslashes(serialize($v));
-			$db->query("REPLACE INTO {$tablepre}common_setting VALUES ('$k', '$v')");
-		}
-
-		$query = $db->query("SELECT COUNT(*) FROM {$tablepre}common_member");
-		$totalmembers = $db->result($query, 0);
-		$userstats = array('totalmembers' => $totalmembers, 'newsetuser' => $username);
-		$ctype = 1;
-		$data = addslashes(serialize($userstats));
-		$db->query("REPLACE INTO {$tablepre}common_syscache (cname, ctype, dateline, data) VALUES ('userstats', '$ctype', '".time()."', '$data')");
-
-		VIEW_OFF && show_msg('initdbresult_succ');
 
 		if(!VIEW_OFF) {
-			echo '<script type="text/javascript">function setlaststep() {document.getElementById("laststep").disabled=false;window.location=\'index.php?method=ext_info\';}</script><script type="text/javascript">setTimeout(function(){window.location=\'index.php?method=ext_info\'}, 30000);</script><iframe src="../misc.php?mod=initsys" style="display:none;" onload="setlaststep()"></iframe>'."\r\n";
 			show_footer();
 		}
 
 	}
 	if(VIEW_OFF) {
-
 		show_msg('missing_parameter', '', 0);
-
 	} else {
 		show_form($form_db_init_items, $error_msg);
-
 	}
 
 } elseif($method == 'ext_info') {
 	@touch($lockfile);
+	init_install_log_file();
 	if(VIEW_OFF) {
 		show_msg('ext_info_succ');
 	} else {
@@ -482,7 +381,6 @@ if($method == 'show_license') {
 	}
 
 } elseif($method == 'tablepre_check') {
-
 	$dbinfo = getgpc('dbinfo');
 	extract($dbinfo);
 	if(check_db($dbhost, $dbuser, $dbpw, $dbname, $tablepre)) {
@@ -490,4 +388,111 @@ if($method == 'show_license') {
 	} else {
 		show_msg('tablepre_exists', $tablepre, 0);
 	}
+} elseif($method == 'do_db_init') {
+	$allinfo = getgpc('allinfo');
+	extract(unserialize(base64_decode($allinfo)));
+
+	$db = new dbstuff;
+	$db->connect($dbhost, $dbuser, $dbpw, $dbname, DBCHARSET);
+
+	if($dzucfull) {
+		install_uc_server();
+	}
+
+	$sql = file_get_contents($sqlfile);
+	$sql = str_replace("\r\n", "\n", $sql);
+	runquery($sql);
+
+	showjsmessage(lang('init_table_data') . ' ... ');
+	$sql = file_get_contents(ROOT_PATH.'./install/data/install_data.sql');
+	$sql = str_replace("\r\n", "\n", $sql);
+	runquery($sql);
+	showjsmessage(lang('succeed') . "\n");
+
+	$onlineip = $_SERVER['REMOTE_ADDR'];
+	$timestamp = time();
+	$backupdir = substr(md5($_SERVER['SERVER_ADDR'].$_SERVER['HTTP_USER_AGENT'].substr($timestamp, 0, 4)), 8, 6);
+	$ret = false;
+	if(is_dir(ROOT_PATH.'data/backup')) {
+		$ret = @rename(ROOT_PATH.'data/backup', ROOT_PATH.'data/backup_'.$backupdir);
+	}
+	if(!$ret) {
+		@mkdir(ROOT_PATH.'data/backup_'.$backupdir, 0777);
+	}
+	if(is_dir(ROOT_PATH.'data/backup_'.$backupdir)) {
+		$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('backupdir', '$backupdir')");
+	}
+	$chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
+	$siteuniqueid = 'DX'.$chars[date('y')%60].$chars[date('n')].$chars[date('j')].$chars[date('G')].$chars[date('i')].$chars[date('s')].substr(md5($onlineip.$timestamp), 0, 4).random(4);
+
+	$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('authkey', '$authkey')");
+	$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('siteuniqueid', '$siteuniqueid')");
+	$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('adminemail', '$email')");
+
+	install_extra_setting();
+
+	$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('backupdir', '".$backupdir."')");
+
+	$password = md5(random(10));
+
+	$db->query("REPLACE INTO {$tablepre}common_member (uid, username, password, adminid, groupid, email, regdate) VALUES ('$uid', '$username', '$password', '1', '1', '$email', '".time()."');");
+
+	$notifyusers = addslashes('a:1:{i:1;a:2:{s:8:"username";s:'.strlen($username).':"'.$username.'";s:5:"types";s:20:"11111111111111111111";}}');
+	$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('notifyusers', '$notifyusers')");
+
+	$db->query("UPDATE {$tablepre}common_cron SET lastrun='0', nextrun='".($timestamp + 3600)."'");
+
+	install_data($username, $uid);
+
+	$testdata = $portalstatus = 1;
+	$groupstatus = $homestatus = 0;
+
+	if($testdata) {
+		install_testdata($username, $uid);
+	}
+
+	if(!$portalstatus) {
+		$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('portalstatus', '0')");
+	}
+
+	if(!$groupstatus) {
+		$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('groupstatus', '0')");
+	}
+
+	if(!$homestatus) {
+		$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('homestatus', '0')");
+	}
+	$yearmonth = date('Ym_', time());
+	loginit($yearmonth.'ratelog');
+	loginit($yearmonth.'illegallog');
+	loginit($yearmonth.'modslog');
+	loginit($yearmonth.'cplog');
+	loginit($yearmonth.'errorlog');
+	loginit($yearmonth.'banlog');
+
+	dir_clear(ROOT_PATH.'./data/template');
+	dir_clear(ROOT_PATH.'./data/cache');
+	dir_clear(ROOT_PATH.'./data/threadcache');
+	dir_clear(ROOT_PATH.'./uc_client/data');
+	dir_clear(ROOT_PATH.'./uc_client/data/cache');
+
+	foreach($serialize_sql_setting as $k => $v) {
+		$v = addslashes(serialize($v));
+		$db->query("REPLACE INTO {$tablepre}common_setting VALUES ('$k', '$v')");
+	}
+
+	$query = $db->query("SELECT COUNT(*) FROM {$tablepre}common_member");
+	$totalmembers = $db->result($query, 0);
+	$userstats = array('totalmembers' => $totalmembers, 'newsetuser' => $username);
+	$ctype = 1;
+	$data = addslashes(serialize($userstats));
+	$db->query("REPLACE INTO {$tablepre}common_syscache (cname, ctype, dateline, data) VALUES ('userstats', '$ctype', '".time()."', '$data')");
+
+	!VIEW_OFF && showjsmessage(lang('initdbresult_succ'));
+} elseif($method == 'check_db_init_progress') {
+	header("Content-Type: text/plain");
+	ob_start();
+	readfile(__DIR__ . '/include/install.log');
+	ob_end_flush();
+	exit();
 }

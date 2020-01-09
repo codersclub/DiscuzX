@@ -520,7 +520,7 @@ function dir_writeable($dir) {
 
 function dir_clear($dir) {
 	global $lang;
-	showjsmessage($lang['clear_dir'].' '.str_replace(ROOT_PATH, '', $dir));
+	showjsmessage($lang['clear_dir'] . ' ' . str_replace(ROOT_PATH, '', $dir) . "\n");
 	if($directory = @dir($dir)) {
 		while($entry = $directory->read()) {
 			$filename = $dir.'/'.$entry;
@@ -585,7 +585,7 @@ EOT;
 
 function loginit($logfile) {
 	global $lang;
-	showjsmessage($lang['init_log'].' '.$logfile);
+	showjsmessage($lang['init_log'].' '.$logfile . "\n");
 	if($fp = @fopen('./forumdata/logs/'.$logfile.'.php', 'w')) {
 		fwrite($fp, '<'.'?PHP exit(); ?'.">\n");
 		fclose($fp);
@@ -594,9 +594,7 @@ function loginit($logfile) {
 
 function showjsmessage($message) {
 	if(VIEW_OFF) return;
-	echo '<script type="text/javascript">showmessage(\''.addslashes($message).' \');</script>'."\r\n";
-	flush();
-	ob_flush();
+	append_to_install_log_file($message);
 }
 
 function random($length) {
@@ -733,16 +731,68 @@ function generate_key() {
 	return implode('', $return);
 }
 
-function show_install() {
+function show_db_install() {
 	if(VIEW_OFF) return;
+	global $dbhost, $dbuser, $dbpw, $dbname, $tablepre, $username, $password, $email;
+	$dzucfull = DZUCFULL;
+	$allinfo = base64_encode(serialize(compact('dbhost', 'dbuser', 'dbpw', 'dbname', 'tablepre', 'username', 'password', 'email', 'dzucfull')));
+	init_install_log_file();
 ?>
 <script type="text/javascript">
-function showmessage(message) {
-	document.getElementById('notice').innerHTML += message + '<br />';
-	document.getElementById('notice').scrollTop = 100000000;
+var ajax = {};
+ajax.x = function () {
+    if (typeof XMLHttpRequest !== 'undefined') {return new XMLHttpRequest();}
+    var versions = ["MSXML2.XmlHttp.6.0", "MSXML2.XmlHttp.5.0", "MSXML2.XmlHttp.4.0", "MSXML2.XmlHttp.3.0", "MSXML2.XmlHttp.2.0", "Microsoft.XmlHttp"];
+    var xhr;for (var i = 0; i < versions.length; i++) {try {xhr = new ActiveXObject(versions[i]);break;} catch (e) {}}return xhr;
+};
+
+ajax.send = function (url, callback, method, data, async) {
+    if (async === undefined) {async = true;}
+    var x = ajax.x();x.open(method, url, async);x.onreadystatechange = function () {if (x.readyState == 4) {callback(x.responseText)}};if (method == 'POST') {x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');}
+    x.send(data);
+};
+
+ajax.get = function (url, data, callback, async) {
+    var query = [];for (var key in data) {query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));}ajax.send(url + (query.length ? '?' + query.join('&') : ''), callback, 'GET', null, async);
+};
+
+function request_do_db_init() {
+    ajax.get('index.php?method=do_db_init&allinfo=<?= $allinfo ?>');
 }
-function initinput() {
-	window.location='index.php?method=ext_info';
+
+function set_notice(str) {
+    document.getElementById('notice').innerHTML = str;
+    document.getElementById('notice').scrollTop = 100000000;
+}
+
+function append_notice(str) {
+    document.getElementById('notice').innerHTML += str;
+    document.getElementById('notice').scrollTop = 100000000;
+}
+
+function request_log() {
+    ajax.get('index.php?method=check_db_init_progress', "", function (data) {
+        set_notice(data.split("\n").map(l => l + '<br/>').join(''));
+        if (data.indexOf('<?= lang("initdbresult_succ") ?>') !== -1) {
+            append_notice("<?= lang('initsys') ?> ... ");
+
+            ajax.get("../misc.php?mod=initsys", "", function() {
+                append_notice("<?= lang('succeed') ?><br/>");
+                document.getElementById("laststep").value = '<?= lang("initdbresult_succ") ?>';
+                document.getElementById("laststep").disabled = false;
+                window.setTimeout(function() {
+                    window.location='index.php?method=ext_info';
+                }, 2000);
+            });
+        } else {
+            request_log();
+        }
+    });
+}
+
+window.onload = function() {
+    request_do_db_init();
+    request_log();
 }
 </script>
 		<div id="notice"></div>
@@ -777,8 +827,9 @@ function runquery($sql) {
 
 			if(substr($query, 0, 12) == 'CREATE TABLE') {
 				$name = preg_replace("/CREATE TABLE ([a-z0-9_]+) .*/is", "\\1", $query);
-				showjsmessage(lang('create_table').' '.$name.' ... '.lang('succeed'));
+				showjsmessage(lang('create_table').' '.$name.' ... ');
 				$db->query(createtable($query, $db->version()));
+				showjsmessage(lang('succeed') . "\n");
 			} else {
 				$db->query($query);
 			}
@@ -812,8 +863,9 @@ function runucquery($sql, $tablepre) {
 
 			if(substr($query, 0, 12) == 'CREATE TABLE') {
 				$name = preg_replace("/CREATE TABLE ([a-z0-9_]+) .*/is", "\\1", $query);
-				showjsmessage(lang('create_table').' '.$name.' ... '.lang('succeed'));
+				showjsmessage(lang('create_table').' '.$name.' ... ');
 				$db->query(createtable($query, $db->version()));
+				showjsmessage(lang('succeed') . "\n");
 			} else {
 				$db->query($query);
 			}
@@ -1341,7 +1393,7 @@ function install_uc_server() {
 
 function install_data($username, $uid) {
 	global $_G, $db, $tablepre;
-	showjsmessage(lang('install_data')." ... ".lang('succeed'));
+	showjsmessage(lang('install_data')." ... ");
 
 	$_G = array('db'=>$db,'tablepre'=>$tablepre, 'uid'=>$uid, 'username'=>$username);
 
@@ -1351,10 +1403,12 @@ function install_data($username, $uid) {
 	foreach ($arr as $v) {
 		import_diy($v['importfile'], $v['primaltplname'], $v['targettplname']);
 	}
+
+	showjsmessage(lang('succeed') . "\n");
 }
 function install_testdata($username, $uid) {
 	global $_G, $db, $tablepre;
-	showjsmessage(lang('install_test_data')." ... ".lang('succeed'));
+	showjsmessage(lang('install_test_data')." ... ");
 
 	$sqlfile = ROOT_PATH.'./install/data/common_district_{#id}.sql';
 	for($i = 1; $i < 4; $i++) {
@@ -1365,6 +1419,7 @@ function install_testdata($username, $uid) {
 			runquery($sql);
 		}
 	}
+	showjsmessage(lang('succeed') . "\n");
 }
 
 function getvars($data, $type = 'VAR') {
@@ -1772,4 +1827,14 @@ function format_space($space) {
 		}
 	}
 	return $space;
+}
+
+function init_install_log_file() {
+	$file = __DIR__ . '/install.log';
+	if (file_exists($file)) unlink($file);
+}
+
+function append_to_install_log_file($message) {
+	$file = __DIR__ . '/install.log';
+	file_put_contents($file, $message, FILE_APPEND);
 }
