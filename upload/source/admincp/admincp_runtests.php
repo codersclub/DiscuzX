@@ -36,7 +36,10 @@ if ($operation === "start") {
         require_once($test_main_file);
         global $LOGGING_OUTPUT_FUNC;
         $LOGGING_OUTPUT_FUNC = function($str) use (&$sl3) {
-                $sl3->exec("insert into tests (message) values ('" . $sl3->escapeString(trim($str)) . "')");
+                $stmt = $sl3->prepare("insert into tests (message) values (:message)");
+                $stmt->bindParam(":message", trim($str), SQLITE3_TEXT);
+                $stmt->execute();
+                $stmt->close();
         };
         runtests_main();
         $sl3->close();
@@ -45,11 +48,14 @@ if ($operation === "start") {
 
 if ($operation === "fetch") {
         $sl3 = new SQLite3(__DIR__ . "/progress.db", SQLITE3_OPEN_READONLY);
-        $rs = $sl3->query("select id, message from tests where id > " . $_GET['from'] . " ORDER BY id");
+        $stmt = $sl3->prepare("select id, message from tests where id > :from ORDER BY id");
+	    $stmt->bindParam(":from", dintval($_GET['from']), SQLITE3_INTEGER);
+	    $rs = $stmt->execute();
         $rsa = array();
         while($row = $rs->fetchArray(SQLITE3_ASSOC)) {
                 $rsa[] = $row;
         }
+        $stmt->close();
         $sl3->close();
         header('Content-Type: application/json');
         ob_start();
@@ -96,6 +102,10 @@ showsubmenu('setting_runtests');
         text-align: left; 
         line-height: 1.3em;
         font-family: "Fira Code",Menlo,Consolas,monospace;
+}
+
+.failed {
+        color: red;
 }
 </style>
 
@@ -158,6 +168,7 @@ function read_status() {
                 try {
                         var items = JSON.parse(s);
                         for (i = 0; i < items.length; ++i) {
+                                if (items[i].message.indexOf('FAILED') !== -1) items[i].message = '<span class="failed">' + items[i].message + '</span>';
                                 top.frames['main'].document.getElementById('content').innerHTML += items[i].message + '<br />';
                                 top.frames['main'].scrollTo(0,top.frames['main'].document.body.scrollHeight);
                                 MAX_ID = items[i].id;
