@@ -1722,7 +1722,8 @@ function memory($cmd, $key='', $value='', $ttl = 0, $prefix = '') {
 		'sadd', 'srem', 'scard', 'smembers', 'sismember',
 		'hmset', 'hgetall', 
 		'eval', 
-		'zadd', 'zcard', 'zrem', 'zscore', 'zrevrange', 'zincrby', 'zrevrangewithscore' /* 带score返回 */
+		'zadd', 'zcard', 'zrem', 'zscore', 'zrevrange', 'zincrby', 'zrevrangewithscore' /* 带score返回 */,
+        'pipeline', 'commit', 'discard'
 	);
 
 	if($cmd == 'check') {
@@ -1758,6 +1759,9 @@ function memory($cmd, $key='', $value='', $ttl = 0, $prefix = '') {
 			case 'zrevrange': return C::memory()->zrevrange($key, $value/*start*/, $ttl/*end*/, $prefix); break;
 			case 'zrevrangewithscore': return C::memory()->zrevrange($key, $value/*start*/, $ttl/*end*/, $prefix, true); break;
 			case 'zincrby': return C::memory()->zincrby($key, $value/*member*/, $ttl ? $ttl : 1/*to increase*/, $prefix); break;
+            case 'pipeline': return C::memory()->pipeline(); break;
+            case 'commit': return C::memory()->commit(); break;
+            case 'discard': return C::memory()->discard(); break;
 		}
 	}
 	return null;

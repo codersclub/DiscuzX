@@ -49,9 +49,11 @@ class memory_driver_redis {
 
 	function feature($feature) {
 		switch ($feature) {
-			case 'set': return true;
-			case 'hash': return true;
-			case 'sortedset': return true;
+			case 'set':
+			case 'hash':
+			case 'sortedset':
+            case 'pipeline':
+			    return true;
 			case 'eval':
 				$ret = $this->obj->eval("return 1");
 				return ($ret === 1);
@@ -237,6 +239,19 @@ class memory_driver_redis {
 	function clear() {
 		return $this->obj->flushAll();
 	}
+
+	function pipeline() {
+	    return $this->obj->multi(Redis::PIPELINE);
+    }
+
+    function commit() {
+	    return $this->obj->exec();
+    }
+
+    function discard() {
+	    return $this->obj->discard();
+    }
+
 
 	private function _try_deserialize($data) {
 		try {

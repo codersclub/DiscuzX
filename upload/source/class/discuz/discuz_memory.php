@@ -27,6 +27,7 @@ class discuz_memory extends discuz_base
 	public $goteval = false; // 是否支持lua脚本eval
 	public $gotsortedset = false; // 是否支持SortedSet
 	public $gotcluster = false; // 是否是集群环境
+    public $gotpipeline = false; // 是否支持pipeline
 
 	public function __construct() {
 	}
@@ -52,6 +53,7 @@ class discuz_memory extends discuz_base
 					$this->goteval = method_exists($this->memory, 'feature') && $this->memory->feature('eval');
 					$this->gotsortedset = method_exists($this->memory, 'feature') && $this->memory->feature('sortedset');;
 					$this->gotcluster = method_exists($this->memory, 'feature') && $this->memory->feature('cluster');
+                    $this->gotpipeline = method_exists($this->memory, 'feature') && $this->memory->feature('pipeline');
 					break;
 				}
 			}
@@ -286,6 +288,27 @@ class discuz_memory extends discuz_base
 		$this->userprefix = $prefix;
 		return $this->memory->zincrby($this->_key($key), $member, $value);
 	}
+
+	public function pipeline() {
+        if (!$this->enable || !$this->gotpipeline) {
+            return false;
+        }
+        return $this->memory->pipeline();
+    }
+
+    public function commit() {
+        if (!$this->enable || !$this->gotpipeline) {
+            return false;
+        }
+        return $this->memory->commit();
+    }
+
+    public function discard() {
+        if (!$this->enable || !$this->gotpipeline) {
+            return false;
+        }
+        return $this->memory->discard();
+    }
 
 	private function _key($str) {
 		$perfix = $this->prefix.$this->userprefix;
