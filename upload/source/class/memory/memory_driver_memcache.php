@@ -64,6 +64,10 @@ class memory_driver_memcache {
 		return $this->obj->decrement($key, $step);
 	}
 
+	public function exists($key) {
+	    return $this->obj->get($key) !== FALSE;
+    }
+
 }
 
 ?>

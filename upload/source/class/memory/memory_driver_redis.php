@@ -52,8 +52,8 @@ class memory_driver_redis {
 			case 'set':
 			case 'hash':
 			case 'sortedset':
-            case 'pipeline':
-			    return true;
+			case 'pipeline':
+				return true;
 			case 'eval':
 				$ret = $this->obj->eval("return 1");
 				return ($ret === 1);
@@ -192,6 +192,14 @@ class memory_driver_redis {
 		return $this->obj->hGetAll($key);
 	}
 
+	function hget($key, $field) {
+		return $this->obj->hGet($key, $field);
+	}
+
+	function hexists($key, $field) {
+		return $this->obj->hExists($key, $field);
+	}
+
 	function evalscript($script, $argv) {
 		return $this->obj->eval($script, $argv);
 	}
@@ -241,17 +249,16 @@ class memory_driver_redis {
 	}
 
 	function pipeline() {
-	    return $this->obj->multi(Redis::PIPELINE);
-    }
+		return $this->obj->multi(Redis::PIPELINE);
+	}
 
-    function commit() {
-	    return $this->obj->exec();
-    }
+	function commit() {
+		return $this->obj->exec();
+	}
 
-    function discard() {
-	    return $this->obj->discard();
-    }
-
+	function discard() {
+		return $this->obj->discard();
+	}
 
 	private function _try_deserialize($data) {
 		try {

@@ -42,6 +42,7 @@ class memory_driver_memcached
 	public function getMulti($keys) {
 		return $this->obj->getMulti($keys);
 	}
+
 	public function set($key, $value, $ttl = 0) {
 		return $this->obj->set($key, $value, $ttl);
 	}
@@ -60,6 +61,11 @@ class memory_driver_memcached
 
 	public function dec($key, $step = 1) {
 		return $this->obj->decrement($key, $step);
+	}
+
+	public function exists($key) {
+		$this->obj->get($key);
+		return \Memcached::RES_NOTFOUND !== $this->obj->getResultCode();
 	}
 
 }

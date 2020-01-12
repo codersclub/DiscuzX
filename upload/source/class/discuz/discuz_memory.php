@@ -27,7 +27,7 @@ class discuz_memory extends discuz_base
 	public $goteval = false; // 是否支持lua脚本eval
 	public $gotsortedset = false; // 是否支持SortedSet
 	public $gotcluster = false; // 是否是集群环境
-    public $gotpipeline = false; // 是否支持pipeline
+	public $gotpipeline = false; // 是否支持pipeline
 
 	public function __construct() {
 	}
@@ -53,7 +53,7 @@ class discuz_memory extends discuz_base
 					$this->goteval = method_exists($this->memory, 'feature') && $this->memory->feature('eval');
 					$this->gotsortedset = method_exists($this->memory, 'feature') && $this->memory->feature('sortedset');;
 					$this->gotcluster = method_exists($this->memory, 'feature') && $this->memory->feature('cluster');
-                    $this->gotpipeline = method_exists($this->memory, 'feature') && $this->memory->feature('pipeline');
+					$this->gotpipeline = method_exists($this->memory, 'feature') && $this->memory->feature('pipeline');
 					break;
 				}
 			}
@@ -101,6 +101,15 @@ class discuz_memory extends discuz_base
 		if($this->enable) {
 			$this->userprefix = $prefix;
 			$ret = $this->memory->set($this->_key($key), $value, $ttl);
+		}
+		return $ret;
+	}
+
+	public function exists($key, $prefix = '') {
+		$ret = false;
+		if ($this->enable) {
+			$this->userprefix = $prefix;
+			$ret = $this->memory->exists($this->_key($key));
 		}
 		return $ret;
 	}
@@ -215,6 +224,21 @@ class discuz_memory extends discuz_base
 		return $this->memory->hgetall($this->_key($key));
 	}
 
+	public function hexists($key, $field, $prefix = '') {
+		if (!$this->enable || !$this->gothash) {
+			return false;
+		}
+		$this->userprefix = $prefix;
+		return $this->memory->hexists($this->_key($key), $field);
+	}
+
+	public function hget($key, $field, $prefix = '') {
+		if (!$this->enable || !$this->gothash) {
+			return false;
+		}
+		$this->userprefix = $prefix;
+		return $this->memory->hget($this->_key($key), $field);
+	}
 
 	/*
 	 * 如果设置了sha_key，将脚本load，然后将sha保存在$prefix_$sha_key中
@@ -232,6 +256,7 @@ class discuz_memory extends discuz_base
 		if ($sha_key) {
 			$sha = $this->memory->get($this->_key($sha_key));
 			if (!$sha) {
+				if (!$script) return false;
 				$sha = $this->memory->loadscript($script);
 				$this->memory->set($this->_key($sha_key), $sha);
 			}
@@ -290,25 +315,25 @@ class discuz_memory extends discuz_base
 	}
 
 	public function pipeline() {
-        if (!$this->enable || !$this->gotpipeline) {
-            return false;
-        }
-        return $this->memory->pipeline();
-    }
+		if (!$this->enable || !$this->gotpipeline) {
+			return false;
+		}
+		return $this->memory->pipeline();
+	}
 
-    public function commit() {
-        if (!$this->enable || !$this->gotpipeline) {
-            return false;
-        }
-        return $this->memory->commit();
-    }
+	public function commit() {
+		if (!$this->enable || !$this->gotpipeline) {
+			return false;
+		}
+		return $this->memory->commit();
+	}
 
-    public function discard() {
-        if (!$this->enable || !$this->gotpipeline) {
-            return false;
-        }
-        return $this->memory->discard();
-    }
+	public function discard() {
+		if (!$this->enable || !$this->gotpipeline) {
+			return false;
+		}
+		return $this->memory->discard();
+	}
 
 	private function _key($str) {
 		$perfix = $this->prefix.$this->userprefix;
