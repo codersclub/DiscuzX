@@ -340,20 +340,20 @@ function memory_info(&$debug, $_fn, $function) {
 }
 
 function _get_addslashes() {
-	return ' function daddslashes($string, $force = 1) {
+	return ' function debugaddslashes($string, $force = 1) {
 	if(is_array($string)) {
 		$keys = array_keys($string);
 		foreach($keys as $key) {
 			$val = $string[$key];
 			unset($string[$key]);
-			$string[addslashes($key)] = daddslashes($val, $force);
+			$string[addslashes($key)] = debugaddslashes($val, $force);
 		}
 	} else {
 		$string = addslashes($string);
 	}
 	return $string;
 }
-$_GET = daddslashes($_GET); ';
+$_GET = debugaddslashes($_GET); ';
 }
 
 
