@@ -28,7 +28,13 @@ class discuz_session {
 		$this->old = array('sid' =>  $sid, 'ip' =>  $ip, 'uid' =>  $uid);
 		$this->var = $this->newguest;
 
-		$this->table = C::t('common_session');
+		$enable_mem = !C::memory()->gotcluster && C::memory()->gotset &&
+			C::memory()->gothash && C::memory()->goteval && C::memory()->gotsortedset;
+		if ($enable_mem) {
+			$this->table = new memory_common_session();
+		} else {
+			$this->table = C::t('common_session');
+		}
 
 		if(!empty($ip)) {
 			$this->init($sid, $ip, $uid);
