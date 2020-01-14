@@ -47,6 +47,7 @@ if($output['uid']) {
 	$_G['gzipcompress'] ? ob_start('ob_gzhandler') : ob_start();
 }
 
+header("Content-Type: application/json");
 echo helper_json::encode($output);
 
 ?>

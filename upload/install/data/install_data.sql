@@ -303,7 +303,6 @@ INSERT INTO pre_common_setting VALUES ('friendgroupnum','8');
 INSERT INTO pre_common_setting VALUES ('ftp','a:10:{s:2:\"on\";s:1:\"0\";s:3:\"ssl\";s:1:\"0\";s:4:\"host\";s:0:\"\";s:4:\"port\";s:2:\"21\";s:8:\"username\";s:0:\"\";s:8:\"password\";s:0:\"\";s:9:\"attachdir\";s:1:\".\";s:9:\"attachurl\";s:0:\"\";s:7:\"hideurl\";s:1:\"0\";s:7:\"timeout\";s:1:\"0\";}');
 INSERT INTO pre_common_setting VALUES ('globalstick','1');
 INSERT INTO pre_common_setting VALUES ('targetblank','0');
-INSERT INTO pre_common_setting VALUES ('google','1');
 INSERT INTO pre_common_setting VALUES ('groupstatus','0');
 INSERT INTO pre_common_setting VALUES ('portalstatus','0');
 INSERT INTO pre_common_setting VALUES ('followstatus','0');

@@ -684,7 +684,7 @@ function guestviewthumbstyle() {
 	$return = '';
 	if ($styleoutput === null) {
 		global $_G;
-		$return = '<style>.guestviewthumb {margin:10px auto; text-align:center;}.guestviewthumb a {font-size:12px;}.guestviewthumb_cur {cursor:url('.IMGDIR.'/scf.cur), default; max-width:'.$_G['setting']['guestviewthumb']['width'].'px;}.ie6 .guestviewthumb_cur { width:'.$_G['setting']['guestviewthumb']['width'].'px !important;}</style>';
+		$return = '<style>.guestviewthumb {margin:10px auto; text-align:center;}.guestviewthumb a {font-size:12px;}.guestviewthumb_cur {cursor:url("'.IMGDIR.'/scf.gif"), default; max-width:'.$_G['setting']['guestviewthumb']['width'].'px;}.ie6 .guestviewthumb_cur { width:'.$_G['setting']['guestviewthumb']['width'].'px !important;}</style>';
 		$styleoutput = true;
 	}
 	return $return;

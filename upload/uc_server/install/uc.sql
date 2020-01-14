@@ -102,6 +102,7 @@ REPLACE INTO uc_settings(k, v) VALUES ('pmfloodctrl','15');
 REPLACE INTO uc_settings(k, v) VALUES ('pmcenter','1');
 REPLACE INTO uc_settings(k, v) VALUES ('sendpmseccode','1');
 REPLACE INTO uc_settings(k, v) VALUES ('pmsendregdays','0');
+REPLACE INTO uc_settings(k, v) VALUES ('addappbyurl','0');
 REPLACE INTO uc_settings(k, v) VALUES ('maildefault', 'username@21cn.com');
 REPLACE INTO uc_settings(k, v) VALUES ('mailsend', '1');
 REPLACE INTO uc_settings(k, v) VALUES ('mailserver', 'smtp.21cn.com');

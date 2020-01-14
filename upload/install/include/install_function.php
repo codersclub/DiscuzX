@@ -19,6 +19,7 @@ function show_msg($error_no, $error_msg = 'ok', $success = 1, $quit = TRUE) {
 		$str = "<root>\n";
 		$str .= "\t<error errorCode=\"$error_code\" errorMessage=\"$error_msg\" />\n";
 		$str .= "</root>";
+		send_mime_type_header();
 		echo $str;
 		exit;
 	} else {
@@ -268,6 +269,7 @@ function show_env_result(&$env_items, &$dirfile_items, &$func_items, &$filesock_
 		$str .= "\t</FileDirs>\n";
 		$str .= "\t<error errorCode=\"$error_code\" errorMessage=\"\" />\n";
 		$str .= "</root>";
+		send_mime_type_header();
 		echo $str;
 		exit;
 
@@ -349,6 +351,16 @@ function show_env_result(&$env_items, &$dirfile_items, &$func_items, &$filesock_
 
 function show_next_step($step, $error_code) {
 	global $uchidden;
+
+	if(!empty($uchidden)) {
+		$uc_info_transfer = unserialize(urldecode($uchidden));
+		if(!isset($uc_info_transfer['ucapi']) && !isset($uc_info_transfer['ucfounderpw'])){
+			$uchidden = '';
+		} else {
+			$uchidden = dhtmlspecialchars($uchidden);
+		}
+	}
+
 	echo "<form action=\"index.php\" method=\"post\">\n";
 	echo "<input type=\"hidden\" name=\"step\" value=\"$step\" />";
 	if(isset($GLOBALS['hidden'])) {
@@ -1837,4 +1849,7 @@ function init_install_log_file() {
 function append_to_install_log_file($message) {
 	$file = __DIR__ . '/install.log';
 	file_put_contents($file, $message, FILE_APPEND);
+}
+function send_mime_type_header($type = 'application/xml') {
+	header("Content-Type: ".$type);
 }

@@ -18,6 +18,7 @@ class appcontrol extends base {
 	function appcontrol() {
 		parent::__construct();
 		$this->load('app');
+		$this->load('user');
 	}
 
 	function onls() {
@@ -46,9 +47,15 @@ class appcontrol extends base {
 
 		$apifilename = $apifilename ? $apifilename : 'uc.php';
 
+		if(!$this->settings['addappbyurl'] || !$_ENV['user']->can_do_login('UCenterAdministrator', $this->onlineip)) {
+			exit('-1');
+		}
+
 		if(md5(md5($ucfounderpw).UC_FOUNDERSALT) == UC_FOUNDERPW || (strlen($ucfounderpw) == 32 && $ucfounderpw == md5(UC_FOUNDERPW))) {
 			@ob_start();
 			$return  = '';
+
+			$this->_writelog('login', 'succeed_by_url_add_app');
 
 			$app = $this->db->fetch_first("SELECT * FROM ".UC_DBTABLEPRE."applications WHERE url='$appurl' AND type='$apptype'");
 
@@ -72,6 +79,8 @@ class appcontrol extends base {
 					");
 				$appid = $this->db->insert_id();
 
+				$this->_writelog('app_add', "appid=$appid; appname=$appname; by=url_add");
+
 				$_ENV['app']->alter_app_table($appid, 'ADD');
 				$return = "$authkey|$appid|".UC_DBHOST.'|'.UC_DBNAME.'|'.UC_DBUSER.'|'.UC_DBPW.'|'.UC_DBCHARSET.'|'.UC_DBTABLEPRE.'|'.UC_CHARSET;
 				$this->load('cache');
@@ -84,11 +93,17 @@ class appcontrol extends base {
 				$_ENV['note']->add('updateapps', '', $this->serialize($notedata, 1));
 				$_ENV['note']->send();
 			} else {
+				$this->_writelog('app_queryinfo', "appid=$app[appid]; by=url_add");
 				$return = "$app[authkey]|$app[appid]|".UC_DBHOST.'|'.UC_DBNAME.'|'.UC_DBUSER.'|'.UC_DBPW.'|'.UC_DBCHARSET.'|'.UC_DBTABLEPRE.'|'.UC_CHARSET;
 			}
 			@ob_end_clean();
 			exit($return);
 		} else {
+			$pwlen = strlen($ucfounderpw);
+			$this->_writelog('login', 'error_by_url_add_app: user=UCenterAdministrator; password='.($pwlen > 2 ? preg_replace("/^(.{".round($pwlen / 4)."})(.+?)(.{".round($pwlen / 6)."})$/s", "\\1***\\3", $ucfounderpw) : $ucfounderpw));
+
+			$_ENV['user']->loginfailed('UCenterAdministrator', $this->onlineip);
+
 			exit('-1');
 		}
 	}
@@ -135,6 +150,26 @@ class appcontrol extends base {
 		}
 		return $arr;
 	}
+
+	function _writelog($action, $extra = '') {
+		$log = dhtmlspecialchars('UCenterAdministrator'."\t".$this->onlineip."\t".$this->time."\t$action\t$extra");
+		$logfile = UC_ROOT.'./data/logs/'.gmdate('Ym', $this->time).'.php';
+		if(@filesize($logfile) > 2048000) {
+			PHP_VERSION < '4.2.0' && mt_srand((double)microtime() * 1000000);
+			$hash = '';
+			$chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
+			for($i = 0; $i < 4; $i++) {
+				$hash .= $chars[mt_rand(0, 61)];
+			}
+			@rename($logfile, UC_ROOT.'./data/logs/'.gmdate('Ym', $this->time).'_'.$hash.'.php');
+		}
+		if($fp = @fopen($logfile, 'a')) {
+			@flock($fp, 2);
+			@fwrite($fp, "<?PHP exit;?>\t".str_replace(array('<?', '?>', '<?php'), '', $log)."\n");
+			@fclose($fp);
+		}
+	}
+
 }
 
 ?>
