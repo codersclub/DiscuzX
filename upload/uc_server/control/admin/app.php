@@ -127,6 +127,7 @@ class control extends adminbase {
 			$url = $_ENV['note']->get_url_code('test', '', $appid);
 			$status = $_ENV['app']->test_api($url, $ip);
 		}
+		header("Content-Type: application/javascript");
 		if($status == '1') {
 			echo 'document.getElementById(\'status_'.$appid.'\').innerHTML = "<img src=\'images/correct.gif\' border=\'0\' class=\'statimg\' \/><span class=\'green\'>'.$this->lang['app_connent_ok'].'</span>";testlink();';
 		} else {

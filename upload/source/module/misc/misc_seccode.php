@@ -60,6 +60,7 @@ if($_GET['action'] == 'update') {
 	$imemode = $_G['setting']['seccodedata']['type'] != 1 ? 'ime-mode:disabled;' : '';
 	$message = str_replace("'", "\'", $message);
 	$seclang = lang('forum/misc');
+	header("Content-Type: application/javascript");
 echo <<<EOF
 if($('$showid')) {
 	if(!$('v$showid')) {
