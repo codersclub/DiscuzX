@@ -7,11 +7,7 @@ class SessionTest
         private $testData;
 
         public function setUp() {
-                $oldvalue = C::memory()->enable;
-                C::memory()->enable = true;
-                $this->bymem = new table_common_session();
-                C::memory()->enable = $oldvalue;
-
+                $this->bymem = new memory_common_session();
 
                 $this->testData = array(
                         array(
