@@ -616,13 +616,16 @@ function addpolloption() {
 		addUploadEvent(imgid, proid)
 
 	} else {
-		$('polloption_new').outerHTML = '<span>已达到最大投票数'+maxoptions+'</span>';
+		$('polloption_new').innerHTML = '已达到最大投票数' + maxoptions;
 	}
 }
 
 function delpolloption(obj) {
 	obj.parentNode.parentNode.removeChild(obj.parentNode);
 	curoptions--;
+	if (curoptions < maxoptions) {
+		$('polloption_new').innerHTML = '';
+	}
 }
 
 function insertsave(pid) {
