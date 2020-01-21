@@ -74,8 +74,8 @@
 			<h2 class="mt bbda">{lang favorite}</h2>
 			<ul>
 				<li$actives[all]><a href="home.php?mod=space&do=favorite&type=all">{lang favorite_all}</a></li>
-				<li$actives[thread]><a href="home.php?mod=space&do=favorite&type=thread">{lang favorite_thread}</a></li>
-				<li$actives[forum]><a href="home.php?mod=space&do=favorite&type=forum">{lang favorite_forum}</a></li>
+				<!--{if helper_access::check_module('forum')}--><li$actives[thread]><a href="home.php?mod=space&do=favorite&type=thread">{lang favorite_thread}</a></li>
+				<li$actives[forum]><a href="home.php?mod=space&do=favorite&type=forum">{lang favorite_forum}</a></li><!--{/if}-->
 				<!--{if helper_access::check_module('group')}--><li$actives[group]><a href="home.php?mod=space&do=favorite&type=group">{lang favorite_group}</a></li><!--{/if}-->
 				<!--{if helper_access::check_module('blog')}--><li$actives[blog]><a href="home.php?mod=space&do=favorite&type=blog">{lang favorite_blog}</a></li><!--{/if}-->
 				<!--{if helper_access::check_module('album')}--><li$actives[album]><a href="home.php?mod=space&do=favorite&type=album">{lang favorite_album}</a></li><!--{/if}-->

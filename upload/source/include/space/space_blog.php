@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['blogstatus']) {
+	showmessage('blog_status_off');
+}
+
 $minhot = $_G['setting']['feedhotmin']<1?3:$_G['setting']['feedhotmin'];
 $page = empty($_GET['page'])?1:intval($_GET['page']);
 if($page<1) $page=1;
@@ -183,7 +187,8 @@ if($id) {
 	loadcache('blogcategory');
 	$category = $_G['cache']['blogcategory'];
 
-	if(empty($_GET['view'])) $_GET['view'] = 'we';
+	$_GET['view'] = in_array($_GET['view'], array('we', 'me', 'all')) ? $_GET['view'] : 'we';
+	$_GET['order'] = in_array($_GET['order'], array('hot', 'dateline')) ? $_GET['order'] : 'dateline';
 
 	$perpage = 10;
 	$perpage = mob_perpage($perpage);

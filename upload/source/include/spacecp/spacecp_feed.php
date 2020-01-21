@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['feedstatus']) {
+	showmessage('feed_status_off');
+}
+
 $feedid = empty($_GET['feedid'])?0:intval($_GET['feedid']);
 $page = empty($_GET['page'])?0:intval($_GET['page']);
 if($page<1) $page=1;

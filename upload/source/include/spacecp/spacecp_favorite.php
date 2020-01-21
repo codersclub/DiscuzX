@@ -10,6 +10,11 @@
 if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
+
+if (!$_G['setting']['favoritestatus']) {
+	showmessage('favorite_status_off');
+}
+
 $_GET['type'] = in_array($_GET['type'], array("thread", "forum", "group", "blog", "album", "article", "all")) ? $_GET['type'] : 'all';
 if($_GET['op'] == 'delete') {
 

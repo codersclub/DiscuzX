@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['albumstatus']) {
+	showmessage('album_status_off');
+}
+
 $albumid = empty($_GET['albumid'])?0:intval($_GET['albumid']);
 $picid = empty($_GET['picid'])?0:intval($_GET['picid']);
 

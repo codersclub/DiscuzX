@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['friendstatus']) {
+	showmessage('friend_status_off');
+}
+
 $perpage = 24;
 $perpage = mob_perpage($perpage);
 
@@ -20,7 +24,8 @@ $page = empty($_GET['page'])?0:intval($_GET['page']);
 if($page<1) $page = 1;
 $start = ($page-1)*$perpage;
 
-if(empty($_GET['view']) || $_GET['view'] == 'all') $_GET['view'] = 'me';
+$_GET['view'] = in_array($_GET['view'], array('online', 'visitor', 'trace', 'blacklist', 'me')) ? $_GET['view'] : 'me';
+$_GET['order'] = in_array($_GET['order'], array('hot', 'dateline')) ? $_GET['order'] : 'dateline';
 
 ckstart($start, $perpage);
 

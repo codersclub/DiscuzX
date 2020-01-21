@@ -17,6 +17,10 @@ $cachelist = array('portalcategory', 'diytemplatenameportal');
 $discuz->cachelist = $cachelist;
 $discuz->init();
 
+if(!$_G['setting']['portalstatus'] && $_GET['mod'] != 'portalcp'){
+	showmessage('portal_status_off');
+}
+
 require DISCUZ_ROOT.'./source/function/function_home.php';
 require DISCUZ_ROOT.'./source/function/function_portal.php';
 

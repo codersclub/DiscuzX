@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if(!$_G['setting']['groupstatus']) {
+	showmessage('group_module_status_off');
+}
+
 require_once libfile('function/group');
 $_G['action']['action'] = 3;
 $_G['action']['fid'] = $_G['fid'];

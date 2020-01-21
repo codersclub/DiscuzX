@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['blogstatus']) {
+	showmessage('blog_status_off');
+}
+
 $pagenum = 20;
 
 $siteurl = getsiteurl();

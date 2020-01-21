@@ -43,7 +43,7 @@
 <div class="bm bw0 mdcp">
 	<h1 class="mt">{lang mod_option_subject_mod}</h1>
 	<ul class="tb cl">
-		<!--{if $_G['group']['allowmodpost']}-->
+		<!--{if $_G['group']['allowmodpost'] && $_G['setting']['forumstatus']}-->
 			<li{if $op == 'threads'} class="a"{/if}><a href="{$cpscript}?mod=modcp&action=moderate&op=threads{$forcefid}" hidefocus="true">{lang mod_option_subject_modthreads}</a></li>
 			<li{if $op == 'replies'} class="a"{/if}><a href="{$cpscript}?mod=modcp&action=moderate&op=replies{$forcefid}" hidefocus="true">{lang mod_option_subject_modreplies}</a></li>
 		<!--{/if}-->

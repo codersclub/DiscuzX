@@ -37,9 +37,8 @@ if(empty($_GET['view'])) {
 } elseif(!in_array($_GET['view'], array('we', 'me', 'all', 'app'))) {
 	$_GET['view'] = 'all';
 }
-if(empty($_GET['order'])) {
-	$_GET['order'] = 'dateline';
-}
+
+$_GET['order'] = in_array($_GET['order'], array('hot', 'dateline')) ? $_GET['order'] : 'dateline';
 
 $perpage = $_G['setting']['feedmaxnum']<20?20:$_G['setting']['feedmaxnum'];
 $perpage = mob_perpage($perpage);

@@ -49,7 +49,7 @@
 			<!--{if $_G['forum_thread']['digest'] > 0}-->
 			     {lang digest}
 			<!--{/if}-->
-			<font class="xg1">{lang forum_views}{$_G[forum_thread][views]}<span class="pipe">|</span>{lang forum_posts}$_G[forum_thread][replies]</font><span class="pipe">|</span><!--{if $_G[tid]}--><a href="home.php?mod=spacecp&ac=favorite&type=thread&id={$_G[tid]}">{lang favorite}</a><!--{/if}-->
+			<font class="xg1">{lang forum_views}{$_G[forum_thread][views]}<span class="pipe">|</span>{lang forum_posts}$_G[forum_thread][replies]</font><!--{if $_G[tid] && helper_access::check_module('favorite')}--><span class="pipe">|</span><a href="home.php?mod=spacecp&ac=favorite&type=thread&id={$_G[tid]}">{lang favorite}</a><!--{/if}-->
 		  </div>
 	  <!--{/if}-->
         <!--{eval $postcount = 0;}-->

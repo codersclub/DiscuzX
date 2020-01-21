@@ -60,7 +60,7 @@ if ($_GET['view'] == 'credit') {
 	$orderby = $_GET['orderby'];
 	$list = getranklistdata($type, $view, $orderby);
 
-} elseif ($_GET['view'] == 'friendnum') {
+} elseif ($_GET['view'] == 'friendnum' && helper_access::check_module('friend')) {
 
 	$gettype = 'friend';
 	if($_G['uid']) {
@@ -104,7 +104,7 @@ if ($_GET['view'] == 'credit') {
 	$orderby = $_GET['orderby'];
 	$list = getranklistdata($type, $view, $orderby);
 
-} elseif($_GET['view'] == 'blog') {
+} elseif($_GET['view'] == 'blog' && helper_access::check_module('blog')) {
 
 	$gettype = 'blog';
 	$now_pos = -1;
@@ -128,7 +128,7 @@ if ($_GET['view'] == 'credit') {
 	$orderby = $_GET['orderby'];
 	$list = getranklistdata($type, $view, $orderby);
 
-} elseif($_GET['view'] == 'post') {
+} elseif($_GET['view'] == 'post' && helper_access::check_module('forum')) {
 
 	$gettype = 'post';
 	$postsrank_change = 1;
@@ -149,7 +149,7 @@ if ($_GET['view'] == 'credit') {
 	$orderby = $_GET['orderby'];
 	$list = getranklistdata($type, $view, $orderby);
 
-} elseif($_GET['view'] == 'onlinetime') {
+} elseif($_GET['view'] == 'onlinetime' && !$_G['setting']['sessionclose']) {
 
 	$gettype = 'onlinetime';
 	$onlinetimerank_change = 1;

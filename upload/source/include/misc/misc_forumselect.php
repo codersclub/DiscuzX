@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if(!$_G['setting']['forumstatus']) {
+	showmessage('forum_status_off');
+}
+
 if(!isset($_G['cache']['forums'])) {
 	loadcache('forums');
 }

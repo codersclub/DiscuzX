@@ -10,6 +10,11 @@
 if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
+
+if (!$_G['setting']['friendstatus']) {
+	showmessage('friend_status_off');
+}
+
 $operation = in_array($_GET['op'], array('modify')) ? trim($_GET['op']) : '';
 if($_G['setting']['creditstransextra'][6]) {
 	$key = 'extcredits'.intval($_G['setting']['creditstransextra'][6]);

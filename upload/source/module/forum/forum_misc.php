@@ -12,6 +12,10 @@ if(!defined('IN_DISCUZ')) {
 }
 define('NOROBOT', TRUE);
 
+if(!in_array($_GET['action'], array('paysucceed', 'showdarkroom')) && !$_G['setting']['forumstatus']) {
+	showmessage('forum_status_off');
+}
+
 require_once libfile('function/post');
 
 $feed = array();

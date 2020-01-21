@@ -11,7 +11,12 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['albumstatus']) {
+	showmessage('album_status_off');
+}
+
 $albumid = empty($_GET['albumid'])?0:intval($_GET['albumid']);
+$_GET['op'] = in_array($_GET['op'], array('recount', 'cam', 'flash', 'normal')) ? $_GET['op'] : 'normal';
 
 if($_GET['op'] == 'recount') {
 	$newsize = C::t('home_pic')->count_size_by_uid($_G['uid']);

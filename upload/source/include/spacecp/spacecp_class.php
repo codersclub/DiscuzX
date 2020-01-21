@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['blogstatus']) {
+	showmessage('blog_status_off');
+}
+
 $classid = empty($_GET['classid'])?0:intval($_GET['classid']);
 $op = empty($_GET['op'])?'':$_GET['op'];
 

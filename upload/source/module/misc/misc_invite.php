@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if(!$_G['setting']['friendstatus']) {
+	showmessage("friend_status_off");
+}
+
 require_once libfile('function/friend');
 
 $_GET['action'] = dhtmlspecialchars(preg_replace("/[^\[A-Za-z0-9_\]]/", '', $_GET['action']));

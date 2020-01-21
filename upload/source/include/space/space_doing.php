@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['doingstatus']) {
+	showmessage('doing_status_off');
+}
+
 $perpage = 20;
 $perpage = mob_perpage($perpage);
 
@@ -23,9 +27,7 @@ ckstart($start, $perpage);
 $dolist = array();
 $count = 0;
 
-if(empty($_GET['view'])) {
-	$_GET['view'] = 'we';
-}
+$_GET['view'] = in_array($_GET['view'], array('we', 'me', 'all')) ? $_GET['view'] : 'we';
 
 $gets = array(
 	'mod' => 'space',

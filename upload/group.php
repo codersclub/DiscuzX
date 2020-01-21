@@ -18,6 +18,10 @@ $cachelist = array('grouptype', 'groupindex', 'diytemplatenamegroup');
 $discuz->cachelist = $cachelist;
 $discuz->init();
 
+if(!$_G['setting']['groupstatus']) {
+	showmessage('group_module_status_off');
+}
+
 $_G['disabledwidthauto'] = 0;
 
 $modarray = array('index', 'my', 'attentiongroup');

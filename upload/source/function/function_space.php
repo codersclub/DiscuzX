@@ -128,21 +128,27 @@ function getblockhtml($blockname,$parameters = array()) {
 					$html .= '</div></li>';
 				}
 			} else {
-				require_once libfile('function/friend');
-				$isfriend = friend_check($uid);
-				$follow = C::t('home_follow')->fetch_by_uid_followuid($_G['uid'], $uid);
-				if($follow) {
-					$html .= "<li class='ul_flw'><a href=\"home.php?mod=spacecp&ac=follow&op=del&fuid=$space[uid]\" id=\"followmod\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'follow_cancle_follow')."</a></li>";
-				} else {
-					$html .= "<li class='ul_flw'><a href=\"home.php?mod=spacecp&ac=follow&op=add&hash=".FORMHASH."&fuid=$space[uid]\" id=\"followmod\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'follow_follow_ta')."</a></li>";
+				if(helper_access::check_module('follow')) {
+					$follow = C::t('home_follow')->fetch_by_uid_followuid($_G['uid'], $uid);
+					if($follow) {
+						$html .= "<li class='ul_flw'><a href=\"home.php?mod=spacecp&ac=follow&op=del&fuid=$space[uid]\" id=\"followmod\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'follow_cancle_follow')."</a></li>";
+					} else {
+						$html .= "<li class='ul_flw'><a href=\"home.php?mod=spacecp&ac=follow&op=add&hash=".FORMHASH."&fuid=$space[uid]\" id=\"followmod\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'follow_follow_ta')."</a></li>";
+					}
 				}
-				if (!$isfriend) {
-					$html .= "<li class='ul_add'><a href=\"home.php?mod=spacecp&ac=friend&op=add&uid=$space[uid]&handlekey=addfriendhk_{$space[uid]}\" id=\"a_friend_li_{$space[uid]}\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'block_profile_friend_add')."</a></li>";
-				} else {
-					$html .= "<li class='ul_ignore'><a href=\"home.php?mod=spacecp&ac=friend&op=ignore&uid=$space[uid]&handlekey=ignorefriendhk_{$space[uid]}\" id=\"a_ignore_{$space[uid]}\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'block_profile_friend_ignore')."</a></li>";
+				if(helper_access::check_module('friend')) {
+					require_once libfile('function/friend');
+					$isfriend = friend_check($uid);
+					if (!$isfriend) {
+						$html .= "<li class='ul_add'><a href=\"home.php?mod=spacecp&ac=friend&op=add&uid=$space[uid]&handlekey=addfriendhk_{$space[uid]}\" id=\"a_friend_li_{$space[uid]}\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'block_profile_friend_add')."</a></li>";
+					} else {
+						$html .= "<li class='ul_ignore'><a href=\"home.php?mod=spacecp&ac=friend&op=ignore&uid=$space[uid]&handlekey=ignorefriendhk_{$space[uid]}\" id=\"a_ignore_{$space[uid]}\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'block_profile_friend_ignore')."</a></li>";
+					}
+					$html .= "<li class='ul_poke'><a href=\"home.php?mod=spacecp&ac=poke&op=send&uid=$space[uid]&handlekey=propokehk_{$space[uid]}\" id=\"a_poke_{$space[uid]}\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'block_profile_poke')."</a></li>";
 				}
-				$html .= "<li class='ul_msg'><a href=\"home.php?mod=space&uid=$space[uid]&do=wall\">".lang('space', 'block_profile_wall_to_me')."</a></li>";
-				$html .= "<li class='ul_poke'><a href=\"home.php?mod=spacecp&ac=poke&op=send&uid=$space[uid]&handlekey=propokehk_{$space[uid]}\" id=\"a_poke_{$space[uid]}\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'block_profile_poke')."</a></li>";
+				if(helper_access::check_module('wall')) {
+					$html .= "<li class='ul_msg'><a href=\"home.php?mod=space&uid=$space[uid]&do=wall\">".lang('space', 'block_profile_wall_to_me')."</a></li>";
+				}
 				$html .= "<li class='ul_pm'><a href=\"home.php?mod=spacecp&ac=pm&op=showmsg&handlekey=showmsg_$space[uid]&touid=$space[uid]&pmid=0&daterange=2\" id=\"a_sendpm_$space[uid]\" onclick=\"showWindow('showMsgBox', this.href, 'get', 0)\">".lang('space', 'block_profile_sendmessage')."</a></li>";
 			}
 
@@ -156,7 +162,11 @@ function getblockhtml($blockname,$parameters = array()) {
 				$managehtml .= '<li><a href="'.($_G['adminid'] == 1 ? "admin.php?action=members&operation=search&username=$encodeusername&submit=yes&frames=yes" : "forum.php?mod=modcp&action=member&op=edit&uid=$space[uid]").'" id="usermanageli" onmouseover="showMenu(this.id)" class="showmenu" target="_blank">'.lang('home/template', 'member_manage').'</a></li>';
 			}
 			if($_G['adminid'] == 1) {
-				$managehtml .= "<li><a href=\"forum.php?mod=modcp&action=thread&op=post&do=search&searchsubmit=1&users=$encodeusername\" id=\"umanageli\" onmouseover=\"showMenu(this.id)\" class=\"showmenu\">".lang('home/template', 'content_manage')."</a></li>";
+				if(helper_access::check_module('forum')) {
+					$managehtml .= "<li><a href=\"forum.php?mod=modcp&action=thread&op=post&do=search&searchsubmit=1&users=$encodeusername\" id=\"umanageli\" onmouseover=\"showMenu(this.id)\" class=\"showmenu\">".lang('home/template', 'content_manage')."</a></li>";
+				} else {
+					$managehtml .= "<li><a id=\"umanageli\" onmouseover=\"showMenu(this.id)\" class=\"showmenu\">".lang('home/template', 'content_manage')."</a></li>";
+				}
 			}
 			if(!empty($managehtml)) {
 				$html .= '<hr class="da mtn m0" /><ul class="ptn xl xl2 cl">'.$managehtml.'</ul><ul id="usermanageli_menu" class="p_pop" style="width: 80px; display:none;">';
@@ -169,16 +179,16 @@ function getblockhtml($blockname,$parameters = array()) {
 				$html .= '</ul>';
 				if($_G['adminid'] == 1) {
 					$html .= '<ul id="umanageli_menu" class="p_pop" style="width: 80px; display:none;">';
-					$html .= '<li><a href="forum.php?mod=modcp&action=thread&op=post&searchsubmit=1&do=search&users='.$encodeusername.'" target="_blank">'.lang('space', 'manage_post').'</a></li>';
-					$html .= '<li><a href="admin.php?action=doing&searchsubmit=1&detail=1&search=true&fromumanage=1&users='.$encodeusername.'" target="_blank">'.lang('space', 'manage_doing').'</a></li>';
-					$html .= '<li><a href="admin.php?action=blog&searchsubmit=1&detail=1&search=true&fromumanage=1&uid='.$uid.'" target="_blank">'.lang('space', 'manage_blog').'</a></li>';
-					$html .= '<li><a href="admin.php?action=feed&searchsubmit=1&detail=1&fromumanage=1&uid='.$uid.'" target="_blank">'.lang('space', 'manage_feed').'</a></li>';
-					$html .= '<li><a href="admin.php?action=album&searchsubmit=1&detail=1&search=true&fromumanage=1&uid='.$uid.'" target="_blank">'.lang('space', 'manage_album').'</a></li>';
-					$html .= '<li><a href="admin.php?action=pic&searchsubmit=1&detail=1&search=true&fromumanage=1&users='.$encodeusername.'" target="_blank">'.lang('space', 'manage_pic').'</a></li>';
+					helper_access::check_module('forum') && $html .= '<li><a href="forum.php?mod=modcp&action=thread&op=post&searchsubmit=1&do=search&users='.$encodeusername.'" target="_blank">'.lang('space', 'manage_post').'</a></li>';
+					helper_access::check_module('doing') && $html .= '<li><a href="admin.php?action=doing&searchsubmit=1&detail=1&search=true&fromumanage=1&users='.$encodeusername.'" target="_blank">'.lang('space', 'manage_doing').'</a></li>';
+					helper_access::check_module('blog') && $html .= '<li><a href="admin.php?action=blog&searchsubmit=1&detail=1&search=true&fromumanage=1&uid='.$uid.'" target="_blank">'.lang('space', 'manage_blog').'</a></li>';
+					helper_access::check_module('feed') && $html .= '<li><a href="admin.php?action=feed&searchsubmit=1&detail=1&fromumanage=1&uid='.$uid.'" target="_blank">'.lang('space', 'manage_feed').'</a></li>';
+					helper_access::check_module('album') && $html .= '<li><a href="admin.php?action=album&searchsubmit=1&detail=1&search=true&fromumanage=1&uid='.$uid.'" target="_blank">'.lang('space', 'manage_album').'</a></li>';
+					helper_access::check_module('album') && $html .= '<li><a href="admin.php?action=pic&searchsubmit=1&detail=1&search=true&fromumanage=1&users='.$encodeusername.'" target="_blank">'.lang('space', 'manage_pic').'</a></li>';
 					$html .= '<li><a href="admin.php?action=comment&searchsubmit=1&detail=1&fromumanage=1&authorid='.$uid.'" target="_blank">'.lang('space', 'manage_comment').'</a></li>';
-					$html .= '<li><a href="admin.php?action=share&searchsubmit=1&detail=1&search=true&fromumanage=1&uid='.$uid.'" target="_blank">'.lang('space', 'manage_share').'</a></li>';
-					$html .= '<li><a href="admin.php?action=threads&operation=group&searchsubmit=1&detail=1&search=true&fromumanage=1&users='.$encodeusername.'" target="_blank">'.lang('space', 'manage_group_threads').'</a></li>';
-					$html .= '<li><a href="admin.php?action=prune&operation=group&searchsubmit=1&detail=1&fromumanage=1&users='.$encodeusername.'" target="_blank">'.lang('space', 'manage_group_prune').'</a></li>';
+					helper_access::check_module('share') && $html .= '<li><a href="admin.php?action=share&searchsubmit=1&detail=1&search=true&fromumanage=1&uid='.$uid.'" target="_blank">'.lang('space', 'manage_share').'</a></li>';
+					helper_access::check_module('group') && $html .= '<li><a href="admin.php?action=threads&operation=group&searchsubmit=1&detail=1&search=true&fromumanage=1&users='.$encodeusername.'" target="_blank">'.lang('space', 'manage_group_threads').'</a></li>';
+					helper_access::check_module('group') && $html .= '<li><a href="admin.php?action=prune&operation=group&searchsubmit=1&detail=1&fromumanage=1&users='.$encodeusername.'" target="_blank">'.lang('space', 'manage_group_prune').'</a></li>';
 					$html .= '</ul>';
 				}
 			}

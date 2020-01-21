@@ -321,7 +321,6 @@ function build_cache_setting() {
 	}
 
 	$data['tradeopen'] = C::t('common_usergroup_field')->count_by_field('allowposttrade', 1) ? 1 : 0;
-	$data['medalstatus'] = intval(C::t('forum_medal')->count_by_available());
 
 	$focus = array();
 	if($data['focus']['data']) {

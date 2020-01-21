@@ -27,7 +27,7 @@
 			<!--{if empty($personalnv['banitems']['follow']) && helper_access::check_module('follow')}-->
 			<li><a href="home.php?mod=follow&uid=$space[uid]&do=view"><!--{if !empty($personalnv['items']['follow'])}-->$personalnv['items']['follow']<!--{else}-->{lang follow}<!--{/if}--></a></li>
 			<!--{/if}-->
-			<!--{if $_G['setting']['allowviewuserthread'] !== false && (empty($personalnv['banitems']['topic']))}-->
+			<!--{if $_G['setting']['allowviewuserthread'] !== false && (empty($personalnv['banitems']['topic']) && helper_access::check_module('forum'))}-->
 			<li><a href="home.php?mod=space&uid=$space[uid]&do=thread&view=me&from=space"><!--{if !empty($personalnv['items']['topic'])}-->$personalnv['items']['topic']<!--{else}-->{lang topic}<!--{/if}--></a></li>
 			<!--{/if}-->
 			<!--{if empty($personalnv['banitems']['share']) && helper_access::check_module('share')}-->

@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['magicstatus']) {
+	showmessage('magics_close');
+}
+
 $space['credit'] = $space['credits'];
 
 $op = empty($_GET['op']) ? "view" : $_GET['op'];

@@ -15,7 +15,7 @@ $_G['disabledwidthauto'] = 0;
 
 require_once libfile('function/spacecp');
 
-if(!$_G['setting']['taskon'] && $_G['adminid']  != 1) {
+if(!$_G['setting']['taskstatus']) {
 	showmessage('task_close');
 }
 

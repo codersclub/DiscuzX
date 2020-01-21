@@ -11,14 +11,18 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['forumstatus']) {
+	showmessage('forum_status_off');
+}
+
 $minhot = $_G['setting']['feedhotmin']<1?3:$_G['setting']['feedhotmin'];
 $page = empty($_GET['page'])?1:intval($_GET['page']);
 if($page<1) $page=1;
 $id = empty($_GET['id'])?0:intval($_GET['id']);
-$_GET['order'] = in_array($_GET['order'], array('dateline', 'hot')) ? $_GET['order'] : 'dateline';
+$_GET['order'] = in_array($_GET['order'], array('hot', 'dateline')) ? $_GET['order'] : 'dateline';
 $opactives['poll'] = 'class="a"';
 
-if(empty($_GET['view'])) $_GET['view'] = 'we';
+$_GET['view'] = in_array($_GET['view'], array('we', 'me', 'all')) ? $_GET['view'] : 'we';
 
 $perpage = 20;
 $perpage = mob_perpage($perpage);

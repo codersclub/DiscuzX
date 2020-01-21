@@ -34,7 +34,7 @@
 			</div>
 			<!--{/if}-->
 
-		<!--{if empty($_GET['op'])}-->
+		<!--{if in_array($_GET['op'], array('normal', 'flash'))}-->
 		<form method="post" autocomplete="off" id="albumform" action="home.php?mod=spacecp&ac=upload" onsubmit="return validate(this);">
 			<h2 class="mtw xs2">1. {lang select_pic}</h2>
 			<div class="xg1">{lang upload_pic_tips}</div>

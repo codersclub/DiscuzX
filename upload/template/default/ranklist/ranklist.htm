@@ -82,7 +82,7 @@
 
 		<!--[diy=diycontentmiddle]--><div id="diycontentmiddle" class="area"></div><!--[/diy]-->
 
-		<!--{if $ranklist_setting['thread']['available']}-->
+		<!--{if helper_access::check_module('forum') && $ranklist_setting['thread']['available']}-->
 		<div class="bm">
 			<div class="bm_h cl">
 				<span class="y xi2"><a href="misc.php?mod=ranklist&type=thread&view=replies&orderby=$before">{lang more}&rsaquo;</a></span>
@@ -122,7 +122,7 @@
 		</div>
 		<!--{/if}-->
 
-		<!--{if $ranklist_setting['poll']['available']}-->
+		<!--{if helper_access::check_module('forum') && $ranklist_setting['poll']['available']}-->
 		<div class="bm">
 			<div class="bm_h cl">
 				<span class="y xi2"><a href="misc.php?mod=ranklist&type=poll&view=heats&orderby=$before">{lang more}&rsaquo;</a></span>
@@ -142,7 +142,7 @@
 		</div>
 		<!--{/if}-->
 
-		<!--{if $ranklist_setting['activity']['available']}-->
+		<!--{if helper_access::check_module('forum') && $ranklist_setting['activity']['available']}-->
 		<div class="bm">
 			<div class="bm_h cl">
 				<span class="y xi2"><a href="misc.php?mod=ranklist&type=activity&view=heats&orderby=$before">{lang more}&rsaquo;</a></span>

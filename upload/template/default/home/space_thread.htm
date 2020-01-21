@@ -62,7 +62,7 @@
 			<!--[diy=diycontenttop]--><div id="diycontenttop" class="area"></div><!--[/diy]-->
 			<div class="bm bw0">
 				<ul class="tb cl">
-					<li$actives[we]><a href="home.php?mod=space&do=thread&view=we">{lang friend_post}</a></li>
+					<!--{if $_G['setting']['friendstatus']}--><li$actives[we]><a href="home.php?mod=space&do=thread&view=we">{lang friend_post}</a></li><!--{/if}-->
 					<li$actives[me]><a href="home.php?mod=space&do=thread&view=me">{lang my_post}</a></li>
 				</ul>
 			</div>
@@ -71,7 +71,7 @@
 			<div class="tbn">
 				<h2 class="mt bbda">{lang thread}</h2>
 				<ul>
-					<li$actives[we]><a href="home.php?mod=space&do=thread&view=we">{lang friend_post}</a></li>
+					<!--{if $_G['setting']['friendstatus']}--><li$actives[we]><a href="home.php?mod=space&do=thread&view=we">{lang friend_post}</a></li><!--{/if}-->
 					<li$actives[me]><a href="home.php?mod=space&do=thread&view=me">{lang my_post}</a></li>
 				</ul>
 			</div>

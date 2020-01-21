@@ -11,9 +11,13 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-$_G['disabledwidthauto'] = 0;
+$ac = in_array($_GET['ac'], array('comment', 'article', 'related', 'block', 'portalblock', 'blockdata', 'topic', 'diy', 'upload', 'category', 'plugin', 'logout')) ? $_GET['ac'] : 'index';
 
-$ac = in_array($_GET['ac'], array('comment', 'article', 'related', 'block', 'portalblock', 'blockdata', 'topic', 'diy', 'upload', 'category', 'plugin', 'logout'))?$_GET['ac']:'index';
+if (!$_G['setting']['portalstatus'] && !in_array($ac, array('index', 'block', 'blockdata', 'logout'))) {
+	showmessage('portal_status_off');
+}
+
+$_G['disabledwidthauto'] = 0;
 
 $admincp2 = getstatus($_G['member']['allowadmincp'], 2);
 $admincp3 = getstatus($_G['member']['allowadmincp'], 3);

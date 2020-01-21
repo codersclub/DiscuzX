@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['wallstatus']) {
+	showmessage('wall_status_off');
+}
+
 $perpage = 20;
 $perpage = mob_perpage($perpage);
 

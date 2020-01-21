@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['favoritestatus']) {
+	showmessage('favorite_status_off');
+}
+
 $space = getuserbyuid($_G['uid']);
 
 $page = empty($_GET['page'])?1:intval($_GET['page']);

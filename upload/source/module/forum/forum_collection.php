@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if(!$_G['setting']['collectionstatus']) {
+	showmessage('collection_status_off');
+}
+
 require_once libfile('function/collection');
 
 $tpp = $_G['setting']['topicperpage']; //per page

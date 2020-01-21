@@ -14,7 +14,7 @@
 			<!--{if $operation == 'base'}-->
 				<p class="tbmu mbm">{lang you_control_see_content}</p>
 				<table cellspacing="0" cellpadding="0" class="tfm">
-
+					<!--{if helper_access::check_module('friend')}-->
 					<tr>
 						<th>{lang friend_list}</th>
 						<td>
@@ -26,6 +26,7 @@
 							</select>
 						</td>
 					</tr>
+					<!--{/if}-->
 					<!--{if helper_access::check_module('wall')}-->
 					<tr>
 						<th>{lang message_board}</th>

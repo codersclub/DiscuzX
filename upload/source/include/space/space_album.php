@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['albumstatus']) {
+	showmessage('album_status_off');
+}
+
 $minhot = $_G['setting']['feedhotmin']<1?3:intval($_G['setting']['feedhotmin']);
 $id = empty($_GET['id'])?0:intval($_GET['id']);
 $picid = empty($_GET['picid'])?0:intval($_GET['picid']);
@@ -287,9 +291,8 @@ if($id) {
 	$pricount = 0;
 	$picmode = 0;
 
-	if(empty($_GET['view'])) {
-		$_GET['view'] = 'we';
-	}
+	$_GET['view'] = in_array($_GET['view'], array('we', 'me', 'all')) ? $_GET['view'] : 'we';
+	$_GET['order'] = in_array($_GET['order'], array('hot', 'dateline')) ? $_GET['order'] : 'dateline';
 
 	$gets = array(
 		'mod' => 'space',

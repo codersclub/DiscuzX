@@ -11,6 +11,9 @@ if(!defined('IN_DISCUZ') || !defined('IN_MODCP')) {
 	exit('Access Denied');
 }
 
+if(!$_G['setting']['forumstatus'] && $op != 'members') {
+	showmessage('forum_status_off');
+}
 
 $modact = empty($_GET['modact']) || !in_array($_GET['modact'] , array('delete', 'ignore', 'validate')) ? 'ignore' : $_GET['modact'];
 

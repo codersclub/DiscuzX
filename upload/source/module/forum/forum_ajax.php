@@ -12,6 +12,10 @@ if(!defined('IN_DISCUZ')) {
 }
 define('NOROBOT', TRUE);
 
+if(!in_array($_GET['action'], array('checkusername', 'checkemail', 'checkinvitecode', 'checkuserexists', 'quickclear', 'setnav')) && !$_G['setting']['forumstatus']) {
+	showmessage('forum_status_off');
+}
+
 if($_GET['action'] == 'checkusername') {
 
 
@@ -640,7 +644,7 @@ EOF;
 	if($_G['adminid'] != 1) {
 		showmessage('quickclear_noperm');
 	}
-	$allowfuntype = array('portal', 'group', 'follow', 'collection', 'guide', 'feed', 'blog', 'doing', 'album', 'share', 'wall', 'homepage', 'ranklist');
+	$allowfuntype = array('portal', 'forum', 'friend', 'group', 'follow', 'collection', 'guide', 'feed', 'blog', 'doing', 'album', 'share', 'wall', 'homepage', 'ranklist', 'medal', 'task', 'magic', 'favorite');
 	$type = in_array($_GET['type'], $allowfuntype) ? trim($_GET['type']) : '';
 	$do = in_array($_GET['do'], array('open', 'close')) ? $_GET['do'] : 'close';
 	if(!submitcheck('funcsubmit')) {
@@ -652,11 +656,29 @@ EOF;
 			$funkey = $type.'status';
 			$funstatus = $do == 'open' ? 1 : 0;
 			if($type != 'homepage') {
-				$identifier = array('portal' => 1, 'group' => 3, 'feed' => 4, 'ranklist' => 8, 'follow' => 9, 'guide' => 10, 'collection' => 11, 'blog' => 12, 'album' => 13, 'share' => 14, 'doing' => 15);
+				$identifier = array('portal' => 1, 'forum' => 2, 'group' => 3, 'feed' => 4, 'ranklist' => 8, 'follow' => 9, 'guide' => 10, 'collection' => 11, 'blog' => 12, 'album' => 13, 'share' => 14, 'doing' => 15, 'friend' => 26, 'favorite' => 27, 'medal' => 29, 'task' => 30, 'magic' => 31);
 				$navdata = array('available' => -1);
 				$navtype = $do == 'open' ? array() : array(0, 3);
-				if(in_array($type, array('blog', 'album', 'share', 'doing', 'follow'))) {
+				if(in_array($type, array('blog', 'album', 'share', 'doing', 'follow', 'friend', 'favorite', 'medal', 'task', 'magic'))) {
 					$navtype[] = 2;
+				}
+				if($do == 'close' && $type == 'medal') {
+					if(intval(C::t('forum_medal')->count_by_available()) > 0) {
+						showmessage('medals_existence', dreferer(), array(), array('showdialog' => true, 'locationtime' => true));
+						exit;
+					}
+				}
+				if($do == 'close' && $type == 'forum') {
+					if($_G['setting']['groupstatus'] || $_G['setting']['guidestatus'] || $_G['setting']['collectionstatus'] || $_G['setting']['followstatus']) {
+						showmessage('close_ggcf_before_close_forum', dreferer(), array(), array('showdialog' => true, 'locationtime' => true));
+						exit;
+					}
+				}
+				if($do == 'open' && in_array($type, array('group', 'guide', 'collection', 'follow'))) {
+					if(!$_G['setting']['forumstatus']) {
+						showmessage('open_forum_before_open_ggcf', dreferer(), array(), array('showdialog' => true, 'locationtime' => true));
+						exit;
+					}
 				}
 				if($do == 'open') {
 					if($_GET['location']['header']) {
@@ -685,7 +707,7 @@ EOF;
 			include libfile('function/cache');
 			updatecache('setting');
 		}
-		showmessage('do_success', dreferer(), array(), array('header'=>true));
+		showmessage('do_success', dreferer(), array(), array('showdialog' => true, 'locationtime' => true));
 	}
 	exit;
 } elseif($_GET['action'] == 'checkpostrule') {

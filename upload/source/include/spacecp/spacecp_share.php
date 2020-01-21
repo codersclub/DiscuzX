@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['sharestatus']) {
+	showmessage('share_status_off');
+}
+
 $sid = intval($_GET['sid']);
 
 if($_GET['op'] == 'delete') {

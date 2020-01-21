@@ -3,6 +3,7 @@
 <header class="header">
     <div class="nav">
 		<a href="home.php?mod=space&uid={$_G[uid]}&do=profile&mycenter=1" class="z"><img src="{STATICURL}image/mobile/images/icon_back.png" /></a>
+		<!--{if helper_access::check_module('favorite')}-->
 		<!--{if $_GET['type'] == 'forum'}-->
 		<span class="category">
 			<span class="display name vm" href="#subname_list">
@@ -27,6 +28,7 @@
 				</ul>
 	        </div>
 		</span>
+		<!--{/if}-->
 		<!--{/if}-->
     </div>
 </header>

@@ -11,14 +11,18 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['forumstatus']) {
+	showmessage('forum_status_off');
+}
+
 $minhot = $_G['setting']['feedhotmin']<1?3:$_G['setting']['feedhotmin'];
 $page = empty($_GET['page'])?1:intval($_GET['page']);
 if($page<1) $page=1;
 $id = empty($_GET['id'])?0:intval($_GET['id']);
 $opactives['thread'] = 'class="a"';
 
-if(empty($_GET['view'])) $_GET['view'] = 'me';
-$_GET['order'] = empty($_GET['order']) ? 'dateline' : $_GET['order'];
+$_GET['view'] = in_array($_GET['view'], array('we', 'me', 'all')) ? $_GET['view'] : 'we';
+$_GET['order'] = in_array($_GET['order'], array('hot', 'dateline')) ? $_GET['order'] : 'dateline';
 
 $allowviewuserthread = $_G['setting']['allowviewuserthread'];
 
@@ -264,6 +268,10 @@ if($_GET['view'] == 'me') {
 	$orderactives = array($viewtype => ' class="a"');
 
 } else {
+
+	if(!$_G['setting']['friendstatus']) {
+		showmessage('friend_status_off');
+	}
 
 	space_merge($space, 'field_home');
 

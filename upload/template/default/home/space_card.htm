@@ -71,14 +71,16 @@
 			<!--{if helper_access::check_module('follow')}-->
 			<a href="home.php?mod=spacecp&ac=follow&op={if !empty($follow)}del{else}add{/if}&hash={FORMHASH}&fuid=$space[uid]" id="card_followmod_$space[uid]" onclick="showWindow(this.id, this.href, 'get', 0)" class="xi2"><!--{if !empty($follow)}-->{lang follow_del}<!--{else}-->{lang follow_add}TA<!--{/if}--></a>
 			<!--{/if}-->
+			<!--{if helper_access::check_module('friend')}-->
 			<!--{eval require_once libfile('function/friend');$isfriend=friend_check($space[uid]);}-->
 			<!--{if !$isfriend}-->
 			<a href="home.php?mod=spacecp&ac=friend&op=add&uid=$space[uid]&handlekey=addfriendhk_{$space[uid]}" id="a_friend_li_{$space[uid]}" onclick="showWindow(this.id, this.href, 'get', 0);" class="xi2">{lang add_friend}</a>
 			<!--{else}-->
 			<a href="home.php?mod=spacecp&ac=friend&op=ignore&uid=$space[uid]&handlekey=ignorefriendhk_{$space[uid]}" id="a_ignore_{$space[uid]}" onclick="showWindow(this.id, this.href, 'get', 0);" class="xi2">{lang ignore_friend}</a>
 			<!--{/if}-->
-			<a href="home.php?mod=spacecp&ac=pm&op=showmsg&handlekey=showmsg_$space[uid]&touid=$space[uid]&pmid=0&daterange=2" id="a_sendpm_$space[uid]" onclick="showWindow('showMsgBox', this.href, 'get', 0)" class="xi2">{lang send_pm}</a>
 			<a href="home.php?mod=spacecp&ac=poke&op=send&uid=$space[uid]&handlekey=propokehk_{$space[uid]}" id="a_poke_{$space[uid]}" onclick="showWindow(this.id, this.href, 'get', 0);" class="xi2">{lang say_hi}</a>
+			<!--{/if}-->
+			<a href="home.php?mod=spacecp&ac=pm&op=showmsg&handlekey=showmsg_$space[uid]&touid=$space[uid]&pmid=0&daterange=2" id="a_sendpm_$space[uid]" onclick="showWindow('showMsgBox', this.href, 'get', 0)" class="xi2">{lang send_pm}</a>
 			<!--{if helper_access::check_module('wall')}-->
 				<a href="home.php?mod=space&uid=$space[uid]&do=wall" class="xi2">{lang connect_me}</a>
 			<!--{/if}-->
@@ -105,7 +107,7 @@
 			<!--{if checkperm('allowbanuser')}-->
 				<a href="{if $_G[adminid] == 1}admin.php?action=members&operation=ban&username=$encodeusername&frames=yes{else}forum.php?mod=modcp&action=member&op=ban&uid=$space[uid]{/if}" target="_blank" class="xi1">{lang user_ban}</a>
 			<!--{/if}-->
-			<a href="forum.php?mod=modcp&action=thread&op=post&do=search&searchsubmit=1&users=$encodeusername" target="_blank" class="xi1">{lang manage_post}</a>
+			<a <!--{if helper_access::check_module('forum')}-->href="forum.php?mod=modcp&action=thread&op=post&do=search&searchsubmit=1&users=$encodeusername" target="_blank" <!--{/if}-->class="xi1">{lang manage_post}</a>
 		<!--{/if}-->
 		<!--{hook/space_card_option}-->
 	</div>

@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['friendstatus']) {
+	showmessage('friend_status_off');
+}
+
 $uid = empty($_GET['uid'])?0:intval($_GET['uid']);
 
 if($uid == $_G['uid']) {

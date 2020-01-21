@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['friendstatus']) {
+	showmessage('friend_status_off');
+}
+
 require_once libfile('function/friend');
 
 $op = empty($_GET['op'])?'':$_GET['op'];

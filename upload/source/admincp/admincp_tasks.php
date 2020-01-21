@@ -36,9 +36,6 @@ if(!($operation)) {
 			array('nav_task_type', 'tasks&operation=type', 0)
 		));
 		showformheader('tasks');
-		showtableheader();
-		showsetting('tasks_on', 'taskonnew', $_G['setting']['taskon'], 'radio');
-		showtablefooter();
 		showtableheader('tasks_list', 'fixpadding');
 		showsubtitle(array('display_order', 'available', 'name', 'tasks_reward', 'time', ''));
 
@@ -109,10 +106,6 @@ if(!($operation)) {
 				}
 				C::t('common_task')->update($id, $update);
 			}
-		}
-
-		if($_GET['taskonnew'] != $_G['setting']['taskon']) {
-			C::t('common_setting')->update('taskon', $_GET['taskonnew']);
 		}
 
 		updatecache('setting');

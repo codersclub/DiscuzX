@@ -25,6 +25,9 @@ if(empty($click)) {
 
 switch ($idtype) {
 	case 'picid':
+		if (!$_G['setting']['albumstatus']) {
+			showmessage('album_status_off');
+		}
 		$item = C::t('home_pic')->fetch($id);
 		if($item) {
 			$picfield = C::t('home_picfield')->fetch($id);
@@ -36,10 +39,16 @@ switch ($idtype) {
 		$tablename = 'home_pic';
 		break;
 	case 'aid':
+		if (!$_G['setting']['portalstatus']) {
+			showmessage('portal_status_off');
+		}
 		$item = C::t('portal_article_title')->fetch($id);
 		$tablename = 'portal_article_title';
 		break;
 	default:
+		if (!$_G['setting']['blogstatus']) {
+			showmessage('blog_status_off');
+		}
 		$idtype = 'blogid';
 		$item = array_merge(
 			C::t('home_blog')->fetch($id),

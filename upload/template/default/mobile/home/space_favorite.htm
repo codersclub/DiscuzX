@@ -5,7 +5,7 @@
 	<div class="bm_h">
     	<!--{if $_GET[type] == 'forum'}-->{lang my_favorites_forums}<!--{elseif $_GET[type] == 'thread'}-->{lang my_favorites_thread}<!--{else}-->{lang title_memcp_favorite}<!--{/if}-->
     </div>
-    <!--{if $list}-->
+    <!--{if $list && helper_access::check_module('favorite')}-->
 
         <!--{loop $list $k $value}-->
             <div class="bm_c">

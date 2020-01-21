@@ -1,6 +1,6 @@
 <!--{subtemplate mobile/common/header}-->
 <!--{hook/index_top_mobile}-->
-<!--{if $forum_favlist}-->
+<!--{if $forum_favlist && helper_access::check_module('favorite')}-->
 <div class="fl">
 	<div class="bm">
 		<div class="bm_h">

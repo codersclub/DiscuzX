@@ -50,7 +50,7 @@
 				<em>$allapplynum</em> {lang activity_member_unit}
 				<!--{if $post['invisible'] == 0 && ($_G['forum_thread']['authorid'] == $_G['uid'] || (in_array($_G['group']['radminid'], array(1, 2)) && $_G['group']['alloweditactivity']) || ( $_G['group']['radminid'] == 3 && $_G['forum']['ismoderator'] && $_G['group']['alloweditactivity']))}-->
 					<span class="pipe">|</span>
-					<span class="xi2"><a href="misc.php?mod=invite&action=thread&id=$_G[tid]&activity=1" onclick="showWindow('invite', this.href, 'get', 0);">{lang invite}</a></span> &nbsp;
+					<!--{if helper_access::check_module('friend')}--><span class="xi2"><a href="misc.php?mod=invite&action=thread&id=$_G[tid]&activity=1" onclick="showWindow('invite', this.href, 'get', 0);">{lang invite}</a></span> &nbsp;<!--{/if}-->
 					<span class="xi2"><a href="forum.php?mod=misc&action=activityapplylist&tid=$_G[tid]&pid=$post[pid]{if $_GET['from']}&from=$_GET['from']{/if}" onclick="showWindow('activity', this.href, 'get', 0)" title="{lang manage}">{lang manage}</a> &nbsp; <a href="forum.php?mod=misc&action=activityexport&tid=$_G[tid]" title="{lang pm_archive}">{lang pm_archive}</a></span>
 				<!--{/if}-->
 			</dd>

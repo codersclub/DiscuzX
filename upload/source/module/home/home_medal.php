@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if(!$_G['setting']['medalstatus']) {
+	showmessage('medal_status_off');
+}
+
 loadcache('medals');
 
 if(!$_G['uid'] && $_GET['action']) {

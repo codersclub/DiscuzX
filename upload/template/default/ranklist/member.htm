@@ -22,13 +22,19 @@
 				<li{$a_actives[beauty]}><a href="misc.php?mod=ranklist&type=member&view=beauty">{lang ranklist_beauty}</a></li>
 				<li{$a_actives[handsome]}><a href="misc.php?mod=ranklist&type=member&view=handsome">{lang ranklist_handsome}</a></li>
 				<li{$a_actives[credit]}><a href="misc.php?mod=ranklist&type=member&view=credit">{lang credit_ranking}</a></li>
+				<!--{if helper_access::check_module('friend')}-->
 				<li{$a_actives[friendnum]}><a href="misc.php?mod=ranklist&type=member&view=friendnum">{lang friend_num_ranking}</a></li>
+				<!--{/if}-->
 				<li{$a_actives[invite]}><a href="misc.php?mod=ranklist&type=member&view=invite">{lang ranklist_invite}</a></li>
+				<!--{if helper_access::check_module('forum')}-->
 				<li{$a_actives[post]}><a href="misc.php?mod=ranklist&type=member&view=post">{lang ranklist_post_num}</a></li>
+				<!--{/if}-->
 				<!--{if helper_access::check_module('blog')}-->
 					<li{$a_actives[blog]}><a href="misc.php?mod=ranklist&type=member&view=blog">{lang ranklist_blog}</a></li>
 				<!--{/if}-->
+				<!--{if !$_G['setting']['sessionclose']}-->
 				<li{$a_actives[onlinetime]}><a href="misc.php?mod=ranklist&type=member&view=onlinetime">{lang ranklist_onlinetime}</a></li>
+				<!--{/if}-->
 			</ul>
 
 			<script type="text/javascript">

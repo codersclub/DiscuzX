@@ -91,9 +91,9 @@
 						<!--{/if}-->
 		
 						<div class="o cl">
-							<a href="home.php?mod=spacecp&ac=favorite&type=blog&id=$blog[blogid]&spaceuid=$blog[uid]&handlekey=favoritebloghk_{$blog[blogid]}" id="a_favorite" onclick="showWindow(this.id, this.href, 'get', 0);" class="oshr ofav">{lang favorite}</a>
+							<!--{if helper_access::check_module('favorite')}--><a href="home.php?mod=spacecp&ac=favorite&type=blog&id=$blog[blogid]&spaceuid=$blog[uid]&handlekey=favoritebloghk_{$blog[blogid]}" id="a_favorite" onclick="showWindow(this.id, this.href, 'get', 0);" class="oshr ofav">{lang favorite}</a><!--{/if}-->
 							<!--{if helper_access::check_module('share')}--><a href="home.php?mod=spacecp&ac=share&type=blog&id=$blog[blogid]&handlekey=sharebloghk_{$blog[blogid]}" id="a_share" onclick="showWindow(this.id, this.href, 'get', 0);" class="oshr">{lang share}</a><!--{/if}-->
-							<a href="misc.php?mod=invite&action=blog&id=$blog[blogid]" id="a_invite" onclick="showWindow('invite', this.href, 'get', 0);" class="oshr oivt">{lang invite}</a>
+							<!--{if helper_access::check_module('friend')}--><a href="misc.php?mod=invite&action=blog&id=$blog[blogid]" id="a_invite" onclick="showWindow('invite', this.href, 'get', 0);" class="oshr oivt">{lang invite}</a><!--{/if}-->
 							<!--{if ($_G[uid] == $blog[uid]) && $_G[setting][magicstatus] && ($_G[setting][magics][call] || $_G[setting][magics][updateline] || $_G[setting][magics][downdateline] || $_G[setting][magics][hot] || $_G[setting][magics][highlight])}-->
 								<a href="javascript:;" id="usemagic" onmouseover="showMenu(this.id);">{lang use_magic_tools}</a>
 								<span class="pipe">|</span>

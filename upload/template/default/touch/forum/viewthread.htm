@@ -92,7 +92,7 @@
 					<!--{/if}-->
 					<!-- manage end -->
 					<!--{/if}-->
-					<!--{if $post[first]}-->
+					<!--{if $post[first] && helper_access::check_module('favorite')}-->
 					<em><a href="home.php?mod=spacecp&ac=favorite&type=thread&id=$_G[tid]" class="favbtn blue" <!--{if $_G[forum][ismoderator]}-->style="margin-right:10px;"<!--{/if}-->>{lang favorite}</a></em>
 					<!--{/if}-->
 					$post[dateline]

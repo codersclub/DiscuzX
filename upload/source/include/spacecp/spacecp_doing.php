@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['doingstatus']) {
+	showmessage('doing_status_off');
+}
+
 $doid = empty($_GET['doid'])?0:intval($_GET['doid']);
 $id = empty($_GET['id'])?0:intval($_GET['id']);
 if(helper_access::check_module('doing')) {

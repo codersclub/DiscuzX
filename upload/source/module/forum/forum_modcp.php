@@ -13,6 +13,12 @@ if(!defined('IN_DISCUZ')) {
 
 define('IN_MODCP', true);
 
+if(!$_G['setting']['forumstatus'] && !in_array($_GET['action'], array('', 'home', 'moderate', 'ban', 'ipban', 'member', 'log', 'login', 'logout'))) {
+	showmessage('forum_status_off');
+} else if(!$_G['setting']['forumstatus']) {
+	unset($_G['fid'], $_GET['fid'], $_POST['fid']);
+}
+
 $cpscript = basename($_G['PHP_SELF']);
 if(!empty($_G['forum']) && $_G['forum']['status'] == 3) {
 	showmessage('group_admin_enter_panel', 'forum.php?mod=group&action=manage&fid='.$_G['fid']);
@@ -33,7 +39,7 @@ if($_GET['action'] == 'logout') {
 }
 
 $modforums = $modsession->get('modforums');
-$_GET['action'] = empty($_GET['action']) && $_G['fid'] ? 'thread' : $_GET['action'];
+$_GET['action'] = empty($_GET['action']) ? (($_G['setting']['forumstatus'] && $_G['fid']) ? 'thread' : 'home') : $_GET['action'];
 $op = getgpc('op');
 if($modforums === null) {
 	$modforums = array('fids' => '', 'list' => array(), 'recyclebins' => array());
