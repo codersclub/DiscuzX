@@ -45,23 +45,26 @@ class base {
 		$this->init_mail();
 	}
 
-	function validate_ip($ip) {
-		return filter_var($ip, FILTER_VALIDATE_IP) !== false;
-	}
-
 	function init_var() {
 		$this->time = time();
 
 		$this->onlineip = $_SERVER['REMOTE_ADDR'];
 		if (!defined('UC_ONLYREMOTEADDR') || (defined('UC_ONLYREMOTEADDR') && !constant('UC_ONLYREMOTEADDR'))) {
-			if (isset($_SERVER['HTTP_CLIENT_IP']) && $this->validate_ip($_SERVER['HTTP_CLIENT_IP'])) {
+			require_once UC_ROOT.'./lib/ucip.class.php';
+			if(defined('UC_IPGETTER') && !empty(constant('UC_IPGETTER'))) {
+				$s = defined('UC_IPGETTER_'.constant('UC_IPGETTER')) && is_array(constant('UC_IPGETTER_'.constant('UC_IPGETTER'))) ? constant('UC_IPGETTER_'.constant('UC_IPGETTER')) : array();
+				$c = 'ucip_getter_'.constant('UC_IPGETTER');
+				require_once UC_ROOT.'./lib/ucip/'.$c.'.class.php';
+				$r = $c::get($s);
+				$this->onlineip = ucip::validate_ip($r) ? $r : $this->onlineip;
+			} else if (isset($_SERVER['HTTP_CLIENT_IP']) && ucip::validate_ip($_SERVER['HTTP_CLIENT_IP'])) {
 				$this->onlineip = $_SERVER['HTTP_CLIENT_IP'];
 			} elseif(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 				if (strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ",") > 0) {
 					$exp = explode(",", $_SERVER['HTTP_X_FORWARDED_FOR']);
-					$this->onlineip = $this->validate_ip(trim($exp[0])) ? $exp[0] : $this->onlineip;
+					$this->onlineip = ucip::validate_ip(trim($exp[0])) ? $exp[0] : $this->onlineip;
 				} else {
-					$this->onlineip = $this->validate_ip($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $this->onlineip;
+					$this->onlineip = ucip::validate_ip($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $this->onlineip;
 				}
 			}
 		}

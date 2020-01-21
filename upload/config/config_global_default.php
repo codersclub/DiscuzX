@@ -149,7 +149,9 @@ $_config['cookie']['cookiepath'] 		= '/'; 		// COOKIE作用路径
 $_config['security']['authkey']			= 'asdfasfas';	// 站点加密密钥
 $_config['security']['urlxssdefend']		= true;		// 自身 URL XSS 防御
 $_config['security']['attackevasive']		= 0;		// CC 攻击防御 1|2|4|8
-$_config['security']['onlyremoteaddr']		= 0;		// 用户IP地址获取方式 0=信任HTTP_CLIENT_IP、HTTP_X_FORWARDED_FOR 1=只信任 REMOTE_ADDR
+$_config['security']['onlyremoteaddr']		= 0;		// 用户IP地址获取方式 0=信任HTTP_CLIENT_IP、HTTP_X_FORWARDED_FOR(默认) 1=只信任 REMOTE_ADDR(推荐)
+								// 考虑到防止IP撞库攻击、IP限制策略失效的风险，建议您设置为1。使用CDN的用户可以配置ipgetter选项
+								// 安全提示：由于UCenter、UC_Client独立性原因，您需要单独在两个应用内定义常量，从而开启功能
 
 $_config['security']['useipban']			= 1;		// 是否开启允许/禁止IP功能，高负载站点可以将此功能疏解至HTTP Server/CDN/SLB/WAF上，降低服务器压力
 $_config['security']['querysafe']['status']	= 1;		// 是否开启SQL安全检测，可自动预防SQL注入攻击
@@ -203,6 +205,27 @@ $_config['ipdb']['setting']['fullstack'] = '';	// 系统使用的全栈IP库，�
 $_config['ipdb']['setting']['default'] = '';	// 系统使用的默认IP库，优先级最低
 $_config['ipdb']['setting']['ipv4'] = 'tiny';	// 系统使用的默认IPv4库，留空为使用默认库
 $_config['ipdb']['setting']['ipv6'] = 'v6wry'; // 系统使用的默认IPv6库，留空为使用默认库
+
+/**
+ * IP获取扩展
+ * 考虑到不同的CDN服务供应商提供的判断CDN源IP的策略不同，您可以定义自己服务供应商的IP获取扩展。
+ * 为空为使用默认体系，非空情况下会自动调用source/class/ip/getter_值.php内的get方法获取IP地址。
+ * 系统提供dnslist(IP反解析域名白名单)、serverlist(IP地址白名单，支持CIDR)、header扩展，具体请参考扩展文件。
+ * 性能提示：自带的两款工具由于依赖RDNS、CIDR判定等操作，对系统效率有较大影响，建议大流量站点使用HTTP Server
+ * 或CDN/SLB/WAF上的IP黑白名单等逻辑实现CDN IP地址白名单，随后使用header扩展指定服务商提供的IP头的方式实现。
+ * 安全提示：由于UCenter、UC_Client独立性及扩展性原因，您需要单独修改相关文件的相关业务逻辑，从而实现此类功能。
+ * $_config['ipgetter']下除setting外均可用作自定义IP获取模型设置选项，也欢迎大家PR自己的扩展IP获取模型。
+ * 扩展IP获取模型的设置，请使用格式：
+ * 		$_config['ipgetter']['IP获取扩展名称']['设置项名称'] = '值';
+ * 比如：
+ * 		$_config['ipgetter']['onlinechk']['server'] = '100.64.10.24';
+ */
+$_config['ipgetter']['setting'] = '';
+$_config['ipgetter']['header']['header'] = 'HTTP_X_FORWARDED_FOR';
+$_config['ipgetter']['iplist']['header'] = 'HTTP_X_FORWARDED_FOR';
+$_config['ipgetter']['iplist']['list']['0'] = '127.0.0.1';
+$_config['ipgetter']['dnslist']['header'] = 'HTTP_X_FORWARDED_FOR';
+$_config['ipgetter']['dnslist']['list']['0'] = 'comsenz.com';
 
 // Addon Setting
 //$_config['addonsource'] = 'xx1';

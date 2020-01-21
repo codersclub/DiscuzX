@@ -392,7 +392,12 @@ class discuz_application extends discuz_base{
 	private function _get_client_ip() {
 		$ip = $_SERVER['REMOTE_ADDR'];
 		if (!array_key_exists('security', $this->config) || !$this->config['security']['onlyremoteaddr']) {
-			if (isset($_SERVER['HTTP_CLIENT_IP']) && ip::validate_ip($_SERVER['HTTP_CLIENT_IP'])) {
+			if (array_key_exists('ipgetter', $this->config) && !empty($this->config['ipgetter']['setting'])) {
+				$s = empty($this->config['ipgetter'][$this->config['ipgetter']['setting']]) ? array() : $this->config['ipgetter'][$this->config['ipgetter']['setting']];
+				$c = 'ip_getter_'.$this->config['ipgetter']['setting'];
+				$r = $c::get($s);
+				$ip = ip::validate_ip($r) ? $r : $ip;
+			} elseif (isset($_SERVER['HTTP_CLIENT_IP']) && ip::validate_ip($_SERVER['HTTP_CLIENT_IP'])) {
 				$ip = $_SERVER['HTTP_CLIENT_IP'];
 			} elseif(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 				if (strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ",") > 0) {
