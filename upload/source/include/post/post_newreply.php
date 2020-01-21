@@ -96,7 +96,7 @@ if($_G['setting']['commentnumber'] && !empty($_GET['comment'])) {
 
 	$comments = $thread['comments'] ? $thread['comments'] + 1 : C::t('forum_postcomment')->count_by_tid($_G['tid']);
 	C::t('forum_thread')->update($_G['tid'], array('comments' => $comments));
-	!empty($_G['uid']) && updatepostcredits('+', $_G['uid'], 'reply', $_G['fid']);
+	!empty($_G['uid']) && $thread['displayorder'] != -4 && updatepostcredits('+', $_G['uid'], 'reply', $_G['fid']);
 	if(!empty($_G['uid']) && $_G['uid'] != $post['authorid']) {
 		notification_add($post['authorid'], 'pcomment', 'comment_add', array(
 			'tid' => $_G['tid'],
