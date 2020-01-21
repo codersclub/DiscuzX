@@ -687,7 +687,7 @@ function deletedoings($ids) {
 				batchupdatecredit('doing', $uid, array('doings' => $setarr['doings']), $setarr['coef']);
 				$lastdoing = C::t('home_doing')->fetch_all_by_uid_doid($uid, '', 'dateline', 0, 1, true, true);
 				$setarr = array('recentnote'=>$lastdoing[0]['message'], 'spacenote'=>$lastdoing[0]['message']);
-				C::t('common_member_field_home')->update($_G['uid'], $setarr);
+				C::t('common_member_field_home')->update($uid, $setarr);
 			}
 		}
 	}
