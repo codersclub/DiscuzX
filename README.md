@@ -16,10 +16,16 @@ Discuz! X 官方 Git (https://gitee.com/ComsenzDiscuz/DiscuzX) ，简体中文 U
 ### **升级方法**
 [点击阅读](https://gitee.com/ComsenzDiscuz/DiscuzX/wikis/%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95?sort_id=9978)
 
-### **打包版下载**
+### **发布版下载**
 [点击下载](https://gitee.com/3dming/DiscuzL/attach_files)
 
 *感谢 DiscuzFans 提供简体GBK、简体UTF8、繁体UTF8的打包版*
+
+### **每日构建下载**
+
+Discuz! X提供3.4(稳定版)和正在开发中的3.5(不稳定版本)的每日构建，在有提交的第二天早上，可以下载到简体GBK、简体UTF8、繁体BIG5、繁体UTF8的打包版本。
+
+[点击打开](https://www.discuz.net/daily/)
 
 ### **友情提示**
 - 本站不再发布其他编码的版本，请下载后自行通过[转码工具](https://gitee.com/ComsenzDiscuz/DiscuzX/attach_files)转码，或者下载本站授权的打包版
