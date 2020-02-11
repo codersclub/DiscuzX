@@ -96,7 +96,6 @@ class control extends adminbase {
 
 					if($errorcode == 0) {
 						$this->setcookie('sid', $this->view->sid, 86400);
-						$pwlen = strlen($password);
 						$this->user['admin'] = 1;
 						$this->writelog('login', 'succeed');
 						if($iframe) {
@@ -107,6 +106,7 @@ class control extends adminbase {
 							exit;
 						}
 					} else {
+						$pwlen = strlen($password);
 						$this->writelog('login', 'error: user='.$this->user['username'].'; password='.($pwlen > 2 ? preg_replace("/^(.{".round($pwlen / 4)."})(.+?)(.{".round($pwlen / 6)."})$/s", "\\1***\\3", $password) : $password));
 						$_ENV['user']->loginfailed($username, $this->onlineip);
 					}

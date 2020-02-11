@@ -25,7 +25,7 @@ if(empty($_POST)) {
 	$conopenid = authcode($_G['qc']['connect_auth_hash']);
 
 	if (empty($conopenid)) {
-		showmessage('qqconnect:connect_login_first', $referer);
+		showmessage('qqconnect:connect_login_first', null, array(), array('showmsg' => true, 'login' => 1));
 	}
 
 	$_G['qc']['connect_is_feed'] = false;
