@@ -83,6 +83,12 @@ $_config['db']['common'] = array();
  */
 $_config['db']['common']['slave_except_table'] = '';
 
+/*
+ * 数据库引擎，根据自己的数据库引擎进行设置，3.5之后默认为innodb，之前为myisam
+ * 对于从3.4升级到3.5，并且没有转换数据库引擎的用户，在此设置为myisam
+ */
+$_config['db']['common']['engine'] = 'innodb';
+
 /**
  * 内存服务器优化设置
  * 以下设置需要PHP扩展组件支持，其中 memcache 优先于其他设置，

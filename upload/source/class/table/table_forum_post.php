@@ -603,9 +603,15 @@ class table_forum_post extends discuz_table
 	}
 
 	/*
-	 * 要保证每个tid下，position是从0开始，并且每次加1，这样与MyISAM的语义相同
+	 * 在InnoDB的情况下，要保证每个tid下，position是从0开始，并且每次加1，这样与MyISAM的语义相同
+	 * 在非InnoDB的时候(MyISAM)，直接插入
 	 */
 	public function insert($tableid, $data, $return_insert_id = false, $replace = false, $silent = false) {
+		global $_G;
+		if ($_G['config']['db']['common']['engine'] !== 'innodb') {
+			return DB::insert(self::get_tablename($tableid), $data, $return_insert_id, $replace, $silent);
+		}
+
 		try {
 			$tablename = self::get_tablename($tableid);
 			DB::begin_transaction();
