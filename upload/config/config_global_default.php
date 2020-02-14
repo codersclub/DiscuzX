@@ -104,6 +104,7 @@ $_config['memory']['redis']['port'] = 6379;
 $_config['memory']['redis']['pconnect'] = 1;
 $_config['memory']['redis']['timeout'] = 0;
 $_config['memory']['redis']['requirepass'] = '';
+$_config['memory']['redis']['db'] = 0;				//这里可以填写0到15的数字，每个站点使用不同的db
 /**
  * 此配置现在已经取消，默认对array使用json进行编码保存，其它数据直接原样保存 
  */
@@ -113,6 +114,10 @@ $_config['memory']['memcache']['server'] = '';			// memcache 服务器地址
 $_config['memory']['memcache']['port'] = 11211;			// memcache 服务器端口
 $_config['memory']['memcache']['pconnect'] = 1;			// memcache 是否长久连接
 $_config['memory']['memcache']['timeout'] = 1;			// memcache 服务器连接超时
+
+$_config['memory']['memcached']['server'] = '';			// memcached 服务器地址
+$_config['memory']['memcached']['port'] = 11211;		// memcached 服务器端口
+
 
 $_config['memory']['apc'] = 0;							// 启动对 APC 的支持
 $_config['memory']['apcu'] = 0;							// 启动对 APCu 的支持
