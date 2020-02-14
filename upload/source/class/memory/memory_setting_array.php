@@ -36,7 +36,7 @@ class memory_setting_array extends ArrayObject {
 			'forumallowside', 'focus', 'site_qq', 'footernavs', 'siteurl', 'sitename', 'icp', 'statcode', 'debug',
 			'boardlicensed', 'followstatus', 'disableipnotice', 'rewritestatus', 'ftp', 'visitbanperiods',
 			'cacheindexlife', 'whosonline_contract', 'regname', 'reglinkname', 'pwdsafety', 'autoidselect',
-			'uidlogin'
+			'uidlogin', 'forumstatus', 'friendstatus', 'guidestatus', 'favoritestatus'
 		),
 		'forumdisplay_fields' => array(
 			'group_admingroupids', 'followforumid', 'targetblank', 'allowmoderatingthread', 'threadmaxpages',
