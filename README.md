@@ -38,6 +38,8 @@ $_config['db']['common']['engine'] = 'innodb';
 
 对于MyISAM引擎，由于1000个字节的索引长度限制，因此要对一些索引做重新定义，参考 [scheme-change-myisam-utf8mb4.sql](https://gitee.com/oldhuhu/DiscuzX34235/blob/master/scheme/scheme-change-myisam-utf8mb4.sql)
 
+无论是InnoDB还是MyISAM，所有的表都使用utf8mb4编码与utf8mb4_unicode_ci，参考 [scheme-change-charset.sql](https://gitee.com/oldhuhu/DiscuzX34235/blob/master/scheme/scheme-change-charset.sql)
+
 
 #### 2. IP相关变更
 
@@ -122,7 +124,7 @@ $_config['ipgetter']['dnslist']['list']['0'] = 'comsenz.com';
 
 #### 5. 其它改动
 
-* 增加了一个测试框架，可在后台运行，代码位于 `upload/tests` 下，测试用例可在 `upload/tests/class` 下添加。欢迎大家PR测试用例
+* 增加了一个测试框架，可在后台运行，代码位于 `upload/tests` 下，测试用例可在 `upload/tests/class` 下添加。欢迎大家通过Pull Request提交测试用例
 * 修改了安装程序最后一步的日志输出方式，现在整个创建数据库的过程日志都可实时显示
 * 不再使用mysql驱动，只使用mysqli
 * 内置了function_debug.php文件，通过 `$_config['debug'] = 1` 打开
