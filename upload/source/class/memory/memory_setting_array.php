@@ -19,8 +19,9 @@ if (!defined('IN_DISCUZ')) {
  * 	3. 对于不在这里定义的field，访问时再加载
  * 对于其它类型的memory，直接加载整个setting
  */
-class memory_setting_array extends ArrayObject {
+class memory_setting_array implements ArrayAccess {
 	private $can_lazy = false;
+	public $array = Array();
 
 	const SETTING_KEY = 'setting';
 	const FIELDS_GROUPS = array(
@@ -56,54 +57,55 @@ class memory_setting_array extends ArrayObject {
 		)
 	);
 
-	public function __construct($input = array(), $flags = 0, $iterator_class = "ArrayIterator")
+	public function __construct()
 	{
-		$this->can_lazy = C::memory()->goteval && C::memory()->gothash;
+ 		$this->can_lazy = C::memory()->goteval && C::memory()->gothash;
 		if (!$this->can_lazy) { // 不支持lazy load的时候，直接加载整个数据
-			$input = memory('get', self::SETTING_KEY);
+			$this->array = memory('get', self::SETTING_KEY);
+			foreach ($this->array as $key => $value) {
+				if ($value) $this->array[$key] = unserialize($value);
+			}			
 		}
-		parent::__construct($input, $flags, $iterator_class);
 	}
 
 	public function offsetExists($index)
 	{
-		if (!parent::offsetExists($index)) {
+		if (!array_key_exists($index, $this->array)) {
 			return memory('hexists', self::SETTING_KEY, $index);
 		}
 		return true;
 	}
 
-	public function offsetGet($index)
+	public function &offsetGet($index)
 	{
-		$ret = parent::offsetGet($index);
-		if ($ret === null && $this->can_lazy) {
+		$val = $this->array[$index];
+		if ($val === null && $this->can_lazy) {
 			foreach (self::FIELDS_GROUPS as $group => $fields) {
 				if (in_array($index, $fields)) {
 					$this->_load_fields($fields, $group . '_eval_sha');
-					$ret = parent::offsetGet($index);
+					$val = $this->array[$index];
 					break;
 				}
 			}
-			if ($ret === null) {
+			if ($val === null) {
 				$data = memory('hget', self::SETTING_KEY, $index);
-				if ($data !== false) {
-					$ret = \unserialize($data);
-				} else {
-					$ret = new memory_setting_array_null_object();
-				}
-				parent::offsetSet($index, $ret);
+				$val = \unserialize($data);
+				$this->offsetSet($index, $val);
 			}
 		}
-		if ($ret instanceof memory_setting_array_null_object) return null;
+		$ret = & $this->array[$index];
 		return $ret;
 	}
 
 	public function offsetSet($index, $newval)
 	{
-		if ($newval === null) {
-			$newval = new memory_setting_array_null_object();
-		}
-		parent::offsetSet($index, $newval);
+		if ($newval === null || $newval === false) $newval = Array();
+		$this->array[$index] = $newval;
+	}
+
+	public function offsetUnset($index)
+	{
+		unset($this->array[$index]);
 	}
 
 	/*
@@ -138,16 +140,8 @@ LUA;
 			$data = memory('eval', $array_def . $script, array(), $shakey);
 		}
 		foreach ($fields as $index => $field) {
-			$this->offsetSet($field, \unserialize($data[$index]));
+			$this->offsetSet($field, unserialize($data[$index]));
 		}
 	}
 
 }
-
-/*
- * 用Null Object表示"我知道这是个空对象"的状态
- * 这样可以避免NULL值带来的反复从缓存加载的问题
- * 当用户读取值的时候，从Null Object转换回null返回
- */
-class memory_setting_array_null_object
-{}
