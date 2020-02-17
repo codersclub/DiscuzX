@@ -160,7 +160,7 @@ $_config['cookie']['cookiepath'] 		= '/'; 		// COOKIE作用路径
 $_config['security']['authkey']			= 'asdfasfas';	// 站点加密密钥
 $_config['security']['urlxssdefend']		= true;		// 自身 URL XSS 防御
 $_config['security']['attackevasive']		= 0;		// CC 攻击防御 1|2|4|8
-$_config['security']['onlyremoteaddr']		= 0;		// 用户IP地址获取方式 0=信任HTTP_CLIENT_IP、HTTP_X_FORWARDED_FOR(默认) 1=只信任 REMOTE_ADDR(推荐)
+$_config['security']['onlyremoteaddr']		= 1;		// 用户IP地址获取方式 0=信任HTTP_CLIENT_IP、HTTP_X_FORWARDED_FOR(默认) 1=只信任 REMOTE_ADDR(推荐)
 								// 考虑到防止IP撞库攻击、IP限制策略失效的风险，建议您设置为1。使用CDN的用户可以配置ipgetter选项
 								// 安全提示：由于UCenter、UC_Client独立性原因，您需要单独在两个应用内定义常量，从而开启功能
 

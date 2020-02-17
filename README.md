@@ -129,6 +129,15 @@ $_config['ipgetter']['dnslist']['list']['0'] = 'comsenz.com';
 * 不再使用mysql驱动，只使用mysqli
 * 内置了function_debug.php文件，通过 `$_config['debug'] = 1` 打开
 
+#### 6. 最低运行环境要求
+
+**安全提示：我们强烈建议您使用仍在开发团队支持期内的操作系统、Web服务器、PHP、数据库、内存缓存等软件，超出支持期的软件可能会对您的站点带来未知的安全隐患。**
+
+| 软件名称 | 版本要求 | 其他事项                         |
+| ------- | ------- | ------------------------------ |
+| PHP     | >= 5.6   | 依赖cURL扩展、GD扩展            |
+| MySQL   | >= 5.7   | 如使用MariaDB，版本号需 >= 10.2 |
+
 ### **简介** 
 
 Discuz! X 官方 Git (https://gitee.com/ComsenzDiscuz/DiscuzX) ，简体中文 UTF8 版本
