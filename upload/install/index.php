@@ -492,7 +492,8 @@ if($method == 'show_license') {
 } elseif($method == 'check_db_init_progress') {
 	header("Content-Type: text/plain");
 	ob_start();
-	if (file_exists($file)) readfile(__DIR__ . '/include/install.log');
+	$file = __DIR__ . '/include/install.log';
+	if (file_exists($file)) readfile($file);
 	ob_end_flush();
 	exit();
 }
