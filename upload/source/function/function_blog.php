@@ -319,46 +319,14 @@ function blog_bbcode($message) {
 function blog_bbcode_callback_blog_flash_21($matches) {
 	return blog_flash($matches[2], $matches[1]);
 }
-function blog_flash($swf_url, $type='') {
+
+function blog_flash($url, $type='') {
 	$width = '520';
 	$height = '390';
-	preg_match("/((https?|ftp|gopher|news|telnet|rtsp|mms|callto|bctp|thunder|qqdl|synacast){1}:\/\/|www\.)[^\[\"']+/i", $swf_url, $matches);
-	$swf_url = $matches[0];
-	if ($type == 'media') {
-		$html = '<object classid="clsid:6bf52a52-394a-11d3-b153-00c04f79faa6" width="'.$width.'" height="'.$height.'">
-			<param name="autostart" value="0">
-			<param name="url" value="'.$swf_url.'">
-			<embed autostart="false" src="'.$swf_url.'" type="video/x-ms-wmv" width="'.$width.'" height="'.$height.'" controls="imagewindow" console="cons"></embed>
-			</object>';
-	} elseif ($type == 'real') {
-		$html = '<object classid="clsid:cfcdaa03-8be4-11cf-b84b-0020afbbccfa" width="'.$width.'" height="'.$height.'">
-			<param name="autostart" value="0">
-			<param name="src" value="'.$swf_url.'">
-			<param name="controls" value="Imagewindow,controlpanel">
-			<param name="console" value="cons">
-			<embed autostart="false" src="'.$swf_url.'" type="audio/x-pn-realaudio-plugin" width="'.$width.'" height="'.$height.'" controls="controlpanel" console="cons"></embed>
-			</object>';
-	} elseif ($type == 'mp3') {
-		$swf_url = urlencode(str_replace('&amp;', '&', $swf_url));
-		$html = '<object id="audioplayer_SHAREID" height="24" width="290" data="'.STATICURL.'image/common/player.swf" type="application/x-shockwave-flash">
-			<param value="'.STATICURL.'image/common/player.swf" name="movie"/>
-			<param value="autostart=yes&bg=0xCDDFF3&leftbg=0x357DCE&lefticon=0xF2F2F2&rightbg=0xF06A51&rightbghover=0xAF2910&righticon=0xF2F2F2&righticonhover=0xFFFFFF&text=0x357DCE&slider=0x357DCE&track=0xFFFFFF&border=0xFFFFFF&loader=0xAF2910&soundFile='.$swf_url.'" name="FlashVars"/>
-			<param value="high" name="quality"/>
-			<param value="false" name="menu"/>
-			<param name="allowscriptaccess" value="never">
-			<param name="allowNetworking" value="internal">
-			<param value="#FFFFFF" name="bgcolor"/>
-	    	</object>';
-
-	} else {
-		$extname = substr($swf_url, strrpos($swf_url, '.')+1);
-		$randomid = 'swf_'.random(3);
-		if($extname == 'swf') {
-			$html = '<span id="'.$randomid.'"></span><script type="text/javascript" reload="1">$(\''.$randomid.'\').innerHTML=AC_FL_RunContent(\'width\', \''.$width.'\', \'height\', \''.$height.'\', \'allowNetworking\', \'internal\', \'allowScriptAccess\', \'never\', \'src\', encodeURI(\''.$swf_url.'\'), \'quality\', \'high\', \'bgcolor\', \'#ffffff\', \'wmode\', \'transparent\', \'allowfullscreen\', \'true\');</script>';
-		} else {
-			$html = '<span id="'.$randomid.'"></span><script type="text/javascript" reload="1">$(\''.$randomid.'\').innerHTML=AC_FL_RunContent(\'width\', \''.$width.'\', \'height\', \''.$height.'\', \'allowNetworking\', \'internal\', \'allowScriptAccess\', \'never\', \'src\', \''.STATICURL.'image/common/flvplayer.swf\', \'flashvars\', \'file='.rawurlencode($swf_url).'\', \'quality\', \'high\', \'wmode\', \'transparent\', \'allowfullscreen\', \'true\');</script>';
-		}
-	}
-	return $html;
+	preg_match("/((https?|ftp|gopher|news|telnet|rtsp|mms|callto|bctp|thunder|qqdl|synacast){1}:\/\/|www\.)[^\[\"']+/i", $url, $matches);
+	$url = $matches[0];
+	$type = fileext($url);
+	$randomid = random(3);
+	return '<div id="'.$type.'_'.$randomid.'" class="media"><div id="'.$type.'_'.$randomid.'_container" class="media_container"></div><div id="'.$type.'_'.$randomid.'_tips" class="media_tips"><a href="'.$url.'" target="_blank">'.lang('template', 'parse_av_tips').'</a></div></div><script type="text/javascript">detectPlayer("'.$type.'_'.$randomid.'", "'.$type.'", "'.$url.'", "'.$width.'", "'.$height.'");</script>';
 }
 ?>

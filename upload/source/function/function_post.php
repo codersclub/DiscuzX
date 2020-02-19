@@ -89,22 +89,33 @@ function parseattachmedia($attach) {
 	$attachurl = 'attach://'.$attach['aid'].'.'.$attach['ext'];
 	switch(strtolower($attach['ext'])) {
 		case 'mp3':
+		case 'm4a':
 		case 'wma':
 		case 'ra':
 		case 'ram':
 		case 'wav':
 		case 'mid':
+		case 'ogg':
+		case 'aac':
+		case 'flac':
+		case 'weba':
 			return '[audio]'.$attachurl.'[/audio]';
 		case 'wmv':
 		case 'rm':
 		case 'rmvb':
 		case 'avi':
 		case 'asf':
+		case 'asx':
 		case 'mpg':
 		case 'mpeg':
 		case 'mov':
 		case 'flv':
 		case 'swf':
+		case 'mp4':
+		case 'm4v':
+		case '3gp':
+		case 'ogv':
+		case 'webm':
 			return '[media='.$attach['ext'].',400,300]'.$attachurl.'[/media]';
 		default:
 			return;

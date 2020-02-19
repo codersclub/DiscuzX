@@ -202,12 +202,17 @@ if(!$requestmode) {
 
 }
 
-$range = 0;
-if($readmod == 4 && !empty($_SERVER['HTTP_RANGE'])) {
-	list($range) = explode('-',(str_replace('bytes=', '', $_SERVER['HTTP_RANGE'])));
+// 解析range的范围, readmod = 1 or 4的时候，支持range
+// range传入有可能没有end，这时候要在获取了文件大小后，根据文件大小设置range_end
+$range_start = 0;
+$range_end = 0;
+$has_range_header = false;
+if(($readmod == 4 || $readmod == 1) && !empty($_SERVER['HTTP_RANGE'])) {
+	$has_range_header = true;
+	list($range_start, $range_end) = explode('-',(str_replace('bytes=', '', $_SERVER['HTTP_RANGE'])));
 }
 
-if(!$requestmode && !$range && empty($_GET['noupdate'])) {
+if(!$requestmode && !$has_range_header && empty($_GET['noupdate'])) {
 	if($_G['setting']['delayviewcount']) {
 		$_G['forum_logfile'] = './data/cache/forum_attachviews_'.intval(getglobal('config/server/id')).'.log';
 		if(substr(TIMESTAMP, -1) == '0') {
@@ -234,7 +239,11 @@ if($attach['remote'] && !$_G['setting']['ftp']['hideurl'] && $isimage) {
 	dheader('location:'.$_G['setting']['ftp']['attachurl'].'forum/'.$attach['attachment']);
 }
 
+// 获取支持h5媒体播放的mimetype，Safari要有mimetype和range支持才能正确播放
+$mimetype = ext_to_mimetype($attach['filename']);
 $filesize = !$attach['remote'] ? filesize($filename) : $attach['filesize'];
+// 如果range_end没有传入，更新range_end
+if ($has_range_header && !$range_end) $range_end = $filesize - 1;
 $attach['filename'] = '"'.(strtolower(CHARSET) == 'utf-8' && strexists($_SERVER['HTTP_USER_AGENT'], 'MSIE') ? urlencode($attach['filename']) : $attach['filename']).'"';
 
 dheader('Date: '.gmdate('D, d M Y H:i:s', $attach['dateline']).' GMT');
@@ -249,7 +258,7 @@ if($isimage && !empty($_GET['noupdate']) || !empty($_GET['request'])) {
 if($isimage) {
 	dheader('Content-Type: image');
 } else {
-	dheader('Content-Type: application/octet-stream');
+	dheader('Content-Type: ' . $mimetype);
 }
 
 dheader('Content-Length: '.$filesize);
@@ -272,17 +281,18 @@ if(!empty($xsendfile)) {
 	}
 }
 
-if($readmod == 4) {
+// readmod = 1 or 4 的时候，支持Range
+if (($readmod == 4) || ($readmod == 1)) {
 	dheader('Accept-Ranges: bytes');
-	if(!empty($_SERVER['HTTP_RANGE'])) {
-		$rangesize = ($filesize - $range) > 0 ?  ($filesize - $range) : 0;
+	if($has_range_header) {
+		$rangesize = ($range_end - $range_start) >= 0 ?  ($range_end - $range_start) + 1 : 0;
 		dheader('Content-Length: '.$rangesize);
 		dheader('HTTP/1.1 206 Partial Content');
-		dheader('Content-Range: bytes='.$range.'-'.($filesize-1).'/'.($filesize));
+		dheader('Content-Range: bytes '.$range_start.'-'.$range_end.'/'.($filesize));
 	}
 }
 
-$attach['remote'] ? getremotefile($attach['attachment']) : getlocalfile($filename, $readmod, $range);
+$attach['remote'] ? getremotefile($attach['attachment']) : getlocalfile($filename, $readmod, $range_start, $range_end);
 
 function getremotefile($file) {
 	global $_G;
@@ -301,14 +311,18 @@ function getremotefile($file) {
 	return TRUE;
 }
 
-function getlocalfile($filename, $readmod = 2, $range = 0) {
+function getlocalfile($filename, $readmod = 2, $range_start = 0, $range_end = 0) {
 	if($readmod == 1 || $readmod == 3 || $readmod == 4) {
 		if($fp = @fopen($filename, 'rb')) {
-			@fseek($fp, $range);
-			if(function_exists('fpassthru') && ($readmod == 3 || $readmod == 4)) {
+			@fseek($fp, $range_start);
+			if(function_exists('fpassthru') && ($readmod == 3 || $readmod == 4) && ($range_end <= 0)) {
 				@fpassthru($fp);
 			} else {
-				echo @fread($fp, filesize($filename));
+				if ($range_end > 0) {
+					send_file_by_chunk($fp, $range_end - $range_start + 1);
+				} else {
+					send_file_by_chunk($fp);
+				}
 			}
 		}
 		@fclose($fp);
@@ -316,6 +330,21 @@ function getlocalfile($filename, $readmod = 2, $range = 0) {
 		@readfile($filename);
 	}
 	@flush(); @ob_flush();
+}
+
+function send_file_by_chunk($fp, $limit = PHP_INT_MAX) {
+	static $CHUNK_SIZE = 64 * 1024; // 每次最大读 64KB
+	$count = 0;
+	while (!feof($fp)) {
+		$size_to_read = $CHUNK_SIZE;
+		if ($count + $size_to_read > $limit) $size_to_read = $limit - $count;
+		$buf = fread($fp, $size_to_read);
+		echo $buf;
+		flush();
+		ob_flush();
+		$count += sizeof($buf);
+		if ($count >= $limit) break;
+	}
 }
 
 function attachment_updateviews($logfile) {
@@ -336,6 +365,28 @@ function attachment_updateviews($logfile) {
 			}
 		}
 	}
+}
+
+function ext_to_mimetype($path) {
+	$ext = pathinfo($path, PATHINFO_EXTENSION);
+	$map = array(
+		'aac' => 'audio/aac',
+		'flac' => 'audio/flac', 
+		'mp3' => 'audio/mpeg', 
+		'm4a' => 'audio/mp4', 
+		'wav' => 'audio/wav', 
+		'ogg' => 'audio/ogg',
+		'weba' => 'audio/webm',
+		'flv' => 'video/x-flv', 
+		'mp4' => 'video/mp4', 
+		'm4v' => 'video/mp4', 
+		'3gp' => 'video/3gpp',
+		'ogv' => 'video/ogg',
+		'webm' => 'video/webm' 
+	);
+	$mime = $map[$ext];
+	if (!$mime) $mime = "application/octet-stream";
+	return $mime;
 }
 
 ?>

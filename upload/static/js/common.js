@@ -1983,6 +1983,149 @@ function mobileplayer() {
 	}
 }
 
+function appendstyle(url) {
+	var link = document.createElement('link');
+	link.type = 'text/css';
+	link.rel = 'stylesheet';
+	link.href = url;
+	var head = document.getElementsByTagName('head')[0];
+	head.appendChild(link);
+}
+
+function detectHtml5Support() {
+	return document.createElement("Canvas").getContext;
+}
+
+function detectPlayer(randomid, ext, src, width, height) {
+	var h5_support = new Array('aac', 'flac', 'mp3', 'm4a', 'wav', 'flv', 'mp4', 'm4v', '3gp', 'ogv', 'ogg', 'weba', 'webm');
+	var trad_support = new Array('mp3', 'wma', 'mid', 'wav', 'ra', 'ram', 'rm', 'rmvb', 'swf', 'asf', 'asx', 'wmv', 'avi', 'mpg', 'mpeg', 'mov');
+	if (in_array(ext, h5_support) && detectHtml5Support()) {
+		html5Player(randomid, ext, src, width, height);
+	} else if (in_array(ext, trad_support)) {
+		tradionalPlayer(randomid, ext, src, width, height);
+	} else {
+		$(randomid).style.width = width + 'px';
+		$(randomid).style.height = height + 'px';
+	}
+}
+
+function tradionalPlayer(randomid, ext, src, width, height) {
+	switch(ext) {
+		case 'mp3':
+		case 'wma':
+		case 'mid':
+		case 'wav':
+			height = 64;
+			html = '<object classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6" width="' + width + '" height="' + height + '"><param name="invokeURLs" value="0"><param name="autostart" value="0" /><param name="url" value="' + src + '" /><embed src="' + src + '" autostart="0" type="application/x-mplayer2" width="' + width + '" height="' + height + '"></embed></object>';
+			break;
+		case 'ra':
+		case 'ram':
+			height = 32;
+			html = '<object classid="clsid:CFCDAA03-8BE4-11CF-B84B-0020AFBBCCFA" width="' + width + '" height="' + height + '"><param name="autostart" value="0" /><param name="src" value="' + src + '" /><param name="controls" value="controlpanel" /><param name="console" value="' + randomid + '_" /><embed src="' + src + '" autostart="0" type="audio/x-pn-realaudio-plugin" controls="ControlPanel" console="' + randomid + '_" width="' + width + '" height="' + height + '"></embed></object>';
+			break;
+		case 'rm':
+		case 'rmvb':
+			html = '<object classid="clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA" width="' + width + '" height="' + height + '"><param name="autostart" value="0" /><param name="src" value="' + src + '" /><param name="controls" value="imagewindow" /><param name="console" value="' + randomid + '_" /><embed src="' + src + '" autostart="0" type="audio/x-pn-realaudio-plugin" controls="imagewindow" console="' + randomid + '_" width="' + width + '" height="' + height + '"></embed></object><br /><object classid="clsid:CFCDAA03-8BE4-11CF-B84B-0020AFBBCCFA" width="' + width + '" height="32"><param name="src" value="' + src +'" /><param name="controls" value="controlpanel" /><param name="console" value="' + randomid + '_" /><embed src="' + src + '" autostart="0" type="audio/x-pn-realaudio-plugin" controls="controlpanel" console="' + randomid + '_" width="' + width + '" height="32"></embed></object>';
+			break;
+		case 'swf':
+			html = AC_FL_RunContent('width', width, 'height', height, 'allowNetworking', 'internal', 'allowScriptAccess', 'never', 'src', encodeURI(src), 'quality', 'high', 'bgcolor', '#ffffff', 'wmode', 'transparent', 'allowfullscreen', 'true');
+			break;
+		case 'asf':
+		case 'asx':
+		case 'wmv':
+		case 'avi':
+		case 'mpg':
+		case 'mpeg':
+			html = '<object classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6" width="' + width + '" height="' + height + '"><param name="invokeURLs" value="0"><param name="autostart" value="0" /><param name="url" value="' + src + '" /><embed src="' + src + '" autostart="0" type="application/x-mplayer2" width="' + width + '" height="' + height + '"></embed></object>';
+			break;
+		case 'mov':
+			html = '<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" width="' + width + '" height="' + height + '"><param name="autostart" value="false" /><param name="src" value="' + src + '" /><embed src="' + src + '" autostart="false" type="video/quicktime" controller="true" width="' + width + '" height="' + height + '"></embed></object>';
+			break;
+		default:
+			break;
+	}
+	$(randomid).style.width = width + 'px';
+	$(randomid).style.height = height + 'px';
+	$(randomid + '_container').innerHTML = html;
+}
+
+function html5Player(randomid, ext, src, width, height) {
+	switch (ext) {
+		case 'aac':
+		case 'flac':
+		case 'mp3':
+		case 'm4a':
+		case 'wav':
+		case 'ogg':
+			height = 66;
+			appendstyle(STATICURL + 'js/player/aplayer.min.css');
+			appendscript(STATICURL + 'js/player/aplayer.min.js');
+			html5APlayer(randomid, ext, src, width, height);
+			break;
+		case 'flv':
+			appendscript(STATICURL + 'js/player/flv.min.js');
+		case 'mp4':
+		case 'm4v':
+		case '3gp':
+		case 'ogv':
+		case 'webm':
+			appendstyle(STATICURL + 'js/player/dplayer.min.css');
+			appendscript(STATICURL + 'js/player/dplayer.min.js');
+			html5DPlayer(randomid, ext, src, width, height);
+			break;
+		default:
+			break;
+	}
+	$(randomid).style.width = width + 'px';
+	$(randomid).style.height = height + 'px';
+}
+
+function html5APlayer(randomid, ext, src, width, height) {
+	if (JSLOADED[STATICURL + 'js/player/aplayer.min.js']) {
+		window[randomid] = new APlayer({
+			container: $(randomid + '_container'),
+			mini: false,
+			autoplay: false,
+			loop: 'all',
+			preload: 'none',
+			volume: 1,
+			mutex: true,
+			listFolded: true,
+			audio: [{
+				name: ' ',
+				artist: ' ',
+				url: src,
+			}]
+		});
+	} else {
+		setTimeout(function () {
+			html5APlayer(randomid, ext, src, width, height);
+		}, 50);
+	}
+}
+
+function html5DPlayer(randomid, ext, src, width, height) {
+	if (JSLOADED[STATICURL + 'js/player/dplayer.min.js'] && (ext != 'flv' || JSLOADED[STATICURL + 'js/player/flv.min.js'])) {
+		window[randomid] = new DPlayer({
+			container: $(randomid + '_container'),
+			autoplay: false,
+			loop: true,
+			screenshot: false,
+			hotkey: true,
+			preload: 'none',
+			volume: 1,
+			mutex: true,
+			listFolded: true,
+			video: {
+				url: src,
+			}
+		});
+	} else {
+		setTimeout(function () {
+			html5DPlayer(randomid, ext, src, width, height);
+		}, 50);
+	}
+}
 
 var BROWSER = {};
 var USERAGENT = navigator.userAgent.toLowerCase();
