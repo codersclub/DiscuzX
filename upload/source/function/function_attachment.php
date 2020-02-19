@@ -40,7 +40,7 @@ function attachtype($type, $returnval = 'html') {
 			$typeid = 11;
 		} elseif(preg_match("/flash|^(swf|fla|flv|swi)\t/", $type)) {
 			$typeid = 10;
-		} elseif(preg_match("/audio|video|^(wav|mid|mp3|m3u|wma|asf|asx|vqf|mpg|mpeg|avi|wmv)\t/", $type)) {
+		} elseif(preg_match("/audio|video|^(wav|mid|mp3|m3u|wma|asf|asx|vqf|mpg|mpeg|avi|wmv|mov|mp4|m4a|m4v|3gp|ogv|ogg|webm|weba|aac|flac)\t/", $type)) {
 			$typeid = 9;
 		} elseif(preg_match("/real|^(ra|rm|rv)\t/", $type)) {
 			$typeid = 8;
