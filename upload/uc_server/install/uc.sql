@@ -125,7 +125,7 @@ CREATE TABLE uc_badwords (
   replacement varchar(255) NOT NULL default '',
   findpattern varchar(255) NOT NULL default '',
   PRIMARY KEY  (id),
-  UNIQUE KEY `find` (`find`)
+  UNIQUE KEY `find` (`find`(100))
 ) Type=InnoDB;
 
 DROP TABLE IF EXISTS uc_notelist;
