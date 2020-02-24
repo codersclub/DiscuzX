@@ -213,6 +213,11 @@ class memory_driver_redis {
 		return $this->obj->script('load', $script);
 	}
 
+	function scriptexists($sha) {
+		$r =  $this->obj->script('exists', $sha);
+		return $r[0];
+	}
+
 	function zadd($key, $member, $score) {
 		return $this->obj->zAdd($key, $score, $member);
 	}

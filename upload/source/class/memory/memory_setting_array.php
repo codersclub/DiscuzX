@@ -82,7 +82,7 @@ class memory_setting_array implements ArrayAccess {
 		if ($val === null && $this->can_lazy) {
 			foreach (self::FIELDS_GROUPS as $group => $fields) {
 				if (in_array($index, $fields)) {
-					$this->_load_fields($fields, $group . '_eval_sha');
+					$this->_load_fields($fields, 'setting_' . $group);
 					$val = $this->array[$index];
 					break;
 				}
