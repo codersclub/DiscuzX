@@ -347,7 +347,8 @@ $lang = array(
 	'clear_dir' => '清空目录',
 	'select_db' => '选择数据库',
 	'create_table' => '建立数据表',
-	'succeed' => '成功 ',
+	'succeed' => '成功',
+	'failed' => '失败',
 
 	'init_table_data' => '正在初始化数据表中的数据',
 	'install_data' => '正在安装数据',

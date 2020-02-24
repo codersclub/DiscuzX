@@ -401,12 +401,16 @@ if($method == 'show_license') {
 
 	$sql = file_get_contents($sqlfile);
 	$sql = str_replace("\r\n", "\n", $sql);
-	runquery($sql);
+	if (!runquery($sql)) {
+		exit();
+	}
 
 	showjsmessage(lang('init_table_data') . ' ... ');
 	$sql = file_get_contents(ROOT_PATH.'./install/data/install_data.sql');
 	$sql = str_replace("\r\n", "\n", $sql);
-	runquery($sql);
+	if (!runquery($sql)) {
+		exit();
+	}
 	showjsmessage(lang('succeed') . "\n");
 
 	$onlineip = $_SERVER['REMOTE_ADDR'];

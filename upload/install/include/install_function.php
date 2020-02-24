@@ -785,7 +785,21 @@ function append_notice(str) {
 
 function request_log() {
     ajax.get('index.php?method=check_db_init_progress', "", function (data) {
-        set_notice(data.split("\n").map(l => l + '<br/>').join(''));
+        set_notice(
+		data.split("\n").
+		map(function(l) {
+			if (l.indexOf('<?= lang("failed") ?>') !== -1) {
+				return '<font color="red">' + l + '</font><br/>';
+			} else {
+				return l + '<br/>';
+			}
+		}).
+		join('')
+	);
+	if (data.indexOf('<?= lang("failed") ?>') !== -1) {
+                append_notice("<?= lang('error_quit_msg') ?><br/>");
+		return;
+	}
         if (data.indexOf('<?= lang("initdbresult_succ") ?>') !== -1) {
             append_notice("<?= lang('initsys') ?> ... ");
 
@@ -841,15 +855,19 @@ function runquery($sql) {
 			if(substr($query, 0, 12) == 'CREATE TABLE') {
 				$name = preg_replace("/CREATE TABLE ([a-z0-9_]+) .*/is", "\\1", $query);
 				showjsmessage(lang('create_table').' '.$name.' ... ');
-				$db->query(createtable($query, $db->version()));
-				showjsmessage(lang('succeed') . "\n");
+				if ($db->query(createtable($query, $db->version()))) {
+					showjsmessage(lang('succeed') . "\n");
+				} else {
+					showjsmessage(lang('failed') . "\n");
+					return false;
+				}
 			} else {
 				$db->query($query);
 			}
 
 		}
 	}
-
+	return true;
 }
 
 function runucquery($sql, $tablepre) {

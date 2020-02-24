@@ -26,15 +26,13 @@ class dbstuff {
 			$this->halt('Can not connect to MySQL server');
 		}
 
-		if($this->version() > '4.1') {
-			if($dbcharset) {
-				$this->link->set_charset($dbcharset);
-			}
-
-			if($this->version() > '5.0.1') {
-				$this->query("SET sql_mode=''");
-			}
+		if ($this->version() < '5.5.3') {
+			$this->halt('MySQL version must be 5.5.3 or greater');
 		}
+		if($dbcharset) {
+			$this->link->set_charset($dbcharset);
+		}
+		$this->query("SET sql_mode=''");
 	}
 
 	function fetch_array($query, $result_type = MYSQLI_ASSOC) {
