@@ -29,11 +29,7 @@ class discuz_error
 		}
 
 		if($show) {
-			if(!defined('IN_MOBILE')) {
-				discuz_error::show_error('system', "<li>$message</li>", $showtrace, 0);
-			} else {
-				discuz_error::mobile_show_error('system', "<li>$message</li>", $showtrace, 0);
-			}
+			discuz_error::show_error('system', "<li>$message</li>", $showtrace, 0);
 		}
 
 		if($halt) {
@@ -188,8 +184,12 @@ class discuz_error
 		$gzip = getglobal('gzipcompress');
 		ob_start($gzip ? 'ob_gzhandler' : null);
 
+		header("HTTP/1.1 503 Service Temporarily Unavailable");
+		header("Status: 503 Service Temporarily Unavailable");
+		header("Retry-After: 3600");
+
 		$host = $_SERVER['HTTP_HOST'];
-		$title = $type == 'db' ? 'Database' : 'System';
+		$title = (!isset($_G['config']['security']['error']['showerror']) || !empty($_G['config']['security']['error']['showerror'])) ? ($type == 'db' ? 'Database' : 'System') : 'General';
 		echo <<<EOT
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -197,19 +197,23 @@ class discuz_error
 	<title>$host - $title Error</title>
 	<meta http-equiv="Content-Type" content="text/html; charset={$_G['config']['output']['charset']}" />
 	<meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style type="text/css">
 	<!--
 	body { background-color: white; color: black; font: 9pt/11pt verdana, arial, sans-serif;}
-	#container { width: 1024px; }
-	#message   { width: 1024px; color: black; }
+	#container { max-width: 1024px; margin: auto; }
+	#message   { max-width: 1024px; color: black; }
 
 	.red  {color: red;}
 	a:link     { font: 9pt/11pt verdana, arial, sans-serif; color: red; }
 	a:visited  { font: 9pt/11pt verdana, arial, sans-serif; color: #4e4e4e; }
+	a.guess { font: 11pt/13pt verdana, arial, sans-serif; color: blue; }
 	h1 { color: #FF0000; font: 18pt "Verdana"; margin-bottom: 0.5em;}
 	.bg1{ background-color: #FFFFCC;}
 	.bg2{ background-color: #EEEEEE;}
-	.table {background: #AAAAAA; font: 11pt Menlo,Consolas,"Lucida Console"}
+	.bg3{ background-color: #FFA66C; font-weight: bold;}
+	.table {background: #AAAAAA; font: 11pt Menlo,Consolas,"Lucida Console";}
+	.table tbody{word-break: break-all;}
 	.info {
 	    background: none repeat scroll 0 0 #F3F3F3;
 	    border: 0px solid #aaaaaa;
@@ -224,10 +228,11 @@ class discuz_error
 	.help {
 	    background: #F3F3F3;
 	    border-radius: 10px 10px 10px 10px;
-	    font: 12px verdana, arial, sans-serif;
+	    font: 14px verdana, arial, sans-serif;
 	    text-align: center;
 	    line-height: 160%;
 	    padding: 1em;
+	    margin: 1em 0;
 	}
 
 	.sql {
@@ -246,11 +251,12 @@ class discuz_error
 <body>
 <div id="container">
 <h1>Discuz! $title Error</h1>
-<div class='info'>$errormsg</div>
-
-
 EOT;
-		if(!empty($phpmsg)) {
+		if(!empty($errormsg) && (!isset($_G['config']['security']['error']['showerror']) || !empty($_G['config']['security']['error']['showerror']))) {
+			echo '<div class="info">'.$errormsg.'</div>';
+		}
+
+		if(!empty($phpmsg) && (!isset($_G['config']['security']['error']['showerror']) || $_G['config']['security']['error']['showerror'] == '1')) {
 			echo '<div class="info">';
 			echo '<p><strong>PHP Debug</strong></p>';
 			echo '<table cellpadding="5" cellspacing="1" width="100%" class="table">';
@@ -258,7 +264,14 @@ EOT;
 				echo '<tr class="bg2"><td>No.</td><td>File</td><td>Line</td><td>Code</td></tr>';
 				foreach($phpmsg as $k => $msg) {
 					$k++;
-					echo '<tr class="bg1">';
+					$explode = explode("/", $msg['file']);
+					if ($explode['1'] == 'plugin') {
+						$guess = $explode['2'];
+						$bg = "bg3";
+					} else {
+						$bg = "bg1";
+					}
+					echo '<tr class="'.$bg.'">';
 					echo '<td>'.$k.'</td>';
 					echo '<td>'.$msg['file'].'</td>';
 					echo '<td>'.$msg['line'].'</td>';
@@ -271,88 +284,24 @@ EOT;
 			echo '</table></div>';
 		}
 
-
-		$helplink = '';		
+		if (!isset($_G['config']['security']['error']['guessplugin']) || !empty($_G['config']['security']['error']['guessplugin'])) {
+			if (!empty($guess)) {
+				$suggestion = lang('error', 'suggestion_plugin', array('guess'=>$guess));
+			} else {
+				$suggestion = lang('error', 'suggestion');
+			}
+			echo '<div class="help">'.$suggestion.'</div>';
+		}
 
 		$endmsg = lang('error', 'error_end_message', array('host'=>$host));
 		echo <<<EOT
-<div class="help">$endmsg. $helplink</div>
+<div class="help">$endmsg</div>
 </div>
 </body>
 </html>
 EOT;
 		$exit && exit();
 
-	}
-
-	public static function mobile_show_error($type, $errormsg, $phpmsg) {
-		global $_G;
-
-		ob_end_clean();
-		ob_start();
-
-		$host = $_SERVER['HTTP_HOST'];
-		$phpmsg = trim($phpmsg);
-		$title = 'Mobile '.($type == 'db' ? 'Database' : 'System');
-		echo <<<EOT
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
-<html>
-<head>
-	<title>$host - $title Error</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
-	<style type="text/css">
-	<!--
-	body { background-color: white; color: black; }
-	UL, LI { margin: 0; padding: 2px; list-style: none; }
-	#message   { color: black; background-color: #FFFFCC; }
-	#bodytitle { font: 11pt/13pt verdana, arial, sans-serif; height: 20px; vertical-align: top; }
-	.bodytext  { font: 8pt/11pt verdana, arial, sans-serif; }
-	.help  { font: 12px verdana, arial, sans-serif; color: red;}
-	.red  {color: red;}
-	a:link     { font: 8pt/11pt verdana, arial, sans-serif; color: red; }
-	a:visited  { font: 8pt/11pt verdana, arial, sans-serif; color: #4e4e4e; }
-	-->
-	</style>
-</head>
-<body>
-<table cellpadding="1" cellspacing="1" id="container">
-<tr>
-	<td id="bodytitle" width="100%">Discuz! $title Error </td>
-</tr>
-EOT;
-
-		echo <<<EOT
-<tr><td><hr size="1"/></td></tr>
-<tr><td class="bodytext">Error messages: </td></tr>
-<tr>
-	<td class="bodytext" id="message">
-		<ul> $errormsg</ul>
-	</td>
-</tr>
-EOT;
-		if(!empty($phpmsg)  && $type == 'db') {
-			echo <<<EOT
-<tr><td class="bodytext">&nbsp;</td></tr>
-<tr><td class="bodytext">Program messages: </td></tr>
-<tr>
-	<td class="bodytext">
-		<ul> $phpmsg </ul>
-	</td>
-</tr>
-EOT;
-		}
-		$endmsg = lang('error', 'mobile_error_end_message', array('host'=>$host));
-		echo <<<EOT
-<tr>
-	<td class="help"><br />$endmsg</td>
-</tr>
-</table>
-</body>
-</html>
-EOT;
-		$exit && exit();
 	}
 
 	public static function clear($message) {

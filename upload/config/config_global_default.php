@@ -177,6 +177,9 @@ $_config['security']['creditsafe']['times'] 	= 10;
 
 $_config['security']['fsockopensafe']['port']	= array(80, 443);	//fsockopen 有效的端口
 
+$_config['security']['error']['showerror'] = '1';	//是否在数据库或系统严重异常时显示错误详细信息，0=不显示(更安全)，1=显示详细信息(默认)，2=只显示错误本身
+$_config['security']['error']['guessplugin'] = '1';	//是否在数据库或系统严重异常时猜测可能报错的插件，0=不猜测，1=猜测(默认)
+
 $_config['admincp']['founder']			= '1';		// 站点创始人：拥有站点管理后台的最高权限，每个站点可以设置 1名或多名创始人
 								// 可以使用uid，也可以使用用户名；多个创始人之间请使用逗号“,”分开;
 $_config['admincp']['forcesecques']		= 0;		// 管理人员必须设置安全提问才能进入系统设置 0=否, 1=是[安全]

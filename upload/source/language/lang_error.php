@@ -33,7 +33,8 @@ $lang = array
 	'system_init_ok' => '网站系统初始化完成，请<a href="index.php">点击这里</a>进入',
 	'backtrace' => '运行信息',
 	'error_end_message' => '<a href="http://{host}">{host}</a> 已经将此出错信息详细记录, 由此给您带来的访问不便我们深感歉意',
-	'mobile_error_end_message' => '<a href="http://{host}">{host}</a> 此错误给您带来的不便我们深感歉意',
+	'suggestion_plugin' => '如果您是站长，建议您尝试在管理中心关闭 <a href="admin.php?action=plugins&frames=yes" class="guess" target="_blank">{guess}</a> 插件并 <a href="admin.php?action=tools&operation=updatecache&frames=yes" class="guess" target="_blank">更新缓存</a> 。如关闭插件后问题解决，建议您联系插件供应方获得帮助',
+	'suggestion' => '如果您是站长，建议您尝试在管理中心 <a href="admin.php?action=tools&operation=updatecache&frames=yes" target="_blank">更新缓存</a> ，您也可通过 <a href="https://www.discuz.net/" target="_blank">Discuz! 官方站</a> 寻求帮助。如果您确定这是一个程序自身Bug，您也可以直接 <a href="https://gitee.com/ComsenzDiscuz/DiscuzX/issues" target="_blank">提交Issue</a> 给我们',
 
 	'file_upload_error_-101' => '上传失败！上传文件不存在或不合法，请返回。',
 	'file_upload_error_-102' => '上传失败！非图片类型文件，请返回。',
