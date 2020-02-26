@@ -608,6 +608,9 @@ function loginit($logfile) {
 function showjsmessage($message) {
 	if(VIEW_OFF) return;
 	append_to_install_log_file($message);
+	echo ' ';
+	flush();
+	ob_flush();
 }
 
 function random($length) {
@@ -783,8 +786,16 @@ function append_notice(str) {
     document.getElementById('notice').scrollTop = 100000000;
 }
 
+var old_log_data='';
 function request_log() {
     ajax.get('index.php?method=check_db_init_progress', "", function (data) {
+
+        if(data===old_log_data){
+            setTimeout(request_log,500);
+            return;
+        }
+        old_log_data=data;
+
         set_notice(
 		data.split("\n").
 		map(function(l) {
@@ -819,7 +830,7 @@ function request_log() {
 
 window.onload = function() {
     request_do_db_init();
-    request_log();
+    setTimeout(request_log,500);
 }
 </script>
 		<div id="notice"></div>
@@ -854,15 +865,27 @@ function runquery($sql) {
 
 			if(substr($query, 0, 12) == 'CREATE TABLE') {
 				$name = preg_replace("/CREATE TABLE ([a-z0-9_]+) .*/is", "\\1", $query);
-				showjsmessage(lang('create_table').' '.$name.' ... ');
 				if ($db->query(createtable($query, $db->version()))) {
-					showjsmessage(lang('succeed') . "\n");
+					showjsmessage(lang('init_table_data').' '.$name.'  ... '.lang('succeed') . "\n");
 				} else {
+					showjsmessage(lang('init_table_data').' '.$name.'  ... '.lang('failed') . "\n");
+					return false;
+				}
+			} elseif(substr($query, 0, 6) == 'INSERT') {
+				$name = preg_replace("/INSERT\s+INTO\s+[\`]?([a-z0-9_]+)[\`]? .*/is", "\\1", $query);
+				if ($db->query($query)) {
+					if($oldname!=$name)
+						showjsmessage(lang('init_table_data').' '.$name.'  ... '.lang('succeed') . "\n");
+				} else {
+					showjsmessage(lang('init_table_data').' '.$name.'  ... '.lang('failed') . "\n");
+					return false;
+				}
+				$oldname=$name;
+			}else{
+				if (!$db->query($query)) {
 					showjsmessage(lang('failed') . "\n");
 					return false;
 				}
-			} else {
-				$db->query($query);
 			}
 
 		}
@@ -1439,7 +1462,6 @@ function install_data($username, $uid) {
 }
 function install_testdata($username, $uid) {
 	global $_G, $db, $tablepre;
-	showjsmessage(lang('install_test_data')." ... ");
 
 	$sqlfile = ROOT_PATH.'./install/data/common_district_{#id}.sql';
 	for($i = 1; $i < 4; $i++) {
@@ -1450,7 +1472,6 @@ function install_testdata($username, $uid) {
 			runquery($sql);
 		}
 	}
-	showjsmessage(lang('succeed') . "\n");
 }
 
 function getvars($data, $type = 'VAR') {
