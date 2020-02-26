@@ -69,7 +69,7 @@ define('UNDEFINE_FUNC', 32);
 define('MISSING_PARAMETER', 33);
 define('LOCK_FILE_NOT_TOUCH', 34);
 
-$func_items = array('mysql_connect', 'gethostbyname', 'file_get_contents', 'xml_parser_create');
+$func_items = array('mysqli_connect', 'gethostbyname', 'file_get_contents', 'xml_parser_create');// MySQLi Only, Git新增
 
 $env_items = array
 (
