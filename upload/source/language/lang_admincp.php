@@ -2304,7 +2304,7 @@ $lang = array
 	'setting_attach_basic_multi' => '批量上传',
 	'setting_attach_basic_simple' => '普通上传',
 	'setting_attach_basic_allowattachurl' => '附件 URL 地址、媒体附件播放',
-	'setting_attach_basic_allowattachurl_comment' => '开启附件 URL 地址后，上传附件的地址可通过 "attach://aid" 方式在任何帖内引用，并支持媒体类附件的直接播放，此项设置需要在 <a href="'.ADMINSCRIPT.'?action=usergroups">用户组</a> - 帖子相关 中允许用户组使用多媒体代码方可生效',
+	'setting_attach_basic_allowattachurl_comment' => '开启附件 URL 地址后，上传附件的地址可通过 "attach://aid" 方式在任何帖内引用，并支持媒体类附件的直接播放，此项设置需要在 <a href="'.ADMINSCRIPT.'?action=usergroups">用户组</a> - 帖子相关 中允许用户组使用多媒体代码方可生效，此项设置需选择的附件读取模式支持 Range 头和正确的 MIME 类型头才可正常运行',
 	'setting_attach_basic_swfupload_comment' => '批量上传采用 Flash 机制上传，可一次上传多个附件，上传时还会有进度显示',
 
 	'setting_attach_forumattach' => '论坛附件',
