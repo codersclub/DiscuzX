@@ -37,7 +37,7 @@ function updatecreditcache($uid, $type, $return = 0) {
 }
 
 function countcredit($uid, $type, $days = 0) {
-	$type = $type == 'buyercredit' ? 1 : 0;
+	$type = $type == 'sellercredit' ? 1 : 0;
 	$good = $soso = $bad = 0;
 	foreach(C::t('forum_tradecomment')->fetch_all_by_rateeid($uid, $type, $days ? TIMESTAMP - $days * 86400 : 0) as $credit) {
 		if($credit['score'] == 1) {
@@ -66,7 +66,7 @@ function updateusercredit($uid, $type, $level) {
 		$expiration = getexpiration();
 	}
 
-	foreach(array('all', 'before', 'halfyear', 'thismonth', 'thisweek') as $key) {
+	foreach(array('all', 'halfyear', 'thismonth', 'thisweek') as $key) {
 		$cache[$key][$level]++;
 		$cache[$key]['total']++;
 	}
