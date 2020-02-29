@@ -795,7 +795,7 @@ CSS 写作注意事项：
 	#uhd .tb a { border-width: 1px 0; border-top-color: {SPECIALBG}; border-bottom-color: {WRAPBORDERCOLOR}; }
 	#uhd .tb .a a { border: 1px solid #CCC; border-bottom-color: #FFF; }
 	.ie6 #uhd .tb .a { position: relative; }
-	#uhd .mn { float: right; margin-right: 15px; margin-bottom: -30px; line-height: 28px; }
+	#uhd .mn { float: right; margin-right: 15px; margin-bottom: -30px; width: auto; line-height: 28px; }
 		#uhd .mn a { padding: 2px 0 2px 20px; background: no-repeat 0 50%; color: {MIDTEXT}; }
 			#uhd .mn a:hover { color: {HIGHLIGHTLINK}; }
 			#uhd .mn .addflw a { background-image: url({IMGDIR}/flw_ico.png); }

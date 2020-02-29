@@ -185,7 +185,7 @@ function discuzcode($message, $smileyoff = false, $bbcodeoff = false, $htmlon = 
 				$message = preg_replace("/\s*\[free\][\n\r]*(.+?)[\n\r]*\[\/free\]\s*/is", tpl_free(), $message);
 			}
 		}
-		if(!defined('IN_MOBILE')) {
+		if(!defined('IN_MOBILE') || !in_array(constant('IN_MOBILE'), array('1', '3', '4'))) {
 			if(strpos($msglower, '[/media]') !== FALSE) {
 				$message = preg_replace_callback("/\[media=([\w,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", $allowmediacode ? 'discuzcode_callback_parsemedia_12' : 'discuzcode_callback_bbcodeurl_2', $message);
 			}
@@ -536,17 +536,20 @@ function parseflv($url, $width = 0, $height = 0) {
 			break;
 		}
 	}	    	
-	if($flv) {
+	if($flv || $iframe) {
 		if(!$width && !$height) {
-			return array('flv' => $flv, 'imgurl' => $imgurl);
+			return array('flv' => $flv, 'iframe' => $iframe, 'imgurl' => $imgurl);
 		} else {
 			$width = addslashes($width);
 			$height = addslashes($height);
 			$flv = addslashes($flv);
 			$iframe = addslashes($iframe);
 			$randomid = 'flv_'.random(3);
-			$enablemobile = $iframe ? 'detectHtml5Support() ? "<iframe height=\''.$height.'\' width=\''.$width.'\' src=\''.$iframe.'\' frameborder=0 allowfullscreen></iframe>" : ' : '';
-			return '<span id="'.$randomid.'"></span><script type="text/javascript" reload="1">$(\''.$randomid.'\').innerHTML=('.$enablemobile.'AC_FL_RunContent(\'width\', \''.$width.'\', \'height\', \''.$height.'\', \'allowNetworking\', \'internal\', \'allowScriptAccess\', \'never\', \'src\', \''.$flv.'\', \'quality\', \'high\', \'bgcolor\', \'#ffffff\', \'wmode\', \'transparent\', \'allowfullscreen\', \'true\'));</script>';
+			// 允许media扩展只返回其中一种播放方式，如两种都返回，则根据浏览器是否支持HTML5进行自动选择
+			$player_iframe = $iframe ? "\"<iframe src='$iframe' border='0' scrolling='no' framespacing='0' allowfullscreen='true' style='max-width: 100%' width='$width' height='$height' frameborder='no'></iframe>\"" : '';
+			$player_flv = $flv ? "AC_FL_RunContent('width', '$width', 'height', '$height', 'allowNetworking', 'internal', 'allowScriptAccess', 'never', 'src', '$flv', 'quality', 'high', 'bgcolor', '#ffffff', 'wmode', 'transparent', 'allowfullscreen', 'true')" : '';
+			$player = (!empty($player_iframe) && !empty($player_flv)) ? "detectHtml5Support() ? $player_iframe : $player_flv" : (empty($player_iframe) ? $player_flv : $player_iframe);
+			return '<span id="'.$randomid.'"></span><script type="text/javascript" reload="1">document.getElementById(\''.$randomid.'\').innerHTML=('.$player.');</script>';
 		}
 	} else {
 		return FALSE;
