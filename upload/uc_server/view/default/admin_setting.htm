@@ -147,6 +147,16 @@
 					</td>
 					<td>{lang setting_addappbyurl_comment}</td>
 					</tr>
+					<tr>
+						<th colspan="2">{lang setting_insecureuserdelete}:</th>
+					</tr>
+					<tr>
+					<td>
+						<input type="radio" id="insecureuserdeleteyes" class="radio" name="insecureuserdelete" value="1" $insecureuserdelete[1]  /><label for="insecureuserdeleteyes">{lang yes}</label>
+						<input type="radio" id="insecureuserdeleteno" class="radio" name="insecureuserdelete" value="0" $insecureuserdelete[0] /><label for="insecureuserdeleteno">{lang no}</label>
+					</td>
+					<td>{lang setting_insecureuserdelete_comment}</td>
+					</tr>
 				</table>
 				<div class="opt"><input type="submit" name="submit" value=" {lang submit} " class="btn" tabindex="3" /></div>
 			</form>

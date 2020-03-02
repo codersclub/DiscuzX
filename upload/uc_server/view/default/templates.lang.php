@@ -302,6 +302,8 @@ $languages = array(
 	'setting_pmfloodctrl_comment' => '两次发短消息间隔小于此时间，单位秒，0 为不限制，此举为了限制通过机器批量发广告',
 	'setting_addappbyurl' => '启用通过 URL 添加应用功能',
 	'setting_addappbyurl_comment' => '是否启用通过 URL 添加应用功能，建议只有必须通过 URL 添加应用时开启',
+	'setting_insecureuserdelete' => '启用不安全的删除用户接口',
+	'setting_insecureuserdelete_comment' => '是否启用不安全的删除用户接口，建议只有必须使用此接口且无法改造应用时开启',
 
 	'setting_user_failedtime' => '允许用户登录失败次数',
 	'setting_user_failedtime_comment' => '用户登录失败超过设置的数据，将在15分钟内无法登录，0为不限制次数',
