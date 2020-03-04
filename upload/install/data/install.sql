@@ -377,7 +377,7 @@ CREATE TABLE pre_common_connect_guest (
 
 DROP TABLE IF EXISTS pre_common_credit_log;
 CREATE TABLE pre_common_credit_log (
-  logid int(8) unsigned NOT NULL AUTO_INCREMENT,
+  logid int(10) unsigned NOT NULL AUTO_INCREMENT,
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   operation char(3) NOT NULL DEFAULT '',
   relatedid int(10) unsigned NOT NULL,
@@ -680,7 +680,7 @@ CREATE TABLE pre_common_member (
 
 DROP TABLE IF EXISTS pre_common_member_action_log;
 CREATE TABLE pre_common_member_action_log (
-  id int(8) unsigned NOT NULL AUTO_INCREMENT,
+  id int(10) unsigned NOT NULL AUTO_INCREMENT,
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   `action` tinyint(5) NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
@@ -1258,7 +1258,7 @@ CREATE TABLE pre_common_session (
   lastactivity int(10) unsigned NOT NULL DEFAULT '0',
   lastolupdate int(10) unsigned NOT NULL DEFAULT '0',
   fid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   UNIQUE KEY sid (sid),
   KEY uid (uid)
 ) ENGINE=HEAP;
@@ -1390,8 +1390,8 @@ CREATE TABLE pre_common_task (
   `name` varchar(50) NOT NULL DEFAULT '',
   description text NOT NULL,
   icon varchar(150) NOT NULL DEFAULT '',
-  applicants int(8) unsigned NOT NULL DEFAULT '0',
-  achievers int(8) unsigned NOT NULL DEFAULT '0',
+  applicants int(10) unsigned NOT NULL DEFAULT '0',
+  achievers int(10) unsigned NOT NULL DEFAULT '0',
   tasklimits mediumint(8) unsigned NOT NULL DEFAULT '0',
   applyperm text NOT NULL,
   scriptname varchar(50) NOT NULL DEFAULT '',
@@ -1644,7 +1644,7 @@ CREATE TABLE pre_connect_disktask (
 DROP TABLE IF EXISTS pre_connect_feedlog;
 CREATE TABLE pre_connect_feedlog (
   flid mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   publishtimes mediumint(8) unsigned NOT NULL DEFAULT '0',
   lastpublished int(10) unsigned NOT NULL DEFAULT '0',
@@ -1683,7 +1683,7 @@ CREATE TABLE pre_connect_postfeedlog (
 DROP TABLE IF EXISTS pre_connect_tthreadlog;
 CREATE TABLE pre_connect_tthreadlog (
   twid char(16) NOT NULL,
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   conopenid char(32) NOT NULL,
   pagetime int(10) unsigned DEFAULT '0',
   lasttwid char(16) DEFAULT NULL,
@@ -1714,7 +1714,7 @@ CREATE TABLE pre_forum_access (
 
 DROP TABLE IF EXISTS pre_forum_activity;
 CREATE TABLE pre_forum_activity (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   aid mediumint(8) unsigned NOT NULL DEFAULT '0',
   cost mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -1738,7 +1738,7 @@ CREATE TABLE pre_forum_activity (
 DROP TABLE IF EXISTS pre_forum_activityapply;
 CREATE TABLE pre_forum_activityapply (
   applyid int(10) unsigned NOT NULL AUTO_INCREMENT,
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   username varchar(255) NOT NULL DEFAULT '',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   message varchar(255) NOT NULL DEFAULT '',
@@ -1770,7 +1770,7 @@ CREATE TABLE pre_forum_announcement (
 DROP TABLE IF EXISTS pre_forum_attachment;
 CREATE TABLE pre_forum_attachment (
   aid mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   tableid tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -1784,7 +1784,7 @@ CREATE TABLE pre_forum_attachment (
 DROP TABLE IF EXISTS pre_forum_attachment_0;
 CREATE TABLE pre_forum_attachment_0 (
   aid mediumint(8) unsigned NOT NULL,
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
@@ -1808,7 +1808,7 @@ CREATE TABLE pre_forum_attachment_0 (
 DROP TABLE IF EXISTS pre_forum_attachment_1;
 CREATE TABLE pre_forum_attachment_1 (
   aid mediumint(8) unsigned NOT NULL,
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
@@ -1832,7 +1832,7 @@ CREATE TABLE pre_forum_attachment_1 (
 DROP TABLE IF EXISTS pre_forum_attachment_2;
 CREATE TABLE pre_forum_attachment_2 (
   aid mediumint(8) unsigned NOT NULL,
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
@@ -1856,7 +1856,7 @@ CREATE TABLE pre_forum_attachment_2 (
 DROP TABLE IF EXISTS pre_forum_attachment_3;
 CREATE TABLE pre_forum_attachment_3 (
   aid mediumint(8) unsigned NOT NULL,
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
@@ -1880,7 +1880,7 @@ CREATE TABLE pre_forum_attachment_3 (
 DROP TABLE IF EXISTS pre_forum_attachment_4;
 CREATE TABLE pre_forum_attachment_4 (
   aid mediumint(8) unsigned NOT NULL,
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
@@ -1904,7 +1904,7 @@ CREATE TABLE pre_forum_attachment_4 (
 DROP TABLE IF EXISTS pre_forum_attachment_5;
 CREATE TABLE pre_forum_attachment_5 (
   aid mediumint(8) unsigned NOT NULL,
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
@@ -1928,7 +1928,7 @@ CREATE TABLE pre_forum_attachment_5 (
 DROP TABLE IF EXISTS pre_forum_attachment_6;
 CREATE TABLE pre_forum_attachment_6 (
   aid mediumint(8) unsigned NOT NULL,
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
@@ -1952,7 +1952,7 @@ CREATE TABLE pre_forum_attachment_6 (
 DROP TABLE IF EXISTS pre_forum_attachment_7;
 CREATE TABLE pre_forum_attachment_7 (
   aid mediumint(8) unsigned NOT NULL,
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
@@ -1976,7 +1976,7 @@ CREATE TABLE pre_forum_attachment_7 (
 DROP TABLE IF EXISTS pre_forum_attachment_8;
 CREATE TABLE pre_forum_attachment_8 (
   aid mediumint(8) unsigned NOT NULL,
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
@@ -2000,7 +2000,7 @@ CREATE TABLE pre_forum_attachment_8 (
 DROP TABLE IF EXISTS pre_forum_attachment_9;
 CREATE TABLE pre_forum_attachment_9 (
   aid mediumint(8) unsigned NOT NULL,
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
@@ -2147,14 +2147,14 @@ CREATE TABLE pre_forum_collectionteamworker (
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   `name` varchar(50) NOT NULL DEFAULT '',
   username varchar(15) NOT NULL DEFAULT '',
-  lastvisit int(8) unsigned NOT NULL DEFAULT '0',
+  lastvisit int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (ctid,uid)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_forum_collectionthread;
 CREATE TABLE pre_forum_collectionthread (
   ctid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   reason varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (ctid,tid),
@@ -2176,7 +2176,7 @@ CREATE TABLE pre_forum_creditslog (
 
 DROP TABLE IF EXISTS pre_forum_debate;
 CREATE TABLE pre_forum_debate (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   starttime int(10) unsigned NOT NULL DEFAULT '0',
   endtime int(10) unsigned NOT NULL DEFAULT '0',
@@ -2202,7 +2202,7 @@ DROP TABLE IF EXISTS pre_forum_debatepost;
 CREATE TABLE pre_forum_debatepost (
   pid int(10) unsigned NOT NULL DEFAULT '0',
   stand tinyint(1) NOT NULL DEFAULT '0',
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   voters mediumint(10) unsigned NOT NULL DEFAULT '0',
@@ -2227,7 +2227,7 @@ CREATE TABLE pre_forum_faq (
 
 DROP TABLE IF EXISTS pre_forum_filter_post;
 CREATE TABLE pre_forum_filter_post (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   postlength int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (tid,pid),
@@ -2345,7 +2345,7 @@ CREATE TABLE pre_forum_forumfield (
   noantitheft tinyint(1) NOT NULL DEFAULT '0',
   noforumhidewater tinyint(1) NOT NULL DEFAULT '0',
   noforumrecommend tinyint(1) NOT NULL DEFAULT '0',
-  livetid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  livetid int(10) unsigned NOT NULL DEFAULT '0',
   price mediumint(8) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (fid),
   KEY membernum (membernum),
@@ -2357,7 +2357,7 @@ CREATE TABLE pre_forum_forumfield (
 DROP TABLE IF EXISTS pre_forum_forumrecommend;
 CREATE TABLE pre_forum_forumrecommend (
   fid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  tid mediumint(8) unsigned NOT NULL,
+  tid int(10) unsigned NOT NULL,
   typeid smallint(6) NOT NULL,
   displayorder tinyint(1) NOT NULL,
   `subject` char(80) NOT NULL,
@@ -2378,7 +2378,7 @@ DROP TABLE IF EXISTS pre_forum_groupcreditslog;
 CREATE TABLE pre_forum_groupcreditslog (
   fid mediumint(8) unsigned NOT NULL,
   uid mediumint(8) unsigned NOT NULL,
-  logdate int(8) NOT NULL DEFAULT '0',
+  logdate int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (fid,uid,logdate)
 ) ENGINE=InnoDB;
 
@@ -2437,7 +2437,7 @@ CREATE TABLE pre_forum_groupuser (
 
 DROP TABLE IF EXISTS pre_forum_hotreply_member;
 CREATE TABLE pre_forum_hotreply_member (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   attitude tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -2447,7 +2447,7 @@ CREATE TABLE pre_forum_hotreply_member (
 DROP TABLE IF EXISTS pre_forum_hotreply_number;
 CREATE TABLE pre_forum_hotreply_number (
   pid int(10) unsigned NOT NULL DEFAULT '0',
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   support smallint(6) unsigned NOT NULL DEFAULT '0',
   `against` smallint(6) unsigned NOT NULL DEFAULT '0',
   total mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -2502,7 +2502,7 @@ CREATE TABLE pre_forum_medallog (
 
 DROP TABLE IF EXISTS pre_forum_memberrecommend;
 CREATE TABLE pre_forum_memberrecommend (
-  tid mediumint(8) unsigned NOT NULL,
+  tid int(10) unsigned NOT NULL,
   recommenduid mediumint(8) unsigned NOT NULL,
   dateline int(10) unsigned NOT NULL,
   KEY tid (tid),
@@ -2530,7 +2530,7 @@ CREATE TABLE pre_forum_modwork (
 
 DROP TABLE IF EXISTS pre_forum_newthread;
 CREATE TABLE pre_forum_newthread (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   fid mediumint(8) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (tid),
@@ -2567,7 +2567,7 @@ CREATE TABLE pre_forum_order (
 
 DROP TABLE IF EXISTS pre_forum_poll;
 CREATE TABLE pre_forum_poll (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   overt tinyint(1) NOT NULL DEFAULT '0',
   multiple tinyint(1) NOT NULL DEFAULT '0',
   visible tinyint(1) NOT NULL DEFAULT '0',
@@ -2582,7 +2582,7 @@ CREATE TABLE pre_forum_poll (
 DROP TABLE IF EXISTS pre_forum_polloption;
 CREATE TABLE pre_forum_polloption (
   polloptionid int(10) unsigned NOT NULL AUTO_INCREMENT,
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   votes mediumint(8) unsigned NOT NULL DEFAULT '0',
   displayorder tinyint(3) NOT NULL DEFAULT '0',
   polloption varchar(80) NOT NULL DEFAULT '',
@@ -2595,7 +2595,7 @@ DROP TABLE IF EXISTS pre_forum_polloption_image;
 CREATE TABLE pre_forum_polloption_image (
   aid int(10) unsigned NOT NULL AUTO_INCREMENT,
   poid int(10) unsigned NOT NULL DEFAULT '0',
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   filename varchar(255) NOT NULL DEFAULT '',
@@ -2613,7 +2613,7 @@ CREATE TABLE pre_forum_polloption_image (
 
 DROP TABLE IF EXISTS pre_forum_pollvoter;
 CREATE TABLE pre_forum_pollvoter (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   username varchar(15) NOT NULL DEFAULT '',
   `options` text NOT NULL,
@@ -2626,7 +2626,7 @@ DROP TABLE IF EXISTS pre_forum_post;
 CREATE TABLE pre_forum_post (
   pid int(10) unsigned NOT NULL,
   fid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   `first` tinyint(1) NOT NULL DEFAULT '0',
   author varchar(15) NOT NULL DEFAULT '',
   authorid mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -2649,7 +2649,7 @@ CREATE TABLE pre_forum_post (
   tags varchar(255) NOT NULL DEFAULT '0',
   `comment` tinyint(1) NOT NULL DEFAULT '0',
   replycredit int(10) NOT NULL DEFAULT '0',
-  position int(8) unsigned NOT NULL,
+  position int(10) unsigned NOT NULL,
   PRIMARY KEY (tid,position),
   UNIQUE KEY pid (pid),
   KEY fid (fid),
@@ -2663,7 +2663,7 @@ CREATE TABLE pre_forum_post (
 DROP TABLE IF EXISTS pre_forum_post_location;
 CREATE TABLE pre_forum_post_location (
   pid int(10) unsigned NOT NULL DEFAULT '0',
-  tid mediumint(8) unsigned DEFAULT '0',
+  tid int(10) unsigned DEFAULT '0',
   uid mediumint(8) unsigned DEFAULT '0',
   mapx varchar(255) NOT NULL,
   mapy varchar(255) NOT NULL,
@@ -2701,7 +2701,7 @@ CREATE TABLE pre_forum_postcache (
 DROP TABLE IF EXISTS pre_forum_postcomment;
 CREATE TABLE pre_forum_postcomment (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   author varchar(15) NOT NULL DEFAULT '',
   authorid mediumint(8) NOT NULL DEFAULT '0',
@@ -2722,7 +2722,7 @@ CREATE TABLE pre_forum_postcomment (
 DROP TABLE IF EXISTS pre_forum_postlog;
 CREATE TABLE pre_forum_postlog (
   pid int(10) unsigned NOT NULL DEFAULT '0',
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   fid smallint(6) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   `action` char(10) NOT NULL DEFAULT '',
@@ -2735,7 +2735,7 @@ CREATE TABLE pre_forum_postlog (
 
 DROP TABLE IF EXISTS pre_forum_poststick;
 CREATE TABLE pre_forum_poststick (
-  tid mediumint(8) unsigned NOT NULL,
+  tid int(10) unsigned NOT NULL,
   pid int(10) unsigned NOT NULL,
   position int(10) unsigned NOT NULL,
   dateline int(10) unsigned NOT NULL,
@@ -2768,7 +2768,7 @@ CREATE TABLE pre_forum_ratelog (
 
 DROP TABLE IF EXISTS pre_forum_relatedthread;
 CREATE TABLE pre_forum_relatedthread (
-  tid mediumint(8) NOT NULL DEFAULT '0',
+  tid int(10) NOT NULL DEFAULT '0',
   `type` enum('general','trade') NOT NULL DEFAULT 'general',
   expiration int(10) NOT NULL DEFAULT '0',
   keywords varchar(255) NOT NULL DEFAULT '',
@@ -2778,7 +2778,7 @@ CREATE TABLE pre_forum_relatedthread (
 
 DROP TABLE IF EXISTS pre_forum_replycredit;
 CREATE TABLE pre_forum_replycredit (
-  tid mediumint(6) unsigned NOT NULL,
+  tid int(10) unsigned NOT NULL,
   extcredits mediumint(6) unsigned NOT NULL DEFAULT '0',
   extcreditstype tinyint(1) NOT NULL DEFAULT '0',
   times smallint(6) unsigned NOT NULL DEFAULT '0',
@@ -2791,7 +2791,7 @@ DROP TABLE IF EXISTS pre_forum_rsscache;
 CREATE TABLE pre_forum_rsscache (
   lastupdate int(10) unsigned NOT NULL DEFAULT '0',
   fid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   forum char(50) NOT NULL DEFAULT '',
   author char(15) NOT NULL DEFAULT '',
@@ -2804,7 +2804,7 @@ CREATE TABLE pre_forum_rsscache (
 
 DROP TABLE IF EXISTS pre_forum_sofa;
 CREATE TABLE pre_forum_sofa (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   fid mediumint(8) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (tid),
   KEY ftid (fid,tid)
@@ -2830,7 +2830,7 @@ CREATE TABLE pre_forum_statlog (
 
 DROP TABLE IF EXISTS pre_forum_thread;
 CREATE TABLE pre_forum_thread (
-  tid mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  tid int(10) unsigned NOT NULL AUTO_INCREMENT,
   fid mediumint(8) unsigned NOT NULL DEFAULT '0',
   posttableid smallint(6) unsigned NOT NULL DEFAULT '0',
   typeid smallint(6) unsigned NOT NULL DEFAULT '0',
@@ -2868,7 +2868,7 @@ CREATE TABLE pre_forum_thread (
   cover smallint(6) NOT NULL DEFAULT '0',
   replycredit smallint(6) NOT NULL DEFAULT '0',
   relatebytag char(255) NOT NULL DEFAULT '0',
-  maxposition int(8) unsigned NOT NULL DEFAULT '0',
+  maxposition int(10) unsigned NOT NULL DEFAULT '0',
   bgcolor char(8) NOT NULL DEFAULT '',
   comments int(10) unsigned NOT NULL DEFAULT '0',
   hidden smallint(6) unsigned NOT NULL DEFAULT '0',
@@ -2895,7 +2895,7 @@ CREATE TABLE pre_forum_thread_moderate (
 
 DROP TABLE IF EXISTS pre_forum_threadaddviews;
 CREATE TABLE pre_forum_threadaddviews (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   addviews int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (tid)
 ) ENGINE=InnoDB;
@@ -2924,20 +2924,20 @@ CREATE TABLE pre_forum_threadclass (
 
 DROP TABLE IF EXISTS pre_forum_threadclosed;
 CREATE TABLE pre_forum_threadclosed (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   redirect mediumint(8) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (tid)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_forum_threaddisablepos;
 CREATE TABLE pre_forum_threaddisablepos (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (tid)
 ) ENGINE=HEAP;
 
 DROP TABLE IF EXISTS pre_forum_threadhidelog;
 CREATE TABLE pre_forum_threadhidelog (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   UNIQUE KEY uid (tid,uid)
 ) ENGINE=InnoDB;
@@ -2946,14 +2946,14 @@ DROP TABLE IF EXISTS pre_forum_threadhot;
 CREATE TABLE pre_forum_threadhot (
   cid mediumint(8) unsigned NOT NULL DEFAULT '0',
   fid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (cid,tid),
   KEY fid (fid)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_forum_threadimage;
 CREATE TABLE pre_forum_threadimage (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   attachment varchar(255) NOT NULL DEFAULT '',
   remote tinyint(1) unsigned NOT NULL DEFAULT '0',
   KEY tid (tid)
@@ -2961,7 +2961,7 @@ CREATE TABLE pre_forum_threadimage (
 
 DROP TABLE IF EXISTS pre_forum_threadlog;
 CREATE TABLE pre_forum_threadlog (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   fid smallint(6) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   otherid smallint(6) unsigned NOT NULL DEFAULT '0',
@@ -2974,7 +2974,7 @@ CREATE TABLE pre_forum_threadlog (
 
 DROP TABLE IF EXISTS pre_forum_threadmod;
 CREATE TABLE pre_forum_threadmod (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   username char(15) NOT NULL DEFAULT '',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
@@ -2990,7 +2990,7 @@ CREATE TABLE pre_forum_threadmod (
 
 DROP TABLE IF EXISTS pre_forum_threadpartake;
 CREATE TABLE pre_forum_threadpartake (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   KEY tid (tid,uid)
@@ -2998,7 +2998,7 @@ CREATE TABLE pre_forum_threadpartake (
 
 DROP TABLE IF EXISTS pre_forum_threadpreview;
 CREATE TABLE pre_forum_threadpreview (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   `relay` int(10) unsigned NOT NULL DEFAULT '0',
   content text NOT NULL,
   PRIMARY KEY (tid)
@@ -3023,7 +3023,7 @@ CREATE TABLE pre_forum_threadprofile_group (
 
 DROP TABLE IF EXISTS pre_forum_threadrush;
 CREATE TABLE pre_forum_threadrush (
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   stopfloor mediumint(8) unsigned NOT NULL DEFAULT '0',
   starttimefrom int(10) unsigned NOT NULL DEFAULT '0',
   starttimeto int(10) unsigned NOT NULL DEFAULT '0',
@@ -3053,7 +3053,7 @@ CREATE TABLE pre_forum_threadtype (
 
 DROP TABLE IF EXISTS pre_forum_trade;
 CREATE TABLE pre_forum_trade (
-  tid mediumint(8) unsigned NOT NULL,
+  tid int(10) unsigned NOT NULL,
   pid int(10) unsigned NOT NULL,
   typeid smallint(6) unsigned NOT NULL,
   sellerid mediumint(8) unsigned NOT NULL,
@@ -3117,7 +3117,7 @@ CREATE TABLE pre_forum_tradecomment (
 
 DROP TABLE IF EXISTS pre_forum_tradelog;
 CREATE TABLE pre_forum_tradelog (
-  tid mediumint(8) unsigned NOT NULL,
+  tid int(10) unsigned NOT NULL,
   pid int(10) unsigned NOT NULL,
   orderid varchar(32) NOT NULL,
   tradeno varchar(32) NOT NULL,
@@ -3184,7 +3184,7 @@ CREATE TABLE pre_forum_typeoption (
 DROP TABLE IF EXISTS pre_forum_typeoptionvar;
 CREATE TABLE pre_forum_typeoptionvar (
   sortid smallint(6) unsigned NOT NULL DEFAULT '0',
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   fid mediumint(8) unsigned NOT NULL DEFAULT '0',
   optionid smallint(6) unsigned NOT NULL DEFAULT '0',
   expiration int(10) unsigned NOT NULL DEFAULT '0',
@@ -3556,7 +3556,7 @@ CREATE TABLE pre_home_follow_feed (
   feedid mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   username varchar(15) NOT NULL DEFAULT '',
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   note text NOT NULL,
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (feedid),
@@ -3568,7 +3568,7 @@ CREATE TABLE pre_home_follow_feed_archiver (
   feedid mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   username varchar(15) NOT NULL DEFAULT '',
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   note text NOT NULL,
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (feedid),
@@ -3613,7 +3613,7 @@ CREATE TABLE pre_home_friendlog (
 
 DROP TABLE IF EXISTS pre_home_notification;
 CREATE TABLE pre_home_notification (
-  id bigint(8) unsigned NOT NULL AUTO_INCREMENT,
+  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   `type` varchar(20) NOT NULL DEFAULT '',
   `new` tinyint(1) NOT NULL DEFAULT '0',
@@ -4049,7 +4049,7 @@ CREATE TABLE pre_portal_topic_pic (
 DROP TABLE IF EXISTS pre_security_evilpost;
 CREATE TABLE pre_security_evilpost (
   pid int(10) unsigned NOT NULL,
-  tid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   `type` tinyint(1) NOT NULL DEFAULT '0',
   evilcount int(10) NOT NULL DEFAULT '0',
   eviltype mediumint(8) unsigned NOT NULL DEFAULT '0',

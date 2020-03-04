@@ -418,7 +418,7 @@ function uc_user_edit($username, $oldpw, $newpw, $email, $ignoreoldpw = 0, $ques
 }
 
 function uc_user_delete($uid) {
-	return call_user_func(UC_API_FUNC, 'user', 'delete', array('uid'=>$uid));
+	return call_user_func(UC_API_FUNC, 'user', 'delete', array('uid'=>$uid, 'action'=>'delete'));
 }
 
 function uc_user_deleteavatar($uid) {

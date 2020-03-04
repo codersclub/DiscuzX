@@ -22,9 +22,12 @@ class helper_sysmessage {
 		}
 		$charset = CHARSET;
 		echo <<<EOT
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=$charset" />
+<meta charset="$charset" />
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>$title</title>
 <meta name="keywords" content="" />
 <meta name="description" content="System Message - Discuz! Board" />

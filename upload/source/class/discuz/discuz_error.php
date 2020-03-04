@@ -191,11 +191,13 @@ class discuz_error
 		$host = $_SERVER['HTTP_HOST'];
 		$title = (!isset($_G['config']['security']['error']['showerror']) || !empty($_G['config']['security']['error']['showerror'])) ? ($type == 'db' ? 'Database' : 'System') : 'General';
 		echo <<<EOT
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 	<title>$host - $title Error</title>
-	<meta http-equiv="Content-Type" content="text/html; charset={$_G['config']['output']['charset']}" />
+	<meta charset="{$_G['config']['output']['charset']}" />
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style type="text/css">

@@ -202,7 +202,8 @@ class usercontrol extends base {
 	function ondelete() {
 		$this->init_input();
 		$uid = $this->input('uid');
-		return $_ENV['user']->delete_user($uid);
+		$action = $this->input('action');
+		return ($action == 'delete' || $this->settings['insecureuserdelete']) ? $_ENV['user']->delete_user($uid) : 0;
 	}
 
 	function ondeleteavatar() {
