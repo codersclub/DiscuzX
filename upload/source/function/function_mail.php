@@ -34,9 +34,12 @@ function sendmail($toemail, $subject, $message, $from = '') {
 	$message = preg_replace("/href\=\"(?!(http|https)\:\/\/)(.+?)\"/i", 'href="'.$_G['siteurl'].'\\2"', $message);
 
 $message = <<<EOT
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=$_G[charset]">
+<meta charset="$_G[charset]" />
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>$subject</title>
 </head>
 <body>

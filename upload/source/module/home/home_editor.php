@@ -17,9 +17,12 @@ $doodle = empty($_GET['doodle']) ? 0 : 1;
 $isportal = empty($_GET['isportal']) ? 0 : 1;
 if (empty($_GET['op'])) {
 	?>
+	<!DOCTYPE html>
 	<html>
 		<head>
-			<meta http-equiv="Content-Type" content="text/html;charset=<?php echo $_GET['charset']; ?>" />
+			<meta charset="<?php echo $_GET['charset']; ?>" />
+			<meta name="renderer" content="webkit" />
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 			<title>Editor</title>
 			<script type="text/javascript" src="static/js/common.js"></script>
 			<script type="text/javascript" src="static/js/home.js"></script>
@@ -303,15 +306,16 @@ if (empty($_GET['op'])) {
 	<?php
 } else {
 	?>
-	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-	<HTML>
-		<HEAD>
-			<meta http-equiv="Content-Type" content="text/html;charset=<?php echo $_GET['charset']; ?>" />
-			<title>New Document</title>
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset="<?php echo $_GET['charset']; ?>" />
+			<meta name="renderer" content="webkit" />
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<title>Editor</title>
 			<style>
 				body { margin: 0; padding: 0; word-wrap: break-word; font-size:14px; line-height:1.8em; font-family: Tahoma, Arial, Helvetica, snas-serif; }
 			</style>
-			<meta content="mshtml 6.00.2900.3132" name=generator>
 		</head>
 		<body>
 		</body>
