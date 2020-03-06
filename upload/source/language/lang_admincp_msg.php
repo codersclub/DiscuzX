@@ -351,6 +351,11 @@ $lang = array (
   'members_reward_notify_succeed' => '用户积分奖惩执行成功，并已通知相关用户',
   'members_confermedal_notify_succeed' => '颁发勋章执行成功，并已通知相关用户',
   'members_confermagic_notify_succeed' => '道具赠送成功，并已通知相关用户',
+  'members_chgusername_check_failed' => '用户名合法性检测失败',
+  'members_chgusername_name_badword' => '用户名包含被系统屏蔽的字符',
+  'members_chgusername_name_exists' => '用户名已经存在',
+  'members_chgusername_change_failed' => '用户名修改操作提交失败',
+  'members_chgusername_change_success' => '用户名修改操作提交成功',
 
   'membersplit_split_in_backstage' => '正在进行用户优化，请稍后重试...',
   'membersplit_split_check_table' => '正在进行数据表一致性检查...',

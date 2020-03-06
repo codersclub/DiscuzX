@@ -451,6 +451,10 @@ function uc_get_user($username, $isuid=0) {
 	return UC_CONNECT == 'mysql' ? $return : uc_unserialize($return);
 }
 
+function uc_user_chgusername($uid, $newusername) {
+	return call_user_func(UC_API_FUNC, 'user', 'chgusername', array('uid'=>$uid, 'newusername'=>$newusername));
+}
+
 function uc_user_merge($oldusername, $newusername, $uid, $password, $email) {
 	return call_user_func(UC_API_FUNC, 'user', 'merge', array('oldusername'=>$oldusername, 'newusername'=>$newusername, 'uid'=>$uid, 'password'=>$password, 'email'=>$email));
 }

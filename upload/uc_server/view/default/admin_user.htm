@@ -67,7 +67,10 @@
 
 		<!--{if $adduser}--><script type="text/javascript">switchbtn('add');</script><!--{/if}-->
 <br />
-		<h3>{lang user_list}</h3>
+		<h3 class="marginbot">
+			{lang user_list}
+			<a class="sgbtn" href="admin.php?m=user&a=logls">{lang menu_log}</a>
+		</h3>
 		<div class="mainbox">
 			<!--{if $userlist}-->
 				<form action="admin.php?m=user&a=ls&srchname=$srchname&srchregdate=$srchregdate" onsubmit="return confirm('{lang user_delete_confirm}');" method="post">

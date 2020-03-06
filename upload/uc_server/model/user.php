@@ -223,6 +223,10 @@ class usermodel {
 		}
 	}
 
+	function chgusername($uid, $newusername) {
+		return $this->db->query_stmt("UPDATE ".UC_DBTABLEPRE."members SET username=? WHERE uid=?", array('s', 'i'), array($newusername, $uid));
+	}
+
 	function get_total_num($sqladd = '') {
 		$data = $this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE."members $sqladd");
 		return $data;
@@ -305,6 +309,22 @@ class usermodel {
 			$ip = $this->base->onlineip;
 		}
 		$this->db->query("UPDATE ".UC_DBTABLEPRE."failedlogins SET count=count+1, lastupdate='".$this->base->time."' WHERE ip='".$ip."' OR ip='$username'");
+	}
+
+	function user_log($uid, $action, $extra = '') {
+		$uid = intval($uid);
+		$action = addslashes($action);
+		$extra = addslashes($extra);
+		$this->db->query_stmt("INSERT INTO ".UC_DBTABLEPRE."memberlogs SET uid=?, action=?, extra=?", array('i', 's', 's'), array($uid, $action, $extra));
+	}
+
+	function user_log_total_num() {
+		return $this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE."memberlogs");
+	}
+
+	function user_log_list($page, $ppp, $totalnum) {
+		$start = $this->base->page_get_start($page, $ppp, $totalnum);
+		return $this->db->fetch_all("SELECT * FROM ".UC_DBTABLEPRE."memberlogs LIMIT $start, $ppp");
 	}
 
 }

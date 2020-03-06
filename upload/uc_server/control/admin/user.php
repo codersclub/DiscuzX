@@ -265,6 +265,7 @@ class control extends adminbase {
 					$this->message('admin_user_exists');
 				}
 				$sqladd .= "username='$newusername', ";
+				$_ENV['user']->user_log($uid, 'renameuser', 'uid='.$uid.'&oldusername='.urlencode($username).'&newusername='.urlencode($newusername));
 				$this->load('note');
 				$_ENV['note']->add('renameuser', 'uid='.$uid.'&oldusername='.urlencode($username).'&newusername='.urlencode($newusername));
 			}
@@ -295,6 +296,18 @@ class control extends adminbase {
 		$this->view->display('admin_user');
 	}
 
+	function onlogls() {
+		$page = getgpc('page');
+
+		$num = $_ENV['user']->user_log_total_num();
+		$userlog = $_ENV['user']->user_log_list($page, UC_PPP, $num);
+		$multipage = $this->page($num, UC_PPP, $page, 'admin.php?m=user&a=logls');
+
+		$this->view->assign('userlog', $userlog);
+		$this->view->assign('multipage', $multipage);
+
+		$this->view->display('admin_user_log');
+	}
 
 	function _check_username($username) {
 		$username = addslashes(trim(stripslashes($username)));

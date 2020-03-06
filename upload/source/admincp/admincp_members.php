@@ -39,7 +39,7 @@ $tmpsearch_condition = $search_condition;
 unset($tmpsearch_condition['tablename']);
 $member = array();
 $tableext = '';
-if(in_array($operation, array('ban', 'edit', 'group', 'credit', 'medal', 'access'), true)) {
+if(in_array($operation, array('ban', 'edit', 'group', 'credit', 'medal', 'access', 'chgusername'), true)) {
 	if(empty($_GET['uid']) && empty($_GET['username'])) {
 		cpmsg('members_nonexistence', 'action=members&operation='.$operation.(!empty($_GET['highlight']) ? "&highlight={$_GET['highlight']}" : ''), 'form', array(), '<input type="text" name="username" value="" class="txt" />');
 	}
@@ -116,7 +116,8 @@ EOF;
 						"<a href=\"".ADMINSCRIPT."?action=members&operation=medal&uid=$member[uid]\" class=\"act\">$lang[medals]</a>".
 						"<a href=\"".ADMINSCRIPT."?action=members&operation=repeat&uid=$member[uid]\" class=\"act\">$lang[members_repeat]</a>".
 						"<a href=\"".ADMINSCRIPT."?action=members&operation=edit&uid=$member[uid]\" class=\"act\">$lang[detail]</a>".
-						"<a href=\"".ADMINSCRIPT."?action=members&operation=ban&uid=$member[uid]\" class=\"act\">$lang[members_ban]</a>"
+						"<a href=\"".ADMINSCRIPT."?action=members&operation=ban&uid=$member[uid]\" class=\"act\">$lang[members_ban]</a>".
+						"<a href=\"".ADMINSCRIPT."?action=members&operation=chgusername&uid=$member[uid]\" class=\"act\">$lang[members_chgusername]</a>"
 					), TRUE);
 				}
 			}
@@ -153,6 +154,46 @@ EOF;
 		}
 		showtablefooter();
 		showformfooter();
+
+	}
+
+} elseif($operation == 'chgusername') {
+
+	if(!submitcheck('chgusernamesubmit')) {
+
+		shownav('user', 'members_chgusername');
+		showsubmenu($lang['members_chgusername'].($member['username'] ? ' - '.$member['username'] : ''));
+		showtips('members_chgusername_tips');
+		showformheader('members&operation=chgusername&uid='.$member['uid']);
+		showtableheader();
+		showsetting('members_chgusername_oldusername', '', '', $member['username']);
+		showsetting('members_chgusername_newusername', 'newusername', $member['username'], 'text', null, null, '');
+		showsubmit('chgusernamesubmit');
+		showtablefooter();
+		showformfooter();
+
+	} else {
+
+		if(empty($member)) {
+			cpmsg('members_edit_nonexistence');
+		}
+
+		loaducenter();
+		$ucresult = uc_user_chgusername(intval($_GET['uid']), addslashes(trim($_GET['newusername'])));
+
+		if($ucresult < 0) {
+			if($ucresult == -1) {
+				cpmsg('members_chgusername_check_failed', '', 'error');
+			} elseif($ucresult == -2) {
+				cpmsg('members_chgusername_name_badword', '', 'error');
+			} elseif($ucresult == -3) {
+				cpmsg('members_chgusername_name_exists', '', 'error');
+			} else {
+				cpmsg('members_chgusername_change_failed', '', 'error');
+			}
+		}
+
+		cpmsg('members_chgusername_change_success', 'action=members&operation=search', 'succeed');
 
 	}
 

@@ -15,6 +15,7 @@ define('UC_USER_USERNAME_EXISTS', -3);
 define('UC_USER_EMAIL_FORMAT_ILLEGAL', -4);
 define('UC_USER_EMAIL_ACCESS_ILLEGAL', -5);
 define('UC_USER_EMAIL_EXISTS', -6);
+define('UC_USER_USERNAME_CHANGE_FAILED', -7);
 
 class usercontrol extends base {
 
@@ -182,6 +183,24 @@ class usercontrol extends base {
 		}
 	}
 
+	function onchgusername() {
+		$this->init_input();
+		$uid = $this->input('uid');
+		$newusername = $this->input('newusername');
+		if(($status = $this->_check_username($newusername)) < 0) {
+			return $status;
+		}
+		$user = $_ENV['user']->get_user_by_uid($uid);
+		$oldusername = $user['username'];
+		if($_ENV['user']->chgusername($uid, $newusername)) {
+			$_ENV['user']->user_log($uid, 'renameuser', 'uid='.$uid.'&oldusername='.urlencode($oldusername).'&newusername='.urlencode($newusername));
+			$this->load('note');
+			$_ENV['note']->add('renameuser', 'uid='.$uid.'&oldusername='.urlencode($oldusername).'&newusername='.urlencode($newusername));
+			$_ENV['note']->send();
+			return 1;
+		}
+		return UC_USER_USERNAME_CHANGE_FAILED;
+	}
 
 	function ongetprotected() {
 		$this->init_input();
