@@ -2768,7 +2768,7 @@ CREATE TABLE pre_forum_ratelog (
 
 DROP TABLE IF EXISTS pre_forum_relatedthread;
 CREATE TABLE pre_forum_relatedthread (
-  tid int(10) NOT NULL DEFAULT '0',
+  tid int(10) unsigned NOT NULL DEFAULT '0',
   `type` enum('general','trade') NOT NULL DEFAULT 'general',
   expiration int(10) NOT NULL DEFAULT '0',
   keywords varchar(255) NOT NULL DEFAULT '',
