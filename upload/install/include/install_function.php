@@ -766,16 +766,27 @@ ajax.x = function () {
 
 ajax.send = function (url, callback, method, data, async) {
     if (async === undefined) {async = true;}
-    var x = ajax.x();x.open(method, url, async);x.onreadystatechange = function () {if (x.readyState == 4) {callback(x.responseText)}};if (method == 'POST') {x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');}
+    var x = ajax.x();x.open(method, url, async);x.onreadystatechange = function () {if ((x.readyState == 4) && (typeof callback == 'function')) {callback(x.responseText)}};if (method == 'POST') {x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');}
     x.send(data);
 };
 
-ajax.get = function (url, data, callback, async) {
-    var query = [];for (var key in data) {query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));}ajax.send(url + (query.length ? '?' + query.join('&') : ''), callback, 'GET', null, async);
+ajax.get = function (url, callback) {
+    ajax.send(url, callback, 'GET', null, true);
 };
 
 function request_do_db_init() {
-    ajax.get('index.php?method=do_db_init&allinfo=<?= $allinfo ?>');
+    ajax.get('index.php?method=do_db_init&allinfo=<?= $allinfo ?>', function() {
+            append_notice("<?= lang('initsys') ?> ... ");
+
+            ajax.get("../misc.php?mod=initsys", function() {
+                append_notice("<?= lang('succeed') ?><br/>");
+                document.getElementById("laststep").value = '<?= lang("initdbresult_succ") ?>';
+                document.getElementById("laststep").disabled = false;
+                window.setTimeout(function() {
+                    window.location='index.php?method=ext_info';
+                }, 2000);
+            });
+    });
 }
 
 function set_notice(str) {
@@ -788,51 +799,36 @@ function append_notice(str) {
     document.getElementById('notice').scrollTop = 100000000;
 }
 
-var old_log_data='';
+var old_log_data = '';
 function request_log() {
-    ajax.get('index.php?method=check_db_init_progress', "", function (data) {
-
-        if(data===old_log_data){
-            setTimeout(request_log,500);
+    ajax.get('index.php?method=check_db_init_progress', function (data) {
+        if(data === old_log_data){
+            setTimeout(request_log, 1000);
             return;
         }
-        old_log_data=data;
-
+        old_log_data = data;
         set_notice(
-		data.split("\n").
-		map(function(l) {
+		data.split("\n").map(function(l) {
 			if (l.indexOf('<?= lang("failed") ?>') !== -1) {
 				return '<font color="red">' + l + '</font><br/>';
 			} else {
 				return l + '<br/>';
 			}
-		}).
-		join('')
+		}). join('')
 	);
 	if (data.indexOf('<?= lang("failed") ?>') !== -1) {
                 append_notice("<?= lang('error_quit_msg') ?><br/>");
 		return;
 	}
-        if (data.indexOf('<?= lang("initdbresult_succ") ?>') !== -1) {
-            append_notice("<?= lang('initsys') ?> ... ");
-
-            ajax.get("../misc.php?mod=initsys", "", function() {
-                append_notice("<?= lang('succeed') ?><br/>");
-                document.getElementById("laststep").value = '<?= lang("initdbresult_succ") ?>';
-                document.getElementById("laststep").disabled = false;
-                window.setTimeout(function() {
-                    window.location='index.php?method=ext_info';
-                }, 2000);
-            });
-        } else {
-            request_log();
+        if (data.indexOf('<?= lang("initdbresult_succ") ?>') === -1) {
+            setTimeout(request_log, 200);
         }
     });
 }
 
 window.onload = function() {
     request_do_db_init();
-    setTimeout(request_log,500);
+    setTimeout(request_log, 500);
 }
 </script>
 		<div id="notice"></div>
@@ -861,10 +857,10 @@ function runquery($sql) {
 	}
 	unset($sql);
 
+	$oldtablename = "";
 	foreach($ret as $query) {
 		$query = trim($query);
 		if($query) {
-
 			if(substr($query, 0, 12) == 'CREATE TABLE') {
 				$name = preg_replace("/CREATE TABLE ([a-z0-9_]+) .*/is", "\\1", $query);
 				if ($db->query(createtable($query, $db->version()))) {
@@ -876,13 +872,14 @@ function runquery($sql) {
 			} elseif(substr($query, 0, 6) == 'INSERT') {
 				$name = preg_replace("/INSERT\s+INTO\s+[\`]?([a-z0-9_]+)[\`]? .*/is", "\\1", $query);
 				if ($db->query($query)) {
-					if($oldname!=$name)
+					if($oldtablename != $name) {
 						showjsmessage(lang('init_table_data').' '.$name.'  ... '.lang('succeed') . "\n");
+						$oldtablename = $name;
+					}
 				} else {
 					showjsmessage(lang('init_table_data').' '.$name.'  ... '.lang('failed') . "\n");
 					return false;
 				}
-				$oldname=$name;
 			}else{
 				if (!$db->query($query)) {
 					showjsmessage(lang('failed') . "\n");
@@ -1462,9 +1459,11 @@ function install_data($username, $uid) {
 
 	showjsmessage(lang('succeed') . "\n");
 }
+
 function install_testdata($username, $uid) {
 	global $_G, $db, $tablepre;
 
+	showjsmessage(lang('install_test_data')." :  \n");
 	$sqlfile = ROOT_PATH.'./install/data/common_district_{#id}.sql';
 	for($i = 1; $i < 4; $i++) {
 		$sqlfileid = str_replace('{#id}', $i, $sqlfile);
@@ -1884,14 +1883,34 @@ function format_space($space) {
 }
 
 function init_install_log_file() {
-	$file = __DIR__ . '/install.log';
-	if (file_exists($file)) unlink($file);
+	static $file = __DIR__ . '/install.log';
+	if (file_exists($file)) {
+		append_to_install_log_file("", true);
+		unlink($file);
+	}
 }
 
-function append_to_install_log_file($message) {
-	$file = __DIR__ . '/install.log';
-	file_put_contents($file, $message, FILE_APPEND);
+function append_to_install_log_file($message, $close = false) {
+	static $file = __DIR__ . '/install.log';
+	static $fh = false;
+	if (!$fh) {
+		$fh = fopen($file, "a+");
+	} 
+	if ($fh) {
+		fwrite($fh, $message);
+		if ($close) {
+			fclose($fh);
+		}
+	}
 }
+
+function read_install_log_file() {
+	$file = __DIR__ . '/install.log';
+	if (file_exists($file)) {
+		readfile($file);
+	}
+}
+
 function send_mime_type_header($type = 'application/xml') {
 	header("Content-Type: ".$type);
 }

@@ -360,7 +360,6 @@ if($method == 'show_license') {
 
 } elseif($method == 'ext_info') {
 	@touch($lockfile);
-	init_install_log_file();
 	if(VIEW_OFF) {
 		show_msg('ext_info_succ');
 	} else {
@@ -492,10 +491,10 @@ if($method == 'show_license') {
 
 	!VIEW_OFF && showjsmessage(lang('initdbresult_succ'));
 } elseif($method == 'check_db_init_progress') {
-	header("Content-Type: text/plain");
+	@set_time_limit(5);
+	send_mime_type_header("text/plain");
 	ob_start();
-	$file = __DIR__ . '/include/install.log';
-	if (file_exists($file)) readfile($file);
+	read_install_log_file();
 	ob_end_flush();
 	exit();
 }
