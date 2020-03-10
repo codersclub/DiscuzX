@@ -38,10 +38,10 @@ class table_common_magic extends discuz_table
 	public function fetch_all_page($operation, $start, $limit) {
 		if($operation == 'index') {
 			$salevolume = '';
-			$orderby = "displayorder";
+			$orderby = "displayorder, magicid";
 		} else {
 			$salevolume = 'AND salevolume>0';
-			$orderby = "salevolume DESC";
+			$orderby = "salevolume DESC, magicid";
 		}
 		return DB::fetch_all('SELECT * FROM %t WHERE available=1 %i ORDER BY %i LIMIT %d,%d', array($this->_table, $salevolume, $orderby, $start, $limit));
 	}
