@@ -1178,15 +1178,6 @@ CREATE TABLE pre_common_relatedlink (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
-DROP TABLE IF EXISTS pre_common_remote_port;
-CREATE TABLE pre_common_remote_port (
-  id mediumint(8) unsigned NOT NULL DEFAULT '0',
-  idtype char(15) NOT NULL DEFAULT '',
-  useip varchar(45) NOT NULL DEFAULT '',
-  `port` smallint(6) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (id,idtype)
-) ENGINE=InnoDB;
-
 DROP TABLE IF EXISTS pre_common_report;
 CREATE TABLE pre_common_report (
   id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
