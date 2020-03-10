@@ -333,7 +333,7 @@ function getlocalfile($filename, $readmod = 2, $range_start = 0, $range_end = 0)
 }
 
 function send_file_by_chunk($fp, $limit = PHP_INT_MAX) {
-	static $CHUNK_SIZE = 64 * 1024; // 每次最大读 64KB
+	static $CHUNK_SIZE = 65536; // 每次最大读 64KB
 	$count = 0;
 	while (!feof($fp)) {
 		$size_to_read = $CHUNK_SIZE;
