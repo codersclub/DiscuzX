@@ -43,7 +43,7 @@ if(empty($method)) {
 	show_msg('method_undefined', $method, 0);
 }
 
-if(file_exists($lockfile) && $method != 'ext_info') {
+if(file_exists($lockfile) && $method != 'ext_info' && $method != 'check_db_init_progress') {
 	show_msg('install_locked', '', 0);
 } elseif(!class_exists('dbstuff')) {
 	show_msg('database_nonexistence', '', 0);
