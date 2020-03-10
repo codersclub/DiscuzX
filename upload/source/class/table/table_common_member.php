@@ -346,7 +346,8 @@ class table_common_member extends discuz_table_archive
 		$dateline = TIMESTAMP - 7776000;//60*60*24*90
 		$temptablename = DB::table('common_member_temp___');
 		if(!DB::fetch_first("SHOW TABLES LIKE '$temptablename'")) {
-			DB::query("CREATE TABLE $temptablename (`uid` int(10) NOT NULL DEFAULT 0,PRIMARY KEY (`uid`)) ENGINE=INNODB;");
+			$engine = getglobal("config/db/common/engine") !== 'innodb' ? 'MyISAM' : 'InnoDB';
+			DB::query("CREATE TABLE $temptablename (`uid` int(10) NOT NULL DEFAULT 0,PRIMARY KEY (`uid`)) ENGINE=" . $engine . ";");
 		}
 		$splitnum = max(1, intval($splitnum));
 		if(!DB::result_first('SELECT COUNT(*) FROM '.$temptablename)) {

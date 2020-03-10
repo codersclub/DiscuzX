@@ -607,8 +607,7 @@ class table_forum_post extends discuz_table
 	 * 在非InnoDB的时候(MyISAM)，直接插入
 	 */
 	public function insert($tableid, $data, $return_insert_id = false, $replace = false, $silent = false) {
-		global $_G;
-		if ($_G['config']['db']['common']['engine'] !== 'innodb') {
+		if (getglobal("config/db/common/engine") !== 'innodb') {
 			return DB::insert(self::get_tablename($tableid), $data, $return_insert_id, $replace, $silent);
 		}
 

@@ -29,7 +29,8 @@ class table_forum_optionvalue extends discuz_table
 		$this->_table = 'forum_optionvalue'.$sortid;
 		$query = DB::query("SHOW TABLES LIKE '%t'", array($this->_table));
 		if(DB::num_rows($query) != 1) {
-			$create_table_sql = "CREATE TABLE ".DB::table($this->_table)." ($fields) TYPE=INNODB;";
+			$engine = getglobal("config/db/common/engine") !== 'innodb' ? 'MyISAM' : 'InnoDB';
+			$create_table_sql = "CREATE TABLE ".DB::table($this->_table)." ($fields) ENGINE=" . $engine . ";";
 			$db = DB::object();
 			$create_table_sql = $this->syntablestruct($create_table_sql, $db->version() > '4.1', $dbcharset);
 			DB::query($create_table_sql);
