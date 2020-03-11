@@ -1,7 +1,7 @@
 <div class="tbn">
 	<h2 class="mt bbda">{lang post}</h2>
 	<ul>
-		<li $opactives['thread']><a href="forum.php?mod=guide&view=my">{lang all}</a></li>
+		<!--{if $_G['setting']['guidestatus']}--><li $opactives['thread']><a href="forum.php?mod=guide&view=my">{lang all}</a></li><!--{/if}-->
 		<li $opactives['activity']><a href="home.php?mod=space&do=activity&view=me">{lang activity}</a></li>
 		<li $opactives['poll']><a href="home.php?mod=space&do=poll&view=me">{lang poll}</a></li>
 		<li $opactives['reward']><a href="home.php?mod=space&do=reward&view=me">{lang reward}</a></li>

@@ -1,7 +1,7 @@
 <!--{template common/header}-->
 <!--{hook/index_top_mobile}-->
 <p>
-<!--{if $_G['setting']['mobile']['mobilehotthread']}-->
+<!--{if $_G['setting']['mobile']['mobilehotthread'] && $_G['setting']['guidestatus']}-->
 	<!--{if $_GET['forumlist'] != 1}-->
 		<!--{eval dheader('Location:forum.php?mod=guide&view=hot');exit;}-->
 	<!--{/if}-->
