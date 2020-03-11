@@ -150,11 +150,86 @@ EOF;
 			showsubtitle(array('', 'username', 'credits', 'posts', 'admingroup', 'usergroup', ''));
 			echo $members;
 			$condition_str = str_replace('&tablename=master', '', $condition_str);
-			showsubmit('deletesubmit', cplang('delete'), ($tmpsearch_condition ? '<input type="checkbox" name="chkall" onclick="checkAll(\'prefix\', this.form, \'uidarray\');if(this.checked){$(\'deleteallinput\').style.display=\'\';}else{$(\'deleteall\').checked = false;$(\'deleteallinput\').style.display=\'none\';}" class="checkbox">'.cplang('select_all') : ''), ' &nbsp;&nbsp;&nbsp;<span id="deleteallinput" style="display:none"><input id="deleteall" type="checkbox" name="deleteall" class="checkbox">'.cplang('members_search_deleteall', array('membernum' => $membernum)).'</span>', $multipage);
+			$unarchive = isset($_GET['tablename']) && $_GET['tablename'] == 'archive' ? '<input type="submit" class="btn" id="submit_unarchivesubmit" name="unarchivesubmit" onclick="document.cpform.action=\'admin.php?action=members&operation=unarchive'.$condition_str.'\';document.cpform.submit();" value="'.cplang('unarchive').'">' : '';
+			showsubmit('deletesubmit', cplang('delete'), ($tmpsearch_condition ? '<input type="checkbox" name="chkall" onclick="checkAll(\'prefix\', this.form, \'uidarray\');if(this.checked){$(\'deleteallinput\').style.display=\'\';}else{$(\'deleteall\').checked = false;$(\'deleteallinput\').style.display=\'none\';}" class="checkbox">'.cplang('select_all') : ''), $unarchive.' &nbsp;&nbsp;&nbsp;<span id="deleteallinput" style="display:none"><input id="deleteall" type="checkbox" name="deleteall" class="checkbox">'.cplang('members_search_deleteall', array('membernum' => $membernum)).'</span>', $multipage);
 		}
 		showtablefooter();
 		showformfooter();
 
+	}
+
+} elseif($operation == 'unarchive') {
+
+	if(!submitcheck('unarchivesubmit', 1) && !submitcheck('confirmed', 1)) {
+
+		cpmsg('members_no_find_unarchiveuser', '', 'error');
+
+	} else {
+
+		if(submitcheck('unarchivesubmit', 1) && empty($_GET['uidarray'])) {
+			cpmsg('members_no_find_unarchiveuser', '', 'error');
+		}
+
+		if(!empty($_GET['deleteall'])) {
+			unset($search_condition['uidarray']);
+			$_GET['uidarray'] = '';
+		}
+
+		$uids = 0;
+		$extra = '';
+		$unarchivememberlimit = 300;
+		$unarchivestart = intval($_GET['unarchivestart']);
+
+		if(!empty($_GET['uidarray'])) {
+			$uids = array();
+			$allmember = C::t('common_member')->fetch_all($_GET['uidarray']);
+			$count = count($allmember);
+			$membernum = 0;
+			foreach($allmember as $uid => $member) {
+				if($member['adminid'] !== 1 && $member['groupid'] !== 1) {
+					if($count < 2000 || !empty($_GET['uidarray'])) {
+						$extra .= '<input type="hidden" name="uidarray[]" value="'.$member['uid'].'" />';
+					}
+					$uids[] = $member['uid'];
+					$membernum ++;
+				}
+			}
+		} elseif($tmpsearch_condition) {
+			$membernum = countmembers($search_condition, $urladd);
+			$uids = searchmembers($search_condition, $unarchivememberlimit, 0);
+		}
+
+		$allnum = intval($_GET['allnum']);
+		$conditions = $uids ? 'm.uid IN ('.dimplode($uids).')' : '0';
+
+		if((empty($membernum) || empty($uids))) {
+			if($unarchivestart) {
+				cpmsg('members_unarchive_succeed', '', 'succeed', array('numunarchived' => $allnum));
+			}
+			cpmsg('members_no_find_unarchiveuser', '', 'error');
+		}
+
+		if(!submitcheck('confirmed')) {
+
+			cpmsg('members_unarchive_confirm', "action=members&operation=unarchive&submit=yes&confirmed=yes".$urladd, 'form', array('membernum' => $membernum), $extra, '');
+
+		} else {
+
+			$numunarchived = $numunarchived ? $numunarchived : count($uids);
+
+			foreach ($uids as $uid) {
+				C::t('common_member_archive')->move_to_master($uid);
+			}
+
+			if($_GET['uidarray']) {
+				cpmsg('members_unarchive_succeed', '', 'succeed', array('numunarchived' => $numunarchived));
+			} else {
+				$allnum += $membernum < $unarchivememberlimit ? $membernum : $unarchivememberlimit;
+				$nextlink = "action=members&operation=unarchive&confirmed=yes&submit=yes&allnum=$allnum&unarchivestart=".($unarchivestart+$unarchivememberlimit).$urladd;
+				cpmsg(cplang('members_delete_user_processing_next', array('deletestart' => $unarchivestart, 'nextdeletestart' => $unarchivestart+$unarchivememberlimit)), $nextlink, 'loadingform', array());
+			}
+
+		}
 	}
 
 } elseif($operation == 'chgusername') {

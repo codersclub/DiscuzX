@@ -17,7 +17,6 @@ $optimizer_option = array(
 	'optimizer_thread',
 	'optimizer_setting',
 	'optimizer_post',
-	'optimizer_member',
 	'optimizer_dbbackup',
 	'optimizer_dbbackup_clean',
 	'optimizer_seo'

@@ -55,7 +55,7 @@ INSERT INTO pre_common_cron VALUES ('13','1','system','清理过期动态','cron
 INSERT INTO pre_common_cron VALUES ('15','1','system','定时发布主题','cron_publish_halfhourly.php','1269746639','1269792000','-1','-1','-1','0	30');
 INSERT INTO pre_common_cron VALUES ('16','1','system','每周广播归档','cron_follow_daily.php','1269746639','1269792000','-1','-1','02','0');
 INSERT INTO pre_common_cron VALUES ('17','1','system','更新每日查看数','cron_todayviews_daily.php','1321500558','1321556400','-1','-1','3','0	5	10	15	20	25	30	35	40	45	50	55');
-INSERT INTO pre_common_cron VALUES ('18','0','system','每日用户表优化','cron_member_optimize_daily.php','1321500558','1321556400','-1','-1','2','0	5	10	15	20	25	30	35	40	45	50	55');
+INSERT INTO pre_common_cron VALUES ('18','0','system','每日用户分表','cron_member_optimize_daily.php','1321500558','1321556400','-1','-1','2','0	5	10	15	20	25	30	35	40	45	50	55');
 INSERT INTO pre_common_cron VALUES ('19','1','system','统计今日热帖','cron_todayheats_daily.php','1269746623','1269792000','-1','-1','0','0');
 INSERT INTO pre_common_cron VALUES ('20','1','system','更新版块最后发表(防水墙相关)','cron_security_cleanup_lastpost.php','1269746623','1269792000','-1','-1','7','0');
 
