@@ -754,6 +754,8 @@ $lang = array
 	'setting_basic_site_qq_comment' => '<a href="" onclick="this.href=\'http://wp.qq.com/set.html?from=discuz&uin=\'+$(\'settingnew[site_qq]\').value" target="_blank">设置我的QQ在线状态</a>',
 	'setting_basic_icp' => '网站备案信息代码',
 	'setting_basic_icp_comment' => '页面底部可以显示 ICP 备案信息，如果网站已备案，在此输入您的授权码，它将显示在页面底部，如果没有请留空',
+	'setting_basic_mps' => '联网备案信息代码',
+	'setting_basic_mps_comment' => '页面底部可以显示联网备案信息，如果网站已备案，在此输入您的授权码，它将显示在页面底部，如果没有请留空',
 	'setting_basic_stat' => '网站第三方统计代码',
 	'setting_basic_stat_comment' => '页面底部可以显示第三方统计',
 	'setting_basic_boardlicensed' => '显示授权信息链接',

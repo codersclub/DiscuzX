@@ -478,6 +478,8 @@ function build_cache_setting() {
 	
 	$data['parseflv'] = get_cachedata_discuzcode_parseflv();
 
+	$data['mpsid'] = preg_replace('/[^0-9]+/', '', $data['mps']);
+
 	savecache('setting', $data);
 	$_G['setting'] = $data;
 }
