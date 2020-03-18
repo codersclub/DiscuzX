@@ -47,6 +47,8 @@ $lang = array (
   'to_login' => '您需要先登录才能继续本操作',
   'postcomment_closed' => '点评功能已关闭',
   'group_nopermission' => '抱歉，您所在的用户组({grouptitle})无法进行此操作',
+  'nopermission_email' => '<p>您需要验证激活自己的邮箱后再次尝试进行本操作，<a href="home.php?mod=spacecp&ac=profile&op=password">点击这里激活邮箱</a></p>',
+  'nopermission_verify' => '<p>您需要等待注册申请审核通过后再次尝试进行本操作，请您耐心等待管理团队审核</p>',
   'thread_nonexistence' => '抱歉，指定的主题不存在或已被删除或正在被审核',
   'parameters_error' => '参数错误',
   'thread_poll_succeed' => '投票成功 ',

@@ -54,6 +54,8 @@ var disablepostctrl = parseInt('{$_G['group']['disablepostctrl']}');
 							<!--{if !$_G['uid']}-->
 								<!--{if !$_G['connectguest']}-->
 									{lang login_to_reply} <a href="member.php?mod=logging&action=login" onclick="showWindow('login', this.href)" class="xi2">{lang login}</a> | <a href="member.php?mod={$_G[setting][regname]}" class="xi2">$_G['setting']['reglinkname']</a>
+								<!--{elseif $_G['forum_thread']['closed'] == 1}-->
+									{lang post_thread_closed}
 								<!--{else}-->
 									{lang connect_fill_profile_to_post}
 								<!--{/if}-->

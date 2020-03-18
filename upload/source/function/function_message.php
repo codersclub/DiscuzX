@@ -167,6 +167,14 @@ function dshowmessage($message, $url_forward = '', $values = array(), $extrapara
 		dheader('location: member.php?mod=logging&action=login&handlekey='.$handlekey.'&infloat=yes&inajax=yes&guestmessage=yes');
 	}
 
+	if(strpos($message, 'nopermission') > 0) {
+		if ($_G['member']['groupid'] == 8 && $_G['setting']['regverify'] == 1) { // 需要邮件验证
+			$show_message .= lang('message', 'nopermission_email');
+		} else if ($_G['member']['groupid'] == 8 && $_G['setting']['regverify'] == 2) { // 需要人工审核
+			$show_message .= lang('message', 'nopermission_verify');
+		}
+	}
+
 	$show_jsmessage = str_replace("'", "\\'", $param['striptags'] ? strip_tags($show_message) : $show_message);
 
 	if((!$param['showmsg'] || $param['showid']) && !defined('IN_MOBILE') ) {

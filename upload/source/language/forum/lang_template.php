@@ -314,6 +314,7 @@ $lang = array (
   'connect_fill_profile_to_post' => '您需要 <a href="member.php?mod=connect" class="xi2">完善帐号信息</a> 或 <a href="member.php?mod=connect&ac=bind" class="xi2">绑定已有帐号</a> 后才可以发帖',
   'login_to_post' => '您需要登录后才可以发帖',
   'no_permission_to_post' => '您现在无权发帖。',
+  'post_thread_closed' => '抱歉，本主题已关闭，不再接受新内容',
   'post_advancemode' => '高级模式',
   'post_relay' => '转播给听众',
   'post_sync_method' => '将此主题同步到',
