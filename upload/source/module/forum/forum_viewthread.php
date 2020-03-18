@@ -669,7 +669,7 @@ foreach($postarr as $post) {
 				continue;
 			}
 			$_G['forum_firstpid'] = $post['pid'];
-			if(!$_G['forum_thread']['price'] && (IS_ROBOT || $_G['adminid'] == 1)) $summary = str_replace(array("\r", "\n"), '', messagecutstr(strip_tags($post['message']), 160));
+			if(!$_G['forum_thread']['price']) $summary = str_replace(array("\r", "\n"), '', messagecutstr(strip_tags($post['message']), 160));
 			$tagarray_all = $posttag_array = array();
 			$tagarray_all = explode("\t", $post['tags']);
 			if($tagarray_all) {
