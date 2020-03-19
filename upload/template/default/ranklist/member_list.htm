@@ -63,7 +63,7 @@
 					<!--{if $value['posts']}-->{lang posts_num}: <a href="home.php?mod=space&uid=$value[uid]&do=thread&view=me&from=space" target="_blank">$value[posts]</a><!--{/if}-->
 					<!--{if $value['blogs']}-->{lang blogs_num}: <a href="home.php?mod=space&uid=$value[uid]&do=blog&view=me&from=space" target="_blank">$value[blogs]</a><!--{/if}-->
 					<!--{if $value['views']}-->{lang views} $value[views]<!--{/if}-->
-					<!--{if $value['onlinetime']}-->{lang online_time}: $value[onlinetime] {lang minute}<!--{/if}-->
+					<!--{if $value['onlinetime'] && !$_G['setting']['sessionclose']}-->{lang online_time}: $value[onlinetime] {lang minute}<!--{/if}-->
 				</p>
 
 				<!--{if $value['friends']}--><p>{lang friends_num}: $value[friends]</p><!--{/if}-->

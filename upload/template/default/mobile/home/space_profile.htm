@@ -54,8 +54,10 @@
         	<td valign="top">{lang group_expiry_type_ext}: </td><td>$space[extgroupids]</td>
         </tr>
         <!--{/if}-->
+        <!--{if $space[oltime] && !$_G['setting']['sessionclose']}-->
         <tr>
         	<td valign="top" >{lang online_time}: </td><td>$space[oltime] {lang hours}</td>
+        <!--{/if}-->
         <tr>
         	<td valign="top" >{lang regdate}: </td><td>$space[regdate]</td>
         <tr>

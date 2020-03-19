@@ -21,7 +21,9 @@
 		<!--{if $space[extgroupids]}-->
 			<tr><td>{lang group_expiry_type_ext}: $space[extgroupids]</td></tr>
 		<!--{/if}-->
-		<tr><td>{lang online_time}: $space[oltime] {lang hours}</td></tr>
+		<!--{if $space[oltime] && !$_G['setting']['sessionclose']}-->
+			<tr><td>{lang online_time}: $space[oltime] {lang hours}</td></tr>
+		<!--{/if}-->
 		<tr><td>{lang regdate}: $space[regdate]</td></tr>
 		<tr><td>{lang last_visit}: $space[lastvisit]</td></tr>
 		<!--{if $_G[uid] == $space[uid] || $_G[group][allowviewip]}-->

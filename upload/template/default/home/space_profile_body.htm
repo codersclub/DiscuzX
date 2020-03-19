@@ -149,7 +149,7 @@
 		<!--{if $space[extgroupids]}--><li><em class="xg1">{lang group_expiry_type_ext}&nbsp;&nbsp;</em>$space[extgroupids]</li><!--{/if}-->
 	</ul>
 	<ul id="pbbs" class="pf_l">
-		<!--{if $space[oltime]}--><li><em>{lang online_time}</em>$space[oltime] {lang hours}</li><!--{/if}-->
+		<!--{if $space[oltime] && !$_G['setting']['sessionclose']}--><li><em>{lang online_time}</em>$space[oltime] {lang hours}</li><!--{/if}-->
 		<li><em>{lang regdate}</em>$space[regdate]</li>
 		<li><em>{lang last_visit}</em>$space[lastvisit]</li>
 		<!--{if $_G[uid] == $space[uid] || $_G[group][allowviewip]}-->
