@@ -2280,7 +2280,7 @@ $lang = array
 	'setting_sec_accountguard_loginpwcheck_prompt' => '开启并提示',
 	'setting_sec_accountguard_loginpwcheck_force' => '开启并强制修改弱密码',
 	'setting_sec_accountguard_loginoutofdate' => '异常登录检测',
-	'setting_sec_accountguard_loginoutofdate_comment' => '当用户异地登录且距离上次登录超过 90 天时，帐号会进入未审核组，用户可以通过验证邮箱或者申诉解冻帐号，QQ登录的用户不受此功能影响 <a href="'.ADMINSCRIPT.'?frames=yes&action=moderate&operation=members">审核用户</a>',
+	'setting_sec_accountguard_loginoutofdate_comment' => '当用户异地登录且距离上次登录超过 90 天时，帐号会进入未审核组，用户可以通过验证邮箱或者申诉解冻帐号，QQ登录的用户不受此功能影响 <a href="'.ADMINSCRIPT.'?action=moderate&operation=members">审核用户</a>',
 
 
 	'setting_attach' => '上传设置',
