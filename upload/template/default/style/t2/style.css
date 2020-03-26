@@ -17,7 +17,7 @@ body { background: #FFF url(bgimg.jpg) no-repeat 50% 0; }
 
 .ct2_a, .ct3_a { background-image: url(vlineb.png); }
 .tbn li.a { background: #FFF; }
-	#nv_portal.pg_portalcp .ct2_a_r, #nv_forum.pg_post .ct2_a_r { background-image: none; }
+	#nv_portal.pg_portalcp .ct2_a_r, #nv_forum.pg_post .ct2_a_r, #nv_group.pg_post .ct2_a_r { background-image: none; }
 
 /* 重定义 {SPECIALBORDER} */
 .bmn, .pg a, .pgb.a, .pg strong, .card, .card .o, div.exfm  { border-color: #C5E6DF; }

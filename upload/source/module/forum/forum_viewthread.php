@@ -404,6 +404,9 @@ if(empty($_GET['viewpid'])) {
 	if($_G['page'] === 1 && $_G['forum_thread']['stickreply'] && empty($_GET['authorid'])) {
 		$poststick = C::t('forum_poststick')->fetch_all_by_tid($_G['tid']);
 		foreach(C::t('forum_post')->fetch_all($posttableid, array_keys($poststick)) as $post) {
+			if($post['invisible'] != 0) {
+				continue;
+			}
 			$post['position'] = $poststick[$post['pid']]['position'];
 			$post['avatar'] = avatar($post['authorid'], 'small');
 			$post['isstick'] = true;

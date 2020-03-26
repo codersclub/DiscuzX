@@ -256,7 +256,7 @@ EOF;
 		if(!getimagesize($_FILES['pic']['tmp_name']) || !$upload->init($_FILES['pic'], 'common', random(3, 1), random(8)) || !$upload->save()) {
 			cpmsg($upload->errormessage(), '', 'error');
 		}
-		$_GET['data']['pic'] = (preg_match('/^http:/', $_G['setting']['attachurl']) ? '' : $_G['siteurl']).$_G['setting']['attachurl'].'common/'.$upload->attach['attachment'];
+		$_GET['data']['pic'] = (preg_match('/^https?:/', $_G['setting']['attachurl']) ? '' : $_G['siteurl']).$_G['setting']['attachurl'].'common/'.$upload->attach['attachment'];
 		$_GET['data']['local'] = $upload->attach['attachment'];
 	} else {
 		$_GET['data']['pic'] = $_GET['pic'];
@@ -284,7 +284,7 @@ EOF;
 		if(!getimagesize($_FILES['pic']['tmp_name']) || !$upload->init($_FILES['pic'], 'common', random(3, 1), random(8)) || !$upload->save()) {
 			cpmsg($upload->errormessage(), '', 'error');
 		}
-		$_GET['data']['pic'] = (preg_match('/^http:/', $_G['setting']['attachurl']) ? '' : $_G['siteurl']).$_G['setting']['attachurl'].'common/'.$upload->attach['attachment'];
+		$_GET['data']['pic'] = (preg_match('/^https?:/', $_G['setting']['attachurl']) ? '' : $_G['siteurl']).$_G['setting']['attachurl'].'common/'.$upload->attach['attachment'];
 		$_GET['data']['local'] = $upload->attach['attachment'];
 		@unlink($_G['setting']['attachdir'].'common/'.$resource['data']['local']);
 	} else {

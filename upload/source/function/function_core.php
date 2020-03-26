@@ -1669,7 +1669,7 @@ function g_icon($groupid, $return = 0) {
 	if(empty($_G['cache']['usergroups'][$groupid]['icon'])) {
 		$s =  '';
 	} else {
-		if(substr($_G['cache']['usergroups'][$groupid]['icon'], 0, 5) == 'http:') {
+		if(preg_match('/^https?:\/\//is', $_G['cache']['usergroups'][$groupid]['icon'])) {
 			$s = '<img src="'.$_G['cache']['usergroups'][$groupid]['icon'].'" alt="" class="vm" />';
 		} else {
 			$s = '<img src="'.$_G['setting']['attachurl'].'common/'.$_G['cache']['usergroups'][$groupid]['icon'].'" alt="" class="vm" />';

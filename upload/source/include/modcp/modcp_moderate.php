@@ -48,7 +48,7 @@ if($op == 'members') {
 
 			$member_validate = C::t('common_member_validate')->fetch_all($uids);
 			foreach(C::t('common_member')->fetch_all($uids, false, 0) as $uid => $member) {
-				if($member['groupid'] == 8 && $member['status'] == $filter) {
+				if(($member['groupid'] == 8 || (in_array($member['freeze'], array(-1, 2)) && $modact != 'delete')) && $member['status'] == $filter) {
 					$members[$uid] = array_merge((array)$member_validate[$uid], $member);
 				}
 			}
@@ -61,7 +61,7 @@ if($op == 'members') {
 				}
 
 				if($_GET['modact'] == 'validate') {
-					C::t('common_member')->update($uids, array('adminid' => '0', 'groupid' => $_G['setting']['newusergroupid']));
+					C::t('common_member')->update($uids, array('adminid' => '0', 'groupid' => $_G['setting']['newusergroupid'], 'freeze' => 0));
 					C::t('common_member_validate')->delete($uids);
 				}
 
@@ -97,6 +97,8 @@ if($op == 'members') {
 						}
 					}
 				}
+			} else {
+				showmessage('modcp_moduser_invalid');
 			}
 
 			showmessage('modcp_mod_succeed', "{$cpscript}?mod=modcp&action=$_GET[action]&op=$op&filter=$filter");
@@ -123,7 +125,7 @@ if($op == 'members') {
 		}
 		foreach($member_validate as $uid => $member) {
 			$member = array_merge($member, $common_member[$uid], $member_status[$uid]);
-			if($member['groupid'] != 8) {
+			if($member['groupid'] != 8 && !in_array($member['freeze'], array(-1, 2))) {
 				$vuids[] = $member['uid'];
 				continue;
 			}

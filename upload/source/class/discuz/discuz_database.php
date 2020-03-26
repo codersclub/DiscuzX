@@ -255,6 +255,7 @@ class discuz_database {
 			case '|':
 			case '&':
 			case '^':
+			case '&~':
 				return $field . '=' . $field . $glue . self::quote($val);
 				break;
 			case '>':

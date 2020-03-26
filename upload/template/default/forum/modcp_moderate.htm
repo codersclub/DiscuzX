@@ -193,7 +193,7 @@
 								<p>Email: $member[email]</p>
 								<p class="mtn">
 									<a href="forum.php?mod=modcp&action=$_GET[action]&op=$op&moderate[]={$member[uid]}&modact=validate&filter=$filter&dosubmit=1" onclick="showWindow('mods', this.href)">{lang pass}</a><span class="pipe">|</span>
-									<a href="forum.php?mod=modcp&action=$_GET[action]&op=$op&moderate[]={$member[uid]}&modact=delete&filter=$filter&dosubmit=1" onclick="showWindow('mods', this.href)">{lang delete}</a><span class="pipe">|</span>
+									<!--{if $member['groupid'] == 8}--><a href="forum.php?mod=modcp&action=$_GET[action]&op=$op&moderate[]={$member[uid]}&modact=delete&filter=$filter&dosubmit=1" onclick="showWindow('mods', this.href)">{lang delete}</a><span class="pipe">|</span><!--{/if}-->
 									<a href="forum.php?mod=modcp&action=$_GET[action]&op=$op&moderate[]={$member[uid]}&modact=ignore&filter=$filter&dosubmit=1" onclick="showWindow('mods', this.href)">{lang invalidate}</a>
 								</p>
 							</td>

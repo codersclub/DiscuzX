@@ -70,7 +70,7 @@ if(!submitcheck('modsubmit')) {
 			crime('recordaction', $post['authorid'], 'crime_banpost', lang('forum/misc', 'crime_postreason', array('reason' => $reason, 'tid' => $_G['tid'], 'pid' => $post['pid'])));
 
 		} else {
-			C::t('forum_post')->increase_status_by_pid('tid:'.$_G['tid'], $post['pid'], 1, '^', true);
+			C::t('forum_post')->increase_status_by_pid('tid:'.$_G['tid'], $post['pid'], 1, '&~', true);
 		}
 		$pids .= $comma.$post['pid'];
 		$comma = ',';
