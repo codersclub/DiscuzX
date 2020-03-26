@@ -20,6 +20,7 @@ $title = cplang('admincp_title');
 $header_welcome = cplang('header_welcome');
 $header_logout = cplang('header_logout');
 $header_bbs = cplang('header_bbs');
+$now = date('Y');
 if(isfounder()) {
 	cplang('founder_admin');
 } else {
@@ -124,7 +125,7 @@ echo <<<EOT
 </div>
 <div class="copyright">
 	<p>Powered by <a href="http://www.discuz.net/" target="_blank">Discuz!</a> {$_G['setting']['version']}</p>
-	<p>Copyright &copy; 2001-2020</p>
+	<p>Copyright &copy; 2001-$now</p>
 	<p>Tencent Cloud.</p>
 </div>
 

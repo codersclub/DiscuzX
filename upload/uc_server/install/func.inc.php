@@ -491,8 +491,10 @@ EOT;
 
 function show_footer($quit = true) {
 
+	$copy = lang('copyright');
+
 	echo <<<EOT
-		<div class="footer">Copyright &copy; 2001-2020, Tencent Cloud.</div>
+		<div class="footer">$copy</div>
 	</div>
 </div>
 </body>

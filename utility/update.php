@@ -2051,9 +2051,12 @@ END;
 }
 
 function show_footer() {
+
+	$now = date('Y');
+
 	print<<<END
 	</div>
-	<div id="footer">Copyright &copy; 2001-2020, Tencent Cloud.</div>
+	<div id="footer">Copyright &copy; 2001-$now Tencent Cloud.</div>
 	</div>
 	<br>
 	</body>

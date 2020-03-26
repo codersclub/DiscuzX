@@ -80,6 +80,7 @@ EOT;
 
 function html_login_footer($halt = true) {
 	$version = getglobal('setting/version');
+	$copy = lang('admincp_login', 'copyright');
 	echo <<<EOT
 
 	</td>
@@ -90,7 +91,7 @@ function html_login_footer($halt = true) {
 	<td colspan="2" class="footer">
 		<div class="copyright">
 			<p>Powered by <a href="http://www.discuz.net/" target="_blank">Discuz!</a> $version </p>
-			<p>Copyright &copy; 2001-2020, Tencent Cloud.</p>
+			<p>$copy</p>
 		</div>
 	</td>
 </tr>

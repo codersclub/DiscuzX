@@ -467,9 +467,11 @@ EOT;
 
 function show_footer($quit = true) {
 
+	$now = date('Y');
+
 	echo <<< EOT
 	</div>
-	<div id="footer">Copyright &copy; 2001-2020, Tencent Cloud.</div>
+	<div id="footer">Copyright &copy; 2001-$now Tencent Cloud.</div>
 </div>
 </body>
 </html>

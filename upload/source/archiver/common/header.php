@@ -20,7 +20,7 @@ ob_start();
 <meta name="description" content="<?php if(!empty($metadescription)): echo dhtmlspecialchars($metadescription).' ';endif; echo ','.$_G['setting']['bbname'];?>" />
 <meta name="generator" content="Discuz! <?php echo $_G['setting']['version']; ?>" />
 <meta name="author" content="Discuz! Team and Comsenz UI Team" />
-<meta name="copyright" content="2001-2020, Tencent Cloud." />
+<meta name="copyright" content="<?php echo lang('template', 'copyright_s'); ?>" />
 <style type="text/css">
 	body {font-family: Verdana;FONT-SIZE: 12px;MARGIN: 0;color: #000000;background: #ffffff;}
 	img {border:0;}

@@ -18,6 +18,8 @@ $languages = array(
 	'to' => '到',
 	'menu' => '菜单',
 
+	'copyright' => 'Copyright &copy; 2001-'.date('Y').' Tencent Cloud.',
+
 	'founder'=>'UCenter创始人',
 	'login_username'=>'用户名',
 	'login_password'=>'密　码',
