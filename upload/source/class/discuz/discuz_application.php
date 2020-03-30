@@ -187,7 +187,7 @@ class discuz_application extends discuz_base{
 		if(defined('IN_NEWMOBILE')) {
 			$sitepath = preg_replace("/\/m/i", '', $sitepath);
 		}
-		$_G['isHTTPS'] = ($_SERVER['HTTPS'] && strtolower($_SERVER['HTTPS']) != 'off') ? true : false;
+		$_G['isHTTPS'] = $this->_is_https();
 		$_G['scheme'] = 'http'.($_G['isHTTPS'] ? 's' : '');
 		$_G['siteurl'] = dhtmlspecialchars($_G['scheme'].'://'.$_SERVER['HTTP_HOST'].$sitepath.'/');
 
@@ -343,6 +343,10 @@ class discuz_application extends discuz_base{
 			@header('Content-Type: text/html; charset='.CHARSET);
 		}
 
+		if($this->var['isHTTPS'] && ($this->config['output']['upgradeinsecure'] || !isset($this->config['output']['upgradeinsecure']))) {
+			@header('Content-Security-Policy: upgrade-insecure-requests');
+		}
+
 	}
 
 	public function reject_robot() {
@@ -383,6 +387,25 @@ class discuz_application extends discuz_base{
 		}
 
 		return true;
+	}
+
+	private function _is_https() {
+		if (isset($_SERVER["HTTPS"]) && strtolower($_SERVER["HTTPS"]) != "off") {
+			return true;
+		}
+		if (isset($_SERVER["HTTP_X_FORWARDED_PROTO"]) && strtolower($_SERVER["HTTP_X_FORWARDED_PROTO"]) == "https") {
+			return true;
+		}
+		if (isset($_SERVER["HTTP_SCHEME"]) && strtolower($_SERVER["HTTP_SCHEME"]) == "https") {
+			return true;
+		}
+		if (isset($_SERVER["HTTP_FROM_HTTPS"]) && strtolower($_SERVER["HTTP_FROM_HTTPS"]) != "off") {
+			return true;
+		}
+		if (isset($_SERVER["SERVER_PORT"]) && $_SERVER["SERVER_PORT"] == 443) {
+			return true;
+		}
+		return false;
 	}
 
 	private function _get_client_ip() {

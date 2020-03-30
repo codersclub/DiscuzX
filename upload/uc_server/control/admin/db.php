@@ -112,7 +112,7 @@ class control extends adminbase {
 				}
 				$code = $this->authcode('&method='.$type.'&sqlpath='.$backupdir.'&time='.time(), 'ENCODE', $app['authkey']);
 			} else {
-				$url = ($_SERVER['HTTPS'] == 'on' ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].str_replace('admin.php', 'api/dbbak.php', $_SERVER['PHP_SELF']).'?apptype=UCENTER';
+				$url = (is_https() ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].str_replace('admin.php', 'api/dbbak.php', $_SERVER['PHP_SELF']).'?apptype=UCENTER';
 				$code = $this->authcode('&method='.$type.'&sqlpath='.$backupdir.'&time='.time(), 'ENCODE', UC_KEY);
 			}
 			$url .= '&code='.urlencode($code);
@@ -147,7 +147,7 @@ class control extends adminbase {
 		$app = $this->cache['apps'][$appid];
 		if(empty($appid)) {
 			$app['ip'] = defined('UC_IP') ? UC_IP : '';
-			$url = ($_SERVER['HTTPS'] == 'on' ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].str_replace('admin.php', 'api/dbbak.php', $_SERVER['PHP_SELF']).'?apptype=UCENTER';
+			$url = (is_https() ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].str_replace('admin.php', 'api/dbbak.php', $_SERVER['PHP_SELF']).'?apptype=UCENTER';
 			$code = $this->authcode('&method=delete&sqlpath='.$backupdir.'&time='.time(), 'ENCODE', UC_KEY);
 			$appname = 'UCenter';
 		} else {
