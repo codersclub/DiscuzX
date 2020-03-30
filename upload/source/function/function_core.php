@@ -1991,7 +1991,7 @@ function userappprompt() {
 }
 
 function dintval($int, $allowarray = false) {
-	$ret = floatval($int);
+	$ret = intval($int);
 	if($int == $ret || !$allowarray && is_array($int)) return $ret;
 	if($allowarray && is_array($int)) {
 		foreach($int as &$v) {

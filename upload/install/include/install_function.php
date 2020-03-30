@@ -171,12 +171,12 @@ function function_check(&$func_items) {
 	}
 }
 
-function dintval($int, $allowarray = false) {
+function dfloatval($int, $allowarray = false) {
 	$ret = floatval($int);
 	if($int == $ret || !$allowarray && is_array($int)) return $ret;
 	if($allowarray && is_array($int)) {
 		foreach($int as &$v) {
-			$v = dintval($v, true);
+			$v = dfloatval($v, true);
 		}
 		return $int;
 	} elseif($int <= 0xffffffff) {
@@ -199,8 +199,8 @@ function show_env_result(&$env_items, &$dirfile_items, &$func_items, &$filesock_
 		}
 		$status = 1;
 		if($item['r'] != 'notset') {
-			if(dintval($item['current']) && dintval($item['r'])) {
-				if(dintval($item['current']) < dintval($item['r'])) {
+			if(dfloatval($item['current']) && dfloatval($item['r'])) {
+				if(dfloatval($item['current']) < dfloatval($item['r'])) {
 					$status = 0;
 					$error_code = ENV_CHECK_ERROR;
 				}
