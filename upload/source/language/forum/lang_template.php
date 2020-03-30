@@ -539,6 +539,7 @@ $lang = array (
   'mod_moderate_select' => '当前已选定 <span id="modlayercount">0</span> 个',
   'mod_moderate_thread_num' => '未审核主题',
   'mod_moderate_thread_range' => '帖子范围',
+  'mod_moderate_showcensor' => '显示过滤词',
   'mod_notice_moderate' => '审核结果: $modpost[\'validate\'] 篇帖子审核通过，$modpost[\'delete\'] 篇帖子删除，$modpost[\'ignore\'] 篇帖子进入忽略列表等待审核',
   'mod_option_moduser' => '用户',
   'mod_option_subject_mod' => '审核',

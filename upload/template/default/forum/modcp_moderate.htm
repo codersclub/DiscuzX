@@ -18,7 +18,7 @@
 	function toggle_post(id) {
 		var obj = $('list_note_' + id);
 		obj.style.display='block';
-		obj.style.height = obj.style.height == '55px' ? 'auto' : '55px' ;
+		obj.style.height = obj.style.height == '155px' ? 'auto' : '155px' ;
 	}
 	 function modthreads(operation) {
 		var checked = 0;
@@ -89,7 +89,7 @@
 							<!--{/if}-->
 						</tr>
 						<tr>
-							<td>&nbsp;</td>
+							<td><label><input name="showcensor" type="checkbox" class="checkbox" value="yes" <!--{if $_GET['showcensor']}--> checked="checked"<!--{/if}-->/><p style="display: inline;">{lang mod_moderate_showcensor}</p></label></td>
 							<td colspan="{if $posttableselect}5{else}3{/if}"><button type="submit" name="submit" id="searchsubmit" class="pn" value="true"><strong>{lang submit}</strong></button></td>
 						</tr>
 					</table>
@@ -114,18 +114,19 @@
 					<div class="um {echo swapclass('alt');}" id="pid_$post[id]">
 						<p class="pbn">
 							<span class="y">
+								<a href="forum.php?mod=<!--{if $post[first]}-->viewthread&tid<!--{else}-->redirect&goto=findpost&ptid={$post[tid]}&pid<!--{/if}-->={$post[id]}&modthreadkey={echo modauthkey($post['id']);}"  target="_blank" class="xi2">{lang views}</a><span class="pipe">|</span>
 								<a href="forum.php?mod=modcp&action=$_GET[action]&op=$op&posttableid=$posttableid&moderate[]={$post[id]}&modact=validate&filter=$filter&dosubmit=1" onclick="showWindow('mods', this.href)" class="xi2">{lang pass}</a><span class="pipe">|</span>
 								<a href="forum.php?mod=modcp&action=$_GET[action]&op=$op&posttableid=$posttableid&moderate[]={$post[id]}&modact=delete&filter=$filter&dosubmit=1" onclick="showWindow('mods', this.href)" class="xi2">{lang delete}</a><span class="pipe">|</span>
 								<a href="forum.php?mod=modcp&action=$_GET[action]&op=$op&posttableid=$posttableid&moderate[]={$post[id]}&modact=ignore&filter=$filter&dosubmit=1" onclick="showWindow('mods', this.href)" class="xi2">{lang ignore}</a><span class="pipe">|</span>
 								<a href="javascript:;" onclick="toggle_post($post[id]);" class="xi2">{lang open}</a>
 							</span>
 							<input type="checkbox" name="moderate[]" id="pidcheck_{$post[id]}" class="pc" value="$post[id]" onclick="recountobj()"/>
-							<a href="forum.php?mod=forumdisplay&fid={$post[fid]}" target="_blank" class="xi2 xw1">{$modforums[list][$post[fid]]}</a><!--{if !empty($post[tsubject])}--> &rsaquo; <span class="xw1">$post[tsubject]</span><!--{/if}--><!--{if $post[subject] && !$post[first]}--> &rsaquo; <span class="xw1">$post[subject]</span><!--{/if}-->
+							<a href="forum.php?mod=forumdisplay&fid={$post[fid]}" target="_blank" class="xi2 xw1">{$modforums[list][$post[fid]]}</a><!--{if !empty($post[tsubject])}--> &rsaquo; <span class="xw1">$post[tsubject]</span><!--{/if}--><!--{if $post[subject] && !$post[first]}--> &rsaquo; <span class="xw1">$post[subject]</span><!--{/if}--><!--{if !empty($post['censorwords'])}--> &rsaquo; <span class="xw1" style="color: red;">($post['censorwords'])</span><!--{/if}-->
 						</p>
 						<p class="pbn">
 							<span class="xi2">$post[author]</span>
 							<span class="xg1">{lang poston} $post[dateline]</span>
-							<div id="list_note_{$post[id]}" style="overflow: auto; overflow-x: hidden; height:55px; word-break: break-all;">
+							<div id="list_note_{$post[id]}" style="overflow: auto; overflow-x: hidden; height: 155px; word-break: break-all;">
 								$post[message] $post[attach] $post[sortinfo]
 							</div>
 						</p>

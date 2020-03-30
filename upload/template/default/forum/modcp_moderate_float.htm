@@ -26,13 +26,19 @@
 			<!--{loop $list $id}-->
 				<input type="hidden" name="moderate[]" value="$id" />
 			<!--{/loop}-->
-			<p>{lang mod_moderate_reason}: </p>
-			<p><textarea name="reason" cols="50" rows="3" class="pt mtn"></textarea></p>
+			<p>{lang mod_moderate_reason}: <a onclick="showselect(this, 'reason', 'reasonselect')" class="dpbtn" href="javascript:;" style="float: right; border-width: 1px;">^</a></p>
+			<p><textarea id="reason" name="reason" cols="50" rows="3" class="pt mtn"></textarea></p>
+			<ul id="reasonselect" style="display: none"><!--{echo modreasonselect()}--></ul>
 		<!--{else}-->
 			{lang mod_moderate_nonexistence}
 		<!--{/if}-->
 		</div>
 		<p class="o">
+			<!--{if $modact == 'delete' && $op != 'members'}-->
+				<label for="userban"><input type="checkbox" name="banuser" id="userban" class="pc" />{lang topicadmin_banuser}</label>
+				<label for="userdelpost"><input type="checkbox" name="userdelpost" id="userdelpost" class="pc" />{lang topicadmin_userdelpost}</label>
+				<label for="crimerecord"><input type="checkbox" name="crimerecord" id="crimerecord" class="pc" />{lang crimerecord}</label>
+			<!--{/if}-->
 			<button type="submit" name="modsubmit" id="modsubmit" class="pn pnc" value="true" tabindex="2"><strong>{lang submit}</strong></button>
 			<!--{if $op=='members'}--><label for="sendemail"><input type="checkbox" name="sendemail" id="sendemail" class="pc" value="1" />{lang mod_moderate_member_sendemail}</label><!--{/if}-->
 		</p>

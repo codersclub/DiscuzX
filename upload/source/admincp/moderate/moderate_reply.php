@@ -149,14 +149,14 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		}
 		showtagheader('tbody', '', true, 'hover');
 		showtablerow("id=\"mod_$post[pid]_row1\"", array("id=\"mod_$post[pid]_row1_op\" rowspan=\"3\" class=\"rowform threadopt\" style=\"width:80px;\"", '', 'width="120"', 'width="120"', 'width="55"'), array(
-			"<ul class=\"nofloat\"><li><input class=\"radio\" type=\"radio\" name=\"moderate[$post[pid]]\" id=\"mod_$post[pid]_1\" value=\"validate\" onclick=\"mod_setbg($post[pid], 'validate');\"><label for=\"mod_$post[pid]_1\">$lang[validate]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$post[pid]]\" id=\"mod_$post[pid]_2\" value=\"delete\" onclick=\"mod_setbg($post[pid], 'delete');\"><label for=\"mod_$post[pid]_2\">$lang[delete]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$post[pid]]\" id=\"mod_$post[pid]_3\" value=\"ignore\" onclick=\"mod_setbg($post[pid], 'ignore');\"><label for=\"mod_$post[pid]_3\">$lang[ignore]</label></li></ul>",
+			"<ul class=\"nofloat\"><li><input class=\"radio\" type=\"radio\" name=\"moderate[$post[pid]]\" id=\"mod_$post[pid]_1\" value=\"validate\" onclick=\"mod_setbg($post[pid], 'validate');document.getElementById('deloptions_$post[pid]').style.display='none';\"><label for=\"mod_$post[pid]_1\">$lang[validate]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$post[pid]]\" id=\"mod_$post[pid]_2\" value=\"delete\" onclick=\"mod_setbg($post[pid], 'delete');document.getElementById('deloptions_$post[pid]').style.display='inline';\"><label for=\"mod_$post[pid]_2\">$lang[delete]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$post[pid]]\" id=\"mod_$post[pid]_3\" value=\"ignore\" onclick=\"mod_setbg($post[pid], 'ignore');document.getElementById('deloptions_$post[pid]').style.display='none';\"><label for=\"mod_$post[pid]_3\">$lang[ignore]</label></li></ul>",
 			"<h3>$post[tsubject] &rsaquo; <a href=\"javascript:;\" onclick=\"display_toggle('$post[pid]');\">$post[subject]</a> $post_censor_text</h3><p>$post[useip]</p>",
 			"<a href=\"forum.php?mod=forumdisplay&fid=$post[fid]\">$post[forumname]</a>",
 			"<p><a target=\"_blank\" href=\"".ADMINSCRIPT."?action=members&operation=search&uid=$post[authorid]&submit=yes\">$post[author]</a></p> <p>$post[dateline]</p>",
 			"<a target=\"_blank\" href=\"forum.php?mod=redirect&goto=findpost&ptid=$post[tid]&pid=$post[pid]\">$lang[view]</a>&nbsp;<a href=\"forum.php?mod=viewthread&tid=$post[tid]&modthreadkey=$post[modthreadkey]\" target=\"_blank\">$lang[edit]</a>",
 		));
 		showtablerow("id=\"mod_$post[pid]_row2\"", 'colspan="4" style="padding: 10px; line-height: 180%;"', '<div style="overflow: auto; overflow-x: hidden; max-height:120px; height:auto !important; height:100px; word-break: break-all;">'.$post['message'].'</div>');
-		showtablerow("id=\"mod_$post[pid]_row3\"", 'class="threadopt threadtitle" colspan="4"', "<a href=\"?action=moderate&operation=replies&fast=1&fid=$post[fid]&tid=$post[tid]&pid=$post[pid]&moderate[$post[pid]]=validate&page=$page&posttableid=$posttable&frame=no\" target=\"fasthandle\">$lang[validate]</a> | <a href=\"?action=moderate&operation=replies&fast=1&fid=$post[fid]&tid=$post[tid]&pid=$post[pid]&moderate[$post[pid]]=delete&page=$page&posttableid=$posttable&frame=no\" target=\"fasthandle\">$lang[delete]</a> | <a href=\"?action=moderate&operation=replies&fast=1&fid=$post[fid]&tid=$post[tid]&pid=$post[pid]&moderate[$post[pid]]=ignore&page=$page&posttableid=$posttable&frame=no\" target=\"fasthandle\">$lang[ignore]</a>&nbsp;&nbsp;|&nbsp;&nbsp; ".$lang['moderate_reasonpm']."&nbsp; <input type=\"text\" class=\"txt\" name=\"pm_$post[pid]\" id=\"pm_$post[pid]\" style=\"margin: 0px;\"> &nbsp; <select style=\"margin: 0px;\" onchange=\"$('pm_$post[pid]').value=this.value\">$modreasonoptions</select>");
+		showtablerow("id=\"mod_$post[pid]_row3\"", 'class="threadopt threadtitle" colspan="4"', "<a href=\"?action=moderate&operation=replies&fast=1&fid=$post[fid]&tid=$post[tid]&pid=$post[pid]&moderate[$post[pid]]=validate&page=$page&posttableid=$posttable&frame=no\" target=\"fasthandle\">$lang[validate]</a> | <a href=\"?action=moderate&operation=replies&fast=1&fid=$post[fid]&tid=$post[tid]&pid=$post[pid]&moderate[$post[pid]]=delete&page=$page&posttableid=$posttable&frame=no\" target=\"fasthandle\">$lang[delete]</a> | <a href=\"?action=moderate&operation=replies&fast=1&fid=$post[fid]&tid=$post[tid]&pid=$post[pid]&moderate[$post[pid]]=ignore&page=$page&posttableid=$posttable&frame=no\" target=\"fasthandle\">$lang[ignore]</a>&nbsp;&nbsp;|&nbsp;&nbsp; ".$lang['moderate_reasonpm']."&nbsp; <input type=\"text\" class=\"txt\" name=\"pm_$post[pid]\" id=\"pm_$post[pid]\" style=\"margin: 0px;\"> &nbsp; <select style=\"margin: 0px;\" onchange=\"$('pm_$post[pid]').value=this.value\">$modreasonoptions</select>&nbsp;<p id=\"deloptions_$post[pid]\" style=\"display: none\"><label for=\"userban_$post[pid]\"><input type=\"checkbox\" name=\"banuser_$post[pid]\" id=\"userban_$post[pid]\" class=\"pc\" />".$lang['banuser']."</label><label for=\"userdelpost_$post[pid]\"><input type=\"checkbox\" name=\"userdelpost_$post[pid]\" id=\"userdelpost_$post[pid]\" class=\"pc\" />".$lang['userdelpost']."</label><label for=\"crimerecord_$post[pid]\"><input type=\"checkbox\" name=\"crimerecord_$post[pid]\" id=\"crimerecord_$post[pid]\" class=\"pc\" />".$lang['crimerecord']."</label></p>");
 		showtagfooter('tbody');
 
 	}
@@ -235,6 +235,31 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 					'notevar' => array('pid' => $post['pid'], 'post' => dhtmlspecialchars(cutstr($post['message'], 30)), 'reason' => dhtmlspecialchars($_GET[''.$pm])),
 					'authorid' => $post['authorid'],
 				);
+			}
+			if($_GET['crimerecord'.$post['pid']]) {
+				require_once libfile('function/member');
+				crime('recordaction', $post['authorid'], 'crime_delpost', lang('forum/misc', 'crime_postreason', array('reason' => dhtmlspecialchars($_GET[$pm]), 'tid' => $post['tid'], 'pid' => $post['pid'])));
+			}
+			if($_GET['banuser_'.$post['pid']] || $_GET['userdelpost_'.$post['pid']]) {
+				$members = C::t('common_member')->fetch_all((array)$post['authorid']);
+				$banuins = array();
+				foreach($members as $member) {
+					if(($_G['cache']['usergroups'][$member['groupid']]['type'] == 'system' &&
+						in_array($member['groupid'], array(1, 2, 3, 6, 7, 8))) || $_G['cache']['usergroups'][$member['groupid']]['type'] == 'special') {
+						continue;
+					}
+					$banuins[$member['uid']] = $member['uid'];
+				}
+				if($banuins) {
+					if($_GET['banuser_'.$post['pid']]) {
+						C::t('common_member')->update($banuins, array('groupid' => 4));
+					}
+
+					if($_GET['userdelpost_'.$post['pid']]) {
+						require_once libfile('function/delete');
+						deletememberpost($banuins);
+					}
+				}
 			}
 		}
 		require_once libfile('function/delete');
