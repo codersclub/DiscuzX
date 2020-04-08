@@ -502,7 +502,12 @@ class discuz_application extends discuz_base{
 				$memberfieldforum = C::t('common_member_field_forum')->fetch($discuz_uid);
 				$groupterms = dunserialize($memberfieldforum['groupterms']);
 				if(!empty($groupterms['main'])) {
-					$user['groupid'] = $groupterms['main']['groupid'] ? $groupterms['main']['groupid'] : C::t('common_usergroup')->fetch_by_credits($user['credits'])['groupid'];
+					if($groupterms['main']['groupid']) {
+						$user['groupid'] = $groupterms['main']['groupid'];
+					} else {
+						$groupnew = C::t('common_usergroup')->fetch_by_credits($user['credits']);
+						$user['groupid'] = $groupnew['groupid'];
+					}
 					$user['adminid'] = $groupterms['main']['adminid'];
 					C::t("common_member")->update($user['uid'], array('groupexpiry'=> 0, 'groupid' => $user['groupid'], 'adminid' => $user['adminid']));
 					unset($groupterms['main'], $groupterms['ext'][$this->var['member']['groupid']]);
