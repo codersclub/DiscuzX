@@ -576,7 +576,7 @@ function loadcss(cssname) {
 			var headNode = document.getElementsByTagName("head")[0];
 			headNode.appendChild(css);
 		} else {
-			$('css_' + cssname).href = csspath + STYLEID + '_' + cssname + '&' + VERHASH;
+			$('css_' + cssname).href = csspath + STYLEID + '_' + cssname + '.css?' + VERHASH;
 		}
 		CSSLOADED[cssname] = 1;
 	}
