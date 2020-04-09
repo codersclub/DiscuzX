@@ -562,8 +562,13 @@ function fixed_top_nv(eleid, disbind) {
 
 			var next = this.nv;
 			try {
-				while((next = next.nextSibling).nodeType != 1 || next.style.display === 'none') {}
-				this.nvdata.next = next;
+				if(this.nv.parentNode.id.substr(-3) != '_ph') {
+					var nvparent = document.createElement('div');
+					nvparent.id = this.nv.id + '_ph';
+					this.nv.parentNode.insertBefore(nvparent,this.nv);
+					nvparent.appendChild(this.nv);
+				}
+				this.nvdata.next = this.nv.parentNode;
 				this.nvdata.height = parseInt(this.nv.offsetHeight, 10);
 				this.nvdata.width = parseInt(this.nv.offsetWidth, 10);
 				this.nvdata.left = this.nv.getBoundingClientRect().left - document.documentElement.clientLeft;
@@ -579,7 +584,7 @@ function fixed_top_nv(eleid, disbind) {
 		var fixedheight = 0;
 		if(this.openflag && this.nvdata.next){
 			var nvnexttop = document.body.scrollTop || document.documentElement.scrollTop;
-			var dofixed = nvnexttop !== 0 && document.documentElement.clientHeight >= 15 && this.nvdata.next.getBoundingClientRect().top - this.nvdata.height < 0;
+			var dofixed = nvnexttop !== 0 && document.documentElement.clientHeight >= 15 && this.nvdata.next.getBoundingClientRect().top < 0;
 			if(dofixed) {
 				if(this.nv.style.position != 'fixed') {
 					this.nv.style.borderLeftWidth = '0';
@@ -591,6 +596,7 @@ function fixed_top_nv(eleid, disbind) {
 					this.nv.style.position = 'fixed';
 					this.nv.style.zIndex = '199';
 					this.nv.style.opacity = 0.85;
+					this.nv.parentNode.style.height = this.nvdata.height + 'px';
 				}
 			} else {
 				if(this.nv.style.position != this.nvdata.position) {
@@ -611,6 +617,7 @@ function fixed_top_nv(eleid, disbind) {
 			this.nv.style.height = '';
 			this.nv.style.width = '';
 			this.nv.style.opacity = this.nvdata.opacity;
+			this.nv.parentNode.style.height = '';
 		}
 	};
 	if(!disbind && this.openflag) {

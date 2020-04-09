@@ -39,7 +39,7 @@ $data = array(
 	'name' => lang('plugin/wechat', 'resource_thread_push').': '.$thread['subject'],
 	'data' => array(
 	    'title' => $thread['subject'],
-	    'pic' => $picurl ? (preg_match('/^http:/', $picurl) ? '' : $_G['siteurl']).$picurl : '',
+	    'pic' => $picurl ? (preg_match('/^https?:/', $picurl) ? '' : $_G['siteurl']).$picurl : '',
 	    'desc' => messagecutstr($post['message'], 0, 120),
 	    'content' => nl2br(messagecutstr($post['message'])),
 	    'url' => $_G['siteurl'].'forum.php?mod=viewthread&tid='.$_GET['tid'],

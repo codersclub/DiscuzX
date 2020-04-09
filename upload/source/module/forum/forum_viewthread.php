@@ -404,6 +404,9 @@ if(empty($_GET['viewpid'])) {
 	if($_G['page'] === 1 && $_G['forum_thread']['stickreply'] && empty($_GET['authorid'])) {
 		$poststick = C::t('forum_poststick')->fetch_all_by_tid($_G['tid']);
 		foreach(C::t('forum_post')->fetch_all($posttableid, array_keys($poststick)) as $post) {
+			if($post['invisible'] != 0) {
+				continue;
+			}
 			$post['position'] = $poststick[$post['pid']]['position'];
 			$post['avatar'] = avatar($post['authorid'], 'small');
 			$post['isstick'] = true;
@@ -669,7 +672,7 @@ foreach($postarr as $post) {
 				continue;
 			}
 			$_G['forum_firstpid'] = $post['pid'];
-			if(!$_G['forum_thread']['price'] && (IS_ROBOT || $_G['adminid'] == 1)) $summary = str_replace(array("\r", "\n"), '', messagecutstr(strip_tags($post['message']), 160));
+			if(!$_G['forum_thread']['price']) $summary = str_replace(array("\r", "\n"), '', messagecutstr(strip_tags($post['message']), 160));
 			$tagarray_all = $posttag_array = array();
 			$tagarray_all = explode("\t", $post['tags']);
 			if($tagarray_all) {

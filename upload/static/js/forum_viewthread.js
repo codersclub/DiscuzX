@@ -619,19 +619,14 @@ function fixed_avatar(pids, fixednv) {
 			var avatarstyle = postavatar.style;
 			posttabletop = parseInt(posttable.getBoundingClientRect().top);
 			nextposttop = parseInt(nextpost.getBoundingClientRect().top);
-			if(nextposttop > 0 && nextposttop <= postavatar.offsetHeight) {
-				if(BROWSER.firefox) {
-					if(avatarstyle.position != 'fixed') {
-						avatarstyle.position = 'fixed';
-					}
-					avatarstyle.top = -(postavatar.offsetHeight - nextposttop)+'px';
-				} else {
+			if(nextposttop > avatartop && nextposttop <= postavatar.offsetHeight + avatartop) {
+				if(avatarstyle.position != 'absolute') {
 					postavatar.parentNode.style.position = 'relative';
 					avatarstyle.top = '';
 					avatarstyle.bottom = '0px';
 					avatarstyle.position = 'absolute';
 				}
-			} else if(posttabletop < 0 && nextposttop > 0) {
+			} else if(posttabletop < avatartop && nextposttop > avatartop) {
 					if(postavatar.parentNode.style.position != '') {
 						postavatar.parentNode.style.position = '';
 					}

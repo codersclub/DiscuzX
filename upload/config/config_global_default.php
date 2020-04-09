@@ -106,7 +106,7 @@ $_config['memory']['redis']['timeout'] = 0;
 $_config['memory']['redis']['requirepass'] = '';
 $_config['memory']['redis']['db'] = 0;				//这里可以填写0到15的数字，每个站点使用不同的db
 /**
- * 此配置现在已经取消，默认对array使用json进行编码保存，其它数据直接原样保存 
+ * 此配置现在已经取消，默认对array使用php serializer进行编码保存，其它数据直接原样保存 
  */
 // $_config['memory']['redis']['serializer'] = 1;
 
@@ -149,6 +149,8 @@ $_config['output']['tplrefresh'] 		= 1;		// 模板自动刷新开关 0=关闭, 1
 $_config['output']['language'] 			= 'zh_cn';	// 页面语言 zh_cn/zh_tw
 $_config['output']['staticurl'] 		= 'static/';	// 站点静态文件路径，“/”结尾
 $_config['output']['ajaxvalidate']		= 0;		// 是否严格验证 Ajax 页面的真实性 0=关闭，1=打开
+$_config['output']['iecompatible']		= 0;		// 页面 IE 兼容模式
+$_config['output']['upgradeinsecure']	= 1;		// 在HTTPS环境下请求浏览器升级HTTP内链到HTTPS，此选项与自定义CSP冲突 0=关闭，1=打开(默认)
 
 // COOKIE 设置
 $_config['cookie']['cookiepre'] 		= 'discuz_'; 	// COOKIE前缀

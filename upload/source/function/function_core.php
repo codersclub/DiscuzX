@@ -1667,7 +1667,7 @@ function g_icon($groupid, $return = 0) {
 	if(empty($_G['cache']['usergroups'][$groupid]['icon'])) {
 		$s =  '';
 	} else {
-		if(substr($_G['cache']['usergroups'][$groupid]['icon'], 0, 5) == 'http:') {
+		if(preg_match('/^https?:\/\//is', $_G['cache']['usergroups'][$groupid]['icon'])) {
 			$s = '<img src="'.$_G['cache']['usergroups'][$groupid]['icon'].'" alt="" class="vm" />';
 		} else {
 			$s = '<img src="'.$_G['setting']['attachurl'].'common/'.$_G['cache']['usergroups'][$groupid]['icon'].'" alt="" class="vm" />';
@@ -2023,7 +2023,7 @@ function userappprompt() {
 }
 
 function dintval($int, $allowarray = false) {
-	$ret = floatval($int);
+	$ret = intval($int);
 	if($int == $ret || !$allowarray && is_array($int)) return $ret;
 	if($allowarray && is_array($int)) {
 		foreach($int as &$v) {

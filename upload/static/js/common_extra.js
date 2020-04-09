@@ -1091,10 +1091,6 @@ function _extstyle(css) {
 	$('css_extstyle').href = css ? css + '/style.css' : STATICURL + 'image/common/extstyle_none.css';
 	currentextstyle = css;
 	setcookie('extstyle', css, 86400 * 30);
-	if($('css_widthauto') && !$('css_widthauto').disabled) {
-		CSSLOADED['widthauto'] = 0;
-		loadcss('widthauto');
-	}
 }
 
 function _widthauto(obj) {

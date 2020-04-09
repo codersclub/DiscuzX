@@ -790,7 +790,7 @@ $lang = array
 	'setting_access_register_maildomain_white' => '白名单模式',
 	'setting_access_register_maildomain_black' => '黑名单模式',
 	'setting_access_register_maildomain_list' => '限制名单',
-	'setting_access_register_maildomain_list_comment' => '当邮箱的域名处于本列表中的地址时，将根据上述选项进行相应限制操作。输入要限制的邮箱域名即可，例如屏蔽 xxx@xxx.com 的域，只需输入 xxx.com。每行一个域名。',
+	'setting_access_register_maildomain_list_comment' => '当邮箱的域名处于本列表中的地址时，将根据上述选项进行相应限制操作。输入要限制的邮箱域名即可，例如屏蔽 xxx@xxx.com 的域，只需输入 @xxx.com。每行一个域名。',
 	'setting_access_register_ctrl' => '同一 IP 注册间隔限制(小时)',
 	'setting_access_register_ctrl_comment' => '同一 IP 在本时间间隔内将只能注册一个帐号，0 为不限制',
 	'setting_access_register_floodctrl' => '同一 IP 在 24 小时允许注册的最大次数',
@@ -2298,7 +2298,7 @@ $lang = array
 	'setting_sec_accountguard_loginpwcheck_prompt' => '开启并提示',
 	'setting_sec_accountguard_loginpwcheck_force' => '开启并强制修改弱密码',
 	'setting_sec_accountguard_loginoutofdate' => '异常登录检测',
-	'setting_sec_accountguard_loginoutofdate_comment' => '当用户异地登录且距离上次登录超过 90 天时，帐号会进入未审核组，用户可以通过验证邮箱或者申诉解冻帐号，QQ登录的用户不受此功能影响 <a href="'.ADMINSCRIPT.'?frames=yes&action=moderate&operation=members">审核用户</a>',
+	'setting_sec_accountguard_loginoutofdate_comment' => '当用户异地登录且距离上次登录超过 90 天时，帐号会进入未审核组，用户可以通过验证邮箱或者申诉解冻帐号，QQ登录的用户不受此功能影响 <a href="'.ADMINSCRIPT.'?action=moderate&operation=members">审核用户</a>',
 
 
 	'setting_attach' => '上传设置',
@@ -5259,6 +5259,7 @@ $lang = array
 	'plugins_config_uninstall' => '卸载',
 	'plugins_config_upgrade' => '更新',
 	'plugins_config_delete' => '卸载',
+	'plugins_config_uninstall_tips' => '您确定要把 {pluginname} 插件卸载并不可逆的删除由 {pluginname} 插件产生的所有数据么？',
 	'plugins_config_upgrade_other' => '您确定要把 {pluginname} {version} 插件更新到以下版本吗？',
 	'plugins_config_uninstallplugin' => '卸载此插件',
 	'plugins_edit' => '设计插件',

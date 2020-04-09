@@ -40,7 +40,7 @@ class WSQAPI {
 		}
 		global $_G;
 		$variables['thread']['showactivity'] = 1;
-		$variables['special_activity']['thumb'] = preg_match('/^http:\//', $GLOBALS['activity']['thumb']) ? $GLOBALS['activity']['thumb'] : $_G['siteurl'].$GLOBALS['activity']['thumb'];
+		$variables['special_activity']['thumb'] = preg_match('/^https?:\//', $GLOBALS['activity']['thumb']) ? $GLOBALS['activity']['thumb'] : $_G['siteurl'].$GLOBALS['activity']['thumb'];
 		unset($variables['special_activity']['attachurl']);
 
 		if(empty($_GET['viewpid'])) {

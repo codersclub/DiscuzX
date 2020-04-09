@@ -438,7 +438,7 @@ function fileQueued(file) {
 				}
 			}
 			if(createQueue && this.customSettings.filterType != undefined) {
-				var fileSize = this.customSettings.filterType[file.type.substr(1).toLowerCase()];
+				var fileSize = this.customSettings.filterType[file.source.ext.toLowerCase()];
 				if(fileSize != undefined && fileSize && file.size > fileSize) {
 					this.customSettings.alertType = 5;
 					createQueue = false;

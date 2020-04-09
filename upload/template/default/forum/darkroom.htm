@@ -20,7 +20,7 @@
 	<!--{loop $crimelist $crime}-->
 	<!--{eval $i++;}-->
 	<tr id="darkroomuid_$crime[uid]" {if $i % 2 == 0} class="alt"{/if}>
-		<td><a href="home.php?mod=space&uid=$crime[uid]" targe="_blank">$crime[username]</a></td>
+		<td><a href="home.php?mod=space&uid=$crime[uid]" target="_blank">$crime[username]</a></td>
 		<td>$crime[action]</td>
 		<td>$crime[groupexpiry]</td>
 		<td>$crime[dateline]</td>

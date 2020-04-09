@@ -172,12 +172,12 @@ function function_check(&$func_items) {
 	}
 }
 
-function dintval($int, $allowarray = false) {
+function dfloatval($int, $allowarray = false) {
 	$ret = floatval($int);
 	if($int == $ret || !$allowarray && is_array($int)) return $ret;
 	if($allowarray && is_array($int)) {
 		foreach($int as &$v) {
-			$v = dintval($v, true);
+			$v = dfloatval($v, true);
 		}
 		return $int;
 	} elseif($int <= 0xffffffff) {
@@ -200,8 +200,8 @@ function show_env_result(&$env_items, &$dirfile_items, &$func_items, &$filesock_
 		}
 		$status = 1;
 		if($item['r'] != 'notset') {
-			if(dintval($item['current']) && dintval($item['r'])) {
-				if(dintval($item['current']) < dintval($item['r'])) {
+			if(dfloatval($item['current']) && dfloatval($item['r'])) {
+				if(dfloatval($item['current']) < dfloatval($item['r'])) {
 					$status = 0;
 					$error_code = ENV_CHECK_ERROR;
 				}
@@ -1396,7 +1396,7 @@ function install_uc_server() {
 
 	$pathinfo = pathinfo($_SERVER['PHP_SELF']);
 	$pathinfo['dirname'] = substr($pathinfo['dirname'], 0, -8);
-	$isHTTPS = ($_SERVER['HTTPS'] && strtolower($_SERVER['HTTPS']) != 'off') ? true : false;
+	$isHTTPS = is_https();
 	$appurl = 'http'.($isHTTPS ? 's' : '').'://'. $_SERVER['HTTP_HOST'].$pathinfo['dirname'];
 	$ucapi = $appurl.'/uc_server';
 	$ucip = '';
@@ -1915,4 +1915,23 @@ function read_install_log_file() {
 
 function send_mime_type_header($type = 'application/xml') {
 	header("Content-Type: ".$type);
+}
+
+function is_https() {
+	if (isset($_SERVER["HTTPS"]) && strtolower($_SERVER["HTTPS"]) != "off") {
+		return true;
+	}
+	if (isset($_SERVER["HTTP_X_FORWARDED_PROTO"]) && strtolower($_SERVER["HTTP_X_FORWARDED_PROTO"]) == "https") {
+		return true;
+	}
+	if (isset($_SERVER["HTTP_SCHEME"]) && strtolower($_SERVER["HTTP_SCHEME"]) == "https") {
+		return true;
+	}
+	if (isset($_SERVER["HTTP_FROM_HTTPS"]) && strtolower($_SERVER["HTTP_FROM_HTTPS"]) != "off") {
+		return true;
+	}
+	if (isset($_SERVER["SERVER_PORT"]) && $_SERVER["SERVER_PORT"] == 443) {
+		return true;
+	}
+	return false;
 }

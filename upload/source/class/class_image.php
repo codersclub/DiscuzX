@@ -196,6 +196,8 @@ class image {
 			$content = fread($fp, $this->imginfo['size']);
 			fclose($fp);
 			$this->imginfo['animated'] = strpos($content, 'NETSCAPE2.0') === FALSE ? 0 : 1;
+		} else {
+			$this->imginfo['animated'] = 0;
 		}
 
 		return $this->imagecreatefromfunc ? 1 : -4;

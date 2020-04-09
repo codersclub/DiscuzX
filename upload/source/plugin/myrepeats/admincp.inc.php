@@ -15,7 +15,7 @@ $Plang = $scriptlang['myrepeats'];
 
 if($_GET['op'] == 'lock') {
 	$myrepeat = C::t('#myrepeats#myrepeats')->fetch_all_by_uid_username($_GET['uid'], $_GET['username']);
-	$lock = $myrepeat['lock'];
+	$lock = $myrepeat[0]['locked'];
 	$locknew = $lock ? 0 : 1;
 	C::t('#myrepeats#myrepeats')->update_locked_by_uid_username($_GET['uid'], $_GET['username'], $locknew);
 	ajaxshowheader();

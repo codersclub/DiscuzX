@@ -121,7 +121,7 @@ if(!submitcheck('settingsubmit')) {
 	}
 
 	if($_GET['setting']['wechat_followurl']) {
-		$_GET['setting']['wechat_followurl'] = (!preg_match('/^http:\/\//', $_GET['setting']['wechat_followurl']) ? 'http://' : '').$_GET['setting']['wechat_followurl'];
+		$_GET['setting']['wechat_followurl'] = (!preg_match('/^https?:\/\//', $_GET['setting']['wechat_followurl']) ? 'http://' : '').$_GET['setting']['wechat_followurl'];
 		$parse = parse_url($_GET['setting']['wechat_followurl']);
 		if(!$parse['host'] || $parse['host'] != 'mp.weixin.qq.com') {
 			cpmsg(lang('plugin/wechat', 'wsq_followurl_error'), '', 'error');
