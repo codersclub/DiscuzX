@@ -33,7 +33,7 @@ class creditcontrol extends base {
 		if(isset($this->settings['creditexchange'][$this->app['appid'].'_'.$from.'_'.$toappid.'_'.$to])) {
 			$toapp = $app = $this->cache['apps'][$toappid];
 			$apifilename = isset($toapp['apifilename']) && $toapp['apifilename'] ? $toapp['apifilename'] : 'uc.php';
-			if($toapp['extra']['apppath'] && @include $toapp['extra']['apppath'].'./api/'.$apifilename) {
+			if($toapp['extra']['apppath'] && $this->detectescape($toapp['extra']['apppath'].'./api/', $apifilename) && substr(strrchr($apifilename, '.'), 1, 10) == 'php' && @include $toapp['extra']['apppath'].'./api/'.$apifilename) {
 				$uc_note = new uc_note();
 				$status = $uc_note->updatecredit(array('uid' => $uid, 'credit' => $to, 'amount' => $amount), '');
 			} else {

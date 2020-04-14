@@ -291,7 +291,7 @@ class usercontrol extends base {
 		$this->load('misc');
 		$app = $this->cache['apps'][$appid];
 		$apifilename = isset($app['apifilename']) && $app['apifilename'] ? $app['apifilename'] : 'uc.php';
-		if($app['extra']['apppath'] && substr(strrchr($apifilename, '.'), 1, 10) == 'php' && @include $app['extra']['apppath'].'./api/'.$apifilename) {
+		if($app['extra']['apppath'] && $this->detectescape($app['extra']['apppath'].'./api/', $apifilename) && substr(strrchr($apifilename, '.'), 1, 10) == 'php' && @include $app['extra']['apppath'].'./api/'.$apifilename) {
 			$uc_note = new uc_note();
 			return $uc_note->getcredit(array('uid' => $uid, 'credit' => $credit), '');
 		} else {
