@@ -31,7 +31,7 @@ function sendmail($toemail, $subject, $message, $from = '') {
 			$_G['setting']['mail']['auth_password'] = $smtp['auth_password'];
 		}
 	}
-	$message = preg_replace("/href\=\"(?!(http|https)\:\/\/)(.+?)\"/i", 'href="'.$_G['siteurl'].'\\2"', $message);
+	$message = preg_replace("/href\=\"(?!(http|https)\:\/\/)(.+?)\"/i", 'href="'.$_G['setting']['securesiteurl'].'\\2"', $message);
 
 $message = <<<EOT
 <html>
@@ -208,6 +208,7 @@ EOT;
 }
 
 function sendmail_cron($toemail, $subject, $message) {
+	global $_G;
 
 	$toemail = addslashes($toemail);
 
@@ -218,7 +219,7 @@ function sendmail_cron($toemail, $subject, $message) {
 	} else {
 		$cid = C::t('common_mailcron')->insert(array('email' => $toemail), true);
 	}
-	$message = preg_replace("/href\=\"(?!(http|https)\:\/\/)(.+?)\"/i", 'href="'.$_G['siteurl'].'\\1"', $message);
+	$message = preg_replace("/href\=\"(?!(http|https)\:\/\/)(.+?)\"/i", 'href="'.$_G['setting']['securesiteurl'].'\\1"', $message);
 	$setarr = array(
 		'cid' => $cid,
 		'subject' => $subject,
@@ -262,7 +263,7 @@ function sendmail_touser($touid, $subject, $message, $mailtype='') {
 				'sendtime' => $sendtime,
 			), true);
 		}
-		$message = preg_replace("/href\=\"(?!(http|https)\:\/\/)(.+?)\"/i", 'href="'.$_G['siteurl'].'\\1"', $message);
+		$message = preg_replace("/href\=\"(?!(http|https)\:\/\/)(.+?)\"/i", 'href="'.$_G['setting']['securesiteurl'].'\\1"', $message);
 		$setarr = array(
 			'cid' => $cid,
 			'subject' => $subject,

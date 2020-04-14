@@ -616,12 +616,12 @@ function emailcheck_send($uid, $email) {
 		C::t('common_member_field_forum')->update($uid, array('authstr' => "$timestamp\t3\t$idstring"));
 
 		$hash = authcode("$uid\t$email\t$timestamp", 'ENCODE', md5(substr(md5($_G['config']['security']['authkey']), 0, 16)));
-		$verifyurl = $_G['siteurl'].'home.php?mod=misc&amp;ac=emailcheck&amp;hash='.urlencode($hash);
+		$verifyurl = $_G['setting']['securesiteurl'].'home.php?mod=misc&amp;ac=emailcheck&amp;hash='.urlencode($hash);
 		$mailsubject = lang('email', 'email_verify_subject');
 		$mailmessage = lang('email', 'email_verify_message', array(
 			'username' => $_G['member']['username'],
 			'bbname' => $_G['setting']['bbname'],
-			'siteurl' => $_G['siteurl'],
+			'siteurl' => $_G['setting']['securesiteurl'],
 			'url' => $verifyurl
 		));
 

@@ -105,7 +105,7 @@ if($op == 'add') {
 			require_once libfile('function/mail');
 			$values = array(
 				'username' => $tospace['username'],
-				'url' => getsiteurl().'home.php?mod=spacecp&ac=friend&amp;op=request'
+				'url' => $_G['setting']['securesiteurl'].'home.php?mod=spacecp&ac=friend&amp;op=request'
 			);
 			sendmail_touser($uid, lang('spacecp', 'friend_subject', $values), '', 'friend_add');
 			showmessage('request_has_been_sent', dreferer(), array(), array('showdialog'=>1, 'showmsg' => true, 'closetime' => true));

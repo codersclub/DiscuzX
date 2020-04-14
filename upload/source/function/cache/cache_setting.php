@@ -479,6 +479,8 @@ function build_cache_setting() {
 	
 	$data['parseflv'] = get_cachedata_discuzcode_parseflv();
 
+	$data['securesiteurl'] = $_G['siteurl'];
+
 	savecache('setting', $data);
 	$_G['setting'] = $data;
 }
