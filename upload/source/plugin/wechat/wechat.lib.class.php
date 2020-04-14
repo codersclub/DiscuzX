@@ -79,24 +79,24 @@ class WeChatServer {
 
 		switch ($result['type']) {
 			case 'text':
-				$result['content'] = (string) $postObj->Content; // Content ÏûÏ¢ÄÚÈÝ
+				$result['content'] = (string) $postObj->Content; // Content æ¶ˆæ¯å†…å®¹
 				break;
 
 			case 'location':
-				$result['X'] = (float) $postObj->Location_X; // Location_X µØÀíÎ»ÖÃÎ³¶È
-				$result['Y'] = (float) $postObj->Location_Y; // Location_Y µØÀíÎ»ÖÃ¾­¶È
-				$result['S'] = (float) $postObj->Scale;      // Scale µØÍ¼Ëõ·Å´óÐ¡
-				$result['I'] = (string) $postObj->Label;     // Label µØÀíÎ»ÖÃÐÅÏ¢
+				$result['X'] = (float) $postObj->Location_X; // Location_X åœ°ç†ä½ç½®çº¬åº¦
+				$result['Y'] = (float) $postObj->Location_Y; // Location_Y åœ°ç†ä½ç½®ç»åº¦
+				$result['S'] = (float) $postObj->Scale;      // Scale åœ°å›¾ç¼©æ”¾å¤§å°
+				$result['I'] = (string) $postObj->Label;     // Label åœ°ç†ä½ç½®ä¿¡æ¯
 				break;
 
 			case 'image':
-				$result['url'] = (string) $postObj->PicUrl;  // PicUrl Í¼Æ¬Á´½Ó£¬¿ª·¢Õß¿ÉÒÔÓÃHTTP GET»ñÈ¡
-				$result['mid'] = (string) $postObj->MediaId; // MediaId Í¼Æ¬ÏûÏ¢Ã½Ìåid£¬¿ÉÒÔµ÷ÓÃ¶àÃ½ÌåÎÄ¼þÏÂÔØ½Ó¿ÚÀ­È¡Êý¾Ý¡£
+				$result['url'] = (string) $postObj->PicUrl;  // PicUrl å›¾ç‰‡é“¾æŽ¥ï¼Œå¼€å‘è€…å¯ä»¥ç”¨HTTP GETèŽ·å–
+				$result['mid'] = (string) $postObj->MediaId; // MediaId å›¾ç‰‡æ¶ˆæ¯åª’ä½“idï¼Œå¯ä»¥è°ƒç”¨å¤šåª’ä½“æ–‡ä»¶ä¸‹è½½æŽ¥å£æ‹‰å–æ•°æ®ã€‚
 				break;
 
 			case 'video':
-				$result['mid'] = (string) $postObj->MediaId;      // MediaId Í¼Æ¬ÏûÏ¢Ã½Ìåid£¬¿ÉÒÔµ÷ÓÃ¶àÃ½ÌåÎÄ¼þÏÂÔØ½Ó¿ÚÀ­È¡Êý¾Ý¡£
-				$result['thumbmid'] = (string) $postObj->ThumbMediaId; // ThumbMediaId ÊÓÆµÏûÏ¢ËõÂÔÍ¼µÄÃ½Ìåid£¬¿ÉÒÔµ÷ÓÃ¶àÃ½ÌåÎÄ¼þÏÂÔØ½Ó¿ÚÀ­È¡Êý¾Ý¡£
+				$result['mid'] = (string) $postObj->MediaId;      // MediaId å›¾ç‰‡æ¶ˆæ¯åª’ä½“idï¼Œå¯ä»¥è°ƒç”¨å¤šåª’ä½“æ–‡ä»¶ä¸‹è½½æŽ¥å£æ‹‰å–æ•°æ®ã€‚
+				$result['thumbmid'] = (string) $postObj->ThumbMediaId; // ThumbMediaId è§†é¢‘æ¶ˆæ¯ç¼©ç•¥å›¾çš„åª’ä½“idï¼Œå¯ä»¥è°ƒç”¨å¤šåª’ä½“æ–‡ä»¶ä¸‹è½½æŽ¥å£æ‹‰å–æ•°æ®ã€‚
 				break;
 
 			case 'link':
@@ -305,7 +305,7 @@ class WeChatClient {
 
 	public static $_URL_API_ROOT = 'https://api.weixin.qq.com';
 	public static $_URL_FILE_API_ROOT = 'http://file.api.weixin.qq.com';
-	public static $_URL_QR_ROOT = 'http://mp.weixin.qq.com';
+	public static $_URL_QR_ROOT = 'https://mp.weixin.qq.com';
 	public static $_QRCODE_TICKET_DEFAULT_ID = 1;
 	public static $ERRCODE_MAP = array(
 	    '-1' => '&#x7CFB;&#x7EDF;&#x7E41;&#x5FD9;',
