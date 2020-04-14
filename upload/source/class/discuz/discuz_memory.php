@@ -90,6 +90,16 @@ class discuz_memory extends discuz_base
 		}
 		return $ret;
 	}
+	
+	public function add($key, $value, $ttl = 0, $prefix = '') {
+		$ret = false;
+		if($value === false) $value = '';
+		if($this->enable) {
+			$this->userprefix = $prefix;
+			$ret = $this->memory->add($this->_key($key), $value, $ttl);
+		}
+		return $ret;
+	}
 
 	public function rm($key, $prefix = '') {
 		$ret = false;

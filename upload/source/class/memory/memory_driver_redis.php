@@ -89,6 +89,10 @@ class memory_driver_redis {
 		}
 	}
 
+	function add($key, $value, $ttl = 0) {
+		return $this->obj->set($key, $value, ['nx', 'ex' => $ttl]);
+	}
+
 	function rm($key) {
 		return $this->obj->delete($key);
 	}

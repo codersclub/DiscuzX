@@ -48,6 +48,10 @@ class memory_driver_memcache {
 		return $this->obj->set($key, $value, MEMCACHE_COMPRESSED, $ttl);
 	}
 
+	public function add($key, $value, $ttl = 0) {
+		return $this->obj->add($key, $value, MEMCACHE_COMPRESSED, $ttl);
+	}
+
 	public function rm($key) {
 		return $this->obj->delete($key);
 	}

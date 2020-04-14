@@ -44,6 +44,10 @@ class memory_driver_memcached
 		return $this->obj->set($key, $value, $ttl);
 	}
 
+	public function add($key, $value, $ttl = 0) {
+		return $this->obj->add($key, $value, $ttl);
+	}
+
 	public function rm($key) {
 		return $this->obj->delete($key);
 	}

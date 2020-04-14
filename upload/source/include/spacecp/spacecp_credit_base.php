@@ -163,6 +163,9 @@ if($_GET['op'] == 'base') {
 	}
 
 } elseif ($_GET['op'] == 'transfer') {
+	if($_G['setting']['submitlock'] && discuz_process::islocked('transferlock_'.$_G['uid'], 0, 1)){
+		showmessage('credits_transfer_msg_locked', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
+	}
 
 	if(!($_G['setting']['transferstatus'] && $_G['group']['allowtransfer'])) {
 		showmessage('action_closed', NULL);
@@ -214,6 +217,9 @@ if($_GET['op'] == 'base') {
 	}
 
 	if(submitcheck('exchangesubmit')) {
+		if($_G['setting']['submitlock'] && discuz_process::islocked('exchangelock_'.$_G['uid'], 0, 1)){
+			showmessage('memcp_credits_exchange_msg_locked', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
+		}
 
 		$tocredits = $_GET['tocredits'];
 		$fromcredits = $_GET['fromcredits'];

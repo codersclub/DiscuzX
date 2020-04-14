@@ -341,6 +341,9 @@ if($action == 'shop') {
 			$useperoid = magic_peroid($magic, $_G['uid']);
 
 			if(submitcheck('usesubmit')) {
+				if(discuz_process::islocked('magiclock_'.$_G['uid'].'_'.$magicid, 0, 1)) {
+					showmessage('magics_locked');
+				}
 				if($useperoid !== true && $useperoid <= 0) {
 					showmessage('magics_outofperoid_'.$magic['useperoid'], '', array('usenum' => $magic['usenum']));
 				}
@@ -360,6 +363,10 @@ if($action == 'shop') {
 				include template('home/space_magic_mybox_opreation');
 				dexit();
 			} else {
+				if(discuz_process::islocked('magiclock_'.$_G['uid'].'_'.$magicid, 0, 1)) {
+					showmessage('magics_locked');
+				}
+				
 				$magicnum = intval($_GET['magicnum']);
 
 				if(!$magicnum || $magicnum < 0) {
@@ -407,7 +414,9 @@ if($action == 'shop') {
 				dexit();
 
 			} else {
-
+				if($_G['setting']['submitlock'] && discuz_process::islocked('magiclock_'.$_G['uid'].'_'.$magicid, 0, 1)) {
+					showmessage('magics_locked');
+				}
 				$magicnum = intval($_GET['magicnum']);
 				$toname = dhtmlspecialchars(trim($_GET['tousername']));
 				if(!$toname) {

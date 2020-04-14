@@ -1813,6 +1813,8 @@ $lang = array
 	'setting_functions_other_uidlogin_comment' => '选择“是”，站点登录时允许通过 UID的方式登录验证',
 	'setting_functions_other_autoidselect' => '启用登录自动选择帐号',
 	'setting_functions_other_autoidselect_comment' => '选择“是”，站点登录时的将自动按 UID、E-mail、用户名的顺序逐一去匹配，其中UID验证只有UID登录方式被启用后才有效',
+	'setting_functions_other_submitlock' => '<span class="spectitle">启用表单防并发功能</span>',
+	'setting_functions_other_submitlock_comment' => '选择“是”，将会防止用户同一时间提交多次表单，可有效防止可能刷分的问题。注意: 在未使用内存缓存(Redis、Memcached)的情况下，本功能可能会加重服务器负担',
 	'setting_functions_other_rssstatus' => '<span class="spectitle">启用 RSS</span>',
 	'setting_functions_other_rssstatus_comment' => '选择“是”，将允许用户使用 RSS 客户端软件接收最新的帖子、文章更新。注意: 在分类很多的情况下，本功能可能会加重服务器负担',
 	'setting_functions_other_rssttl' => '<span class="spectitle">RSS TTL(分钟)</span>',

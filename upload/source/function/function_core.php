@@ -1708,18 +1708,19 @@ function getposttable($tableid = 0, $prefix = false) {
 function memory($cmd, $key='', $value='', $ttl = 0, $prefix = '') {
 	if($cmd == 'check') {
 		return  C::memory()->enable ? C::memory()->type : '';
-	} elseif(C::memory()->enable && in_array($cmd, array('set', 'get', 'rm', 'inc', 'dec'))) {
+	} elseif(C::memory()->enable && in_array($cmd, array('set', 'add', 'get', 'rm', 'inc', 'dec'))) {
 		if(defined('DISCUZ_DEBUG') && DISCUZ_DEBUG) {
 			if(is_array($key)) {
 				foreach($key as $k) {
-					C::memory()->debug[$cmd][] = ($cmd == 'get' || $cmd == 'rm' ? $value : '').$prefix.$k;
+					C::memory()->debug[$cmd][] = ($cmd == 'get' || $cmd == 'rm' || $cmd == 'add' ? $value : '').$prefix.$k;
 				}
 			} else {
-				C::memory()->debug[$cmd][] = ($cmd == 'get' || $cmd == 'rm' ? $value : '').$prefix.$key;
+				C::memory()->debug[$cmd][] = ($cmd == 'get' || $cmd == 'rm' || $cmd == 'add' ? $value : '').$prefix.$key;
 			}
 		}
 		switch ($cmd) {
 			case 'set': return C::memory()->set($key, $value, $ttl, $prefix); break;
+			case 'add': return C::memory()->add($key, $value, $ttl, $prefix); break;
 			case 'get': return C::memory()->get($key, $value); break;
 			case 'rm': return C::memory()->rm($key, $value); break;
 			case 'inc': return C::memory()->inc($key, $value ? $value : 1); break;
