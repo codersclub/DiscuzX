@@ -296,8 +296,8 @@ LUA;
 		local uid = ARGV[2]
 		local sids = redis.call('SMEMBERS', prefix..'idx_uid_'..uid)
 LUA;
-		$data = memory('eval', $script . self::LUA_RETURN_DATA, array($uid), "update_by_uid_query", $this->_pre_cache_key);
-		$items = $this->array_from_memory_result($data);
+		$r = memory('eval', $script . self::LUA_RETURN_DATA, array($uid), "update_by_uid_query", $this->_pre_cache_key);
+		$items = $this->array_from_memory_result($r);
 
 		memory('pipeline');
 		foreach ($items as $olditem) {
