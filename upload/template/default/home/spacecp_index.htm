@@ -46,7 +46,7 @@
 	<dt class="cl pns">
 		<div class="y">
 			<button type="button" id="uploadmsg_button" onclick="Util.toggleEle('upload');" class="pn pnc z {if !$list} hide{/if}"><span>{lang upload_new_pic}</span></button>
-			<div id="upload" class="z{if $list} hide{/if}"><iframe id="uploadframe" name="uploadframe" width="0" height="0" marginwidth="0" frameborder="0" src="about:blank"></iframe>
+			<div id="upload" class="z{if $list} hide{/if}"><iframe id="uploadframe" name="uploadframe" width="0" height="0" marginwidth="0" frameborder="0" src="about:blank" style="display: block;"></iframe>
 				<form method="post" autocomplete="off" name="uploadpic" id="uploadpic" action="home.php?mod=spacecp&ac=index" enctype="multipart/form-data" target="uploadframe" onsubmit="return spaceDiy.uploadSubmit();">
 					<input type="file" class="t_input" name="attach" size="15">
 					<input type="hidden" name="formhash" value="{FORMHASH}" />
