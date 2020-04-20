@@ -17,7 +17,7 @@ class block_sort extends commonblock_html {
 
 	var $setting = array();
 
-	function block_sort(){
+	function __construct(){
 		$this->setting = array(
 			'tids' => array(
 				'title' => 'sortlist_tids',

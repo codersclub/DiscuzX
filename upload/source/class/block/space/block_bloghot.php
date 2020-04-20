@@ -16,7 +16,7 @@ require_once libfile('block_blog', 'class/block/space');
 class block_bloghot extends block_blog {
 	var $setting = array();
 
-	function block_bloghot() {
+	function __construct() {
 		$this->setting = array(
 			'hours' => array(
 				'title' => 'bloglist_hours',

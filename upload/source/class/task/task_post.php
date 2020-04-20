@@ -58,7 +58,7 @@ class task_post {
 		)
 	);
 
-	function task_post() {
+	function __construct() {
 		global $_G;
 		loadcache('forums');
 		$this->conditions['forumid']['value'][] = array(0, '&nbsp;');

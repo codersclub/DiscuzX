@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 class block_group extends discuz_block {
 	var $setting = array();
-	function block_group(){
+	function __construct(){
 		$this->setting = array(
 			'gtids' => array(
 				'title' => 'grouplist_gtids',

@@ -15,7 +15,7 @@ class plugin_myrepeats {
 
 	var $value = array();
 
-	function plugin_myrepeats() {
+	function __construct() {
 		global $_G;
 		if(!$_G['uid']) {
 			return;

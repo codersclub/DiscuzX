@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 require_once libfile('block_pic', 'class/block/space');
 
 class block_pichot extends block_pic {
-	function block_pichot() {
+	function __construct() {
 		$this->setting = array(
 			'hours' => array(
 				'title' => 'piclist_hours',

@@ -14,8 +14,8 @@ if(!defined('IN_DISCUZ')) {
 class mod_index extends remote_service {
 
 	var $config;
-	function mod_index() {
-		parent::remote_service();
+	function __construct() {
+		parent::__construct();
 	}
 
 	function run() {

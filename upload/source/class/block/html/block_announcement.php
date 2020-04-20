@@ -15,7 +15,7 @@ class block_announcement extends discuz_block {
 
 	var $setting = array();
 
-	function block_announcement(){
+	function __construct(){
 		$this->setting = array(
 			'type' => array(
 				'title' => 'announcement_type',

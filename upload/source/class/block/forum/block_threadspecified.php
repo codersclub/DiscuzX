@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 require_once libfile('block_thread', 'class/block/forum');
 
 class block_threadspecified extends block_thread {
-	function block_threadspecified() {
+	function __construct() {
 		$this->setting = array(
 			'tids' => array(
 				'title' => 'threadlist_tids',

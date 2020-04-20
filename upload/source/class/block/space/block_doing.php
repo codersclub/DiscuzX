@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 class block_doing extends discuz_block {
 	var $setting = array();
-	function block_doing() {
+	function __construct() {
 		$this->setting = array(
 			'uids'	=> array(
 				'title' => 'doinglist_uids',

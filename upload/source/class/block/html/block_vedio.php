@@ -15,7 +15,7 @@ require_once libfile('commonblock_html', 'class/block/html');
 
 class block_vedio extends commonblock_html {
 
-	function block_vedio() {}
+	function __construct() {}
 
 	function name() {
 		return lang('blockclass', 'blockclass_html_script_vedio');

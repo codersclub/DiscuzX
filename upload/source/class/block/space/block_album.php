@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 class block_album extends discuz_block {
 	var $setting = array();
-	function block_album() {
+	function __construct() {
 		$this->setting = array(
 			'aids'	=> array(
 				'title' => 'albumlist_aids',

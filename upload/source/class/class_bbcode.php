@@ -30,7 +30,7 @@ class bbcode {
 		return $object;
 	}
 
-	function bbcode() {
+	function __construct() {
 	}
 
 	function bbcode2html($message, $parseurl=0) {

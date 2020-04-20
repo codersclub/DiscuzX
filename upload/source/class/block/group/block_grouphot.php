@@ -15,7 +15,7 @@ require_once libfile('block_group', 'class/block/group');
 
 class block_grouphot extends block_group {
 
-	function block_grouphot() {
+	function __construct() {
 		$this->setting = array(
 			'gtids' => array(
 				'title' => 'grouplist_gtids',

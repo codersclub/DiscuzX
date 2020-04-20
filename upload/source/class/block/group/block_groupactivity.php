@@ -13,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 class block_groupactivity extends discuz_block {
 	var $setting = array();
 
-	function block_groupactivity(){
+	function __construct(){
 		$this->setting = array(
 			'tids' => array(
 				'title' => 'groupactivity_tids',

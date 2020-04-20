@@ -13,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 class block_otherstat extends discuz_block {
 
-	function block_otherstat() {}
+	function __construct() {}
 
 	function name() {
 		return lang('blockclass', 'blockclass_other_script_stat');

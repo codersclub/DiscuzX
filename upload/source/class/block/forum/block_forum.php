@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 class block_forum extends discuz_block {
 	var $setting = array();
-	function block_forum() {
+	function __construct() {
 		$this->setting = array(
 			'fids'	=> array(
 				'title' => 'forumlist_fids',

@@ -113,7 +113,7 @@ class remote_service {
 	var $version = '1.0.0';
 	var $config;
 
-	function remote_service() {
+	function __construct() {
 		$this->config = getglobal('config/remote');
 	}
 

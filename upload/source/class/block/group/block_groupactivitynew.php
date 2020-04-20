@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 require_once libfile('block_groupactivity', 'class/block/group');
 
 class block_groupactivitynew extends block_groupactivity {
-	function block_groupactivitynew() {
+	function __construct() {
 		$this->setting = array(
 			'gtids' => array(
 				'title' => 'groupactivity_gtids',

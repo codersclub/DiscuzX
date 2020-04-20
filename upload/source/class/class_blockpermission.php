@@ -13,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 class block_permission {
 
-	function block_permission() {}
+	function __construct() {}
 
 	function &instance() {
 		static $object;
@@ -122,7 +122,7 @@ class block_permission {
 }
 
 class template_permission {
-	function template_permission() {}
+	function __construct() {}
 
 	function &instance() {
 		static $object;

@@ -15,7 +15,7 @@ require_once libfile('block_group', 'class/block/group');
 
 class block_groupspecified extends block_group {
 
-	function block_groupspecified() {
+	function __construct() {
 		$this->setting = array(
 			'fids' => array(
 				'title' => 'grouplist_fids',

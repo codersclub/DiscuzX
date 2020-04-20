@@ -13,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 class portal_category {
 
-	function portal_category() {}
+	function __construct() {}
 
 	function &instance() {
 		static $object;

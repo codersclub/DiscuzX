@@ -15,7 +15,7 @@ require_once libfile('commonblock_html', 'class/block/html');
 
 class block_stat extends commonblock_html {
 
-	function block_stat() {}
+	function __construct() {}
 
 	function name() {
 		return lang('blockclass', 'blockclass_html_script_stat');

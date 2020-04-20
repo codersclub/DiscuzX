@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 class block_article extends discuz_block {
 	var $setting = array();
-	function block_article() {
+	function __construct() {
 		global $_G;
 		$this->setting = array(
 			'aids'	=> array(

@@ -21,7 +21,7 @@ class forum_upload {
 	var $error_sizelimit;
 	var $getaid;
 
-	function forum_upload($getaid = 0) {
+	function __construct($getaid = 0) {
 		global $_G;
 
 		$_G['uid'] = $this->uid = intval($_GET['uid']);

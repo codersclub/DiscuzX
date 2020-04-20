@@ -19,7 +19,7 @@ class task {
 	var $multipage;
 	var $listdata;
 
-	function task() {}
+	function __construct() {}
 
 	function &instance() {
 		static $object;

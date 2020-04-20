@@ -15,7 +15,7 @@ class block_activity extends discuz_block {
 
 	var $setting = array();
 
-	function block_activity(){
+	function __construct(){
 		$this->setting = array(
 			'tids' => array(
 				'title' => 'activitylist_tids',

@@ -13,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 class block_grouptrade extends discuz_block {
 	var $setting = array();
 
-	function block_grouptrade(){
+	function __construct(){
 		$this->setting = array(
 			'tids' => array(
 				'title' => 'grouptrade_tids',

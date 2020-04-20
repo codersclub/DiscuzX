@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 require_once libfile('block_groupthread', 'class/block/group');
 
 class block_groupthreadspecified extends block_groupthread {
-	function block_groupthreadspecified() {
+	function __construct() {
 		$this->setting = array(
 			'tids' => array(
 				'title' => 'groupthread_tids',

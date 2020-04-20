@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 require_once libfile('block_activity', 'class/block/forum');
 
 class block_activitycity extends block_activity {
-	function block_activitycity() {
+	function __construct() {
 		$this->setting = array(
 			'fids'	=> array(
 				'title' => 'activitylist_fids',

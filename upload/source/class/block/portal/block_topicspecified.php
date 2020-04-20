@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 require_once libfile('block_topic', 'class/block/portal');
 
 class block_topicspecified extends block_topic {
-	function block_topicspecified() {
+	function __construct() {
 		$this->setting = array(
 			'topicids'	=> array(
 				'title' => 'topiclist_topicids',

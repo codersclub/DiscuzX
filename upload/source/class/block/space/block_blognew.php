@@ -16,7 +16,7 @@ require_once libfile('block_blog', 'class/block/space');
 class block_blognew extends block_blog {
 	var $setting = array();
 
-	function block_blognew() {
+	function __construct() {
 		$this->setting = array(
 			'catid' => array(
 				'title' => 'bloglist_catid',

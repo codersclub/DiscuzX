@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 require_once libfile('block_article', 'class/block/portal');
 
 class block_articlenew extends block_article {
-	function block_articlenew() {
+	function __construct() {
 		$this->setting = array(
 			'catid' => array(
 				'title' => 'articlelist_catid',

@@ -7,7 +7,7 @@ class control extends pluginbase {
 
 	var $md5data = array();
 
-	function control() {
+	function __construct() {
 		$this->pluginbase();
 	}
 

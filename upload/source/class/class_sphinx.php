@@ -346,7 +346,7 @@ class SphinxClient
 	var $_timeout;		///< connect timeout
 
 
-	function SphinxClient ()
+	function __construct()
 	{
 		$this->_host		= "localhost";
 		$this->_port		= 9312;

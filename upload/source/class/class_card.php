@@ -28,7 +28,7 @@ class card{
 	var $failrate = '0.1';
 
 
-	function card() {
+	function __construct() {
 		$this->init();
 	}
 

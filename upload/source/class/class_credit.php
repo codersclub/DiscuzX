@@ -17,7 +17,7 @@ class credit {
 	var $coef = 1;
 	var $extrasql = array();
 
-	function credit() {}
+	function __construct() {}
 
 	function &instance() {
 		static $object;

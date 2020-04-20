@@ -13,7 +13,7 @@ if (!defined('IN_DISCUZ')) {
 
 class plugin_wechat {
 
-	function plugin_wechat() {
+	function __construct() {
 		include_once template('wechat:module');
 	}
 

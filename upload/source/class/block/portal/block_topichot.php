@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 require_once libfile('block_topic', 'class/block/portal');
 
 class block_topichot extends block_topic {
-	function block_topichot() {
+	function __construct() {
 		$this->setting = array(
 			'picrequired' => array(
 				'title' => 'topiclist_picrequired',

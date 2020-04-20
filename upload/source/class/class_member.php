@@ -13,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 class logging_ctl {
 
-	function logging_ctl() {
+	function __construct() {
 		require_once libfile('function/misc');
 		loaducenter();
 	}
@@ -335,7 +335,7 @@ class register_ctl {
 
 	var $showregisterform = 1;
 
-	function register_ctl() {
+	function __construct() {
 		global $_G;
 		if($_G['setting']['bbclosed']) {
 			if(($_GET['action'] != 'activation' && !$_GET['activationauth']) || !$_G['setting']['closedallowactivation'] ) {
@@ -940,7 +940,7 @@ class crime_action_ctl {
 
 	static $actions = array('all', 'crime_delpost', 'crime_warnpost', 'crime_banpost', 'crime_banspeak', 'crime_banvisit', 'crime_banstatus', 'crime_avatar', 'crime_sightml', 'crime_customstatus');
 
-	function crime_action_ctl() {}
+	function __construct() {}
 
 	function &instance() {
 		static $object;

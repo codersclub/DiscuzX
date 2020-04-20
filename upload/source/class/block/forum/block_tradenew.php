@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 require_once libfile('block_trade', 'class/block/forum');
 
 class block_tradenew extends block_trade {
-	function block_tradenew() {
+	function __construct() {
 		$this->setting = array(
 			'fids'	=> array(
 				'title' => 'tradelist_fids',

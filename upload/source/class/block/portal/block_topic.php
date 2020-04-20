@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 class block_topic extends discuz_block {
 	var $setting = array();
-	function block_topic() {
+	function __construct() {
 		$this->setting = array(
 			'topicids'	=> array(
 				'title' => 'topiclist_topicids',

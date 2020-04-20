@@ -15,7 +15,7 @@ class block_xml extends discuz_block {
 
 	var $blockdata = array();
 
-	function block_xml($xmlid = null) {
+	function __construct($xmlid = null) {
 		if(!empty($xmlid)) {
 			if(!($blockxml = C::t('common_block_xml')->fetch($xmlid))) {
 				return;

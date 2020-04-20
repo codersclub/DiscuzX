@@ -13,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 class ultrax_cache {
 
-	function ultrax_cache($conf) {
+	function __construct($conf) {
 		$this->conf = $conf;
 	}
 

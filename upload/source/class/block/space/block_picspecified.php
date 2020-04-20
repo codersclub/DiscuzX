@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 require_once libfile('block_pic', 'class/block/space');
 
 class block_picspecified extends block_pic {
-	function block_picspecified() {
+	function __construct() {
 		$this->setting = array(
 			'picids'	=> array(
 				'title' => 'piclist_picids',

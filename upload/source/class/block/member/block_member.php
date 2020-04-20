@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 class block_member extends discuz_block {
 	var $setting = array();
-	function block_member() {
+	function __construct() {
 		$this->setting = array(
 			'uids' => array(
 				'title' => 'memberlist_uids',

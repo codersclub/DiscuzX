@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 class block_portalcategory extends discuz_block {
 	var $setting = array();
-	function block_portalcategory() {
+	function __construct() {
 		$this->setting = array(
 			'thecatid' => array(
 				'title' => 'portalcategory_thecatid',

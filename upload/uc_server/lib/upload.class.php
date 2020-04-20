@@ -22,7 +22,7 @@ Class upload{
 	var $filetypeids = array();
 	var $filetypes = array();
 
-	function upload($time = 0) {
+	function __construct($time = 0) {
 		$this->time = $time ? $time : time();
 		$this->filetypedata = array(
 			'av' => array('av', 'wmv', 'wav'),

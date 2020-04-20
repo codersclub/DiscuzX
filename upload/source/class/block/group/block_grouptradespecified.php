@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 require_once libfile('block_grouptrade', 'class/block/group');
 
 class block_grouptradespecified extends block_grouptrade {
-	function block_grouptradespecified() {
+	function __construct() {
 		$this->setting = array(
 			'tids' => array(
 				'title' => 'grouptrade_tids',

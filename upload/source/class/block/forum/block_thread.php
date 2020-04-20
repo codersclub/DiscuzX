@@ -13,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 class block_thread extends discuz_block {
 	var $setting = array();
 
-	function block_thread(){
+	function __construct(){
 		$this->setting = array(
 			'tids' => array(
 				'title' => 'threadlist_tids',

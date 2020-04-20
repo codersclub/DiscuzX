@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 require_once libfile('block_member', 'class/block/member');
 
 class block_membernew extends block_member {
-	function block_membernew() {
+	function __construct() {
 		$this->setting = array(
 			'gender' => array(
 				'title' => 'memberlist_gender',

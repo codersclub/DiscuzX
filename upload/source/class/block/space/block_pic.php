@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 class block_pic extends discuz_block {
 	var $setting = array();
-	function block_pic() {
+	function __construct() {
 		$this->setting = array(
 			'picids'	=> array(
 				'title' => 'piclist_picids',

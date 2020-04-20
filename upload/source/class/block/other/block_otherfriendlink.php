@@ -15,7 +15,7 @@ class block_otherfriendlink extends discuz_block {
 
 	var $setting = array();
 
-	function block_otherfriendlink() {
+	function __construct() {
 		$this->setting = array(
 			'type' => array(
 				'title' => 'friendlink_type',

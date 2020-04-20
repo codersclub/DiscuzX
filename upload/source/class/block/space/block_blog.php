@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 class block_blog extends discuz_block {
 	var $setting = array();
-	function block_blog() {
+	function __construct() {
 		$this->setting = array(
 			'blogids'	=> array(
 				'title' => 'bloglist_blogids',

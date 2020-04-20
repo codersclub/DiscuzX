@@ -68,7 +68,7 @@ class XML {
 	var $stack;
 	var $last_opened_tag;
 
-	function XML() {
+	function __construct() {
 		$this->parser = xml_parser_create('ISO-8859-1');
 		xml_parser_set_option($this->parser, XML_OPTION_CASE_FOLDING, false);
 		xml_set_object($this->parser, $this);

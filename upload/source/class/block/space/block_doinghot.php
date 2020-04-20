@@ -16,7 +16,7 @@ require_once libfile('block_doing', 'class/block/space');
 class block_doinghot extends block_doing {
 	var $setting = array();
 
-	function block_doinghot() {
+	function __construct() {
 		$this->setting = array(
 			'titlelength' => array(
 				'title' => 'doinglist_titlelength',

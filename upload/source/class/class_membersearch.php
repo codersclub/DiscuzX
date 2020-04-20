@@ -13,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 class membersearch {
 
-	function membersearch(){}
+	function __construct(){}
 
 	function getfield($fieldid='') {
 		static $fields = array(
