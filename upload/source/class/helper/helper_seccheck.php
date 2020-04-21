@@ -28,7 +28,6 @@ class helper_seccheck {
 					$secappend = $_GET['secqaahash'];
 				}
 			}
-			$secappend = str_replace($_G['sid'], '', $secappend);
 		}
 		if(!isset($_G['cookie']['sec'.$type.$secappend])) {
 			return false;
@@ -63,7 +62,6 @@ class helper_seccheck {
 					$secappend = $_GET['secqaahash'];
 				}
 			}
-			$secappend = str_replace($_G['sid'], '', $secappend);
 		}
 		$ssid = C::t('common_seccheck')->insert(array(
 		    'dateline' => TIMESTAMP,

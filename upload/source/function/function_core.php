@@ -267,7 +267,7 @@ function dsetcookie($var, $value = '', $life = 0, $prefix = 1, $httponly = false
 	$var = ($prefix ? $config['cookiepre'] : '').$var;
 	$_COOKIE[$var] = $value;
 
-	if($value == '' || $life < 0) {
+	if($value === '' || $life < 0) {
 		$value = '';
 		$life = -1;
 	}
