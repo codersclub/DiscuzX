@@ -955,6 +955,10 @@ class table_forum_thread extends discuz_table
 		return DB::result_first("SELECT COUNT(*) FROM %t WHERE authorid=%d", array($this->get_table_name($tableid), $authorid));
 	}
 
+	public function count_by_authorid_displayorder($authorid, $displayorder, $tableid = 0) {
+		return DB::result_first("SELECT COUNT(*) FROM %t WHERE authorid=%d AND displayorder=%d", array($this->get_table_name($tableid), $authorid, $displayorder));
+	}
+
 	public function count_by_fid($fid, $tableid = 0) {
 		return DB::result_first("SELECT COUNT(*) FROM %t WHERE fid=%d", array($this->get_table_name($tableid), $fid));
 	}

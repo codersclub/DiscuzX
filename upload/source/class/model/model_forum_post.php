@@ -80,6 +80,8 @@ class model_forum_post extends discuz_model {
 			return $this->showmessage('post_flood_ctrl', '', array('floodctrl' => $this->setting['floodctrl']));
 		} elseif(checkmaxperhour('pid')) {
 			return $this->showmessage('post_flood_ctrl_posts_per_hour', '', array('posts_per_hour' => $this->group['maxpostsperhour']));
+		} elseif($this->thread['displayorder'] == -4 && !$this->group['allowsavereply']) {
+			return $this->showmessage('post_not_allow_reply_save');
 		}
 
 

@@ -692,6 +692,9 @@ EOT;
 		showsetting('usergroups_edit_post_allowcommentreply', 'allowcommentreplynew', $group['allowcommentreply'], 'radio', !in_array(2, $_G['setting']['allowpostcomment']));
 		showsetting('usergroups_edit_post_allowcommentitem', 'allowcommentitemnew', $group['allowcommentitem'], 'radio', !in_array(1, $_G['setting']['allowpostcomment']));
 		showsetting('usergroups_edit_post_allowat', 'allowatnew', $group['allowat'], 'text');
+		showsetting('usergroups_edit_post_allowsave', 'allowsavenew', $group['allowsave'], 'radio');
+		showsetting('usergroups_edit_post_allowsavereply', 'allowsavereplynew', $group['allowsavereply'], 'radio');
+		showsetting('usergroups_edit_post_allowsavenum', 'allowsavenumnew', $group['allowsavenum'], 'text');
 		showsetting('usergroups_edit_post_allowsetpublishdate', 'allowsetpublishdatenew', $group['allowsetpublishdate'], 'radio');
 		showsetting('usergroups_edit_post_allowcommentcollection', 'allowcommentcollectionnew', $group['allowcommentcollection'], 'radio');
 		showsetting('usergroups_edit_post_allowimgcontent', 'allowimgcontentnew', $group['allowimgcontent'], 'radio');
@@ -1157,6 +1160,9 @@ EOT;
 			'allowdownremoteimg' => intval($_GET['allowdownremoteimgnew']),
 			'allowcommentitem' => intval($_GET['allowcommentitemnew']),
 			'allowat' => intval($_GET['allowatnew']),
+			'allowsave' => intval($_GET['allowsavenew']),
+			'allowsavereply' => intval($_GET['allowsavereplynew']),
+			'allowsavenum' => intval($_GET['allowsavenumnew']),
 			'allowreplycredit' => intval($_GET['allowreplycreditnew']),
 			'allowsetpublishdate' => intval($_GET['allowsetpublishdatenew']),
 			'allowcommentcollection' => intval($_GET['allowcommentcollectionnew']),

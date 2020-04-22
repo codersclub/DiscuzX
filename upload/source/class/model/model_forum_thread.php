@@ -41,6 +41,10 @@ class model_forum_thread extends discuz_model
 		$this->tid = $this->pid = 0;
 		$this->_init_parameters($parameters);
 
+		if(!empty($this->param['save']) && !$this->group['allowsave']) {
+			return $this->showmessage('post_not_allow_save');
+		}
+
 		if(trim($this->param['subject']) == '') {
 			return $this->showmessage('post_sm_isnull');
 		}
@@ -66,6 +70,8 @@ class model_forum_thread extends discuz_model
 		$this->param['displayorder'] = $this->param['modnewthreads'] ? -2 : (($this->forum['ismoderator'] && $this->group['allowstickthread'] && !empty($this->param['sticktopic'])) ? 1 : (empty($this->param['save']) ? 0 : -4));
 		if($this->param['displayorder'] == -2) {
 			C::t('forum_forum')->update($this->forum['fid'], array('modworks' => '1'));
+		} elseif($this->param['displayorder'] == -4 && !empty($this->group['allowsavenum']) && C::t('forum_thread')->count_by_authorid_displayorder($this->member['uid'], -4) >= intval($this->group['allowsavenum'])) {
+			return $this->showmessage('post_max_save');
 		}
 
 		$this->param['digest'] = $this->forum['ismoderator'] && $this->group['allowdigestthread'] && !empty($this->param['digest']) ? 1 : 0;
