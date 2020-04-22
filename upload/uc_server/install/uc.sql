@@ -240,7 +240,7 @@ CREATE TABLE uc_vars (
   name char(32) NOT NULL default '',
   value char(255) NOT NULL default '',
   PRIMARY KEY(name)
-) ENGINE=HEAP;
+) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS uc_mailqueue;
 CREATE TABLE uc_mailqueue (
