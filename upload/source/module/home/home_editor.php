@@ -28,8 +28,9 @@ if (empty($_GET['op'])) {
 			<script type="text/javascript" src="static/js/home.js"></script>
 			<script language="javascript" src="static/image/editor/editor_base.js"></script>
 			<style type="text/css">
+				html, body { height: 100%; }
 				body{margin:0;padding:0;}
-				body, td, input, button, select, textarea {font: 12px/1.5em Tahoma, Arial, Helvetica, snas-serif;}
+				body, td, input, button, select, textarea {font: 12px/1.5em Tahoma, Arial, Helvetica, sans-serif;}
 				textarea { resize: none; font-size: 14px; line-height: 1.8em; }
 				.submit { padding: 0 10px; height: 22px; border: 1px solid; border-color: #DDD #264F6E #264F6E #DDD; background: #2782D6; color: #FFF; line-height: 20px; letter-spacing: 1px; cursor: pointer; }
 				a.dm{text-decoration:none}
@@ -140,7 +141,7 @@ if (empty($_GET['op'])) {
 			</script>
 		</head>
 		<body style="overflow-y:hidden">
-			<div >
+			<div style="height:100%">
 
 				<table cellpadding="0" cellspacing="0" width="100%" height="100%">
 					<tr>
