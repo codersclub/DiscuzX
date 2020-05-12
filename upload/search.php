@@ -32,13 +32,15 @@ if(in_array($discuz->var['mod'], $modarray) || !empty($_G['setting']['search'][$
 }
 if(empty($mod)) {
 	showmessage('search_closed');
-} else if (!$_G['setting'][($mod == 'user' ? 'friend' : $mod).'status']) {
-	showmessage(($mod == 'user' ? 'friend' : ($mod == 'group' ? 'group_module' : $mod)).'_status_off');
 }
 define('CURMODULE', $mod);
 
 
 runhooks();
+
+if (!$_G['setting'][($mod == 'curforum' ? 'forum' : ($mod == 'user' ? 'friend' : $mod)).'status']) {
+	showmessage(($mod == 'curforum' ? 'forum' : ($mod == 'user' ? 'friend' : ($mod == 'group' ? 'group_module' : $mod))).'_status_off');
+}
 
 require_once libfile('function/search');
 

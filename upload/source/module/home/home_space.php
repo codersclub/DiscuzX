@@ -15,7 +15,7 @@ $dos = array('index', 'doing', 'blog', 'album', 'friend', 'wall',
 	'notice', 'share', 'home', 'pm', 'videophoto', 'favorite',
 	'thread', 'trade', 'poll', 'activity', 'debate', 'reward', 'profile', 'plugin', 'follow');
 
-$_GET['do'] = $do = (!empty($_GET['do']) && in_array($_GET['do'], $dos)) ? $_GET['do'] : 'index';
+$do = (!empty($_GET['do']) && in_array($_GET['do'], $dos)) ? $_GET['do'] : 'index';
 
 if(!in_array($do, array('home', 'doing', 'blog', 'album', 'share', 'wall'))) {
 	$_G['mnid'] = 'mn_common';
