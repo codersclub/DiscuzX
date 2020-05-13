@@ -454,7 +454,7 @@ class base {
 
 		$life = $life > 0 ? $this->time + $life : ($life < 0 ? $this->time - 31536000 : 0);
 		$path = $httponly && PHP_VERSION < '5.2.0' ? UC_COOKIEPATH."; HttpOnly" : UC_COOKIEPATH;
-		$secure = $_SERVER['SERVER_PORT'] == 443 ? 1 : 0;
+		$secure = is_https();
 		if(PHP_VERSION < '5.2.0') {
 			setcookie($key, $value, $life, $path, UC_COOKIEDOMAIN, $secure);
 		} else {

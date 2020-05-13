@@ -17,7 +17,7 @@ document.writeln('	document.gform.submit();');
 document.writeln('	return;');
 document.writeln('}');
 document.writeln('</script>');
-document.writeln('<form name="gform" id="gform" method="get" autocomplete="off" action="http://www.google.com/search?" target="_blank" onSubmit="validate_google(this);">');
+document.writeln('<form name="gform" id="gform" method="get" autocomplete="off" action="https://www.google.com/search?" target="_blank" onSubmit="validate_google(this);">');
 document.writeln('<input type="hidden" name="client" value="' + (!google_client ? 'aff-discuz' : google_client) + '" />');
 document.writeln('<input type="hidden" name="ie" value="' + google_charset + '" />');
 document.writeln('<input type="hidden" name="oe" value="UTF-8" />');

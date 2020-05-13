@@ -279,7 +279,7 @@ function dsetcookie($var, $value = '', $life = 0, $prefix = 1, $httponly = false
 	$life = $life > 0 ? getglobal('timestamp') + $life : ($life < 0 ? getglobal('timestamp') - 31536000 : 0);
 	$path = $httponly && PHP_VERSION < '5.2.0' ? $config['cookiepath'].'; HttpOnly' : $config['cookiepath'];
 
-	$secure = $_SERVER['SERVER_PORT'] == 443 ? 1 : 0;
+	$secure = $_G['isHTTPS'];
 	if(PHP_VERSION < '5.2.0') {
 		setcookie($var, $value, $life, $path, $config['cookiedomain'], $secure);
 	} else {
