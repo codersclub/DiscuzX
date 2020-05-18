@@ -104,9 +104,12 @@ if($_GET['op'] == 'base') {
 				if($card['cleardateline'] < TIMESTAMP) {
 					showmessage('memcp_credits_card_msg_cleardateline_early', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
 				}
-				C::t('common_card')->update($card['id'], array('status' => 2, 'uid' => $_G['uid'], 'useddateline' => $_G['timestamp']));
-				updatemembercount($_G[uid], array($card['extcreditskey'] => $card['extcreditsval']), true, 'CDC', 1);
-				showmessage('memcp_credits_card_msg_succeed', 'home.php?mod=spacecp&ac=credit&op=base', array('extcreditstitle' => $_G['setting']['extcredits'][$card['extcreditskey']]['title'], 'extcreditsval' => $card['extcreditsval']), array('showdialog' => 1, 'alert' => 'right', 'showmsg' => true, 'locationtime' => true));
+				if(C::t('common_card')->update_to_used($card['id'])) {
+					updatemembercount($_G[uid], array($card['extcreditskey'] => $card['extcreditsval']), true, 'CDC', 1);
+					showmessage('memcp_credits_card_msg_succeed', 'home.php?mod=spacecp&ac=credit&op=base', array('extcreditstitle' => $_G['setting']['extcredits'][$card['extcreditskey']]['title'], 'extcreditsval' => $card['extcreditsval']), array('showdialog' => 1, 'alert' => 'right', 'showmsg' => true, 'locationtime' => true));
+				} else {
+					showmessage('memcp_credits_card_msg_used', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
+				}
 			}
 		} else {
 			$amount = intval($_GET['addfundamount']);
@@ -156,13 +159,16 @@ if($_GET['op'] == 'base') {
 			dexit();
 		}
 	} else {
-		if($_G['setting']['card']['open'] && $_G['setting']['seccodestatus'] & 16) {
-			$seccodecheck = 1;
+		if($_G['setting']['card']['open']) {
+			list($seccodecheck) = seccheck('card');
 			$secqaacheck = 0;
 		}
 	}
 
 } elseif ($_GET['op'] == 'transfer') {
+	if($_G['setting']['submitlock'] && discuz_process::islocked('transferlock_'.$_G['uid'], 0, 1)){
+		showmessage('credits_transfer_msg_locked', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
+	}
 
 	if(!($_G['setting']['transferstatus'] && $_G['group']['allowtransfer'])) {
 		showmessage('action_closed', NULL);
@@ -214,6 +220,9 @@ if($_GET['op'] == 'base') {
 	}
 
 	if(submitcheck('exchangesubmit')) {
+		if($_G['setting']['submitlock'] && discuz_process::islocked('exchangelock_'.$_G['uid'], 0, 1)){
+			showmessage('memcp_credits_exchange_msg_locked', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
+		}
 
 		$tocredits = $_GET['tocredits'];
 		$fromcredits = $_GET['fromcredits'];

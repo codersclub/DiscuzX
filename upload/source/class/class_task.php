@@ -395,7 +395,7 @@ class task {
 
 		if($result === TRUE) {
 
-			if($this->task['reward']) {
+			if($this->task['reward'] && C::t('common_mytask')->update_to_success($_G['uid'], $id, $_G['timestamp']) && C::t('common_task')->update_achievers($id, 1)) {
 				$rewards = $this->reward();
 				$notification = $this->task['reward'];
 				if($this->task['reward'] == 'magic') {
@@ -426,9 +426,6 @@ class task {
 			if(method_exists($taskclass, 'sufprocess')) {
 				$taskclass->sufprocess($this->task);
 			}
-
-			C::t('common_mytask')->update($_G['uid'], $id, array('status' => 1, 'csc' => 100, 'dateline' => $_G['timestamp']));
-			C::t('common_task')->update_achievers($id, 1);
 
 			if($_G['inajax']) {
 				$this->message('100', $this->task['reward'] ? 'task_reward_'.$this->task['reward'] : 'task_completed', array(

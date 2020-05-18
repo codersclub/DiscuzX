@@ -31,11 +31,11 @@ if($type == 2 && TIMESTAMP - $dateline < 86400) {
 
 $idstring = $type == 2 && $idstring ? $idstring : random(6);
 C::t('common_member_field_forum')->update($_G['uid'], array('authstr'=>"$_G[timestamp]\t2\t$idstring"));
-$verifyurl = "{$_G[siteurl]}member.php?mod=activate&amp;uid={$_G[uid]}&amp;id=$idstring";
+$verifyurl = $_G['setting']['securesiteurl']."member.php?mod=activate&amp;uid={$_G[uid]}&amp;id=$idstring";
 $email_verify_message = lang('email', 'email_verify_message', array(
 	'username' => $_G['member']['username'],
 	'bbname' => $_G['setting']['bbname'],
-	'siteurl' => $_G['siteurl'],
+	'siteurl' => $_G['setting']['securesiteurl'],
 	'url' => $verifyurl
 ));
 include_once libfile('function/mail');

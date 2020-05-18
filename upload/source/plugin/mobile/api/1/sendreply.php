@@ -59,7 +59,7 @@ class mobile_api {
 				$mobiletype = base_convert($_POST['mobiletype'], 10, 2);
 				$mobiletype = sprintf('%03d', $mobiletype);
 				for($i = 0;$i < 3;$i++) {
-					$poststatus = setstatus(10 - $i, $mobiletype{$i}, $poststatus);
+					$poststatus = setstatus(10 - $i, $mobiletype[$i], $poststatus);
 				}
 			}
 			C::t('forum_post')->update('tid:'.$values['tid'], $values['pid'], array('status' => $poststatus));

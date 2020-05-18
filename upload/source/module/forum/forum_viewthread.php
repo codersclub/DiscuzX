@@ -307,9 +307,9 @@ $lastmod = viewthread_lastmod($_G['forum_thread']);
 
 $showsettings = str_pad(decbin($_G['setting']['showsettings']), 3, '0', STR_PAD_LEFT);
 
-$showsignatures = $showsettings{0};
-$showavatars = $showsettings{1};
-$_G['setting']['showimages'] = $showsettings{2};
+$showsignatures = $showsettings[0];
+$showavatars = $showsettings[1];
+$_G['setting']['showimages'] = $showsettings[2];
 
 $highlightstatus = isset($_GET['highlight']) && str_replace('+', '', $_GET['highlight']) ? 1 : 0;
 

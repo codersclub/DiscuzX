@@ -480,6 +480,8 @@ function build_cache_setting() {
 
 	$data['mpsid'] = preg_replace('/[^0-9]+/', '', $data['mps']);
 
+	$data['securesiteurl'] = $_G['siteurl'];
+	
 	savecache('setting', $data);
 	$_G['setting'] = $data;
 }

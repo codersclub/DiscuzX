@@ -175,7 +175,7 @@ class template {
 	function _transsid($url, $tag = '', $wml = 0) {
 		$sid = $this->sid;
 		$tag = stripslashes($tag);
-		if(!$tag || (!preg_match("/^(http:\/\/|mailto:|#|javascript)/i", $url) && !strpos($url, 'sid='))) {
+		if(!$tag || (!preg_match("/^(https?:\/\/|mailto:|#|javascript)/i", $url) && !strpos($url, 'sid='))) {
 			if($pos = strpos($url, '#')) {
 				$urlret = substr($url, $pos);
 				$url = substr($url, 0, $pos);

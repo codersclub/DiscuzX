@@ -293,7 +293,7 @@ class GifMerge {
 
 	function arrcmp($b, $s, $l) {
 		for($i = 0; $i < $l; $i++) {
-			if($s{$i} != $b{$i}) {
+			if($s[$i] != $b[$i]) {
 				return false;
 			}
 		}

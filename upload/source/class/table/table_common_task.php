@@ -49,7 +49,7 @@ class table_common_task extends discuz_table
 	}
 
 	public function update_achievers($taskid, $v) {
-		DB::query("UPDATE %t SET achievers=achievers+%s WHERE taskid=%d", array($this->_table, $v, $taskid));
+		return DB::query("UPDATE %t SET achievers=achievers+%s WHERE taskid=%d", array($this->_table, $v, $taskid));
 	}
 
 	public function update_available() {

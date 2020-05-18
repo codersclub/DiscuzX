@@ -150,7 +150,7 @@ function trade_notifycheck($type) {
 		exit('Access Denied');
 	}
 	unset($notify['diy']);
-	if(dfsockopen("http://notify.alipay.com/trade/notify_query.do?partner=".DISCUZ_PARTNER."&notify_id=".$notify['notify_id'], 60) !== 'true') {
+	if(dfsockopen("https://notify.alipay.com/trade/notify_query.do?partner=".DISCUZ_PARTNER."&notify_id=".$notify['notify_id'], 60) !== 'true') {
 		exit('Access Denied');
 	}
 

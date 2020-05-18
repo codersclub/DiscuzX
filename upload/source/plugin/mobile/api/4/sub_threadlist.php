@@ -64,9 +64,9 @@ foreach ($GLOBALS['sublist'] as $k => $sublist) {
 
 if($_G['forum']['icon']) {
 	require_once libfile('function/forumlist');
-	if(strncasecmp($_G['forum']['icon'], 'http://', 7) !== 0) {
+	if(!preg_match('/^https?:\/\//i', $_G['forum']['icon'])) {
 		$_G['forum']['icon'] = get_forumimg($_G['forum']['icon']);
-		if(strncasecmp($_G['forum']['icon'], 'http://', 7) !== 0) {
+		if(!preg_match('/^https?:\/\//i', $_G['forum']['icon'])) {
 			$_G['forum']['icon'] = $_G['siteurl'] . $_G['forum']['icon'];
 		}
 	}

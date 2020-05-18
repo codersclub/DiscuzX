@@ -276,8 +276,8 @@ if(!$sortid && !$specialextra) {
 
 $editorid = 'e';
 $_G['setting']['editoroptions'] = str_pad(decbin($_G['setting']['editoroptions']), 3, 0, STR_PAD_LEFT);
-$editormode = $_G['setting']['editoroptions']{0};
-$allowswitcheditor = $_G['setting']['editoroptions']{1};
+$editormode = $_G['setting']['editoroptions'][0];
+$allowswitcheditor = $_G['setting']['editoroptions'][1];
 $editor = array(
 	'editormode' => $editormode,
 	'allowswitcheditor' => $allowswitcheditor,
@@ -289,7 +289,7 @@ $editor = array(
 	'allowchecklength' => 1,
 	'allowtopicreset' => 1,
 	'textarea' => 'message',
-	'simplemode' => !isset($_G['cookie']['editormode_'.$editorid]) ? !$_G['setting']['editoroptions']{2} : $_G['cookie']['editormode_'.$editorid],
+	'simplemode' => !isset($_G['cookie']['editormode_'.$editorid]) ? !$_G['setting']['editoroptions'][2] : $_G['cookie']['editormode_'.$editorid],
 );
 if($specialextra) {
 	$special = 127;

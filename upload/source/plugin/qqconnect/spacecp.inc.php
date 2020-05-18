@@ -85,7 +85,7 @@ if ($pluginop == 'config') {
 		foreach($shareqq_params as $key => $val) {
 			$s .= ($s ? '&' : '').$key.'='.urlencode($val);
 		}
-		header('Location: http://connect.qq.com/widget/shareqq/index.html?'.$s);
+		header('Location: https://connect.qq.com/widget/shareqq/index.html?'.$s);
 	} else {
 		$share_message = lang('plugin/qqconnect', 'connect_spacecp_share_a_post', array('bbname' => cutstr($_G['setting']['bbname'], 20,''), 'subject' => cutstr($thread['subject'], 120), 'message' => cutstr(strip_tags(str_replace('&nbsp;', ' ', $html_content)), 80)));
 		$share_message = str_replace(array('\'', "\r\n", "\r", "\n"), array('"', '', '', ''), $share_message);

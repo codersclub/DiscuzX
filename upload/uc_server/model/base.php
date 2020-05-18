@@ -460,7 +460,7 @@ class base {
 
 		$life = $life > 0 ? $this->time + $life : ($life < 0 ? $this->time - 31536000 : 0);
 		$path = $httponly && PHP_VERSION < '5.2.0' ? UC_COOKIEPATH."; HttpOnly" : UC_COOKIEPATH;
-		$secure = $_SERVER['SERVER_PORT'] == 443 ? 1 : 0;
+		$secure = is_https();
 		if(PHP_VERSION < '5.2.0') {
 			setcookie($key, $value, $life, $path, UC_COOKIEDOMAIN, $secure);
 		} else {
@@ -495,6 +495,36 @@ class base {
 			$string = stripslashes($string);
 		}
 		return $string;
+	}
+
+	function detectescape($basepath, $relativepath) {
+		// 感谢 oldhu 贡献此代码
+		// 如果base不存在，有问题
+		if(!file_exists($basepath)) {
+			return FALSE;
+		}
+
+		// 如果文件或目录不存在，有可能是创建前的检查，使用其上一级路径
+		if(!file_exists($basepath . $relativepath)) {
+			$relativepath = dirname($relativepath);
+			// 上一级还不存在，按最坏情况处理，阻止请求
+			// 不区分返回值的目的也是为了避免给攻击者有价值的信息
+			if(!file_exists($basepath . $relativepath)) {
+				return FALSE;
+			}
+		}
+
+		$real_base = realpath($basepath);
+		$real_target = realpath($basepath . $relativepath);
+
+		// $real_base与$real_target相等，表示就是在访问base目录，允许
+		// 或者
+		// $real_target的开头就是$real_base，表示在访问base之下的文件/目录，允许
+		if(strcmp($real_target, $real_base) !== 0 && strpos($real_target, $real_base . DIRECTORY_SEPARATOR) !== 0) {
+			return FALSE;
+		}
+
+		return TRUE;
 	}
 
 }

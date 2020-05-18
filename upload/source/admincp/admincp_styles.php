@@ -329,7 +329,7 @@ if($operation == 'admin') {
 				$styleidnew = C::t('common_style')->insert(array('name' => $_GET['newname'], 'templateid' => 1), true);
 				foreach(array_keys($predefinedvars) as $variable) {
 					$substitute = isset($predefinedvars[$variable][2]) ? $predefinedvars[$variable][2] : '';
-					C::t('common_stylevar')->insert(array('styleid' => $styleidnew, 'variable' => $_GET['variable'], 'substitute' => $substitute));
+					C::t('common_stylevar')->insert(array('styleid' => $styleidnew, 'variable' => $variable, 'substitute' => $substitute));
 				}
 			}
 

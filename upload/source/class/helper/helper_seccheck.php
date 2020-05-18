@@ -28,7 +28,6 @@ class helper_seccheck {
 					$secappend = $_GET['secqaahash'];
 				}
 			}
-			$secappend = str_replace($_G['sid'], '', $secappend);
 		}
 		if(!isset($_G['cookie']['sec'.$type.$secappend])) {
 			return false;
@@ -63,7 +62,6 @@ class helper_seccheck {
 					$secappend = $_GET['secqaahash'];
 				}
 			}
-			$secappend = str_replace($_G['sid'], '', $secappend);
 		}
 		$ssid = C::t('common_seccheck')->insert(array(
 		    'dateline' => TIMESTAMP,
@@ -97,7 +95,7 @@ class helper_seccheck {
 			if($seccodeunits) {
 				$seccode = '';
 				for($i = 0; $i < 4; $i++) {
-					$unit = ord($s{$i});
+					$unit = ord($s[$i]);
 					$seccode .= ($unit >= 0x30 && $unit <= 0x39) ? $seccodeunits[$unit - 0x30] : $seccodeunits[$unit - 0x57];
 				}
 			}

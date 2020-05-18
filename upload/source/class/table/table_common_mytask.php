@@ -64,6 +64,10 @@ class table_common_mytask extends discuz_table
 		return DB::fetch_first("SELECT * FROM %t WHERE uid=%d AND taskid=%d", array($this->_table, $uid, $taskid));
 	}
 
+	public function update_to_success($uid, $taskid, $timestamp) {
+		return DB::query('UPDATE '.DB::table($this->_table)." SET status = '1', csc = '100', dateline = '".intval($timestamp)."' WHERE taskid = '".intval($taskid)."' AND uid = '".intval($uid)."' AND status != '1'");
+	}
+
 }
 
 ?>

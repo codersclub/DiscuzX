@@ -460,7 +460,7 @@ class discuz_application extends discuz_base{
 			$this->var['sid'] = $this->session->sid;
 			$this->var['session'] = $this->session->var;
 
-			if(!empty($this->var['sid']) && $this->var['sid'] != $this->var['cookie']['sid']) {
+			if(isset($this->var['sid']) && $this->var['sid'] !== $this->var['cookie']['sid']) {
 				dsetcookie('sid', $this->var['sid'], 86400);
 			}
 

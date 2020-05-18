@@ -40,6 +40,12 @@ class table_common_card extends discuz_table
 	public function update_to_overdue($timestamp) {
 		return ($timestamp = dintval($timestamp)) ? DB::query('UPDATE '.DB::table('common_card')." SET status = 9 WHERE status = '1' AND cleardateline <= '$timestamp'") : false;
 	}
+
+	public function update_to_used($id) {
+		global $_G;
+		return DB::query('UPDATE '.DB::table('common_card')." SET status = '2', uid = '".$_G['uid']."', useddateline = '".$_G['timestamp']."' WHERE id = '".daddslashes($id)."' AND status = '1'");
+	}
+
 }
 
 ?>
