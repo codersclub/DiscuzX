@@ -79,7 +79,7 @@ function setcssbackground(&$data, $code) {
 	for($i = 0; $i < count($codes); $i++) {
 		if($i < 2) {
 			if($codes[$i] != '') {
-				if($codes[$i]{0} == '#') {
+				if($codes[$i][0] == '#') {
 					$css .= strtoupper($codes[$i]).' ';
 					$codevalue = strtoupper($codes[$i]);
 				} elseif(preg_match('/^(https?:)?\/\//i', $codes[$i])) {

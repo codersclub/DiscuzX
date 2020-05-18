@@ -41,7 +41,7 @@ class seccode {
 		$seccodeunits = 'CEFHKLMNOPQRSTUVWXYZ';
 		$seccode = '';
 		for($i = 0; $i < 4; $i++) {
-			$unit = ord($s{$i});
+			$unit = ord($s[$i]);
 			$seccode .= ($unit >= 0x30 && $unit <= 0x39) ? $seccodeunits[$unit - 0x30] : $seccodeunits[$unit - 0x57];
 		}
 	}

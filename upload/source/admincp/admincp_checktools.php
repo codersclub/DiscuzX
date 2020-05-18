@@ -303,7 +303,7 @@ if($operation == 'filecheck') {
 		$settings['ftp'] = C::t('common_setting')->fetch('ftp', true);
 		$settings['ftp']['password'] = authcode($settings['ftp']['password'], 'DECODE', md5($_G['config']['security']['authkey']));
 		$pwlen = strlen($settingnew['ftp']['password']);
-		if($settingnew['ftp']['password']{0} == $settings['ftp']['password']{0} && $settingnew['ftp']['password']{$pwlen - 1} == $settings['ftp']['password']{strlen($settings['ftp']['password']) - 1} && substr($settingnew['ftp']['password'], 1, $pwlen - 2) == '********') {
+		if($settingnew['ftp']['password'][0] == $settings['ftp']['password'][0] && $settingnew['ftp']['password'][$pwlen - 1] == $settings['ftp']['password'][strlen($settings['ftp']['password']) - 1] && substr($settingnew['ftp']['password'], 1, $pwlen - 2) == '********') {
 			$settingnew['ftp']['password'] = $settings['ftp']['password'];
 		}
 		$settingnew['ftp']['password'] = authcode($settingnew['ftp']['password'], 'ENCODE', md5($_G['config']['security']['authkey']));
@@ -347,7 +347,7 @@ if($operation == 'filecheck') {
 	$settingnew['mail']['smtp'] = array();
 	foreach($oldsmtp as $id => $value) {
 		if((empty($deletesmtp) || !in_array($id, $deletesmtp)) && !empty($value['server']) && !empty($value['port'])) {
-			$passwordmask = $oldmail['smtp'][$id]['auth_password'] ? $oldmail['smtp'][$id]['auth_password']{0}.'********'.substr($oldmail['smtp'][$id]['auth_password'], -2) : '';
+			$passwordmask = $oldmail['smtp'][$id]['auth_password'] ? $oldmail['smtp'][$id]['auth_password'][0].'********'.substr($oldmail['smtp'][$id]['auth_password'], -2) : '';
 			$value['auth_password'] = $value['auth_password'] == $passwordmask ? $oldmail['smtp'][$id]['auth_password'] : $value['auth_password'];
 			$settingnew['mail']['smtp'][] = $value;
 		}

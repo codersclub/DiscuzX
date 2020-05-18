@@ -63,7 +63,7 @@ if(in_array($m, array('app', 'frame', 'user', 'pm', 'pm_client', 'tag', 'feed', 
 	$classname = $m.'control';
 	$control = new $classname();
 	$method = 'on'.$a;
-	if(method_exists($control, $method) && $a{0} != '_') {
+	if(method_exists($control, $method) && $a[0] != '_') {
 		$data = $control->$method();
 		echo is_array($data) ? $control->serialize($data, 1) : $data;
 		exit;

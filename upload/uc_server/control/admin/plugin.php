@@ -43,7 +43,7 @@ class pluginbase extends adminbase {
 	function _call($a, $arg) {
 		$do = getgpc('do');
 		$do = empty($do) ? 'onindex' : 'on'.$do;
-		if(method_exists($this, $do) && $do{0} != '_') {
+		if(method_exists($this, $do) && $do[0] != '_') {
 			$this->$do();
 		} else {
 			exit('Plugin module not found');

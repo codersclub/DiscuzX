@@ -521,9 +521,9 @@ if(!submitcheck('settingsubmit')) {
 	} elseif($operation == 'styles') {
 
 		$_G['setting']['showsettings'] = str_pad(decbin($setting['showsettings']), 3, 0, STR_PAD_LEFT);
-		$setting['showsignatures'] = $_G['setting']['showsettings']{0};
-		$setting['showavatars'] = $_G['setting']['showsettings']{1};
-		$setting['showimages'] = $_G['setting']['showsettings']{2};
+		$setting['showsignatures'] = $_G['setting']['showsettings'][0];
+		$setting['showavatars'] = $_G['setting']['showsettings'][1];
+		$setting['showimages'] = $_G['setting']['showsettings'][2];
 		$setting['postnocustom'] = implode("\n", (array)dunserialize($setting['postnocustom']));
 		$setting['sitemessage'] = dunserialize($setting['sitemessage']);
 		$setting['disallowfloat'] = $setting['disallowfloat'] ? dunserialize($setting['disallowfloat']) : array();
@@ -1151,9 +1151,9 @@ EOF;
 	} elseif($operation == 'editor') {
 
 		$_G['setting']['editoroptions'] = str_pad(decbin($setting['editoroptions']), 3, 0, STR_PAD_LEFT);
-		$setting['defaulteditormode'] = $_G['setting']['editoroptions']{0};
-		$setting['allowswitcheditor'] = $_G['setting']['editoroptions']{1};
-		$setting['simplemode'] = $_G['setting']['editoroptions']{2};
+		$setting['defaulteditormode'] = $_G['setting']['editoroptions'][0];
+		$setting['allowswitcheditor'] = $_G['setting']['editoroptions'][1];
+		$setting['simplemode'] = $_G['setting']['editoroptions'][2];
 
 		/*search={"setting_editor":"action=setting&operation=editor","setting_editor_global":"action=setting&operation=editor"}*/
 		showtableheader();
@@ -1553,7 +1553,7 @@ EOF;
 	} elseif($operation == 'mail' && $isfounder) {
 
 		$setting['mail'] = dunserialize($setting['mail']);
-		$passwordmask = $setting['mail']['auth_password'] ? $setting['mail']['auth_password']{0}.'********'.substr($setting['mail']['auth_password'], -2) : '';
+		$passwordmask = $setting['mail']['auth_password'] ? $setting['mail']['auth_password'][0].'********'.substr($setting['mail']['auth_password'], -2) : '';
 
 		/*search={"setting_mail":"action=setting&operation=mail","setting_mail_setting":"action=setting&operation=mail&anchor=setting"}*/
 		showtableheader('', '', 'id="mailsetting"'.($_GET['anchor'] != 'setting' ? ' style="display: none"' : ''));
@@ -1606,7 +1606,7 @@ EOF;
 EOF;
 		foreach($setting['mail']['smtp'] as $id => $smtp) {
 			$checkauth = $smtp['auth'] ? 'checked' : '';
-			$smtp['auth_password'] = $smtp['auth_password'] ? $smtp['auth_password']{0}.'********'.substr($smtp['auth_password'], -2) : '';
+			$smtp['auth_password'] = $smtp['auth_password'] ? $smtp['auth_password'][0].'********'.substr($smtp['auth_password'], -2) : '';
 			showtablerow('', array('class="td25"', 'class="td28"', 'class="td28"'), array(
 				"<input class=\"checkbox\" type=\"checkbox\" name=\"settingnew[mail][smtp][delete][]\" value=\"$id\">",
 				"<input type=\"text\" class=\"txt\" name=\"settingnew[mail][smtp][$id][server]\" value=\"$smtp[server]\" style=\"width: 90%;\">",
@@ -1635,7 +1635,7 @@ EOF;
 EOF;
 		foreach($setting['mail']['smtp'] as $id => $smtp) {
 			$checkauth = $smtp['auth'] ? 'checked' : '';
-			$smtp['auth_password'] = $smtp['auth_password'] ? $smtp['auth_password']{0}.'********'.substr($smtp['auth_password'], -2) : '';
+			$smtp['auth_password'] = $smtp['auth_password'] ? $smtp['auth_password'][0].'********'.substr($smtp['auth_password'], -2) : '';
 
 			showtablerow('', array('class="td25"', 'class="td28"', 'class="td28"', 'class="td25"'), array(
 			"<input class=\"checkbox\" type=\"checkbox\" name=\"settingnew[mail][esmtp][delete][]\" value=\"$id\">",
@@ -1977,7 +1977,7 @@ EOT;
 			$setting['ftp'] = dunserialize($setting['ftp']);
 			$setting['ftp'] = is_array($setting['ftp']) ? $setting['ftp'] : array();
 			$setting['ftp']['password'] = authcode($setting['ftp']['password'], 'DECODE', md5($_G['config']['security']['authkey']));
-			$setting['ftp']['password'] = $setting['ftp']['password'] ? $setting['ftp']['password']{0}.'********'.$setting['ftp']['password']{strlen($setting['ftp']['password']) - 1} : '';
+			$setting['ftp']['password'] = $setting['ftp']['password'] ? $setting['ftp']['password'][0].'********'.$setting['ftp']['password'][strlen($setting['ftp']['password']) - 1] : '';
 
 			require_once libfile('function/cache');
 
@@ -3143,7 +3143,7 @@ EOT;
 			if($pwlen < 3) {
 				cpmsg('ftp_password_short', '', 'error');
 			}
-			if($settingnew['ftp']['password']{0} == $setting['ftp']['password']{0} && $settingnew['ftp']['password']{$pwlen - 1} == $setting['ftp']['password']{strlen($setting['ftp']['password']) - 1} && substr($settingnew['ftp']['password'], 1, $pwlen - 2) == '********') {
+			if($settingnew['ftp']['password'][0] == $setting['ftp']['password'][0] && $settingnew['ftp']['password'][$pwlen - 1] == $setting['ftp']['password'][strlen($setting['ftp']['password']) - 1] && substr($settingnew['ftp']['password'], 1, $pwlen - 2) == '********') {
 				$settingnew['ftp']['password'] = $setting['ftp']['password'];
 			}
 			$settingnew['ftp']['password'] = authcode($settingnew['ftp']['password'], 'ENCODE', md5($_G['config']['security']['authkey']));
@@ -3157,7 +3157,7 @@ EOT;
 		$deletesmtp = $settingnew['mail']['mailsend'] != 1 ? ($settingnew['mail']['mailsend'] == 3 ? $settingnew['mail']['smtp']['delete'] : $settingnew['mail']['esmtp']['delete']) : array();
 		foreach($oldsmtp as $id => $value) {
 			if((empty($deletesmtp) || !in_array($id, $deletesmtp)) && !empty($value['server']) && !empty($value['port'])) {
-				$passwordmask = $setting['mail']['smtp'][$id]['auth_password'] ? $setting['mail']['smtp'][$id]['auth_password']{0}.'********'.substr($setting['mail']['smtp'][$id]['auth_password'], -2) : '';
+				$passwordmask = $setting['mail']['smtp'][$id]['auth_password'] ? $setting['mail']['smtp'][$id]['auth_password'][0].'********'.substr($setting['mail']['smtp'][$id]['auth_password'], -2) : '';
 				$value['auth_password'] = $value['auth_password'] == $passwordmask ? $setting['mail']['smtp'][$id]['auth_password'] : $value['auth_password'];
 				$settingnew['mail']['smtp'][] = $value;
 			}

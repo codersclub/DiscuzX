@@ -43,7 +43,7 @@ if($_GET['searchsubmit'] && $keywords) {
 		foreach($result as $skey => $tkeys) {
 			$tmp = array();
 			foreach($searchindex[$skey]['index'] as $title => $url) {
-				if($title{0} != '_') {
+				if($title[0] != '_') {
 					$tmp[] = '<a href="'.ADMINSCRIPT.'?'.$url.'&highlight='.rawurlencode($keywords).'"  target="_blank">'.$title.'</a>';
 				}
 			}

@@ -760,11 +760,11 @@ if($_GET['step'] == 'start') {
 		$seccodedata = dunserialize($settings['seccodedata']);
 		if(!$seccodedata['rule']) {
 			$seccodestatuss = sprintf('%05b', $seccodecheck);
-			$seccodedata['rule']['register']['allow'] = $seccodestatuss{4};
-			$seccodedata['rule']['login']['allow'] = $seccodestatuss{3};
-			$seccodedata['rule']['post']['allow'] = $seccodestatuss{2};
-			$seccodedata['rule']['password']['allow'] = $seccodestatuss{1};
-			$seccodedata['rule']['card']['allow'] = $seccodestatuss{0};
+			$seccodedata['rule']['register']['allow'] = $seccodestatuss[4];
+			$seccodedata['rule']['login']['allow'] = $seccodestatuss[3];
+			$seccodedata['rule']['post']['allow'] = $seccodestatuss[2];
+			$seccodedata['rule']['password']['allow'] = $seccodestatuss[1];
+			$seccodedata['rule']['card']['allow'] = $seccodestatuss[0];
 			$seccodedata['seccodedata']['type'] = intval($seccodedata['seccodedata']['type']);
 			$newsettings['seccodedata'] = serialize($seccodedata);
 		}
@@ -1460,7 +1460,7 @@ if($_GET['step'] == 'start') {
 			if(DB::num_rows($query)) {
 				while($row = DB::fetch($query)) {
 					$tid = (string)$row['tid'];
-					$tableid = $tid{strlen($tid)-1};
+					$tableid = $tid[strlen($tid)-1];
 					DB::update('forum_attachment', array('tableid' => $tableid), array('aid' => $row['aid']));
 					DB::insert('forum_attachment_'.$tableid, array(
 						'aid' => $row['aid'],

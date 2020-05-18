@@ -29,7 +29,7 @@ class table_forum_attachment_n extends discuz_table
 				$tableid = DB::result_first("SELECT tableid FROM ".DB::table('forum_attachment')." WHERE aid='$aid'");
 			} elseif($idtype == 'tid') {
 				$tid = (string)$id;
-				$tableid = dintval($tid{strlen($tid)-1});
+				$tableid = dintval($tid[strlen($tid)-1]);
 			} elseif($idtype == 'pid') {
 				$pid = dintval($id);
 				$tableid = DB::result_first("SELECT tableid FROM ".DB::table('forum_attachment')." WHERE pid='$pid' LIMIT 1");

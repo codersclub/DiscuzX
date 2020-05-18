@@ -62,7 +62,7 @@ class logging_ctl {
 			$cookietimecheck = !empty($_G['cookie']['cookietime']) || !empty($_GET['cookietime']) ? 'checked="checked"' : '';
 
 			if($seccodecheck) {
-				$seccode = random(6, 1) + $seccode{0} * 1000000;
+				$seccode = random(6, 1) + $seccode[0] * 1000000;
 			}
 
 			if($this->extrafile && file_exists($this->extrafile)) {

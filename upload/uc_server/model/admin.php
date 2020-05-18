@@ -94,7 +94,7 @@ class adminbase extends base {
 	}
 
 	function _call($a, $arg) {
-		if(method_exists($this, $a) && $a{0} != '_') {
+		if(method_exists($this, $a) && $a[0] != '_') {
 			$this->$a();
 		} else {
 			exit('Method does not exists');

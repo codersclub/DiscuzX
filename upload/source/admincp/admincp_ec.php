@@ -63,7 +63,7 @@ if($operation == 'alipay') {
 	}
 
 	list($ec_contract, $ec_securitycode, $ec_partner, $ec_creditdirectpay) = explode("\t", authcode($settings['ec_contract'], 'DECODE', $_G['config']['security']['authkey']));
-	$ec_securitycodemask = $ec_securitycode ? $ec_securitycode{0}.'********'.substr($ec_securitycode, -4) : '';
+	$ec_securitycodemask = $ec_securitycode ? $ec_securitycode[0].'********'.substr($ec_securitycode, -4) : '';
 
 	if(!submitcheck('alipaysubmit')) {
 
@@ -126,7 +126,7 @@ EOT;
 		$settingsnew['ec_account'] = trim($settingsnew['ec_account']);
 		$settingsnew['ec_securitycode'] = trim($settingsnew['ec_securitycode']);
 		C::t('common_setting')->update('ec_account', $settingsnew['ec_account']);
-		$ec_securitycodemasknew = $settingsnew['ec_securitycode'] ? $settingsnew['ec_securitycode']{0}.'********'.substr($settingsnew['ec_securitycode'], -4) : '';
+		$ec_securitycodemasknew = $settingsnew['ec_securitycode'] ? $settingsnew['ec_securitycode'][0].'********'.substr($settingsnew['ec_securitycode'], -4) : '';
 		$settingsnew['ec_securitycode'] = $ec_securitycodemasknew == $ec_securitycodemask ? $ec_securitycode : $settingsnew['ec_securitycode'];
 		$ec_contract = addslashes(authcode($settingsnew['ec_contract']."\t".$settingsnew['ec_securitycode']."\t".$settingsnew['ec_partner']."\t".$settingsnew['ec_creditdirectpay'], 'ENCODE', $_G['config']['security']['authkey']));
 		C::t('common_setting')->update('ec_contract', $ec_contract);
@@ -202,13 +202,13 @@ EOT;
 
 		showtitle('ec_tenpay_opentrans');
 		showsetting('ec_tenpay_opentrans_chnid', 'settingsnew[ec_tenpay_opentrans_chnid]', $settings['ec_tenpay_opentrans_chnid'], 'text');
-		$tenpay_securitycodemask = $settings['ec_tenpay_opentrans_key'] ? $settings['ec_tenpay_opentrans_key']{0}.'********'.substr($settings['ec_tenpay_opentrans_key'], -4) : '';
+		$tenpay_securitycodemask = $settings['ec_tenpay_opentrans_key'] ? $settings['ec_tenpay_opentrans_key'][0].'********'.substr($settings['ec_tenpay_opentrans_key'], -4) : '';
 		showsetting('ec_tenpay_opentrans_key', 'settingsnew[ec_tenpay_opentrans_key]', $tenpay_securitycodemask, 'text');
 
 		showtitle('ec_tenpay');
 		showsetting('ec_tenpay_bargainor', 'settingsnew[ec_tenpay_bargainor]', $settings['ec_tenpay_bargainor'], 'text');
 
-		$tenpay_securitycodemask = $settings['ec_tenpay_key'] ? $settings['ec_tenpay_key']{0}.'********'.substr($settings['ec_tenpay_key'], -4) : '';
+		$tenpay_securitycodemask = $settings['ec_tenpay_key'] ? $settings['ec_tenpay_key'][0].'********'.substr($settings['ec_tenpay_key'], -4) : '';
 		showsetting('ec_tenpay_key', 'settingsnew[ec_tenpay_key]', $tenpay_securitycodemask, 'text');
 		showsetting('ec_tenpay_check', '', '',
 			'<a href="'.ADMINSCRIPT.'?action=ec&operation=tenpay&checktype=credit" target="_blank">'.$lang['ec_alipay_checklink_credit'].'</a><br />'.
@@ -227,11 +227,11 @@ EOT;
 		$settingsnew = $_GET['settingsnew'];
 		$settingsnew['ec_tenpay_bargainor'] = trim($settingsnew['ec_tenpay_bargainor']);
 		$settingsnew['ec_tenpay_key'] = trim($settingsnew['ec_tenpay_key']);
-		$tenpay_securitycodemask = $settings['ec_tenpay_key'] ? $settings['ec_tenpay_key']{0}.'********'.substr($settings['ec_tenpay_key'], -4) : '';
+		$tenpay_securitycodemask = $settings['ec_tenpay_key'] ? $settings['ec_tenpay_key'][0].'********'.substr($settings['ec_tenpay_key'], -4) : '';
 		$settingsnew['ec_tenpay_key'] = $tenpay_securitycodemask == $settingsnew['ec_tenpay_key'] ? $settings['ec_tenpay_key'] : $settingsnew['ec_tenpay_key'];
 
 		$settingsnew['ec_tenpay_opentrans_key'] = trim($settingsnew['ec_tenpay_opentrans_key']);
-		$tenpay_securitycodemask = $settings['ec_tenpay_opentrans_key'] ? $settings['ec_tenpay_opentrans_key']{0}.'********'.substr($settings['ec_tenpay_opentrans_key'], -4) : '';
+		$tenpay_securitycodemask = $settings['ec_tenpay_opentrans_key'] ? $settings['ec_tenpay_opentrans_key'][0].'********'.substr($settings['ec_tenpay_opentrans_key'], -4) : '';
 		$settingsnew['ec_tenpay_opentrans_key'] = $tenpay_securitycodemask == $settingsnew['ec_tenpay_opentrans_key'] ? $settings['ec_tenpay_opentrans_key'] : $settingsnew['ec_tenpay_opentrans_key'];
 		if($settingsnew['ec_tenpay_direct'] && (!empty($settingsnew['ec_tenpay_bargainor']) && !preg_match('/^\d{10}$/', $settingsnew['ec_tenpay_bargainor']))) {
 			cpmsg('tenpay_bargainor_invalid', 'action=ec&operation=tenpay', 'error');
