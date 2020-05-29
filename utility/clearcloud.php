@@ -26,7 +26,7 @@ $discuz->init();
 
 $_G['siteurl'] = preg_replace('/\/install\/$/i', '/', $_G['siteurl']);
 
-$plugins = array('cloudstat', 'soso_smilies', 'security', 'pcmgr_url_safeguard', 'manyou', 'cloudcaptcha');
+$plugins = array('cloudstat', 'soso_smilies', 'security', 'pcmgr_url_safeguard', 'manyou', 'cloudcaptcha', 'cloudunion', 'qqgroup', 'xf_storage', 'cloudsearch');
 foreach($plugins as $pluginid) {			
 	$plugin = C::t('common_plugin')->fetch_by_identifier($pluginid);
 	if($plugin) {
