@@ -998,15 +998,11 @@ function showEditorMenu(tag, params) {
 	var menutype = 'menu';
 
 	try {
-		sel = wysiwyg ? (editdoc.selection.createRange() ? editdoc.selection.createRange() : editdoc.getSelection().getRangeAt(0)) : document.selection.createRange();
-	} catch(e) {}
-
-	selection = sel ? (wysiwyg ? sel.htmlText : sel.text) : getSel();
-
-	if(BROWSER.rv) {
-		selection = editdoc.getSelection();
-		sel = selection.getRangeAt(0);
-		selection = readNodes(sel.cloneContents(), false);
+		sel = wysiwyg ? editdoc.selection.createRange() : document.selection.createRange();
+		selection = wysiwyg ? sel.htmlText : sel.text;
+	} catch(e) {
+		sel = wysiwyg ? editdoc.getSelection().getRangeAt(0) : undefined;
+		selection = getSel();
 	}
 
 	if(menu) {
