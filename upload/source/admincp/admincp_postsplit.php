@@ -58,7 +58,7 @@ if($operation == 'manage') {
 		showtablerow('', array('', '', '', 'class="td25"'), array($tablename, $data_length, "<input type=\"text\" class=\"txt\" name=\"memo[0]\" value=\"{$posttable_info[0]['memo']}\" />", $opstr));
 
 		foreach(C::t('forum_post')->show_table() as $table) {
-			list($tempkey, $tablename) = each($table);
+			$tablename = current($table);
 			$tableid = gettableid($tablename);
 			if(!preg_match('/^\d+$/', $tableid)) {
 				continue;
@@ -292,7 +292,7 @@ function gettableid($tablename) {
 function getmaxposttableid() {
 	$maxtableid = 0;
 	foreach(C::t('forum_post')->show_table() as $table) {
-		list($tempkey, $tablename) = each($table);
+		$tablename = current($table);
 		$tableid = intval(gettableid($tablename));
 		if($tableid > $maxtableid) {
 			$maxtableid = $tableid;
@@ -310,7 +310,7 @@ function update_posttableids() {
 function get_posttableids() {
 	$tableids = array(0);
 	foreach(C::t('forum_post')->show_table() as $table) {
-		list($tempkey, $tablename) = each($table);
+		$tablename = current($table);
 		$tableid = gettableid($tablename);
 		if(!preg_match('/^\d+$/', $tableid)) {
 			continue;

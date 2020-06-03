@@ -1373,7 +1373,7 @@ EOT;
 function array_flip_keys($arr) {
 	$arr2 = array();
 	$arrkeys = @array_keys($arr);
-	list(, $first) = @each(array_slice($arr, 0, 1));
+	$first = current(array_slice($arr, 0, 1));
 	if($first) {
 		foreach($first as $k=>$v) {
 			foreach($arrkeys as $key) {
