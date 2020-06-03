@@ -9,6 +9,10 @@
  *      This file is automatically generate
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array (
   'search_nomatch' => '对不起，没有找到匹配结果。',
   'search_result' => '结果: <em>找到相关主题 $index[num] 个</em>',

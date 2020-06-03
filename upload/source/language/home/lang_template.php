@@ -9,6 +9,10 @@
  *      This file is automatically generate
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array (
   'cancel' => '取消',
   'close' => '关闭',

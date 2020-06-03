@@ -9,6 +9,10 @@
  *      This file is automatically generate
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array (
   'no_simplemobiletype' => '标准版',
   'nomobiletype' => '电脑版',

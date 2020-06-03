@@ -56,7 +56,7 @@
 		var url = nextpageurl + '&t=' + parseInt((+new Date()/1000)/(Math.random()*1000));
 		var x = new Ajax('HTML');
 		x.get(url, function (s) {
-			s = s.replace(/\n|\r/g, '');
+			s = s.replace(/\n|\r/g, ' ');
 			if(s.indexOf("id=\"autopbn\"") == -1) {
 				$("autopbn").style.display = "none";
 				window.onscroll = null;

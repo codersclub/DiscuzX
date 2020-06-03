@@ -353,7 +353,7 @@ class discuz_application extends discuz_base{
 			@header('Content-Type: text/html; charset='.CHARSET);
 		}
 
-		if($this->var['isHTTPS'] && ($this->config['output']['upgradeinsecure'] || !isset($this->config['output']['upgradeinsecure']))) {
+		if($this->var['isHTTPS'] && isset($this->config['output']['upgradeinsecure']) && $this->config['output']['upgradeinsecure']) {
 			@header('Content-Security-Policy: upgrade-insecure-requests');
 		}
 

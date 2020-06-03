@@ -9,6 +9,10 @@
  *      This file is automatically generate
  */
 
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
+
 $lang = array (
   'getpassword' => '找回密码',
   'login_guest' => '没有帐号？<a href="member.php?mod={$_G[setting][regname]}">{$_G[setting][reglinkname]}</a>',

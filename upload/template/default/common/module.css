@@ -1323,7 +1323,7 @@ i.pstatus { display: block; margin-bottom: -30px; font-size: 12px; text-align: c
 	.attprice { padding: 5px; border: 1px dashed #FF9A9A; }
 /** end **/
 
-/** forum::viewthread,group::viewthread,forum::trade,portal::view,forum::forumdisplay **/
+/** forum::viewthread,group::viewthread,forum::trade,portal::view,forum::forumdisplay,home::space **/
 	/*
 		Name:			mod_zoominner
 		Level:			Function
