@@ -142,7 +142,7 @@ $_config['output']['language'] 			= 'zh_cn';	// 页面语言 zh_cn/zh_tw
 $_config['output']['staticurl'] 		= 'static/';	// 站点静态文件路径，“/”结尾
 $_config['output']['ajaxvalidate']		= 0;		// 是否严格验证 Ajax 页面的真实性 0=关闭，1=打开
 $_config['output']['iecompatible']		= 0;		// 页面 IE 兼容模式
-$_config['output']['upgradeinsecure']	= 1;		// 在HTTPS环境下请求浏览器升级HTTP内链到HTTPS，此选项与自定义CSP冲突 0=关闭，1=打开(默认)
+$_config['output']['upgradeinsecure']	= 0;		// 在HTTPS环境下请求浏览器升级HTTP内链到HTTPS，此选项影响外域资源链接且与自定义CSP冲突 0=关闭(默认)，1=打开
 
 // COOKIE 设置
 $_config['cookie']['cookiepre'] 		= 'discuz_'; 	// COOKIE前缀
