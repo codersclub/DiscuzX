@@ -34,7 +34,7 @@
 	<dl>
 		<dt class="ptn">
 			<span class="y">
-				<a href="home.php?mod=spacecp&ac=pm&op=showmsg&handlekey=showmsg_$post[authorid]&touid=$post[authorid]&pmid=0&daterange=2" onclick="showWindow('sendpm', this.href)" style="font-weight: 200"><img src="{IMGDIR}/pmto.gif" style="vertical-align:middle" />{lang send_pm}</a>&nbsp;
+				<a href="home.php?mod=spacecp&ac=pm&op=showmsg&handlekey=showmsg_$post[authorid]&touid=$post[authorid]&pmid=0&daterange=2" onclick="showWindow('sendpm', this.href)" style="font-weight: 200"><i class="fico-email fc-p"></i>{lang send_pm}</a>&nbsp;
 				<!--{if $post['qq']}-->&nbsp;<a href="//wpa.qq.com/msgrd?v=3&uin=$post[qq]&site=$_G['setting']['bbname']&menu=yes&from=discuz" target="_blank" title="QQ"><img src="{IMGDIR}/qq.gif" alt="QQ" style="vertical-align:middle" /></a><!--{/if}-->
 				<!--{if $post['icq']}-->&nbsp;<a href="//wwp.icq.com/scripts/search.dll?to=$post[icq]" target="_blank" title="ICQ"><img src="{IMGDIR}/icq.gif" alt="ICQ" style="vertical-align:middle" /></a><!--{/if}-->
 				<!--{if $post['yahoo']}-->&nbsp;<a href="//edit.yahoo.com/config/send_webmesg?.target=$post[yahoo]&.src=pg" target="_blank" title="Yahoo"><img src="{IMGDIR}/yahoo.gif" alt="Yahoo!" style="vertical-align:middle" /></a><!--{/if}-->
@@ -48,12 +48,12 @@
 					<!--{/if}-->
 				<!--{/loop}-->
 			<!--{/if}-->
-			<!--{if $online}--> <img class="vm" title="{lang on_line}" alt="online" src="{IMGDIR}/ol.gif"><!--{/if}-->
+			<!--{if $online}--> <span title="{lang on_line}" class="olicon vm"></span><!--{/if}-->
 		</dt>
 		<dd class="mtn"><a href="forum.php?mod=viewthread&tid=$_G[tid]{if $_GET[from]}&from=$_GET[from]{/if}">$_G['forum_thread'][subject]</a> <em>&rsaquo;</em> {lang trade_viewtrade}</dd>
 	</dl>
 </div>
-<!--{if $_G[inajax]}--><span class="y"><a href="javascript:;" onclick="$('tradeinfo$trade[pid]').style.display = 'none';display('trade$trade[pid]');" title="{lang pack_up}"><img src="{STATICURL}image/common/collapsed_no.gif" alt="" class="vm" /> {lang pack_up}</a></span><!--{/if}-->
+<!--{if $_G[inajax]}--><span class="y"><a href="javascript:;" onclick="$('tradeinfo$trade[pid]').style.display = 'none';display('trade$trade[pid]');" title="{lang pack_up}"><i class="fico-remove fic4 fc-s vm" alt=""></i>{lang pack_up}</a></span><!--{/if}-->
 		<h1 class="ph mtm"><a href="forum.php?mod=viewthread&tid=$_G[tid]&do=tradeinfo&pid=$post[pid]{if !empty($_GET[modthreadkey])}&modthreadkey=$_GET[modthreadkey]{/if}" target="_blank">$trade[subject]</a></h1>
 <!--{/if}-->
 
@@ -65,13 +65,13 @@
 		<!--{if $trade['thumb']}-->
 			<a href="javascript:;"><img src="$trade[thumb]" onclick="zoom(this, '$trade[attachurl]')" width="{if $trade[width] > 300}300{else}$trade[width]{/if}" _width="300" _height="300" alt="$trade[subject]" /></a>
 		<!--{else}-->
-			<img src="{IMGDIR}/nophoto.gif" alt="$trade[subject]" />
+			<div class="nophoto" title="$trade[subject]"></div>
 		<!--{/if}-->
 		<!--{if !$_G['forum_thread']['is_archived']}-->
 			<!--{if (($_G['forum']['ismoderator'] && $_G['group']['alloweditpost'] && (!in_array($post['adminid'], array(1, 2, 3)) || $_G['adminid'] < $post['adminid'])) || ($_G['forum']['alloweditpost'] && $_G['uid'] && $post['authorid'] == $_G['uid'])) && !$post['first'] || $_G['forum']['ismoderator'] && $_G['group']['allowdelpost']}-->
 				<p class="ptm pbm">
 					<!--{if $_G['forum']['ismoderator'] && $_G['group']['allowdelpost']}--><span class="y"><a href="javascript:;" onclick="modaction('delpost', $_GET[pid])">{lang delete}</a>&nbsp;&nbsp;<!--{/if}--><!--{if $_G['forum']['picstyle'] && ($_G['forum']['ismoderator'] || ($_G['uid'] == $_G['thread']['authorid'] && $_G['forum_thread']['closed'] == 0))}--><a onclick="showWindow('setcover_$trade[aid]',this.href)" href="forum.php?mod=ajax&action=setthreadcover&aid=$trade[aid]&fid=$_G[fid]">{lang set_cover}</a>&nbsp;&nbsp;<!--{/if}--></span>
-					<a class="editp xi1 xw1" style="padding-left: 20px; " href="forum.php?mod=post&action=edit&fid=$_G[fid]&tid=$_G[tid]&pid=$post[pid]{if !empty($_GET[modthreadkey])}&modthreadkey=$_GET[modthreadkey]{/if}&page=$page">{lang edit_trade}</a>
+					<a class="xi1 xw1" href="forum.php?mod=post&action=edit&fid=$_G[fid]&tid=$_G[tid]&pid=$post[pid]{if !empty($_GET[modthreadkey])}&modthreadkey=$_GET[modthreadkey]{/if}&page=$page"><i class="fico-edit"></i>{lang edit_trade}</a>
 				</p>
 			<!--{/if}-->
 		<!--{/if}-->
@@ -79,7 +79,7 @@
 
 		<div class="spi cl">
 			<!--{if $_G[inajax]}-->
-				<span class="y"><a href="javascript:;" onclick="$('tradeinfo$trade[pid]').style.display = 'none';display('trade$trade[pid]');" title="{lang pack_up}"><img src="{STATICURL}image/common/collapsed_no.gif" alt="" class="vm" /> {lang pack_up}</a></span>
+				<span class="y"><a href="javascript:;" onclick="$('tradeinfo$trade[pid]').style.display = 'none';display('trade$trade[pid]');" title="{lang pack_up}"><i class="fico-remove fic4 fc-s vm" alt=""></i>{lang pack_up}</a></span>
 				<h4 class="wx mbm bbda"><a href="forum.php?mod=viewthread&tid=$_G[tid]&do=tradeinfo&pid=$post[pid]{if !empty($_GET[modthreadkey])}&modthreadkey=$_GET[modthreadkey]{/if}" target="_blank">$trade[subject]</a></h4>
 			<!--{/if}-->
 			<dl>
@@ -226,9 +226,9 @@
 						<!--{loop $usertrades $usertrade}-->
 						<dl class="cl">
 							<dd class="m">
-								<a href="forum.php?mod=viewthread&tid=$usertrade[tid]&do=tradeinfo&pid=$usertrade[pid]{if !empty($_GET[modthreadkey])}&modthreadkey=$_GET[modthreadkey]{/if}" class="tn">
+								<a href="forum.php?mod=viewthread&tid=$usertrade[tid]&do=tradeinfo&pid=$usertrade[pid]{if !empty($_GET[modthreadkey])}&modthreadkey=$_GET[modthreadkey]{/if}" class="tn" style="text-decoration:none !important;">
 									<!--{if $usertrade['displayorder'] > 0}--><em class="hot">{lang post_trade_sticklist}</em><!--{/if}-->
-									<!--{if $usertrade['aid']}--><img src="{echo getforumimg($usertrade[aid])}" width="60" alt="$usertrade[subject]" /><!--{else}--><img src="{IMGDIR}/nophoto.gif" width="130" alt="$usertrade[subject]" /><!--{/if}-->
+									<!--{if $usertrade['aid']}--><img src="{echo getforumimg($usertrade[aid])}" width="60" alt="$usertrade[subject]" /><!--{else}--><div class="nophoto" title="$usertrade[subject]" style="width:60px;height:60px;line-height:60px;border:1px solid #EEE;"></div><!--{/if}-->
 								</a>
 							</dd>
 							<dt><a href="forum.php?mod=viewthread&tid=$usertrade[tid]&do=tradeinfo&pid=$usertrade[pid]{if !empty($_GET[modthreadkey])}&modthreadkey=$_GET[modthreadkey]{/if}">$usertrade[subject]</a></dt>

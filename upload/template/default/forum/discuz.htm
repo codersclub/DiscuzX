@@ -179,7 +179,7 @@
 			<div class="bm bmw {if $forumcolumns} flg{/if} cl">
 				<div class="bm_h cl">
 					<span class="o">
-						<img id="category_-1_img" src="{IMGDIR}/$collapse['collapseimg_-1']" title="{lang spread}" alt="{lang spread}" onclick="toggle_collapse('category_-1');" />
+						<em id="category_-1_img" class="tg{$collapse['collapseicon_-1']}" title="{lang spread}" onclick="toggle_collapse('category_-1');"></em>
 					</span>
 					<h2><a href="forum.php?mod=collection&op=my">{lang my_order_collection}</a></h2>
 				</div>
@@ -196,7 +196,7 @@
 							<!--{/if}-->
 							<td class="fl_g"{if $forumcolwidth} width="$forumcolwidth"{/if}>
 								<div class="fl_icn_g">
-								<a href="forum.php?mod=collection&action=view&ctid={$colletion[ctid]}" target="_blank"><img src="{IMGDIR}/forum{if $followcollections[$key]['lastvisit'] < $colletion['lastupdate']}_new{/if}.gif" alt="$colletion[name]" /></a>
+								<a href="forum.php?mod=collection&action=view&ctid={$colletion[ctid]}" target="_blank" title="$colletion[name]"><svg width="31" height="29"><path fill="#{if $followcollections[$key]['lastvisit'] < $colletion['lastupdate']}fdc910{else}c9c9c9{/if}" d="M31 13c0-7.2-6.9-13-15.5-13S0 5.8 0 13s6.9 13 15.5 13c1.6 0 3.2-.2 4.6-.6L27 28l-1.7-5c3.5-2.4 5.7-6 5.7-10z"/></svg></a>
 								</div>
 								<dl>
 									<dt><a href="forum.php?mod=collection&action=view&ctid={$colletion[ctid]}">$colletion[name]</a></dt>
@@ -235,7 +235,7 @@
 			<div class="bm bmw {if $forumcolumns} flg{/if} cl">
 				<div class="bm_h cl">
 					<span class="o">
-						<img id="category_0_img" src="{IMGDIR}/$collapse['collapseimg_0']" title="{lang spread}" alt="{lang spread}" onclick="toggle_collapse('category_0');" />
+						<em id="category_0_img" class="tg{$collapse['collapseicon_0']}" title="{lang spread}" onclick="toggle_collapse('category_0');"></em>
 					</span>
 					<h2><a href="home.php?mod=space&do=favorite&type=forum">{lang forum_myfav}</a></h2>
 				</div>
@@ -259,7 +259,7 @@
 									<!--{if $forum[icon]}-->
 										$forum[icon]
 									<!--{else}-->
-										<a href="$forumurl"{if $forum[redirect]} target="_blank"{/if}><img src="{IMGDIR}/forum{if $forum[folder]}_new{/if}.gif" alt="$forum[name]" /></a>
+										<a href="$forumurl"{if $forum[redirect]} target="_blank"{/if} title="$forum[name]"><svg width="31" height="29"><path fill="#{if $forum[folder]}fdc910{else}c9c9c9{/if}" d="M31 13c0-7.2-6.9-13-15.5-13S0 5.8 0 13s6.9 13 15.5 13c1.6 0 3.2-.2 4.6-.6L27 28l-1.7-5c3.5-2.4 5.7-6 5.7-10z"/></svg></a>
 									<!--{/if}-->
 									</div>
 									<dl{if !empty($forum[extra][iconwidth]) && !empty($forum[icon])} style="margin-left: {$forum[extra][iconwidth]}px;"{/if}>
@@ -291,7 +291,7 @@
 									<!--{if $forum[icon]}-->
 										$forum[icon]
 									<!--{else}-->
-										<a href="$forumurl"{if $forum[redirect]} target="_blank"{/if}><img src="{IMGDIR}/forum{if $forum[folder]}_new{/if}.gif" alt="$forum[name]" /></a>
+										<a href="$forumurl"{if $forum[redirect]} target="_blank"{/if} title="$forum[name]"><svg width="31" height="29"><path fill="#{if $forum[folder]}fdc910{else}c9c9c9{/if}" d="M31 13c0-7.2-6.9-13-15.5-13S0 5.8 0 13s6.9 13 15.5 13c1.6 0 3.2-.2 4.6-.6L27 28l-1.7-5c3.5-2.4 5.7-6 5.7-10z"/></svg></a>
 									<!--{/if}-->
 								</td>
 								<td>
@@ -338,7 +338,7 @@
 			<div class="bm bmw {if $cat['forumcolumns']} flg{/if} cl">
 				<div class="bm_h cl">
 					<span class="o">
-						<img id="category_$cat[fid]_img" src="{IMGDIR}/$cat[collapseimg]" title="{lang spread}" alt="{lang spread}" onclick="toggle_collapse('category_$cat[fid]');" />
+						<em id="category_$cat[fid]_img" class="tg{$cat[collapseicon]}" title="{lang spread}" onclick="toggle_collapse('category_$cat[fid]');"></em>
 					</span>
 					<!--{if $cat['moderators']}--><span class="y">{lang forum_category_modedby}: $cat[moderators]</span><!--{/if}-->
 					<!--{eval $caturl = !empty($cat['domain']) && !empty($_G['setting']['domain']['root']['forum']) ? $_G['scheme'].'://'.$cat['domain'].'.'.$_G['setting']['domain']['root']['forum'] : '';}-->
@@ -362,7 +362,7 @@
 								<!--{if $forum[icon]}-->
 									$forum[icon]
 								<!--{else}-->
-									<a href="$forumurl"{if $forum[redirect]} target="_blank"{/if}><img src="{IMGDIR}/forum{if $forum[folder]}_new{/if}.gif" alt="$forum[name]" /></a>
+									<a href="$forumurl"{if $forum[redirect]} target="_blank"{/if} title="$forum[name]"><svg width="31" height="29"><path fill="#{if $forum[folder]}fdc910{else}c9c9c9{/if}" d="M31 13c0-7.2-6.9-13-15.5-13S0 5.8 0 13s6.9 13 15.5 13c1.6 0 3.2-.2 4.6-.6L27 28l-1.7-5c3.5-2.4 5.7-6 5.7-10z"/></svg></a>
 								<!--{/if}-->
 								</div>
 								<dl{if !empty($forum[extra][iconwidth]) && !empty($forum[icon])} style="margin-left: {$forum[extra][iconwidth]}px;"{/if}>
@@ -393,7 +393,7 @@
 								<!--{if $forum[icon]}-->
 									$forum[icon]
 								<!--{else}-->
-									<a href="$forumurl"{if $forum[redirect]} target="_blank"{/if}><img src="{IMGDIR}/forum{if $forum[folder]}_new{/if}.gif" alt="$forum[name]" /></a>
+									<a href="$forumurl"{if $forum[redirect]} target="_blank"{/if} title="$forum[name]"><svg width="31" height="29"><path fill="#{if $forum[folder]}fdc910{else}c9c9c9{/if}" d="M31 13c0-7.2-6.9-13-15.5-13S0 5.8 0 13s6.9 13 15.5 13c1.6 0 3.2-.2 4.6-.6L27 28l-1.7-5c3.5-2.4 5.7-6 5.7-10z"/></svg></a>
 								<!--{/if}-->
 							</td>
 							<td>
@@ -442,7 +442,7 @@
 			<div class="bm bmw {if $forumcolumns} flg{/if} cl">
 				<div class="bm_h cl">
 					<span class="o">
-						<img id="category_-2_img" src="{IMGDIR}/$collapse['collapseimg_-2']" title="{lang spread}" alt="{lang spread}" onclick="toggle_collapse('category_-2');" />
+						<em id="category_-2_img" class="tg{$collapse['collapseicon_-2']}" title="{lang spread}" onclick="toggle_collapse('category_-2');"></em>
 					</span>
 					<h2><a href="forum.php?mod=collection">{lang recommend_collection}</a></h2>
 				</div>
@@ -459,7 +459,7 @@
 							<!--{/if}-->
 							<td class="fl_g"{if $forumcolwidth} width="$forumcolwidth"{/if}>
 								<div class="fl_icn_g">
-								<a href="forum.php?mod=collection&action=view&ctid={$colletion[ctid]}" target="_blank"><img src="{IMGDIR}/forum.gif" alt="$colletion[name]" /></a>
+								<a href="forum.php?mod=collection&action=view&ctid={$colletion[ctid]}" target="_blank" title="$colletion[name]"><svg width="31" height="29"><path fill="#c9c9c9" d="M31 13c0-7.2-6.9-13-15.5-13S0 5.8 0 13s6.9 13 15.5 13c1.6 0 3.2-.2 4.6-.6L27 28l-1.7-5c3.5-2.4 5.7-6 5.7-10z"/></svg></a>
 								</div>
 								<dl>
 									<dt><a href="forum.php?mod=collection&action=view&ctid={$colletion[ctid]}">$colletion[name]</a></dt>
@@ -501,7 +501,7 @@
 			<div id="online" class="bm oll">
 				<div class="bm_h">
 				<!--{if $detailstatus}-->
-					<span class="o"><a href="forum.php?showoldetails=no#online" title="{lang spread}"><img src="{IMGDIR}/collapsed_no.gif" alt="{lang spread}" /></a></span>
+					<span class="o"><a href="forum.php?showoldetails=no#online" title="{lang spread}"><em class="tg_no" title="{lang spread}"></em></a></span>
 					<h3>
 						<strong><a href="home.php?mod=space&do=friend&view=online&type=member">{lang onlinemember}</a></strong>
 						<span class="xs1">- <strong>$onlinenum</strong> {lang onlines}
@@ -511,7 +511,7 @@
 					</h3>
 				<!--{else}-->
 					<!--{if empty($_G['setting']['sessionclose'])}-->
-						<span class="o"><a href="forum.php?showoldetails=yes#online" title="{lang spread}"><img src="{IMGDIR}/collapsed_yes.gif" alt="{lang spread}" /></a></span>
+						<span class="o"><a href="forum.php?showoldetails=yes#online" title="{lang spread}"><em class="tg_yes" title="{lang spread}"></em></a></span>
 					<!--{/if}-->
 					<h3>
 						<strong>

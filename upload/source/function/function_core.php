@@ -417,7 +417,7 @@ function avatar($uid, $size = 'middle', $returnsrc = FALSE, $real = FALSE, $stat
 		$dir2 = substr($uid, 3, 2);
 		$dir3 = substr($uid, 5, 2);
 		$file = $ucenterurl.'/data/avatar/'.$dir1.'/'.$dir2.'/'.$dir3.'/'.substr($uid, -2).($real ? '_real' : '').'_avatar_'.$size.'.jpg';
-		return $returnsrc ? $file : '<img src="'.$file.'" onerror="this.onerror=null;this.src=\''.$ucenterurl.'/images/noavatar_'.$size.'.gif\'" />';
+		return $returnsrc ? $file : '<img src="'.$file.'" onerror="this.onerror=null;this.src=\''.$ucenterurl.'/images/noavatar.svg\'" />';
 	}
 }
 

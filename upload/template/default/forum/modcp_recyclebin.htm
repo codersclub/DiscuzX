@@ -114,17 +114,17 @@
 							<tr>
 								<td class="icn">
 									<!--{if $thread['special'] == 1}-->
-										<img src="{IMGDIR}/pollsmall.gif" alt="{lang thread_poll}" />
+										<i class="fico-vote fic6 fc-n" title="{lang thread_poll}"></i>
 									<!--{elseif $thread['special'] == 2}-->
-										<img src="{IMGDIR}/tradesmall.gif" alt="{lang thread_trade}" />
+										<i class="fico-cart fic6 fc-n" title="{lang thread_trade}"></i>
 									<!--{elseif $thread['special'] == 3}-->
-										<img src="{IMGDIR}/rewardsmall.gif" alt="{lang thread_reward}" {if $thread['price'] < 0}class="solved"{/if} />
+										<i class="fico-reward fic6 fc-n{if $thread['price'] < 0} solved{/if}" title="{lang thread_reward}"></i>
 									<!--{elseif $thread['special'] == 4}-->
-										<img src="{IMGDIR}/activitysmall.gif" alt="{lang thread_activity}" />
+										<i class="fico-group fic6 fc-n" title="{lang thread_activity}"></i>
 									<!--{elseif $thread['special'] == 5}-->
-										<img src="{IMGDIR}/debatesmall.gif" alt="{lang thread_debate}" />
+										<i class="fico-vs fic6 fc-n" title="{lang thread_debate}"></i>
 									<!--{else}-->
-										<img src="{IMGDIR}/folder_$thread[folder].gif" />
+										<i class="fico-thread fic6 fc-n"></i>
 									<!--{/if}-->
 								</td>
 								<td class="o"><input class="pc" type="checkbox" name="moderate[]" value="$thread[tid]" /></td>
@@ -150,9 +150,9 @@
 									<!--{/if}-->
 
 									<!--{if $thread['attachment'] == 2}-->
-											<img src="{STATICURL}image/filetype/image_s.gif" alt="{lang attach_img}" align="absmiddle" />
+											<i class="fico-image fic4 fc-p vm" title="{lang attach_img}"></i>
 									<!--{elseif $thread['attachment'] == 1}-->
-											<img src="{STATICURL}image/filetype/common.gif" alt="{lang attachment}" align="absmiddle" />
+											<i class="fico-attachment fic4 fc-p vm" title="{lang attachment}"></i>
 									<!--{/if}-->
 								</th>
 								<td class="by">

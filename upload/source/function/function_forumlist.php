@@ -334,17 +334,17 @@ function recommendupdate($fid, &$modrecommend, $force = '', $position = 0) {
 function showstars($num) {
 	global $_G;
 	$return = '';
-	$alt = 'alt="Rank: '.$num.'"';
+	$alt = 'title="Rank: '.$num.'"';
 	if(empty($_G['setting']['starthreshold'])) {
 		for($i = 0; $i < $num; $i++) {
-			$return .= '<img src="'.$_G['style']['imgdir'].'/star_level1.gif" '.$alt.' />';
+			$return .= '<i class="fico-star1 fic4 fc-l" '.$alt.'></i>';
 		}
 	} else {
 		for($i = 3; $i > 0; $i--) {
 			$numlevel = intval($num / pow($_G['setting']['starthreshold'], ($i - 1)));
 			$num = ($num % pow($_G['setting']['starthreshold'], ($i - 1)));
 			for($j = 0; $j < $numlevel; $j++) {
-				$return .= '<img src="'.$_G['style']['imgdir'].'/star_level'.$i.'.gif" '.$alt.' />';
+				$return .= '<i class="fico-star'.$i.' fic4 fc-l" '.$alt.'></i>';
 			}
 		}
 	}

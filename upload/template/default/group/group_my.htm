@@ -63,12 +63,13 @@
 							<td class="icn">
 								<a href="forum.php?mod=viewthread&tid=$tid" title="{lang open_new_window}" target="_blank">
 								<!--{if $thread[folder] == 'lock'}-->
-									<img src="{IMGDIR}/folder_lock.gif" /></a>
+									<i class="fico-lock fic6 fc-s"></i>
 								<!--{elseif in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
-									<img src="{IMGDIR}/pin_$thread[displayorder].gif" alt="$_G[setting][threadsticky][3-$thread[displayorder]]" /></a>
+									<i class="tpin tpin{$thread[displayorder]}" alt="$_G[setting][threadsticky][3-$thread[displayorder]]"><svg width="18" height="18"><path d="M9 0l9 9H14v9H4V9H0z"></path></svg></i>
 								<!--{else}-->
-									<img src="{IMGDIR}/folder_$thread[folder].gif" /></a>
+									<i class="fico-thread fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}"></i>
 								<!--{/if}-->
+								</a>
 							</td>
 							<td><a href="forum.php?mod=viewthread&tid=$tid" target="_blank">$thread[subject]</a></td>
 							<td class="num">
@@ -109,11 +110,11 @@
 							<td class="icn">
 								<a href="forum.php?mod=viewthread&tid=$tid" title="{lang open_new_window}" target="_blank">
 								<!--{if $thread[folder] == 'lock'}-->
-									<img src="{IMGDIR}/folder_lock.gif" /></a>
+									<i class="fico-lock fic6 fc-s"></i>
 								<!--{elseif in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
-									<img src="{IMGDIR}/pin_$thread[displayorder].gif" alt="$_G[setting][threadsticky][3-$thread[displayorder]]" /></a>
+									<i class="tpin tpin{$thread[displayorder]}" alt="$_G[setting][threadsticky][3-$thread[displayorder]]"><svg width="18" height="18"><path d="M9 0l9 9H14v9H4V9H0z"></path></svg></i>
 								<!--{else}-->
-									<img src="{IMGDIR}/folder_$thread[folder].gif" /></a>
+									<i class="fico-thread fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}"></i>
 								<!--{/if}-->
 							</td>
 							<td><a href="forum.php?mod=viewthread&tid=$tid" target="_blank">$thread[subject]</a></td>
@@ -169,7 +170,7 @@
 		</div>
 		<!--{if helper_access::check_module('group')}-->
 		<div class="hm pbm">
-			<a href="forum.php?mod=group&action=create" id="create_group_btn"><img src="{IMGDIR}/create_group.png" alt="{lang group_create}" /></a>
+			<a href="forum.php?mod=group&action=create" id="create_group_btn" class="pgsbtn">{lang group_create}</a>
 		</div>
 		<!--{/if}-->
 		<div class="drag">

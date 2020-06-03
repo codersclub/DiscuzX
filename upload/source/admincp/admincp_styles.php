@@ -89,6 +89,7 @@ $predefinedvars = array('available' => array(), 'boardimg' => array(), 'imgdir' 
 
 	'menubgcolor' => array(0, $lang['styles_edit_type_menu']),
 	'menutext' => array(0),
+	'menucurbgcolor' => array(0),
 	'menuhoverbgcolor' => array(0),
 	'menuhovertext' => array(0),
 

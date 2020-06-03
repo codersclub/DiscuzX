@@ -11,7 +11,7 @@ a, a:hover, a:active{ color:#000; }
 
 #nv li { background-color: #101A22; opacity: 1; filter: alpha(opacity=100); }
 	#nv li a, #nv li a:visited { color: #B9DEF2; }
-	#nv li a:hover { background-image: none !important; }
+	#nv li a:hover { background: none !important; }
 #ct, .n, .w { background: transparent none !important; }
 .block .title, .bbda, .el li { border-bottom-color: #4E6778; }
 .tl .th { background: none; }

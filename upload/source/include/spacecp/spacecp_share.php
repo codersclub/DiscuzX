@@ -86,7 +86,7 @@ if($_GET['op'] == 'delete') {
 
 			loaducenter();
 			$isavatar = uc_check_avatar($id);
-			$arr['image'] = $isavatar?avatar($id, 'middle', true):UC_API.'/images/noavatar_middle.gif';
+			$arr['image'] = $isavatar?avatar($id, 'middle', true):UC_API.'/images/noavatar.svg';
 			$arr['image_link'] = "home.php?mod=space&uid=$id";
 
 			$note_uid = $id;

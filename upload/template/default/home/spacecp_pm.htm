@@ -260,7 +260,7 @@
 					<div class="mtn pns cl">
 	 					<button type="submit" class="pn pnc" id="pmsubmit_btn"><strong>{lang send}</strong></button>
 	 					<div class="pma mtn z">
-							<a href="javascript:;" title="{lang refresh}" onclick="refreshMsg();"><img src="{IMGDIR}/pm-ico5.png" alt="{lang refresh}" class="vm" /> {lang refresh}</a>
+							<a href="javascript:;" title="{lang refresh}" onclick="refreshMsg();"><i class="fico-refresh fic4 vm" alt="{lang refresh}"></i>{lang refresh}</a>
 	 					</div>
 					</div>
 				</form>
@@ -308,7 +308,7 @@
 <!--{else}-->
 
 	<!--{if !$_G[inajax]}-->
-		<h1 class="mt"><img class="vm" src="{STATICURL}image/feed/pm.gif" alt="send pm" /> {lang send_pm}</h1>
+		<h1 class="mt"><i class="fico-email fic4 fc-p vm"></i>{lang send_pm}</h1>
 		<ul class="tb cl">
 			<li class="y"><a href="home.php?mod=space&do=pm&view=inbox" class="xi2">{lang back_mailbox}</a></li>
 			<li{if !$type} class="a"{/if}><a href="home.php?mod=spacecp&ac=pm">{lang private_pm}</a></li>

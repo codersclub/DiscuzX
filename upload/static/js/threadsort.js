@@ -169,7 +169,7 @@ function checkoption(identifier, required, checktype, checkmaxnum, checkminnum, 
 			warning(ce, '必填项目没有填写');
 			return false;
 		} else if(required == '0' && ($('typeoption_' + identifier) == null || $('typeoption_' + identifier).value == '0')) {
-			ce.innerHTML = '<img src="' + IMGDIR + '/check_error.gif" width="16" height="16" class="vm" /> 请选择下一级';
+			ce.innerHTML = '<i class="fico-error fic4 fc-l vm"></i> 请选择下一级';
 			ce.className = "warning";
 			return true;
 		}
@@ -202,7 +202,7 @@ function checkoption(identifier, required, checktype, checkmaxnum, checkminnum, 
 			warning(ce, '必填项目没有填写');
 			return false;
 		} else {
-			ce.innerHTML = '<img src="' + IMGDIR + '/check_right.gif" width="16" height="16" class="vm" />';
+			ce.innerHTML = '<i class="fico-check_right fic4 fc-v vm"></i>';
 		}
 	}
 
@@ -228,7 +228,7 @@ function checkoption(identifier, required, checktype, checkmaxnum, checkminnum, 
 			warning(ce, '请正确填写以http://开头的URL地址');
 			return false;
 		}
-		ce.innerHTML = '<img src="' + IMGDIR + '/check_right.gif" width="16" height="16" class="vm" />';
+		ce.innerHTML = '<i class="fico-check_right fic4 fc-v vm"></i>';
 	}
 	return true;
 }

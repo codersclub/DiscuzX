@@ -4,7 +4,7 @@ body { background-color: transparent; }
 		#hd h2 { padding: 25px 0 0 15px; font-size: 14px; }
 			#hd h2 strong { display: block; }
 		#nv { position: absolute; left: 10px; height: auto; bottom: 0; background: transparent none; }
-			#nv li, #home { margin-right: 1px; padding: 0 6px; border: none; height: 30px; background: rgba(255, 255, 255, 0.7); line-height: 30px; font-size: 12px; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr = #70FFFFFF, endColorstr = #70FFFFFF); }
+			#nv li, #home { margin-right: 1px; padding: 0 6px; border: none; height: 30px; background: rgba(255, 255, 255, 0.7); line-height: 30px; font-size: 12px; }
 				#nv a, #nv a:visited { padding: 0 14px; color: #333; }
 		#ct, .n, .w { padding-top: 15px; border: none; background: transparent none !important; }
 		.area { padding: 0 5px; }
@@ -27,7 +27,7 @@ body { background-color: transparent; }
 #hd ul.savebar li { float:right; margin: 0 3px;}
 .ipx {background: none; height: 17px;}
 #infoedit { margin-left: 5px; padding: 0 5px; background: #369; color: #FFF; cursor: pointer; }
-#diy-tg { float: right; line-height: 30px; background: url({STATICURL}image/diy/panel-toggle-space.png) no-repeat 100% 2px; padding: 0 4px !important;}
+#diy-tg { float: right; color: #9E831F; padding: 0 4px !important;}
 .topnav_pop li span{ display: none; }
 #myspace_menu li a, #navs_menu li a { background-repeat: no-repeat; background-position: -200px 0; }
 .ct2 .sd { width: 180px; }
@@ -42,21 +42,21 @@ body { background-color: transparent; }
 	.mla li, .mlp li { width: 133px; }
 	.buddy li { width: 156px; }
 	.pic .c img { max-width: 714px; }
-		* html .pic .c img { width: expression(this.width > 714 ? 714 : true); }
 	.ul_list {}
-		.ul_list a { padding: 2px 0 2px 20px; background-position: 0 50%; background-repeat: no-repeat; }
-		.ul_diy a { background-image: url({STATICURL}image/feed/thread_magic.gif); }
-		.ul_msg a { background-image: url({STATICURL}image/feed/wall.gif); }
-		.ul_avt a { background-image: url({STATICURL}image/feed/album.gif); }
-		.ul_profile a { background-image: url({STATICURL}image/feed/profile.gif); }
-		.ul_add a { background-image: url({STATICURL}image/feed/friend.gif); }
-		.ul_ignore a { background-image: url({STATICURL}image/feed/friend.gif); }
-		.ul_contect a { background-image: url({STATICURL}image/feed/wall.gif); }
-		.ul_poke a { background-image: url({STATICURL}image/feed/poke.gif); }
-		.ul_pm a { background-image: url({STATICURL}image/feed/pm.gif); }
+		.ul_list a { padding: 2px 0; }
+		.ul_list li:before { font-family: dzicon; line-height: 14px; font-size: 16px; color: #7DA0CC; margin-right: 4px; }
+		.ul_diy:before { content: "\f107"; }
+		.ul_msg:before { content: "\f10e"; }
+		.ul_avt:before { content: "\f102"; }
+		.ul_profile:before { content: "\f147"; }
+		.ul_add:before { content: "\f11f"; }
+		.ul_ignore:before { content: "\f100"; }
+		.ul_contect:before { content: "\f10e"; }
+		.ul_poke:before { content: "\f146"; }
+		.ul_pm:before { content: "\f119"; }
 		.ul_magicgift { height: 30px !important; margin: 0 auto; line-height: 30px; }
-		.ul_broadcast a { background-image: url({IMGDIR}/ann_icon.gif); }
-		.ul_flw a { background-image: url({IMGDIR}/flw_ico.png); }
+		.ul_broadcast:before { content: "\f131"; }
+		.ul_flw:before { content: "\f11e"; }
 
 #magicreceivegift { position: absolute; top: 50px; right: 20px; }
 

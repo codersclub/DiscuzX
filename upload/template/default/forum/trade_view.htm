@@ -92,7 +92,7 @@
 				<h3 class="bm_h">{lang trade_order}</h3>
 				<div class="bm_c">
 					<div class="spvimg">
-						<a href="forum.php?mod=viewthread&do=tradeinfo&tid=$trade[tid]&pid=$trade[pid]"><!--{if $trade['aid']}--><img src="{echo getforumimg($trade[aid])}" width="90" /><!--{else}--><img src="{IMGDIR}/nophotosmall.gif" /><!--{/if}--></a>
+						<a href="forum.php?mod=viewthread&do=tradeinfo&tid=$trade[tid]&pid=$trade[pid]"><!--{if $trade['aid']}--><img src="{echo getforumimg($trade[aid])}" width="90" /><!--{else}--><div class="nophoto"></div><!--{/if}--></a>
 					</div>
 					<div class="spi cl">
 						<h4 class="wx mbm bbda"><a href="forum.php?mod=viewthread&do=tradeinfo&tid=$tradelog[tid]&pid=$tradelog[pid]" target="_blank">$tradelog[subject]</a></h4>
@@ -111,12 +111,12 @@
 							<dt>{lang trade_seller}</dt>
 							<dd>
 								<a href="home.php?mod=space&uid=$tradelog[sellerid]" class="xg2" target="_blank">$tradelog[seller]</a>
-								<!--{if $_G['uid'] != $tradelog['sellerid']}-->&nbsp;<a onclick="showWindow('sendpm', this.href)" href="home.php?mod=spacecp&ac=pm&op=showmsg&handlekey=showmsg_$tradelog[sellerid]&touid=$tradelog[sellerid]&pmid=0&daterange=2" class="xg2" target="_blank"><img src="{IMGDIR}/pmto.gif" title="{lang send_pm}" class="vm" /></a><!--{/if}-->
+								<!--{if $_G['uid'] != $tradelog['sellerid']}-->&nbsp;<a onclick="showWindow('sendpm', this.href)" href="home.php?mod=spacecp&ac=pm&op=showmsg&handlekey=showmsg_$tradelog[sellerid]&touid=$tradelog[sellerid]&pmid=0&daterange=2" class="xg2" target="_blank"><i title="{lang send_pm}" class="fico-email fc-n vm"></i></a><!--{/if}-->
 							</dd>
 							<dt style="clear:left">{lang trade_buyer}</dt>
 							<dd>
 								<a href="home.php?mod=space&uid=$tradelog[buyerid]" target="_blank">$tradelog[buyer]</a>
-								<!--{if $_G['uid'] != $tradelog['buyerid']}-->&nbsp;<a onclick="showWindow('sendpm', this.href)" href="home.php?mod=spacecp&ac=pm&op=showmsg&handlekey=showmsg_$tradelog[buyerid]&touid=$tradelog[buyerid]&pmid=0&daterange=2" class="xg2" target="_blank"><img src="{IMGDIR}/pmto.gif" title="{lang send_pm}" class="vm" /></a><!--{/if}-->
+								<!--{if $_G['uid'] != $tradelog['buyerid']}-->&nbsp;<a onclick="showWindow('sendpm', this.href)" href="home.php?mod=spacecp&ac=pm&op=showmsg&handlekey=showmsg_$tradelog[buyerid]&touid=$tradelog[buyerid]&pmid=0&daterange=2" class="xg2" target="_blank"><i title="{lang send_pm}" class="fico-email fc-n vm"></i></a><!--{/if}-->
 							</dd>
 						<!--{if $tradelog[status] == 0 && $tradelog[sellerid] == $_G['uid']}-->
 							<dt style="clear:left"><label for="newprice">{lang trade_baseprice}</label></dt>
@@ -196,7 +196,7 @@
 						<li>
 							<a href="forum.php?mod=viewthread&tid=$usertrade[tid]&do=tradeinfo&pid=$usertrade[pid]" class="tn">
 								<!--{if $usertrade['displayorder'] > 0}--><em class="hot">{lang post_trade_sticklist}</em><!--{/if}-->
-								<!--{if $usertrade['aid']}--><img src="{echo getforumimg($usertrade[aid])}" width="130" alt="$usertrade[subject]" /><!--{else}--><img src="{IMGDIR}/nophoto.gif" width="130" alt="$usertrade[subject]" /><!--{/if}-->
+								<!--{if $usertrade['aid']}--><img src="{echo getforumimg($usertrade[aid])}" width="130" alt="$usertrade[subject]" /><!--{else}--><div class="nophoto"></div><!--{/if}-->
 							</a>
 
 							<!--{if $usertrade[price] > 0}-->

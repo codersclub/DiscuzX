@@ -286,6 +286,7 @@ if(!$gid && (!defined('FORUM_INDEX_PAGE_MEMORY') || !FORUM_INDEX_PAGE_MEMORY)) {
 
 	foreach($catlist as $catid => $category) {
 		$catlist[$catid]['collapseimg'] = 'collapsed_no.gif';
+		$catlist[$catid]['collapseicon'] = '_no';
 		if($catlist[$catid]['forumscount'] && $category['forumcolumns']) {
 			$catlist[$catid]['forumcolwidth'] = (floor(100 / $category['forumcolumns']) - 0.1).'%';
 			$catlist[$catid]['endrows'] = '';
@@ -306,6 +307,7 @@ if(!$gid && (!defined('FORUM_INDEX_PAGE_MEMORY') || !FORUM_INDEX_PAGE_MEMORY)) {
 		$catlist[0]['type'] = 'group';
 		$catlist[0]['name'] = $_G['setting']['bbname'];
 		$catlist[0]['collapseimg'] = 'collapsed_no.gif';
+		$catlist[0]['collapseicon'] = '_no';
 	} else {
 		unset($catlist[0]);
 	}
@@ -525,9 +527,11 @@ function categorycollapse() {
 	foreach($catlist as $fid => $forum) {
 		if(!isset($_G['cookie']['collapse']) || strpos($_G['cookie']['collapse'], '_category_'.$fid.'_') === FALSE) {
 			$catlist[$fid]['collapseimg'] = 'collapsed_no.gif';
+			$catlist[$fid]['collapseicon'] = '_no';
 			$collapse['category_'.$fid] = '';
 		} else {
 			$catlist[$fid]['collapseimg'] = 'collapsed_yes.gif';
+			$catlist[$fid]['collapseicon'] = '_yes';
 			$collapse['category_'.$fid] = 'display: none';
 		}
 	}
@@ -535,9 +539,11 @@ function categorycollapse() {
 	for($i = -2; $i <= 0; $i++) {
 		if(!isset($_G['cookie']['collapse']) || strpos($_G['cookie']['collapse'], '_category_'.$i.'_') === FALSE) {
 			$collapse['collapseimg_'.$i] = 'collapsed_no.gif';
+			$collapse['collapseicon_'.$i] = '_no';
 			$collapse['category_'.$i] = '';
 		} else {
 			$collapse['collapseimg_'.$i] = 'collapsed_yes.gif';
+			$collapse['collapseicon_'.$i] = '_yes';
 			$collapse['category_'.$i] = 'display: none';
 		}
 	}

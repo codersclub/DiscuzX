@@ -30,7 +30,7 @@
 				<!--{if $_G['uid'] && ($_G['group']['radminid'] == 1 || getstatus($_G['member']['allowadmincp'], 1))}--><a href="admin.php" target="_blank">{lang admincp}</a><!--{/if}-->
 				<!--{hook/global_usernav_extra2}-->
 				<a href="member.php?mod=logging&action=logout&formhash={FORMHASH}">{lang logout}</a>
-				<!--{if $space['self'] && $do == 'index'}--><a id="diy-tg" href="javascript:openDiy();" title="{lang dress_space}">DIY</a><!--{/if}-->
+				<!--{if $space['self'] && $do == 'index'}--><a id="diy-tg" href="javascript:openDiy();" title="{lang dress_space}">{lang dress_space}</a><!--{/if}-->
 			</div>
 		<!--{elseif !empty($_G['cookie']['loginuser'])}-->
 			<div class="y">

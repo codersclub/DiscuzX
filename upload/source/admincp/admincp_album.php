@@ -211,7 +211,7 @@ if(submitcheck('searchsubmit', 1) || $newlist) {
 				if($album['friend'] != 4 && ckfriend($album['uid'], $album['friend'], $album['target_ids'])) {
 					$album['pic'] = pic_cover_get($album['pic'], $album['picflag']);
 				} else {
-					$album['pic'] = STATICURL.'image/common/nopublish.gif';
+					$album['pic'] = STATICURL.'image/common/nopublish.svg';
 				}
 				$album['updatetime'] = dgmdate($album['updatetime']);
 				switch ($album['friend']) {

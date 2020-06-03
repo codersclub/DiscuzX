@@ -36,7 +36,7 @@
 			<!--{if $view != 'index'}-->
 			<div id="pgt" class="bm bw0 pgs cl">
 				$multipage
-				<a onclick="showWindow('nav', this.href, 'get', 0)" href="forum.php?mod=misc&amp;action=nav"><img src="{IMGDIR}/pn_post.png" alt="{lang send_posts}" /></a>
+				<a onclick="showWindow('nav', this.href, 'get', 0)" href="forum.php?mod=misc&amp;action=nav" class="pgsbtn" style="display: inline-block;">{lang send_posts}</a>
 			</div>
 			<!--{/if}-->
 			<ul id="thread_types" class="ttp bm cl">
@@ -127,7 +127,7 @@
 									<!--{/if}-->
 									<!--{if $viewtype == 'thread'}-->
 									&nbsp; {lang keyword}: <input type="text" id="searchmypost" class="px vm" name="searchkey" size="20" value="$searchkey" >
-									<!--{/if}--><button class="pn vm"><em>{lang search}</em></button>
+									<!--{/if}--><button class="pn vm"><strong>{lang search}</strong></button>
 									</form>
 								</th>
 							</tr>

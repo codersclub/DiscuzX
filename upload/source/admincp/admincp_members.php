@@ -2073,7 +2073,7 @@ EOF;
 		$status = array($member['status'] => ' checked');
 		$freeze = array($member['freeze'] => ' checked');
 		showsetting('members_edit_username', '', '', ($_G['setting']['connect']['allow'] && $member['conisbind'] ? ' <img class="vmiddle" src="static/image/common/connect_qq.gif" />' : '').' '.$member['username']);
-		showsetting('members_edit_avatar', '', '', ' <img src="'.avatar($uid, 'middle', true, false, true).'?random='.random(2).'" onerror="this.onerror=null;this.src=\''.$_G['setting']['ucenterurl'].'/images/noavatar_middle.gif\'" /><br /><br /><input name="clearavatar" class="checkbox" type="checkbox" value="1" /> '.$lang['members_edit_avatar_clear']);
+		showsetting('members_edit_avatar', '', '', ' <img src="'.avatar($uid, 'middle', true, false, true).'?random='.random(2).'" onerror="this.onerror=null;this.src=\''.$_G['setting']['ucenterurl'].'/images/noavatar.svg\'" /><br /><br /><input name="clearavatar" class="checkbox" type="checkbox" value="1" /> '.$lang['members_edit_avatar_clear']);
 		$hrefext = "&detail=1&users=$member[username]&searchsubmit=1&perpage=50&fromumanage=1";
 		showsetting('members_edit_statistics', '', '', "<a href=\"".ADMINSCRIPT."?action=prune$hrefext\" class=\"act\">$lang[posts]($member[posts])</a>".
 				"<a href=\"".ADMINSCRIPT."?action=doing$hrefext\" class=\"act\">$lang[doings]($member[doings])</a>".

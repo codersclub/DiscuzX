@@ -31,7 +31,7 @@
 				<ul class="el pll">
 				<!--{loop $polllist $poll}-->
 					<li>
-						<div class="t"><!--{if $poll['rank'] <= 3}--><img src="{IMGDIR}/rank_$poll['rank'].gif" alt="$poll['rank']" /><!--{else}-->$poll['rank']<!--{/if}--></div>
+						<div class="t"><span class="ranks{if $poll['rank'] <= 3} ranks_$poll['rank']{/if}">$poll['rank']</span></div>
 						<div class="cl">
 							<div class="u z">
 								<a href="home.php?mod=space&uid=$poll['authorid']" class="avt" target="_blank">$poll['avatar']</a>

@@ -48,6 +48,7 @@ foreach($query as $forum) {
 		}
 	} else {
 		$forum['collapseimg'] = 'collapsed_no.gif';
+		$forum['collapseicon'] = '_no';
 		$collapse['category_'.$forum['fid']] = '';
 
 		if($forum['moderators']) {

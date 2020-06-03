@@ -17,7 +17,7 @@
 	</div>
 </div>
 <div id="ct" class="wp cl">
-	<h1 class="mt"><img class="vm" src="{IMGDIR}/tag.gif" alt="tag" /> {lang tag}: $tagname</h1>
+	<h1 class="mt"><i class="fico-tag fc-s" alt="tag"></i> {lang tag}: $tagname</h1>
 	<!--{if empty($showtype) || $showtype == 'thread'}-->
 		<div class="bm tl">
 			<div class="th">
@@ -39,21 +39,21 @@
 								<td class="icn">
 									<a href="forum.php?mod=viewthread&tid=$thread[tid]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}" title="{lang target_blank}" target="_blank">
 									<!--{if $thread[folder] == 'lock'}-->
-										<img src="{IMGDIR}/folder_lock.gif" />
+										<i class="fico-lock fic6 fc-s"></i>
 									<!--{elseif $thread['special'] == 1}-->
-										<img src="{IMGDIR}/pollsmall.gif" alt="{lang thread_poll}" />
+										<i class="fico-vote fic6 fc-n"></i>
 									<!--{elseif $thread['special'] == 2}-->
-										<img src="{IMGDIR}/tradesmall.gif" alt="{lang thread_trade}" />
+										<i class="fico-cart fic6 fc-n"></i>
 									<!--{elseif $thread['special'] == 3}-->
-										<img src="{IMGDIR}/rewardsmall.gif" alt="{lang thread_reward}" />
+										<i class="fico-reward fic6 fc-n"></i>
 									<!--{elseif $thread['special'] == 4}-->
-										<img src="{IMGDIR}/activitysmall.gif" alt="{lang thread_activity}" />
+										<i class="fico-group fic6 fc-n"></i>
 									<!--{elseif $thread['special'] == 5}-->
-										<img src="{IMGDIR}/debatesmall.gif" alt="{lang thread_debate}" />
+										<i class="fico-vs fic6 fc-n"></i>
 									<!--{elseif in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
-										<img src="{IMGDIR}/pin_$thread[displayorder].gif" alt="$_G[setting][threadsticky][3-$thread[displayorder]]" />
+										<i class="tpin tpin{$thread[displayorder]}"><svg width="18" height="18"><path d="M9 0l9 9H14v9H4V9H0z"></path></svg></i>
 									<!--{else}-->
-										<img src="{IMGDIR}/folder_$thread[folder].gif" />
+										<i class="fico-thread fic6 fc-n"></i>
 									<!--{/if}-->
 								</td>
 								<th>
@@ -69,12 +69,12 @@
 										- [{lang reward_solved}]
 									<!--{/if}-->
 									<!--{if $thread['attachment'] == 2}-->
-										<img src="{STATICURL}image/filetype/image_s.gif" alt="attach_img" title="{lang attach_img}" align="absmiddle" />
+										<i class="fico-image fic4 fc-p fnmr vm" title="{lang attach_img}"></i>
 									<!--{elseif $thread['attachment'] == 1}-->
-										<img src="{STATICURL}image/filetype/common.gif" alt="attachment" title="{lang attachment}" align="absmiddle" />
+										<i class="fico-attachment fic4 fc-p fnmr vm" title="{lang attachment}"></i>
 									<!--{/if}-->
 									<!--{if $thread['digest'] > 0 && $filter != 'digest'}-->
-										<img src="{IMGDIR}/digest_$thread[digest].gif" align="absmiddle" alt="digest" title="{lang thread_digest} $thread[digest]" />
+										<span class="tbox tdigest">{lang thread_digest}$thread[digest]</span>
 									<!--{/if}-->
 								</th>
 								<td class="by"><a href="forum.php?mod=forumdisplay&fid=$thread[fid]">$thread['forumname']</a></td>
@@ -164,7 +164,7 @@
 </div>
 <!--{else}-->
 	<div id="ct" class="wp cl">
-		<h1 class="mt"><img class="vm" src="{IMGDIR}/tag.gif" alt="tag" /> {lang tag}: $searchtagname</h1>
+		<h1 class="mt"><i class="fico-tag fc-s" alt="tag"></i> {lang tag}: $searchtagname</h1>
 		<div class="bm">
 			<div class="bm_c">
 				<form method="post" action="misc.php?mod=tag" class="pns">

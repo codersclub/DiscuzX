@@ -351,8 +351,7 @@ function itemdisable(i) {
 	}
 }
 function itemop(i, v) {
-	var h = v > 0 ? '-' + (v * 16) + 'px' : '0';
-	$('item_' + i).style.backgroundPosition = '10px ' + h;
+	$('item_' + i).className = 'z cmstar cmstv_' + v;
 }
 function itemclk(i, v) {
 	$('itemc_' + i).value = v;
@@ -360,8 +359,8 @@ function itemclk(i, v) {
 }
 function itemset(i) {
 	var v = $('itemc_' + i).value;
-	var h = v > 0 ? '-' + (v * 16) + 'px' : '0';
-	$('item_' + i).style.backgroundPosition = '10px ' + h;
+	v = v ? v : 0;
+	$('item_' + i).className = 'z cmstar cmstv_' + v;
 }
 
 function checkmgcmn(id) {

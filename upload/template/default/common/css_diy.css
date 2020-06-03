@@ -4,17 +4,21 @@ body { padding-top: 170px; }
 	* html #controlpanel { position: absolute; top: expression(offsetParent.scrollTop); }
 	#controlheader { margin: 0 10px; background: url({STATICURL}image/diy/cp-nav.png) repeat-x 0 0; line-height: 46px; }
 		#controlheader p { width: 460px; height: 46px; background: url({STATICURL}image/diy/cp-nav-corner-tr.png) no-repeat 100% 100%; }
-			#controlheader p a { float: right; margin-top: 8px; height: 27px; line-height: 27px; }
-				#navsave a { margin-right: 2px; width: 54px; background: url({STATICURL}image/diy/cp-save.png) no-repeat 0 0; text-indent: -9999px; overflow: hidden; }
-				#navcancel a { width: 27px; background: url({STATICURL}image/diy/cp-close.png) no-repeat 0 0; text-indent: -9999px; overflow: hidden; }
-				#button_redo a, #button_undo a { background: url({STATICURL}image/diy/cp-step.png) no-repeat 0 0; text-indent: -9999px; overflow: hidden; }
-				#button_redo a { margin-right: 5px; width: 27px; background-position: 0 -54px; }
-					#button_redo.unusable a { background-position: 0 -81px; cursor: default; }
-				#button_undo a { margin-left: 10px; width: 28px; }
-					#button_undo.unusable a { background-position: 0 -27px; cursor: default; }
-				#button_more { margin-right: 20px; width: 17px; height: 27px; background: url({STATICURL}image/diy/cp-more.png) no-repeat 0 0; text-indent: -9999px; overflow: hidden; }
-				#preview a { margin-right: 2px; width: 43px; background: url({STATICURL}image/diy/cp-preview.png) no-repeat 0 -27px; text-indent: -9999px; overflow: hidden; }
-					#preview.unusable a { background-position: 0 0; }
+			#controlheader p a { float: right; margin-top: 8px; height: 25px; line-height: 25px; border: 1px solid #bbb3bf; background: #FEFEFE; text-align: center; }
+			#controlheader p a:hover { text-decoration: none; }
+				#navsave a { margin-right: 2px; padding: 0 12px; border-radius: 4px; background: #E6A234 !important; border-color: #DB7D29 !important; color: #FFF; font-size: 14px; font-weight: 700; text-shadow: 1px 1px 2px #666; }
+				#navcancel a { width: 25px; overflow: hidden; border-radius: 4px; color: #EE831F; }
+					#navcancel a:before { content: "\d7"; font-weight: 700; font-size: 18px; }
+				#button_redo a, #button_undo a { overflow: hidden; color: #4099CA; }
+					#button_redo a:before, #button_undo a:before { content: "\f10b"; display: inline-block; font-family: dzicon; font-size: 20px; }
+					#button_undo a:before { transform: scale(-1,1); }
+				#button_redo a { margin-right: 5px; width: 25px; border-radius: 0 4px 4px 0; }
+				#button_undo a { margin-left: 10px; width: 26px; border-right: 0 !important; border-radius: 4px 0 0 4px; }
+					#button_redo.unusable a, #button_undo.unusable a { color: #CCC; cursor: default; }
+				#button_more { margin-right: 20px; width: 15px; overflow: hidden; border-radius: 4px; color: #CCC; }
+					#button_more:before { content: ""; display: inline-block; border-top: 0.3em solid; border-right: 0.3em solid transparent; border-bottom: 0; border-left: 0.3em solid transparent; vertical-align: middle; }
+				#preview a { margin-right: 2px; padding: 0px 8px; color: #444; border-radius: 4px; }
+					#preview.unusable a { color: #AAA; }
 				#savecache a { margin-right: 2px; width: 43px; background: url({STATICURL}image/diy/cp-savecache.png) no-repeat 0 -27px; text-indent: -9999px; overflow: hidden; }
 					#savecache.unusable a { background-position: 0 0; }
 				#savecachemsg { float: right; padding-right: 5px; text-align: right; }

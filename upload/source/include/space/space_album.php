@@ -70,7 +70,7 @@ if($id) {
 		if($value['friend'] != 4 && ckfriend($value['uid'], $value['friend'], $value['target_ids'])) {
 			$value['pic'] = pic_cover_get($value['pic'], $value['picflag']);
 		} elseif ($value['picnum']) {
-			$value['pic'] = STATICURL.'image/common/nopublish.gif';
+			$value['pic'] = STATICURL.'image/common/nopublish.svg';
 		} else {
 			$value['pic'] = '';
 		}
@@ -391,7 +391,7 @@ if($id) {
 				if($value['friend'] != 4 && ckfriend($value['uid'], $value['friend'], $value['target_ids'])) {
 					$value['pic'] = pic_cover_get($value['pic'], $value['picflag']);
 				} elseif ($value['picnum']) {
-					$value['pic'] = STATICURL.'image/common/nopublish.gif';
+					$value['pic'] = STATICURL.'image/common/nopublish.svg';
 				} else {
 					$value['pic'] = '';
 				}

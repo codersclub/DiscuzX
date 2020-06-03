@@ -38,7 +38,7 @@ if(isUndefined(sliderun)) {
 			s.size[1] = parseInt(s.size[1]);
 			document.write('<div class="slideouter" id="outer_'+s.slideId+'" style="cursor:pointer;position:absolute;width:'+(s.size[0]-2)+'px;height:'+(s.size[1]-2)+'px;border:1px solid '+s.slideBorderColor+'"></div>');
 			document.write('<table cellspacing="0" cellpadding="0" style="cursor:pointer;width:'+s.size[0]+'px;height:'+s.size[1]+'px;table-layout:fixed;overflow:hidden;background:'+s.slideBgColor+';text-align:center"><tr><td valign="middle" style="padding:0" id="slide_'+s.slideId+'">');
-			document.write((typeof IMGDIR == 'undefined' ? '' : '<img src="'+IMGDIR+'/loading.gif" />') + '<br /><span id="percent_'+s.slideId+'">0%</span></td></tr></table>');
+			document.write((typeof IMGDIR == 'undefined' ? '' : '<div class="loadicon"></div>') + '<br /><span id="percent_'+s.slideId+'">0%</span></td></tr></table>');
 			document.write('<div id="switch_'+s.slideId+'" style="position:absolute;margin-left:1px;margin-top:-18px"></div>');
 			$('outer_' + s.slideId).onclick = s.imageLink;
 			for(i = 1;i < s.imgnum;i++) {

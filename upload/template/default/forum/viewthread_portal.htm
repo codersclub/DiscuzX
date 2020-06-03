@@ -54,7 +54,7 @@
 					{lang home_view_num}: $_G[forum_thread][views]<span class="pipe">|</span>
 					{lang comment_num}: $_G[forum_thread][replies]
 					<!--{if (($_G['forum']['ismoderator'] && $_G['group']['alloweditpost'] && (!in_array($post['adminid'], array(1, 2, 3)) || $_G['adminid'] <= $post['adminid'])) || ($_G['forum']['alloweditpost'] && $_G['uid'] && ($post['authorid'] == $_G['uid'] && $_G['forum_thread']['closed'] == 0) && !(!$alloweditpost_status && $edittimelimit && TIMESTAMP - $post['dbdateline'] > $edittimelimit)))}-->
-					<span class="pipe">|</span><a href="forum.php?mod=post&action=edit&fid=$_G[fid]&tid=$_G[tid]&pid=$post[pid]{if !empty($_GET[modthreadkey])}&modthreadkey=$_GET[modthreadkey]{/if}&page=$page{if $_GET[from]}&from=$_GET[from]{/if}"><!--{if $_G['forum_thread']['special'] == 2 && !$post['message']}-->{lang post_add_aboutcounter}<!--{else}-->{lang edit}</a><!--{/if}-->
+					<span class="pipe">|</span><a href="forum.php?mod=post&action=edit&fid=$_G[fid]&tid=$_G[tid]&pid=$post[pid]{if !empty($_GET[modthreadkey])}&modthreadkey=$_GET[modthreadkey]{/if}&page=$page{if $_GET[from]}&from=$_GET[from]{/if}"><!--{if $_G['forum_thread']['special'] == 2 && !$post['message']}-->{lang post_add_aboutcounter}<!--{else}-->{lang edit}<!--{/if}--></a>
 					<!--{/if}-->
 					<span class="pipe">|</span><a href="forum.php?mod=viewthread&tid=$_G[tid]" class="xg1">{lang thread_mod}</a>
 				</p>

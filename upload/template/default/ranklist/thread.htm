@@ -49,7 +49,7 @@
 						</tbody>
 						<!--{loop $threadlist $thread}-->
 							<tr>
-								<td class="icn"><!--{if $thread['rank'] <= 3}--><img src="{IMGDIR}/rank_$thread['rank'].gif" alt="$thread['rank']" /><!--{else}-->$thread['rank']<!--{/if}--></td>
+								<td class="icn"><span class="ranks{if $thread['rank'] <= 3} ranks_$thread['rank']{/if}">$thread['rank']</span></td>
 								<th><a href="forum.php?mod=viewthread&tid={$thread['tid']}" target="_blank">$thread['subject']</a></th>
 								<td class="frm"><a href="forum.php?mod=forumdisplay&fid={$thread['fid']}" class="xg1" target="_blank">$thread['forum']</a></td>
 								<td class="by">

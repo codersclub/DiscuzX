@@ -242,7 +242,7 @@ function Ajax(recvType, waitId) {
 	aj.showLoading = function() {
 		if(aj.waitId && (aj.XMLHttpRequest.readyState != 4 || aj.XMLHttpRequest.status != 200)) {
 			aj.waitId.style.display = '';
-			aj.waitId.innerHTML = '<span><img src="' + IMGDIR + '/loading.gif" class="vm"> ' + aj.loading + '</span>';
+			aj.waitId.innerHTML = '<span><div class="loadicon vm"></div> ' + aj.loading + '</span>';
 		}
 	};
 	aj.processHandle = function() {
@@ -1173,7 +1173,7 @@ function showWindow(k, url, mode, cache, menuv) {
 			ajaxpost(url, 'fwin_content_' + k, '', '', '', function() {initMenu();show();});
 		}
 		if(parseInt(BROWSER.ie) != 6) {
-			loadingst = setTimeout(function() {showDialog('', 'info', '<img src="' + IMGDIR + '/loading.gif"> 请稍候...')}, 500);
+			loadingst = setTimeout(function() {showDialog('', 'info', '<div class="loadicon"></div> 请稍候...')}, 500);
 		}
 	};
 	var initMenu = function() {

@@ -103,7 +103,7 @@
 	<!--{hook/post_infloat_middle}-->
 	<div class="o pns" id="moreconf">
 		<!--{if $_GET[action] == 'newthread' && $_G['setting']['sitemessage'][newthread] || $_GET[action] == 'reply' && $_G['setting']['sitemessage'][reply]}-->
-			<a href="javascript:;" id="custominfo" class="y" style="margin-left:5px"><img src="{IMGDIR}/info_small.gif" alt="{lang faq}" /></a>
+			<a href="javascript:;" id="custominfo" class="y" style="margin-left:5px"><i class="fico-info fic4 fc-p" alt="{lang faq}"></i></a>
 		<!--{/if}-->
 		<a href="home.php?mod=spacecp&ac=credit&op=rule&fid=$_G[fid]" class="y" target="_blank">{lang post_credits_rule}</a>
 		<button type="submit" id="postsubmit" class="pn pnc z" value="true"{if !$seccodecheck && !$secqaacheck} onmouseover="checkpostrule('seccheck_$_GET[action]', 'ac=$_GET[action]&infloat=yes&handlekey=$_GET[handlekey]');this.onmouseover=null"{/if} name="{if $_GET[action] == 'newthread'}topicsubmit{elseif $_GET[action] == 'reply'}replysubmit{/if}" tabindex="23"><span><!--{if $_GET[action] == 'newthread'}-->{lang post_newthread}<!--{elseif $_GET[action] == 'reply'}-->{lang join_thread}<!--{/if}--></span></button>

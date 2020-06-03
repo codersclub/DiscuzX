@@ -241,7 +241,7 @@ function uploadAttach(curId, statusid, prefix, sizelimit) {
 			FAILEDATTACHS += '<br />' + mb_cutstr($(prefix + 'attachnew_' + curId).value.substr($(prefix + 'attachnew_' + curId).value.replace(/\\/g, '/').lastIndexOf('/') + 1), 25) + ': ' + STATUSMSG[statusid] + sizelimit;
 			UPLOADFAILED++;
 		}
-		$(prefix + 'cpdel_' + curId).innerHTML = '<img src="' + IMGDIR + '/check_' + (statusid == 0 ? 'right' : 'error') + '.gif" alt="' + STATUSMSG[statusid] + '" />';
+		$(prefix + 'cpdel_' + curId).innerHTML = '<i class="fico' + (statusid == 0 ? 'check_right fc-v' : 'error fc-i') + ' fic4" alt="' + STATUSMSG[statusid] + '"></i>';
 		if(nextId == curId || in_array(statusid, [6, 8])) {
 			if(prefix == 'img') {
 				updateImageList();
@@ -275,7 +275,7 @@ function uploadAttach(curId, statusid, prefix, sizelimit) {
 		$(prefix + 'uploadbtn').style.display = 'none';
 		$(prefix + 'uploading').style.display = '';
 	}
-	$(prefix + 'cpdel_' + nextId).innerHTML = '<img src="' + IMGDIR + '/loading.gif" alt="上传中..." />';
+	$(prefix + 'cpdel_' + nextId).innerHTML = '<div class="loadicon" title="上传中..."></div>';
 	UPLOADSTATUS = 1;
 	$(prefix + 'attachform_' + nextId).submit();
 }

@@ -36,7 +36,7 @@
 							itemrow = '<span id="itemt_$i" class="z xg1 cur1" title="{lang comment_give_ip}" onclick="itemdisable($i)">&nbsp;$item</span>';
 							itemstar = '';
 							<!--{loop $items $j}-->
-							itemstar += '<em onclick="itemclk($i, $j)" onmouseover="itemop($i, $j)" onmouseout="itemset($i)" title="$itemlang[$j]($j)"{if !$j} style="width: 10px;"{/if}>$itemlang[$j]</em>';
+							itemstar += '<em class="itms_$j" onclick="itemclk($i, $j)" onmouseover="itemop($i, $j)" onmouseout="itemset($i)" title="$itemlang[$j]($j)"></em>';
 							<!--{/loop}-->
 							itemrow += '<span id="item_$i" class="z cmstar">' + itemstar + '</span>';
 							<!--{eval $i++;}-->

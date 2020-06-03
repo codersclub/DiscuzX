@@ -35,7 +35,7 @@
 			<div class="bm bml pbn">
 				<!--{if $_G[forum][banner] && !$subforumonly}--><img src="$_G[forum][banner]" alt="$_G['forum'][name]" /><!--{/if}-->
 				<div class="bm_h cl">
-					<!--{if $_G['page'] == 1 && $_G['forum']['rules']}--><span class="o"><img id="forum_rules_{$_G[fid]}_img" src="{IMGDIR}/collapsed_{$collapse[forum_rulesimg]}.gif" title="{lang spread}" alt="{lang spread}" onclick="toggle_collapse('forum_rules_{$_G[fid]}')" /></span><!--{/if}-->
+					<!--{if $_G['page'] == 1 && $_G['forum']['rules']}--><span class="o"><em id="forum_rules_{$_G[fid]}_img" class="tg_{$collapse[forum_rulesimg]}" title="{lang spread}" onclick="toggle_collapse('forum_rules_{$_G[fid]}')"></em></span><!--{/if}-->
 					<span class="y">
 						<!--{if helper_access::check_module('favorite')}--><a href="home.php?mod=spacecp&ac=favorite&type=forum&id=$_G[fid]&handlekey=favoriteforum&formhash={FORMHASH}" id="a_favorite" class="fa_fav" onclick="showWindow(this.id, this.href, 'get', 0);">{lang forum_favorite} <strong class="xi1" id="number_favorite" {if !$_G[forum][favtimes]} style="display:none;"{/if}>(<span id="number_favorite_num">$_G[forum][favtimes]</span>)</strong></a><!--{/if}-->
 						<!--{if rssforumperm($_G['forum']) && $_G[setting][rssstatus] && !$_GET['archiveid'] && !$subforumonly}--><!--{if helper_access::check_module('favorite')}--><span class="pipe">|</span><!--{/if}--><a href="forum.php?mod=rss&fid=$_G[fid]&auth=$rssauth" class="fa_rss" target="_blank" title="RSS">{lang rss_subscribe_this}</a><!--{/if}-->
@@ -116,7 +116,7 @@
 				<!--{if $recommendgroups && !$_G['forum']['allowside']}-->
 				<div class="bm bmw fl{if $_G['forum']['forumcolumns']} flg{/if}">
 					<div class="bm_h cl">
-						<span class="o"><img id="recommendgroups_{$_G[forum][fid]}_img" src="{IMGDIR}/$collapseimg[recommendgroups]" title="{lang spread}" alt="{lang spread}" onclick="toggle_collapse('recommendgroups_{$_G[forum][fid]}');" /></span>
+						<span class="o"><em id="recommendgroups_{$_G[forum][fid]}_img" class="tg{$collapseicon[recommendgroups]}" title="{lang spread}" onclick="toggle_collapse('recommendgroups_{$_G[forum][fid]}');"></em></span>
 						<h2>{lang recommended_groups}</h2>
 					</div>
 					<div class="bm_c" id="recommendgroups_{$_G[forum][fid]}" style="$collapse[recommendgroups]">
@@ -183,7 +183,7 @@
 					<div id="livethread" class="tl bm bmw cl" style="padding:10px 15px;">
 						<div class="livethreadtitle vm">
 							<span class="replynumber xg1">{lang reply} <span id="livereplies" class="xi1">$livethread[replies]</span></span>
-							<a href="forum.php?mod=viewthread&tid=$livethread[tid]" target="_blank">$livethread[subject]</a> <img src="{IMGDIR}/livethreadtitle.png" />
+							<a href="forum.php?mod=viewthread&tid=$livethread[tid]" target="_blank">$livethread[subject]</a> <span class="liveicon">{lang admin_live}</span>
 						</div>
 						<div class="livethreadcon">$livemessage</div>
 						<div id="livereplycontentout">
@@ -400,7 +400,7 @@
 				<div id="pgt" class="bm bw0 pgs cl">
 					<span id="fd_page_top">$multipage</span>
 					<span class="pgb y" {if $_G[setting][visitedforums]}id="visitedforums" onmouseover="$('visitedforums').id = 'visitedforumstmp';this.id = 'visitedforums';showMenu({'ctrlid':this.id,'pos':'34'})"{/if} ><a href="forum.php">{lang return_index}</a></span>
-					<!--{if !$_GET['archiveid']}--><a href="javascript:;" id="newspecial" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"{if !$_G['forum']['allowspecialonly'] && empty($_G['forum']['picstyle']) && !$_G['forum']['threadsorts']['required']} onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')"{else} onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]';return false;"{/if} title="{lang send_posts}"><img src="{IMGDIR}/pn_post.png" alt="{lang send_posts}" /></a><!--{/if}-->
+					<!--{if !$_GET['archiveid']}--><a href="javascript:;" id="newspecial" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"{if !$_G['forum']['allowspecialonly'] && empty($_G['forum']['picstyle']) && !$_G['forum']['threadsorts']['required']} onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')"{else} onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]';return false;"{/if} title="{lang send_posts}" class="pgsbtn showmenu">{lang send_posts}</a><!--{/if}-->
 					<!--{hook/forumdisplay_postbutton_top}-->
 				</div>
 				<!--{if ($_G['forum']['threadtypes'] && $_G['forum']['threadtypes']['listable']) || count($_G['forum']['threadsorts']['types']) > 0}-->
@@ -488,7 +488,7 @@
 					<div class="bm">
 						<!--{if $detailstatus}-->
 						<div class="bm_h cl">
-							<span class="o y"><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&page=$page&showoldetails=no#online"><img src="{IMGDIR}/collapsed_no.gif" alt="" /></a></span>
+							<span class="o y"><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&page=$page&showoldetails=no#online"><em class="tg_no"></em></a></span>
 							<h2>{lang forum_activeusers} ($onlinenum)</h2>
 						</div>
 						<div class="bm_c">
@@ -508,7 +508,7 @@
 						</div>
 						<!--{else}-->
 						<div class="bm_h cl">
-							<span class="o y"><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&page=$page&showoldetails=yes#online" class="nobdr"><img src="{IMGDIR}/collapsed_yes.gif" alt="" /></a></span>
+							<span class="o y"><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&page=$page&showoldetails=yes#online" class="nobdr"><em class="tg_yes"></em></a></span>
 							<h2>{lang forum_activeusers} ($onlinenum)</h2>
 						</div>
 						<!--{/if}-->

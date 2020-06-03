@@ -6,7 +6,7 @@
 	<!--{if helper_access::check_module('group')}-->
 	<span {if $_G[setting][visitedforums]}id="visitedforums" onmouseover="$('visitedforums').id = 'visitedforumstmp';this.id = 'visitedforums';showMenu({'ctrlid':this.id})"{/if} class="pgb y"><a href="forum.php?mod=group&fid=$_G[fid]">{lang return_index}</a></span>
 	
-	<a href="javascript:;" id="newspecial" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})" onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')" title="{lang send_posts}"><img src="{IMGDIR}/pn_post.png" alt="{lang send_posts}" /></a>
+	<a href="javascript:;" id="newspecial" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})" onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')" title="{lang send_posts}" class="pgsbtn showmenu">{lang send_posts}</a>
 	<!--{/if}-->
 	<!--{hook/forumdisplay_postbutton_top}-->
 </div>
@@ -48,21 +48,21 @@
 								<td class="icn">
 									<a href="forum.php?mod=viewthread&tid=$thread[tid]&extra=$extra" title="{lang target_blank}" target="_blank">
 									<!--{if $thread[folder] == 'lock'}-->
-										<img src="{IMGDIR}/folder_lock.gif" />
+										<i class="fico-lock fic6 fc-s"></i>
 									<!--{elseif $thread['special'] == 1}-->
-										<img src="{IMGDIR}/pollsmall.gif" alt="{lang thread_poll}" />
+										<i class="fico-vote fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}" alt="{lang thread_poll}"></i>
 									<!--{elseif $thread['special'] == 2}-->
-										<img src="{IMGDIR}/tradesmall.gif" alt="{lang thread_trade}" />
+										<i class="fico-cart fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}" alt="{lang thread_trade}"></i>
 									<!--{elseif $thread['special'] == 3}-->
-										<img src="{IMGDIR}/rewardsmall.gif" alt="{lang thread_reward}" />
+										<i class="fico-reward fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}" alt="{lang thread_reward}"></i>
 									<!--{elseif $thread['special'] == 4}-->
-										<img src="{IMGDIR}/activitysmall.gif" alt="{lang thread_activity}" />
+										<i class="fico-group fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}" alt="{lang thread_activity}"></i>
 									<!--{elseif $thread['special'] == 5}-->
-										<img src="{IMGDIR}/debatesmall.gif" alt="{lang thread_debate}" />
+										<i class="fico-vs fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}" alt="{lang thread_debate}"></i>
 									<!--{elseif in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
-										<img src="{IMGDIR}/pin_$thread[displayorder].gif" alt="$_G[setting][threadsticky][3-$thread[displayorder]]" />
+										<i class="tpin tpin{$thread[displayorder]}" alt="$_G[setting][threadsticky][3-$thread[displayorder]]"><svg width="18" height="18"><path d="M9 0l9 9H14v9H4V9H0z"></path></svg></i>
 									<!--{else}-->
-										<img src="{IMGDIR}/folder_$thread[folder].gif" />
+										<i class="fico-thread fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}"></i>
 									<!--{/if}-->
 								</td>
 								<!--{if $_G['forum']['ismoderator']}-->
@@ -71,10 +71,10 @@
 										<!--{if $thread['displayorder'] <= 3 || $_G['adminid'] == 1}-->
 											<input onclick="tmodclick(this)" type="checkbox" name="moderate[]" class="pc" value="$thread[tid]" />
 										<!--{else}-->
-											<input type="checkbox" disabled="disabled" />
+											<input type="checkbox" disabled="disabled" class="pc" />
 										<!--{/if}-->
 									<!--{else}-->
-										<input type="checkbox" disabled="disabled" />
+										<input type="checkbox" disabled="disabled" class="pc" />
 									<!--{/if}-->
 								</td>
 								<!--{/if}-->
@@ -100,22 +100,22 @@
 										- <span style="color: #269F11">[{lang reward_solved}]</span>
 									<!--{/if}-->
 									<!--{if $thread['attachment'] == 2}-->
-										<img src="{STATICURL}image/filetype/image_s.gif" alt="{lang attach_img}" align="absmiddle" />
+										<i class="fico-image fic4 fc-p fnmr vm" title="{lang attach_img}"></i>
 									<!--{elseif $thread['attachment'] == 1}-->
-										<img src="{STATICURL}image/filetype/common.gif" alt="{lang attachment}" align="absmiddle" />
+										<i class="fico-attachment fic4 fc-p fnmr vm" title="{lang attachment}"></i>
 									<!--{/if}-->
 									<!--{if $thread['displayorder'] == 0}-->
 										<!--{if $thread[recommendicon]}-->
-											<img src="{IMGDIR}/recommend_$thread[recommendicon].gif" align="absmiddle" alt="recommend" title="{lang thread_recommend} $thread[recommends]" />
+											<span class="tbox trecic" title="{lang thread_recommend} $thread[recommends]">{lang thread_recommend_icon}</span>
 										<!--{/if}-->
 										<!--{if $thread[heatlevel]}-->
-											<img src="{IMGDIR}/hot_$thread[heatlevel].gif" align="absmiddle" alt="heatlevel" title="$thread[heatlevel] {lang heats}" />
+											<span class="tbox theatlevel" title="$thread[heatlevel] {lang heats}">{lang heats_icon}{if $thread[heatlevel]>1}..{/if}{if $thread[heatlevel]>2}.{/if}</span>
 										<!--{/if}-->
 										<!--{if $thread['digest'] > 0}-->
-											<img src="{IMGDIR}/digest_$thread[digest].gif" align="absmiddle" alt="digest" title="{lang thread_digest} $thread[digest]" />
+											<span class="tbox tdigest">{lang thread_digest}$thread[digest]</span>
 										<!--{/if}-->
 										<!--{if $thread['rate'] > 0}-->
-											<img src="{IMGDIR}/agree.gif" align="absmiddle" alt="agree" title="{lang rate_credit_add}" />
+											<i class="fico-thumbup fic4 fc-l fnmr vm" title="{lang rate_credit_add}"></i>
 										<!--{/if}-->
 									<!--{/if}-->
 									<!--{if $thread[multipage]}-->
@@ -159,7 +159,7 @@
 <div class="bm bw0 pgs cl">
 	$multipage
 	<span {if $_G[setting][visitedforums]}id="visitedforums" onmouseover="$('visitedforums').id = 'visitedforumstmp';this.id = 'visitedforums';showMenu({'ctrlid':this.id})"{/if} class="pgb y"><a href="forum.php?mod=group&fid=$_G[fid]">{lang return_index}</a></span>
-	<a href="javascript:;" id="newspecialtmp" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})" onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')" title="{lang send_posts}"><img src="{IMGDIR}/pn_post.png" alt="{lang send_posts}" /></a>
+	<a href="javascript:;" id="newspecialtmp" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})" onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')" title="{lang send_posts}" class="pgsbtn showmenu">{lang send_posts}</a>
 	<!--{hook/forumdisplay_postbutton_bottom}-->
 </div>
 

@@ -31,8 +31,8 @@
 				<table cellpadding="0" cellspacing="0" class="acl">
 				<!--{loop $activitylist $activity}-->
 					<tr>
-						<td width="35" style="padding-left: 10px;"><!--{if $activity['rank'] <= 3}--><img src="{IMGDIR}/rank_$activity['rank'].gif" alt="$activity['rank']" /><!--{else}-->$activity['rank']<!--{/if}--></td>
-						<td class="type"><!--{if $activity['aid']}--><img src="$activity['attachurl']" width="80" alt="" /><!--{else}--><img src="{IMGDIR}/nophotosmall.gif" alt="nophoto" width="80" height="80" /><!--{/if}--></td>
+						<td width="35" style="padding-left: 10px;"><span class="ranks{if $activity['rank'] <= 3} ranks_$activity['rank']{/if}">$activity['rank']</span></td>
+						<td class="type"><!--{if $activity['aid']}--><img src="$activity['attachurl']" width="80" alt="" /><!--{else}--><div class="nophoto" alt="nophoto"></div><!--{/if}--></td>
 						<td>
 							<h4><a href="forum.php?mod=viewthread&tid=$activity['tid']" target="_blank">$activity['subject']</a></h4>
 							<p class="mbn">{lang ranklist_activity_start} $activity['starttimefrom']<!--{if $activity['starttimeto']}--> - $activity['starttimeto']<!--{/if}--> <!--{if $activity['has_expiration']}--><span class="xg1">{lang ranklist_activity_end}</span><!--{/if}--></p>

@@ -172,7 +172,7 @@ class table_forum_postcomment extends discuz_table
 	}
 
 	public function fetch_postcomment_by_pid_callback_1($matches) {
-		return '<i class="cmstarv" style="background-position:20px -'.(intval($matches[1]) * 16).'px">'.sprintf('%1.1f', $matches[1]).'</i>'.($this->cic_for_fetch_postcomment_by_pid++ % 2 ? '<br />' : '');
+		return '<i class="cmstarv">'.sprintf('%1.1f', $matches[1]).'</i>'.str_repeat('<span class="fico-star fc-l fnmr"></span>',intval($matches[1])).str_repeat('<span class="fico-star fc-s fnmr"></span>',(5-intval($matches[1]))).($this->cic_for_fetch_postcomment_by_pid++ % 2 ? '<br />' : '');
 	}
 }
 

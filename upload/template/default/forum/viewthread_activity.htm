@@ -11,7 +11,7 @@
 
 <div class="act pbm cl">
 	<div class="spvimg">
-		<!--{if $activity['thumb']}--><a href="javascript:;"><img src="$activity['thumb']" onclick="zoom(this, '$activity[attachurl]')" width="{if $activity[width] > 300}300{else}$activity[width]{/if}" /></a><!--{else}--><img src="{IMGDIR}/nophoto.gif" width="300" height="300" /><!--{/if}-->
+		<!--{if $activity['thumb']}--><a href="javascript:;"><img src="$activity['thumb']" onclick="zoom(this, '$activity[attachurl]')" width="{if $activity[width] > 300}300{else}$activity[width]{/if}" /></a><!--{else}--><div class="nophoto"></div><!--{/if}-->
 	</div>
 	<div class="spi">
 		<dl>

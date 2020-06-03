@@ -308,9 +308,11 @@ if($subexists) {
 	if(empty($_G['cookie']['collapse']) || strpos($_G['cookie']['collapse'], 'subforum_'.$_G['fid']) === FALSE) {
 		$collapse['subforum'] = '';
 		$collapseimg['subforum'] = 'collapsed_no.gif';
+		$collapseicon['subforum'] = '_no';
 	} else {
 		$collapse['subforum'] = 'display: none';
 		$collapseimg['subforum'] = 'collapsed_yes.gif';
+		$collapseicon['subforum'] = '_yes';
 	}
 }
 
@@ -346,9 +348,11 @@ if($recommendgroups) {
 	if(empty($_G['cookie']['collapse']) || strpos($_G['cookie']['collapse'], 'recommendgroups_'.$_G['fid']) === FALSE) {
 		$collapse['recommendgroups'] = '';
 		$collapseimg['recommendgroups'] = 'collapsed_no.gif';
+		$collapseicon['recommendgroups'] = '_no';
 	} else {
 		$collapse['recommendgroups'] = 'display: none';
 		$collapseimg['recommendgroups'] = 'collapsed_yes.gif';
+		$collapseicon['recommendgroups'] = '_yes';
 	}
 }
 if(!$simplestyle || !$_G['forum']['allowside'] && $page == 1) {

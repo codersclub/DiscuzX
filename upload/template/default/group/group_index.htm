@@ -3,7 +3,7 @@
 		<div id="livethread" class="tl bm bmw cl" style="padding:10px 15px;">
 			<div class="livethreadtitle vm">
 				<span class="replynumber xg1">{lang reply} <span id="livereplies" class="xi1">$livethread[replies]</span></span>
-				<a href="forum.php?mod=viewthread&tid=$livethread[tid]" target="_blank">$livethread[subject]</a> <img src="{IMGDIR}/livethreadtitle.png" />
+				<a href="forum.php?mod=viewthread&tid=$livethread[tid]" target="_blank">$livethread[subject]</a> <span class="liveicon">{lang group_live}</span>
 			</div>
 			<div class="livethreadcon">$livemessage</div>
 			<div id="livereplycontentout">
@@ -219,7 +219,7 @@
 		<div class="pg">
 			<a href="forum.php?mod=forumdisplay&action=list&fid=$_G[fid]" class="nxt">{lang view_all_threads}</a>
 		</div>
-		<a href="javascript:;" id="newspecial" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})" onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')" title="{lang send_posts}"><img src="{IMGDIR}/pn_post.png" alt="{lang send_posts}" /></a>
+		<a href="javascript:;" id="newspecial" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})" onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')" title="{lang send_posts}" class="pgsbtn showmenu">{lang send_posts}</a>
 	</div>
 	<!--{/if}-->
 	<div class="tl bm bml">
@@ -245,21 +245,21 @@
 							<td class="icn">
 								<a href="forum.php?mod=viewthread&tid=$thread[tid]" title="{lang target_blank}" target="_blank">
 								<!--{if $thread[folder] == 'lock'}-->
-									<img src="{IMGDIR}/folder_lock.gif" />
+									<i class="fico-lock fic6 fc-s"></i>
 								<!--{elseif $thread['special'] == 1}-->
-									<img src="{IMGDIR}/pollsmall.gif" alt="{lang thread_poll}" />
+									<i class="fico-vote fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}" alt="{lang thread_poll}"></i>
 								<!--{elseif $thread['special'] == 2}-->
-									<img src="{IMGDIR}/tradesmall.gif" alt="{lang thread_trade}" />
+									<i class="fico-cart fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}" alt="{lang thread_trade}"></i>
 								<!--{elseif $thread['special'] == 3}-->
-									<img src="{IMGDIR}/rewardsmall.gif" alt="{lang thread_reward}" />
+									<i class="fico-reward fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}" alt="{lang thread_reward}"></i>
 								<!--{elseif $thread['special'] == 4}-->
-									<img src="{IMGDIR}/activitysmall.gif" alt="{lang thread_activity}" />
+									<i class="fico-group fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}" alt="{lang thread_activity}"></i>
 								<!--{elseif $thread['special'] == 5}-->
-									<img src="{IMGDIR}/debatesmall.gif" alt="{lang thread_debate}" />
+									<i class="fico-vs fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}" alt="{lang thread_debate}"></i>
 								<!--{elseif in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
-								<img src="{IMGDIR}/pin_$thread[displayorder].gif" alt="$_G[setting][threadsticky][3-$thread[displayorder]]" />
+									<i class="tpin tpin{$thread[displayorder]}" alt="$_G[setting][threadsticky][3-$thread[displayorder]]"><svg width="18" height="18"><path d="M9 0l9 9H14v9H4V9H0z"></path></svg></i>
 								<!--{else}-->
-									<img src="{IMGDIR}/folder_$thread[folder].gif" />
+									<i class="fico-thread fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}"></i>
 								<!--{/if}-->
 								</a>
 							</td>

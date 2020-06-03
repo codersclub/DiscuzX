@@ -168,26 +168,24 @@
 						<!--{loop $collectiontids $thread}-->
 							<tr>
 								<td class="icn">
-									<!--{if $thread[folder] == 'lock'}-->
-										<img src="{IMGDIR}/folder_lock.gif" />
-									<!--{elseif $thread['special'] == 1}-->
-										<img src="{IMGDIR}/pollsmall.gif" alt="{lang thread_poll}" />
+									<!--{if $thread['special'] == 1}-->
+										<i class="fico-vote fic6 fc-n" title="{lang thread_poll}"></i>
 									<!--{elseif $thread['special'] == 2}-->
-										<img src="{IMGDIR}/tradesmall.gif" alt="{lang thread_trade}" />
+										<i class="fico-cart fic6 fc-n" title="{lang thread_trade}"></i>
 									<!--{elseif $thread['special'] == 3}-->
-										<img src="{IMGDIR}/rewardsmall.gif" alt="{lang thread_reward}" />
+										<i class="fico-reward fic6 fc-n" title="{lang thread_reward}"></i>
 									<!--{elseif $thread['special'] == 4}-->
-										<img src="{IMGDIR}/activitysmall.gif" alt="{lang thread_activity}" />
+										<i class="fico-group fic6 fc-n" title="{lang thread_activity}"></i>
 									<!--{elseif $thread['special'] == 5}-->
-										<img src="{IMGDIR}/debatesmall.gif" alt="{lang thread_debate}" />
+										<i class="fico-vs fic6 fc-n" title="{lang thread_debate}"></i>
 									<!--{elseif in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
-										<img src="{IMGDIR}/pin_$thread[displayorder].gif" alt="$_G[setting][threadsticky][3-$thread[displayorder]]" />
+										<i class="tpin tpin{$thread[displayorder]}" title="$_G[setting][threadsticky][3-$thread[displayorder]]"><svg width="18" height="18"><path d="M9 0l9 9H14v9H4V9H0z"></path></svg></i>
 									<!--{else}-->
-										<img src="{IMGDIR}/folder_common.gif" />
+										<i class="fico-thread fic6 fc-n"></i>
 									<!--{/if}-->
 								</td>
 								<!--{if $permission}-->
-								<td class="o"><input type="checkbox" value="$thread[tid]" name="delthread[]" /></td>
+								<td class="o"><input type="checkbox" value="$thread[tid]" name="delthread[]" class="pc" /></td>
 								<!--{/if}-->
 								<th{if $thread['reason']} title="{lang collection_recommended_reason}: $thread['reason']"{/if}>
 									<a href="forum.php?mod=viewthread&tid=$thread[tid]{if !$memberrate AND $_G['uid']}&ctid=$ctid{/if}" target="_blank" class="xst {if $thread[updatedthread]}xw1 xi2{/if}" title="$thread['htmlsubject']">$thread['cutsubject']</a>
@@ -202,12 +200,12 @@
 										- [{lang reward_solved}]
 									<!--{/if}-->
 									<!--{if $thread['attachment'] == 2}-->
-										<img src="{STATICURL}image/filetype/image_s.gif" alt="attach_img" title="{lang attach_img}" align="absmiddle" />
+										<i class="fico-image fic4 fc-p fnmr vm" title="{lang attach_img}"></i>
 									<!--{elseif $thread['attachment'] == 1}-->
-										<img src="{STATICURL}image/filetype/common.gif" alt="attachment" title="{lang attachment}" align="absmiddle" />
+										<i class="fico-attachment fic4 fc-p fnmr vm" title="{lang attachment}"></i>
 									<!--{/if}-->
 									<!--{if $thread['digest'] > 0 && $filter != 'digest'}-->
-										<img src="{IMGDIR}/digest_$thread[digest].gif" align="absmiddle" alt="digest" title="{lang thread_digest} $thread[digest]" />
+										<span class="tbox tdigest">{lang thread_digest}$thread[digest]</span>
 									<!--{/if}-->
 								</th>
 								<td class="by">
@@ -272,9 +270,8 @@
 					<span class="xg1">$comment[dateline]:</span>
 				</div>
 				<div class="pbm">
-					$comment[message]
+					<!--{if trim($comment[message])}--><p{if $comment[rateimg]} class="mbn"{/if}>$comment[message]</p><!--{/if}-->
 					<!--{if $comment[rateimg]}-->
-						<!--{if trim($comment[message])}--><br /><!--{/if}-->
 						<span class="clct_ratestar"><span class="star star$comment[rateimg]"></span></span><br />
 					<!--{/if}-->
 				</div>

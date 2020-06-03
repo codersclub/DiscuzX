@@ -1,6 +1,6 @@
 <div class="bm bmw fl{if $_G['forum']['forumcolumns']} flg{/if}">
 	<div class="bm_h cl">
-		<span class="o"><img id="subforum_{$_G[forum][fid]}_img" src="{IMGDIR}/$collapseimg[subforum]" title="{lang spread}" alt="{lang spread}" onclick="toggle_collapse('subforum_$_G['forum'][fid]');" /></span>
+		<span class="o"><em id="subforum_{$_G[forum][fid]}_img" class="tg{$collapseicon[subforum]}" title="{lang spread}" onclick="toggle_collapse('subforum_$_G['forum'][fid]');"></em></span>
 		<h2>{lang forum_subforums}</h2>
 	</div>
 
@@ -21,7 +21,7 @@
 					<!--{if $sub[icon]}-->
 						$sub[icon]
 					<!--{else}-->
-						<a href="$forumurl"{if $sub[redirect]} target="_blank"{/if}><img src="{IMGDIR}/forum{if $sub[folder]}_new{/if}.gif" alt="$sub[name]" /></a>
+						<a href="$forumurl"{if $sub[redirect]} target="_blank"{/if} title="$sub[name]"><svg width="31" height="29"><path fill="#{if $sub[folder]}fdc910{else}c9c9c9{/if}" d="M31 13c0-7.2-6.9-13-15.5-13S0 5.8 0 13s6.9 13 15.5 13c1.6 0 3.2-.2 4.6-.6L27 28l-1.7-5c3.5-2.4 5.7-6 5.7-10z"/></svg></a>
 					<!--{/if}-->
 					</div>
 					<dl{if !empty($sub[extra][iconwidth]) && !empty($sub[icon])} style="margin-left: {$sub[extra][iconwidth]}px;"{/if}>
@@ -52,7 +52,7 @@
 					<!--{if $sub[icon]}-->
 						$sub[icon]
 					<!--{else}-->
-						<a href="$forumurl"{if $sub[redirect]} target="_blank"{/if}><img src="{IMGDIR}/forum{if $sub[folder]}_new{/if}.gif" alt="$sub[name]" /></a>
+						<a href="$forumurl"{if $sub[redirect]} target="_blank"{/if} title="$sub[name]"><svg width="31" height="29"><path fill="#{if $sub[folder]}fdc910{else}c9c9c9{/if}" d="M31 13c0-7.2-6.9-13-15.5-13S0 5.8 0 13s6.9 13 15.5 13c1.6 0 3.2-.2 4.6-.6L27 28l-1.7-5c3.5-2.4 5.7-6 5.7-10z"/></svg></a>
 					<!--{/if}-->
 				</td>
 				<td>

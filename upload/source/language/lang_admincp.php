@@ -3281,6 +3281,7 @@ $lang = array
 	'styles_edit_wrapbordercolor' => '主体表格边框色',
 	'styles_edit_menubgcolor' => '菜单背景颜色',
 	'styles_edit_menutext' => '菜单文字颜色',
+	'styles_edit_menucurbgcolor' => '当前菜单背景',
 	'styles_edit_menuhoverbgcolor' => '菜单高亮背景',
 	'styles_edit_menuhovertext' => '菜单高亮文字颜色',
 	'styles_edit_msgfontsize' => '帖子内容字号',

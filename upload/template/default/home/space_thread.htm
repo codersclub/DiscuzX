@@ -156,21 +156,21 @@
 							<td class="icn">
 								<a href="forum.php?mod=viewthread&tid=$thread[tid]&highlight=$index[keywords]" title="{lang open_new_window}" target="_blank">
 								<!--{if $thread[folder] == 'lock'}-->
-									<img src="{IMGDIR}/folder_lock.gif" />
+									<i class="fico-lock fic6 fc-s"></i>
 								<!--{elseif $thread['special'] == 1}-->
-									<img src="{IMGDIR}/pollsmall.gif" alt="{lang poll}" />
+									<i class="fico-vote fic6 fc-n" alt="{lang poll}"></i>
 								<!--{elseif $thread['special'] == 2}-->
-									<img src="{IMGDIR}/tradesmall.gif" alt="{lang trade}" />
+									<i class="fico-cart fic6 fc-n" alt="{lang trade}"></i>
 								<!--{elseif $thread['special'] == 3}-->
-									<img src="{IMGDIR}/rewardsmall.gif" alt="{lang reward}" />
+									<i class="fico-reward fic6 fc-n" alt="{lang reward}"></i>
 								<!--{elseif $thread['special'] == 4}-->
-									<img src="{IMGDIR}/activitysmall.gif" alt="{lang activity}" />
+									<i class="fico-group fic6 fc-n" alt="{lang activity}"></i>
 								<!--{elseif $thread['special'] == 5}-->
-									<img src="{IMGDIR}/debatesmall.gif" alt="{lang debate}" />
+									<i class="fico-vs fic6 fc-n" alt="{lang debate}"></i>
 								<!--{elseif in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
-									<img src="{IMGDIR}/pin_$thread[displayorder].gif" alt="$_G[setting][threadsticky][3-$thread[displayorder]]" />
+									<i class="tpin tpin{$thread[displayorder]}"><svg width="18" height="18"><path d="M9 0l9 9H14v9H4V9H0z"></path></svg></i>
 								<!--{else}-->
-									<img src="{IMGDIR}/folder_$thread[folder].gif" />
+									<i class="fico-thread fic6 fc-n"></i>
 								<!--{/if}-->
 								</a>
 							</td>
@@ -194,12 +194,12 @@
 									<a href="forum.php?mod=viewthread&tid=$thread[tid]" target="_blank" {if $thread['displayorder'] == -1}class="recy"{/if}>$thread[subject]</a>
 								<!--{/if}-->
 								<!--{if $thread['digest'] > 0}-->
-									<img src="{IMGDIR}/digest_$thread[digest].gif" alt="{lang digest} $thread[digest]" align="absmiddle" />
+									<span class="tbox tdigest">{lang digest}$thread[digest]</span>
 								<!--{/if}-->
 								<!--{if $thread['attachment'] == 2}-->
-									<img src="{STATICURL}image/filetype/image_s.gif" alt="{lang photo_accessories}" align="absmiddle" />
+									<i class="fico-image fic4 fc-p fnmr vm" title="{lang photo_accessories}"></i>
 								<!--{elseif $thread['attachment'] == 1}-->
-									<img src="{STATICURL}image/filetype/common.gif" alt="{lang accessory}" align="absmiddle" />
+									<i class="fico-attachment fic4 fc-p fnmr vm" title="{lang accessory}"></i>
 								<!--{/if}-->
 								<!--{if $thread[multipage]}--><span class="tps">$thread[multipage]</span><!--{/if}-->
 								<!--{if !$_GET['filter']}-->
@@ -239,7 +239,7 @@
 							<!--{loop $tids[$stid] $pid}-->
 							<!--{eval $post = $posts[$pid];}-->
 							<tr>
-								<td colspan="5" class="xg1">&nbsp;<img src="{IMGDIR}/icon_quote_m_s.gif" style="vertical-align:middle;" /> <a href="forum.php?mod=redirect&goto=findpost&ptid=$thread[tid]&pid=$pid" target="_blank"><!--{if $post[message]}-->{$post[message]}<!--{else}-->......<!--{/if}--></a> <img src="{IMGDIR}/icon_quote_m_e.gif" style="vertical-align:middle;" /></td>
+								<td colspan="5" class="xg1">&nbsp;<svg width="15" height="14" class="vm"><path fill="#ddd" d="M6 8v5H1V8C1 5 4 .5 6 .5V3C5 3 3.5 6 3.5 8zm8 0v5H9V8c0-3 3-7.5 5-7.5V3c-1 0-2.5 3-2.5 5z" /></svg> <a href="forum.php?mod=redirect&goto=findpost&ptid=$thread[tid]&pid=$pid" target="_blank"><!--{if $post[message]}-->{$post[message]}<!--{else}-->......<!--{/if}--></a> <svg width="15" height="14" class="vm"><path fill="#ddd" d="M9 6V1h5v5c0 3-3 7.5-5 7.5V11c1 0 2.5-3 2.5-5zM1 6V1h5v5c0 3-3 7.5-5 7.5V11c1 0 2.5-3 2.5-5z" /></svg></td>
 							</tr>
 							<!--{/loop}-->
 						<!--{/if}-->

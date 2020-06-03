@@ -36,7 +36,7 @@
 				<!--{loop $picturelist $picture}-->
 					<li class="d">
 						<div class="c">
-							<!--{if $picture['rank'] <= 3}--><img src="{IMGDIR}/rank_$picture['rank'].gif" alt="$picture['rank']" class="picrank" /><!--{/if}-->
+							<em class="ranks{if $picture['rank'] <= 3} ranks_$picture['rank']{/if} picrank">$picture['rank']</em>
 							<a href="home.php?mod=space&uid=$picture['uid']&do=album&picid=$picture['picid']" title="$picture['albumname']" target="_blank"><img src="{$picture['url']}" alt="" /></a>
 						</div>
 						<!--{if $_GET[view] == 'hot'}--><p class="ptm">{lang views} $picture[hot]</p>

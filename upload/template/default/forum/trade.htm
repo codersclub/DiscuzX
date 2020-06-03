@@ -22,7 +22,7 @@
 					<!--{if $trade['aid']}-->
 						<a href="forum.php?mod=viewthread&do=tradeinfo&tid=$trade[tid]&pid=$trade[pid]"><img src="{echo getforumimg($trade[aid])}" width="90" /></a>
 					<!--{else}-->
-						<a href="forum.php?mod=viewthread&do=tradeinfo&tid=$trade[tid]&pid=$trade[pid]"><img src="{IMGDIR}/nophotosmall.gif" /></a>
+						<a href="forum.php?mod=viewthread&do=tradeinfo&tid=$trade[tid]&pid=$trade[pid]"><div class="nophoto"></div></a>
 					<!--{/if}-->
 					</div>
 					<div class="spi cl">
@@ -157,7 +157,7 @@
 						<li>
 							<a href="forum.php?mod=viewthread&tid=$usertrade[tid]&do=tradeinfo&pid=$usertrade[pid]" class="tn">
 								<!--{if $usertrade['displayorder'] > 0}--><em class="hot">{lang post_trade_sticklist}</em><!--{/if}-->
-								<!--{if $usertrade['aid']}--><img src="{echo getforumimg($usertrade[aid])}" width="130" alt="$usertrade[subject]" /><!--{else}--><img src="{IMGDIR}/nophoto.gif" width="130" alt="$usertrade[subject]" /><!--{/if}-->
+								<!--{if $usertrade['aid']}--><img src="{echo getforumimg($usertrade[aid])}" width="130" alt="$usertrade[subject]" /><!--{else}--><div class="nophoto" title="$usertrade[subject]"></div><!--{/if}-->
 							</a>
 
 							<!--{if $usertrade[price] > 0}-->

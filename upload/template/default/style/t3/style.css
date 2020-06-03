@@ -4,21 +4,28 @@
 Powered by Discuz! X
 */
 
-body { background: #FCFAF0 url(bgimg.jpg) no-repeat 50% 0; }
-#nv { background-color: #FE9500; background-image: url(nv.png); }
-	#nv li, #nv li a:hover, #nv li.hover a, #nv li.hover a:hover { background-image: url(nv_a.png) !important; }
+::selection{ background-color: #FE9500; color: #FFF; }
+:focus { outline-color: #FE9500; }
+body { background: #FCFAF0 url(bgimg.jpg) no-repeat 50% 0; background-size: 1400px; }
+@media(min-resolution:120dpi){ body { background-image: url(bgimg2x.jpg); }}
+.fc-p { color: #FE9500; }
+#nv { background-color: #FE9500; }
 	#nv li.a { background-color: #DF3200; }
+	#nv li a:hover, #nv li.hover a:hover, #nv li.hover a { background-color: #CA2D00; }
 
-#scbar { background-image: url(search.png); border-color: #FC6; }
-.scbar_icon_td { background: url(search.png) 0 -451px; }
+#scbar { background-color: #FEFBF4; border-color: #FC6; }
+	#scbar_btn { background-color: #FE9500; }
+#scform_srchtxt { border-color: #FE9500; }
+#scform_tb .a::before { border-bottom-color: #FE9500; }
+#scform_submit { background-color: #FE9500; }
 
 .bm_h, .tl th, .tl td { border-bottom-color: #CDCDCD; }
-.fl .bm_h { border-color: #FC6; background: #FCF6E6 url(titlebg.png) repeat-x 0 0; }
+.fl .bm_h { border-color: #FC6; background: #FCF6E6; }
 
 /* 重定义 {SPECIALBG} */
 .bmn, .bm_h, td.pls, .ad td.plc, div.exfm, .tb a, .tb_h, .ttp li.a a, div.uo a, input#addsubmit_btn, #gh .bm .bm_h, .appnew, .apphot { background-color: #FCF6E6; }
 
-.ct2_a, .ct3_a { background-image: url(vlineb.png); }
+.ct2_a, .ct3_a { background-image: linear-gradient(0deg,#FBF6E7,#FBF6E7); }
 	.ct3_a .bm { background-color: transparent; }
 .tbn li.a { background: #FCFAF0; }
 	#nv_portal.pg_portalcp .ct2_a_r, #nv_forum.pg_post .ct2_a_r, #nv_group.pg_post .ct2_a_r { background-image: none; }
@@ -26,12 +33,15 @@ body { background: #FCFAF0 url(bgimg.jpg) no-repeat 50% 0; }
 /* 重定义 {SPECIALBORDER} */
 .bmn, .pg a, .pgb a, .pg strong, .card, .card .o, div.exfm  { border-color: #FC6; }
 .pg strong { background-color: #FC6; }
-.pn, .tb .o, .tb .o a { background-image: url(pn.png); }
+.pnc, .tb .o, .tb .o a { background-color: #FE9500; }
 	.pnc, a.pnc, .tb .o { border-color: #C74900; }
+	.pnc:active { background: #DF3200; }
+	.pnc:focus { box-shadow: 0 0 0 2px rgba(223, 50, 0, 0.25); }
 
-.mi .moodfm_input { background-image: url(mood_input.png); }
+.mi #moodfm.hover textarea { border-color: #FC6; }
 
 .ad td.pls { background-color: #FC6; }
+.side_btn a svg { fill: #FE9500; }
 
 /* 重定义字体 */
 #qmenu, .fl .bm_h h2 a, .xi1, #um .new, .topnav .new, .sch .new, .el .ec .hot em, .pll .s a.joins, #diy_backup_tip .xi2 { color: #CA4312; }
@@ -39,14 +49,11 @@ body { background: #FCFAF0 url(bgimg.jpg) no-repeat 50% 0; }
 .xi2, .xi2 a { color: #000; }
 
 /* 重定义按钮 */
-.pgs #newspecial, .pgs #newspecialtmp { float: left; background: url(pn_post.png) no-repeat 0 0; }
-#post_reply, #post_replytmp { float: left; background: url(pn_reply.png) no-repeat 0 0; }
-	#newspecial img, #newspecialtmp img, #post_reply img, #post_replytmp img { opacity: 0; filter: alpha(opacity=0); }
-.moodfm_btn { background-image: url(mood_input_btn.png) !important; }
-#create_group_btn { display: block; background: url(create_group.png) no-repeat 0 0; }
-	#create_group_btn img { opacity: 0; filter: alpha(opacity=0); }
-.el .ec .hot, .clct_list .xld .m { background-image: url(hotspot.gif); }
-.pll .s { background-image:url(polljoins.gif); }
+.pgsbtn { background-color: #FE9500; }
+	.pgsbtn:hover { background-color: #DF3200; }
+	.pgsbtn:active { box-shadow: 0 0 0 3px rgba(223, 50, 0, 0.25); }
+.el .ec .hot, .clct_list .xld .m { background-image: linear-gradient(0deg,#FFD48D 40%,#FFE8BF 40%); }
+.pll .s { background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='89'%3e%3cpath fill='%23ffe8bf' d='M60 0v50c0 5.5-4.5 10-10 10H0V10C0 4.5 4.5 0 10 0z'/%3e%3cpath fill='%23ffcd7d' d='M60 65v19c0 2.75-2.25 5-5 5H0V70c0-2.75 2.25-5 5-5z'/%3e%3cpath fill='%23fe8100' d='M8 75l2.5 2.5L8 80h2l2.5-2.5L10 75z'/%3e%3c/svg%3e"); }
 
 /* 重定义 Tab */
 .tb .a a { border-bottom-color: #FCFAF0; background: #FCFAF0; }
@@ -57,15 +64,11 @@ body { background: #FCFAF0 url(bgimg.jpg) no-repeat 50% 0; }
 	#uhd .tb .a a { border-bottom-color: #FCFAF0; }
 .flw_replybox { background-color: #FEFCF8; }
 	.flw_replybox .px, .flw_autopt, #flw_header .tedt { border-color: #FC6; }
-.pg_follow #fastpostsubmit { background-image: url(flw_post.png); }
-.flw_replybox .pnc { background-image: url(pn_reply.png); }
-.flw_replybox td table .pnc { background-image: url(pn_rt.png); }
 #flw_post_extra .sec { border-color: #FCF0D7; background-color: #FEFCF8; }
 
 /* 重定义版块快速跳转和侧边导航 */
 #fjump_menu li.a a { background-color: #FCF6E6; }
 .bdl, .bdl dt, .bdl dd.bdl_a a { border-color: #F5E3B4; background-color: #FCF6E6; }
-	.bdl dt { background-image: url(titlebg_sd.png); }
 .bdl dd.bdl_a a { color: #CA4312; }
 
 /* 重定义下拉菜单 */

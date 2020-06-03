@@ -48,7 +48,7 @@
 								<img id="aimg_$imginfo[aid]" aid="$imginfo[aid]" src="$imginfo[small]" width="130px" onclick="zoom(this, this.getAttribute('zoomfile'), 0, 0, '{$_G[setting][showexif]}')" zoomfile="$imginfo[big]" alt="$imginfo[filename]" title="$imginfo[filename]" w="$imginfo[width]" />
 							</a>
 							<!--{else}-->
-							<a href="javascript:;" title=""><img src="{IMGDIR}/nophoto.gif" width="130px" /></a>
+							<a href="javascript:;" title=""><div class="nophoto"></div></a>
 							<!--{/if}-->
 							<p class="mtn mbn xi2">
 								<!--{if $_G['group']['allowvote']}-->

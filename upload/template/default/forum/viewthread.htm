@@ -33,10 +33,10 @@
 				<button id="newspecial" class="pn pnc" onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]&extra=$extra&sortid=$id'"><strong>{lang i_want}$name</strong></button>
 			<!--{/loop}-->
 		<!--{else}-->
-			<!--{if !$_G['forum_thread']['is_archived']}--><a id="newspecial" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"{if !$_G['forum']['allowspecialonly'] && empty($_G['forum']['picstyle']) && !$_G['forum']['threadsorts']['required']} onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')"{else} onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]';return false;"{/if} href="javascript:;" title="{lang send_posts}"><img src="{IMGDIR}/pn_post.png" alt="{lang send_posts}" /></a><!--{/if}-->
+			<!--{if !$_G['forum_thread']['is_archived']}--><a id="newspecial" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"{if !$_G['forum']['allowspecialonly'] && empty($_G['forum']['picstyle']) && !$_G['forum']['threadsorts']['required']} onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')"{else} onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]';return false;"{/if} href="javascript:;" title="{lang send_posts}" class="pgsbtn showmenu">{lang send_posts}</a><!--{/if}-->
 		<!--{/if}-->
 		<!--{if $allowpostreply && !$_G['forum_thread']['archiveid']}-->
-			<a id="post_reply" onclick="showWindow('reply', 'forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]')" href="javascript:;" title="{lang reply}"><img src="{IMGDIR}/pn_reply.png" alt="{lang reply}" /></a>
+			<a id="post_reply" onclick="showWindow('reply', 'forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]')" href="javascript:;" title="{lang reply}" class="pgsbtn">{lang reply}</a>
 		<!--{/if}-->
 		<!--{hook/viewthread_postbutton_top}-->
 	</div>
@@ -170,18 +170,18 @@
 			<td class="plc ptm pbn vwthd">
 				<!--{if !IS_ROBOT}-->
 					<div class="y">
-						<!--{if $post['invisible'] == 0}--><a href="forum.php?mod=viewthread&action=printable&tid=$_G[tid]" title="{lang thread_printable}" target="_blank"><img src="{IMGDIR}/print.png" alt="{lang thread_printable}" class="vm" /></a>
+						<!--{if $post['invisible'] == 0}--><a href="forum.php?mod=viewthread&action=printable&tid=$_G[tid]" title="{lang thread_printable}" target="_blank"><i class="fico-print fic4 fc-s vm"></i></a>
 						<!--{/if}-->
-						<a href="forum.php?mod=redirect&goto=nextoldset&tid=$_G[tid]" title="{lang last_thread}"><img src="{IMGDIR}/thread-prev.png" alt="{lang last_thread}" class="vm" /></a>
-						<a href="forum.php?mod=redirect&goto=nextnewset&tid=$_G[tid]" title="{lang next_thread}"><img src="{IMGDIR}/thread-next.png" alt="{lang next_thread}" class="vm" /></a>
+						<a href="forum.php?mod=redirect&goto=nextoldset&tid=$_G[tid]" title="{lang last_thread}"><i class="fico-left fic4 fc-s vm"></i></a>
+						<a href="forum.php?mod=redirect&goto=nextnewset&tid=$_G[tid]" title="{lang next_thread}"><i class="fico-right fic4 fc-s vm"></i></a>
 					</div>
 				<!--{/if}-->
 				<!--{if $_G['setting']['close_leftinfo_userctrl']}-->
 					<span class="xg1 side_btn">
 					<!--{if !$close_leftinfo}-->
-						<a onclick="setcookie('close_leftinfo', 1);location.reload();" title="{lang collapse_the_left}" class="btn_s_close" href="javascript:;"><img src="{IMGDIR}/control_l.png" alt="{lang collapse_the_left}" class="vm" /></a>
+						<a onclick="setcookie('close_leftinfo', 1);location.reload();" title="{lang collapse_the_left}" class="btn_s_close" href="javascript:;"><svg viewBox="0 0 7 38"><path fill="#fff" d="M2 18l5-4v9z"/><path d="M5 0v13.5l-5 5 5 5V38H7V22.5l-4-4 4-4V0z"/></svg></a>
 					<!--{else}-->
-						<a onclick="setcookie('close_leftinfo', 2);location.reload();" title="{lang open_the_left}" class="btn_s_open" href="javascript:;"><img src="{IMGDIR}/control_r.png" alt="{lang open_the_left}" class="vm" /></a>
+						<a onclick="setcookie('close_leftinfo', 2);location.reload();" title="{lang open_the_left}" class="btn_s_open" href="javascript:;"><svg viewBox="0 0 7 38"><path fill="#fff" d="M0 14v9l5-4z"/><path d="M2 0v13.5l5 5-5 5V38H0V22.5l4-4-4-4V0z"/></svg></a>
 					<!--{/if}-->
 					</span>
 				<!--{/if}-->
@@ -211,13 +211,13 @@
 						&nbsp;
 					<!--{/if}-->
 					<!--{if $_G['forum_thread']['recommendlevel']}-->
-						&nbsp;<img src="{IMGDIR}/recommend_$_G['forum_thread']['recommendlevel'].gif" alt="" title="{lang thread_recommend} $_G['forum_thread'][recommends]" />
+						&nbsp;<span class="tbox trecic" title="{lang thread_recommend} $_G['forum_thread'][recommends]">{lang thread_recommend_icon}</span>
 					<!--{/if}-->
 					<!--{if $_G['forum_thread'][heatlevel]}-->
-						&nbsp;<img src="{IMGDIR}/hot_$_G['forum_thread'][heatlevel].gif" alt="" title="{lang heats}: $_G['forum_thread']['heats']" />
+						&nbsp;<span class="tbox theatlevel" title="{lang heats}: $_G['forum_thread']['heats']">{lang heats_icon}{if $_G['forum_thread'][heatlevel]>1}..{/if}{if $_G['forum_thread'][heatlevel]>2}.{/if}</span>
 					<!--{/if}-->
 					<!--{if $_G['forum_thread']['closed'] == 1}-->
-						&nbsp;<img src="{IMGDIR}/locked.gif" alt="{lang close}" title="{lang close}" class="vm" />
+						&nbsp;<i class="fico-lock fc-s" title="{lang close}"></i>
 					<!--{/if}-->
 					<a href="forum.php?mod=viewthread&tid=$_G[tid]$fromuid" onclick="return copyThreadUrl(this, '$_G[setting][bbname]')" {if $fromuid}title="{lang share_url_copy_comment}"{/if}>[{lang share_url_copy}]</a>
 				</span>
@@ -239,7 +239,7 @@
 					<!--{else}-->
 					<td class="pls ptm pbm xi1" colspan="2">
 					<!--{/if}-->
-						<img src="{IMGDIR}/thread_prize_s.png" class="hm" alt="{lang replycredit}" />
+						<span class="tbox tprizes" title="{lang replycredit}">{lang replycredit_icon}</span>
 							<strong>{$_G['forum_thread']['replycredit']} {$_G['setting']['extcredits'][$_G[forum_thread][replycredit_rule][extcreditstype]][unit]}{$_G['setting']['extcredits'][$_G[forum_thread][replycredit_rule][extcreditstype]][title]}</strong>
 					<!--{if !$close_leftinfo}-->
 					</td>
@@ -262,13 +262,12 @@
 			<tr>
 				<!--{if !$close_leftinfo}-->
 				<td class="pls vm ptm">
-					<img src="{IMGDIR}/rushreply_s.png" class="vm" alt="{lang rushreply}" />
 					<strong>{lang rushreply}</strong>
 				</td>
 				<td class="plc ptm pbm xi1">
 				<!--{else}-->
 				<td class="plc ptm pbm xi1" colspan="2">
-					<img src="{IMGDIR}/rushreply_s.png" class="vm" alt="{lang rushreply}" />
+					<span class="tbox rushrep">{lang rushreply}</span>
 				<!--{/if}-->
 					<!--{if $rushresult[rewardfloor]}-->
 						<span class="y">
@@ -362,10 +361,10 @@ $_G['forum_tagscript']
 	$multipage
 	<span class="pgb y"{if $_G['setting']['visitedforums']} id="visitedforumstmp" onmouseover="$('visitedforums').id = 'visitedforumstmp';this.id = 'visitedforums';showMenu({'ctrlid':this.id,'pos':'21'})"{/if}><a href="$upnavlink">{lang return_forumdisplay}</a></span>
 	<!--{if !$_G['forum_thread']['is_archived']}-->
-		<a id="newspecialtmp" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"{if !$_G['forum']['allowspecialonly'] && empty($_G['forum']['picstyle']) && !$_G['forum']['threadsorts']['required']} onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')"{else} onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]';return false;"{/if} href="javascript:;" title="{lang send_posts}"><img src="{IMGDIR}/pn_post.png" alt="{lang send_posts}" /></a>
+		<a id="newspecialtmp" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"{if !$_G['forum']['allowspecialonly'] && empty($_G['forum']['picstyle']) && !$_G['forum']['threadsorts']['required']} onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')"{else} onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]';return false;"{/if} href="javascript:;" title="{lang send_posts}" class="pgsbtn showmenu">{lang send_posts}</a>
 	<!--{/if}-->
 	<!--{if $allowpostreply && !$_G['forum_thread']['archiveid']}-->
-		<a id="post_replytmp" onclick="showWindow('reply', 'forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]')" href="javascript:;" title="{lang reply}"><img src="{IMGDIR}/pn_reply.png" alt="{lang reply}" /></a>
+		<a id="post_replytmp" onclick="showWindow('reply', 'forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]')" href="javascript:;" title="{lang reply}" class="pgsbtn">{lang reply}</a>
 	<!--{/if}-->
 </div>
 

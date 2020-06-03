@@ -98,25 +98,25 @@
 						<div class="xs0">{lang task_complete} <span id="csc_$task[taskid]">$task[csc]</span>%</div>
 					</div>
 					<p class="mbw">
-						<a href="home.php?mod=task&do=draw&id=$task[taskid]"><img src="{STATICURL}image/task/{if $task[csc] >=100}reward.gif{else}rewardless.gif{/if}" /></a>
-						<!--{if $task[csc] < 100}--><a href="home.php?mod=task&do=delete&id=$task[taskid]"><img src="{STATICURL}image/task/cancel.gif" alt="{lang task_quit}" /></a><!--{/if}-->
+						<a href="home.php?mod=task&do=draw&id=$task[taskid]" class="taskbtn {if $task[csc] >=100}taskrw{else}taskda{/if}">{lang task_reward_get}</a>
+						<!--{if $task[csc] < 100}--><a href="home.php?mod=task&do=delete&id=$task[taskid]" class="taskbtn">{lang task_quit}</a><!--{/if}-->
 					</p>
 				<!--{elseif $allowapply == '-2'}-->
 					<p class="xg2 mbn">{lang task_group_nopermission}</p>
-					<a href="javascript:;" onclick="doane(event);showDialog('{lang task_group_nopermission}')"><img src="{STATICURL}image/task/disallow.gif" title="{lang task_group_nopermission}" alt="{lang task_group_nopermission}" /></a>
+					<a href="javascript:;" onclick="doane(event);showDialog('{lang task_group_nopermission}')" class="taskbtn taskda">{lang task_newbie_apply}</a>
 				<!--{elseif $allowapply == '-3'}-->
 					<p class="xg2 mbn">{lang task_applies_full}</p>
-					<a href="javascript:;" onclick="doane(event);showDialog('{lang task_applies_full}')"><img src="{STATICURL}image/task/disallow.gif" title="{lang task_applies_full}" alt="{lang task_applies_full}" /></a>
+					<a href="javascript:;" onclick="doane(event);showDialog('{lang task_applies_full}')" class="taskbtn taskda">{lang task_newbie_apply}</a>
 				<!--{elseif $allowapply == '-4'}-->
 					<p class="xg2 mbn">{lang task_lose_on}$task[dateline]</p>
 				<!--{elseif $allowapply == '-5'}-->
 					<p class="xg2 mbn">{lang task_complete_on}$task[dateline]</p>
 				<!--{elseif $allowapply == '-6'}-->
 					<p class="xg2 mbn">{lang task_complete_on}$task[dateline] &nbsp; {$task[t]}{lang task_applyagain}</p>
-					<a href="javascript:;" onclick="doane(event);showDialog('{$task[t]}{lang task_applyagain}')"><img src="{STATICURL}image/task/disallow.gif" title="{$task[t]}{lang task_applyagain}" alt="{lang task_applies_full}" /></a>
+					<a href="javascript:;" onclick="doane(event);showDialog('{$task[t]}{lang task_applyagain}')" class="taskbtn taskda" title="{$task[t]}{lang task_applyagain}">{lang task_newbie_apply}</a>
 				<!--{elseif $allowapply == '-7'}-->
 					<p class="xg2 mbn">{lang task_lose_on}$task[dateline] &nbsp; {$task[t]}{lang task_reapply}</p>
-					<a href="javascript:;" onclick="doane(event);showDialog('{$task[t]}{lang task_reapply}')"><img src="{STATICURL}image/task/disallow.gif" title="{$task[t]}{lang task_reapply}" alt="{lang task_applies_full}" /></a>
+					<a href="javascript:;" onclick="doane(event);showDialog('{$task[t]}{lang task_reapply}')" class="taskbtn taskda" title="{$task[t]}{lang task_reapply}">{lang task_newbie_apply}</a>
 				<!--{elseif $allowapply == '2'}-->
 					<p class="xg2 mbn">{lang task_complete_on}$task[dateline] &nbsp; {lang task_applyagain_now}</p>
 				<!--{elseif $allowapply == '3'}-->
@@ -124,7 +124,7 @@
 				<!--{/if}-->
 
 				<!--{if $allowapply > '0'}-->
-					<a href="home.php?mod=task&do=apply&id=$task[taskid]"><img src="{STATICURL}image/task/apply.gif" alt="{lang task_newbie_apply}" /></a>
+					<a href="home.php?mod=task&do=apply&id=$task[taskid]" class="taskbtn">{lang task_newbie_apply}</a>
 				<!--{/if}-->
 			</td>
 		</tr>

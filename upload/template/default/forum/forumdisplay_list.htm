@@ -24,7 +24,7 @@
 						<!--{if $_GET['filter'] == 'hot'}-->
 							<script type="text/javascript" src="{$_G[setting][jspath]}calendar.js?{VERHASH}"></script>
 							<span>$ctime</span>
-							<img src="{IMGDIR}/date_magnify.png" class="cur1" alt="" id="hottime" value="$ctime" fid="$_G[fid]" onclick="showcalendar(event, this, false, false, false, false, function(){viewhot(this);});" align="absmiddle" />
+							<em class="fico-search cur1 vm" alt="" id="hottime" value="$ctime" fid="$_G[fid]" onclick="showcalendar(event, this, false, false, false, false, function(){viewhot(this);});"></em>
 						<!--{/if}-->
 						<span id="clearstickthread" style="display: none;">
 							<span class="pipe">|</span>
@@ -63,7 +63,7 @@
 				<!--{if (!$simplestyle || !$_G['forum']['allowside'] && $page == 1) && !empty($announcement)}-->
 					<tbody>
 						<tr>
-							<td class="icn"><img src="{IMGDIR}/ann_icon.gif" alt="{lang announcement}" /></td>
+							<td class="icn"><i class="fico-volume fic6 fc-i" title="{lang announcement}"></i></td>
 							<!--{if $_G['forum']['ismoderator'] && !$_GET['archiveid']}--><td class="o">&nbsp;</td><!--{/if}-->
 							<th><strong class="xst">{lang announcement}: <!--{if empty($announcement['type'])}--><a href="forum.php?mod=announcement&id=$announcement[id]#$announcement[id]" target="_blank">$announcement[subject]</a><!--{else}--><a href="$announcement[message]" target="_blank">$announcement[subject]</a><!--{/if}--></strong></th>
 							<td class="by">
@@ -110,21 +110,21 @@
 											{if $thread[folder] == "new"}{lang have_newreplies} - {/if}
 											{lang target_blank}" target="_blank">
 										<!--{if $thread[folder] == 'lock'}-->
-											<img src="{IMGDIR}/folder_lock.gif" />
+											<i class="fico-lock fic6 fc-s"></i>
 										<!--{elseif $thread['special'] == 1}-->
-											<img src="{IMGDIR}/pollsmall.gif" alt="{lang thread_poll}" />
+											<i class="fico-vote fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}"></i>
 										<!--{elseif $thread['special'] == 2}-->
-											<img src="{IMGDIR}/tradesmall.gif" alt="{lang thread_trade}" />
+											<i class="fico-cart fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}"></i>
 										<!--{elseif $thread['special'] == 3}-->
-											<img src="{IMGDIR}/rewardsmall.gif" alt="{lang thread_reward}" />
+											<i class="fico-reward fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}"></i>
 										<!--{elseif $thread['special'] == 4}-->
-											<img src="{IMGDIR}/activitysmall.gif" alt="{lang thread_activity}" />
+											<i class="fico-group fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}"></i>
 										<!--{elseif $thread['special'] == 5}-->
-											<img src="{IMGDIR}/debatesmall.gif" alt="{lang thread_debate}" />
+											<i class="fico-vs fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}"></i>
 										<!--{elseif in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
-											<img src="{IMGDIR}/pin_$thread[displayorder].gif" alt="$_G[setting][threadsticky][3-$thread[displayorder]]" />
+											<i class="tpin tpin{$thread[displayorder]}"><svg width="18" height="18"><path d="M9 0l9 9H14v9H4V9H0z"></path></svg></i>
 										<!--{else}-->
-											<img src="{IMGDIR}/folder_$thread[folder].gif" />
+											<i class="fico-thread fic6 {if $thread[folder]=='new'}fc-l{else}fc-n{/if}"></i>
 										<!--{/if}-->
 										</a>
 									</td>
@@ -162,10 +162,10 @@
 										<a href="forum.php?mod=viewthread&tid=$thread[tid]&{if $_GET['archiveid']}archiveid={$_GET['archiveid']}&{/if}extra=$extra"$thread[highlight]{if $thread['isgroup'] == 1 || $thread['forumstick']} target="_blank"{else} onclick="atarget(this)"{/if} class="s xst">$thread[subject]</a>
 										<!--{if $_G['setting']['threadhidethreshold'] && $thread['hidden'] >= $_G['setting']['threadhidethreshold']}--><span class="xg1">{lang hidden}</span>&nbsp;<!--{/if}-->
 										<!--{if $thread[icon] >= 0}-->
-											<img src="{STATICURL}image/stamp/{$_G[cache][stamps][$thread[icon]][url]}" alt="{$_G[cache][stamps][$thread[icon]][text]}" align="absmiddle" />
+											<img src="{STATICURL}image/stamp/{$_G[cache][stamps][$thread[icon]][url]}" alt="{$_G[cache][stamps][$thread[icon]][text]}" class="vm" />
 										<!--{/if}-->
 										<!--{if $thread['rushreply']}-->
-											<img src="{IMGDIR}/rushreply_s.png" alt="{lang rushreply}" align="absmiddle" />
+											<span class="tbox rushrep">{lang rushreply}</span>
 											<!--{if $rushinfo[$thread[tid]]}-->
 											<span id="rushtimer_$thread[tid]"> {lang havemore_special} <span id="rushtimer_body_$thread[tid]"></span> <script language="javascript">settimer($rushinfo[$thread[tid]]['timer'], 'rushtimer_body_$thread[tid]');</script>{if $rushinfo[$thread[tid]]['timertype'] == 'start'} {lang header_start} {else} {lang over} {/if} {lang right_special}</span>
 											<!--{/if}-->
@@ -182,27 +182,27 @@
 											- <a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=specialtype&specialtype=reward$forumdisplayadd[specialtype]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}&rewardtype=2" title="{lang show_rewarded_only}">[{lang reward_solved}]</a>
 										<!--{/if}-->
 										<!--{if $thread['attachment'] == 2}-->
-											<img src="{STATICURL}image/filetype/image_s.gif" alt="attach_img" title="{lang attach_img}" align="absmiddle" />
+											<i class="fico-image fic4 fc-p fnmr vm" title="{lang attach_img}"></i>
 										<!--{elseif $thread['attachment'] == 1}-->
-											<img src="{STATICURL}image/filetype/common.gif" alt="attachment" title="{lang attachment}" align="absmiddle" />
+											<i class="fico-attachment fic4 fc-p fnmr vm" title="{lang attachment}"></i>
 										<!--{/if}-->
 										<!--{if $thread['mobile']}-->
-											<img src="{IMGDIR}/mobile-attach-$thread['mobile'].png" alt="{lang post_mobile}" align="absmiddle" />
+											<img src="{IMGDIR}/mobile-attach-$thread['mobile'].png" alt="{lang post_mobile}" class="vm" />
 										<!--{/if}-->
 										<!--{if $thread['digest'] > 0 && $filter != 'digest'}-->
-											<img src="{IMGDIR}/digest_$thread[digest].gif" align="absmiddle" alt="digest" title="{lang thread_digest} $thread[digest]" />
+											<span class="tbox tdigest">{lang thread_digest}$thread[digest]</span>
 										<!--{/if}-->
 										<!--{if $thread['displayorder'] == 0}-->
 											<!--{if $thread[recommendicon] && $filter != 'recommend'}-->
-												<img src="{IMGDIR}/recommend_$thread[recommendicon].gif" align="absmiddle" alt="recommend" title="{lang thread_recommend} $thread[recommends]" />
+												<span class="tbox trecic" title="{lang thread_recommend} $thread[recommends]">{lang thread_recommend_icon}</span>
 											<!--{/if}-->
 											<!--{if $thread[heatlevel]}-->
-												<img src="{IMGDIR}/hot_$thread[heatlevel].gif" align="absmiddle" alt="heatlevel" title="{lang heats}: {$thread[heats]}" />
+												<span class="tbox theatlevel" title="{lang heats}: {$thread[heats]}">{lang heats_icon}{if $thread[heatlevel]>1}..{/if}{if $thread[heatlevel]>2}.{/if}</span>
 											<!--{/if}-->
 											<!--{if $thread['rate'] > 0}-->
-												<img src="{IMGDIR}/agree.gif" align="absmiddle" alt="agree" title="{lang rate_credit_add}" />
+												<i class="fico-thumbup fic4 fc-l fnmr vm" title="{lang rate_credit_add}"></i>
 											<!--{elseif $thread['rate'] < 0}-->
-												<img src="{IMGDIR}/disagree.gif" align="absmiddle" alt="disagree" title="{lang posts_deducted}" />
+												<i class="fico-thumbdown fic4 fc-a fnmr vm" title="{lang posts_deducted}"></i>
 											<!--{/if}-->
 										<!--{/if}-->
 										<!--{if $thread['replycredit'] > 0}-->
@@ -282,7 +282,7 @@
 										<!--{if $thread['cover']}-->
 											<img src="$thread[coverpath]" alt="$thread[subject]" width="{$_G[setting][forumpicstyle][thumbwidth]}" />
 										<!--{else}-->
-											<span class="nopic" style="width:{$_G[setting][forumpicstyle][thumbwidth]}px; height:{$_G[setting][forumpicstyle][thumbwidth]}px;"></span>
+											<span class="nophoto nopic" style="width:{$_G[setting][forumpicstyle][thumbwidth]}px; height:{$_G[setting][forumpicstyle][thumbwidth]}px; line-height:{$_G[setting][forumpicstyle][thumbwidth]}px;"></span>
 										<!--{/if}-->
 									</a>
 								</div>
@@ -327,7 +327,7 @@
 									loadready = 0,
 									showready = 1,
 									nxtpgurl = 'forum.php?mod=forumdisplay&fid={$_G[fid]}&filter={$filter}&orderby={$_GET[orderby]}{$forumdisplayadd[page]}&page=',
-									wfloading = "<img src=\"{IMGDIR}/loading.gif\" alt=\"\" width=\"16\" height=\"16\" class=\"vm\" /> {lang onloading}...",
+									wfloading = "<div class=\"loadicon vm\"></div> {lang onloading}...",
 									pgbtn = $("pgbtn").getElementsByTagName("a")[0];
 
 								function loadmore() {
@@ -475,6 +475,6 @@
 <div class="bm bw0 pgs cl">
 	<span id="fd_page_bottom">$multipage</span>
 	<span {if $_G[setting][visitedforums]}id="visitedforumstmp" onmouseover="$('visitedforums').id = 'visitedforumstmp';this.id = 'visitedforums';showMenu({'ctrlid':this.id,'pos':'21'})"{/if} class="pgb y"><a href="forum.php">{lang return_index}</a></span>
-	<!--{if !$_GET['archiveid']}--><a href="javascript:;" id="newspecialtmp" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"{if !$_G['forum']['allowspecialonly'] && empty($_G['forum']['picstyle']) && !$_G['forum']['threadsorts']['required']} onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')"{else} onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]';return false;"{/if} title="{lang send_posts}"><img src="{IMGDIR}/pn_post.png" alt="{lang send_posts}" /></a><!--{/if}-->
+	<!--{if !$_GET['archiveid']}--><a href="javascript:;" id="newspecialtmp" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"{if !$_G['forum']['allowspecialonly'] && empty($_G['forum']['picstyle']) && !$_G['forum']['threadsorts']['required']} onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')"{else} onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]';return false;"{/if} title="{lang send_posts}" class="pgsbtn showmenu">{lang send_posts}</a><!--{/if}-->
 	<!--{hook/forumdisplay_postbutton_bottom}-->
 </div>

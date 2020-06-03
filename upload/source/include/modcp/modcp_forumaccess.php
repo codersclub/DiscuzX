@@ -150,8 +150,8 @@ function delete_access($uid, $fid) {
 }
 
 function accessimg($access) {
-	return $access == -1 ? '<img src="'.STATICURL.'image/common/access_disallow.gif" />' :
-		($access == 1 ? '<img src="'.STATICURL.'image/common/access_allow.gif" />' : '<img src="'.STATICURL.'image/common/access_normal.gif" />');
+	return $access == -1 ? '<i class="fico-remove_circle fc-i"></i>' :
+		($access == 1 ? '<i class="fico-check_right fc-v"></i>' : '<i class="fico-stars fc-p"></i>');
 }
 
 function inwhitelist($access) {

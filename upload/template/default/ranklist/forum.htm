@@ -36,7 +36,7 @@
 						</tr>
 						<!--{loop $forumsrank $forum}-->
 							<tr>
-								<td class="icn" height="36"><!--{if $forum['rank'] <= 3}--><img src="{IMGDIR}/rank_$forum['rank'].gif" alt="$forum['rank']" /><!--{else}-->$forum['rank']<!--{/if}--></td>
+								<td class="icn" height="36"><span class="ranks{if $forum['rank'] <= 3} ranks_$forum['rank']{/if}">$forum['rank']</span></td>
 								<th><a href="forum.php?mod=forumdisplay&fid=$forum['fid']" target="_blank">$forum['name']</a></th>
 								<td>
 									$forum['posts']

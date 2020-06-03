@@ -77,7 +77,7 @@
 							</strong></h3>
 						<p>{lang attach_nopermission_login} <!--{hook/global_login_text}--></p>
 					</div>
-					<span class="atips_close" onclick="this.parentNode.style.display='none'">x</span>
+					<span class="atips_close" onclick="this.parentNode.style.display='none'">&#215;</span>
 				</div>
 				<!--{/if}-->
 				$post[message]</td></tr></table>
@@ -130,7 +130,7 @@
 					<h3><strong>{lang attach_nopermission_notice}</strong></h3>
 					<p><!--{if $_G['uid']}-->{lang attach_nopermission}<!--{elseif $_G['connectguest']}-->{lang attach_nopermission_connect_fill_profile}<!--{else}-->{lang attach_nopermission_login} <!--{hook/global_login_text}--><!--{/if}--></p>
 				</div>
-				<span class="atips_close" onclick="this.parentNode.style.display='none'">x</span>
+				<span class="atips_close" onclick="this.parentNode.style.display='none'">&#215;</span>
 			</div>
 		<!--{elseif $post['imagelist'] || $post['attachlist']}-->
 			<div class="pattl">
@@ -146,7 +146,7 @@
 						<a href="javascript:;" onclick="attachimglst('$post[pid]', 1, {echo intval($_G['setting']['lazyload'])})" class="xi2 attl_m">{lang image_big}</a>
 					</div>
 					<div id="imagelist_$post[pid]" class="cl" style="display:none"><!--{echo showattach($post, 1)}--></div>
-					<div id="imagelistthumb_$post[pid]" class="pattl_c cl"><img src="{IMGDIR}/loading.gif" width="16" height="16" class="vm" /> {lang image_list_openning}</div>
+					<div id="imagelistthumb_$post[pid]" class="pattl_c cl"><div class="loadicon vm"></div> {lang image_list_openning}</div>
 				<!--{else}-->
 					<!--{echo showattach($post, 1)}-->
 				<!--{/if}-->
@@ -166,7 +166,7 @@
 						<td id="vf_m"><input type="text" name="message" id="vmessage" onKeyDown="seditor_ctlent(event, '$(\'vfastpostform\').submit()');"/></td>
 						<td id="vf_r"></td>						
 						<td id="vf_b">
-							<button type="submit" class="pn pnc" name="replysubmit" id="vreplysubmit" value="true" style="">post_newreply</button>								
+							<button type="submit" class="pn pnc" name="replysubmit" id="vreplysubmit" value="true" style="">{lang fastreply}</button>								
 						</td>						
 					</tr>
 				</table>				

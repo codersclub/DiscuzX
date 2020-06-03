@@ -147,7 +147,7 @@ function getranklist_picture($num = 20, $view = 'hot', $orderby = 'all') {
 		++$rank;
 		$picture = array('picid' => $value['picid'], 'uid' => $value['uid'], 'username' => $value['username'], 'title' => $value['title'], 'filepath' => $value['filepath'], 'thumb' => $value['thumb'], 'remote' => $value['remote'], 'hot' => $value['hot'], 'sharetimes' => $value['sharetimes'], 'click1' => $value['click1'], 'click2' => $value['click2'], 'click3' => $value['click3'], 'click4' => $value['click4'], 'click5' => $value['click5'], 'click6' => $value['click6'], 'click7' => $value['click7'], 'click8' => $value['click8'], 'albumid' => $value['albumid'], 'albumname' => $value['albumname'], 'friend' => $value['friend']);
 		$picture['rank'] = $rank;
-		$picture['url'] = $picture['friend'] == 0 ? pic_get($picture['filepath'], 'album', $picture['thumb'], $picture['remote']) : STATICURL.'image/common/nopublish.gif';;
+		$picture['url'] = $picture['friend'] == 0 ? pic_get($picture['filepath'], 'album', $picture['thumb'], $picture['remote']) : STATICURL.'image/common/nopublish.svg';;
 		$picture['origurl'] = pic_get($picture['filepath'], 'album', 0, $picture['remote']);
 		$data[] = $picture;
 	}
@@ -160,8 +160,8 @@ function getranklist_pictures_index($num = 20, $dateline = 0, $orderby = 'hot DE
 	require_once libfile('function/home');
 	foreach($query as $value) {
 		$picture = array('picid' => $value['picid'], 'uid' => $value['uid'], 'username' => $value['username'], 'title' => $value['title'], 'filepath' => $value['filepath'], 'thumb' => $value['thumb'], 'remote' => $value['remote'], 'albumid' => $value['albumid'], 'albumname' => $value['albumname'], 'friend' => $value['friend']);
-		$picture['url'] = $picture['friend'] == 0 ? pic_get($picture['filepath'], 'album', $picture['thumb'], $picture['remote']) : STATICURL.'image/common/nopublish.gif';;
-		$picture['origurl'] = $picture['friend'] == 0 ? pic_get($picture['filepath'], 'album', 0, $picture['remote']) : STATICURL.'image/common/nopublish.gif';
+		$picture['url'] = $picture['friend'] == 0 ? pic_get($picture['filepath'], 'album', $picture['thumb'], $picture['remote']) : STATICURL.'image/common/nopublish.svg';;
+		$picture['origurl'] = $picture['friend'] == 0 ? pic_get($picture['filepath'], 'album', 0, $picture['remote']) : STATICURL.'image/common/nopublish.svg';
 		$picturelist[] = $picture;
 	}
 	return $picturelist;

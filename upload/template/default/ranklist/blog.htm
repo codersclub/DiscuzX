@@ -38,7 +38,7 @@
 				<div class="xld xlda hasrank">
 				<!--{loop $bloglist $blog}-->
 					<dl class="bbda">
-						<dd class="ranknum"><!--{if $blog[rank] <= 3}--><img src="{IMGDIR}/rank_$blog[rank].gif" alt="$blog[rank]" /><!--{else}-->$blog[rank]<!--{/if}--></dd>
+						<dd class="ranknum"><span class="ranks{if $blog['rank'] <= 3} ranks_$blog['rank']{/if}">$blog['rank']</span></dd>
 						<dd class="m">
 							<div class="avt">
 								<a href="home.php?mod=space&uid=$blog[uid]" target="_blank">$blog[avatar]</a>

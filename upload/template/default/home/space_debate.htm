@@ -21,7 +21,7 @@
 		<!--[diy=diycontenttop]--><div id="diycontenttop" class="area"></div><!--[/diy]-->
 		<div class="bm bw0">
 		<!--{if (!$_G['uid'] && !$space[uid]) || $space[self]}-->
-			<h1 class="mt"><img alt="debate" src="{IMGDIR}/debatesmall.gif" class="vm" /> {lang debate}</h1>
+			<h1 class="mt"><i class="fico-vs fic4 fc-p vm"></i>{lang debate}</h1>
 		<!--{/if}-->
 		<!--{if $space[self]}-->
 			<ul class="tb cl">
@@ -78,7 +78,7 @@
 								<div class="chart" style="height: $thread[affirmvotesheight];" title="{lang debate_square} ($thread[affirmvotes])"></div>
 							</div>
 						</td>
-						<th><div></div></th>
+						<th><div>VS</div></th>
 						<td class="sc_2">
 							<div class="point_chart cur1" title="{lang chart_support}" href="forum.php?mod=misc&action=debatevote&tid=$thread[tid]&stand=2" id="negabutton_$thread[tid]" onclick="ajaxmenu(this);doane(event);">
 								<div class="chart" style="height: $thread[negavotesheight];" title="{lang debate_opponent} ($thread[negavotes])"></div>
@@ -110,26 +110,24 @@
 					<tr>
 						<td>
 							<a href="forum.php?mod=viewthread&tid=$thread[tid]" title="{lang open_new_window}" target="_blank">
-								<!--{if $thread[folder] == 'lock'}-->
-									<img src="{IMGDIR}/folder_lock.gif" class="vm" />
-								<!--{elseif $thread['special'] == 5}-->
-									<img src="{IMGDIR}/debatesmall.gif" alt="{lang debate}" class="vm" />
+								<!--{if $thread['special'] == 5}-->
+									<i class="fico-vs fic6 fc-n"></i>
 								<!--{elseif in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
-									<img src="{IMGDIR}/pin_$thread[displayorder].gif" alt="$_G[setting][threadsticky][3-$thread[displayorder]]" class="vm" />
+									<i class="tpin tpin{$thread[displayorder]}"><svg width="18" height="18"><path d="M9 0l9 9H14v9H4V9H0z"></path></svg></i>
 								<!--{else}-->
-									<img src="{IMGDIR}/folder_$thread[folder].gif" class="vm" />
+									<i class="fico-thread fic6 fc-s"></i>
 								<!--{/if}-->
 							</a>
 						</td>
 						<th height="45">
 							<a href="forum.php?mod=viewthread&tid=$thread[tid]" class="xi2" target="_blank">$thread[subject]</a>
 							<!--{if $thread['digest'] > 0}-->
-								<img src="{IMGDIR}/digest_$thread[digest].gif" alt="{lang digest} $thread[digest]" align="absmiddle" />
+								<span class="tbox tdigest">{lang digest}$thread[digest]</span>
 							<!--{/if}-->
 							<!--{if $thread['attachment'] == 2}-->
-								<img src="{STATICURL}image/filetype/image_s.gif" alt="{lang photo_accessories}" align="absmiddle" />
+								<i class="fico-image fic4 fc-p fnmr vm" title="{lang photo_accessories}"></i>
 							<!--{elseif $thread['attachment'] == 1}-->
-								<img src="{STATICURL}image/filetype/common.gif" alt="{lang accessory}" align="absmiddle" />
+								<i class="fico-attachment fic4 fc-p fnmr vm" title="{lang accessory}"></i>
 							<!--{/if}-->
 							<!--{if $thread[multipage]}--><span class="tps">$thread[multipage]</span><!--{/if}-->
 						</th>
