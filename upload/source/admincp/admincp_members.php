@@ -465,7 +465,7 @@ EOF;
 				if($deleteitem == 'doing') {
 					$doings = array();
 					$query = C::t('home_doing')->fetch_all_by_uid_doid($uids, '', '', 0, $pertask);
-					foreach ($query as $doings) {
+					foreach ($query as $doing) {
 						$doings[] = $doing['doid'];
 					}
 
