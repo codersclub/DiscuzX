@@ -476,9 +476,9 @@ function checkFocus() {
 			return;
 		}
 		try {
-			editwin.focus();
-		} catch(e) {
 			editwin.document.body.focus();
+		} catch(e) {
+			editwin.focus();
 		}
 	} else {
 		textobj.focus();
@@ -1001,7 +1001,12 @@ function showEditorMenu(tag, params) {
 		sel = wysiwyg ? editdoc.selection.createRange() : document.selection.createRange();
 		selection = wysiwyg ? sel.htmlText : sel.text;
 	} catch(e) {
-		sel = wysiwyg ? editdoc.getSelection().getRangeAt(0) : undefined;
+		if (wysiwyg) {
+			var gSel = editdoc.getSelection();
+			if (gSel.rangeCount > 0) {
+				sel = gSel.getRangeAt(0);
+			}
+		}
 		selection = getSel();
 	}
 
@@ -1437,6 +1442,9 @@ function insertText(text, movestart, moveend, select, sel) {
 			} catch(e) {
 				if(!sel) {
 					var sel = editdoc.getSelection();
+					if (sel.rangeCount == 0) {
+						sel.collapse(editdoc.body, 0);
+					}
 					var range = sel.getRangeAt(0);
 				} else {
 					var range = sel;
