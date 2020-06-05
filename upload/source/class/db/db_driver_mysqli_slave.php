@@ -74,6 +74,9 @@ class db_driver_mysqli_slave extends db_driver_mysqli
 	}
 
 	protected function _master_connect() {
+		if ($this->serverid === null) {
+			$this->serverid = 1;
+		}
 		if(!$this->link[$this->serverid]) {
 			$this->connect($this->serverid);
 		}
@@ -81,7 +84,7 @@ class db_driver_mysqli_slave extends db_driver_mysqli
 	}
 
 	public function query($sql, $silent = false, $unbuffered = false) {
-		if(!(!$this->slaveexcept && strtoupper(substr($sql, 0 , 6)) === 'SELECT' && $this->_slave_connect())) {
+		if(!(!$this->slaveexcept && strtoupper(substr($sql, 0 , 6)) === 'SELECT' && strpos(strtoupper($sql), 'FOR UPDATE') === FALSE && $this->_slave_connect())) {
 			$this->_master_connect();
 		}
 		$this->tablename = '';
