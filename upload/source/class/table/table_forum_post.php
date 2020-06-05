@@ -620,8 +620,7 @@ class table_forum_post extends discuz_table
 			DB::commit();
 			return $ret;
 		} catch (Exception $e) {
-			DB::rollback();
-			return FALSE;
+			throw $e;
 		}
 	}
 
