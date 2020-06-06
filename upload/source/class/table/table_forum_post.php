@@ -602,6 +602,26 @@ class table_forum_post extends discuz_table
 		return $return;
 	}
 
+	private function _insert_use_db($tableid, $data, $return_insert_id = false, $replace = false, $silent = false) {
+		$tablename = self::get_tablename($tableid);
+		try {
+			DB::begin_transaction();
+			$next_pos = DB::result_first("SELECT IFNULL(max(position), 0) + 1 FROM " . DB::table($tablename) . " WHERE tid = " . $data['tid'] . " FOR UPDATE");
+			$data['position'] = $next_pos;
+			$ret = DB::insert($tablename, $data, $return_insert_id, $replace, $silent);
+			DB::commit();
+			return $ret;
+		} catch (Exception $e) {
+			throw $e;
+		}
+	}
+
+	private function _next_pos_from_memory($key) {
+		// redis 脚本，事务级执行，如果有key则incr，否则返回为空
+		$script = "if redis.call('exists', ARGV[1]..ARGV[2]) == 1 then return redis.call('incr', ARGV[1]..ARGV[2]) end";
+		return memory('eval', $script, array($key), "forum_post_next_pos_script", "");
+	}
+
 	/*
 	 * 在InnoDB的情况下，要保证每个tid下，position是从0开始，并且每次加1，这样与MyISAM的语义相同
 	 * 在非InnoDB的时候(MyISAM)，直接插入
@@ -610,17 +630,42 @@ class table_forum_post extends discuz_table
 		if (getglobal("config/db/common/engine") !== 'innodb') {
 			return DB::insert(self::get_tablename($tableid), $data, $return_insert_id, $replace, $silent);
 		}
+		$tablename = self::get_tablename($tableid);
 
+		// 是否使用内存处理position
+		$use_memory = C::memory()->goteval;
+
+		if (!$use_memory) { // 如果不用内存，则使用innodb的事务来完成
+			return $this->_insert_use_db($tableid, $data, $return_insert_id, $replace, $silent);
+		}
+
+		$memory_position_key = "forum_post_position_" . $data['tid']; // 为每一个tid维护一个key
+		$next_pos = $this->_next_pos_from_memory($memory_position_key);
+
+		if (!$next_pos) { // 如果这个key不存在，则从数据库中加载，并设置到缓存中
+			$next_pos = DB::result_first("SELECT IFNULL(max(position), 0) + 1 FROM " . DB::table($tablename) . " WHERE tid = " . $data['tid']);
+			if (!memory('add', $memory_position_key, $next_pos)) { // 用add添加，如果key已存在(在上面SQL的过程中，被其它进程设置)，则直接incr
+				$next_pos = $this->_next_pos_from_memory($memory_position_key);
+				// 如果还是没有，则fallback到数据库事务
+				if (!$next_pos) return $this->_insert_use_db($tableid, $data, $return_insert_id, $replace, $silent);
+			}
+		}
+		// 更新数据库的position字段
+		$data['position'] = $next_pos;
 		try {
-			$tablename = self::get_tablename($tableid);
-			DB::begin_transaction();
-			$next_pos = DB::result_first("select IFNULL(max(position), 0) + 1 FROM " . DB::table($tablename) . " WHERE tid = " . $data['tid'] . " FOR UPDATE");
-			$data['position'] = $next_pos;
 			$ret = DB::insert($tablename, $data, $return_insert_id, $replace, $silent);
-			DB::commit();
 			return $ret;
 		} catch (Exception $e) {
-			throw $e;
+			// 插入失败，可能是position冲突，再生成一个position试一下
+			$next_pos = $this->_next_pos_from_memory($memory_position_key);
+			if ($next_pos) {
+				$data['position'] = $next_pos;
+				$ret = DB::insert($tablename, $data, $return_insert_id, $replace, $silent);
+				return $ret;
+			}
+			// 如果还是拿不到next_pos，删除key，fallback到数据库
+			memory('rm', $memory_position_key);
+			return $this->_insert_use_db($tableid, $data, $return_insert_id, $replace, $silent);
 		}
 	}
 
