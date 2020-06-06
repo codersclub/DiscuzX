@@ -1718,7 +1718,7 @@ function getposttable($tableid = 0, $prefix = false) {
  */
 function memory($cmd, $key='', $value='', $ttl = 0, $prefix = '') {
 	static $supported_command = array(
-		'set', 'get', 'rm', 'inc', 'dec', 'exists',
+		'set', 'add', 'get', 'rm', 'inc', 'dec', 'exists',
 		'sadd', 'srem', 'scard', 'smembers', 'sismember',
 		'hmset', 'hgetall', 'hexists', 'hget',
 		'eval', 
