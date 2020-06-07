@@ -1715,10 +1715,12 @@ function getposttable($tableid = 0, $prefix = false) {
  * 		$cmd = 'zincrby', $key = key, $value = member, $ttl = value to increase
  * zrevrange 和 zrevrangewithscore 时，参数如下；
  * 		$cmd = 'zrevrange', $key = key, $value = start, $ttl = end
+ * inc, dec, incex 的 $ttl 无效
  */
 function memory($cmd, $key='', $value='', $ttl = 0, $prefix = '') {
 	static $supported_command = array(
 		'set', 'add', 'get', 'rm', 'inc', 'dec', 'exists',
+		'incex', /* 存在时才inc */
 		'sadd', 'srem', 'scard', 'smembers', 'sismember',
 		'hmset', 'hgetall', 'hexists', 'hget',
 		'eval', 
@@ -1751,7 +1753,8 @@ function memory($cmd, $key='', $value='', $ttl = 0, $prefix = '') {
 			case 'rm': return C::memory()->rm($key, $value/*prefix*/); break;
 			case 'exists': return C::memory()->exists($key, $value/*prefix*/); break;
 			case 'inc': return C::memory()->inc($key, $value ? $value : 1, $prefix); break;
-			case 'dec': return C::memory()->dec($key, $value ? $value : -1, $prefix); break;
+			case 'incex': return C::memory()->incex($key, $value ? $value : 1, $prefix); break;
+			case 'dec': return C::memory()->dec($key, $value ? $value : 1, $prefix); break;
 			case 'sadd': return C::memory()->sadd($key, $value, $prefix); break;
 			case 'srem': return C::memory()->srem($key, $value, $prefix); break;
 			case 'scard': return C::memory()->scard($key, $value/*prefix*/); break;

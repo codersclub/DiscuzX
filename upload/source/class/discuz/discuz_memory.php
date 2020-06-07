@@ -161,6 +161,15 @@ class discuz_memory extends discuz_base
 		return $ret;
 	}
 
+	public function incex($key, $value, $prefix = '') {
+		if (!$this->enable || !$this->gotset) {
+			return false;
+		}
+		$this->userprefix = $prefix;
+		return $this->memory->incex($this->_key($key), $value);
+	}
+
+
 	public function dec($key, $step = 1, $prefix = '') {
 		static $hasdec = null;
 		$ret = false;

@@ -134,6 +134,11 @@ class memory_driver_redis {
 		return $this->obj->incr($key, $step);
 	}
 
+	function incex($key, $step = 1) {
+		$script = "if redis.call('exists', ARGV[1]) == 1 then return redis.call('incrby', ARGV[1], ARGV[2]) end";
+		return $this->evalscript($script, array($key, $step));
+	}
+
 	function dec($key, $step = 1) {
 		return $this->obj->decr($key, $step);
 	}

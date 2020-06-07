@@ -60,7 +60,11 @@ class memory_driver_memcached
 	}
 
 	public function inc($key, $step = 1) {
-		return $this->obj->increment($key, $step, 1);
+		return $this->obj->increment($key, $step, $step);
+	}
+
+	public function incex($key, $step = 1) {
+		return $this->obj->increment($key, $step);
 	}
 
 	public function dec($key, $step = 1) {

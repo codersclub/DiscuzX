@@ -45,11 +45,11 @@ class memory_driver_memcache {
 	}
 
 	public function set($key, $value, $ttl = 0) {
-		return $this->obj->set($key, $value, MEMCACHE_COMPRESSED, $ttl);
+		return $this->obj->set($key, $value, 0, $ttl); // 不再使用MEMCACHE_COMPRESSED，因为不能increment
 	}
 
 	public function add($key, $value, $ttl = 0) {
-		return $this->obj->add($key, $value, MEMCACHE_COMPRESSED, $ttl);
+		return $this->obj->add($key, $value, 0, $ttl);
 	}
 
 	public function rm($key) {
@@ -61,6 +61,12 @@ class memory_driver_memcache {
 	}
 
 	public function inc($key, $step = 1) {
+		if (!$this->obj->increment($key, $step)) {
+			$this->set($key, $step);
+		}
+	}
+
+	public function incex($key, $step = 1) {
 		return $this->obj->increment($key, $step);
 	}
 
