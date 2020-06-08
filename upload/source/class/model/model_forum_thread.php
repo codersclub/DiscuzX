@@ -154,9 +154,8 @@ class model_forum_thread extends discuz_model
 			C::t('forum_thread')->update($this->tid, array('icon' => $this->setting['newbie']));
 		}
 		if ($this->param['publishdate'] != TIMESTAMP) {
-			$cron_publish_ids = dunserialize($this->cache('cronpublish'));
+			$cron_publish_ids = $this->cache('cronpublish');
 			$cron_publish_ids[$this->tid] = $this->tid;
-			$cron_publish_ids = serialize($cron_publish_ids);
 			savecache('cronpublish', $cron_publish_ids);
 		}
 

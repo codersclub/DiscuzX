@@ -18,7 +18,7 @@ loadcache('cronpublish');
 
 $dataChanged = false;
 $cron_publish_ids = array();
-$cron_publish_ids = unserialize(getglobal('cache/cronpublish'));
+$cron_publish_ids = getglobal('cache/cronpublish');
 if (count($cron_publish_ids) > 0) {
 	$threadall = C::t('forum_thread')->fetch_all_by_tid($cron_publish_ids);
 
@@ -38,8 +38,7 @@ if (count($cron_publish_ids) > 0) {
 	}
 
 	if ($dataChanged === true) {
-		$newcronpublish = serialize($cron_publish_ids);
-		savecache('cronpublish', $newcronpublish);
+		savecache('cronpublish', $cron_publish_ids);
 	}
 }
 
