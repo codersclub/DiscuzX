@@ -19,6 +19,7 @@ class ip_tiny {
 	private $fd = NULL;
 	private $offset = array();
 	private $index = NULL;
+	private $length = 0;
 
 	private function __construct() {
 		$ipdatafile = constant("DISCUZ_ROOT").'./data/ipdata/tinyipdata.dat';
@@ -30,7 +31,7 @@ class ip_tiny {
 			throw new ip_tiny_init_exception();
 		}
 
-		$length = $this->offset['len'] - 1028;
+		$this->length = $this->offset['len'] - 1028;
 	}
 
 	function __destruct() {
