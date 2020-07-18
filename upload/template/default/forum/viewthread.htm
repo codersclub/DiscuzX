@@ -421,12 +421,11 @@ $_G['forum_tagscript']
 	<script type="text/javascript">
 		var relatedlink = [];
 		<!--{loop $_G['relatedlinks'] $key $link}-->
-		relatedlink[$key] = {'sname':'$link[name]', 'surl':'$link[url]'};
+		relatedlink.push({'sname':'$link[name]', 'surl':'$link[url]'});
 		<!--{/loop}-->
 		{eval $highlights = explode(' ', str_replace(array('\'', chr(125)), array('&#039;', '&#125;'), dhtmlspecialchars($_GET['highlight'])));}
 		<!--{loop $highlights $word}-->
-		{eval $key++;}
-		relatedlink[$key] = {'sname':'$word', 'surl':''};
+		relatedlink.push({'sname':'$word', 'surl':''});
 		<!--{/loop}-->
 		relatedlinks('postmessage_$_G[forum_firstpid]');
 	</script>
