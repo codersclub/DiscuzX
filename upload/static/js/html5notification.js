@@ -9,29 +9,29 @@ function Html5notification() {
 	var h5n = new Object();
 
 	h5n.issupport = function() {
-		var is = !!window.webkitNotifications;
-		if(is) {
-			if(window.webkitNotifications.checkPermission() > 0) {
-				window.onclick = function() {
-					window.webkitNotifications.requestPermission();
-				}
-			}
-		}
-		return is;
+		return 'Notification' in window;
 	};
 
 	h5n.shownotification = function(replaceid, url, imgurl, subject, message) {
-		if(window.webkitNotifications.checkPermission() > 0) {
-			window.webkitNotifications.requestPermission();
-		} else {
-			var notify = window.webkitNotifications.createNotification(imgurl, subject, message);
-			notify.replaceId = replaceid;
-			notify.onclick = function() {
-				window.focus();
-				window.location.href = url;
-				notify.cancel();
+		if (Notification.permission === 'granted') {
+			sendit();
+		} else if (Notification.permission !== 'denied') {
+			Notification.requestPermission().then(function (perm) {
+				if (perm === 'granted') {
+					sendit();
+				}
+			});
+		}
+		function sendit() {
+			var n = new Notification(subject, {
+				tag: replaceid,
+				icon: imgurl,
+				body: message
+			});
+			n.onclick = function (e) {
+				e.preventDefault();
+				window.open(url, '_blank');
 			};
-			notify.show();
 		}
 	};
 
