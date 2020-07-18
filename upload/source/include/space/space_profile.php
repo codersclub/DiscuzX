@@ -131,7 +131,7 @@ if($count) {
 }
 
 if(!$_G['inajax'] && $_G['setting']['groupstatus']) {
-	$gorupcount = C::t('forum_groupuser')->fetch_all_group_for_user($space['uid'], 1);
+	$groupcount = C::t('forum_groupuser')->fetch_all_group_for_user($space['uid'], 1);
 	if($groupcount > 0) {
 		$fids = C::t('forum_groupuser')->fetch_all_fid_by_uids($space['uid']);
 		$usergrouplist = C::t('forum_forum')->fetch_all_info_by_fids($fids);
