@@ -272,7 +272,7 @@ function checkusername(id) {
 	} else {
 		lastusername = username;
 	}
-	if(username.match(/<|"/ig)) {
+	if(username.match(/<|>|"|\(|\)|'/ig)) {
 		errormessage(id, '用户名包含敏感字符');
 		return;
 	}
