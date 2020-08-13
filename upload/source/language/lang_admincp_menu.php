@@ -91,6 +91,7 @@ $lang = array
 	'menu_usergroups' => '用户组',
 	'menu_follow' => '推荐关注',
 	'menu_defaultuser' => '推荐好友',
+	'menu_members_verify_profile' => '资料审核',
 
 	'menu_moderate_posts' => '内容审核',
 	'menu_moderate_blogs' => '审核日志',

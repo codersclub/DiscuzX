@@ -124,7 +124,7 @@ $menu['user'] = array(
 	array('menu_usergroups', 'usergroups'),
 	array('menu_follow', 'specialuser_follow'),
 	array('menu_defaultuser', 'specialuser_defaultuser'),
-	array('members_verify_profile', 'verify_verify'),
+	array('menu_members_verify_profile', 'verify_verify'),
 	array('menu_members_verify_setting', 'verify'),
 );
 
