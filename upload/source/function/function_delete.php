@@ -66,6 +66,9 @@ function deletemember($uids, $delpost = true) {
 	C::t('common_member_forum_buylog')->delete_by_uid($arruids);
 	C::t('forum_threadhidelog')->delete_by_uid($arruids);
 	C::t('common_member_crime')->delete_by_uid($arruids);
+	C::t('home_follow')->delete_by_uid($arruids);
+	C::t('home_follow')->delete_by_followuid($arruids);
+	C::t('home_follow_feed')->delete_by_uid($arruids);
 
 	foreach(C::t('forum_collectionfollow')->fetch_all_by_uid($arruids) as $follow) {
 		C::t('forum_collection')->update_by_ctid($follow['ctid'], 0, -1);

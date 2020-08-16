@@ -39,7 +39,7 @@ class uccode {
 			$message = preg_replace_callback("/\[url(=((https?|ftp|gopher|news|telnet|rtsp|mms|callto|bctp|ed2k|thunder|synacast){1}:\/\/|www\.)([^\[\"']+?))?\](.+?)\[\/url\]/is", array($this, 'complie_callback_parseurl_15'), $message);
 		}
 		if(strpos($message, '[/email]') !== FALSE) {
-			$message = preg_replace_callback("/\[email(=([a-z0-9\-_.+]+)@([a-z0-9\-_]+[.][a-z0-9\-_.]+))?\](.+?)\[\/email\]/is", array($this, 'complie_callback_parseemail_14'), $message);
+			$message = preg_replace_callback("/\[email(=([A-Za-z0-9\-_.+]+)@([A-Za-z0-9\-_]+[.][A-Za-z0-9\-_.]+))?\](.+?)\[\/email\]/is", array($this, 'complie_callback_parseemail_14'), $message);
 		}
 		$message = str_replace(array(
 			'[/color]', '[/size]', '[/font]', '[/align]', '[b]', '[/b]',
@@ -116,7 +116,7 @@ class uccode {
 
 	function parseemail($email, $text) {
 		$text = str_replace('\"', '"', $text);
-		if(!$email && preg_match("/\s*([a-z0-9\-_.+]+)@([a-z0-9\-_]+[.][a-z0-9\-_.]+)\s*/i", $text, $matches)) {
+		if(!$email && preg_match("/\s*([A-Za-z0-9\-_.+]+)@([A-Za-z0-9\-_]+[.][A-Za-z0-9\-_.]+)\s*/i", $text, $matches)) {
 			$email = trim($matches[0]);
 			return '<a href="mailto:'.$email.'">'.$email.'</a>';
 		} else {

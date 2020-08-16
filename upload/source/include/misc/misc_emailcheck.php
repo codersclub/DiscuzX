@@ -29,7 +29,7 @@ if($uid && isemail($email) && $time > TIMESTAMP - 86400) {
 	}
 
 	$setarr = array('email'=>$email, 'emailstatus'=>'1');
-	if($_G['member']['freeze'] == 2) {
+	if($member['freeze'] == 2) {
 		$setarr['freeze'] = 0;
 	}
 	loaducenter();
