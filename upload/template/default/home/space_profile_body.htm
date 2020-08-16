@@ -30,7 +30,6 @@
 			<li><em>Email</em>$space[email]</li>
 			<!--{/if}-->
 			<li><em>{lang email_status}</em><!--{if $space[emailstatus] > 0}-->{lang profile_verified}<!--{else}-->{lang profile_no_verified}<!--{/if}--></li>
-			<li><em>{lang video_certification}</em><!--{if $space[videophotostatus] > 0}-->{lang profile_certified} <!--{if $showvideophoto}-->&nbsp;&nbsp;(<a href="home.php?mod=space&uid=$space[uid]&do=videophoto" id="viewphoto" onclick="showWindow(this.id, this.href, 'get', 0)">{lang view_certification_photos}</a>)<!--{/if}--><!--{else}-->{lang profile_no_certified}<!--{/if}--></li>
 		</ul>
 		<ul>
 			<!--{if $space[spacenote]}--><li><em class="xg1">{lang spacenote}&nbsp;&nbsp;</em>$space[spacenote]</li><!--{/if}-->
