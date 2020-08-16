@@ -57,7 +57,7 @@ function blog_post($POST, $olds=array()) {
 		$POST['target_ids'] = '';
 	}
 	if($POST['friend'] !== 4) {
-		$POST['password'] == '';
+		$POST['password'] = '';
 	}
 
 	$POST['tag'] = dhtmlspecialchars(trim($POST['tag']));

@@ -73,7 +73,7 @@ class discuz_error
 			$error[line] = sprintf('%04d', $error['line']);
 
 			$show .= "<li>[Line: $error[line]]".$file."($func)</li>";
-			$log .= !empty($log) ? ' -> ' : '';$file.':'.$error['line'];
+			$log .= (!empty($log) ? ' -> ' : '').$file.':'.$error['line'];
 			$log .= $file.':'.$error['line'];
 		}
 		return array($show, $log);

@@ -49,7 +49,7 @@ if($_GET['view'] == 'online') {
 			$onlinedata = C::app()->session->fetch_member(1, 2, $start, $perpage);
 		}
 	} else {
-		$_GET['type']=='all';
+		$_GET['type']='all';
 		$theurl = "home.php?mod=space&uid=$space[uid]&do=friend&view=online&type=all";
 		if(($count = C::app()->session->count_invisible(0))) {
 			$onlinedata = C::app()->session->fetch_member(0, 2, $start, $perpage);

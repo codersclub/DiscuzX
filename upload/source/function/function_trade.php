@@ -84,7 +84,7 @@ function trade_create($trade) {
 		$pid = $pid['pid'];
 	}
 	if(!$item_price && $item_credit) {
-		$seller == '';
+		$seller = '';
 	}
 	C::t('forum_trade')->insert(array(
 		'tid' => $tid,

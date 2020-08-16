@@ -56,7 +56,7 @@ if($_GET['op'] == 'edit') {
 			$_POST['target_ids'] = '';
 		}
 		if($_POST['friend'] !== 4) {
-			$_POST['password'] == '';
+			$_POST['password'] = '';
 		}
 
 		$_POST['catid'] = intval($_POST['catid']);
