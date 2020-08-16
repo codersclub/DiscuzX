@@ -760,7 +760,7 @@ function discuzcode(cmd, arg) {
 		return;
 	} else if(!wysiwyg && cmd == 'removeformat') {
 		var simplestrip = new Array('b', 'i', 'u');
-		var complexstrip = new Array('font', 'color', 'backcolor', 'size');
+		var complexstrip = new Array('font', 'color', 'backcolor', 'size', 'align', 'float');
 
 		var str = getSel();
 		if(str === false) {
