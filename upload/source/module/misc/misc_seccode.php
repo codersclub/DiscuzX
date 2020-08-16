@@ -27,8 +27,8 @@ if($_GET['action'] == 'update') {
 			"$('seccodeswf_$idhash').innerHTML='".lang('core', 'seccode_image'.$ani.'_tips')."' + AC_FL_RunContent('width', '".$_G['setting']['seccodedata']['width']."', 'height', '".$_G['setting']['seccodedata']['height']."', 'src', '$_G[siteurl]static/image/seccode/flash/flash2.swf', 'FlashVars', 'sFile=".rawurlencode("$_G[siteurl]misc.php?mod=seccode&update=$rand&idhash=$idhash")."', 'menu', 'false', 'allowScriptAccess', 'never', 'swLiveConnect', 'true', 'wmode', 'transparent');";
 		$message = '<span id="seccodeswf_'.$idhash.'"></span>';
 	} elseif($_G['setting']['seccodedata']['type'] == 3) {
-		$htmlcode = "$('seccodeswf_$idhash').innerHTML='".lang('core', 'seccode_sound_tips')."' + AC_FL_RunContent('id', 'seccodeplayer_$idhash', 'name', 'seccodeplayer_$idhash', 'width', '0', 'height', '0', 'src', '$_G[siteurl]static/image/seccode/flash/flash1.swf', 'FlashVars', 'sFile=".rawurlencode("$_G[siteurl]misc.php?mod=seccode&update=$rand&idhash=$idhash")."', 'menu', 'false', 'allowScriptAccess', 'never', 'swLiveConnect', 'true', 'wmode', 'transparent');";
-		$message = '<span id="seccodeswf_'.$idhash.'"></span>'.lang('forum/misc', 'seccode_player', array('idhash' => $idhash));
+		$htmlcode = "(function(){var a=document.createElement('audio');a.src='$_G[siteurl]misc.php?mod=seccode&update=$rand&idhash=$idhash&fromFlash=1',a.style.display='none',$('seccodeplay_$idhash').onclick=function(){a.play()},$('seccodeswf_$idhash').appendChild(a)})();";
+		$message = '<span id="seccodeswf_'.$idhash.'">'.lang('core', 'seccode_sound_tips').'</span>'.lang('forum/misc', 'seccode_player', array('idhash' => $idhash));
 	} else {
 		if(!is_numeric($_G['setting']['seccodedata']['type']) && preg_match('/^[\w\d:_]+$/i', $_G['setting']['seccodedata']['type'])) {
 			$etype = explode(':', $_G['setting']['seccodedata']['type']);
@@ -98,7 +98,7 @@ EOF;
 
 	if(is_numeric($_G['setting']['seccodedata']['type']) || !preg_match('/^[\w\d:_]+$/i', $_G['setting']['seccodedata']['type'])) {
 
-		if(IN_MOBILE && in_array($_G['setting']['seccodedata']['type'], array(2, 3))) {
+		if(defined('IN_MOBILE') && in_array($_G['setting']['seccodedata']['type'], array(2, 3))) {
 			exit;
 		}
 
