@@ -307,8 +307,8 @@ class discuz_database {
 		$i = $find = 0;
 		$ret = '';
 		while ($i <= $len && $find < $count) {
-			if ($sql{$i} == '%') {
-				$next = $sql{$i + 1};
+			if ($sql[$i] == '%') {
+				$next = $sql[$i + 1];
 				if ($next == 't') {
 					$ret .= self::table($arg[$find]);
 				} elseif ($next == 's') {
@@ -331,7 +331,7 @@ class discuz_database {
 				$i++;
 				$find++;
 			} else {
-				$ret .= $sql{$i};
+				$ret .= $sql[$i];
 			}
 			$i++;
 		}

@@ -381,7 +381,7 @@ function random($length, $numeric = 0) {
 	}
 	$max = strlen($seed) - 1;
 	for($i = 0; $i < $length; $i++) {
-		$hash .= $seed{mt_rand(0, $max)};
+		$hash .= $seed[mt_rand(0, $max)];
 	}
 	return $hash;
 }
@@ -1903,7 +1903,7 @@ function getexpiration() {
 }
 
 function return_bytes($val) {
-	$last = strtolower($val{strlen($val)-1});
+	$last = strtolower($val[strlen($val)-1]);
 	if (!is_numeric($val)) {
 		$val = substr(trim($val), 0, -1);
 	}
@@ -1951,7 +1951,7 @@ function getattachtablebyaid($aid) {
 
 function getattachtableid($tid) {
 	$tid = (string)$tid;
-	return intval($tid{strlen($tid)-1});
+	return intval($tid[strlen($tid)-1]);
 }
 
 function getattachtablebytid($tid) {

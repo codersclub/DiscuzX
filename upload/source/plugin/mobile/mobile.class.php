@@ -56,7 +56,7 @@ class mobile_core {
 		$return = array();
 		foreach($variables as $key => $value) {
 			foreach($keys as $k) {
-				if($k{0} == '/' && preg_match($k, $key) || $key == $k) {
+				if($k[0] == '/' && preg_match($k, $key) || $key == $k) {
 					if($subkeys) {
 						$return[$key] = mobile_core::getvalues($value, $subkeys);
 					} else {

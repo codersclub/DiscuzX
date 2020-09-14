@@ -143,7 +143,7 @@ function uc_api_mysql($model, $action, $args=array()) {
 		include_once UC_ROOT."./control/$model.php";
 		eval("\$uc_controls['$model'] = new {$model}control();");
 	}
-	if($action{0} != '_') {
+	if($action[0] != '_') {
 		$args = uc_addslashes($args, 1, TRUE);
 		$action = 'on'.$action;
 		$uc_controls[$model]->input = $args;

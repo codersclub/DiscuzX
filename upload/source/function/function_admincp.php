@@ -667,7 +667,7 @@ function showsetting($setname, $varname, $value, $type = 'radio', $disabled = ''
 		$s .= '<ul class="nofloat" onmouseover="altStyle(this'.$check['disabledaltstyle'].');">';
 		foreach($varname[1] as $key => $var) {
 			if($var !== false) {
-				$s .= '<li'.($value{$checkboxs - $i} ? ' class="checked"' : '').'><input class="checkbox" type="checkbox"'.($varnameid ? ' id="_v'.md5($i).'_'.$varnameid.'"' : '').' name="'.$varname[0].'['.$i.']" value="1"'.($value{$checkboxs - $i} ? ' checked' : '').' '.(!empty($varname[2][$key]) ? $varname[2][$key] : '').'>&nbsp;'.$var.'</li>';
+				$s .= '<li'.($value[$checkboxs - $i] ? ' class="checked"' : '').'><input class="checkbox" type="checkbox"'.($varnameid ? ' id="_v'.md5($i).'_'.$varnameid.'"' : '').' name="'.$varname[0].'['.$i.']" value="1"'.($value[$checkboxs - $i] ? ' checked' : '').' '.(!empty($varname[2][$key]) ? $varname[2][$key] : '').'>&nbsp;'.$var.'</li>';
 			}
 			$i++;
 		}
@@ -705,7 +705,7 @@ function showsetting($setname, $varname, $value, $type = 'radio', $disabled = ''
 		$css = '';
 		for($i = 0; $i <= 1; $i++) {
 			if($code[$i] != '') {
-				if($code[$i]{0} == '#') {
+				if($code[$i][0] == '#') {
 					$css .= strtoupper($code[$i]).' ';
 				} elseif(preg_match('/^(https?:)?\/\//i', $code[$i])) {
 					$css .= 'url(\''.$code[$i].'\') ';

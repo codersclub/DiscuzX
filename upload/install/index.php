@@ -321,7 +321,7 @@ if($method == 'show_license') {
 			}
 		}
 
-		if(strpos($tablepre, '.') !== false || intval($tablepre{0})) {
+		if(strpos($tablepre, '.') !== false || intval($tablepre[0])) {
 			show_msg('tablepre_invalid', $tablepre, 0);
 		}
 
