@@ -251,7 +251,7 @@ echo <<<EOT
 			obj.scrollTop = obj.scrollTop + scrollh;
 		} else if(op == 3) {
 			if(!e) e = window.event;
-			if(e.wheelDelta <= 0 || e.detail > 0) {
+			if(e.deltaY > 0 || e.wheelDelta <= 0 || e.detail > 0) {
 				obj.scrollTop = obj.scrollTop + 20;
 			} else {
 				obj.scrollTop = obj.scrollTop - 20;
@@ -423,7 +423,9 @@ echo <<<EOT
 	_attachEvent(document.documentElement, 'keydown', resetEscAndF5);
 	_attachEvent(window, 'resize', setMenuScroll, document);
 	_attachEvent(window, 'resize', resizeHeadermenu, document);
-	if(BROWSER.ie){
+	if('onwheel' in document.createElement('div')) {
+		$('leftmenu').addEventListener('wheel', function(e) { menuScroll(3, e) }, false);
+	} else if(document.onmousewheel !== undefined) {
 		$('leftmenu').onmousewheel = function(e) { menuScroll(3, e) };
 	} else {
 		$('leftmenu').addEventListener("DOMMouseScroll", function(e) { menuScroll(3, e) }, false);
