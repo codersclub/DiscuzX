@@ -327,6 +327,9 @@ class image {
 	}
 
 	function Thumb_IM() {
+		if($this->imginfo['mime'] == 'image/gif') {
+			return 1;
+		}
 		switch($this->param['thumbtype']) {
 			case 'fixnone':
 			case 1:
@@ -574,7 +577,9 @@ class image {
 			if($this->param['watermarktype'][$type] != 'png' && $this->param['watermarktrans'][$type] != '100') {
 				$watermark->setImageOpacity($this->param['watermarktrans'][$type]);
 			}
-
+			if($this->imginfo['mime'] == 'image/gif') {
+				return 0;
+			}
 
 			$canvas = new Imagick(realpath($this->source));
 			$canvas->setImageCompressionQuality($this->param['watermarkquality'][$type]);
