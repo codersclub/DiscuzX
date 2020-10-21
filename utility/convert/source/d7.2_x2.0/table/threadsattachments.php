@@ -38,7 +38,7 @@ while ($row = $db_source->fetch_array($query)) {
 	$row  = daddslashes($row, 1);
 
 	$tid = (string)$row['tid'];
-	$tableid = $tid{strlen($tid)-1};
+	$tableid = $tid[strlen($tid)-1];
 	$table_target_attachment_tableid = $db_target->tablepre.'forum_attachment_'.$tableid;
 	$db_target->query("REPLACE INTO $table_target SET aid='$row[aid]', tid='$row[tid]', pid='$row[pid]', uid='$row[uid]', tableid='$tableid', downloads='$row[downloads]'");
 	$db_target->query("REPLACE INTO $table_target_attachment_tableid SET

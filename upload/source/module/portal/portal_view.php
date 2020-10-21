@@ -13,6 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 $aid = empty($_GET['aid'])?0:intval($_GET['aid']);
 if(empty($aid)) {
+	header("HTTP/1.1 404 Not Found");
 	showmessage('view_no_article_id');
 }
 $article = C::t('portal_article_title')->fetch($aid);
@@ -20,6 +21,7 @@ require_once libfile('function/portalcp');
 $categoryperm = getallowcategory($_G['uid']);
 
 if(empty($article) || ($article['status'] > 0 && $article['uid'] != $_G['uid'] && !$_G['group']['allowmanagearticle'] && empty($categoryperm[$article['catid']]['allowmanage']) && $_G['adminid'] != 1 && $_GET['modarticlekey'] != modauthkey($article['aid']))) {
+	header("HTTP/1.1 404 Not Found");
 	showmessage('view_article_no_exist');
 }
 

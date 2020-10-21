@@ -9,7 +9,7 @@
 
 function absoluteurl($url) {
 	global $_G;
-	if($url{0} == '/') {
+	if($url[0] == '/') {
 		return 'http://'.$_SERVER['HTTP_HOST'].$url;
 	} else {
 		return $_G['siteurl'].$url;
@@ -59,9 +59,9 @@ function divtag($divoptions, $text) {
 function fetchoptionvalue($option, $text) {
 	if(($position = strpos($text, $option)) !== false) {
 		$delimiter = $position + strlen($option);
-		if($text{$delimiter} == '"') {
+		if($text[$delimiter] == '"') {
 			$delimchar = '"';
-		} elseif($text{$delimiter} == '\'') {
+		} elseif($text[$delimiter] == '\'') {
 			$delimchar = '\'';
 		} else {
 			$delimchar = ' ';
@@ -291,7 +291,7 @@ function recursion($tagname, $text, $function, $extraargs = '') {
 		$found = FALSE;
 		$tagnameend = FALSE;
 		for($optionend = $tagbegin; $optionend <= $strlen; $optionend++) {
-			$char = $text{$optionend};
+			$char = $text[$optionend];
 			if(($char == '"' || $char == "'") && $inquote == '') {
 				$inquote = $char;
 			} elseif(($char == '"' || $char == "'") && $inquote == $char) {

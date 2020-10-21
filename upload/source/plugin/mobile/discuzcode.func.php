@@ -66,7 +66,7 @@ function mobile_discuzcode($param) {
 			$message = preg_replace_callback("/\[url(=((https?|ftp|gopher|news|telnet|rtsp|mms|callto|bctp|thunder|qqdl|synacast){1}:\/\/|www\.|mailto:)?([^\r\n\[\"']+?))?\](.+?)\[\/url\]/is", 'mobile_discuzcode_callback_mobile_parseurl_152', $message);
 		}
 		if(strpos($msglower, '[/email]') !== FALSE) {
-			$message = preg_replace_callback("/\[email(=([a-z0-9\-_.+]+)@([a-z0-9\-_]+[.][a-z0-9\-_.]+))?\](.+?)\[\/email\]/is", 'mobile_discuzcode_callback_mobile_parseemail_14', $message);
+			$message = preg_replace_callback("/\[email(=([A-Za-z0-9\-_.+]+)@([A-Za-z0-9\-_]+[.][A-Za-z0-9\-_.]+))?\](.+?)\[\/email\]/is", 'mobile_discuzcode_callback_mobile_parseemail_14', $message);
 		}
 
 		$nest = 0;

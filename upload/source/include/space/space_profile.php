@@ -132,7 +132,7 @@ if($count) {
 }
 
 if(!$_G['inajax'] && $_G['setting']['groupstatus']) {
-	$gorupcount = C::t('forum_groupuser')->fetch_all_group_for_user($space['uid'], 1);
+	$groupcount = C::t('forum_groupuser')->fetch_all_group_for_user($space['uid'], 1);
 	if($groupcount > 0) {
 		$fids = C::t('forum_groupuser')->fetch_all_fid_by_uids($space['uid']);
 		$usergrouplist = C::t('forum_forum')->fetch_all_info_by_fids($fids);
@@ -171,43 +171,7 @@ if(in_array($_G['adminid'], array(1, 2, 3))) {
 	$clist = crime('getactionlist', $space['uid']);
 }
 
-if(!$space['self'] && $_G['uid'] && $_GET['additional'] != 'removevlog') {
-        $visitor = C::t('home_visitor')->fetch_by_uid_vuid($space['uid'], $_G['uid']);
-        $is_anonymous = empty($_G['cookie']['anonymous_visit_'.$_G['uid'].'_'.$space['uid']]) ? 0 : 1;
-        if(empty($visitor['dateline'])) {
-                $setarr = array(
-                        'uid' => $space['uid'],
-                        'vuid' => $_G['uid'],
-                        'vusername' => $is_anonymous ? '' : $_G['username'],
-                        'dateline' => $_G['timestamp']
-                );
-                C::t('home_visitor')->insert($setarr, false, true);
-                show_credit();
-        } else {
-                if($_G['timestamp'] - $visitor['dateline'] >= 300) {
-                        C::t('home_visitor')->update_by_uid_vuid($space['uid'], $_G['uid'], array('dateline'=>$_G['timestamp'], 'vusername'=>$is_anonymous ? '' : $_G['username']));
-                }
-                if($_G['timestamp'] - $visitor['dateline'] >= 3600) {
-                        show_credit();
-                }
-        }
-        updatecreditbyaction('visit', 0, array(), $space['uid']);
-}
-
-function show_credit() {
-        global $_G, $space;
-
-        $showinfo = C::t('home_show')->fetch($space['uid']);
-        if($showinfo['credit'] > 0) {
-                $showinfo['unitprice'] = intval($showinfo['unitprice']);
-                if($showinfo['credit'] <= $showinfo['unitprice']) {
-                        notification_add($space['uid'], 'show', 'show_out');
-                        C::t('home_show')->delete($space['uid']);
-                } else {
-                        C::t('home_show')->update_credit_by_uid($space['uid'], -$showinfo['unitprice']);
-                }
-        }
-}
+show_view();
 
 if(!$_G['privacy']) {
 	if(!$_G['inajax']) {

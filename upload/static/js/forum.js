@@ -310,7 +310,7 @@ function loadData(quiet, formobj) {
 
 	if(in_array((data = trim(data)), ['', 'null', 'false', null, false])) {
 		if(!quiet) {
-			showDialog('没有可以恢复的数据！', 'info');
+			showDialog('没有可以恢复的数据！', 'notice');
 		}
 		return;
 	}

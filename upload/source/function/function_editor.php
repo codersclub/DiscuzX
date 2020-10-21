@@ -125,6 +125,8 @@ function html2bbcode($text) {
 		"/<a\s+?name=.+?\".\">(.+?)<\/a>/is",
 		"/<br.*>/siU",
 		"/<span\s+?style=\"float:\s+(left|right);\">(.+?)<\/span>/is",
+		"/<font\s+?style=\"background-color:\s*([#\w]+?);?\">(.+?)<\/font>/is",
+		"/<font\s+?style=\"background-color:\s*((rgb|rgba)\([\d\s,]+?\));?\">(.+?)<\/font>/is",
 	);
 	$pregreplace = array(
 		'',
@@ -140,6 +142,8 @@ function html2bbcode($text) {
 		'\1',
 		"\n",
 		"[float=\\1]\\2[/float]",
+		"[backcolor=\\1]\\2[/backcolor]",
+		"[backcolor=\\1]\\2[/backcolor]",
 	);
 	$text = preg_replace($pregfind, $pregreplace, $text);
 	$text = preg_replace_callback("/<table([^>]*(width|background|background-color|bgcolor)[^>]*)>/siU", 'html2bbcode_callback_tabletag_1', $text);

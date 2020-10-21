@@ -844,7 +844,7 @@ class QRinputItem {
 	public function encodeModeKanji($version) {
 		try {
 
-			$bs = new QRbitrtream();
+			$bs = new QRbitstream();
 
 			$bs->appendNum(4, 0x8);
 			$bs->appendNum(QRspec::lengthIndicator(QR_MODE_KANJI, $version), (int) ($this->size / 2));

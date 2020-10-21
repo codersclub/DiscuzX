@@ -284,7 +284,7 @@
 	<script type="text/javascript">
 		var relatedlink = [];
 		<!--{loop $_G['relatedlinks'] $key $link}-->
-		relatedlink[$key] = {'sname':'$link[name]', 'surl':'$link[url]'};
+		relatedlink.push({'sname':'$link[name]', 'surl':'$link[url]'});
 		<!--{/loop}-->
 		relatedlinks('blog_article');
 	</script>

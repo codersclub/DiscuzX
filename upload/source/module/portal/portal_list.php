@@ -30,7 +30,7 @@ if($cat['closed'] && !$_G['group']['allowdiy'] && !$categoryperm[$catid]['allowm
 if(!isset($_G['makehtml'])) {
 	if(!empty($cat['url']))	dheader('location:'.$cat['url']);
 	if(defined('SUB_DIR') && $_G['siteurl']. substr(SUB_DIR, 1) != $cat['caturl'] || !defined('SUB_DIR') && $_G['siteurl'] != substr($cat['caturl'], 0, strrpos($cat['caturl'], '/')+1)) {
-		dheader('location:'.$cat['caturl'], '301');
+		dheader('location:'.$cat['caturl'], true, '301');
 	}
 }
 

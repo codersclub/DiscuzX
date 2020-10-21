@@ -138,6 +138,15 @@ class table_home_follow extends discuz_table
 		$this->clear_cache($uid);
 		return DB::query('DELETE FROM %t WHERE uid=%d AND followuid=%d', array($this->_table, $uid, $followuid));
 	}
+
+	public function delete_by_uid($uids) {
+		return DB::delete($this->_table, DB::field('uid', $uids));
+	}
+
+	public function delete_by_followuid($uids) {
+		return DB::delete($this->_table, DB::field('followuid', $uids));
+	}
+
 }
 
 ?>

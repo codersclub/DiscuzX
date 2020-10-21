@@ -104,7 +104,7 @@ function followcode($message, $tid = 0, $pid = 0, $length = 0, $allowimg = true)
 		$message = preg_replace_callback("/\[url(=((https?|ftp|gopher|news|telnet|rtsp|mms|callto|bctp|thunder|qqdl|synacast){1}:\/\/|www\.|mailto:)?([^\r\n\[\"']+?))?\](.+?)\[\/url\]/is", 'followcode_callback_fparseurl_152', $message);
 	}
 	if(strpos($msglower, '[/email]') !== FALSE) {
-		$message = preg_replace_callback("/\[email(=([a-z0-9\-_.+]+)@([a-z0-9\-_]+[.][a-z0-9\-_.]+))?\](.+?)\[\/email\]/is", 'followcode_callback_fparseemail_14', $message);
+		$message = preg_replace_callback("/\[email(=([A-Za-z0-9\-_.+]+)@([A-Za-z0-9\-_]+[.][A-Za-z0-9\-_.]+))?\](.+?)\[\/email\]/is", 'followcode_callback_fparseemail_14', $message);
 	}
 
 	$nest = 0;
@@ -370,7 +370,7 @@ function fparseemail($email, $text) {
 
 	$text = str_replace('\"', '"', $text);
 	$html = '';
-	if(!$email && preg_match("/\s*([a-z0-9\-_.+]+)@([a-z0-9\-_]+[.][a-z0-9\-_.]+)\s*/i", $text, $matches)) {
+	if(!$email && preg_match("/\s*([A-Za-z0-9\-_.+]+)@([A-Za-z0-9\-_]+[.][A-Za-z0-9\-_.]+)\s*/i", $text, $matches)) {
 		$email = trim($matches[0]);
 		$html = '<a href="mailto:'.$email.'">'.$email.'</a>';
 	} else {

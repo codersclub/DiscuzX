@@ -50,13 +50,13 @@
 			var url = 'forum.php?mod=misc&action=showdarkroom&cid=' + cid + '&t=' + parseInt((+new Date()/1000)/(Math.random()*1000));
 			var table = $('darkroomtable');
 			var tablerows = table.rows.length;
+			obj.style.display = 'none';
 			var x = new Ajax('JSON');
 			x.getJSON(url, function(s) {
 				if(s && s.message) {
 					if(s.message.dataexist == 1) {
 						obj.setAttribute('cid', s.message.cid);
-					} else {
-						obj.style.display = 'none';
+						obj.style.display = 'block';
 					}
 					var list = s.data;
 					for(i in list) {

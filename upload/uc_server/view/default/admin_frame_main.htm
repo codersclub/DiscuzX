@@ -33,7 +33,21 @@
 			<!--{/loop}-->
 		<!--{/if}-->
 	</ul>
-	
+
+	<h3>{lang home_envstatus}</h3>
+	<ul class="memlist fixwidth">
+		<!--{if $envstatus['status']}-->
+		<li class="green"><em>{lang envstatus_result}:</em>{lang envstatus_ok}</li>
+		<!--{else}-->
+		<li class="red"><em>{lang envstatus_result}:</em>
+			<!--{if $envstatus['now_ver']}-->
+				{lang envstatus_ver_too_low}
+			<!--{else}-->
+				{lang envstatus_not_found}
+			<!--{/if}-->
+		</li>
+		<!--{/if}-->
+	</ul>
 	<h3>{lang home_env}</h3>
 	<ul class="memlist fixwidth">
 		<li><em>{lang home_version}:</em>UCenter {UC_SERVER_VERSION} Release {UC_SERVER_RELEASE} <a href="http://www.discuz.net/forum-151-1.html" target="_blank">{lang view_new_version}</a> 

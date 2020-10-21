@@ -51,6 +51,13 @@ class control extends adminbase {
 		$this->view->assign('pms', $pms);
 		$this->view->assign('iframe', getgpc('iframe', 'G'));
 
+		if(@file_exists(constant('UC_ROOT').'./install/index.php') && !constant('UC_DEBUG')) {
+			@unlink(constant('UC_ROOT').'./install/index.php');
+			if(@file_exists(constant('UC_ROOT').'./install/index.php')) {
+				exit('Please delete ./install/index.php via FTP!');
+			}
+		}
+
 		$serverinfo = PHP_OS.' / PHP v'.PHP_VERSION;
 		$serverinfo .= @ini_get('safe_mode') ? ' Safe Mode' : NULL;
 		$dbversion = $this->db->result_first("SELECT VERSION()");
@@ -64,12 +71,14 @@ class control extends adminbase {
 		$dbsize = $dbsize ? $this->_sizecount($dbsize) : $lang['unknown'];
 		$magic_quote_gpc = get_magic_quotes_gpc() ? 'On' : 'Off';
 		$allow_url_fopen = ini_get('allow_url_fopen') ? 'On' : 'Off';
+		$envstatus = $this->_get_uc_envstatus();
 		$this->view->assign('serverinfo', $serverinfo);
 		$this->view->assign('fileupload', $fileupload);
 		$this->view->assign('dbsize', $dbsize);
 		$this->view->assign('dbversion', $dbversion);
 		$this->view->assign('magic_quote_gpc', $magic_quote_gpc);
 		$this->view->assign('allow_url_fopen', $allow_url_fopen);
+		$this->view->assign('envstatus', $envstatus);
 
 		$this->view->display('admin_frame_main');
 	}
@@ -88,7 +97,8 @@ class control extends adminbase {
 			'XSPACE' => 'admincp.php',
 			'SUPEV' => 'admincp.php',
 			'ECSHOP' => 'admin/index.php',
-			'ECMALL' => 'admin.php'
+			'ECMALL' => 'admin.php',
+			'DISCUZX' => 'admin.php'
 		);
 		$admincp = '';
 		if(is_array($applist)) {
@@ -181,6 +191,25 @@ class control extends adminbase {
 		}
 
 		return 'update='.rawurlencode(base64_encode($data)).'&md5hash='.substr(md5($_SERVER['HTTP_USER_AGENT'].implode('', $update).$this->time), 8, 8).'&timestamp='.$this->time;
+	}
+
+	function _get_uc_envstatus() {
+		$version = constant('UC_SERVER_VERSION');
+		$now_ver_gd = function_exists('gd_info')? gd_info() : false;
+		$now_ver = array('PHP' => constant('PHP_VERSION'), 'MySQL' => $this->db->result_first("SELECT VERSION()"), 'gethostbyname' => function_exists('gethostbyname'), 'file_get_contents' => function_exists('file_get_contents'), 'xml_parser_create' => function_exists('xml_parser_create'),
+		'FileSock Function' => (function_exists('fsockopen') || function_exists('pfsockopen') || function_exists('stream_socket_client') || function_exists('curl_init')), 'GD' => ($now_ver_gd ? preg_replace('/[^0-9.]+/', '', $now_ver_gd['GD Version']) : false));
+		$req_ver = array('PHP' => '5.3', 'MySQL' => '5.0', 'filter_var' => true, 'gethostbyname' => true, 'file_get_contents' => true, 'xml_parser_create' => true, 'FileSock Function' => true, 'GD' => '1.0');
+		$sug_ver = array('PHP' => '7.1', 'MySQL' => '5.7', 'filter_var' => true, 'gethostbyname' => true, 'file_get_contents' => true, 'xml_parser_create' => true, 'FileSock Function' => true, 'GD' => '2.0');
+		foreach ($now_ver as $key => $value) {
+			if($req_ver[$key] === true) {
+				if (!$value) {
+					return array('status' => 0, 'req' => $key, 'version' => $version);
+				}
+			} else if (version_compare($value, $req_ver[$key], '<')) {
+				return array('status' => 0, 'req' => $key, 'now_ver' => $value, 'sug_ver' => $sug_ver[$key], 'req_ver' => $req_ver[$key], 'version' => $version);
+			}
+		}
+		return array('status' => 1, 'version' => $version);
 	}
 
 }

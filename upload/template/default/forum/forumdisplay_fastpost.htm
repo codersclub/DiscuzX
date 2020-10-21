@@ -66,7 +66,7 @@ var fid = parseInt('$_G[fid]');
 					</div>
 				</div>
 				<div id="seccheck_fastpost">
-					<!--{if $fastpost && ($secqaacheck || $seccodecheck)}-->
+					<!--{if $fastpost && $allowfastpost && ($secqaacheck || $seccodecheck)}-->
 						<!--{subtemplate forum/seccheck_post}-->
 					<!--{/if}-->
 				</div>
