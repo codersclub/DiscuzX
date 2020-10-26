@@ -37,11 +37,11 @@
 					<span id="newpoll_{$key}" class="vm"></span>
 					<span id="pollUploadProgress_{$key}" class="vm">
 						<!--{if $poll[isimage]}-->
-						<img src="{IMGDIR}/attachimg_2.png" class="cur1" onmouseover="showMenu({'menuid':'poll_img_preview_{$poll[imginfo][$ppid][aid]}_menu','ctrlclass':'a','duration':2,'timeout':0,'pos':'34'});" onmouseout="hideMenu('poll_img_preview_{$poll[imginfo][$ppid][aid]}_menu');" />
+						<img src="{IMGDIR}/attachimg_2.png" class="cur1" onmouseover="showMenu({'menuid':'poll_img_preview_{$key}_menu','ctrlclass':'a','duration':2,'timeout':0,'pos':'34'});" onmouseout="hideMenu('poll_img_preview_{$key}_menu');" />
 						<!--{/if}-->
 						<input type="hidden" name="pollimage[{$poll[polloptionid][$key]}]" id="pollUploadProgress_{$key}_aid" value="$poll[imginfo][$ppid][aid]" />
-						<span id="poll_img_preview_{$poll[imginfo][$ppid][aid]}_menu" style="display: none">
-							<img src="$poll[imginfo][$ppid][small]" />
+						<span id="poll_img_preview_{$key}_menu" style="display: none">
+							<img src="{if $poll[imginfo][$ppid][small]}$poll[imginfo][$ppid][small]{else}static/image/common/nophoto.gif{/if}" />
 						</span>
 					</span>
 				</p>
