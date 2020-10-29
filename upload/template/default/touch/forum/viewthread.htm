@@ -102,7 +102,7 @@
                 	<!--{if $post['warned']}-->
                         <span class="grey quote">{lang warn_get}</span>
                     <!--{/if}-->
-                    <!--{if !$post['first'] && !empty($post[subject])}-->
+                    <!--{if !$post['first'] && !empty($post[subject]) && (!$needhiddenreply)}-->
                         <h2><strong>$post[subject]</strong></h2>
                     <!--{/if}-->
                     <!--{if $_G['adminid'] != 1 && $_G['setting']['bannedmessages'] & 1 && (($post['authorid'] && !$post['username']) || ($post['groupid'] == 4 || $post['groupid'] == 5) || $post['status'] == -1 || $post['memberstatus'])}-->
@@ -165,7 +165,7 @@
 
 					<!--{/if}-->
 			</div>
-			<!--{if $_G['setting']['mobile']['mobilesimpletype'] == 0}-->
+			<!--{if ($_G['setting']['mobile']['mobilesimpletype'] == 0) && (!$needhiddenreply)}-->
 			<!--{if $post['attachment']}-->
                <div class="grey quote">
                {lang attachment}: <em><!--{if $_G['uid']}-->{lang attach_nopermission}<!--{else}-->{lang attach_nopermission_login}<!--{/if}--></em>
