@@ -1169,3 +1169,42 @@ function removeVisitor(event, uid) {
 	event.preventDefault();
 	event.stopPropagation();
 }
+
+function spaceMusicPlayer(url, height) {
+	if (JSLOADED[STATICURL + 'js/player/aplayer.min.js']) {
+		var x = new Ajax('JSON');
+		x.getJSON(url, function(s) {
+			// 后端直接返回, 由前端负责将原始数据调整为所需格式
+			var audio = new Array();
+			s.mp3list.forEach(function (s) {
+				var obj = new Object();
+				obj.name = s.mp3name;
+				obj.artist = ' ';
+				obj.url = s.mp3url;
+				obj.cover = s.cdbj;
+				audio.push(obj);
+			});
+			// 设置样式, 保证播放器展示空间
+			$('music_content').style.height = height + 'px';
+			$('music_content').style.padding = '0px';
+			$('music_content').style.margin = '0px';
+			// 初始化APlayer
+			window['music_content'] = new APlayer({
+				container: $('music_content'),
+				autoplay: s.config.autorun == 'true',
+				theme: s.config.crontabcolor,
+				loop: 'all',
+				order: s.config.shuffle == 'true' ? 'random' : 'list',
+				preload: 'none',
+				volume: 1,
+				mutex: true,
+				listFolded: s.config.showmod == 'big' ? false : true,
+				audio: audio
+			});
+		});
+	} else {
+		setTimeout(function () {
+			spaceMusicPlayer(url, height);
+		}, 50);
+	}
+}

@@ -565,14 +565,9 @@ function getblockhtml($blockname,$parameters = array()) {
 			if(!empty($parameters['mp3list'])) {
 				$authcode = substr(md5($_G['authkey'].$uid), 6, 16);
 				$view = ($_G['adminid'] == 1 && $_G['setting']['allowquickviewprofile']) ? '&view=admin' : '';
-				$querystring = urlencode("home.php?mod=space&uid=$uid&do=index&op=getmusiclist&hash=$authcode$view&t=".TIMESTAMP);
-				$swfurl = STATICURL.'image/common/mp3player.swf?config='.$querystring;
-				if(empty($parameters['config']['height']) && $parameters['config']['height'] !== 0) {
-					$parameters['config']['height'] = '200px';
-				} else {
-					$parameters['config']['height'] .= 'px';
-				}
-				$html = "<script language=\"javascript\" type=\"text/javascript\">document.write(AC_FL_RunContent('id', 'mp3player', 'name', 'mp3player', 'devicefont', 'false', 'width', '100%', 'height', '".$parameters['config']['height']."', 'src', '$swfurl', 'menu', 'false',  'allowScriptAccess', 'never', 'swLiveConnect', 'true', 'wmode', 'transparent'));</script>";
+				$querystring = "home.php?mod=space&uid=$uid&do=index&op=getmusiclist&hash=$authcode$view&t=".TIMESTAMP;
+				$height = (empty($parameters['config']['height']) && $parameters['config']['height'] !== 0) ? 200 : $parameters['config']['height'];
+				$html = "<script type=\"text/javascript\">appendstyle(STATICURL + 'js/player/aplayer.min.css');appendscript(STATICURL + 'js/player/aplayer.min.js');spaceMusicPlayer('$querystring', '$height');</script>";
 			} else {
 				$html = lang('space', 'music_no_content');
 			}

@@ -212,9 +212,6 @@ if (submitcheck('musicsubmit')) {
 				'autorun' => $_POST['autorun'],
 				'shuffle' => $_POST['shuffle'],
 				'crontabcolor' => $_POST['crontabcolor'],
-				'buttoncolor' => $_POST['buttoncolor'],
-				'fontcolor' => $_POST['fontcolor'],
-				'crontabbj' => $_POST['crontabbj'],
 				'height' => min(9999,abs(intval($_POST['height']))),
 			  );
 		$blockdata['parameters']['music']['config'] = $config;
