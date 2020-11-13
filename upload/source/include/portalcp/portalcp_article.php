@@ -730,9 +730,6 @@ function parsearticlemedia($params, $url) {
 	$height = intval($params[2]) > 600 ? 600 : intval($params[2]);
 	$url = addslashes($url);
 	if($flv = parseflv($url, 0, 0)) {
-		if(!empty($flv) && preg_match("/\.flv$/i", $flv['flv'])) {
-			$flv['flv'] = $_G['style']['imgdir'].'/flvplayer.swf?&autostart=true&file='.urlencode($flv['flv']);
-		}
 		$url = $flv['flv'];
 		$params[0] = 'swf';
 	}

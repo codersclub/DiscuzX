@@ -1631,15 +1631,6 @@ function parsebegin($linkaddr, $imgflashurl, $w = 0, $h = 0, $type = 0, $s = 0) 
 		case 'png':
 			$content = '<img style="position:absolute;width:'.$w.'px;height:'.$h.'px;" src="'.$imgflashurl.'" />';
 			break;
-		case 'flv':
-			$content = '<span id="'.$randomid.'" style="position:absolute;"></span>'.
-				'<script type="text/javascript" reload="1">$(\''.$randomid.'\').innerHTML='.
-				'AC_FL_RunContent(\'width\', \''.$w.'\', \'height\', \''.$h.'\', '.
-				'\'allowNetworking\', \'internal\', \'allowScriptAccess\', \'never\', '.
-				'\'src\', \''.STATICURL.'image/common/flvplayer.swf\', '.
-				'\'flashvars\', \'file='.rawurlencode($imgflashurl).'\', \'quality\', \'high\', '.
-				'\'wmode\', \'transparent\', \'allowfullscreen\', \'true\');</script>';
-			break;
 		case 'swf':
 			$content = '<span id="'.$randomid.'" style="position:absolute;"></span>'.
 				'<script type="text/javascript" reload="1">$(\''.$randomid.'\').innerHTML='.

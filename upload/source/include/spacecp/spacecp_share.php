@@ -312,7 +312,7 @@ if($_GET['op'] == 'delete') {
 			$flashvar = parseflv($link);
 			if(empty($flashvar) && preg_match("/\.flv$/i", $link)) {
 				$flashvar = array(
-					'flv' => $_G['style']['imgdir'].'/flvplayer.swf?&autostart=true&file='.urlencode($link),
+					'flv' => $link,
 					'imgurl' => ''
 				);
 			}

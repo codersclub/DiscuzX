@@ -360,7 +360,6 @@ function fparseflash($url) {
 		$html = bbcodeurl($url, '<img src="'.IMGDIR.'/flash.gif" alt="'.lang('space', 'follow_click_play').'" onclick="javascript:showFlash(\'flash\', \''.$url.'\', this, \''.$rimg_id.'\');" class="tn" style="cursor: pointer;" />');
 		return fcodedisp($html, 'media');
 	} else {
-		$url = STATICURL.'image/common/flvplayer.swf?&autostart=true&file='.urlencode($matches[0]);
 		return fmakeflv($url);
 	}
 }
@@ -480,7 +479,6 @@ function fparsemedia($params, $url) {
 				return fparseaudio($url);
 				break;
 			case 'flv':
-				$url = STATICURL.'image/common/flvplayer.swf?&autostart=true&file='.urlencode($url);
 				return fmakeflv($url);
 				break;
 			case 'swf':
