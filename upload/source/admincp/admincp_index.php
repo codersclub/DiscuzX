@@ -289,7 +289,7 @@ showformfooter();
 
 showtableheader('Discuz! &#x5F00;&#x6E90;&#x8D21;&#x732E;&#x8005;', 'fixpadding');
 showtablerow('', array('', 'class="td21" style="text-align:right;"'),
-	'<a href="https://gitee.com/ComsenzDiscuz/DiscuzX/contributors?ref=master" class="lightlink2 smallfont" target="_blank">Click Here To See Them</a>'
+	'<a href="https://gitee.com/discuz/DiscuzX/contributors?ref=master" class="lightlink2 smallfont" target="_blank">Click Here To See Them</a>'
 );
 showtablefooter();
 
@@ -435,7 +435,7 @@ showtablerow('', array('class="vtop td24 lineheight"', 'class="lineheight"'), ar
 	<a href="http://www.discuz.net/redirect.php?service" class="lightlink2" target="_blank">&#x8D2D;&#x4E70;&#x6388;&#x6743;</a>,
 	<a href="http://www.discuz.net/" class="lightlink2" target="_blank">&#x8BA8;&#x8BBA;&#x533A;</a>,
 	<a href="'.ADMINSCRIPT.'?action=cloudaddons" class="lightlink2" target="_blank">Discuz! &#24212;&#29992;&#20013;&#24515;</a>,
-	<a href="https://gitee.com/ComsenzDiscuz/DiscuzX" class="lightlink2" target="_blank">Discuz! X Git</a>
+	<a href="https://gitee.com/discuz/DiscuzX" class="lightlink2" target="_blank">Discuz! X Git</a>
 '));
 showtablefooter();
 
