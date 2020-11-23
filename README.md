@@ -17,7 +17,7 @@ Discuz! X 官方 Git (https://gitee.com/discuz/DiscuzX) ，简体中文 UTF8 版
 [点击阅读](https://gitee.com/discuz/DiscuzX/wikis/%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95?sort_id=9978)
 
 ### **发布版下载**
-[点击下载](https://gitee.com/3dming/DiscuzL/attach_files)
+[点击下载](https://gitee.com/discuz/DiscuzX/attach_files)
 
 *感谢 DiscuzFans 提供简体GBK、简体UTF8、繁体UTF8的打包版*
 
