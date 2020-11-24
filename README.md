@@ -7,7 +7,19 @@ Discuz! X 官方 Git (https://gitee.com/discuz/DiscuzX) ，简体中文 UTF8 版
 
 ### **相关网站**
  
-[Discuz!官方站](http://www.discuz.net)
+[Discuz! 官方网站](https://discuz.com) 
+|
+[Discuz! X 官方论坛](https://www.discuz.net) 
+|
+[Discuz! Q 官方论坛](https://discuz.chat)
+ 
+[DNSPod](https://www.dnspod.cn)
+|
+[商标注册](https://tm.cloud.tencent.com/)
+|
+[域名注册](https://dnspod.cloud.tencent.com/)
+
+
 
 ### **感谢 Fans**
 
