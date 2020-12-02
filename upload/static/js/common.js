@@ -184,7 +184,7 @@ function setcookie(cookieName, cookieValue, seconds, path, domain, secure) {
 	path = !path ? cookiepath : path;
 	document.cookie = escape(cookiepre + cookieName) + '=' + escape(cookieValue)
 		+ (expires ? '; expires=' + expires.toGMTString() : '')
-		+ (path ? '; path=' + path : '/')
+		+ '; path=' + (path ? path : '/')
 		+ (domain ? '; domain=' + domain : '')
 		+ (secure ? '; secure' : '');
 }
