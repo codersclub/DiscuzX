@@ -398,7 +398,6 @@ function cloudaddons_clear($type, $id) {
 		while($f = $d->read()) {
 			if(preg_match('/^discuz\_'.$dirs[$type][0].'\_'.$id.'(\_\w+)?\.xml$/', $f)) {
 				if($type == 'plugin' && !$filedeleted) {
-					$importtxt = @implode('', file($entrydir.'/'.$f));
 					$pluginarray = getimportdata('Discuz! Plugin');
 					if($pluginarray['installfile']) {
 						@unlink($entrydir.'/'.$pluginarray['installfile']);
