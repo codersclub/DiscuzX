@@ -408,7 +408,7 @@ function cloudaddons_clear($type, $id) {
 					}
 					$filedeleted = true;
 				}
-                @unlink($entrydir.'/'.$f);
+				@unlink($entrydir.'/'.$f);
 			}
 		}
 	}
