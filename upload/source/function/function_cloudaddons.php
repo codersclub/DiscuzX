@@ -397,9 +397,7 @@ function cloudaddons_clear($type, $id) {
 		$filedeleted = false;
 		while($f = $d->read()) {
 			if(preg_match('/^discuz\_'.$dirs[$type][0].'\_'.$id.'(\_\w+)?\.xml$/', $f)) {
-				@unlink($entrydir.'/'.$f);
 				if($type == 'plugin' && !$filedeleted) {
-					@unlink($entrydir.'/'.$f);
 					$importtxt = @implode('', file($entrydir.'/'.$f));
 					$pluginarray = getimportdata('Discuz! Plugin');
 					if($pluginarray['installfile']) {
@@ -410,6 +408,7 @@ function cloudaddons_clear($type, $id) {
 					}
 					$filedeleted = true;
 				}
+                @unlink($entrydir.'/'.$f);
 			}
 		}
 	}
