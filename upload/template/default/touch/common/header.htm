@@ -8,6 +8,8 @@
 <meta name="keywords" content="{if !empty($metakeywords)}{echo dhtmlspecialchars($metakeywords)}{/if}" />
 <meta name="description" content="{if !empty($metadescription)}{echo dhtmlspecialchars($metadescription)} {/if},$_G['setting']['bbname']" />
 <title><!--{if !empty($navtitle)}-->$navtitle - <!--{/if}--><!--{if empty($nobbname)}--> $_G['setting']['bbname'] - <!--{/if}--> {lang waptitle} - Powered by Discuz!</title>
+$_G['setting']['seohead']
+
 <link rel="stylesheet" href="{STATICURL}image/mobile/style.css" type="text/css" media="all">
 <script src="{STATICURL}js/mobile/jquery.min.js?{VERHASH}"></script>
 

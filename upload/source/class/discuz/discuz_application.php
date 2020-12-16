@@ -813,10 +813,13 @@ class discuz_application extends discuz_base{
 			$mobile = isset($mobile_) ? $mobile_ : 2;
 		}
 
-		if(!$this->var['mobile'] && !$unallowmobile) {
-			if($mobileflag) {
-				dheader("Location:misc.php?mod=mobile");
-			}
+		if(!$this->var['mobile'] && !$unallowmobile && $mobileflag) {
+			parse_str($_SERVER['QUERY_STRING'], $query);
+			$query['mobile'] = 'no';
+			unset($query['simpletype']);
+			$query_sting_tmp = http_build_query($query);
+			$redirect = ($this->var['setting']['domain']['app']['forum'] ? $this->var['scheme'].'://'.$this->var['setting']['domain']['app']['forum'].'/' : $this->var['siteurl']).$this->var['basefilename'].'?'.$query_sting_tmp;
+			dheader('Location: '.$redirect);
 		}
 
 		if($nomobile || (!$this->var['setting']['mobile']['mobileforward'] && !$mobileflag)) {
@@ -842,7 +845,7 @@ class discuz_application extends discuz_base{
 				dheader("location:$mobileurl");
 			}
 		}
-		if($this->var['setting']['mobile']['allowmnew'] && !defined('IN_MOBILE_API') && !defined('NOT_IN_MOBILE_API')) {
+		if($this->var['setting']['mobile']['allowmnew'] && !defined('IN_MOBILE_API') && !defined('NOT_IN_MOBILE_API') && !defined("IS_ROBOT")) {
 			$modid = $this->var['basescript'].'::'.CURMODULE;
 			if(($modid == 'forum::viewthread' || $modid == 'group::viewthread') && !empty($_GET['tid'])) {
 				dheader('location: '.$this->var['siteurl'].'m/?a=viewthread&tid='.$_GET['tid']);
@@ -863,11 +866,12 @@ class discuz_application extends discuz_base{
 			$arr[] = '&mobile='.$mobiletype;
 			$arr[] = 'mobile='.$mobiletype;
 		}
-                parse_str($_SERVER['QUERY_STRING'], $query);
-                $query['mobile'] = 'no';
-                unset($query['simpletype']);
-                $query_sting_tmp = http_build_query($query);
-                $this->var['setting']['mobile']['nomobileurl'] = ($this->var['setting']['domain']['app']['forum'] ? $this->var['scheme'].'://'.$this->var['setting']['domain']['app']['forum'].'/' : $this->var['siteurl']).$this->var['basefilename'].'?'.$query_sting_tmp;
+
+		parse_str($_SERVER['QUERY_STRING'], $query);
+		$query['mobile'] = 'no';
+		unset($query['simpletype']);
+		$query_sting_tmp = http_build_query($query);
+		$this->var['setting']['mobile']['nomobileurl'] = ($this->var['setting']['domain']['app']['forum'] ? $this->var['scheme'].'://'.$this->var['setting']['domain']['app']['forum'].'/' : $this->var['siteurl']).$this->var['basefilename'].'?'.$query_sting_tmp;
 
 		$this->var['setting']['lazyload'] = 0;
 
@@ -891,7 +895,10 @@ class discuz_application extends discuz_base{
 
 		$this->var['setting']['regstatus'] = $this->var['setting']['mobile']['mobileregister'] ? $this->var['setting']['regstatus'] : 0 ;
 
-		$this->var['setting']['thumbquality'] = 50;
+		if(in_array(constant('IN_MOBILE'), array('1', '3'))) {
+			$this->var['setting']['thumbquality'] = 50;
+		}
+
 		$this->var['setting']['avatarmethod'] = 0;
 
 		$this->var['setting']['mobile']['simpletypeurl'] = array();
