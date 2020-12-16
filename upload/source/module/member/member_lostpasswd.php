@@ -48,6 +48,12 @@ if(submitcheck('lostpwsubmit')) {
 		C::t('common_member'.$table_ext)->update($tmp['uid'], array('email' => $tmp['email']));
 	}
 
+	$memberauthstr = C::t('common_member_field_forum'.$table_ext)->fetch($member['uid']);
+	list($dateline, $operation, $idstring) = explode("\t", $memberauthstr['authstr']);
+	if($dateline && $operation == 1 && $dateline>TIMESTAMP-900){
+		showmessage('getpasswd_has_send');
+	}
+
 	$idstring = random(6);
 	C::t('common_member_field_forum'.$table_ext)->update($member['uid'], array('authstr' => "$_G[timestamp]\t1\t$idstring"));
 	require_once libfile('function/mail');
