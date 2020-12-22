@@ -341,6 +341,7 @@ $lang = array (
   'task_reapply' => '后可以重新申请',
   'task_reapply_now' => '现在可以重新申请',
   'task_relatedtask' => '必须完成指定任务',
+  'task_exclusivetask' => '必须未领取指定任务',
   'task_reward' => '奖励',
   'task_applies' => '人气',
   'task_nodoing' => '暂无进行中的任务，请到新任务中申请！',

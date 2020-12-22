@@ -290,6 +290,7 @@ if(!($operation)) {
 		}
 		$data = array(
 			'relatedtaskid' => $_GET['relatedtaskid'],
+			'exclusivetaskid' => $_GET['exclusivetaskid'],
 			'available' => 0,
 			'name' => $_GET['name'],
 			'description' => $_GET['description'],
@@ -424,6 +425,7 @@ if(!($operation)) {
 			}
 		}
 		showsetting('tasks_add_relatedtask', array('relatedtaskid', $tasklist), $task['relatedtaskid'], 'select');
+		showsetting('tasks_add_exclusivetask', array('exclusivetaskid', $tasklist), $task['exclusivetaskid'], 'select');
 		showsetting('tasks_add_maxnum', 'tasklimits', $task['tasklimits'], 'text');
 
 		$taskvars = array();
@@ -508,6 +510,7 @@ if(!($operation)) {
 		}
 		C::t('common_task')->update($id, array(
 			'relatedtaskid' => $_GET['relatedtaskid'],
+			'exclusivetaskid' => $_GET['exclusivetaskid'],			
 			'name' => $_GET['name'],
 			'description' => $_GET['description'],
 			'icon' => $_GET['iconnew'],

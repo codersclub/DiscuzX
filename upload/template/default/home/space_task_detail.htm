@@ -70,10 +70,11 @@
 					<tr>
 						<th class="bbda">{lang task_apply_condition}</th>
 						<td class="bbda">
-							<!--{if $task[applyperm] || $task[relatedtaskid] || $task[tasklimits] || $taskvars['apply']}-->
+							<!--{if $task[applyperm] || $task[relatedtaskid] || $task[exclusivetaskid] || $task[tasklimits] || $taskvars['apply']}-->
 								<ul>
 									<li><!--{if $task[grouprequired]}-->{lang usergroup}: $task[grouprequired] <!--{elseif $task['applyperm'] == 'member'}-->{lang task_general_users}<!--{elseif $task['applyperm'] == 'admin'}-->{lang task_admins}<!--{/if}--></li>
 									<!--{if $task[relatedtaskid]}--><li>{lang task_relatedtask}: <a href="home.php?mod=task&do=view&id=$task[relatedtaskid]">$_G['taskrequired']</a></li><!--{/if}-->
+									<!--{if $task[exclusivetaskid]}--><li>{lang task_exclusivetask}: <a href="home.php?mod=task&do=view&id=$task[exclusivetaskid]">$_G['taskexclusive']</a></li><!--{/if}-->
 									<!--{if $task[tasklimits]}--><li>{lang task_numlimit}: $task[tasklimits]</li><!--{/if}-->
 									<!--{if $taskvars['apply']}-->
 										<!--{loop $taskvars['apply'] $taskvar}-->

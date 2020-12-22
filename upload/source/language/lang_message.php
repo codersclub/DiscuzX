@@ -465,6 +465,7 @@ $lang = array (
 
   'task_close' => '抱歉，站点任务关闭',
   'task_relatedtask' => '申请此任务需要先完成另一个任务，任务页面跳转中请稍候……',
+  'task_exclusivetask' => '抱歉，您已领取且未放弃另一个任务，不能再申请或完成此任务',
   'task_grouplimit' => '抱歉，您所在的用户组不允许申请此任务',
   'task_duplicate' => '抱歉，您已申请过此任务，请不要重复申请',
   'task_nextperiod' => '抱歉，本期您已申请过此任务，请下期再来',
