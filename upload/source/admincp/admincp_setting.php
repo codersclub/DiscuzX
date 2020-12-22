@@ -3090,15 +3090,15 @@ EOT;
 		cpmsg('setting_update_succeed', 'action=setting&operation=styles&anchor=threadprofile', 'succeed');
 	}
 
-	if(isset($settingnew['visitbanperiods']) && isset($settingnew['postbanperiods']) && isset($settingnew['postmodperiods']) && isset($settingnew['searchbanperiods'])) {
-		foreach(array('visitbanperiods', 'postbanperiods', 'postmodperiods', 'searchbanperiods') as $periods) {
+	if((isset($settingnew['postbanperiods']) && isset($settingnew['postmodperiods']))||(isset($settingnew['visitbanperiods'])&&isset($settingnew['attachbanperiods'])&&isset($settingnew['searchbanperiods'])) ) {
+		foreach(array('visitbanperiods', 'postbanperiods','attachbanperiods', 'postmodperiods', 'searchbanperiods') as $periods) {
 			$periodarray = array();
 			foreach(explode("\n", $settingnew[$periods]) as $period) {
 				if(preg_match("/^\d{1,2}\:\d{2}\-\d{1,2}\:\d{2}$/", $period = trim($period))) {
 					$periodarray[] = $period;
 				}
 			}
-			$settingnew[$periods] = implode("\r\n", $periodarray);
+			isset($settingnew[$periods])&&$settingnew[$periods] = implode("\r\n", $periodarray);
 		}
 	}
 
