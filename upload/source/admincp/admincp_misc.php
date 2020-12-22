@@ -644,7 +644,7 @@ var rowtypedata = [
 	var rowtypedata = [
 		[
 			[1,''],
-			[1,'<input type="text" class="txt" size="30" name="newfind[]">'], [1, ' <select onchange="if(this.options[this.options.selectedIndex].value==\'{REPLACE}\'){this.nextSibling.style.display=\'\';}else{this.nextSibling.style.display=\'none\';}" name="newreplace[]" $disabled><option value="{BANNED}">$misc_censor_word_banned</option><option value="{MOD}">$misc_censor_word_moderated</option><option value="{REPLACE}">$misc_censor_word_replaced</option></select><input class="txt" type="text" size="15" name="newreplacecontent[]" style="display:none;">']
+			[1,'<input type="text" class="txt" size="30" name="newfind[]">'], [1, ' <select onchange="if(this.options[this.options.selectedIndex].value==\'{REPLACE}\'){this.nextSibling.style.display=\'\';}else{this.nextSibling.style.display=\'none\';}" name="newreplace[]" ><option value="{BANNED}">$misc_censor_word_banned</option><option value="{MOD}">$misc_censor_word_moderated</option><option value="{REPLACE}">$misc_censor_word_replaced</option></select><input class="txt" type="text" size="15" name="newreplacecontent[]" style="display:none;">']
 EOT;
 		if($word_type_option) {
 			echo ", [1,' <select onchange=\"if(this.options[this.options.selectedIndex].value==\'0\'){this.nextSibling.style.display=\'\';}else{this.nextSibling.style.display=\'none\';}\" name=\"newwordtype[]\" id=\"newwordtype[]\"><option value=\"0\" selected>{$misc_censor_word_default_typename}</option>{$word_type_option}</select><input class=\"txt\" type=\"text\" size=\"10\" name=\"newtypename[]\" >']";
@@ -688,7 +688,7 @@ EOT;
 		showsubtitle(array('', 'misc_censor_wordtype_name'));
 		if($wordtypecount = C::t('common_word_type')->count()) {
 			foreach(C::t('common_word_type')->fetch_all() as $result) {
-				showtablerow('', array('class="td25"', ''), array("<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$result['id']}\" $disabled>", "<input type=\"text\" class=\"txt\" size=\"10\" name=\"typename[{$result['id']}]\" value=\"{$result['typename']}\">"));
+				showtablerow('', array('class="td25"', ''), array("<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$result['id']}\" >", "<input type=\"text\" class=\"txt\" size=\"10\" name=\"typename[{$result['id']}]\" value=\"{$result['typename']}\">"));
 			}
 		}
 
