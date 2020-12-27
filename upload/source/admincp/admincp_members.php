@@ -248,14 +248,14 @@ EOF;
 		if($searchmember) {
 			$ips = array();
 			foreach(array('regip', 'lastip') as $iptype) {
-				if($searchmember[$iptype] != '' && $searchmember[$iptype] != 'hidden') {
+				if($searchmember[$iptype] != '' && $searchmember[$iptype] != 'hidden' && $searchmember[$iptype] != 'Manual Acting') {
 					$ips[] = $searchmember[$iptype];
 				}
 			}
 			$ips = !empty($ips) ? array_unique($ips) : array('unknown');
 		}
-		$searchmember['username'] .= ' (IP '.dhtmlspecialchars($ids).')';
-		$membernum = !empty($ips) ? C::t('common_member_status')->count_by_ip($ips) : C::t('common_member_status')->count();
+		$searchmember['username'] .= ' (IP '.implode(',',dhtmlspecialchars($ips)).')';
+		$membernum = !empty($ips) && $ips[0] != "unknown" ? C::t('common_member_status')->count_by_ip($ips) : C::t('common_member_status')->count();
 
 		$members = '';
 		if($membernum) {
@@ -267,13 +267,10 @@ EOF;
 				}
 				$usergroups[$group['groupid']] = $group;
 			}
-
-			$uids = searchmembers($search_condition, $_G['setting']['memberperpage'], $start_limit);
-			$conditions = 'm.uid IN ('.dimplode($uids).')';
 			$_G['setting']['memberperpage'] = 100;
 			$start_limit = ($page - 1) * $_G['setting']['memberperpage'];
 			$multipage = multi($membernum, $_G['setting']['memberperpage'], $page, ADMINSCRIPT."?action=members&operation=repeat&submit=yes".$urladd);
-			$allstatus = !empty($ips) ? C::t('common_member_status')->fetch_all_by_ip($ips, $start_limit, $_G['setting']['memberperpage'])
+			$allstatus = !empty($ips) && $ips[0] != "unknown" ? C::t('common_member_status')->fetch_all_by_ip($ips, $start_limit, $_G['setting']['memberperpage'])
 					: C::t('common_member_status')->range($start_limit, $_G['setting']['memberperpage']);
 			$allcount = C::t('common_member_count')->fetch_all(array_keys($allstatus));
 			$allmember = C::t('common_member')->fetch_all(array_keys($allstatus));
@@ -303,7 +300,7 @@ EOF;
 		showsubmenu($lang['nav_repeat'].' - '.$searchmember['username']);
 		showformheader("members&operation=clean");
 		$searchadd = '';
-		if(is_array($ips)) {
+		if(is_array($ips) && $ips[0] != "unknown") {
 			foreach($ips as $ip) {
 				$searchadd .= '<a href="'.ADMINSCRIPT.'?action=members&operation=repeat&inputip='.rawurlencode($ip).'" class="act lightlink normal">'.cplang('search').'IP '.dhtmlspecialchars($ip).'</a>';
 			}
