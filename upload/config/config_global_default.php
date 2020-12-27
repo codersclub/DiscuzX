@@ -206,7 +206,8 @@ $_config['remote']['appkey'] = md5($_config['security']['authkey']);
 $_config['remote']['cron'] = 0;
 
 // $_GET|$_POST的兼容处理，0为关闭，1为开启；开启后即可使用$_G['gp_xx'](xx为变量名，$_GET和$_POST集合的所有变量名)，值为已经addslashes()处理过
-$_config['input']['compatible'] = 1;
+// 考虑到安全风险，自X3.5版本起本开关恢复默认值为0的设定，后续版本可能取消此功能，请各位开发人员注意
+$_config['input']['compatible'] = 0;
 
 /**
  * IP数据库扩展

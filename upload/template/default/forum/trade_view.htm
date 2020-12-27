@@ -6,11 +6,11 @@
 	<h1 class="mt">2.{lang trade_order}</h1>
 	<div class="mn">
 		<form method="post" autocomplete="off" id="tradepost" name="tradepost" action="forum.php?mod=trade&orderid=$orderid">
-			<!--{if !empty($_G['gp_modthreadkey'])}-->
-				<input type="hidden" name="modthreadkey" value="$_G[gp_modthreadkey]" />
+			<!--{if !empty($_GET['modthreadkey']) && daddslashes($_GET['modthreadkey'])}-->
+				<input type="hidden" name="modthreadkey" value="$_GET['modthreadkey']" />
 			<!--{/if}-->
-			<!--{if !empty($_G['gp_tid'])}-->
-				<input type="hidden" name="tid" value="$_G[gp_tid]" />
+			<!--{if !empty($_GET['tid']) && daddslashes($_GET['tid'])}-->
+				<input type="hidden" name="tid" value="$_GET['tid']" />
 			<!--{/if}-->
 			<input type="hidden" name="formhash" value="{FORMHASH}" />
 			<div class="bm">
