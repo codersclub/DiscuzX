@@ -57,6 +57,16 @@ var disablepostctrl = parseInt('{$_G['group']['disablepostctrl']}');
 								<!--{else}-->
 									{lang connect_fill_profile_to_post}
 								<!--{/if}-->
+							<!--{elseif $thread['closed'] && !$_G['forum']['ismoderator'] && !$thread['isgroup']}-->
+								{lang post_thread_closed}
+							<!--{elseif !$thread['isgroup'] && $post_autoclose = checkautoclose($thread) && $autoclose = $_G['forum']['autoclose']}-->
+								<!--{if $post_autoclose == 'post_thread_closed_by_dateline'}-->
+									{lang post_thread_closed_by_dateline}
+								<!--{else}-->
+									{lang post_thread_closed_by_lastpost}
+								<!--{/if}-->
+							<!--{elseif $_G['forum']['replyperm'] && !forumperm($_G['forum']['replyperm'])}-->
+								{lang replyperm_nopermission}
 							<!--{else}-->
 								{lang no_permission_to_post}<a href="javascript:;" onclick="$('fastpostform').submit()" class="xi2">{lang click_to_show_reason}</a>
 							<!--{/if}-->
