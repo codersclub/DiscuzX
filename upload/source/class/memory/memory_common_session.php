@@ -459,7 +459,7 @@ LUA;
 						memory('zrem', "idx_invisible_" . $olddata[$col], $sid, 0, $this->_pre_cache_key);
 						break;
 					case 'uid':
-						memory('zrem', "idx_uid_group_" . $olddata[$col] == 0 ? '0' : '1', $sid, 0, $this->_pre_cache_key);
+						memory('zrem', "idx_uid_group_" . ($olddata[$col] == 0 ? '0' : '1'), $sid, 0, $this->_pre_cache_key);
 						memory('srem', "idx_uid_" . $olddata[$col], $sid, 0, $this->_pre_cache_key);
 						break;
 					default:
