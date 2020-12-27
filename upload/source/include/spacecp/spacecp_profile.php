@@ -425,7 +425,14 @@ if($operation == 'password') {
 	$space['newemail'] = !$space['emailstatus'] ? $space['email'] : '';
 	if(!empty($newemail)) {
 		$mailinfo = explode("\t", $newemail);
-		$space['newemail'] = $mailinfo[0] == $_G['uid'] && isemail($mailinfo[1]) ? $mailinfo[1] : '';
+		if(is_array($mailinfo) && $mailinfo[0] == $_G['uid'] && isemail($mailinfo[1])) {
+			if($space['emailstatus'] && !$space['freeze'] && strcasecmp($mailinfo[1], $space['email']) === 0) {
+				dsetcookie('newemail', '', -1);
+				$space['newemail'] = '';
+			} else {
+				$space['newemail'] = $mailinfo[1];
+			}
+		}
 	}
 
 	if($_GET['resend'] && $resend) {
