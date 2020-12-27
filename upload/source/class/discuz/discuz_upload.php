@@ -41,7 +41,7 @@ Class discuz_upload{
 			$attach['ext'] = $this->fileext($attach['name']);
 
 			$attach['name'] =  dhtmlspecialchars($attach['name'], ENT_QUOTES);
-			if(strlen($attach['name']) > 90) {
+			if(dstrlen($attach['name']) > 90) {
 				$attach['name'] = cutstr($attach['name'], 80, '').'.'.$attach['ext'];
 			}
 
