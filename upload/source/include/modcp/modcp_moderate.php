@@ -240,7 +240,7 @@ if($op == 'replies') {
 				}
 				if($post['authorid'] && $post['authorid'] != $_G['uid']) {
 					$pmlist[] = array(
-						'act' => 'modreplies_delete',
+						'act' => $_GET['reason'] ? 'modreplies_delete_reason' : 'modreplies_delete',
 						'notevar' => array('reason' => dhtmlspecialchars($_GET['reason']), 'post' => messagecutstr($post['message'], 30)),
 						'authorid' => $post['authorid'],
 					);
