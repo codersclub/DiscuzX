@@ -3198,6 +3198,10 @@ EOT;
 	}
 
 	if($operation == 'attach') {
+		if($settingnew['allowattachurl'] && !in_array($_G['config']['download']['readmod'], array(1, 4))) {
+			// 如需附件URL地址、媒体附件播放，需选择支持Range参数的读取模式1或4，其他模式会导致部分浏览器下视频播放异常
+			cpmsg('attach_readmod_error', '', 'error');
+		}
 		$settingnew['thumbwidth'] = intval($settingnew['thumbwidth']) > 0 ? intval($settingnew['thumbwidth']) : 200;
 		$settingnew['thumbheight'] = intval($settingnew['thumbheight']) > 0 ? intval($settingnew['thumbheight']) : 300;
 		$settingnew['maxthumbwidth'] = intval($settingnew['maxthumbwidth']);

@@ -123,7 +123,8 @@ $_config['server']['id']		= 1;			// 服务器编号，多webserver的时候，�
 
 // 附件下载相关
 //
-// 本地文件读取模式; 模式2为最节省内存方式，但不支持多线程下载 如需附件URL地址、媒体附件播放，需选择支持Range参数的读取模式1或4
+// 本地文件读取模式; 模式2为最节省内存方式，但不支持多线程下载
+// 如需附件URL地址、媒体附件播放，需选择支持Range参数的读取模式1或4，其他模式会导致部分浏览器下视频播放异常
 // 1=fread 2=readfile 3=fpassthru 4=fpassthru+multiple
 $_config['download']['readmod'] = 2;
 
