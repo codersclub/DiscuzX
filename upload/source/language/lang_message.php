@@ -249,6 +249,7 @@ $lang = array (
   'profile_username_tooshort' => '抱歉，您输入的用户名小于 3 个字符，请输入一个较长的用户名',
   'profile_username_toolong' => '抱歉，您的用户名超过 15 个字符，请输入一个较短的用户名',
   'profile_passwd_notmatch' => '抱歉，两次输入的密码不一致',
+  'profile_email_not_change' => '抱歉，本站不允许通过前台自行修改账号绑定的邮箱',
   'profile_username_illegal' => '用户名包含敏感字符',
   'profile_username_duplicate' => '该用户名已被注册',
   'profile_illegal' => '格式不正确或为空',

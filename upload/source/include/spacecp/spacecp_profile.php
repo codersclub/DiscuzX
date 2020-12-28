@@ -347,6 +347,10 @@ if(submitcheck('profilesubmit')) {
 		showmessage('profile_passwd_notmatch', '', array(), array('return' => true));
 	}
 
+	if($emailnew != $_G['member']['email'] && $_G['setting']['change_email']) {
+		showmessage('profile_email_not_change', '', array(), array('return' => true));
+	}
+
 	loaducenter();
 	if($emailnew != $_G['member']['email']) {
 		include_once libfile('function/member');
