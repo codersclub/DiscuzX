@@ -1711,7 +1711,7 @@ DROP TABLE IF EXISTS pre_forum_activity;
 CREATE TABLE pre_forum_activity (
   tid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  aid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  aid int(10) unsigned NOT NULL DEFAULT '0',
   cost mediumint(8) unsigned NOT NULL DEFAULT '0',
   starttimefrom int(10) unsigned NOT NULL DEFAULT '0',
   starttimeto int(10) unsigned NOT NULL DEFAULT '0',
@@ -1764,7 +1764,7 @@ CREATE TABLE pre_forum_announcement (
 
 DROP TABLE IF EXISTS pre_forum_attachment;
 CREATE TABLE pre_forum_attachment (
-  aid mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  aid int(10) unsigned NOT NULL AUTO_INCREMENT,
   tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -1778,7 +1778,7 @@ CREATE TABLE pre_forum_attachment (
 
 DROP TABLE IF EXISTS pre_forum_attachment_0;
 CREATE TABLE pre_forum_attachment_0 (
-  aid mediumint(8) unsigned NOT NULL,
+  aid int(10) unsigned NOT NULL,
   tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -1802,7 +1802,7 @@ CREATE TABLE pre_forum_attachment_0 (
 
 DROP TABLE IF EXISTS pre_forum_attachment_1;
 CREATE TABLE pre_forum_attachment_1 (
-  aid mediumint(8) unsigned NOT NULL,
+  aid int(10) unsigned NOT NULL,
   tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -1826,7 +1826,7 @@ CREATE TABLE pre_forum_attachment_1 (
 
 DROP TABLE IF EXISTS pre_forum_attachment_2;
 CREATE TABLE pre_forum_attachment_2 (
-  aid mediumint(8) unsigned NOT NULL,
+  aid int(10) unsigned NOT NULL,
   tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -1850,7 +1850,7 @@ CREATE TABLE pre_forum_attachment_2 (
 
 DROP TABLE IF EXISTS pre_forum_attachment_3;
 CREATE TABLE pre_forum_attachment_3 (
-  aid mediumint(8) unsigned NOT NULL,
+  aid int(10) unsigned NOT NULL,
   tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -1874,7 +1874,7 @@ CREATE TABLE pre_forum_attachment_3 (
 
 DROP TABLE IF EXISTS pre_forum_attachment_4;
 CREATE TABLE pre_forum_attachment_4 (
-  aid mediumint(8) unsigned NOT NULL,
+  aid int(10) unsigned NOT NULL,
   tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -1898,7 +1898,7 @@ CREATE TABLE pre_forum_attachment_4 (
 
 DROP TABLE IF EXISTS pre_forum_attachment_5;
 CREATE TABLE pre_forum_attachment_5 (
-  aid mediumint(8) unsigned NOT NULL,
+  aid int(10) unsigned NOT NULL,
   tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -1922,7 +1922,7 @@ CREATE TABLE pre_forum_attachment_5 (
 
 DROP TABLE IF EXISTS pre_forum_attachment_6;
 CREATE TABLE pre_forum_attachment_6 (
-  aid mediumint(8) unsigned NOT NULL,
+  aid int(10) unsigned NOT NULL,
   tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -1946,7 +1946,7 @@ CREATE TABLE pre_forum_attachment_6 (
 
 DROP TABLE IF EXISTS pre_forum_attachment_7;
 CREATE TABLE pre_forum_attachment_7 (
-  aid mediumint(8) unsigned NOT NULL,
+  aid int(10) unsigned NOT NULL,
   tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -1970,7 +1970,7 @@ CREATE TABLE pre_forum_attachment_7 (
 
 DROP TABLE IF EXISTS pre_forum_attachment_8;
 CREATE TABLE pre_forum_attachment_8 (
-  aid mediumint(8) unsigned NOT NULL,
+  aid int(10) unsigned NOT NULL,
   tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -1994,7 +1994,7 @@ CREATE TABLE pre_forum_attachment_8 (
 
 DROP TABLE IF EXISTS pre_forum_attachment_9;
 CREATE TABLE pre_forum_attachment_9 (
-  aid mediumint(8) unsigned NOT NULL,
+  aid int(10) unsigned NOT NULL,
   tid int(10) unsigned NOT NULL DEFAULT '0',
   pid int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -2018,14 +2018,14 @@ CREATE TABLE pre_forum_attachment_9 (
 
 DROP TABLE IF EXISTS pre_forum_attachment_exif;
 CREATE TABLE pre_forum_attachment_exif (
-  aid mediumint(8) unsigned NOT NULL,
+  aid int(10) unsigned NOT NULL,
   exif text NOT NULL,
   PRIMARY KEY (aid)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_forum_attachment_unused;
 CREATE TABLE pre_forum_attachment_unused (
-  aid mediumint(8) unsigned NOT NULL,
+  aid int(10) unsigned NOT NULL,
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   filename varchar(255) NOT NULL DEFAULT '',
@@ -2362,7 +2362,7 @@ CREATE TABLE pre_forum_forumrecommend (
   expiration int(10) unsigned NOT NULL,
   position tinyint(1) NOT NULL DEFAULT '0',
   highlight tinyint(1) NOT NULL DEFAULT '0',
-  aid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  aid int(10) unsigned NOT NULL DEFAULT '0',
   filename char(100) NOT NULL DEFAULT '',
   PRIMARY KEY (tid),
   KEY displayorder (fid,displayorder),
@@ -2774,10 +2774,10 @@ CREATE TABLE pre_forum_relatedthread (
 DROP TABLE IF EXISTS pre_forum_replycredit;
 CREATE TABLE pre_forum_replycredit (
   tid int(10) unsigned NOT NULL,
-  extcredits mediumint(6) unsigned NOT NULL DEFAULT '0',
+  extcredits int(10) unsigned NOT NULL DEFAULT '0',
   extcreditstype tinyint(1) NOT NULL DEFAULT '0',
-  times smallint(6) unsigned NOT NULL DEFAULT '0',
-  membertimes smallint(6) unsigned NOT NULL DEFAULT '0',
+  times int(10) unsigned NOT NULL DEFAULT '0',
+  membertimes int(10) unsigned NOT NULL DEFAULT '0',
   random tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (tid)
 ) ENGINE=InnoDB;
@@ -2861,7 +2861,7 @@ CREATE TABLE pre_forum_thread (
   icon tinyint(3) NOT NULL DEFAULT '-1',
   pushedaid mediumint(8) NOT NULL DEFAULT '0',
   cover smallint(6) NOT NULL DEFAULT '0',
-  replycredit smallint(6) NOT NULL DEFAULT '0',
+  replycredit int(10) NOT NULL DEFAULT '0',
   relatebytag char(255) NOT NULL DEFAULT '0',
   maxposition int(10) unsigned NOT NULL DEFAULT '0',
   bgcolor char(8) NOT NULL DEFAULT '',
@@ -3072,7 +3072,7 @@ CREATE TABLE pre_forum_trade (
   totalitems smallint(5) unsigned NOT NULL DEFAULT '0',
   tradesum decimal(8,2) NOT NULL DEFAULT '0.00',
   closed tinyint(1) NOT NULL DEFAULT '0',
-  aid mediumint(8) unsigned NOT NULL,
+  aid int(10) unsigned NOT NULL,
   displayorder tinyint(1) NOT NULL,
   costprice decimal(8,2) NOT NULL,
   credit int(10) unsigned NOT NULL DEFAULT '0',
