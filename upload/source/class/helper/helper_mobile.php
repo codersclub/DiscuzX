@@ -43,7 +43,11 @@ class helper_mobile {
 			$query_sting_tmp = http_build_query($query);
 			$_G['setting']['mobile']['pageurl'] = $_G['siteurl'].basename($_G['PHP_SELF']).'?'.$query_sting_tmp;
 			unset($query_sting_tmp);
-			showmessage('not_in_mobile');
+			if(isset($_G['config']['templatedeveloper']) && $_G['config']['templatedeveloper']) {
+				showmessage('template_developer_not_in_mobile', '', array('file' => constant('TPL_DEFAULT_FILE')));
+			} else {
+				showmessage('not_in_mobile');
+			}
 			exit;
 		}
 	}

@@ -629,6 +629,7 @@ function template($file, $templateid = 0, $tpldir = '', $gettplfile = 0, $primal
 				$tplfile = str_replace($_G['mobiletpl'][IN_MOBILE].'/', '', $tplfile);
 				$file = str_replace($_G['mobiletpl'][IN_MOBILE].'/', '', $file);
 				define('TPL_DEFAULT', true);
+				define('TPL_DEFAULT_FILE', $mobiletplfile);
 			} else {
 				$tplfile = $mobiletplfile;
 			}

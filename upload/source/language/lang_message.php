@@ -1083,6 +1083,7 @@ $lang = array (
   'post_url_nopermission' => '抱歉，您没有权限发表 URL 连接',
 
   'not_in_mobile' => '您访问的页面无手机页面，是否进一步访问电脑版？',
+  'template_developer_not_in_mobile' => '您访问的页面 {file} 无手机模板，是否进一步访问电脑版？',
 
   'magics_operation_nopermission' => '抱歉，此道具只能操作自己发帖子或评论',
 
