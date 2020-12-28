@@ -1040,6 +1040,7 @@ $lang = array
 	'setting_styles_viewthread_maxsigrows' => '签名最大高度(px)',
 	'setting_styles_viewthread_maxsigrows_comment' => '设置帖子中允许显示签名的最大高度',
 	'setting_styles_viewthread_sigviewcond' => '签名显示条件',
+	'setting_styles_viewthread_sigimgclick_on' => '取消签名图片的动态放大功能',
 	'setting_styles_viewthread_sigviewcond_comment' => '只有帖子字数大于指定数值后才显示签名，0为不限制',
 	'setting_styles_viewthread_author_onleft' => '作者用户名显示位置',
 	'setting_styles_viewthread_author_onleft_comment' => '显示位置并不会影响论坛的性能和美观，请根据您会员的浏览习惯进行选择',
