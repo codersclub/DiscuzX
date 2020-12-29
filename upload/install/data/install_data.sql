@@ -353,7 +353,7 @@ INSERT INTO pre_common_setting VALUES ('ipregctrl','');
 INSERT INTO pre_common_setting VALUES ('ipverifywhite','');
 INSERT INTO pre_common_setting VALUES ('jscachelife','1800');
 INSERT INTO pre_common_setting VALUES ('jsdateformat','');
-INSERT INTO pre_common_setting VALUES ('jspath','static/js/');
+INSERT INTO pre_common_setting VALUES ('jspath','data/cache/');
 INSERT INTO pre_common_setting VALUES ('jsrefdomains','');
 INSERT INTO pre_common_setting VALUES ('jsstatus','0');
 INSERT INTO pre_common_setting VALUES ('jswizard','');
