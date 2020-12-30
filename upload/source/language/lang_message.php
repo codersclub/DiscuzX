@@ -10,7 +10,6 @@
  */
 
 $lang = array (
-
   'undefined_action' => '未定义操作',
   'plugin_nonexistence' => '插件不存在或已关闭',
   'profile_username_protect' => '用户名包含被系统屏蔽的字符',
@@ -311,6 +310,7 @@ $lang = array (
   'attachment_yetpay' => '您已购买过此附件，无需重复购买，现在将开始附件下载',
   'attachment_buyall' => '本帖所有附件购买成功 ',
   'attachment_buy' => '附件购买成功，开始下载“{filename}”',
+  'attachment_mobile_buy' => '附件购买成功',
   'no_privilege_postimage' => '抱歉，您目前没有权限上传图片，<a href="home.php?mod=spacecp&ac=usergroup" target="_blank">点击这里查看权限</a>',
   'no_privilege_postattach' => '抱歉，您目前没有权限上传附件，<a href="home.php?mod=spacecp&ac=usergroup" target="_blank">点击这里查看权限</a>',
   'thread_closed' => '该帖子已被关闭，不能评论！',
