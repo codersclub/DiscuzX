@@ -48,7 +48,7 @@ function attachtype($type, $returnval = 'html') {
 			$typeid = 7;
 		} elseif(preg_match("/text|^(txt|rtf|wri|chm)\t/", $type)) {
 			$typeid = 6;
-		} elseif(preg_match("/word|powerpoint|^(doc|ppt)\t/", $type)) {
+		} elseif(preg_match("/word|excel|powerpoint|^(doc|xls|ppt|docx|xlsx|pptx)\t/", $type)) {
 			$typeid = 5;
 		} elseif(preg_match("/^rar\t/", $type)) {
 			$typeid = 4;
