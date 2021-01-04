@@ -247,7 +247,7 @@ class logging_ctl {
 
 				if(!$freeze || !$this->setting['accountguard']['loginpwcheck']) {
 					$loginmessage = $_G['groupid'] == 8 ? 'login_succeed_inactive_member' : 'login_succeed';
-					$location = $invite || $_G['groupid'] == 8 ? 'home.php?mod=space&do=home' : dreferer();
+					$location = $invite || $_G['groupid'] == 8 ? 'home.php?mod=spacecp&ac=profile&op=password' : dreferer();
 				} else {
 					$loginmessage = 'login_succeed_password_change';
 					$location = 'home.php?mod=spacecp&ac=profile&op=password';
