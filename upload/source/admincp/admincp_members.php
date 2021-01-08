@@ -1865,7 +1865,7 @@ EOF;
 	}
 
 } elseif($operation == 'edit') {
-
+	echo '<script type="text/javascript" src="static/js/home.js"></script>';
 	$uid = $member['uid'];
 	if(!empty($_G['setting']['connect']['allow']) && $do == 'bindlog') {
 		$member = array_merge($member, C::t('#qqconnect#common_member_connect')->fetch($uid));
