@@ -379,6 +379,7 @@ function guide_procthread($thread) {
 	}
 
 	if($thread['highlight']) {
+		$_G['forum_colorarray'] = $_G['forum_colorarray'] ? $_G['forum_colorarray'] : array('', '#EE1B2E', '#EE5023', '#996600', '#3C9D40', '#2897C5', '#2B65B7', '#8F2A90', '#EC1282');
 		$string = sprintf('%02d', $thread['highlight']);
 		$stylestr = sprintf('%03b', $string[0]);
 
@@ -386,7 +387,7 @@ function guide_procthread($thread) {
 		$thread['highlight'] .= $stylestr[0] ? 'font-weight: bold;' : '';
 		$thread['highlight'] .= $stylestr[1] ? 'font-style: italic;' : '';
 		$thread['highlight'] .= $stylestr[2] ? 'text-decoration: underline;' : '';
-		$thread['highlight'] .= $string[1] ? 'color: '.$_G['forum_colorarray'][$string[1]] : '';
+		$thread['highlight'] .= $string[1] ? 'color: '.$_G['forum_colorarray'][$string[1]].';' : '';
 		$thread['highlight'] .= '"';
 	} else {
 		$thread['highlight'] = '';
