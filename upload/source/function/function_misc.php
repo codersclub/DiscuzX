@@ -11,7 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-function convertip($ip) {
+function convertip($ip, $file = 'full') {
 
 	$return = '';
 
@@ -26,10 +26,18 @@ function convertip($ip) {
 		} else {
 			$tinyipfile = DISCUZ_ROOT.'./data/ipdata/tinyipdata.dat';
 			$fullipfile = DISCUZ_ROOT.'./data/ipdata/wry.dat';
-			if(@file_exists($tinyipfile)) {
-				$return = convertip_tiny($ip, $tinyipfile);
-			} elseif(@file_exists($fullipfile)) {
-				$return = convertip_full($ip, $fullipfile);
+			if($file == 'full') {
+				if(@file_exists($fullipfile)) {
+					$return = convertip_full($ip, $fullipfile);
+				} elseif(@file_exists($tinyipfile)) {
+					$return = convertip_tiny($ip, $tinyipfile);
+				}
+			} elseif($file == 'tiny') {
+				if(@file_exists($tinyipfile)) {
+					$return = convertip_tiny($ip, $tinyipfile);
+				} elseif(@file_exists($fullipfile)) {
+					$return = convertip_full($ip, $fullipfile);
+				}
 			}
 		}
 	}
