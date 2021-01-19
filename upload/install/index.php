@@ -285,9 +285,9 @@ if($method == 'show_license') {
 		} else {
 			$mysqlmode = function_exists("mysql_connect") ? 'mysql' : 'mysqli';
 			$link = ($mysqlmode == 'mysql') ? @mysql_connect($dbhost, $dbuser, $dbpw) : new mysqli($dbhost, $dbuser, $dbpw);
-			if(!$link) {
-				$errno = ($mysqlmode == 'mysql') ? mysql_errno($link) : $link->errno;
-				$error = ($mysqlmode == 'mysql') ? mysql_error($link) : $link->error;
+			if(($mysqlmode == 'mysql' && !$link) || ($mysqlmode != 'mysql' && $link->connect_errno)) {
+				$errno = ($mysqlmode == 'mysql') ? mysql_errno($link) : $link->connect_errno;
+				$error = ($mysqlmode == 'mysql') ? mysql_error($link) : $link->connect_error;
 				if($errno == 1045) {
 					show_msg('database_errno_1045', $error, 0);
 				} elseif($errno == 2003) {
