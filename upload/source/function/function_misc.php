@@ -11,7 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-function convertip($ip, $file = 'full') {
+function convertip($ip) {
 	return ip::convert($ip);
 }
 
