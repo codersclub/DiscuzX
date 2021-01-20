@@ -7,7 +7,7 @@
 */
 
 
-if($_GET['mod'] == 'register') {
+if(isset($_GET['mod']) && $_GET['mod'] == 'register') {
 	$_GET['mod'] = 'connect';
 	$_GET['action'] = 'register';
 	require_once 'member.php';

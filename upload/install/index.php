@@ -282,8 +282,8 @@ if($method == 'show_license') {
 			if (strpos($dbhost, ":") === FALSE) $dbhost .= ":3306";
 			$link = new mysqli($dbhost, $dbuser, $dbpw);
 			if($link->connect_errno) {
-				$errno = $link->errno;
-				$error = $link->error;
+				$errno = $link->connect_errno;
+				$error = $link->connect_error;
 				if($errno == 1045) {
 					show_msg('database_errno_1045', $error, 0);
 				} elseif($errno == 2003) {
@@ -365,8 +365,7 @@ if($method == 'show_license') {
 	} else {
 		show_header();
 		echo '</div><div class="main" style="margin-top: -123px;padding-left:30px"><span id="platformIntro"></span>';
-		echo '<iframe frameborder="0" width="700" height="550" allowTransparency="true" src="https://addon.dismall.com/api/outer.php?id=installed&siteurl='.urlencode($default_appurl).'&version='.DISCUZ_VERSION.'"></iframe>';
-		echo '<p align="right"><a href="'.$default_appurl.'">'.$lang['install_finish'].'</a></p><br />';
+		echo '<p align="center"><a href="'.$default_appurl.'">'.$lang['install_finish'].'</a></p><br />';
 		echo '</div>';
 		show_footer();
 	}

@@ -65,8 +65,8 @@ function check_db($dbhost, $dbuser, $dbpw, $dbname, $tablepre) {
 	if (strpos($dbhost, ":") === FALSE) $dbhost .= ":3306";
 	$link = new mysqli($dbhost, $dbuser, $dbpw);
 	if($link->connect_errno) {
-		$errno = $link->errno;
-		$error = $link->error;
+		$errno = $link->connect_errno;
+		$error = $link->connect_error;
 		if($errno == 1045) {
 			show_msg('database_errno_1045', $error, 0);
 		} elseif($errno == 2003) {

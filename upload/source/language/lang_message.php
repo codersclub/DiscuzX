@@ -10,7 +10,6 @@
  */
 
 $lang = array (
-
   'undefined_action' => '未定义操作',
   'plugin_nonexistence' => '插件不存在或已关闭',
   'profile_username_protect' => '用户名包含被系统屏蔽的字符',
@@ -257,7 +256,7 @@ $lang = array (
   'task_not_found' => '任务文件丢失，{taskclassname}',
   'task_not_underway' => '不是进行中的任务',
   'user_banned' => '抱歉，您的 IP 地址不在允许范围内，或您的账号被禁用，无法访问本站点',
-  'user_banned_has_expiry' => '抱歉，您的账号被禁用，暂无法访问本站点。<br />预计解禁时间：'.dgmdate($_G['member']['groupexpiry'], 'Y-m-d H:i:s'),
+  'user_banned_has_expiry' => '抱歉，您的账号被禁用，暂无法访问本站点。<br />预计解禁时间：{expiry}',
   'submit_seccode_invalid' => '抱歉，验证码填写错误',
   'submit_invalid' => '抱歉，您的请求来路不正确或表单验证串不符，无法提交',
   'submit_islocked' => '抱歉，您当前的请求正在进行中，请勿重复提交',
@@ -333,6 +332,7 @@ $lang = array (
   'attachment_yetpay' => '您已购买过此附件，无需重复购买，现在将开始附件下载',
   'attachment_buyall' => '本帖所有附件购买成功 ',
   'attachment_buy' => '附件购买成功，开始下载“{filename}”',
+  'attachment_mobile_buy' => '附件购买成功',
   'no_privilege_postimage' => '抱歉，您目前没有权限上传图片，<a href="home.php?mod=spacecp&ac=usergroup" target="_blank">点击这里查看权限</a>',
   'no_privilege_postattach' => '抱歉，您目前没有权限上传附件，<a href="home.php?mod=spacecp&ac=usergroup" target="_blank">点击这里查看权限</a>',
   'thread_closed' => '该帖子已被关闭，不能评论！',
@@ -492,6 +492,7 @@ $lang = array (
   'lostpasswd_many_users_use_email' => '抱歉，存在多个使用此 Email 的用户，请填写您需要找回密码的用户名',
   'getpasswd_account_invalid' => '抱歉，创始人、受保护用户、拥有站点设置权限的用户不能使用取回密码功能',
   'getpasswd_send_succeed' => '取回密码的方法已通过 Email 发送到您的信箱中，<br />请在 3 天之内修改您的密码',
+  'getpasswd_has_send' => '取回密码的方法已通过 Email 发送到您的信箱中，如果您没有收到，请稍等15分钟后重试',
 
   'submit_verify_succeed' => '审核请求提交成功，现在将返回个人中心',
 
@@ -1043,7 +1044,7 @@ $lang = array (
   'location_login_succeed_mobile' => '欢迎您回来，{username}。点击进入登录前页面',
   'location_login_succeed' => '',
   'location_activation' => '您的帐号处于未激活状态，点击进行激活',
-  'login_succeed_inactive_member' => '欢迎您回来，{usergroup} {username}。您的帐号处于非激活状态，现在将转入控制面板',
+  'login_succeed_inactive_member' => '欢迎您回来，{usergroup} {username}。您的帐号处于非激活状态，部分功能可能无法正常使用，现在将转入密码安全页面',
   'login_succeed_password_change' => '您的账户存在安全隐患，建议立即修改密码',
   'login_question_empty' => '请选择安全提问以及填写正确的答案',
   'login_question_invalid' => '抱歉，安全提问答案填写错误',

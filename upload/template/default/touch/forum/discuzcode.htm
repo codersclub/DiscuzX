@@ -61,7 +61,6 @@ $aidencode = packaids($attach);
 $is_archive = $_G['forum_thread']['is_archived'] ? "&fid=".$_G['fid']."&archiveid=".$_G[forum_thread][archiveid] : '';
 }
 <!--{block return}-->
-<!--{if !$attach['price'] || $attach['payed']}-->
 <div class="box box_ex2 attach">
 	<dd>
 		<p class="attnm">
@@ -79,7 +78,6 @@ $is_archive = $_G['forum_thread']['is_archived'] ? "&fid=".$_G['fid']."&archivei
 		<!--{if $attach['description']}--><p class="xg2">{$attach[description]}</p><!--{/if}-->
 	</dd>
 </div>
-<!--{/if}-->
 <!--{/block}-->
 <!--{eval return $return;}-->
 {eval
@@ -121,7 +119,6 @@ $is_archive = $_G['forum_thread']['is_archived'] ? '&fid='.$_G['fid'].'&archivei
 		<a href="forum.php?mod=viewthread&tid=$attach[tid]&aid=$attach[aid]&from=album&page=$_G[page]" class="orange"><img id="aimg_$attach[aid]" src="$mobilethumburl" alt="$attach[imgalt]" title="$attach[imgalt]" /></a>
 		<!--{/if}-->
 	<!--{else}-->
-		<!--{if !$attach['price'] || $attach['payed']}-->
 		<div id="attach_$attach[aid]" class="box attach mbn" >
 			<!--{if $_G['setting']['mobile']['mobilesimpletype'] == 0}-->
 			$attach[attachicon]
@@ -136,7 +133,6 @@ $is_archive = $_G['forum_thread']['is_archived'] ? '&fid='.$_G['fid'].'&archivei
 			</em>
 			<!--{if !$attach['attachimg'] && $_G['getattachcredits']}--><p>{lang attachcredits}: $_G[getattachcredits]</p><!--{/if}-->
 		</div>
-		<!--{/if}-->
 	<!--{/if}-->
 <!--{/block}-->
 <!--{eval return $return;}-->

@@ -56,6 +56,8 @@ var fid = parseInt('$_G[fid]');
 										<!--{else}-->
 											{lang connect_fill_profile_to_post}
 										<!--{/if}-->
+									<!--{elseif $_G['forum']['replyperm'] && !forumperm($_G['forum']['replyperm'])}-->
+										{lang replyperm_nopermission}
 									<!--{else}-->
 										{lang no_permission_to_post}<a href="javascript:;" onclick="$('newspecial').onclick()" class="xi2">{lang click_to_show_reason}</a>
 									<!--{/if}-->

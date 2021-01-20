@@ -361,7 +361,7 @@ $postshowavatars = !($_G['setting']['bannedmessages'] & 2 && ($post['memberstatu
 		<!--{if $post['signature'] && ($_G['setting']['bannedmessages'] & 4 && ($post['memberstatus'] == '-1' || ($post['authorid'] && !$post['username']) || ($post['groupid'] == 4 || $post['groupid'] == 5) || ($post['status'] & 1)))}-->
 			<div class="sign">{lang member_signature_banned}</div>
 		<!--{elseif $post['signature'] && !$post['anonymous'] && $showsignatures}-->
-			<div class="sign" style="max-height:{$_G['setting']['maxsigrows']}px;">$post[signature]</div>
+			<div class="sign" style="max-height:{$_G['setting']['maxsigrows']}px;maxHeightIE:{$_G['setting']['maxsigrows']}px;">{if $_G['setting']['sigimgclick']}{eval $post[signature] = str_replace('onclick="zoom(this, this.src, 0, 0, 0)"', '', $post[signature]);}{/if}$post[signature]</div>
 		<!--{elseif !$post['anonymous'] && $showsignatures && $_G['setting']['globalsightml']}-->
 			<div class="sign">$_G['setting']['globalsightml']</div>
 		<!--{/if}-->
@@ -375,7 +375,7 @@ $postshowavatars = !($_G['setting']['bannedmessages'] & 2 && ($post['memberstatu
 	<!--{if !$close_leftinfo}-->
 	<td class="pls"></td>
 	<!--{/if}-->
-	<td class="plc" style="overflow:visible;<!--{if $close_leftinfo}--> width:100%{/if}">
+	<td class="plc" style="overflow:visible;<!--{if $close_leftinfo}--> width:100%<!--{/if}-->">
 		<div class="po hin">
 			<!--{if !$post['first'] && $modmenu['post']}-->
 				<span class="y">

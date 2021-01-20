@@ -9,11 +9,12 @@ function saveData(ignoreempty) {
 	var ignoreempty = isUndefined(ignoreempty) ? 0 : ignoreempty;
 	var obj = $('postform') && (($('fwin_newthread') && $('fwin_newthread').style.display == '') || ($('fwin_reply') && $('fwin_reply').style.display == '')) ? $('postform') : ($('fastpostform') ? $('fastpostform') : $('postform'));
 	if(!obj) return;
+		var bbcode = (typeof wysiwyg != 'undefined' && wysiwyg == 1) ? html2bbcode(editdoc.body.innerHTML) : $('postform').message.value;
 	if(typeof isfirstpost != 'undefined') {
 		if(typeof wysiwyg != 'undefined' && wysiwyg == 1) {
-			var messageisnull = trim(html2bbcode(editdoc.body.innerHTML)) === '';
+			var messageisnull = trim(bbcode) === '';
 		} else {
-			var messageisnull = $('postform').message.value === '';
+			var messageisnull = bbcode === '';
 		}
 		if(isfirstpost && (messageisnull && $('postform').subject.value === '')) {
 			return;
@@ -31,7 +32,7 @@ function saveData(ignoreempty) {
 				subject = trim(elvalue);
 			} else if(el.name == 'message') {
 				if(typeof wysiwyg != 'undefined' && wysiwyg == 1) {
-					elvalue = html2bbcode(editdoc.body.innerHTML);
+					elvalue = bbcode;
 				}
 				message = trim(elvalue);
 			}

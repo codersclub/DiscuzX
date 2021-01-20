@@ -15,9 +15,9 @@ function build_cache_bbcodes() {
 	$data = array();
 
 	$regexp = array	(
-		1 => "/\[{bbtag}]([^\"\[]+?)\[\/{bbtag}\]/is",
-		2 => "/\[{bbtag}=(['\"]?)([^\"\[]+?)(['\"]?)\]([^\"\[]+?)\[\/{bbtag}\]/is",
-		3 => "/\[{bbtag}=(['\"]?)([^\"\[]+?)(['\"]?),(['\"]?)([^\"\[]+?)(['\"]?)\]([^\"\[]+?)\[\/{bbtag}\]/is"
+		1 => "/\[{bbtag}\](.*?)\[\/{bbtag}\]/is",
+		2 => "/\[{bbtag}=(['\"]?)(.+?)(['\"]?)\](.*?)\[\/{bbtag}\]/is",
+		3 => "/\[{bbtag}=(['\"]?)(.+?)(['\"]?),(['\"]?)(.+?)(['\"]?)\](.*?)\[\/{bbtag}\]/is"
 	);
 
 	foreach(C::t('forum_bbcode')->fetch_all_by_available_icon(0, false, '>') as $bbcode) {

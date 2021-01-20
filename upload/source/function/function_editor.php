@@ -105,7 +105,7 @@ function getoptionvalue($option, $text) {
 }
 
 function html2bbcode($text) {
-	$text = strip_tags($text, '<table><tr><td><b><strong><i><em><u><a><div><span><p><strike><blockquote><ol><ul><li><font><img><br><br/><h1><h2><h3><h4><h5><h6><script>');
+	$text = strip_tags($text, '<table><tr><td><b><strong><i><em><u><a><div><span><p><strike><blockquote><ol><ul><li><font><img><br><br/><h1><h2><h3><h4><h5><h6><script><hr>');
 
 	if(ismozilla()) {
 		$text = preg_replace("/(?<!<br>|<br \/>|\r)(\r\n|\n|\r)/", ' ', $text);
@@ -127,6 +127,7 @@ function html2bbcode($text) {
 		"/<span\s+?style=\"float:\s+(left|right);\">(.+?)<\/span>/is",
 		"/<font\s+?style=\"background-color:\s*([#\w]+?);?\">(.+?)<\/font>/is",
 		"/<font\s+?style=\"background-color:\s*((rgb|rgba)\([\d\s,]+?\));?\">(.+?)<\/font>/is",
+		"/<hr\s+.*>/siU",
 	);
 	$pregreplace = array(
 		'',
@@ -144,6 +145,7 @@ function html2bbcode($text) {
 		"[float=\\1]\\2[/float]",
 		"[backcolor=\\1]\\2[/backcolor]",
 		"[backcolor=\\1]\\2[/backcolor]",
+		"[hr]",
 	);
 	$text = preg_replace($pregfind, $pregreplace, $text);
 	$text = preg_replace_callback("/<table([^>]*(width|background|background-color|bgcolor)[^>]*)>/siU", 'html2bbcode_callback_tabletag_1', $text);

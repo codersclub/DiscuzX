@@ -33,7 +33,7 @@ define('API_RETURN_FORBIDDEN', '1');
 
 define('IN_API', true);
 define('CURSCRIPT', 'api');
-
+define('DISABLEXSSCHECK', true);
 
 if(!defined('IN_UC')) {
 	require_once '../source/class/class_core.php';

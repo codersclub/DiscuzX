@@ -219,27 +219,6 @@ function checkImage(url) {
 	return url.match(re);
 }
 
-function quick_validate(obj) {
-	if($('seccode')) {
-		var code = $('seccode').value;
-		var x = new Ajax();
-		x.get('cp.php?ac=common&op=seccode&code=' + code, function(s){
-			s = trim(s);
-			if(s != 'succeed') {
-				alert(s);
-				$('seccode').focus();
-		   		return false;
-			} else {
-				obj.form.submit();
-				return true;
-			}
-		});
-	} else {
-		obj.form.submit();
-		return true;
-	}
-}
-
 function showFlash(host, flashvar, obj, shareid) {
 	// 引用前期引入的 detectPlayer 对资源播放状态进行判断
 	var re = new RegExp('.[A-Za-z0-9]+$', 'ig');
@@ -254,30 +233,6 @@ function showFlash(host, flashvar, obj, shareid) {
 		obj.style.display = 'none';
 	}
 	return detectPlayer('flash_div_' + shareid, ext, flashvar, 480, 400);
-}
-
-function userapp_open() {
-	var x = new Ajax();
-	x.get('home.php?mod=spacecp&ac=common&op=getuserapp&inajax=1', function(s){
-		$('my_userapp').innerHTML = s;
-		$('a_app_more').className = 'fold';
-		$('a_app_more').innerHTML = '收起';
-		$('a_app_more').onclick = function() {
-			userapp_close();
-		};
-	});
-}
-
-function userapp_close() {
-	var x = new Ajax();
-	x.get('home.php?mod=spacecp&ac=common&op=getuserapp&subop=off&inajax=1', function(s){
-		$('my_userapp').innerHTML = s;
-		$('a_app_more').className = 'unfold';
-		$('a_app_more').innerHTML = '展开';
-		$('a_app_more').onclick = function() {
-			userapp_open();
-		};
-	});
 }
 
 function startMarquee(h, speed, delay, sid) {
@@ -688,14 +643,6 @@ function resend_mail(mid) {
 	if(mid) {
 		var obj = $('sendmail_'+ mid +'_li');
 		obj.style.display = "none";
-	}
-}
-
-function userapp_delete(id, result) {
-	if(result) {
-		var ids = explode('_', id);
-		var appid = ids[1];
-		$('space_app_'+appid).style.display = "none";
 	}
 }
 

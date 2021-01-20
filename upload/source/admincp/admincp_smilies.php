@@ -329,7 +329,7 @@ EOT;
 					showsubtitle(array('', 'display_order', 'smilies_edit_image', 'smilies_edit_filename'));
 					echo $newimages;
 					showtablerow('', array('class="td25"', 'colspan="3"'), array(
-						'<input type="checkbox" name="chkall" onclick="checkAll(\'prefix\', this.form, \'add\')" class="checkbox" checked="checked">'.$lang['enable'],
+						'<input type="checkbox" name="chkall" onclick="checkAll(\'prefix\', this.form, \'available\')" class="checkbox" checked="checked">'.$lang['enable'],
 						'<input type="submit" class="btn" name="editsubmit" value="'.$lang['submit'].'"> &nbsp; <input type="button" class="btn" value="'.$lang['research'].'" onclick="ajaxget(\''.ADMINSCRIPT.'?action=smilies&operation=edit&do=add&id='.$id.'&search=yes\', \'addsmilies\', \'addsmilies\', \'auto\');doane(event);">'
 					));
 					showtablefooter();
