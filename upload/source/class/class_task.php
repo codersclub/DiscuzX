@@ -501,6 +501,15 @@ class task {
 			showmessage('task_nonexistence');
 		}
 
+		$escript = explode(':', $this->task['scriptname']);
+		if(count($escript) > 1) {
+			include_once DISCUZ_ROOT.'./source/plugin/'.$escript[0].'/task/task_'.$escript[1].'.php';
+			$taskclassname = 'task_'.$escript[1];
+		} else {
+			require_once libfile('task/'.$this->task['scriptname'], 'class');
+			$taskclassname = 'task_'.$this->task['scriptname'];
+		}
+		$taskclass = new $taskclassname;
 		if(method_exists($taskclass, 'delete')) {
 			$taskclass->delete($this->task);
 		}
