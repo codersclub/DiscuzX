@@ -90,7 +90,7 @@ class table_common_syscache extends discuz_table
 		}
 
 		foreach($cachenames as $name) {
-			if($data[$name] === null) {
+			if(!array_key_exists($name, $data) || $data[$name] === null) {
 				$data[$name] = null;
 				$this->_allowmem && (memory('set', $name, array()));
 			}

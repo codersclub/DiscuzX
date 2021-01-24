@@ -424,7 +424,9 @@ function avatar($uid, $size = 'middle', $returnsrc = FALSE, $real = FALSE, $stat
 function lang($file, $langvar = null, $vars = array(), $default = null) {
 	global $_G;
 	$fileinput = $file;
-	list($path, $file) = explode('/', $file);
+	$list = explode('/', $file);
+	$path = $list[0];
+	$file = isset($list[1]) ? $list[1] : false;
 	if(!$file) {
 		$file = $path;
 		$path = '';
@@ -479,7 +481,7 @@ function lang($file, $langvar = null, $vars = array(), $default = null) {
 	if(is_string($return) && strpos($return, '{_G/') !== false) {
 		preg_match_all('/\{_G\/(.+?)\}/', $return, $gvar);
 		foreach($gvar[0] as $k => $v) {
-			$searchs[] = $v;
+			$searchs[] = (string)$v;
 			$replaces[] = getglobal($gvar[1][$k]);
 		}
 	}
@@ -1159,7 +1161,7 @@ function hookscript($script, $hscript, $type = 'funcs', $param = array(), $func 
 			@include_once DISCUZ_ROOT.'./source/plugin/'.$include.'.class.php';
 		}
 	}
-	if(@is_array($_G['setting'][HOOKTYPE][$hscript][$script][$type])) {
+	if(array_key_exists(HOOKTYPE, $_G['setting']) && is_array($_G['setting'][HOOKTYPE][$hscript][$script][$type])) {
 		$_G['inhookscript'] = true;
 		$funcs = !$func ? $_G['setting'][HOOKTYPE][$hscript][$script][$type] : array($func => $_G['setting'][HOOKTYPE][$hscript][$script][$type][$func]);
 		foreach($funcs as $hookkey => $hookfuncs) {

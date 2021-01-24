@@ -20,8 +20,8 @@ class helper_seo {
 		$replaces = array($_G['setting']['bbname']);
 
 		$seotitle = $seodescription = $seokeywords = '';
-		$titletext = $defset['seotitle'] ? $defset['seotitle'] : $_G['setting']['seotitle'][$page];
-		$descriptiontext = $defset['seodescription'] ? $defset['seodescription'] : $_G['setting']['seodescription'][$page];
+		$titletext = isset($defset['seotitle']) ? $defset['seotitle'] : (is_array($_G['setting']['seotitle'][$page]) ? $_G['setting']['seotitle'][$page] : '');
+		$descriptiontext = isset($defset['seodescription']) ? $defset['seodescription'] : (is_array($_G['setting']['seodescription'][$page]) ? $_G['setting']['seodescription'][$page] : '');
 		$keywordstext = $defset['seokeywords'] ? $defset['seokeywords'] : $_G['setting']['seokeywords'][$page];
 		preg_match_all("/\{([a-z0-9_-]+?)\}/", $titletext.$descriptiontext.$keywordstext, $pageparams);
 		if($pageparams) {

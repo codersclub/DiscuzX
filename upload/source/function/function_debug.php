@@ -32,8 +32,8 @@ function debugmessage($ajax = 0) {
 	$sqldebug = '';
 	$ismysqli = DB::$driver == 'db_driver_mysqli' ? 1 : 0;
 	$n = $discuz_table = 0;
-	$sqlw = array();
-	$db = & DB::object();
+	$sqlw = array('Using filesort' => 0, 'Using temporary' => 0);
+	$db = DB::object();
 	$queries = count($db->sqldebug);
 	$links = array();
 	foreach($db->link as $k => $link) {
@@ -290,8 +290,11 @@ EOF;
 		} else {
 			$debug .= $fn;
 		}
-
-		memory_info($debug, $fn, $_ENV['analysis']['file'][$fn]);
+		if(isset($_ENV['analysis']['file'][$fn])) {
+			memory_info($debug, $fn, $_ENV['analysis']['file'][$fn]);
+		} else {
+			memory_info($debug, $fn, array('start_memory_get_usage' => 0, 'stop_memory_get_usage' => 0, 'start_memory_get_real_usage' => 0, 'stop_memory_get_real_usage' => 0,'start_memory_get_peak_usage' => 0, 'stop_memory_get_peak_usage' => 0, 'start_memory_get_peak_real_usage' => 0, 'stop_memory_get_peak_real_usage' => 0));
+		}
 		$debug .= '</li>';
 	}
 	if(isset($_ENV['analysis']['file']['sum'])) {

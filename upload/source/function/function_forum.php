@@ -431,7 +431,7 @@ function loadforum($fid = null, $tid = null) {
 	if(defined('IN_ARCHIVER') && $_G['setting']['archiverredirect'] && !IS_ROBOT) {
 		dheader('location: ../forum.php'.($_G['mod'] ? '?mod='.$_G['mod'].(!empty($_GET['fid']) ? '&fid='.$_GET['fid'] : (!empty($_GET['tid']) ? '&tid='.$_GET['tid'] : '')) : ''));
 	}
-	if($_G['setting']['forumpicstyle']) {
+	if(array_key_exists('forumpicstyle', $_G['setting'])) {
 		$_G['setting']['forumpicstyle'] = dunserialize($_G['setting']['forumpicstyle']);
 		empty($_G['setting']['forumpicstyle']['thumbwidth']) && $_G['setting']['forumpicstyle']['thumbwidth'] = 203;
 		empty($_G['setting']['forumpicstyle']['thumbheight']) && $_G['setting']['forumpicstyle']['thumbheight'] = 999;
