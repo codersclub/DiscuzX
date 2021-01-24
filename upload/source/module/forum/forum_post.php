@@ -160,7 +160,7 @@ if(empty($_G['forum']['allowview'])) {
 
 formulaperm($_G['forum']['formulaperm']);
 
-if(!$_G['adminid'] && $_G['setting']['newbiespan'] && (!getuserprofile('lastpost') || TIMESTAMP - getuserprofile('lastpost') < $_G['setting']['newbiespan'] * 60) && TIMESTAMP - $_G['member']['regdate'] < $_G['setting']['newbiespan'] * 60) {
+if(in_array($_G['adminid'], array(0, -1)) && $_G['setting']['newbiespan'] && (!getuserprofile('lastpost') || TIMESTAMP - getuserprofile('lastpost') < $_G['setting']['newbiespan'] * 60) && TIMESTAMP - $_G['member']['regdate'] < $_G['setting']['newbiespan'] * 60) {
 	showmessage('post_newbie_span', '', array('newbiespan' => $_G['setting']['newbiespan']));
 }
 

@@ -49,7 +49,7 @@ class mobile_api {
 					if($_G['adminid'] == 3 && strpos($forum['moderators'], $_G['username']) === false) {
 						$unsetthreadtype = true;
 					}
-					if($_G['adminid'] == 0) {
+					if(in_array($_G['adminid'], array(0, -1))) {
 						$unsetthreadtype = true;
 					}
 					if($unsetthreadtype) {

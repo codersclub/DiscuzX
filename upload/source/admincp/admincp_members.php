@@ -1530,7 +1530,7 @@ EOF;
 			if($postcomment_cache_pid) {
 				C::t('forum_postcache')->delete($postcomment_cache_pid);
 			}
-			if(!$member['adminid']) {
+			if(in_array($member['adminid'], array(0, -1))) {
 				$member_status = C::t('common_member_status')->fetch($member['uid']);
 			}
 		} elseif($member['groupid'] == 4 || $member['groupid'] == 5) {

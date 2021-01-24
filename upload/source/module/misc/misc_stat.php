@@ -343,7 +343,7 @@ function getstatvars_modworks() {
 
 		$uid = $_GET['uid'];
 		$member = getuserbyuid($uid, 1);
-		if(!$member || $member['adminid'] == 0) {
+		if(empty($member) || !is_array($member) || in_array($_G['adminid'], array(0, -1))) {
 			showmessage('member_not_found');
 		}
 

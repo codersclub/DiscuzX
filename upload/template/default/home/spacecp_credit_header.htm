@@ -13,7 +13,7 @@
 	<li $opactives[rule]><a href="home.php?mod=spacecp&ac=credit&op=rule">{lang credit_rule}</a></li>
 	<!--{if !empty($_G['setting']['plugins']['spacecp_credit'])}-->
 		<!--{loop $_G['setting']['plugins']['spacecp_credit'] $id $module}-->
-			<!--{if !$module['adminid'] || ($module['adminid'] && $_G['adminid'] > 0 && $module['adminid'] >= $_G['adminid'])}--><li{if $_GET[id] == $id} class="a"{/if}><a href="home.php?mod=spacecp&ac=plugin&op=credit&id=$id">$module[name]</a></li><!--{/if}-->
+			<!--{if in_array($module['adminid'], array(0, -1)) || ($module['adminid'] && $_G['adminid'] > 0 && $module['adminid'] >= $_G['adminid'])}--><li{if $_GET[id] == $id} class="a"{/if}><a href="home.php?mod=spacecp&ac=plugin&op=credit&id=$id">$module[name]</a></li><!--{/if}-->
 		<!--{/loop}-->
 	<!--{/if}-->
 	<!--{if $op == 'rule'}-->

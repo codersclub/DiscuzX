@@ -14,7 +14,7 @@
 			<tr><td>$value[title]:$value[value]</td></tr>
 		<!--{/loop}-->
 		<tr><td>{lang active_profile}</td></tr>
-		<!--{if $space[adminid]}-->
+		<!--{if $space[adminid] > 0}-->
 			<tr><td>{lang management_team}:{$space[admingroup][grouptitle]} {$space[admingroup][icon]}</td></tr>
 		<!--{/if}-->
 		<tr><td>{lang usergroup}: {$space[group][grouptitle]}{$space[group][icon]}</td></tr>

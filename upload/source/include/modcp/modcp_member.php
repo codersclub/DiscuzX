@@ -97,7 +97,7 @@ if($op == 'edit') {
 			} else {
 				$setarr['groupexpiry'] = 0;
 			}
-			if(!$member['adminid']) {
+			if(in_array($member['adminid'], array(0, -1))) {
 				$member_status = C::t('common_member_status')->fetch($member['uid']);
 			}
 			$adminidnew = -1;
