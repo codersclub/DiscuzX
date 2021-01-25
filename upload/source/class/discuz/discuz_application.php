@@ -801,10 +801,10 @@ class discuz_application extends discuz_base{
 		if($mobile === 'no') {
 			dsetcookie('mobile', 'no', 3600);
 			$nomobile = true;
-		} elseif(!array_key_exists('mobile', $this->var['cookie']) && $this->var['cookie']['mobile'] == 'no' && $mobileflag) {
+		} elseif(isset($this->var['cookie']['mobile']) && $this->var['cookie']['mobile'] == 'no' && $mobileflag) {
 			checkmobile();
 			dsetcookie('mobile', '');
-		} elseif(!array_key_exists('mobile', $this->var['cookie']) && $this->var['cookie']['mobile'] == 'no') {
+		} elseif(isset($this->var['cookie']['mobile']) && $this->var['cookie']['mobile'] == 'no') {
 			$nomobile = true;
 		} elseif(!($mobile_ = checkmobile())) {
 			$nomobile = true;
@@ -823,7 +823,7 @@ class discuz_application extends discuz_base{
 		}
 
 		if($nomobile || (!$this->var['setting']['mobile']['mobileforward'] && !$mobileflag)) {
-			if(array_key_exists('mobile', $this->var['setting']['domain']['app']) && $_SERVER['HTTP_HOST'] == $this->var['setting']['domain']['app']['mobile'] && $this->var['setting']['domain']['app']['default']) {
+			if(!empty($this->var['setting']['domain']['app']['mobile']) && $_SERVER['HTTP_HOST'] == $this->var['setting']['domain']['app']['mobile'] && !empty($this->var['setting']['domain']['app']['default'])) {
 				dheader('Location:'.$this->var['scheme'].'://'.$this->var['setting']['domain']['app']['default'].$_SERVER['REQUEST_URI']);
 				return false;
 			} else {

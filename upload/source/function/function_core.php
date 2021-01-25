@@ -1161,7 +1161,7 @@ function hookscript($script, $hscript, $type = 'funcs', $param = array(), $func 
 			@include_once DISCUZ_ROOT.'./source/plugin/'.$include.'.class.php';
 		}
 	}
-	if(array_key_exists(HOOKTYPE, $_G['setting']) && is_array($_G['setting'][HOOKTYPE][$hscript][$script][$type])) {
+	if(isset($_G['setting'][HOOKTYPE][$hscript][$script][$type]) && is_array($_G['setting'][HOOKTYPE][$hscript][$script][$type])) {
 		$_G['inhookscript'] = true;
 		$funcs = !$func ? $_G['setting'][HOOKTYPE][$hscript][$script][$type] : array($func => $_G['setting'][HOOKTYPE][$hscript][$script][$type][$func]);
 		foreach($funcs as $hookkey => $hookfuncs) {
