@@ -35,13 +35,13 @@ template/default/forum/discuz.htm *<!--{hook/index_status_extra}-->
 template/default/forum/discuz.htm *<!--{hook/index_nav_extra}-->
 template/default/forum/discuz.htm *<!--{hook/index_top}-->
 template/default/forum/discuz.htm *<!--{hook/index_catlist_top}-->
-template/default/forum/discuz.htm *<!--{hook/index_followcollection_extra $colletion[ctid]}-->
-template/default/forum/discuz.htm *<!--{hook/index_favforum_extra $forum[fid]}-->
-template/default/forum/discuz.htm *<!--{hook/index_favforum_extra $forum[fid]}-->
-template/default/forum/discuz.htm *<!--{hook/index_catlist $cat[fid]}-->
-template/default/forum/discuz.htm *<!--{hook/index_forum_extra $forum[fid]}-->
-template/default/forum/discuz.htm *<!--{hook/index_forum_extra $forum[fid]}-->
-template/default/forum/discuz.htm *<!--{hook/index_datacollection_extra $colletion[ctid]}-->
+template/default/forum/discuz.htm *<!--{hook/index_followcollection_extra $colletion['ctid']}-->
+template/default/forum/discuz.htm *<!--{hook/index_favforum_extra $forum['fid']}-->
+template/default/forum/discuz.htm *<!--{hook/index_favforum_extra $forum['fid']}-->
+template/default/forum/discuz.htm *<!--{hook/index_catlist $cat['fid']}-->
+template/default/forum/discuz.htm *<!--{hook/index_forum_extra $forum['fid']}-->
+template/default/forum/discuz.htm *<!--{hook/index_forum_extra $forum['fid']}-->
+template/default/forum/discuz.htm *<!--{hook/index_datacollection_extra $colletion['ctid']}-->
 template/default/forum/discuz.htm *<!--{hook/index_middle}-->
 template/default/forum/discuz.htm *<!--{hook/index_bottom}-->
 template/default/forum/discuz.htm *<!--{hook/index_side_top}-->
@@ -79,8 +79,8 @@ template/default/forum/forumdisplay_list.htm *<!--{hook/forumdisplay_author $key
 template/default/forum/forumdisplay_list.htm *<!--{hook/forumdisplay_threadlist_bottom}-->
 template/default/forum/forumdisplay_list.htm *<!--{hook/forumdisplay_postbutton_bottom}-->
 template/default/forum/forumdisplay_sort.htm *<!--{hook/forumdisplay_postbutton_bottom}-->
-template/default/forum/forumdisplay_subforum.htm *<!--{hook/forumdisplay_subforum_extra $sub[fid]}-->
-template/default/forum/forumdisplay_subforum.htm *<!--{hook/forumdisplay_subforum_extra $sub[fid]}-->
+template/default/forum/forumdisplay_subforum.htm *<!--{hook/forumdisplay_subforum_extra $sub['fid']}-->
+template/default/forum/forumdisplay_subforum.htm *<!--{hook/forumdisplay_subforum_extra $sub['fid']}-->
 template/default/forum/guide.htm *<!--{hook/guide_nav_extra}-->
 template/default/forum/guide.htm *<!--{hook/guide_top}-->
 template/default/forum/guide.htm *<!--{hook/guide_bottom}-->

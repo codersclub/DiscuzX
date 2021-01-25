@@ -43,7 +43,7 @@
 								{lang never}
 							<!--{/if}-->
 						<!--{/if}-->
-						<!--{hook/forumdisplay_subforum_extra $sub[fid]}-->
+						<!--{hook/forumdisplay_subforum_extra $sub['fid']}-->
 						</dd>
 					</dl>
 				</td>
@@ -60,7 +60,7 @@
 					<!--{if $sub[description]}--><p class="xg2">$sub[description]</p><!--{/if}-->
 					<!--{if $sub['subforums']}--><p>{lang forum_subforums}: $sub['subforums']</p><!--{/if}-->
 					<!--{if $sub['moderators']}--><p>{lang forum_moderators}: $sub[moderators]</p><!--{/if}-->
-					<!--{hook/forumdisplay_subforum_extra $sub[fid]}-->
+					<!--{hook/forumdisplay_subforum_extra $sub['fid']}-->
 				</td>
 				<td class="fl_i">
 					<!--{if empty($sub[redirect])}--><span class="xi2"><!--{echo dnumber($sub[threads])}--></span><span class="xg1"> / <!--{echo dnumber($sub[posts])}--></span><!--{/if}-->

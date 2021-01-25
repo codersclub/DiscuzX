@@ -212,7 +212,7 @@
 										{lang never}
 									<!--{/if}-->
 									</dd>
-									<!--{hook/index_followcollection_extra $colletion[ctid]}-->
+									<!--{hook/index_followcollection_extra $colletion['ctid']}-->
 								</dl>
 							</td>
 							<!--{eval $ctorderid++;}-->
@@ -282,7 +282,7 @@
 											<!--{/if}-->
 										<!--{/if}-->
 										</dd>
-										<!--{hook/index_favforum_extra $forum[fid]}-->
+										<!--{hook/index_favforum_extra $forum['fid']}-->
 									</dl>
 								</td>
 								<!--{eval $favorderid++;}-->
@@ -299,7 +299,7 @@
 									<!--{if $forum[description]}--><p class="xg2">$forum[description]</p><!--{/if}-->
 									<!--{if $forum['subforums']}--><p>{lang forum_subforums}: $forum['subforums']</p><!--{/if}-->
 									<!--{if $forum['moderators']}--><p>{lang forum_moderators}: <span class="xi2">$forum[moderators]</span></p><!--{/if}-->
-									<!--{hook/index_favforum_extra $forum[fid]}-->
+									<!--{hook/index_favforum_extra $forum['fid']}-->
 								</td>
 								<td class="fl_i">
 									<!--{if empty($forum[redirect])}--><span class="xi2"><!--{echo dnumber($forum[threads])}--></span><span class="xg1"> / <!--{echo dnumber($forum[posts])}--></span><!--{/if}-->
@@ -334,7 +334,7 @@
 			<!--{ad/intercat/bm a_c/-1}-->
 		<!--{/if}-->
 		<!--{loop $catlist $key $cat}-->
-			<!--{hook/index_catlist $cat[fid]}-->
+			<!--{hook/index_catlist $cat['fid']}-->
 			<div class="bm bmw {if $cat['forumcolumns']} flg{/if} cl">
 				<div class="bm_h cl">
 					<span class="o">
@@ -385,7 +385,7 @@
 										<!--{/if}-->
 									<!--{/if}-->
 									</dd>
-									<!--{hook/index_forum_extra $forum[fid]}-->
+									<!--{hook/index_forum_extra $forum['fid']}-->
 								</dl>
 							</td>
 						<!--{else}-->
@@ -401,7 +401,7 @@
 								<!--{if $forum[description]}--><p class="xg2">$forum[description]</p><!--{/if}-->
 								<!--{if $forum['subforums']}--><p>{lang forum_subforums}: $forum['subforums']</p><!--{/if}-->
 								<!--{if $forum['moderators']}--><p>{lang forum_moderators}: <span class="xi2">$forum[moderators]</span></p><!--{/if}-->
-								<!--{hook/index_forum_extra $forum[fid]}-->
+								<!--{hook/index_forum_extra $forum['fid']}-->
 							</td>
 							<td class="fl_i">
 								<!--{if empty($forum[redirect])}--><span class="xi2"><!--{echo dnumber($forum[threads])}--></span><span class="xg1"> / <!--{echo dnumber($forum[posts])}--></span><!--{/if}-->
@@ -475,7 +475,7 @@
 										{lang never}
 									<!--{/if}-->
 									</dd>
-									<!--{hook/index_datacollection_extra $colletion[ctid]}-->
+									<!--{hook/index_datacollection_extra $colletion['ctid']}-->
 								</dl>
 							</td>
 							<!--{eval $ctorderid++;}-->
