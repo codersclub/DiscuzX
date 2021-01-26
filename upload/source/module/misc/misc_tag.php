@@ -122,12 +122,14 @@ function getthreadsbytids($tidarray) {
 		include_once libfile('function_misc', 'function');
 		$fids = array();
 		foreach(C::t('forum_thread')->fetch_all_by_tid($tidarray) as $result) {
-			if(!isset($_G['cache']['forums'][$result['fid']]['name'])) {
-				$fids[$result['fid']] = $result['tid'];
-			} else {
-				$result['name'] = $_G['cache']['forums'][$result['fid']]['name'];
+			if($result['displayorder'] >= 0){
+				if(!isset($_G['cache']['forums'][$result['fid']]['name'])) {
+					$fids[$result['fid']] = $result['tid'];
+				} else {
+					$result['name'] = $_G['cache']['forums'][$result['fid']]['name'];
+				}
+				$threadlist[$result['tid']] = procthread($result);
 			}
-			$threadlist[$result['tid']] = procthread($result);
 		}
 		if(!empty($fids)) {
 			foreach(C::t('forum_forum')->fetch_all_by_fid(array_keys($fids)) as $fid => $forum) {
