@@ -449,7 +449,7 @@ function getstatvars_memberlist() {
 
 function getstatvars_forumstat($fid) {
 	global $_G;
-	$xml = "<chart>\n";
+	$xml = '<'."?xml version=\"1.0\" encoding=\"utf-8\"?><chart>";
 	$statvars = array();
 	$monthdays = array('31', '29', '31', '30', '31', '30', '31', '31', '30', '31', '30', '31');
 	if(!$fid) {
@@ -474,23 +474,23 @@ function getstatvars_forumstat($fid) {
 		}
 		$statvars['month'] = $end_month;
 		$logs = array();
-		$xml .= "<xaxis>\n";
+		$xml .= "<xaxis>";
 		$xmlvalue = '';
 		$xaxisindex = 0;
 		foreach(C::t('forum_statlog')->fetch_all_by_logdate($end_month_start, $end_date, $fid) as $log) {
 			$logs[] = $log;
 			list($yyyy, $mm, $dd) = explode('-', $log['logdate']);
 			$xaxisindex++;
-			$xml .= "<value xid=\"{$xaxisindex}\">{$mm}{$dd}</value>\n";
-			$xmlvalue .= "<value xid=\"{$xaxisindex}\">{$log['value']}</value>\n";
+			$xml .= "<value xid=\"{$xaxisindex}\">{$mm}{$dd}</value>";
+			$xmlvalue .= "<value xid=\"{$xaxisindex}\">{$log['value']}</value>";
 		}
-		$xml .= "</xaxis>\n";
-		$xml .= "<graphs>\n";
-		$xml .= "<graph gid=\"0\" title=\"".diconv(lang('spacecp', 'do_stat_post_number'), CHARSET, 'UTF-8')."\">\n";
+		$xml .= "</xaxis>";
+		$xml .= "<graphs>";
+		$xml .= "<graph gid=\"0\" title=\"".diconv(lang('spacecp', 'do_stat_post_number'), CHARSET, 'UTF-8')."\">";
 		$xml .= $xmlvalue;
-		$xml .= "</graph>\n";
-		$xml .= "</graphs>\n";
-		$xml .= "</chart>\n";
+		$xml .= "</graph>";
+		$xml .= "</graphs>";
+		$xml .= "</chart>";
 		if($_GET['xml']) {
 			@header("Expires: -1");
 			@header("Cache-Control: no-store, private, post-check=0, pre-check=0, max-age=0", FALSE);
@@ -523,7 +523,7 @@ function getstatvars_forumstat($fid) {
 		}
 		$statvars['monthposts'] = $monthposts;
 	}
-	$statvars['statuspara'] = "path=&settings_file=data/stat_setting.xml&data_file=".urlencode("misc.php?mod=stat&op=forumstat&fid=$fid&month={$_GET['month']}&xml=1");
+	$statvars['statuspara'] = "misc.php?mod=stat&op=forumstat&fid=$fid&month={$_GET['month']}&xml=1";
 	return $statvars;
 }
 

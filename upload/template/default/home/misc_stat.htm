@@ -108,13 +108,10 @@
 				</caption>
 				<!--{/if}-->
 				<tr><td>
-				<script type="text/javascript">
-						document.write(AC_FL_RunContent(
-							'width', '100%', 'height', '300',
-							'src', '{STATICURL}image/common/stat.swf?$statuspara',
-							'quality', 'high', 'wmode', 'transparent'
-						));
-					</script>
+				<script src="{STATICURL}js/echarts/echarts.common.min.js"></script>
+				<script src="{$_G['setting']['jspath']}stat.js"></script>
+				<div id="statchart"></div>
+				<script type="text/javascript">drawstatchart('{$statuspara}');</script>
 				</td></tr>
 			</table>
 
