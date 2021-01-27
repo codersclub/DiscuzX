@@ -1536,7 +1536,7 @@ $lang = array
 	'setting_cachethread_dir_comment' => '默认为 data/threadcache 目录，如果您需要将其指定为其他目录，请确定您指定的目录有可写权限',
 	'setting_cachethread_coefficient_set' => '缓存系数批量设置',
 	'setting_cachethread_coefficient' => '缓存系数',
-	'setting_cachethread_coefficient_comment' => '页面缓存功能可以将会员经常访问的主题临时缓存起来，缓解大型论坛服务器压力。缓存阀值范围 0 - 100，建议设置为 40 ，0 为关闭。在磁盘空间允许的情况下，适当调高缓存系数，可以提高缓存效果',
+	'setting_cachethread_coefficient_comment' => '页面缓存功能可以将会员经常访问的主题临时缓存起来，缓解大型论坛服务器压力。缓存阈值范围 0 - 100，建议设置为 40 ，0 为关闭。在磁盘空间允许的情况下，适当调高缓存系数，可以提高缓存效果',
 	'setting_cachethread_coefficient_forum' => '请选择要设置的论坛',
 	'setting_cachethread_coefficient_forum_comment' => '将会覆盖以前的缓存系数值，可以按住 CTRL 多选',
 

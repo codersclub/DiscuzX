@@ -1,7 +1,7 @@
 <?php
 
 /*
-	[UCenter] (C)2001-2009 Comsenz Inc.
+	[UCenter] (C)2001-2099 Comsenz Inc.
 	This is NOT a freeware, use is subject to license terms
 
 	$Id: db.class.php 980 2009-12-22 03:12:49Z zhaoxiongfei $

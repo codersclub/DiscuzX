@@ -1,7 +1,7 @@
 <?php
 
 /**
- *	  [Discuz!] (C)2001-2009 Comsenz Inc.
+ *	  [Discuz!] (C)2001-2099 Comsenz Inc.
  *	  This is NOT a freeware, use is subject to license terms
  *
  *	  $Id: connect_check.php 31305 2012-08-09 06:36:16Z liudongdong $

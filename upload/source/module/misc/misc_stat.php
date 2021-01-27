@@ -1,7 +1,7 @@
 <?php
 
 /*
-	[Discuz!] (C)2001-2009 Comsenz Inc.
+	[Discuz!] (C)2001-2099 Comsenz Inc.
 	This is NOT a freeware, use is subject to license terms
 
 	$Id: misc_stat.php 31889 2012-10-22 03:27:56Z liulanbo $

@@ -1,7 +1,7 @@
 <?php
 
 /*
-	[Discuz!] (C)2001-2007 Comsenz Inc.
+	[Discuz!] (C)2001-2099 Comsenz Inc.
 	This is NOT a freeware, use is subject to license terms
 
 	$Id: admincp_recyclebinpost.php 28728 2012-03-09 03:15:48Z songlixin $
