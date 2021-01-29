@@ -669,8 +669,8 @@ EOF;
 			$count = $unreads;
 		}
 		$multipage = multi($count, $ppp, $page, ADMINSCRIPT."?action=members&operation=grouppmlist&do=$do".$filteradd);
-		$alldata = C::t('common_member_grouppm')->fetch_all_by_gpmid($gpmid, $_GET['filter'] == 'read' ? 1 : 0, $start_limit, $ppp);
-		$allmember = $gpmuser ? C::t('common_member')->fetch_all_username_by_uid(array_keys($gpmuser)) : array();
+		$alldata = C::t('common_member_grouppm')->fetch_all_by_gpmid($do, $_GET['filter'] == 'read' ? 1 : 0, $start_limit, $ppp);
+		$allmember = $alldata ? C::t('common_member')->fetch_all_username_by_uid(array_keys($alldata)) : array();
 		foreach($alldata as $uid => $gpmuser) {
 			echo '<div style="margin-bottom:5px;float:left;width:24%"><b><a href="home.php?mod=space&uid='.$uid.'" target="_blank">'.$allmember[$uid].'</a></b><br />&nbsp;';
 			if($gpmuser['status'] == 0) {
