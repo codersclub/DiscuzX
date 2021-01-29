@@ -32,7 +32,7 @@ function convertip($ip, $file = 'full') {
 				} elseif(@file_exists($tinyipfile)) {
 					$return = convertip_tiny($ip, $tinyipfile);
 				}
-			} elseif($file == 'tiny') {
+			} else {
 				if(@file_exists($tinyipfile)) {
 					$return = convertip_tiny($ip, $tinyipfile);
 				} elseif(@file_exists($fullipfile)) {
