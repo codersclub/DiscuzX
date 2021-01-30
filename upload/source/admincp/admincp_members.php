@@ -573,7 +573,7 @@ EOF;
 		}
 		showsearchform('newsletter');
 
-		if(submitcheck('submit')) {
+		if(submitcheck('submit', 1)) {
 			$dostr = '';
 			if($_GET['do'] == 'mobile') {
 				$search_condition['token_noempty'] = 'token';
