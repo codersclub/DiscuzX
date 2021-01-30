@@ -59,13 +59,13 @@ class miscmodel {
 		return $this->dfopen($url, $limit, $post, $cookie, $bysocket, $ip, $timeout, $block, $encodetype, $allowcurl);
 	}
 
-	function dfopen($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE	, $ip = '', $timeout = 15, $block = TRUE, $encodetype  = 'URLENCODE', $allowcurl = TRUE) {
+	function dfopen($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE, $ip = '', $timeout = 15, $block = TRUE, $encodetype  = 'URLENCODE', $allowcurl = TRUE) {
 		$return = '';
 		$matches = parse_url($url);
-		$scheme = $matches['scheme'];
+		$scheme = strtolower($matches['scheme']);
 		$host = $matches['host'];
-		$path = $matches['path'] ? $matches['path'].($matches['query'] ? '?'.$matches['query'] : '') : '/';
-		$port = !empty($matches['port']) ? $matches['port'] : ($matches['scheme'] == 'https' ? 443 : 80);
+		$path = !empty($matches['path']) ? $matches['path'].(!empty($matches['query']) ? '?'.$matches['query'] : '') : '/';
+		$port = !empty($matches['port']) ? $matches['port'] : ($scheme == 'https' ? 443 : 80);
 
 		if(function_exists('curl_init') && function_exists('curl_exec') && $allowcurl) {
 			$ch = curl_init();
@@ -111,7 +111,10 @@ class miscmodel {
 			$out = "POST $path HTTP/1.0\r\n";
 			$header = "Accept: */*\r\n";
 			$header .= "Accept-Language: zh-cn\r\n";
-			$boundary = $encodetype == 'URLENCODE' ? '' : ';'.substr($post, 0, trim(strpos($post, "\n")));
+			if($allowcurl) {
+				$encodetype = 'URLENCODE';
+			}
+			$boundary = $encodetype == 'URLENCODE' ? '' : '; boundary='.trim(substr(trim($post), 2, strpos(trim($post), "\n") - 2));
 			$header .= $encodetype == 'URLENCODE' ? "Content-Type: application/x-www-form-urlencoded\r\n" : "Content-Type: multipart/form-data$boundary\r\n";
 			$header .= "User-Agent: $_SERVER[HTTP_USER_AGENT]\r\n";
 			$header .= "Host: $host:$port\r\n";
@@ -132,22 +135,35 @@ class miscmodel {
 		}
 
 		$fpflag = 0;
-		if(!$fp = @fsocketopen(($scheme == 'https' ? 'ssl://' : '').($scheme == 'https' ? $host : ($ip ? $ip : $host)), $port, $errno, $errstr, $timeout)) {
-			$context = array(
-				'http' => array(
-					'method' => $post ? 'POST' : 'GET',
-					'header' => $header,
-					'content' => $post,
-					'timeout' => $timeout,
-				),
-				'ssl' => array(
-					'verify_peer' => false,
-					'verify_peer_name' => false,
-				),
+		$context = array();
+		if($scheme == 'https') {
+			$context['ssl'] = array(
+				'verify_peer' => false,
+				'verify_peer_name' => false,
+				'peer_name' => $host
 			);
+			if(version_compare(PHP_VERSION, '5.6.0', '<')) {
+				$context['ssl']['SNI_enabled'] = true;
+				$context['ssl']['SNI_server_name'] = $host;
+			}
+		}
+		if(ini_get('allow_url_fopen')) {
+			$context['http'] = array(
+				'method' => $post ? 'POST' : 'GET',
+				'header' => $header,
+				'timeout' => $timeout
+			);
+			if($post) {
+				$context['http']['content'] = $post;
+			}
 			$context = stream_context_create($context);
-			$fp = @fopen($scheme.'://'.($scheme == 'https' ? $host : ($ip ? $ip : $host)).':'.$port.$path, 'b', false, $context);
+			$fp = @fopen($scheme.'://'.($ip ? $ip : $host).':'.$port.$path, 'b', false, $context);
 			$fpflag = 1;
+		} elseif(function_exists('stream_socket_client')) {
+			$context = stream_context_create($context);
+			$fp = @stream_socket_client(($scheme == 'https' ? 'ssl://' : '').($ip ? $ip : $host).':'.$port, $errno, $errstr, $timeout, STREAM_CLIENT_CONNECT, $context);
+		} else {
+			$fp = @fsocketopen(($scheme == 'https' ? 'ssl://' : '').($scheme == 'https' ? $host : ($ip ? $ip : $host)), $port, $errno, $errstr, $timeout);
 		}
 
 		if(!$fp) {
@@ -155,7 +171,9 @@ class miscmodel {
 		} else {
 			stream_set_blocking($fp, $block);
 			stream_set_timeout($fp, $timeout);
-			@fwrite($fp, $out);
+			if(!$fpflag) {
+				@fwrite($fp, $out);
+			}
 			$status = stream_get_meta_data($fp);
 			if(!$status['timed_out']) {
 				while (!feof($fp) && !$fpflag) {
