@@ -109,8 +109,8 @@ if ($op == 'start') {
 	space_merge($space,'field_home');
 	if (submitcheck('savespaceinfosubmit')) {
 
-		$spacename = getstr($_POST['spacename'], 30);
-		$spacedescription = getstr($_POST['spacedescription'], 135);
+		$spacename = censor(getstr($_POST['spacename'], 30));
+		$spacedescription = censor(getstr($_POST['spacedescription'], 135));
 
 		$setarr = array();
 		$setarr['spacename'] = $spacename;
@@ -137,7 +137,7 @@ if (submitcheck('blocksubmit')) {
 		space_merge($space,'field_home');
 		$blockdata = dunserialize($space['blockposition']);
 
-		$title = getstr($_POST['blocktitle'],50);
+		$title = censor(getstr($_POST['blocktitle'],50));
 		$blockdata['parameters'][$blockname]['title'] = $title;
 
 		if (in_array($blockname, array('block1', 'block2', 'block3', 'block4', 'block5'))) {
@@ -219,13 +219,14 @@ if (submitcheck('musicsubmit')) {
 			  );
 		$blockdata['parameters']['music']['config'] = $config;
 
-		$blockdata['parameters']['music']['title']= getstr($_POST['blocktitle'],50);
+		$blockdata['parameters']['music']['title']= censor(getstr($_POST['blocktitle'],50));
 
 	} elseif ($_POST['act'] == 'addmusic') {
 		$mp3url = $_POST['mp3url'];
 		$mp3name = $_POST['mp3name'];
 		$cdbj = $_POST['cdbj'];
 		$mp3list = empty($blockdata['parameters']['music']['mp3list']) ? array() : $blockdata['parameters']['music']['mp3list'];
+		censor(implode('', $_POST['mp3name']));
 		foreach ($mp3url as $key => $value) {
 			if (!empty($value)) {
 				if(empty($mp3name[$key])) $mp3name[$key] = substr($value,strrpos($value,'/')+1,strlen($value));
@@ -239,6 +240,7 @@ if (submitcheck('musicsubmit')) {
 		$mp3name = $_POST['mp3name'];
 		$cdbj = $_POST['cdbj'];
 		$mp3list = array();
+		censor(implode('', $_POST['mp3name']));
 		foreach ($mp3url as $key => $value) {
 			if (!empty($value)) {
 				if(empty($mp3name[$key])) $mp3name[$key] = substr($value,strrpos($value,'/')+1,strlen($value));

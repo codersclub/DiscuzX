@@ -36,7 +36,7 @@ function forum(&$forum) {
 
 	if($forum['icon']) {
 		$forum['icon'] = get_forumimg($forum['icon']);
-		$forum['icon'] = '<a href="forum.php?mod=forumdisplay&fid='.$forum['fid'].'"><img src="'.$forum['icon'].'" align="left" alt="" /></a>';
+		$forum['icon'] = '<a href="forum.php?mod=forumdisplay&fid='.$forum['fid'].'"><img src="'.$forum['icon'].'" align="left" alt="'.$forum['name'].'" /></a>';
 	}
 
 	$lastpost = array(0, 0, '', '');

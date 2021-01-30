@@ -11,7 +11,7 @@ function media_tudou($url, $width, $height) {
 		$flv = 'http://www.tudou.com/v/'.$matches[2];
 		$iframe = 'http://www.tudou.com/programs/view/html5embed.action?code='.$matches[2];
 		if(!$width && !$height) {
-			$str = file_get_contents($url, false, $ctx);
+			$str = file_get_contents($url, false);
 			if(!empty($str) && preg_match("/<span class=\"s_pic\">(.+?)<\/span>/i", $str, $image)) {
 				$imgurl = trim($image[1]);
 			}
