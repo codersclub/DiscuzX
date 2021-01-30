@@ -180,7 +180,7 @@ class control extends adminbase {
 				}
 			}
 			$tagtemplates = array();
-			$tagtemplates['template'] = MAGIC_QUOTES_GPC ? stripslashes(getgpc('tagtemplates', 'P')) : getgpc('tagtemplates', 'P');
+			$tagtemplates['template'] = getgpc('tagtemplates', 'P');
 			$tagfields = explode("\n", getgpc('tagfields', 'P'));
 			foreach($tagfields as $field) {
 				$field = trim($field);

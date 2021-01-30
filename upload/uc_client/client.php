@@ -23,15 +23,12 @@ define('UC_API_FUNC', UC_CONNECT == 'mysql' ? 'uc_api_mysql' : 'uc_api_post');
 $GLOBALS['uc_controls'] = array();
 
 function uc_addslashes($string, $force = 0, $strip = FALSE) {
-	!defined('MAGIC_QUOTES_GPC') && define('MAGIC_QUOTES_GPC', get_magic_quotes_gpc());
-	if(!MAGIC_QUOTES_GPC || $force) {
-		if(is_array($string)) {
-			foreach($string as $key => $val) {
-				$string[$key] = uc_addslashes($val, $force, $strip);
-			}
-		} else {
-			$string = addslashes($strip ? stripslashes($string) : $string);
+	if(is_array($string)) {
+		foreach($string as $key => $val) {
+			$string[$key] = uc_addslashes($val, $force, $strip);
 		}
+	} else {
+		$string = addslashes($strip ? stripslashes($string) : $string);
 	}
 	return $string;
 }
@@ -85,15 +82,6 @@ if(!function_exists('fsocketopen')) {
 	}
 }
 
-function uc_stripslashes($string) {
-	!defined('MAGIC_QUOTES_GPC') && define('MAGIC_QUOTES_GPC', get_magic_quotes_gpc());
-	if(MAGIC_QUOTES_GPC) {
-		return stripslashes($string);
-	} else {
-		return $string;
-	}
-}
-
 function uc_api_post($module, $action, $arg = array()) {
 	$s = $sep = '';
 	foreach($arg as $k => $v) {
@@ -102,12 +90,12 @@ function uc_api_post($module, $action, $arg = array()) {
 			$s2 = $sep2 = '';
 			foreach($v as $k2 => $v2) {
 				$k2 = urlencode($k2);
-				$s2 .= "$sep2{$k}[$k2]=".urlencode(uc_stripslashes($v2));
+				$s2 .= "$sep2{$k}[$k2]=".urlencode($v2);
 				$sep2 = '&';
 			}
 			$s .= $sep.$s2;
 		} else {
-			$s .= "$sep$k=".urlencode(uc_stripslashes($v));
+			$s .= "$sep$k=".urlencode($v);
 		}
 		$sep = '&';
 	}

@@ -932,12 +932,7 @@ function runucquery($sql, $tablepre) {
 
 
 function charcovert($string) {
-	if(!get_magic_quotes_gpc()) {
-		$string = str_replace('\'', '\\\'', $string);
-	} else {
-		$string = str_replace('\"', '"', $string);
-	}
-	return $string;
+	return str_replace('\'', '\\\'', $string);
 }
 
 function insertconfig($s, $find, $replace) {

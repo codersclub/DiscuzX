@@ -57,9 +57,6 @@ if($apptype == 'discuz') {
 }
 
 parse_str(_authcode($code, 'DECODE', UC_KEY), $get);
-if(get_magic_quotes_gpc()) {
-	$get = _stripslashes($get);
-}
 
 if(empty($get)) {
 	exit('Invalid Request');
@@ -844,17 +841,6 @@ function fetchtablelist($tablepre = '') {
 		$tables[] = $table;
 	}
 	return $tables;
-}
-
-function _stripslashes($string) {
-	if(is_array($string)) {
-		foreach($string as $key => $val) {
-			$string[$key] = _stripslashes($val);
-		}
-	} else {
-		$string = stripslashes($string);
-	}
-	return $string;
 }
 
 function _authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {

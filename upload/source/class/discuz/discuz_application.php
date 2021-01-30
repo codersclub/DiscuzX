@@ -78,16 +78,6 @@ class discuz_application extends discuz_base{
 
 		error_reporting(E_ERROR);
 
-		if(PHP_VERSION < '5.3.0') {
-			set_magic_quotes_runtime(0);
-		}
-
-		if (PHP_VERSION < '5.4.0') {
-			define('MAGIC_QUOTES_GPC', function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc());
-		} else {
-			define('MAGIC_QUOTES_GPC', FALSE);
-		}
-
 		define('ICONV_ENABLE', function_exists('iconv'));
 		define('MB_ENABLE', function_exists('mb_convert_encoding'));
 		define('EXT_OBGZIP', function_exists('ob_gzhandler'));
@@ -235,12 +225,6 @@ class discuz_application extends discuz_base{
 	private function _init_input() {
 		if (isset($_GET['GLOBALS']) ||isset($_POST['GLOBALS']) ||  isset($_COOKIE['GLOBALS']) || isset($_FILES['GLOBALS'])) {
 			system_error('request_tainting');
-		}
-
-		if(MAGIC_QUOTES_GPC) {
-			$_GET = dstripslashes($_GET);
-			$_POST = dstripslashes($_POST);
-			$_COOKIE = dstripslashes($_COOKIE);
 		}
 
 		$prelength = strlen($this->config['cookie']['cookiepre']);
