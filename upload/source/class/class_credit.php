@@ -19,7 +19,7 @@ class credit {
 
 	function __construct() {}
 
-	function &instance() {
+	public static function &instance() {
 		static $object;
 		if(empty($object)) {
 			$object = new credit();
@@ -360,7 +360,7 @@ class credit {
 
 	}
 
-	function deletelogbyfid($rid, $fid) {
+	public static function deletelogbyfid($rid, $fid) {
 
 		$fid = intval($fid);
 		if($rid && $fid) {

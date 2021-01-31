@@ -156,7 +156,7 @@ class helper_notification {
 		}
 	}
 
-	public function get_categorynum($newprompt_data) {
+	public static function get_categorynum($newprompt_data) {
 		global $_G;
 		$categorynum = array();
 		if(empty($newprompt_data) || !is_array($newprompt_data)) {
@@ -177,7 +177,7 @@ class helper_notification {
 		return $categorynum;
 	}
 
-	public function update_newprompt($uid, $type) {
+	public static function update_newprompt($uid, $type) {
 		global $_G;
 		if($_G['member']['newprompt_num']) {
 			$tmpprompt = $_G['member']['newprompt_num'];

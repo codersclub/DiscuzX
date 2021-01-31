@@ -15,7 +15,7 @@ class portal_category {
 
 	function __construct() {}
 
-	function &instance() {
+	public static function &instance() {
 		static $object;
 		if(empty($object)) {
 			$object = new portal_category();

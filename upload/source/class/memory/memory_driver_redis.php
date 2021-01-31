@@ -66,7 +66,7 @@ class memory_driver_redis {
 		}
 	}
 
-	function &instance() {
+	public static function &instance() {
 		static $object;
 		if (empty($object)) {
 			$object = new memory_driver_redis();

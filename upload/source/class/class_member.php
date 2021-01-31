@@ -942,7 +942,7 @@ class crime_action_ctl {
 
 	function __construct() {}
 
-	function &instance() {
+	public static function &instance() {
 		static $object;
 		if(empty($object)) {
 			$object = new crime_action_ctl();

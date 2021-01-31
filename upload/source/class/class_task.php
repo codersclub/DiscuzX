@@ -21,7 +21,7 @@ class task {
 
 	function __construct() {}
 
-	function &instance() {
+	public static function &instance() {
 		static $object;
 		if(empty($object)) {
 			$object = new task();

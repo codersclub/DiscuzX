@@ -13,7 +13,7 @@ if (!defined('IN_DISCUZ')) {
 
 class WeChatSetting {
 
-	function showResource() {
+	public static function showResource() {
 		echo '<div id="rsel_menu" class="custom cmain" style="display:none;width:1000px;height:540px">'
 			. '<div class="cnote" style="width:100%"><span class="right"><a href="###" class="flbc" onclick="hideMenu();return false;"></a></span><h3>'.lang('plugin/wechat', 'resource_select').'</h3></div>'
 			. '<div id="rsel_content" style="overflow:hidden;height:95%"></div></div>';
@@ -37,7 +37,7 @@ EOF;
 
 	}
 
-	function menu() {
+	public static function menu() {
 		global $_G;
 		$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
 

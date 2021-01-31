@@ -622,7 +622,7 @@ class showActivity {
 		return true;
 	}
 
-	function misc() {
+	public static function misc() {
 		global $_G;
 		if(!$_POST || $_GET['action'] != 'activityapplies' && $_GET['action'] != 'activityapplylist') {
 			return;
@@ -636,7 +636,7 @@ class showActivity {
 		}
 	}
 
-	function post() {
+	public static function post() {
 		global $_G;
 		if($_GET['action'] != 'reply') {
 			return;
@@ -659,7 +659,7 @@ class showActivity {
 		}
 	}
 
-	function returnvoters($type) {
+	public static function returnvoters($type) {
 		global $_G;
 		$return = array();
 		if($type == 1) {

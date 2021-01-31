@@ -9,8 +9,8 @@
 
 class seccode {
 
-	var $code;			//100000-999999 ·¶Î§ÄÚËæ»ú
-	var $type 	= 0;		//0 Ó¢ÎÄÍ¼Æ¬ÑéÖ¤Âë  1 ÖÐÎÄÍ¼Æ¬ÑéÖ¤Âë  2 Flash ÑéÖ¤Âë  3 ÓïÒôÑéÖ¤Âë
+	var $code;			//100000-999999 èŒƒå›´å†…éšæœº
+	var $type 	= 0;		//0 è‹±æ–‡å›¾ç‰‡éªŒè¯ç   1 ä¸­æ–‡å›¾ç‰‡éªŒè¯ç   2 Flash éªŒè¯ç   3 è¯­éŸ³éªŒè¯ç 
 	var $width 	= 0;
 	var $height 	= 0;
 	var $background	= 1;
@@ -20,8 +20,8 @@ class seccode {
 	var $color 	= 1;
 	var $size 	= 0;
 	var $shadow 	= 1;
-	var $animator 	= 0;		//GIF ¶¯»­
-	var $fontpath	= '';		//TTF ×Ö¿âÄ¿Â¼
+	var $animator 	= 0;		//GIF åŠ¨ç”»
+	var $fontpath	= '';		//TTF å­—åº“ç›®å½•
 	var $datapath	= '';
 	var $includepath= '';
 
@@ -36,7 +36,7 @@ class seccode {
         return $input === $code;
     }
 
-	function seccodeconvert(&$seccode) {
+	static function seccodeconvert(&$seccode) {
 		$s = sprintf('%04s', base_convert($seccode, 10, 20));
 		$seccodeunits = 'CEFHKLMNOPQRSTUVWXYZ';
 		$seccode = '';
@@ -50,7 +50,7 @@ class seccode {
 		$this->type == 2 && !extension_loaded('ming') && $this->type = 0;
 		$this->width = $this->width >= 0 && $this->width <= 200 ? $this->width : 150;
 		$this->height = $this->height >= 0 && $this->height <= 80 ? $this->height : 60;
-		$this->seccodeconvert($this->code);
+		self::seccodeconvert($this->code);
 		if($this->type < 2 && function_exists('imagecreate') && function_exists('imagecolorset') && function_exists('imagecopyresized') &&
 			function_exists('imagecolorallocate') && function_exists('imagechar') && function_exists('imagecolorsforindex') &&
 			function_exists('imageline') && function_exists('imagecreatefromstring') && (function_exists('imagegif') || function_exists('imagepng') || function_exists('imagejpeg'))) {

@@ -34,7 +34,7 @@ class discuz_ftp
 	var $connectid;
 	var $_error;
 
-	function &instance($config = array()) {
+	public static function &instance($config = array()) {
 		static $object;
 		if(empty($object)) {
 			$object = new discuz_ftp($config);

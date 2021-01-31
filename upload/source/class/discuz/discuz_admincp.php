@@ -32,7 +32,7 @@ class discuz_admincp
 	var $sessionlife = 1800;
 	var $sessionlimit = 0;
 
-	function &instance() {
+	public static function &instance() {
 		static $object;
 		if(empty($object)) {
 			$object = new discuz_admincp();
