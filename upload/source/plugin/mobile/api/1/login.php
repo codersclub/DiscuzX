@@ -17,10 +17,10 @@ include_once 'member.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 	}
 
-	function output() {
+	public static function output() {
 		global $_G;
 		$variable = array();
 		mobile_core::result(mobile_core::variable($variable));

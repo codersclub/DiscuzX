@@ -11,12 +11,12 @@ if(!defined('IN_DISCUZ')) {
 }
 class mobile_api {
 
-	var $variable = array();
+	private static $variable = array();
 
-	function common() {
+	public static function common() {
 
 
-		$this->variable = array(
+		self::$variable = array(
 			'extends' => array(
 				'extendversion' => '1',
 				'extendlist' => array(
@@ -57,8 +57,8 @@ class mobile_api {
 		);
 	}
 
-	function output() {
-		mobile_core::result(mobile_core::variable($this->variable));
+	public static function output() {
+		mobile_core::result(mobile_core::variable(self::$variable));
 	}
 }
 ?>

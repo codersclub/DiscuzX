@@ -17,10 +17,10 @@ include_once 'home.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 	}
 
-	function output() {
+	public static function output() {
 		global $_G;
 		$variable = array(
 			'list' => mobile_core::getvalues($GLOBALS['list'], array('/^\d+$/'), array('plid', 'isnew', 'pmnum', 'lastupdate', 'lastdateline', 'authorid', 'author', 'pmtype', 'subject', 'members', 'dateline', 'touid', 'pmid', 'lastauthorid', 'lastauthor', 'lastsummary', 'msgfromid', 'msgfrom', 'message', 'msgtoid', 'tousername')),

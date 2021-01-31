@@ -17,10 +17,10 @@ include_once 'home.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 	}
 
-	function output() {
+	public static function output() {
 		global $_G;
 		$data = $GLOBALS['space'];
 		unset($data['password'], $data['email'], $data['regip'], $data['lastip'], $data['regip_loc'], $data['lastip_loc'], $data['qq'], $data['alipay'], $data['icq'], $data['yahoo'], $data['msn'], $data['taobao'], $data['mobile'], $data['telephone'], $data['idcard'], $data['idcardtype'], $data['address'], $data['realname'], $data['zipcode']);

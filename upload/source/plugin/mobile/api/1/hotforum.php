@@ -15,7 +15,7 @@ include_once 'forum.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		global $_G;
 		loadcache('mobile_hotforum');
 		if(!$_G['cache']['mobile_hotforum'] || TIMESTAMP - $_G['cache']['mobile_hotforum']['expiration'] > 3600) {
@@ -39,7 +39,7 @@ class mobile_api {
 		mobile_core::result(mobile_core::variable($variable));
 	}
 
-	function output() {
+	public static function output() {
 	}
 
 }

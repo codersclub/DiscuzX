@@ -16,11 +16,11 @@ include_once 'forum.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 
 	}
 
-	function output() {
+	public static function output() {
 		global $_G;
 
 		foreach ($GLOBALS['sublist'] as $k => $sublist) {

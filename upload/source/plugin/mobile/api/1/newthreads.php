@@ -15,7 +15,7 @@ include_once 'forum.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		global $_G;
 		$start = !empty($_GET['start']) ? $_GET['start'] : 0;
 		$limit = !empty($_GET['limit']) ? $_GET['limit'] : 20;
@@ -31,7 +31,7 @@ class mobile_api {
 		mobile_core::result(mobile_core::variable($variable));
 	}
 
-	function output() {}
+	public static function output() {}
 
 }
 

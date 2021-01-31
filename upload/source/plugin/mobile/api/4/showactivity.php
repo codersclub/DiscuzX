@@ -17,7 +17,7 @@ include_once 'forum.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		global $_G;
 		if($_GET['do'] == 'recommend') {
 			if(!$_GET['hash'] || FORMHASH != $_GET['hash'] || !$_GET['pid'] || !$_GET['tid'] || !$_G['uid']) {
@@ -56,7 +56,7 @@ class mobile_api {
 
 	}
 
-	function output() {
+	public static function output() {
 		$comments = array();
 		foreach($GLOBALS['comments'] as $comment) {
 			$comments[] = array(

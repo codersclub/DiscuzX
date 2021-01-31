@@ -13,7 +13,7 @@ if(!defined('IN_MOBILE_API')) {
 include_once 'forum.php';
 
 class mobile_api {
-	function common() {
+	public static function common() {
 		global $_G;
 		if(!defined('IN_DISCUZ') || empty($_GET['aid']) || empty($_GET['size']) || empty($_GET['key'])) {
 			header('location: '.$_G['siteurl'].'static/image/common/none.gif');

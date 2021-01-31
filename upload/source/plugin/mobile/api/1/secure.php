@@ -15,7 +15,7 @@ include_once 'misc.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		global $_G;
 		$seccodecheck = $secqaacheck = false;
 		if($_GET['type'] == 'register') {
@@ -41,7 +41,7 @@ class mobile_api {
 		mobile_core::result(mobile_core::variable($variable));
 	}
 
-	function output() {}
+	public static function output() {}
 
 }
 

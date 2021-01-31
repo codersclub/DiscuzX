@@ -15,13 +15,13 @@ include_once 'misc.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		global $_G;
 		echo '<img src="'.$_G['siteurl'].'api/mobile/index.php?module=seccode&sechash='.urlencode($_GET['sechash']).'&version='.(empty($_GET['secversion']) ? '4' : $_GET['secversion']).'" />';
 		exit;
 	}
 
-	function output() {}
+	public static function output() {}
 
 }
 

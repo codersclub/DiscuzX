@@ -16,7 +16,7 @@ include_once 'forum.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		$apifile = 'source/plugin/mobile/api/'.$_GET['version'].'/sub_checkpost.php';
 		if(file_exists($apifile)) {
 			require_once $apifile;
@@ -24,7 +24,7 @@ class mobile_api {
 		mobile_core::result(mobile_core::variable(mobile_api_sub::getvariable()));
 	}
 
-	function output() {}
+	public static function output() {}
 
 }
 

@@ -15,11 +15,11 @@ $_GET['do'] = 'notice';
 include_once 'home.php';
 
 class mobile_api {
-	function common() {
+	public static function common() {
 
 	}
 
-	function output() {
+	public static function output() {
 		global $_G;
 		$variable = array(
 			'list' => mobile_core::getvalues($GLOBALS['list'], array('/^\d+$/'), array('id', 'uid', 'type', 'new', 'authorid', 'author', 'note', 'dateline', 'from_id', 'from_idtype', 'from_num', 'style', 'rowid')),

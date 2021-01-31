@@ -18,12 +18,12 @@ include_once 'forum.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		global $_G;
 		$_G['setting']['avatarmethod'] = 0;
 	}
 
-	function output() {
+	public static function output() {
 		extract($GLOBALS);
 		$_G['forum_thread']['replies'] = $_G['forum_thread']['replies'] >= 0 ? $_G['forum_thread']['replies'] : 0;
 		if($_G['page'] > @ceil(($_G['forum_thread']['replies'] + 1) / $_G['ppp'])) {

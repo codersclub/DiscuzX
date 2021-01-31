@@ -18,10 +18,10 @@ include_once 'home.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 	}
 
-	function output() {
+	public static function output() {
 		global $_G;
 		$variable = array(
 			'list' => mobile_core::getvalues($GLOBALS['grouppms'], array('/^\d+$/'), array('id', 'authorid', 'author', 'dateline', 'message')),

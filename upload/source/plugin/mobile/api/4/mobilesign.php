@@ -13,7 +13,7 @@ include_once 'misc.php';
 
 class mobile_api {
 
-    function common() {
+    public static function common() {
         global $_G;
         if(submitcheck('hash', true) && $_G['uid']){
             $r = updatecreditbyaction('mobilesign', $_G['uid']);
@@ -28,7 +28,7 @@ class mobile_api {
         mobile_core::result(mobile_core::variable(array()));
     }
 
-    function output() {
+    public static function output() {
     }
 
 }

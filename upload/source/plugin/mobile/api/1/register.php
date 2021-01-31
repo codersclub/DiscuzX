@@ -15,7 +15,7 @@ include_once 'member.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		global $_G;
 		if(empty($_POST['regsubmit'])) {
 			$_G['mobile_version'] = intval($_GET['version']);
@@ -30,7 +30,7 @@ class mobile_api {
 		}
 	}
 
-	function output() {
+	public static function output() {
 		mobile_core::result(mobile_core::variable());
 	}
 

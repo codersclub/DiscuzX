@@ -15,7 +15,7 @@ include_once 'forum.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		global $_G;
 		$forums = array();
 		$sql = !empty($_G['member']['accessmasks']) ?
@@ -78,7 +78,7 @@ class mobile_api {
 		mobile_core::result(mobile_core::variable($variable));
 	}
 
-	function output() {}
+	public static function output() {}
 
 }
 

@@ -18,7 +18,7 @@ include_once 'forum.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		global $_G;
 		if(!empty($_GET['pw'])) {
 			$_GET['action'] = 'pwverify';
@@ -26,7 +26,7 @@ class mobile_api {
 		$_G['forum']['allowglobalstick'] = false;
 	}
 
-	function output() {
+	public static function output() {
 		global $_G;
 		foreach($_G['forum_threadlist'] as $k => $thread) {
 			$_G['forum_threadlist'][$k]['cover'] = array();

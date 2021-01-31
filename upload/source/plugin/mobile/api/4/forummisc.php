@@ -15,14 +15,14 @@ include_once 'forum.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		if($_GET['t'] == 'common') {
 			$variable = array();
 			mobile_core::result(mobile_core::variable($variable));
 		}
 	}
 
-	function output() {
+	public static function output() {
 		if($_GET['t'] == 'output') {
 			$variable = array();
 			mobile_core::result(mobile_core::variable($variable));

@@ -15,7 +15,7 @@ include_once 'misc.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		global $_G;
 		if(!empty($_GET['force'])) {
 			$_G['setting']['seccodedata']['rule'][$_GET['type']]['allow'] = 1;
@@ -34,7 +34,7 @@ class mobile_api {
 		mobile_core::result(mobile_core::variable($variable));
 	}
 
-	function output() {}
+	public static function output() {}
 
 }
 

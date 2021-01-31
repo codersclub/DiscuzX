@@ -15,11 +15,11 @@ include_once 'forum.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 
 	}
 
-	function output() {
+	public static function output() {
 		global $_G, $thread;
 		if ($GLOBALS['hiddenreplies']) {
 			foreach ($GLOBALS['postlist'] as $k => $post) {
@@ -191,7 +191,7 @@ class mobile_api {
 		mobile_core::result(mobile_core::variable($variable));
 	}
 
-	function _findimg($string) {
+	static function _findimg($string) {
 		return preg_replace_callback('/(<img src=\")(.+?)(\".*?\>)/is', array(__CLASS__, 'findimg_callback_parseimg_123'), $string);
 	}
 
@@ -199,7 +199,7 @@ class mobile_api {
 		return mobile_api::_parseimg($matches[1], $matches[2], $matches[3]);
 	}
 
-	function _parseimg($before, $img, $after) {
+	static function _parseimg($before, $img, $after) {
 		$before = stripslashes($before);
 		$after = stripslashes($after);
 		if (!in_array(strtolower(substr($img, 0, 6)), array('http:/', 'https:', 'ftp://'))) {

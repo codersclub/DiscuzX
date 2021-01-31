@@ -17,7 +17,7 @@ include_once 'member.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		if(!empty($_GET['mlogout'])) {
 			if($_GET['hash'] == formhash()) {			
 				clearcookies();
@@ -26,7 +26,7 @@ class mobile_api {
 		}
 	}
 
-	function output() {
+	public static function output() {
 		global $_G;
 		parse_str($_G['messageparam'][1], $p);
 		$variable = array('auth' => $p['auth']);

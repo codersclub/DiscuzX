@@ -6,50 +6,50 @@ if(!defined('IN_MOBILE_API')) {
 
 class extends_data {
 
-	public $id;
-	public $title;
-	public $image;
-	public $icon;
-	public $poptype;
-	public $popvalue;
-	public $clicktype;
-	public $clickvalue;
-	public $field;
+	public static $id;
+	public static $title;
+	public static $image;
+	public static $icon;
+	public static $poptype;
+	public static $popvalue;
+	public static $clicktype;
+	public static $clickvalue;
+	public static $field;
 
-	public $list = array();
-	public $page = 1;
-	public $perpage = 50;
+	public static $list = array();
+	public static $page = 1;
+	public static $perpage = 50;
 
 	public function __construct() {
 
 	}
 
-	public function common() {
+	public static function common() {
 
 	}
 
-	public function insertrow() {
-		$this->list[] = array(
-			'id' => $this->id,
-			'title' => $this->title,
-			'image' => $this->image,
-			'icon' => $this->icon,
-			'poptype' => $this->poptype,
-			'popvalue' => $this->popvalue,
-			'clicktype' => $this->clicktype,
-			'clickvalue' => $this->clickvalue,
-			'fields' => $this->field,
+	public static function insertrow() {
+		self::$list[] = array(
+			'id' => self::$id,
+			'title' => self::$title,
+			'image' => self::$image,
+			'icon' => self::$icon,
+			'poptype' => self::$poptype,
+			'popvalue' => self::$popvalue,
+			'clicktype' => self::$clicktype,
+			'clickvalue' => self::$clickvalue,
+			'fields' => self::$field,
 		);
-		$this->field = array();
+		self::$field = array();
 	}
 
-	public function field($id, $icon, $value) {
-		$this->field[] = array('id' => $id, 'icon' => $icon, 'value' => $value);
+	public static function field($id, $icon, $value) {
+		self::$field[] = array('id' => $id, 'icon' => $icon, 'value' => $value);
 	}
 
-	public function output() {
+	public static function output() {
 		return array(
-			__CLASS__ => array('page' => $this->page, 'perpage' => $this->perpage, 'list' => $this->list)
+			__CLASS__ => array('page' => self::$page, 'perpage' => self::$perpage, 'list' => self::$list)
 		);
 	}
 }

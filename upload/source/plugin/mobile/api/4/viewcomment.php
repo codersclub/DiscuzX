@@ -19,11 +19,11 @@ include_once 'forum.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 
 	}
 
-	function output() {
+	public static function output() {
         $comments = mobile_core::getvalues($GLOBALS['comments'], array('/^\d+$/'), array('id', 'tid', 'pid', 'author', 'authorid', 'dateline', 'comment', 'avatar'));
         foreach($GLOBALS['comments'] as $k => $c) {
             $comments[$k]['avatar'] = avatar($c['authorid'], 'small', true);

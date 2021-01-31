@@ -14,7 +14,7 @@ include_once 'misc.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		global $_G;
 		if (!in_array('wechat', $_G['setting']['plugins']['available'])) {
 			mobile_core::result(mobile_core::variable(array()));
@@ -23,7 +23,7 @@ class mobile_api {
 		mobile_core::result(mobile_core::variable(wsq::siteinfo()));
 	}
 
-	function output() {
+	public static function output() {
 
 	}
 

@@ -11,13 +11,13 @@ if(!defined('IN_DISCUZ')) {
 }
 class mobile_api {
 
-	public $extendsclass;
-	public $modulelist;
+	public static $extendsclass;
+	public static $modulelist;
 
-	function common() {
+	public static function common() {
 
-		$this->modulelist = array('dz_newthread', 'dz_digest', 'dz_newreply', 'dz_newpic');
-		if(!in_array($_GET['identifier'], $this->modulelist)) {
+		self::$modulelist = array('dz_newthread', 'dz_digest', 'dz_newreply', 'dz_newpic');
+		if(!in_array($_GET['identifier'], self::$modulelist)) {
 			mobile_core::result(array('error' => 'identifier_not_exists'));
 		}
 		include_once 'source/plugin/mobile/extends/mobile_extends_data.php';
@@ -31,16 +31,16 @@ class mobile_api {
 			if(!class_exists($_GET['identifier'])) {
 				mobile_core::result(array('error' => 'identifier_file_not_exists'));
 			}
-			$this->extendsclass = new $_GET['identifier'];
-			if(method_exists($this->extendsclass, 'common')) {
-				$this->extendsclass->common();
+			self::$extendsclass = new $_GET['identifier'];
+			if(method_exists(self::$extendsclass, 'common')) {
+				self::$extendsclass->common();
 			}
 		}
 
 	}
 
-	function output() {
-		$variable = $this->extendsclass->output();
+	public static function output() {
+		$variable = self::$extendsclass->output();
 		mobile_core::result(mobile_core::variable($variable));
 	}
 }

@@ -17,14 +17,14 @@ include_once 'member.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		global $_G;
 		if($_G['setting']['seccodedata']['rule']['login']['allow'] == 2) {
 			$_G['setting']['seccodedata']['rule']['login']['allow'] = 1;
 		}
 	}
 
-	function output() {
+	public static function output() {
 		global $_G;
 		$variable = array();
 		mobile_core::result(mobile_core::variable($variable));

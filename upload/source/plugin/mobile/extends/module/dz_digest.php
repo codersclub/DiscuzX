@@ -14,11 +14,11 @@ class dz_digest extends extends_data {
 		parent::__construct();
 	}
 
-	function common() {
+	public static function common() {
 		global $_G;
-		$this->page = intval($_GET['page']) ? intval($_GET['page']) : 1;
-		$start = ($this->page - 1)*$this->perpage;
-		$num = $this->perpage;
+		self::$page = intval($_GET['page']) ? intval($_GET['page']) : 1;
+		$start = (self::$page - 1)*self::$perpage;
+		$num = self::$perpage;
 		loadcache('forum_guide');
 		$dateline = 0;
 		$maxnum = 50000;
@@ -65,20 +65,20 @@ class dz_digest extends extends_data {
 		unset($list);
 
 		foreach($threadlist as $thread) {
-			$this->field('author', '0', $thread['author']);
-			$this->field('dateline', '0', $thread['dateline']);
-			$this->field('replies', '1', $thread['replies']);
-			$this->field('views', '2', $thread['views']);
-			$this->id = $thread['tid'];
-			$this->title = $thread['subject'];
-			$this->image = '';
-			$this->icon = '1';
-			$this->poptype = '0';
-			$this->popvalue = '';
-			$this->clicktype = 'tid';
-			$this->clickvalue = $thread['tid'];
+			self::field('author', '0', $thread['author']);
+			self::field('dateline', '0', $thread['dateline']);
+			self::field('replies', '1', $thread['replies']);
+			self::field('views', '2', $thread['views']);
+			self::$id = $thread['tid'];
+			self::$title = $thread['subject'];
+			self::$image = '';
+			self::$icon = '1';
+			self::$poptype = '0';
+			self::$popvalue = '';
+			self::$clicktype = 'tid';
+			self::$clickvalue = $thread['tid'];
 
-			$this->insertrow();
+			self::insertrow();
 		}
 	}
 }

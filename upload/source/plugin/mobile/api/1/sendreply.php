@@ -17,10 +17,10 @@ include_once 'forum.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 	}
 
-	function post_mobile_message($message, $url_forward, $values, $extraparam, $custom) {
+	public static function post_mobile_message($message, $url_forward, $values, $extraparam, $custom) {
 		if($values['tid'] && $values['pid']) {
 			global $_G;
 
@@ -78,7 +78,7 @@ class mobile_api {
 		}
 	}
 
-	function output() {
+	public static function output() {
 		global $_G;
 		$variable = array(
 			'tid' => $_G['tid'],

@@ -15,7 +15,7 @@ include_once 'misc.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		global $_G;
 
 		require_once libfile('function/seccode');
@@ -54,7 +54,7 @@ class mobile_api {
 
 	}
 
-	function output() {}
+	public static function output() {}
 
 }
 

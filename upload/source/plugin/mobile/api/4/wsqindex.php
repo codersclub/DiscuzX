@@ -17,7 +17,7 @@ include_once 'forum.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		global $_G;
 		$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
 		if (!in_array('wechat', $_G['setting']['plugins']['available']) || !$_G['wechat']['setting']['wsq_fid']) {
@@ -31,7 +31,7 @@ class mobile_api {
 		$_G['forum']['allowglobalstick'] = false;
 	}
 
-	function output() {
+	public static function output() {
 		global $_G;
 		include_once 'source/plugin/mobile/api/4/sub_threadlist.php';
 

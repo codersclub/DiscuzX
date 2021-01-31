@@ -15,11 +15,11 @@ $_GET['do'] = 'notice';
 include_once 'home.php';
 
 class mobile_api {
-	function common() {
+	public static function common() {
 
 	}
 
-	function output() {
+	public static function output() {
 		global $_G;
 
 		$noticelang = lang('notification', 'reppost_noticeauthor');

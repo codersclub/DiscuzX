@@ -16,11 +16,11 @@ include_once 'forum.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 
 	}
 
-	function output() {
+	public static function output() {
 		global $_G;
 		$forums = $GLOBALS['forums'] ? $GLOBALS['forums'] : C::t('forum_forum')->fetch_all_by_status(1);
 		foreach ($forums as $forum) {

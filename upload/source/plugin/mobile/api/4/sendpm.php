@@ -18,11 +18,11 @@ include_once 'home.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 		$_POST = $_GET;
 	}
 
-	function output() {
+	public static function output() {
 		global $_G;
 		$variable = array(
 			'pmid' => $GLOBALS['return']

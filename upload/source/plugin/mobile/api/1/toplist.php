@@ -16,10 +16,10 @@ include_once 'forum.php';
 
 class mobile_api {
 
-	function common() {
+	public static function common() {
 	}
 
-	function output() {
+	public static function output() {
 		global $_G;
 		$threads = array();
 		loadcache('mobile_toplist_'.$_G['fid']);
