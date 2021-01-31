@@ -78,7 +78,7 @@
 									$acitvemessage
 								<!--{/if}-->
 							</p>
-							<!--{if $_G['setting']['regverify'] == 1 && (($_G['group']['grouptype'] == 'member' && $_G['adminid'] == 0) || $_G['groupid'] == 8) || $_G['member']['freeze']}--><p class="d">{lang memcp_profile_email_comment}</p><!--{/if}-->
+							<!--{if $_G['setting']['regverify'] == 1 && (($_G['group']['grouptype'] == 'member' && in_array($_G['adminid'], array(0, -1))) || $_G['groupid'] == 8) || $_G['member']['freeze']}--><p class="d">{lang memcp_profile_email_comment}</p><!--{/if}-->
 						</td>
 					</tr>
 

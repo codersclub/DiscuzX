@@ -13,7 +13,7 @@ chdir('../');
 
 $querystring = $_SERVER['QUERY_STRING'];
 
-if(!empty($_GET['action'])) {
+if(!empty($_GET['action']) && !empty($_GET['value'])) {
 	$querystring = $_GET['action'].'-'.$_GET['value'];
 }
 

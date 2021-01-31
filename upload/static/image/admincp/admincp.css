@@ -142,7 +142,7 @@ a.faq { background: url(faq.gif) no-repeat 0 2px; padding:1px; margin-left:10px;
 		.tab1 .dropmenu li.current a { background:#DEEFFA !important; }
 
 /* box */
-#scrolllink{ position: absolute; z-index: 21; bottom: 40px; *bottom: 39px; left: 0; padding: 2px 0; width: 154px; background-color: #F2F9FD; }
+#scrolllink{ position: absolute; z-index: 21; bottom: 60px; *bottom: 39px; left: 0; padding: 2px 0; width: 154px; background-color: #F2F9FD; }
 	#scrolllink span { cursor: pointer; }
 	#scrolllink img { margin-left: 2px; }
 .copyright{ position:absolute; z-index:10; left:5px; bottom:3px; padding-top:3px; border-top:1px dashed #DDD; text-align:left; line-height:150%; font-family:Tahoma; font-size:11px; -webkit-text-size-adjust: none; }

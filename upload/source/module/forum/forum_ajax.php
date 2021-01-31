@@ -703,7 +703,9 @@ EOF;
 			C::t('common_setting')->update($funkey, $funstatus);
 
 			$setting[$funkey] = $funstatus;
-			include libfile('function/cache');
+			if(!function_exists('updatecache')) {
+				include libfile('function/cache');
+			}
 			updatecache('setting');
 		}
 		showmessage('do_success', dreferer(), array(), array('showdialog' => true, 'locationtime' => true));

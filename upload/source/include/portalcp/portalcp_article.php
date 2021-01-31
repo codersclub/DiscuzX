@@ -522,6 +522,8 @@ if($op == 'delete') {
 			$article_content['content'] .= $nextpage.$value['content'];
 		}
 
+		$article_content['content'] = dhtmlspecialchars($article_content['content']);
+
 		$article['attach_image'] = $article['attach_file'] = '';
 		foreach(C::t('portal_attachment')->fetch_all_by_aid($aid) as $value) {
 			if($value['isimage']) {

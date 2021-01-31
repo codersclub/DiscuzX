@@ -153,9 +153,9 @@ if($_GET['op'] == 'base') {
 				'port' => $_G['remoteport'],
 			));
 
-			include template('common/header_ajax');
-			echo '<form id="payform" action="'.$requesturl.'" method="post"></form><script type="text/javascript" reload="1">$(\'payform\').submit();</script>';
-			include template('common/footer_ajax');
+			include isset($_REQUEST['inajax']) ? template('common/header_ajax') : template('common/header');
+			echo '<form id="payform" action="'.$requesturl.'" method="post"></form><script type="text/javascript" reload="1">document.getElementById(\'payform\').submit();</script>';
+			include isset($_REQUEST['inajax']) ? template('common/footer_ajax') : template('common/footer');
 			dexit();
 		}
 	} else {

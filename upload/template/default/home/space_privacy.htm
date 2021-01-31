@@ -49,7 +49,7 @@
 						<div class="mtm pbm mbm bbda cl">
 							<h2 class="mbn">{lang active_profile}</h2>
 							<ul class="xl xl2 cl">
-								<!--{if $space[adminid]}--><li>{lang management_team}: <span style="color:{$space[admingroup][color]}">{$space[admingroup][grouptitle]}</span> {$space[admingroup][icon]}</li><!--{/if}-->
+								<!--{if $space[adminid] > 0}--><li>{lang management_team}: <span style="color:{$space[admingroup][color]}">{$space[admingroup][grouptitle]}</span> {$space[admingroup][icon]}</li><!--{/if}-->
 								<li>{lang usergroup}: <span style="color:{$space[group][color]}">{$space[group][grouptitle]}</span> {$space[group][icon]}</li>
 								<!--{if $space[extgroupids]}--><li>{lang group_expiry_type_ext}: $space[extgroupids]</li><!--{/if}-->
 								<li>{lang regdate}: $space[regdate]</li>

@@ -10,7 +10,7 @@
 	<!--{/if}-->
 	<!--{if !$_G[inajax] && !empty($_G['setting']['plugins']['portalcp'])}-->
 		<!--{loop $_G['setting']['plugins']['portalcp'] $id $module}-->
-			<!--{if !$module['adminid'] || ($module['adminid'] && $_G['adminid'] > 0 && $module['adminid'] >= $_G['adminid'])}--><li{if $ac == 'plugin' && $_GET[id] == $id} class="a"{/if}><a href="portal.php?mod=portalcp&ac=plugin&id=$id">$module[name]</a></li><!--{/if}-->
+			<!--{if in_array($module['adminid'], array(0, -1)) || ($module['adminid'] && $_G['adminid'] > 0 && $module['adminid'] >= $_G['adminid'])}--><li{if $ac == 'plugin' && $_GET[id] == $id} class="a"{/if}><a href="portal.php?mod=portalcp&ac=plugin&id=$id">$module[name]</a></li><!--{/if}-->
 		<!--{/loop}-->
 	<!--{/if}-->
 	<!--{if !empty($modsession->islogin)}-->

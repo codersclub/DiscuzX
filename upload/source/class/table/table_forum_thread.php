@@ -506,7 +506,7 @@ class table_forum_thread extends discuz_table
 					}
 				}
 			}
-			if($firstpage && !empty($tlkey) && ($ttl = getglobal('setting/memory/forum_thread_forumdisplay')) !== null && ($data = $this->fetch_cache($tlkey, 'forumdisplay_')) !== false) {
+			if(!$tableid && $firstpage && !empty($tlkey) && ($ttl = getglobal('setting/memory/forum_thread_forumdisplay')) !== null && ($data = $this->fetch_cache($tlkey, 'forumdisplay_')) !== false) {
 				$delusers = $this->fetch_cache('deleteuids', '');
 				if(!empty($delusers)) {
 					foreach($data as $tid => $value) {
@@ -521,7 +521,7 @@ class table_forum_thread extends discuz_table
 			}
 		}
 		$data = DB::fetch_all("SELECT * FROM ".DB::table($this->get_table_name($tableid))." $forceindex".$this->search_condition($conditions)." $ordersql ".DB::limit($start, $limit));
-		if(!defined('IN_MOBILE') && $firstpage && !empty($tlkey) && ($ttl = getglobal('setting/memory/forum_thread_forumdisplay')) !== null) {
+		if(!defined('IN_MOBILE') && !$tableid && $firstpage && !empty($tlkey) && ($ttl = getglobal('setting/memory/forum_thread_forumdisplay')) !== null) {
 			$this->store_cache($tlkey, $data, $ttl, 'forumdisplay_');
 		}
 		return $data;

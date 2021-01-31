@@ -89,7 +89,7 @@ class WSQResponse {
 		} else {
 			if($authcode['uid']) {
 				$member = getuserbyuid($authcode['uid'], 1);
-				if($member['adminid'] == 0 && !$_G['wechat']['setting']['wechat_confirmtype']) {
+				if(in_array($_G['adminid'], array(0, -1)) && !$_G['wechat']['setting']['wechat_confirmtype']) {
 					C::t('#wechat#mobile_wechat_authcode')->update($authcode['sid'], array('uid' => $member['uid'], 'status' => 1));
 					$authcode['sid'] = '';
 				}
@@ -97,7 +97,7 @@ class WSQResponse {
 				$wechatuser = C::t('#wechat#common_member_wechat')->fetch_by_openid($data['from']);
 				if($wechatuser) {
 					$member = getuserbyuid($wechatuser['uid'], 1);
-					if($member['adminid'] == 0 && !$_G['wechat']['setting']['wechat_confirmtype']) {
+					if(in_array($_G['adminid'], array(0, -1)) && !$_G['wechat']['setting']['wechat_confirmtype']) {
 						C::t('#wechat#mobile_wechat_authcode')->update($authcode['sid'], array('uid' => $member['uid'], 'status' => 1));
 						$authcode['sid'] = '';
 					}

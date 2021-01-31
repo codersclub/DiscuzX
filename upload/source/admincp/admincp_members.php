@@ -692,7 +692,7 @@ EOF;
 		}
 		showsearchform('newsletter');
 
-		if(submitcheck('submit')) {
+		if(submitcheck('submit', 1)) {
 			$dostr = '';
 			if($_GET['do'] == 'mobile') {
 				$search_condition['token_noempty'] = 'token';
@@ -767,7 +767,6 @@ EOF;
 			    $grouppm['message'].'<br /><br />'.
 			    (!$do ?
 				'<a href="'.ADMINSCRIPT.'?action=members&operation=grouppmlist&do='.$grouppm['id'].'">'.cplang('members_grouppmlist_view', array('number' => $grouppm['numbers'])).'</a>' :
-				'<a href="'.ADMINSCRIPT.'?action=members&operation=grouppmlist&do='.$grouppm['id'].'">'.cplang('members_grouppmlist_view_all').'</a>('.$grouppm['numbers'].') &nbsp; '.
 				'<a href="'.ADMINSCRIPT.'?action=members&operation=grouppmlist&do='.$grouppm['id'].'&filter=unread">'.cplang('members_grouppmlist_view_unread').'</a>('.$unreads.') &nbsp; '.
 				'<a href="'.ADMINSCRIPT.'?action=members&operation=grouppmlist&do='.$grouppm['id'].'&filter=read">'.cplang('members_grouppmlist_view_read').'</a>('.($grouppm['numbers'] - $unreads).')'),
 				'<a href="'.ADMINSCRIPT.'?action=members&operation=grouppmlist&delete='.$grouppm['id'].'">'.cplang('delete').'</a>'
@@ -788,8 +787,8 @@ EOF;
 			$count = $unreads;
 		}
 		$multipage = multi($count, $ppp, $page, ADMINSCRIPT."?action=members&operation=grouppmlist&do=$do".$filteradd);
-		$alldata = C::t('common_member_grouppm')->fetch_all_by_gpmid($gpmid, $_GET['filter'] == 'read' ? 1 : 0, $start_limit, $ppp);
-		$allmember = $gpmuser ? C::t('common_member')->fetch_all_username_by_uid(array_keys($gpmuser)) : array();
+		$alldata = C::t('common_member_grouppm')->fetch_all_by_gpmid($do, $_GET['filter'] == 'read' ? 1 : 0, $start_limit, $ppp);
+		$allmember = $alldata ? C::t('common_member')->fetch_all_username_by_uid(array_keys($alldata)) : array();
 		foreach($alldata as $uid => $gpmuser) {
 			echo '<div style="margin-bottom:5px;float:left;width:24%"><b><a href="home.php?mod=space&uid='.$uid.'" target="_blank">'.$allmember[$uid].'</a></b><br />&nbsp;';
 			if($gpmuser['status'] == 0) {
@@ -1649,7 +1648,7 @@ EOF;
 			if($postcomment_cache_pid) {
 				C::t('forum_postcache')->delete($postcomment_cache_pid);
 			}
-			if(!$member['adminid']) {
+			if(in_array($member['adminid'], array(0, -1))) {
 				$member_status = C::t('common_member_status')->fetch($member['uid']);
 			}
 		} elseif($member['groupid'] == 4 || $member['groupid'] == 5) {

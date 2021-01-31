@@ -618,7 +618,7 @@ function get_cachedata_setting_plugin($method = '') {
 									}
 									// If $funcname include __ , then before __ is $curscript.
 									if(strpos($funcname, '__') !== false) {
-										$curscript = explode('__', $funcname)[0];
+										$curscript = current(explode('__', $funcname));
 									}
 									if(!@in_array($script, $data[$k][$hscript][$curscript]['module'])) {
 										$data[$k][$hscript][$curscript]['module'][$plugin['identifier']] = $script;

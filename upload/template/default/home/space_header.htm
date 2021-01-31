@@ -82,7 +82,7 @@
 	<!--{if !empty($_G['setting']['plugins']['jsmenu'])}-->
 		<ul class="p_pop h_pop" id="plugin_menu" style="display: none">
 		<!--{loop $_G['setting']['plugins']['jsmenu'] $module}-->
-		     <!--{if !$module['adminid'] || ($module['adminid'] && $_G['adminid'] > 0 && $module['adminid'] >= $_G['adminid'])}-->
+		     <!--{if in_array($module['adminid'], array(0, -1)) || ($module['adminid'] && $_G['adminid'] > 0 && $module['adminid'] >= $_G['adminid'])}-->
 		     <li>$module[url]</li>
 		     <!--{/if}-->
 		<!--{/loop}-->

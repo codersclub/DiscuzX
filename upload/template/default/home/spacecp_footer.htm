@@ -18,7 +18,7 @@
 		<!--{/if}-->
 		<!--{if !empty($_G['setting']['plugins']['spacecp'])}-->
 			<!--{loop $_G['setting']['plugins']['spacecp'] $id $module}-->
-				<!--{if !$module['adminid'] || ($module['adminid'] && $_G['adminid'] > 0 && $module['adminid'] >= $_G['adminid'])}--><li{if $_GET[id] == $id} class="a"{/if}><a href="home.php?mod=spacecp&ac=plugin&id=$id">$module[name]</a></li><!--{/if}-->
+				<!--{if in_array($module['adminid'], array(0, -1)) || ($module['adminid'] && $_G['adminid'] > 0 && $module['adminid'] >= $_G['adminid'])}--><li{if $_GET[id] == $id} class="a"{/if}><a href="home.php?mod=spacecp&ac=plugin&id=$id">$module[name]</a></li><!--{/if}-->
 			<!--{/loop}-->
 		<!--{/if}-->
 	</ul>

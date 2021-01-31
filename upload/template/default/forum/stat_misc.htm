@@ -76,13 +76,10 @@
 		<!--{elseif $op == 'forumstat' && $_GET['fid']}-->
 			<div class="bm bw0">
 				<h1 class="mt">{lang stats_forum_stat_log} - $foruminfo[name] - $month</h1>
-				<script type="text/javascript">
-					document.write(AC_FL_RunContent(
-						'width', '100%', 'height', '300',
-						'src', '{STATICURL}image/common/stat.swf?$statuspara',
-						'quality', 'high'
-					));
-				</script>
+				<script src="{STATICURL}js/echarts/echarts.common.min.js"></script>
+				<script src="{$_G['setting']['jspath']}stat.js"></script>
+				<div id="statchart"></div>
+				<script type="text/javascript">drawstatchart('{$statuspara}');</script>
 				<!--{if $logs}-->
 				<table summary="{lang stats_forum_stat_log}" class="dt bm mtw mbw">
 					<tr>

@@ -46,7 +46,7 @@ class task {
 				if($task['allowapply'] < 0) {
 					continue;
 				}
-				$task['noperm'] = $task['applyperm'] && $task['applyperm'] != 'all' && !(($task['applyperm'] == 'member'&& $_G['adminid'] == '0') || ($task['applyperm'] == 'admin' && $_G['adminid'] > '0') || forumperm($task['applyperm']));
+				$task['noperm'] = $task['applyperm'] && $task['applyperm'] != 'all' && !(($task['applyperm'] == 'member' && in_array($_G['adminid'], array(0, -1))) || ($task['applyperm'] == 'admin' && $_G['adminid'] > '0') || forumperm($task['applyperm']));
 				$task['appliesfull'] = $task['tasklimits'] && $task['achievers'] >= $task['tasklimits'];
 				if($item == 'canapply' && ($task['noperm'] || $task['appliesfull'])) {
 					continue;
@@ -259,7 +259,7 @@ class task {
 		}
 
 		if($allowapply > 0) {
-			if($this->task['applyperm'] && $this->task['applyperm'] != 'all' && !(($this->task['applyperm'] == 'member' && $_G['adminid'] == '0') || ($this->task['applyperm'] == 'admin' && $_G['adminid'] > '0') || preg_match("/(^|\t)(".$_G['groupid'].")(\t|$)/", $this->task['applyperm']))) {
+			if($this->task['applyperm'] && $this->task['applyperm'] != 'all' && !(($this->task['applyperm'] == 'member' && in_array($_G['adminid'], array(0, -1))) || ($this->task['applyperm'] == 'admin' && $_G['adminid'] > '0') || preg_match("/(^|\t)(".$_G['groupid'].")(\t|$)/", $this->task['applyperm']))) {
 				$allowapply = -2;
 			} elseif($this->task['tasklimits'] && $this->task['achievers'] >= $this->task['tasklimits']) {
 				$allowapply = -3;
@@ -332,7 +332,7 @@ class task {
 			return -1;
 		} elseif($this->task['exclusivetaskid'] && C::t('common_mytask')->count($_G['uid'], $this->task['exclusivetaskid'])) {
 			return -5;
-		} elseif($this->task['applyperm'] && $this->task['applyperm'] != 'all' && !(($this->task['applyperm'] == 'member' && $_G['adminid'] == '0') || ($this->task['applyperm'] == 'admin' && $_G['adminid'] > '0') || preg_match("/(^|\t)(".$_G['groupid'].")(\t|$)/", $this->task['applyperm']))) {
+		} elseif($this->task['applyperm'] && $this->task['applyperm'] != 'all' && !(($this->task['applyperm'] == 'member' && in_array($_G['adminid'], array(0, -1))) || ($this->task['applyperm'] == 'admin' && $_G['adminid'] > '0') || preg_match("/(^|\t)(".$_G['groupid'].")(\t|$)/", $this->task['applyperm']))) {
 			return -2;
 		} elseif(!$this->task['period'] && C::t('common_mytask')->count($_G['uid'], $id)) {
 			return -3;
@@ -510,6 +510,15 @@ class task {
 			showmessage('task_nonexistence');
 		}
 
+		$escript = explode(':', $this->task['scriptname']);
+		if(count($escript) > 1) {
+			include_once DISCUZ_ROOT.'./source/plugin/'.$escript[0].'/task/task_'.$escript[1].'.php';
+			$taskclassname = 'task_'.$escript[1];
+		} else {
+			require_once libfile('task/'.$this->task['scriptname'], 'class');
+			$taskclassname = 'task_'.$this->task['scriptname'];
+		}
+		$taskclass = new $taskclassname;
 		if(method_exists($taskclass, 'delete')) {
 			$taskclass->delete($this->task);
 		}

@@ -55,7 +55,7 @@ if($operation == 'import') {
 			$datafile = getgpc('datafile_server', 'G');
 		}
 		$datafile = urldecode($datafile);
-		if(@$fp = fopen($datafile, 'rb')) {
+		if(file_exists($datafile) && @$fp = fopen($datafile, 'rb')) {
 			$confirm = trim(getgpc('confirm', 'G'));
 			$confirm = $confirm ? 1 : 0;
 			$sqldump = fgets($fp, 256);
