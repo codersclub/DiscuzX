@@ -309,7 +309,6 @@ if(!$operation) {
 			showsetting('admingroup_edit_manage_report', 'managereportnew', $group['managereport'], 'radio');
 			showsetting('admingroup_edit_manage_hotuser', 'managehotusernew', $group['managehotuser'], 'radio');
 			showsetting('admingroup_edit_manage_defaultuser', 'managedefaultusernew', $group['managedefaultuser'], 'radio');
-			showsetting('admingroup_edit_manage_videophoto', 'managevideophotonew', $group['managevideophoto'], 'radio');
 			showsetting('admingroup_edit_manage_magic', 'managemagicnew', $group['managemagic'], 'radio');
 			showsetting('admingroup_edit_manage_click', 'manageclicknew', $group['manageclick'], 'radio');
 			showtagfooter('tbody');
@@ -422,7 +421,6 @@ if(!$operation) {
 			'managereport' => $_GET['managereportnew'],
 			'managehotuser' => $_GET['managehotusernew'],
 			'managedefaultuser' => $_GET['managedefaultusernew'],
-			'managevideophoto' => $_GET['managevideophotonew'],
 			'managemagic' => $_GET['managemagicnew'],
 			'manageclick' => $_GET['manageclicknew'],
 			'allowmakehtml' => $_GET['allowmakehtmlnew'],

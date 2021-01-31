@@ -180,17 +180,12 @@ class table_home_feed extends discuz_table
 		return DB::fetch_all('SELECT uid FROM %t WHERE uid IN (%n)', array($this->_table, $uid), 'uid');
 	}
 
-	public function fetch_all_by_search($fetchtype, $uids, $icon, $starttime, $endtime, $feedids, $hot1, $hot2, $start = 0, $limit = 0, $findex = '', $appid = '') {
+	public function fetch_all_by_search($fetchtype, $uids, $icon, $starttime, $endtime, $feedids, $hot1, $hot2, $start = 0, $limit = 0, $findex = '') {
 		$parameter = array($this->_table);
 		$wherearr = array();
 		if(is_array($uids) && count($uids)) {
 			$parameter[] = $uids;
 			$wherearr[] = 'uid IN(%n)';
-		}
-
-		if($appid) {
-			$parameter[] = $appid;
-			$wherearr[] = 'appid=%d';
 		}
 
 		if($icon) {

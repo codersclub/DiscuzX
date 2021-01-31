@@ -544,62 +544,6 @@ function ckrealname($return=0) {
 	return $result;
 }
 
-function ckvideophoto($tospace=array(), $return=0) {
-	global $_G;
-
-	if($_G['adminid'] != 1 && empty($_G['setting']['verify'][7]['available']) || $_G['member']['videophotostatus']) {
-		return true;
-	}
-
-	space_merge($tospace, 'field_home');
-
-	$result = true;
-	if(empty($tospace) || empty($tospace['privacy']['view']['videoviewphoto'])) {
-		if(!checkperm('videophotoignore') && empty($_G['setting']['verify'][7]['viewvideophoto']) && !checkperm('allowviewvideophoto')) {
-			$result = false;
-		}
-	} elseif ($tospace['privacy']['view']['videoviewphoto'] == 2) {
-		$result = false;
-	}
-	if($return) {
-		return $result;
-	} elseif(!$result) {
-		showmessage('no_privilege_videophoto', '', array(), array('return' => true));
-	}
-}
-
-function getvideophoto($filename) {
-	$dir1 = substr($filename, 0, 1);
-	$dir2 = substr($filename, 1, 1);
-	return 'data/avatar/'.$dir1.'/'.$dir2.'/'.$filename.".jpg";
-}
-
-function videophoto_upload($FILE, $uid) {
-	if($FILE['size']) {
-		$newfilename = md5(substr($_G['timestamp'], 0, 7).$uid);
-		$dir1 = substr($newfilename, 0, 1);
-		$dir2 = substr($newfilename, 1, 1);
-		if(!is_dir(DISCUZ_ROOT.'./data/avatar/'.$dir1)) {
-			if(!mkdir(DISCUZ_ROOT.'./data/avatar/'.$dir1)) return '';
-		}
-		if(!is_dir(DISCUZ_ROOT.'./data/avatar/'.$dir1.'/'.$dir2)) {
-			if(!mkdir(DISCUZ_ROOT.'./data/avatar/'.$dir1.'/'.$dir2)) return '';
-		}
-		$new_name = DISCUZ_ROOT.'./'.getvideophoto($newfilename);
-		$tmp_name = $FILE['tmp_name'];
-		if(@copy($tmp_name, $new_name)) {
-			@unlink($tmp_name);
-		} elseif((function_exists('move_uploaded_file') && @move_uploaded_file($tmp_name, $new_name))) {
-		} elseif(@rename($tmp_name, $new_name)) {
-		} else {
-			return '';
-		}
-		return $newfilename;
-	} else {
-		return '';
-	}
-}
-
 function isblacklist($touid) {
 	global $_G;
 

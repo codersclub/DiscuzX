@@ -171,15 +171,13 @@ function getinvite() {
 			if($invite['code'] == $code && empty($invite['fuid']) && (empty($invite['endtime']) || $_G['timestamp'] < $invite['endtime'])) {
 				$result['uid'] = $invite['uid'];
 				$result['id'] = $invite['id'];
-				$result['appid'] = $invite['appid'];
 			}
 		}
 	} elseif($cookiecount == 3) {
 		$uid = intval($cookies[0]);
 		$code = trim($cookies[1]);
-		$appid = intval($cookies[2]);
 
-		$invite_code = space_key($uid, $appid);
+		$invite_code = space_key($uid);
 		if($code === $invite_code) {
 			$member = getuserbyuid($uid);
 			if($member) {
@@ -189,7 +187,6 @@ function getinvite() {
 				return array();
 			}
 			$result['uid'] = $uid;
-			$result['appid'] = $appid;
 		}
 	}
 

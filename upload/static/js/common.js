@@ -1733,10 +1733,6 @@ function showForummenu(fid) {
 	$F('_showForummenu', arguments);
 }
 
-function showUserApp() {
-	$F('_showUserApp', arguments);
-}
-
 function cardInit() {
 	var cardShow = function (obj) {
 		if(BROWSER.ie && BROWSER.ie < 7 && obj.href.indexOf('username') != -1) {

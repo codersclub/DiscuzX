@@ -104,22 +104,6 @@
 						</td>
 					</tr>
 					<!--{/if}-->
-					<!--{if $_G['setting'][videophoto] && $space[videophotostatus]}-->
-					<tr>
-						<th>&nbsp;</th>
-						<td><img src="{IMGDIR}/videophoto.gif" alt="" class="vm" /> {lang certified_video_setting_right}:</td>
-					</tr>
-					<tr>
-						<th>{lang view_my_certified_photo}</th>
-						<td>
-							<select name="privacy[view][videoviewphoto]">
-								<option value="0"$sels[view][videoviewphoto][0]>{lang site_default_setting}</option>
-								<option value="1"$sels[view][videoviewphoto][1]>{lang allow}</option>
-								<option value="2"$sels[view][videoviewphoto][2]>{lang ban}</option>
-							</select>
-						</td>
-					</tr>
-					<!--{/if}-->
 					<!--{hook/spacecp_privacy_base_extra}-->
 					<tr>
 						<th>&nbsp;</th>

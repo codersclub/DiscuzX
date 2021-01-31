@@ -614,8 +614,6 @@ $lang = array (
   'connect_like_url_miss' => '您没有填写QQ空间喜欢链接 URL',
   'connect_update_succeed' => 'QQ绑定设置更新成功 ',
 
-  'my_app_status_off' => '请先正常开启漫游功能',
-
   'moderate_articles_succeed' => '审核操作成功，共 {validates} 个文章被通过，{ignores} 个文章被忽略，{deletes} 个文章被删除',
 
   'moderate_blogs_succeed' => '审核操作成功，共 {validates} 个日志被通过，{ignores} 个日志被忽略，{deletes} 个日志被删除',

@@ -161,10 +161,6 @@ if($op == 'comment') {
 		}
 	}
 
-
-
-} elseif($op == 'deluserapp') {
-	
 } elseif($op == 'delnotice') {
 
 	if(empty($_G['uid'])) {

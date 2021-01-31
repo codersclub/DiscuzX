@@ -112,7 +112,6 @@ CREATE TABLE pre_common_admingroup (
   managereport tinyint(1) NOT NULL DEFAULT '0',
   managehotuser tinyint(1) NOT NULL DEFAULT '0',
   managedefaultuser tinyint(1) NOT NULL DEFAULT '0',
-  managevideophoto tinyint(1) NOT NULL DEFAULT '0',
   managemagic tinyint(1) NOT NULL DEFAULT '0',
   manageclick tinyint(1) NOT NULL DEFAULT '0',
   allowmanagecollection tinyint(1) NOT NULL DEFAULT '0',
@@ -572,7 +571,6 @@ CREATE TABLE pre_common_invite (
   `type` tinyint(1) NOT NULL DEFAULT '0',
   email char(40) NOT NULL DEFAULT '',
   inviteip varchar(45) NOT NULL DEFAULT '',
-  appid mediumint(8) unsigned NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   endtime int(10) unsigned NOT NULL DEFAULT '0',
   regdateline int(10) unsigned NOT NULL DEFAULT '0',
@@ -654,7 +652,6 @@ CREATE TABLE pre_common_member (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   emailstatus tinyint(1) NOT NULL DEFAULT '0',
   avatarstatus tinyint(1) NOT NULL DEFAULT '0',
-  videophotostatus tinyint(1) NOT NULL DEFAULT '0',
   adminid tinyint(1) NOT NULL DEFAULT '0',
   groupid smallint(6) unsigned NOT NULL DEFAULT '0',
   groupexpiry int(10) unsigned NOT NULL DEFAULT '0',
@@ -770,7 +767,6 @@ CREATE TABLE pre_common_member_field_forum (
 DROP TABLE IF EXISTS pre_common_member_field_home;
 CREATE TABLE pre_common_member_field_home (
   uid mediumint(8) unsigned NOT NULL,
-  videophoto varchar(255) NOT NULL DEFAULT '',
   spacename varchar(255) NOT NULL DEFAULT '',
   spacedescription varchar(255) NOT NULL DEFAULT '',
   domain char(15) NOT NULL DEFAULT '',
@@ -996,15 +992,13 @@ CREATE TABLE pre_common_member_verify (
   verify4 tinyint(1) NOT NULL DEFAULT '0',
   verify5 tinyint(1) NOT NULL DEFAULT '0',
   verify6 tinyint(1) NOT NULL DEFAULT '0',
-  verify7 tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (uid),
   KEY verify1 (verify1),
   KEY verify2 (verify2),
   KEY verify3 (verify3),
   KEY verify4 (verify4),
   KEY verify5 (verify5),
-  KEY verify6 (verify6),
-  KEY verify7 (verify7)
+  KEY verify6 (verify6)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_common_member_verify_info;
@@ -1019,42 +1013,6 @@ CREATE TABLE pre_common_member_verify_info (
   PRIMARY KEY (vid),
   KEY verifytype (verifytype,flag),
   KEY uid (uid,verifytype,dateline)
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS pre_common_myapp;
-CREATE TABLE pre_common_myapp (
-  appid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  appname varchar(60) NOT NULL DEFAULT '',
-  narrow tinyint(1) NOT NULL DEFAULT '0',
-  flag tinyint(1) NOT NULL DEFAULT '0',
-  version mediumint(8) unsigned NOT NULL DEFAULT '0',
-  userpanelarea tinyint(1) NOT NULL DEFAULT '0',
-  canvastitle varchar(60) NOT NULL DEFAULT '',
-  fullscreen tinyint(1) NOT NULL DEFAULT '0',
-  displayuserpanel tinyint(1) NOT NULL DEFAULT '0',
-  displaymethod tinyint(1) NOT NULL DEFAULT '0',
-  displayorder smallint(6) unsigned NOT NULL DEFAULT '0',
-  appstatus tinyint(2) NOT NULL DEFAULT '0',
-  iconstatus tinyint(2) NOT NULL DEFAULT '0',
-  icondowntime int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (appid),
-  KEY flag (flag,displayorder)
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS pre_common_myinvite;
-CREATE TABLE pre_common_myinvite (
-  id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  typename varchar(100) NOT NULL DEFAULT '',
-  appid mediumint(8) NOT NULL DEFAULT '0',
-  `type` tinyint(1) NOT NULL DEFAULT '0',
-  fromuid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  touid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  myml text NOT NULL,
-  dateline int(10) unsigned NOT NULL DEFAULT '0',
-  `hash` int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (id),
-  KEY `hash` (`hash`),
-  KEY uid (touid,dateline)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_common_mytask;
@@ -1288,7 +1246,6 @@ CREATE TABLE pre_common_stat (
   connectlogin int(10) unsigned NOT NULL DEFAULT '0',
   register int(10) unsigned NOT NULL DEFAULT '0',
   invite int(10) unsigned NOT NULL DEFAULT '0',
-  appinvite int(10) unsigned NOT NULL DEFAULT '0',
   doing int(10) unsigned NOT NULL DEFAULT '0',
   blog int(10) unsigned NOT NULL DEFAULT '0',
   pic int(10) unsigned NOT NULL DEFAULT '0',
@@ -1549,9 +1506,6 @@ CREATE TABLE pre_common_usergroup_field (
   allowmagic tinyint(1) NOT NULL DEFAULT '0',
   allowstat tinyint(1) NOT NULL DEFAULT '0',
   allowstatdata tinyint(1) NOT NULL DEFAULT '0',
-  videophotoignore tinyint(1) NOT NULL DEFAULT '0',
-  allowviewvideophoto tinyint(1) NOT NULL DEFAULT '0',
-  allowmyop tinyint(1) NOT NULL DEFAULT '0',
   magicdiscount tinyint(1) NOT NULL DEFAULT '0',
   domainlength smallint(6) unsigned NOT NULL DEFAULT '0',
   seccode tinyint(1) NOT NULL DEFAULT '1',
@@ -2714,20 +2668,6 @@ CREATE TABLE pre_forum_postcomment (
   KEY pid (pid,dateline)
 ) ENGINE=InnoDB;
 
-DROP TABLE IF EXISTS pre_forum_postlog;
-CREATE TABLE pre_forum_postlog (
-  pid int(10) unsigned NOT NULL DEFAULT '0',
-  tid int(10) unsigned NOT NULL DEFAULT '0',
-  fid smallint(6) unsigned NOT NULL DEFAULT '0',
-  uid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `action` char(10) NOT NULL DEFAULT '',
-  dateline int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (pid,tid),
-  KEY fid (fid),
-  KEY uid (uid),
-  KEY dateline (dateline)
-) ENGINE=InnoDB;
-
 DROP TABLE IF EXISTS pre_forum_poststick;
 CREATE TABLE pre_forum_poststick (
   tid int(10) unsigned NOT NULL,
@@ -3251,21 +3191,6 @@ CREATE TABLE pre_home_album_category (
   PRIMARY KEY (catid)
 ) ENGINE=InnoDB;
 
-DROP TABLE IF EXISTS pre_home_appcreditlog;
-CREATE TABLE pre_home_appcreditlog (
-  logid mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  uid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  appid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  appname varchar(60) NOT NULL DEFAULT '',
-  `type` tinyint(1) NOT NULL DEFAULT '0',
-  credit mediumint(8) unsigned NOT NULL DEFAULT '0',
-  note text NOT NULL,
-  dateline int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (logid),
-  KEY uid (uid,dateline),
-  KEY appid (appid)
-) ENGINE=InnoDB;
-
 DROP TABLE IF EXISTS pre_home_blacklist;
 CREATE TABLE pre_home_blacklist (
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -3471,7 +3396,6 @@ CREATE TABLE pre_home_favorite (
 DROP TABLE IF EXISTS pre_home_feed;
 CREATE TABLE pre_home_feed (
   feedid int(10) unsigned NOT NULL AUTO_INCREMENT,
-  appid smallint(6) unsigned NOT NULL DEFAULT '0',
   icon varchar(30) NOT NULL DEFAULT '',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
   username varchar(15) NOT NULL DEFAULT '',
@@ -3501,36 +3425,6 @@ CREATE TABLE pre_home_feed (
   KEY dateline (dateline),
   KEY hot (hot),
   KEY id (id,idtype)
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS pre_home_feed_app;
-CREATE TABLE pre_home_feed_app (
-  feedid int(10) unsigned NOT NULL AUTO_INCREMENT,
-  appid smallint(6) unsigned NOT NULL DEFAULT '0',
-  icon varchar(30) NOT NULL DEFAULT '',
-  uid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  username varchar(15) NOT NULL DEFAULT '',
-  dateline int(10) unsigned NOT NULL DEFAULT '0',
-  friend tinyint(1) NOT NULL DEFAULT '0',
-  hash_template varchar(32) NOT NULL DEFAULT '',
-  hash_data varchar(32) NOT NULL DEFAULT '',
-  title_template text NOT NULL,
-  title_data text NOT NULL,
-  body_template text NOT NULL,
-  body_data text NOT NULL,
-  body_general text NOT NULL,
-  image_1 varchar(255) NOT NULL DEFAULT '',
-  image_1_link varchar(255) NOT NULL DEFAULT '',
-  image_2 varchar(255) NOT NULL DEFAULT '',
-  image_2_link varchar(255) NOT NULL DEFAULT '',
-  image_3 varchar(255) NOT NULL DEFAULT '',
-  image_3_link varchar(255) NOT NULL DEFAULT '',
-  image_4 varchar(255) NOT NULL DEFAULT '',
-  image_4_link varchar(255) NOT NULL DEFAULT '',
-  target_ids text NOT NULL,
-  PRIMARY KEY (feedid),
-  KEY uid (uid,dateline),
-  KEY dateline (dateline)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_home_follow;
@@ -3758,32 +3652,6 @@ CREATE TABLE pre_home_specialuser (
   displayorder mediumint(8) unsigned NOT NULL DEFAULT '0',
   KEY uid (uid,`status`),
   KEY displayorder (`status`,displayorder)
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS pre_home_userapp;
-CREATE TABLE pre_home_userapp (
-  uid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  appid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  appname varchar(60) NOT NULL DEFAULT '',
-  privacy tinyint(1) NOT NULL DEFAULT '0',
-  allowsidenav tinyint(1) NOT NULL DEFAULT '0',
-  allowfeed tinyint(1) NOT NULL DEFAULT '0',
-  allowprofilelink tinyint(1) NOT NULL DEFAULT '0',
-  narrow tinyint(1) NOT NULL DEFAULT '0',
-  menuorder smallint(6) NOT NULL DEFAULT '0',
-  displayorder smallint(6) NOT NULL DEFAULT '0',
-  KEY uid (uid,appid),
-  KEY menuorder (uid,menuorder),
-  KEY displayorder (uid,displayorder)
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS pre_home_userappfield;
-CREATE TABLE pre_home_userappfield (
-  uid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  appid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  profilelink text NOT NULL,
-  myml text NOT NULL,
-  KEY uid (uid,appid)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_home_visitor;

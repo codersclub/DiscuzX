@@ -694,7 +694,6 @@ CSS 写作注意事项：
 			 .ct2_a .tb { margin-top: 3px; }
 		.ct2_a .mn { float: right; width: 810px; }
 			.ct2_a .mn { display: inline; margin-right: 10px; padding-top: 10px; width: 800px; }
-				#nv_userapp .ct2_a .mn, .ct2_a_r .mn { margin-right: 0; width: 810px; }
 
 		.ct3_a .mn { float: left; margin-left: 20px; width: 565px; }
 		.ct3_a .sd { float: right; width: 220px; }
@@ -721,7 +720,7 @@ CSS 写作注意事项：
 
 		/*	#scrolltop span { visibility: hidden; }*/
 
-		#nv_home #ft, .pg_announcement #ft, .pg_modcp #ft, .pg_portalcp #ft, .pg_ranklist #ft, #nv_userapp #ft { border-top: none; }
+		#nv_home #ft, .pg_announcement #ft, .pg_modcp #ft, .pg_portalcp #ft, .pg_ranklist #ft, #ft { border-top: none; }
 
 /* 通用的区域块 */
 	/*

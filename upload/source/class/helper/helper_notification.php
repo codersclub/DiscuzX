@@ -67,17 +67,12 @@ class helper_notification {
 			$categoryname = $type;
 		}
 		$notevars['actor'] = "<a href=\"home.php?mod=space&uid=$_G[uid]\">".$_G['member']['username']."</a>";
-		if(!is_numeric($type)) {
-			$vars = explode(':', $note);
-			if(count($vars) == 2) {
-				$notestring = lang('plugin/'.$vars[0], $vars[1], $notevars);
-			} else {
-				$notestring = lang('notification', $note, $notevars);
-			}
-			$frommyapp = false;
+
+		$vars = explode(':', $note);
+		if(count($vars) == 2) {
+			$notestring = lang('plugin/'.$vars[0], $vars[1], $notevars);
 		} else {
-			$frommyapp = true;
-			$notestring = $note;
+			$notestring = lang('notification', $note, $notevars);
 		}
 
 		$oldnote = array();
@@ -129,7 +124,7 @@ class helper_notification {
 			}
 			require_once libfile('function/mail');
 			$mail_subject = lang('notification', 'mail_to_user');
-			sendmail_touser($touid, $mail_subject, $notestring, $frommyapp ? 'myapp' : $type);
+			sendmail_touser($touid, $mail_subject, $notestring, $type);
 		}
 
 		if(!$system && $_G['uid'] && $touid != $_G['uid']) {

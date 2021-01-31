@@ -537,10 +537,8 @@ EOF;
 
 		if($vid == 6) {
 			showsetting('members_verify_view_real_name', "verify[viewrealname]", $verifyarr['viewrealname'], 'radio');
-		} elseif($vid == 7) {
-			showsetting('members_verify_view_video_photo', "verify[viewvideophoto]", $verifyarr['viewvideophoto'], 'radio');
 		}
-		if($vid != 7) {
+		if($vid) {
 			$varname = array('verify[field]', array(), 'isfloat');
 			foreach(C::t('common_member_profile_setting')->fetch_all_by_available(1) as $value) {
 				if(!in_array($value['fieldid'], array('constellation', 'zodiac', 'birthyear', 'birthmonth', 'birthprovince', 'birthdist', 'birthcommunity', 'resideprovince', 'residedist', 'residecommunity'))) {

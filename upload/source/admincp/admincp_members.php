@@ -2243,8 +2243,6 @@ EOF;
 			C::t('common_member_profile'.$tableext)->update($uid, $fieldarr);
 		}
 
-
-		manyoulog('user', $uid, 'update');
 		cpmsg('members_edit_succeed', 'action=members&operation=edit&uid='.$uid, 'succeed');
 
 	}

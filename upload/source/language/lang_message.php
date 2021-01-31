@@ -107,7 +107,6 @@ $lang = array (
   'search_ctrl' => '抱歉，您在 {searchctrl} 秒内只能进行一次搜索',
   'search_toomany' => '抱歉，站点设置每分钟系统最多响应搜索请求 {maxspm} 次，请稍候再试',
   'search_closed' => '搜索功能已关闭',
-  'no_privilege_myop' => '抱歉，您目前没有权限使用此应用，<a href="home.php?mod=spacecp&ac=usergroup" target="_blank">点击这里查看权限</a>',
   'collection_permission_deny' => '抱歉，该淘专辑不存在或没有相应的权限',
   'collection_edit_checkentire' => '请将内容填写完整',
   'collection_teamworkers_exceed' => '共同维护人数已达上限，不能再邀请或接受其他人参与维护',
@@ -211,7 +210,6 @@ $lang = array (
   'image_does_not_exist' => '抱歉，指定的图片不存在',
   'showcredit_error' => '抱歉，填写的数字需要大于0，并且小于您的积分数，请确认',
   'usergroup_not_found' => '用户组未找到',
-  'no_open_videophoto' => '站点已关闭视频认证功能',
   'admin_nopermission' => '抱歉，您没有权限使用管理功能',
   'postcomment_not_found' => '帖子点评未找到',
   'special_noaction' => '无法操作特殊主题',
@@ -270,8 +268,6 @@ $lang = array (
   'close_ggcf_before_close_forum' => '请先关闭群组、导读、淘帖、广播功能后再关闭论坛功能',
   'open_forum_before_open_ggcf' => '请先开启论坛功能后再开启群组、导读、淘帖、广播功能',
   'portal_status_off' => '抱歉，门户功能尚未开启',
-
-  'no_privilege_my_app_status' => '对不起，当前站点已经关闭了用户多应用服务。',
 
   'register_check_found' => '该用户名已注册，请更换用户名或<a href="member.php?mod=logging&action=login" onclick="showWindow(\'login\', this.href);return false;" class="xi2">登录</a>',
   'register_activation' => '用户名已存在',
@@ -555,8 +551,6 @@ $lang = array (
 
   'search_portal_closed' => '抱歉，文章搜索已关闭',
 
-  'no_privilege_myapp' => '抱歉，该应用不存在或已关闭，您可以<a href="userapp.php?mod=manage&my_suffix=%2Fapp%2Flist">选择其他应用</a>',
-
   'collection_comment_closed' => '抱歉，管理员没有开放淘专辑的评论功能',
   'collection_comment_succ' => '发表评论成功',
   'collection_comment_remove_succ' => '评论成功删除',
@@ -589,8 +583,6 @@ $lang = array (
   'collection_follow_limited' => '关注淘专辑的数量不能超过 {limit} 个',
   'collection_follow_succ' => '成功订阅淘专辑',
   'collection_unfollow_succ' => '成功取消订阅淘专辑',
-
-  'no_privilege_deluserapp' => '抱歉，您没有权限操作此应用',
 
   'email_check_sucess' => '您的邮箱({email})验证激活成功 ',
   'email_check_account_invalid' => '抱歉，受保护用户或创始人不能使用邮箱验证，直接修改用户信息。',
@@ -1029,7 +1021,6 @@ $lang = array (
   'post_message_tooshort' => '抱歉，您的帖子小于 {minpostsize} 个字符的限制',
 
   'no_privilege_realname' => '抱歉，您需要填写真实姓名后才能进行当前操作，<a href="home.php?mod=spacecp&ac=profile">点击这里设置真实姓名</a>',
-  'no_privilege_videophoto' => '抱歉，您需要视频认证通过后才能进行当前操作，<a href="home.php?mod=spacecp&ac=videophoto">点击这里进行视频认证</a>',
 
   'threadtype_required_invalid' => '抱歉，资料填写不全，请检查 {typetitle} 选项',
   'threadtype_format_invalid' => '抱歉，资料格式不正确，请检查 {typetitle} 选项',

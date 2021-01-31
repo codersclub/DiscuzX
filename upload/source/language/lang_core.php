@@ -165,7 +165,6 @@ $lang = array
 	'title_memcp_usergroup' => '用户组',
 	'title_memcp_album' => '编辑相册',
 	'title_memcp_poke' => '打招呼',
-	'title_memcp_videophoto' => '视频认证',
 	'title_memcp_comment' => '评论',
 	'title_memcp_eccredit' => '信用评价',
 	'title_memcp_promotion' => '访问推广',
@@ -202,11 +201,6 @@ $lang = array
 
 	'title_memcp_pm' => '发送短消息',
 	'title_memcp_domain' => '我的空间域名',
-	'title_userapp' => '应用',
-	'title_userapp_index_all' => '大家在玩什么',
-	'title_userapp_index_we' => '好友在玩什么',
-	'title_userapp_index_me' => '我在玩的',
-	'title_userapp_manage' => '{userapp}管理',
 
 	'title_collection' => '淘帖',
 	'title_collection_create' => '创建淘专辑',

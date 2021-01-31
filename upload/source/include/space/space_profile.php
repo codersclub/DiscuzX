@@ -20,12 +20,6 @@ space_merge($space, 'profile');
 space_merge($space, 'status');
 getonlinemember(array($space['uid']));
 
-if($space['videophoto'] && ckvideophoto($space, 1)) {
-	$space['videophoto'] = getvideophoto($space['videophoto']);
-} else {
-	$space['videophoto'] = '';
-}
-
 $space['admingroup'] = $_G['cache']['usergroups'][$space['adminid']];
 $space['admingroup']['icon'] = g_icon($space['adminid'], 1);
 
@@ -159,11 +153,6 @@ dsetcookie('home_diymode', 1);
 $navtitle = lang('space', 'sb_profile', array('who' => $space['username']));
 $metakeywords = lang('space', 'sb_profile', array('who' => $space['username']));
 $metadescription = lang('space', 'sb_profile', array('who' => $space['username']));
-
-$showvideophoto = true;
-if($space['videophotostatus'] > 0 && $_G['uid'] != $space['uid'] && !ckvideophoto($space, 1)) {
-	$showvideophoto = false;
-}
 
 $clist = array();
 if(in_array($_G['adminid'], array(1, 2, 3))) {

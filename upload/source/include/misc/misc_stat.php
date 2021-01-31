@@ -21,7 +21,7 @@ if (!checkperm('allowstatdata') && $_GET['hash'] != $stat_hash) {
 }
 
 $cols = array();
-$cols['login'] = array('login', 'mobilelogin', 'connectlogin', 'register', 'invite', 'appinvite');
+$cols['login'] = array('login', 'mobilelogin', 'connectlogin', 'register', 'invite');
 if (!$_G['setting']['connect']['allow']) {
 	unset($cols['login'][2]);
 }

@@ -267,7 +267,6 @@ $serialize_sql_setting = array (
     'forum' => '论坛',
     'group' => '群组',
     'home' => '家园',
-    'userapp' => '应用',
   ),
   'activityfield' =>
   array (
@@ -319,14 +318,6 @@ $serialize_sql_setting = array (
     ),
     5 =>
     array (
-      'icon' => '',
-    ),
-    7 =>
-    array (
-      'title' => '视频认证',
-      'available' => '0',
-      'showicon' => '0',
-      'viewvideophoto' => '0',
       'icon' => '',
     ),
   ),

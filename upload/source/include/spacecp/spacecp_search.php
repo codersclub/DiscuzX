@@ -38,7 +38,7 @@ if(!empty($_GET['searchsubmit']) || !empty($_GET['searchmode'])) {
 		$wherearr[] = 's.'.DB::field('username', $searchkey);
 		$searchkey = dhtmlspecialchars($searchkey);
 	} else {
-		foreach (array('uid','username','videophotostatus','avatarstatus') as $value) {
+		foreach (array('uid','username','avatarstatus') as $value) {
 			if($_GET[$value]) {
 				if($value == 'username' && empty($_GET['precision'])) {
 					$_GET[$value] = stripsearchkey($_GET[$value]);

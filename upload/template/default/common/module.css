@@ -38,7 +38,6 @@ Created & Modified by Alice, Monkey, Lushnis, Pony, Dfox & DragonLee.
 6. 文章、日志等页面样式
 7. 空间相关样式
 8. 门户相关样式
-9. 漫游相关样式
 10.搜索相关样式
 11.排行榜相关样式
 12.统计相关样式
@@ -139,7 +138,7 @@ Created & Modified by Alice, Monkey, Lushnis, Pony, Dfox & DragonLee.
 /** end **/
 
 
-/** home::space,home::spacecp,group::group,userapp::userapp,misc::ranklist,portal::view,forum::viewthread,group::viewthread,home::medal,misc::tag **/
+/** home::space,home::spacecp,group::group,misc::ranklist,portal::view,forum::viewthread,group::viewthread,home::medal,misc::tag **/
 	/* .el -> feed_list 动态列表 by Pony */
 	.e { overflow: hidden; }
 		.e .i, .el .i { padding: 6px 10px; border-bottom: 1px dashed {COMMONBORDER}; background: #F7F7F7; }
@@ -1917,40 +1916,6 @@ i.pstatus { display: block; margin-bottom: -30px; font-size: 12px; text-align: c
 
 
 /* ------------------------------------------------------------------------ 门户相关样式 */
-
-
-
-/* ------------------------------------------------------------------------ 漫游相关样式 */
-/** userapp::userapp **/
-/* 管理漫游应用 by Pony */
-	.myset { margin-top: 15px; padding: 5px 0; }
-		.mgapp { float: left; padding: 0 15px; width: 777px; }
-		.apps { padding: 7px 0; height: 20px; line-height: 20px; border-bottom: 1px dashed #DDD; }
-			.dragable { padding-left: 25px; background: url({IMGDIR}/drag.gif) no-repeat 2px 50%; cursor: move; }
-			.dragable:hover { background-color: {COMMONBG}; }
-		.apps img { vertical-align: middle; }
-		.apps .y a { margin-right: 20px; }
-	.note { padding: 0 15px; }
-		.note li { margin-left: 20px; }
-
-/* 应用首页应用列表定高 by Pony */
-	.appmaxh .bm_c { height: 140px; }
-	.apl li { margin: 5px 0; }
-
-/* 应用列表中新应用和热门应用图标 by Pony */
-	.appl li { position: relative; }
-		.appnew, .apphot { position: absolute; right: 0; width: 20px; height: 100%; background-color: {SIDEBGCOLOR}; background-repeat: no-repeat; background-position: 100% 50%; }
-			.appnew { background-image: url({IMGDIR}/appnew.png); }
-			.apphot { background-image: url({IMGDIR}/apphot.png); }
-/** end **/
-
-
-/** home::space,home::spacecp,userapp::userapp,forum::forumdisplay **/
-/* 折叠按钮 by Pony */
-	.unfold, .fold { float: right; cursor: pointer; outline: none; }
-		.unfold::before, .fold::before { display: inline-block; margin-right: 0.255em; vertical-align: 0.255em; content: ""; border-top: 0.3em solid; border-right: 0.3em solid transparent; border-bottom: 0; border-left: 0.3em solid transparent; }
-		.fold::before { border-top: 0; border-bottom: 0.3em solid; }
-/** end **/
 
 
 

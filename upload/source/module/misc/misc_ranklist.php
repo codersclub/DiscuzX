@@ -310,7 +310,6 @@ function getranklist_member_invite($num, $orderby) {
 		foreach($invitearray as $key => $var) {
 			$invite[] = $var;
 			$invite[$key]['username'] = $invitememberfield[$var['uid']]['username'];
-			$invite[$key]['videophotostatus'] = $invitememberfield[$var['uid']]['videophotostatus'];
 			$invite[$key]['groupid'] = $invitememberfield[$var['uid']]['groupid'];
 		}
 	}
@@ -338,7 +337,6 @@ function getranklist_member_onlinetime($num, $orderby) {
 		foreach($onlinetimearray as $key => $var) {
 			$var['onlinetime'] = $var[$orderby];
 			$var['username'] = $onlinetimefieldarray[$var['uid']]['username'];
-			$var['videophotostatus'] = $onlinetimefieldarray[$var['uid']]['videophotostatus'];
 			$var['groupid'] = $onlinetimefieldarray[$var['uid']]['groupid'];
 			$onlinetime[$key] = $var;
 		}
@@ -351,7 +349,7 @@ function getranklist_member_blog($num) {
 	global $_G;
 
 	$blogs = array();
-	$sql = "SELECT m.uid,m.username,m.videophotostatus,m.groupid,c.blogs FROM ".DB::table('common_member').
+	$sql = "SELECT m.uid,m.username,m.groupid,c.blogs FROM ".DB::table('common_member').
 			" m LEFT JOIN ".DB::table('common_member_count')." c ON m.uid=c.uid WHERE c.blogs>0 ORDER BY blogs DESC LIMIT 0, $num";
 
 	$query = DB::query($sql);

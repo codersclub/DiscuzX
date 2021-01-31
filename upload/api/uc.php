@@ -134,7 +134,6 @@ class uc_note {
 			'home_docomment' => array('id' => 'uid', 'name' => 'username'),
 			'home_doing' => array('id' => 'uid', 'name' => 'username'),
 			'home_feed' => array('id' => 'uid', 'name' => 'username'),
-			'home_feed_app' => array('id' => 'uid', 'name' => 'username'),
 			'home_friend' => array('id' => 'fuid', 'name' => 'fusername'),
 			'home_friend_request' => array('id' => 'fuid', 'name' => 'fusername'),
 			'home_notification' => array('id' => 'authorid', 'name' => 'author'),

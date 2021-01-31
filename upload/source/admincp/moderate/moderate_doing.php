@@ -126,7 +126,6 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		if(helper_access::check_module('feed')) {
 			foreach ($query_t as $doing) {
 				$feedarr = array(
-					'appid' => '',
 					'icon' => 'doing',
 					'uid' => $doing['uid'],
 					'username' => $doing['username'],

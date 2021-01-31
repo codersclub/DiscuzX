@@ -90,13 +90,6 @@ function ckstart($start, $perpage) {
 	}
 }
 
-
-function get_my_app() {
-}
-
-function get_my_userapp() {
-}
-
 function getspace($uid) {
 	return getuserbyuid($uid);
 }
@@ -315,9 +308,6 @@ function sarray_rand($arr, $num=1) {
 	return $r_values;
 }
 
-function my_showgift() {
-}
-
 function getsiteurl() {
 	global $_G;
 	return $_G['siteurl'];
@@ -520,7 +510,6 @@ function getuserdefaultdiy() {
 					'visitor' => array('shownum' => 18),
 					'wall' => array('shownum' => 16),
 					'feed' => array('shownum' => 16),
-					'myapp' => array('shownum' => 9, 'logotype'=> 'logo'),
 			),
 		'nv' => array(
 			'nvhidden' => 0,

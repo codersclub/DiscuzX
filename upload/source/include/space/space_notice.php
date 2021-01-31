@@ -27,13 +27,11 @@ $multi = '';
 if(empty($_G['member']['category_num']['manage']) && !in_array($_G['adminid'], array(1,2,3))) {
 	unset($_G['notice_structure']['manage']);
 }
-$view = (!empty($_GET['view']) && (isset($_G['notice_structure'][$_GET[view]]) || in_array($_GET['view'], array('userapp'))))?$_GET['view']:'all';
+$view = (!empty($_GET['view']) && (isset($_G['notice_structure'][$_GET['view']]))) ? $_GET['view'] : 'all';
 $actives = array($view=>' class="a"');
 $opactives[$view] = 'class="a"';
 $categorynum = $newprompt = array();
-if($view == 'userapp') {
-
-} else {
+if($view) {
 
 	if(!empty($_GET['ignore'])) {
 		C::t('home_notification')->ignore($_G['uid']);

@@ -327,7 +327,7 @@ if(in_array($do, array('buy', 'exit'))) {
 		$activegs['my'] = ' a';
 	}
 
-	$bperms = array('allowvisit','readaccess','allowinvisible','allowsearch','allowcstatus','disablepostctrl', 'allowsendpm', 'allowfriend', 'allowstatdata', 'allowmyop');
+	$bperms = array('allowvisit','readaccess','allowinvisible','allowsearch','allowcstatus','disablepostctrl', 'allowsendpm', 'allowfriend', 'allowstatdata');
 	if($_G['setting']['portalstatus']) {
 		$bperms[] = 'allowpostarticle';
 	}

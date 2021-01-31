@@ -61,7 +61,6 @@ $gets = array(
 	'do' => 'home',
 	'view' => $_GET['view'],
 	'order' => $_GET['order'],
-	'appid' => $_GET['appid'],
 	'type' => $_GET['type'],
 	'icon' => $_GET['icon']
 );
@@ -130,60 +129,6 @@ if(!IS_ROBOT) {
 		$diymode = 1;
 		if($space['self'] && $_GET['from'] != 'space') $diymode = 0;
 
-	} elseif($_GET['view'] == 'app' && $_G['setting']['my_app_status']) {
-
-		$uids = null;
-		if ($_GET['type'] == 'all') {
-
-			$ordersql = "dateline DESC";
-			$f_index = '';
-			$findex = '';
-
-		} else {
-
-
-			if($_GET['type'] == 'me') {
-				$uids = $_G['uid'];
-				$ordersql = "dateline DESC";
-				$f_index = '';
-				$findex = '';
-
-			} else {
-				$uids = array_merge(explode(',', $space['feedfriend']), 0);
-				$ordersql = "dateline DESC";
-				$f_index = 'USE INDEX(dateline)';
-				$findex = 'dateline';
-				$_GET['type'] = 'we';
-				$_G['home_tpl_hidden_time'] = 1;
-			}
-		}
-
-		$icon = empty($_GET['icon'])?'':trim($_GET['icon']);
-
-		$feed_list = $appfeed_list = $hiddenfeed_list = $filter_list = $hiddenfeed_num = $icon_num = array();
-		$count = $filtercount = 0;
-		foreach(C::t('home_feed_app')->fetch_all_by_uid_icon($uids, $icon, $start, $perpage) as $value) {
-			$feed_list[$value['icon']][] = $value;
-			$count++;
-		}
-		$multi = simplepage($count, $perpage, $page, $theurl);
-		require_once libfile('function/feed');
-
-		$list = array();
-		foreach ($feed_list as $key => $values) {
-			$nowcount = 0;
-			foreach ($values as $value) {
-				$value = mkfeed($value);
-				$nowcount++;
-				if($nowcount>5 && empty($icon)) {
-					break;
-				}
-				$list[$key][] = $value;
-			}
-		}
-		$need_count = false;
-		$typeactives = array($_GET['type'] => ' class="a"');
-
 	} else {
 
 		space_merge($space, 'field_home');
@@ -198,7 +143,6 @@ if(!IS_ROBOT) {
 		}
 	}
 
-	$appid = empty($_GET['appid'])?0:intval($_GET['appid']);
 	$icon = empty($_GET['icon'])?'':trim($_GET['icon']);
 	$gid = !isset($_GET['gid'])?'-1':intval($_GET['gid']);
 	if($gid>=0) {
@@ -219,7 +163,7 @@ if(!IS_ROBOT) {
 
 	if($need_count) {
 
-		$query = C::t('home_feed')->fetch_all_by_search(1, $uids, $icon, '', '', '', $hot, '', $start, $perpage, $findex, $appid);
+		$query = C::t('home_feed')->fetch_all_by_search(1, $uids, $icon, '', '', '', $hot, '', $start, $perpage, $findex);
 
 		if($_GET['view'] == 'me') {
 			foreach ($query as $value) {

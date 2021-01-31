@@ -640,7 +640,7 @@ function mkfeedhtml($value) {
 	$html = '';
 	$html .= "<li class=\"cl $value[magic_class]\" id=\"feed_{$value[feedid]}_li\">";
 	$html .= "<div class=\"cl\" {$value[style]}>";
-	$html .= "<a class=\"t\" href=\"home.php?mod=space&uid=$_GET[uid]&do=home&view=$_GET[view]&appid=$value[appid]&icon=$value[icon]\" title=\"".lang('space', 'feed_view_only')."\"><img src=\"$value[icon_image]\" /></a>$value[title_template]";
+	$html .= "<a class=\"t\" href=\"home.php?mod=space&uid=$_GET[uid]&do=home&view=$_GET[view]&icon=$value[icon]\" title=\"".lang('space', 'feed_view_only')."\"><img src=\"$value[icon_image]\" /></a>$value[title_template]";
 	$html .= "\t<span class=\"xg1\">".dgmdate($value[dateline], 'n-j H:i')."</span>";
 
 	$html .= "<div class=\"ec\">";
@@ -727,11 +727,6 @@ function check_ban_block($blockname, $space) {
 		$return = false;
 	} elseif($blockname == 'thread' && $_G['setting']['allowviewuserthread'] === -1) {
 		$return = false;
-	} elseif($blockname == 'myapp') {
-		loadcache('usergroup_'.$space['groupid']);
-		if(empty($_G['setting']['my_app_status']) || empty($_G['cache']['usergroup_'.$space['groupid']]['allowmyop'])) {
-			$return = false;
-		}
 	}
 	return $return;
 }

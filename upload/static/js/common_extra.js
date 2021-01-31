@@ -1149,13 +1149,6 @@ function _showForummenu(fid) {
 	}
 }
 
-function _showUserApp(fid) {
-	var menu = $('mn_userapp_menu');
-	if(menu && !menu.innerHTML) {
-		ajaxget('misc.php?mod=manyou&action=menu', 'mn_userapp_menu', 'ajaxwaitid');
-	}
-}
-
 function _imageRotate(imgid, direct) {
 	var image = $(imgid);
 	if(!image.getAttribute('deg')) {

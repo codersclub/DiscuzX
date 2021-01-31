@@ -179,7 +179,6 @@ $lang = array(
 	'do_stat_connectlogin' => 'QQ登录访问',
 	'do_stat_register' => '新注册用户',
 	'do_stat_invite' => '好友邀请',
-	'do_stat_appinvite' => '应用邀请',
 	'do_stat_add' => '信息发布',
 	'do_stat_comment' => '信息互动',
 	'do_stat_space' => '互动',

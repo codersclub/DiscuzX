@@ -226,9 +226,6 @@ class logging_ctl {
 					require_once libfile('function/friend');
 					friend_make($invite['uid'], $invite['username'], false);
 					dsetcookie('invite_auth', '');
-					if($invite['appid']) {
-						updatestat('appinvite');
-					}
 				}
 
 				$param = array(
@@ -855,9 +852,6 @@ class register_ctl {
 					require_once libfile('function/feed');
 					$tite_data = array('username' => '<a href="home.php?mod=space&uid='.$_G['uid'].'">'.$_G['username'].'</a>');
 					feed_add('friend', 'feed_invite', $tite_data, '', array(), '', array(), array(), '', '', '', 0, 0, '', $invite['uid'], $invite['username']);
-				}
-				if($invite['appid']) {
-					updatestat('appinvite');
 				}
 			}
 

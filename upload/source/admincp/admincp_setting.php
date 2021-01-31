@@ -918,26 +918,6 @@ if(!submitcheck('settingsubmit')) {
 			showtableheader();
 			showtitle('<em class="right">'.cplang('setting_seo_robots_output').'</em>'.cplang('setting_seo'));
 			showtablerow('', array('class="vtop tips2" colspan="4" style="padding-left:20px;"'), array('<ul><li>'.cplang('setting_seo_seotitle_comment').'</li><li>'.cplang('setting_seo_seodescription_comment').'</li><li>'.cplang('setting_seo_seokeywords_comment').'</li></ul>'));
-
-			if($_G['setting']['navs'][5]['navname']) {
-				showtitle($_G['setting']['navs'][5]['navname']);
-				showtablerow('', array('width="80"', ''), array(
-						cplang('setting_seo_seotitle'),
-						'<input type="text" name="settingnew[seotitle][userapp]" value="'.$setting['seotitle']['userapp'].'" class="txt" style="width:280px;" />',
-					)
-				);
-				showtablerow('', array('width="80"', ''), array(
-						cplang('setting_seo_seokeywords'),
-						'<input type="text" name="settingnew[seokeywords][userapp]" value="'.$setting['seokeywords']['userapp'].'" class="txt" style="width:280px;" />'
-					)
-				);
-				showtablerow('', array('width="80"', ''), array(
-						cplang('setting_seo_seodescription'),
-						'<input type="text" name="settingnew[seodescription][userapp]" value="'.$setting['seodescription']['userapp'].'" class="txt" style="width:280px;" />',
-					)
-				);
-			}
-
 			showtablefooter();
 			showtableheader();
 			showsetting('setting_seo_seohead', 'settingnew[seohead]', $setting['seohead'], 'textarea');
@@ -3512,7 +3492,7 @@ EOT;
 				'maxpolloptions', 'karmaratelimit', 'losslessdel', 'smcols', 'allowdomain', 'feedday', 'feedmaxnum', 'feedhotday', 'feedhotmin',
 				'feedtargetblank', 'updatestat', 'namechange', 'namecheck', 'networkpage', 'maxreward', 'groupnum', 'starlevelnum', 'friendgroupnum',
 				'pollforumid', 'tradeforumid', 'rewardforumid', 'activityforumid', 'debateforumid', 'maxpage',
-				'starcredit', 'topcachetime', 'newspacevideophoto', 'newspacerealname', 'newspaceavatar', 'newspacenum', 'shownewuser',
+				'starcredit', 'topcachetime', 'newspacerealname', 'newspaceavatar', 'newspacenum', 'shownewuser',
 				'feedhotnum', 'showallfriendnum', 'feedread',
 				'need_friendnum', 'need_avatar', 'uniqueemail', 'need_email', 'allowquickviewprofile', 'preventrefresh',
 				'jscachelife', 'maxmodworksmonths', 'maxonlinelist'))) {

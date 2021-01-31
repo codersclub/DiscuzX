@@ -96,9 +96,9 @@ function getuserprofile($field) {
 		'count'		=> array('extcredits1','extcredits2','extcredits3','extcredits4','extcredits5','extcredits6','extcredits7','extcredits8','friends','posts','threads','digestposts','doings','blogs','albums','sharings','attachsize','views','oltime','todayattachs','todayattachsize', 'follower', 'following', 'newfollower', 'blacklist'),
 		'status'	=> array('regip','lastip','lastvisit','lastactivity','lastpost','lastsendmail','invisible','buyercredit','sellercredit','favtimes','sharetimes','profileprogress'),
 		'field_forum'	=> array('publishfeed','customshow','customstatus','medals','sightml','groupterms','authstr','groups','attentiongroup'),
-		'field_home'	=> array('videophoto','spacename','spacedescription','domain','addsize','addfriend','menunum','theme','spacecss','blockposition','recentnote','spacenote','privacy','feedfriend','acceptemail','magicgift','stickblogs'),
+		'field_home'	=> array('spacename','spacedescription','domain','addsize','addfriend','menunum','theme','spacecss','blockposition','recentnote','spacenote','privacy','feedfriend','acceptemail','magicgift','stickblogs'),
 		'profile'	=> array('realname','gender','birthyear','birthmonth','birthday','constellation','zodiac','telephone','mobile','idcardtype','idcard','address','zipcode','nationality','birthprovince','birthcity','resideprovince','residecity','residedist','residecommunity','residesuite','graduateschool','company','education','occupation','position','revenue','affectivestatus','lookingfor','bloodtype','height','weight','alipay','icq','qq','yahoo','msn','taobao','site','bio','interest','field1','field2','field3','field4','field5','field6','field7','field8'),
-		'verify'	=> array('verify1', 'verify2', 'verify3', 'verify4', 'verify5', 'verify6', 'verify7'),
+		'verify'	=> array('verify1', 'verify2', 'verify3', 'verify4', 'verify5', 'verify6'),
 	);
 	$profiletable = '';
 	foreach($tablefields as $table => $fields) {
@@ -340,7 +340,7 @@ function checkmobile() {
 		$_G['mobile'] = $v;
 		return '3'; //wml版
 	}
-	$brower = array('mozilla', 'chrome', 'safari', 'opera', 'm3gate', 'winwap', 'openwave', 'myop');
+	$brower = array('mozilla', 'chrome', 'safari', 'opera', 'm3gate', 'winwap', 'openwave');
 	if(dstrpos($useragent, $brower)) return false;
 
 	$_G['mobile'] = 'unknown';
@@ -1692,9 +1692,9 @@ function updatediytemplate($targettplname = '', $tpldirectory = '') {
 	return $r;
 }
 
-function space_key($uid, $appid=0) {
+function space_key($uid) {
 	global $_G;
-	return substr(md5($_G['setting']['siteuniqueid'].'|'.$uid.(empty($appid)?'':'|'.$appid)), 8, 16);
+	return substr(md5($_G['setting']['siteuniqueid'].'|'.$uid), 8, 16);
 }
 
 

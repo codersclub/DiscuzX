@@ -213,15 +213,11 @@
 						<tr>
 							<td valign="top" width="140"><div class="avt avtm">{$mailvar[avatar]}</div></td>
 							<td valign="top">
-							<!--{if $appid}-->
-								<h4>{lang i_play_invite_you}</h4>
-							<!--{else}-->
 								<h4>{lang hi_iam_invite_you}</h4>
 								<p class="mtm">{lang become_friend_message}<p>
-							<!--{/if}-->
 								<p class="mtm">{lang invite_add_note}:</p>
 								<p id="sayPreview" class="exfm" style="width: 420px;"></p>
-								<h4 class="mtm">{lang click_link_become_friend}<!--{if $appid}-->{lang play_together}$appinfo[appname]<!--{/if}-->:</h4>
+								<h4 class="mtm">{lang click_link_become_friend}:</h4>
 								<p>{$inviteurl}</p>
 								<h4 class="mtm">{lang have_account_view_homepage}</h4>
 								<p>{$mailvar[siteurl]}home.php?mod=space&uid=$mailvar[uid]</p>

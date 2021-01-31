@@ -51,18 +51,13 @@ function feed_add($icon, $title_template='', $title_data=array(), $body_template
 	$feedarr['body_data'] = serialize($body_data);
 	$feedarr['hash_data'] = empty($title_data['hash_data'])?'':$title_data['hash_data'];
 
-	if(is_numeric($icon)) {
-		$feed_table = 'home_feed_app';
-		unset($feedarr['id'], $feedarr['idtype']);
-	} else {
-		if($feedarr['hash_data']) {
-			$oldfeed = C::t('home_feed')->fetch_feedid_by_hashdata($feedarr['uid'], $feedarr['hash_data']);
-			if($oldfeed) {
-				return 0;
-			}
+	if($feedarr['hash_data']) {
+		$oldfeed = C::t('home_feed')->fetch_feedid_by_hashdata($feedarr['uid'], $feedarr['hash_data']);
+		if($oldfeed) {
+			return 0;
 		}
-		$feed_table = 'home_feed';
 	}
+	$feed_table = 'home_feed';
 
 	return C::t($feed_table)->insert($feedarr, $returnid);
 }

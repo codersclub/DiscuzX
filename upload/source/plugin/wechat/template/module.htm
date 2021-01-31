@@ -36,7 +36,7 @@ function wechat_tpl_float_qrcode($idstr = '') {
 global $_G;
 }
 <!--{block return}-->
-	<!--{if $_G['basescript'] != 'userapp' && empty($_G['cookie']['wechatfqrc'])}-->
+	<!--{if empty($_G['cookie']['wechatfqrc'])}-->
 	<div id="wechat_float_qrcode" class="p_pop xg1" style="display:none;text-align:center;float:left;position:fixed;top:220px;z-index:100;margin-left: 2px;width:110px">
 		<p class="cl"><img class="y" style="cursor:pointer" onclick="display('wechat_float_qrcode');setcookie('wechatfqrc', 1, 86400)" src="{STATICURL}image/common/ad_close.gif"></p>
 		<img src="plugin.php?id=wechat:qrcode{$idstr}&access=yes" width="98" />

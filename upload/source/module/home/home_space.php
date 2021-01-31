@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 
 $dos = array('index', 'doing', 'blog', 'album', 'friend', 'wall',
-	'notice', 'share', 'home', 'pm', 'videophoto', 'favorite',
+	'notice', 'share', 'home', 'pm', 'favorite',
 	'thread', 'trade', 'poll', 'activity', 'debate', 'reward', 'profile', 'plugin', 'follow');
 
 $do = (!empty($_GET['do']) && in_array($_GET['do'], $dos)) ? $_GET['do'] : 'index';
@@ -103,10 +103,6 @@ if(empty($space)) {
 	}
 
 	if(!$space['self'] && $_GET['view'] != 'eccredit' && $_GET['view'] != 'admin') $_GET['view'] = 'me';
-
-	get_my_userapp();
-
-	get_my_app();
 }
 
 $diymode = 0;

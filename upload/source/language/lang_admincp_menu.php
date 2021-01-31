@@ -204,10 +204,7 @@ $lang = array
 	'menu_safe_seccheck' => '验证设置',
 	'menu_safe_accountguard' => '帐号保镖',
 
-	'menu_setting_manyou' => 'Manyou 设置',
 	'menu_setting_qqconnect' => 'QQ 绑定设置',
-
-	'menu_cloud_doctor' => '诊断工具',
 
 	'admincp_title' => $_G['setting']['bbname'].' 管理中心',
 

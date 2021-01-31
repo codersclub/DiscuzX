@@ -261,7 +261,6 @@ $lang = array
 	'perms_allowpoke' => '允许打招呼',
 	'perms_allowfriend' => '允许加好友',
 	'perms_allowclick' => '允许表态',
-	'perms_allowmyop' => '允许使用应用',
 	'perms_allowcomment' => '发表留言/评论',
 	'perms_allowstatdata' => '查看统计数据报表',
 	'perms_allowstat' => '允许查看趋势统计',

@@ -82,7 +82,7 @@ class task_member {
 		}
 
 		if($num && $num >= $taskvars['num']) {
-			if($taskvars['act'] == 'favorite' || $taskvars['act'] == 'userapp') {
+			if($taskvars['act'] == 'favorite') {
 				C::t('forum_spacecache')->delete($_G['uid'], $taskvars['act'].$task['taskid']);
 			}
 			return TRUE;
@@ -101,8 +101,6 @@ class task_member {
 		$taskvars['complete']['num']['value'] = intval($taskvars['complete']['num']['value']);
 		if($taskvars['complete']['act']['value'] == 'favorite') {
 			$return .= lang('task/member', 'task_complete_act_favorite', array('value' => $taskvars['complete']['num']['value']));
-		} elseif($taskvars['complete']['act']['value'] == 'userapp') {
-			$return .= lang('task/member', 'task_complete_act_userapp', array('value' => $taskvars['complete']['num']['value']));
 		} else {
 			$return .= lang('task/member', 'task_complete_act_magic', array('value' => $taskvars['complete']['num']['value']));
 		}

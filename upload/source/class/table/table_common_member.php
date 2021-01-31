@@ -315,7 +315,6 @@ class table_common_member extends discuz_table_archive
 			C::t('common_member_profile')->insert($profile, false, true);
 			C::t('common_member_field_forum')->insert($ext, false, true);
 			C::t('common_member_field_home')->insert($ext, false, true);
-			manyoulog('user', $uid, 'add');
 		}
 	}
 
@@ -459,13 +458,13 @@ class table_common_member extends discuz_table_archive
 			return $data;
 		}
 		if($orderby === 'all') {
-			$sql = "SELECT m.uid,m.username,m.videophotostatus,m.groupid,m.credits,field.spacenote FROM ".DB::table('common_member')." m
+			$sql = "SELECT m.uid,m.username,m.groupid,m.credits,field.spacenote FROM ".DB::table('common_member')." m
 				LEFT JOIN ".DB::table('common_member_field_home')." field ON field.uid=m.uid
 				ORDER BY m.credits DESC LIMIT 0, $num";
 		} else {
 			$orderby = intval($orderby);
 			$orderby = in_array($orderby, array(1, 2, 3, 4, 5, 6, 7, 8)) ? $orderby : 1;
-			$sql = "SELECT m.uid,m.username,m.videophotostatus,m.groupid, mc.extcredits$orderby AS extcredits
+			$sql = "SELECT m.uid,m.username,m.groupid, mc.extcredits$orderby AS extcredits
 				FROM ".DB::table('common_member')." m
 				LEFT JOIN ".DB::table('common_member_count')." mc ON mc.uid=m.uid WHERE mc.extcredits$orderby>0
 				ORDER BY extcredits$orderby DESC LIMIT 0, $num";
@@ -492,7 +491,7 @@ class table_common_member extends discuz_table_archive
 		}
 		$uids = array_keys($users);
 		if($uids) {
-			$query = DB::query('SELECT m.uid, m.username, m.videophotostatus, m.groupid, field.spacenote
+			$query = DB::query('SELECT m.uid, m.username, m.groupid, field.spacenote
 				FROM '.DB::table('common_member')." m
 				LEFT JOIN ".DB::table('common_member_field_home')." field ON m.uid=field.uid
 				WHERE m.uid IN (".dimplode($uids).")");

@@ -164,8 +164,6 @@ if (submitcheck('blocksubmit')) {
 
 		if($blockname == 'blog') {
 			$blockdata['parameters'][$blockname]['showmessage'] = min(100000, abs(intval($_GET['showmessage'])));
-		} elseif($blockname == 'myapp') {
-			$blockdata['parameters'][$blockname]['logotype'] = in_array($_GET['logotype'], array('logo', 'icon')) ? $_GET['logotype'] : 'logo';
 		}
 
 		$setarr = array();

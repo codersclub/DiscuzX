@@ -34,7 +34,6 @@ $credittitle = $_G['setting']['extcredits'][$creditname]['title'];
 $creditname = 'extcredits'.$creditname;
 
 $inviteurl = $invite_code = '';
-$appid = 0;
 
 $creditkey = 'extcredits'.$creditid;
 $extcredits = $_G['setting']['extcredits'][$creditid];
@@ -50,7 +49,7 @@ $mailvar = array(
 $appinfo = array();
 
 if(!$creditnum) {
-	$inviteurl = getinviteurl(0, 0, $appid);
+	$inviteurl = getinviteurl(0, 0);
 }
 if(!$allowinvite) {
 	showmessage('close_invite', '', array(), $_G['inajax'] ? array('showdialog'=>1, 'showmsg' => true, 'closetime' => true) : array());
@@ -92,7 +91,6 @@ if(submitcheck('emailinvite')) {
 				'code' => $code,
 				'email' => daddslashes($value),
 				'type' => 1,
-				'appid' => $appid,
 				'inviteip' => $_G['clientip'],
 				'dateline' => $_G['timestamp'],
 				'status' => 3,
@@ -100,7 +98,7 @@ if(submitcheck('emailinvite')) {
 			);
 			$id = C::t('common_invite')->insert($setarr, true);
 
-			$mailvar['inviteurl'] = getinviteurl($id, $code, $appid);
+			$mailvar['inviteurl'] = getinviteurl($id, $code);
 
 			createmail($value, $mailvar);
 		}
@@ -170,7 +168,7 @@ if($_GET['op'] == 'resend') {
 
 		if($value = C::t('common_invite')->fetch_by_id_uid($id, $_G['uid'])) {
 			if($creditnum) {
-				$inviteurl = getinviteurl($value['id'], $value['code'], $value['appid']);
+				$inviteurl = getinviteurl($value['id'], $value['code']);
 			}
 			$mailvar['inviteurl'] = $inviteurl;
 
@@ -200,7 +198,7 @@ if($_GET['op'] == 'resend') {
 } elseif ($_GET['op'] == 'showinvite') {
 	foreach(C::t('common_invite')->fetch_all_by_uid($_G['uid']) as $value) {
 		if(!$value['fuid'] && !$value['type']) {
-			$inviteurl = getinviteurl($value['id'], $value['code'], $value['appid']);
+			$inviteurl = getinviteurl($value['id'], $value['code']);
 			$list[$value[code]] = $inviteurl;
 		}
 	}
@@ -220,7 +218,7 @@ if($_GET['op'] == 'resend') {
 				continue;
 			}
 
-			$inviteurl = getinviteurl($value['id'], $value['code'], $value['appid']);
+			$inviteurl = getinviteurl($value['id'], $value['code']);
 
 			if($value['type']) {
 				$maillist[] = array(
@@ -264,15 +262,14 @@ function createmail($mail, $mailvar) {
 	}
 }
 
-function getinviteurl($inviteid, $invitecode, $appid) {
+function getinviteurl($inviteid, $invitecode) {
 	global $_G;
 
 	if($inviteid && $invitecode) {
 		$inviteurl = getsiteurl()."home.php?mod=invite&amp;id={$inviteid}&amp;c={$invitecode}";
 	} else {
-		$invite_code = space_key($_G['uid'], $appid);
-		$inviteapp = $appid?"&amp;app=$appid":'';
-		$inviteurl = getsiteurl()."home.php?mod=invite&amp;u=$_G[uid]&amp;c=$invite_code{$inviteapp}";
+		$invite_code = space_key($_G['uid']);
+		$inviteurl = getsiteurl()."home.php?mod=invite&amp;u=$_G[uid]&amp;c=$invite_code";
 	}
 	return $inviteurl;
 }
