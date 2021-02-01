@@ -69,8 +69,7 @@ class discuz_error
 			$error[line] = sprintf('%04d', $error['line']);
 
 			$show .= "<li>[Line: $error[line]]".$file."($func)</li>";
-			$log .= (!empty($log) ? ' -> ' : '').$file.':'.$error['line'];
-			$log .= $file.':'.$error['line'];
+			$log .= (!empty($log) ? ' -> ' : '').$file.'#'.$func.':'.$error['line'];
 		}
 		return array($show, $log);
 	}
@@ -135,6 +134,7 @@ class discuz_error
 		krsort($trace);
 
 		$trace[] = array('file'=>$exception->getFile(), 'line'=>$exception->getLine(), 'function'=> 'break');
+		$logmsg = '';
 		$phpmsg = array();
 		foreach ($trace as $error) {
 			if(!empty($error['function'])) {
@@ -170,7 +170,16 @@ class discuz_error
 			    'line' => $error['line'],
 			    'function' => $error['function'],
 			);
+			$file = str_replace(array(DISCUZ_ROOT, '\\'), array('', '/'), $error['file']);
+			$func = isset($error['class']) ? $error['class'] : '';
+			$func .= isset($error['type']) ? $error['type'] : '';
+			$func .= isset($error['function']) ? $error['function'] : '';
+			$line = sprintf('%04d', $error['line']);
+			$logmsg .= (!empty($logmsg) ? ' -> ' : '').$file.'#'.$func.':'.$line;
 		}
+
+		$messagesave = '<b>'.$errormsg.'</b><br><b>PHP:</b>'.$logmsg;
+		self::write_error_log($messagesave);
 
 		self::show_error($type, $errormsg, $phpmsg);
 		exit();
