@@ -141,7 +141,7 @@ if($_G['fid'] && $_G['forum']['ismoderator'] && $modforums['recyclebins'][$_G['f
 		$total = C::t('forum_thread')->count_by_fid_typeid_displayorder($_G['fid'], $_GET['typeid'], -1);
 		$tpage = ceil($total / $_G['tpp']);
 		$page = min($tpage, $page);
-		$multipage = multi($total, $_G['tpp'], $page, "$cpscript?mod=modcp&action=$action&op=$op&fid=$_G[fid]&do=$do");
+		$multipage = multi($total, $_G['tpp'], $page, "$cpscript?mod=modcp&action=$action&op=$op&fid={$_G['fid']}&do=$do");
 		if($total) {
 			$start = ($page - 1) * $_G['tpp'];
 			$threads = C::t('forum_thread')->fetch_all_by_fid_typeid_displayorder($_G['fid'], $_GET['typeid'], -1, '=', $start, $_G['tpp']);
@@ -177,7 +177,7 @@ if($_G['fid'] && $_G['forum']['ismoderator'] && $modforums['recyclebins'][$_G['f
 			$total = $result['count'];
 			$tpage = ceil($total / $_G['tpp']);
 			$page = min($tpage, $page);
-			$multipage = multi($total, $_G['tpp'], $page, "$cpscript?mod=modcp&action=$action&op=$op&fid=$_G[fid]&do=$do");
+			$multipage = multi($total, $_G['tpp'], $page, "$cpscript?mod=modcp&action=$action&op=$op&fid={$_G['fid']}&do=$do");
 			if($total) {
 				$start = ($page - 1) * $_G['tpp'];
 				$threads = C::t('forum_thread')->fetch_all_by_tid_fid_displayorder(explode(',', $result['tids']), $_G['fid'], -1, 'lastpost', $start, $_G['tpp']);

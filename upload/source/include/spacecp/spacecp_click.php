@@ -75,7 +75,7 @@ if($_GET['op'] == 'add') {
 		showmessage('is_blacklist');
 	}
 
-	if(C::t('home_clickuser')->count_by_uid_id_idtype($space[uid], $id, $idtype)) {
+	if(C::t('home_clickuser')->count_by_uid_id_idtype($space['uid'], $id, $idtype)) {
 		showmessage('click_have');
 	}
 
@@ -101,14 +101,14 @@ if($_GET['op'] == 'add') {
 		case 'blogid':
 			$fs['title_template'] = 'feed_click_blog';
 			$fs['title_data'] = array(
-				'touser' => "<a href=\"home.php?mod=space&uid=$item[uid]\">{$item[username]}</a>",
-				'subject' => "<a href=\"home.php?mod=space&uid=$item[uid]&do=blog&id=$item[blogid]\">$item[subject]</a>",
+				'touser' => "<a href=\"home.php?mod=space&uid={$item['uid']}\">{$item['username']}</a>",
+				'subject' => "<a href=\"home.php?mod=space&uid={$item['uid']}&do=blog&id={$item['blogid']}\">{$item['subject']}</a>",
 				'click' => $click['name']
 			);
 
 			$q_note = 'click_blog';
 			$q_note_values = array(
-				'url'=>"home.php?mod=space&uid=$item[uid]&do=blog&id=$item[blogid]",
+				'url'=>"home.php?mod=space&uid={$item['uid']}&do=blog&id={$item['blogid']}",
 				'subject'=>$item['subject'],
 				'from_id' => $item['blogid'],
 				'from_idtype' => 'blogid'
@@ -119,8 +119,8 @@ if($_GET['op'] == 'add') {
 			$article_url = fetch_article_url($item);
 			$fs['title_template'] = 'feed_click_article';
 			$fs['title_data'] = array(
-				'touser' => "<a href=\"home.php?mod=space&uid=$item[uid]\">{$item[username]}</a>",
-				'subject' => "<a href=\"$article_url\">$item[title]</a>",
+				'touser' => "<a href=\"home.php?mod=space&uid={$item['uid']}\">{$item['username']}</a>",
+				'subject' => "<a href=\"$article_url\">{$item['title']}</a>",
 				'click' => $click['name']
 			);
 
@@ -135,16 +135,16 @@ if($_GET['op'] == 'add') {
 		case 'picid':
 			$fs['title_template'] = 'feed_click_pic';
 			$fs['title_data'] = array(
-				'touser' => "<a href=\"home.php?mod=space&uid=$item[uid]\">{$item[username]}</a>",
+				'touser' => "<a href=\"home.php?mod=space&uid={$item['uid']}\">{$item['username']}</a>",
 				'click' => $click['name']
 			);
 			$fs['images'] = array(pic_get($item['filepath'], 'album', $item['thumb'], $item['remote']));
-			$fs['image_links'] = array("home.php?mod=space&uid=$item[uid]&do=album&picid=$item[picid]");
+			$fs['image_links'] = array("home.php?mod=space&uid={$item['uid']}&do=album&picid={$item['picid']}");
 			$fs['body_general'] = $item['title'];
 
 			$q_note = 'click_pic';
 			$q_note_values = array(
-				'url'=>"home.php?mod=space&uid=$item[uid]&do=album&picid=$item[picid]",
+				'url'=>"home.php?mod=space&uid={$item['uid']}&do=album&picid={$item['picid']}",
 				'from_id' => $item['picid'],
 				'from_idtype' => 'picid'
 			);

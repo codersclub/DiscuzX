@@ -113,22 +113,22 @@ if($_GET['op'] == 'delete') {
 
 } else {
 
-	$url = "home.php?mod=space&uid=$feed[uid]&quickforward=1";
+	$url = "home.php?mod=space&uid={$feed['uid']}&quickforward=1";
 	switch ($feed['idtype']) {
 		case 'doid':
-			$url .= "&do=doing&id=$feed[id]";
+			$url .= "&do=doing&id={$feed['id']}";
 			break;
 		case 'blogid':
-			$url .= "&do=blog&id=$feed[id]";
+			$url .= "&do=blog&id={$feed['id']}";
 			break;
 		case 'picid':
-			$url .= "&do=album&picid=$feed[id]";
+			$url .= "&do=album&picid={$feed['id']}";
 			break;
 		case 'albumid':
-			$url .= "&do=album&id=$feed[id]";
+			$url .= "&do=album&id={$feed['id']}";
 			break;
 		case 'sid':
-			$url .= "&do=share&id=$feed[id]";
+			$url .= "&do=share&id={$feed['id']}";
 			break;
 		default:
 			break;

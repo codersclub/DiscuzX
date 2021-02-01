@@ -21,7 +21,7 @@ if(empty($_G['fid'])) {
 	} else {
 		list($fid) = array_keys($modforums['list']);
 	}
-	dheader("Location: {$cpscript}?mod=modcp&action=$_GET[action]&op=$op&fid=$fid");
+	dheader("Location: {$cpscript}?mod=modcp&action={$_GET['action']}&op=$op&fid=$fid");
 }
 
 if($_G['fid'] && $_G['forum']['ismoderator']) {
@@ -106,7 +106,7 @@ if($_G['fid'] && $_G['forum']['ismoderator']) {
 		$start_limit = ($page - 1) * $_G['tpp'];
 
 		$threadcount = C::t('forum_forumrecommend')->count_by_fid($_G['fid']);
-		$multipage = multi($threadcount, $_G['tpp'], $page, "$cpscript?action=$_GET[action]&fid=$_G[fid]&page=$page");
+		$multipage = multi($threadcount, $_G['tpp'], $page, "$cpscript?action={$_GET['action']}&fid={$_G['fid']}&page=$page");
 
 		$threadlist = $moderatormembers = array();
 		$moderatorids = array();
@@ -114,7 +114,7 @@ if($_G['fid'] && $_G['forum']['ismoderator']) {
 			if($thread['moderatorid']) {
 				$moderatorids[$thread['moderatorid']] = $thread['moderatorid'];
 			}
-			$thread['authorlink'] = $thread['authorid'] ? "<a href=\"home.php?mod=space&uid=$thread[authorid]\" target=\"_blank\">$thread[author]</a>" : 'Guest';
+			$thread['authorlink'] = $thread['authorid'] ? "<a href=\"home.php?mod=space&uid={$thread['authorid']}\" target=\"_blank\">{$thread['author']}</a>" : 'Guest';
 			$thread['expiration'] = $thread['expiration'] ? dgmdate($thread['expiration']) : '';
 			$threadlist[] = $thread;
 		}

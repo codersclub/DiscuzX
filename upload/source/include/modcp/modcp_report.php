@@ -24,7 +24,7 @@ if(!empty($_G['fid'])) {
 						if(!empty($_GET['creditsvalue'][$reportid])) {
 							$credittag = $_GET['creditsvalue'][$reportid] > 0 ? '+' : '';
 							if($report_reward['max'] < $_GET['creditsvalue'][$reportid] || $_GET['creditsvalue'][$reportid] < $report_reward['min']) {
-								showmessage('quickclear_noperm', "$cpscript?mod=modcp&action=report&fid=$_G[fid]");
+								showmessage('quickclear_noperm', "$cpscript?mod=modcp&action=report&fid={$_G['fid']}");
 							}
 							$creditchange = '<br />'.lang('forum/misc', 'report_msg_your').$_G['setting']['extcredits'][$curcredits]['title'].'&nbsp;'.$credittag.$_GET['creditsvalue'][$reportid];
 							updatemembercount($uid, array($curcredits => intval($_GET['creditsvalue'][$reportid])), true, 'RPC', $reportid);
@@ -37,7 +37,7 @@ if(!empty($_G['fid'])) {
 					C::t('common_report')->update($reportid, array('opuid' => $_G['uid'], 'opname' => $_G['username'], 'optime' => TIMESTAMP, 'opresult' => $opresult));
 				}
 			}
-			showmessage('modcp_report_success', "$cpscript?mod=modcp&action=report&fid=$_G[fid]&lpp=$lpp");
+			showmessage('modcp_report_success', "$cpscript?mod=modcp&action=report&fid={$_G['fid']}&lpp=$lpp");
 		}
 	}
 	$rewardlist = '';
@@ -63,6 +63,6 @@ if(!empty($_G['fid'])) {
 		$row['dateline'] = dgmdate($row['dateline']);
 		$reportlist[] = $row;
 	}
-	$multipage = multi($reportcount, $lpp, $page, "$cpscript?mod=modcp&action=report&fid=$_G[fid]&lpp=$lpp");
+	$multipage = multi($reportcount, $lpp, $page, "$cpscript?mod=modcp&action=report&fid={$_G['fid']}&lpp=$lpp");
 }
 ?>

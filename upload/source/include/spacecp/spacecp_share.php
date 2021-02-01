@@ -118,17 +118,17 @@ if($_GET['op'] == 'delete') {
 			$arr['title_template'] = lang('spacecp', 'share_blog');
 			$arr['body_template'] = '<b>{subject}</b><br>{username}<br>{message}';
 			$arr['body_data'] = array(
-			'subject' => "<a href=\"home.php?mod=space&uid=$blog[uid]&do=blog&id=$blog[blogid]\">$blog[subject]</a>",
-			'username' => "<a href=\"home.php?mod=space&uid=$blog[uid]\">".$blog['username']."</a>",
+			'subject' => "<a href=\"home.php?mod=space&uid={$blog['uid']}&do=blog&id={$blog['blogid']}\">{$blog['subject']}</a>",
+			'username' => "<a href=\"home.php?mod=space&uid={$blog['uid']}\">".$blog['username']."</a>",
 			'message' => getstr($blog['message'], 150, 0, 0, 0, -1)
 			);
 			if($blog['pic']) {
 				$arr['image'] = pic_cover_get($blog['pic'], $blog['picflag']);
-				$arr['image_link'] = "home.php?mod=space&uid=$blog[uid]&do=blog&id=$blog[blogid]";
+				$arr['image_link'] = "home.php?mod=space&uid={$blog['uid']}&do=blog&id={$blog['blogid']}";
 			}
 			$note_uid = $blog['uid'];
 			$note_message = 'share_blog';
-			$note_values = array('url'=>"home.php?mod=space&uid=$blog[uid]&do=blog&id=$blog[blogid]", 'subject'=>$blog['subject'], 'from_id' => $id, 'from_idtype' => 'blogid');
+			$note_values = array('url'=>"home.php?mod=space&uid={$blog['uid']}&do=blog&id={$blog['blogid']}", 'subject'=>$blog['subject'], 'from_id' => $id, 'from_idtype' => 'blogid');
 
 			$hotarr = array('blogid', $blog['blogid'], $blog['hotuser']);
 
@@ -152,14 +152,14 @@ if($_GET['op'] == 'delete') {
 			$arr['title_template'] =  lang('spacecp', 'share_album');
 			$arr['body_template'] = '<b>{albumname}</b><br>{username}';
 			$arr['body_data'] = array(
-				'albumname' => "<a href=\"home.php?mod=space&uid=$album[uid]&do=album&id=$album[albumid]\">$album[albumname]</a>",
-				'username' => "<a href=\"home.php?mod=space&uid=$album[uid]\">".$album['username']."</a>"
+				'albumname' => "<a href=\"home.php?mod=space&uid={$album['uid']}&do=album&id={$album['albumid']}\">{$album['albumname']}</a>",
+				'username' => "<a href=\"home.php?mod=space&uid={$album['uid']}\">".$album['username']."</a>"
 			);
 			$arr['image'] = pic_cover_get($album['pic'], $album['picflag']);
-			$arr['image_link'] = "home.php?mod=space&uid=$album[uid]&do=album&id=$album[albumid]";
+			$arr['image_link'] = "home.php?mod=space&uid={$album['uid']}&do=album&id={$album['albumid']}";
 			$note_uid = $album['uid'];
 			$note_message = 'share_album';
-			$note_values = array('url'=>"home.php?mod=space&uid=$album[uid]&do=album&id=$album[albumid]", 'albumname'=>$album['albumname'], 'from_id' => $id, 'from_idtype' => 'albumid');
+			$note_values = array('url'=>"home.php?mod=space&uid={$album['uid']}&do=album&id={$album['albumid']}", 'albumname'=>$album['albumname'], 'from_id' => $id, 'from_idtype' => 'albumid');
 
 			break;
 		case 'pic':
@@ -189,15 +189,15 @@ if($_GET['op'] == 'delete') {
 			$arr['title_template'] = lang('spacecp', 'share_image');
 			$arr['body_template'] = lang('spacecp', 'album').': <b>{albumname}</b><br>{username}<br>{title}';
 			$arr['body_data'] = array(
-			'albumname' => "<a href=\"home.php?mod=space&uid=$pic[uid]&do=album&id=$pic[albumid]\">$pic[albumname]</a>",
-			'username' => "<a href=\"home.php?mod=space&uid=$pic[uid]\">".$pic['username']."</a>",
+			'albumname' => "<a href=\"home.php?mod=space&uid={$pic['uid']}&do=album&id={$pic['albumid']}\">{$pic['albumname']}</a>",
+			'username' => "<a href=\"home.php?mod=space&uid={$pic['uid']}\">".$pic['username']."</a>",
 			'title' => getstr($pic['title'], 100, 0, 0, 0, -1)
 			);
 			$arr['image'] = pic_get($pic['filepath'], 'album', $pic['thumb'], $pic['remote']);
-			$arr['image_link'] = "home.php?mod=space&uid=$pic[uid]&do=album&picid=$pic[picid]";
+			$arr['image_link'] = "home.php?mod=space&uid={$pic['uid']}&do=album&picid={$pic['picid']}";
 			$note_uid = $pic['uid'];
 			$note_message = 'share_pic';
-			$note_values = array('url'=>"home.php?mod=space&uid=$pic[uid]&do=album&picid=$pic[picid]", 'albumname'=>$pic['albumname'], 'from_id' => $id, 'from_idtype' => 'picid');
+			$note_values = array('url'=>"home.php?mod=space&uid={$pic['uid']}&do=album&picid={$pic['picid']}", 'albumname'=>$pic['albumname'], 'from_id' => $id, 'from_idtype' => 'picid');
 
 			$hotarr = array('picid', $pic['picid'], $pic['hotuser']);
 
@@ -220,8 +220,8 @@ if($_GET['op'] == 'delete') {
 			$attachment = !preg_match("/\[hide=?\d*\](.*?)\[\/hide\]/is", $post['message'], $a) && preg_match("/\[attach\]\d+\[\/attach\]/i", $a[1]);
 			$post['message'] = messagecutstr($post['message']);
 			$arr['body_data'] = array(
-				'subject' => "<a href=\"forum.php?mod=viewthread&tid=$id\">$thread[subject]</a>",
-				'author' => "<a href=\"home.php?mod=space&uid=$thread[authorid]\">$thread[author]</a>",
+				'subject' => "<a href=\"forum.php?mod=viewthread&tid=$id\">{$thread['subject']}</a>",
+				'author' => "<a href=\"home.php?mod=space&uid={$thread['authorid']}\">{$thread['author']}</a>",
 				'message' => getstr($post['message'], 150, 0, 0, 0, -1)
 			);
 			$arr['itemid'] = $id;
@@ -256,8 +256,8 @@ if($_GET['op'] == 'delete') {
 			$arr['title_template'] = lang('spacecp', 'share_article');
 			$arr['body_template'] = '<b>{title}</b><br>{username}<br>{summary}';
 			$arr['body_data'] = array(
-			'title' => "<a href=\"$article_url\">$article[title]</a>",
-			'username' => "<a href=\"home.php?mod=space&uid=$article[uid]\">".$article['username']."</a>",
+			'title' => "<a href=\"$article_url\">{$article['title']}</a>",
+			'username' => "<a href=\"home.php?mod=space&uid={$article['uid']}\">".$article['username']."</a>",
 			'summary' => getstr($article['summary'], 150, 0, 0, 0, -1)
 			);
 			if($article['pic']) {
@@ -513,7 +513,7 @@ if($_GET['op'] == 'delete') {
 		$needle = $id ? $type.$id : '';
 		updatecreditbyaction('createshare', $_G['uid'], array('sharings' => 1), $needle);
 
-		$referer = "home.php?mod=space&uid=$_G[uid]&do=share&view=$_GET[view]&from=$_GET[from]";
+		$referer = "home.php?mod=space&uid={$_G['uid']}&do=share&view={$_GET['view']}&from={$_GET['from']}";
 		$magvalues['sid'] = $sid;
 
 		if(!$redirecturl) {

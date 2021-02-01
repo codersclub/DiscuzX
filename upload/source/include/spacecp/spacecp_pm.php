@@ -46,9 +46,9 @@ if($_GET['op'] == 'checknewpm') {
 		$value['lastauthor'] = daddslashes($value['lastauthor']);
 		$value['avatar'] = avatar($value['lastauthorid'], 'small', true);
 		if($value['isnew']) {
-			$json[$value['lastauthorid']] = "$value[lastauthorid]:{'uid':$value[lastauthorid], 'username':'$value[lastauthor]', 'avatar':'$value[avatar]', 'plid':$value[plid], 'isnew':$value[isnew], 'daterange':$value[daterange]}";
+			$json[$value['lastauthorid']] = "{$value['lastauthorid']}:{'uid':{$value['lastauthorid']}, 'username':'{$value['lastauthor']}', 'avatar':'{$value['avatar']}', 'plid':{$value['plid']}, 'isnew':{$value['isnew']}, 'daterange':{$value['daterange']}";
 		} else {
-			$otherpm[$value['lastauthorid']] = "$value[lastauthorid]:{'uid':$value[lastauthorid], 'username':'$value[lastauthor]', 'avatar':'$value[avatar]', 'plid':$value[plid], 'isnew':$value[isnew], 'daterange':$value[daterange]}";
+			$otherpm[$value['lastauthorid']] = "{$value['lastauthorid']}:{'uid':{$value['lastauthorid']}, 'username':'{$value['lastauthor']}', 'avatar':'{$value['avatar']}', 'plid':{$value['plid']}, 'isnew':{$value['isnew']}, 'daterange':{$value['daterange']}";
 		}
 	}
 	if(!empty($otherpm)) {

@@ -22,7 +22,7 @@ $perpagearr = array(20, 30,40, 50, 100);
 $_GET['type'] = isset($_GET['type']) && in_array($_GET['type'], array('unrecommend', 'recommended', 'me')) ? $_GET['type'] : 'all';
 $perpage = isset($_GET['perpage']) && in_array($_GET['perpage'], $perpagearr) ? $_GET['perpage'] : 20;
 $typearr[$_GET['type']] = 'class="a"';
-$theurl = "portal.php?mod=portalcp&ac=category&catid=$catid&perpage=$perpage&type=$_GET[type]&formhash=".FORMHASH."&searchkey=".urlencode($_GET['searchkey']);
+$theurl = "portal.php?mod=portalcp&ac=category&catid=$catid&perpage=$perpage&type={$_GET['type']}&formhash=".FORMHASH."&searchkey=".urlencode($_GET['searchkey']);
 
 $allowmanage = checkperm('allowmanagearticle');
 $allowpost = checkperm('allowpostarticle');
@@ -48,14 +48,14 @@ if($catid) {
 }
 
 if($_GET['type'] == 'me' || (!$admincp2 && !$allowmanage)) {
-	$wherearr[] = " uid='$_G[uid]'";
+	$wherearr[] = " uid='{$_G['uid']}'";
 }
 if($catids) {
 	$wherearr[] = " catid IN (".dimplode($catids).")";
 }
 if($_GET['searchkey']) {
 	$_GET['searchkey'] = addslashes(stripsearchkey($_GET['searchkey']));
-	$wherearr[] = "title LIKE '%$_GET[searchkey]%'";
+	$wherearr[] = "title LIKE '%{$_GET['searchkey']}%'";
 	$_GET['searchkey'] = dhtmlspecialchars($_GET['searchkey']);
 }
 if($_GET['type'] == 'recommended') {

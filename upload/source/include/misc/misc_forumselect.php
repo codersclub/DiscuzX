@@ -72,10 +72,10 @@ foreach($_G['cache']['forums'] as $forum) {
 	if($forum['type'] == 'group') {
 		$grouplist .= '<li fid="'.$forum['fid'].'">'.$forum['name'].'</li>';
 		$visible[$forum['fid']] = true;
-	} elseif($forum['type'] == 'forum' && isset($visible[$forum['fup']]) && (!$forum['viewperm'] || ($forum['viewperm'] && forumperm($forum['viewperm'])) || strstr($forum['users'], "\t$_G[uid]\t"))) {
+	} elseif($forum['type'] == 'forum' && isset($visible[$forum['fup']]) && (!$forum['viewperm'] || ($forum['viewperm'] && forumperm($forum['viewperm'])) || strstr($forum['users'], "\t{$_G['uid']}\t"))) {
 		$forumlist[$forum['fup']] .= '<li fid="'.$forum['fid'].'">'.$forum['name'].'</li>';
 		$visible[$forum['fid']] = true;
-	} elseif($forum['type'] == 'sub' && isset($visible[$forum['fup']]) && (!$forum['viewperm'] || ($forum['viewperm'] && forumperm($forum['viewperm'])) || strstr($forum['users'], "\t$_G[uid]\t"))) {
+	} elseif($forum['type'] == 'sub' && isset($visible[$forum['fup']]) && (!$forum['viewperm'] || ($forum['viewperm'] && forumperm($forum['viewperm'])) || strstr($forum['users'], "\t{$_G['uid']}\t"))) {
 		$subforumlist[$forum['fup']] .= '<li fid="'.$forum['fid'].'">'.$forum['name'].'</li>';
 	}
 }

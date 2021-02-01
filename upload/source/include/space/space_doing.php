@@ -115,7 +115,7 @@ if($doids) {
 	foreach(C::t('home_docomment')->fetch_all_by_doid($doids) as $value) {
 		$newdoids[$value['doid']] = $value['doid'];
 		if(empty($value['upid'])) {
-			$value['upid'] = "do$value[doid]";
+			$value['upid'] = "do{$value['doid']}";
 		}
 		if(!empty($value['ip'])) {
 			$value['ip'] = ip::to_display($value['ip']);

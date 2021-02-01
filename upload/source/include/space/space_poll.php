@@ -79,7 +79,7 @@ if($_GET['view'] == 'me') {
 			$fuid_actives = array($fuid=>' selected');
 		} else {
 			$authorid = explode(',', $space['feedfriend']);
-			$theurl = "home.php?mod=space&uid=$space[uid]&do=$do&view=we";
+			$theurl = "home.php?mod=space&uid={$space['uid']}&do=$do&view=we";
 		}
 
 		$query = C::t('home_friend')->fetch_all_by_uid($space['uid'], 0, 100, true);

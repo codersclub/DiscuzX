@@ -56,7 +56,7 @@ if(!$sessionexists) {
 	} else {
 		$visitor['os'] = 'Other';
 	}
-	$visitorsadd = "OR (type='browser' AND variable='$visitor[browser]') OR (type='os' AND variable='$visitor[os]')".
+	$visitorsadd = "OR (type='browser' AND variable='{$visitor['browser']}') OR (type='os' AND variable='{$visitor['os']}')".
 		($_G['username'] ? " OR (type='total' AND variable='members')" : " OR (type='total' AND variable='guests')");
 	$updatedrows = 7;
 } else {

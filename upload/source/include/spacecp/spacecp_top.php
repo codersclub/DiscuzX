@@ -56,7 +56,7 @@ if(submitcheck('friendsubmit')) {
 	if(ckprivacy('show', 'feed')) {
 		require_once libfile('function/feed');
 		feed_add('show', 'feed_showcredit', array(
-		'fusername' => "<a href=\"home.php?mod=space&uid=$fuid\">{$friend[fusername]}</a>",
+		'fusername' => "<a href=\"home.php?mod=space&uid=$fuid\">{$friend['fusername']}</a>",
 		'credit' => $showcredit));
 	}
 

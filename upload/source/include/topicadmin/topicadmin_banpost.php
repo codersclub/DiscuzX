@@ -77,7 +77,7 @@ if(!submitcheck('modsubmit')) {
 	}
 
 	$resultarray = array(
-	'redirect'	=> "forum.php?mod=viewthread&tid=$_G[tid]&page=$page",
+	'redirect'	=> "forum.php?mod=viewthread&tid={$_G['tid']}&page=$page",
 	'reasonpm'	=> ($sendreasonpm ? array('data' => $posts, 'var' => 'post', 'item' => 'reason_ban_post', 'notictype' => 'post') : array()),
 	'reasonvar'	=> array('tid' => $thread['tid'], 'subject' => $thread['subject'], 'modaction' => $modaction, 'reason' => $reason),
 	'modtids'	=> 0,

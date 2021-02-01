@@ -334,8 +334,8 @@ if($op == 'block') {
 	$samplecode = '';
 	if($block['hidedisplay']) {
 		$samplecode = '<ul>\n'
-			.'<!--{loop $_G[block_1] $key $value}-->\n'
-			.'<li><a href="$value[url]">$value[title]</a></li>\n'
+			.'<!--{loop $_G[\'block_1\'] $key $value}-->\n'
+			.'<li><a href="{$value[\'url\']}">$value[\'title\']</a></li>\n'
 			.'<!--{/loop}-->\n'
 			.'</ul>';
 		$samplecode = dhtmlspecialchars($samplecode);
@@ -695,7 +695,7 @@ if($op == 'block') {
 			if($showrecommendrate) {
 				showmessage('do_success', dreferer('portal.php'), array(), array('showdialog' => true, 'closetime' => 0.01, 'extrajs' =>
 					'<script type="text/javascript" reload="1">
-					showWindow("rate", "forum.php?mod=misc&action=rate&tid='.$item[id].'&pid='.$_GET[recommend_thread_pid].'&showratetip=1", "get", -1);
+					showWindow("rate", "forum.php?mod=misc&action=rate&tid='.$item['id'].'&pid='.$_GET['recommend_thread_pid'].'&showratetip=1", "get", -1);
 					</script>'));
 			} elseif($_GET['showrecommendtip']) {
 				showmessage('do_success', dreferer('portal.php'), array(), array('showdialog' => true, 'closetime' => true, 'extrajs' =>

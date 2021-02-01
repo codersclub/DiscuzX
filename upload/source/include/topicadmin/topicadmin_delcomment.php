@@ -72,7 +72,7 @@ if(!submitcheck('modsubmit')) {
 	C::t('forum_postcache')->delete($postcomment['pid']);
 
 	$resultarray = array(
-	'redirect'	=> "forum.php?mod=viewthread&tid=$_G[tid]&page=$page",
+	'redirect'	=> "forum.php?mod=viewthread&tid={$_G['tid']}&page=$page",
 	'reasonpm'	=> ($sendreasonpm ? array('data' => array($postcomment), 'var' => 'post', 'item' => 'reason_delete_comment', 'notictype' => 'pcomment') : array()),
 	'reasonvar'	=> array('tid' => $thread['tid'], 'pid' => $postcomment['pid'], 'subject' => $thread['subject'], 'modaction' => $modaction, 'reason' => $reason),
 	'modtids'	=> 0,

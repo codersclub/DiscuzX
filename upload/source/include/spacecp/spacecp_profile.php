@@ -380,7 +380,7 @@ if(submitcheck('profilesubmit')) {
 	if($emailnew != $_G['member']['email']) {
 		$authstr = true;
 		emailcheck_send($space['uid'], $emailnew);
-		dsetcookie('newemail', "$space[uid]\t$emailnew\t$_G[timestamp]", 31536000);
+		dsetcookie('newemail', "{$space['uid']}\t$emailnew\t{$_G['timestamp']}", 31536000);
 	}
 	if($setarr) {
 		if($_G['member']['freeze'] == 1) {
@@ -440,7 +440,7 @@ if($operation == 'password') {
 	if($_GET['resend'] && $resend) {
 		$toemail = $space['newemail'] ? $space['newemail'] : $space['email'];
 		emailcheck_send($space['uid'], $toemail);
-		dsetcookie('newemail', "$space[uid]\t$toemail\t$_G[timestamp]", 31536000);
+		dsetcookie('newemail', "{$space['uid']}\t$toemail\t{$_G['timestamp']}", 31536000);
 		dsetcookie('resendemail', TIMESTAMP);
 		showmessage('send_activate_mail_succeed', "home.php?mod=spacecp&ac=profile&op=password");
 	} elseif ($_GET['resend']) {

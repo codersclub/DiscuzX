@@ -35,7 +35,7 @@ if(!submitcheck('modsubmit')) {
 	}
 
 	$resultarray = array(
-	'redirect'	=> "forum.php?mod=viewthread&tid=$_G[tid]&page=$page",
+	'redirect'	=> "forum.php?mod=viewthread&tid={$_G['tid']}&page=$page",
 	'reasonpm'	=> ($sendreasonpm ? array('data' => array($thread), 'var' => 'thread', 'notictype' => 'post', 'item' => $_GET['live'] ? 'reason_live_update' : 'reason_live_cancle') : array()),
 	'reasonvar'	=> array('tid' => $thread['tid'], 'subject' => $thread['subject'], 'modaction' => $modaction, 'reason' => $reason),
 	'modaction'	=> $modaction,

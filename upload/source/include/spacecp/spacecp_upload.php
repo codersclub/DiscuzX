@@ -79,7 +79,7 @@ if(submitcheck('albumsubmit') && helper_access::check_module('album')) {
 		$albumid = C::t('home_album')->insert($setarr ,true);
 
 		if($setarr['catid']) {
-			C::t('home_album_category')->update_num_by_catid('1', $setarr[catid]);
+			C::t('home_album_category')->update_num_by_catid('1', $setarr['catid']);
 		}
 
 		if(empty($space['albumnum'])) {
@@ -111,7 +111,7 @@ if(submitcheck('albumsubmit') && helper_access::check_module('album')) {
 		feed_publish($albumid, 'albumid');
 	}
 
-	showmessage('upload_images_completed', "home.php?mod=space&uid=$_G[uid]&do=album&quickforward=1&id=".(empty($albumid)?-1:$albumid));
+	showmessage('upload_images_completed', "home.php?mod=space&uid={$_G['uid']}&do=album&quickforward=1&id=".(empty($albumid)?-1:$albumid));
 
 } else {
 

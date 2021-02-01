@@ -64,8 +64,8 @@ if (!empty($_GET['xml'])) {
 		if ($type == 'all') {
 			foreach ($cols as $ck => $cvs) {
 				if ($ck == 'login') {
-					$graph['login'] .= "<value xid='$count'>$value[login]</value>";
-					$graph['register'] .= "<value xid='$count'>$value[register]</value>";
+					$graph['login'] .= "<value xid='$count'>{$value['login']}</value>";
+					$graph['register'] .= "<value xid='$count'>{$value['register']}</value>";
 				} else {
 					$num = 0;
 					foreach ($cvs as $cvk) {

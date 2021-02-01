@@ -57,14 +57,14 @@ foreach ($list as $cid => $value) {
 		} else {
 			foreach ($mlist as $subvalue) {
 				if($subvalue['message']) {
-					$message .= "<br><strong>$subvalue[subject]</strong><br>$subvalue[message]<br>";
+					$message .= "<br><strong>{$subvalue['subject']}</strong><br>{$subvalue['message']}<br>";
 				} else {
 					$message .= $subvalue['subject'].'<br>';
 				}
 			}
 		}
 		if(!sendmail($value['email'], $subject, $message)) {
-			runlog('sendmail', "$value[email] sendmail failed.");
+			runlog('sendmail', "{$value['email']} sendmail failed.");
 		}
 	}
 }

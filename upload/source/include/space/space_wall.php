@@ -24,7 +24,7 @@ $start = ($page-1)*$perpage;
 
 ckstart($start, $perpage);
 
-$theurl = "home.php?mod=space&uid=$space[uid]&do=$do";
+$theurl = "home.php?mod=space&uid={$space['uid']}&do=$do";
 
 $diymode = 1;
 

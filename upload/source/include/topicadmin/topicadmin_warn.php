@@ -51,7 +51,7 @@ $authorcount = count(array_keys($authors));
 $modpostsnum = count($posts);
 
 if($modpostsnum == 1 || $authorcount == 1) {
-	$authorwarnings = C::t('forum_warning')->count_by_authorid_dateline($posts[0][authorid]);
+	$authorwarnings = C::t('forum_warning')->count_by_authorid_dateline($posts[0]['authorid']);
 	$warningauthor = $posts[0]['author'];
 }
 
@@ -91,8 +91,8 @@ if(!submitcheck('modsubmit')) {
 			));
 			$authorwarnings = C::t('forum_warning')->count_by_authorid_dateline($post['authorid'], $_G['timestamp'] - $_G['setting']['warningexpiration'] * 86400);
 			if($authorwarnings >= $_G['setting']['warninglimit']) {
-				$member = getuserbyuid($post[authorid]);
-				$memberfieldforum = C::t('common_member_field_forum')->fetch($post[authorid]);
+				$member = getuserbyuid($post['authorid']);
+				$memberfieldforum = C::t('common_member_field_forum')->fetch($post['authorid']);
 				$groupterms = dunserialize($memberfieldforum['groupterms']);
 				unset($memberfieldforum);
 				if($member && $member['groupid'] != 4) {
@@ -117,7 +117,7 @@ if(!submitcheck('modsubmit')) {
 	}
 
 	$resultarray = array(
-	'redirect'	=> "forum.php?mod=viewthread&tid=$_G[tid]&page=$page",
+	'redirect'	=> "forum.php?mod=viewthread&tid={$_G['tid']}&page=$page",
 	'reasonpm'	=> ($sendreasonpm ? array('data' => $posts, 'var' => 'post', 'item' => 'reason_warn_post', 'notictype' => 'post') : array()),
 	'reasonvar'	=> array('tid' => $thread['tid'], 'subject' => $thread['subject'], 'modaction' => $modaction, 'reason' => $reason,
 			'warningexpiration' => $_G['setting']['warningexpiration'], 'warninglimit' => $_G['setting']['warninglimit'], 'warningexpiration' => $_G['setting']['warningexpiration'],

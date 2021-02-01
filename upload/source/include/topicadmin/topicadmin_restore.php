@@ -36,7 +36,7 @@ if(!submitcheck('modsubmit')) {
 	$modaction = 'RST';
 	$reason = checkreasonpm();
 	$resultarray = array(
-		'redirect'	=> "forum.php?mod=viewthread&tid=$_G[tid]&page=$page",
+		'redirect'	=> "forum.php?mod=viewthread&tid={$_G['tid']}&page=$page",
 		'reasonpm'	=> ($sendreasonpm ? array('data' => array($thread), 'var' => 'thread') : array()),
 		'reasonvar'	=> array('tid' => $thread['tid'], 'subject' => $thread['subject'], 'modaction' => $modaction, 'reason' => $reason),
 		'modaction'	=> $modaction,

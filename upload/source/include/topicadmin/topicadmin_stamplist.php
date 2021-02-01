@@ -29,7 +29,7 @@ if(!submitcheck('modsubmit')) {
 
 	C::t('forum_thread')->update($_G['tid'], array('moderated'=>1, 'icon'=>$_GET['stamplist']));
 	$resultarray = array(
-	'redirect'	=> "forum.php?mod=viewthread&tid=$_G[tid]&page=$page",
+	'redirect'	=> "forum.php?mod=viewthread&tid={$_G['tid']}&page=$page",
 	'reasonpm'	=> ($sendreasonpm ? array('data' => array($thread), 'var' => 'thread', 'notictype' => 'post', 'item' => $_GET['stamplist'] !== '' ? 'reason_stamplist_update' : 'reason_stamplist_delete') : array()),
 	'reasonvar'	=> array('tid' => $thread['tid'], 'subject' => $thread['subject'], 'modaction' => $modaction, 'reason' => $reason, 'stamp' => $_G['cache']['stamps'][$_GET['stamplist']]['text']),
 	'modaction'	=> $modaction,

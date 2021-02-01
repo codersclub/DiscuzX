@@ -71,7 +71,7 @@ if($op == 'add') {
 
 			if(ckprivacy('friend', 'feed')) {
 				require_once libfile('function/feed');
-				feed_add('friend', 'feed_friend_title', array('touser'=>"<a href=\"home.php?mod=space&uid=$tospace[uid]\">$tospace[username]</a>"));
+				feed_add('friend', 'feed_friend_title', array('touser'=>"<a href=\"home.php?mod=space&uid={$tospace['uid']}\">{$tospace['username']}</a>"));
 			}
 
 			notification_add($uid, 'friend', 'friend_add');
@@ -405,7 +405,7 @@ if($op == 'add') {
 		C::t('home_blacklist')->delete_by_uid_buid($space['uid'], $_GET['uid']);
 		$count = C::t('home_blacklist')->count_by_uid_buid($space['uid']);
 		C::t('common_member_count')->update($_G['uid'], array('blacklist' => $count));
-		showmessage('do_success', "home.php?mod=space&uid=$_G[uid]&do=friend&view=blacklist&quickforward=1&start=$_GET[start]");
+		showmessage('do_success', "home.php?mod=space&uid={$_G['uid']}&do=friend&view=blacklist&quickforward=1&start={$_GET['start']}");
 	}
 
 	if(submitcheck('blacklistsubmit')) {
@@ -423,7 +423,7 @@ if($op == 'add') {
 
 		$count = C::t('home_blacklist')->count_by_uid_buid($space['uid']);
 		C::t('common_member_count')->update($_G['uid'], array('blacklist' => $count));
-		showmessage('do_success', "home.php?mod=space&uid=$_G[uid]&do=friend&view=blacklist&quickforward=1&start=$_GET[start]");
+		showmessage('do_success', "home.php?mod=space&uid={$_G['uid']}&do=friend&view=blacklist&quickforward=1&start={$_GET['start']}");
 	}
 
 } elseif($op == 'rand') {
@@ -493,7 +493,7 @@ if($op == 'add') {
 				$value['fusername'] = daddslashes($value['fusername']);
 				$value['avatar'] = avatar($value['followuid'], 'small', true);
 				$singlenum++;
-				$json[$value['followuid']] = "$value[followuid]:{'uid':$value[followuid], 'username':'$value[fusername]', 'avatar':'$value[avatar]'}";
+				$json[$value['followuid']] = "{$value['followuid']}:{'uid':{$value['followuid']}, 'username':'{$value['fusername']}', 'avatar':'{$value['avatar']}'}";
 			}
 			$perpage = $perpage - $singlenum;
 			$start = max($start - $count_at, 0);
@@ -515,7 +515,7 @@ if($op == 'add') {
 				$value['fusername'] = daddslashes($usernames[$value['fuid']]);
 				$value['avatar'] = avatar($value['fuid'], 'small', true);
 				$singlenum++;
-				$json[$value['fuid']] = "$value[fuid]:{'uid':$value[fuid], 'username':'$value[fusername]', 'avatar':'$value[avatar]'}";
+				$json[$value['fuid']] = "{$value['fuid']}:{'uid':{$value['fuid']}, 'username':'{$value['fusername']}', 'avatar':'{$value['avatar']}'}";
 			}
 		}
 	}

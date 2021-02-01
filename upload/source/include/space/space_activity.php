@@ -67,7 +67,7 @@ if($_GET['view'] == 'me') {
 			$fuid_actives = array($fuid=>' selected');
 			$frienduid = $fuid;
 		} else {
-			$theurl = "home.php?mod=space&uid=$space[uid]&do=$do&view=we";
+			$theurl = "home.php?mod=space&uid={$space['uid']}&do=$do&view=we";
 			$frienduid = explode(',', $space['feedfriend']);
 		}
 

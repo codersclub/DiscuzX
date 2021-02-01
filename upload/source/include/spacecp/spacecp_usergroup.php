@@ -103,7 +103,7 @@ if(in_array($do, array('buy', 'exit'))) {
 				C::t('common_member')->update($_G['uid'], array('extgroupids' => $extgroupidsnew));
 			}
 
-			showmessage('usergroups_join_succeed', "home.php?mod=spacecp&ac=usergroup".($_GET['gid'] ? "&gid=$_GET[gid]" : '&do=list'), array('group' => $group['grouptitle']), array('showdialog' => 3, 'showmsg' => true, 'locationtime' => true));
+			showmessage('usergroups_join_succeed', "home.php?mod=spacecp&ac=usergroup".($_GET['gid'] ? "&gid={$_GET['gid']}" : '&do=list'), array('group' => $group['grouptitle']), array('showdialog' => 3, 'showmsg' => true, 'locationtime' => true));
 
 		} else {
 
@@ -127,7 +127,7 @@ if(in_array($do, array('buy', 'exit'))) {
 			$extgroupidsnew = implode("\t", array_unique($extgroupidsarray));
 			C::t('common_member')->update($_G['uid'], array('groupexpiry' => $groupexpirynew, 'extgroupids' => $extgroupidsnew));
 
-			showmessage('usergroups_exit_succeed', "home.php?mod=spacecp&ac=usergroup".($_GET['gid'] ? "&gid=$_GET[gid]" : '&do=list'), array('group' => $group['grouptitle']), array('showdialog' => 3, 'showmsg' => true, 'locationtime' => true));
+			showmessage('usergroups_exit_succeed', "home.php?mod=spacecp&ac=usergroup".($_GET['gid'] ? "&gid={$_GET['gid']}" : '&do=list'), array('group' => $group['grouptitle']), array('showdialog' => 3, 'showmsg' => true, 'locationtime' => true));
 
 		}
 
@@ -163,7 +163,7 @@ if(in_array($do, array('buy', 'exit'))) {
 		}
 
 		C::t('common_member')->update($_G['uid'], array('groupid' => $groupid, 'adminid' => $newadminid, 'groupexpiry' => $groupexpirynew, 'extgroupids' => $extgroupidsnew));
-		showmessage('usergroups_switch_succeed', "home.php?mod=spacecp&ac=usergroup".($_GET['gid'] ? "&gid=$_GET[gid]" : '&do=list'), array('group' => $group['grouptitle']), array('showdialog' => 3, 'showmsg' => true, 'locationtime' => true));
+		showmessage('usergroups_switch_succeed', "home.php?mod=spacecp&ac=usergroup".($_GET['gid'] ? "&gid={$_GET['gid']}" : '&do=list'), array('group' => $group['grouptitle']), array('showdialog' => 3, 'showmsg' => true, 'locationtime' => true));
 	}
 
 } elseif($do == 'forum') {

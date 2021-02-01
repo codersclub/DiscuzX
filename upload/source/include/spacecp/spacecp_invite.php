@@ -199,7 +199,7 @@ if($_GET['op'] == 'resend') {
 	foreach(C::t('common_invite')->fetch_all_by_uid($_G['uid']) as $value) {
 		if(!$value['fuid'] && !$value['type']) {
 			$inviteurl = getinviteurl($value['id'], $value['code']);
-			$list[$value[code]] = $inviteurl;
+			$list[$value['code']] = $inviteurl;
 		}
 	}
 } else {
@@ -227,7 +227,7 @@ if($_GET['op'] == 'resend') {
 					'id' => $value['id']
 				);
 			} else {
-				$list[$value[code]] = $inviteurl;
+				$list[$value['code']] = $inviteurl;
 				$count++;
 			}
 		}
@@ -269,7 +269,7 @@ function getinviteurl($inviteid, $invitecode) {
 		$inviteurl = getsiteurl()."home.php?mod=invite&amp;id={$inviteid}&amp;c={$invitecode}";
 	} else {
 		$invite_code = space_key($_G['uid']);
-		$inviteurl = getsiteurl()."home.php?mod=invite&amp;u=$_G[uid]&amp;c=$invite_code";
+		$inviteurl = getsiteurl()."home.php?mod=invite&amp;u={$_G['uid']}&amp;c=$invite_code";
 	}
 	return $inviteurl;
 }

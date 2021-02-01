@@ -47,7 +47,7 @@ if($id) {
 			foreach($query as $value) {
 				$list[] = $value;
 			}
-			$multi = multi($count, $perpage, $page, "home.php?mod=space&uid=$share[uid]&do=share&id=$id", '', 'comment_ul');
+			$multi = multi($count, $perpage, $page, "home.php?mod=space&uid={$share['uid']}&do=share&id=$id", '', 'comment_ul');
 		}
 		$diymode = intval($_G['cookie']['home_diymode']);
 	}

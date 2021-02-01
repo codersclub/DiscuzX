@@ -82,7 +82,7 @@ if(submitcheck('blogsubmit', 0, $seccodecheck, $secqaacheck) && helper_access::c
 			$url = 'home.php?mod=space&uid='.$newblog['uid'].'&do=blog&quickforward=1&id='.$newblog['blogid'];
 		}
 		if($_GET['modblogkey']) {
-			$url .= "&modblogkey=$_GET[modblogkey]";
+			$url .= "&modblogkey={$_GET['modblogkey']}";
 		}
 		dsetcookie('clearUserdata', 'home');
 		showmessage('do_success', $url);
@@ -95,7 +95,7 @@ if($_GET['op'] == 'delete') {
 	if(submitcheck('deletesubmit')) {
 		require_once libfile('function/delete');
 		if(deleteblogs(array($blogid))) {
-			showmessage('do_success', "home.php?mod=space&uid=$blog[uid]&do=blog&view=me");
+			showmessage('do_success', "home.php?mod=space&uid={$blog['uid']}&do=blog&view=me");
 		} else {
 			showmessage('failed_to_delete_operation');
 		}
@@ -118,7 +118,7 @@ if($_GET['op'] == 'delete') {
 			$stickblogs = array_filter($stickblogs);
 			$space['stickblogs'] = implode(',', $stickblogs);
 			C::t('common_member_field_home')->update($space['uid'], array('stickblogs' => $space['stickblogs']));
-			showmessage('do_success', dreferer("home.php?mod=space&uid=$blog[uid]&do=blog&view=me"));
+			showmessage('do_success', dreferer("home.php?mod=space&uid={$blog['uid']}&do=blog&view=me"));
 		} else {
 			showmessage('failed_to_stick_operation');
 		}
@@ -139,7 +139,7 @@ if($_GET['op'] == 'delete') {
 			C::t('home_feed')->update($blog['blogid'], array('hot'=>$_POST['hot']), 'blogid');
 		}
 
-		showmessage('do_success', "home.php?mod=space&uid=$blog[uid]&do=blog&id=$blog[blogid]");
+		showmessage('do_success', "home.php?mod=space&uid={$blog['uid']}&do=blog&id={$blog['blogid']}");
 	}
 
 } else {

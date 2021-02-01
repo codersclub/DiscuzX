@@ -229,7 +229,7 @@ if(!IS_ROBOT) {
 							}
 
 						} else {
-							$user_list[$value['hash_data']][] = "<a href=\"home.php?mod=space&uid=$value[uid]\">$value[username]</a>";
+							$user_list[$value['hash_data']][] = "<a href=\"home.php?mod=space&uid={$value['uid']}\">{$value['username']}</a>";
 						}
 
 

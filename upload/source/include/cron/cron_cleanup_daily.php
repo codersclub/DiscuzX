@@ -29,7 +29,7 @@ C::t('common_seccheck')->truncate();
 
 if($_G['setting']['heatthread']['type'] == 2 && $_G['setting']['heatthread']['period']) {
 	$partakeperoid = 86400 * $_G['setting']['heatthread']['period'];
-	C::t('forum_threadpartake')->delete($_G[timestamp]-$partakeperoid);
+	C::t('forum_threadpartake')->delete($_G['timestamp'] - $partakeperoid);
 }
 
 C::t('common_member_count')->clear_today_data();
@@ -92,8 +92,8 @@ if(!empty($_G['setting']['advexpiration']['allow'])) {
 					notification_add($member['uid'], 'system', 'system_adv_expiration', $noticelang, 1);
 				}
 				if(in_array('mail', $_G['setting']['advexpiration']['method'])) {
-					if(!sendmail("$member[username] <$member[email]>", lang('email', 'adv_expiration_subject', $noticelang), lang('email', 'adv_expiration_message', $noticelang))) {
-						runlog('sendmail', "$member[email] sendmail failed.");
+					if(!sendmail("{$member['username']} <{$member['email']}>", lang('email', 'adv_expiration_subject', $noticelang), lang('email', 'adv_expiration_message', $noticelang))) {
+						runlog('sendmail', "{$member['email']} sendmail failed.");
 					}
 				}
 			}

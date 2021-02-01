@@ -67,10 +67,10 @@ $single = $modpostsnum == 1 ? TRUE : FALSE;
 $frommodcp = getgpc('frommodcp');
 switch($frommodcp) {
 	case '1':
-		$_G['referer'] = "forum.php?mod=modcp&action=thread&fid=$_G[fid]&op=thread&do=list";
+		$_G['referer'] = "forum.php?mod=modcp&action=thread&fid={$_G['fid']}&op=thread&do=list";
 		break;
 	case '2':
-		$_G['referer'] = "forum.php?mod=modcp&action=forum&op=recommend".(getgpc('show') ? "&show=getgpc('show')" : '')."&fid=$_G[fid]";
+		$_G['referer'] = "forum.php?mod=modcp&action=forum&op=recommend".(getgpc('show') ? "&show=getgpc('show')" : '')."&fid={$_G['fid']}";
 		break;
 	default:
 		if(in_array('delete', $operations) || in_array('move', $operations) && !strpos($_SERVER['HTTP_REFERER'], 'search.php?mod=forum')) {
@@ -354,7 +354,7 @@ if(!submitcheck('modsubmit')) {
 
 
 				C::t('forum_thread')->update($tidsarr, array('lastpost'=>$expiration, 'moderated'=>1), true);
-				C::t('forum_forum')->update($_G['fid'], array('lastpost' => "$thread[tid]\t$thread[subject]\t$expiration\t$thread[lastposter]"));
+				C::t('forum_forum')->update($_G['fid'], array('lastpost' => "{$thread['tid']}\t{$thread['subject']}\t$expiration\t{$thread['lastposter']}"));
 
 				$_G['forum']['threadcaches'] && deletethreadcaches($thread['tid']);
 			} elseif($operation == 'down') {

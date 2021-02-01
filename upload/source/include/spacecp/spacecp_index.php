@@ -64,7 +64,7 @@ if ($op == 'start') {
 
 		$count = $albumlist[$albumid]['picnum'];
 	} else {
-		$wheresql = "albumid='0' AND uid='$space[uid]'";
+		$wheresql = "albumid='0' AND uid='{$space['uid']}'";
 	}
 
 	$list = array();

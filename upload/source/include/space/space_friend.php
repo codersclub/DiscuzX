@@ -30,32 +30,32 @@ $_GET['order'] = in_array($_GET['order'], array('hot', 'dateline')) ? $_GET['ord
 ckstart($start, $perpage);
 
 if($_GET['view'] == 'online') {
-	$theurl = "home.php?mod=space&uid=$space[uid]&do=friend&view=online";
+	$theurl = "home.php?mod=space&uid={$space['uid']}&do=friend&view=online";
 	$actives = array('me'=>' class="a"');
 
 	space_merge($space, 'field_home');
 	$onlinedata = array();
 	$wheresql = '';
 	if($_GET['type']=='near') {
-		$theurl = "home.php?mod=space&uid=$space[uid]&do=friend&view=online&type=near";
+		$theurl = "home.php?mod=space&uid={$space['uid']}&do=friend&view=online&type=near";
 		if(($count = C::app()->session->count_by_ip($_G['clientip']))) {
 			$onlinedata = C::app()->session->fetch_all_by_ip($_G['clientip'], $start, $perpage);
 		}
 	} elseif($_GET['type']=='friend') {
-		$theurl = "home.php?mod=space&uid=$space[uid]&do=friend&view=online&type=friend";
+		$theurl = "home.php?mod=space&uid={$space['uid']}&do=friend&view=online&type=friend";
 		if(!empty($space['feedfriend'])) {
 			$onlinedata = C::app()->session->fetch_all_by_uid(explode(',', $space['feedfriend']), $start, $perpage);
 		}
 		$count = count($onlinedata);
 	} elseif($_GET['type']=='member') {
-		$theurl = "home.php?mod=space&uid=$space[uid]&do=friend&view=online&type=member";
+		$theurl = "home.php?mod=space&uid={$space['uid']}&do=friend&view=online&type=member";
 		$wheresql = " WHERE uid>0";
 		if(($count = C::app()->session->count(1))) {
 			$onlinedata = C::app()->session->fetch_member(1, 2, $start, $perpage);
 		}
 	} else {
 		$_GET['type']='all';
-		$theurl = "home.php?mod=space&uid=$space[uid]&do=friend&view=online&type=all";
+		$theurl = "home.php?mod=space&uid={$space['uid']}&do=friend&view=online&type=all";
 		if(($count = C::app()->session->count_invisible(0))) {
 			$onlinedata = C::app()->session->fetch_member(0, 2, $start, $perpage);
 		}
@@ -92,7 +92,7 @@ if($_GET['view'] == 'online') {
 
 } elseif($_GET['view'] == 'visitor' || $_GET['view'] == 'trace') {
 
-	$theurl = "home.php?mod=space&uid=$space[uid]&do=friend&view=$_GET[view]";
+	$theurl = "home.php?mod=space&uid={$space['uid']}&do=friend&view={$_GET['view']}";
 	$actives = array('me'=>' class="a"');
 
 	if($_GET['view'] == 'visitor') {
@@ -119,7 +119,7 @@ if($_GET['view'] == 'online') {
 
 } elseif($_GET['view'] == 'blacklist') {
 
-	$theurl = "home.php?mod=space&uid=$space[uid]&do=friend&view=$_GET[view]";
+	$theurl = "home.php?mod=space&uid={$space['uid']}&do=friend&view={$_GET['view']}";
 	$actives = array('me'=>' class="a"');
 
 	$count = C::t('home_blacklist')->count_by_uid_buid($space['uid']);
@@ -137,7 +137,7 @@ if($_GET['view'] == 'online') {
 
 } else {
 
-	$theurl = "home.php?mod=space&uid=$space[uid]&do=$do";
+	$theurl = "home.php?mod=space&uid={$space['uid']}&do=$do";
 	$actives = array('me'=>' class="a"');
 
 	$_GET['view'] = 'me';
@@ -155,7 +155,7 @@ if($_GET['view'] == 'online') {
 	if($_GET['searchkey']) {
 		require_once libfile('function/search');
 		$querydata['searchkey'] = $_GET['searchkey'];
-		$theurl .= "&searchkey=$_GET[searchkey]";
+		$theurl .= "&searchkey={$_GET['searchkey']}";
 	}
 
 	$count = C::t('home_friend')->fetch_all_search($space['uid'], $querydata['gid'], $querydata['searchkey'], true);

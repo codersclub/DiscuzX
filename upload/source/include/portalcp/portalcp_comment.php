@@ -86,7 +86,7 @@ if($_GET['op'] == 'requote') {
 		C::t('portal_comment')->delete($cid);
 		$idtype = in_array($comment['idtype'], array('aid' ,'topicid')) ? $comment['idtype'] : 'aid';
 		$tablename = $idtype == 'aid' ? 'portal_article_count' : 'portal_topic';
-		C::t($tablename)->increase($comment[id], array('commentnum' => -1));
+		C::t($tablename)->increase($comment['id'], array('commentnum' => -1));
 		showmessage('do_success', dreferer());
 	}
 

@@ -88,7 +88,7 @@ if($op == "finish") {
 	if(!empty($_G['group']['maximagesize'])) {
 		$max = intval($_G['group']['maximagesize']);
 	} else {
-		$max = @ini_get(upload_max_filesize);
+		$max = ini_get('upload_max_filesize');
 		$unit = strtolower(substr($max, -1, 1));
 		if($unit == 'k') {
 			$max = intval($max)*1024;

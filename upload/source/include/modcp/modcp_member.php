@@ -48,7 +48,7 @@ if($op == 'edit') {
 			C::t('common_member_profile')->update($member['uid'], array('bio' => $biohtmlnew));
 			C::t('common_member_field_forum')->update($member['uid'], array('sightml' => $sightmlnew));
 		}
-		acpmsg('members_edit_succeed', "$cpscript?mod=modcp&action=$_GET[action]&op=$op");
+		acpmsg('members_edit_succeed', "$cpscript?mod=modcp&action={$_GET['action']}&op=$op");
 
 	} elseif($member) {
 
@@ -130,7 +130,7 @@ if($op == 'edit') {
 		C::t('common_member_field_forum')->update($member['uid'], array('groupterms' => serialize($member['groupterms'])));
 		if($_GET['bannew'] == 4) {
 			$notearr = array(
-				'user' => "<a href=\"home.php?mod=space&uid=$_G[uid]\">$_G[username]</a>",
+				'user' => "<a href=\"home.php?mod=space&uid={$_G['uid']}\">{$_G['username']}</a>",
 				'day' => $_GET['banexpirynew'],
 				'reason' => $reason,
 				'from_id' => 0,
@@ -140,7 +140,7 @@ if($op == 'edit') {
 		}
 		if($_GET['bannew'] == 5) {
 			$notearr = array(
-				'user' => "<a href=\"home.php?mod=space&uid=$_G[uid]\">$_G[username]</a>",
+				'user' => "<a href=\"home.php?mod=space&uid={$_G['uid']}\">{$_G['username']}</a>",
 				'day' => $_GET['banexpirynew'],
 				'reason' => $reason,
 				'from_id' => 0,
@@ -153,7 +153,7 @@ if($op == 'edit') {
 			crime('recordaction', $member['uid'], ($_GET['bannew'] == 4 ? 'crime_banspeak' : 'crime_banvisit'), $reason);
 		}
 
-		acpmsg('modcp_member_ban_succeed', "$cpscript?mod=modcp&action=$_GET[action]&op=$op");
+		acpmsg('modcp_member_ban_succeed', "$cpscript?mod=modcp&action={$_GET['action']}&op=$op");
 
 	}
 

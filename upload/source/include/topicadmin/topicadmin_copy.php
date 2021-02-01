@@ -86,7 +86,7 @@ if(!submitcheck('modsubmit')) {
 
 	$modpostsnum ++;
 	$resultarray = array(
-	'redirect'	=> "forum.php?mod=forumdisplay&fid=$_G[fid]",
+	'redirect'	=> "forum.php?mod=forumdisplay&fid={$_G['fid']}",
 	'reasonpm'	=> ($sendreasonpm ? array('data' => array($thread), 'var' => 'thread', 'item' => 'reason_copy', 'notictype' => 'post') : array()),
 	'reasonvar'	=> array('tid' => $thread['tid'], 'subject' => $thread['subject'], 'modaction' => $modaction, 'reason' => $reason, 'threadid' => $threadid),
 	'modtids'	=> $thread['tid'],

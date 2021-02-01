@@ -58,7 +58,7 @@ if(!submitcheck('modsubmit')) {
 	C::t('common_credit_log')->delete_by_operation_relatedid(array('BTC', 'STC'), $_G['tid']);
 
 	$resultarray = array(
-	'redirect'	=> "forum.php?mod=viewthread&tid=$_G[tid]",
+	'redirect'	=> "forum.php?mod=viewthread&tid={$_G['tid']}",
 	'reasonpm'	=> ($sendreasonpm ? array('data' => array($thread), 'var' => 'thread', 'item' => 'reason_moderate', 'notictype' => 'post') : array()),
 	'reasonvar'	=> array('tid' => $thread['tid'], 'subject' => $thread['subject'], 'modaction' => $modaction, 'reason' => $reason),
 	'modtids'	=> $thread['tid'],

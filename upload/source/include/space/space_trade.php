@@ -56,7 +56,7 @@ $need_count = true;
 
 if($_GET['view'] == 'me') {
 
-	$wheresql = "t.sellerid = '$space[uid]'";
+	$wheresql = "t.sellerid = '{$space['uid']}'";
 
 } elseif($_GET['view'] == 'tradelog') {
 
@@ -196,7 +196,7 @@ if($_GET['view'] == 'me') {
 			$fuid_actives = array($fuid=>' selected');
 		} else {
 			$wheresql = 't.'.DB::field('sellerid', $space['feedfriend']);
-			$theurl = "home.php?mod=space&uid=$space[uid]&do=$do&view=we";
+			$theurl = "home.php?mod=space&uid={$space['uid']}&do=$do&view=we";
 		}
 
 		$query = C::t('home_friend')->fetch_all_by_uid($space['uid'], 0, 100, true);

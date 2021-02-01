@@ -47,7 +47,7 @@ foreach(C::t('common_adminnote')->fetch_all_by_access(explode(',', $access)) as 
 	} else {
 		$note['expiration'] = ceil(($note['expiration'] - $note['dateline']) / 86400);
 		$note['dateline'] = dgmdate($note['dateline']);
-		$note['checkbox'] = '<input type="checkbox" name="delete[]" class="pc" '.($note['admin'] == $_G['member']['username'] || $_G['adminid'] == 1 ? "value=\"$note[id]\"" : 'disabled').'>';
+		$note['checkbox'] = '<input type="checkbox" name="delete[]" class="pc" '.($note['admin'] == $_G['member']['username'] || $_G['adminid'] == 1 ? "value=\"{$note['id']}\"" : 'disabled').'>';
 		$note['admin'] = '<a href="home.php?mod=space&username='.rawurlencode($note['admin']).'" target="_blank">'.$note['admin'].'</a>';
 		$notelist[] = $note;
 	}

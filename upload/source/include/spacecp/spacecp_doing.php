@@ -167,7 +167,7 @@ if(helper_access::check_module('doing')) {
 
 		if($updo['uid'] != $_G['uid']) {
 			notification_add($updo['uid'], 'comment', 'doing_reply', array(
-				'url'=>"home.php?mod=space&uid=$updo[uid]&do=doing&view=me&doid=$updo[doid]&highlight=$newid",
+				'url'=>"home.php?mod=space&uid={$updo['uid']}&do=doing&view=me&doid={$updo['doid']}&highlight=$newid",
 				'from_id'=>$updo['doid'],
 				'from_idtype'=>'doid'));
 			updatecreditbyaction('comment', 0, array(), 'doing'.$updo['doid']);

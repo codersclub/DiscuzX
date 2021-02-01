@@ -141,7 +141,7 @@ if($_G['setting']['commentnumber'] && !empty($_GET['comment'])) {
 		}
 	}
 	C::t('forum_postcache')->delete($post['pid']);
-	showmessage('comment_add_succeed', "forum.php?mod=viewthread&tid=$post[tid]&pid=$post[pid]&page=$_GET[page]&extra=$extra#pid$post[pid]", array('tid' => $post['tid'], 'pid' => $post['pid']));
+	showmessage('comment_add_succeed', "forum.php?mod=viewthread&tid={$post['tid']}&pid={$post['pid']}&page={$_GET['page']}&extra=$extra#pid{$post['pid']}", array('tid' => $post['tid'], 'pid' => $post['pid']));
 }
 
 if($special == 127) {
@@ -218,7 +218,7 @@ if(!submitcheck('replysubmit', 0, $seccodecheck, $secqaacheck)) {
 			$post_reply_quote = lang('forum/misc', 'post_reply_quote', array('author' => $thaquote['author'], 'time' => $time));
 			$noticeauthormsg = dhtmlspecialchars($message);
 			if(!defined('IN_MOBILE')) {
-				$message = "[quote][size=2][url=forum.php?mod=redirect&goto=findpost&pid=$_GET[repquote]&ptid={$_G['tid']}][color=#999999]{$post_reply_quote}[/color][/url][/size]\n{$message}[/quote]";
+				$message = "[quote][size=2][url=forum.php?mod=redirect&goto=findpost&pid={$_GET['repquote']}&ptid={$_G['tid']}][color=#999999]{$post_reply_quote}[/color][/url][/size]\n{$message}[/quote]";
 			} else {
 				$message = "[quote][color=#999999]{$post_reply_quote}[/color]\n[color=#999999]{$message}[/color][/quote]";
 			}
@@ -286,7 +286,7 @@ if(!submitcheck('replysubmit', 0, $seccodecheck, $secqaacheck)) {
 			} elseif($post['status'] & 1) {
 				$post['message'] = $language['post_single_banned'];
 			} else {
-				$post['message'] = preg_replace("/\[hide=?\d*\](.*?)\[\/hide\]/is", "[b]$language[post_hidden][/b]", $post['message']);
+				$post['message'] = preg_replace("/\[hide=?\d*\](.*?)\[\/hide\]/is", "[b]{$language['post_hidden']}[/b]", $post['message']);
 				$post['message'] = discuzcode($post['message'], $post['smileyoff'], $post['bbcodeoff'], $post['htmlon'] & 1, $_G['forum']['allowsmilies'], $_G['forum']['allowbbcode'], $_G['forum']['allowimgcode'], $_G['forum']['allowhtml'], $_G['forum']['jammer']);
 			}
 

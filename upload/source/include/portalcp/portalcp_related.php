@@ -99,6 +99,6 @@ if($op == 'manual') {
 		$count++;
 	}
 }
-$category = category_showselect('portal', 'searchcate', false, $_GET[searchcate]);
+$category = category_showselect('portal', 'searchcate', false, $_GET['searchcate']);
 include_once template("portal/portalcp_related_article");
 ?>

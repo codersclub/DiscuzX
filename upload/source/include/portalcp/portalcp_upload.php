@@ -182,7 +182,7 @@ function portal_upload_show($attach) {
 		$filehtml = get_uploadcontent($attach, 'portal', 'upload');
 	}
 
-	echo '<script type="text/javascript" src="'.$_G[setting][jspath].'handlers.js?'.$_G['style']['verhash'].'"></script>';
+	echo '<script type="text/javascript" src="'.$_G['setting']['jspath'].'handlers.js?'.$_G['style']['verhash'].'"></script>';
 	echo '<script>';
 	if($imagehtml) echo 'var tdObj = getInsertTdId(parent.$(\'imgattachlist\'), \'attach_list_'.$attach['attachid'].'\');tdObj.innerHTML = \''.addslashes($imagehtml).'\';';
 	if($filehtml) echo 'parent.$(\'attach_file_body\').innerHTML = \''.addslashes($filehtml).'\'+parent.$(\'attach_file_body\').innerHTML;';

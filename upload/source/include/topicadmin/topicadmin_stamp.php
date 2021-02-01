@@ -38,7 +38,7 @@ if(!submitcheck('modsubmit')) {
 	C::t('common_member_secwhite')->add($thread['authorid']);
 
 	$resultarray = array(
-	'redirect'	=> "forum.php?mod=viewthread&tid=$_G[tid]&page=$page",
+	'redirect'	=> "forum.php?mod=viewthread&tid={$_G['tid']}&page=$page",
 	'reasonpm'	=> ($sendreasonpm ? array('data' => array($thread), 'var' => 'thread', 'notictype' => 'post', 'item' => $_GET['stamp'] !== '' ? 'reason_stamp_update' : 'reason_stamp_delete') : array()),
 	'reasonvar'	=> array('tid' => $thread['tid'], 'subject' => $thread['subject'], 'modaction' => $modaction, 'reason' => $reason, 'stamp' => $_G['cache']['stamps'][$stamp]['text']),
 	'modaction'	=> $modaction,

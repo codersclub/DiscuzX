@@ -78,7 +78,7 @@ if($_GET['op'] == 'delete') {
 			$foruminfo = C::t('forum_forum')->fetch($id);
 			loadcache('forums');
 			$forum = $_G['cache']['forums'][$id];
-			if(!$forum['viewperm'] || ($forum['viewperm'] && forumperm($forum['viewperm'])) || strstr($forum['users'], "\t$_G[uid]\t")) {
+			if(!$forum['viewperm'] || ($forum['viewperm'] && forumperm($forum['viewperm'])) || strstr($forum['users'], "\t{$_G['uid']}\t")) {
 				$title = $foruminfo['status'] != 3 ? $foruminfo['name'] : '';
 				$icon = '<img src="static/image/feed/discuz.gif" alt="forum" class="vm" /> ';
 			}

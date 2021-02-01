@@ -243,7 +243,7 @@ if(submitcheck("articlesubmit", 0, $seccodecheck, $secqaacheck)) {
 				$blog = C::t('home_blog')->fetch($id);
 				if(!empty($blog)) {
 					$notify = array(
-						'url' => "home.php?mod=space&uid=$blog[uid]&do=blog&id=$id",
+						'url' => "home.php?mod=space&uid={$blog['uid']}&do=blog&id=$id",
 						'subject' => $blog['subject']
 					);
 					$touid = $blog['uid'];
@@ -287,7 +287,7 @@ if(submitcheck("articlesubmit", 0, $seccodecheck, $secqaacheck)) {
 
 
 	$article = C::t('portal_article_title')->fetch($aid);
-	$viewarticleurl = $_POST['url'] ? "portal.php?mod=list&catid=$_POST[catid]" : fetch_article_url($article);
+	$viewarticleurl = $_POST['url'] ? "portal.php?mod=list&catid={$_POST['catid']}" : fetch_article_url($article);
 
 	include_once template("portal/portalcp_article");dexit();
 
@@ -321,7 +321,7 @@ if(submitcheck("articlesubmit", 0, $seccodecheck, $secqaacheck)) {
 	foreach($posts as $post) {
 		$summary = portalcp_get_postmessage($post);
 		$summary .= lang('portalcp', 'article_pushplus_info', array('author'=>$post['author'], 'url'=>'forum.php?mod=redirect&goto=findpost&ptid='.$post['tid'].'&pid='.$post['pid']));
-		$inserts[] = array('aid'=>$aid, 'content'=>$summary, 'pageorder'=>$pageorder, 'dateline'=>$_G['timestamp'], 'id'=>$post[pid], 'idtype' =>'pid');
+		$inserts[] = array('aid'=>$aid, 'content'=>$summary, 'pageorder'=>$pageorder, 'dateline'=>$_G['timestamp'], 'id'=>$post['pid'], 'idtype' =>'pid');
 		$pageorder++;
 	}
 	C::t('portal_article_content')->insert_batch($inserts);
@@ -372,7 +372,7 @@ if($op == 'delete') {
 	if(submitcheck('deletesubmit')) {
 		include_once libfile('function/delete');
 		$article = deletearticle(array(intval($_POST['aid'])), intval($_POST['optype']));
-		showmessage('article_delete_success', "portal.php?mod=list&catid={$article[0][catid]}");
+		showmessage('article_delete_success', "portal.php?mod=list&catid={$article[0]['catid']}");
 	}
 
 } elseif($op == 'related') {
@@ -399,7 +399,7 @@ if($op == 'delete') {
 				require_once libfile('function/delete');
 				$istrash = $optype == 'trash' ? 1 : 0;
 				$article = deletearticle($aids, $istrash);
-				showmessage('article_delete_success', dreferer("portal.php?mod=portalcp&ac=category&catid={$article[0][catid]}"));
+				showmessage('article_delete_success', dreferer("portal.php?mod=portalcp&ac=category&catid={$article[0]['catid']}"));
 		} elseif($optype == 'move') {
 			if($catid) {
 				$categoryUpdate = array();
@@ -587,7 +587,7 @@ if($op == 'delete') {
 				}
 				$article['title'] = getstr($blog['subject'], 0);
 				$article['summary'] = portalcp_get_summary($blog['message']);
-				$article['fromurl'] = 'home.php?mod=space&uid='.$blog[uid].'&do=blog&id='.$blog[blogid];
+				$article['fromurl'] = 'home.php?mod=space&uid='.$blog['uid'].'&do=blog&id='.$blog['blogid'];
 				$article['author'] = $blog['username'];
 				$article_content['content'] = dhtmlspecialchars($blog['message']);
 			}

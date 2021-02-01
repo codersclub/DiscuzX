@@ -104,7 +104,7 @@ if(!submitcheck('modsubmit')) {
 
 	$modpostsnum++;
 	$resultarray = array(
-	'redirect'	=> "forum.php?mod=forumdisplay&fid=$_G[fid]",
+	'redirect'	=> "forum.php?mod=forumdisplay&fid={$_G['fid']}",
 	'reasonpm'	=> ($sendreasonpm ? array('data' => $splitauthors, 'var' => 'thread', 'item' => 'reason_moderate', 'notictype' => 'post') : array()),
 	'reasonvar'	=> array('tid' => $thread['tid'], 'subject' => $thread['subject'], 'modaction' => $modaction, 'reason' => $reason),
 	'modtids'	=> $thread['tid'].','.$newtid,

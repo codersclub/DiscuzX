@@ -54,7 +54,7 @@ if($op == 'cancelflicker') {
 	}
 
 	if(submitcheck('cancelsubmit')) {
-		DB::update($tablename, array('magiccolor'=>0), array($_GET['idtype']=>$_GET[id]));
+		DB::update($tablename, array('magiccolor'=>0), array($_GET['idtype']=>$_GET['id']));
 		$feed = C::t('home_feed')->fetch($_GET['id'], $_GET['idtype']);
 		if($feed) {
 			$feed['body_data'] = dunserialize($feed['body_data']);

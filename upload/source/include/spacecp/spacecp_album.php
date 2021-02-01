@@ -21,7 +21,7 @@ $picid = empty($_GET['picid'])?0:intval($_GET['picid']);
 if($_GET['op'] == 'edit') {
 
 	if($albumid < 1) {
-		showmessage('photos_do_not_support_the_default_settings', "home.php?mod=spacecp&ac=album&uid=$_G[uid]&op=editpic&quickforward=1");
+		showmessage('photos_do_not_support_the_default_settings', "home.php?mod=spacecp&ac=album&uid={$_G['uid']}&op=editpic&quickforward=1");
 	}
 
 	if(!$album = C::t('home_album')->fetch($albumid)) {
@@ -108,17 +108,17 @@ if($_GET['op'] == 'edit') {
 			foreach ($category as $value) {
 				if($value['level'] == 0) {
 					$selected = $album['catid'] == $value['catid']?' selected':'';
-					$categoryselect .= "<option value=\"$value[catid]\"{$selected}>$value[catname]</option>";
+					$categoryselect .= "<option value=\"{$value['catid']}\"{$selected}>{$value['catname']}</option>";
 					if(!$value['children']) {
 						continue;
 					}
 					foreach ($value['children'] as $catid) {
 						$selected = $album['catid'] == $catid?' selected':'';
-						$categoryselect .= "<option value=\"{$category[$catid][catid]}\"{$selected}>-- {$category[$catid][catname]}</option>";
+						$categoryselect .= "<option value=\"{$category[$catid]['catid']}\"{$selected}>-- {$category[$catid]['catname']}</option>";
 						if($category[$catid]['children']) {
 							foreach ($category[$catid]['children'] as $catid2) {
 								$selected = $album['catid'] == $catid2?' selected':'';
-								$categoryselect .= "<option value=\"{$category[$catid2][catid]}\"{$selected}>---- {$category[$catid2][catname]}</option>";
+								$categoryselect .= "<option value=\"{$category[$catid2]['catid']}\"{$selected}>---- {$category[$catid2]['catname']}</option>";
 							}
 						}
 					}
@@ -157,7 +157,7 @@ if($_GET['op'] == 'edit') {
 			}
 			C::t('home_album')->delete($albumid);
 		}
-		showmessage('do_success', "home.php?mod=space&uid=$_GET[uid]&do=album&view=me");
+		showmessage('do_success', "home.php?mod=space&uid={$_GET['uid']}&do=album&view=me");
 	}
 } elseif($_GET['op'] == 'editpic') {
 
@@ -230,7 +230,7 @@ if($_GET['op'] == 'edit') {
 
 		}
 
-		$url = $return ? "home.php?mod=spacecp&ac=album&op=editpic&albumid=$albumid&page=$_POST[page]" : 'home.php?mod=space&uid='.$_G['uid'].'&do=album&view=me';
+		$url = $return ? "home.php?mod=spacecp&ac=album&op=editpic&albumid=$albumid&page={$_POST['page']}" : 'home.php?mod=space&uid='.$_G['uid'].'&do=album&view=me';
 		if($_G['inajax']) {
 			showmessage('do_success', $url, array('title' => $title),  array('showdialog' => 3, 'showmsg' => true, 'closetime' => true));
 		} else {

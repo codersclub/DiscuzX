@@ -130,7 +130,7 @@ if(submitcheck('getblocklistsubmit') || submitcheck('verifieddatasubmit') || sub
 		}
 		$fields = ',bp.allowmanage,bp.allowrecommend,bp.needverify';
 		$leftjoin = ' LEFT JOIN '.DB::table('common_block_permission').' bp ON b.bid=bp.bid';
-		$wherearr[] = "bp.uid='$_G[uid]'";
+		$wherearr[] = "bp.uid='{$_G['uid']}'";
 		$wherearr[] = "(bp.allowmanage='1' OR (bp.allowrecommend='1'".($op == 'recommend' ? '' : "AND bp.needverify='0'")."))";
 	}
 

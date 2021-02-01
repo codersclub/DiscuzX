@@ -105,7 +105,7 @@ function showcategoryrowpush($key, $level = 0, $last = '') {
 	$op = '';
 	if (checkperm('allowmanagearticle') || checkperm('allowpostarticle') || $permission[$key]['allowpublish'] || $permission[$key]['allowmanage']) {
 		if(empty($value['disallowpublish'])){
-			$value['pushurl'] = '<a href="portal.php?mod=portalcp&ac=article&catid='.$key.'&from_idtype='.$_GET['idtype'].'&from_id='.$_GET['id'].'" target="_blank" onclick="hideWindow(\''.$_GET[handlekey].'\')">'.$value['catname'].'</a>';
+			$value['pushurl'] = '<a href="portal.php?mod=portalcp&ac=article&catid='.$key.'&from_idtype='.$_GET['idtype'].'&from_id='.$_GET['id'].'" target="_blank" onclick="hideWindow(\''.$_GET['handlekey'].'\')">'.$value['catname'].'</a>';
 		} else {
 			$value['pushurl'] = $value['catname'];
 		}
