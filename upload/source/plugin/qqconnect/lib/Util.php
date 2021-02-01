@@ -199,9 +199,9 @@ class Cloud_Service_Util {
 			return false;
 		} elseif(empty($founders)) {
 			return false;
-		} elseif(strexists(",$founders,", ",$user[uid],")) {
+		} elseif(strexists(",$founders,", ",{$user['uid']},")) {
 			return true;
-		} elseif(!is_numeric($user['username']) && strexists(",$founders,", ",$user[username],")) {
+		} elseif(!is_numeric($user['username']) && strexists(",$founders,", ",{$user['username']},")) {
 			return true;
 		} else {
 			return FALSE;

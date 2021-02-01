@@ -150,8 +150,8 @@ class uc_note {
 			'portal_topic_pic' => array('id' => 'uid', 'name' => 'username'),
 		);
 
-		if(!C::t('common_member')->update($get['uid'], array('username' => $get[newusername])) && isset($_G['setting']['membersplit'])){
-			C::t('common_member_archive')->update($get['uid'], array('username' => $get[newusername]));
+		if(!C::t('common_member')->update($get['uid'], array('username' => $get['newusername'])) && isset($_G['setting']['membersplit'])){
+			C::t('common_member_archive')->update($get['uid'], array('username' => $get['newusername']));
 		}
 
 		loadcache("posttableids");
@@ -163,7 +163,7 @@ class uc_note {
 		}
 
 		foreach($tables as $table => $conf) {
-			DB::query("UPDATE ".DB::table($table)." SET `$conf[name]`='$get[newusername]' WHERE `$conf[id]`='$get[uid]'");
+			DB::query("UPDATE ".DB::table($table)." SET `{$conf['name']}`='{$get['newusername']}' WHERE `{$conf['id']}`='{$get['uid']}'");
 		}
 		return API_RETURN_SUCCEED;
 	}
@@ -188,7 +188,7 @@ class uc_note {
 		$cookietime = 31536000;
 		$uid = intval($get['uid']);
 		if(($member = getuserbyuid($uid, 1))) {
-			dsetcookie('auth', authcode("$member[password]\t$member[uid]", 'ENCODE'), $cookietime);
+			dsetcookie('auth', authcode("{$member['password']}\t{$member['uid']}", 'ENCODE'), $cookietime);
 		}
 	}
 

@@ -43,7 +43,7 @@ class pmmodel {
 		$arr = array();
 		$pm = $this->db->fetch_first("SELECT * FROM ".UC_DBTABLEPRE."pm_indexes i LEFT JOIN ".UC_DBTABLEPRE."pm_lists t ON t.plid=i.plid WHERE i.pmid='$pmid'");
 		if($this->isprivilege($pm['plid'], $uid)) {
-			$pms = $this->db->fetch_all("SELECT t.*, p.*, t.authorid as founderuid, t.dateline as founddateline FROM ".UC_DBTABLEPRE.$this->getposttablename($pm['plid'])." p LEFT JOIN ".UC_DBTABLEPRE."pm_lists t ON t.plid=p.plid WHERE p.pmid='$pm[pmid]'");
+			$pms = $this->db->fetch_all("SELECT t.*, p.*, t.authorid as founderuid, t.dateline as founddateline FROM ".UC_DBTABLEPRE.$this->getposttablename($pm['plid'])." p LEFT JOIN ".UC_DBTABLEPRE."pm_lists t ON t.plid=p.plid WHERE p.pmid='{$pm['pmid']}'");
 			$arr = $this->getpostlist($pms);
 		}
 		return $arr;
@@ -317,7 +317,7 @@ class pmmodel {
 		$memberuid = array();
 		$query = $this->db->query("SELECT * FROM ".UC_DBTABLEPRE."pm_members WHERE plid='$plid'");
 		while($member = $this->db->fetch_array($query)) {
-			$memberuid[$member['uid']] = "('$member[uid]')";
+			$memberuid[$member['uid']] = "('{$member['uid']}')";
 		}
 		if(!isset($memberuid[$fromuid])) {
 			return PMPRIVILEGENONE_ERROR;
@@ -452,10 +452,10 @@ class pmmodel {
 			$deletenum = $this->db->affected_rows();
 		}
 
-		if(!$this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE.$this->getposttablename($index['plid'])." WHERE plid='$index[plid]'")) {
-			$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_lists WHERE plid='$index[plid]'");
-			$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_members WHERE plid='$index[plid]'");
-			$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_indexes WHERE plid='$index[plid]'");
+		if(!$this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE.$this->getposttablename($index['plid'])." WHERE plid='{$index['plid']}'")) {
+			$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_lists WHERE plid='{$index['plid']}'");
+			$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_members WHERE plid='{$index['plid']}'");
+			$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_indexes WHERE plid='{$index['plid']}'");
 		} else {
 			$this->db->query("UPDATE ".UC_DBTABLEPRE."pm_members SET pmnum=pmnum-".($updatenum + $deletenum)." WHERE plid='".$index['plid']."' AND uid='$uid'");
 		}
@@ -502,25 +502,25 @@ class pmmodel {
 
 		if($list['pmtype'] == 1) {
 			if($uid == $list['authorid']) {
-				$this->db->query("DELETE FROM ".UC_DBTABLEPRE.$this->getposttablename($list['plid'])." WHERE plid='$list[plid]' AND delstatus=2");
-				$this->db->query("UPDATE ".UC_DBTABLEPRE.$this->getposttablename($list['plid'])." SET delstatus=1 WHERE plid='$list[plid]' AND delstatus=0");
+				$this->db->query("DELETE FROM ".UC_DBTABLEPRE.$this->getposttablename($list['plid'])." WHERE plid='{$list['plid']}' AND delstatus=2");
+				$this->db->query("UPDATE ".UC_DBTABLEPRE.$this->getposttablename($list['plid'])." SET delstatus=1 WHERE plid='{$list['plid']}' AND delstatus=0");
 			} else {
-				$this->db->query("DELETE FROM ".UC_DBTABLEPRE.$this->getposttablename($list['plid'])." WHERE plid='$list[plid]' AND delstatus=1");
-				$this->db->query("UPDATE ".UC_DBTABLEPRE.$this->getposttablename($list['plid'])." SET delstatus=2 WHERE plid='$list[plid]' AND delstatus=0");
+				$this->db->query("DELETE FROM ".UC_DBTABLEPRE.$this->getposttablename($list['plid'])." WHERE plid='{$list['plid']}' AND delstatus=1");
+				$this->db->query("UPDATE ".UC_DBTABLEPRE.$this->getposttablename($list['plid'])." SET delstatus=2 WHERE plid='{$list['plid']}' AND delstatus=0");
 			}
-			$count = $this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE.$this->getposttablename($list['plid'])." WHERE plid='$list[plid]'");
+			$count = $this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE.$this->getposttablename($list['plid'])." WHERE plid='{$list['plid']}'");
 			if(!$count) {
-				$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_lists WHERE plid='$list[plid]'");
-				$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_members WHERE plid='$list[plid]'");
-				$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_indexes WHERE plid='$list[plid]'");
+				$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_lists WHERE plid='{$list['plid']}'");
+				$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_members WHERE plid='{$list['plid']}'");
+				$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_indexes WHERE plid='{$list['plid']}'");
 			} else {
-				$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_members WHERE plid='$list[plid]' AND uid='$uid'");
+				$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_members WHERE plid='{$list['plid']}' AND uid='$uid'");
 			}
 		} else {
-			$this->db->query("DELETE FROM ".UC_DBTABLEPRE.$this->getposttablename($list['plid'])." WHERE plid='$list[plid]'");
-			$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_lists WHERE plid='$list[plid]'");
-			$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_members WHERE plid='$list[plid]'");
-			$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_indexes WHERE plid='$list[plid]'");
+			$this->db->query("DELETE FROM ".UC_DBTABLEPRE.$this->getposttablename($list['plid'])." WHERE plid='{$list['plid']}'");
+			$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_lists WHERE plid='{$list['plid']}'");
+			$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_members WHERE plid='{$list['plid']}'");
+			$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pm_indexes WHERE plid='{$list['plid']}'");
 		}
 		return 1;
 	}

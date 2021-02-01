@@ -31,10 +31,10 @@ if(empty($space)) {
 	$space['space_url'] = $siteurl;
 } else {
 	$space['username'] = $space['username'].'@'.$_G['setting']['sitename'];
-	$space['space_url'] = $siteurl."home.php?mod=space&amp;uid=$space[uid]";
+	$space['space_url'] = $siteurl."home.php?mod=space&amp;uid={$space['uid']}";
 }
 
-$uidsql = empty($space['uid'])?'':" AND b.uid='$space[uid]'";
+$uidsql = empty($space['uid'])?'':" AND b.uid='{$space['uid']}'";
 
 $data_blog = C::t('home_blog')->range(0, $pagenum, 'DESC', 'dateline', 0, null, $uid);
 $blogids = array_keys($data_blog);
@@ -45,16 +45,16 @@ dheader("Content-type: application/xml");
 echo 	"<?xml version=\"1.0\" encoding=\"".$charset."\"?>\n".
 	"<rss version=\"2.0\">\n".
 	"  <channel>\n".
-	"    <title>{$space[username]}</title>\n".
-	"    <link>{$space[space_url]}</link>\n".
-	"    <description>{$_G[setting][bbname]}</description>\n".
-	"    <copyright>Copyright(C) {$_G[setting][bbname]}</copyright>\n".
+	"    <title>{$space['username']}</title>\n".
+	"    <link>{$space['space_url']}</link>\n".
+	"    <description>{$_G['setting']['bbname']}</description>\n".
+	"    <copyright>Copyright(C) {$_G['setting']['bbname']}</copyright>\n".
 	"    <generator>Discuz! Board by Comsenz Inc.</generator>\n".
 	"    <lastBuildDate>".gmdate('r', TIMESTAMP)."</lastBuildDate>\n".
 	"    <image>\n".
-	"      <url>{$_G[siteurl]}static/image/common/logo_88_31.gif</url>\n".
-	"      <title>{$_G[setting][bbname]}</title>\n".
-	"      <link>{$_G[siteurl]}</link>\n".
+	"      <url>{$_G['siteurl']}static/image/common/logo_88_31.gif</url>\n".
+	"      <title>{$_G['setting']['bbname']}</title>\n".
+	"      <link>{$_G['siteurl']}</link>\n".
 	"    </image>\n";
 
 foreach($data_blog as $curblogid => $value) {
@@ -62,11 +62,11 @@ foreach($data_blog as $curblogid => $value) {
 	$value['message'] = getstr($value['message'], 300, 0, 0, 0, -1);
 	if($value['pic']) {
 		$value['pic'] = pic_cover_get($value['pic'], $value['picflag']);
-		$value['message'] .= "<br /><img src=\"$value[pic]\">";
+		$value['message'] .= "<br /><img src=\"{$value['pic']}\">";
 	}
 	echo 	"    <item>\n".
 			"      <title>".$value['subject']."</title>\n".
-			"      <link>$_G[siteurl]home.php?mod=space&amp;uid=$value[uid]&amp;do=blog&amp;id=$value[blogid]</link>\n".
+			"      <link>{$_G['siteurl']}home.php?mod=space&amp;uid={$value['uid']}&amp;do=blog&amp;id={$value['blogid']}</link>\n".
 			"      <description><![CDATA[".dhtmlspecialchars($value['message'])."]]></description>\n".
 			"      <author>".dhtmlspecialchars($value['username'])."</author>\n".
 			"      <pubDate>".gmdate('r', $value['dateline'])."</pubDate>\n".

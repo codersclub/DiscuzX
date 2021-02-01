@@ -108,7 +108,7 @@ class WeChatServer {
 			case 'voice':
 				$result['mid'] = (string) $postObj->MediaId;
 				$result['format'] = (string) $postObj->Format;
-				if (property_exists($postObj, Recognition)) {
+				if (property_exists($postObj, 'Recognition')) {
 					$result['txt'] = (string) $postObj->Recognition;
 				}
 				break;
@@ -119,7 +119,7 @@ class WeChatServer {
 
 					case 'subscribe':
 					case 'scan':
-						if (property_exists($postObj, EventKey)) {
+						if (property_exists($postObj, 'EventKey')) {
 							$result['key'] = str_replace(
 								'qrscene_', '', (string) $postObj->EventKey
 							);

@@ -60,7 +60,7 @@ jq(function () {
         xAxis: {categories: [$xas]},
         yAxis: {min:0, title: {text: ''}, plotLines: [{value: 0, width: 1, color: '#808080'}]},
         plotOptions: {line: {dataLabels: { enabled: false},enableMouseTracking: true}},
-        series: [{name: 'UV', data: [$uvs]}, {name: 'PV', data: [$pvs]}, {name: '$lang[stat_newthread]',data: [$newthreads]}, {name: '$lang[stat_reply]',data: [$replys]}, {name: '$lang[stat_share]',data: [$shares]}, {name: '$lang[stat_reflow]',data: [$reflows]}]
+        series: [{name: 'UV', data: [$uvs]}, {name: 'PV', data: [$pvs]}, {name: '{$lang['stat_newthread']}',data: [$newthreads]}, {name: '{$lang['stat_reply']}',data: [$replys]}, {name: '{$lang['stat_share']}',data: [$shares]}, {name: '{$lang['stat_reflow']}',data: [$reflows]}]
     });
 });
 </script>

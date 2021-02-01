@@ -53,8 +53,8 @@ if ($_GET['anchor'] == 'setting') {
 
 		$groups = C::t('common_usergroup')->fetch_all_by_type('special');
 		foreach($groups as $group) {
-			$connectgroup .= "<option value=\"$group[groupid]\" ".($group['groupid'] == $setting['connect']['register_groupid'] ? 'selected' : '').">$group[grouptitle]</option>\n";
-			$connectguestgroup .= "<option value=\"$group[groupid]\" ".($group['groupid'] == $setting['connect']['guest_groupid'] ? 'selected' : '').">$group[grouptitle]</option>\n";
+			$connectgroup .= "<option value=\"{$group['groupid']}\" ".($group['groupid'] == $setting['connect']['register_groupid'] ? 'selected' : '').">{$group['grouptitle']}</option>\n";
+			$connectguestgroup .= "<option value=\"{$group['groupid']}\" ".($group['groupid'] == $setting['connect']['guest_groupid'] ? 'selected' : '').">{$group['grouptitle']}</option>\n";
 		}
 
 		showformheader('plugins&operation=config&do='.$pluginid.'&identifier=qqconnect&pmod=admincp', 'connectsubmit');

@@ -183,7 +183,7 @@ function show_env_result(&$env_items, &$dirfile_items, &$func_items) {
 			}
 		}
 		if(VIEW_OFF) {
-			$env_str .= "\t\t<runCondition name=\"$key\" status=\"$status\" Require=\"$item[r]\" Best=\"$item[b]\" Current=\"$item[current]\"/>\n";
+			$env_str .= "\t\t<runCondition name=\"$key\" status=\"$status\" Require=\"{$item['r']}\" Best=\"{$item['b']}\" Current=\"{$item['current']}\"/>\n";
 		} else {
 			$env_str .= "<tr>\n";
 			$env_str .= "<td>".lang($key)."</td>\n";
@@ -202,10 +202,10 @@ function show_env_result(&$env_items, &$dirfile_items, &$func_items) {
 			if($item['status'] == 0) {
 				$error_code = ENV_CHECK_ERROR;
 			}
-			$$variable .= "\t\t\t<File name=\"$item[path]\" status=\"$item[status]\" requirePermisson=\"+r+w\" currentPermisson=\"$item[current]\" />\n";
+			$$variable .= "\t\t\t<File name=\"{$item['path']}\" status=\"{$item['status']}\" requirePermisson=\"+r+w\" currentPermisson=\"{$item['current']}\" />\n";
 		} else {
 			$$variable .= "<tr>\n";
-			$$variable .= "<td>$item[path]</td><td class=\"w pdleft1\">".lang('writeable')."</td>\n";
+			$$variable .= "<td>{$item['path']}</td><td class=\"w pdleft1\">".lang('writeable')."</td>\n";
 			if($item['status'] == 1) {
 				$$variable .= "<td class=\"w pdleft1\">".lang('writeable')."</td>\n";
 			} elseif($item['status'] == -1) {
@@ -803,7 +803,7 @@ function dfopen($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE, $
 		}
 		$boundary = $encodetype == 'URLENCODE' ? '' : '; boundary='.trim(substr(trim($post), 2, strpos(trim($post), "\n") - 2));
 		$header .= $encodetype == 'URLENCODE' ? "Content-Type: application/x-www-form-urlencoded\r\n" : "Content-Type: multipart/form-data$boundary\r\n";
-		$header .= "User-Agent: $_SERVER[HTTP_USER_AGENT]\r\n";
+		$header .= "User-Agent: {$_SERVER['HTTP_USER_AGENT']}\r\n";
 		$header .= "Host: $host:$port\r\n";
 		$header .= 'Content-Length: '.strlen($post)."\r\n";
 		$header .= "Connection: Close\r\n";
@@ -814,7 +814,7 @@ function dfopen($url, $limit = 0, $post = '', $cookie = '', $bysocket = FALSE, $
 		$out = "GET $path HTTP/1.0\r\n";
 		$header = "Accept: */*\r\n";
 		$header .= "Accept-Language: zh-cn\r\n";
-		$header .= "User-Agent: $_SERVER[HTTP_USER_AGENT]\r\n";
+		$header .= "User-Agent: {$_SERVER['HTTP_USER_AGENT']}\r\n";
 		$header .= "Host: $host:$port\r\n";
 		$header .= "Connection: Close\r\n";
 		$header .= "Cookie: $cookie\r\n\r\n";

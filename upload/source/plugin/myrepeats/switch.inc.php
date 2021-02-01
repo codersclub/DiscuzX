@@ -89,7 +89,7 @@ if(!empty($_GET['authorfirst']) && submitcheck('myrepeatssubmit')) {
 		} else {
 			C::t('#myrepeats#myrepeats')->insert(array(
 				'uid' => $_G['uid'],
-				'username' => $_GET[username],
+				'username' => $_GET['username'],
 				'logindata' => $logindata,
 				'comment' => ''
 			));

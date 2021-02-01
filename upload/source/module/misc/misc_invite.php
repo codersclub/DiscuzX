@@ -85,7 +85,7 @@ if($_GET['action'] == 'group') {
 			$atnum = 0;
 			foreach(C::t('home_notification')->fetch_all_by_authorid_fromid($_G['uid'], $id, 'at') as $row) {
 				$atnum ++;
-				$inviteduids[$row[uid]] = $row['uid'];
+				$inviteduids[$row['uid']] = $row['uid'];
 			}
 			$maxselect = $_G['group']['allowat'] - $atnum;
 		} else {

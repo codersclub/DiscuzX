@@ -85,7 +85,7 @@ function pubEventCallbackCommon(re) {
 	}
 }
 </script>
-<script src="http://api.wsq.qq.com/publicEvent?sId={$_G[wechat][setting][wsq_siteid]}&resType=jsonp&isAjax=1&_=$time&isDiscuz=1&callback=pubEventCallbackCommon">
+<script src="http://api.wsq.qq.com/publicEvent?sId={$_G['wechat']['setting']['wsq_siteid']}&resType=jsonp&isAjax=1&_=$time&isDiscuz=1&callback=pubEventCallbackCommon">
 </script>
 EOF;
 

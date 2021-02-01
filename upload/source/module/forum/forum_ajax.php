@@ -480,7 +480,7 @@ if($_GET['action'] == 'checkusername') {
 	print <<<EOF
 		<script type="text/javascript">
 			parent.ATTACHORIMAGE = 1;
-			parent.updateDownImageList('$_GET[message]');
+			parent.updateDownImageList('{$_GET['message']}');
 		</script>
 EOF;
 	dexit();

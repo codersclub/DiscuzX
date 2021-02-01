@@ -236,7 +236,7 @@ class control extends adminbase {
 			$tabledump .= $create[1];
 
 			$tablestatus = $this->db->fetch_first("SHOW TABLE STATUS LIKE '$table'");
-			$tabledump .= ($tablestatus['Auto_increment'] && strpos($create[1], 'AUTO_INCREMENT') === FALSE ? " AUTO_INCREMENT=$tablestatus[Auto_increment]" : '').";\n\n";
+			$tabledump .= ($tablestatus['Auto_increment'] && strpos($create[1], 'AUTO_INCREMENT') === FALSE ? " AUTO_INCREMENT={$tablestatus['Auto_increment']}" : '').";\n\n";
 		}
 
 		$tabledumped = 0;
@@ -245,7 +245,7 @@ class control extends adminbase {
 
 		while($currsize + strlen($tabledump) + 500 < $this->sizelimit * 1000 && $numrows == $offset) {
 			if($firstfield['Extra'] == 'auto_increment') {
-				$selectsql = "SELECT * FROM $table WHERE $firstfield[Field] > $startfrom LIMIT $offset";
+				$selectsql = "SELECT * FROM $table WHERE {$firstfield['Field']} > $startfrom LIMIT $offset";
 			} else {
 				$selectsql = "SELECT * FROM $table LIMIT $startfrom, $offset";
 			}

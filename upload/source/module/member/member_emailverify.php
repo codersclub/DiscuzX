@@ -30,8 +30,8 @@ if($type == 2 && TIMESTAMP - $dateline < 86400) {
 }
 
 $idstring = $type == 2 && $idstring ? $idstring : random(6);
-C::t('common_member_field_forum')->update($_G['uid'], array('authstr'=>"$_G[timestamp]\t2\t$idstring"));
-$verifyurl = $_G['setting']['securesiteurl']."member.php?mod=activate&amp;uid={$_G[uid]}&amp;id=$idstring";
+C::t('common_member_field_forum')->update($_G['uid'], array('authstr'=>"{$_G['timestamp']}\t2\t$idstring"));
+$verifyurl = $_G['setting']['securesiteurl']."member.php?mod=activate&amp;uid={$_G['uid']}&amp;id=$idstring";
 $email_verify_message = lang('email', 'email_verify_message', array(
 	'username' => $_G['member']['username'],
 	'bbname' => $_G['setting']['bbname'],
@@ -39,8 +39,8 @@ $email_verify_message = lang('email', 'email_verify_message', array(
 	'url' => $verifyurl
 ));
 include_once libfile('function/mail');
-if(!sendmail("{$_G[member][username]} <$_GET[email]>", lang('email', 'email_verify_subject'), $email_verify_message)) {
-	runlog('sendmail', "$_GET[email] sendmail failed.");
+if(!sendmail("{$_G['member']['username']} <{$_GET['email']}>", lang('email', 'email_verify_subject'), $email_verify_message)) {
+	runlog('sendmail', "{$_GET['email']} sendmail failed.");
 }
 showmessage('email_verify_succeed');
 

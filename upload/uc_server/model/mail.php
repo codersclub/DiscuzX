@@ -56,11 +56,11 @@ class mailmodel {
 			$values_arr = array();
 			foreach($mail['uids'] as $uid) {
 				if(empty($uid)) continue;
-				$values_arr[] = "('$uid', '', '$mail[subject]', '$mail[message]', '$mail[frommail]', '$mail[charset]', '$mail[htmlon]', '$mail[level]', '$mail[dateline]', '0', '$mail[appid]')";
+				$values_arr[] = "('$uid', '', '{$mail['subject']}', '{$mail['message']}', '{$mail['frommail']}', '{$mail['charset']}', '{$mail['htmlon']}', '{$mail['level']}', '{$mail['dateline']}', '0', '{$mail['appid']}')";
 			}
 			foreach($mail['emails'] as $email) {
 				if(empty($email)) continue;
-				$values_arr[] = "('', '$email', '$mail[subject]', '$mail[message]', '$mail[frommail]', '$mail[charset]', '$mail[htmlon]', '$mail[level]', '$mail[dateline]', '0', '$mail[appid]')";
+				$values_arr[] = "('', '$email', '{$mail['subject']}', '{$mail['message']}', '{$mail['frommail']}', '{$mail['charset']}', '{$mail['htmlon']}', '{$mail['level']}', '{$mail['dateline']}', '0', '{$mail['appid']}')";
 			}
 			$sql .= implode(',', $values_arr);
 			$this->db->query($sql);

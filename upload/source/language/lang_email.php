@@ -172,11 +172,11 @@ $lang = array
 {bbname} 管理团队.<br />
 {siteurl}',
 
-	'email_to_friend_subject' =>	'{$_G[member][username]} 推荐给您: $thread[subject]',
+	'email_to_friend_subject' =>	'{$_G[\'member\'][\'username\']} 推荐给您: {$thread[\'subject\']}',
 	'email_to_friend_message' =>	'<br />
-这封信是由 {$_G[setting][bbname]} 的 {$_G[member][username]} 发送的。<br />
+这封信是由 {$_G[\'setting\'][\'bbname\']} 的 {$_G[\'member\'][\'username\']} 发送的。<br />
 <br />
-您收到这封邮件，是由于在 {$_G[member][username]} 通过 {$_G[setting][bbname]} 的“推荐给朋友”<br />
+您收到这封邮件，是由于在 {$_G[\'member\'][\'username\']} 通过 {$_G[\'setting\'][\'bbname\']} 的“推荐给朋友”<br />
 功能推荐了如下的内容给您。如果您对此不感兴趣，请忽略这封邮件。您不需要退订或进行其他进一步的操作。<br />
 <br />
 ----------------------------------------------------------------------<br />
@@ -192,15 +192,15 @@ $message<br />
 请注意这封信仅仅是由用户使用 “推荐给朋友”发送的，不是网站官方邮件，<br />
 网站管理团队不会对这类邮件负责。<br />
 <br />
-欢迎您访问 {$_G[setting][bbname]}<br />
-$_G[siteurl]',
+欢迎您访问 {$_G[\'setting\'][\'bbname\']}<br />
+{$_G[\'siteurl\']}',
 
-	'email_to_invite_subject' =>	'您的朋友 {$_G[member][username]} 发送 {$_G[setting][bbname]} 网站注册邀请码给您',
+	'email_to_invite_subject' =>	'您的朋友 {$_G[\'member\'][\'username\']} 发送 {$_G[\'setting\'][\'bbname\']} 网站注册邀请码给您',
 	'email_to_invite_message' =>	'<br />
 $sendtoname,<br />
-这封信是由 {$_G[setting][bbname]} 的 {$_G[member][username]} 发送的。<br />
+这封信是由 {$_G[\'setting\'][\'bbname\']} 的 {$_G[\'member\'][\'username\']} 发送的。<br />
 <br />
-您收到这封邮件，是由于 {$_G[member][username]} 通过 {bbname} 的“发送邀请码给朋友”<br />
+您收到这封邮件，是由于 {$_G[\'member\'][\'username\']} 通过 {bbname} 的“发送邀请码给朋友”<br />
 功能推荐了如下的内容给您。如果您对此不感兴趣，请忽略这封邮件。您不需要退订或进行其他进<br />
 一步的操作。<br />
 <br />
@@ -217,8 +217,8 @@ $message<br />
 请注意这封信仅仅是由用户使用 “发送邀请码给朋友”发送的，不是网站官方邮件，<br />
 网站管理团队不会对这类邮件负责。<br />
 <br />
-欢迎您访问 {$_G[setting][bbname]}<br />
-$_G[siteurl]',
+欢迎您访问 {$_G[\'setting\'][\'bbname\']}<br />
+{$_G[\'siteurl\']}',
 
 
 	'moderate_member_subject' =>	'用户审核结果通知',

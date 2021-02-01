@@ -23,7 +23,7 @@ block_get_batch($bid);
 $data = block_fetch_content($bid, true);
 
 $search = "/(href|src)\=(\"|')(?![fhtps]+\:)(.*?)\\2/i";
-$replace = "\\1=\\2$_G[siteurl]\\3\\2";
+$replace = "\\1=\\2{$_G['siteurl']}\\3\\2";
 $data = preg_replace($search, $replace, $data);
 
 dheader('Content-Type: application/javascript');

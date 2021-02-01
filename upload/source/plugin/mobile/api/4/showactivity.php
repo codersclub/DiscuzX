@@ -43,10 +43,10 @@ class mobile_api {
 				    'dateline' => TIMESTAMP,
 				    'stand' => 0,
 				    'voters' => 1,
-				    'voterids' => "$_G[uid]\t",
+				    'voterids' => "{$_G['uid']}\t",
 				));
 				mobile_core::result(mobile_core::variable(array('result' => 1)));
-			} elseif(strpos("\t".$post['voterids'], "\t$_G[uid]\t") === FALSE) {
+			} elseif(strpos("\t".$post['voterids'], "\t{$_G['uid']}\t") === FALSE) {
 				C::t('forum_debatepost')->update_voters($_GET['pid'], $_G['uid']);
 				mobile_core::result(mobile_core::variable(array('result' => 1)));
 			} else {

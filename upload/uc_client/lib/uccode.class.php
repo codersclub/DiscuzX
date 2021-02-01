@@ -27,7 +27,7 @@ class uccode {
 		$code = str_replace('\\"', '"', preg_replace("/^[\n\r]*(.+?)[\n\r]*$/is", "\\1", $code));
 		$this->uccode['codehtml'][$this->uccode['pcodecount']] = $this->tpl_codedisp($code);
 		$this->uccode['codecount']++;
-		return "[\tUCENTER_CODE_".$this->uccode[pcodecount]."\t]";
+		return "[\tUCENTER_CODE_".$this->uccode['pcodecount']."\t]";
 	}
 
 	function complie($message) {

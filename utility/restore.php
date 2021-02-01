@@ -108,7 +108,7 @@ if($operation == 'import') {
 				@unlink($datafile);
 			}
 
-			$datafile_next = preg_replace("/-($dumpinfo[volume])(\..+)$/", "-".($dumpinfo['volume'] + 1)."\\2", $datafile);
+			$datafile_next = preg_replace("/-({$dumpinfo['volume']})(\..+)$/", "-".($dumpinfo['volume'] + 1)."\\2", $datafile);
 			$datafile_next = urlencode($datafile_next);
 			if($dumpinfo['volume'] == 1) {
 				show_msg(lang('database_import_multivol_redirect', TRUE, array('volume' => $dumpinfo['volume'])),
@@ -289,7 +289,7 @@ function show_importfile_list($exportlog = array(), $exportziplog = array(), $ex
 			'<td width="80">'.$info['size'].'</td>',
 			'<td width="30">'.$info['method'].'</td>',
 			'<td width="30">'.$info['volume'].'</td>',
-			'<td width="40">'.($info['type'] == 'zip' ? "<a href=\"{$siteurl}restore.php?operation=importzip&datafile_server=$info[filename]&importsubmit=yes\" onclick=\"return confirm('".lang('database_import_confirm_zip')."');\">".lang('db_import_unzip')."</a>" : "<a href=\"{$siteurl}restore.php?operation=import&datafile_server=$info[filename]&importsubmit=yes\" ".(($info['version'] != DISCUZ_VERSION) ? "onclick=\"return confirm('".lang('database_import_confirm')."');\"" : "onclick=\"return confirm('".lang('database_import_confirm_sql')."');\"").">".lang('import')."</a>")."</td>"
+			'<td width="40">'.($info['type'] == 'zip' ? "<a href=\"{$siteurl}restore.php?operation=importzip&datafile_server={$info['filename']}&importsubmit=yes\" onclick=\"return confirm('".lang('database_import_confirm_zip')."');\">".lang('db_import_unzip')."</a>" : "<a href=\"{$siteurl}restore.php?operation=import&datafile_server={$info['filename']}&importsubmit=yes\" ".(($info['version'] != DISCUZ_VERSION) ? "onclick=\"return confirm('".lang('database_import_confirm')."');\"" : "onclick=\"return confirm('".lang('database_import_confirm_sql')."');\"").">".lang('import')."</a>")."</td>"
 		;
 		echo "</tr>\n";
 		echo '<tbody id="exportlog_'.$key.'" style="display:none">';
@@ -298,7 +298,7 @@ function show_importfile_list($exportlog = array(), $exportziplog = array(), $ex
 			$info['size'] = sizecount($info['size']);
 			echo "<tr>";
 			echo
-				"<td colspan='2' class='subtb'><a href=\"$info[filename]\">".$info['filename']."</a></td>",
+				"<td colspan='2' class='subtb'><a href=\"{$info['filename']}\">".$info['filename']."</a></td>",
 				"<td>".$info['version']."</td>",
 				"<td>".$info['dateline']."</td>",
 				'<td></td>',
@@ -326,7 +326,7 @@ function show_importfile_list($exportlog = array(), $exportziplog = array(), $ex
 			"<td width='170'>".lang('db_export_'.$info['type'])."</td>",
 			"<td width='80'>".$info['size']."</td>",
 			"<td colspan='2'>".$info['method']."</td>",
-			"<td width='40'><a href=\"{$siteurl}restore.php?operation=importzip&datafile_server=$info[filename]&importsubmit=yes\" onclick=\"return confirm('".lang('database_import_confirm_zip')."');\">".lang('db_import_unzip')."</a></td>"
+			"<td width='40'><a href=\"{$siteurl}restore.php?operation=importzip&datafile_server={$info['filename']}&importsubmit=yes\" onclick=\"return confirm('".lang('database_import_confirm_zip')."');\">".lang('db_import_unzip')."</a></td>"
 		;
 		echo "</tr>\n";
 		echo '<tbody id="exportlog_'.$key.'" style="display:none">';
@@ -336,7 +336,7 @@ function show_importfile_list($exportlog = array(), $exportziplog = array(), $ex
 			$info['method'] = $info['method'] == 'multivol' ? lang('db_multivol') : lang('db_zip');
 			echo "<tr>";
 			echo
-				"<td colspan='3' class='subtb'><a href=\"$info[filename]\">".$info['filename']."</a></td>",
+				"<td colspan='3' class='subtb'><a href=\"{$info['filename']}\">".$info['filename']."</a></td>",
 				"<td>".$info['dateline']."</td>",
 				"<td>".lang('db_export_'.$info['type'])."</td>",
 				"<td>".$info['size']."</td>",

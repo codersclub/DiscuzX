@@ -22,7 +22,7 @@ class mobile_api {
 			"SELECT f.fid, f.type, f.name, f.fup, f.status, ff.password, ff.redirect, ff.viewperm, ff.postperm, ff.threadtypes, ff.threadsorts
 				FROM ".DB::table('forum_forum')." f
 				LEFT JOIN ".DB::table('forum_forumfield')." ff ON ff.fid=f.fid
-				LEFT JOIN ".DB::table('forum_access')." a ON a.uid='$_G[uid]' AND a.allowview>'0' AND a.fid=f.fid
+				LEFT JOIN ".DB::table('forum_access')." a ON a.uid='{$_G['uid']}' AND a.allowview>'0' AND a.fid=f.fid
 				WHERE f.status='1' ORDER BY f.type, f.displayorder"
 			: "SELECT f.fid, f.type, f.name, f.fup, f.status, ff.password, ff.redirect, ff.viewperm, ff.postperm, ff.threadtypes, ff.threadsorts
 				FROM ".DB::table('forum_forum')." f

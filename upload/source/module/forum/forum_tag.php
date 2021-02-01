@@ -55,7 +55,7 @@ if($op == 'search') {
 		if($recent_use_tag) {
 			$query = C::t('common_tag')->fetch_all(array_keys($recent_use_tag));
 			foreach($query as $result) {
-				$recent_use_tag[$result[tagid]] = $result['tagname'];
+				$recent_use_tag[$result['tagid']] = $result['tagname'];
 			}
 		}
 	}

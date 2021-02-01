@@ -15,7 +15,7 @@ if(!defined('IN_DISCUZ')) {
 
 $lang = array (
   'getpassword' => '找回密码',
-  'login_guest' => '没有帐号？<a href="member.php?mod={$_G[setting][regname]}">{$_G[setting][reglinkname]}</a>',
+  'login_guest' => '没有帐号？<a href="member.php?mod={$_G[\'setting\'][\'regname\']}">{$_G[\'setting\'][\'reglinkname\']}</a>',
   'new_password' => '新密码',
   'new_password_confirm' => '确认密码',
   'password_weak' => '密码太弱，密码中必须包含',
@@ -42,7 +42,7 @@ $lang = array (
   'disagree' => '不同意',
   'index_activation' => '您的帐号需要激活',
   'invite_code' => '邀请码',
-  'login_inactive' => '放弃激活，现在<a href="member.php?mod={$_G[setting][regname]}">{$_G[setting][reglinkname]}</a>',
+  'login_inactive' => '放弃激活，现在<a href="member.php?mod={$_G[\'setting\'][\'regname\']}">{$_G[\'setting\'][\'reglinkname\']}</a>',
   'login_now' => '已有帐号？现在登录',
   'password_confirm' => '确认密码',
   'register_buyinvitecode' => '还没有邀请码？点击此处获取',

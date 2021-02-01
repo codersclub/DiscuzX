@@ -69,22 +69,22 @@ echo 	"<?xml version=\"1.0\" encoding=\"".$charset."\"?>\n".
 	"<rss version=\"2.0\">\n".
 	"  <channel>\n".
 	(count($fidarray) > 1 ?
-		"    <title>{$_G[setting][bbname]}</title>\n".
-		"    <link>{$_G[siteurl]}forum.php</link>\n".
+		"    <title>{$_G['setting']['bbname']}</title>\n".
+		"    <link>{$_G['siteurl']}forum.php</link>\n".
 		"    <description>Latest $num threads of all forums</description>\n"
 		:
-		"    <title>{$_G[setting][bbname]} - $forumname</title>\n".
-		"    <link>{$_G[siteurl]}".($frewriteflag ? rewriteoutput('forum_forumdisplay', 1, '', $rssfid) : "forum.php?mod=forumdisplay&amp;fid=$rssfid")."</link>\n".
+		"    <title>{$_G['setting']['bbname']} - $forumname</title>\n".
+		"    <link>{$_G['siteurl']}".($frewriteflag ? rewriteoutput('forum_forumdisplay', 1, '', $rssfid) : "forum.php?mod=forumdisplay&amp;fid=$rssfid")."</link>\n".
 		"    <description>Latest $num threads of $forumname</description>\n"
 	).
-	"    <copyright>Copyright(C) {$_G[setting][bbname]}</copyright>\n".
+	"    <copyright>Copyright(C) {$_G['setting']['bbname']}</copyright>\n".
 	"    <generator>Discuz! Board by Comsenz Inc.</generator>\n".
 	"    <lastBuildDate>".gmdate('r', TIMESTAMP)."</lastBuildDate>\n".
 	"    <ttl>$ttl</ttl>\n".
 	"    <image>\n".
-	"      <url>{$_G[siteurl]}static/image/common/logo_88_31.gif</url>\n".
-	"      <title>{$_G[setting][bbname]}</title>\n".
-	"      <link>{$_G[siteurl]}</link>\n".
+	"      <url>{$_G['siteurl']}static/image/common/logo_88_31.gif</url>\n".
+	"      <title>{$_G['setting']['bbname']}</title>\n".
+	"      <link>{$_G['siteurl']}</link>\n".
 	"    </image>\n";
 
 if($fidarray) {
@@ -105,7 +105,7 @@ if($fidarray) {
 				}
 				echo 	"    <item>\n".
 					"      <title>".$thread['subject']."</title>\n".
-					"      <link>$_G[siteurl]".($trewriteflag ? rewriteoutput('forum_viewthread', 1, '', $thread['tid']) : "forum.php?mod=viewthread&amp;tid=$thread[tid]")."</link>\n".
+					"      <link>{$_G['siteurl']}".($trewriteflag ? rewriteoutput('forum_viewthread', 1, '', $thread['tid']) : "forum.php?mod=viewthread&amp;tid={$thread['tid']}")."</link>\n".
 					"      <description><![CDATA[".dhtmlspecialchars($thread['description'])."]]></description>\n".
 					"      <category>".dhtmlspecialchars($thread['forum'])."</category>\n".
 					"      <author>".dhtmlspecialchars($thread['author'])."</author>\n".

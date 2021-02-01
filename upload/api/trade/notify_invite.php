@@ -29,13 +29,13 @@ if($notifydata['validator']) {
 	if($order && floatval($postprice) == floatval($order['price']) && ($apitype == 'tenpay' || $_G['setting']['ec_account'] == $_REQUEST['seller_email'])) {
 
 		if($order['status'] == 1) {
-			C::t('forum_order')->update($orderid, array('status' => '2', 'buyer' => "$notifydata[trade_no]\t$apitype", 'confirmdate' => $_G['timestamp']));
+			C::t('forum_order')->update($orderid, array('status' => '2', 'buyer' => "{$notifydata['trade_no']}\t$apitype", 'confirmdate' => $_G['timestamp']));
 			$codes = $codetext = array();
 			$dateline = TIMESTAMP;
 			for($i=0; $i<$order['amount']; $i++) {
 				$code = strtolower(random(6));
 				$codetext[] = $code;
-				$codes[] = "('0', '$code', '$dateline', '".($_G['group']['maxinviteday']?($_G['timestamp']+$_G['group']['maxinviteday']*24*3600):$_G['timestamp']+86400*10)."', '$order[email]', '$_G[clientip]', '$orderid')";
+				$codes[] = "('0', '$code', '$dateline', '".($_G['group']['maxinviteday']?($_G['timestamp']+$_G['group']['maxinviteday']*24*3600):$_G['timestamp']+86400*10)."', '{$order['email']}', '{$_G['clientip']}', '$orderid')";
 				$invitedata = array(
 							'uid' => 0,
 							'code' => $code,
@@ -62,7 +62,7 @@ if($notifydata['validator']) {
 				'bbname' => $_G['setting']['bbname'],
 			));
 			if(!sendmail($order['email'], $add_member_subject, $add_member_message)) {
-				runlog('sendmail', "$order[email] sendmail failed.");
+				runlog('sendmail', "{$order['email']} sendmail failed.");
 			}
 		}
 
@@ -75,7 +75,7 @@ if($notifydata['location']) {
 <html>
 <body>
 <script language="javascript" type="text/javascript">
-window.location.href='$_G[siteurl]misc.php?mod=buyinvitecode&action=paysucceed&orderid=$orderid';
+window.location.href='{$_G['siteurl']}misc.php?mod=buyinvitecode&action=paysucceed&orderid=$orderid';
 </script>
 </body>
 </html>

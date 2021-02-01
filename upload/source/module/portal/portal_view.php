@@ -91,7 +91,7 @@ if($article['idtype'] == 'tid' || $content['idtype']=='pid') {
 	$thread = $firstpost = array();
 	require_once libfile('function/discuzcode');
 	require_once libfile('function/forum');
-	$thread = get_thread_by_tid($article[id]);
+	$thread = get_thread_by_tid($article['id']);
 	if(!empty($thread)) {
 		if($content['idtype']=='pid') {
 			$firstpost = C::t('forum_post')->fetch($thread['posttableid'], $content['id']);
@@ -121,7 +121,7 @@ if($article['idtype'] == 'tid' || $content['idtype']=='pid') {
 		$content['pid'] = $firstpost['pid'];
 
 		$org = $firstpost;
-		$org_url = "forum.php?mod=viewthread&tid=$article[id]";
+		$org_url = "forum.php?mod=viewthread&tid={$article['id']}";
 	} else {
 		C::t('portal_article_title')->update($aid, array('id' => 0, 'idtype' => ''));
 		C::t('portal_article_content')->update_by_aid($aid, array('id' => 0, 'idtype' => ''));
@@ -152,7 +152,7 @@ if($article['allowcomment']) {
 
 		if($article['idtype'] == 'blogid') {
 
-			$common_url = "home.php?mod=space&uid=$org[uid]&do=blog&id=$article[id]";
+			$common_url = "home.php?mod=space&uid={$org['uid']}&do=blog&id={$article['id']}";
 			$form_url = "home.php?mod=spacecp&ac=comment";
 
 			$article['commentnum'] = C::t('home_comment')->count_by_id_idtype($article['id'], 'blogid');
@@ -167,8 +167,8 @@ if($article['allowcomment']) {
 
 		} elseif($article['idtype'] == 'tid') {
 
-			$common_url = "forum.php?mod=viewthread&tid=$article[id]";
-			$form_url = "forum.php?mod=post&action=reply&tid=$article[id]&replysubmit=yes&infloat=yes&handlekey=fastpost";
+			$common_url = "forum.php?mod=viewthread&tid={$article['id']}";
+			$form_url = "forum.php?mod=post&action=reply&tid={$article['id']}&replysubmit=yes&infloat=yes&handlekey=fastpost";
 
 			require_once libfile('function/discuzcode');
 			$posttable = empty($thread['posttable']) ? getposttablebytid($article['id']) : $thread['posttable'];
@@ -301,16 +301,16 @@ function parseforumattach(&$post, $aids) {
 			if($attach['isimage']) {
 				$attachthumb = getimgthumbname($attach['attachment']);
 					if($_G['setting']['thumbstatus'] && $attach['thumb']) {
-						$replaces[$attach['aid']] = "<a href=\"javascript:;\"><img id=\"_aimg_$attach[aid]\" aid=\"$attach[aid]\" onclick=\"zoom(this, this.getAttribute('zoomfile'), 0, 0, '{$_G[forum][showexif]}')\"
-						zoomfile=\"".($attach['refcheck']? "forum.php?mod=attachment{$is_archive}&aid=$aidencode&noupdate=yes&nothumb=yes" : $attach['url'].$attach['attachment'])."\"
-						src=\"".($attach['refcheck'] ? "forum.php?mod=attachment{$is_archive}&aid=$aidencode" : $attach['url'].$attachthumb)."\" alt=\"$attach[imgalt]\" title=\"$attach[imgalt]\" w=\"$attach[width]\" /></a>";
-					} else {
-						$replaces[$attach['aid']] = "<img id=\"_aimg_$attach[aid]\" aid=\"$attach[aid]\"
+						$replaces[$attach['aid']] = "<a href=\"javascript:;\"><img id=\"_aimg_{$attach['aid']}\" aid=\"{$attach['aid']}\" onclick=\"zoom(this, this.getAttribute('zoomfile'), 0, 0, '{$_G['forum']['showexif']}')\"
 						zoomfile=\"".($attach['refcheck'] ? "forum.php?mod=attachment{$is_archive}&aid=$aidencode&noupdate=yes&nothumb=yes" : $attach['url'].$attach['attachment'])."\"
-						src=\"".($attach['refcheck'] ? "forum.php?mod=attachment{$is_archive}&aid=$aidencode&noupdate=yes " : $attach['url'].$attach['attachment'])."\" $widthcode alt=\"$attach[imgalt]\" title=\"$attach[imgalt]\" w=\"$attach[width]\" />";
+						src=\"".($attach['refcheck'] ? "forum.php?mod=attachment{$is_archive}&aid=$aidencode" : $attach['url'].$attachthumb)."\" alt=\"{$attach['imgalt']}\" title=\"{$attach['imgalt']}\" w=\"{$attach['width']}\" /></a>";
+					} else {
+						$replaces[$attach['aid']] = "<img id=\"_aimg_{$attach['aid']}\" aid=\"{$attach['aid']}\"
+						zoomfile=\"".($attach['refcheck'] ? "forum.php?mod=attachment{$is_archive}&aid=$aidencode&noupdate=yes&nothumb=yes" : $attach['url'].$attach['attachment'])."\"
+						src=\"".($attach['refcheck'] ? "forum.php?mod=attachment{$is_archive}&aid=$aidencode&noupdate=yes " : $attach['url'].$attach['attachment'])."\" $widthcode alt=\"{$attach['imgalt']}\" title=\"{$attach['imgalt']}\" w=\"{$attach['width']}\" />";
 					}
 			} else {
-				$replaces[$attach['aid']] = "$attach[attachicon]<a href=\"forum.php?mod=attachment{$is_archive}&aid=$aidencode\" onmouseover=\"showMenu({'ctrlid':this.id,'pos':'12'})\" id=\"aid$attach[aid]\" target=\"_blank\">$attach[filename]</a>";
+				$replaces[$attach['aid']] = "{$attach['attachicon']}<a href=\"forum.php?mod=attachment{$is_archive}&aid=$aidencode\" onmouseover=\"showMenu({'ctrlid':this.id,'pos':'12'})\" id=\"aid{$attach['aid']}\" target=\"_blank\">{$attach['filename']}</a>";
 			}
 			$finds[$attach['aid']] = '[attach]'.$attach['aid'].'[/attach]';
 		}

@@ -120,7 +120,7 @@ if($_GET['operation'] == 'upload') {
 		require_once libfile('function/home');
 		$smallimg = pic_get($attach['attachment'], 'forum', $attach['thumb'], $attach['remote']);
 		$bigimg = pic_get($attach['attachment'], 'forum', 0, $attach['remote']);
-		echo "{\"aid\":$attach[attachid], \"smallimg\":\"$smallimg\", \"bigimg\":\"$bigimg\", \"errorcode\":$errorcode}";
+		echo "{\"aid\":{$attach['attachid']}, \"smallimg\":\"$smallimg\", \"bigimg\":\"$bigimg\", \"errorcode\":$errorcode}";
 		exit();
 	} else {
 		echo "{\"aid\":0, \"errorcode\":$errorcode}";
@@ -144,7 +144,7 @@ if($_GET['operation'] == 'upload') {
 			if(!empty($file) && is_array($file)) {
 				$url = pic_get($file['filepath'], 'album', $file['thumb'], $file['remote']);
 				$bigimg = pic_get($file['filepath'], 'album', 0, $file['remote']);
-				echo "{\"picid\":\"$file[picid]\", \"url\":\"$url\", \"bigimg\":\"$bigimg\"}";
+				echo "{\"picid\":\"{$file['picid']}\", \"url\":\"$url\", \"bigimg\":\"$bigimg\"}";
 				$showerror = false;
 			}
 		}
@@ -230,11 +230,11 @@ if($_GET['operation'] == 'upload') {
 			$smallimg = pic_get($attach['attachment'], 'portal', $attach['thumb'], $attach['remote']);
 			$bigimg = pic_get($attach['attachment'], 'portal', 0, $attach['remote']);
 			$coverstr = addslashes(serialize(array('pic'=>'portal/'.$attach['attachment'], 'thumb'=>$attach['thumb'], 'remote'=>$attach['remote'])));
-			echo "{\"aid\":$setarr[attachid], \"isimage\":$attach[isimage], \"smallimg\":\"$smallimg\", \"bigimg\":\"$bigimg\", \"errorcode\":$errorcode, \"cover\":\"$coverstr\"}";
+			echo "{\"aid\":{$setarr['attachid']}, \"isimage\":{$attach['isimage']}, \"smallimg\":\"$smallimg\", \"bigimg\":\"$bigimg\", \"errorcode\":$errorcode, \"cover\":\"$coverstr\"}";
 			exit();
 		} else {
 			$fileurl = 'portal.php?mod=attachment&id='.$attach['attachid'];
-			echo "{\"aid\":$setarr[attachid], \"isimage\":$attach[isimage], \"file\":\"$fileurl\", \"errorcode\":$errorcode}";
+			echo "{\"aid\":{$setarr['attachid']}, \"isimage\":{$attach['isimage']}, \"file\":\"$fileurl\", \"errorcode\":$errorcode}";
 			exit();
 		}
 	} else {

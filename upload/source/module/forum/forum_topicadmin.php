@@ -47,7 +47,7 @@ if(!empty($_G['tid'])) {
 		showmessage('thread_nonexistence');
 	}
 
-	$navigation .= " &raquo; <a href=\"forum.php?mod=viewthread&tid=$_G[tid]\">$thread[subject]</a> ";
+	$navigation .= " &raquo; <a href=\"forum.php?mod=viewthread&tid={$_G['tid']}\">{$thread['subject']}</a> ";
 	$navtitle .= ' - '.$thread['subject'].' - ';
 
 	if($thread['special'] && in_array($_GET['action'], array('copy', 'split', 'merge'))) {

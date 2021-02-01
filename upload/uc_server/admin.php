@@ -39,7 +39,7 @@ $a = empty($a) ? 'index' : $a;
 
 define('RELEASE_ROOT', '');
 
-header('Content-Type: text/html; charset='.CHARSET);
+header('Content-Type: text/html; charset='.constant('UC_CHARSET'));
 
 if(in_array($m, array('admin', 'app', 'badword', 'cache', 'db', 'domain', 'frame', 'log', 'note', 'feed', 'mail', 'setting', 'user', 'credit', 'seccode', 'tool', 'plugin', 'pm'))) {
 	include UC_ROOT."control/admin/$m.php";

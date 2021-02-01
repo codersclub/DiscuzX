@@ -45,7 +45,7 @@ function pubEventCallback(re) {
 	}
 }
 </script>
-<script src="http://api.wsq.qq.com/publicEvent?sId={$setting[wsq_siteid]}&resType=jsonp&isAjax=1&_=$time&isDiscuz=1&callback=pubEventCallback">
+<script src="http://api.wsq.qq.com/publicEvent?sId={$setting['wsq_siteid']}&resType=jsonp&isAjax=1&_=$time&isDiscuz=1&callback=pubEventCallback">
 </script>
 EOF;
 

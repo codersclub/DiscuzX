@@ -35,7 +35,7 @@ if(!$_POST) {
 		wxbox_style();
 echo <<<EOF
 <script>
-var cookiepre = '{$_G[config][cookie][cookiepre]}', cookiedomain = '{$_G[config][cookie][cookiedomain]}', cookiepath = '{$_G[config][cookie][cookiepath]}';
+var cookiepre = '{$_G['config']['cookie']['cookiepre']}', cookiedomain = '{$_G['config']['cookie']['cookiedomain']}', cookiepath = '{$_G['config']['cookie']['cookiepath']}';
 function merge(id, type) {
 	mids = getcookie('wechat_rids');
 	var re = new RegExp('_' + id + '_', "g");

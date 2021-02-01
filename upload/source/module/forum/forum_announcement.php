@@ -29,7 +29,7 @@ foreach ($announcedata as $announce) {
 	}
 	$announce['starttime'] = dgmdate($announce['starttime'], 'd');
 	$announce['endtime'] = $announce['endtime'] ? dgmdate($announce['endtime'], 'd') : '';
-	$announce['message'] = $announce['type'] == 1 ? "[url]{$announce[message]}[/url]" : $announce['message'];
+	$announce['message'] = $announce['type'] == 1 ? "[url]{$announce['message']}[/url]" : $announce['message'];
 	$announce['message'] = nl2br(discuzcode($announce['message'], 0, 0, 1, 1, 1, 1, 1));
 	$announcelist[] = $announce;
 }

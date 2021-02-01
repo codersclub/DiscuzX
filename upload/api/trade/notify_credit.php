@@ -32,7 +32,7 @@ if($notifydata['validator']) {
 	if($order && floatval($postprice) == floatval($order['price']) && ($apitype == 'tenpay' || strtolower($_G['setting']['ec_account']) == strtolower($_REQUEST['seller_email']))) {
 
 		if($order['status'] == 1) {
-			C::t('forum_order')->update($orderid, array('status' => '2', 'buyer' => "$notifydata[trade_no]\t$apitype", 'confirmdate' => $_G['timestamp']));
+			C::t('forum_order')->update($orderid, array('status' => '2', 'buyer' => "{$notifydata['trade_no']}\t$apitype", 'confirmdate' => $_G['timestamp']));
 			updatemembercount($order['uid'], array($_G['setting']['creditstrans'] => $order['amount']), 1, 'AFD', $order['uid']);
 			updatecreditbyaction($action, $uid = 0, $extrasql = array(), $needle = '', $coef = 1, $update = 1, $fid = 0);
 			C::t('forum_order')->delete_by_submitdate($_G['timestamp']-60*86400);
@@ -58,7 +58,7 @@ if($notifydata['location']) {
 <html>
 <body>
 <script language="javascript" type="text/javascript">
-window.location.href='$_G[siteurl]forum.php?mod=misc&action=paysucceed';
+window.location.href='{$_G['siteurl']}forum.php?mod=misc&action=paysucceed';
 </script>
 </body>
 </html>

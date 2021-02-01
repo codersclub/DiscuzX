@@ -24,7 +24,7 @@ class mobile_api {
 		if($values['tid'] && $values['pid']) {
 			global $_G;
 
-			$threadstatus = DB::result_first("SELECT status FROM ".DB::table('forum_thread')." WHERE tid='$values[tid]'");
+			$threadstatus = DB::result_first("SELECT status FROM ".DB::table('forum_thread')." WHERE tid='{$values['tid']}'");
 			$setstatusold = base_convert(getstatus($threadstatus, 13).getstatus($threadstatus, 12).getstatus($threadstatus, 11), 2, 10);
 			$updatestatus = false;
 			if(!empty($_POST['allowsound'])) {
@@ -47,7 +47,7 @@ class mobile_api {
 			}
 
 			$posttable = getposttablebytid($values['tid']);
-			$poststatus = DB::result_first("SELECT status FROM ".DB::table($posttable)." WHERE pid='$values[pid]'");
+			$poststatus = DB::result_first("SELECT status FROM ".DB::table($posttable)." WHERE pid='{$values['pid']}'");
 			$poststatus = setstatus(4, 1, $poststatus);
 			if(!empty($_POST['allowlocal'])) {
 				$poststatus = setstatus(6, 1, $poststatus);

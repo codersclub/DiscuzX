@@ -48,7 +48,7 @@ if($_G['forum']['status'] == 3) {
 	} elseif($status == 1) {
 		showmessage('forum_group_status_off');
 	} elseif($status == 2) {
-		showmessage('forum_group_noallowed', "forum.php?mod=group&fid=$_G[fid]");
+		showmessage('forum_group_noallowed', "forum.php?mod=group&fid={$_G['fid']}");
 	} elseif($status == 3) {
 		showmessage('forum_group_moderated');
 	} elseif($status == 4) {
@@ -145,7 +145,7 @@ if($_G['forum']['status'] == 3) {
 periodscheck('postbanperiods');
 
 if($_G['forum']['password'] && $_G['forum']['password'] != $_G['cookie']['fidpw'.$_G['fid']]) {
-	showmessage('forum_passwd', "forum.php?mod=forumdisplay&fid=$_G[fid]");
+	showmessage('forum_passwd', "forum.php?mod=forumdisplay&fid={$_G['fid']}");
 }
 
 if(empty($_G['forum']['allowview'])) {
@@ -316,8 +316,8 @@ if(helper_access::check_module('album') && $_G['group']['allowupload'] && $_G['u
 	}
 }
 
-$posturl = "action=$_GET[action]&fid=$_G[fid]".
-	(!empty($_G['tid']) ? "&tid=$_G[tid]" : '').
+$posturl = "action={$_GET['action']}&fid={$_G['fid']}".
+	(!empty($_G['tid']) ? "&tid={$_G['tid']}" : '').
 	(!empty($pid) ? "&pid=$pid" : '').
 	(!empty($special) ? "&special=$special" : '').
 	(!empty($sortid) ? "&sortid=$sortid" : '').
@@ -375,7 +375,7 @@ function recent_use_tag() {
 	if($tagarray) {
 		$query = C::t('common_tag')->fetch_all(array_keys($tagarray));
 		foreach($query as $result) {
-			$tagarray[$result[tagid]] = $result['tagname'];
+			$tagarray[$result['tagid']] = $result['tagname'];
 		}
 	}
 	return $tagarray;

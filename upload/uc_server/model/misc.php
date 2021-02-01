@@ -116,7 +116,7 @@ class miscmodel {
 			}
 			$boundary = $encodetype == 'URLENCODE' ? '' : '; boundary='.trim(substr(trim($post), 2, strpos(trim($post), "\n") - 2));
 			$header .= $encodetype == 'URLENCODE' ? "Content-Type: application/x-www-form-urlencoded\r\n" : "Content-Type: multipart/form-data$boundary\r\n";
-			$header .= "User-Agent: $_SERVER[HTTP_USER_AGENT]\r\n";
+			$header .= "User-Agent: {$_SERVER['HTTP_USER_AGENT']}\r\n";
 			$header .= "Host: $host:$port\r\n";
 			$header .= 'Content-Length: '.strlen($post)."\r\n";
 			$header .= "Connection: Close\r\n";
@@ -127,7 +127,7 @@ class miscmodel {
 			$out = "GET $path HTTP/1.0\r\n";
 			$header = "Accept: */*\r\n";
 			$header .= "Accept-Language: zh-cn\r\n";
-			$header .= "User-Agent: $_SERVER[HTTP_USER_AGENT]\r\n";
+			$header .= "User-Agent: {$_SERVER['HTTP_USER_AGENT']}\r\n";
 			$header .= "Host: $host:$port\r\n";
 			$header .= "Connection: Close\r\n";
 			$header .= "Cookie: $cookie\r\n\r\n";

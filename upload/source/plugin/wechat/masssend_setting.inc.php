@@ -37,7 +37,7 @@ if (!submitcheck('addsubmit') && !submitcheck('sendsubmit') && !submitcheck('del
 		foreach ($msg as $m) {
 			showtablerow('', array(), array(
 			    '<a href="' . ADMINSCRIPT . '?' . PMODURL . 'del&id=' . $m['id'] . '">' . lang('plugin/wechat', 'mass_delete') . '</a> | <a href="' . ADMINSCRIPT . '?' . PMODURL . 'add&id=' . $m['id'] . '">' . lang('plugin/wechat', 'mass_edit') . '</a>',
-			    "<input type=\"radio\" name=\"massid\" value=\"$m[id]\" class=\"radio\">",
+			    "<input type=\"radio\" name=\"massid\" value=\"{$m['id']}\" class=\"radio\">",
 			    $m['type'],
 			    dgmdate($m['created_at']),
 			    $m['msg_id'],
@@ -62,7 +62,7 @@ if (!submitcheck('addsubmit') && !submitcheck('sendsubmit') && !submitcheck('del
 		if (intval($_GET['id']) > 0) {
 			$mass = C::t('#wechat#mobile_wechat_masssend')->fetch(intval($_GET['id']));
 		}
-		$massmessage = $mass['resource_id'] ? "[resource=$mass[resource_id]]" : $mass['text'];
+		$massmessage = $mass['resource_id'] ? "[resource={$mass['resource_id']}]" : $mass['text'];
 		showtips(lang('plugin/wechat', 'mass_add_tips'));
 		WeChatSetting::showResource();
 		showformheader('plugins&operation=config&identifier=wechat&pmod=masssend_setting&ac=add', 'enctype');
@@ -74,7 +74,7 @@ if (!submitcheck('addsubmit') && !submitcheck('sendsubmit') && !submitcheck('del
 		));
 		$select = array('group_id', array());
 		foreach ($groups as $g) {
-			$select[1][] = array($g['id'], diconv($g['name'], 'UTF-8', CHARSET) . "[$g[count]]");
+			$select[1][] = array($g['id'], diconv($g['name'], 'UTF-8', CHARSET) . "[{$g['count']}]");
 		}
 		showsetting(lang('plugin/wechat', 'mass_group_id'), $select, '', 'select');
 		showsubmit('addsubmit');

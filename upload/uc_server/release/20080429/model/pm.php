@@ -192,23 +192,23 @@ class pmmodel {
 
 		if($msgfrom['uid']) {
 			if($msgto) {
-				$sessionexist = $this->db->result_first("SELECT count(*) FROM ".UC_DBTABLEPRE."pms WHERE msgfromid='$msgfrom[uid]' AND msgtoid='$msgto' AND folder='inbox' AND related='0'");
+				$sessionexist = $this->db->result_first("SELECT count(*) FROM ".UC_DBTABLEPRE."pms WHERE msgfromid='{$msgfrom['uid']}' AND msgtoid='$msgto' AND folder='inbox' AND related='0'");
 			} else {
 				$sessionexist = 0;
 			}
 			if(!$sessionexist || $sessionexist > 1) {
 				if($sessionexist > 1) {
-					$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pms WHERE msgfromid='$msgfrom[uid]' AND msgtoid='$msgto' AND folder='inbox' AND related='0'");
+					$this->db->query("DELETE FROM ".UC_DBTABLEPRE."pms WHERE msgfromid='{$msgfrom['uid']}' AND msgtoid='$msgto' AND folder='inbox' AND related='0'");
 				}
 				$this->db->query("INSERT INTO ".UC_DBTABLEPRE."pms (msgfrom,msgfromid,msgtoid,folder,new,subject,dateline,related,message,fromappid) VALUES
 					('".$msgfrom['username']."','".$msgfrom['uid']."','$msgto','$box','1','$subject','".$this->base->time."','0','$message','".$this->base->app['appid']."')");
 				$lastpmid = $this->db->insert_id();
 			} else {
 				$this->db->query("UPDATE ".UC_DBTABLEPRE."pms SET subject='$subject', message='$message', dateline='".$this->base->time."', new='1', fromappid='".$this->base->app['appid']."'
-					WHERE msgfromid='$msgfrom[uid]' AND msgtoid='$msgto' AND folder='inbox' AND related='0'");
+					WHERE msgfromid='{$msgfrom['uid']}' AND msgtoid='$msgto' AND folder='inbox' AND related='0'");
 			}
 			if($msgto) {
-				$sessionexist = $this->db->result_first("SELECT count(*) FROM ".UC_DBTABLEPRE."pms WHERE msgfromid='$msgto' AND msgtoid='$msgfrom[uid]' AND folder='inbox' AND related='0'");
+				$sessionexist = $this->db->result_first("SELECT count(*) FROM ".UC_DBTABLEPRE."pms WHERE msgfromid='$msgto' AND msgtoid='{$msgfrom['uid']}' AND folder='inbox' AND related='0'");
 				if($msgfrom['uid'] && !$sessionexist) {
 					$this->db->query("INSERT INTO ".UC_DBTABLEPRE."pms (msgfrom,msgfromid,msgtoid,folder,new,subject,dateline,related,message,fromappid) VALUES
 						('".$msgfrom['username']."','$msgto','".$msgfrom['uid']."','$box','0','$subject','".$this->base->time."','0','$message','0')");

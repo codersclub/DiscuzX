@@ -227,7 +227,7 @@ class WSQResponse {
 		'res_errorcount' => $data['errorcount'],
 		'res_finish_at' => $data['time']
 	    );
-	    DB::update('mobile_wechat_masssend', $updatedata, "msg_id='$data[msg_id]'");
+	    DB::update('mobile_wechat_masssend', $updatedata, "msg_id='{$data['msg_id']}'");
 	}
 
 	private static function _checkrobot() {

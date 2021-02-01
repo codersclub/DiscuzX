@@ -51,22 +51,22 @@ echo 	"<?xml version=\"1.0\" encoding=\"".$charset."\"?>\n".
 	"<rss version=\"2.0\">\n".
 	"  <channel>\n".
 	(count($catarray) > 1 ?
-		"    <title>{$_G[setting][bbname]}</title>\n".
-		"    <link>{$_G[siteurl]}forum.php</link>\n".
+		"    <title>{$_G['setting']['bbname']}</title>\n".
+		"    <link>{$_G['siteurl']}forum.php</link>\n".
 		"    <description>Latest $num articles of all categories</description>\n"
 		:
-		"    <title>{$_G[setting][bbname]} - $catname</title>\n".
-		"    <link>{$_G[siteurl]}portal.php?mod=list&amp;catid=$rsscatid</link>\n".
+		"    <title>{$_G['setting']['bbname']} - $catname</title>\n".
+		"    <link>{$_G['siteurl']}portal.php?mod=list&amp;catid=$rsscatid</link>\n".
 		"    <description>Latest $num articles of $catname</description>\n"
 	).
-	"    <copyright>Copyright(C) {$_G[setting][bbname]}</copyright>\n".
+	"    <copyright>Copyright(C) {$_G['setting']['bbname']}</copyright>\n".
 	"    <generator>Discuz! Board by Comsenz Inc.</generator>\n".
 	"    <lastBuildDate>".gmdate('r', TIMESTAMP)."</lastBuildDate>\n".
 	"    <ttl>$ttl</ttl>\n".
 	"    <image>\n".
-	"      <url>{$_G[siteurl]}static/image/common/logo_88_31.gif</url>\n".
-	"      <title>{$_G[setting][bbname]}</title>\n".
-	"      <link>{$_G[siteurl]}</link>\n".
+	"      <url>{$_G['siteurl']}static/image/common/logo_88_31.gif</url>\n".
+	"      <title>{$_G['setting']['bbname']}</title>\n".
+	"      <link>{$_G['siteurl']}</link>\n".
 	"    </image>\n";
 
 if($catarray) {
@@ -87,7 +87,7 @@ if($catarray) {
 				}
 				echo 	"    <item>\n".
 					"      <title>".$article['subject']."</title>\n".
-					"      <link>$_G[siteurl]".($rewriteflag ? rewriteoutput('portal_article', 1, '', $article[aid]) : "portal.php?mod=view&amp;aid=$article[aid]")."</link>\n".
+					"      <link>{$_G['siteurl']}".($rewriteflag ? rewriteoutput('portal_article', 1, '', $article['aid']) : "portal.php?mod=view&amp;aid={$article['aid']}")."</link>\n".
 					"      <description><![CDATA[".dhtmlspecialchars($article['description'])."]]></description>\n".
 					"      <category>".dhtmlspecialchars($article['catname'])."</category>\n".
 					"      <author>".dhtmlspecialchars($article['author'])."</author>\n".

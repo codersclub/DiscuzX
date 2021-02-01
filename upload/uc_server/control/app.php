@@ -93,8 +93,8 @@ class appcontrol extends base {
 				$_ENV['note']->add('updateapps', '', $this->serialize($notedata, 1));
 				$_ENV['note']->send();
 			} else {
-				$this->_writelog('app_queryinfo', "appid=$app[appid]; by=url_add");
-				$return = "$app[authkey]|$app[appid]|".UC_DBHOST.'|'.UC_DBNAME.'|'.UC_DBUSER.'|'.UC_DBPW.'|'.UC_DBCHARSET.'|'.UC_DBTABLEPRE.'|'.UC_CHARSET;
+				$this->_writelog('app_queryinfo', "appid={$app['appid']}; by=url_add");
+				$return = "{$app['authkey']}|{$app['appid']}|".UC_DBHOST.'|'.UC_DBNAME.'|'.UC_DBUSER.'|'.UC_DBPW.'|'.UC_DBCHARSET.'|'.UC_DBTABLEPRE.'|'.UC_CHARSET;
 			}
 			@ob_end_clean();
 			exit($return);

@@ -307,7 +307,7 @@ if($get['method'] == 'export') {
 	$get['volume'] = isset($get['volume']) ? intval($get['volume']) : 0;
 	$get['volume'] = $get['volume'] + 1;
 	$version = $version ? $version : $apptype;
-	$idstring = '# Identify: '.base64_encode("$timestamp,$version,$apptype,multivol,$get[volume]")."\n";
+	$idstring = '# Identify: '.base64_encode("$timestamp,$version,$apptype,multivol,{$get['volume']}")."\n";
 
 	if(!isset($get['sqlpath']) || empty($get['sqlpath'])) {
 		$get['sqlpath'] = 'backup_'.date('ymd', $timestamp).'_'.random(6);
@@ -349,7 +349,7 @@ if($get['method'] == 'export') {
 	if(trim($sqldump)) {
 		$sqldump = "$idstring".
 			"# <?php exit();?>\n".
-			"# $apptype Multi-Volume Data Dump Vol.$get[volume]\n".
+			"# $apptype Multi-Volume Data Dump Vol.{$get['volume']}\n".
 			"# Time: $time\n".
 			"# Type: $apptype\n".
 			"# Table Prefix: $tablepre\n".
@@ -572,7 +572,7 @@ function auto_next($get, $sqlfile) {
 	$out = "<root>\n";
 	$out .= "\t<error errorCode=\"0\" errorMessage=\"ok\" />\n";
 	$out .= "\t<fileinfo>\n";
-	$out .= "\t\t<file_num>$get[volume]</file_num>\n";
+	$out .= "\t\t<file_num>{$get['volume']}</file_num>\n";
 	$out .= "\t\t<file_size>".filesize($sqlfile)."</file_size>\n";
 	$out .= "\t\t<file_name>".basename($sqlfile)."</file_name>\n";
 	$out .= "\t\t<file_url>".str_replace(ROOT_PATH, (is_https() ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].'/', $sqlfile)."</file_url>\n";
@@ -613,7 +613,7 @@ function sqldumptablestruct($table) {
 	$tabledump .= $create[1];
 
 	$tablestatus = $db->fetch_first("SHOW TABLE STATUS LIKE '$table'");
-	$tabledump .= ($tablestatus['Auto_increment'] ? " AUTO_INCREMENT=$tablestatus[Auto_increment]" : '').";\n\n";
+	$tabledump .= ($tablestatus['Auto_increment'] ? " AUTO_INCREMENT={$tablestatus['Auto_increment']}" : '').";\n\n";
 	return $tabledump;
 }
 
@@ -643,9 +643,9 @@ function sqldumptable($table, $currsize = 0) {
 
 	while($currsize + strlen($tabledump) + 500 < $sizelimit * 1000 && $numrows == $offset) {
 		if($firstfield['Extra'] == 'auto_increment') {
-			$selectsql = "SELECT * FROM $table WHERE $firstfield[Field] > $get[startfrom] LIMIT $offset";
+			$selectsql = "SELECT * FROM $table WHERE {$firstfield['Field']} > {$get['startfrom']} LIMIT $offset";
 		} else {
-			$selectsql = "SELECT * FROM $table LIMIT $get[startfrom], $offset";
+			$selectsql = "SELECT * FROM $table LIMIT {$get['startfrom']}, $offset";
 		}
 		$tabledumped = 1;
 		$rows = $db->query($selectsql);

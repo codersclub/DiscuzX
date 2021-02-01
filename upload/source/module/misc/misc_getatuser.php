@@ -18,17 +18,17 @@ if($_G['uid']) {
 	if($_G['cookie']['atlist']) {
 		$cookies = explode(',', $_G['cookie']['atlist']);
 		foreach(C::t('common_member')->fetch_all($cookies, false, 0) as $row) {
-			$temp[$row[uid]] = $row['username'];
+			$temp[$row['uid']] = $row['username'];
 		}
 		foreach($cookies as $uid) {
 			$atlist_cookie[$uid] = $temp[$uid];
 		}
 	}
 	foreach(C::t('home_follow')->fetch_all_following_by_uid($_G['uid'], 0, 0, $limit) as $row) {
-		if($atlist_cookie[$row[followuid]]) {
+		if($atlist_cookie[$row['followuid']]) {
 			continue;
 		}
-		$atlist[$row[followuid]] = $row['fusername'];
+		$atlist[$row['followuid']] = $row['fusername'];
 	}
 	$num = count($atlist);
 	if($num < $limit) {
@@ -37,10 +37,10 @@ if($_G['uid']) {
 			if(count($atlist) == $limit) {
 				break;
 			}
-			if($atlist_cookie[$row[fuid]]) {
+			if($atlist_cookie[$row['fuid']]) {
 				continue;
 			}
-			$atlist[$row[fuid]] = $row['fusername'];
+			$atlist[$row['fuid']] = $row['fusername'];
 		}
 	}
 	$result = implode(',', $atlist_cookie).($atlist_cookie && $atlist ? ',' : '').implode(',', $atlist);

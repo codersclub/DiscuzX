@@ -24,10 +24,10 @@ if($_GET['action'] == 'update' && !defined("IN_MOBILE")) {
 	if($_G['setting']['seccodedata']['type'] == 2) {
 		$htmlcode = extension_loaded('ming') ?
 			"$('seccodeswf_$idhash').innerHTML='".lang('core', 'seccode_image'.$ani.'_tips')."' + AC_FL_RunContent('width', '".$_G['setting']['seccodedata']['width']."', 'height', '".$_G['setting']['seccodedata']['height']."', 'src', 'misc.php?mod=seccode&update=$rand&idhash=$idhash','quality', 'high', 'wmode', 'transparent', 'bgcolor', '#ffffff','align', 'middle', 'menu', 'false', 'allowScriptAccess', 'never');" :
-			"$('seccodeswf_$idhash').innerHTML='".lang('core', 'seccode_image'.$ani.'_tips')."' + AC_FL_RunContent('width', '".$_G['setting']['seccodedata']['width']."', 'height', '".$_G['setting']['seccodedata']['height']."', 'src', '$_G[siteurl]static/image/seccode/flash/flash2.swf', 'FlashVars', 'sFile=".rawurlencode("$_G[siteurl]misc.php?mod=seccode&update=$rand&idhash=$idhash")."', 'menu', 'false', 'allowScriptAccess', 'never', 'swLiveConnect', 'true', 'wmode', 'transparent');";
+			"$('seccodeswf_$idhash').innerHTML='".lang('core', 'seccode_image'.$ani.'_tips')."' + AC_FL_RunContent('width', '".$_G['setting']['seccodedata']['width']."', 'height', '".$_G['setting']['seccodedata']['height']."', 'src', '{$_G['siteurl']}static/image/seccode/flash/flash2.swf', 'FlashVars', 'sFile=".rawurlencode("{$_G['siteurl']}misc.php?mod=seccode&update=$rand&idhash=$idhash")."', 'menu', 'false', 'allowScriptAccess', 'never', 'swLiveConnect', 'true', 'wmode', 'transparent');";
 		$message = '<span id="seccodeswf_'.$idhash.'"></span>';
 	} elseif($_G['setting']['seccodedata']['type'] == 3) {
-		$htmlcode = "(function(){var a=document.createElement('audio');a.src='$_G[siteurl]misc.php?mod=seccode&update=$rand&idhash=$idhash&fromFlash=1',a.style.display='none',$('seccodeplay_$idhash').onclick=function(){a.play()},$('seccodeswf_$idhash').appendChild(a)})();";
+		$htmlcode = "(function(){var a=document.createElement('audio');a.src='{$_G['siteurl']}misc.php?mod=seccode&update=$rand&idhash=$idhash&fromFlash=1',a.style.display='none',$('seccodeplay_$idhash').onclick=function(){a.play()},$('seccodeswf_$idhash').appendChild(a)})();";
 		$message = '<span id="seccodeswf_'.$idhash.'">'.lang('core', 'seccode_sound_tips').'</span>'.lang('forum/misc', 'seccode_player', array('idhash' => $idhash));
 	} else {
 		if(!is_numeric($_G['setting']['seccodedata']['type']) && preg_match('/^[\w\d:_]+$/i', $_G['setting']['seccodedata']['type'])) {
@@ -66,8 +66,8 @@ if($('$showid')) {
 	if(!$('v$showid')) {
 		var sectpl = seccheck_tpl['$idhash'] != '' ? seccheck_tpl['$idhash'].replace(/<hash>/g, 'code$idhash') : '';
 		var sectplcode = sectpl != '' ? sectpl.split('<sec>') : Array('<br />',': ','<br />','');
-		var string = '<input name="seccodehash" type="hidden" value="$idhash" /><input name="seccodemodid" type="hidden" value="$modid" />' + sectplcode[0] + '$seclang[seccode]' + sectplcode[1] + '<input name="seccodeverify" id="seccodeverify_$idhash" type="text" autocomplete="off" style="{$imemode}width:100px" class="txt px vm" onblur="checksec(\'code\', \'$idhash\', 0, null, \'$modid\')" />' +
-			' <a href="javascript:;" onclick="updateseccode(\'$idhash\');doane(event);" class="xi2">$seclang[seccode_update]</a>' +
+		var string = '<input name="seccodehash" type="hidden" value="$idhash" /><input name="seccodemodid" type="hidden" value="$modid" />' + sectplcode[0] + '{$seclang['seccode']}' + sectplcode[1] + '<input name="seccodeverify" id="seccodeverify_$idhash" type="text" autocomplete="off" style="{$imemode}width:100px" class="txt px vm" onblur="checksec(\'code\', \'$idhash\', 0, null, \'$modid\')" />' +
+			' <a href="javascript:;" onclick="updateseccode(\'$idhash\');doane(event);" class="xi2">{$seclang['seccode_update']}</a>' +
 			'<span id="checkseccodeverify_$idhash"><i class="fico-checkbox fic4 fc-t fnmr vm"></i></span>' +
 			sectplcode[2] + '<span id="v$showid">$message</span>' + sectplcode[3];
 		evalscript(string);

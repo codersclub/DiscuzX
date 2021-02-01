@@ -14,9 +14,9 @@ if(!defined('IN_DISCUZ')) {
 require_once libfile('function/forumlist');
 
 if($_G['forum']['redirect']) {
-	dheader("Location: {$_G[forum][redirect]}");
+	dheader("Location: {$_G['forum']['redirect']}");
 } elseif($_G['forum']['type'] == 'group') {
-	dheader("Location: forum.php?gid=$_G[fid]");
+	dheader("Location: forum.php?gid={$_G['fid']}");
 } elseif(empty($_G['forum']['fid'])) {
 	showmessage('forum_nonexistence', NULL);
 } elseif($_G['fid'] == $_G['setting']['followforumid'] && $_G['adminid'] != 1) {
@@ -80,7 +80,7 @@ if($_G['forum']['type'] == 'forum') {
 } else {
 	$fgroupid = $forum_up['fup'];
 	if(empty($_GET['archiveid'])) {
-		$forum_top =  $_G['cache']['forums'][$forum_up[fup]];
+		$forum_top =  $_G['cache']['forums'][$forum_up['fup']];
 		$navigation = ' <em>&rsaquo;</em> <a href="forum.php?gid='.$forum_top['fid'].'">'.$forum_top['name'].'</a><em>&rsaquo;</em> <a href="forum.php?mod=forumdisplay&fid='.$forum_up['fid'].'">'.$forum_up['name'].'</a><em>&rsaquo;</em> '.$_G['forum']['name'];
 	} else {
 		$navigation = ' <em>&rsaquo;</em> <a href="forum.php?mod=forumdisplay&fid='.$_G['forum']['fup'].'">'.$forum_up['name'].'</a> <em>&rsaquo;</em> '.'<a href="forum.php?mod=forumdisplay&fid='.$_G['fid'].'">'.$_G['forum']['name'].'</a> <em>&rsaquo;</em> '.$forumarchive[$_GET['archiveid']]['displayname'];
@@ -168,7 +168,7 @@ if($_G['forum']['password']) {
 			showmessage('forum_passwd_incorrect', NULL);
 		} else {
 			dsetcookie('fidpw'.$_G['fid'], $_GET['pw']);
-			showmessage('forum_passwd_correct', "forum.php?mod=forumdisplay&fid=$_G[fid]");
+			showmessage('forum_passwd_correct', "forum.php?mod=forumdisplay&fid={$_G['fid']}");
 		}
 	} elseif($_G['forum']['password'] != $_G['cookie']['fidpw'.$_G['fid']]) {
 		include template('forum/forumdisplay_passwd');
@@ -183,7 +183,7 @@ if($_G['forum']['price'] && !$_G['forum']['ismoderator']) {
 		if($_GET['action'] == 'paysubmit') {
 			updatemembercount($_G['uid'], array($_G['setting']['creditstransextra'][1] => -$paycredits), 1, 'FCP', $_G['fid']);
 			C::t('common_member_forum_buylog')->update_credits($_G['uid'], $_G['fid'], $_G['forum']['price']);
-			showmessage('forum_pay_correct', "forum.php?mod=forumdisplay&fid=$_G[fid]");
+			showmessage('forum_pay_correct', "forum.php?mod=forumdisplay&fid={$_G['fid']}");
 		} else {
 			if(getuserprofile('extcredits'.$_G['setting']['creditstransextra'][1]) < $paycredits) {
 				showmessage('forum_pay_incorrect', NULL, array('paycredits' => $paycredits, 'credits' => $_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['unit'].$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['title'], 'title' => $_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['title']));
@@ -259,7 +259,7 @@ if($_G['forum']['autoclose']) {
 
 $subexists = 0;
 foreach($_G['cache']['forums'] as $sub) {
-	if($sub['type'] == 'sub' && $sub['fup'] == $_G['fid'] && (!$_G['setting']['hideprivate'] || !$sub['viewperm'] || forumperm($sub['viewperm']) || strstr($sub['users'], "\t$_G[uid]\t"))) {
+	if($sub['type'] == 'sub' && $sub['fup'] == $_G['fid'] && (!$_G['setting']['hideprivate'] || !$sub['viewperm'] || forumperm($sub['viewperm']) || strstr($sub['users'], "\t{$_G['uid']}\t"))) {
 		if(!$sub['status']) {
 			continue;
 		}
@@ -614,12 +614,12 @@ $start_limit = ($page - 1) * $_G['tpp'];
 
 $forumdisplayadd['page'] = !empty($forumdisplayadd['page']) ? $forumdisplayadd['page'] : '';
 $multipage_archive = $_GET['archiveid'] && in_array($_GET['archiveid'], $threadtableids) ? "&archiveid={$_GET['archiveid']}" : '';
-$multipage = multi($_G['forum_threadcount'], $_G['tpp'], $page, "forum.php?mod=forumdisplay&fid=$_G[fid]".$forumdisplayadd['page'].($multiadd ? '&'.implode('&', $multiadd) : '')."$multipage_archive", $_G['setting']['threadmaxpages']);
+$multipage = multi($_G['forum_threadcount'], $_G['tpp'], $page, "forum.php?mod=forumdisplay&fid={$_G['fid']}".$forumdisplayadd['page'].($multiadd ? '&'.implode('&', $multiadd) : '')."$multipage_archive", $_G['setting']['threadmaxpages']);
 
 $realpages = @ceil($_G['forum_threadcount']/$_G['tpp']);
 $maxpage = ($_G['setting']['threadmaxpages'] && $_G['setting']['threadmaxpages'] < $realpages) ? $_G['setting']['threadmaxpages'] : $realpages;
 $nextpage = ($page + 1) > $maxpage ? 1 : ($page + 1);
-$multipage_more = "forum.php?mod=forumdisplay&fid=$_G[fid]".$forumdisplayadd['page'].($multiadd ? '&'.implode('&', $multiadd) : '')."$multipage_archive".'&page='.$nextpage;
+$multipage_more = "forum.php?mod=forumdisplay&fid={$_G['fid']}".$forumdisplayadd['page'].($multiadd ? '&'.implode('&', $multiadd) : '')."$multipage_archive".'&page='.$nextpage;
 
 $extra = rawurlencode(!IS_ROBOT ? 'page='.$page.($forumdisplayadd['page'] ? '&filter='.$filter.$forumdisplayadd['page'] : '') : 'page=1');
 
@@ -632,7 +632,7 @@ $filterarr['displayorder'] = !$filterbool && $stickycount ? array(0, 1) : array(
 if($filter !== 'hot') {
 	$threadlist = array();
 	$indexadd = '';
-	$_order = "displayorder DESC, $_GET[orderby] $_GET[ascdesc]";
+	$_order = "displayorder DESC, {$_GET['orderby']} {$_GET['ascdesc']}";
 	if($filterbool) {
 		if($filterarr['digest']) {
 			$indexadd = " FORCE INDEX (digest) ";
@@ -739,7 +739,7 @@ foreach($threadlist as $thread) {
 		$thread['highlight'] .= $stylestr[2] ? 'text-decoration: underline;' : '';
 		$thread['highlight'] .= $string[1] ? 'color: '.$_G['forum_colorarray'][$string[1]].';' : '';
 		if($thread['bgcolor']) {
-			$thread['highlight'] .= "background-color: $thread[bgcolor];";
+			$thread['highlight'] .= "background-color: {$thread['bgcolor']};";
 		}
 		$thread['highlight'] .= '"';
 	} else {
@@ -961,7 +961,7 @@ if(isset($_GET['leftsidestatus'])) {
 	$_G['cookie']['disableleftside'] = $_GET['leftsidestatus'];
 }
 $leftside = empty($_G['cookie']['disableleftside']) && $allowleftside ? forumleftside() : array();
-$leftsideswitch = $allowleftside ? "forum.php?mod=forumdisplay&fid=$_G[fid]&page=$page".($multiadd ? '&'.implode('&', $multiadd) : '') : '';
+$leftsideswitch = $allowleftside ? "forum.php?mod=forumdisplay&fid={$_G['fid']}&page=$page".($multiadd ? '&'.implode('&', $multiadd) : '') : '';
 
 require_once libfile('function/upload');
 $swfconfig = getuploadconfig($_G['uid'], $_G['fid']);

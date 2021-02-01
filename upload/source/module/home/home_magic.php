@@ -150,7 +150,7 @@ if($action == 'shop') {
 
 		if(!submitcheck('operatesubmit')) {
 
-			$useperm = (strstr($magicperm['usergroups'], "\t$_G[groupid]\t") || !$magicperm['usergroups']) ? '1' : '0';
+			$useperm = (strstr($magicperm['usergroups'], "\t{$_G['groupid']}\t") || !$magicperm['usergroups']) ? '1' : '0';
 
 			if($magicperm['targetgroups']) {
 				loadcache('usergroups');
@@ -312,7 +312,7 @@ if($action == 'shop') {
 
 		if($operation == 'use') {
 
-			$useperm = (strstr($magicperm['usergroups'], "\t$_G[groupid]\t") || empty($magicperm['usergroups'])) ? '1' : '0';
+			$useperm = (strstr($magicperm['usergroups'], "\t{$_G['groupid']}\t") || empty($magicperm['usergroups'])) ? '1' : '0';
 			if(!$useperm) {
 				showmessage('magics_use_nopermission');
 			}

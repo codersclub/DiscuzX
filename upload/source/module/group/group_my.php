@@ -39,7 +39,7 @@ if($view == 'groupthread' || $view == 'mythread') {
 		$attentiongroupfid = '';
 		$query = C::t('forum_forum')->fetch_all_info_by_fids($attentiongroups);
 		foreach($query as $row) {
-			$attentiongroup_icon[$row[fid]] = get_groupimg($row['icon'], 'icon');
+			$attentiongroup_icon[$row['fid']] = get_groupimg($row['icon'], 'icon');
 		}
 		foreach($attentiongroups as $groupid) {
 			$attentiongroupfid .= $attentiongroupfid ? ','.$groupid : $groupid;

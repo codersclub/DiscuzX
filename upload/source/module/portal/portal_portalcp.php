@@ -28,7 +28,7 @@ $admincp6 = getstatus($_G['member']['allowadmincp'], 6);
 if (!$_G['inajax'] && in_array($ac, array('index', 'portalblock', 'blockdata', 'category', 'plugin')) && ($_G['group']['allowdiy'] || $_G['group']['allowmanagearticle'] || $admincp2 || $admincp3 || $admincp4 || $admincp6)) {
 	$modsession = new discuz_panel(PORTALCP_PANEL);
 	if(getgpc('login_panel') && getgpc('cppwd') && submitcheck('submit')) {
-		$modsession->dologin($_G[uid], getgpc('cppwd'), true);
+		$modsession->dologin($_G['uid'], getgpc('cppwd'), true);
 	}
 
 	if(!$modsession->islogin) {

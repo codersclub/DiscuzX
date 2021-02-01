@@ -120,7 +120,7 @@ $languages = array(
 	'sendto' => '发送给: ',
 	'fromto' => '来自: ',
 	'sendeveryone' => '发送给大家',
-	'privatewithwho' => '与$pm[tousername]的对话',
+	'privatewithwho' => '与 {$pm[\'tousername\']} 的对话',
 	'chatpmmembernum' => '参与人数: ',
 	'chatpm' => '群聊',
 
@@ -504,8 +504,8 @@ $languages = array(
 	'app_allowips_comment' => '限定终端访问的IP, 设置哪些IP可以访问Ucenter  的数据接口',
 
 	'envstatus_result' => '检测结果',
-	'envstatus_ver_too_low' => '您当前系统环境内的 $envstatus[req] 版本 ($envstatus[now_ver]) 过低，程序无法按预期正常运行。我们强烈建议您升级到 $envstatus[sug_ver] 版本，程序正常运行最低要求为 $envstatus[req_ver] 版本。',
-	'envstatus_not_found' => '您当前系统环境内未安装或开启 $envstatus[req] 模块，程序无法按预期正常运行。我们强烈建议您安装或开启此模块，以满足程序正常运行的最低要求。',
-	'envstatus_ok' => '您当前系统环境适合当前版本的 UCenter $envstatus[version] 。',
+	'envstatus_ver_too_low' => '您当前系统环境内的 {$envstatus[\'req\']} 版本 ({$envstatus[\'now_ver\']}) 过低，程序无法按预期正常运行。我们强烈建议您升级到 {$envstatus[\'sug_ver\']} 版本，程序正常运行最低要求为 {$envstatus[\'req_ver\']} 版本。',
+	'envstatus_not_found' => '您当前系统环境内未安装或开启 {$envstatus[\'req\']} 模块，程序无法按预期正常运行。我们强烈建议您安装或开启此模块，以满足程序正常运行的最低要求。',
+	'envstatus_ok' => '您当前系统环境适合当前版本的 UCenter {$envstatus[\'version\']} 。',
 
 );

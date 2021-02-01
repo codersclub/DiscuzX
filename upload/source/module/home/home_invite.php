@@ -57,7 +57,7 @@ if($id) {
 
 	$uid = $invite['uid'];
 
-	$cookievar = "$id,$invite[code]";
+	$cookievar = "$id,{$invite['code']}";
 
 } elseif ($uid) {
 
