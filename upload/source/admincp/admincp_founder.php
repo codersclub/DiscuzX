@@ -105,7 +105,7 @@ if($operation == 'perm') {
 						if(!$item) {
 							continue;
 						}
-						$checked = @in_array($item[1], $perms);
+						$checked = is_array($perms) ? in_array($item[1], $perms) : false;
 						if(!$checked) {
 							$checkedall = false;
 						}
@@ -279,8 +279,8 @@ if($operation == 'perm') {
 						if(!$item) {
 							continue;
 						}
-						$checked = @in_array($item[1], $perms);
-						$customchecked = @in_array($item[1], $member['customperm']);
+						$checked = is_array($perms) ? in_array($item[1], $perms) : false;
+						$customchecked = is_array($member['customperm']) ? in_array($item[1], $member['customperm']) : false;
 						$extra = $checked ? ($customchecked ? '' : 'checked="checked" ').' onclick="checkclk(this)"' : 'disabled="disabled" ';
 						if(!$checked || $customchecked) {
 							$checkedall = false;

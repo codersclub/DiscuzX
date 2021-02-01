@@ -34,7 +34,7 @@ include loadarchiver('common/header');
 
 <div id="end">
 	<?php echo lang('forum/archiver', 'full_version'); ?>:
-	<a href="../<?php echo in_array('forum_viewthread', $_G['setting']['rewritestatus']) ? rewriteoutput('forum_viewthread', 1, '', $_G['tid'], $page) : 'forum.php?mod=viewthread&tid='.$_G['tid'].'&page='.$page; ?>" target="_blank"><strong><?php echo $_G['forum_thread']['subject']; ?></strong></a>
+	<a href="../<?php echo is_array($_G['setting']['rewritestatus']) && in_array('forum_viewthread', $_G['setting']['rewritestatus']) ? rewriteoutput('forum_viewthread', 1, '', $_G['tid'], $page) : 'forum.php?mod=viewthread&tid='.$_G['tid'].'&page='.$page; ?>" target="_blank"><strong><?php echo $_G['forum_thread']['subject']; ?></strong></a>
 </div>
 <?php include loadarchiver('common/footer');
 

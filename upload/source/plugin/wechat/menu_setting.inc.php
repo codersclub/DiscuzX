@@ -26,7 +26,7 @@ if(!submitcheck('menusubmit') && !submitcheck('pubsubmit')) {
 
 	$wechat_client = new WeChatClient($_G['wechat']['setting']['wechat_appId'], $_G['wechat']['setting']['wechat_appsecret']);
 
-	if(in_array('plugin', $_G['setting']['rewritestatus'])) {
+	if(is_array($_G['setting']['rewritestatus']) && in_array('plugin', $_G['setting']['rewritestatus'])) {
 		$url = $_G['siteurl'].rewriteoutput('plugin', 1, 'wechat', 'access', '', 'op=access');
 	} else {
 		$url = $_G['siteurl'].'plugin.php?id=wechat:access';

@@ -73,7 +73,7 @@ function dshowmessage($message, $url_forward = '', $values = array(), $extrapara
 	}
 
 
-	if(empty($_G['inajax']) && (!empty($_GET['quickforward']) || $_G['setting']['msgforward']['quick'] && empty($extraparam['clean_msgforward']) && $_G['setting']['msgforward']['messages'] && @in_array($message, $_G['setting']['msgforward']['messages']))) {
+	if(empty($_G['inajax']) && (!empty($_GET['quickforward']) || $_G['setting']['msgforward']['quick'] && empty($extraparam['clean_msgforward']) && $_G['setting']['msgforward']['messages'] && is_array($_G['setting']['msgforward']['messages']) && in_array($message, $_G['setting']['msgforward']['messages']))) {
 		$param['header'] = true;
 	}
 	$_GET['handlekey'] = !empty($_GET['handlekey']) && preg_match('/^\w+$/', $_GET['handlekey']) ? $_GET['handlekey'] : '';

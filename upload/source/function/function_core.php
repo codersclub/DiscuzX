@@ -440,18 +440,18 @@ function lang($file, $langvar = null, $vars = array(), $default = null) {
 		$key = $path == '' ? $file : $path.'_'.$file;
 		if(!isset($_G['lang'][$key])) {
 			include DISCUZ_ROOT.'./source/language/'.($path == '' ? '' : $path.'/').'lang_'.$file.'.php';
-			$_G['lang'][$key] = $lang;
+			$_G['lang'][$key] = (array)$lang;
 		}
 		if(defined('IN_MOBILE') && !defined('TPL_DEFAULT')) {
 			include DISCUZ_ROOT.'./source/language/mobile/lang_template.php';
-			$_G['lang'][$key] = array_merge($_G['lang'][$key], $lang);
+			$_G['lang'][$key] = array_merge((array)$_G['lang'][$key], (array)$lang);
 		}
 		if($file != 'error' && !isset($_G['cache']['pluginlanguage_system'])) {
 			loadcache('pluginlanguage_system');
 		}
 		if(!isset($_G['hooklang'][$fileinput])) {
 			if(isset($_G['cache']['pluginlanguage_system'][$fileinput]) && is_array($_G['cache']['pluginlanguage_system'][$fileinput])) {
-				$_G['lang'][$key] = array_merge($_G['lang'][$key], $_G['cache']['pluginlanguage_system'][$fileinput]);
+				$_G['lang'][$key] = array_merge((array)$_G['lang'][$key], (array)$_G['cache']['pluginlanguage_system'][$fileinput]);
 			}
 			$_G['hooklang'][$fileinput] = true;
 		}
@@ -1136,7 +1136,7 @@ function runhooks($scriptextra = '') {
 
 function hookscript($script, $hscript, $type = 'funcs', $param = array(), $func = '', $scriptextra = '') {
 	global $_G;
-	static $pluginclasses;
+	static $pluginclasses = array();
 	if($hscript == 'home') {
 		if($script == 'space') {
 			$scriptextra = !$scriptextra ? $_GET['do'] : $scriptextra;
@@ -2061,8 +2061,8 @@ function parse_related_link($content, $extent) {
 }
 
 function check_diy_perm($topic = array(), $flag = '') {
-	static $ret;
-	if(!isset($ret)) {
+	static $ret = array();
+	if(empty($ret)) {
 		global $_G;
 		$common = !empty($_G['style']['tplfile']) || $_GET['inajax'];
 		$blockallow = getstatus($_G['member']['allowadmincp'], 4) || getstatus($_G['member']['allowadmincp'], 5) || getstatus($_G['member']['allowadmincp'], 6);

@@ -479,9 +479,9 @@ EOT;
 						showtablerow('', array('class="td25"'), array(
 							"<input type=\"checkbox\" class=\"checkbox\" name=\"delete[]\" value=\"$k\">",
 							"<a href=\"forum.php?mod=viewthread&tid=$v[tid]\" target=\"_blank\">$v[subject]</a>",
-							implode(', ', $forumnames),
-							implode(', ', $grouptypes),
-							"<a href=\"".ADMINSCRIPT."?action=threads&operation=forumstick&do=edit&id=$k\">$lang[threads_forumstick_targets_change]</a>",
+							(is_array($forumnames) ? implode(', ', $forumnames) : (string)$forumnames),
+							(is_array($grouptypes) ? implode(', ', $grouptypes) : (string)$grouptypes),
+							"<a href=\"".ADMINSCRIPT."?action=threads&operation=forumstick&do=edit&id=$k\">{$lang['threads_forumstick_targets_change']}</a>",
 						));
 					}
 				}
@@ -542,7 +542,7 @@ EOT;
 				$_GET['forumstick_url'] = rawurldecode($_GET['forumstick_url']);
 				if(preg_match('/tid=(\d+)/i', $_GET['forumstick_url'], $matches)) {
 					$forumstick_tid = $matches[1];
-				} elseif(in_array('forum_viewthread', $_G['setting']['rewritestatus']) && $_G['setting']['rewriterule']['forum_viewthread']) {
+				} elseif(is_array($_G['setting']['rewritestatus']) && in_array('forum_viewthread', $_G['setting']['rewritestatus']) && $_G['setting']['rewriterule']['forum_viewthread']) {
 					preg_match_all('/(\{tid\})|(\{page\})|(\{prevpage\})/', $_G['setting']['rewriterule']['forum_viewthread'], $matches);
 					$matches = $matches[0];
 
@@ -561,7 +561,7 @@ EOT;
 					$rewriterule = str_replace(array('{', '}'), array('\{', '\}'), $rewriterule);
 					preg_match("/$rewriterule/i", $_GET['forumstick_url'], $match_result);
 					$forumstick_tid = $match_result[$tidpos];
-				} elseif(in_array('all_script', $_G['setting']['rewritestatus']) && $_G['setting']['rewriterule']['all_script']) {
+				} elseif(is_array($_G['setting']['rewritestatus']) && in_array('all_script', $_G['setting']['rewritestatus']) && $_G['setting']['rewriterule']['all_script']) {
 					preg_match_all('/(\{script\})|(\{param\})/', $_G['setting']['rewriterule']['all_script'], $matches);
 					$matches = $matches[0];
 					$parampos = array_search('{param}', $matches);

@@ -82,14 +82,14 @@ if(!empty($_SERVER['QUERY_STRING']) && is_numeric($_SERVER['QUERY_STRING'])) {
 				$apphost = $apphost ? $_G['scheme'].'://'.$apphost.'/' : '';
 				switch($domain['idtype']) {
 					case 'home':
-						if($_G['setting']['rewritestatus'] && in_array('home_space', $_G['setting']['rewritestatus'])) {
+						if($_G['setting']['rewritestatus'] && is_array($_G['setting']['rewritestatus']) && in_array('home_space', $_G['setting']['rewritestatus'])) {
 							$url = rewriteoutput('home_space', 1, $apphost, $domain['id']);
 						} else {
 							$url = $apphost.'home.php?mod=space&uid='.$domain['id'];
 						}
 						break;
 					case 'group':
-						if($_G['setting']['rewritestatus'] && in_array('group_group', $_G['setting']['rewritestatus'])) {
+						if($_G['setting']['rewritestatus'] && is_array($_G['setting']['rewritestatus']) && in_array('group_group', $_G['setting']['rewritestatus'])) {
 							$url = rewriteoutput('group_group', 1, $apphost, $domain['id']);
 						} else {
 							$url = $apphost.'forum.php?mod=group&fid='.$domain['id'].'&page=1';

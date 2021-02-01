@@ -89,6 +89,7 @@ if($operation == 'verify') {
 			}
 
 			$orderby = isset($_GET['orderby']) ? $_GET['orderby'] : '';
+			$orderby = array($orderby => ' selected');
 			$datehtml = $orderbyhtml = '';
 			if($anchor != 'pass') {
 				$datehtml = "<tr><th>$searchlang[members_verify_dateline]</th><td colspan=\"3\">
@@ -102,7 +103,9 @@ if($operation == 'verify') {
 
 
 			$ordersc = isset($_GET['ordersc']) ? $_GET['ordersc'] : '';
-			$perpages = isset($_GET['perpages']) ? $_GET['perpages'] : '';
+			$perpages = isset($_GET['perpage']) ? $_GET['perpage'] : '';
+			$ordersc = array($ordersc => ' selected');
+			$perpages = array($perpages => ' selected');
 			$adminscript = ADMINSCRIPT;
 			$expertsearch = $vid ? '&nbsp;<a href="'.ADMINSCRIPT.'?action=members&operation=search&more=1&vid='.$vid.'" target="_top">'.cplang('search_higher').'</a>' : '';
 echo <<<EOF
@@ -551,7 +554,7 @@ EOF;
 		$groupselect = array();
 		foreach(C::t('common_usergroup')->fetch_all_not(array(6, 7)) as $group) {
 			$group['type'] = $group['type'] == 'special' && $group['radminid'] ? 'specialadmin' : $group['type'];
-			$groupselect[$group['type']] .= "<option value=\"$group[groupid]\" ".(in_array($group['groupid'], $verifyarr['groupid']) ? 'selected' : '').">$group[grouptitle]</option>\n";
+			$groupselect[$group['type']] .= "<option value=\"$group[groupid]\" ".((is_array($verifyarr['groupid']) && in_array($group['groupid'], $verifyarr['groupid'])) ? 'selected' : '').">$group[grouptitle]</option>\n";
 		}
 		$groupselect = '<optgroup label="'.$lang['usergroups_member'].'">'.$groupselect['member'].'</optgroup>'.
 			($groupselect['special'] ? '<optgroup label="'.$lang['usergroups_special'].'">'.$groupselect['special'].'</optgroup>' : '').

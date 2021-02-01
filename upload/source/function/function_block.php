@@ -293,6 +293,7 @@ function block_template($bid) {
 		$order = 0;
 		$dynamicparts = array();
 		foreach($block['itemlist'] as $position=>$blockitem) {
+			$blockitem = is_array($blockitem) ? $blockitem : array();
 			$itemid = $blockitem['itemid'];
 			$order++;
 

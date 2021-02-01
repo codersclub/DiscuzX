@@ -109,7 +109,7 @@ class extend_thread_rushreply extends extend_thread_base {
 							}
 						}
 					}
-					$_GET['rewardfloor'] = implode(',', $floors);
+					$_GET['rewardfloor'] = is_array($floors) ? implode(',', $floors) : (string)$floors;
 				}
 				$rushdata = array('stopfloor' => $_GET['stopfloor'], 'starttimefrom' => $_GET['rushreplyfrom'], 'starttimeto' => $_GET['rushreplyto'], 'rewardfloor' => $_GET['rewardfloor'], 'creditlimit' => $_GET['creditlimit'], 'replylimit' => $_GET['replylimit']);
 				C::t('forum_threadrush')->update($this->thread['tid'], $rushdata);

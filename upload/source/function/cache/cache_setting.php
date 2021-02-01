@@ -620,7 +620,7 @@ function get_cachedata_setting_plugin($method = '') {
 									if(strpos($funcname, '__') !== false) {
 										$curscript = current(explode('__', $funcname));
 									}
-									if(!@in_array($script, $data[$k][$hscript][$curscript]['module'])) {
+									if(!is_array($data[$k][$hscript][$curscript]['module']) || !in_array($script, $data[$k][$hscript][$curscript]['module'])) {
 										$data[$k][$hscript][$curscript]['module'][$plugin['identifier']] = $script;
 										$data[$k][$hscript][$curscript]['adminid'][$plugin['identifier']] = $module['adminid'];
 									}

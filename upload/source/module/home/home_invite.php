@@ -103,7 +103,7 @@ if($acceptconfirm) {
 		notification_add($uid, 'friend', 'invite_friend', array('actor' => '<a href="home.php?mod=space&uid='.$_G['uid'].'" target="_blank">'.$_G['username'].'</a>'), 1);
 	}
 	space_merge($space, 'field_home');
-	if(!empty($space['privacy']['feed']['invite'])) {
+	if(is_array($space['privacy']) && !empty($space['privacy']['feed']['invite'])) {
 		require_once libfile('function/feed');
 		$tite_data = array('username' => '<a href="home.php?mod=space&uid='.$_G['uid'].'">'.$_G['username'].'</a>');
 		feed_add('friend', 'feed_invite', $tite_data, '', array(), '', array(), array(), '', '', '', 0, 0, '', $space['uid'], $space['username']);

@@ -220,7 +220,7 @@ if($op == 'block') {
 	$blockclass = $block['blockclass'] ? $block['blockclass'] : $_GET['classname'];
 	$arr = explode('_', $blockclass);
 	if(count($arr) == 2) {
-		$blockclassname = $_G['cache']['blockclass'][$arr[0]]['subs'][$blockclass]['name'];
+		$blockclassname = is_array($_G['cache']['blockclass'][$arr[0]]['subs'][$blockclass]) ? $_G['cache']['blockclass'][$arr[0]]['subs'][$blockclass]['name'] : '';
 	}
 	$blockclassname = empty($blockclassname) ? $blockclass : $blockclassname;
 

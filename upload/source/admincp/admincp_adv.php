@@ -433,7 +433,7 @@ if($operation == 'ad') {
 		$advnew = $_GET['advnew'];
 
 		$parameters = !empty($_GET['parameters']) ? $_GET['parameters'] : array();
-		if(@in_array('custom', $advnew['targets'])) {
+		if(is_array($advnew['targets']) && in_array('custom', $advnew['targets'])) {
 			$targetcustom = explode(',', $advnew['targetcustom']);
 			$advnew['targets'] = array_merge($advnew['targets'], $targetcustom);
 		}

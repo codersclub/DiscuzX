@@ -77,7 +77,7 @@ if(empty($_GET['action'])) {
 	}
 
 	$applysucceed = FALSE;
-	$medalpermission = $medal['permission'] ? dunserialize($medal['permission']) : '';
+	$medalpermission = $medal['permission'] ? dunserialize($medal['permission']) : array();
 	if($medalpermission[0] || $medalpermission['usergroupallow']) {
 		include libfile('function/forum');
 		medalformulaperm(serialize(array('medal' => $medalpermission)), 1);

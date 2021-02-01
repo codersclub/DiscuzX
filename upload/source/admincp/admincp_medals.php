@@ -243,7 +243,7 @@ if(!$operation) {
 
 		$groupselect = array();
 		foreach(C::t('common_usergroup')->range_orderby_credit() as $group) {
-			$groupselect[$group['type']] .= '<option value="'.$group['groupid'].'"'.(@in_array($group['groupid'], $medal['usergroups']) ? ' selected' : '').'>'.$group['grouptitle'].'</option>';
+			$groupselect[$group['type']] .= '<option value="'.$group['groupid'].'"'.(is_array($medal['usergroups']) && in_array($group['groupid'], $medal['usergroups']) ? ' selected' : '').'>'.$group['grouptitle'].'</option>';
 		}
 		$usergroups = '<select name="usergroupsnew[]" size="10" multiple="multiple">'.
 			'<optgroup label="'.$lang['usergroups_member'].'">'.$groupselect['member'].'</optgroup>'.

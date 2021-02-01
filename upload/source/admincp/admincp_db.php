@@ -783,7 +783,7 @@ if($operation == 'export') {
 				$allsetting = C::t('common_setting')->fetch_all();
 				$settingsdatanew = array_keys($allsetting);
 				unset($allsetting);
-				$settingsdellist = @array_diff($settingsdata, $settingsdatanew);
+				$settingsdellist = is_array($settingsdata) ? array_diff($settingsdata, $settingsdatanew) : array();
 				if($setting['del'] && is_array($settingsdellist)) {
 					foreach($settingsdellist as $variable) {
 						$newsettings[$variable] = '';
@@ -848,7 +848,7 @@ if($operation == 'export') {
 		$allsetting = C::t('common_setting')->fetch_all();
 		$settingsdatanew = array_keys($allsetting);
 		unset($allsetting);
-		$settingsdellist = @array_diff($settingsdata, $settingsdatanew);
+		$settingsdellist = is_array($settingsdata) ? array_diff($settingsdata, $settingsdatanew) : array();
 
 		if($dbmd5 == $dbmd5new && empty($charseterror) && empty($settingsdellist)) {
 			cpmsg('dbcheck_ok', '', 'succeed');
@@ -870,7 +870,7 @@ if($operation == 'export') {
 				}
 				if(is_array($discuzdbnew[$dbtable])) {
 					foreach($discuzdbnew[$dbtable] as $key => $value) {
-						if(!isset($discuzdb[$dbtable][$key]) && !@in_array($value['Field'], $except[$dbtable])) {
+						if(!isset($discuzdb[$dbtable][$key]) && (!is_array($except[$dbtable]) || !in_array($value['Field'], $except[$dbtable]))) {
 							$addlist[] = $value;
 						}
 					}

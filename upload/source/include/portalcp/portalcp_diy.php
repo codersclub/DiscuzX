@@ -329,6 +329,7 @@ if($op == 'blockclass') {
 				$replace = array('[script', '[/script]', '', '', '$1[src=]$3');
 				$arr['css'] = str_replace(array("\r","\n"),array(''),$arr['css']);
 
+				$arr['mapping'] = is_array($arr['mapping']) ? $arr['mapping'] : array($arr['mapping']);
 				$jsarr = array('status'=>1,'css'=>$arr['css'],'bids'=>implode(',',$arr['mapping']));
 
 				foreach ($arr['html'] as $key => $value) {

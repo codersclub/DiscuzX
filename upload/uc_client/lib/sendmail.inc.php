@@ -25,6 +25,8 @@ foreach(explode(',', $mail['email_to']) as $touser) {
 	$tousers[] = preg_match('/^(.+?) \<(.+?)\>$/',$touser, $to) ? ($mailusername ? '=?'.$mail['charset'].'?B?'.base64_encode($to[1])."?= <$to[2]>" : $to[2]) : $touser;
 }
 
+$tousers = is_array($tousers) ? $tousers : array($tousers);
+
 $mail['email_to'] = implode(',', $tousers);
 
 $headers = "From: $email_from{$maildelimiter}X-Priority: 3{$maildelimiter}X-Mailer: Discuz! $version{$maildelimiter}MIME-Version: 1.0{$maildelimiter}Content-type: text/".($mail['htmlon'] ? 'html' : 'plain')."; charset=$mail[charset]{$maildelimiter}Content-Transfer-Encoding: base64{$maildelimiter}";

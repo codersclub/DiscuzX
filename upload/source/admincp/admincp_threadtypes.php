@@ -449,8 +449,8 @@ EOT;
 			cpmsg('threadtype_infotypes_optionvariable_invalid', '', 'error');
 		}
 
-		$_GET['protectnew']['usergroup'] = $_GET['protectnew']['usergroup'] ? implode("\t", $_GET['protectnew']['usergroup']) : '';
-		$_GET['protectnew']['verify'] = $_GET['protectnew']['verify'] ? implode("\t", $_GET['protectnew']['verify']) : '';
+		$_GET['protectnew']['usergroup'] = is_array($_GET['protectnew']['usergroup']) ? implode("\t", $_GET['protectnew']['usergroup']) : '';
+		$_GET['protectnew']['verify'] = is_array($_GET['protectnew']['verify']) ? implode("\t", $_GET['protectnew']['verify']) : '';
 
 		C::t('forum_typeoption')->update($_GET['optionid'], array(
 			'title' => $titlenew,

@@ -500,7 +500,7 @@ var rowtypedata = [
 			$fids = &$_GET['multi'];
 		}
 	}
-	if(count($_GET['multi']) == 1) {
+	if(!empty($_GET['multi']) && is_array($_GET['multi']) && count($_GET['multi']) == 1) {
 		$fids = $_GET['multi'][0];
 		$multiset = 0;
 	}
@@ -545,7 +545,7 @@ var rowtypedata = [
 		$forumselect = '';
 		$sgid = 0;
 		foreach($_G['cache']['forums'] as $forums) {
-			$checked = $fid == $forums['fid'] || in_array($forums['fid'], $_GET['multi']);
+			$checked = $fid == $forums['fid'] || (is_array($_GET['multi']) && in_array($ggroup['groupid'], $_GET['multi']));
 			if($forums['type'] == 'group') {
 				$sgid = $forums['fid'];
 				$forumselect .= '</div><em class="cl">'.
@@ -747,7 +747,7 @@ var rowtypedata = [
 				$forum['subforumsindex'] = bindec(substr($simplebin, 3, 2));
 				$forum['subforumsindex'] = $forum['subforumsindex'] == 0 ? -1 : ($forum['subforumsindex'] == 2 ? 0 : 1);
 				$forum['simple'] = $forum['simple'] & 1;
-				$forum['modrecommend'] = $forum['modrecommend'] ? dunserialize($forum['modrecommend']) : '';
+				$forum['modrecommend'] = $forum['modrecommend'] ? dunserialize($forum['modrecommend']) : array();
 				$forum['formulaperm'] = dunserialize($forum['formulaperm']);
 				$forum['medal'] = $forum['formulaperm']['medal'];
 				$forum['formulapermmessage'] = $forum['formulaperm']['message'];
@@ -1298,6 +1298,7 @@ EOT;
 			}}
 
 		if($_G['showsetting_multicount'] > 1) {
+			$mfids = is_array($mfids) ? $mfids : array($mfids);
 			showhiddenfields(array('multi' => implode(',', $mfids)));
 			showmulti();
 		}
@@ -1531,7 +1532,7 @@ EOT;
 				'allowglobalstick' => $allowglobalsticknew,
 				'disablethumb' => $_GET['disablethumbnew'],
 				'disablewatermark' => $_GET['disablewatermarknew'],
-				'autoclose' => intval($_GET['autoclosenew'] * $_GET['autoclosetimenew']),
+				'autoclose' => (!empty($_GET['autoclosenew']) && !empty($_GET['autoclosetimenew'])) ? (intval((int)$_GET['autoclosenew'] * (int)$_GET['autoclosetimenew'])) : 0,
 				'allowfeed' => $_GET['allowfeednew'],
 				'domain' => $domain,
 			));
@@ -1812,7 +1813,7 @@ EOT;
 					'postattachperm' => $_GET['postattachpermnew'],
 					'postimageperm' => $_GET['postimagepermnew'],
 					'relatedgroup' => $_GET['relatedgroupnew'],
-					'spviewperm' => implode("\t", $_GET['spviewpermnew']),
+					'spviewperm' => implode("\t", is_array($_GET['spviewpermnew']) ? $_GET['spviewpermnew'] : array()),
 					'replybg' => $replybgnew
 				));
 			}
@@ -2007,7 +2008,7 @@ EOT;
 	} else {
 
 		$fids = array();
-		if(is_array($_GET['target']) && count($_GET['target'])) {
+		if(!empty($_GET['target']) && is_array($_GET['target']) && count($_GET['target'])) {
 			foreach($_GET['target'] as $fid) {
 				if(($fid = intval($fid)) && $fid != $source ) {
 					$fids[] = $fid;

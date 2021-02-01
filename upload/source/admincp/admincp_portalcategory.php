@@ -781,11 +781,11 @@ function showcategoryrow($key, $level = 0, $last = '') {
 		<a href="'.ADMINSCRIPT.'?action=diytemplate&operation=perm&targettplname=portal/list_'.$value['catid'].'&tpldirectory='.getdiydirectory($value['primaltplname']).'">'.cplang('portalcategory_blockperm').'</a></td>
 		<td><a href="'.ADMINSCRIPT.'?action=article&operation=list&&catid='.$value['catid'].'">'.cplang('portalcategory_articlemanagement').'</a>&nbsp;
 		<a href="'.ADMINSCRIPT.'?action=portalcategory&operation=perm&catid='.$value['catid'].'">'.cplang('portalcategory_articleperm').'</a>'.$publish.'</td></tr>';
-		for($i=0,$L=count($value['children']); $i<$L; $i++) {
+		for($i=0,$L=(is_array($value['children']) ? count($value['children']) : 0); $i<$L; $i++) {
 			$return .= showcategoryrow($value['children'][$i], 2, $i==$L-1);
 		}
 	} else {
-		$childrennum = count($_G['cache']['portalcategory'][$key]['children']);
+		$childrennum = is_array($_G['cache']['portalcategory'][$key]['children']) ? count($_G['cache']['portalcategory'][$key]['children']) : 0;
 		$toggle = $childrennum > 25 ? ' style="display:none"' : '';
 		$return = '<tbody><tr class="hover" id="cat'.$value['catid'].'"><td onclick="toggle_group(\'group_'.$value['catid'].'\')"><a id="a_group_'.$value['catid'].'" href="javascript:;">'.($toggle ? '[+]' : '[-]').'</a></td>'
 		.'<td class="td25"><input type="text" class="txt" name="neworder['.$value['catid'].']" value="'.$value['displayorder'].'" /></td><td><div class="parentboard">'.
@@ -804,7 +804,7 @@ function showcategoryrow($key, $level = 0, $last = '') {
 		<td><a href="'.ADMINSCRIPT.'?action=article&operation=list&&catid='.$value['catid'].'">'.cplang('portalcategory_articlemanagement').'</a>&nbsp;
 		<a href="'.ADMINSCRIPT.'?action=portalcategory&operation=perm&catid='.$value['catid'].'">'.cplang('portalcategory_articleperm').'</a>'.$publish.'</td></tr></tbody>
 		<tbody id="group_'.$value['catid'].'"'.$toggle.'>';
-		for($i=0,$L=count($value['children']); $i<$L; $i++) {
+		for($i=0,$L=(is_array($value['children']) ? count($value['children']) : 0); $i<$L; $i++) {
 			$return .= showcategoryrow($value['children'][$i], 1, '');
 		}
 		$return .= '</tdoby><tr><td>&nbsp;</td><td colspan="9"><div class="lastboard"><a class="addtr" href="'.ADMINSCRIPT.'?action=portalcategory&operation=add&upid='.$value['catid'].'">'.cplang('portalcategory_addsubcategory').'</a></td></div>';

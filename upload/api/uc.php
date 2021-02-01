@@ -156,7 +156,8 @@ class uc_note {
 
 		loadcache("posttableids");
 		if($_G['cache']['posttableids']) {
-			foreach($_G['cache']['posttableids'] AS $tableid) {
+			$posttableids = is_array($_G['cache']['posttableids']) ? $_G['cache']['posttableids'] : array(0);
+			foreach($posttableids AS $tableid) {
 				$tables[getposttable($tableid)] = array('id' => 'authorid', 'name' => 'author');
 			}
 		}

@@ -949,7 +949,7 @@ if($_G['group']['allowpost']) {
 }
 
 $showthreadclasscount = array();
-if(($_G['forum']['threadtypes'] && $_G['forum']['threadtypes']['listable']) || count($_G['forum']['threadsorts']['types']) > 0) {
+if(($_G['forum']['threadtypes'] && $_G['forum']['threadtypes']['listable']) || (is_array($_G['forum']['threadsorts']['types']) && count($_G['forum']['threadsorts']['types']) > 0)) {
 	$showthreadclasscount = threadclasscount($_G['fid']);
 }
 

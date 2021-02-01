@@ -60,7 +60,7 @@ if($do == 'feed') {
 
 	$vuid = $view == 'other' ? 0 : $_G['uid'];
 	$list = getfollowfeed($vuid, $view, false, $start, $perpage);
-	if((empty($list['feed']) || count($list['feed']) < 20) && (!empty($list['user']) || $view == 'other')) {
+	if((empty($list['feed']) || !is_array($list['feed']) || count($list['feed']) < 20) && (!empty($list['user']) || $view == 'other')) {
 		$primary = 0;
 		$alist = getfollowfeed($vuid, $view, true, $start, $perpage);
 		if(empty($list['feed']) && empty($alist['feed'])) {

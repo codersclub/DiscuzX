@@ -1220,7 +1220,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 		foreach($query as $activityapplies) {
 			$ufielddata = '';
 			$activityapplies['dateline'] = dgmdate($activityapplies['dateline'], 'u');
-			$activityapplies['ufielddata'] = !empty($activityapplies['ufielddata']) ? dunserialize($activityapplies['ufielddata']) : '';
+			$activityapplies['ufielddata'] = !empty($activityapplies['ufielddata']) ? dunserialize($activityapplies['ufielddata']) : array();
 			if($activityapplies['ufielddata']) {
 				if($activityapplies['ufielddata']['userfield']) {
 					require_once libfile('function/profile');
@@ -1274,7 +1274,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 			$query  = C::t('common_member')->fetch_all(array_keys($tempusers));
 			foreach($query as $user) {
 				$uidarray[] = $user['uid'];
-				if($tempusers[$user['uid']]['verified'] != 1) {
+				if(is_array($tempusers[$user['uid']]) && $tempusers[$user['uid']]['verified'] != 1) {
 					$unverified[] = $user['uid'];
 				}
 			}
@@ -1370,7 +1370,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 	foreach($query as $apply) {
 		$apply = str_replace(',', lang('forum/thread', 't_comma'), $apply);
 		$apply['dateline'] = dgmdate($apply['dateline'], 'dt');
-		$apply['ufielddata'] = !empty($apply['ufielddata']) ? dunserialize($apply['ufielddata']) : '';
+		$apply['ufielddata'] = !empty($apply['ufielddata']) ? dunserialize($apply['ufielddata']) : array();
 		$ufielddata = '';
 		if($apply['ufielddata'] && $activity['ufield']) {
 			if($apply['ufielddata']['userfield'] && $activity['ufield']['userfield']) {
@@ -1726,11 +1726,11 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 					}
 				}
 
-				$uids = @array_unique($uids);
+				$uids = is_array($uids) ? array_unique($uids) : array();
 				$count = count($uids);
 				$limit = intval($_GET['limit']);
 				$per = 200;
-				$uids = @array_slice($uids, $limit, $per);
+				$uids = array_slice($uids, $limit, $per);
 				if($uids) {
 					foreach($uids as $uid) {
 						if(empty($uid)) continue;

@@ -341,9 +341,10 @@ class template {
 
 	function loadcsstemplate() {
 		global $_G;
+		$file = file(DISCUZ_ROOT.'./data/cache/style_'.STYLEID.'_module.css');
 		$scripts = array(STYLEID.'_common');
 		$content = $this->csscurmodules = '';
-		$content = @implode('', file(DISCUZ_ROOT.'./data/cache/style_'.STYLEID.'_module.css'));
+		$content = implode('', is_array($file) ? $file : array());
 		$content = preg_replace_callback("/\[(.+?)\](.*?)\[end\]/is", array($this, 'loadcsstemplate_callback_cssvtags_12'), $content);
 		if($this->csscurmodules) {
 			$this->csscurmodules = preg_replace(array('/\s*([,;:\{\}])\s*/', '/[\t\n\r]/', '/\/\*.+?\*\//'), array('\\1', '',''), $this->csscurmodules);

@@ -1064,7 +1064,7 @@ class WeChatHook {
 
 	public static function getPluginUrl($pluginid, $param = array()) {
 		global $_G;
-		if (in_array('plugin', $_G['setting']['rewritestatus'])) {
+		if (is_array($_G['setting']['rewritestatus']) && in_array('plugin', $_G['setting']['rewritestatus'])) {
 			$url = $_G['siteurl'] . rewriteoutput('plugin', 1, 'wechat', 'access') . '?';
 		} else {
 			$url = $_G['siteurl'] . 'plugin.php?id=wechat:access&';

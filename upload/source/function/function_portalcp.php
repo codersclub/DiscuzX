@@ -589,6 +589,7 @@ function import_diy($file) {
 	if (empty($content)) return $arr;
 	$content = preg_replace("/\<\!\-\-\[name\](.+?)\[\/name\]\-\-\>\s+/i", '', $content);
 	$diycontent = xml2array($content);
+	$diycontent = is_array($diycontent) ? $diycontent : array();
 
 	if ($diycontent) {
 
@@ -633,6 +634,7 @@ function import_diy($file) {
 	if (!empty($html)) {
 		$xml = array2xml($html, true);
 		require_once libfile('function/block');
+		$mapping = is_array($mapping) ? $mapping : array($mapping);
 		block_get_batch(implode(',', $mapping));
 		foreach ($mapping as $bid) {
 			$blocktag[] = '<!--{block/'.$bid.'}-->';

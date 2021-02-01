@@ -45,6 +45,7 @@ if(!submitcheck('modsubmit')) {
 	foreach(C::t('forum_post')->fetch_all_by_tid_position($thread['posttableid'], $_G['tid'], $nos) as $post) {
 		$pids[] = $post['pid'];
 	}
+	$pids = is_array($pids) ? $pids : array($pids);
 	if(!($pids = implode(',',$pids))) {
 		showmessage('admin_split_new_invalid');
 	}

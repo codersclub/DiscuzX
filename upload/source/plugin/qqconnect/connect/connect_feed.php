@@ -64,7 +64,7 @@ if ($op == 'new') {
 		$html_content = $connectService->connectParseBbcode($post['message'], $thread['fid'], $post['pid'], $post['htmlon'], $attach_images);
 		$html_content = strip_tags(preg_replace('/(&nbsp;)+/', ' ', $html_content));
 
-		if($_G['setting']['rewritestatus'] && in_array('forum_viewthread', $_G['setting']['rewritestatus'])) {
+		if($_G['setting']['rewritestatus'] && is_array($_G['setting']['rewritestatus']) && in_array('forum_viewthread', $_G['setting']['rewritestatus'])) {
 			$url = rewriteoutput('forum_viewthread', 1, $_G['siteurl'], $tid);
 		} else {
 			$url = $_G['siteurl'].'forum.php?mod=viewthread&tid='.$tid;

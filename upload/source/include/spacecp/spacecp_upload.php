@@ -26,7 +26,7 @@ if($_GET['op'] == 'recount') {
 
 if(submitcheck('albumsubmit') && helper_access::check_module('album')) {
 
-	if(!count($_POST['title'])) {
+	if(!isset($_POST['title']) || !is_array($_POST['title']) || !count($_POST['title'])) {
 		showmessage('upload_select_image');
 	}
 	if($_POST['albumop'] == 'creatalbum') {

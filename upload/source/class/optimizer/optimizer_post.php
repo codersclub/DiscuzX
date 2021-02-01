@@ -22,12 +22,14 @@ class optimizer_post {
 		loadcache('posttable_info');
 
 		$count = 0;
-		$posttableids = array_keys($_G['cache']['posttable_info']);
-		foreach ($posttableids as $id) {
-			$table = empty($id) ? 'forum_post' : (is_numeric($id) ? 'forum_post_'.$id : $id);
-			$status = helper_dbtool::gettablestatus(DB::table($table), false);
-			if($status && $status['Data_length'] > 400 * 1048576) {
-				$count++;
+		if(!empty($_G['cache']['posttable_info']) && is_array($_G['cache']['posttable_info'])) {
+			$posttableids = array_keys($_G['cache']['posttable_info']);
+			foreach ($posttableids as $id) {
+				$table = empty($id) ? 'forum_post' : (is_numeric($id) ? 'forum_post_'.$id : $id);
+				$status = helper_dbtool::gettablestatus(DB::table($table), false);
+				if($status && $status['Data_length'] > 400 * 1048576) {
+					$count++;
+				}
 			}
 		}
 		if($count) {

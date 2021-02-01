@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 }
 
 loadcache('posttableids');
-$posttable = in_array($_GET['posttableid'], $_G['cache']['posttableids']) ? $_GET['posttableid'] : 0;
+$posttable = (is_array($_G['cache']['posttableids']) ? in_array($_GET['posttableid'], $_G['cache']['posttableids']) : 0) ? $_GET['posttableid'] : 0;
 
 if(!submitcheck('modsubmit') && !$_GET['fast']) {
 

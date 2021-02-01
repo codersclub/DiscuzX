@@ -66,7 +66,7 @@ if ($pluginop == 'config') {
 	}
 
 	if($_GET['sh_type'] == 4){
-		if($_G['setting']['rewritestatus'] && in_array('forum_viewthread', $_G['setting']['rewritestatus'])) {
+		if($_G['setting']['rewritestatus'] && is_array($_G['setting']['rewritestatus']) && in_array('forum_viewthread', $_G['setting']['rewritestatus'])) {
 			$url = rewriteoutput('forum_viewthread', 1, $_G['siteurl'], $tid);
 		} else {
 			$url = $_G['siteurl'].'forum.php?mod=viewthread&tid='.$tid;
@@ -101,7 +101,7 @@ if ($pluginop == 'config') {
 
 	$connectService->connectMergeMember();
 
-	if($_G['setting']['rewritestatus'] && in_array('forum_viewthread', $_G['setting']['rewritestatus'])) {
+	if($_G['setting']['rewritestatus'] && is_array($_G['setting']['rewritestatus']) && in_array('forum_viewthread', $_G['setting']['rewritestatus'])) {
 		$url = rewriteoutput('forum_viewthread', 1, $_G['siteurl'], $tid);
 	} else {
 		$url = $_G['siteurl'].'forum.php?mod=viewthread&tid='.$tid;

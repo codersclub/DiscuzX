@@ -520,7 +520,7 @@ function sortthreadsortselectoption($sortid) {
 			$newsort = array();
 			$level = 0;
 
-			foreach($value['choices'] as $subkey => $subvalue) {
+			foreach((array)$value['choices'] as $subkey => $subvalue) {
 
 				$newsort[$subkey]['content'] = $subvalue;
 				$newsort[$subkey]['foptionid'] = trim(substr($subkey, 0, strrpos($subkey, '.'))) ? trim(substr($subkey, 0, strrpos($subkey, '.'))) : '0';
@@ -713,9 +713,11 @@ function getsortedoptionlist() {
 
 	$forum_optionlist = $_G['forum_optionlist'];
 	foreach($_G['forum_optionlist'] as $key => $value) {
-		$choicesarr = $value['choices'];
-		uksort($choicesarr, 'cmpchoicekey');
-		$forum_optionlist[$key]['choices'] = $choicesarr;
+		if(is_array($value['choices'])) {
+			$choicesarr = $value['choices'];
+			uksort($choicesarr, 'cmpchoicekey');
+			$forum_optionlist[$key]['choices'] = $choicesarr;
+		}
 	}
 	$forum_optionlist = optionlistxml($forum_optionlist, 's');
 	$forum_optionlist = '<?xml version="1.0" encoding="'.CHARSET.'"?>'."".'<forum_optionlist>'.$forum_optionlist.'</forum_optionlist>';

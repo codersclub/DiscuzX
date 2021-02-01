@@ -158,7 +158,7 @@ if($_GET['from'] == 'portal') {
 
 $_GET['extra'] = $_GET['extra'] ? rawurlencode($_GET['extra']) : '';
 
-if(@in_array('forum_viewthread', $_G['setting']['rewritestatus'])) {
+if(is_array($_G['setting']['rewritestatus']) && in_array('forum_viewthread', $_G['setting']['rewritestatus'])) {
 	$canonical = rewriteoutput('forum_viewthread', 1, '', $_G['tid'], 1, '', '');
 } else {
 	$canonical = 'forum.php?mod=viewthread&tid='.$_G['tid'];
@@ -1196,7 +1196,7 @@ function viewthread_procpost($post, $lastvisit, $ordertype, $maxposition = 0) {
 	if($_G['setting']['commentnumber'] && ($post['first'] && $_G['setting']['commentfirstpost'] || !$post['first']) && $post['comment']) {
 		$_G['forum_cachepid'][$post['pid']] = $post['pid'];
 	}
-	$post['allowcomment'] = $_G['setting']['commentnumber'] && in_array(1, $_G['setting']['allowpostcomment']) && ($_G['setting']['commentpostself'] || $post['authorid'] != $_G['uid']) &&
+	$post['allowcomment'] = $_G['setting']['commentnumber'] && is_array($_G['setting']['allowpostcomment']) && in_array(1, $_G['setting']['allowpostcomment']) && ($_G['setting']['commentpostself'] || $post['authorid'] != $_G['uid']) &&
 		($post['first'] && $_G['setting']['commentfirstpost'] && in_array($_G['group']['allowcommentpost'], array(1, 3)) ||
 		(!$post['first'] && in_array($_G['group']['allowcommentpost'], array(2, 3))));
 	$forum_allowbbcode = $_G['forum']['allowbbcode'] ? -$post['groupid'] : 0;
@@ -1412,7 +1412,7 @@ function viewthread_profile_nodeparse($param) {
 		list($plugin, $pluginid) = explode(':', $name);
 		if($plugin == 'plugin') {
 			global $_G;
-			static $pluginclasses;
+			static $pluginclasses = array();
 			if(isset($_G['setting']['plugins']['profile_node'][$pluginid])) {
 				@include_once DISCUZ_ROOT.'./source/plugin/'.$_G['setting']['plugins']['profile_node'][$pluginid].'.class.php';
 				$classkey = 'plugin_'.$pluginid;
@@ -1588,6 +1588,7 @@ function rushreply_rule () {
 				}
 				$preg[] = "(,$var,)";
 			}
+			$preg = is_array($preg) ? $preg : array($preg);
 			$preg_str = "/".implode('|', $preg)."/";
 		}
 	}

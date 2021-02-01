@@ -140,7 +140,7 @@ function writetocsscache($data) {
 }
 
 function writetocsscache_callback_1($matches, $action = 0) {
-	static $data = null;
+	static $data = array();
 
 	if($action == 1) {
 		$data = $matches;

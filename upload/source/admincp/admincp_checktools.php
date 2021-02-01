@@ -103,19 +103,20 @@ if($operation == 'filecheck') {
 		}
 
 		$weekbefore = TIMESTAMP - 604800;
-		$addlist = @array_merge(@array_diff_assoc($md5data, $md5datanew), $cachelist[2]);
-		$dellist = @array_diff_assoc($md5datanew, $md5data);
-		$modifylist = @array_merge(@array_diff_assoc($modifylist, $dellist), $cachelist[1]);
-		$showlist = @array_merge($md5data, $md5datanew, $cachelist[0]);
+		$md5datanew = is_array($md5datanew) ? $md5datanew : array();
+		$addlist = array_merge(array_diff_assoc($md5data, $md5datanew), is_array($cachelist[2]) ? $cachelist[2] : array());
+		$dellist = array_diff_assoc($md5datanew, $md5data);
+		$modifylist = array_merge(array_diff_assoc($modifylist, $dellist), is_array($cachelist[1]) ? $cachelist[1] : array());
+		$showlist = array_merge($md5data, $md5datanew, $cachelist[0]);
 		$doubt = 0;
 		$dirlist = $dirlog = array();
 		foreach($showlist as $file => $md5) {
 			$dir = dirname($file);
-			if(@array_key_exists($file, $modifylist)) {
+			if(is_array($modifylist) && array_key_exists($file, $modifylist)) {
 				$fileststus = 'modify';
-			} elseif(@array_key_exists($file, $dellist)) {
+			} elseif(is_array($dellist) && array_key_exists($file, $dellist)) {
 				$fileststus = 'del';
-			} elseif(@array_key_exists($file, $addlist)) {
+			} elseif(is_array($addlist) && array_key_exists($file, $addlist)) {
 				$fileststus = 'add';
 			} else {
 				$filemtime = @filemtime($file);
@@ -427,7 +428,9 @@ if($operation == 'filecheck') {
 		}
 	} else {
 		$type = $_GET['type'];
-		if(!$_G['setting']['watermarkstatus'][$type]) {
+		$status = dunserialize($_G['setting']['watermarkstatus']);
+		$status = is_array($status) ? $status : array();
+		if(!array_key_exists($type, $status) || !$status[$type]) {
 			cpmsg('watermarkpreview_error', '', 'error');
 		}
 		require_once libfile('class/image');
@@ -455,10 +458,10 @@ if($operation == 'filecheck') {
 	$rewritedata = rewritedata();
 	$rule['{apache1}'] = $rule['{apache2}'] = $rule['{iis}'] = $rule['{iis7}'] = $rule['{zeus}'] = $rule['{nginx}'] = '';
 	foreach($rewritedata['rulesearch'] as $k => $v) {
-		if(!in_array($k, $_G['setting']['rewritestatus'])) {
+		if(!is_array($_G['setting']['rewritestatus']) || !in_array($k, $_G['setting']['rewritestatus'])) {
 			continue;
 		}
-		$v = !$_G['setting']['rewriterule'][$k] ? $v : $_G['setting']['rewriterule'][$k];
+		$v = empty($_G['setting']['rewriterule'][$k]) ? $v : $_G['setting']['rewriterule'][$k];
 		$pvmaxv = count($rewritedata['rulevars'][$k]) + 2;
 		$vkeys = array_keys($rewritedata['rulevars'][$k]);
 		$rewritedata['rulereplace'][$k] = pvsort($vkeys, $v, $rewritedata['rulereplace'][$k]);

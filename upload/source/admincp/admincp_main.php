@@ -66,7 +66,7 @@ foreach($topmenu as $k => $v) {
 		continue;
 	}
 	if($v === '') {
-		$v = @array_keys($menu[$k]);
+		$v = is_array($menu[$k]) ? array_keys($menu[$k]) : array();
 		$v = $menu[$k][$v[0]][1];
 	}
 	showheader($k, $v);

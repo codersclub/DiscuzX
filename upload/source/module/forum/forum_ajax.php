@@ -332,18 +332,18 @@ if($_GET['action'] == 'checkusername') {
 				$thread['highlight'] = '';
 			}
 			$target = $thread['isgroup'] == 1 || $thread['forumstick'] ? ' target="_blank"' : ' onclick="atarget(this)"';
-			if(in_array('forum_viewthread', $_G['setting']['rewritestatus'])) {
+			if(is_array($_G['setting']['rewritestatus']) && in_array('forum_viewthread', $_G['setting']['rewritestatus'])) {
 				$thread['threadurl'] = '<a href="'.rewriteoutput('forum_viewthread', 1, '', $thread['tid'], 1, '', '').'"'.$thread['highlight'].$target.'class="s xst">'.$thread['subject'].'</a>';
 			} else {
 				$thread['threadurl'] = '<a href="forum.php?mod=viewthread&amp;tid='.$thread['tid'].'"'.$thread['highlight'].$target.'class="s xst">'.$thread['subject'].'</a>';
 			}
-			if(in_array($thread['displayorder'], array(1, 2, 3, 4))) {
+			if(is_array($_G['setting']['rewritestatus']) && in_array($thread['displayorder'], array(1, 2, 3, 4))) {
 				$thread['id'] = 'stickthread_'.$thread['tid'];
 			} else {
 				$thread['id'] = 'normalthread_'.$thread['tid'];
 			}
 			$thread['threadurl'] = $thread['threadtype'].$thread['threadsort'].$thread['threadurl'];
-			if(in_array('home_space', $_G['setting']['rewritestatus'])) {
+			if(is_array($_G['setting']['rewritestatus']) && in_array('home_space', $_G['setting']['rewritestatus'])) {
 				$thread['authorurl'] = '<a href="'.rewriteoutput('home_space', 1, '', $thread['authorid'], '', '').'">'.$thread['author'].'</a>';
 				$thread['lastposterurl'] = '<a href="'.rewriteoutput('home_space', 1, '', '', rawurlencode($thread['lastposter']), '').'">'.$thread['lastposter'].'</a>';
 			} else {

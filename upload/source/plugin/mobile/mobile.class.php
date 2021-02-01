@@ -251,6 +251,7 @@ class mobile_core {
 
 	public static function activeHook($module, $mobileapihook, &$param, $isavariables = false) {
 		global $_G;
+		static $pluginclasses = array();
 		if($isavariables) {
 			$mobileapihook[$module] = array(
 			    'variables' => $mobileapihook[$module]['variables']

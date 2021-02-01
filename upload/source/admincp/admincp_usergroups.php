@@ -423,7 +423,7 @@ EOT;
 			$gids = &$_GET['multi'];
 		}
 	}
-	if(count($_GET['multi']) == 1) {
+	if(!empty($_GET['multi']) && is_array($_GET['multi']) && count($_GET['multi']) == 1) {
 		if ($_GET['multi'][0]) {
 			$gids[0] = $_GET['multi'][0];
 		}
@@ -460,7 +460,7 @@ EOT;
 
 		$grouplist = $groupcount = array();
 		foreach(C::t('common_usergroup')->range_orderby_credit() as $ggroup) {
-			$checked = $_GET['id'] == $ggroup['groupid'] || in_array($ggroup['groupid'], $_GET['multi']);
+			$checked = $_GET['id'] == $ggroup['groupid'] || (is_array($_GET['multi']) && in_array($ggroup['groupid'], $_GET['multi']));
 			$ggroup['type'] = $ggroup['type'] == 'special' && $ggroup['radminid'] ? 'specialadmin' : $ggroup['type'];
 			$groupcount[$ggroup['type']]++;
 			$grouplist[$ggroup['type']] .= '<input class="left checkbox ck" chkvalue="'.$ggroup['type'].'" name="multi[]" value="'.$ggroup['groupid'].'" type="checkbox" '.($checked ? 'checked="checked" ' : '').'/>'.
@@ -688,9 +688,9 @@ EOT;
 		showsetting('usergroups_edit_post_allowcommentpost', array('allowcommentpostnew', array(
 			$lang['usergroups_edit_post_allowcommentpost_firstpost'],
 			$lang['usergroups_edit_post_allowcommentpost_reply'],
-		)), $group['allowcommentpost'], 'binmcheckbox', !in_array(1, $_G['setting']['allowpostcomment']));
-		showsetting('usergroups_edit_post_allowcommentreply', 'allowcommentreplynew', $group['allowcommentreply'], 'radio', !in_array(2, $_G['setting']['allowpostcomment']));
-		showsetting('usergroups_edit_post_allowcommentitem', 'allowcommentitemnew', $group['allowcommentitem'], 'radio', !in_array(1, $_G['setting']['allowpostcomment']));
+		)), $group['allowcommentpost'], 'binmcheckbox', (!is_array($_G['setting']['allowpostcomment']) || !in_array(1, $_G['setting']['allowpostcomment'])));
+		showsetting('usergroups_edit_post_allowcommentreply', 'allowcommentreplynew', $group['allowcommentreply'], 'radio', (!is_array($_G['setting']['allowpostcomment']) || !in_array(2, $_G['setting']['allowpostcomment'])));
+		showsetting('usergroups_edit_post_allowcommentitem', 'allowcommentitemnew', $group['allowcommentitem'], 'radio', (!is_array($_G['setting']['allowpostcomment']) || !in_array(1, $_G['setting']['allowpostcomment'])));
 		showsetting('usergroups_edit_post_allowat', 'allowatnew', $group['allowat'], 'text');
 		showsetting('usergroups_edit_post_allowsave', 'allowsavenew', $group['allowsave'], 'radio');
 		showsetting('usergroups_edit_post_allowsavereply', 'allowsavereplynew', $group['allowsavereply'], 'radio');
@@ -1251,15 +1251,14 @@ EOT;
 	} else {
 
 		$gids = $comma = '';
-		if(is_array($_GET['target']) && count($_GET['target'])) {
+		if(!empty($_GET['target']) && is_array($_GET['target']) && count($_GET['target'])) {
 			foreach($_GET['target'] as $key => $gid) {
 				$_GET['target'][$key] = intval($gid);
 				if(empty($_GET['target'][$key]) || $_GET['target'][$key] == $source) {
 					unset($_GET['target'][$key]);
 				}
 			}
-		}
-		if(empty($_GET['target'])) {
+		} else {
 			cpmsg('usergroups_copy_target_invalid', '', 'error');
 		}
 
@@ -1366,7 +1365,7 @@ EOT;
 
 function array_flip_keys($arr) {
 	$arr2 = array();
-	$arrkeys = @array_keys($arr);
+	$arrkeys = is_array($arr) ? array_keys($arr) : array();
 	$first = current(array_slice($arr, 0, 1));
 	if($first) {
 		foreach($first as $k=>$v) {

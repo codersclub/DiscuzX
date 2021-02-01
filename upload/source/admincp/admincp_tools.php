@@ -37,6 +37,7 @@ if($operation == 'updatecache') {
 		if(in_array('data', $type)) {
 			updatecache();
 			require_once libfile('function/group');
+			$groupindex = array();
 			$groupindex['randgroupdata'] = $randgroupdata = grouplist('lastupdate', array('ff.membernum', 'ff.icon'), 80);
 			$groupindex['topgrouplist'] = $topgrouplist = grouplist('activity', array('f.commoncredits', 'ff.membernum', 'ff.icon'), 10);
 			$groupindex['updateline'] = TIMESTAMP;
@@ -45,7 +46,7 @@ if($operation == 'updatecache') {
 			$groupindex['groupnum'] = $groupdata['groupnum'];
 			savecache('groupindex', $groupindex);
 			C::t('forum_groupfield')->truncate();
-			savecache('forum_guide', '');
+			savecache('forum_guide', array());
 			if($_G['setting']['grid']['showgrid']) {
 				savecache('grids', array());
 			}

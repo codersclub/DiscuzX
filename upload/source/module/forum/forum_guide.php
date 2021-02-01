@@ -139,7 +139,7 @@ function get_guide_list($view, $start = 0, $num = 50, $again = 0) {
 	$cachetimelimit = ($view != 'sofa') ? 900 : 60;
 	$cache = $_G['cache']['forum_guide'][$view.($view=='sofa' && $_G['fid'] ? $_G['fid'] : '')];
 	if($cache && (TIMESTAMP - $cache['cachetime']) < $cachetimelimit) {
-		$tids = $cache['data'];
+		$tids = is_array($cache['data']) ? $cache['data'] : array();
 		$threadcount = count($tids);
 		$tids = array_slice($tids, $start, $num, true);
 		$updatecache = false;
@@ -209,8 +209,8 @@ function get_guide_list($view, $start = 0, $num = 50, $again = 0) {
 		$forumnames = C::t('forum_forum')->fetch_all_name_by_fid($fids);
 	}
 	$threadlist = array();
+	$threadids = array();
 	if($tids) {
-		$threadids = array();
 		foreach($tids as $key => $tid) {
 			if($list[$tid]) {
 				$threadlist[$key] = $list[$tid];
@@ -254,7 +254,7 @@ function get_my_threads($viewtype, $fid = 0, $filter = '', $searchkey = '', $sta
 			$dglue = '>=';
 		}
 
-		$gids = $fids = $forums = array();
+		$gids = $fids = $forums = $list = array();
 		foreach(C::t('forum_thread')->fetch_all_by_authorid_displayorder($authorid, $displayorder, $dglue, $closed, $searchkey, $start, $perpage, null, $fid) as $tid => $value) {
 			if(!isset($_G['cache']['forums'][$value['fid']])) {
 				$gids[$value['fid']] = $value['fid'];

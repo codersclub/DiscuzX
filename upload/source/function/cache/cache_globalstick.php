@@ -39,13 +39,13 @@ function build_cache_globalstick() {
 		if(!empty($threadarray[$gid])) {
 			$data['categories'][$gid] = array(
 				'tids'	=> dimplode($threadarray[$gid]),
-				'count'	=> intval(@count($threadarray[$gid]))
+				'count'	=> intval(is_array($threadarray[$gid]) ? count($threadarray[$gid]) : 0)
 			);
 		}
 	}
 	$data['global'] = array(
 		'tids'	=> empty($threadarray['global']) ? '' : dimplode($threadarray['global']),
-		'count'	=> intval(@count($threadarray['global']))
+		'count'	=> intval(is_array($threadarray['global']) ? count($threadarray['global']) : 0)
 	);
 
 	savecache('globalstick', $data);

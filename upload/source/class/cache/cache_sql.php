@@ -18,7 +18,7 @@ class ultrax_cache {
 	}
 
 	function get_cache($key) {
-		static $data = null;
+		static $data = array();
 		if(!isset($data[$key])) {
 			$cache = C::t('common_cache')->fetch($key);
 			if(!$cache) {

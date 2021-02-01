@@ -207,6 +207,7 @@ class control extends adminbase {
 			$app = $_ENV['app']->get_app_by_appid($appid);
 		}
 		$tagtemplates = $this->unserialize($app['tagtemplates']);
+		$tagtemplates = is_array($tagtemplates) ? $tagtemplates : array();
 		$template = dhtmlspecialchars($tagtemplates['template']);
 		$tmp = '';
 		if(is_array($tagtemplates['fields'])) {

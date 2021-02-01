@@ -545,6 +545,7 @@ EOT;
 		}
 
 	}
+	$title = is_array($title) ? $title : array($title);
 	$detail = implode(',', $title)."\n".$detail;
 	$filename = 'card_'.date('Ymd', TIMESTAMP).'.csv';
 

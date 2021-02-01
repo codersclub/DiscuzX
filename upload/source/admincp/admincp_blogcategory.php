@@ -194,7 +194,7 @@ function showcategoryrow($key, $level = 0, $last = '') {
 		'<input type="text" name="name['.$value['catid'].']" value="'.$value['catname'].'" class="txt" />'.
 		'<a class="addchildboard" onclick="addrowdirect = 1;addrow(this, 2, '.$value['catid'].')" href="###">'.cplang('blogcategory_addthirdcategory').'</a></div>'.
 		'</td><td>'.$value[num].'</td><td><a href="'.ADMINSCRIPT.'?action=blogcategory&operation=delete&catid='.$value['catid'].'">'.cplang('delete').'</a></td></tr>';
-		for($i=0,$L=count($value['children']); $i<$L; $i++) {
+		for($i=0,$L=(is_array($value['children']) ? count($value['children']) : 0); $i<$L; $i++) {
 			$return .= showcategoryrow($value['children'][$i], 2, $i==$L-1);
 		}
 	} else {
@@ -202,7 +202,7 @@ function showcategoryrow($key, $level = 0, $last = '') {
 		'<input type="text" name="name['.$value['catid'].']" value="'.$value['catname'].'" class="txt" />'.
 		'</div>'.
 		'</td><td>'.$value[num].'</td><td><a href="'.ADMINSCRIPT.'?action=blogcategory&operation=delete&catid='.$value['catid'].'">'.cplang('delete').'</a></td></tr>';
-		for($i=0,$L=count($value['children']); $i<$L; $i++) {
+		for($i=0,$L=(is_array($value['children']) ? count($value['children']) : 0); $i<$L; $i++) {
 			$return .= showcategoryrow($value['children'][$i], 1, '');
 		}
 		$return .= '<tr><td class="td25"></td><td colspan="3"><div class="lastboard"><a class="addtr" onclick="addrow(this, 1, '.$value['catid'].')" href="###">'.cplang('blogcategory_addsubcategory').'</a></div>';

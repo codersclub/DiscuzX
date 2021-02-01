@@ -299,7 +299,7 @@ if(!submitcheck('topicsubmit', 0, $seccodecheck, $secqaacheck)) {
 		$modthread->feed();
 	}
 
-	if(!empty($_G['setting']['rewriterule']['forum_viewthread']) && in_array('forum_viewthread', $_G['setting']['rewritestatus'])) {
+	if(!empty($_G['setting']['rewriterule']['forum_viewthread']) && is_array($_G['setting']['rewritestatus']) && in_array('forum_viewthread', $_G['setting']['rewritestatus'])) {
 		$returnurl = rewriteoutput('forum_viewthread', 1, '', $modthread->tid, 1, '', $extra);
 	} else {
 		$returnurl = "forum.php?mod=viewthread&tid={$modthread->tid}&extra=$extra";

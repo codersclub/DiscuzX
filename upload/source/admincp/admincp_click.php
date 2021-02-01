@@ -113,7 +113,7 @@ EOF;
 
 		$keys = $ids = $_G['cache']['click'] = array();
 		foreach(C::t('home_click')->fetch_all_by_available() as $value) {
-			if(count($_G['cache']['click'][$value['idtype']]) < 8) {
+			if(is_array($_G['cache']['click'][$value['idtype']]) && count($_G['cache']['click'][$value['idtype']]) < 8) {
 				$keys[$value['idtype']] = $keys[$value['idtype']] ? ++$keys[$value['idtype']] : 1;
 				$_G['cache']['click'][$value['idtype']][$keys[$value['idtype']]] = $value;
 			} else {

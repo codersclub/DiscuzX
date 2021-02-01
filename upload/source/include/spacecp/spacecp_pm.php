@@ -292,6 +292,8 @@ if($_GET['op'] == 'checknewpm') {
 				} else {
 					$returnurl = 'home.php?mod=space&do=pm';
 				}
+				$users = is_array($users) ? : array($users);
+				$newusers = is_array($newusers) ? : array($newusers);
 				showmessage(count($users) ? 'message_send_result' : 'do_success', $returnurl, array('users' => implode(',', $users), 'succeed' => count($newusers)));
 			} else {
 				if(!defined('IN_MOBILE')) {

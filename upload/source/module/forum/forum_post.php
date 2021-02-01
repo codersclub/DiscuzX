@@ -232,8 +232,8 @@ $_G['forum']['threadplugin'] = dunserialize($_G['forum']['threadplugin']);
 
 if($specialextra && $_G['group']['allowpost'] && $_G['setting']['threadplugins'] &&
 	(!array_key_exists($specialextra, $_G['setting']['threadplugins']) ||
-	!@in_array($specialextra, is_array($_G['forum']['threadplugin']) ? $_G['forum']['threadplugin'] : dunserialize($_G['forum']['threadplugin'])) ||
-	!@in_array($specialextra, $_G['group']['allowthreadplugin']))) {
+	!in_array($specialextra, is_array($_G['forum']['threadplugin']) ? $_G['forum']['threadplugin'] : (is_array(dunserialize($_G['forum']['threadplugin'])) ? dunserialize($_G['forum']['threadplugin']) : array())) ||
+	(is_array($_G['group']['allowthreadplugin']) && !in_array($specialextra, $_G['group']['allowthreadplugin'])))) {
 	$specialextra = '';
 }
 if($special == 3 && !isset($_G['setting']['extcredits'][$_G['setting']['creditstrans']])) {
@@ -255,7 +255,7 @@ if($_GET['action'] == 'newthread' && $_G['forum']['allowspecialonly'] && !$speci
 	} elseif($_G['group']['allowpost'] && $_G['setting']['threadplugins'] && $_G['group']['allowthreadplugin']) {
 		if(empty($_GET['specialextra'])) {
 			foreach($_G['forum']['threadplugin'] as $tpid) {
-				if(array_key_exists($tpid, $_G['setting']['threadplugins']) && @in_array($tpid, $_G['group']['allowthreadplugin'])){
+				if(array_key_exists($tpid, $_G['setting']['threadplugins']) && is_array($_G['group']['allowthreadplugin']) && in_array($tpid, $_G['group']['allowthreadplugin'])){
 					$specialextra=$tpid;
 					break;
 				}

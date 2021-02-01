@@ -38,19 +38,20 @@ class control extends pluginbase {
 		}
 
 		$weekbefore = $timestamp - 604800;
-		$addlist = @array_diff_assoc($this->md5data, $md5datanew);
-		$dellist = @array_diff_assoc($md5datanew, $this->md5data);
-		$modifylist = @array_diff_assoc($modifylist, $dellist);
-		$showlist = @array_merge($this->md5data, $md5datanew);
+		$md5datanew = is_array($md5datanew) ? $md5datanew : array();
+		$addlist = array_diff_assoc($this->md5data, $md5datanew);
+		$dellist = array_diff_assoc($md5datanew, $this->md5data);
+		$modifylist = array_diff_assoc($modifylist, $dellist);
+		$showlist = array_merge($this->md5data, $md5datanew);
 		$doubt = 0;
 		$dirlist = $dirlog = array();
 		foreach($showlist as $file => $md5) {
 			$dir = dirname($file);
-			if(@array_key_exists($file, $modifylist)) {
+			if(is_array($modifylist) && array_key_exists($file, $modifylist)) {
 				$fileststus = 'modify';
-			} elseif(@array_key_exists($file, $dellist)) {
+			} elseif(is_array($dellist) && array_key_exists($file, $dellist)) {
 				$fileststus = 'del';
-			} elseif(@array_key_exists($file, $addlist)) {
+			} elseif(is_array($addlist) && array_key_exists($file, $addlist)) {
 				$fileststus = 'add';
 			} else {
 				$filemtime = @filemtime($file);

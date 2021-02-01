@@ -708,6 +708,7 @@ function portalcp_get_postmessage_callback_parsearticlemedia_4($matches) {
 function portalcp_parse_postattch(&$post) {
 	static $allpostattchs = null;
 	if($allpostattchs === null) {
+		$allpostattchs = array();
 		foreach(C::t('forum_attachment_n')->fetch_all_by_id('tid:'.$post['tid'], 'tid', $post['tid']) as $attch) {
 			$allpostattchs[$attch['pid']][$attch['aid']] = $attch['aid'];
 		}

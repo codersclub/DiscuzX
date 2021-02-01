@@ -817,7 +817,7 @@ EOT;
 			}
 			if($ids = dimplode($_GET['delete'])) {
 				$levelcount = C::t('forum_grouplevel')->fetch_count();
-				if(count($_GET['delete']) == $levelcount) {
+				if(!empty($_GET['delete']) && is_array($_GET['delete']) && count($_GET['delete']) == $levelcount) {
 					updatecache('grouplevels');
 					cpmsg('group_level_succeed_except_all_levels', 'action=group&operation=level', 'succeed');
 
@@ -909,7 +909,7 @@ EOT;
 			showformfooter();
 		} else {
 			$dataarr = array();
-			$levelnew = $_GET['levelnew'];
+			$levelnew = (!empty($_GET['levelnew']) && is_array($_GET['levelnew'])) ? $_GET['levelnew'] : array();
 			$dataarr['leveltitle'] = $levelnew['leveltitle'];
 			$default_creditspolicy = array('post' => 0, 'reply' => 0, 'digest' => 0, 'postattach' => 0, 'getattach' => 0, 'tradefinished' => 0, 'joinpoll' => 0);
 			$levelnew['creditspolicy'] = empty($levelnew['creditspolicy']) ? $default_creditspolicy : array_merge($default_creditspolicy, $levelnew['creditspolicy']);
@@ -1136,6 +1136,7 @@ function countgroups() {
 		foreach($srchname as $u) {
 			$srchnameary[] = " f.name LIKE '%".str_replace(array('%', '*', '_'), array('\%', '%', '\_'), $u)."%'";
 		}
+		$srchnameary = is_array($srchnameary) ? $srchnameary : array($srchnameary);
 		$conditions .= " AND (".implode(' OR ', $srchnameary).")";
 	}
 	$conditions .= intval($_GET['srchfid']) ? " AND f.fid='".intval($_GET['srchfid'])."'" : '';
@@ -1161,6 +1162,7 @@ function countgroups() {
 		foreach($srchfounder as $fu) {
 			$srchfnameary[] = " ff.foundername LIKE '".str_replace(array('%', '*', '_'), array('\%', '%', '\_'), $fu)."'";
 		}
+		$srchfnameary = is_array($srchnameary) ? $srchfnameary : array($srchfnameary);
 		$conditions .= " AND (".implode(' OR ', $srchfnameary).")";
 	}
 
@@ -1191,7 +1193,7 @@ function delete_groupimg($fidarray) {
 
 function array_flip_keys($arr) {
 	$arr2 = array();
-	$arrkeys = @array_keys($arr);
+	$arrkeys = is_array($arr) ? array_keys($arr) : array();
 	$first = current(array_slice($arr, 0, 1));
 	if($first) {
 		foreach($first as $k=>$v) {

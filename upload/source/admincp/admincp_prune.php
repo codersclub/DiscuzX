@@ -158,7 +158,7 @@ EOT;
 if(submitcheck('searchsubmit', 1)) {
 
 	loadcache('posttableids');
-	$posttable = in_array($_GET['posttableid'], $_G['cache']['posttableids']) ? $_GET['posttableid'] : 0;
+	$posttable = (is_array($_G['cache']['posttableids']) && in_array($_GET['posttableid'], $_G['cache']['posttableids'])) ? $_GET['posttableid'] : 0;
 
 	$pids = array();
 	$postcount = '0';

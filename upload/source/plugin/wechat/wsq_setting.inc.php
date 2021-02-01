@@ -41,7 +41,7 @@ if(!empty($_GET['recheck'])) {
 if(!submitcheck('settingsubmit')) {
 
 	if($setting['wsq_siteid']) {
-		if(in_array('plugin', $_G['setting']['rewritestatus'])) {
+		if(is_array($_G['setting']['rewritestatus']) && in_array('plugin', $_G['setting']['rewritestatus'])) {
 			$url = $_G['siteurl'].rewriteoutput('plugin', 1, 'wechat', 'access');
 		} else {
 			$url = $_G['siteurl'].'plugin.php?id=wechat:access';

@@ -636,7 +636,7 @@ function parsepostbg($bgimg, $pid) {
 
 function parsepassword($password, $pid) {
 	global $_G;
-	static $postpw;
+	static $postpw = array();
 	if($postpw[$pid]) {
 		return '';
 	}

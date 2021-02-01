@@ -1793,6 +1793,7 @@ function import_diy($importfile, $primaltplname, $targettplname) {
 	require_once ROOT_PATH.'./source/class/class_xml.php';
 	if (empty($content)) return $arr;
 	$diycontent = xml2array($content);
+	$diycontent = is_array($diycontent) ? $diycontent : array();
 
 	if ($diycontent) {
 

@@ -19,7 +19,7 @@ loadcache('cronpublish');
 $dataChanged = false;
 $cron_publish_ids = array();
 $cron_publish_ids = getglobal('cache/cronpublish');
-if (count($cron_publish_ids) > 0) {
+if (is_array($cron_publish_ids) && count($cron_publish_ids) > 0) {
 	$threadall = C::t('forum_thread')->fetch_all_by_tid($cron_publish_ids);
 
 	foreach ($cron_publish_ids as $tid) {
