@@ -139,7 +139,7 @@
 										<p class="xg1 xs1">
 											<!--{if $pic[hot]}--><span class="hot">{lang hot} <em>$pic[hot]</em></span><!--{/if}-->
 											<!--{if $do=='event'}--><a href="home.php?mod=space&uid=$pic[uid]" target="_blank">$pic[username]</a><!--{/if}-->
-											{lang upload_at} <!--{date($pic[dateline])}--> ($pic[size])
+											{lang upload_at} <!--{date($pic['dateline'])}--> ($pic[size])
 										</p>
 										<!--{if isset($_GET['exif'])}-->
 											<!--{if $exifs}-->

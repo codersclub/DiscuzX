@@ -137,9 +137,9 @@
 		<li{if $do=='share'} class="a"{/if}><a href="home.php?mod=space&uid=$space[uid]&do=share&view=me&from=space">{lang share}</a></li>
 		<!--{/if}-->
 		<!--{if helper_access::check_module('wall')}-->
-		<li{if $do==wall} class="a"{/if}><a href="home.php?mod=space&uid=$space[uid]&do=wall&from=space">{lang message}</a></li>
+		<li{if $do=='wall'} class="a"{/if}><a href="home.php?mod=space&uid=$space[uid]&do=wall&from=space">{lang message}</a></li>
 		<!--{/if}-->
-		<li{if $do==profile} class="a"{/if}><a href="home.php?mod=space&uid=$space[uid]&do=profile&from=space">{lang memcp_profile}</a></li>
+		<li{if $do=='profile'} class="a"{/if}><a href="home.php?mod=space&uid=$space[uid]&do=profile&from=space">{lang memcp_profile}</a></li>
 	</ul>
 </div>
 <!--{/if}-->

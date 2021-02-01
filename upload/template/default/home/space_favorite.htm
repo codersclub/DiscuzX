@@ -44,7 +44,7 @@
 					<a class="y" id="a_delete_$k" href="home.php?mod=spacecp&ac=favorite&op=delete&favid=$k" onclick="showWindow(this.id, this.href, 'get', 0);">{lang delete}</a>
 					<input type="checkbox" name="favorite[]" class="pc" value="$k" vid="$value[id]" />
 					<!--{if $_GET['type'] == 'all'}--><span>$value[icon]</span><!--{/if}-->
-					<a href="$value[url]" target="_blank">$value[title]</a> <span class="xg1"><!--{date($value[dateline], 'u')}--></span>
+					<a href="$value[url]" target="_blank">$value[title]</a> <span class="xg1"><!--{date($value['dateline'], 'u')}--></span>
 					<!--{if $value[description]}-->
 					<div class="quote">
 						<blockquote id="quote_preview">$value[description]</blockquote>

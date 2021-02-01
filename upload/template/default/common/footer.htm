@@ -1,9 +1,9 @@
 	</div>
 <!--{if empty($topic) || ($topic[usefooter])}-->
-	<!--{eval $focusid = getfocus_rand($_G[basescript]);}-->
+	<!--{eval $focusid = getfocus_rand($_G['basescript']);}-->
 	<!--{if $focusid !== null}-->
 		<!--{eval $focus = $_G['cache']['focus']['data'][$focusid];}-->
-		<!--{eval $focusnum = count($_G['setting']['focus'][$_G[basescript]]);}-->
+		<!--{eval $focusnum = count($_G['setting']['focus'][$_G['basescript']]);}-->
 		<div class="focus" id="sitefocus">
 			<div class="bm">
 				<div class="bm_h cl">

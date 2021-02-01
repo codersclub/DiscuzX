@@ -1,14 +1,15 @@
 <!--{template common/header}-->
 <!--{eval
+	$space_uid = $space['uid'];
 	$_G['home_tpl_spacemenus'][] = "<a href=\"home.php?mod=space&do=trade\">{lang trade}</a>";
 }-->
 <!--{if $_GET[view] == 'eccredit'}-->
 	<!--{eval
-			$_G['home_tpl_spacemenus'][] = "<a href=\"home.php?mod=space&uid=$space[uid]&do=$do&view=eccredit\">{lang they_credit_rating}</a>";
+			$_G['home_tpl_spacemenus'][] = "<a href=\"home.php?mod=space&uid=$space_uid&do=$do&view=eccredit\">{lang they_credit_rating}</a>";
 	}-->
 <!--{else}-->
 	<!--{eval
-		$_G['home_tpl_spacemenus'][] = "<a href=\"home.php?mod=space&uid=$space[uid]&do=$do&view=onlyuser\">{lang they_trade}</a>";
+		$_G['home_tpl_spacemenus'][] = "<a href=\"home.php?mod=space&uid=$space_uid&do=$do&view=onlyuser\">{lang they_trade}</a>";
 	}-->
 <!--{/if}-->
 
@@ -54,7 +55,7 @@
 			<p class="tbmu cl">
 				<span class="y">
 					<!--{if $_GET[view]=='me'}-->
-					<!--{eval $actives[onlyuser]=' class="a"';}-->
+					<!--{eval $actives['onlyuser']=' class="a"';}-->
 					<!--{/if}-->
 					<!--{if $space[uid] > 0}-->
 					<a href="home.php?mod=space&do=trade&view=onlyuser"$actives[onlyuser]>{lang sale_of_goods}</a><span class="pipe">|</span>

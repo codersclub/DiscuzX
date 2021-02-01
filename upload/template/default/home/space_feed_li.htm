@@ -8,10 +8,10 @@
 		<!--{if $value[new]}-->
 		<span style="color:red;">New</span> 
 		<!--{/if}-->
-		<span class="xg1"><!--{date($value[dateline], 'u')}--></span>
+		<span class="xg1"><!--{date($value['dateline'], 'u')}--></span>
 
 		<!--{if empty($_G['home']['tpl'][hidden_menu])}-->
-		<!--{eval $_GET[key] = $key = random(8);}-->
+		<!--{eval $_GET['key'] = $key = random(8);}-->
 		<!--{if $value['idtype']=='doid'}-->
 		(<a href="javascript:;" {if $_G['uid']}onclick="docomment_get('$value[id]', '$key');"{else}onclick="showWindow(this.id, 'home.php?mod=spacecp&ac=feed', 'get', 0);doane(event);"{/if} id="{$_GET[key]}_do_a_op_$value[id]">{lang reply}</a>)
 		<!--{elseif in_array($value['idtype'], array('blogid','picid','sid','eventid'))}-->

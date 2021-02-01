@@ -297,7 +297,7 @@
 							<tr>
 								<th class="alt h">
 									<!--{if $group['grouptype'] == 'member'}-->
-										<!--{eval $v = $group[groupcreditshigher] - $_G['member']['credits'];}-->
+										<!--{eval $v = $group['groupcreditshigher'] - $_G['member']['credits'];}-->
 										<!--{if $_G['group']['grouptype'] == 'member' && $v > 0}-->
 											<span class="notice">{lang spacecp_usergroup_message1} $v</span>
 										<!--{else}-->
@@ -316,8 +316,8 @@
 									<!--{if $group['grouptype']=='special' && $group['groupid'] != $_G['groupid'] && array_key_exists($group['groupid'], $publicgroup) && !$publicgroup[$group['groupid']]['allowsetmain']}-->
 										<a href="home.php?mod=spacecp&ac=usergroup&do=buy&groupid=$group['groupid']&gid=$_GET[gid]&handlekey=buygrouphk" class="xw1 xi2" onclick="showWindow('group', this.href, 'get', 0);">{lang memcp_usergroups_buy}</a>
 									<!--{/if}-->
-									<!--{if array_key_exists($group['groupid'], $groupterms['ext'])}-->
-										<span class="notice">{lang memcp_usergroups_timelimit}: <!--{date($groupterms[ext][$group['groupid']])}--></span>
+									<!--{if is_array($groupterms['ext']) && array_key_exists($group['groupid'], $groupterms['ext'])}-->
+										<span class="notice">{lang memcp_usergroups_timelimit}: <!--{date($groupterms['ext'][$group['groupid']])}--></span>
 									<!--{/if}-->
 								</th>
 							</tr>

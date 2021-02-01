@@ -15,7 +15,7 @@
 		<a href="home.php?mod=space&uid=$value[uid]" c="1" target="_blank">$value[username]</a>
 		<a href="home.php?mod=space&uid=$value[uid]&do=share&id=$value[sid]" target="_blank">$value[title_template]</a>
 		<!--{if $value[status] == 1}--><span class="xgl">({lang moderate_need})<!--{/if}-->
-		<span class="xg1"><!--{date($value[dateline], 'u')}--></span>
+		<span class="xg1"><!--{date($value['dateline'], 'u')}--></span>
 	</div>
 	<div class="ec cl">
 		<!--{if $value['image']}-->

@@ -136,7 +136,7 @@
 			<div class="pattl">
 				<!--{if $post['imagelist'] && $_G['setting']['imagelistthumb'] && $post['imagelistcount'] >= $_G['setting']['imagelistthumb']}-->
 					<!--{if !isset($imagelistkey)}-->
-						<!--{eval $imagelistkey = rawurlencode(dsign($_G[tid].'|100|100'))}-->
+						<!--{eval $imagelistkey = rawurlencode(dsign($_G['tid'].'|100|100'))}-->
 						<script type="text/javascript" reload="1">var imagelistkey = '$imagelistkey';</script>
 					<!--{/if}-->
 					<!--{eval $post['imagelistthumb'] = true;}-->
@@ -199,7 +199,7 @@
 						<a href="forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]&repquote=$comment[rpid]&extra=$_GET[extra]&page=$page{if $_GET[from]}&from=$_GET[from]{/if}" class="xi2" onclick="showWindow('reply', this.href)">{lang reply}</a>
 					<!--{/if}-->
 					<span class="xg1">
-						{lang poston} <!--{date($comment[dateline], 'u')}-->
+						{lang poston} <!--{date($comment['dateline'], 'u')}-->
 						<!--{if $comment['useip'] && $_G['group']['allowviewip']}-->&nbsp;IP:$comment[useip]{if $comment[port]}:$comment[port]{/if}<!--{/if}-->
 						<!--{if $_G['forum']['ismoderator'] && $_G['group']['allowdelpost']}-->&nbsp;<a href="javascript:;" onclick="modaction('delcomment', $comment[id])">{lang delete}</a><!--{/if}-->
 					</span>

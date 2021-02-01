@@ -1,9 +1,9 @@
 {eval
 	$specialarr = array(0 => array('thread', '{lang index_posts}'), 1 => array('poll', '{lang thread_poll}'), 2 => array('trade', '{lang thread_trade}'), 3 => array('reward', '{lang thread_reward}'), 4 => array('activity', '{lang thread_activity}'), 5 => array('debate', '{lang thread_debate}'));
 	$specialtype = $specialarr[$_G['forum_thread']['special']];
-	$_G[home_tpl_titles][] = $navsubject;
-	$_G[home_tpl_titles][] = $specialtype[1];
-	$_G[home_tpl_titles][] = '{lang portal}';
+	$_G['home_tpl_titles'][] = $navsubject;
+	$_G['home_tpl_titles'][] = $specialtype[1];
+	$_G['home_tpl_titles'][] = '{lang portal}';
 }
 
 <!--{template common/header}-->
@@ -50,7 +50,7 @@
 						<!--{/if}-->
 					<!--{/if}-->
 					<span class="pipe">|</span>
-					{lang dateline}: <!--{date($_G[forum_thread][dateline])}--><span class="pipe">|</span>
+					{lang dateline}: <!--{date($_G['forum_thread']['dateline'])}--><span class="pipe">|</span>
 					{lang home_view_num}: $_G[forum_thread][views]<span class="pipe">|</span>
 					{lang comment_num}: $_G[forum_thread][replies]
 					<!--{if (($_G['forum']['ismoderator'] && $_G['group']['alloweditpost'] && (!in_array($post['adminid'], array(1, 2, 3)) || $_G['adminid'] <= $post['adminid'])) || ($_G['forum']['alloweditpost'] && $_G['uid'] && ($post['authorid'] == $_G['uid'] && $_G['forum_thread']['closed'] == 0) && !(!$alloweditpost_status && $edittimelimit && TIMESTAMP - $post['dbdateline'] > $edittimelimit)))}-->

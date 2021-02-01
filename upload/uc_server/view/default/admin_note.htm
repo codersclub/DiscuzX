@@ -29,7 +29,7 @@
 					<!--{/loop}-->
 				</tr>
 				<!--{loop $notelist $note}-->
-					{eval $debuginfo = dhtmlspecialchars(str_replace(array("\n", "\r", "'"), array('', '', "\'"), $note[getdata].$note[postdata2])); }
+					{eval $debuginfo = dhtmlspecialchars(str_replace(array("\n", "\r", "'"), array('', '', "\'"), $note['getdata'].$note['postdata2'])); }
 					<tr>
 						<td><input type="checkbox" name="delete[]" value="$note[noteid]" class="checkbox" /></td>
 						<td><strong>$note[operation]</strong></td>

@@ -108,7 +108,7 @@
 						<div class="pm_mn">
 							<div id="msglist" class="pm_b">
 							<!--{loop $list $key $value}-->
-								<p class="xg1 mbn"><a href="home.php?mod=space&uid=$value[authorid]" target="_blank" class="xi2">$value[author]</a> &nbsp; <!--{date($value[dateline], 'u')}--></p>
+								<p class="xg1 mbn"><a href="home.php?mod=space&uid=$value[authorid]" target="_blank" class="xi2">$value[author]</a> &nbsp; <!--{date($value['dateline'], 'u')}--></p>
 								<p class="mbm">$value[message]</p>
 							<!--{/loop}-->
 							</div>
@@ -330,7 +330,7 @@
 							</dd>
 							<dd class="ptm">
 								<!--{if $grouppm['author']}-->{lang sendmultipmwho}<!--{else}-->{lang sendmultipmsystem}<!--{/if}-->&nbsp; 
-								<span class="xg1"><!--{date($grouppm[dateline], 'u')}--></span>
+								<span class="xg1"><!--{date($grouppm['dateline'], 'u')}--></span>
 							</dd>
 							<dd>
 								<p class="pm_smry">$grouppm[message]</p>
@@ -409,7 +409,7 @@
 												<a href="home.php?mod=space&uid=$grouppm[authorid]" target="_blank">$grouppm[author]</a> {lang say} :
 											<!--{/if}-->
 											<span id="p_gpmid_$grouppm[id]">$grouppm[message]</span> &nbsp; 
-											<span class="xg1"><!--{date($grouppm[dateline], 'u')}--></span>&nbsp; 
+											<span class="xg1"><!--{date($grouppm['dateline'], 'u')}--></span>&nbsp; 
 											<a href="home.php?mod=space&do=pm&subop=viewg&pmid=$grouppm[id]" id="gpmlist_$grouppm[id]_a">{lang show}</a>
 										</dd>
 									</dl>
@@ -444,7 +444,7 @@
 												<a href="home.php?mod=space&uid=$value[touid]" target="_blank" class="xw1">{$value[tousername]}</a> {lang you_to} <span class="xi2">{lang you}</span> {lang say} :<br />
 											<!--{/if}-->
 											$value[lastsummary] &nbsp;  <br />
-											<span class="xg1"><!--{date($value[lastdateline], 'u')}--></span> &nbsp; 
+											<span class="xg1"><!--{date($value['lastdateline'], 'u')}--></span> &nbsp; 
 											<span class="pm_o y">
 												<div id="pm_o_$value[plid]_menu" class="p_pop" style="display: none;">
 													<ul>
@@ -478,13 +478,13 @@
 															<p>
 																<a href="home.php?mod=space&uid=$value[lastauthorid]" target="_blank">$value[lastauthor]</a> : 
 																$value[lastsummary] &nbsp; 
-																<span class="xg1"><!--{date($value[lastdateline], 'u')}--></span>
+																<span class="xg1"><!--{date($value['lastdateline'], 'u')}--></span>
 																<a href="home.php?mod=space&do=pm&subop=view&plid=$value[plid]&type=1&daterange=$value[daterange]#last">{lang reply}</a>
 															</p>
 														<!--{/if}-->
 													</td>
 												</tr>
-												<tr><td><span class="xg1"><!--{date($value[lastdateline], 'u')}--></span></td></tr>
+												<tr><td><span class="xg1"><!--{date($value['lastdateline'], 'u')}--></span></td></tr>
 											</table>
 											<span class="pm_o y" style="margin-top: -20px; ">
 												<div id="pm_o_$value[plid]_menu" class="p_pop" style="display: none;">

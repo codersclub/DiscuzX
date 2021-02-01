@@ -59,7 +59,7 @@
 		<span style="margin-right: 40px;">
 			<select name="selectalbum" id="selectalbum" onchange="spaceDiy.getdiy('image', 'albumid', this.value);">
 				<!--{loop $albumlist $album}-->
-				<option value="$album[albumid]" {eval echo $album[albumid] == $albumid ? 'selected' : '';} >$album[albumname] - ($album[picnum] {lang magics_unit})</option>
+				<option value="$album[albumid]" {eval echo $album['albumid'] == $albumid ? 'selected' : '';} >$album[albumname] - ($album[picnum] {lang magics_unit})</option>
 				<!--{/loop}-->
 			</select>
 		</span>
@@ -617,7 +617,7 @@ function succeedhandle_$_GET['handlekey'] (url, message, values) {
 </script>
 <!--{elseif $_GET['op'] == 'savespaceinfo'}-->
 
-<!--{eval $space[domainurl] = space_domain($space);}-->
+<!--{eval $space['domainurl'] = space_domain($space);}-->
 <strong id="spacename"><!--{if $space[spacename]}-->$space[spacename]<!--{else}-->$space[username]{lang somebody_space}<!--{/if}--></strong>
 <a id="domainurl" href="$space[domainurl]" onclick="setCopy('$space[domainurl]', '{lang copy_space_address}');return false;" class="xs0 xw0">$space[domainurl]</a>
 <span id="spacedescription" class="xw0">$space[spacedescription]</span>
@@ -625,7 +625,7 @@ function succeedhandle_$_GET['handlekey'] (url, message, values) {
 
 <!--{elseif $_GET['op'] == 'getspaceinfo'}-->
 
-<!--{eval $space[domainurl] = space_domain($space);}-->
+<!--{eval $space['domainurl'] = space_domain($space);}-->
 <form id="savespaceinfo" action="home.php?mod=spacecp&ac=index&op=savespaceinfo" method="post">
 	<input type="hidden" name="formhash" value="{FORMHASH}" />
 	<input type="hidden" name="savespaceinfosubmit" value="true" />

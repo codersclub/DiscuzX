@@ -38,14 +38,14 @@
                 	<div class="bm_c<!--{if $thread['displayorder'] == 0 && $displayorder_thread == 1}--> bt{eval unset($displayorder_thread);}<!--{/if}-->">
                     <!--{if !$thread['forumstick'] && ($thread['isgroup'] == 1 || $thread['fid'] != $_G['fid'])}-->
                         <!--{if $thread['related_group'] == 0 && $thread['closed'] > 1}-->
-                            <!--{eval $thread[tid]=$thread[closed];}-->
+                            <!--{eval $thread['tid']=$thread['closed'];}-->
                         <!--{/if}-->
                         <!--{if $groupnames[$thread[tid]]}-->
                             [<a href="forum.php?mod=forumdisplay&fid={$groupnames[$thread[tid]][fid]}" target="_blank">{lang group}</a>]
                         <!--{/if}-->
                     <!--{/if}-->
 					<!--{if $thread['moved']}-->
-						<!--{eval $thread[tid]=$thread[closed];}-->
+						<!--{eval $thread['tid']=$thread['closed'];}-->
 					<!--{/if}-->
                     <!--{hook/forumdisplay_thread_mobile $key}-->
                     <a href="forum.php?mod=viewthread&tid=$thread[tid]" $thread[highlight] >

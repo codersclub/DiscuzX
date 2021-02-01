@@ -1,5 +1,6 @@
 <!--{eval
-	$_G[home_tpl_spacemenus][] = "<a href=\"home.php?mod=space&uid=$space[uid]&do=debate&view=me\">{lang they_debate}</a>";
+	$space_uid = $space['uid'];
+	$_G['home_tpl_spacemenus'][] = "<a href=\"home.php?mod=space&uid=$space_uid&do=debate&view=me\">{lang they_debate}</a>";
 }-->
 <!--{template common/header}-->
 

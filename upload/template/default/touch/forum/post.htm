@@ -206,7 +206,7 @@
 				$.buildfileupload({
 					uploadurl:'misc.php?mod=swfupload&operation=upload&type=image&inajax=yes&infloat=yes&simple=2',
 					files:this.files,
-					uploadformdata:{uid:"$_G[uid]", hash:"<!--{eval echo md5(substr(md5($_G[config][security][authkey]), 8).$_G[uid])}-->"},
+					uploadformdata:{uid:"$_G[uid]", hash:"<!--{eval echo md5(substr(md5($_G['config']['security']['authkey']), 8).$_G['uid'])}-->"},
 					uploadinputname:'Filedata',
 					maxfilesize:"$swfconfig[max]",
 					success:uploadsuccess,
@@ -219,7 +219,7 @@
 
 				$.ajaxfileupload({
 					url:'misc.php?mod=swfupload&operation=upload&type=image&inajax=yes&infloat=yes&simple=2',
-					data:{uid:"$_G[uid]", hash:"<!--{eval echo md5(substr(md5($_G[config][security][authkey]), 8).$_G[uid])}-->"},
+					data:{uid:"$_G[uid]", hash:"<!--{eval echo md5(substr(md5($_G['config']['security']['authkey']), 8).$_G['uid'])}-->"},
 					dataType:'text',
 					fileElementId:'filedata',
 					success:uploadsuccess,

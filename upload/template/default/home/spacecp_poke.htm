@@ -63,7 +63,7 @@
 				<span class="xw0">
 					<!--{if $subvalue[iconid]}-->{$icons[$subvalue[iconid]]}<!--{else}-->{lang say_hi}<!--{/if}-->
 					<!--{if $subvalue[note]}-->, {lang say}: $subvalue[note]<!--{/if}-->
-					&nbsp; <span class="xg1"><!--{date($subvalue[dateline],'n-j H:i')}--></span>
+					&nbsp; <span class="xg1"><!--{date($subvalue['dateline'],'n-j H:i')}--></span>
 				</span>
 			</p>
 			<!--{/loop}-->
@@ -101,7 +101,7 @@
 							<span class="xw0">
 								<!--{if $value[iconid]}-->{$icons[$value[iconid]]}<!--{else}-->{lang say_hi}<!--{/if}-->
 								<!--{if $value[note]}-->, {lang say}: $value[note]<!--{/if}-->
-								&nbsp; <span class="xg1"><!--{date($value[dateline], 'n-j H:i')}--></span>
+								&nbsp; <span class="xg1"><!--{date($value['dateline'], 'n-j H:i')}--></span>
 							</span>
 						</p>
 						<div class="pbn ptm xg1 xw0 cl">

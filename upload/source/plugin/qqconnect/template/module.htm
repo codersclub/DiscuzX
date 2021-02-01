@@ -4,7 +4,7 @@ global $_G;
 }
 <!--{block return}-->
 	<div class="fastlg_fm y" style="margin-right: 10px; padding-right: 10px">
-		<p><a href="$_G[connect][login_url]&statfrom=login_simple"><img src="{IMGDIR}/qq_login.gif" class="vm" alt="{lang qqconnect:connect_header_login}" /></a></p>
+		<p><a href="{$_G['connect']['login_url']}&statfrom=login_simple"><img src="{IMGDIR}/qq_login.gif" class="vm" alt="{lang qqconnect:connect_header_login}" /></a></p>
 		<p class="hm xg1" style="padding-top: 2px;">{lang qqconnect:connect_header_login_tip}</p>
 	</div>
 <!--{/block}-->
@@ -33,7 +33,7 @@ global $_G;
 }
 <!--{block return}-->
 	<!--{if !$_G['connectguest']}-->
-	<a href="$_G[connect][login_url]&statfrom=login" target="_top" rel="nofollow"><img src="{IMGDIR}/qq_login.gif" class="vm" /></a>
+	<a href="{$_G['connect']['login_url']}&statfrom=login" target="_top" rel="nofollow"><img src="{IMGDIR}/qq_login.gif" class="vm" /></a>
 	<!--{/if}-->
 <!--{/block}-->
 <!--{eval return $return;}-->
@@ -57,7 +57,7 @@ if (!$_G['setting']['connect']['allow']) return;
 $connect_thread_subject = addslashes(strip_tags($_G['thread']['subject']));
 }
 <!--{block return}-->
-	<a href="{$_G[connect][qq_share_url]}" id="k_share_to_qq" title="{lang qqconnect:connect_viewthread_share_to_qq}" target="_blank"><i><img src="{IMGDIR}/qq_share.png" alt="{lang qqconnect:connect_viewthread_share_to_qq}" />{lang qqconnect:connect_viewthread_share_to_qq}</i></a>
+	<a href="{$_G['connect']['qq_share_url']}" id="k_share_to_qq" title="{lang qqconnect:connect_viewthread_share_to_qq}" target="_blank"><i><img src="{IMGDIR}/qq_share.png" alt="{lang qqconnect:connect_viewthread_share_to_qq}" />{lang qqconnect:connect_viewthread_share_to_qq}</i></a>
 <!--{/block}-->
 <!--{eval return $return;}-->
 {eval
@@ -68,15 +68,15 @@ global $_G;
 }
 <!--{block return}-->
 	<script type="text/javascript">
-		var connect_qzone_share_url = '{$_G[connect][qzone_share_url]}';
-		var connect_weibo_share_url = '{$_G[connect][weibo_share_url]}';
+		var connect_qzone_share_url = '{$_G['connect']['qzone_share_url']}';
+		var connect_weibo_share_url = '{$_G['connect']['weibo_share_url']}';
 		var connect_thread_info = {
 			thread_url: '{$_G['siteurl']}{$GLOBALS['canonical']}',
-			thread_id: '{$_G[tid]}',
-			post_id: '{$_G[connect][first_post][pid]}',
-			forum_id: '{$_G[fid]}',
-			author_id: '{$_G[connect][first_post][authorid]}',
-			author: '{$_G[connect][first_post][author]}'
+			thread_id: '{$_G['tid']}',
+			post_id: '{$_G['connect']['first_post']['pid']}',
+			forum_id: '{$_G['fid']}',
+			author_id: '{$_G['connect']['first_post']['authorid']}',
+			author: '{$_G['connect']['first_post']['author']}'
 		};
 
 		connect_autoshare = '{$_GET[connect_autoshare]}';
@@ -93,7 +93,7 @@ global $_G;
 				<div style="font-size:14px; margin:10px 0;">{lang qqconnect:connect_post_unbind}</div>
 				<div><a href="connect.php?mod=config&connect_autoshare=1" target="_blank"><img src="{IMGDIR}/qq_bind.gif" align="absmiddle" style="margin-top:5px;" /></a></div>
 			</div>
-			<input type="hidden" id="connect_thread_title" name="connect_thread_title" value="$_G[forum_thread][subject]" />
+			<input type="hidden" id="connect_thread_title" name="connect_thread_title" value="{$_G['forum_thread']['subject']}" />
 		</div>
 	<!--{/if}-->
 	<!--{if $jsurl}-->

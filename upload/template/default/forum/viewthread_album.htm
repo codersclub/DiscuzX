@@ -129,7 +129,7 @@
 									}
 									$('currentpic').style.left = curleft+'px';
 								}
-								<!--{eval $imagelistkey = dsign($_G[tid].'|100|100')}-->
+								<!--{eval $imagelistkey = dsign($_G['tid'].'|100|100')}-->
 								var imagelistkey = '$imagelistkey';
 								var imglist = new Array();
 								var imagelist_html = '';
@@ -264,7 +264,7 @@
 									<!--{/if}-->
 									</span>
 								</div>
-								<div class="date"><span>{lang dateline}:</span> <!--{date($_G[forum_thread][dateline])}--></div>
+								<div class="date"><span>{lang dateline}:</span> <!--{date($_G['forum_thread']['dateline'])}--></div>
 								<div class="album_info">
 									<h3>{lang text_summary}: </h3>
 									<p>$post['message']</p>

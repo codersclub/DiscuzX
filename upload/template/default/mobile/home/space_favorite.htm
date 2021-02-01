@@ -13,7 +13,7 @@
                 <p>
                 <!--{if $value[description]}-->
 					<span class="xg1">$value[description]</span>
-                <!--{/if}--><span class="xg1"><!--{date($value[dateline], 'u')}--></span>
+                <!--{/if}--><span class="xg1"><!--{date($value['dateline'], 'u')}--></span>
                 <a class="o" id="a_delete_$k" href="home.php?mod=spacecp&ac=favorite&op=delete&favid=$k&type={$_GET[type]}" >{lang favorite_delete}</a>
                 </p>
             </div>

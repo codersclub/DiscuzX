@@ -86,8 +86,8 @@
 		<!--{if $dolist}-->
 			<div class="xld {if empty($diymode)}xlda{/if}">
 			<!--{loop $dolist $dv}-->
-			<!--{eval $doid = $dv[doid];}-->
-			<!--{eval $_GET[key] = $key = random(8);}-->
+			<!--{eval $doid = $dv['doid'];}-->
+			<!--{eval $_GET['key'] = $key = random(8);}-->
 				<dl id="{$key}dl{$doid}" class="pbn bbda cl">
 					<!--{if empty($diymode)}--><dd class="m avt"><a href="home.php?mod=space&uid=$dv[uid]" c="1"><!--{avatar($dv['uid'], 'small')}--></a></dd><!--{/if}-->
 					<dd class="{if empty($diymode)}ptm{else}ptw{/if} xs2">

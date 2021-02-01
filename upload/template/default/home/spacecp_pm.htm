@@ -302,7 +302,7 @@
 	<!--{/if}-->
 <!--{elseif $_GET['op'] == 'showchatmsg'}-->
 	<!--{loop $list $key $value}-->
-		<p class="xg1 mbn"><a href="home.php?mod=space&uid=$value[authorid]" target="_blank" class="xi2">$value[author]</a> &nbsp; <!--{date($value[dateline], 'u')}--></p>
+		<p class="xg1 mbn"><a href="home.php?mod=space&uid=$value[authorid]" target="_blank" class="xi2">$value[author]</a> &nbsp; <!--{date($value['dateline'], 'u')}--></p>
 		<p class="mbm">$value[message]</p>
 	<!--{/loop}-->
 <!--{else}-->

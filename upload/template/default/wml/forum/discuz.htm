@@ -12,14 +12,14 @@
 <!--{if $forum_favlist}-->
 	<b>{lang my_favorites_forums}</b>
 	<!--{loop $forum_favlist $key $val}-->
-	<!--{eval $favfids[$val[id]] = $val[id];}-->
+	<!--{eval $favfids[$val['id']] = $val['id'];}-->
 	<a href="forum.php?mod=forumdisplay&fid={$val['id']}">$val['title']</a><br/>
 	<!--{/loop}-->
 <!--{/if}-->
 
 <!--{loop $catlist $key $cat}-->
 	$cat[name]<br/>
-    <!--{loop $cat[forums] $forumid}-->
+    <!--{loop $cat['forums'] $forumid}-->
 		<!--{eval $forum=$forumlist[$forumid];}-->
 			<a href="forum.php?mod=forumdisplay&fid={$forum['fid']}" {if $forum_favlist[$forumid]}class="xi1"{/if}>{$forum[name]}</a>
 		<br/>

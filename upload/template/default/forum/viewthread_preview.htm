@@ -2,9 +2,9 @@
 	$specialarr = array(0 => array('thread', '{lang index_posts}'), 1 => array('poll', '{lang thread_poll}'), 2 => array('trade', '{lang thread_trade}'), 3 => array('reward', '{lang thread_reward}'), 4 => array('activity', '{lang thread_activity}'), 5 => array('debate', '{lang thread_debate}'));
 	$specialtype = $specialarr[$_G['forum_thread']['special']];
 	$previewspecial = $_G['forum_thread']['special'];
-	$_G[home_tpl_titles][] = $navsubject;
-	$_G[home_tpl_titles][] = $specialtype[1];
-	$_G[home_tpl_titles][] = '{lang portal}';
+	$_G['home_tpl_titles'][] = $navsubject;
+	$_G['home_tpl_titles'][] = $specialtype[1];
+	$_G['home_tpl_titles'][] = '{lang portal}';
 }
 
 <!--{template common/header}-->
@@ -32,7 +32,7 @@
 			<!--{eval $postcount = 0;}-->
 			<!--{loop $postlist $postid $post}-->
 				<!--{if $postid}-->
-					<!--{eval $_G[forum_thread][special] = 0;}-->
+					<!--{eval $_G['forum_thread']['special'] = 0;}-->
 					<div id="post_$post[pid]" class="xld xlda mbm">
 						<!--{subtemplate forum/viewthread_preview_node}-->
 					</div>

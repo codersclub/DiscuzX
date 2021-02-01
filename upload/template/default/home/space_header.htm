@@ -1,5 +1,5 @@
 
-<!--{eval $_G[cookie][extstyle] = false;}-->
+<!--{eval $_G['cookie']['extstyle'] = false;}-->
 <!--{subtemplate common/header_common}-->
 	<script type="text/javascript" src="{$_G[setting][jspath]}home.js?{VERHASH}"></script>
 	<link rel="stylesheet" type="text/css" href='{$_G['setting']['csspath']}{STYLEID}_css_space.css?{VERHASH}' />
@@ -59,7 +59,7 @@
 	<div id="hd" class="wp cl">
 
 		<h2 id="spaceinfoshow">
-			<!--{eval space_merge($space, 'field_home'); $space[domainurl] = space_domain($space);getuserdiydata($space);$personalnv = isset($_G['blockposition']['nv']) ? $_G['blockposition']['nv'] : '';}-->
+			<!--{eval space_merge($space, 'field_home'); $space['domainurl'] = space_domain($space);getuserdiydata($space);$personalnv = isset($_G['blockposition']['nv']) ? $_G['blockposition']['nv'] : '';}-->
 			<strong id="spacename" class="mbn">
 				<!--{if $space[spacename]}-->$space[spacename]<!--{else}-->$space[username]{lang somebody_space}<!--{/if}-->
 			</strong>

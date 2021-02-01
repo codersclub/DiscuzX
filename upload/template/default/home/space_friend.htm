@@ -175,7 +175,7 @@
 									<!--{else}-->
 										<div class="avt">
 											<a href="home.php?mod=space&uid=$value[uid]" c="1">
-												<!--{if $ols[$value[uid]]}--><em class="gol" title="{lang online} {date($ols[$value[uid]], 'H:i')}"></em><!--{/if}-->
+												<!--{if $ols[$value[uid]]}--><em class="gol" title="{lang online} {date($ols[$value['uid']], 'H:i')}"></em><!--{/if}-->
 												<!--{avatar($value['uid'], 'small')}-->
 											</a>
 										</div>
@@ -184,15 +184,15 @@
 											<!--{if $_GET['view'] == 'blacklist'}-->
 												<a href="home.php?mod=spacecp&ac=friend&op=blacklist&subop=delete&uid=$value[uid]&start=$_GET[start]">{lang delete_blacklist}</a>
 											<!--{elseif $_GET['view'] == 'visitor' || $_GET['view'] == 'trace'}-->
-												<!--{date($value[dateline], 'n{lang month}j{lang day}')}-->
+												<!--{date($value['dateline'], 'n{lang month}j{lang day}')}-->
 											<!--{elseif $_GET['view'] == 'online'}-->
-												<!--{date($ols[$value[uid]], 'H:i')}-->
+												<!--{date($ols[$value['uid']], 'H:i')}-->
 											<!--{else}-->
 												<a href="home.php?mod=spacecp&ac=friend&op=changenum&uid=$value[uid]&handlekey=hotuserhk_{$value[uid]}" id="friendnum_$value[uid]" onclick="showWindow(this.id, this.href, 'get', 0);" title="{lang hot}">{lang hot}(<span id="spannum_$value[uid]">$value[num]</span>)</a>
 											<!--{/if}-->
 											</span>
-											<a href="home.php?mod=space&uid=$value[uid]"{eval g_color($value[groupid]);}>$value[username]</a>
-											<!--{eval g_icon($value[groupid]);}-->
+											<a href="home.php?mod=space&uid=$value[uid]"{eval g_color($value['groupid']);}>$value[username]</a>
+											<!--{eval g_icon($value['groupid']);}-->
 											<!--{if $space[self]}-->
 												<span id="friend_note_$value[uid]" class="note xw0" title="$value[note]">$value[note]</span>
 											<!--{/if}-->
@@ -243,7 +243,7 @@
 		                                    	<li id="friend_{$value[uid]}_li">
 		                                        	<div class="avt">
 		                                                <a href="home.php?mod=space&uid=$value[uid]" c="1">
-		                                                    <!--{if $ols[$value[uid]]}--><em class="gol" title="{lang online} {date($ols[$value[uid]], 'H:i')}"></em><!--{/if}-->
+		                                                    <!--{if $ols[$value[uid]]}--><em class="gol" title="{lang online} {date($ols[$value['uid']], 'H:i')}"></em><!--{/if}-->
 		                                                    <!--{avatar($value['uid'], 'small')}-->
 		                                                </a>
 		                                            </div>
@@ -270,7 +270,7 @@
 		                                    	<li id="friend_{$value[uid]}_li">
 		                                        	<div class="avt">
 		                                                <a href="home.php?mod=space&uid=$value[uid]" c="1">
-		                                                    <!--{if $ols[$value[uid]]}--><em class="gol" title="{lang online} {date($ols[$value[uid]], 'H:i')}"></em><!--{/if}-->
+		                                                    <!--{if $ols[$value[uid]]}--><em class="gol" title="{lang online} {date($ols[$value['uid']], 'H:i')}"></em><!--{/if}-->
 		                                                    <!--{avatar($value['uid'], 'small')}-->
 		                                                </a>
 		                                            </div>

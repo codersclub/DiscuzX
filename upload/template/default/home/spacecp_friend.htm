@@ -337,7 +337,7 @@
 								</h4>
 								<div id="friend_$value[fuid]">
 									<!--{if $value[note]}--><div class="quote"><blockquote id="quote">$value[note]</blockquote></div><!--{/if}-->
-									<p><!--{date($value[dateline], 'n-j H:i')}--></p>
+									<p><!--{date($value['dateline'], 'n-j H:i')}--></p>
 									<p><a href="home.php?mod=spacecp&ac=friend&op=getcfriend&fuid=$value[fuid]&handlekey=cfrfriendhk_{$value[uid]}" id="a_cfriend_$key" onclick="showWindow(this.id, this.href, 'get', 0);" class="xi2">{lang your_common_friends}</a></p>
 									<p class="mtm cl pns">
 										<a href="home.php?mod=spacecp&ac=friend&op=add&uid=$value[fuid]&handlekey=afrfriendhk_{$value[uid]}" id="afr_$value[fuid]" onclick="showWindow(this.id, this.href, 'get', 0);" class="pn z"><em class="z">{lang confirm_applications}</em></a>

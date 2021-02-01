@@ -4,11 +4,11 @@
 		<li class="bbda cl">
 			<div class="avt"><a href="home.php?mod=space&uid=$value[uid]" target="_blank" c="1"><!--{avatar($value['uid'], 'small')}--></a></div>
 			<h4>
-				<a href="home.php?mod=space&uid=$value[uid]" title="$value[username]" target="_blank"{eval g_color($value[groupid]);}>$value[username]</a>
+				<a href="home.php?mod=space&uid=$value[uid]" title="$value[username]" target="_blank"{eval g_color($value['groupid']);}>$value[username]</a>
 				<!--{if $ols[$value[uid]]}--><img src="{IMGDIR}/ol.gif" alt="online" title="{lang online}" class="vm" /><!--{/if}-->
 			</h4>
 			<p class="maxh">
-				{$_G['cache']['usergroups'][$value['groupid']]['grouptitle']} <!--{eval g_icon($value[groupid]);}-->
+				{$_G['cache']['usergroups'][$value['groupid']]['grouptitle']} <!--{eval g_icon($value['groupid']);}-->
 				<!--{if $value['credits']}-->&nbsp;{lang credit_num}: $value[credits]<!--{/if}-->
 			</p>
 			<div class="xg1">

@@ -34,7 +34,7 @@
 	{lang stats_modworks_total}
 	<!--{echo "\r\n";}-->
 	<!--{loop $members $uid $member}-->
-		<!--{eval echo strip_tags($member[username]);}-->,
+		<!--{eval echo strip_tags($member['username']);}-->,
 		<!--{loop $modactioncode $key $val}-->
 			<!--{if $member[$key]['posts']}-->{$member[$key][count]},<!--{else}-->,<!--{/if}-->
 		<!--{/loop}-->

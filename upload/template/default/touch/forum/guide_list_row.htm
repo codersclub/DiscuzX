@@ -4,7 +4,7 @@
 							<li>
 									<a href="forum.php?mod=viewthread&tid=$thread[tid]&fromguid=hot&{if $_GET['archiveid']}archiveid={$_GET['archiveid']}&{/if}extra=$extra">
 										<!--{if !$thread['forumstick'] && $thread['closed'] > 1 && ($thread['isgroup'] == 1 || $thread['fid'] != $_G['fid'])}-->
-												<!--{eval $thread[tid]=$thread[closed];}-->
+												<!--{eval $thread['tid']=$thread['closed'];}-->
 										<!--{/if}-->
 										$thread[typehtml] $thread[sorthtml]
 										$thread[subject]

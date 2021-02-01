@@ -12,7 +12,7 @@
 					<!--{eval $extcreditstype = $replycredit_rule['extcreditstype'] ? $replycredit_rule['extcreditstype'] : $_G['setting']['creditstransextra'][10];}-->
 				<!--{/if}-->
 				<!--{eval $userextcredit = getuserprofile('extcredits'.$extcreditstype);}-->
-				<!--{if ($_GET[action] == 'newthread' && $userextcredit > 0) || ($_GET[action] == 'edit' && $isorigauthor && isfirstpost)}-->
+				<!--{if ($_GET[action] == 'newthread' && $userextcredit > 0) || ($_GET[action] == 'edit' && $isorigauthor && $isfirstpost)}-->
 					<label id="extra_replycredit_b" onclick="showExtra('extra_replycredit')"><span id="extra_replycredit_chk">{lang replycredit}</span></label>
 				<!--{/if}-->
 			<!--{/if}-->

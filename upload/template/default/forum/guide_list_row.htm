@@ -36,11 +36,11 @@
 									</td>
 									<th class="$thread[folder]">
 										<!--{if !$thread['forumstick'] && $thread['closed'] > 1 && ($thread['isgroup'] == 1 || $thread['fid'] != $_G['fid'])}-->
-												<!--{eval $thread[tid]=$thread[closed];}-->
+												<!--{eval $thread['tid']=$thread['closed'];}-->
 										<!--{/if}-->
 										$thread[typehtml] $thread[sorthtml]
 										<!--{if $thread['moved']}-->
-											{lang thread_moved}:<!--{eval $thread[tid]=$thread[closed];}-->
+											{lang thread_moved}:<!--{eval $thread['tid']=$thread['closed'];}-->
 										<!--{/if}-->
 										<a href="forum.php?mod=viewthread&tid=$thread[tid]&{if $_GET['archiveid']}archiveid={$_GET['archiveid']}&{/if}extra=$extra"{$thread[highlight]} target="_blank" class="xst" >$thread[subject]</a><!--{if $_G['setting']['threadhidethreshold'] && $thread['hidden'] >= $_G['setting']['threadhidethreshold']}-->&nbsp;<span class="xg1">{lang hidden}</span>&nbsp;<!--{/if}--><!--{if $view == 'hot'}-->&nbsp;<span class="xi1">$thread['heats']{lang guide_attend}</span>&nbsp;<!--{/if}-->
 										<!--{if $thread[icon] >= 0}-->
@@ -92,7 +92,7 @@
 										<!--{/if}-->
 										<!--{if !$thread['forumstick'] && ($thread['isgroup'] == 1 || $thread['fid'] != $_G['fid'])}-->
 											<!--{if $thread['related_group'] == 0 && $thread['closed'] > 1}-->
-												<!--{eval $thread[tid]=$thread[closed];}-->
+												<!--{eval $thread['tid']=$thread['closed'];}-->
 											<!--{/if}-->
 										<!--{/if}-->
 									</th>

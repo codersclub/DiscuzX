@@ -75,8 +75,8 @@ function attachlist($attach) {
 	$attach['refcheck'] = (!$attach['remote'] && $_G['setting']['attachrefcheck']) || ($attach['remote'] && ($_G['setting']['ftp']['hideurl'] || ($attach['isimage'] && $_G['setting']['attachimgpost'] && strtolower(substr($_G['setting']['ftp']['attachurl'], 0, 3)) == 'ftp')));
 	$aidencode = packaids($attach);
 	$widthcode = attachwidth($attach['width']);
-	$is_archive = $_G['forum_thread']['is_archived'] ? "&fid=".$_G['fid']."&archiveid=".$_G[forum_thread][archiveid] : '';
-	$pluginhook = !empty($_G['setting']['pluginhooks']['viewthread_attach_extra'][$attach[aid]]) ? $_G['setting']['pluginhooks']['viewthread_attach_extra'][$attach[aid]] : '';
+	$is_archive = $_G['forum_thread']['is_archived'] ? "&fid=".$_G['fid']."&archiveid=".$_G['forum_thread']['archiveid'] : '';
+	$pluginhook = !empty($_G['setting']['pluginhooks']['viewthread_attach_extra'][$attach['aid']]) ? $_G['setting']['pluginhooks']['viewthread_attach_extra'][$attach['aid']] : '';
 -->
 <!--{/eval}-->
 <!--{block return}-->
@@ -126,9 +126,9 @@ function imagelist($attach, $firstpost = 0) {
 	$attach['refcheck'] = (!$attach['remote'] && $_G['setting']['attachrefcheck']) || ($attach['remote'] && ($_G['setting']['ftp']['hideurl'] || ($attach['isimage'] && $_G['setting']['attachimgpost'] && strtolower(substr($_G['setting']['ftp']['attachurl'], 0, 3)) == 'ftp')));
 	$aidencode = packaids($attach);
 	$widthcode = attachwidth($attach['width']);
-	$is_archive = $_G['forum_thread']['is_archived'] ? "&fid=".$_G['fid']."&archiveid=".$_G[forum_thread][archiveid] : '';
+	$is_archive = $_G['forum_thread']['is_archived'] ? "&fid=".$_G['fid']."&archiveid=".$_G['forum_thread']['archiveid'] : '';
 	$attachthumb = getimgthumbname($attach['attachment']);
-	$pluginhook = !empty($_G['setting']['pluginhooks']['viewthread_attach_extra'][$attach[aid]]) ? $_G['setting']['pluginhooks']['viewthread_attach_extra'][$attach[aid]] : '';
+	$pluginhook = !empty($_G['setting']['pluginhooks']['viewthread_attach_extra'][$attach['aid']]) ? $_G['setting']['pluginhooks']['viewthread_attach_extra'][$attach['aid']] : '';
 	$guestviewthumb = !empty($_G['setting']['guestviewthumb']['flag']) && !$_G['uid'];
 	if($guestviewthumb) {
 		$guestviewthumbcss = guestviewthumbstyle();
@@ -225,9 +225,9 @@ function attachinpost($attach, $post) {
 	$attach['refcheck'] = (!$attach['remote'] && $_G['setting']['attachrefcheck']) || ($attach['remote'] && ($_G['setting']['ftp']['hideurl'] || ($attach['isimage'] && $_G['setting']['attachimgpost'] && strtolower(substr($_G['setting']['ftp']['attachurl'], 0, 3)) == 'ftp')));
 	$aidencode = packaids($attach);
 	$widthcode = attachwidth($attach['width']);
-	$is_archive = $_G['forum_thread']['is_archived'] ? '&fid='.$_G['fid'].'&archiveid='.$_G[forum_thread][archiveid] : '';
+	$is_archive = $_G['forum_thread']['is_archived'] ? '&fid='.$_G['fid'].'&archiveid='.$_G['forum_thread']['archiveid'] : '';
 	$attachthumb = getimgthumbname($attach['attachment']);
-	$musiccode = getstatus($post[status], 7) && fileext($attach['attachment']) == 'mp3' ? (browserversion('ie') > 8 || browserversion('safari') ? '<audio controls="controls"><source src="'.$attach['url'].$attach['attachment'].'"></audio>' : parseaudio($attach['url'].$attach['attachment'], 400)) : '';
+	$musiccode = getstatus($post['status'], 7) && fileext($attach['attachment']) == 'mp3' ? (browserversion('ie') > 8 || browserversion('safari') ? '<audio controls="controls"><source src="'.$attach['url'].$attach['attachment'].'"></audio>' : parseaudio($attach['url'].$attach['attachment'], 400)) : '';
 	$guestviewthumb = !empty($_G['setting']['guestviewthumb']['flag']) && !$_G['uid'];
 	if($guestviewthumb) {
 		$guestviewthumbcss = guestviewthumbstyle();

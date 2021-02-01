@@ -147,7 +147,7 @@
 											<a href="javascript:void(0);" onclick="hideStickThread('$thread[tid]')" class="showhide y" title="{lang hidedisplayorder}">{lang hidedisplayorder}</a></em>
 										<!--{/if}-->
 										<!--{if !$thread['forumstick'] && $thread['closed'] > 1 && ($thread['isgroup'] == 1 || $thread['fid'] != $_G['fid'])}-->
-												<!--{eval $thread[tid]=$thread[closed];}-->
+												<!--{eval $thread['tid']=$thread['closed'];}-->
 										<!--{/if}-->
 										<!--{if !$_G['setting']['forumdisplaythreadpreview'] && !($thread['readperm'] && $thread['readperm'] > $_G['group']['readaccess'] && !$_G['forum']['ismoderator'] && $thread['authorid'] != $_G['uid'])}-->
 											<!--{if !(!empty($_G['setting']['antitheft']['allow']) && empty($_G['setting']['antitheft']['disable']['thread']) && empty($_G['forum']['noantitheft']))}-->
@@ -157,7 +157,7 @@
 										<!--{hook/forumdisplay_thread $key}-->
 										$thread[typehtml] $thread[sorthtml]
 										<!--{if $thread['moved']}-->
-											{lang thread_moved}:<!--{eval $thread[tid]=$thread[closed];}-->
+											{lang thread_moved}:<!--{eval $thread['tid']=$thread['closed'];}-->
 										<!--{/if}-->
 										<a href="forum.php?mod=viewthread&tid=$thread[tid]&{if $_GET['archiveid']}archiveid={$_GET['archiveid']}&{/if}extra=$extra"$thread[highlight]{if $thread['isgroup'] == 1 || $thread['forumstick']} target="_blank"{else} onclick="atarget(this)"{/if} class="s xst">$thread[subject]</a>
 										<!--{if $_G['setting']['threadhidethreshold'] && $thread['hidden'] >= $_G['setting']['threadhidethreshold']}--><span class="xg1">{lang hidden}</span>&nbsp;<!--{/if}-->
@@ -217,7 +217,7 @@
 										<!--{/if}-->
 										<!--{if !$thread['forumstick'] && ($thread['isgroup'] == 1 || $thread['fid'] != $_G['fid'])}-->
 											<!--{if $thread['related_group'] == 0 && $thread['closed'] > 1}-->
-												<!--{eval $thread[tid]=$thread[closed];}-->
+												<!--{eval $thread['tid']=$thread['closed'];}-->
 											<!--{/if}-->
 											<!--{if $groupnames[$thread[tid]]}-->
 												<span class="fromg xg1"> [{lang from}: <a href="forum.php?mod=forumdisplay&fid={$groupnames[$thread[tid]][fid]}" target="_blank" class="xg1">{$groupnames[$thread[tid]][name]}</a>]</span>
@@ -259,10 +259,10 @@
 							<!--{/if}-->
 							<!--{if !$thread['forumstick'] && ($thread['isgroup'] == 1 || $thread['fid'] != $_G['fid'])}-->
 								<!--{if $thread['related_group'] == 0 && $thread['closed'] > 1}-->
-									<!--{eval $thread[tid]=$thread[closed];}-->
+									<!--{eval $thread['tid']=$thread['closed'];}-->
 								<!--{/if}-->
 							<!--{/if}-->
-							<!--{eval $waterfallwidth = $_G[setting][forumpicstyle][thumbwidth] + 24; }-->
+							<!--{eval $waterfallwidth = $_G['setting']['forumpicstyle']['thumbwidth'] + 24; }-->
 							<li style="width:{$waterfallwidth}px">
 								<!--{if !$_GET['archiveid'] && $_G['forum']['ismoderator']}-->
 									<div style="position:absolute;margin:1px;padding:2px;background:#FFF">

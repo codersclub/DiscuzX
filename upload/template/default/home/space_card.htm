@@ -25,7 +25,7 @@
 					<!--{/loop}-->
 				<!--{/if}-->
 			</p>
-			<!--{eval $isfriendinfo = 'home_friend_info_'.$space['uid'].'_'.$_G[uid];}-->
+			<!--{eval $isfriendinfo = 'home_friend_info_'.$space['uid'].'_'.$_G['uid'];}-->
 			<!--{if $_G[$isfriendinfo][note]}-->
 				<p class="xg1">$_G[$isfriendinfo][note]</p>
 			<!--{/if}-->
@@ -72,7 +72,7 @@
 			<a href="home.php?mod=spacecp&ac=follow&op={if !empty($follow)}del{else}add{/if}&hash={FORMHASH}&fuid=$space[uid]" id="card_followmod_$space[uid]" onclick="showWindow(this.id, this.href, 'get', 0)" class="xi2"><!--{if !empty($follow)}-->{lang follow_del}<!--{else}-->{lang follow_add}TA<!--{/if}--></a>
 			<!--{/if}-->
 			<!--{if helper_access::check_module('friend')}-->
-			<!--{eval require_once libfile('function/friend');$isfriend=friend_check($space[uid]);}-->
+			<!--{eval require_once libfile('function/friend');$isfriend=friend_check($space['uid']);}-->
 			<!--{if !$isfriend}-->
 			<a href="home.php?mod=spacecp&ac=friend&op=add&uid=$space[uid]&handlekey=addfriendhk_{$space[uid]}" id="a_friend_li_{$space[uid]}" onclick="showWindow(this.id, this.href, 'get', 0);" class="xi2">{lang add_friend}</a>
 			<!--{else}-->

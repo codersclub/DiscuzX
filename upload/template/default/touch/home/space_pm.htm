@@ -34,7 +34,7 @@
 						<!--{/if}-->
 					</div>
 					<div class="cl grey">
-						<span class="time"><!--{date($value[dateline], 'u')}--></span>
+						<span class="time"><!--{date($value['dateline'], 'u')}--></span>
 						<span><!--{if $value['pmtype'] == 2}-->[{lang chatpm}]<!--{if $value[subject]}-->$value[subject]<br><!--{/if}--><!--{/if}--><!--{if $value['pmtype'] == 2 && $value['lastauthor']}--><div style="padding:0 0 0 20px;">......<br>$value['lastauthor'] : $value[message]</div><!--{else}-->$value[message]<!--{/if}--></span>
 					</div>
 				</a>

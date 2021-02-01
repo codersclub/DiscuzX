@@ -153,7 +153,7 @@
 								<!--{else}-->
 									<p><a href="home.php?mod=space&uid=$value[uid]" target="_blank">$value[username]</a></p>
 								<!--{/if}-->
-								<!--{if $_GET[view]!='me'}--><span>{lang update} <!--{date($value[updatetime], 'n-j H:i')}--></span><!--{/if}-->
+								<!--{if $_GET[view]!='me'}--><span>{lang update} <!--{date($value['updatetime'], 'n-j H:i')}--></span><!--{/if}-->
 							</li>
 							<!--{/loop}-->
 							<!--{if $space[self] && $_GET['view']=='me'}-->

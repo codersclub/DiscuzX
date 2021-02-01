@@ -15,7 +15,7 @@
 					<!--{elseif $task[periodtype] == 1}-->
 						( {lang task_period_day} )
 					<!--{elseif $task[periodtype] == 2}-->
-						<!--{eval $periodweek = $_G['lang']['core']['weeks'][$task[period]];}-->
+						<!--{eval $periodweek = $_G['lang']['core']['weeks'][$task['period']];}-->
 						( {lang task_period_week} )
 					<!--{elseif $task[periodtype] == 3}-->
 						( {lang task_period_month} )

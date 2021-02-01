@@ -221,14 +221,14 @@
 								<!--{if $value[vusername] == ''}-->
 								<div class="avt"><img src="{STATICURL}image/magic/hidden.gif" alt="{lang anonymity}" /></div>
 								<p>{lang anonymity}</p>
-								<span><!--{date($value[dateline], 'u', 9999, $_G[setting][dateformat])}--></span>
+								<span><!--{date($value['dateline'], 'u', 9999, $_G['setting']['dateformat'])}--></span>
 								<!--{else}-->
 								<a href="home.php?mod=space&uid=$value[vuid]" title="{if $ols[$value[vuid]]}{lang online}{/if}" class="avt" c="1">
 									<!--{if $ols[$value[vuid]]}--><em class="gol"></em><!--{/if}-->
 									<!--{avatar($value['vuid'], 'small')}-->
 								</a>
 								<p><a href="home.php?mod=space&uid=$value[vuid]" title="$value[vusername]">$value[vusername]</a></p>
-								<span><!--{date($value[dateline], 'u', 9999, $_G[setting][dateformat])}--></span>
+								<span><!--{date($value['dateline'], 'u', 9999, $_G['setting']['dateformat'])}--></span>
 								<!--{/if}-->
 							</li>
 							<!--{/loop}-->
@@ -261,7 +261,7 @@
 									<!--{avatar($value['uid'], 'small')}-->
 								</a>
 								<p><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]">$value[username]</a></p>
-								<span><!--{if $value[lastactivity]}--><!--{date($value[lastactivity], 'u', 9999, $_G[setting][dateformat])}--><!--{else}-->{lang hot}($value[num])<!--{/if}--></span>
+								<span><!--{if $value[lastactivity]}--><!--{date($value['lastactivity'], 'u', 9999, $_G['setting']['dateformat'])}--><!--{else}-->{lang hot}($value[num])<!--{/if}--></span>
 							</li>
 							<!--{/loop}-->
 						</ul>
@@ -322,8 +322,8 @@
 							<td>
 								<h3 class="xs2">
 									<span class="y xw0 xs1">{lang have} <em class="xi1">$space[views]</em> {lang visit_per_man}</span>
-									<a href="home.php?mod=space&uid=$space[uid]"{eval g_color($space[groupid]);}>{$space[username]}</a>
-									<!--{eval g_icon($space[groupid]);}-->
+									<a href="home.php?mod=space&uid=$space[uid]"{eval g_color($space['groupid']);}>{$space[username]}</a>
+									<!--{eval g_icon($space['groupid']);}-->
 								</h3>
 								<!--{template home/space_status}-->
 							</td>
@@ -350,7 +350,8 @@
 			<!--{else}-->
 				<div class="bm bw0">
 				<!--{eval
-					$_G['home_tpl_spacemenus'][] = "<a href=\"home.php?mod=space&uid=$space[uid]&do=home&view=me\">{lang they_feed}</a>";
+					$space_uid = $space['uid'];
+					$_G['home_tpl_spacemenus'][] = "<a href=\"home.php?mod=space&uid=$space_uid&do=home&view=me\">{lang they_feed}</a>";
 				}-->
 				<!--{template home/space_menu}-->
 
@@ -441,8 +442,8 @@
 					<!--{if $day=='yesterday'}-->{lang yesterday}<!--{elseif $day=='today'}-->{lang today}<!--{else}-->$day<!--{/if}-->
 				</h4>
 				<!--{loop $users $user}-->
-				<!--{eval $daylist = $feed_list[$day][$user[uid]];}-->
-				<!--{eval $morelist = $more_list[$day][$user[uid]];}-->
+				<!--{eval $daylist = $feed_list[$day][$user['uid']];}-->
+				<!--{eval $morelist = $more_list[$day][$user['uid']];}-->
 				<dl class="bbda cl">
 					<dd class="m avt">
 						<!--{if $user[uid]}-->

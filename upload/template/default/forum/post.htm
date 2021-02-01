@@ -26,7 +26,7 @@
 	var ispicstyleforum = <!--{if $_G['forum']['picstyle']}-->1<!--{else}-->0<!--{/if}-->;
 </script>
 
-<!--{if $_GET[action] == 'edit'}--><!--{eval $editor[value] = $postinfo[message];}--><!--{else}--><!--{eval $editor[value] = $message;}--><!--{/if}-->
+<!--{if $_GET[action] == 'edit'}--><!--{eval $editor['value'] = $postinfo['message'];}--><!--{else}--><!--{eval $editor['value'] = $message;}--><!--{/if}-->
 <script type="text/javascript" src="{$_G['setting']['jspath']}forum_post.js?{VERHASH}"></script>
 
 <!--{if $isfirstpost && $sortid}-->
@@ -66,7 +66,7 @@
 <!--{/block}-->
 
 <!--{if $_GET['action'] != 'newthread'}-->
-	<!--{eval $subjectcut = cutstr($thread[subject], 30);}-->
+	<!--{eval $subjectcut = cutstr($thread['subject'], 30);}-->
 <!--{/if}-->
 <!--{block actionsubject}-->
 	<!--{if $_GET['action'] == 'reply'}-->

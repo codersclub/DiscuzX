@@ -137,7 +137,7 @@
 							<td><input type="hidden" name="olddisplayorder[{$value[dataid]}]" value="$value[displayorder]" />
 								<input type="input" class="px" name="displayorder[{$value[dataid]}]" value="$value[displayorder]" size="2" maxlength="4" /></td>
 							<td><a href="$value[url]" target="_blank">$value['title']</a></td>
-							<!--{eval $page = empty($blocks[$value[bid]]['page']) ? '{lang unused}' : implode('<br/>' ,$blocks[$value[bid]]['page']);}-->
+							<!--{eval $page = empty($blocks[$value['bid']]['page']) ? '{lang unused}' : implode('<br/>' ,$blocks[$value['bid']]['page']);}-->
 							<td>$page</td>
 							<td><a href="portal.php?mod=portalcp&ac=block&bid=$value[bid]" target="_blank">$blocks[$value[bid]][name]</a></td>
 							<td>$value['verifiedtime']</td>
@@ -170,7 +170,7 @@
 						<tr>
 							<td><input type="checkbox" name="ids[]" class="pc" value="$value[dataid]" /></td>
 							<td><a href="$value[url]" target="_blank">$value[title]</a></td>
-							<!--{eval $page = empty($blocks[$value[bid]]['page']) ? '{lang unused}' : implode('<br/>' ,$blocks[$value[bid]]['page']);}-->
+							<!--{eval $page = empty($blocks[$value['bid']]['page']) ? '{lang unused}' : implode('<br/>' ,$blocks[$value['bid']]['page']);}-->
 							<td>$page</td>
 							<td><a href="portal.php?mod=portalcp&ac=block&bid=$value[bid]" target="_blank">$blocks[$value[bid]][name]</a></td>
 							<td><a href="home.php?uid=$value[uid]" target="_blank">$value[username]</a></td>

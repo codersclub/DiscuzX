@@ -7,7 +7,7 @@
 				<span title="{lang online}" class="olicon vm"></span>&nbsp;
 			<!--{/if}-->
 			<span class="xw0">(UID: {$space[uid]}
-			<!--{eval $isfriendinfo = 'home_friend_info_'.$space['uid'].'_'.$_G[uid];}-->
+			<!--{eval $isfriendinfo = 'home_friend_info_'.$space['uid'].'_'.$_G['uid'];}-->
 			<!--{if $_G[$isfriendinfo][note]}-->
 				, <span class="xg1">$_G[$isfriendinfo][note]</span>
 			<!--{/if}-->
@@ -144,7 +144,7 @@
 	<h2 class="mbn">{lang active_profile}</h2>
 	<ul>
 		<!--{if $space[adminid] > 0}--><li><em class="xg1">{lang management_team}&nbsp;&nbsp;</em><span style="color:{$space[admingroup][color]}"><a href="home.php?mod=spacecp&ac=usergroup&gid=$space[adminid]" target="_blank">{$space[admingroup][grouptitle]}</a></span> {$space[admingroup][icon]}</li><!--{/if}-->
-		<li><em class="xg1">{lang usergroup}&nbsp;&nbsp;</em><span style="color:{$space[group][color]}"{if $upgradecredit !== false} class="xi2" onmouseover="showTip(this)" tip="{lang credits} $space[credits], {lang thread_groupupgrade} $upgradecredit {lang credits}"{/if}><a href="home.php?mod=spacecp&ac=usergroup&gid=$space[groupid]" target="_blank">{$space[group][grouptitle]}</a></span> {$space[group][icon]} <!--{if !empty($space['groupexpiry'])}-->&nbsp;{lang group_useful_life}&nbsp;<!--{date($space[groupexpiry], 'Y-m-d H:i')}--><!--{/if}--></li>
+		<li><em class="xg1">{lang usergroup}&nbsp;&nbsp;</em><span style="color:{$space[group][color]}"{if $upgradecredit !== false} class="xi2" onmouseover="showTip(this)" tip="{lang credits} $space[credits], {lang thread_groupupgrade} $upgradecredit {lang credits}"{/if}><a href="home.php?mod=spacecp&ac=usergroup&gid=$space[groupid]" target="_blank">{$space[group][grouptitle]}</a></span> {$space[group][icon]} <!--{if !empty($space['groupexpiry'])}-->&nbsp;{lang group_useful_life}&nbsp;<!--{date($space['groupexpiry'], 'Y-m-d H:i')}--><!--{/if}--></li>
 		<!--{if $space[extgroupids]}--><li><em class="xg1">{lang group_expiry_type_ext}&nbsp;&nbsp;</em>$space[extgroupids]</li><!--{/if}-->
 	</ul>
 	<ul id="pbbs" class="pf_l">
@@ -215,7 +215,7 @@
 					{lang crime_customstatus}
 				<!--{/if}-->
 			</td>
-			<td><!--{date($crime[dateline])}--></td>
+			<td><!--{date($crime['dateline'])}--></td>
 			<td>$crime[reason]</td>
 			<td><a href="home.php?mod=space&uid=$crime[operatorid]" target="_blank">$crime[operator]</a></td>
 		</tr>
