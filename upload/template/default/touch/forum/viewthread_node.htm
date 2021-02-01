@@ -2,7 +2,7 @@
 <!-- main postlist start -->
 	<!--{eval $needhiddenreply = ($hiddenreplies && $_G['uid'] != $post['authorid'] && $_G['uid'] != $_G['forum_thread']['authorid'] && !$post['first'] && !$_G['forum']['ismoderator']);}-->
    <div class="plc cl">
-	   <span class="avatar"><img src="<!--{avatar($post[authorid], small, true)}-->" style="width:32px;height:32px;" /></span>
+	   <span class="avatar"><img src="<!--{avatar($post['authorid'], 'small', true)}-->" style="width:32px;height:32px;" /></span>
        <div class="pi">
 		   <ul class="authi">
 				<li class="grey">

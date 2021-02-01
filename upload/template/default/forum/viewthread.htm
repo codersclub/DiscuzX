@@ -149,7 +149,7 @@
 				<!--{if $_G['page'] > 1}-->
 				<div id="tath" class="cl">
 					<!--{if $_G[forum_thread][authorid] && $_G[forum_thread][author]}-->
-						<a href="home.php?mod=space&uid=$_G[forum_thread][authorid]" title="$_G[forum_thread][author]"><!--{avatar($_G[forum_thread][authorid],small)}--></a>
+						<a href="home.php?mod=space&uid=$_G[forum_thread][authorid]" title="$_G[forum_thread][author]"><!--{avatar($_G['forum_thread']['authorid'], 'small')}--></a>
 						{lang thread_author}: <a href="home.php?mod=space&uid=$_G[forum_thread][authorid]" title="$_G[forum_thread][author]">$_G[forum_thread][author]</a>
 					<!--{else}-->
 						{lang thread_author}:

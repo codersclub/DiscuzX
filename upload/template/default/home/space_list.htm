@@ -2,7 +2,7 @@
 	<ul class="buddy cl">
 		<!--{loop $list $key $value}-->
 		<li class="bbda cl">
-			<div class="avt"><a href="home.php?mod=space&uid=$value[uid]" target="_blank" c="1"><!--{avatar($value[uid],small)}--></a></div>
+			<div class="avt"><a href="home.php?mod=space&uid=$value[uid]" target="_blank" c="1"><!--{avatar($value['uid'], 'small')}--></a></div>
 			<h4>
 				<a href="home.php?mod=space&uid=$value[uid]" title="$value[username]" target="_blank"{eval g_color($value[groupid]);}>$value[username]</a>
 				<!--{if $ols[$value[uid]]}--><img src="{IMGDIR}/ol.gif" alt="online" title="{lang online}" class="vm" /><!--{/if}-->

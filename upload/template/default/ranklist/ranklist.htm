@@ -31,7 +31,7 @@
 				<ul class="biduser cl">
 					<li class="bidtop">
 						<!--{if $memberlist}-->
-						<a href="home.php?mod=space&uid=$memberlist[0][uid]&do=profile" target="_blank" id="bid_$memberlist[0][uid]" class="hm" {if $memberlist[0][note]} onmouseover="showTip(this)" tip="$memberlist[0][username]: $memberlist[0][note]"{/if}><!--{avatar($memberlist[0][uid],middle)}--></a>
+						<a href="home.php?mod=space&uid=$memberlist[0][uid]&do=profile" target="_blank" id="bid_$memberlist[0][uid]" class="hm" {if $memberlist[0][note]} onmouseover="showTip(this)" tip="$memberlist[0][username]: $memberlist[0][note]"{/if}><!--{avatar($memberlist[0]['uid'], 'middle')}--></a>
 						<!--{/if}-->
 					</li>
 				<!--{eval unset($memberlist[0]);}-->

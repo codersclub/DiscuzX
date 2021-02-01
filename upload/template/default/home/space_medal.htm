@@ -108,7 +108,7 @@
 					<ul class="el ptm pbw mbw">
 						<!--{loop $lastmedals $lastmedal}-->
 						<li>
-							<a href="home.php?mod=space&uid=$lastmedal[uid]" class="t"><!--{avatar($lastmedal[uid],small)}--></a>
+							<a href="home.php?mod=space&uid=$lastmedal[uid]" class="t"><!--{avatar($lastmedal['uid'], 'small')}--></a>
 							<a href="home.php?mod=space&uid=$lastmedal[uid]" class="xi2">$lastmedalusers[$lastmedal[uid]][username]</a> {lang medals_message1} $lastmedal[dateline] {lang medals_message2} <strong>$medallist[$lastmedal['medalid']]['name']</strong> {lang medals}
 						</li>
 						<!--{/loop}-->

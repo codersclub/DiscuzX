@@ -17,7 +17,7 @@
 	<!--{/if}-->
 	<dd class="m avt" {if count($list)-1 == $key}id="bottom"{/if}>
 		<!--{if $value[authorid]}-->
-		<a href="home.php?mod=space&uid=$value[authorid]" target="_blank"><!--{avatar($value[authorid],small)}--></a>
+		<a href="home.php?mod=space&uid=$value[authorid]" target="_blank"><!--{avatar($value['authorid'], 'small')}--></a>
 		<!--{/if}-->
 	</dd>
 	<dd class="ptm">

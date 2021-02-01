@@ -138,7 +138,7 @@
 							<li>
 								<a href="home.php?mod=space&uid=$value[uid]" title="{if $ols[$value[uid]]}{lang online}{/if}" class="avt">
 									<!--{if $ols[$value[uid]]}--><em class="gol"></em><!--{/if}-->
-									<!--{avatar($value[uid],small)}-->
+									<!--{avatar($value['uid'], 'small')}-->
 								</a>
 								<p><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]">$value[username]</a></p>
 							</li>
@@ -166,7 +166,7 @@
 							<li>
 								<a href="home.php?mod=space&uid=$value[uid]" title="{if $ols[$value[uid]]}{lang online}{/if}" class="avt">
 									<!--{if $ols[$value[uid]]}--><em class="gol"></em><!--{/if}-->
-									<!--{avatar($value[uid],small)}-->
+									<!--{avatar($value['uid'], 'small')}-->
 								</a>
 								<p><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]">$value[username]</a></p>
 								<!--span><span title="$value[credit]">$value[credit]</span></span-->
@@ -188,7 +188,7 @@
 							<li>
 								<a href="home.php?mod=space&uid=$value[uid]" title="{if $ols[$value[uid]]}{lang online}{/if}" class="avt">
 									<!--{if $ols[$value[uid]]}--><em class="gol"></em><!--{/if}-->
-									<!--{avatar($value[uid],small)}-->
+									<!--{avatar($value['uid'], 'small')}-->
 								</a>
 								<p><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]">$value[username]</a></p>
 								<span>$value[regdate]</span>
@@ -225,7 +225,7 @@
 								<!--{else}-->
 								<a href="home.php?mod=space&uid=$value[vuid]" title="{if $ols[$value[vuid]]}{lang online}{/if}" class="avt" c="1">
 									<!--{if $ols[$value[vuid]]}--><em class="gol"></em><!--{/if}-->
-									<!--{avatar($value[vuid],small)}-->
+									<!--{avatar($value['vuid'], 'small')}-->
 								</a>
 								<p><a href="home.php?mod=space&uid=$value[vuid]" title="$value[vusername]">$value[vusername]</a></p>
 								<span><!--{date($value[dateline], 'u', 9999, $_G[setting][dateformat])}--></span>
@@ -258,7 +258,7 @@
 							<li>
 								<a href="home.php?mod=space&uid=$value[uid]" title="{if $ols[$value[uid]]}{lang online}{/if}" class="avt" c="1">
 									<!--{if $ols[$value[uid]]}--><em class="gol"></em><!--{/if}-->
-									<!--{avatar($value[uid],small)}-->
+									<!--{avatar($value['uid'], 'small')}-->
 								</a>
 								<p><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]">$value[username]</a></p>
 								<span><!--{if $value[lastactivity]}--><!--{date($value[lastactivity], 'u', 9999, $_G[setting][dateformat])}--><!--{else}-->{lang hot}($value[num])<!--{/if}--></span>
@@ -315,7 +315,7 @@
 						<tr>
 							<th>
 								<div class="avatar mbn cl">
-									<a href="home.php?mod=spacecp&ac=avatar" title="{lang memcp_avatar}" id="edit_avt"><span id="edit_avt_tar">{lang memcp_avatar}</span><!--{avatar($_G[uid],middle)}--></a>
+									<a href="home.php?mod=spacecp&ac=avatar" title="{lang memcp_avatar}" id="edit_avt"><span id="edit_avt_tar">{lang memcp_avatar}</span><!--{avatar($_G['uid'], 'middle')}--></a>
 								</div>
 								<p><a href="home.php?mod=space&uid=$space[uid]" target="_blank" class="o xi2">{lang view_my_space}</a></p>
 							</th>
@@ -446,7 +446,7 @@
 				<dl class="bbda cl">
 					<dd class="m avt">
 						<!--{if $user[uid]}-->
-						<a href="home.php?mod=space&uid=$user[uid]" target="_blank" c="1"><!--{avatar($user[uid],small)}--></a>
+						<a href="home.php?mod=space&uid=$user[uid]" target="_blank" c="1"><!--{avatar($user['uid'], 'small')}--></a>
 						<!--{else}-->
 						<img src="{IMGDIR}/systempm.png" alt="" />
 						<!--{/if}-->

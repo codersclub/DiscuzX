@@ -68,7 +68,7 @@
 				<ul class="buddy cl">
 					<!--{loop $recommenduser $key $value}-->
 					<li>
-						<div class="avt"><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]" target="_blank" c="1"><!--{avatar($value[uid],small)}--></a></div>
+						<div class="avt"><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]" target="_blank" c="1"><!--{avatar($value['uid'], 'small')}--></a></div>
 						<h4><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]">$value[username]</a></h4>
 						<p title="$value[reason]" class="maxh">$value[reason]</p>
 						<p><a href="home.php?mod=spacecp&ac=friend&op=add&uid=$value[uid]" id="a_near_friend_$key" onclick="showWindow(this.id, this.href, 'get', 0);" class="addbuddy">{lang add_friend}</a></p>
@@ -82,7 +82,7 @@
 				<ul class="buddy cl">
 					<!--{loop $nearlist $key $value}-->
 					<li>
-						<div class="avt"><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]" target="_blank" c="1"><!--{avatar($value[uid],small)}--></a></div>
+						<div class="avt"><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]" target="_blank" c="1"><!--{avatar($value['uid'], 'small')}--></a></div>
 						<h4><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]">$value[username]</a></h4>
 						<p><a href="home.php?mod=spacecp&ac=friend&op=add&uid=$value[uid]" id="a_near_friend_$key" onclick="showWindow(this.id, this.href, 'get', 0);" class="addbuddy">{lang add_friend}</a></p>
 					</li>
@@ -95,7 +95,7 @@
 				<ul class="buddy cl">
 					<!--{loop $friendlist $key $value}-->
 					<li>
-						<div class="avt"><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]" target="_blank" c="1"><!--{avatar($value[uid],small)}--></a></div>
+						<div class="avt"><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]" target="_blank" c="1"><!--{avatar($value['uid'], 'small')}--></a></div>
 						<h4><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]">$value[username]</a></h4>
 						<p><a href="home.php?mod=spacecp&ac=friend&op=add&uid=$value[uid]&handlekey=friendhk_{$value[uid]}" id="a_friend_friend_$key" onclick="showWindow(this.id, this.href, 'get', 0);" class="addbuddy">{lang add_friend}</a></p>
 					</li>
@@ -108,7 +108,7 @@
 				<ul class="buddy cl">
 					<!--{loop $onlinelist $key $value}-->
 					<li>
-						<div class="avt"><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]" target="_blank" c="1"><!--{avatar($value[uid],small)}--></a></div>
+						<div class="avt"><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]" target="_blank" c="1"><!--{avatar($value['uid'], 'small')}--></a></div>
 						<h4><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]">$value[username]</a></h4>
 						<p><a href="home.php?mod=spacecp&ac=friend&op=add&uid=$value[uid]&handlekey=onlinehk_{$value[uid]}" id="a_online_friend_$key" onclick="showWindow(this.id, this.href, 'get', 0);" class="addbuddy">{lang add_friend}</a></p>
 					</li>
@@ -226,7 +226,7 @@
 					<ul class="buddy cl">
 					<!--{loop $list $key $value}-->
 						<li>
-							<div class="avt"><a href="home.php?mod=space&uid=$value[uid]"><!--{avatar($value[uid],small)}--></a></div>
+							<div class="avt"><a href="home.php?mod=space&uid=$value[uid]"><!--{avatar($value['uid'], 'small')}--></a></div>
 							<h4><input type="checkbox" name="fuids[]" value="$value[uid]" class="pc" /> <a href="home.php?mod=space&uid=$value[uid]">$value[username]</a></h4>
 							<p class="xg1">{lang hot}:$value[num]</p>
 							<p class="xg1">$value[group]</p>
@@ -328,7 +328,7 @@
 					<table cellpadding="0" cellspacing="0" class="tfm">
 						<tr>
 							<td width="140">
-								<div class="avt avtm"><a href="home.php?mod=space&uid=$value[fuid]" c="1"><!--{avatar($value[fuid],middle)}--></a></div>
+								<div class="avt avtm"><a href="home.php?mod=space&uid=$value[fuid]" c="1"><!--{avatar($value['fuid'], 'middle')}--></a></div>
 							</td>
 							<td>
 								<h4>
@@ -372,7 +372,7 @@
 				<ul class="mtm ml mls cl">
 					<!--{loop $list $key $value}-->
 					<li>
-						<div class="avt"><a href="home.php?mod=space&uid=$value[uid]"><!--{avatar($value[uid],small)}--></a></div>
+						<div class="avt"><a href="home.php?mod=space&uid=$value[uid]"><!--{avatar($value['uid'], 'small')}--></a></div>
 						<p><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]">$value[username]</a></p>
 					</li>
 					<!--{/loop}-->
@@ -395,7 +395,7 @@
 				<div class="c">
 					<table>
 						<tr>
-							<th valign="top" width="60" class="avt"><a href="home.php?mod=space&uid=$tospace[uid]"><!--{avatar($tospace[uid],small)}--></th>
+							<th valign="top" width="60" class="avt"><a href="home.php?mod=space&uid=$tospace[uid]"><!--{avatar($tospace['uid'], 'small')}--></th>
 							<td valign="top">{lang add} <strong>{$tospace[username]}</strong> {lang add_friend_note}:<br />
 								<input type="text" name="note" value="" size="35" class="px"  onkeydown="ctrlEnter(event, 'addsubmit_btn', 1);" />
 								<p class="mtn xg1">({lang view_note_message})</p>
@@ -429,7 +429,7 @@
 				<div class="c">
 					<table cellspacing="0" cellpadding="0">
 						<tr>
-							<th valign="top" width="60" class="avt"><a href="home.php?mod=space&uid=$tospace[uid]"><!--{avatar($tospace[uid],small)}--></th>
+							<th valign="top" width="60" class="avt"><a href="home.php?mod=space&uid=$tospace[uid]"><!--{avatar($tospace['uid'], 'small')}--></th>
 							<td valign="top">
 								<p>{lang approval_the_request_group}:</p>
 								<table><tr>

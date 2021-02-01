@@ -17,7 +17,7 @@
 				<table cellpadding="0" cellspacing="0" class="tfm">
 					<tr>
 						<td valign="top" width="140">
-							<div class="avt avtm"><a href="home.php?mod=space&uid=$uid"><!--{avatar($space[uid],middle)}--></a></div>
+							<div class="avt avtm"><a href="home.php?mod=space&uid=$uid"><!--{avatar($space['uid'], 'middle')}--></a></div>
 						</td>
 						<td>
 							<h4 class="xs2"><a href="home.php?mod=space&$url_plus">{$space[username]}</a></h4>
@@ -48,7 +48,7 @@
 				<ul class="ml mls cl">
 					<!--{loop $flist $key $value}-->
 					<li>
-						<div class="avt"><a href="home.php?mod=space&uid=$value[uid]"><!--{avatar($value[uid],small)}--></a></div>
+						<div class="avt"><a href="home.php?mod=space&uid=$value[uid]"><!--{avatar($value['uid'], 'small')}--></a></div>
 						<p><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]">$value[username]</a></p>
 					</li>
 					<!--{/loop}-->

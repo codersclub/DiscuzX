@@ -129,12 +129,12 @@
 	var h5n = new Html5notification();
 	if(h5n.issupport()) {
 		<!--{if $_G[member][newpm] && $_GET[do] != 'pm'}-->
-		h5n.shownotification('pm', '$_G[siteurl]home.php?mod=space&do=pm', '<!--{avatar($_G[uid],small,true)}-->', '{lang newpm_subject}', '{lang newpm_notice_info}');
+		h5n.shownotification('pm', '$_G[siteurl]home.php?mod=space&do=pm', '<!--{avatar($_G['uid'], 'small', true)}-->', '{lang newpm_subject}', '{lang newpm_notice_info}');
 		<!--{/if}-->
 		<!--{if $_G[member][newprompt] && $_GET[do] != 'notice'}-->
 				<!--{loop $_G['member']['category_num'] $key $val}-->
 					<!--{eval $noticetitle = lang('template', 'notice_'.$key);}-->
-					h5n.shownotification('notice_$key', '$_G[siteurl]home.php?mod=space&do=notice&view=$key', '<!--{avatar($_G[uid],small,true)}-->', '$noticetitle ($val)', '{lang newnotice_notice_info}');
+					h5n.shownotification('notice_$key', '$_G[siteurl]home.php?mod=space&do=notice&view=$key', '<!--{avatar($_G['uid'], 'small', true)}-->', '$noticetitle ($val)', '{lang newnotice_notice_info}');
 				<!--{/loop}-->
 		<!--{/if}-->
 	}

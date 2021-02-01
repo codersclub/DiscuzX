@@ -29,7 +29,7 @@
 				<div class="c {if $_G[inajax]}altw{else}mtm{/if}">
 					<div class="mbm xs2">
 					<!--{if $tospace[uid]}-->
-						<a href="home.php?mod=space&uid=$tospace[uid]" class="avt avts"><!--{avatar($tospace[uid],small)}--></a>
+						<a href="home.php?mod=space&uid=$tospace[uid]" class="avt avts"><!--{avatar($tospace['uid'], 'small')}--></a>
 						{lang to} <strong>{$tospace[username]}</strong> {lang say_hi}:
 					<!--{else}-->
 						{lang username}: <input type="text" name="username" value="" class="px" />
@@ -94,7 +94,7 @@
 			<div id="poke_ul" class="xld xlda">
 				<!--{loop $list $key $value}-->
 				<dl id="poke_$value[uid]" class="bbda cl">
-					<dd class="m avt"><a href="home.php?mod=space&uid=$value[uid]"><!--{avatar($value[uid],small)}--></a></dd>
+					<dd class="m avt"><a href="home.php?mod=space&uid=$value[uid]"><!--{avatar($value['uid'], 'small')}--></a></dd>
 					<dt id="poke_td_$value[uid]">
 						<p class="mbm">
 							<a href="home.php?mod=space&uid=$value[fromuid]" class="xi2">{$value[fromusername]}</a>:

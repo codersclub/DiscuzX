@@ -41,7 +41,7 @@
 	<!--{loop $clickuserlist $value}-->
 		<li>
 			<!--{if $value[username]}-->
-			<div class="avt"><a href="home.php?mod=space&uid=$value[uid]" target="_blank" title="$value[clickname]"><!--{avatar($value[uid], 'small')}--></a></div>
+			<div class="avt"><a href="home.php?mod=space&uid=$value[uid]" target="_blank" title="$value[clickname]"><!--{avatar($value['uid'], 'small')}--></a></div>
 			<p><a href="home.php?mod=space&uid=$value[uid]"  title="$value[username]" target="_blank">$value[username]</a></p>
 			<!--{else}-->
 			<div class="avt"><img src="{STATICURL}image/magic/hidden.gif" alt="$value[clickname]" /></div>

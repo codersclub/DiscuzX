@@ -1,6 +1,6 @@
 <!--{if $_G['uid']}-->
 <div id="um">
-	<div class="avt y"><a href="home.php?mod=space&uid=$_G[uid]"><!--{avatar($_G[uid],small)}--></a></div>
+	<div class="avt y"><a href="home.php?mod=space&uid=$_G[uid]"><!--{avatar($_G['uid'], 'small')}--></a></div>
 	<p>
 		<strong class="vwmy{if $_G['setting']['connect']['allow'] && $_G[member][conisbind]} qq{/if}"><a href="home.php?mod=space&uid=$_G[uid]" target="_blank" title="{lang visit_my_space}">{$_G[member][username]}</a></strong>
 		<!--{if $_G['group']['allowinvisible']}-->
@@ -43,7 +43,7 @@
 	<!--{template member/login_simple}-->
 <!--{else}-->
 <div id="um">
-	<div class="avt y"><!--{avatar(0,small)}--></div>
+	<div class="avt y"><!--{avatar(0, 'small')}--></div>
 	<p>
 		<strong class="vwmy qq">{$_G[member][username]}</strong>
 		<!--{hook/global_usernav_extra1}-->

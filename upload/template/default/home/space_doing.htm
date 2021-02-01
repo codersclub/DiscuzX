@@ -89,7 +89,7 @@
 			<!--{eval $doid = $dv[doid];}-->
 			<!--{eval $_GET[key] = $key = random(8);}-->
 				<dl id="{$key}dl{$doid}" class="pbn bbda cl">
-					<!--{if empty($diymode)}--><dd class="m avt"><a href="home.php?mod=space&uid=$dv[uid]" c="1"><!--{avatar($dv[uid],small)}--></a></dd><!--{/if}-->
+					<!--{if empty($diymode)}--><dd class="m avt"><a href="home.php?mod=space&uid=$dv[uid]" c="1"><!--{avatar($dv['uid'], 'small')}--></a></dd><!--{/if}-->
 					<dd class="{if empty($diymode)}ptm{else}ptw{/if} xs2">
 					<!--{if empty($diymode)}--><a href="home.php?mod=space&uid=$dv[uid]">$dv[username]</a>: <!--{/if}--><span>$dv[message]</span> <!--{if $dv[status] == 1}--> <span style="font-weight: bold;">({lang moderate_need})</span><!--{/if}-->
 					</dd>

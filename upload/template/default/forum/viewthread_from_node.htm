@@ -2,7 +2,7 @@
 <dl class="bbda cl">
 	<!--{if empty($post['deleted'])}-->
 		<!--{if $post[author] && !$post['anonymous']}-->
-		<dd class="m avt"><a href="home.php?mod=space&uid=$post[authorid]"><!--{avatar($post[authorid], small)}--></a></dd>
+		<dd class="m avt"><a href="home.php?mod=space&uid=$post[authorid]"><!--{avatar($post['authorid'], 'small')}--></a></dd>
 		<!--{else}-->
 		<dd class="m avt"><img src="{STATICURL}image/magic/hidden.gif" alt="hidden" /></dd>
 		<!--{/if}-->

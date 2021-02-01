@@ -49,7 +49,7 @@
 			<div class="bm_c xld xlda">
 			<!--{loop $commentlist $comment}-->
 				<dl class="bbda cl">
-					<dd class="m avt"><a href="home.php?mod=space&uid=$comment['uid']"><!--{avatar($comment['uid'],small)}--></a></dd>
+					<dd class="m avt"><a href="home.php?mod=space&uid=$comment['uid']"><!--{avatar($comment['uid'], 'small')}--></a></dd>
 					<dt>
 						<!--{if $permission}-->
 						<span class="y"><input type="checkbox" value="$comment[cid]" name="delcomment[]" /></span>

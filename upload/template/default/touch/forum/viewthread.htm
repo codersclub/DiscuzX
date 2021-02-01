@@ -41,7 +41,7 @@
 	<!--{eval $needhiddenreply = ($hiddenreplies && $_G['uid'] != $post['authorid'] && $_G['uid'] != $_G['forum_thread']['authorid'] && !$post['first'] && !$_G['forum']['ismoderator']);}-->
 	<!--{hook/viewthread_posttop_mobile $postcount}-->
    <div class="plc cl" id="pid$post[pid]">
-	   <span class="avatar"><img src="<!--{if !$post['authorid'] || $post['anonymous']}--><!--{avatar(0, small, true)}--><!--{else}--><!--{avatar($post[authorid], small, true)}--><!--{/if}-->" style="width:32px;height:32px;" /></span>
+	   <span class="avatar"><img src="<!--{if !$post['authorid'] || $post['anonymous']}--><!--{avatar(0, 'small', true)}--><!--{else}--><!--{avatar($post['authorid'], 'small', true)}--><!--{/if}-->" style="width:32px;height:32px;" /></span>
        <div class="display pi" href="#replybtn_$post[pid]">
 		   <ul class="authi">
 				<li class="grey">

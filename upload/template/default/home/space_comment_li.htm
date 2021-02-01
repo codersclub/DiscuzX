@@ -1,7 +1,7 @@
 <a name="comment_anchor_$value[cid]"></a>
 <!--{if empty($ajax_edit)}--><dl id="comment_$value[cid]_li" class="bbda cl"><!--{/if}-->
 	<!--{if $value[author]}-->
-	<dd class="m avt"><a href="home.php?mod=space&uid=$value[authorid]" c="1"><!--{avatar($value[authorid],small)}--></a></dd>
+	<dd class="m avt"><a href="home.php?mod=space&uid=$value[authorid]" c="1"><!--{avatar($value['authorid'], 'small')}--></a></dd>
 	<!--{else}-->
 	<dd class="m avt"><img src="{STATICURL}image/magic/hidden.gif" alt="hidden" /></dd>
 	<!--{/if}-->

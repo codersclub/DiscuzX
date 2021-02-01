@@ -348,7 +348,7 @@
 				<ul class="ml mls cl">
 					<!--{loop $followers $follower}-->
 						<li>
-							<a href="home.php?mod=space&uid=$follower[uid]" class="avt"><!--{avatar($follower[uid],small)}--></a>
+							<a href="home.php?mod=space&uid=$follower[uid]" class="avt"><!--{avatar($follower['uid'], 'small')}--></a>
 							<p><a href="home.php?mod=space&uid=$follower[uid]" c="1">$follower[username]</a></p>
 						</li>
 					<!--{/loop}-->

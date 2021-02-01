@@ -2,7 +2,7 @@
 <div class="plc cl">
 	<form method="post" autocomplete="off" id="fastpostform" action="forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]&extra=$_GET[extra]&replysubmit=yes&mobile=2">
 	<input type="hidden" name="formhash" value="{FORMHASH}" />
-	<span class="avatar"><img style="height:32px;width:32px;" src="<!--{avatar($_G[uid], small, true)}-->" /></span>  
+	<span class="avatar"><img style="height:32px;width:32px;" src="<!--{avatar($_G['uid'], 'small', true)}-->" /></span>  
 	<div class="pi">
 		<ul class="fastpost">
 		<!--{if $_G[forum_thread][special] == 5 && empty($firststand)}-->
