@@ -413,7 +413,7 @@
 							<!--{subtemplate home/follow_feed_li}-->
 						</ul>
 
-						<!--{if count($list['feed']) > 19 && ($archiver || $primary)}-->
+						<!--{if is_array($list['feed']) && count($list['feed']) > 19 && ($archiver || $primary)}-->
 						<div id="loadingfeed" class="flw_more"><a href="javascript:;" onclick="loadmore();return false;" class="xi2">{lang follow_more} &raquo;</a></div>
 						<!--{else}-->
 						<div id="loadingfeed"></div>
@@ -455,7 +455,7 @@
 						<!--{/if}-->
 					</div>
 				<!--{/if}-->
-				<!--{if count($list['feed']) > 19 && ($archiver || $primary)}-->
+				<!--{if is_array($list['feed']) && count($list['feed']) > 19 && ($archiver || $primary)}-->
 					<script type="text/javascript">
 						var scrollY = 0;
 						var page = 2;
@@ -555,7 +555,7 @@
 				<!--{if $list}-->
 					<ul class="flw_ulist">
 					<!--{loop $list $fuid $fuser}-->
-						<li class="cl<!--{if in_array($fuser['uid'], $newfollower_list)}--> unread<!--{/if}-->">
+						<li class="cl<!--{if is_array($newfollower_list) && in_array($fuser['uid'], $newfollower_list)}--> unread<!--{/if}-->">
 						<!--{if $do=='following'}-->
 							<a href="home.php?mod=space&uid=$fuser['followuid']" title="$fuser['fusername']" id="edit_avt" class="flw_avt" shref="home.php?mod=space&uid=$fuser['followuid']"><!--{avatar($fuser['followuid'], 'small')}--></a>
 							<!--{if $viewself}-->

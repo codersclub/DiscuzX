@@ -26,7 +26,7 @@
 			<!--{if $_G[setting][homepagestyle]}-->
 			<li><em>{lang space_visits}</em><strong class="xi1">$space[views]</strong></li>
 			<!--{/if}-->
-			<!--{if in_array($_G[adminid], array(1, 2))}-->
+			<!--{if in_array($_G['adminid'], array(1, 2))}-->
 			<li><em>Email</em>$space[email]</li>
 			<!--{/if}-->
 			<li><em>{lang email_status}</em><!--{if $space[emailstatus] > 0}-->{lang profile_verified}<!--{else}-->{lang profile_no_verified}<!--{/if}--></li>

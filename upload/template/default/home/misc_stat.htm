@@ -24,7 +24,7 @@
 					<td>
 						<a href="misc.php?mod=stat&op=trend"$actives[all]>{lang comprehensive_overview}</a> &nbsp;
 						<!--{loop $cols['login'] $value}-->
-						<label$actives[$value]><input type="checkbox" name="types[]" value="$value" class="pc" {if in_array($value, $_GET[types])} checked="checked"{/if} /><!--{eval echo lang('spacecp', "do_stat_$value");}--></label> &nbsp;
+						<label$actives[$value]><input type="checkbox" name="types[]" value="$value" class="pc" {if is_array($_GET['types']) && in_array($value, $_GET['types'])} checked="checked"{/if} /><!--{eval echo lang('spacecp', "do_stat_$value");}--></label> &nbsp;
 						<!--{/loop}-->
 					</td>
 				</tr>
@@ -32,7 +32,7 @@
 					<th>$_G[setting][navs][2][navname]:</th>
 					<td>
 						<!--{loop $cols['forum'] $value}-->
-						<label$actives[$value]><input type="checkbox" name="types[]" value="$value" class="pc" {if in_array($value, $_GET[types])} checked="checked"{/if} /><!--{eval echo lang('spacecp', "do_stat_$value");}--></label> &nbsp;
+						<label$actives[$value]><input type="checkbox" name="types[]" value="$value" class="pc" {if is_array($_GET['types']) && in_array($value, $_GET['types'])} checked="checked"{/if} /><!--{eval echo lang('spacecp', "do_stat_$value");}--></label> &nbsp;
 						<!--{/loop}-->
 					</td>
 				</tr>
@@ -40,7 +40,7 @@
 					<th>{lang tgroup}:</th>
 					<td>
 						<!--{loop $cols['tgroup'] $value}-->
-						<label $actives[$value]><input type="checkbox" name="types[]" value="$value" class="pc" {if in_array($value, $_GET[types])} checked="checked"{/if} /><!--{eval echo lang('spacecp', "do_stat_$value");}--></label> &nbsp;
+						<label $actives[$value]><input type="checkbox" name="types[]" value="$value" class="pc" {if is_array($_GET['types']) && in_array($value, $_GET['types'])} checked="checked"{/if} /><!--{eval echo lang('spacecp', "do_stat_$value");}--></label> &nbsp;
 						<!--{/loop}-->
 					</td>
 				</tr>
@@ -48,7 +48,7 @@
 					<th>{lang home}:</th>
 					<td>
 						<!--{loop $cols['home'] $value}-->
-						<label$actives[$value]><input type="checkbox" name="types[]" value="$value" class="pc" {if in_array($value, $_GET[types])} checked="checked"{/if} /><!--{eval echo lang('spacecp', "do_stat_$value");}--></label> &nbsp;
+						<label$actives[$value]><input type="checkbox" name="types[]" value="$value" class="pc" {if is_array($_GET['types']) && in_array($value, $_GET['types'])} checked="checked"{/if} /><!--{eval echo lang('spacecp', "do_stat_$value");}--></label> &nbsp;
 						<!--{/loop}-->
 					</td>
 				</tr>
@@ -57,7 +57,7 @@
 					<th>{lang info_interactive}:</th>
 					<td>
 						<!--{loop $cols['comment'] $value}-->
-						<label$actives[$value]><input type="checkbox" name="types[]" value="$value" class="pc" {if in_array($value, $_GET[types])} checked="checked"{/if} /><!--{eval echo lang('spacecp', "do_stat_$value");}--></label> &nbsp;
+						<label$actives[$value]><input type="checkbox" name="types[]" value="$value" class="pc" {if is_array($_GET['types']) && in_array($value, $_GET['types'])} checked="checked"{/if} /><!--{eval echo lang('spacecp', "do_stat_$value");}--></label> &nbsp;
 						<!--{/loop}-->
 					</td>
 				</tr-->
@@ -65,7 +65,7 @@
 					<th>{lang member_interactive}:</th>
 					<td>
 						<!--{loop $cols['space'] $value}-->
-						<label$actives[$value]><input type="checkbox" name="types[]" value="$value" class="pc" {if in_array($value, $_GET[types])} checked="checked"{/if} /><!--{eval echo lang('spacecp', "do_stat_$value");}--></label> &nbsp;
+						<label$actives[$value]><input type="checkbox" name="types[]" value="$value" class="pc" {if is_array($_GET['types']) && in_array($value, $_GET['types'])} checked="checked"{/if} /><!--{eval echo lang('spacecp', "do_stat_$value");}--></label> &nbsp;
 						<!--{/loop}-->
 					</td>
 				</tr>

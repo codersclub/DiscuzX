@@ -190,7 +190,7 @@
 					</tr>
 				<!--{/if}-->
 				<!--{/loop}-->
-				<!--{if $allowcstatus && in_array('customstatus', $allowitems)}-->
+				<!--{if $allowcstatus && is_array($allowitems) && in_array('customstatus', $allowitems)}-->
 				<tr>
 					<th id="th_customstatus">{lang permission_basic_status}</th>
 					<td id="td_customstatus">
@@ -200,7 +200,7 @@
 					<td>&nbsp;</td>
 				</tr>
 				<!--{/if}-->
-				<!--{if $_G['group']['maxsigsize'] && in_array('sightml', $allowitems)}-->
+				<!--{if $_G['group']['maxsigsize'] && is_array($allowitems) && in_array('sightml', $allowitems)}-->
 				<tr>
 					<th id="th_sightml">{lang personal_signature}</th>
 					<td id="td_sightml">
@@ -228,7 +228,7 @@
 					<td>&nbsp;</td>
 				</tr>
 				<!--{/if}-->
-				<!--{if in_array('timeoffset', $allowitems)}-->
+				<!--{if is_array($allowitems) && in_array('timeoffset', $allowitems)}-->
 				<tr>
 					<th id="th_timeoffset">{lang time_zone}</th>
 					<td id="td_timeoffset">

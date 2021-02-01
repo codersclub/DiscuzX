@@ -71,7 +71,7 @@ function checkreasonlen() {
 		<p>{lang collection_select}</p>
 		<select name="ctid" id="selectCollection" style="width: 280px;">
 		<!--{loop $collections $collection}-->
-			<!--{if !in_array($collection['ctid'], $tidcollections)}-->
+			<!--{if !is_array($tidcollections) || !in_array($collection['ctid'], $tidcollections)}-->
 				<option value="$collection['ctid']">$collection['name']</option>
 			<!--{/if}-->
 		<!--{/loop}-->

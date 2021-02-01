@@ -11,7 +11,7 @@
 			<div class="bm_c attgroup cl">
 				<ul>
 				<!--{loop $usergroups['groups'] $groupid $groupname}-->
-					<!--{if in_array($groupid, $attentiongroup)}-->
+					<!--{if is_array($attentiongroup) && in_array($groupid, $attentiongroup)}-->
 					<li id="li$groupid"><label for="attentiongroupid_$groupid"><input type="checkbox" name="attentiongroupid[]" id="attentiongroupid_$groupid" class="pc" value="$groupid" checked="checked" onclick="attention_checkbox(this, 'attentionform', 'attentiongroupid', 5)" />$groupname</label></li>
 					<!--{/if}-->
 				<!--{/loop}-->
@@ -22,7 +22,7 @@
 			<div class="bm_c attgroup cl">
 				<ul>
 					<!--{loop $usergroups['groups'] $groupid $groupname}-->
-						<!--{if !in_array($groupid, $attentiongroup)}-->
+						<!--{if !is_array($attentiongroup) || !in_array($groupid, $attentiongroup)}-->
 						<li id="li$groupid"><label for="attentiongroupid_$groupid"><input type="checkbox" name="attentiongroupid[]" id="attentiongroupid_$groupid" class="pc" value="$groupid" onclick="attention_checkbox(this, 'attentionform', 'attentiongroupid', 5)" />$groupname</label></li>
 						<!--{/if}-->
 					<!--{/loop}-->

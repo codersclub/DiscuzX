@@ -41,7 +41,7 @@
 <!--{if !$_G['forum']['allowspecialonly']}--><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]" title="{lang send_threads}" <!--{if ($_GET[sortid] || !$special) && $_GET['action'] != 'edit' && $_GET['action'] != 'reply'}-->class="xw1"<!--{/if}-->>{lang send_threads}</a><span class="pipe">|</span><!--{/if}--><!--{if $_G['group']['allowpostpoll']}--><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&special=1" <!--{if !$_GET[sortid] && $special == 1}-->class="xw1"<!--{/if}-->>{lang post_newthreadpoll}</a><span class="pipe">|</span><!--{/if}--><!--{if $_G['group']['allowpostreward']}--><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&special=3" <!--{if !$_GET[sortid] && $special == 3}-->class="xw1"<!--{/if}-->>{lang post_newthreadreward}</a> <span class="pipe">|</span><!--{/if}--><!--{if $_G['group']['allowpostdebate']}--><a href="forum.php?mod=post&action=newthread&fid=$_G[fid]&special=5" <!--{if !$_GET[sortid] && $special == 5}-->class="xw1"<!--{/if}-->>{lang post_newthreaddebate}</a><span class="pipe">|</span><!--{/if}-->
 <!--{if $_G['setting']['threadplugins']}-->
 <!--{loop $_G['forum']['threadplugin'] $tpid}-->
-<!--{if array_key_exists($tpid, $_G['setting']['threadplugins']) && @in_array($tpid, $_G['group']['allowthreadplugin'])}-->
+<!--{if array_key_exists($tpid, $_G['setting']['threadplugins']) && is_array($_G['group']['allowthreadplugin']) && in_array($tpid, $_G['group']['allowthreadplugin'])}-->
 <a href="forum.php?mod=post&action=newthread&fid={$_G[fid]}&specialextra=$tpid" <!--{if $specialextra==$tpid}-->class="xw1"<!--{/if}-->>{$_G[setting][threadplugins][$tpid][name]}</a><span class="pipe">|</span></li>
 <!--{/if}-->
 <!--{/loop}-->

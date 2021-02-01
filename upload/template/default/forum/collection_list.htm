@@ -1,4 +1,4 @@
-<!--{if count($collectiondata) > 0}-->
+<!--{if is_array($collectiondata) && count($collectiondata) > 0}-->
 <div class="clct_list cl">
 	<!--{loop $collectiondata $collectionvalues}-->
 	<div class="xld xlda cl">
@@ -13,7 +13,7 @@
 				<!--{if $op == 'my'}-->
 					<!--{if $collectionvalues['uid'] == $_G['uid']}-->
 						<span class="ctag ctag0">{lang collection_mycreate}</span>
-					<!--{elseif in_array($collectionvalues['ctid'], $twctid)}-->
+					<!--{elseif is_array($twctid) && in_array($collectionvalues['ctid'], $twctid)}-->
 						<span class="ctag ctag1">{lang collection_myteam}</span>
 					<!--{else}-->
 						<span class="ctag ctag2">{lang collection_mysubscribe}</span>

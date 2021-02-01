@@ -343,7 +343,7 @@
 
 	var ATTACHNUM = {'imageused':0,'imageunused':0,'attachused':0,'attachunused':0}, ATTACHUNUSEDAID = new Array(), IMGUNUSEDAID = new Array();
 	<!--{if $allowpostimg}-->
-		ATTACHNUM['imageused'] = <!--{echo @count($imgattachs['used'])}-->;
+		ATTACHNUM['imageused'] = <!--{echo is_array($imgattachs['used']) ? count($imgattachs['used']) : 0}-->;
 		<!--{if !empty($imgattachs['used']) || !empty($imgattachs['unused'])}-->
 			switchImagebutton('imgattachlist');
 			$(editorid + '_image').evt = false;
@@ -354,7 +354,7 @@
 	<!--{/if}-->
 	<!--{if $_G['group']['allowpostattach'] || $_G['group']['allowpostimage']}-->
 
-		ATTACHNUM['attachused'] = <!--{echo @count($attachs['used'])}-->;
+		ATTACHNUM['attachused'] = <!--{echo is_array($attachs['used']) ? count($attachs['used']) : 0}-->;
 		<!--{if !empty($attachs['used']) || !empty($attachs['unused'])}-->
 			$(editorid + '_attach').evt = false;
 			updateattachnum('attach');
@@ -372,7 +372,7 @@
 			<!--{/if}-->
 		<!--{/loop}-->
 		$('unusedlist_attach').innerHTML = '<div class="cl">' + msg + '</div>';
-		$('unusednum_attach').innerHTML = parseInt(<!--{echo @count($attachs['unused'])}-->);
+		$('unusednum_attach').innerHTML = parseInt(<!--{echo is_array($attachs['unused']) ? count($attachs['unused']) : 0}-->);
 	<!--{/if}-->
 	<!--{if !empty($imgattachs['unused'])}-->
 		display('attachnotice_img');
@@ -384,7 +384,7 @@
 			<!--{/if}-->
 		<!--{/loop}-->
 		$('unusedlist_img').innerHTML = '<div class="cl">' + msg + '</div>';
-		$('unusednum_img').innerHTML = parseInt(<!--{echo @count($imgattachs['unused'])}-->);
+		$('unusednum_img').innerHTML = parseInt(<!--{echo is_array($imgattachs['unused']) ? count($imgattachs['unused']) : 0}-->);
 	<!--{/if}-->
 	setCaretAtEnd();
 	if(BROWSER.ie >= 5 || BROWSER.firefox >= '2') {

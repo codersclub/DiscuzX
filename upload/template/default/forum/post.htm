@@ -138,7 +138,7 @@
 				<!--{if $_G['group']['allowposttrade']}--><li$postspecialcheck[2]><a href="javascript:;" onclick="switchpost('forum.php?mod=post&action=newthread&special=2')">{lang post_newthreadtrade}</a></li><!--{/if}-->
 				<!--{if $_G['setting']['threadplugins']}-->
 					<!--{loop $_G['forum']['threadplugin'] $tpid}-->
-						<!--{if array_key_exists($tpid, $_G['setting']['threadplugins']) && @in_array($tpid, $_G['group']['allowthreadplugin'])}-->
+						<!--{if array_key_exists($tpid, $_G['setting']['threadplugins']) && is_array($_G['group']['allowthreadplugin']) && in_array($tpid, $_G['group']['allowthreadplugin'])}-->
 							<li{if $specialextra==$tpid} class="a"{/if}><a href="javascript:;" onclick="switchpost('forum.php?mod=post&action=newthread&specialextra=$tpid')">{$_G[setting][threadplugins][$tpid][name]}</a></li>
 						<!--{/if}-->
 					<!--{/loop}-->

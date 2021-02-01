@@ -3,7 +3,7 @@
 	<!--{if $_G['uid']}-->
 		<ul class="cl nav">
 			<!--{loop $_G['setting']['mynavs'] $nav}-->
-				<!--{if $nav['available'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1))}-->
+				<!--{if is_array($nav) && $nav['available'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1))}-->
 					<li>$nav[code]</li>
 				<!--{/if}-->
 			<!--{/loop}-->
