@@ -40,7 +40,7 @@ if($operation=='add' || $operation=='edit') {
 		$blockclass_sel .= '<option value="">'.cplang('blockstyle_blockclass_sel').'</option>';
 		foreach($_G['cache']['blockclass'] as $key=>$value) {
 			foreach($value['subs'] as $subkey=>$subvalue) {
-				$blockclass_sel .= "<option value=\"$subkey\">$subvalue[name]</option>";
+				$blockclass_sel .= "<option value=\"$subkey\">{$subvalue['name']}</option>";
 			}
 		}
 		$blockclass_sel .= '</select>';
@@ -179,7 +179,7 @@ BLOCKCLASSSEL;
 		if($newstyle['blockclass'] != $thestyle['blockclass']) {
 			cpmsg('blockstyle_blockclass_not_match', 'action=blockstyle', 'error');
 		}
-		C::t('common_block')->update_by_styleid($styleid, array('styleid' => $_POST[moveto]));
+		C::t('common_block')->update_by_styleid($styleid, array('styleid' => $_POST['moveto']));
 		C::t('common_block_style')->delete($_GET['styleid']);
 		updatecache('blockclass');
 		cpmsg('blockstyle_delete_succeed', 'action=blockstyle', 'succeed');
@@ -191,7 +191,7 @@ BLOCKCLASSSEL;
 		showtableheader();
 		$movetoselect = '<select name="moveto">';
 		foreach($styles as $key=>$value) {
-			$movetoselect .= "<option value=\"$key\">$value[name]</option>";
+			$movetoselect .= "<option value=\"$key\">{$value['name']}</option>";
 		}
 		$movetoselect .= '</select>';
 		showsetting('blockstyle_moveto', '', '', $movetoselect);
@@ -253,7 +253,7 @@ BLOCKCLASSSEL;
 	foreach($_G['cache']['blockclass'] as $key=>$value) {
 		foreach($value['subs'] as $subkey=>$subvalue) {
 			$selected = (!empty($_GET['blockclass']) && $subkey == $_GET['blockclass'] ? ' selected' : '');
-			$blockclass_sel .= "<option value=\"$subkey\"$selected>$subvalue[name]</option>";
+			$blockclass_sel .= "<option value=\"$subkey\"$selected>{$subvalue['name']}</option>";
 		}
 	}
 	$blockclass_sel .= '</select>';
@@ -264,32 +264,32 @@ BLOCKCLASSSEL;
 	<div style="margin-top:8px;">
 		<table cellspacing="3" cellpadding="3">
 			<tr>
-				<th>$searchlang[blockstyle_id]</th><td><input type="text" class="txt" name="styleid" value="$_GET[styleid]"></td>
-				<th>$searchlang[blockstyle_name]*</th><td><input type="text" class="txt" name="name" value="$_GET[name]">*$searchlang[likesupport]</td>
+				<th>{$searchlang['blockstyle_id']}</th><td><input type="text" class="txt" name="styleid" value="{$_GET['styleid']}"></td>
+				<th>{$searchlang['blockstyle_name']}*</th><td><input type="text" class="txt" name="name" value="{$_GET['name']}">*{$searchlang['likesupport']}</td>
 			</tr>
 			<tr>
-				<th>$searchlang[blockstyle_blockclass]</th><td>$blockclass_sel</td>
-				<th>$searchlang[blockstyle_template]*</th><td><input type="text" name="template" value="$_GET[template]">*$searchlang[likesupport]</td>
+				<th>{$searchlang['blockstyle_blockclass']}</th><td>$blockclass_sel</td>
+				<th>{$searchlang['blockstyle_template']}*</th><td><input type="text" name="template" value="{$_GET['template']}">*{$searchlang['likesupport']}</td>
 			</tr>
 			<tr>
-				<th>$searchlang[resultsort]</th>
+				<th>{$searchlang['resultsort']}</th>
 				<td colspan="3">
 					<select name="orderby">
-					<option value="styleid">$searchlang[defaultsort]</option>
-					<option value="blockclass"$orderby[blockclass]>$searchlang[blockstyle_blockclass]</option>
+					<option value="styleid">{$searchlang['defaultsort']}</option>
+					<option value="blockclass"{$orderby['blockclass']}>{$searchlang['blockstyle_blockclass']}</option>
 					</select>
 					<select name="ordersc">
-					<option value="desc"$ordersc[desc]>$searchlang[orderdesc]</option>
-					<option value="asc"$ordersc[asc]>$searchlang[orderasc]</option>
+					<option value="desc"{$ordersc['desc']}>{$searchlang['orderdesc']}</option>
+					<option value="asc"{$ordersc['asc']}>{$searchlang['orderasc']}</option>
 					</select>
 					<select name="perpage">
-					<option value="10"$perpages[10]>$searchlang[perpage_10]</option>
-					<option value="20"$perpages[20]>$searchlang[perpage_20]</option>
-					<option value="50"$perpages[50]>$searchlang[perpage_50]</option>
-					<option value="100"$perpages[100]>$searchlang[perpage_100]</option>
+					<option value="10"{$perpages[10]}>{$searchlang['perpage_10']}</option>
+					<option value="20"{$perpages[20]}>{$searchlang['perpage_20']}</option>
+					<option value="50"{$perpages[50]}>{$searchlang['perpage_50']}</option>
+					<option value="100"{$perpages[100]}>{$searchlang['perpage_100']}</option>
 					</select>
 					<input type="hidden" name="action" value="blockstyle">
-					<input type="submit" name="searchsubmit" value="$searchlang[search]" class="btn">
+					<input type="submit" name="searchsubmit" value="{$searchlang['search']}" class="btn">
 				</td>
 			</tr>
 		</table>
@@ -304,7 +304,7 @@ SEARCH;
 	showsubtitle(array('blockstyle_name', 'blockstyle_blockclass', 'operation'));
 
 	$multipage = '';
-	if(($count = C::t(common_block_style)->count_by_where($wheresql))) {
+	if(($count = C::t('common_block_style')->count_by_where($wheresql))) {
 		include_once libfile('function/block');
 		foreach(C::t('common_block_style')->fetch_all_by_where($wheresql, $ordersql, $start, $perpage) as $value) {
 			$theclass = block_getclass($value['blockclass']);
@@ -312,8 +312,8 @@ SEARCH;
 			showtablerow('', array('class=""', 'class=""', 'class="td28"'), array(
 				$value['name'],
 				$theclass['name'],
-				"<a href=\"".ADMINSCRIPT."?action=blockstyle&operation=edit&blockclass=$value[blockclass]&styleid=$value[styleid]\">".cplang('blockstyle_edit')."</a>&nbsp;&nbsp;".
-				"<a href=\"".ADMINSCRIPT."?action=blockstyle&operation=delete&styleid=$value[styleid]\">".cplang('blockstyle_delete')."</a>"
+				"<a href=\"".ADMINSCRIPT."?action=blockstyle&operation=edit&blockclass={$value['blockclass']}&styleid={$value['styleid']}\">".cplang('blockstyle_edit')."</a>&nbsp;&nbsp;".
+				"<a href=\"".ADMINSCRIPT."?action=blockstyle&operation=delete&styleid={$value['styleid']}\">".cplang('blockstyle_delete')."</a>"
 			));
 		}
 		$multipage = multi($count, $perpage, $page, $mpurl);

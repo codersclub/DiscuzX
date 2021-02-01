@@ -36,7 +36,7 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		if($cat['catid'] == $_GET['catid']) {
 			$selected = 'selected="selected"';
 		}
-		$cat_select .= "<option value=\"$cat[catid]\" $selected>$cat[catname]</option>";
+		$cat_select .= "<option value=\"{$cat['catid']}\" $selected>{$cat['catname']}</option>";
 	}
 	$article_status = 1;
 	if($_GET['filter'] == 'ignore') {
@@ -47,18 +47,18 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 
 	showtablerow('', array('width="60"', 'width="160"', 'width="60"'),
 		array(
-			cplang('username'), "<input size=\"15\" name=\"username\" type=\"text\" value=\"$_GET[username]\" />",
+			cplang('username'), "<input size=\"15\" name=\"username\" type=\"text\" value=\"{$_GET['username']}\" />",
 			cplang('moderate_article_category'), "<select name=\"catid\">$cat_select</select>",
 		)
 	);
 	showtablerow('', array('width="60"', 'width="160"', 'width="60"'),
                 array(
-                        "$lang[perpage]",
-                        "<select name=\"tpp\">$tpp_options</select><label><input name=\"showcensor\" type=\"checkbox\" class=\"checkbox\" value=\"yes\" ".($showcensor ? ' checked="checked"' : '')."/> $lang[moderate_showcensor]</label>",
-                        "$lang[moderate_bound]",
+                        "{$lang['perpage']}",
+                        "<select name=\"tpp\">$tpp_options</select><label><input name=\"showcensor\" type=\"checkbox\" class=\"checkbox\" value=\"yes\" ".($showcensor ? ' checked="checked"' : '')."/> {$lang['moderate_showcensor']}</label>",
+                        "{$lang['moderate_bound']}",
                         "<select name=\"filter\">$filteroptions</select>
                         <select name=\"dateline\">$dateline_options</select>
-                        <input class=\"btn\" type=\"submit\" value=\"$lang[search]\" />"
+                        <input class=\"btn\" type=\"submit\" value=\"{$lang['search']}\" />"
                 )
         );
 
@@ -100,16 +100,16 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 			$article_censor_text = '';
 		}
 		showtagheader('tbody', '', true, 'hover');
-		showtablerow("id=\"mod_$article[aid]_row1\"", array("id=\"mod_$article[aid]_row1_op\" rowspan=\"3\" class=\"rowform threadopt\" style=\"width:80px;\"", '', 'width="120"', 'width="55"'), array(
-			"<ul class=\"nofloat\"><li><input class=\"radio\" type=\"radio\" name=\"moderate[$article[aid]]\" id=\"mod_$article[aid]_1\" value=\"validate\" onclick=\"mod_setbg($article[aid], 'validate');\"><label for=\"mod_$article[aid]_1\">$lang[validate]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$article[aid]]\" id=\"mod_$article[aid]_2\" value=\"delete\" onclick=\"mod_setbg($article[aid], 'delete');\"><label for=\"mod_$article[aid]_2\">$lang[delete]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$article[aid]]\" id=\"mod_$article[aid]_3\" value=\"ignore\" onclick=\"mod_setbg($article[aid], 'ignore');\"><label for=\"mod_$article[aid]_3\">$lang[ignore]</label></li></ul>",
-			"<h3><a href=\"javascript:;\" onclick=\"display_toggle({$article[aid]});\">$article[title] $article_censor_text</a></h3>",
-			"<p><a target=\"_blank\" href=\"".ADMINSCRIPT."?action=members&operation=search&uid=$article[uid]&submit=yes\">$article[username]</a></p> <p>$article[dateline]</p>",
-			"<a target=\"_blank\" href=\"portal.php?mod=view&aid=$article[aid]&modarticlekey=$article[modarticlekey]\">$lang[view]</a>&nbsp;<a href=\"portal.php?mod=portalcp&ac=article&op=edit&aid=$article[aid]&modarticlekey=$article[modarticlekey]\" target=\"_blank\">$lang[edit]</a>",
+		showtablerow("id=\"mod_{$article['aid']}_row1\"", array("id=\"mod_{$article['aid']}_row1_op\" rowspan=\"3\" class=\"rowform threadopt\" style=\"width:80px;\"", '', 'width="120"', 'width="55"'), array(
+			"<ul class=\"nofloat\"><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$article['aid']}]\" id=\"mod_{$article['aid']}_1\" value=\"validate\" onclick=\"mod_setbg({$article['aid']}, 'validate');\"><label for=\"mod_{$article['aid']}_1\">{$lang['validate']}</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$article['aid']}]\" id=\"mod_{$article['aid']}_2\" value=\"delete\" onclick=\"mod_setbg({$article['aid']}, 'delete');\"><label for=\"mod_{$article['aid']}_2\">{$lang['delete']}</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$article['aid']}]\" id=\"mod_{$article['aid']}_3\" value=\"ignore\" onclick=\"mod_setbg({$article['aid']}, 'ignore');\"><label for=\"mod_{$article['aid']}_3\">{$lang['ignore']}</label></li></ul>",
+			"<h3><a href=\"javascript:;\" onclick=\"display_toggle({$article['aid']});\">{$article['title']} $article_censor_text</a></h3>",
+			"<p><a target=\"_blank\" href=\"".ADMINSCRIPT."?action=members&operation=search&uid={$article['uid']}&submit=yes\">{$article['username']}</a></p> <p>{$article['dateline']}</p>",
+			"<a target=\"_blank\" href=\"portal.php?mod=view&aid={$article['aid']}&modarticlekey={$article['modarticlekey']}\">{$lang['view']}</a>&nbsp;<a href=\"portal.php?mod=portalcp&ac=article&op=edit&aid={$article['aid']}&modarticlekey={$article['modarticlekey']}\" target=\"_blank\">{$lang['edit']}</a>",
 		));
 
-		showtablerow("id=\"mod_$article[aid]_row2\"", 'colspan="4" style="padding: 10px; line-height: 180%;"', '<div style="overflow: auto; overflow-x: hidden; max-height:120px; height:auto !important; height:100px; word-break: break-all;">'.$article['summary'].'</div>');
+		showtablerow("id=\"mod_{$article['aid']}_row2\"", 'colspan="4" style="padding: 10px; line-height: 180%;"', '<div style="overflow: auto; overflow-x: hidden; max-height:120px; height:auto !important; height:100px; word-break: break-all;">'.$article['summary'].'</div>');
 
-		showtablerow("id=\"mod_$article[aid]_row3\"", 'class="threadopt threadtitle" colspan="4"', "<a href=\"?action=moderate&operation=articles&fast=1&aid=$article[aid]&moderate[$article[aid]]=validate&page=$page&frame=no\" target=\"fasthandle\">$lang[validate]</a> | <a href=\"?action=moderate&operation=articles&fast=1&aid=$article[aid]&moderate[$article[aid]]=delete&page=$page&frame=no\" target=\"fasthandle\">$lang[delete]</a> | <a href=\"?action=moderate&operation=articles&fast=1&aid=$article[aid]&moderate[$article[aid]]=ignore&page=$page&frame=no\" target=\"fasthandle\">$lang[ignore]</a>");
+		showtablerow("id=\"mod_{$article['aid']}_row3\"", 'class="threadopt threadtitle" colspan="4"', "<a href=\"?action=moderate&operation=articles&fast=1&aid={$article['aid']}&moderate[{$article['aid']}]=validate&page=$page&frame=no\" target=\"fasthandle\">{$lang['validate']}</a> | <a href=\"?action=moderate&operation=articles&fast=1&aid={$article['aid']}&moderate[{$article['aid']}]=delete&page=$page&frame=no\" target=\"fasthandle\">{$lang['delete']}</a> | <a href=\"?action=moderate&operation=articles&fast=1&aid={$article['aid']}&moderate[{$article['aid']}]=ignore&page=$page&frame=no\" target=\"fasthandle\">{$lang['ignore']}</a>");
 		showtagfooter('tbody');
 	}
 

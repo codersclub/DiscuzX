@@ -118,11 +118,11 @@ if(!$operation) {
 				'<p><span class="light">'.($plugin['copyright'] ? cplang('author').': '.dhtmlspecialchars($plugin['copyright']).' | ' : '').
 					'<a href="'.ADMINSCRIPT.'?action=cloudaddons&id='.$plugin['identifier'].'.plugin" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$lang['plugins_visit'].'</a></span></p>'.
 				'<p>'.implode(' | ', $submenuitem).'</p>',
-				($hookexists !== FALSE && $plugin['available'] ? $lang['display_order'].": <input class=\"txt num\" type=\"text\" id=\"displayorder_$plugin[pluginid]\" name=\"displayordernew[$plugin[pluginid]][$hookexists]\" value=\"$hookorder\" /><br /><br />" : '').
-					(!$plugin['available'] ? "<a href=\"".ADMINSCRIPT."?action=plugins&operation=enable&pluginid=$plugin[pluginid]&formhash=".FORMHASH.(!empty($_GET['system']) ? '&system=1' : '')."\" class=\"bold\">$lang[enable]</a>&nbsp;&nbsp;" : "<a href=\"".ADMINSCRIPT."?action=plugins&operation=disable&pluginid=$plugin[pluginid]&formhash=".FORMHASH.(!empty($_GET['system']) ? '&system=1' : '')."\">$lang[closed]</a>&nbsp;&nbsp;").
-					"<a href=\"".ADMINSCRIPT."?action=plugins&operation=upgrade&pluginid=$plugin[pluginid]\">$lang[plugins_config_upgrade]</a>&nbsp;&nbsp;".
-					(!$plugin['modules']['system'] ? "<a href=\"".ADMINSCRIPT."?action=plugins&operation=delete&pluginid=$plugin[pluginid]\" onclick=\"return confirm('".lang('admincp', 'plugins_config_uninstall_tips', array('pluginname' => dhtmlspecialchars($plugin['name'])))."');\">$lang[plugins_config_uninstall]</a>&nbsp;&nbsp;" : '').
-					($isplugindeveloper && !$plugin['modules']['system'] ? "<a href=\"".ADMINSCRIPT."?action=plugins&operation=edit&pluginid=$plugin[pluginid]\">$lang[plugins_editlink]</a>&nbsp;&nbsp;" : ''),
+				($hookexists !== FALSE && $plugin['available'] ? $lang['display_order'].": <input class=\"txt num\" type=\"text\" id=\"displayorder_{$plugin['pluginid']}\" name=\"displayordernew[{$plugin['pluginid']}][$hookexists]\" value=\"$hookorder\" /><br /><br />" : '').
+					(!$plugin['available'] ? "<a href=\"".ADMINSCRIPT."?action=plugins&operation=enable&pluginid={$plugin['pluginid']}&formhash=".FORMHASH.(!empty($_GET['system']) ? '&system=1' : '')."\" class=\"bold\">{$lang['enable']}</a>&nbsp;&nbsp;" : "<a href=\"".ADMINSCRIPT."?action=plugins&operation=disable&pluginid={$plugin['pluginid']}&formhash=".FORMHASH.(!empty($_GET['system']) ? '&system=1' : '')."\">{$lang['closed']}</a>&nbsp;&nbsp;").
+					"<a href=\"".ADMINSCRIPT."?action=plugins&operation=upgrade&pluginid={$plugin['pluginid']}\">{$lang['plugins_config_upgrade']}</a>&nbsp;&nbsp;".
+					(!$plugin['modules']['system'] ? "<a href=\"".ADMINSCRIPT."?action=plugins&operation=delete&pluginid={$plugin['pluginid']}\" onclick=\"return confirm('".lang('admincp', 'plugins_config_uninstall_tips', array('pluginname' => dhtmlspecialchars($plugin['name'])))."');\">{$lang['plugins_config_uninstall']}</a>&nbsp;&nbsp;" : '').
+					($isplugindeveloper && !$plugin['modules']['system'] ? "<a href=\"".ADMINSCRIPT."?action=plugins&operation=edit&pluginid={$plugin['pluginid']}\">{$lang['plugins_editlink']}</a>&nbsp;&nbsp;" : ''),
 			), true);
 		}
 		$pluginlist = (array)$pluginlist;
@@ -667,7 +667,7 @@ if(!$operation) {
 				} else {
 					$m = true;
 				}
-				$submenuitem[] = array($module['menu'], "plugins&operation=config&do=$pluginid&identifier=$plugin[identifier]&pmod=$module[name]".($module['param'] ? '&'.$module['param'] : ''), $_GET['pmod'] == $module['name'] && $m, !$_GET['pmod'] ? 1 : 0);
+				$submenuitem[] = array($module['menu'], "plugins&operation=config&do=$pluginid&identifier={$plugin['identifier']}&pmod={$module['name']}".($module['param'] ? '&'.$module['param'] : ''), $_GET['pmod'] == $module['name'] && $m, !$_GET['pmod'] ? 1 : 0);
 			}
 		}
 	}
@@ -693,7 +693,7 @@ if(!$operation) {
 					if($var['type'] == 'number') {
 						$var['type'] = 'text';
 					} elseif($var['type'] == 'select') {
-						$var['type'] = "<select name=\"$var[variable]\">\n";
+						$var['type'] = "<select name=\"{$var['variable']}\">\n";
 						foreach(explode("\n", $var['extra']) as $key => $option) {
 							$option = trim($option);
 							if(strpos($option, '=') === FALSE) {
@@ -710,7 +710,7 @@ if(!$operation) {
 					} elseif($var['type'] == 'selects') {
 						$var['value'] = dunserialize($var['value']);
 						$var['value'] = is_array($var['value']) ? $var['value'] : array($var['value']);
-						$var['type'] = "<select name=\"$var[variable][]\" multiple=\"multiple\" size=\"10\">\n";
+						$var['type'] = "<select name=\"{$var['variable']}[]\" multiple=\"multiple\" size=\"10\">\n";
 						foreach(explode("\n", $var['extra']) as $key => $option) {
 							$option = trim($option);
 							if(strpos($option, '=') === FALSE) {
@@ -988,16 +988,16 @@ if(!$operation) {
 					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[$moduleid]\">",
 					"<select id=\"s_$moduleid\" onchange=\"shide(this, '$moduleid')\" name=\"typenew[$moduleid]\">$typeselect</select>".
 						' <a href="javascript:;" onclick="window.open(\''.ADMINSCRIPT.'?action=plugins&mod=attachment&operation=sample&pluginid='.$pluginid.'&frame=no&typeid=\'+$(\'s_'.$moduleid.'\').value+\'&module=\'+$(\'en_'.$moduleid.'\').value+\'&fn=\'+$(\'e_'.$moduleid.'\').innerHTML)">'.cplang('plugins_module_sample').'</a>',
-					"<input type=\"text\" class=\"txt\" size=\"15\" id=\"en_$moduleid\" name=\"namenew[$moduleid]\" value=\"$module[name]\"><span id=\"e_$moduleid\"></span>",
-					"<span id=\"m_$moduleid\"><input type=\"text\" class=\"txt\" size=\"15\" name=\"menunew[$moduleid]\" value=\"$module[menu]\"></span>",
+					"<input type=\"text\" class=\"txt\" size=\"15\" id=\"en_$moduleid\" name=\"namenew[$moduleid]\" value=\"{$module['name']}\"><span id=\"e_$moduleid\"></span>",
+					"<span id=\"m_$moduleid\"><input type=\"text\" class=\"txt\" size=\"15\" name=\"menunew[$moduleid]\" value=\"{$module['menu']}\"></span>",
 					"<span id=\"u_$moduleid\"><input type=\"text\" class=\"txt\" size=\"15\" id=\"url_$moduleid\" onchange=\"shide($('s_$moduleid'), '$moduleid')\" name=\"urlnew[$moduleid]\" value=\"".dhtmlspecialchars($module['url'])."\"></span>",
 					"<span id=\"a_$moduleid\"><select name=\"adminidnew[$moduleid]\">\n".
-					"<option value=\"0\" $adminidselect[0]>$lang[usergroups_system_0]</option>\n".
-					"<option value=\"1\" $adminidselect[1]>$lang[usergroups_system_1]</option>\n".
-					"<option value=\"2\" $adminidselect[2]>$lang[usergroups_system_2]</option>\n".
-					"<option value=\"3\" $adminidselect[3]>$lang[usergroups_system_3]</option>\n".
+					"<option value=\"0\" $adminidselect[0]>{$lang['usergroups_system_0']}</option>\n".
+					"<option value=\"1\" $adminidselect[1]>{$lang['usergroups_system_1']}</option>\n".
+					"<option value=\"2\" $adminidselect[2]>{$lang['usergroups_system_2']}</option>\n".
+					"<option value=\"3\" $adminidselect[3]>{$lang['usergroups_system_3']}</option>\n".
 					"</select></span>",
-					"<span id=\"o_$moduleid\"><input type=\"text\" class=\"txt\" style=\"width:50px\" name=\"ordernew[$moduleid]\" value=\"$module[displayorder]\"></span>"
+					"<span id=\"o_$moduleid\"><input type=\"text\" class=\"txt\" style=\"width:50px\" name=\"ordernew[$moduleid]\" value=\"{$module['displayorder']}\"></span>"
 				));
 				showtagheader('tbody', 'n_'.$moduleid);
 				showtablerow('class="noborder"', array('', 'colspan="6"'), array(
@@ -1120,12 +1120,12 @@ if(!$operation) {
 			$var['type'] = $lang['plugins_edit_vars_type_'. $var['type']];
 			$var['title'] .= isset($lang[$var['title']]) ? '<br />'.$lang[$var['title']] : '';
 			showtablerow('', array('class="td25"', 'class="td28"'), array(
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$var[pluginvarid]\">",
-				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"displayordernew[$var[pluginvarid]]\" value=\"$var[displayorder]\">",
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$var['pluginvarid']}\">",
+				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"displayordernew[{$var['pluginvarid']}]\" value=\"{$var['displayorder']}\">",
 				$var['title'],
 				$var['variable'],
 				$var['type'],
-				"<a href=\"".ADMINSCRIPT."?action=plugins&operation=vars&pluginid=$plugin[pluginid]&pluginvarid=$var[pluginvarid]\" class=\"act\">$lang[detail]</a>"
+				"<a href=\"".ADMINSCRIPT."?action=plugins&operation=vars&pluginid={$plugin['pluginid']}&pluginvarid={$var['pluginvarid']}\" class=\"act\">{$lang['detail']}</a>"
 			));
 		}
 		showtablerow('', array('class="td25"', 'class="td28"'), array(

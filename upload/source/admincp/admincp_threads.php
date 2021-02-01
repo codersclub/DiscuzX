@@ -41,7 +41,7 @@ if((!$operation && !$optype) || ($operation == 'group' && empty($optype))) {
 	$forumselect = '<b>'.$lang['threads_search_forum'].':</b><br><br><select name="inforum" onchange="ajaxget(\'forum.php?mod=ajax&action=getthreadtypes&selectname=intype&fid=\' + this.value, \'forumthreadtype\')"><option value="all">&nbsp;&nbsp;> '.$lang['all'].'</option><option value="">&nbsp;</option>'.forumselect(FALSE, 0, 0, TRUE).'</select>';
 	$typeselect = $lang['threads_move_type'].' <span id="forumthreadtype"><select name="intype"><option value=""></option>'.$intypes.'</select></span>';
 	if(isset($_GET['inforum'])) {
-		$forumselect = preg_replace("/(\<option value=\"$_GET[inforum]\")(\>)/", "\\1 selected=\"selected\" \\2", $forumselect);
+		$forumselect = preg_replace("/(\<option value=\"{$_GET['inforum']}\")(\>)/", "\\1 selected=\"selected\" \\2", $forumselect);
 	}
 
 	$sortselect = '';
@@ -89,7 +89,7 @@ EOT;
 	if($operation != 'group') {
 		showtablerow('', array('class="rowform" colspan="2" style="width:auto;"'), array($forumselect.$typeselect));
 	}
-	showsetting('threads_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>$lang[perpage_20]</option><option value='50'>$lang[perpage_50]</option><option value='100'>$lang[perpage_100]</option></select>");
+	showsetting('threads_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>{$lang['perpage_20']}</option><option value='50'>{$lang['perpage_50']}</option><option value='100'>{$lang['perpage_100']}</option></select>");
 	if(!$fromumanage) {
 		empty($_GET['starttime']) && $_GET['starttime'] = date('Y-m-d', time() - 86400 * 30);
 	}
@@ -239,7 +239,7 @@ EOT;
 					foreach(C::t('forum_thread')->fetch_all_search($conditions, 0, $start, $perpage, 'tid', 'DESC', ' FORCE INDEX(PRIMARY) ') as $thread) {
 						$fids[] = $thread['fid'];
 						if($thread['isgroup']) {
-							$groupsfid[$thread[fid]] = $thread['fid'];
+							$groupsfid[$thread['fid']] = $thread['fid'];
 						}
 						$thread['lastpost'] = dgmdate($thread['lastpost']);
 						$threadlist[] = $thread;
@@ -247,16 +247,16 @@ EOT;
 					if($groupsfid) {
 						$query = C::t('forum_forum')->fetch_all_by_fid($groupsfid);
 						foreach($query as $row) {
-							$groupsname[$row[fid]] = $row['name'];
+							$groupsname[$row['fid']] = $row['name'];
 						}
 					}
 					if($threadlist) {
 						foreach($threadlist as $thread) {
 							$threads .= showtablerow('', array('class="td25"', '', '', '', 'class="td25"', 'class="td25"'), array(
-								"<input class=\"checkbox\" type=\"checkbox\" name=\"tidarray[]\" value=\"$thread[tid]\" />",
-								"<a href=\"forum.php?mod=viewthread&tid=$thread[tid]".($thread['displayorder'] != -4 ? '' : '&modthreadkey='.modauthkey($thread['tid']))."\" target=\"_blank\">$thread[subject]</a>".($thread['readperm'] ? " - [$lang[threads_readperm] $thread[readperm]]" : '').($thread['price'] ? " - [$lang[threads_price] $thread[price]]" : ''),
-							"<a href=\"forum.php?mod=forumdisplay&fid=$thread[fid]\" target=\"_blank\">".(empty($thread['isgroup']) ? $_G['cache']['forums'][$thread[fid]]['name'] : $groupsname[$thread[fid]])."</a>",
-								"<a href=\"home.php?mod=space&uid=$thread[authorid]\" target=\"_blank\">$thread[author]</a>",
+								"<input class=\"checkbox\" type=\"checkbox\" name=\"tidarray[]\" value=\"{$thread['tid']}\" />",
+								"<a href=\"forum.php?mod=viewthread&tid={$thread['tid']}".($thread['displayorder'] != -4 ? '' : '&modthreadkey='.modauthkey($thread['tid']))."\" target=\"_blank\">{$thread['subject']}</a>".($thread['readperm'] ? " - [{$lang['threads_readperm']} {$thread['readperm']}]" : '').($thread['price'] ? " - [{$lang['threads_price']} {$thread['price']}]" : ''),
+							"<a href=\"forum.php?mod=forumdisplay&fid={$thread['fid']}\" target=\"_blank\">".(empty($thread['isgroup']) ? $_G['cache']['forums'][$thread['fid']]['name'] : $groupsname[$thread['fid']])."</a>",
+								"<a href=\"home.php?mod=space&uid={$thread['authorid']}\" target=\"_blank\">{$thread['author']}</a>",
 								$thread['replies'],
 								$thread['views'],
 								$thread['lastpost']
@@ -478,7 +478,7 @@ EOT;
 						}
 						showtablerow('', array('class="td25"'), array(
 							"<input type=\"checkbox\" class=\"checkbox\" name=\"delete[]\" value=\"$k\">",
-							"<a href=\"forum.php?mod=viewthread&tid=$v[tid]\" target=\"_blank\">$v[subject]</a>",
+							"<a href=\"forum.php?mod=viewthread&tid={$v['tid']}\" target=\"_blank\">{$v['subject']}</a>",
 							(is_array($forumnames) ? implode(', ', $forumnames) : (string)$forumnames),
 							(is_array($grouptypes) ? implode(', ', $grouptypes) : (string)$grouptypes),
 							"<a href=\"".ADMINSCRIPT."?action=threads&operation=forumstick&do=edit&id=$k\">{$lang['threads_forumstick_targets_change']}</a>",

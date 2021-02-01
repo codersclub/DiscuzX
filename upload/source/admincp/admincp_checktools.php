@@ -148,10 +148,10 @@ if($operation == 'filecheck') {
 
 		if($homecheck) {
 			ajaxshowheader();
-			echo "<em class=\"edited\">$lang[filecheck_modify]: $modifiedfiles</em> &nbsp; ".
-				"<em class=\"del\">$lang[filecheck_delete]: $deletedfiles</em> &nbsp; ".
-				"<em class=\"unknown\">$lang[filecheck_unknown]: $unknownfiles</em> &nbsp; ".
-				"<em class=\"unknown\">$lang[filecheck_doubt]: $doubt</em>  &nbsp; ".
+			echo "<em class=\"edited\">{$lang['filecheck_modify']}: $modifiedfiles</em> &nbsp; ".
+				"<em class=\"del\">{$lang['filecheck_delete']}: $deletedfiles</em> &nbsp; ".
+				"<em class=\"unknown\">{$lang['filecheck_unknown']}: $unknownfiles</em> &nbsp; ".
+				"<em class=\"unknown\">{$lang['filecheck_doubt']}: $doubt</em>  &nbsp; ".
 				$lang['filecheck_last_homecheck'].': '.dgmdate(TIMESTAMP, 'u').' <a href="'.ADMINSCRIPT.'?action=checktools&operation=filecheck&step=3">['.$lang['filecheck_view_list'].']</a>';
 			ajaxshowfooter();
 		}
@@ -176,10 +176,10 @@ if($operation == 'filecheck') {
 		showtips('filecheck_tips');
 		showtableheader('filecheck_completed');
 		showtablerow('', 'colspan="4"', "<div class=\"margintop marginbot\">".
-			"<em class=\"edited\">$lang[filecheck_modify]: $modifiedfiles</em> ".($modifiedfiles > 0 ? "<a href=\"###\" onclick=\"showresult('modify')\">[$lang[view]]</a> " : '').
-			" &nbsp; <em class=\"del\">$lang[filecheck_delete]: $deletedfiles</em> ".($deletedfiles > 0 ? "<a href=\"###\" onclick=\"showresult('del')\">[$lang[view]]</a> " : '').
-			" &nbsp; <em class=\"unknown\">$lang[filecheck_unknown]: $unknownfiles</em> ".($unknownfiles > 0 ? "<a href=\"###\" onclick=\"showresult('add')\">[$lang[view]]</a> " : '').
-			($doubt > 0 ? "&nbsp;&nbsp;&nbsp;&nbsp;<em class=\"unknown\">$lang[filecheck_doubt]: $doubt</em> <a href=\"###\" onclick=\"showresult('doubt')\">[$lang[view]]</a> " : '').
+			"<em class=\"edited\">{$lang['filecheck_modify']}: $modifiedfiles</em> ".($modifiedfiles > 0 ? "<a href=\"###\" onclick=\"showresult('modify')\">[{$lang['view']}]</a> " : '').
+			" &nbsp; <em class=\"del\">{$lang['filecheck_delete']}: $deletedfiles</em> ".($deletedfiles > 0 ? "<a href=\"###\" onclick=\"showresult('del')\">[{$lang['view']}]</a> " : '').
+			" &nbsp; <em class=\"unknown\">{$lang['filecheck_unknown']}: $unknownfiles</em> ".($unknownfiles > 0 ? "<a href=\"###\" onclick=\"showresult('add')\">[{$lang['view']}]</a> " : '').
+			($doubt > 0 ? "&nbsp;&nbsp;&nbsp;&nbsp;<em class=\"unknown\">{$lang['filecheck_doubt']}: $doubt</em> <a href=\"###\" onclick=\"showresult('doubt')\">[{$lang['view']}]</a> " : '').
 			"</div>");
 		showsubtitle(array('filename', '', 'lastmodified', ''));
 		echo $result;
@@ -200,14 +200,14 @@ if($operation == 'filecheck') {
 	if($step == 1) {
 		$styleselect = "<br><br><select name=\"styleid\">";
 		foreach(C::t('common_style')->fetch_all_data() as $style) {
-			$styleselect .= "<option value=\"$style[styleid]\" ".
+			$styleselect .= "<option value=\"{$style['styleid']}\" ".
 				($style['styleid'] == $_G['setting']['styleid'] ? 'selected="selected"' : NULL).
-				">$style[name]</option>\n";
+				">{$style['name']}</option>\n";
 		}
 		$styleselect .= '</select>';
 		cpmsg(cplang('hookcheck_tips_step1', array('template' => $styleselect)), 'action=checktools&operation=hookcheck&step=2', 'form', '', FALSE);
 	} elseif($step == 2) {
-		cpmsg(cplang('hookcheck_verifying'), "action=checktools&operation=hookcheck&step=3&styleid=$_POST[styleid]", 'loading', '', FALSE);
+		cpmsg(cplang('hookcheck_verifying'), "action=checktools&operation=hookcheck&step=3&styleid={$_POST['styleid']}", 'loading', '', FALSE);
 	} elseif($step == 3) {
 		if(!$discuzfiles = @file('./source/admincp/discuzhook.dat')) {
 			cpmsg('filecheck_nofound_md5file', '', 'error');
@@ -275,8 +275,8 @@ if($operation == 'filecheck') {
 			showformheader('forums');
 			showtableheader('hookcheck_completed');
 			showtablerow('', 'colspan="4"', "<div class=\"margintop marginbot\">".
-				'<a href="javascript:;" onclick="show_all_hook(\'dir_\', \'tbody\')">'.$lang[show_all].'</a> | <a href="javascript:;" onclick="hide_all_hook(\'dir_\', \'tbody\')">'.$lang[hide_all].'</a>'.
-				" &nbsp; <em class=\"del\">$lang[hookcheck_delete]: $diffnum</em> ".
+				'<a href="javascript:;" onclick="show_all_hook(\'dir_\', \'tbody\')">'.$lang['show_all'].'</a> | <a href="javascript:;" onclick="hide_all_hook(\'dir_\', \'tbody\')">'.$lang['hide_all'].'</a>'.
+				" &nbsp; <em class=\"del\">{$lang['hookcheck_delete']}: $diffnum</em> ".
 				"</div>");
 			showsubtitle(array('', 'filename', 'hookcheck_discuzhook', 'hookcheck_delhook'));
 			echo $result;

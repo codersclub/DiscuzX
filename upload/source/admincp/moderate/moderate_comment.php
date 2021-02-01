@@ -47,19 +47,19 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 
 	showtablerow('', array('width="60"', 'width="160"', 'width="60"'),
 		array(
-			cplang('username'), "<input size=\"15\" name=\"username\" type=\"text\" value=\"$_GET[username]\" />",
-			cplang('moderate_content_keyword'), "<input size=\"15\" name=\"keyword\" type=\"text\" value=\"$_GET[keyword]\" />",
+			cplang('username'), "<input size=\"15\" name=\"username\" type=\"text\" value=\"{$_GET['username']}\" />",
+			cplang('moderate_content_keyword'), "<input size=\"15\" name=\"keyword\" type=\"text\" value=\"{$_GET['keyword']}\" />",
 		)
 	);
 	showtablerow('', array('width="60"', 'width="160"', 'width="60"'),
                 array(
-                        "$lang[perpage]",
-                        "<select name=\"tpp\">$tpp_options</select><label><input name=\"showcensor\" type=\"checkbox\" class=\"checkbox\" value=\"yes\" ".($showcensor ? ' checked="checked"' : '')."/> $lang[moderate_showcensor]</label>",
-                        "$lang[moderate_bound]",
+                        "{$lang['perpage']}",
+                        "<select name=\"tpp\">$tpp_options</select><label><input name=\"showcensor\" type=\"checkbox\" class=\"checkbox\" value=\"yes\" ".($showcensor ? ' checked="checked"' : '')."/> {$lang['moderate_showcensor']}</label>",
+                        "{$lang['moderate_bound']}",
                         "<select name=\"filter\">$filteroptions</select>
 			<select name=\"idtype\">$idtype_select</select>
                         <select name=\"dateline\">$dateline_options</select>
-                        <input class=\"btn\" type=\"submit\" value=\"$lang[search]\" />"
+                        <input class=\"btn\" type=\"submit\" value=\"{$lang['search']}\" />"
                 )
         );
 
@@ -106,36 +106,36 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		}
 		$viewurl = '';
 		$commenttype = '';
-		$editurl = "home.php?mod=spacecp&ac=comment&op=edit&cid=$comment[cid]&modcommentkey=$comment[modcommentkey]";
+		$editurl = "home.php?mod=spacecp&ac=comment&op=edit&cid={$comment['cid']}&modcommentkey={$comment['modcommentkey']}";
 		switch($comment['idtype']) {
 			case 'uid':
 				$commenttype = lang('admincp', 'comment_uid');
-				$viewurl = "home.php?mod=space&uid=$comment[uid]&do=wall#comment_anchor_$comment[cid]";
+				$viewurl = "home.php?mod=space&uid={$comment['uid']}&do=wall#comment_anchor_{$comment['cid']}";
 				break;
 			case 'blogid':
 				$commenttype = lang('admincp', 'comment_blogid');
-				$viewurl = "home.php?mod=space&uid=$comment[uid]&do=blog&id=$comment[id]&modblogkey=$comment[modkey]#comment_anchor_$comment[cid]";
+				$viewurl = "home.php?mod=space&uid={$comment['uid']}&do=blog&id={$comment['id']}&modblogkey={$comment['modkey']}#comment_anchor_{$comment['cid']}";
 				break;
 			case 'picid':
 				$commenttype = lang('admincp', 'comment_picid');
-				$viewurl = "home.php?mod=space&uid=$comment[uid]&do=album&picid=$comment[id]&modpickey=$comment[modkey]#comment_anchor_$comment[cid]";
+				$viewurl = "home.php?mod=space&uid={$comment['uid']}&do=album&picid={$comment['id']}&modpickey={$comment['modkey']}#comment_anchor_{$comment['cid']}";
 				break;
 			case 'sid':
 				$commenttype = lang('admincp', 'comment_sid');
-				$viewurl = "home.php?mod=space&uid=$comment[uid]&do=share&id=$comment[id]#comment_anchor_$comment[cid]";
+				$viewurl = "home.php?mod=space&uid={$comment['uid']}&do=share&id={$comment['id']}#comment_anchor_{$comment['cid']}";
 				break;
 		}
 		showtagheader('tbody', '', true, 'hover');
-		showtablerow("id=\"mod_$comment[cid]_row1\"", array("id=\"mod_$comment[cid]_row1_op\" rowspan=\"3\" class=\"rowform threadopt\" style=\"width:80px;\"", '', 'width="120"', 'width="120"', 'width="55"', 'width="55"'), array(
-			"<ul class=\"nofloat\"><li><input class=\"radio\" type=\"radio\" name=\"moderate[$comment[cid]]\" id=\"mod_$comment[cid]_1\" value=\"validate\" onclick=\"mod_setbg($comment[cid], 'validate');\"><label for=\"mod_$comment[cid]_1\">$lang[validate]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$comment[cid]]\" id=\"mod_$comment[cid]_2\" value=\"delete\" onclick=\"mod_setbg($comment[cid], 'delete');\"><label for=\"mod_$comment[cid]_2\">$lang[delete]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$comment[cid]]\" id=\"mod_$comment[cid]_3\" value=\"ignore\" onclick=\"mod_setbg($comment[cid], 'ignore');\"><label for=\"mod_$comment[cid]_3\">$lang[ignore]</label></li></ul>",
-			"<h3><a href=\"javascript:;\" onclick=\"display_toggle({$comment[cid]});\"> $short_desc $comment_censor_text</a></h3><p>$comment[ip]</p>",
-			$commenttype.'<input name="idtypes['.$comment['cid'].']" type="hidden" value="'.$comment['idtype'].'">',
-			"<p><a target=\"_blank\" href=\"".ADMINSCRIPT."?action=members&operation=search&uid=$comment[authorid]&submit=yes\">$comment[author]</a></p> <p>$comment[dateline]</p>",
-			"<a target=\"_blank\" href=\"$viewurl\">$lang[view]</a>&nbsp;<a href=\"$editurl\" target=\"_blank\">$lang[edit]</a>",
+		showtablerow("id=\"mod_{$comment['cid']}_row1\"", array("id=\"mod_{$comment['cid']}_row1_op\" rowspan=\"3\" class=\"rowform threadopt\" style=\"width:80px;\"", '', 'width="120"', 'width="120"', 'width="55"', 'width="55"'), array(
+			"<ul class=\"nofloat\"><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$comment['cid']}]\" id=\"mod_{$comment['cid']}_1\" value=\"validate\" onclick=\"mod_setbg({$comment['cid']}, 'validate');\"><label for=\"mod_{$comment['cid']}_1\">{$lang['validate']}</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$comment['cid']}]\" id=\"mod_{$comment['cid']}_2\" value=\"delete\" onclick=\"mod_setbg({$comment['cid']}, 'delete');\"><label for=\"mod_{$comment['cid']}_2\">{$lang['delete']}</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$comment['cid']}]\" id=\"mod_{$comment['cid']}_3\" value=\"ignore\" onclick=\"mod_setbg({$comment['cid']}, 'ignore');\"><label for=\"mod_{$comment['cid']}_3\">{$lang['ignore']}</label></li></ul>",
+			"<h3><a href=\"javascript:;\" onclick=\"display_toggle({$comment['cid']});\"> $short_desc $comment_censor_text</a></h3><p>{$comment['ip']}</p>",
+			$commenttype.'<input name="idtypes['.$comment['cid'].']}" type="hidden" value="'.$comment['idtype'].'">',
+			"<p><a target=\"_blank\" href=\"".ADMINSCRIPT."?action=members&operation=search&uid={$comment['authorid']}&submit=yes\">{$comment['author']}</a></p> <p>{$comment['dateline']}</p>",
+			"<a target=\"_blank\" href=\"$viewurl\">{$lang['view']}</a>&nbsp;<a href=\"$editurl\" target=\"_blank\">{$lang['edit']}</a>",
 		));
 
-		showtablerow("id=\"mod_$comment[cid]_row2\"", 'colspan="4" style="padding: 10px; line-height: 180%;"', '<div style="overflow: auto; overflow-x: hidden; max-height:120px; height:auto !important; height:100px; word-break: break-all;">'.$comment['message'].'</div>');
-		showtablerow("id=\"mod_$comment[cid]_row3\"", 'class="threadopt threadtitle" colspan="4"', "<a href=\"?action=moderate&operation=comments&fast=1&cid=$comment[cid]&moderate[$comment[cid]]=validate&idtypes[$comment[cid]]=$comment[idtype]&page=$page&frame=no\" target=\"fasthandle\">$lang[validate]</a> | <a href=\"?action=moderate&operation=comments&fast=1&cid=$comment[cid]&moderate[$comment[cid]]=delete&idtypes[$comment[cid]]=$comment[idtype]&page=$page&frame=no\" target=\"fasthandle\">$lang[delete]</a> | <a href=\"?action=moderate&operation=comments&fast=1&cid=$comment[cid]&moderate[$comment[cid]]=ignore&idtypes[$comment[cid]]=$comment[idtype]&page=$page&frame=no\" target=\"fasthandle\">$lang[ignore]</a>");
+		showtablerow("id=\"mod_{$comment['cid']}_row2\"", 'colspan="4" style="padding: 10px; line-height: 180%;"', '<div style="overflow: auto; overflow-x: hidden; max-height:120px; height:auto !important; height:100px; word-break: break-all;">'.$comment['message'].'</div>');
+		showtablerow("id=\"mod_{$comment['cid']}_row3\"", 'class="threadopt threadtitle" colspan="4"', "<a href=\"?action=moderate&operation=comments&fast=1&cid={$comment['cid']}&moderate[{$comment['cid']}]=validate&idtypes[{$comment['cid']}]={$comment['idtype']}&page=$page&frame=no\" target=\"fasthandle\">{$lang['validate']}</a> | <a href=\"?action=moderate&operation=comments&fast=1&cid={$comment['cid']}&moderate[{$comment['cid']}]=delete&idtypes[{$comment['cid']}]={$comment['idtype']}&page=$page&frame=no\" target=\"fasthandle\">{$lang['delete']}</a> | <a href=\"?action=moderate&operation=comments&fast=1&cid={$comment['cid']}&moderate[{$comment['cid']}]=ignore&idtypes[{$comment['cid']}]={$comment['idtype']}&page=$page&frame=no\" target=\"fasthandle\">{$lang['ignore']}</a>");
 
 		showtagfooter('tbody');
 	}

@@ -88,42 +88,42 @@ if(submitcheck('opsubmit')) {
 		<div style="margin-top:8px;">
 			<table cellspacing="3" cellpadding="3">
 				<tr>
-					<th>$searchlang[topic_id]</th><td><input type="text" class="txt" name="topicid" value="$_GET[topicid]"></td>
-					<th>$searchlang[topic_title]*</th><td><input type="text" class="txt" name="title" value="$_GET[title]">*$searchlang[likesupport]</td>
+					<th>{$searchlang['topic_id']}</th><td><input type="text" class="txt" name="topicid" value="{$_GET['topicid']}"></td>
+					<th>{$searchlang['topic_title']}*</th><td><input type="text" class="txt" name="title" value="{$_GET['title']}">*{$searchlang['likesupport']}</td>
 				</tr>
 				<tr>
-					<th>$searchlang[topic_uid]</th><td><input type="text" class="txt" name="uid" value="$_GET[uid]"></td>
-					<th>$searchlang[topic_username]*</th><td><input type="text" class="txt" name="username" value="$_GET[username]"></td>
+					<th>{$searchlang['topic_uid']}</th><td><input type="text" class="txt" name="uid" value="{$_GET['uid']}"></td>
+					<th>{$searchlang['topic_username']}*</th><td><input type="text" class="txt" name="username" value="{$_GET['username']}"></td>
 				</tr>
 				<tr>
-					<th>$searchlang[topic_closed]</th>
+					<th>{$searchlang['topic_closed']}</th>
 					<td colspan="3">
 						<select name="closed">
-							<option value="">$searchlang[nolimit]</option>
-							<option value="0" $statusarr[0]>$searchlang[no]</option>
-							<option value="1" $statusarr[1]>$searchlang[yes]</option>
+							<option value="">{$searchlang['nolimit']}</option>
+							<option value="0" {$statusarr[0]}>{$searchlang['no']}</option>
+							<option value="1" {$statusarr[1]}>{$searchlang['yes']}</option>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<th>$searchlang[resultsort]</th>
+					<th>{$searchlang['resultsort']}</th>
 					<td colspan="3">
 						<select name="orderby">
-						<option value="">$searchlang[defaultsort]</option>
-						<option value="dateline"$orderby[dateline]>$searchlang[topic_dateline]</option>
+						<option value="">{$searchlang['defaultsort']}</option>
+						<option value="dateline"{$orderby['dateline']}>{$searchlang['topic_dateline']}</option>
 						</select>
 						<select name="ordersc">
-						<option value="desc"$ordersc[desc]>$searchlang[orderdesc]</option>
-						<option value="asc"$ordersc[asc]>$searchlang[orderasc]</option>
+						<option value="desc"{$ordersc['desc']}>{$searchlang['orderdesc']}</option>
+						<option value="asc"{$ordersc['asc']}>{$searchlang['orderasc']}</option>
 						</select>
 						<select name="perpage">
-						<option value="10"$perpages[10]>$searchlang[perpage_10]</option>
-						<option value="20"$perpages[20]>$searchlang[perpage_20]</option>
-						<option value="50"$perpages[50]>$searchlang[perpage_50]</option>
-						<option value="100"$perpages[100]>$searchlang[perpage_100]</option>
+						<option value="10"{$perpages[10]}>{$searchlang['perpage_10']}</option>
+						<option value="20"{$perpages[20]}>{$searchlang['perpage_20']}</option>
+						<option value="50"{$perpages[50]}>{$searchlang['perpage_50']}</option>
+						<option value="100"{$perpages[100]}>{$searchlang['perpage_100']}</option>
 						</select>
 						<input type="hidden" name="action" value="topic">
-						<input type="submit" name="searchsubmit" value="$searchlang[search]" class="btn">
+						<input type="submit" name="searchsubmit" value="{$searchlang['search']}" class="btn">
 					</td>
 				</tr>
 			</table>
@@ -161,17 +161,17 @@ SEARCH;
 			$tablerow = array(
 					"<input type=\"checkbox\" class=\"checkbox\" name=\"ids[]\" value=\"$topicid\">",
 					($value['htmlmade'] ? "[<a href='$htmlname' target='_blank'>HTML</a>]" : '')
-					."<a href=\"portal.php?mod=topic&topicid=$topicid\" target=\"_blank\">".$value[title]."</a>"
+					."<a href=\"portal.php?mod=topic&topicid=$topicid\" target=\"_blank\">".$value['title']."</a>"
 					.($value['closed'] ? ' ['.cplang('topic_closed_yes').']' : ''),
 					$value['domain'] && !empty($_G['setting']['domain']['root']['topic']) ? $_G['scheme'].'://'.$value['domain'].'.'.$_G['setting']['domain']['root']['topic'] : '',
 					$value['name'],
-					"<a href=\"home.php?mod=space&uid=$value[uid]&do=profile\" target=\"_blank\">$value[username]</a>",
-					dgmdate($value[dateline]),
+					"<a href=\"home.php?mod=space&uid={$value['uid']}&do=profile\" target=\"_blank\">{$value['username']}</a>",
+					dgmdate($value['dateline']),
 				);
 			if($maketopichtml) {
-					$tablerow[] = "<span id='mkhtml_$value[topicid]' style='color:".($value['htmlmade'] ? "blue;'>".cplang('setting_functions_makehtml_made') : "red;'>".cplang('setting_functions_makehtml_dismake'))."</span>";
+					$tablerow[] = "<span id='mkhtml_{$value['topicid']}' style='color:".($value['htmlmade'] ? "blue;'>".cplang('setting_functions_makehtml_made') : "red;'>".cplang('setting_functions_makehtml_dismake'))."</span>";
 			}
-			$tablerow[] = ($maketopichtml ? ($maketopichtml && !$value['closed'] ? "<a href='javascript:void(0);' onclick=\"make_html('portal.php?mod=topic&topicid=$value[topicid]', $('mkhtml_$value[topicid]'))\">".cplang('setting_functions_makehtml_make')."</a>" : cplang('setting_functions_makehtml_make_has_closed')) : '')
+			$tablerow[] = ($maketopichtml ? ($maketopichtml && !$value['closed'] ? "<a href='javascript:void(0);' onclick=\"make_html('portal.php?mod=topic&topicid={$value['topicid']}', $('mkhtml_{$value['topicid']}'))\">".cplang('setting_functions_makehtml_make')."</a>" : cplang('setting_functions_makehtml_make_has_closed')) : '')
 					." <a href=\"portal.php?mod=portalcp&ac=topic&topicid=$topicid\" target=\"_blank\">".cplang('topic_edit')."</a>&nbsp;".
 					"<a href=\"portal.php?mod=topic&topicid=$topicid&diy=yes\" target=\"_blank\">DIY</a>".
 					'&nbsp;<a href="'.ADMINSCRIPT.'?action=diytemplate&operation=perm&targettplname=portal/portal_topic_content_'.$value['topicid'].'&tpldirectory='.getdiydirectory($value['primaltplname']).'">'.cplang('topic_perm').'</a>';

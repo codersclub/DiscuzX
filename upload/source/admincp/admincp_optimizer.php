@@ -207,7 +207,7 @@ if($operation == 'optimize_unit') {
 					var tip_tablerows = tip_table.rows.length;
 
 					if(id == 'optimizer_upgrade' || id == 'optimizer_patch') {
-						securitygrade = '{$lang[founder_optimizer_low]}';
+						securitygrade = '{$lang['founder_optimizer_low']}';
 					}
 
 					var optiontype = id;
@@ -241,11 +241,11 @@ if($operation == 'optimize_unit') {
 					var statusstr = '';
 					if(status != 0) {
 						if(type == 'header') {
-							statusstr = '<a class="btn" href="$adminscipt?action=optimizer&operation=optimize_unit&anchor=$_GET[anchor]&type='+ optiontype + extraurl + '" target="_blank">{$lang[founder_optimizer_optimizer]}</a>';
+							statusstr = '<a class="btn" href="$adminscipt?action=optimizer&operation=optimize_unit&anchor={$_GET['anchor']}&type='+ optiontype + extraurl + '" target="_blank">{$lang['founder_optimizer_optimizer']}</a>';
 						} else if(type == 'view') {
-							statusstr = '<a class="btn" href="$adminscipt?action=optimizer&operation=optimize_unit&anchor=$_GET[anchor]&type='+ optiontype + extraurl + '" target="_blank">{$lang[founder_optimizer_view]}</a>';
+							statusstr = '<a class="btn" href="$adminscipt?action=optimizer&operation=optimize_unit&anchor={$_GET['anchor']}&type='+ optiontype + extraurl + '" target="_blank">{$lang['founder_optimizer_view']}</a>';
 						} else if(type == 'scan') {
-							statusstr = '<a class="btn" href="$adminscipt?action=optimizer&operation=optimize_unit&anchor=$_GET[anchor]&type='+ optiontype + extraurl + '" target="_blank">{$lang[founder_optimizer_scan]}</a>';
+							statusstr = '<a class="btn" href="$adminscipt?action=optimizer&operation=optimize_unit&anchor={$_GET['anchor']}&type='+ optiontype + extraurl + '" target="_blank">{$lang['founder_optimizer_scan']}</a>';
 						}
 					}
 					newtr.insertCell(0).innerHTML = $(id + '_unit').innerHTML;
@@ -253,22 +253,22 @@ if($operation == 'optimize_unit') {
 					newtr.insertCell(2).innerHTML = statusstr;
 
 					if(parseInt(checkpercent) >= 100) {
-						$('checking').innerHTML = '{$lang[founder_optimizer_recheck_js]}';
-						$('checking').href = '{$adminscipt}?action=optimizer&checking=1&anchor={$_GET[anchor]}';
+						$('checking').innerHTML = '{$lang['founder_optimizer_recheck_js']}';
+						$('checking').href = '{$adminscipt}?action=optimizer&checking=1&anchor={$_GET['anchor']}';
 						$('processid').style.display = 'none';
-						if('$_GET[anchor]' == 'security') {
+						if('{$_GET['anchor']}' == 'security') {
 							if(securitygrade == '') {
 								if(optimize_num <= 1) {
-									securitygrade = '{$lang[founder_optimizer_high]}';
+									securitygrade = '{$lang['founder_optimizer_high']}';
 								} else if(optimize_num >=2 && optimize_num <=4) {
-									securitygrade = '{$lang[founder_optimizer_middle]}';
+									securitygrade = '{$lang['founder_optimizer_middle']}';
 								} else {
-									securitygrade = '{$lang[founder_optimizer_low]}';
+									securitygrade = '{$lang['founder_optimizer_low']}';
 								}
 							}
-							$('checkstatus').innerHTML = '{$lang[founder_optimizer_check_complete_js]}' + checknum + '{$lang[founder_optimizer_findnum]}' +  optimize_num + '{$lang[founder_optimizer_neednum]}' + ' {$lang[founder_optimizer_level]}: <span style="color:green;font-size:16px;font-weight:700;">' + securitygrade + '</span>';
+							$('checkstatus').innerHTML = '{$lang['founder_optimizer_check_complete_js']}' + checknum + '{$lang['founder_optimizer_findnum']}' +  optimize_num + '{$lang['founder_optimizer_neednum']}' + ' {$lang['founder_optimizer_level']}: <span style="color:green;font-size:16px;font-weight:700;">' + securitygrade + '</span>';
 						} else {
-							$('checkstatus').innerHTML = '{$lang[founder_optimizer_check_complete_js]}' + checknum + '{$lang[founder_optimizer_findnum]}' +  optimize_num + '{$lang[founder_optimizer_neednum]}';
+							$('checkstatus').innerHTML = '{$lang['founder_optimizer_check_complete_js']}' + checknum + '{$lang['founder_optimizer_findnum']}' +  optimize_num + '{$lang['founder_optimizer_neednum']}';
 						}
 					}
 				}

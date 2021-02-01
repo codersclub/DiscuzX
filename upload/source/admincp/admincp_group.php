@@ -86,9 +86,9 @@ if($operation == 'setting') {
 ?>
 <script type="text/JavaScript">
 var rowtypedata = [
-	[[1,'<input type="text" class="txt" name="newcatorder[]" value="0" />', 'td25'], [3, '<input name="newcat[]" value="<?php echo $lang[groups_type_level_1];?>" size="20" type="text" class="txt" /> <?php echo cplang('groups_type_show_rows');?><input type="text" name="newforumcolumns[]" value="0" class="txt" style="width: 30px;" />']],
-	[[1,'<input type="text" class="txt" name="neworder[{1}][]" value="0" />', 'td25'], [3, '<div class="board"><input name="newforum[{1}][]" value="<?php echo $lang[groups_type_sub_new];?>" size="20" type="text" class="txt" /><?php echo cplang('groups_type_show_rows');?><input type="text" name="newforumcolumns[{1}][]" value="0" class="txt" style="width: 30px;" /></div>']],
-	[[1,'<input type="text" class="txt" name="neworder[{1}][]" value="0" />', 'td25'], [3, '<div class="childboard"><input name="newforum[{1}][]" value="<?php echo $lang[groups_type_sub_new];?>" size="20" type="text" class="txt" /><?php echo cplang('groups_type_show_rows');?><input type="text" name="newforumcolumns[{1}][]" value="0" class="txt" style="width: 30px;" /></div>']],
+	[[1,'<input type="text" class="txt" name="newcatorder[]" value="0" />', 'td25'], [3, '<input name="newcat[]" value="<?php echo $lang['groups_type_level_1'];?>" size="20" type="text" class="txt" /> <?php echo cplang('groups_type_show_rows');?><input type="text" name="newforumcolumns[]" value="0" class="txt" style="width: 30px;" />']],
+	[[1,'<input type="text" class="txt" name="neworder[{1}][]" value="0" />', 'td25'], [3, '<div class="board"><input name="newforum[{1}][]" value="<?php echo $lang['groups_type_sub_new'];?>" size="20" type="text" class="txt" /><?php echo cplang('groups_type_show_rows');?><input type="text" name="newforumcolumns[{1}][]" value="0" class="txt" style="width: 30px;" /></div>']],
+	[[1,'<input type="text" class="txt" name="neworder[{1}][]" value="0" />', 'td25'], [3, '<div class="childboard"><input name="newforum[{1}][]" value="<?php echo $lang['groups_type_sub_new'];?>" size="20" type="text" class="txt" /><?php echo cplang('groups_type_show_rows');?><input type="text" name="newforumcolumns[{1}][]" value="0" class="txt" style="width: 30px;" /></div>']],
 ];
 </script>
 <?php
@@ -227,13 +227,13 @@ var rowtypedata = [
 			$query  = C::t('forum_forum')->fetch_all_for_search($conditions, $start_limit, $_G['setting']['group_perpage']);
 			foreach($query as $group) {
 				$groups .= showtablerow('', array('class="td25"', '', ''), array(
-					"<input type=\"checkbox\" name=\"fidarray[]\" value=\"$group[fid]\" class=\"checkbox\">",
-					"<span class=\"lightfont right\">(fid:$group[fid])</span><a href=\"forum.php?mod=forumdisplay&fid=$group[fid]\" target=\"_blank\">$group[name]</a>",
+					"<input type=\"checkbox\" name=\"fidarray[]\" value=\"{$group['fid']}\" class=\"checkbox\">",
+					"<span class=\"lightfont right\">(fid:{$group['fid']})</span><a href=\"forum.php?mod=forumdisplay&fid={$group['fid']}\" target=\"_blank\">{$group['name']}</a>",
 					$group['posts'],
 					$group['threads'],
 					$group['membernum'],
-					"<a href=\"home.php?mod=space&uid=$group[founderuid]\" target=\"_blank\">$group[foundername]</a>",
-					"<a href=\"".ADMINSCRIPT."?action=group&operation=editgroup&fid=$group[fid]\" class=\"act\">".cplang('detail')."</a>"
+					"<a href=\"home.php?mod=space&uid={$group['founderuid']}\" target=\"_blank\">{$group['foundername']}</a>",
+					"<a href=\"".ADMINSCRIPT."?action=group&operation=editgroup&fid={$group['fid']}\" class=\"act\">".cplang('detail')."</a>"
 				), TRUE);
 			}
 
@@ -381,7 +381,7 @@ var rowtypedata = [
 					$query = C::t('forum_groupuser')->fetch_all_by_fid($sourcefid, -1);
 					foreach($query as $row) {
 						if(empty($targetusers[$row['uid']])) {
-							$newgroupusers[$row[uid]] = daddslashes($row['username']);
+							$newgroupusers[$row['uid']] = daddslashes($row['username']);
 							$adduser ++;
 						}
 					}
@@ -715,10 +715,10 @@ var rowtypedata = [
 			$query = C::t('forum_grouplevel')->fetch_all_creditslower_order();
 			foreach($query as $level) {
 				$grouplevels .= showtablerow('', array('class="td25"', '', 'class="td28"', 'class=td28'), array(
-					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[$level[levelid]]\" value=\"$level[levelid]\">",
-					"<input type=\"text\" class=\"txt\" size=\"12\" name=\"levelnew[$level[levelid]][leveltitle]\" value=\"$level[leveltitle]\">",
-					"<input type=\"text\" class=\"txt\" size=\"6\" name=\"levelnew[$level[levelid]][creditshigher]\" value=\"$level[creditshigher]\" /> ~ <input type=\"text\" class=\"txt\" size=\"6\" name=\"levelnew[$level[levelid]][creditslower]\" value=\"$level[creditslower]\" disabled />",
-					"<a href=\"".ADMINSCRIPT."?action=group&operation=level&levelid=$level[levelid]\" class=\"act\">$lang[detail]</a>"
+					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[{$level['levelid']}]\" value=\"{$level['levelid']}\">",
+					"<input type=\"text\" class=\"txt\" size=\"12\" name=\"levelnew[{$level['levelid']}]['leveltitle']}\" value=\"{$level['leveltitle']}\">",
+					"<input type=\"text\" class=\"txt\" size=\"6\" name=\"levelnew[{$level['levelid']}]['creditshigher']}\" value=\"{$level['creditshigher']}\" /> ~ <input type=\"text\" class=\"txt\" size=\"6\" name=\"levelnew[{$level['levelid']}]['creditslower']}\" value=\"{$level['creditslower']}\" disabled />",
+					"<a href=\"".ADMINSCRIPT."?action=group&operation=level&levelid={$level['levelid']}\" class=\"act\">{$lang['detail']}</a>"
 				), TRUE);
 			}
 echo <<<EOT
@@ -857,7 +857,7 @@ EOT;
 				} else {
 					$grouplevelicon = $_G['setting']['attachurl'].'common/'.$grouplevel['icon'].'?'.random(6);
 				}
-				$groupleveliconhtml = '<label><input type="checkbox" class="checkbox" name="deleteicon[{$grouplevel[levelid]}]" value="yes" /> '.$lang['delete'].'</label><br /><img src="'.$grouplevelicon.'" />';
+				$groupleveliconhtml = '<label><input type="checkbox" class="checkbox" name="deleteicon['.$grouplevel['levelid'].']" value="yes" /> '.$lang['delete'].'</label><br /><img src="'.$grouplevelicon.'" />';
 			}
 			showsetting('group_level_icon', 'iconnew', $grouplevel['icon'], 'filetext', '', 0, $groupleveliconhtml);
 
@@ -977,8 +977,8 @@ EOT;
 		$groups = array();
 		$query = C::t('forum_forum')->fetch_all_info_by_fids($_GET['fidarray']);
 		foreach($query as $group) {
-			$groups[$group[fid]] = $group;
-			$fups[$group[fup]] ++;
+			$groups[$group['fid']] = $group;
+			$fups[$group['fup']] ++;
 		}
 		if(submitcheck('validate')) {
 			C::t('forum_forum')->validate_level_for_group($_GET['fidarray']);
@@ -1007,10 +1007,10 @@ EOT;
 	$query = C::t('forum_forum')->fetch_all_validate($startlimit, $startlimit+$perpage);
 	foreach($query as $group) {
 		$groups .= showtablerow('', array('class="td25"', '', ''), array(
-			"<input type=\"checkbox\" name=\"fidarray[]\" value=\"$group[fid]\" class=\"checkbox\">",
-			"<a href=\"forum.php?mod=forumdisplay&fid=$group[fid]\" target=\"_blank\">$group[name]</a>",
-			empty($_G['cache']['grouptype']['first'][$group[fup]]) ? $_G['cache']['grouptype']['second'][$group[fup]]['name'] : $_G['cache']['grouptype']['first'][$group[fup]]['name'],
-			"<a href=\"home.php?mod=space&uid=$group[founderuid]\" target=\"_blank\">$group[foundername]</a>",
+			"<input type=\"checkbox\" name=\"fidarray[]\" value=\"{$group['fid']}\" class=\"checkbox\">",
+			"<a href=\"forum.php?mod=forumdisplay&fid={$group['fid']}\" target=\"_blank\">{$group['name']}</a>",
+			empty($_G['cache']['grouptype']['first'][$group['fup']]) ? $_G['cache']['grouptype']['second'][$group['fup']]['name'] : $_G['cache']['grouptype']['first'][$group['fup']]['name'],
+			"<a href=\"home.php?mod=space&uid={$group['founderuid']}\" target=\"_blank\">{$group['foundername']}</a>",
 			dgmdate($group['dateline'])
 		), TRUE);
 		$groups .=showtablerow('', array('','colspan="4"'), array('',cplang('group_mod_description').'&nbsp;:&nbsp;'.$group['description']), TRUE);
@@ -1052,14 +1052,14 @@ function showgroup(&$forum, $type = '', $last = '') {
 		$selectgroups = '';
 		if($type == 'group') {
 			$secondlist = array();
-			if(!empty($_G['cache']['grouptype']['first'][$forum[fid]]['secondlist'])){
-				$secondlist = $_G['cache']['grouptype']['first'][$forum[fid]]['secondlist'];
+			if(!empty($_G['cache']['grouptype']['first'][$forum['fid']]['secondlist'])){
+				$secondlist = $_G['cache']['grouptype']['first'][$forum['fid']]['secondlist'];
 			}
 			$secondlist[] = $forum['fid'];
 			foreach($secondlist as $sfid) {
 				$selectgroups .= "&selectgroupid[]=$sfid";
 			}
-			$forum['groupnum'] = $_G['cache']['grouptype']['first'][$forum[fid]]['groupnum'];
+			$forum['groupnum'] = $_G['cache']['grouptype']['first'][$forum['fid']]['groupnum'];
 		} else {
 			$selectgroups = '&selectgroupid[]='.$forum['fid'];
 		}
@@ -1216,7 +1216,7 @@ function cacherecommend($fidstr, $return = true) {
 			if($val['type'] == 'sub') {
 				$row = array('fid' => $val['fid'], 'name' => $val['name'], 'description' => $val['description'], 'icon' => $val['icon']);
 				$row['icon'] = get_groupimg($row['icon'], 'icon');
-				$temp[$row[fid]] = $row;
+				$temp[$row['fid']] = $row;
 			}
 		}
 		foreach($recommends as $key) {
@@ -1231,8 +1231,8 @@ function cacherecommend($fidstr, $return = true) {
 			$row['icon'] = get_groupimg($row['icon'], 'icon');
 			if(count($group_recommend) == $recommend_num) {
 				break;
-			} elseif(empty($group_recommend[$row[fid]])) {
-				$group_recommend[$row[fid]] = $row;
+			} elseif(empty($group_recommend[$row['fid']])) {
+				$group_recommend[$row['fid']] = $row;
 			}
 		}
 	}

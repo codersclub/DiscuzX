@@ -161,7 +161,7 @@ if($operation == 'manage') {
 				$movesize = intval($_GET['movesize']);
 				$movesize = $movesize >= 100 && $movesize <= 1024 ? $movesize : 100;
 				$targetstatus = helper_dbtool::gettablestatus(getposttable($targettable, true), false);
-				$hash = urlencode(authcode("$tableid\t$movesize\t$targettable\t$targetstatus[Data_length]", 'ENCODE'));
+				$hash = urlencode(authcode("$tableid\t$movesize\t$targettable\t{$targetstatus['Data_length']}", 'ENCODE'));
 				if($createtable) {
 					cpmsg('postsplit_table_create_succeed', 'action=postsplit&operation=movepost&fromtable='.$tableid.'&movesize='.$movesize.'&targettable='.$targettable.'&hash='.$hash, 'loadingform');
 				} else {

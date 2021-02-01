@@ -156,7 +156,7 @@ if($operation == 'export') {
 		}
 
 		$volume = intval($_GET['volume']) + 1;
-		$idstring = '# Identify: '.base64_encode("$_G[timestamp],".$_G['setting']['version'].",{$_GET['type']},{$_GET['method']},{$volume},{$tablepre},{$dbcharset}")."\n";
+		$idstring = '# Identify: '.base64_encode("{$_G['timestamp']},".$_G['setting']['version'].",{$_GET['type']},{$_GET['method']},{$volume},{$tablepre},{$dbcharset}")."\n";
 
 
 		$dumpcharset = $_GET['sqlcharset'] ? $_GET['sqlcharset'] : str_replace('-', '', $_G['charset']);
@@ -204,7 +204,7 @@ if($operation == 'export') {
 				$sqldump = "$idstring".
 					"# <?php exit();?>\n".
 					"# Discuz! Multi-Volume Data Dump Vol.$volume\n".
-					"# Version: Discuz! {$_G[setting][version]}\n".
+					"# Version: Discuz! {$_G['setting']['version']}\n".
 					"# Time: $time\n".
 					"# Type: {$_GET['type']}\n".
 					"# Table Prefix: $tablepre\n".
@@ -442,7 +442,7 @@ if($operation == 'export') {
 				$info['size'],
 				$info['method'],
 				$info['volume'],
-				$info['type'] == 'zip' ? "<a href=\"".$datasiteurl."restore.php?operation=importzip&datafile_server=$datafile_server&importsubmit=yes\"  onclick=\"return confirm('$lang[db_import_confirm_zip]');\" class=\"act\" target=\"_blank\">$lang[db_import_unzip]</a>" : "<a class=\"act\" href=\"".$datasiteurl."restore.php?operation=import&from=server&datafile_server=$datafile_server&importsubmit=yes\"".($info['version'] != $_G['setting']['version'] ? " onclick=\"return confirm('$lang[db_import_confirm]');\"" : " onclick=\"return confirm('$lang[db_import_confirm_sql]');\"")." class=\"act\" target=\"_blank\">$lang[import]</a>"
+				$info['type'] == 'zip' ? "<a href=\"".$datasiteurl."restore.php?operation=importzip&datafile_server=$datafile_server&importsubmit=yes\"  onclick=\"return confirm('{$lang['db_import_confirm_zip']}');\" class=\"act\" target=\"_blank\">{$lang['db_import_unzip']}</a>" : "<a class=\"act\" href=\"".$datasiteurl."restore.php?operation=import&from=server&datafile_server=$datafile_server&importsubmit=yes\"".($info['version'] != $_G['setting']['version'] ? " onclick=\"return confirm('{$lang['db_import_confirm']}');\"" : " onclick=\"return confirm('{$lang['db_import_confirm_sql']}');\"")." class=\"act\" target=\"_blank\">{$lang['import']}</a>"
 			));
 			echo '<tbody id="exportlog_'.$key.'" style="display:none">';
 			foreach($val as $info) {
@@ -450,7 +450,7 @@ if($operation == 'export') {
 				$info['size'] = sizecount($info['size']);
 				showtablerow('', '', array(
 					'',
-					"<a href=\"$info[filename]\">".substr(strrchr($info['filename'], "/"), 1)."</a>",
+					"<a href=\"{$info['filename']}\">".substr(strrchr($info['filename'], "/"), 1)."</a>",
 					$info['version'],
 					$info['dateline'],
 					'',
@@ -470,14 +470,14 @@ if($operation == 'export') {
 			$datafile_server = '.'.$info['filename'];
 			showtablerow('', '', array(
 				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"".basename($info['filename'])."\">",
-				"<a href=\"$info[filename]\">".substr(strrchr($info['filename'], "/"), 1)."</a>",
+				"<a href=\"{$info['filename']}\">".substr(strrchr($info['filename'], "/"), 1)."</a>",
 				'',
 				$info['dateline'],
 				$lang['db_export_'.$info['type']],
 				$info['size'],
 				$info['method'],
 				'',
-				"<a href=\"".$datasiteurl."restore.php?operation=importzip&datafile_server=$datafile_server&importsubmit=yes\"  onclick=\"return confirm('$lang[db_import_confirm_zip]');\" class=\"act\" target=\"_blank\">$lang[db_import_unzip]</a>"
+				"<a href=\"".$datasiteurl."restore.php?operation=importzip&datafile_server=$datafile_server&importsubmit=yes\"  onclick=\"return confirm('{$lang['db_import_confirm_zip']}');\" class=\"act\" target=\"_blank\">{$lang['db_import_unzip']}</a>"
 			));
 		}
 
@@ -526,7 +526,7 @@ if($operation == 'export') {
 		$runqueryselect = '';
 		foreach($simplequeries as $key => $query) {
 			if(empty($query['sql'])) {
-				$runqueryselect .= "<optgroup label=\"$query[comment]\">";
+				$runqueryselect .= "<optgroup label=\"{$query['comment']}\">";
 			} else {
 				$runqueryselect .= '<option value="'.$key.'">'.$query['comment'].'</option>';
 			}
@@ -621,13 +621,13 @@ if($operation == 'export') {
 				if($table['Data_free'] && $table[$tabletype] == 'MyISAM') {
 					$checked = $table[$tabletype] == 'MyISAM' ? 'checked' : 'disabled';
 					showtablerow('', '', array(
-						"<input class=\"checkbox\" type=\"checkbox\" name=\"optimizetables[]\" value=\"$table[Name]\" $checked>",
-						$table[Name],
+						"<input class=\"checkbox\" type=\"checkbox\" name=\"optimizetables[]\" value=\"{$table['Name']}\" $checked>",
+						$table['Name'],
 						$table[$tabletype],
-						$table[Rows],
-						$table[Data_length],
-						$table[Index_length],
-						$table[Data_free],
+						$table['Rows'],
+						$table['Data_length'],
+						$table['Index_length'],
+						$table['Data_free'],
 					));
 					$totalsize += $table['Data_length'] + $table['Index_length'];
 				}
@@ -637,7 +637,7 @@ if($operation == 'export') {
 			showtablerow('', 'colspan="6"', $lang['db_optimize_done']);
 		} else {
 			showtablerow('', 'colspan="6"', $lang['db_optimize_used'].' '.sizecount($totalsize));
-			showsubmit('optimizesubmit', 'submit', '<input name="chkall" id="chkall" class="checkbox" onclick="checkAll(\'prefix\', this.form)" checked="checked" type="checkbox" /><label for="chkall">'.$lang[db_optimize_opt].'</label>');
+			showsubmit('optimizesubmit', 'submit', '<input name="chkall" id="chkall" class="checkbox" onclick="checkAll(\'prefix\', this.form)" checked="checked" type="checkbox" /><label for="chkall">'.$lang['db_optimize_opt'].'</label>');
 		}
 
 	} else {
@@ -647,20 +647,20 @@ if($operation == 'export') {
 			$query = DB::query("SHOW TABLE STATUS LIKE '$tp%'", 'SILENT');
 			while($table = DB::fetch($query)) {
 				if($table['Data_free'] && $table[$tabletype] == 'MyISAM') {
-					$optimizeinput = "<input class=\"checkbox\" type=\"checkbox\" name=\"optimizetables[]\" value=\"$table[Name]\" $checked>";
+					$optimizeinput = "<input class=\"checkbox\" type=\"checkbox\" name=\"optimizetables[]\" value=\"{$table['Name']}\" $checked>";
 					if(is_array($_GET['optimizetables']) && in_array($table['Name'], $_GET['optimizetables'])) {
-						DB::query("OPTIMIZE TABLE $table[Name]");
-						$table[Data_free] = 0;
+						DB::query("OPTIMIZE TABLE {$table['Name']}");
+						$table['Data_free'] = 0;
 						$optimizeinput = '';
 					}
 					showtablerow('', '', array(
 						$optimizeinput,
-						$table[Name],
+						$table['Name'],
 						$db->version() > '4.1' ?  $table['Engine'] : $table['Type'],
-						$table[Rows],
-						$table[Data_length],
-						$table[Index_length],
-						$table[Data_free]
+						$table['Rows'],
+						$table['Data_length'],
+						$table['Index_length'],
+						$table['Data_free']
 					));
 					$totalsize += $table['Data_length'] + $table['Index_length'];
 				}
@@ -879,12 +879,12 @@ if($operation == 'export') {
 
 			if(($modifylist || $dellist) && !in_array($dbtable, $excepttables)) {
 
-				$showlist .= showtablerow('', '', array("<span class=\"diffcolor3\">$tablepre$dbtable</span> $lang[dbcheck_field]", $lang[dbcheck_org_field], $lang[dbcheck_status]), TRUE);
+				$showlist .= showtablerow('', '', array("<span class=\"diffcolor3\">$tablepre$dbtable</span> {$lang['dbcheck_field']}", $lang['dbcheck_org_field'], $lang['dbcheck_status']), TRUE);
 
 				foreach($modifylist as $value) {
 					$slowstatus = slowcheck($discuzdbnew[$dbtable][$value['Field']]['Type'], $value['Type']);
 
-					$showlist .= "<tr><td><input name=\"repair[]\" class=\"checkbox\" type=\"checkbox\" value=\"$dbtable|$value[Field]|modify\"> <b>".$value['Field']."</b> ".
+					$showlist .= "<tr><td><input name=\"repair[]\" class=\"checkbox\" type=\"checkbox\" value=\"$dbtable|{$value['Field']}|modify\"> <b>".$value['Field']."</b> ".
 						$discuzdbnew[$dbtable][$value['Field']]['Type'].
 						($discuzdbnew[$dbtable][$value['Field']]['Null'] == 'NO' ? ' NOT NULL' : '').
 						(!preg_match('/auto_increment/i', $discuzdbnew[$dbtable][$value['Field']]['Extra']) && !preg_match('/text/i', $discuzdbnew[$dbtable][$value['Field']]['Type']) ? ' default \''.$discuzdbnew[$dbtable][$value['Field']]['Default'].'\'' : '').
@@ -893,21 +893,21 @@ if($operation == 'export') {
 						($value['Null'] == 'NO' ? ' NOT NULL' : '').
 						(!preg_match('/auto_increment/i', $value['Extra']) && !preg_match('/text/i', $value['Type']) ? ' default \''.$value['Default'].'\'' : '').
 						' '.$value['Extra']."</td><td>".
-						(!$slowstatus ? "<em class=\"edited\">$lang[dbcheck_modify]</em></td></tr>" : "<em class=\"unknown\">$lang[dbcheck_slow]</em>")."</td></tr>";
+						(!$slowstatus ? "<em class=\"edited\">{$lang['dbcheck_modify']}</em></td></tr>" : "<em class=\"unknown\">{$lang['dbcheck_slow']}</em>")."</td></tr>";
 				}
 
 				if($modifylist) {
-					$showlist .= showtablerow('', 'colspan="3"', "<input onclick=\"setrepaircheck(this, this.form, '$dbtable')\" name=\"repairtable[]\" class=\"checkbox\" type=\"checkbox\" value=\"$dbtable\"> <b>$lang[dbcheck_repairtable]</b>", TRUE);
+					$showlist .= showtablerow('', 'colspan="3"', "<input onclick=\"setrepaircheck(this, this.form, '$dbtable')\" name=\"repairtable[]\" class=\"checkbox\" type=\"checkbox\" value=\"$dbtable\"> <b>{$lang['dbcheck_repairtable']}</b>", TRUE);
 				}
 
 				foreach($dellist as $value) {
-					$showlist .= "<tr><td><input name=\"repair[]\" class=\"checkbox\" type=\"checkbox\" value=\"$dbtable|$value[Field]|add\"> <strike><b>".$value['Field']."</b></strike></td><td> <b>".$value['Field']."</b> ".$value['Type'].($value['Null'] == 'NO' ? ' NOT NULL' : '')."</td><td>".
-						"<em class=\"del\">$lang[dbcheck_delete]</em></td></tr>";
+					$showlist .= "<tr><td><input name=\"repair[]\" class=\"checkbox\" type=\"checkbox\" value=\"$dbtable|{$value['Field']}|add\"> <strike><b>".$value['Field']."</b></strike></td><td> <b>".$value['Field']."</b> ".$value['Type'].($value['Null'] == 'NO' ? ' NOT NULL' : '')."</td><td>".
+						"<em class=\"del\">{$lang['dbcheck_delete']}</em></td></tr>";
 				}
 			}
 
 			if($addlist) {
-				$addlists .= "<tr><td colspan=\"3\"><b>$tablepre$dbtable</b> $lang[dbcheck_new_field]</td></tr>";
+				$addlists .= "<tr><td colspan=\"3\"><b>$tablepre$dbtable</b> {$lang['dbcheck_new_field']}</td></tr>";
 
 				foreach($addlist as $value) {
 					$addlists .= "<tr><td colspan=\"3\">&nbsp;&nbsp;&nbsp;&nbsp;<b>".$value['Field']."</b> ".$discuzdbnew[$dbtable][$value['Field']]['Type'].($discuzdbnew[$dbtable][$value['Field']]['Null'] == 'NO' ? ' NOT NULL' : '')."</td></tr>";
@@ -926,7 +926,7 @@ if($operation == 'export') {
 		}
 
 		if($settingsdellist) {
-			$showlist .= "<tr class=\"partition\"><td colspan=\"3\">$lang[dbcheck_setting]</td></tr>";
+			$showlist .= "<tr class=\"partition\"><td colspan=\"3\">{$lang['dbcheck_setting']}</td></tr>";
 			$showlist .= '<tr><td colspan="3">';
 			$showlist .= "<input name=\"setting[del]\" class=\"checkbox\" type=\"checkbox\" value=\"1\"> ".implode(', ', $settingsdellist).'<br />';
 			$showlist .= '</td></tr>';
@@ -937,7 +937,7 @@ if($operation == 'export') {
 		}
 
 		if($charseterror) {
-			$showlist .= "<tr><td class=\"partition\" colspan=\"3\">$lang[dbcheck_charseterror_tables] ($lang[dbcheck_charseterror_notice] $dbcharset)</td></tr>";
+			$showlist .= "<tr><td class=\"partition\" colspan=\"3\">{$lang['dbcheck_charseterror_tables']} ({$lang['dbcheck_charseterror_notice']} $dbcharset)</td></tr>";
 			$showlist .= '<tr><td colspan="3">'.implode('', $charseterror).'</td></tr>';
 		}
 
@@ -1062,7 +1062,7 @@ function syntablestruct($sql, $version, $dbcharset) {
 }
 
 function sqldumptablestruct($table) {
-	global $_G, $db, $excepttables;
+	global $_G, $db, $excepttables, $dumpcharset;
 
 	if(in_array($table, $excepttables)) {
 		return;
@@ -1092,7 +1092,7 @@ function sqldumptablestruct($table) {
 	}
 
 	$tablestatus = DB::fetch_first("SHOW TABLE STATUS LIKE '$table'");
-	$tabledump .= ($tablestatus['Auto_increment'] ? " AUTO_INCREMENT=$tablestatus[Auto_increment]" : '').";\n\n";
+	$tabledump .= ($tablestatus['Auto_increment'] ? " AUTO_INCREMENT={$tablestatus['Auto_increment']}" : '').";\n\n";
 	if($_GET['sqlcompat'] == 'MYSQL40' && $db->version() >= '4.1' && $db->version() < '5.1') {
 		if($tablestatus['Auto_increment'] <> '') {
 			$temppos = strpos($tabledump, ',');
@@ -1133,7 +1133,7 @@ function sqldumptable($table, $startfrom = 0, $currsize = 0) {
 		if($_GET['extendins'] == '0') {
 			while($currsize + strlen($tabledump) + 500 < $_GET['sizelimit'] * 1000 && $numrows == $offset) {
 				if($firstfield['Extra'] == 'auto_increment') {
-					$selectsql = "SELECT * FROM $table WHERE $firstfield[Field] > $startfrom ORDER BY $firstfield[Field] LIMIT $offset";
+					$selectsql = "SELECT * FROM $table WHERE {$firstfield['Field']} > $startfrom ORDER BY {$firstfield['Field']} LIMIT $offset";
 				} else {
 					$selectsql = "SELECT * FROM $table LIMIT $startfrom, $offset";
 				}
@@ -1164,7 +1164,7 @@ function sqldumptable($table, $startfrom = 0, $currsize = 0) {
 		} else {
 			while($currsize + strlen($tabledump) + 500 < $_GET['sizelimit'] * 1000 && $numrows == $offset) {
 				if($firstfield['Extra'] == 'auto_increment') {
-					$selectsql = "SELECT * FROM $table WHERE $firstfield[Field] > $startfrom LIMIT $offset";
+					$selectsql = "SELECT * FROM $table WHERE {$firstfield['Field']} > $startfrom LIMIT $offset";
 				} else {
 					$selectsql = "SELECT * FROM $table LIMIT $startfrom, $offset";
 				}

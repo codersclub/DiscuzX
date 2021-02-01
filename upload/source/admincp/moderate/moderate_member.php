@@ -59,13 +59,13 @@ if($do == 'mod') {
 				$member['regdate'] = dgmdate($member['regdate']);
 				$member['submitdate'] = dgmdate($member['submitdate']);
 				$member['moddate'] = $member['moddate'] ? dgmdate($member['moddate']) : $lang['none'];
-				$member['admin'] = $member['admin'] ? "<a href=\"home.php?mod=space&username=".rawurlencode($member['admin'])."\" target=\"_blank\">$member[admin]</a>" : $lang['none'];
-				$members .= "<tr class=\"hover\" id=\"mod_uid_{$member[uid]}\"><td class=\"rowform\" style=\"width:80px;\"><ul class=\"nofloat\"><li><input id=\"mod_uid_{$member[uid]}_1\" class=\"radio\" type=\"radio\" name=\"modtype[$member[uid]]\" value=\"invalidate\" onclick=\"set_bg('invalidate', $member[uid]);\"><label for=\"mod_uid_{$member[uid]}_1\">$lang[invalidate]</label></li><li><input id=\"mod_uid_{$member[uid]}_2\" class=\"radio\" type=\"radio\" name=\"modtype[$member[uid]]\" value=\"validate\" onclick=\"set_bg('validate', $member[uid]);\"><label for=\"mod_uid_{$member[uid]}_2\">$lang[validate]</label></li>\n".
-					"<li>".($member['groupid'] == 8 ? "<input id=\"mod_uid_{$member[uid]}_3\" class=\"radio\" type=\"radio\" name=\"modtype[$member[uid]]\" value=\"delete\" onclick=\"set_bg('delete', $member[uid]);\"><label for=\"mod_uid_{$member[uid]}_3\">$lang[delete]</label>" : "<input disabled class=\"radio\" type=\"radio\" />$lang[delete]")."</li><li><input id=\"mod_uid_{$member[uid]}_4\" class=\"radio\" type=\"radio\" name=\"modtype[$member[uid]]\" value=\"ignore\" onclick=\"set_bg('ignore', $member[uid]);\"><label for=\"mod_uid_{$member[uid]}_4\">$lang[ignore]</label></li></ul></td><td><b><a href=\"home.php?mod=space&uid=$member[uid]\" target=\"_blank\">$member[username]</a></b>\n".$_G['cache']['usergroups'][$member['groupid']]['grouptitle'].
-					"<br />$lang[members_edit_regdate]: $member[regdate]<br />$lang[members_edit_regip]: $member[regip] ".convertip($member['regip'])."<br />$lang[members_edit_lastip]: $member[lastip] ".convertip($member['lastip'])."<br />Email: $member[email]$str</td>\n".
-					"<td align=\"center\"><textarea rows=\"4\" name=\"userremark[$member[uid]]\" style=\"width: 95%; word-break: break-all\">$member[message]</textarea></td>\n".
-					"<td>$lang[moderate_members_submit_times]: $member[submittimes]<br />$lang[moderate_members_submit_time]: $member[submitdate]<br />$lang[moderate_members_admin]: $member[admin]<br />\n".
-					"$lang[moderate_members_mod_time]: $member[moddate]</td><td><textarea rows=\"4\" id=\"remark[$member[uid]]\" name=\"remark[$member[uid]]\" style=\"width: 95%; word-break: break-all\">$member[remark]</textarea></td></tr>\n";
+				$member['admin'] = $member['admin'] ? "<a href=\"home.php?mod=space&username=".rawurlencode($member['admin'])."\" target=\"_blank\">{$member['admin']}</a>" : $lang['none'];
+				$members .= "<tr class=\"hover\" id=\"mod_uid_{$member['uid']}\"><td class=\"rowform\" style=\"width:80px;\"><ul class=\"nofloat\"><li><input id=\"mod_uid_{$member['uid']}_1\" class=\"radio\" type=\"radio\" name=\"modtype[{$member['uid']}]\" value=\"invalidate\" onclick=\"set_bg('invalidate', {$member['uid']});\"><label for=\"mod_uid_{$member['uid']}_1\">{$lang['invalidate']}</label></li><li><input id=\"mod_uid_{$member['uid']}_2\" class=\"radio\" type=\"radio\" name=\"modtype[{$member['uid']}]\" value=\"validate\" onclick=\"set_bg('validate', {$member['uid']});\"><label for=\"mod_uid_{$member['uid']}_2\">{$lang['validate']}</label></li>\n".
+					"<li>".($member['groupid'] == 8 ? "<input id=\"mod_uid_{$member['uid']}_3\" class=\"radio\" type=\"radio\" name=\"modtype[{$member['uid']}]\" value=\"delete\" onclick=\"set_bg('delete', {$member['uid']});\"><label for=\"mod_uid_{$member['uid']}_3\">{$lang['delete']}</label>" : "<input disabled class=\"radio\" type=\"radio\" />{$lang['delete']}")."</li><li><input id=\"mod_uid_{$member['uid']}_4\" class=\"radio\" type=\"radio\" name=\"modtype[{$member['uid']}]\" value=\"ignore\" onclick=\"set_bg('ignore', {$member['uid']});\"><label for=\"mod_uid_{$member['uid']}_4\">{$lang['ignore']}</label></li></ul></td><td><b><a href=\"home.php?mod=space&uid={$member['uid']}\" target=\"_blank\">{$member['username']}</a></b>\n".$_G['cache']['usergroups'][$member['groupid']]['grouptitle'].
+					"<br />{$lang['members_edit_regdate']}: {$member['regdate']}<br />{$lang['members_edit_regip']}: {$member['regip']} ".convertip($member['regip'])."<br />{$lang['members_edit_lastip']}: {$member['lastip']} ".convertip($member['lastip'])."<br />Email: {$member['email']}$str</td>\n".
+					"<td align=\"center\"><textarea rows=\"4\" name=\"userremark[{$member['uid']}]\" style=\"width: 95%; word-break: break-all\">{$member['message']}</textarea></td>\n".
+					"<td>{$lang['moderate_members_submit_times']}: {$member['submittimes']}<br />{$lang['moderate_members_submit_time']}: {$member['submitdate']}<br />{$lang['moderate_members_admin']}: {$member['admin']}<br />\n".
+					"{$lang['moderate_members_mod_time']}: {$member['moddate']}</td><td><textarea rows=\"4\" id=\"remark[{$member['uid']}]\" name=\"remark[{$member['uid']}]\" style=\"width: 95%; word-break: break-all\">{$member['remark']}</textarea></td></tr>\n";
 			}
 		}
 		shownav('user', 'nav_modmembers');
@@ -263,8 +263,8 @@ EOT;
 								'siteurl' => $_G['siteurl'],
 							));
 
-							if(!sendmail("$member[username] <$member[email]>", lang('email', 'moderate_member_subject'), $moderate_member_message)) {
-								runlog('sendmail', "$member[email] sendmail failed.");
+							if(!sendmail("{$member['username']} <{$member['email']}>", lang('email', 'moderate_member_subject'), $moderate_member_message)) {
+								runlog('sendmail', "{$member['email']} sendmail failed.");
 							}
 						}
 					}

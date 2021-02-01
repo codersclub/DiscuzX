@@ -262,10 +262,10 @@ EOT;
 					$fids[] = $thread['fid'];
 					$thread['lastpost'] = dgmdate($thread['lastpost']);
 					$threads .= showtablerow('', array('class="td25"', '', '', '', '', ''), array(
-						"<input class=\"checkbox\" type=\"checkbox\" name=\"tidarray[]\" value=\"$thread[tid]\" checked=\"checked\" />",
-						"<a href=\"forum.php?mod=viewthread&tid=$thread[tid]\" target=\"_blank\">$thread[subject]</a>",
-						"<a href=\"forum.php?mod=forumdisplay&fid=$thread[fid]\" target=\"_blank\">{$_G['cache'][forums][$thread[fid]][name]}</a>",
-						"<a href=\"home.php?mod=space&uid=$thread[authorid]\" target=\"_blank\">$thread[author]</a>",
+						"<input class=\"checkbox\" type=\"checkbox\" name=\"tidarray[]\" value=\"{$thread['tid']}\" checked=\"checked\" />",
+						"<a href=\"forum.php?mod=viewthread&tid={$thread['tid']}\" target=\"_blank\">{$thread['subject']}</a>",
+						"<a href=\"forum.php?mod=forumdisplay&fid={$thread['fid']}\" target=\"_blank\">{$_G['cache']['forums'][$thread['fid']]['name']}</a>",
+						"<a href=\"home.php?mod=space&uid={$thread['authorid']}\" target=\"_blank\">{$thread['author']}</a>",
 						$thread['replies'],
 						$thread['views']
 					), TRUE);

@@ -52,15 +52,15 @@ if(!$operation) {
 		foreach(C::t('forum_imagetype')->fetch_all_by_type('smiley') as $type) {
 			$smiliesnum = C::t('common_smiley')->count_by_type_typeid('smiley', $type['typeid']);
 			showtablerow('', array('class="td25"', 'class="td28"'), array(
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$type[typeid]\" ".($smiliesnum ? 'disabled' : '').">",
-				"<input type=\"text\" class=\"txt\" name=\"displayordernew[$type[typeid]]\" value=\"$type[displayorder]\" size=\"2\">",
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"availablenew[$type[typeid]]\" value=\"1\" ".($type['available'] ? 'checked' : '').">",
-				"<input type=\"text\" class=\"txt\" name=\"namenew[$type[typeid]]\" value=\"$type[name]\" size=\"15\">",
-				"./static/image/smiley/$type[directory]",
-				"$smiliesnum<input type=\"hidden\" name=\"smiliesnum[$type[typeid]]\" value=\"$smiliesnum\" />",
-				"<a href=\"".ADMINSCRIPT."?action=smilies&operation=update&id=$type[typeid]\" class=\"act\" onclick=\"return confirm('$lang[smilies_update_confirm1]$type[directory]$lang[smilies_update_confirm2]$type[name]$lang[smilies_update_confirm3]')\">$lang[smilies_update]</a>&nbsp;".
-				"<a href=\"".ADMINSCRIPT."?action=smilies&operation=export&id=$type[typeid]\" class=\"act\">$lang[export]</a>&nbsp;".
-				"<a href=\"".ADMINSCRIPT."?action=smilies&operation=edit&id=$type[typeid]\" class=\"act\">$lang[detail]</a>"
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$type['typeid']}\" ".($smiliesnum ? 'disabled' : '').">",
+				"<input type=\"text\" class=\"txt\" name=\"displayordernew[{$type['typeid']}]\" value=\"{$type['displayorder']}\" size=\"2\">",
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"availablenew[{$type['typeid']}]\" value=\"1\" ".($type['available'] ? 'checked' : '').">",
+				"<input type=\"text\" class=\"txt\" name=\"namenew[{$type['typeid']}]\" value=\"{$type['name']}\" size=\"15\">",
+				"./static/image/smiley/{$type['directory']}",
+				"$smiliesnum<input type=\"hidden\" name=\"smiliesnum[{$type['typeid']}]\" value=\"$smiliesnum\" />",
+				"<a href=\"".ADMINSCRIPT."?action=smilies&operation=update&id={$type['typeid']}\" class=\"act\" onclick=\"return confirm('{$lang['smilies_update_confirm1']}{$type['directory']}{$lang['smilies_update_confirm2']}{$type['name']}{$lang['smilies_update_confirm3']}')\">{$lang['smilies_update']}</a>&nbsp;".
+				"<a href=\"".ADMINSCRIPT."?action=smilies&operation=export&id={$type['typeid']}\" class=\"act\">{$lang['export']}</a>&nbsp;".
+				"<a href=\"".ADMINSCRIPT."?action=smilies&operation=edit&id={$type['typeid']}\" class=\"act\">{$lang['detail']}</a>"
 			));
 			$dirfilter[] = $type['directory'];
 			$smtypes++;
@@ -184,15 +184,15 @@ if(!$operation) {
 			$smilies = '';
 			foreach(C::t('common_smiley')->fetch_all_by_typeid_type($id, 'smiley', $start_limit, $smiliesperpage) as $smiley) {
 				$smilies .= showtablerow('', array('class="td25"', 'class="td28 td24"', 'class="td25"', 'class="td23"', 'class="td23"', 'class="td24"'), array(
-					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$smiley[id]\">",
-					"<input type=\"text\" class=\"txt\" size=\"2\" name=\"displayorder[$smiley[id]]\" value=\"$smiley[displayorder]\">",
-					"<input class=\"checkbox\" type=\"checkbox\" name=\"fast[]\" ".(in_array($smiley['id'], $fastsmiley[$id]) ? 'checked="checked"' : '')." value=\"$smiley[id]\">",
-					"<img src=\"$smurl/$smiley[url]\" border=\"0\" onload=\"if(this.height>30) {this.resized=true; this.height=30;}\" onmouseover=\"if(this.resized) this.style.cursor='pointer';\" onclick=\"if(!this.resized) {return false;} else {window.open(this.src);}\">",
+					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$smiley['id']}\">",
+					"<input type=\"text\" class=\"txt\" size=\"2\" name=\"displayorder[{$smiley['id']}]\" value=\"{$smiley['displayorder']}\">",
+					"<input class=\"checkbox\" type=\"checkbox\" name=\"fast[]\" ".(in_array($smiley['id'], $fastsmiley[$id]) ? 'checked="checked"' : '')." value=\"{$smiley['id']}\">",
+					"<img src=\"$smurl/{$smiley['url']}\" border=\"0\" onload=\"if(this.height>30) {this.resized=true; this.height=30;}\" onmouseover=\"if(this.resized) this.style.cursor='pointer';\" onclick=\"if(!this.resized) {return false;} else {window.open(this.src);}\">",
 					$smiley['id'],
-					"<input type=\"text\" class=\"txt\" size=\"25\" name=\"code[$smiley[id]]\" value=\"".dhtmlspecialchars($smiley['code'])."\" id=\"code_$smileynum\" smileyid=\"$smiley[id]\" />",
-					"<input type=\"hidden\" value=\"$smiley[url]\" id=\"url_$smileynum\">$smiley[url]"
+					"<input type=\"text\" class=\"txt\" size=\"25\" name=\"code[{$smiley['id']}]\" value=\"".dhtmlspecialchars($smiley['code'])."\" id=\"code_$smileynum\" smileyid=\"{$smiley['id']}\" />",
+					"<input type=\"hidden\" value=\"{$smiley['url']}\" id=\"url_$smileynum\">{$smiley['url']}"
 				), TRUE);
-				$imgfilter[] = $smiley[url];
+				$imgfilter[] = $smiley['url'];
 				$smileynum ++;
 			}
 
@@ -206,11 +206,11 @@ if(!$operation) {
 				var suffix = trim($(pre + 'suffix').value);
 				var page = parseInt('$page');
 				var middle = $(pre + 'middle').value == 1 ? $(pre + 'url_' + i).value.substr(0,$(pre + 'url_' + i).value.lastIndexOf('.')) : ($(pre + 'middle').value == 2 ? i + page * 10 : $(pre + 'code_'+ i).attributes['smileyid'].nodeValue);
-				if(!prefix || prefix == '$lang[smilies_prefix]' || !suffix || suffix == '$lang[smilies_suffix]') {
-					alert('$lang[smilies_prefix_tips]');
+				if(!prefix || prefix == '{$lang['smilies_prefix']}' || !suffix || suffix == '{$lang['smilies_suffix']}') {
+					alert('{$lang['smilies_prefix_tips']}');
 					return;
 				}
-				suffix = !suffix || suffix == '$lang[smilies_suffix]' ? '' : suffix;
+				suffix = !suffix || suffix == '{$lang['smilies_suffix']}' ? '' : suffix;
 				$(pre + 'code_' + i).value = prefix + middle + suffix;
 			}
 		}
@@ -276,7 +276,7 @@ EOT;
 			$fastsmiley[$id] = array_diff(array_unique(array_merge((array)$fastsmiley[$id], (array)$_GET['fast'])), $unsfast);
 			C::t('common_setting')->update('fastsmiley', $fastsmiley);
 			updatecache(array('smilies', 'smileycodes', 'smilies_js'));
-			cpmsg('smilies_edit_succeed', "action=smilies&operation=edit&id=$id&page=$_GET[page]", 'succeed');
+			cpmsg('smilies_edit_succeed', "action=smilies&operation=edit&id=$id&page={$_GET['page']}", 'succeed');
 
 		}
 
@@ -285,7 +285,7 @@ EOT;
 		if(!submitcheck('editsubmit')) {
 
 			shownav('style', 'nav_smilies');
-			showsubmenu(cplang('smilies_edit').' - '.$type[name], array(
+			showsubmenu(cplang('smilies_edit').' - '.$type['name'], array(
 				array('smilies_type', 'smilies', 0),
 				array('admin', "smilies&operation=edit&id=$id", !$do),
 				array('add', "smilies&operation=edit&do=add&id=$id", $do == 'add')
@@ -293,8 +293,8 @@ EOT;
 			showtips('smilies_tips');
 			showtagheader('div', 'addsmilies', TRUE);
 			showtableheader('smilies_add', 'notop fixpadding');
-			showtablerow('', '', "<span class=\"bold marginright\">$lang[smilies_type]:</span>$type[name]");
-			showtablerow('', '', "<span class=\"bold marginright\">$lang[dir]:</span>$smurl $lang[smilies_add_search]");
+			showtablerow('', '', "<span class=\"bold marginright\">{$lang['smilies_type']}:</span>{$type['name']}");
+			showtablerow('', '', "<span class=\"bold marginright\">{$lang['dir']}:</span>$smurl {$lang['smilies_add_search']}");
 			showtablerow('', '', '<input type="button" class="btn" value="'.$lang['search'].'" onclick="ajaxget(\''.ADMINSCRIPT.'?action=smilies&operation=edit&do=add&id='.$id.'&search=yes\', \'addsmilies\', \'addsmilies\', \'auto\');doane(event);">');
 			showtablefooter();
 			showtagfooter('div');
@@ -304,7 +304,7 @@ EOT;
 				$newimages = '';
 				$imgfilter =  array();
 				foreach(C::t('common_smiley')->fetch_all_by_typeid_type($id, 'smiley') as $smiley) {
-					$imgfilter[] = $img[url];
+					$imgfilter[] = $img['url'];
 				}
 				$smiliesdir = dir($smdir);
 				while($entry = $smiliesdir->read()) {
@@ -437,7 +437,7 @@ function update_smiles($smdir, $id, &$imgextarray) {
 	$num = 0;
 	$smilies = $imgfilter =  array();
 	foreach(C::t('common_smiley')->fetch_all_by_typeid_type($id, 'smiley') as $img) {
-		$imgfilter[] = $img[url];
+		$imgfilter[] = $img['url'];
 	}
 	$smiliesdir = dir($smdir);
 	while($entry = $smiliesdir->read()) {

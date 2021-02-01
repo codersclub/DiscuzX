@@ -36,19 +36,19 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 	showtableheader('search');
 	showtablerow('', array('width="60"', 'width="160"', 'width="60"'),
 		array(
-			cplang('username'), "<input size=\"15\" name=\"username\" type=\"text\" value=\"$_GET[username]\" />",
-			cplang('moderate_title_keyword'), "<input size=\"15\" name=\"title\" type=\"text\" value=\"$_GET[title]\" />",
+			cplang('username'), "<input size=\"15\" name=\"username\" type=\"text\" value=\"{$_GET['username']}\" />",
+			cplang('moderate_title_keyword'), "<input size=\"15\" name=\"title\" type=\"text\" value=\"{$_GET['title']}\" />",
 		)
 	);
         showtablerow('', array('width="60"', 'width="160"', 'width="60"'),
                 array(
-                        "$lang[perpage]",
-                        "<select name=\"tpp\">$tpp_options</select><label><input name=\"showcensor\" type=\"checkbox\" class=\"checkbox\" value=\"yes\" ".($showcensor ? ' checked="checked"' : '')."/> $lang[moderate_showcensor]</label>",
-                        "$lang[moderate_bound]",
+                        "{$lang['perpage']}",
+                        "<select name=\"tpp\">$tpp_options</select><label><input name=\"showcensor\" type=\"checkbox\" class=\"checkbox\" value=\"yes\" ".($showcensor ? ' checked="checked"' : '')."/> {$lang['moderate_showcensor']}</label>",
+                        "{$lang['moderate_bound']}",
                         "<select name=\"filter\">$filteroptions</select>
                         <select name=\"modfid\">$forumoptions</select>
                         <select name=\"dateline\">$dateline_options</select>
-                        <input class=\"btn\" type=\"submit\" value=\"$lang[search]\" />"
+                        <input class=\"btn\" type=\"submit\" value=\"{$lang['search']}\" />"
                 )
         );
 	showtablefooter();
@@ -94,9 +94,9 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		$threadsortinfo = '';
 		$thread['useip'] = $thread['useip'] . '-' . convertip($thread['useip']);
 		if($thread['authorid'] && $thread['author']) {
-			$thread['author'] = "<a href=\"?action=members&operation=search&uid=$thread[authorid]&submit=yes\" target=\"_blank\">$thread[author]</a>";
+			$thread['author'] = "<a href=\"?action=members&operation=search&uid={$thread['authorid']}&submit=yes\" target=\"_blank\">{$thread['author']}</a>";
 		} elseif($thread['authorid'] && !$thread['author']) {
-			$thread['author'] = "<a href=\"?action=members&operation=search&uid=$thread[authorid]&submit=yes\" target=\"_blank\">$lang[anonymous]</a>";
+			$thread['author'] = "<a href=\"?action=members&operation=search&uid={$thread['authorid']}&submit=yes\" target=\"_blank\">{$lang['anonymous']}</a>";
 		} else {
 			$thread['author'] = $lang['guest'];
 		}
@@ -122,9 +122,9 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 			foreach(C::t('forum_attachment_n')->fetch_all_by_id('tid:'.$thread['tid'], 'tid', $thread['tid']) as $attach) {
 				$_G['setting']['attachurl'] = $attach['remote'] ? $_G['setting']['ftp']['attachurl'] : $_G['setting']['attachurl'];
 				$attach['url'] = $attach['isimage']
-						? " $attach[filename] (".sizecount($attach['filesize']).")<br /><br /><img src=\"".$_G['setting']['attachurl']."forum/$attach[attachment]\" onload=\"if(this.width > 400) {this.resized=true; this.width=400;}\">"
-						 : "<a href=\"".$_G['setting']['attachurl']."forum/$attach[attachment]\" target=\"_blank\">$attach[filename]</a> (".sizecount($attach['filesize']).")";
-				$thread['message'] .= "<br /><br />$lang[attachment]: ".attachtype(fileext($attach['filename'])).$attach['url'];
+						? " {$attach['filename']} (".sizecount($attach['filesize']).")<br /><br /><img src=\"".$_G['setting']['attachurl']."forum/{$attach['attachment']}\" onload=\"if(this.width > 400) {this.resized=true; this.width=400;}\">"
+						 : "<a href=\"".$_G['setting']['attachurl']."forum/{$attach['attachment']}\" target=\"_blank\">{$attach['filename']}</a> (".sizecount($attach['filesize']).")";
+				$thread['message'] .= "<br /><br />{$lang['attachment']}: ".attachtype(fileext($attach['filename'])).$attach['url'];
 			}
 		}
 
@@ -138,21 +138,21 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		}
 
 		if(count($censor_words)) {
-			$thread_censor_text = "<span style=\"color: red;\">($thread[censorwords])</span>";
+			$thread_censor_text = "<span style=\"color: red;\">({$thread['censorwords']})</span>";
 		} else {
 			$thread_censor_text = '';
 		}
 		$forumname = $_G['cache']['forums'][$thread['fid']]['name'];
 		showtagheader('tbody', '', true, 'hover');
-		showtablerow("id=\"mod_$thread[tid]_row1\"", array("id=\"mod_$thread[tid]_row1_op\" rowspan=\"3\" class=\"rowform threadopt\" style=\"width:80px;\"", '', 'width="120"', 'width="120"', 'width="55"'), array(
-			"<ul class=\"nofloat\"><li><input class=\"radio\" type=\"radio\" name=\"moderate[$thread[tid]]\" id=\"mod_$thread[tid]_1\" value=\"validate\" onclick=\"mod_setbg($thread[tid], 'validate');document.getElementById('deloptions_$thread[tid]').style.display='none';\"><label for=\"mod_$thread[tid]_1\">$lang[validate]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$thread[tid]]\" id=\"mod_$thread[tid]_2\" value=\"delete\" onclick=\"mod_setbg($thread[tid], 'delete');document.getElementById('deloptions_$thread[tid]').style.display='inline';\"><label for=\"mod_$thread[tid]_2\">$lang[delete]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$thread[tid]]\" id=\"mod_$thread[tid]_3\" value=\"ignore\" onclick=\"mod_setbg($thread[tid], 'ignore');document.getElementById('deloptions_$thread[tid]').style.display='none';\"><label for=\"mod_$thread[tid]_3\">$lang[ignore]</label></li></ul>",
-			"<h3><a href=\"javascript:;\" onclick=\"display_toggle('$thread[tid]');\">$thread[subject]</a> $thread_censor_text</h3><p>$thread[useip]</p>",
-			"<a target=\"_blank\" href=\"forum.php?mod=forumdisplay&fid=$thread[fid]\">$forumname</a>",
-			"<p>$thread[author]</p> <p>$thread[dateline]</p>",
-			"<a target=\"_blank\" href=\"forum.php?mod=viewthread&tid=$thread[tid]&modthreadkey=$thread[modthreadkey]\">$lang[view]</a>&nbsp;<a href=\"forum.php?mod=post&action=edit&fid=$thread[fid]&tid=$thread[tid]&pid=$thread[pid]&modthreadkey=$thread[modthreadkey]\" target=\"_blank\">$lang[edit]</a>",
+		showtablerow("id=\"mod_{$thread['tid']}_row1\"", array("id=\"mod_{$thread['tid']}_row1_op\" rowspan=\"3\" class=\"rowform threadopt\" style=\"width:80px;\"", '', 'width="120"', 'width="120"', 'width="55"'), array(
+			"<ul class=\"nofloat\"><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$thread['tid']}]\" id=\"mod_{$thread['tid']}_1\" value=\"validate\" onclick=\"mod_setbg({$thread['tid']}, 'validate');document.getElementById('deloptions_{$thread['tid']}').style.display='none';\"><label for=\"mod_{$thread['tid']}_1\">{$lang['validate']}</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$thread['tid']}]\" id=\"mod_{$thread['tid']}_2\" value=\"delete\" onclick=\"mod_setbg({$thread['tid']}, 'delete');document.getElementById('deloptions_{$thread['tid']}').style.display='inline';\"><label for=\"mod_{$thread['tid']}_2\">{$lang['delete']}</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$thread['tid']}]\" id=\"mod_{$thread['tid']}_3\" value=\"ignore\" onclick=\"mod_setbg({$thread['tid']}, 'ignore');document.getElementById('deloptions_{$thread['tid']}').style.display='none';\"><label for=\"mod_{$thread['tid']}_3\">{$lang['ignore']}</label></li></ul>",
+			"<h3><a href=\"javascript:;\" onclick=\"display_toggle('{$thread['tid']}');\">{$thread['subject']}</a> $thread_censor_text</h3><p>{$thread['useip']}</p>",
+			"<a target=\"_blank\" href=\"forum.php?mod=forumdisplay&fid={$thread['fid']}\">$forumname</a>",
+			"<p>{$thread['author']}</p> <p>{$thread['dateline']}</p>",
+			"<a target=\"_blank\" href=\"forum.php?mod=viewthread&tid={$thread['tid']}&modthreadkey={$thread['modthreadkey']}\">{$lang['view']}</a>&nbsp;<a href=\"forum.php?mod=post&action=edit&fid={$thread['fid']}&tid={$thread['tid']}&pid={$thread['pid']}&modthreadkey={$thread['modthreadkey']}\" target=\"_blank\">{$lang['edit']}</a>",
 		));
-		showtablerow("id=\"mod_$thread[tid]_row2\"", 'colspan="4" style="padding: 10px; line-height: 180%;"', '<div style="overflow: auto; overflow-x: hidden; max-height:120px; height:auto !important; height:120px; word-break: break-all;">'.$thread['message'].'<br /><br />'.$threadsortinfo.'</div>');
-		showtablerow("id=\"mod_$thread[tid]_row3\"", 'class="threadopt threadtitle" colspan="4"', "<a href=\"?action=moderate&operation=threads&fast=1&fid=$thread[fid]&tid=$thread[tid]&moderate[$thread[tid]]=validate&page=$page&frame=no\" target=\"fasthandle\">$lang[validate]</a> | <a href=\"?action=moderate&operation=threads&fast=1&fid=$thread[fid]&tid=$thread[tid]&moderate[$thread[tid]]=delete&page=$page&frame=no\" target=\"fasthandle\">$lang[delete]</a> | <a href=\"?action=moderate&operation=threads&fast=1&fid=$thread[fid]&tid=$thread[tid]&moderate[$thread[tid]]=ignore&page=$page&frame=no\" target=\"fasthandle\">$lang[ignore]</a> | <a href=\"forum.php?mod=post&action=edit&fid=$thread[fid]&tid=$thread[tid]&pid=$thread[pid]&page=1&modthreadkey=$thread[modthreadkey]\" target=\"_blank\">".$lang['moderate_edit_thread']."</a> &nbsp;&nbsp;|&nbsp;&nbsp; ".$lang['moderate_reasonpm']."&nbsp; <input type=\"text\" class=\"txt\" name=\"pm_$thread[tid]\" id=\"pm_$thread[tid]\" style=\"margin: 0px;\"> &nbsp; <select style=\"margin: 0px;\" onchange=\"$('pm_$thread[tid]').value=this.value\">$modreasonoptions</select>&nbsp;<p id=\"deloptions_$thread[tid]\" style=\"display: none\"><label for=\"userban_$thread[tid]\"><input type=\"checkbox\" name=\"banuser_$thread[tid]\" id=\"userban_$thread[tid]\" class=\"pc\" />".$lang['banuser']."</label><label for=\"userdelpost_$thread[tid]\"><input type=\"checkbox\" name=\"userdelpost_$thread[tid]\" id=\"userdelpost_$thread[tid]\" class=\"pc\" />".$lang['userdelpost']."</label><label for=\"crimerecord_$thread[tid]\"><input type=\"checkbox\" name=\"crimerecord_$thread[tid]\" id=\"crimerecord_$thread[tid]\" class=\"pc\" />".$lang['crimerecord']."</label></p>");
+		showtablerow("id=\"mod_{$thread['tid']}_row2\"", 'colspan="4" style="padding: 10px; line-height: 180%;"', '<div style="overflow: auto; overflow-x: hidden; max-height:120px; height:auto !important; height:120px; word-break: break-all;">'.$thread['message'].'<br /><br />'.$threadsortinfo.'</div>');
+		showtablerow("id=\"mod_{$thread['tid']}_row3\"", 'class="threadopt threadtitle" colspan="4"', "<a href=\"?action=moderate&operation=threads&fast=1&fid={$thread['fid']}&tid={$thread['tid']}&moderate[{$thread['tid']}]=validate&page=$page&frame=no\" target=\"fasthandle\">{$lang['validate']}</a> | <a href=\"?action=moderate&operation=threads&fast=1&fid={$thread['fid']}&tid={$thread['tid']}&moderate[{$thread['tid']}]=delete&page=$page&frame=no\" target=\"fasthandle\">{$lang['delete']}</a> | <a href=\"?action=moderate&operation=threads&fast=1&fid={$thread['fid']}&tid={$thread['tid']}&moderate[{$thread['tid']}]=ignore&page=$page&frame=no\" target=\"fasthandle\">{$lang['ignore']}</a> | <a href=\"forum.php?mod=post&action=edit&fid={$thread['fid']}&tid={$thread['tid']}&pid={$thread['pid']}&page=1&modthreadkey={$thread['modthreadkey']}\" target=\"_blank\">".$lang['moderate_edit_thread']."</a> &nbsp;&nbsp;|&nbsp;&nbsp; ".$lang['moderate_reasonpm']."&nbsp; <input type=\"text\" class=\"txt\" name=\"pm_{$thread['tid']}\" id=\"pm_{$thread['tid']}\" style=\"margin: 0px;\"> &nbsp; <select style=\"margin: 0px;\" onchange=\"$('pm_{$thread['tid']}').value=this.value\">$modreasonoptions</select>&nbsp;<p id=\"deloptions_{$thread['tid']}\" style=\"display: none\"><label for=\"userban_{$thread['tid']}\"><input type=\"checkbox\" name=\"banuser_{$thread['tid']}\" id=\"userban_{$thread['tid']}\" class=\"pc\" />".$lang['banuser']."</label><label for=\"userdelpost_{$thread['tid']}\"><input type=\"checkbox\" name=\"userdelpost_{$thread['tid']}\" id=\"userdelpost_{$thread['tid']}\" class=\"pc\" />".$lang['userdelpost']."</label><label for=\"crimerecord_{$thread['tid']}\"><input type=\"checkbox\" name=\"crimerecord_{$thread['tid']}\" id=\"crimerecord_{$thread['tid']}\" class=\"pc\" />".$lang['crimerecord']."</label></p>");
 		showtagfooter('tbody');
 	}
 
@@ -210,7 +210,7 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		$deletetids = array();
 		$recyclebintids = array();		
 		$deleteauthorids = array();
-		foreach(C::t('forum_thread')->fetch_all_by_tid_displayorder($moderation['delete'], $displayorder, '>=', $fidadd[fids]) as $thread) {
+		foreach(C::t('forum_thread')->fetch_all_by_tid_displayorder($moderation['delete'], $displayorder, '>=', $fidadd['fids']) as $thread) {
 			if($recyclebins[$thread['fid']]) {
 				$recyclebintids[] = $thread['tid'];
 			} else {

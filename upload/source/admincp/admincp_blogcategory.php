@@ -57,9 +57,9 @@ if($operation == 'list') {
 		echo <<<SCRIPT
 <script type="text/JavaScript">
 var rowtypedata = [
-	[[1,'<input type="text" class="txt" name="neworder[{1}][]" value="0" />', 'td25'], [3, '<div class="parentboard"><input type="text" class="txt" value="$lang[blogcategory_addcategory]" name="newname[{1}][]"/></div>']],
-	[[1,'<input type="text" class="txt" name="neworder[{1}][]" value="0" />', 'td25'], [3, '<div class="board"><input type="text" class="txt" value="$lang[blogcategory_addsubcategory]" name="newname[{1}][]"/></div>']],
-	[[1,'<input type="text" class="txt" name="neworder[{1}][]" value="0" />', 'td25'], [3, '<div class="childboard"><input type="text" class="txt" value="$lang[blogcategory_addthirdcategory]" name="newname[{1}][]"/></div>']],
+	[[1,'<input type="text" class="txt" name="neworder[{1}][]" value="0" />', 'td25'], [3, '<div class="parentboard"><input type="text" class="txt" value="{$lang['blogcategory_addcategory']}" name="newname[{1}][]"/></div>']],
+	[[1,'<input type="text" class="txt" name="neworder[{1}][]" value="0" />', 'td25'], [3, '<div class="board"><input type="text" class="txt" value="{$lang['blogcategory_addsubcategory']}" name="newname[{1}][]"/></div>']],
+	[[1,'<input type="text" class="txt" name="neworder[{1}][]" value="0" />', 'td25'], [3, '<div class="childboard"><input type="text" class="txt" value="{$lang['blogcategory_addthirdcategory']}" name="newname[{1}][]"/></div>']],
 ];
 </script>
 SCRIPT;
@@ -108,7 +108,7 @@ SCRIPT;
 	}
 	if(!submitcheck('deletesubmit')) {
 		$blog_count = C::t('home_blog')->count_by_catid($_GET['catid']);
-		if(!$blog_count && empty($category[$_GET[catid]]['children'])) {
+		if(!$blog_count && empty($category[$_GET['catid']]['children'])) {
 			C::t('home_blog_category')->delete($_GET['catid']);
 			include_once libfile('function/cache');
 			updatecache('blogcategory');
@@ -123,7 +123,7 @@ SCRIPT;
 
 		showformheader('blogcategory&operation=delete&catid='.$_GET['catid']);
 		showtableheader();
-		if($category[$_GET[catid]]['children']) {
+		if($category[$_GET['catid']]['children']) {
 			showsetting('blogcategory_subcategory_moveto', '', '',
 				'<input type="radio" name="subcat_op" value="trash" id="subcat_op_trash" checked="checked" />'.
 				'<label for="subcat_op_trash" />'.cplang('blogcategory_subcategory_moveto_trash').'</label>'.
@@ -188,12 +188,12 @@ function showcategoryrow($key, $level = 0, $last = '') {
 		$return = '<tr class="hover"><td class="td25"><input type="text" class="txt" name="order['.$value['catid'].']" value="'.$value['displayorder'].'" /></td><td><div class="'.$class.'">'.
 		'<input type="text" name="name['.$value['catid'].']" value="'.$value['catname'].'" class="txt" />'.
 		'</div>'.
-		'</td><td>'.$value[num].'</td><td><a href="'.ADMINSCRIPT.'?action=blogcategory&operation=delete&catid='.$value['catid'].'">'.cplang('delete').'</a></td></tr>';
+		'</td><td>'.$value['num'].'</td><td><a href="'.ADMINSCRIPT.'?action=blogcategory&operation=delete&catid='.$value['catid'].'">'.cplang('delete').'</a></td></tr>';
 	} elseif($level == 1) {
 		$return = '<tr class="hover"><td class="td25"><input type="text" class="txt" name="order['.$value['catid'].']" value="'.$value['displayorder'].'" /></td><td><div class="board">'.
 		'<input type="text" name="name['.$value['catid'].']" value="'.$value['catname'].'" class="txt" />'.
 		'<a class="addchildboard" onclick="addrowdirect = 1;addrow(this, 2, '.$value['catid'].')" href="###">'.cplang('blogcategory_addthirdcategory').'</a></div>'.
-		'</td><td>'.$value[num].'</td><td><a href="'.ADMINSCRIPT.'?action=blogcategory&operation=delete&catid='.$value['catid'].'">'.cplang('delete').'</a></td></tr>';
+		'</td><td>'.$value['num'].'</td><td><a href="'.ADMINSCRIPT.'?action=blogcategory&operation=delete&catid='.$value['catid'].'">'.cplang('delete').'</a></td></tr>';
 		for($i=0,$L=(is_array($value['children']) ? count($value['children']) : 0); $i<$L; $i++) {
 			$return .= showcategoryrow($value['children'][$i], 2, $i==$L-1);
 		}
@@ -201,7 +201,7 @@ function showcategoryrow($key, $level = 0, $last = '') {
 		$return = '<tr class="hover"><td class="td25"><input type="text" class="txt" name="order['.$value['catid'].']" value="'.$value['displayorder'].'" /></td><td><div class="parentboard">'.
 		'<input type="text" name="name['.$value['catid'].']" value="'.$value['catname'].'" class="txt" />'.
 		'</div>'.
-		'</td><td>'.$value[num].'</td><td><a href="'.ADMINSCRIPT.'?action=blogcategory&operation=delete&catid='.$value['catid'].'">'.cplang('delete').'</a></td></tr>';
+		'</td><td>'.$value['num'].'</td><td><a href="'.ADMINSCRIPT.'?action=blogcategory&operation=delete&catid='.$value['catid'].'">'.cplang('delete').'</a></td></tr>';
 		for($i=0,$L=(is_array($value['children']) ? count($value['children']) : 0); $i<$L; $i++) {
 			$return .= showcategoryrow($value['children'][$i], 1, '');
 		}

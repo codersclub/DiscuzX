@@ -41,7 +41,7 @@ if(!$operation) {
 	$addonids = explode(',', $_GET['addonids']);
 	list($_GET['key'], $_GET['type'], $_GET['rid']) = explode('.', isset($addonids[$addoni]) ? $addonids[$addoni] : $addonids[0]);
 	if($step == 0) {
-		cpmsg('cloudaddons_downloading', "action=cloudaddons&operation=download&addonids=$_GET[addonids]&i=$addoni&step=1&md5hash=".$_GET['md5hash'].'&timestamp='.$_GET['timestamp'], 'loading', array('addonid' => $_GET['key'].'.'.$_GET['type']), '<div>0%</div>', FALSE);
+		cpmsg('cloudaddons_downloading', "action=cloudaddons&operation=download&addonids={$_GET['addonids']}&i=$addoni&step=1&md5hash=".$_GET['md5hash'].'&timestamp='.$_GET['timestamp'], 'loading', array('addonid' => $_GET['key'].'.'.$_GET['type']), '<div>0%</div>', FALSE);
 	} elseif($step == 1) {
 		$packnum = isset($_GET['num']) ? $_GET['num'] : 0;
 		$tmpdir = DISCUZ_ROOT.'./data/download/'.$_GET['rid'];
@@ -59,7 +59,7 @@ if(!$operation) {
 		}
 		$data = cloudaddons_open('&mod=app&ac=download&rid='.$_GET['rid'].'&packnum='.$packnum, '', 999);
 		if(empty($data)){
-			cpmsg('cloudaddons_downloading', "action=cloudaddons&operation=download&addonids=$_GET[addonids]&i=$addoni&step=1&md5hash=".$_GET['md5hash'].'&timestamp='.$_GET['timestamp'].'&num='.$packnum, 'loading', array('addonid' => $_GET['key'].'.'.$_GET['type']), '<div></div>', FALSE);
+			cpmsg('cloudaddons_downloading', "action=cloudaddons&operation=download&addonids={$_GET['addonids']}&i=$addoni&step=1&md5hash=".$_GET['md5hash'].'&timestamp='.$_GET['timestamp'].'&num='.$packnum, 'loading', array('addonid' => $_GET['key'].'.'.$_GET['type']), '<div></div>', FALSE);
 			exit;
 		}
 		$_GET['importtxt'] = $data;
@@ -113,7 +113,7 @@ if(!$operation) {
 		}
 		if(!$end) {
 			$packnum++;
-			cpmsg('cloudaddons_downloading', "action=cloudaddons&operation=download&addonids=$_GET[addonids]&i=$addoni&step=1&md5hash=".$_GET['md5hash'].'&timestamp='.$_GET['timestamp'].'&num='.$packnum, 'loading', array('addonid' => $_GET['key'].'.'.$_GET['type']), '<div>'.$percent.'%</div>', FALSE);
+			cpmsg('cloudaddons_downloading', "action=cloudaddons&operation=download&addonids={$_GET['addonids']}&i=$addoni&step=1&md5hash=".$_GET['md5hash'].'&timestamp='.$_GET['timestamp'].'&num='.$packnum, 'loading', array('addonid' => $_GET['key'].'.'.$_GET['type']), '<div>'.$percent.'%</div>', FALSE);
 		} else {
 			if($md5total !== '' && md5($md5total) !== cloudaddons_md5($_GET['key'].'_'.$_GET['rid'])) {
 				dir_clear($tmpdir);
@@ -121,7 +121,7 @@ if(!$operation) {
 				cloudaddons_faillog($_GET['rid'], 105);
 				cpmsg('cloudaddons_download_error', '', 'error', array('ErrorCode' => 105));
 			}
-			cpmsg('cloudaddons_installing', "action=cloudaddons&operation=download&addonids=$_GET[addonids]&i=$addoni&end=$end&step=2&md5hash=".$_GET['md5hash'].'&timestamp='.$_GET['timestamp'], 'loading', array('addonid' => $_GET['key'].'.'.$_GET['type']), FALSE);
+			cpmsg('cloudaddons_installing', "action=cloudaddons&operation=download&addonids={$_GET['addonids']}&i=$addoni&end=$end&step=2&md5hash=".$_GET['md5hash'].'&timestamp='.$_GET['timestamp'], 'loading', array('addonid' => $_GET['key'].'.'.$_GET['type']), FALSE);
 		}
 	} elseif($step == 2) {
 		$tmpdir = DISCUZ_ROOT.'./data/download/'.$_GET['rid'];
@@ -151,7 +151,7 @@ if(!$operation) {
 		if($unwriteabledirs) {
 			if(!submitcheck('settingsubmit')) {
 				showtips(cplang('cloudaddons_unwriteabledirs', array('basedir' => $typedir[$_GET['type']] != '.' ? $typedir[$_GET['type']] : '/', 'unwriteabledirs' => implode(', ', $unwriteabledirs))));
-				siteftp_form("cloudaddons&operation=download&addonids=$_GET[addonids]&i=$addoni&end=".rawurlencode($_GET['end'])."&step=2&md5hash=".$_GET['md5hash'].'&timestamp='.$_GET['timestamp']);
+				siteftp_form("cloudaddons&operation=download&addonids={$_GET['addonids']}&i=$addoni&end=".rawurlencode($_GET['end'])."&step=2&md5hash=".$_GET['md5hash'].'&timestamp='.$_GET['timestamp']);
 				exit;
 			} else {
 				siteftp_check($_GET['siteftp'], $typedir[$_GET['type']]);
@@ -167,7 +167,7 @@ if(!$operation) {
 		cloudaddons_deltree($tmpdir);
 		if(count($addonids) - 1 > $addoni) {
 			$addoni++;
-			cpmsg('cloudaddons_downloading', "action=cloudaddons&operation=download&addonids=$_GET[addonids]&i=$addoni&step=1&md5hash=".$_GET['md5hash'].'&timestamp='.$_GET['timestamp'], 'loading', array('addonid' => $_GET['key'].'.'.$_GET['type']), FALSE);
+			cpmsg('cloudaddons_downloading', "action=cloudaddons&operation=download&addonids={$_GET['addonids']}&i=$addoni&step=1&md5hash=".$_GET['md5hash'].'&timestamp='.$_GET['timestamp'], 'loading', array('addonid' => $_GET['key'].'.'.$_GET['type']), FALSE);
 		}
 		list($_GET['key'], $_GET['type'], $_GET['rid']) = explode('.', $addonids[0]);
 		cloudaddons_downloadlog($_GET['key'].'.'.$_GET['type']);

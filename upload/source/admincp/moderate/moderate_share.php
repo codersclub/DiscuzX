@@ -38,18 +38,18 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 
 	showtablerow('', array('width="60"', 'width="160"', 'width="60"'),
 		array(
-			cplang('username'), "<input size=\"15\" name=\"username\" type=\"text\" value=\"$_GET[username]\" />",
-			cplang('moderate_content_keyword'), "<input size=\"15\" name=\"keyword\" type=\"text\" value=\"$_GET[keyword]\" />",
+			cplang('username'), "<input size=\"15\" name=\"username\" type=\"text\" value=\"{$_GET['username']}\" />",
+			cplang('moderate_content_keyword'), "<input size=\"15\" name=\"keyword\" type=\"text\" value=\"{$_GET['keyword']}\" />",
 		)
 	);
 	showtablerow('', array('width="60"', 'width="160"', 'width="60"'),
                 array(
-                        "$lang[perpage]",
-                        "<select name=\"tpp\">$tpp_options</select><label><input name=\"showcensor\" type=\"checkbox\" class=\"checkbox\" value=\"yes\" ".($showcensor ? ' checked="checked"' : '')."/> $lang[moderate_showcensor]</label>",
-                        "$lang[moderate_bound]",
+                        "{$lang['perpage']}",
+                        "<select name=\"tpp\">$tpp_options</select><label><input name=\"showcensor\" type=\"checkbox\" class=\"checkbox\" value=\"yes\" ".($showcensor ? ' checked="checked"' : '')."/> {$lang['moderate_showcensor']}</label>",
+                        "{$lang['moderate_bound']}",
                         "<select name=\"filter\">$filteroptions</select>
                         <select name=\"dateline\">$dateline_options</select>
-                        <input class=\"btn\" type=\"submit\" value=\"$lang[search]\" />"
+                        <input class=\"btn\" type=\"submit\" value=\"{$lang['search']}\" />"
                 )
         );
 
@@ -105,42 +105,42 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		$shareurl = '';
 		switch($share['type']) {
 			case 'thread':
-				$shareurl = "forum.php?mod=viewthread&tid=$share[itemid]&modthreadkey=$share[modkey]";
+				$shareurl = "forum.php?mod=viewthread&tid={$share['itemid']}&modthreadkey={$share['modkey']}";
 				$sharetitle = lang('admincp', 'share_type_thread');
 				break;
 			case 'pic':
-				$shareurl = "home.php?mod=space&uid=$share[fromuid]&do=album&picid=$share[itemid]&modpickey=$share[modkey]";
+				$shareurl = "home.php?mod=space&uid={$share['fromuid']}&do=album&picid={$share['itemid']}&modpickey={$share['modkey']}";
 				$sharetitle = lang('admincp', 'share_type_pic');
 				break;
 			case 'space':
-				$shareurl = "home.php?mod=space&uid=$share[itemid]";
+				$shareurl = "home.php?mod=space&uid={$share['itemid']}";
 				$sharetitle = lang('admincp', 'share_type_space');
 				break;
 			case 'blog':
-				$shareurl = "home.php?mod=space&uid=$share[fromuid]&do=blog&id=$share[itemid]&modblogkey=$share[modkey]";
+				$shareurl = "home.php?mod=space&uid={$share['fromuid']}&do=blog&id={$share['itemid']}&modblogkey={$share['modkey']}";
 				$sharetitle = lang('admincp', 'share_type_blog');
 				break;
 			case 'album':
-				$shareurl = "home.php?mod=space&uid=$share[fromuid]&do=album&id=$share[itemid]&modalbumkey=$share[modkey]";
+				$shareurl = "home.php?mod=space&uid={$share['fromuid']}&do=album&id={$share['itemid']}&modalbumkey={$share['modkey']}";
 				$sharetitle = lang('admincp', 'share_type_album');
 				break;
 			case 'article':
-				$shareurl = "portal.php?mod=view&aid=$share[itemid]&modarticlekey=$share[modkey]";
+				$shareurl = "portal.php?mod=view&aid={$share['itemid']}&modarticlekey={$share['modkey']}";
 				$sharetitle = lang('admincp', 'share_type_article');
 				break;
 		}
 		showtagheader('tbody', '', true, 'hover');
-		showtablerow("id=\"mod_$share[sid]_row1\"", array("id=\"mod_$share[sid]_row1_op\" rowspan=\"3\" class=\"rowform threadopt\" style=\"width:80px;\"", '', 'width="120"', 'width="120"', 'width="55"', 'width="55"'), array(
-			"<ul class=\"nofloat\"><li><input class=\"radio\" type=\"radio\" name=\"moderate[$share[sid]]\" id=\"mod_$share[sid]_1\" value=\"validate\" onclick=\"mod_setbg($share[sid], 'validate');\"><label for=\"mod_$share[sid]_1\">$lang[validate]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$share[sid]]\" id=\"mod_$share[sid]_2\" value=\"delete\" onclick=\"mod_setbg($share[sid], 'delete');\"><label for=\"mod_$share[sid]_2\">$lang[delete]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$share[sid]]\" id=\"mod_$doing[doid]_3\" value=\"ignore\" onclick=\"mod_setbg($share[sid], 'ignore');\"><label for=\"mod_$share[sid]_3\">$lang[ignore]</label></li></ul>",
-			"<h3><a href=\"javascript:;\" onclick=\"display_toggle({$share[sid]});\">$short_desc $share_censor_text</a></h3>",
+		showtablerow("id=\"mod_{$share['sid']}_row1\"", array("id=\"mod_{$share['sid']}_row1_op\" rowspan=\"3\" class=\"rowform threadopt\" style=\"width:80px;\"", '', 'width="120"', 'width="120"', 'width="55"', 'width="55"'), array(
+			"<ul class=\"nofloat\"><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$share['sid']}]\" id=\"mod_{$share['sid']}_1\" value=\"validate\" onclick=\"mod_setbg({$share['sid']}, 'validate');\"><label for=\"mod_{$share['sid']}_1\">{$lang['validate']}</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$share['sid']}]\" id=\"mod_{$share['sid']}_2\" value=\"delete\" onclick=\"mod_setbg({$share['sid']}, 'delete');\"><label for=\"mod_{$share['sid']}_2\">{$lang['delete']}</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$share['sid']}]\" id=\"mod_{$doing['doid']}_3\" value=\"ignore\" onclick=\"mod_setbg({$share['sid']}, 'ignore');\"><label for=\"mod_{$share['sid']}_3\">{$lang['ignore']}</label></li></ul>",
+			"<h3><a href=\"javascript:;\" onclick=\"display_toggle({$share['sid']});\">$short_desc $share_censor_text</a></h3>",
 			$sharetitle,
-			"<p><a target=\"_blank\" href=\"".ADMINSCRIPT."?action=members&operation=search&uid=$share[uid]&submit=yes\">$share[username]</a></p> <p>$share[dateline]</p>",
-			"<a target=\"_blank\" href=\"$shareurl\">$lang[view]</a>",
+			"<p><a target=\"_blank\" href=\"".ADMINSCRIPT."?action=members&operation=search&uid={$share['uid']}&submit=yes\">{$share['username']}</a></p> <p>{$share['dateline']}</p>",
+			"<a target=\"_blank\" href=\"$shareurl\">{$lang['view']}</a>",
 		));
 
-		showtablerow("id=\"mod_$share[sid]_row2\"", 'colspan="4" style="padding: 10px; line-height: 180%;"', '<div style="overflow: auto; overflow-x: hidden; max-height:120px; height:auto !important; height:100px; word-break: break-all;">'.$share['body_general'].'</div>');
+		showtablerow("id=\"mod_{$share['sid']}_row2\"", 'colspan="4" style="padding: 10px; line-height: 180%;"', '<div style="overflow: auto; overflow-x: hidden; max-height:120px; height:auto !important; height:100px; word-break: break-all;">'.$share['body_general'].'</div>');
 
-		showtablerow("id=\"mod_$share[sid]_row3\"", 'class="threadopt threadtitle" colspan="4"', "<a href=\"?action=moderate&operation=shares&fast=1&sid=$share[sid]&moderate[$share[sid]]=validate&page=$page&frame=no\" target=\"fasthandle\">$lang[validate]</a> | <a href=\"?action=moderate&operation=shares&fast=1&sid=$share[sid]&moderate[$share[sid]]=delete&page=$page&frame=no\" target=\"fasthandle\">$lang[delete]</a> | <a href=\"?action=moderate&operation=shares&fast=1&sid=$share[sid]&moderate[$share[sid]]=ignore&page=$page&frame=no\" target=\"fasthandle\">$lang[ignore]</a>");
+		showtablerow("id=\"mod_{$share['sid']}_row3\"", 'class="threadopt threadtitle" colspan="4"', "<a href=\"?action=moderate&operation=shares&fast=1&sid={$share['sid']}&moderate[{$share['sid']}]=validate&page=$page&frame=no\" target=\"fasthandle\">{$lang['validate']}</a> | <a href=\"?action=moderate&operation=shares&fast=1&sid={$share['sid']}&moderate[{$share['sid']}]=delete&page=$page&frame=no\" target=\"fasthandle\">{$lang['delete']}</a> | <a href=\"?action=moderate&operation=shares&fast=1&sid={$share['sid']}&moderate[{$share['sid']}]=ignore&page=$page&frame=no\" target=\"fasthandle\">{$lang['ignore']}</a>");
 		showtagfooter('tbody');
 	}
 

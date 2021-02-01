@@ -79,37 +79,37 @@ if($operation == 'list') {
 		<div style="margin-top:8px;">
 			<table cellspacing="3" cellpadding="3">
 				<tr>
-					<th>$searchlang[diytemplate_name]*</th><td><input type="text" class="txt" name="name" value="$_GET[name]"></td>
-					<th>$searchlang[diytemplate_targettplname]*</th><td><input type="text" class="txt" name="targettplname" value="$_GET[targettplname]"></td>
-					<th>$searchlang[diytemplate_primaltplname]*</th><td><input type="text" class="txt" name="primaltplname" value="$_GET[primaltplname]"> *$searchlang[likesupport]</td>
+					<th>{$searchlang['diytemplate_name']}*</th><td><input type="text" class="txt" name="name" value="{$_GET['name']}"></td>
+					<th>{$searchlang['diytemplate_targettplname']}*</th><td><input type="text" class="txt" name="targettplname" value="{$_GET['targettplname']}"></td>
+					<th>{$searchlang['diytemplate_primaltplname']}*</th><td><input type="text" class="txt" name="primaltplname" value="{$_GET['primaltplname']}"> *{$searchlang['likesupport']}</td>
 				</tr>
 				<tr>
-					<th>$searchlang[diytemplate_uid]</th><td><input type="text" class="txt" name="uid" value="$_GET[uid]"></td>
-					<th>$searchlang[diytemplate_username]*</th><td><input type="text" class="txt" name="username" value="$_GET[username]" colspan=2></td>
+					<th>{$searchlang['diytemplate_uid']}</th><td><input type="text" class="txt" name="uid" value="{$_GET['uid']}"></td>
+					<th>{$searchlang['diytemplate_username']}*</th><td><input type="text" class="txt" name="username" value="{$_GET['username']}" colspan="2"></td>
 				</tr>
 				<tr>
-					<th>$searchlang[resultsort]</th>
+					<th>{$searchlang['resultsort']}</th>
 					<td colspan="3">
 						<select name="orderby">
-						<option value="">$searchlang[defaultsort]</option>
-						<option value="dateline"$orderby[dateline]>$searchlang[diytemplate_dateline]</option>
-						<option value="targettplname"$orderby[targettplname]>$searchlang[diytemplate_targettplname]</option>
+						<option value="">{$searchlang['defaultsort']}</option>
+						<option value="dateline"{$orderby['dateline']}>{$searchlang['diytemplate_dateline']}</option>
+						<option value="targettplname"{$orderby['targettplname']}>{$searchlang['diytemplate_targettplname']}</option>
 						</select>
 						<select name="ordersc">
-						<option value="desc"$ordersc[desc]>$searchlang[orderdesc]</option>
-						<option value="asc"$ordersc[asc]>$searchlang[orderasc]</option>
+						<option value="desc"{$ordersc['desc']}>{$searchlang['orderdesc']}</option>
+						<option value="asc"{$ordersc['asc']}>{$searchlang['orderasc']}</option>
 						</select>
 						<select name="perpage">
-						<option value="10"$perpages[10]>$searchlang[perpage_10]</option>
-						<option value="20"$perpages[20]>$searchlang[perpage_20]</option>
-						<option value="50"$perpages[50]>$searchlang[perpage_50]</option>
-						<option value="100"$perpages[100]>$searchlang[perpage_100]</option>
+						<option value="10"{$perpages[10]}>{$searchlang['perpage_10']}</option>
+						<option value="20"{$perpages[20]}>{$searchlang['perpage_20']}</option>
+						<option value="50"{$perpages[50]}>{$searchlang['perpage_50']}</option>
+						<option value="100"{$perpages[100]}>{$searchlang['perpage_100']}</option>
 						</select>
 						<input type="hidden" name="action" value="diytemplate">
 					</td>
-					<th>$searchlang[diytemplate_permname]</th>
-					<td><input type="text" class="txt" name="permname" value="$_GET[permname]"> $searchlang[diytemplate_permname_tips]
-						<input type="submit" name="searchsubmit" value="$searchlang[search]" class="btn"></td>
+					<th>{$searchlang['diytemplate_permname']}</th>
+					<td><input type="text" class="txt" name="permname" value="{$_GET['permname']}"> {$searchlang['diytemplate_permname_tips']}
+						<input type="submit" name="searchsubmit" value="{$searchlang['search']}" class="btn"></td>
 				</tr>
 			</table>
 		</div>
@@ -129,17 +129,17 @@ SEARCH;
 	if(($count = C::t('common_diy_data')->count_by_where($wheresql))) {
 		loadcache('diytemplatename');
 		require_once libfile('function/block');
-		foreach(C::t(common_diy_data)->fetch_all_by_where($wheresql, $ordersql, $start, $perpage) as $value) {
+		foreach(C::t('common_diy_data')->fetch_all_by_where($wheresql, $ordersql, $start, $perpage) as $value) {
 			$value['name'] = $_G['cache']['diytemplatename'][$value['targettplname']];
 			$value['dateline'] = $value['dateline'] ? dgmdate($value['dateline']) : '';
 			$diyurl = block_getdiyurl($value['targettplname']);
 			$diytitle = cplang($diyurl['flag'] ? 'diytemplate_share' : 'diytemplate_alone');
 			showtablerow('', array('class=""', 'class=""', 'class="td28"'), array(
-					"<a href=\"$diyurl[url]\" title=\"$diytitle\" target=\"_blank\">$value[name]</a>",
+					"<a href=\"{$diyurl['url']}\" title=\"$diytitle\" target=\"_blank\">{$value['name']}</a>",
 					'<span title="'.cplang('diytemplate_path').'./data/diy/'.$value['targettplname'].'.htm">'.$value['targettplname'].'</span>',
 					'<span title="'.cplang('diytemplate_path').$_G['style']['tpldir'].'/'.$value['primaltplname'].'.htm">'.$value['primaltplname'].'</span>',
-					"<a href=\"home.php?mod=space&uid=$value[uid]&do=profile\" target=\"_blank\">$value[username]</a>",
-					$value[dateline],
+					"<a href=\"home.php?mod=space&uid={$value['uid']}&do=profile\" target=\"_blank\">{$value['username']}</a>",
+					$value['dateline'],
 					'<a href="'.ADMINSCRIPT.'?action=diytemplate&operation=edit&targettplname='.$value['targettplname'].'&tpldirectory='.$value['tpldirectory'].'">'.cplang('edit').'</a> '.
 					'<a href="'.ADMINSCRIPT.'?action=diytemplate&operation=perm&targettplname='.$value['targettplname'].'&tpldirectory='.$value['tpldirectory'].'">'.cplang('diytemplate_perm').'</a>',
 				));
@@ -222,14 +222,14 @@ SEARCH;
 				));
 			} else {
 				showtablerow('', array('class="td25"'), array(
-					"<input type=\"checkbox\" class=\"checkbox\" name=\"delete[$value[uid]]\" value=\"$value[uid]\" />
-					<input type=\"hidden\" name=\"perm[$value[uid]][allowmanage]\" value=\"$value[allowmanage]\" />
-					<input type=\"hidden\" name=\"perm[$value[uid]][allowrecommend]\" value=\"$value[allowrecommend]\" />
-					<input type=\"hidden\" name=\"perm[$value[uid]][needverify]\" value=\"$value[needverify]\" />",
+					"<input type=\"checkbox\" class=\"checkbox\" name=\"delete[{$value['uid']}]\" value=\"{$value['uid']}\" />
+					<input type=\"hidden\" name=\"perm[{$value['uid']}]['allowmanage']\" value=\"{$value['allowmanage']}\" />
+					<input type=\"hidden\" name=\"perm[{$value['uid']}]['allowrecommend']\" value=\"{$value['allowrecommend']}\" />
+					<input type=\"hidden\" name=\"perm[{$value['uid']}]['needverify']\" value=\"{$value['needverify']}\" />",
 					"$allusername[$uid]",
-					"<input type=\"checkbox\" class=\"checkbox\" name=\"allowmanage[$value[uid]]\" value=\"1\" ".($value['allowmanage'] ? 'checked' : '').' />',
-					"<input type=\"checkbox\" class=\"checkbox\" name=\"allowrecommend[$value[uid]]\" value=\"1\" ".($value['allowrecommend'] ? 'checked' : '').' />',
-					"<input type=\"checkbox\" class=\"checkbox\" name=\"needverify[$value[uid]]\" value=\"1\" ".($value['needverify'] ? 'checked' : '').' />',
+					"<input type=\"checkbox\" class=\"checkbox\" name=\"allowmanage[{$value['uid']}]\" value=\"1\" ".($value['allowmanage'] ? 'checked' : '').' />',
+					"<input type=\"checkbox\" class=\"checkbox\" name=\"allowrecommend[{$value['uid']}]\" value=\"1\" ".($value['allowrecommend'] ? 'checked' : '').' />',
+					"<input type=\"checkbox\" class=\"checkbox\" name=\"needverify[{$value['uid']}]\" value=\"1\" ".($value['needverify'] ? 'checked' : '').' />',
 					$line,
 				));
 			}

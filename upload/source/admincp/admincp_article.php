@@ -171,11 +171,11 @@ if($operation == 'tag') {
 			foreach(C::t('portal_article_trash')->range($start, $perpage) as $value) {
 				$value = dunserialize($value['content']);
 				showtablerow('', array('class="td25"', 'class=""', 'class="td28"'), array(
-						"<input type=\"checkbox\" class=\"checkbox\" name=\"ids[]\" value=\"$value[aid]\">",
-						$value[title],
+						"<input type=\"checkbox\" class=\"checkbox\" name=\"ids[]\" value=\"{$value['aid']}\">",
+						$value['title'],
 						$category[$value['catid']]['catname'],
-						"<a href=\"home.php?mod=space&uid=$value[uid]&do=profile\" target=\"_blank\">$value[username]</a>",
-						dgmdate($value[dateline])
+						"<a href=\"home.php?mod=space&uid={$value['uid']}&do=profile\" target=\"_blank\">{$value['username']}</a>",
+						dgmdate($value['dateline'])
 					));
 			}
 			$multipage = multi($count, $perpage, $page, $mpurl);
@@ -302,39 +302,39 @@ if($operation == 'tag') {
 			<div style="margin-top:8px;">
 				<table cellspacing="3" cellpadding="3">
 					<tr>
-						<th>$searchlang[article_id]</th><td><input type="text" class="txt" name="aid" value="$_GET[aid]"></td>
-						<th>$searchlang[article_title]*</th><td><input type="text" class="txt" name="title" value="$_GET[title]">*$searchlang[likesupport]</td>
+						<th>{$searchlang['article_id']}</th><td><input type="text" class="txt" name="aid" value="{$_GET['aid']}"></td>
+						<th>{$searchlang['article_title']}*</th><td><input type="text" class="txt" name="title" value="{$_GET['title']}">*{$searchlang['likesupport']}</td>
 					</tr>
 					<tr>
-						<th>$searchlang[article_uid]</th><td><input type="text" class="txt" name="uid" value="$_GET[uid]"></td>
-						<th>$searchlang[article_username]*</th><td><input type="text" class="txt" name="username" value="$_GET[username]"></td>
+						<th>{$searchlang['article_uid']}</th><td><input type="text" class="txt" name="uid" value="{$_GET['uid']}"></td>
+						<th>{$searchlang['article_username']}*</th><td><input type="text" class="txt" name="username" value="{$_GET['username']}"></td>
 					</tr>
 					<tr>
-						<th>$searchlang[article_category]</th><td>$categoryselect</td>
+						<th>{$searchlang['article_category']}</th><td>$categoryselect</td>
 						<th>&nbsp;</th><td>&nbsp;</td>
 					</tr>
 					<tr>
-						<th>$searchlang[article_tag]</th><td colspan="3">$articletagcheckbox</td>
+						<th>{$searchlang['article_tag']}</th><td colspan="3">$articletagcheckbox</td>
 					</tr>
 					<tr>
-						<th>$searchlang[resultsort]</th>
+						<th>{$searchlang['resultsort']}</th>
 						<td colspan="3">
 							<select name="orderby">
-							<option value="">$searchlang[defaultsort]</option>
-							<option value="dateline"$orderby[dateline]>$searchlang[article_dateline]</option>
+							<option value="">{$searchlang['defaultsort']}</option>
+							<option value="dateline"{$orderby['dateline']}>{$searchlang['article_dateline']}</option>
 							</select>
 							<select name="ordersc">
-							<option value="desc"$ordersc[desc]>$searchlang[orderdesc]</option>
-							<option value="asc"$ordersc[asc]>$searchlang[orderasc]</option>
+							<option value="desc"{$ordersc['desc']}>{$searchlang['orderdesc']}</option>
+							<option value="asc"{$ordersc['asc']}>{$searchlang['orderasc']}</option>
 							</select>
 							<select name="perpage">
-							<option value="10"$perpages[10]>$searchlang[perpage_10]</option>
-							<option value="20"$perpages[20]>$searchlang[perpage_20]</option>
-							<option value="50"$perpages[50]>$searchlang[perpage_50]</option>
-							<option value="100"$perpages[100]>$searchlang[perpage_100]</option>
+							<option value="10"{$perpages[10]}>{$searchlang['perpage_10']}</option>
+							<option value="20"{$perpages[20]}>{$searchlang['perpage_20']}</option>
+							<option value="50"{$perpages[50]}>{$searchlang['perpage_50']}</option>
+							<option value="100"{$perpages[100]}>{$searchlang['perpage_100']}</option>
 							</select>
 							<input type="hidden" name="action" value="article">
-							<input type="submit" name="searchsubmit" value="$searchlang[search]" class="btn">
+							<input type="submit" name="searchsubmit" value="{$searchlang['search']}" class="btn">
 						</td>
 					</tr>
 				</table>
@@ -375,17 +375,17 @@ SEARCH;
 					}
 				}
 				$tablerow = array(
-						"<input type=\"checkbox\" class=\"checkbox\" name=\"ids[]\" value=\"$value[aid]\">",
-						"<a href=\"portal.php?mod=view&aid=$value[aid]\" target=\"_blank\">$value[title]</a>".($taghtml ? $taghtml : ''),
+						"<input type=\"checkbox\" class=\"checkbox\" name=\"ids[]\" value=\"{$value['aid']}\">",
+						"<a href=\"portal.php?mod=view&aid={$value['aid']}\" target=\"_blank\">{$value['title']}</a>".($taghtml ? $taghtml : ''),
 						'<a href="'.ADMINSCRIPT.'?action=article&operation=list&catid='.$value['catid'].'">'.$category[$value['catid']]['catname'].'</a>',
-						"<a href=\"".ADMINSCRIPT."?action=article&uid=$value[uid]\">$value[username]</a>",
-						dgmdate($value[dateline]),
+						"<a href=\"".ADMINSCRIPT."?action=article&uid={$value['uid']}\">{$value['username']}</a>",
+						dgmdate($value['dateline']),
 					);
 				if($makehtmlflag) {
-					$tablerow[] = "<span id='mkhtml_$value[aid]' style='color:".($value['htmlmade'] ? "blue;'>".cplang('setting_functions_makehtml_made') : "red;'>".cplang('setting_functions_makehtml_dismake'))."</span>";
+					$tablerow[] = "<span id='mkhtml_{$value['aid']}' style='color:".($value['htmlmade'] ? "blue;'>".cplang('setting_functions_makehtml_made') : "red;'>".cplang('setting_functions_makehtml_dismake'))."</span>";
 				}
-				$tablerow[] = ($makehtmlflag ? ($category[$value['catid']]['fullfoldername'] ? "<a href='javascript:void(0);' onclick=\"make_html('portal.php?mod=view&aid=$value[aid]', $('mkhtml_$value[aid]'))\">".cplang('setting_functions_makehtml_make')."</a>" : cplang('setting_functions_makehtml_make_has_no_foldername')) : '')
-						." <a href=\"portal.php?mod=portalcp&ac=article&aid=$value[aid]\" target=\"_blank\">".cplang('edit')."</a>";
+				$tablerow[] = ($makehtmlflag ? ($category[$value['catid']]['fullfoldername'] ? "<a href='javascript:void(0);' onclick=\"make_html('portal.php?mod=view&aid={$value['aid']}', $('mkhtml_{$value['aid']}'))\">".cplang('setting_functions_makehtml_make')."</a>" : cplang('setting_functions_makehtml_make_has_no_foldername')) : '')
+						." <a href=\"portal.php?mod=portalcp&ac=article&aid={$value['aid']}\" target=\"_blank\">".cplang('edit')."</a>";
 				showtablerow('', array('class="td25"', 'width="480"', 'class="td28"'), $tablerow);
 			}
 			$multipage = multi($count, $perpage, $page, $mpurl);
@@ -430,7 +430,7 @@ function showcategoryrow($key, $type = '', $last = '') {
 			$boardattr .= '</div>';
 		}
 
-		$return .= '<input type="text" class="txt" name="name['.$forum['fid'].']" value="'.dhtmlspecialchars($forum['name']).'" class="txt" />'.
+		$return .= '<input type="text" class="txt" name="name['.$forum['fid'].']}" value="'.dhtmlspecialchars($forum['name']).'" class="txt" />'.
 			($type == '' ? '<a href="###" onclick="addrowdirect = 1;addrow(this, 2, '.$forum['fid'].')" class="addchildboard">'.$lang['forums_admin_add_sub'].'</a>' : '').
 			'</div>'.$boardattr.
 			'</td><td>'.showforum_moderators($forum).'</td>

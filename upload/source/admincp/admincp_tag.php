@@ -43,7 +43,7 @@ if($operation == 'admin') {
 		showformheader('tag&operation=admin');
 		showtableheader();
 		showsetting('tagname', 'tagname', $tagname, 'text');
-		showsetting('feed_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>$lang[perpage_20]</option><option value='50'>$lang[perpage_50]</option><option value='100'>$lang[perpage_100]</option></select>");
+		showsetting('feed_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>{$lang['perpage_20']}</option><option value='50'>{$lang['perpage_50']}</option><option value='100'>{$lang['perpage_100']}</option></select>");
 		showsetting('misc_tag_status', array('status', array(
 			array('', cplang('unlimited')),
 			array(0, cplang('misc_tag_status_0')),
@@ -78,7 +78,7 @@ if($operation == 'admin') {
 				$tagstatus = cplang('misc_tag_status_1');
 			}
 			showtablerow('', array('class="td25"', 'width=400', ''), array(
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"tagidarray[]\" value=\"$result[tagid]\" />",
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"tagidarray[]\" value=\"{$result['tagid']}\" />",
 				$result['tagname'],
 				$tagstatus
 			));

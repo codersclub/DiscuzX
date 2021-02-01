@@ -28,7 +28,7 @@ if($operation == 'updatecache') {
 	/*search*/
 
 	if($step == 1) {
-		cpmsg("<input type=\"checkbox\" name=\"type[]\" value=\"data\" id=\"datacache\" class=\"checkbox\" checked /><label for=\"datacache\">".$lang[tools_updatecache_data]."</label><input type=\"checkbox\" name=\"type[]\" value=\"tpl\" id=\"tplcache\" class=\"checkbox\" checked /><label for=\"tplcache\">".$lang[tools_updatecache_tpl]."</label><input type=\"checkbox\" name=\"type[]\" value=\"blockclass\" id=\"blockclasscache\" class=\"checkbox\" /><label for=\"blockclasscache\">".$lang[tools_updatecache_blockclass].'</label>', 'action=tools&operation=updatecache&step=2', 'form', '', FALSE);
+		cpmsg("<input type=\"checkbox\" name=\"type[]\" value=\"data\" id=\"datacache\" class=\"checkbox\" checked /><label for=\"datacache\">".$lang['tools_updatecache_data']."</label><input type=\"checkbox\" name=\"type[]\" value=\"tpl\" id=\"tplcache\" class=\"checkbox\" checked /><label for=\"tplcache\">".$lang['tools_updatecache_tpl']."</label><input type=\"checkbox\" name=\"type[]\" value=\"blockclass\" id=\"blockclasscache\" class=\"checkbox\" /><label for=\"blockclasscache\">".$lang['tools_updatecache_blockclass'].'</label>', 'action=tools&operation=updatecache&step=2', 'form', '', FALSE);
 	} elseif($step == 2) {
 		$type = implode('_', (array)$_GET['type']);
 		cpmsg(cplang('tools_updatecache_waiting'), "action=tools&operation=updatecache&step=3&type=$type", 'loading', '', FALSE);
@@ -106,7 +106,7 @@ if($operation == 'updatecache') {
 				continue;
 			} else {
 				if(!dir_writeable($fullentry)) {
-					$result .= '<li class="error">'.(is_dir($fullentry) ? $lang['dir'] : $lang['file'])." ./$entry $lang[fileperms_unwritable]</li>";
+					$result .= '<li class="error">'.(is_dir($fullentry) ? $lang['dir'] : $lang['file'])." ./$entry {$lang['fileperms_unwritable']}</li>";
 				}
 			}
 		}

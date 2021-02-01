@@ -46,7 +46,7 @@ if($operation == 'global') {
 		/*search={"nav_feed":"action=feed"}*/
 		showformheader('feed&operation=global', $feed['uid'] ? '' : 'onsubmit="edit_save();"');
 		echo '<script type="text/javascript" src="'.STATICURL.'image/editor/editor_function.js"></script>';
-		echo "<input type=\"hidden\" name=\"feednew[feedid]\" value=\"$feed[feedid]\" /><input type=\"hidden\" name=\"feednew[feeduid]\" value=\"$feed[uid]\" />";
+		echo "<input type=\"hidden\" name=\"feednew[feedid]\" value=\"{$feed['feedid']}\" /><input type=\"hidden\" name=\"{feednew['feeduid']}\" value=\"{$feed['uid']}\" />";
 		showtableheader();
 		if(empty($feed['uid'])) {
 			showsetting('feed_global_title', 'feednew[title_template]', $feed['title_template'], 'text');
@@ -55,7 +55,7 @@ if($operation == 'global') {
 			<tr><td>{$lang['message']}</td><td></td></tr>
 			<tr>
 				<td colspan="2">
-					<textarea class="userData" name="feednew[body_template]" id="uchome-ttHtmlEditor" style="height:100%;width:100%;display:none;border:0px" onkeydown="textareakey(this, event)">$feed[body_template]</textarea>
+					<textarea class="userData" name="feednew[body_template]" id="uchome-ttHtmlEditor" style="height:100%;width:100%;display:none;border:0px" onkeydown="textareakey(this, event)">{$feed['body_template']}</textarea>
 					<iframe src="$src" name="uchome-ifrHtmlEditor" id="uchome-ifrHtmlEditor" scrolling="no" border="0" frameborder="0" style="width:100%;border: 1px solid #C5C5C5;" height="400"></iframe>
 				<td>
 			</tr>
@@ -63,14 +63,14 @@ EOF;
 			showsetting('feed_global_body_general', 'feednew[body_general]', $feed['body_general'], 'text');
 		} else {
 			print <<<EOF
-			<tr><td class="td27">$lang[feed_global_title]</td><td></td></tr>
-			<tr class="noborder"><td colspan="2">$feed[title_template]&nbsp;<td></tr>
+			<tr><td class="td27">{$lang['feed_global_title']}</td><td></td></tr>
+			<tr class="noborder"><td colspan="2">{$feed['title_template']}&nbsp;<td></tr>
 
-			<tr><td class="td27">$lang[message]</td><td></td></tr>
-			<tr class="noborder"><td colspan="2">$feed[body_template]&nbsp;<td></tr>
+			<tr><td class="td27">{$lang['message']}</td><td></td></tr>
+			<tr class="noborder"><td colspan="2">{$feed['body_template']}&nbsp;<td></tr>
 
-			<tr><td class="td27">$lang[feed_global_body_general]</td><td></td></tr>
-			<tr class="noborder"><td colspan="2">$feed[body_general]&nbsp;<td></tr>
+			<tr><td class="td27">{$lang['feed_global_body_general']}</td><td></td></tr>
+			<tr class="noborder"><td colspan="2">{$feed['body_general']}&nbsp;<td></tr>
 EOF;
 		}
 
@@ -191,13 +191,13 @@ EOT;
 		showhiddenfields(array('page' => $page, 'pp' => $_GET['pp'] ? $_GET['pp'] : $_GET['perpage']));
 		showtableheader();
 		showsetting('feed_search_detail', 'detail', $detail, 'radio');
-		showsetting('feed_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>$lang[perpage_20]</option><option value='50'>$lang[perpage_50]</option><option value='100'>$lang[perpage_100]</option></select>");
+		showsetting('feed_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>{$lang['perpage_20']}</option><option value='50'>{$lang['perpage_50']}</option><option value='100'>{$lang['perpage_100']}</option></select>");
 		$selected[$icon] = $icon ? 'selected="selected"' : '';
-		showsetting('feed_search_icon', '', $icon, "<select name='icon'><option value=''>$lang[all]</option><option value='blog' $selected[blog]>$lang[feed_blog]</option>
-			<option value='thread' $selected[thread]>$lang[feed_thread]</option><option value='album' $selected[album]>$lang[feed_album]</option><option value='doing' $selected[doing]>$lang[doing]</option>
-			<option value='share' $selected[share]>$lang[shares]</option><option value='friend' $selected[friend]>$lang[feed_friend]</option><option value='poll' $selected[poll]>$lang[feed_poll]</option>
-			<option value='comment' $selected[comment]>$lang[feed_comment]</option><option value='click' $selected[click]>$lang[feed_click]</option>
-			<option value='show' $selected[show]>$lang[feed_show]</option><option value='profile' $selected[profile]>$lang[feed_profile]</option><option value='sitefeed' $selected[sitefeed]>$lang[feed_sitefeed]</option></select>");
+		showsetting('feed_search_icon', '', $icon, "<select name='icon'><option value=''>{$lang['all']}</option><option value='blog' {$selected['blog']}>{$lang['feed_blog']}</option>
+			<option value='thread' {$selected['thread']}>{$lang['feed_thread']}</option><option value='album' {$selected['album']}>{$lang['feed_album']}</option><option value='doing' {$selected['doing']}>{$lang['doing']}</option>
+			<option value='share' {$selected['share']}>{$lang['shares']}</option><option value='friend' {$selected['friend']}>{$lang['feed_friend']}</option><option value='poll' {$selected['poll']}>{$lang['feed_poll']}</option>
+			<option value='comment' {$selected['comment']}>{$lang['feed_comment']}</option><option value='click' {$selected['click']}>{$lang['feed_click']}</option>
+			<option value='show' {$selected['show']}>{$lang['feed_show']}</option><option value='profile' {$selected['profile']}>{$lang['feed_profile']}</option><option value='sitefeed' {$selected['sitefeed']}>{$lang['feed_sitefeed']}</option></select>");
 		showsetting('feed_search_uid', 'uid', $uid, 'text');
 		showsetting('feed_search_user', 'users', $users, 'text');
 		showsetting('feed_search_feedid', 'feedid', $feedid, 'text');
@@ -290,7 +290,7 @@ EOT;
 					$feed = mkfeed($feed);
 
 					$feeds .= showtablerow('', array('style="width:20px;"', 'style="width:260px;"', '', 'style="width:120px;"', 'style="width:60px;"'), array(
-						"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$feed[feedid]\" />",
+						"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$feed['feedid']}\" />",
 						$feed['title_template'],
 						$feed['body_template'],
 						$feed['dateline'],

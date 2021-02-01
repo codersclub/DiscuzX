@@ -77,11 +77,11 @@ if(!($operation)) {
 
 			showtablerow('', array('class="td25"', 'class="td25"'), array(
 				'<input type="text" class="txt" name="displayordernew['.$task['taskid'].']" value="'.$task['displayorder'].'" size="3" />',
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"availablenew[$task[taskid]]\" value=\"1\"$checked><input type=\"hidden\" name=\"availableold[$task[taskid]]\" value=\"$task[available]\">",
-				"<input type=\"text\" class=\"txt\" name=\"namenew[$task[taskid]]\" size=\"20\" value=\"$task[name]\"><input type=\"hidden\" name=\"nameold[$task[taskid]]\" value=\"$task[name]\">",
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"availablenew[{$task['taskid']}]\" value=\"1\"$checked><input type=\"hidden\" name=\"availableold[{$task['taskid']}]\" value=\"{$task['available']}\">",
+				"<input type=\"text\" class=\"txt\" name=\"namenew[{$task['taskid']}]\" size=\"20\" value=\"{$task['name']}\"><input type=\"hidden\" name=\"nameold[{$task['taskid']}]\" value=\"{$task['name']}\">",
 				$reward,
-				$task['time'].'<input type="hidden" name="scriptnamenew['.$task['taskid'].']" value="'.$task['scriptname'].'">',
-				"<a href=\"".ADMINSCRIPT."?action=tasks&operation=edit&id=$task[taskid]\" class=\"act\">$lang[edit]</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=tasks&operation=delete&id=$task[taskid]\" class=\"act\">$lang[delete]</a>"
+				$task['time'].'<input type="hidden" name="scriptnamenew['.$task['taskid'].']}" value="'.$task['scriptname'].'">',
+				"<a href=\"".ADMINSCRIPT."?action=tasks&operation=edit&id={$task['taskid']}\" class=\"act\">{$lang['edit']}</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=tasks&operation=delete&id={$task['taskid']}\" class=\"act\">{$lang['delete']}</a>"
 			));
 
 		}
@@ -572,7 +572,7 @@ if(!($operation)) {
 				$task['name'].($task['filemtime'] > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : ''),
 				$task['version'],
 				$task['copyright'],
-				in_array($task['class'], $custom_scripts) ? "<a href=\"".ADMINSCRIPT."?action=tasks&operation=upgrade&script=$task[class]\" class=\"act\">$lang[tasks_upgrade]</a> <a href=\"".ADMINSCRIPT."?action=tasks&operation=uninstall&script=$task[class]\" class=\"act\">$lang[tasks_uninstall]</a><br />" : "<a href=\"".ADMINSCRIPT."?action=tasks&operation=install&script=$task[class]\" class=\"act\">$lang[tasks_install]</a>"
+				in_array($task['class'], $custom_scripts) ? "<a href=\"".ADMINSCRIPT."?action=tasks&operation=upgrade&script={$task['class']}\" class=\"act\">{$lang['tasks_upgrade']}</a> <a href=\"".ADMINSCRIPT."?action=tasks&operation=uninstall&script={$task['class']}\" class=\"act\">{$lang['tasks_uninstall']}</a><br />" : "<a href=\"".ADMINSCRIPT."?action=tasks&operation=install&script={$task['class']}\" class=\"act\">{$lang['tasks_install']}</a>"
 			));
 		}
 	} else {

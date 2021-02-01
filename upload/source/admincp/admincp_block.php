@@ -53,9 +53,9 @@ if($operation=='perm') {
 			} else {
 				showtablerow('', array('class="td25"'), array(
 					"<input type=\"checkbox\" class=\"checkbox\" name=\"delete[$uid]\" value=\"$uid\" />
-					<input type=\"hidden\" name=\"perm[$uid][allowmanage]\" value=\"$value[allowmanage]\" />
-					<input type=\"hidden\" name=\"perm[$uid][allowrecommend]\" value=\"$value[allowrecommend]\" />
-					<input type=\"hidden\" name=\"perm[$uid][needverify]\" value=\"$value[needverify]\" />",
+					<input type=\"hidden\" name=\"perm[$uid][allowmanage]\" value=\"{$value['allowmanage']}\" />
+					<input type=\"hidden\" name=\"perm[$uid][allowrecommend]\" value=\"{$value['allowrecommend']}\" />
+					<input type=\"hidden\" name=\"perm[$uid][needverify]\" value=\"{$value['needverify']}\" />",
 					"{$members[$uid]['username']}",
 					"<input type=\"checkbox\" class=\"checkbox\" name=\"allowmanage[$uid]\" value=\"1\" ".($value['allowmanage'] ? 'checked' : '').' />',
 					"<input type=\"checkbox\" class=\"checkbox\" name=\"allowrecommend[$uid]\" value=\"1\" ".($value['allowrecommend'] ? 'checked' : '').' />',
@@ -226,16 +226,16 @@ if($operation=='perm') {
 		foreach($_G['cache']['blockclass'] as $key=>$value) {
 			foreach($value['subs'] as $subkey=>$subvalue) {
 				$selected = ($subkey == $_GET['blockclass'] ? ' selected' : '');
-				$blockclass_sel .= "<option value=\"$subkey\"$selected>$subvalue[name]</option>";
+				$blockclass_sel .= "<option value=\"$subkey\"$selected>{$subvalue['name']}</option>";
 			}
 		}
 		$blockclass_sel .= '</select>';
 		$addjscall = $operation == 'jscall' ? '<input type="button" class="btn" onclick="addjscall()" value="'.$searchlang['block_add_jscall'].'" />' : '';
-		$firstrow = "<th>$searchlang[block_diytemplate]</th><td>$diytemplatename_sel</td><th>$searchlang[block_blockclass]</th><td colspan=\"2\">$blockclass_sel $addjscall</td>";
+		$firstrow = "<th>{$searchlang['block_diytemplate']}</th><td>$diytemplatename_sel</td><th>{$searchlang['block_blockclass']}</th><td colspan=\"2\">$blockclass_sel $addjscall</td>";
 		$adminscript = ADMINSCRIPT;
 		echo <<<SEARCH
-			<script>disallowfloat = '{$_G[setting][disallowfloat]}';</script>
-			<script type="text/javascript" src="{$_G[setting][jspath]}portal.js?{VERHASH}"></script>
+			<script>disallowfloat = '{$_G['setting']['disallowfloat']}';</script>
+			<script type="text/javascript" src="{$_G['setting']['jspath']}portal.js?{VERHASH}"></script>
 			<div id="ajaxwaitid"></div>
 			<form method="get" autocomplete="off" action="$adminscript" id="tb_search">
 				<div style="margin-top:8px;">
@@ -244,31 +244,31 @@ if($operation=='perm') {
 							$firstrow
 						</tr>
 						<tr>
-							<th>$searchlang[block_id]</th><td><input type="text" class="txt" name="bid" value="$_GET[bid]"></td>
-							<th>$searchlang[block_name]*</th><td><input type="text" class="txt" name="name" value="$_GET[name]">$searchlang[lengthabove1]&nbsp;&nbsp; *$searchlang[likesupport]</td>
+							<th>{$searchlang['block_id']}</th><td><input type="text" class="txt" name="bid" value="{$_GET['bid']}"></td>
+							<th>{$searchlang['block_name']}*</th><td><input type="text" class="txt" name="name" value="{$_GET['name']}">{$searchlang['lengthabove1']}&nbsp;&nbsp; *{$searchlang['likesupport']}</td>
 						</tr>
 						<tr>
-							<th>$searchlang[resultsort]</th>
+							<th>{$searchlang['resultsort']}</th>
 							<td>
 								<select name="orderby">
-								<option value="">$searchlang[defaultsort]</option>
-								<option value="dateline"$orderby[dateline]>$searchlang[block_dateline]</option>
+								<option value="">{$searchlang['defaultsort']}</option>
+								<option value="dateline"{$orderby['dateline']}>{$searchlang['block_dateline']}</option>
 								</select>
 								<select name="ordersc">
-								<option value="desc"$ordersc[desc]>$searchlang[orderdesc]</option>
-								<option value="asc"$ordersc[asc]>$searchlang[orderasc]</option>
+								<option value="desc"{$ordersc['desc']}>{$searchlang['orderdesc']}</option>
+								<option value="asc"{$ordersc['asc']}>{$searchlang['orderasc']}</option>
 								</select>
 								<select name="perpage">
-								<option value="10"$perpages[10]>$searchlang[perpage_10]</option>
-								<option value="20"$perpages[20]>$searchlang[perpage_20]</option>
-								<option value="50"$perpages[50]>$searchlang[perpage_50]</option>
-								<option value="100"$perpages[100]>$searchlang[perpage_100]</option>
+								<option value="10"{$perpages[10]}>{$searchlang['perpage_10']}</option>
+								<option value="20"{$perpages[20]}>{$searchlang['perpage_20']}</option>
+								<option value="50"{$perpages[50]}>{$searchlang['perpage_50']}</option>
+								<option value="100"{$perpages[100]}>{$searchlang['perpage_100']}</option>
 								</select>
 								<input type="hidden" name="action" value="block">
 								<input type="hidden" name="operation" value="$operation">
 							</td>
-							<th>$searchlang[block_permname]</th><td><input type="text" class="txt" name="permname" value="$_GET[permname]">$searchlang[block_permname_tips]
-								<input type="submit" name="searchsubmit" value="$searchlang[search]" class="btn"></td>
+							<th>{$searchlang['block_permname']}</th><td><input type="text" class="txt" name="permname" value="{$_GET['permname']}">{$searchlang['block_permname_tips']}
+								<input type="submit" name="searchsubmit" value="{$searchlang['search']}" class="btn"></td>
 						</tr>
 					</table>
 				</div>
@@ -279,7 +279,7 @@ if($operation=='perm') {
 				if(blockclass) {
 					showWindow('blockclass', 'portal.php?mod=portalcp&ac=block&op=block&blocktype=1&from=cp&classname=' + blockclass);
 				} else {
-					alert('$searchlang[block_choose_blockclass_to_add_jscall]');
+					alert('{$searchlang['block_choose_blockclass_to_add_jscall']}');
 				}
 			}
 			</script>
@@ -310,17 +310,17 @@ SEARCH;
 						$inpage = empty($diypage[$bid]) ? cplang('block_page_nopage') : implode('<br/>' ,$diypage[$bid]);
 						$theclass = block_getclass($value['blockclass'], true);
 						showtablerow('', array('class="td25"'), array(
-							"<input type=\"checkbox\" class=\"checkbox\" name=\"ids[]\" value=\"$value[bid]\">",
+							"<input type=\"checkbox\" class=\"checkbox\" name=\"ids[]\" value=\"{$value['bid']}\">",
 							!empty($value['name']) ? $value['name'] : cplang('block_name_null'),
 							$theclass['script'][$value['script']],
 							$value['styleid'] ? $theclass['style'][$value['styleid']]['name'] : lang('portalcp', 'blockstyle_diy'),
 							!empty($value['dateline']) ? dgmdate($value['dateline']) : cplang('block_dateline_null'),
 							$inpage,
-							"<a href=\"portal.php?mod=portalcp&ac=block&op=block&bid=$value[bid]&blocktype=1&from=cp\" target=\"_blank\" onclick=\"showWindow('showblock',this.href);return false;\">".cplang('block_setting')."</a> &nbsp;&nbsp".
-							"<a href=\"portal.php?mod=portalcp&ac=block&op=getblock&forceupdate=1&inajax=1&bid=$value[bid]&from=cp\" onclick=\"ajaxget(this.href,'','','','',function(){location.reload();});return false;\">".cplang('block_update')."</a> &nbsp;&nbsp".
-							"<a href=\"portal.php?mod=portalcp&ac=block&op=data&bid=$value[bid]&blocktype=1&from=cp\" target=\"_blank\" onclick=\"showWindow('showblock',this.href);return false;\">".cplang('block_data')."</a> &nbsp;&nbsp".
-							"<a href=\"javascript:;\" onclick=\"prompt('".cplang('block_copycode_message')."', '<!--{block/$value[bid]}-->')\">".cplang('block_copycode_inner')."</a> &nbsp;&nbsp".
-							"<a href=\"javascript:;\" onclick=\"prompt('".cplang('block_copycode_jsmessage')."', '&lt;script type=&quot;text/javascript&quot; src=&quot;$_G[siteurl]api.php?mod=js&bid=$value[bid]&quot;&gt;&lt;/script&gt;')\">".cplang('block_copycode_outer')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=block&operation=perm&bid=$value[bid]\">".cplang('portalcategory_perm').'</a>'
+							"<a href=\"portal.php?mod=portalcp&ac=block&op=block&bid={$value['bid']}&blocktype=1&from=cp\" target=\"_blank\" onclick=\"showWindow('showblock',this.href);return false;\">".cplang('block_setting')."</a> &nbsp;&nbsp".
+							"<a href=\"portal.php?mod=portalcp&ac=block&op=getblock&forceupdate=1&inajax=1&bid={$value['bid']}&from=cp\" onclick=\"ajaxget(this.href,'','','','',function(){location.reload();});return false;\">".cplang('block_update')."</a> &nbsp;&nbsp".
+							"<a href=\"portal.php?mod=portalcp&ac=block&op=data&bid={$value['bid']}&blocktype=1&from=cp\" target=\"_blank\" onclick=\"showWindow('showblock',this.href);return false;\">".cplang('block_data')."</a> &nbsp;&nbsp".
+							"<a href=\"javascript:;\" onclick=\"prompt('".cplang('block_copycode_message')."', '<!--{block/{$value['bid']}}-->')\">".cplang('block_copycode_inner')."</a> &nbsp;&nbsp".
+							"<a href=\"javascript:;\" onclick=\"prompt('".cplang('block_copycode_jsmessage')."', '&lt;script type=&quot;text/javascript&quot; src=&quot;{$_G['siteurl']}api.php?mod=js&bid={$value['bid']}&quot;&gt;&lt;/script&gt;')\">".cplang('block_copycode_outer')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=block&operation=perm&bid={$value['bid']}\">".cplang('portalcategory_perm').'</a>'
 						));
 					}
 				}
@@ -355,10 +355,10 @@ SEARCH;
 							$value['styleid'] ? $theclass['style'][$value['styleid']]['name'] : lang('portalcp', 'blockstyle_diy'),
 							!empty($value['dateline']) ? dgmdate($value['dateline']) : cplang('block_dateline_null'),
 							$inpage,
-							 "<a href=\"portal.php?mod=portalcp&ac=block&op=block&bid=$value[bid]&from=cp\" target=\"_blank\" onclick=\"showWindow('showblock',this.href);return false;\">".cplang('block_setting')."</a> &nbsp;&nbsp"
-							 ."<a href=\"portal.php?mod=portalcp&ac=block&op=data&bid=$value[bid]&from=cp\" target=\"_blank\" onclick=\"showWindow('showblock',this.href);return false;\">".cplang('block_data')."</a> &nbsp;&nbsp"
+							 "<a href=\"portal.php?mod=portalcp&ac=block&op=block&bid={$value['bid']}&from=cp\" target=\"_blank\" onclick=\"showWindow('showblock',this.href);return false;\">".cplang('block_setting')."</a> &nbsp;&nbsp"
+							 ."<a href=\"portal.php?mod=portalcp&ac=block&op=data&bid={$value['bid']}&from=cp\" target=\"_blank\" onclick=\"showWindow('showblock',this.href);return false;\">".cplang('block_data')."</a> &nbsp;&nbsp"
 							.$diyop."&nbsp;&nbsp;<a href=\""
-							.ADMINSCRIPT."?action=block&operation=perm&bid=$value[bid]\">".cplang('portalcategory_perm').'</a>'
+							.ADMINSCRIPT."?action=block&operation=perm&bid={$value['bid']}\">".cplang('portalcategory_perm').'</a>'
 						));
 					}
 				}

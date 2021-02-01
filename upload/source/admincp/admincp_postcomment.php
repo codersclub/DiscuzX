@@ -71,7 +71,7 @@ EOT;
 	showhiddenfields(array('page' => $page, 'pp' => $_GET['pp'] ? $_GET['pp'] : $_GET['perpage']));
 	showtableheader();
 	showsetting('postcomment_search_detail', 'detail', $detail, 'radio');
-	showsetting('comment_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>$lang[perpage_20]</option><option value='50'>$lang[perpage_50]</option><option value='100'>$lang[perpage_100]</option></select>");
+	showsetting('comment_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>{$lang['perpage_20']}</option><option value='50'>{$lang['perpage_50']}</option><option value='100'>{$lang['perpage_100']}</option></select>");
 	showsetting('postcomment_content', 'message', $message, 'text');
 	showsetting('postcomment_search_tid', 'searchtid', $searchtid, 'text');
 	showsetting('postcomment_search_pid', 'searchpid', $searchpid, 'text');
@@ -143,12 +143,12 @@ if(submitcheck('searchsubmit') || $newlist) {
 				foreach(C::t('forum_postcomment')->fetch_all_by_search($searchtid, $searchpid, ($authorid ? explode(',', str_replace(' ', '', $authorid)) : null), $starttime, $endtime, $ip, $message, (($page - 1) * $perpage), $perpage) as $comment) {
 					$comment['dateline'] = dgmdate($comment['dateline']);
 					$comments .= showtablerow('', '', array(
-						"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$comment[id]\" />",
+						"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$comment['id']}\" />",
 						str_replace(array('[b]', '[/b]', '[/color]'), array('<b>', '</b>', '</font>'), preg_replace("/\[color=([#\w]+?)\]/i", "<font color=\"\\1\">", $comment['comment'])),
-						($comment['author'] ? "<a href=\"home.php?mod=space&uid=$comment[authorid]\" target=\"_blank\">".$comment['author']."</a>" : cplang('postcomment_guest')),
+						($comment['author'] ? "<a href=\"home.php?mod=space&uid={$comment['authorid']}\" target=\"_blank\">".$comment['author']."</a>" : cplang('postcomment_guest')),
 						$comment['dateline'],
 						$comment['useip'],
-						"<a href=\"forum.php?mod=redirect&goto=findpost&ptid=$comment[tid]&pid=$comment[pid]\" target=\"_blank\">".cplang('postcomment_pid')."</a>"
+						"<a href=\"forum.php?mod=redirect&goto=findpost&ptid={$comment['tid']}&pid={$comment['pid']}\" target=\"_blank\">".cplang('postcomment_pid')."</a>"
 					), TRUE);
 				}
 

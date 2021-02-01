@@ -106,9 +106,9 @@ if($operation == 'newreport') {
 		} else {
 			$row['opresult'] = explode("\t", $row['opresult']);
 			if($row['opresult'][1] > 0) {
-				$row[opresult][1] = '+'.$row[opresult][1];
+				$row['opresult'][1] = '+'.$row['opresult'][1];
 			}
-			$opresult = $_G['setting']['extcredits'][$row[opresult][0]]['title'].'&nbsp;'.$row[opresult][1];
+			$opresult = $_G['setting']['extcredits'][$row['opresult'][0]]['title'].'&nbsp;'.$row['opresult'][1];
 		}
 		showtablerow('', array('class="td25"', 'class="td28"', '', '', 'class="td26"'), array(
 			'<input type="checkbox" class="checkbox" name="reportids[]" value="'.$row['id'].'" />',

@@ -76,7 +76,7 @@ if($operation == 'members') {
 
 	echo <<<EOT
 <script type="text/JavaScript">
-	var cookiepre = "{$_G[config][cookie][cookiepre]}";
+	var cookiepre = "{$_G['config']['cookie']['cookiepre']}";
 	function mod_setbg(tid, value) {
 		$('mod_' + tid + '_row1').className = 'mod_' + value;
 		$('mod_' + tid + '_row2').className = 'mod_' + value;

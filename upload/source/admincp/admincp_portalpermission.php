@@ -57,29 +57,29 @@ echo <<<SEARCH
 	<div style="margin-top:8px;">
 		<table cellspacing="3" cellpadding="3">
 			<tr>
-				<th>$searchlang[uid]</th><td><input type="text" class="txt" name="uid" value="$_GET[uid]"></td>
-				<th>$searchlang[username]*</th><td><input type="text" class="txt" name="username" value="$_GET[username]"> *$searchlang[likesupport]</td>
+				<th>{$searchlang['uid']}</th><td><input type="text" class="txt" name="uid" value="{$_GET['uid']}"></td>
+				<th>{$searchlang['username']}*</th><td><input type="text" class="txt" name="username" value="{$_GET['username']}"> *{$searchlang['likesupport']}</td>
 			</tr>
 			<tr>
-				<th>$searchlang[resultsort]</th>
+				<th>{$searchlang['resultsort']}</th>
 				<td>
 					<select name="ordersc">
-					<option value="desc"$ordersc[desc]>$searchlang[orderdesc]</option>
-					<option value="asc"$ordersc[asc]>$searchlang[orderasc]</option>
+					<option value="desc"{$ordersc['desc']}>{$searchlang['orderdesc']}</option>
+					<option value="asc"{$ordersc['asc']}>{$searchlang['orderasc']}</option>
 					</select>
 					<select name="perpage">
-					<option value="10"$perpages[10]>$searchlang[perpage_10]</option>
-					<option value="20"$perpages[20]>$searchlang[perpage_20]</option>
-					<option value="50"$perpages[50]>$searchlang[perpage_50]</option>
-					<option value="100"$perpages[100]>$searchlang[perpage_100]</option>
+					<option value="10"{$perpages[10]}>{$searchlang['perpage_10']}</option>
+					<option value="20"{$perpages[20]}>{$searchlang['perpage_20']}</option>
+					<option value="50"{$perpages[50]}>{$searchlang['perpage_50']}</option>
+					<option value="100"{$perpages[100]}>{$searchlang['perpage_100']}</option>
 					</select>
 				</td>
-				<th><label for="inherited">$searchlang[portalpermission_no_inherited]</label></th>
+				<th><label for="inherited">{$searchlang['portalpermission_no_inherited']}</label></th>
 				<td>
 					<input type="checkbox" value=1 name="inherited" id="inherited" $inherited/>
 					<input type="hidden" name="action" value="portalpermission">
 					<input type="hidden" name="operation" value="$operation">
-					<input type="submit" name="searchsubmit" value="$searchlang[search]" class="btn">
+					<input type="submit" name="searchsubmit" value="{$searchlang['search']}" class="btn">
 				</td>
 			</tr>
 		</table>

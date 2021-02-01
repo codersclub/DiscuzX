@@ -35,7 +35,7 @@ if(!$operation) {
 		showformheader('recyclebin');
 		showtableheader($lang['recyclebin_list'].
 				'&nbsp<select onchange="if(this.options[this.selectedIndex].value != \'\') {window.location=\''.ADMINSCRIPT.'?action=recyclebin&lpp=\'+this.options[this.selectedIndex].value }">
-				<option value="20" '.$checklpp[20].'> '.$lang[perpage_20].' </option><option value="50" '.$checklpp[50].'>'.$lang[perpage_50].'</option><option value="100" '.$checklpp[100].'>'.$lang[perpage_100].'</option></select>');
+				<option value="20" '.$checklpp[20].'> '.$lang['perpage_20'].' </option><option value="50" '.$checklpp[50].'>'.$lang['perpage_50'].'</option><option value="100" '.$checklpp[100].'>'.$lang['perpage_100'].'</option></select>');
 		showsubtitle(array('', 'thread', 'recyclebin_list_thread', 'recyclebin_list_author', 'recyclebin_list_status', 'recyclebin_list_lastpost', 'recyclebin_list_operation', 'reason'));
 		$fids = $threadlist = array();
 		$threads = C::t('forum_thread')->fetch_all_by_tid_fid_displayorder(0, 0, -1, 'dateline', $start_limit, $lpp, '=');
@@ -63,7 +63,7 @@ if(!$operation) {
 			}
 			foreach($threadlist as $tid => $thread) {
 				showtablerow('', array('class="td25"', '', '', 'class="td28"', 'class="td28"'), array(
-					"<input type=\"checkbox\" class=\"checkbox\" name=\"threadlist[]\" value=\"$thread[tid]\">",
+					"<input type=\"checkbox\" class=\"checkbox\" name=\"threadlist[]\" value=\"{$thread['tid']}\">",
 					'<a href="forum.php?mod=viewthread&tid='.$thread['tid'].'&modthreadkey='.$thread['modthreadkey'].'" target="_blank">'.$thread['subject'].'</a>',
 					'<a href="forum.php?mod=forumdisplay&fid='.$thread['fid'].'" target="_blank">'.$thread['forumname'].'</a>',
 					'<a href="home.php?mod=space&uid='.$thread['authorid'].'" target="_blank">'.$thread['author'].'</a><br /><em style="font-size:9px;color:#999999;">'.dgmdate($thread['dateline'], 'd').'</em>',
@@ -224,18 +224,18 @@ EOT;
 						foreach(C::t('forum_attachment_n')->fetch_all_by_id('tid:'.$thread['tid'], 'tid', $thread['tid']) as $attach) {
 							$_G['setting']['attachurl'] = $attach['remote'] ? $_G['setting']['ftp']['attachurl'] : $_G['setting']['attachurl'];
 							$attach['url'] = $attach['isimage']
-								? " $attach[filename] (".sizecount($attach['filesize']).")<br /><br /><img src=\"".$_G['setting']['attachurl']."forum/$attach[attachment]\" onload=\"if(this.width > 100) {this.resized=true; this.width=100;}\">"
-								 : "<a href=\"".$_G['setting']['attachurl']."forum/$attach[attachment]\" target=\"_blank\">$attach[filename]</a> (".sizecount($attach['filesize']).")";
-							$thread['message'] .= "<br /><br />$lang[attachment]: ".attachtype(fileext($attach['filename'])."\t").$attach['url'];
+								? " {$attach['filename']} (".sizecount($attach['filesize']).")<br /><br /><img src=\"".$_G['setting']['attachurl']."forum/{$attach['attachment']}\" onload=\"if(this.width > 100) {this.resized=true; this.width=100;}\">"
+								 : "<a href=\"".$_G['setting']['attachurl']."forum/{$attach['attachment']}\" target=\"_blank\">{$attach['filename']}</a> (".sizecount($attach['filesize']).")";
+							$thread['message'] .= "<br /><br />{$lang['attachment']}: ".attachtype(fileext($attach['filename'])."\t").$attach['url'];
 						}
 					}
 
-					showtablerow("id=\"mod_$thread[tid]_row1\"", array('rowspan="3" class="rowform threadopt" style="width:80px;"', 'class="threadtitle"'), array(
-						"<ul class=\"nofloat\"><li><input class=\"radio\" type=\"radio\" name=\"moderate[$thread[tid]]\" id=\"mod_$thread[tid]_1\" value=\"delete\" ".(empty($disabledstr) ? "checked=\"checked\"" : '')." $disabledstr /><label for=\"mod_$thread[tid]_1\">$lang[delete]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$thread[tid]]\" id=\"mod_$thread[tid]_2\" value=\"undelete\" $disabledstr/><label for=\"mod_$thread[tid]_2\">$lang[undelete]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$thread[tid]]\" id=\"mod_$thread[tid]_3\" value=\"ignore\" $disabledstr/><label for=\"mod_$thread[tid]_3\">$lang[ignore]</label></li></ul>",
-						"<h3><a href=\"forum.php?mod=forumdisplay&fid=$thread[fid]\" target=\"_blank\">$thread[forumname]</a> &raquo; $thread[subject]</h3><p><span class=\"bold\">$lang[author]:</span> <a href=\"home.php?mod=space&uid=$thread[authorid]\" target=\"_blank\">$thread[author]</a> &nbsp;&nbsp; <span class=\"bold\">$lang[time]:</span> $thread[dateline] &nbsp;&nbsp; $lang[threads_replies]: $thread[replies] $lang[threads_views]: $thread[views]</p>"
+					showtablerow("id=\"mod_{$thread['tid']}_row1\"", array('rowspan="3" class="rowform threadopt" style="width:80px;"', 'class="threadtitle"'), array(
+						"<ul class=\"nofloat\"><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$thread['tid']}]\" id=\"mod_{$thread['tid']}_1\" value=\"delete\" ".(empty($disabledstr) ? "checked=\"checked\"" : '')." $disabledstr /><label for=\"mod_{$thread['tid']}_1\">{$lang['delete']}</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$thread['tid']}]\" id=\"mod_{$thread['tid']}_2\" value=\"undelete\" $disabledstr/><label for=\"mod_{$thread['tid']}_2\">{$lang['undelete']}</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$thread['tid']}]\" id=\"mod_{$thread['tid']}_3\" value=\"ignore\" $disabledstr/><label for=\"mod_{$thread['tid']}_3\">{$lang['ignore']}</label></li></ul>",
+						"<h3><a href=\"forum.php?mod=forumdisplay&fid={$thread['fid']}}\" target=\"_blank\">{$thread['forumname']}</a> &raquo; {$thread['subject']}</h3><p><span class=\"bold\">{$lang['author']}:</span> <a href=\"home.php?mod=space&uid={$thread['authorid']}\" target=\"_blank\">{$thread['author']}</a> &nbsp;&nbsp; <span class=\"bold\">{$lang['time']}:</span> {$thread['dateline']} &nbsp;&nbsp; {$lang['threads_replies']}: {$thread['replies']} {$lang['threads_views']}: {$thread['views']}</p>"
 					));
-					showtablerow("id=\"mod_$thread[tid]_row2\"", 'colspan="2" style="padding: 10px; line-height: 180%;"', '<div style="overflow: auto; overflow-x: hidden; max-height:120px; height:auto !important; height:120px; word-break: break-all;">'.$thread['message'].'</div>');
-					showtablerow("id=\"mod_$thread[tid]_row3\"", 'class="threadopt threadtitle" colspan="2"', "$lang[operator]: <a href=\"home.php?mod=space&uid=$thread[moduid]\" target=\"_blank\">$thread[modusername]</a> &nbsp;&nbsp; $lang[recyclebin_delete_time]: $thread[moddateline]&nbsp;&nbsp; $lang[reason]: $thread[reason]");
+					showtablerow("id=\"mod_{$thread['tid']}_row2\"", 'colspan="2" style="padding: 10px; line-height: 180%;"', '<div style="overflow: auto; overflow-x: hidden; max-height:120px; height:auto !important; height:120px; word-break: break-all;">'.$thread['message'].'</div>');
+					showtablerow("id=\"mod_{$thread['tid']}_row3\"", 'class="threadopt threadtitle" colspan="2"', "{$lang['operator']}: <a href=\"home.php?mod=space&uid={$thread['moduid']}\" target=\"_blank\">{$thread['modusername']}</a> &nbsp;&nbsp; {$lang['recyclebin_delete_time']}: {$thread['moddateline']}&nbsp;&nbsp; {$lang['reason']}: {$thread['reason']}");
 				}
 			}
 

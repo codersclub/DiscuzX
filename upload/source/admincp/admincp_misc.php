@@ -112,15 +112,15 @@ var rowtypedata = [
 			$type = sprintf('%04b', $forumlink['type']);
 			showtablerow('', array('class="td25"', 'class="td28"', '', '', 'class="td26"'), array(
 				'<input type="checkbox" class="checkbox" name="delete[]" value="'.$forumlink['id'].'" />',
-				'<input type="text" class="txt" name="displayorder['.$forumlink[id].']" value="'.$forumlink['displayorder'].'" size="3" />',
-				'<input type="text" class="txt" name="name['.$forumlink[id].']" value="'.$forumlink['name'].'" size="15" />',
-				'<input type="text" class="txt" name="url['.$forumlink[id].']" value="'.$forumlink['url'].'" size="20" />',
-				'<input type="text" class="txt" name="description['.$forumlink[id].']" value="'.$forumlink['description'].'" size="30" />',
-				'<input type="text" class="txt" name="logo['.$forumlink[id].']" value="'.$forumlink['logo'].'" size="20" />',
-				'<input class="checkbox" type="checkbox" value="1" name="portal['.$forumlink[id].']" '.($type[0] ? "checked" : '').'>',
-				'<input class="checkbox" type="checkbox" value="1" name="forum['.$forumlink[id].']" '.($type[1] ? "checked" : '').'>',
-				'<input class="checkbox" type="checkbox" value="1" name="group['.$forumlink[id].']" '.($type[2] ? "checked" : '').'>',
-				'<input class="checkbox" type="checkbox" value="1" name="home['.$forumlink[id].']" '.($type[3] ? "checked" : '').'>',
+				'<input type="text" class="txt" name="displayorder['.$forumlink['id'].']}" value="'.$forumlink['displayorder'].'" size="3" />',
+				'<input type="text" class="txt" name="name['.$forumlink['id'].']" value="'.$forumlink['name'].'" size="15" />',
+				'<input type="text" class="txt" name="url['.$forumlink['id'].']" value="'.$forumlink['url'].'" size="20" />',
+				'<input type="text" class="txt" name="description['.$forumlink['id'].']" value="'.$forumlink['description'].'" size="30" />',
+				'<input type="text" class="txt" name="logo['.$forumlink['id'].']" value="'.$forumlink['logo'].'" size="20" />',
+				'<input class="checkbox" type="checkbox" value="1" name="portal['.$forumlink['id'].']}" '.($type[0] ? "checked" : '').'>',
+				'<input class="checkbox" type="checkbox" value="1" name="forum['.$forumlink['id'].']}" '.($type[1] ? "checked" : '').'>',
+				'<input class="checkbox" type="checkbox" value="1" name="group['.$forumlink['id'].']}" '.($type[2] ? "checked" : '').'>',
+				'<input class="checkbox" type="checkbox" value="1" name="home['.$forumlink['id'].']}" '.($type[3] ? "checked" : '').'>',
 			));
 		}
 
@@ -214,12 +214,12 @@ var rowtypedata = [
 			$extent = sprintf('%04b', $link['extent']);
 			showtablerow('', array('class="td25"', '', '', 'class="td26"', 'class="td26"', 'class="td26"', ''), array(
 				'<input type="checkbox" class="checkbox" name="delete[]" value="'.$link['id'].'" />',
-				'<input type="text" class="txt" name="name['.$link[id].']" value="'.$link['name'].'" size="15" />',
-				'<input type="text" name="url['.$link[id].']" value="'.$link['url'].'" size="50" />',
-				'<input class="checkbox" type="checkbox" value="1" name="article['.$link[id].']" '.($extent[0] ? "checked" : '').'>',
-				'<input class="checkbox" type="checkbox" value="1" name="forum['.$link[id].']" '.($extent[1] ? "checked" : '').'>',
-				'<input class="checkbox" type="checkbox" value="1" name="group['.$link[id].']" '.($extent[2] ? "checked" : '').'>',
-				'<input class="checkbox" type="checkbox" value="1" name="blog['.$link[id].']" '.($extent[3] ? "checked" : '').'>',
+				'<input type="text" class="txt" name="name['.$link['id'].']}" value="'.$link['name'].'" size="15" />',
+				'<input type="text" name="url['.$link['id'].']}" value="'.$link['url'].'" size="50" />',
+				'<input class="checkbox" type="checkbox" value="1" name="article['.$link['id'].']}" '.($extent[0] ? "checked" : '').'>',
+				'<input class="checkbox" type="checkbox" value="1" name="forum['.$link['id'].']}" '.($extent[1] ? "checked" : '').'>',
+				'<input class="checkbox" type="checkbox" value="1" name="group['.$link['id'].']}" '.($extent[2] ? "checked" : '').'>',
+				'<input class="checkbox" type="checkbox" value="1" name="blog['.$link['id'].']" '.($extent[3] ? "checked" : '').'>',
 			));
 		}
 
@@ -283,14 +283,14 @@ var rowtypedata = [
 		showsubtitle(array('', 'misc_bbcode_tag', 'available', 'display', 'display_order', 'misc_bbcode_icon', 'misc_bbcode_icon_file', ''));
 		foreach(C::t('forum_bbcode')->fetch_all_by_available_icon() as $bbcode) {
 			showtablerow('', array('class="td25"', 'class="td21"', 'class="td25"', 'class="td25"', 'class="td28 td24"', 'class="td25"', 'class="td21"'), array(
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$bbcode[id]\">",
-				"<input type=\"text\" class=\"txt\" size=\"15\" name=\"tagnew[$bbcode[id]]\" value=\"$bbcode[tag]\">",
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"availablenew[$bbcode[id]]\" value=\"1\" ".($bbcode['available'] ? 'checked="checked"' : NULL).">",
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"displaynew[$bbcode[id]]\" value=\"1\" ".($bbcode['available'] == '2' ? 'checked="checked"' : NULL).">",
-				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"displayordernew[$bbcode[id]]\" value=\"$bbcode[displayorder]\">",
-				$bbcode['icon'] ? "<em class=\"editor\"><a class=\"customedit\"><img src=\"static/image/common/$bbcode[icon]\" border=\"0\"></a></em>" : ' ',
-				"<input type=\"text\" class=\"txt\" size=\"25\" name=\"iconnew[$bbcode[id]]\" value=\"$bbcode[icon]\">",
-				"<a href=\"".ADMINSCRIPT."?action=misc&operation=bbcode&edit=$bbcode[id]\" class=\"act\">$lang[detail]</a>"
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$bbcode['id']}\">",
+				"<input type=\"text\" class=\"txt\" size=\"15\" name=\"tagnew[{$bbcode['id']}]\" value=\"{$bbcode['tag']}\">",
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"availablenew[{$bbcode['id']}]\" value=\"1\" ".($bbcode['available'] ? 'checked="checked"' : NULL).">",
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"displaynew[{$bbcode['id']}]\" value=\"1\" ".($bbcode['available'] == '2' ? 'checked="checked"' : NULL).">",
+				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"displayordernew[{$bbcode['id']}]\" value=\"{$bbcode['displayorder']}\">",
+				$bbcode['icon'] ? "<em class=\"editor\"><a class=\"customedit\"><img src=\"static/image/common/{$bbcode['icon']}\" border=\"0\"></a></em>" : ' ',
+				"<input type=\"text\" class=\"txt\" size=\"25\" name=\"iconnew[{$bbcode['id']}]\" value=\"{$bbcode['icon']}\">",
+				"<a href=\"".ADMINSCRIPT."?action=misc&operation=bbcode&edit={$bbcode['id']}\" class=\"act\">{$lang['detail']}</a>"
 			));
 		}
 		showtablerow('', array('class="td25"', 'class="td25"', 'class="td25"', 'class="td25"', 'class="td28 td24"', 'class="td25"', 'class="td21"'), array(
@@ -588,7 +588,7 @@ var rowtypedata = [
 		showtagheader('div', 'list', $anchor == 'list');
 		showformheader("misc&operation=censor&page=$page", '', 'keywordsearch');
 		showtableheader();
-		echo '<br /><br /><form method="post">'. $lang['keywords'].': <input type="text" name="censorkeyword" value="'.$_GET['censorkeyword'].'" /> &nbsp; <select name="censor_search_type"><option value = "">'.cplang("misc_censor_wordtype_search").'</option><option value="0">'.cplang('misc_censor_word_default_typename').'</option>'.($word_type_option_search ? $word_type_option_search : $word_type_option).'</select> &nbsp;<input type="submit" name="censor_search" value="'.$lang[search].'" class="btn" /> </form>';
+		echo '<br /><br /><form method="post">'. $lang['keywords'].': <input type="text" name="censorkeyword" value="'.$_GET['censorkeyword'].'" /> &nbsp; <select name="censor_search_type"><option value = "">'.cplang("misc_censor_wordtype_search").'</option><option value="0">'.cplang('misc_censor_word_default_typename').'</option>'.($word_type_option_search ? $word_type_option_search : $word_type_option).'</select> &nbsp;<input type="submit" name="censor_search" value="'.$lang['search'].'" class="btn" /> </form>';
 		showtablefooter();
 
 		showformheader("misc&operation=censor&page=$page", '', 'listform');
@@ -624,8 +624,8 @@ var rowtypedata = [
 				}
 				$word_type_tmp .= "</select>";
 				showtablerow('', array('class="td25"', '', '', 'class="td26"'), array(
-					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$censor[id]\" $disabled>",
-					"<input type=\"text\" class=\"txt\" size=\"30\" name=\"find[$censor[id]]\" value=\"$censor[find]\" $disabled>",
+					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$censor['id']}\" $disabled>",
+					"<input type=\"text\" class=\"txt\" size=\"30\" name=\"find[{$censor['id']}]\" value=\"{$censor['find']}\" $disabled>",
 					'<select name="replace['.$censor['id'].']" onchange="if(this.options[this.options.selectedIndex].value==\'{REPLACE}\'){$(\'divbanned'.$censor['id'].'\').style.display=\'\';$(\'divbanned'.$censor['id'].'\').value=\'\';}else{$(\'divbanned'.$censor['id'].'\').style.display=\'none\';}" '.$disabled.'>
 					<option value="{BANNED}" '.$optionselected['{BANNED}'].'>'.cplang('misc_censor_word_banned').'</option><option value="{MOD}" '.$optionselected['{MOD}'].'>'.cplang('misc_censor_word_moderated').'</option><option value="{REPLACE}" '.$optionselected['{REPLACE}'].'>'.cplang('misc_censor_word_replaced').'</option></select>
 					<input class="txt" type="text" size="10" name="replacecontent['.$censor['id'].']" value="'.$censor['replacement'].'" id="divbanned'.$censor['id'].'" '.$replacedisplay.' '.$disabled.'>',
@@ -814,10 +814,10 @@ EOT;
 			$stampicon = $fn.'.small.'.$ext;
 			$small = array_key_exists($stampicon, $stamplistfiles);
 			showtablerow('', array('class="td25"', 'class="td25"', 'class="td23"'), array(
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$smiley[id]\">",
-				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"displayorder[$smiley[id]]\" value=\"$smiley[displayorder]\">",
-				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"code[$smiley[id]]\" value=\"$smiley[code]\">",
-				"<img src=\"static/image/stamp/$smiley[url]\">",
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$smiley['id']}\">",
+				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"displayorder[{$smiley['id']}]\" value=\"{$smiley['displayorder']}\">",
+				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"code[{$smiley['id']}]\" value=\"{$smiley['code']}\">",
+				"<img src=\"static/image/stamp/{$smiley['url']}\">",
 				$smiley['url'],
 				($small ? '<input class="checkbox" type="checkbox" name="stampicon['.$smiley['id'].']"'.($smiley['id'] == $stampicons[$stampicon] ? ' checked="checked"' : '').' value="'.$stamplistfiles[$stampicon].'" /><img class="vmiddle" src="static/image/stamp/'.$stampicon.'">': ''),
 				$tselectrow,
@@ -841,10 +841,10 @@ EOT;
 
 		foreach($stamplist as $smiley) {
 			showtablerow('', array('class="td25"', 'class="td25"', 'class="td23"'), array(
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$smiley[id]\">",
-				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"displayorder[$smiley[id]]\" value=\"$smiley[displayorder]\">",
-				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"code[$smiley[id]]\" value=\"$smiley[code]\">",
-				"<img src=\"static/image/stamp/$smiley[url]\">",
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$smiley['id']}\">",
+				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"displayorder[{$smiley['id']}]\" value=\"{$smiley['displayorder']}\">",
+				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"code[{$smiley['id']}]\" value=\"{$smiley['code']}\">",
+				"<img src=\"static/image/stamp/{$smiley['url']}\">",
 				$smiley['url']
 			));
 			$imgfilter[] = $smiley['url'];
@@ -954,7 +954,7 @@ EOT;
 		updatecache('stamps');
 		updatecache('stamptypeid');
 
-		cpmsg('thread_stamp_succeed', "action=misc&operation=stamp&anchor=$_GET[anchor]", 'succeed');
+		cpmsg('thread_stamp_succeed', "action=misc&operation=stamp&anchor={$_GET['anchor']}", 'succeed');
 	}
 
 } elseif($operation == 'attachtype') {
@@ -966,9 +966,9 @@ EOT;
 		while($type = DB::fetch($query)) {
 			$type['maxsize'] = round($type['maxsize'] / 1024);
 			$attachtypes .= showtablerow('', array('class="td25"', 'class="td24"'), array(
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$type[id]\" />",
-				"<input type=\"text\" class=\"txt\" size=\"10\" name=\"extension[$type[id]]\" value=\"$type[extension]\" />",
-				"<input type=\"text\" class=\"txt\" size=\"15\" name=\"maxsize[$type[id]]\" value=\"$type[maxsize]\" />"
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$type['id']}\" />",
+				"<input type=\"text\" class=\"txt\" size=\"10\" name=\"extension[{$type['id']}]\" value=\"{$type['extension']}\" />",
+				"<input type=\"text\" class=\"txt\" size=\"15\" name=\"maxsize[{$type['id']}]\" value=\"{$type['maxsize']}\" />"
 			), TRUE);
 		}
 
@@ -1062,7 +1062,7 @@ var rowtypedata = [
 					$cron['time'] = cplang('misc_cron_perhour');
 				}
 
-				$cron['time'] .= $cron['hour'] >= 0 && $cron['hour'] < 24 ? sprintf('%02d', $cron[hour]).cplang('misc_cron_hour') : '';
+				$cron['time'] .= $cron['hour'] >= 0 && $cron['hour'] < 24 ? sprintf('%02d', $cron['hour']).cplang('misc_cron_hour') : '';
 
 				if(!in_array($cron['minute'], array(-1, ''))) {
 					foreach($cron['minute'] = explode("\t", $cron['minute']) as $k => $v) {
@@ -1084,15 +1084,15 @@ var rowtypedata = [
 				}
 
 				showtablerow('', array('class="td25"', 'class="crons"', 'class="td25"', 'class="td25"', 'class="td23"', 'class="td23"', 'class="td23"'.$cron['nextcolor'], 'class="td25"'), array(
-					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$cron[cronid]\" ".($cron['type'] == 'system' ? 'disabled' : '').">",
-					"<input type=\"text\" class=\"txt\" name=\"namenew[$cron[cronid]]\" size=\"20\" value=\"$cron[name]\"><br /><b>$cron[filename]</b>",
-					"<input class=\"checkbox\" type=\"checkbox\" name=\"availablenew[$cron[cronid]]\" value=\"1\" ".($cron['available'] ? 'checked' : '')." $disabled>",
+					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$cron['cronid']}\" ".($cron['type'] == 'system' ? 'disabled' : '').">",
+					"<input type=\"text\" class=\"txt\" name=\"namenew[{$cron['cronid']}]\" size=\"20\" value=\"{$cron['name']}\"><br /><b>{$cron['filename']}</b>",
+					"<input class=\"checkbox\" type=\"checkbox\" name=\"availablenew[{$cron['cronid']}]\" value=\"1\" ".($cron['available'] ? 'checked' : '')." $disabled>",
 					cplang($cron['type'] == 'system' ? 'inbuilt' : ($cron['type'] == 'plugin' ? 'plugin' : 'custom')),
-					$cron[time],
-					$cron[lastrun],
-					$cron[nextrun],
-					"<a href=\"".ADMINSCRIPT."?action=misc&operation=cron&edit=$cron[cronid]\" class=\"act\">$lang[edit]</a><br />".
-					($cron['run'] ? " <a href=\"".ADMINSCRIPT."?action=misc&operation=cron&run=$cron[cronid]\" class=\"act\">$lang[misc_cron_run]</a>" : " <a href=\"###\" class=\"act\" disabled>$lang[misc_cron_run]</a>")
+					$cron['time'],
+					$cron['lastrun'],
+					$cron['nextrun'],
+					"<a href=\"".ADMINSCRIPT."?action=misc&operation=cron&edit={$cron['cronid']}\" class=\"act\">{$lang['edit']}</a><br />".
+					($cron['run'] ? " <a href=\"".ADMINSCRIPT."?action=misc&operation=cron&run={$cron['cronid']}\" class=\"act\">{$lang['misc_cron_run']}</a>" : " <a href=\"###\" class=\"act\" disabled>{$lang['misc_cron_run']}</a>")
 				));
 			}
 
@@ -1149,11 +1149,11 @@ var rowtypedata = [
 						DB::update('common_cron', array(
 							'available' => '0',
 							'nextrun' => '0',
-						), "cronid='$cron[cronid]'");
+						), "cronid='{$cron['cronid']}'");
 					}
 				} else {
 					if(!file_exists(DISCUZ_ROOT.'./source/plugin/'.$pluginid.'/cron/'.$cron['filename'])) {
-						DB::delete('common_cron', "cronid='$cron[cronid]'");
+						DB::delete('common_cron', "cronid='{$cron['cronid']}'");
 					}
 				}
 			}
@@ -1189,11 +1189,11 @@ var rowtypedata = [
 				}
 
 				for($i = 1; $i <= 31; $i++) {
-					$dayselect .= "<option value=\"$i\" ".($cron['day'] == $i ? 'selected' : '').">$i $lang[misc_cron_day]</option>";
+					$dayselect .= "<option value=\"$i\" ".($cron['day'] == $i ? 'selected' : '').">$i {$lang['misc_cron_day']}</option>";
 				}
 
 				for($i = 0; $i <= 23; $i++) {
-					$hourselect .= "<option value=\"$i\" ".($cron['hour'] == $i ? 'selected' : '').">$i $lang[misc_cron_hour]</option>";
+					$hourselect .= "<option value=\"$i\" ".($cron['hour'] == $i ? 'selected' : '').">$i {$lang['misc_cron_hour']}</option>";
 				}
 
 				shownav('tools', 'misc_cron');
@@ -1276,7 +1276,7 @@ var rowtypedata = [
 			if(count($efile) > 1 && ispluginkey($efile[0])) {
 				$cronfile = DISCUZ_ROOT.'./source/plugin/'.$efile[0].'/cron/'.$efile[1];
 			} else {
-				$cronfile = DISCUZ_ROOT."./source/include/cron/$cron[filename]";
+				$cronfile = DISCUZ_ROOT."./source/include/cron/{$cron['filename']}";
 			}
 
 			if(substr($cronfile, -4) !== '.php' || !file_exists($cronfile)) {
@@ -1323,9 +1323,9 @@ var rowtypedata = [
 				foreach($focus['data'] as $k => $v) {
 					showtablerow('', array('class="td25"','', 'class="td25"', 'class="td25"'), array(
 						"<input type=\"checkbox\" class=\"checkbox\" name=\"delete[]\" value=\"$k\">",
-						'<a href="'.$v['url'].'" target="_blank">'.$v[subject].'</a>',
+						'<a href="'.$v['url'].'" target="_blank">'.$v['subject'].'</a>',
 						"<input type=\"checkbox\" class=\"checkbox\" name=\"available[$k]\" value=\"1\" ".($v['available'] ? 'checked' : '').">",
-						"<a href=\"".ADMINSCRIPT."?action=misc&operation=focus&do=edit&id=$k\" class=\"act\">$lang[edit]</a>",
+						"<a href=\"".ADMINSCRIPT."?action=misc&operation=focus&do=edit&id=$k\" class=\"act\">{$lang['edit']}</a>",
 					));
 				}
 			}
@@ -1530,10 +1530,10 @@ var rowtypedata = [
 			foreach(C::t('common_admincp_cmenu')->fetch_all_by_uid($_G['uid'], $startlimit, $mpp) as $custom) {
 				$custom['url'] = rawurldecode($custom['url']);
 				$optionlist .= showtablerow('', array('class="td25"', 'class="td28"', '', 'class="td26"'), array(
-					"<input type=\"checkbox\" class=\"checkbox\" name=\"delete[]\" value=\"$custom[id]\">",
-					"<input type=\"text\" class=\"txt\" size=\"3\" name=\"displayordernew[$custom[id]]\" value=\"$custom[displayorder]\">",
-					"<input type=\"text\" class=\"txt\" size=\"25\" name=\"titlenew[$custom[id]]\" value=\"".cplang($custom['title'])."\"><input type=\"hidden\" name=\"langnew[$custom[id]]\" value=\"$custom[title]\">",
-					"<input type=\"text\" class=\"txt\" size=\"40\" name=\"urlnew[$custom[id]]\" value=\"$custom[url]\">"
+					"<input type=\"checkbox\" class=\"checkbox\" name=\"delete[]\" value=\"{$custom['id']}\">",
+					"<input type=\"text\" class=\"txt\" size=\"3\" name=\"displayordernew[{$custom['id']}]\" value=\"{$custom['displayorder']}\">",
+					"<input type=\"text\" class=\"txt\" size=\"25\" name=\"titlenew[{$custom['id']}]\" value=\"".cplang($custom['title'])."\"><input type=\"hidden\" name=\"langnew[{$custom['id']}]\" value=\"{$custom['title']}\">",
+					"<input type=\"text\" class=\"txt\" size=\"40\" name=\"urlnew[{$custom['id']}]\" value=\"{$custom['url']}\">"
 				), TRUE);
 				$ajaxoptionlist .= '<li><a href="'.$custom['url'].'" target="'.(substr(rawurldecode($custom['url']), 0, 17) == ADMINSCRIPT.'?action=' ? 'main' : '_blank').'">'.cplang($custom['title']).'</a></li>';
 			}

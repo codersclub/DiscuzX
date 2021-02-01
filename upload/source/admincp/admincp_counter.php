@@ -48,13 +48,13 @@ if(submitcheck('forumsubmit', 1)) {
 		C::t('forum_forum')->update($forum['fid'], array('archive' => $archive));
 
 		$thread = C::t('forum_thread')->fetch_by_fid_displayorder($forum['fid']);
-		$lastpost = "$thread[tid]\t$thread[subject]\t$thread[lastpost]\t$thread[lastposter]";
+		$lastpost = "{$thread['tid']}\t{$thread['subject']}\t{$thread['lastpost']}\t{$thread['lastposter']}";
 
 		C::t('forum_forum')->update($forum['fid'], array('threads' => $threads, 'posts' => $posts, 'lastpost' => $lastpost));
 	}
 
 	if($processed) {
-		cpmsg("$lang[counter_forum]: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
+		cpmsg("{$lang['counter_forum']}: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
 	} else {
 		C::t('forum_forum')->clear_forum_counter_for_group();
 		cpmsg('counter_forum_succeed', 'action=counter', 'succeed');
@@ -95,7 +95,7 @@ if(submitcheck('forumsubmit', 1)) {
 	}
 
 	if($processed) {
-		cpmsg("$lang[counter_digest]: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
+		cpmsg("{$lang['counter_digest']}: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
 	} else {
 		cpmsg('counter_digest_succeed', 'action=counter', 'succeed');
 	}
@@ -130,7 +130,7 @@ if(submitcheck('forumsubmit', 1)) {
 	}
 
 	if($processed) {
-		cpmsg("$lang[counter_member]: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
+		cpmsg("{$lang['counter_member']}: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
 	} else {
 		cpmsg('counter_member_succeed', 'action=counter', 'succeed');
 	}
@@ -159,7 +159,7 @@ if(submitcheck('forumsubmit', 1)) {
 	}
 
 	if($processed) {
-		cpmsg("$lang[counter_thread]: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
+		cpmsg("{$lang['counter_thread']}: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
 	} else {
 		cpmsg('counter_thread_succeed', 'action=counter', 'succeed');
 	}
@@ -258,7 +258,7 @@ if(submitcheck('forumsubmit', 1)) {
 			foreach($typeoptionvararr as $row) {
 				$row['fid'] = $tids[$row['tid']]['fid'];
 				$opname = $optionids[$sortid][$row['optionid']];
-				if(empty($inserts[$row[tid]])) {
+				if(empty($inserts[$row['tid']])) {
 					$inserts[$row['tid']]['tid'] = $row['tid'];
 					$inserts[$row['tid']]['fid'] = $row['fid'];
 				}
@@ -309,7 +309,7 @@ if(submitcheck('forumsubmit', 1)) {
 	}
 
 	if($processed) {
-		cpmsg("$lang[counter_member]: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
+		cpmsg("{$lang['counter_member']}: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
 	} else {
 		cpmsg('counter_member_succeed', 'action=counter', 'succeed');
 	}
@@ -327,7 +327,7 @@ if(submitcheck('forumsubmit', 1)) {
 	}
 
 	if($processed) {
-		cpmsg("$lang[counter_groupmember_num]: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
+		cpmsg("{$lang['counter_groupmember_num']}: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
 	} else {
 		cpmsg('counter_groupmember_num_succeed', 'action=counter', 'succeed');
 	}
@@ -362,7 +362,7 @@ if(submitcheck('forumsubmit', 1)) {
 	}
 
 	if($processed) {
-		cpmsg("$lang[counter_groupmember_post]: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
+		cpmsg("{$lang['counter_groupmember_post']}: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
 	} else {
 		cpmsg('counter_groupmember_post_succeed', 'action=counter', 'succeed');
 	}
@@ -380,7 +380,7 @@ if(submitcheck('forumsubmit', 1)) {
 	}
 
 	if($processed) {
-		cpmsg("$lang[counter_groupnum]: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
+		cpmsg("{$lang['counter_groupnum']}: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
 	} else {
 		updatecache('grouptype');
 		cpmsg('counter_groupnum_succeed', 'action=counter', 'succeed');
@@ -390,7 +390,7 @@ if(submitcheck('forumsubmit', 1)) {
 
 	$nextlink = "action=counter&current=$next&pertask=$pertask&blogreplynum=yes";
 	if(blog_replynum_stat($current, $pertask)) {
-		cpmsg("$lang[counter_blog_replynum]: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
+		cpmsg("{$lang['counter_blog_replynum']}: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
 	} else {
 		cpmsg('counter_blog_replynum_succeed', 'action=counter', 'succeed');
 	}
@@ -399,7 +399,7 @@ if(submitcheck('forumsubmit', 1)) {
 
 	$nextlink = "action=counter&current=$next&pertask=$pertask&friendnum=yes";
 	if(space_friendnum_stat($current, $pertask)) {
-		cpmsg("$lang[counter_friendnum]: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
+		cpmsg("{$lang['counter_friendnum']}: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
 	} else {
 		cpmsg('counter_friendnum_succeed', 'action=counter', 'succeed');
 	}
@@ -408,7 +408,7 @@ if(submitcheck('forumsubmit', 1)) {
 
 	$nextlink = "action=counter&current=$next&pertask=$pertask&albumpicnum=yes";
 	if(album_picnum_stat($current, $pertask)) {
-		cpmsg("$lang[counter_album_picnum]: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
+		cpmsg("{$lang['counter_album_picnum']}: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
 	} else {
 		cpmsg('counter_album_picnum_succeed', 'action=counter', 'succeed');
 	}
@@ -454,7 +454,7 @@ if(submitcheck('forumsubmit', 1)) {
 	}
 
 	if($processed) {
-		cpmsg("$lang[counter_thread_cover]: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
+		cpmsg("{$lang['counter_thread_cover']}: ".cplang('counter_processing', array('current' => $current, 'next' => $next)), $nextlink, 'loading');
 	} else {
 		cpmsg('counter_thread_cover_succeed', 'action=counter', 'succeed');
 	}
@@ -470,52 +470,52 @@ if(submitcheck('forumsubmit', 1)) {
 	showsubtitle(array('', 'counter_amount'));
 	showhiddenfields(array('pertask' => ''));
 	showtablerow('', array('class="td21"'), array(
-		"$lang[counter_forum]:",
+		"{$lang['counter_forum']}:",
 		'<input name="pertask1" type="text" class="txt" value="15" /><input type="submit" class="btn" name="forumsubmit" onclick="this.form.pertask.value=this.form.pertask1.value" value="'.$lang['submit'].'" />'
 	));
 	showtablerow('', array('class="td21"'), array(
-		"$lang[counter_digest]:",
+		"{$lang['counter_digest']}:",
 		'<input name="pertask2" type="text" class="txt" value="1000" /><input type="submit" class="btn" name="digestsubmit" onclick="this.form.pertask.value=this.form.pertask2.value" value="'.$lang['submit'].'" />'
 	));
 	showtablerow('', array('class="td21"'), array(
-		"$lang[counter_member]:",
+		"{$lang['counter_member']}:",
 		'<input name="pertask3" type="text" class="txt" value="1000" /><input type="submit" class="btn" name="membersubmit" onclick="this.form.pertask.value=this.form.pertask3.value" value="'.$lang['submit'].'" />'
 	));
 	showtablerow('', array('class="td21"'), array(
-		"$lang[counter_thread]:",
+		"{$lang['counter_thread']}:",
 		'<input name="pertask4" type="text" class="txt" value="500" /><input type="submit" class="btn" name="threadsubmit" onclick="this.form.pertask.value=this.form.pertask4.value" value="'.$lang['submit'].'" />'
 	));
 	showtablerow('', array('class="td21"'), array(
-		"$lang[counter_special]:",
+		"{$lang['counter_special']}:",
 		'<input name="pertask7" type="text" class="txt" value="1" disabled/><input type="submit" class="btn" name="specialarrange" onclick="this.form.pertask.value=this.form.pertask7.value" value="'.$lang['submit'].'" />'
 	));
 
 	showtablerow('', array('class="td21"'), array(
-		"$lang[counter_groupnum]:",
+		"{$lang['counter_groupnum']}:",
 		'<input name="pertask8" type="text" class="txt" value="10" /><input type="submit" class="btn" name="groupnum" onclick="this.form.pertask.value=this.form.pertask8.value" value="'.$lang['submit'].'" />'
 	));
 	showtablerow('', array('class="td21"'), array(
-		"$lang[counter_groupmember_num]:",
+		"{$lang['counter_groupmember_num']}:",
 		'<input name="pertask9" type="text" class="txt" value="100" /><input type="submit" class="btn" name="groupmembernum" onclick="this.form.pertask.value=this.form.pertask9.value" value="'.$lang['submit'].'" />'
 	));
 	showtablerow('', array('class="td21"'), array(
-		"$lang[counter_groupmember_post]:",
+		"{$lang['counter_groupmember_post']}:",
 		'<input name="pertask10" type="text" class="txt" value="100" /><input type="submit" class="btn" name="groupmemberpost" onclick="this.form.pertask.value=this.form.pertask10.value" value="'.$lang['submit'].'" />'
 	));
 	showtablerow('', array('class="td21"'), array(
-		"$lang[counter_blog_replynum]:",
+		"{$lang['counter_blog_replynum']}:",
 		'<input name="pertask11" type="text" class="txt" value="100" /><input type="submit" class="btn" name="blogreplynum" onclick="this.form.pertask.value=this.form.pertask11.value" value="'.$lang['submit'].'" />'
 	));
 	showtablerow('', array('class="td21"'), array(
-		"$lang[counter_friendnum]:",
+		"{$lang['counter_friendnum']}:",
 		'<input name="pertask12" type="text" class="txt" value="100" /><input type="submit" class="btn" name="friendnum" onclick="this.form.pertask.value=this.form.pertask12.value" value="'.$lang['submit'].'" />'
 	));
 	showtablerow('', array('class="td21"'), array(
-		"$lang[counter_album_picnum]:",
+		"{$lang['counter_album_picnum']}:",
 		'<input name="pertask13" type="text" class="txt" value="100" /><input type="submit" class="btn" name="albumpicnum" onclick="this.form.pertask.value=this.form.pertask13.value" value="'.$lang['submit'].'" />'
 	));
 	showtablerow('', array('class="td21"'), array(
-		"$lang[counter_thread_cover]:",
+		"{$lang['counter_thread_cover']}:",
 		'<script type="text/javascript" src="static/js/calendar.js"></script><input name="pertask14" type="text" class="txt" value="100" /> '.$lang['counter_forumid'].': <input type="text" class="txt" name="fid" value="" size="10">&nbsp;<input type="checkbox" value="1" name="allthread">'.$lang['counter_have_cover'].'<br><input type="text" onclick="showcalendar(event, this)" value="" name="starttime" class="txt"> -- <input type="text" onclick="showcalendar(event, this)" value="" name="endtime" class="txt">('.$lang['counter_thread_cover_settime'].')  &nbsp;&nbsp;<input type="submit" class="btn" name="setthreadcover" onclick="this.form.pertask.value=this.form.pertask14.value" value="'.$lang['submit'].'" />'
 	));
 	showtablefooter();

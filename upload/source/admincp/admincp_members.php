@@ -105,19 +105,19 @@ EOF;
 					$lockshow = $member['status'] == '-1' ? '<em class="lightnum">['.cplang('lock').']</em>' : '';
 					$freezeshow = $member['freeze'] ? '<em class="lightnum">['.cplang('freeze').']</em>' : '';
 					$members .= showtablerow('', array('class="td25"', '', 'title="'.implode("\n", $memberextcredits).'"'), array(
-						"<input type=\"checkbox\" name=\"uidarray[]\" value=\"$member[uid]\"".($member['adminid'] == 1 ? 'disabled' : '')." class=\"checkbox\">",
-						($_G['setting']['connect']['allow'] && $member['conisbind'] ? '<img class="vmiddle" src="static/image/common/connect_qq.gif" /> ' : '')."<a href=\"home.php?mod=space&uid=$member[uid]\" target=\"_blank\">$member[username]</a>",
+						"<input type=\"checkbox\" name=\"uidarray[]\" value=\"{$member['uid']}\"".($member['adminid'] == 1 ? 'disabled' : '')." class=\"checkbox\">",
+						($_G['setting']['connect']['allow'] && $member['conisbind'] ? '<img class="vmiddle" src="static/image/common/connect_qq.gif" /> ' : '')."<a href=\"home.php?mod=space&uid={$member['uid']}\" target=\"_blank\">{$member['username']}</a>",
 						$member['credits'],
 						$member['posts'],
 						$usergroups[$member['adminid']]['grouptitle'],
 						$usergroups[$member['groupid']]['grouptitle'].$lockshow.$freezeshow,
-						"<a href=\"".ADMINSCRIPT."?action=members&operation=group&uid=$member[uid]\" class=\"act\">$lang[usergroup]</a><a href=\"".ADMINSCRIPT."?action=members&operation=access&uid=$member[uid]\" class=\"act\">$lang[members_access]</a>".
-						($_G['setting']['extcredits'] ? "<a href=\"".ADMINSCRIPT."?action=members&operation=credit&uid=$member[uid]\" class=\"act\">$lang[credits]</a>" : "<span disabled>$lang[edit]</span>").
-						"<a href=\"".ADMINSCRIPT."?action=members&operation=medal&uid=$member[uid]\" class=\"act\">$lang[medals]</a>".
-						"<a href=\"".ADMINSCRIPT."?action=members&operation=repeat&uid=$member[uid]\" class=\"act\">$lang[members_repeat]</a>".
-						"<a href=\"".ADMINSCRIPT."?action=members&operation=edit&uid=$member[uid]\" class=\"act\">$lang[detail]</a>".
-						"<a href=\"".ADMINSCRIPT."?action=members&operation=ban&uid=$member[uid]\" class=\"act\">$lang[members_ban]</a>".
-						"<a href=\"".ADMINSCRIPT."?action=members&operation=chgusername&uid=$member[uid]\" class=\"act\">$lang[members_chgusername]</a>"
+						"<a href=\"".ADMINSCRIPT."?action=members&operation=group&uid={$member['uid']}\" class=\"act\">{$lang['usergroup']}</a><a href=\"".ADMINSCRIPT."?action=members&operation=access&uid={$member['uid']}\" class=\"act\">{$lang['members_access']}</a>".
+						($_G['setting']['extcredits'] ? "<a href=\"".ADMINSCRIPT."?action=members&operation=credit&uid={$member['uid']}\" class=\"act\">{$lang['credits']}</a>" : "<span disabled>{$lang['edit']}</span>").
+						"<a href=\"".ADMINSCRIPT."?action=members&operation=medal&uid={$member['uid']}\" class=\"act\">{$lang['medals']}</a>".
+						"<a href=\"".ADMINSCRIPT."?action=members&operation=repeat&uid={$member['uid']}\" class=\"act\">{$lang['members_repeat']}</a>".
+						"<a href=\"".ADMINSCRIPT."?action=members&operation=edit&uid={$member['uid']}\" class=\"act\">{$lang['detail']}</a>".
+						"<a href=\"".ADMINSCRIPT."?action=members&operation=ban&uid={$member['uid']}\" class=\"act\">{$lang['members_ban']}</a>".
+						"<a href=\"".ADMINSCRIPT."?action=members&operation=chgusername&uid={$member['uid']}\" class=\"act\">{$lang['members_chgusername']}</a>"
 					), TRUE);
 				}
 			}
@@ -400,17 +400,17 @@ EOF;
 					$memberextcredits[] = $_G['setting']['extcredits'][$id]['title'].': '.$member['extcredits'.$id];
 				}
 				$members .= showtablerow('', array('class="td25"', '', 'title="'.implode("\n", $memberextcredits).'"'), array(
-					"<input type=\"checkbox\" name=\"uidarray[]\" value=\"$member[uid]\"".($member['adminid'] == 1 ? 'disabled' : '')." class=\"checkbox\">",
-					"<a href=\"home.php?mod=space&uid=$member[uid]\" target=\"_blank\">$member[username]</a>",
+					"<input type=\"checkbox\" name=\"uidarray[]\" value=\"{$member['uid']}\"".($member['adminid'] == 1 ? 'disabled' : '')." class=\"checkbox\">",
+					"<a href=\"home.php?mod=space&uid={$member['uid']}\" target=\"_blank\">{$member['username']}</a>",
 					$member['credits'],
 					$member['posts'],
 					$usergroups[$member['adminid']]['grouptitle'],
 					$usergroups[$member['groupid']]['grouptitle'],
-					"<a href=\"".ADMINSCRIPT."?action=members&operation=group&uid=$member[uid]\" class=\"act\">$lang[usergroup]</a><a href=\"".ADMINSCRIPT."?action=members&operation=access&uid=$member[uid]\" class=\"act\">$lang[members_access]</a>".
-					($_G['setting']['extcredits'] ? "<a href=\"".ADMINSCRIPT."?action=members&operation=credit&uid=$member[uid]\" class=\"act\">$lang[credits]</a>" : "<span disabled>$lang[edit]</span>").
-					"<a href=\"".ADMINSCRIPT."?action=members&operation=medal&uid=$member[uid]\" class=\"act\">$lang[medals]</a>".
-					"<a href=\"".ADMINSCRIPT."?action=members&operation=repeat&uid=$member[uid]\" class=\"act\">$lang[members_repeat]</a>".
-					"<a href=\"".ADMINSCRIPT."?action=members&operation=edit&uid=$member[uid]\" class=\"act\">$lang[detail]</a>"
+					"<a href=\"".ADMINSCRIPT."?action=members&operation=group&uid={$member['uid']}\" class=\"act\">{$lang['usergroup']}</a><a href=\"".ADMINSCRIPT."?action=members&operation=access&uid={$member['uid']}\" class=\"act\">{$lang['members_access']}</a>".
+					($_G['setting']['extcredits'] ? "<a href=\"".ADMINSCRIPT."?action=members&operation=credit&uid={$member['uid']}\" class=\"act\">{$lang['credits']}</a>" : "<span disabled>{$lang['edit']}</span>").
+					"<a href=\"".ADMINSCRIPT."?action=members&operation=medal&uid={$member['uid']}\" class=\"act\">{$lang['medals']}</a>".
+					"<a href=\"".ADMINSCRIPT."?action=members&operation=repeat&uid={$member['uid']}\" class=\"act\">{$lang['members_repeat']}</a>".
+					"<a href=\"".ADMINSCRIPT."?action=members&operation=edit&uid={$member['uid']}\" class=\"act\">{$lang['detail']}</a>"
 				), TRUE);
 			}
 		}
@@ -668,11 +668,11 @@ EOF;
 		$newletter_detail = dunserialize($newletter_detail);
 		if($newletter_detail && $newletter_detail['uid'] == $_G['uid']) {
 			if($_GET['goon'] == 'yes') {
-				cpmsg("$lang[members_newsletter_send]: ".cplang('members_newsletter_processing', array('current' => $newletter_detail['current'], 'next' => $newletter_detail['next'], 'search_condition' => $newletter_detail['search_condition'])), $newletter_detail['action'], 'loadingform');
+				cpmsg("{$lang['members_newsletter_send']}: ".cplang('members_newsletter_processing', array('current' => $newletter_detail['current'], 'next' => $newletter_detail['next'], 'search_condition' => $newletter_detail['search_condition'])), $newletter_detail['action'], 'loadingform');
 			} elseif($_GET['goon'] == 'no') {
 				del_newsletter('newsletter_detail');
 			} else {
-				cpmsg('members_edit_continue', '', '', '', '<input type="button" class="btn" value="'.$lang[ok].'" onclick="location.href=\''.ADMINSCRIPT.'?action=members&operation=newsletter&goon=yes\'">&nbsp;&nbsp;<input type="button" class="btn" value="'.$lang[cancel].'" onclick="location.href=\''.ADMINSCRIPT.'?action=members&operation=newsletter&goon=no\';">');
+				cpmsg('members_edit_continue', '', '', '', '<input type="button" class="btn" value="'.$lang['ok'].'" onclick="location.href=\''.ADMINSCRIPT.'?action=members&operation=newsletter&goon=yes\'">&nbsp;&nbsp;<input type="button" class="btn" value="'.$lang['cancel'].'" onclick="location.href=\''.ADMINSCRIPT.'?action=members&operation=newsletter&goon=no\';">');
 				exit;
 			}
 		}
@@ -710,7 +710,7 @@ EOF;
 			} else {
 				showtablerow('class="first"', array('class="th11"'), array(
 					cplang('members_newsletter_members'),
-					cplang('members_search_result', array('membernum' => $membernum))."<a href=\"###\" onclick=\"$('searchmembers').style.display='';$('newsletter').style.display='none';$('step1').className='current';$('step2').className='';\" class=\"act\">$lang[research]</a>"
+					cplang('members_search_result', array('membernum' => $membernum))."<a href=\"###\" onclick=\"$('searchmembers').style.display='';$('newsletter').style.display='none';$('step1').className='current';$('step2').className='';\" class=\"act\">{$lang['research']}</a>"
 				));
 				showtablefooter();
 
@@ -842,7 +842,7 @@ EOF;
 
 				showtablerow('class="first"', array('class="th11"'), array(
 					cplang('members_reward_members'),
-					cplang('members_search_result', array('membernum' => $membernum))."<a href=\"###\" onclick=\"$('searchmembers').style.display='';$('reward').style.display='none';$('step1').className='current';$('step2').className='';\" class=\"act\">$lang[research]</a>"
+					cplang('members_search_result', array('membernum' => $membernum))."<a href=\"###\" onclick=\"$('searchmembers').style.display='';$('reward').style.display='none';$('step1').className='current';$('step2').className='';\" class=\"act\">{$lang['research']}</a>"
 				));
 
 				echo '<tr><td class="th12">'.cplang('nav_members_reward').'</td><td>';
@@ -878,8 +878,8 @@ EOF;
 	$medals = '';
 	foreach(C::t('forum_medal')->fetch_all_data(1) as $medal) {
 		$medals .= showtablerow('', array('class="td25"', 'class="td23"'), array(
-			"<input class=\"checkbox\" type=\"checkbox\" name=\"medals[$medal[medalid]]\" value=\"1\" />",
-			"<img src=\"static/image/common/$medal[image]\" />",
+			"<input class=\"checkbox\" type=\"checkbox\" name=\"medals[{$medal['medalid']}]\" value=\"1\" />",
+			"<img src=\"static/image/common/{$medal['image']}\" />",
 			$medal['name']
 		), TRUE);
 	}
@@ -917,7 +917,7 @@ EOF;
 
 				showtablerow('class="first"', array('class="th11"'), array(
 					cplang('members_confermedal_members'),
-					cplang('members_search_result', array('membernum' => $membernum))."<a href=\"###\" onclick=\"$('searchmembers').style.display='';$('confermedal').style.display='none';$('step1').className='current';$('step2').className='';\" class=\"act\">$lang[research]</a>"
+					cplang('members_search_result', array('membernum' => $membernum))."<a href=\"###\" onclick=\"$('searchmembers').style.display='';$('confermedal').style.display='none';$('step1').className='current';$('step2').className='';\" class=\"act\">{$lang['research']}</a>"
 				));
 
 				echo '<tr><td class="th12">'.cplang('members_confermedal').'</td><td>';
@@ -951,8 +951,8 @@ EOF;
 	$magics = '';
 	foreach(C::t('common_magic')->fetch_all_data(1) as $magic) {
 		$magics .= showtablerow('', array('class="td25"', 'class="td23"', 'class="td25"', ''), array(
-			"<input class=\"checkbox\" type=\"checkbox\" name=\"magic[]\" value=\"$magic[magicid]\" />",
-			"<img src=\"static/image/magic/$magic[identifier].gif\" />",
+			"<input class=\"checkbox\" type=\"checkbox\" name=\"magic[]\" value=\"{$magic['magicid']}\" />",
+			"<img src=\"static/image/magic/{$magic['identifier']}.gif\" />",
 			$magic['name'],
 			'<input class="txt" type="text" name="magicnum['.$magic['magicid'].']" value="1" size="3">'
 		), TRUE);
@@ -990,7 +990,7 @@ EOF;
 
 				showtablerow('class="first"', array('class="th11"'), array(
 					cplang('members_confermagic_members'),
-					cplang('members_search_result', array('membernum' => $membernum))."<a href=\"###\" onclick=\"$('searchmembers').style.display='';$('confermedal').style.display='none';$('step1').className='current';$('step2').className='';\" class=\"act\">$lang[research]</a>"
+					cplang('members_search_result', array('membernum' => $membernum))."<a href=\"###\" onclick=\"$('searchmembers').style.display='';$('confermedal').style.display='none';$('step1').className='current';$('step2').className='';\" class=\"act\">{$lang['research']}</a>"
 				));
 
 				echo '<tr><td class="th12">'.cplang('members_confermagic').'</td><td>';
@@ -1027,9 +1027,9 @@ EOF;
 		foreach($query as $group) {
 			$group['type'] = $group['type'] == 'special' && $group['radminid'] ? 'specialadmin' : $group['type'];
 			if($group['type'] == 'member' && $group['creditshigher'] == 0) {
-				$groupselect[$group['type']] .= "<option value=\"$group[groupid]\" selected>$group[grouptitle]</option>\n";
+				$groupselect[$group['type']] .= "<option value=\"{$group['groupid']}\" selected>{$group['grouptitle']}</option>\n";
 			} else {
-				$groupselect[$group['type']] .= "<option value=\"$group[groupid]\">$group[grouptitle]</option>\n";
+				$groupselect[$group['type']] .= "<option value=\"{$group['groupid']}\">{$group['grouptitle']}</option>\n";
 			}
 		}
 		$groupselect = '<optgroup label="'.$lang['usergroups_member'].'">'.$groupselect['member'].'</optgroup>'.
@@ -1184,7 +1184,7 @@ EOF;
 		shownav('user', 'members_group');
 		showsubmenu('members_group_member', array(), '', array('username' => $member['username']));
 		echo '<script src="static/js/calendar.js" type="text/javascript"></script>';
-		showformheader("members&operation=group&uid=$member[uid]");
+		showformheader("members&operation=group&uid={$member['uid']}");
 		showtableheader('usergroup', 'nobottom');
 		showsetting('members_group_group', '', '', '<select name="groupidnew" onchange="if(in_array(this.value, ['.$radmingids.'])) {$(\'relatedadminid\').style.display = \'\';$(\'adminidnew\').name=\'adminidnew[\' + this.value + \']\';} else {$(\'relatedadminid\').style.display = \'none\';$(\'adminidnew\').name=\'adminidnew[0]\';}"><optgroup label="'.$lang['usergroups_system'].'">'.$groups['system'].'<optgroup label="'.$lang['usergroups_special'].'">'.$groups['special'].'<optgroup label="'.$lang['usergroups_specialadmin'].'">'.$groups['specialadmin'].'<optgroup label="'.$lang['usergroups_member'].'">'.$groups['member'].'</select>');
 		showtagheader('tbody', 'relatedadminid', $member['type'] == 'special' && !$member['radminid'], 'sub');
@@ -1302,7 +1302,7 @@ EOF;
 			banlog($member['username'], $member['groupid'], $_GET['groupidnew'], $groupexpirynew, $_GET['reason']);
 		}
 
-		cpmsg('members_edit_groups_succeed', "action=members&operation=group&uid=$member[uid]", 'succeed');
+		cpmsg('members_edit_groups_succeed', "action=members&operation=group&uid={$member['uid']}", 'succeed');
 
 	}
 
@@ -1317,14 +1317,14 @@ EOF;
 
 	if(!submitcheck('creditsubmit')) {
 
-		eval("\$membercredit = @round({$_G[setting][creditsformula]});");
+		eval("\$membercredit = @round({$_G['setting']['creditsformula']});");
 
 		if(($jscreditsformula = C::t('common_setting')->fetch('creditsformula'))) {
 			$jscreditsformula = str_replace(array('digestposts', 'posts', 'threads'), array($member['digestposts'], $member['posts'],$member['threads']), $jscreditsformula);
 		}
 
 		$creditscols = array('members_credit_ranges', 'credits');
-		$creditsvalue = array($member['type'] == 'member' ? "$member[creditshigher]~$member[creditslower]" : 'N/A', '<input type="text" class="txt" name="jscredits" id="jscredits" value="'.$membercredit.'" size="6" disabled style="padding:0;width:6em;border:none; background-color:transparent">');
+		$creditsvalue = array($member['type'] == 'member' ? "{$member['creditshigher']}~{$member['creditslower']}" : 'N/A', '<input type="text" class="txt" name="jscredits" id="jscredits" value="'.$membercredit.'" size="6" disabled style="padding:0;width:6em;border:none; background-color:transparent">');
 		for($i = 1; $i <= 8; $i++) {
 			$jscreditsformula = str_replace('extcredits'.$i, "extcredits[$i]", $jscreditsformula);
 			$creditscols[] = isset($_G['setting']['extcredits'][$i]) ? $_G['setting']['extcredits'][$i]['title'] : 'extcredits'.$i;
@@ -1381,7 +1381,7 @@ EOT;
 
 		if($diffarray) {
 			foreach($diffarray as $id => $diff) {
-				$logs[] = dhtmlspecialchars("$_G[timestamp]\t{$_G[member][username]}\t$_G[adminid]\t$member[username]\t$id\t$diff\t0\t\t{$_GET['reason']}");
+				$logs[] = dhtmlspecialchars("{$_G['timestamp']}\t{$_G['member']['username']}\t{$_G['adminid']}\t{$member['username']}\t$id\t$diff\t0\t\t{$_GET['reason']}");
 			}
 			updatemembercount($_GET['uid'], $diffarray);
 			writelog('ratelog', $logs);
@@ -1412,8 +1412,8 @@ EOT;
 
 		foreach(C::t('forum_medal')->fetch_all_data(1) as $medal) {
 			$medals .= showtablerow('', array('class="td25"', 'class="td23"'), array(
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"medals[$medal[medalid]]\" value=\"1\" ".(in_array($medal['medalid'], $membermedals) ? 'checked' : '')." />",
-				"<img src=\"static/image/common/$medal[image]\" />",
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"medals[{$medal['medalid']}]\" value=\"1\" ".(in_array($medal['medalid'], $membermedals) ? 'checked' : '')." />",
+				"<img src=\"static/image/common/{$medal['image']}\" />",
 				$medal['name']
 
 			), TRUE);
@@ -1426,7 +1426,7 @@ EOT;
 		shownav('user', 'nav_members_confermedal');
 		showsubmenu('nav_members_confermedal');
 		showformheader("members&operation=medal&uid={$_GET['uid']}");
-		showtableheader("$lang[members_confermedal_to] <a href='home.php?mod=space&uid={$_GET['uid']}' target='_blank'>$member[username]</a>", 'fixpadding');
+		showtableheader("{$lang['members_confermedal_to']} <a href='home.php?mod=space&uid={$_GET['uid']}' target='_blank'>{$member['username']}</a>", 'fixpadding');
 		showsubtitle(array('medals_grant', 'medals_image', 'name'));
 		echo $medals;
 		showsubmit('medalsubmit');
@@ -1466,11 +1466,11 @@ EOT;
 		if(!empty($medalsarray)) {
 			foreach(C::t('forum_medal')->fetch_all_by_id($medalsarray) as $modmedal) {
 				if(empty($modmedal['expiration'])) {
-					$medalsnew[] = $modmedal[medalid];
+					$medalsnew[] = $modmedal['medalid'];
 					$medalstatus = 0;
 				} else {
 					$modmedal['expiration'] = TIMESTAMP + $modmedal['expiration'] * 86400;
-					$medalsnew[] = $modmedal[medalid].'|'.$modmedal['expiration'];
+					$medalsnew[] = $modmedal['medalid'].'|'.$modmedal['expiration'];
 					$medalstatus = 1;
 				}
 				if(in_array($modmedal['medalid'], $medalsadd)) {
@@ -1535,7 +1535,7 @@ EOT;
 			$clist = crime('getactionlist', $member['uid']);
 
 			if($clist) {
-				echo '<tr><td class="td27" colspan="2">'.$lang[members_ban_crime_record].':</td></tr>';
+				echo '<tr><td class="td27" colspan="2">'.$lang['members_ban_crime_record'].':</td></tr>';
 				echo '<tr><td colspan="2" style="padding:0 !important;border-top:none;"><table style="width:100%;">';
 				showtablerow('class="partition"', array('width="15%"', 'width="10%"', 'width="20%"', '', 'width="15%"'), array($lang['crime_user'], $lang['crime_action'], $lang['crime_dateline'], $lang['crime_reason'], $lang['crime_operator']));
 				foreach($clist as $crime) {
@@ -1556,23 +1556,23 @@ EOT;
 		showtagfooter('tbody');
 		print <<<EOF
 			<tr>
-				<td class="td27" colspan="2">$lang[members_ban_clear_content]:</td>
+				<td class="td27" colspan="2">{$lang['members_ban_clear_content']}:</td>
 			</tr>
 			<tr>
 				<td colspan="2">
 					<ul class="dblist" onmouseover="altStyle(this);">
-						<li style="width: 100%;"><input type="checkbox" name="chkall" onclick="checkAll('prefix', this.form, 'clear', 'chkall', true)" class="checkbox">&nbsp;$lang[select_all]</li>
-						<li style="width: 8%;"><input type="checkbox" value="post" name="clear[post]" class="checkbox">&nbsp;$lang[members_ban_delpost]</li>
-						<li style="width: 8%;"><input type="checkbox" value="follow" name="clear[follow]" class="checkbox">&nbsp;$lang[members_ban_delfollow]</li>
-						<li style="width: 8%;"><input type="checkbox" value="postcomment" name="clear[postcomment]" class="checkbox">&nbsp;$lang[members_ban_postcomment]</li>
-						<li style="width: 8%;"><input type="checkbox" value="doing" name="clear[doing]" class="checkbox">&nbsp;$lang[members_ban_deldoing]</li>
-						<li style="width: 8%;"><input type="checkbox" value="blog" name="clear[blog]" class="checkbox">&nbsp;$lang[members_ban_delblog]</li>
-						<li style="width: 8%;"><input type="checkbox" value="album" name="clear[album]" class="checkbox">&nbsp;$lang[members_ban_delalbum]</li>
-						<li style="width: 8%;"><input type="checkbox" value="share" name="clear[share]" class="checkbox">&nbsp;$lang[members_ban_delshare]</li>
-						<li style="width: 8%;"><input type="checkbox" value="avatar" name="clear[avatar]" class="checkbox">&nbsp;$lang[members_ban_delavatar]</li>
-						<li style="width: 8%;"><input type="checkbox" value="comment" name="clear[comment]" class="checkbox">&nbsp;$lang[members_ban_delcomment]</li>
-						<li style="width: 8%;"><input type="checkbox" value="follower" name="clear[follower]" class="checkbox">&nbsp;$lang[members_ban_delfollower]</li>
-						<li style="width: 8%;"><input type="checkbox" value="profile" name="clear[profile]" class="checkbox">&nbsp;$lang[members_ban_delprofile]</li>
+						<li style="width: 100%;"><input type="checkbox" name="chkall" onclick="checkAll('prefix', this.form, 'clear')" class="checkbox">&nbsp;{$lang['select_all']}</li>
+						<li style="width: 8%;"><input type="checkbox" value="post" name="clear[post]" class="checkbox">&nbsp;{$lang['members_ban_delpost']}</li>
+						<li style="width: 8%;"><input type="checkbox" value="follow" name="clear[follow]" class="checkbox">&nbsp;{$lang['members_ban_delfollow']}</li>
+						<li style="width: 8%;"><input type="checkbox" value="postcomment" name="clear[postcomment]" class="checkbox">&nbsp;{$lang['members_ban_postcomment']}</li>
+						<li style="width: 8%;"><input type="checkbox" value="doing" name="clear[doing]" class="checkbox">&nbsp;{$lang['members_ban_deldoing']}</li>
+						<li style="width: 8%;"><input type="checkbox" value="blog" name="clear[blog]" class="checkbox">&nbsp;{$lang['members_ban_delblog']}</li>
+						<li style="width: 8%;"><input type="checkbox" value="album" name="clear[album]" class="checkbox">&nbsp;{$lang['members_ban_delalbum']}</li>
+						<li style="width: 8%;"><input type="checkbox" value="share" name="clear[share]" class="checkbox">&nbsp;{$lang['members_ban_delshare']}</li>
+						<li style="width: 8%;"><input type="checkbox" value="avatar" name="clear[avatar]" class="checkbox">&nbsp;{$lang['members_ban_delavatar']}</li>
+						<li style="width: 8%;"><input type="checkbox" value="comment" name="clear[comment]" class="checkbox">&nbsp;{$lang['members_ban_delcomment']}</li>
+						<li style="width: 8%;"><input type="checkbox" value="follower" name="clear[follower]" class="checkbox">&nbsp;{$lang['members_ban_delfollower']}</li>
+						<li style="width: 8%;"><input type="checkbox" value="profile" name="clear[profile]" class="checkbox">&nbsp;{$lang['members_ban_delprofile']}</li>
 					</ul>
 				</td>
 			</tr>
@@ -1585,7 +1585,7 @@ EOF;
 		$basescript = ADMINSCRIPT;
 		print <<<EOF
 			<script type="text/javascript">
-				var oldbanusername = '$member[username]';
+				var oldbanusername = '{$member['username']}';
 				function showcrimebtn(obj) {
 					if(oldbanusername == obj.value) {
 						return;
@@ -1704,7 +1704,7 @@ EOF;
 		}
 		if($noticekey) {
 			$notearr = array(
-				'user' => "<a href=\"home.php?mod=space&uid=$_G[uid]\">$_G[username]</a>",
+				'user' => "<a href=\"home.php?mod=space&uid={$_G['uid']}\">{$_G['username']}</a>",
 				'day' => intval($_POST['banexpirynew']),
 				'reason' => $reason,
 				'from_id' => 0,
@@ -1871,7 +1871,7 @@ EOF;
 			}
 
 			if($membercount) {
-				DB::update('common_member_count'.$tableext, $membercount, "uid='$member[uid]'");
+				DB::update('common_member_count'.$tableext, $membercount, "uid='{$member['uid']}'");
 			}
 
 		}
@@ -1903,7 +1903,7 @@ EOF;
 			$access['dateline'] = $access['dateline'] ? dgmdate($access['dateline']) : '';
 			$forum = $_G['cache']['forums'][$id];
 			showtablerow('', '', array(
-					($forum['type'] == 'forum' ? '' : '|-----')."&nbsp;<a href=\"".ADMINSCRIPT."?action=forums&operation=edit&fid=$forum[fid]&anchor=perm\">$forum[name]</a>",
+					($forum['type'] == 'forum' ? '' : '|-----')."&nbsp;<a href=\"".ADMINSCRIPT."?action=forums&operation=edit&fid={$forum['fid']}&anchor=perm\">{$forum['name']}</a>",
 					accessimg($access['allowview']),
 					accessimg($access['allowpost']),
 					accessimg($access['allowreply']),
@@ -1987,7 +1987,7 @@ EOF;
 	$uid = $member['uid'];
 	if(!empty($_G['setting']['connect']['allow']) && $do == 'bindlog') {
 		$member = array_merge($member, C::t('#qqconnect#common_member_connect')->fetch($uid));
-		showsubmenu("$lang[members_edit] - $member[username]", array(
+		showsubmenu("{$lang['members_edit']} - {$member['username']}", array(
 			array('connect_member_info', 'members&operation=edit&uid='.$uid,  0),
 			array('connect_member_bindlog', 'members&operation=edit&do=bindlog&uid='.$uid,  1),
 		));
@@ -2048,9 +2048,9 @@ EOF;
 
 		require_once libfile('function/editor');
 
-		$styleselect = "<select name=\"styleidnew\">\n<option value=\"\">$lang[use_default]</option>";
+		$styleselect = "<select name=\"styleidnew\">\n<option value=\"\">{$lang['use_default']}</option>";
 		foreach(C::t('common_style')->fetch_all_data() as $style) {
-			$styleselect .= "<option value=\"$style[styleid]\" ".($style['styleid'] == $member['styleid'] ? 'selected="selected"' : '').">$style[name]</option>\n";
+			$styleselect .= "<option value=\"{$style['styleid']}\" ".($style['styleid'] == $member['styleid'] ? 'selected="selected"' : '').">{$style['name']}</option>\n";
 		}
 		$styleselect .= '</select>';
 
@@ -2066,7 +2066,7 @@ EOF;
 
 		shownav('user', 'members_edit');
 		/*search={"members_edit":"action=members&operation=edit"}*/
-		showsubmenu("$lang[members_edit] - $member[username]", array(
+		showsubmenu("{$lang['members_edit']} - {$member['username']}", array(
 			array('connect_member_info', 'members&operation=edit&uid='.$uid,  1),
 			!empty($_G['setting']['connect']['allow']) ? array('connect_member_bindlog', 'members&operation=edit&do=bindlog&uid='.$uid,  0) : array(),
 		));
@@ -2076,12 +2076,12 @@ EOF;
 		$freeze = array($member['freeze'] => ' checked');
 		showsetting('members_edit_username', '', '', ($_G['setting']['connect']['allow'] && $member['conisbind'] ? ' <img class="vmiddle" src="static/image/common/connect_qq.gif" />' : '').' '.$member['username']);
 		showsetting('members_edit_avatar', '', '', ' <img src="'.avatar($uid, 'middle', true, false, true).'?random='.random(2).'" onerror="this.onerror=null;this.src=\''.$_G['setting']['ucenterurl'].'/images/noavatar.svg\'" /><br /><br /><input name="clearavatar" class="checkbox" type="checkbox" value="1" /> '.$lang['members_edit_avatar_clear']);
-		$hrefext = "&detail=1&users=$member[username]&searchsubmit=1&perpage=50&fromumanage=1";
-		showsetting('members_edit_statistics', '', '', "<a href=\"".ADMINSCRIPT."?action=prune$hrefext\" class=\"act\">$lang[posts]($member[posts])</a>".
-				"<a href=\"".ADMINSCRIPT."?action=doing$hrefext\" class=\"act\">$lang[doings]($member[doings])</a>".
-				"<a href=\"".ADMINSCRIPT."?action=blog$hrefext\" class=\"act\">$lang[blogs]($member[blogs])</a>".
-				"<a href=\"".ADMINSCRIPT."?action=album$hrefext\" class=\"act\">$lang[albums]($member[albums])</a>".
-				"<a href=\"".ADMINSCRIPT."?action=share$hrefext\" class=\"act\">$lang[shares]($member[sharings])</a> <br>&nbsp;$lang[setting_styles_viewthread_userinfo_oltime]: $member[oltime]$lang[hourtime]");
+		$hrefext = "&detail=1&users={$member['username']}&searchsubmit=1&perpage=50&fromumanage=1";
+		showsetting('members_edit_statistics', '', '', "<a href=\"".ADMINSCRIPT."?action=prune$hrefext\" class=\"act\">{$lang['posts']}({$member['posts']})</a>".
+				"<a href=\"".ADMINSCRIPT."?action=doing$hrefext\" class=\"act\">{$lang['doings']}({$member['doings']})</a>".
+				"<a href=\"".ADMINSCRIPT."?action=blog$hrefext\" class=\"act\">{$lang['blogs']}({$member['blogs']})</a>".
+				"<a href=\"".ADMINSCRIPT."?action=album$hrefext\" class=\"act\">{$lang['albums']}({$member['albums']})</a>".
+				"<a href=\"".ADMINSCRIPT."?action=share$hrefext\" class=\"act\">{$lang['shares']}({$member['sharings']})</a> <br>&nbsp;{$lang['setting_styles_viewthread_userinfo_oltime']}: {$member['oltime']}{$lang['hourtime']}");
 		showsetting('members_edit_password', 'passwordnew', '', 'text');
 		if(!empty($_G['setting']['connect']['allow']) && (!empty($member['conopenid']) || !empty($member['uinblack']))) {
 			if($member['conisbind'] && !$member['conisregister']) {
@@ -2264,14 +2264,14 @@ EOF;
 				$disabled = $_G['adminid'] != 1 && $banned['admin'] != $_G['member']['username'] ? 'disabled' : '';
 				$banned['dateline'] = dgmdate($banned['dateline'], 'Y-m-d');
 				$banned['expiration'] = dgmdate($banned['expiration'], 'Y-m-d');
-				$theip = "$banned[ip]";
+				$theip = "{$banned['ip']}";
 				$ipbanned .= showtablerow('', array('class="td25"'), array(
-					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[$banned[id]]\" value=\"$banned[id]\" $disabled />",
+					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[{$banned['id']}]\" value=\"{$banned['id']}\" $disabled />",
 					$theip,
 					convertip($theip),
-					$banned[admin],
-					$banned[dateline],
-					"<input type=\"text\" class=\"txt\" size=\"10\" name=\"expirationnew[$banned[id]]\" value=\"$banned[expiration]\" $disabled />"
+					$banned['admin'],
+					$banned['dateline'],
+					"<input type=\"text\" class=\"txt\" size=\"10\" name=\"expirationnew[{$banned['id']}]\" value=\"{$banned['expiration']}\" $disabled />"
 				), TRUE);
 			}
 			shownav('user', 'nav_members_ipban');
@@ -2456,7 +2456,7 @@ EOF;
 		dheader('Content-Type: text/plain');
 		foreach(C::t('common_banned')->fetch_all_order_dateline() as $banned) {
 			$banned['expiration'] = dgmdate($banned['expiration']);
-			echo "$banned[ip],$banned[expiration]\n";
+			echo "{$banned['ip']},{$banned['expiration']}\n";
 		}
 		define('FOOTERDISABLED' , 1);
 		exit();
@@ -2548,18 +2548,18 @@ EOF;
 						} else {
 							$class = $checked = '';
 						}
-						$groupstr .= "<li $class style=\"float: left; width: 10%;\"><input type=\"checkbox\" value=\"$key\" name=\"profilegroup[$key]\" class=\"checkbox\" $checked>&nbsp;$value[title]</li>";
+						$groupstr .= "<li $class style=\"float: left; width: 10%;\"><input type=\"checkbox\" value=\"$key\" name=\"profilegroup[$key]\" class=\"checkbox\" $checked>&nbsp;{$value['title']}</li>";
 					}
 				}
 				if(!empty($groupstr)) {
 					print <<<EOF
 						<tr>
-							<td class="td27" colspan="2">$lang[setting_profile_group]:</td>
+							<td class="td27" colspan="2">{$lang['setting_profile_group']}:</td>
 						</tr>
 						<tr>
 							<td colspan="2">
 								<ul class="dblist" onmouseover="altStyle(this);">
-									<li style="width: 100%;"><input type="checkbox" name="chkall" onclick="checkAll('prefix', this.form, 'profilegroup')" class="checkbox">&nbsp;$lang[select_all]</li>
+									<li style="width: 100%;"><input type="checkbox" name="chkall" onclick="checkAll('prefix', this.form, 'profilegroup')" class="checkbox">&nbsp;{$lang['select_all']}</li>
 									$groupstr
 								</ul>
 							</td>
@@ -2698,7 +2698,7 @@ EOF;
 				$value['showincard'] = '<input type="checkbox" class="checkbox" name="showincard['.$fieldid.']" '.($value['showincard'] ? 'checked="checked" ' : '').'value="1">';
 				$value['showinregister'] = '<input type="checkbox" class="checkbox" name="showinregister['.$fieldid.']" '.($value['showinregister'] ? 'checked="checked" ' : '').'value="1">';
 				$value['displayorder'] = '<input type="text" name="displayorder['.$fieldid.']" value="'.$value['displayorder'].'" size="5">';
-				$value['edit'] = '<a href="'.ADMINSCRIPT.'?action=members&operation=profile&fieldid='.$fieldid.'" title="" class="act">'.$lang[edit].'</a>';
+				$value['edit'] = '<a href="'.ADMINSCRIPT.'?action=members&operation=profile&fieldid='.$fieldid.'" title="" class="act">'.$lang['edit'].'</a>';
 				showtablerow('', array(), $value);
 			}
 			showsubmit('ordersubmit');
@@ -2866,7 +2866,7 @@ EOF;
 
 			$alldata = $_GET['fieldid'] === 'groupid' ? C::t('common_member')->fetch_all_groupid() : C::t('common_member_profile')->fetch_all_field_value($_GET['fieldid']);
 			foreach($alldata as $value) {
-				$fieldvalue = $value[$_GET[fieldid]];
+				$fieldvalue = $value[$_GET['fieldid']];
 				$optionid = array_search($fieldvalue, $options);
 				if($optionid) {
 					$hits[$optionid] = true;
@@ -2913,7 +2913,7 @@ function showsearchform($operation = '') {
 	$query = C::t('common_usergroup')->fetch_all_not(array(6, 7), true);
 	foreach($query as $group) {
 		$group['type'] = $group['type'] == 'special' && $group['radminid'] ? 'specialadmin' : $group['type'];
-		$groupselect[$group['type']] .= "<option value=\"$group[groupid]\" ".(in_array($group['groupid'], $usergroupid) ? 'selected' : '').">$group[grouptitle]</option>\n";
+		$groupselect[$group['type']] .= "<option value=\"{$group['groupid']}\" ".(in_array($group['groupid'], $usergroupid) ? 'selected' : '').">{$group['grouptitle']}</option>\n";
 	}
 	$groupselect = '<optgroup label="'.$lang['usergroups_member'].'">'.$groupselect['member'].'</optgroup>'.
 		($groupselect['special'] ? '<optgroup label="'.$lang['usergroups_special'].'">'.$groupselect['special'].'</optgroup>' : '').
@@ -2921,11 +2921,11 @@ function showsearchform($operation = '') {
 		'<optgroup label="'.$lang['usergroups_system'].'">'.$groupselect['system'].'</optgroup>';
 	$medalselect = $usertagselect = '';
 	foreach(C::t('forum_medal')->fetch_all_data(1) as $medal) {
-		$medalselect .= "<option value=\"$medal[medalid]\" ".(in_array($medal['medalid'], $medals) ? 'selected' : '').">$medal[name]</option>\n";
+		$medalselect .= "<option value=\"{$medal['medalid']}\" ".(in_array($medal['medalid'], $medals) ? 'selected' : '').">{$medal['name']}</option>\n";
 	}
 	$query = C::t('common_tag')->fetch_all_by_status(3);
 	foreach($query as $row) {
-		$usertagselect .= "<option value=\"$row[tagid]\" ".(in_array($row['tagid'], $tagid) ? 'selected' : '').">$row[tagname]</option>\n";
+		$usertagselect .= "<option value=\"{$row['tagid']}\" ".(in_array($row['tagid'], $tagid) ? 'selected' : '').">{$row['tagname']}</option>\n";
 	}
 
 	/*search={"nav_members":"action=members&operation=search"}*/
@@ -2933,7 +2933,7 @@ function showsearchform($operation = '') {
 	echo '<script src="static/js/calendar.js" type="text/javascript"></script>';
 	echo '<style type="text/css">#residedistrictbox select, #birthdistrictbox select{width: auto;}</style>';
 	$formurl = "members&operation=$operation".($_GET['do'] == 'mobile' ? '&do=mobile' : '');
-	showformheader($formurl, "onSubmit=\"if($('updatecredittype1') && $('updatecredittype1').checked && !window.confirm('$lang[members_reward_clean_alarm]')){return false;} else {return true;}\"");
+	showformheader($formurl, "onSubmit=\"if($('updatecredittype1') && $('updatecredittype1').checked && !window.confirm('{$lang['members_reward_clean_alarm']}')){return false;} else {return true;}\"");
 	showtableheader();
 	if(isset($_G['setting']['membersplit'])) {
 		showsetting('members_search_table', '', '', '<select name="tablename" ><option value="master">'.$lang['members_search_table_master'].'</option><option value="archive">'.$lang['members_search_table_archive'].'</option></select>');
@@ -2985,11 +2985,11 @@ function showsearchform($operation = '') {
 		array(0, $lang['no']),
 	), 1), $_GET['avatarstatus'], 'mradio');
 	showsetting('members_search_email', 'email', $_GET['email'], 'text');
-	showsetting("$lang[credits] $lang[members_search_between]", array("credits_low", "credits_high"), array($_GET['credits_low'], $_GET['credtis_high']), 'range');
+	showsetting("{$lang['credits']} {$lang['members_search_between']}", array("credits_low", "credits_high"), array($_GET['credits_low'], $_GET['credtis_high']), 'range');
 
 	if(!empty($_G['setting']['extcredits'])) {
 		foreach($_G['setting']['extcredits'] as $id => $credit) {
-			showsetting("$credit[title] $lang[members_search_between]", array("extcredits$id"."_low", "extcredits$id"."_high"), array($_GET['extcredits'.$id.'_low'], $_GET['extcredits'.$id.'_high']), 'range');
+			showsetting("{$credit['title']} {$lang['members_search_between']}", array("extcredits$id"."_low", "extcredits$id"."_high"), array($_GET['extcredits'.$id.'_low'], $_GET['extcredits'.$id.'_high']), 'range');
 		}
 	}
 
@@ -3387,8 +3387,8 @@ function notifymembers($operation, $variable) {
 			} elseif($_GET['notifymembers'] == 'notice') {
 				notification_add($member['uid'], 'system', 'system_notice', array('subject' => $subject, 'message' => $message.$addmsg, 'from_id' => 0, 'from_idtype' => 'sendnotice'), 1);
 			} elseif($_GET['notifymembers'] == 'email') {
-				if(!sendmail("$member[username] <$member[email]>", $subject, $message.$addmsg)) {
-					runlog('sendmail', "$member[email] sendmail failed.");
+				if(!sendmail("{$member['username']} <{$member['email']}>", $subject, $message.$addmsg)) {
+					runlog('sendmail', "{$member['email']} sendmail failed.");
 				}
 			}
 
@@ -3444,7 +3444,7 @@ function notifymembers($operation, $variable) {
 		}
 		$logaddurl .= '&updatecredittype='.$_GET['updatecredittype'];
 
-		cpmsg("$lang[members_newsletter_send]: ".cplang('members_newsletter_processing', array('current' => $current, 'next' => $next, 'search_condition' => serialize($search_condition))), "action=members&operation=$operation&{$operation}submit=yes&current=$next&pertask=$pertask&system={$_GET['system']}&posttype={$_GET['posttype']}&notifymember={$_GET['notifymember']}&notifymembers=".rawurlencode($_GET['notifymembers']).$urladd.$logaddurl, 'loadingform');
+		cpmsg("{$lang['members_newsletter_send']}: ".cplang('members_newsletter_processing', array('current' => $current, 'next' => $next, 'search_condition' => serialize($search_condition))), "action=members&operation=$operation&{$operation}submit=yes&current=$next&pertask=$pertask&system={$_GET['system']}&posttype={$_GET['posttype']}&notifymember={$_GET['notifymember']}&notifymembers=".rawurlencode($_GET['notifymembers']).$urladd.$logaddurl, 'loadingform');
 	} else {
 		del_newsletter('newsletter_detail');
 
@@ -3461,7 +3461,7 @@ function notifymembers($operation, $variable) {
 function banlog($username, $origgroupid, $newgroupid, $expiration, $reason, $status = 0) {
 	global $_G, $_POST;
 	$cloud_apps = dunserialize($_G['setting']['cloud_apps']);	
-	writelog('banlog', dhtmlspecialchars("$_G[timestamp]\t{$_G[member][username]}\t$_G[groupid]\t$_G[clientip]\t$username\t$origgroupid\t$newgroupid\t$expiration\t$reason\t$status"));
+	writelog('banlog', dhtmlspecialchars("{$_G['timestamp']}\t{$_G['member']['username']}\t{$_G['groupid']}\t{$_G['clientip']}\t$username\t$origgroupid\t$newgroupid\t$expiration\t$reason\t$status"));
 }
 
 function selectday($varname, $dayarray) {

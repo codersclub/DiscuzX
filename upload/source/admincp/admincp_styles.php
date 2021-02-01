@@ -187,24 +187,24 @@ if($operation == 'admin') {
 			}
 			$stylelist .=
 				'<table cellspacing="0" cellpadding="0" style="margin-left: 10px; width: 250px;height: 200px;" class="left"><tr><th class="partition" colspan="2">'.$style['tplname'].'</th></tr><tr><td style="width: 130px;height:170px" valign="top">'.
-				($id > 0 ? "<p style=\"margin-bottom: 12px;\"><img width=\"110\" height=\"120\" ".($previewlarge ? 'style="cursor:pointer" title="'.$lang['preview_large'].'" onclick="zoom(this, \''.$previewlarge.'\', 1)" ' : '')."src=\"$preview\" alt=\"$lang[preview]\"/></p>
-				<p style=\"margin: 2px 0\"><input type=\"text\" class=\"txt\" name=\"namenew[$id]\" value=\"$style[name]\" style=\"margin:0; width: 104px;\"></p>".
+				($id > 0 ? "<p style=\"margin-bottom: 12px;\"><img width=\"110\" height=\"120\" ".($previewlarge ? 'style="cursor:pointer" title="'.$lang['preview_large'].'" onclick="zoom(this, \''.$previewlarge.'\', 1)" ' : '')."src=\"$preview\" alt=\"{$lang['preview']}\"/></p>
+				<p style=\"margin: 2px 0\"><input type=\"text\" class=\"txt\" name=\"namenew[$id]\" value=\"{$style['name']}\" style=\"margin:0; width: 104px;\"></p>".
 				$updatestring[$addonids[$style['styleid']]]."</td><td valign=\"top\">
-				<p> $lang[styles_default]</p>
-				<p style=\"margin: 1px 0\"><label><input type=\"radio\" class=\"radio\" name=\"defaultnew\" value=\"$id\" $isdefault /> $lang[styles_default0]</label></p>
-				".($d1exists ? "<p style=\"margin: 1px 0\"><label><input type=\"radio\" class=\"radio\" name=\"defaultnew1\" value=\"$id\" $isdefault1 /> $lang[styles_default1]</label></p>" : "<p style=\"margin: 1px 0\" class=\"lightfont\"><label><input type=\"radio\" class=\"radio\" disabled readonly /> $lang[styles_default1]</label></p>")."
-				".($d2exists ? "<p style=\"margin: 1px 0\"><label><input type=\"radio\" class=\"radio\" name=\"defaultnew2\" value=\"$id\" $isdefault2 /> $lang[styles_default2]</label></p>" : "<p style=\"margin: 1px 0\" class=\"lightfont\"><label><input type=\"radio\" class=\"radio\" disabled readonly /> $lang[styles_default2]</label></p>")."
-				".($d3exists ? "<p style=\"margin: 1px 0\"><label><input type=\"radio\" class=\"radio\" name=\"defaultnew3\" value=\"$id\" $isdefault3 /> $lang[styles_default3]</label></p>" : "<p style=\"margin: 1px 0\" class=\"lightfont\"><label><input type=\"radio\" class=\"radio\" disabled readonly /> $lang[styles_default3]</label></p>")."
-				<p style=\"margin: 8px 0 0 0\"><label>".($isdefault ? '<input class="checkbox" type="checkbox" disabled="disabled" />' : '<input class="checkbox" type="checkbox" name="delete[]" value="'.$id.'" />')." $lang[styles_uninstall]</label></p>
-				<p style=\"margin: 8px 0 2px 0\"><a href=\"".ADMINSCRIPT."?action=styles&operation=edit&id=$id\">$lang[edit]</a> &nbsp;".
-					($isplugindeveloper || !$addonids[$id] || !cloudaddons_getmd5($addonids[$id]) ? " <a href=\"".ADMINSCRIPT."?action=styles&operation=export&id=$id\">$lang[export]</a><br />" : '<br />').
-					"<a href=\"".ADMINSCRIPT."?action=styles&operation=copy&id=$id\">$lang[copy]</a> &nbsp; <a href=\"".ADMINSCRIPT."?action=styles&operation=import&dir=yes&restore=$id\">$lang[restore]</a>
-					".($addonids[$id] ? " &nbsp; <a href=\"".ADMINSCRIPT."?action=cloudaddons&id=".basename($style['directory']).".template\" target=\"_blank\" title=\"$lang[cloudaddons_linkto]\">$lang[plugins_visit]</a>" : '')."
+				<p> {$lang['styles_default']}</p>
+				<p style=\"margin: 1px 0\"><label><input type=\"radio\" class=\"radio\" name=\"defaultnew\" value=\"$id\" $isdefault /> {$lang['styles_default0']}</label></p>
+				".($d1exists ? "<p style=\"margin: 1px 0\"><label><input type=\"radio\" class=\"radio\" name=\"defaultnew1\" value=\"$id\" $isdefault1 /> {$lang['styles_default1']}</label></p>" : "<p style=\"margin: 1px 0\" class=\"lightfont\"><label><input type=\"radio\" class=\"radio\" disabled readonly /> {$lang['styles_default1']}</label></p>")."
+				".($d2exists ? "<p style=\"margin: 1px 0\"><label><input type=\"radio\" class=\"radio\" name=\"defaultnew2\" value=\"$id\" $isdefault2 /> {$lang['styles_default2']}</label></p>" : "<p style=\"margin: 1px 0\" class=\"lightfont\"><label><input type=\"radio\" class=\"radio\" disabled readonly /> {$lang['styles_default2']}</label></p>")."
+				".($d3exists ? "<p style=\"margin: 1px 0\"><label><input type=\"radio\" class=\"radio\" name=\"defaultnew3\" value=\"$id\" $isdefault3 /> {$lang['styles_default3']}</label></p>" : "<p style=\"margin: 1px 0\" class=\"lightfont\"><label><input type=\"radio\" class=\"radio\" disabled readonly /> {$lang['styles_default3']}</label></p>")."
+				<p style=\"margin: 8px 0 0 0\"><label>".($isdefault ? '<input class="checkbox" type="checkbox" disabled="disabled" />' : '<input class="checkbox" type="checkbox" name="delete[]" value="'.$id.'" />')." {$lang['styles_uninstall']}</label></p>
+				<p style=\"margin: 8px 0 2px 0\"><a href=\"".ADMINSCRIPT."?action=styles&operation=edit&id=$id\">{$lang['edit']}</a> &nbsp;".
+					($isplugindeveloper || !$addonids[$id] || !cloudaddons_getmd5($addonids[$id]) ? " <a href=\"".ADMINSCRIPT."?action=styles&operation=export&id=$id\">{$lang['export']}</a><br />" : '<br />').
+					"<a href=\"".ADMINSCRIPT."?action=styles&operation=copy&id=$id\">{$lang['copy']}</a> &nbsp; <a href=\"".ADMINSCRIPT."?action=styles&operation=import&dir=yes&restore=$id\">{$lang['restore']}</a>
+					".($addonids[$id] ? " &nbsp; <a href=\"".ADMINSCRIPT."?action=cloudaddons&id=".basename($style['directory']).".template\" target=\"_blank\" title=\"{$lang['cloudaddons_linkto']}\">{$lang['plugins_visit']}</a>" : '')."
 				</p>"
 				:
 				"<img src=\"$preview\" /></td><td valign=\"top\">
-				<p style=\"margin: 2px 0\"><a href=\"".ADMINSCRIPT."?action=styles&operation=import&dir=$style[name]\">$lang[styles_install]</a></p>
-				<p style=\"margin: 2px 0\">$lang[styles_stylecount]: $style[stylecount]</p>".
+				<p style=\"margin: 2px 0\"><a href=\"".ADMINSCRIPT."?action=styles&operation=import&dir={$style['name']}\">{$lang['styles_install']}</a></p>
+				<p style=\"margin: 2px 0\">{$lang['styles_stylecount']}: {$style['stylecount']}</p>".
 				($style['filemtime'] > $timestamp - 86400 ? '<p style=\"margin-bottom: 2px;\"><font color="red">New!</font></p>' : '')).
 				"</td></tr></table>\n".($i == 3 ? '</tr>' : '');
 			$i++;
@@ -398,7 +398,7 @@ if($operation == 'admin') {
 		if(empty($id)) {
 			$stylelist = "<select name=\"id\" style=\"width: 150px\">\n";
 			foreach(C::t('common_style')->fetch_all_data() as $style) {
-				$stylelist .= "<option value=\"$style[styleid]\">$style[name]</option>\n";
+				$stylelist .= "<option value=\"{$style['styleid']}\">{$style['name']}</option>\n";
 			}
 			$stylelist .= '</select>';
 			cpmsg('styles_nonexistence', 'action=styles&operation=edit'.(!empty($highlight) ? "&highlight=$highlight" : ''), 'form', array(), $stylelist);
@@ -435,9 +435,9 @@ if($operation == 'admin') {
 				$existvars[] = $stylevar['variable'];
 			} else {
 				$stylecustom .= showtablerow('', array('class="td25"', 'class="td24 bold"', 'class="td26"'), array(
-					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$stylevar[stylevarid]\">",
+					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$stylevar['stylevarid']}\">",
 					'{'.strtoupper($stylevar['variable']).'}',
-					"<textarea name=\"stylevar[$stylevar[stylevarid]]\" style=\"height: 45px\" cols=\"50\" rows=\"2\">$stylevar[substitute]</textarea>",
+					"<textarea name=\"stylevar[{$stylevar['stylevarid']}]\" style=\"height: 45px\" cols=\"50\" rows=\"2\">{$stylevar['substitute']}</textarea>",
 				), TRUE);
 			}
 		}
@@ -522,10 +522,10 @@ function imgpre_switch(id) {
 		if($extstyle) {
 			showsetting('styles_edit_defaultextstyle', array('defaultextstylenew', $defaultextstyle), $style['defaultextstyle'], 'select');
 		}
-		showsetting('styles_edit_smileytype', array("stylevar[{$stylestuff[stypeid][id]}]", $smileytypes), $stylestuff['stypeid']['subst'], 'select');
+		showsetting('styles_edit_smileytype', array("stylevar[{$stylestuff['stypeid']['id']}]", $smileytypes), $stylestuff['stypeid']['subst'], 'select');
 		showsetting('styles_edit_imgdir', '', '', '<input type="text" class="txt" name="stylevar['.$stylestuff['imgdir']['id'].']" id="imgdir" value="'.$stylestuff['imgdir']['subst'].'" />');
 		showsetting('styles_edit_styleimgdir', '', '', '<input type="text" class="txt" name="stylevar['.$stylestuff['styleimgdir']['id'].']" id="styleimgdir" value="'.$stylestuff['styleimgdir']['subst'].'" />');
-		showsetting('styles_edit_logo', "stylevar[{$stylestuff[boardimg][id]}]", $stylestuff['boardimg']['subst'], 'text');
+		showsetting('styles_edit_logo', "stylevar[{$stylestuff['boardimg']['id']}]", $stylestuff['boardimg']['subst'], 'text');
 
 		foreach($predefinedvars as $predefinedvar => $v) {
 			if($v !== array()) {

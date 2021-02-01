@@ -34,7 +34,7 @@ if(!submitcheck('deletesubmit')) {
 	if($operation != 'group') {
 		showsetting('attach_forum', '', '', '<select name="inforum"><option value="all">&nbsp;&nbsp;>'.cplang('all').'</option><option value="">&nbsp;</option>'.forumselect(FALSE, 0, 0, TRUE).'</select>');
 	}
-	showsetting('attach_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>$lang[perpage_20]</option><option value='50'>$lang[perpage_50]</option><option value='100'>$lang[perpage_100]</option></select>");
+	showsetting('attach_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>{$lang['perpage_20']}</option><option value='50'>{$lang['perpage_50']}</option><option value='100'>{$lang['perpage_100']}</option></select>");
 	showsetting('attach_sizerange', array('sizeless', 'sizemore'), array('', ''), 'range');
 	showsetting('attach_dlcountrange', array('dlcountless', 'dlcountmore'), array('', ''), 'range');
 	showsetting('attach_daysold', 'daysold', '', 'text');
@@ -85,13 +85,13 @@ if(!submitcheck('deletesubmit')) {
 				if(!$_GET['nomatched'] || ($_GET['nomatched'] && $matched)) {
 					$attachment['url'] = trim($attachment['url'], '/');
 					$attachments .= showtablerow('', array('class="td25"', 'title="'.$attachment['description'].'" class="td21"'), array(
-						"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$attachment[aid]\" />",
-						$attachment['remote'] ? "<span class=\"diffcolor3\">$attachment[filename]" : $attachment['filename'],
+						"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$attachment['aid']}\" />",
+						$attachment['remote'] ? "<span class=\"diffcolor3\">{$attachment['filename']}" : $attachment['filename'],
 						$attachusers[$attachment['uid']]['username'],
-						"<a href=\"forum.php?mod=viewthread&tid=$attachment[tid]\" target=\"_blank\">".cutstr($attachment['subject'], 20)."</a>",
+						"<a href=\"forum.php?mod=viewthread&tid={$attachment['tid']}\" target=\"_blank\">".cutstr($attachment['subject'], 20)."</a>",
 						$attachsize,
 						$attachment['downloads'],
-						$matched ? "<em class=\"error\">$matched<em>" : "<a href=\"forum.php?mod=attachment&aid=".aidencode($attachment['aid'])."&noupdate=yes\" target=\"_blank\" class=\"act nomargin\">$lang[download]</a>"
+						$matched ? "<em class=\"error\">$matched<em>" : "<a href=\"forum.php?mod=attachment&aid=".aidencode($attachment['aid'])."&noupdate=yes\" target=\"_blank\" class=\"act nomargin\">{$lang['download']}</a>"
 					), TRUE);
 				}
 			}

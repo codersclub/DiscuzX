@@ -325,14 +325,14 @@ EOT;
 				$apitype = $apitype ? $apitype : 'alipay';
 				$orderid = '<a href="'.$orderurl[$apitype].$orderid.'" target="_blank">'.$orderid.'</a>';
 				showtablerow('', '', array(
-					"<input class=\"checkbox\" type=\"checkbox\" name=\"validate[]\" value=\"$order[orderid]\" ".($order['status'] != 1 ? 'disabled' : '').">",
-					"$order[orderid]<br />$orderid",
-					$order[orderstatus],
-					"<a href=\"home.php?mod=space&uid=$order[uid]\" target=\"_blank\">$order[username]</a>",
-					"{$_G[setting][extcredits][$_G[setting][creditstrans]]['title']} $order[amount] {$_G[setting][extcredits][$_G[setting][creditstrans]]['unit']}",
-					"$lang[rmb] $order[price] $lang[rmb_yuan]",
-					$order[submitdate],
-					$order[confirmdate]
+					"<input class=\"checkbox\" type=\"checkbox\" name=\"validate[]\" value=\"{$order['orderid']}\" ".($order['status'] != 1 ? 'disabled' : '').">",
+					"{$order['orderid']}<br />$orderid",
+					$order['orderstatus'],
+					"<a href=\"home.php?mod=space&uid={$order['uid']}\" target=\"_blank\">{$order['username']}</a>",
+					"{$_G['setting']['extcredits'][$_G['setting']['creditstrans']]['title']} {$order['amount']} {$_G['setting']['extcredits'][$_G['setting']['creditstrans']]['unit']}",
+					"{$lang['rmb']} {$order['price']} {$lang['rmb_yuan']}",
+					$order['submitdate'],
+					$order['confirmdate']
 				));
 			}
 
@@ -424,7 +424,7 @@ EOT;
 		foreach($ec_credit['rank'] as $rank => $mincredits) {
 			showtablerow('', '', array(
 				$rank,
-				'<input type="text" class="txt" size="6" name="ec_creditnew[rank]['.$rank.']" value="'.$mincredits.'" /> ~ '.$ec_credit[rank][$rank + 1],
+				'<input type="text" class="txt" size="6" name="ec_creditnew[rank]['.$rank.']" value="'.$mincredits.'" /> ~ '.$ec_credit['rank'][$rank + 1],
 				"<img src=\"static/image/traderank/seller/$rank.gif\" border=\"0\">",
 				"<img src=\"static/image/traderank/buyer/$rank.gif\" border=\"0\">"
 			));
@@ -507,12 +507,12 @@ EOT;
 			$apitype = $apitype ? $apitype : 'alipay';
 			$orderid = '<a href="'.$orderurl[$apitype].$orderid.'" target="_blank">'.$orderid.'</a>';
 			showtablerow('', '', array(
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"validate[]\" value=\"$order[orderid]\" ".($order['status'] != 1 ? 'disabled' : '').">",
-				"$order[orderid]<br />$orderid",
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"validate[]\" value=\"{$order['orderid']}\" ".($order['status'] != 1 ? 'disabled' : '').">",
+				"{$order['orderid']}<br />$orderid",
 				$order['orderstatus'],
-				"$order[email]<br>$order[ip]",
+				"{$order['email']}<br>{$order['ip']}",
 				$order['amount'],
-				"$lang[rmb] $order[price] $lang[rmb_yuan]",
+				"{$lang['rmb']} {$order['price']} {$lang['rmb_yuan']}",
 				$order['submitdate'],
 				$order['confirmdate']
 			));

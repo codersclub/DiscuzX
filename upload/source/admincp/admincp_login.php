@@ -42,6 +42,7 @@ if($this->cpaccess == -3) {
 html_login_footer();
 
 function html_login_header($form = true) {
+	global $_G;
 	$charset = CHARSET;
 	$title = lang('admincp_login', 'login_title');
 	$tips = lang('admincp_login', 'login_tips');
@@ -53,7 +54,7 @@ function html_login_header($form = true) {
 <meta name="renderer" content="webkit" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>$title</title>
-<link rel="stylesheet" href="static/image/admincp/admincp.css?{$_G[style][verhash]}" type="text/css" media="all" />
+<link rel="stylesheet" href="static/image/admincp/admincp.css?{$_G['style']['verhash']}" type="text/css" media="all" />
 <meta content="Comsenz Inc." name="Copyright" />
 </head>
 <body>
@@ -117,26 +118,26 @@ function html_login_form() {
 		<form method="post" autocomplete="off" name="login" id="loginform" action="$extra">
 		<input type="hidden" name="sid" value="$sid">
 		<input type="hidden" name="frames" value="yes">
-		<p class="logintitle">$lang[login_username]: </p>
+		<p class="logintitle">{$lang['login_username']}: </p>
 		<p class="loginform">$loginuser</p>
-		<p class="logintitle">$lang[login_password]:</p>
+		<p class="logintitle">{$lang['login_password']}:</p>
 		<p class="loginform"><input name="admin_password" tabindex="1" type="password" class="txt" autocomplete="off" /></p>
-		<p class="logintitle">$lang[security_question]:</p>
+		<p class="logintitle">{$lang['security_question']}:</p>
 		<p class="loginform">
 			<select id="questionid" name="admin_questionid" tabindex="2">
 				$forcesecques
-				<option value="1">$lang[security_question_1]</option>
-				<option value="2">$lang[security_question_2]</option>
-				<option value="3">$lang[security_question_3]</option>
-				<option value="4">$lang[security_question_4]</option>
-				<option value="5">$lang[security_question_5]</option>
-				<option value="6">$lang[security_question_6]</option>
-				<option value="7">$lang[security_question_7]</option>
+				<option value="1">{$lang['security_question_1']}</option>
+				<option value="2">{$lang['security_question_2']}</option>
+				<option value="3">{$lang['security_question_3']}</option>
+				<option value="4">{$lang['security_question_4']}</option>
+				<option value="5">{$lang['security_question_5']}</option>
+				<option value="6">{$lang['security_question_6']}</option>
+				<option value="7">{$lang['security_question_7']}</option>
 			</select>
 		</p>
-		<p class="logintitle">$lang[security_answer]:</p>
+		<p class="logintitle">{$lang['security_answer']}:</p>
 		<p class="loginform"><input name="admin_answer" tabindex="3" type="text" class="txt" autocomplete="off" /></p>
-		<p class="loginnofloat"><input name="submit" value="$lang[submit]"  tabindex="3" type="submit" class="btn" /></p>
+		<p class="loginnofloat"><input name="submit" value="{$lang['submit']}"  tabindex="3" type="submit" class="btn" /></p>
 		</form>
 EOT;
 		echo '<script type="text/JavaScript">document.getElementById(\'loginform\').admin_'.($isguest ? 'username' : 'password').'.focus();</script>';

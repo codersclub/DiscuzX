@@ -219,7 +219,7 @@ if($operation == 'illegal') {
 		}
 		$log[4] = "<a href=\"home.php?mod=space&username=".rawurlencode($log[4])."\" target=\"_blank\">$log[4]</a>";
 		$log[6] = $_G['setting']['extcredits'][$log[5]]['title'].' '.($log[6] < 0 ? "<b>$log[6]</b>" : "+$log[6]").' '.$_G['setting']['extcredits'][$log[5]]['unit'];
-		$log[7] = $log[7] ? "<a href=\"./forum.php?mod=viewthread&tid=$log[7]\" target=\"_blank\" title=\"$log[8]\">".cutstr($log[8], 20)."</a>" : "<i>$lang[logs_rating_manual]</i>";
+		$log[7] = $log[7] ? "<a href=\"./forum.php?mod=viewthread&tid=$log[7]\" target=\"_blank\" title=\"$log[8]\">".cutstr($log[8], 20)."</a>" : "<i>{$lang['logs_rating_manual']}</i>";
 
 		showtablerow('', array('class="bold"'), array(
 			$log[2],
@@ -279,16 +279,16 @@ if($operation == 'illegal') {
 		<input type="hidden" name="action" value="$action">
 		<table cellspacing="3" cellpadding="3">
 			<tr>
-				<th>$lang[crime_operator]: </th><td width="160"><input type="text" class="txt" name="operator" value="$operator" /></td>
-				<th>$lang[crime_action]: </th><td><select name="crimeaction">$crimeactionselect</select></td>
+				<th>{$lang['crime_operator']}: </th><td width="160"><input type="text" class="txt" name="operator" value="$operator" /></td>
+				<th>{$lang['crime_action']}: </th><td><select name="crimeaction">$crimeactionselect</select></td>
 			</tr>
 			<tr>
-				<th>$lang[crime_user]: </th><td><input type="text" class="txt" name="username" value="$username" /></td>
-				<th>$lang[startendtime]: </th><td><input type="text" onclick="showcalendar(event, this)" style="width: 80px; margin-right: 5px;" value="$starttime" name="starttime" class="txt" /> -- <input type="text" onclick="showcalendar(event, this)" style="width: 80px; margin-left: 5px;" value="$endtime" name="endtime" class="txt" /></td>
+				<th>{$lang['crime_user']}: </th><td><input type="text" class="txt" name="username" value="$username" /></td>
+				<th>{$lang['startendtime']}: </th><td><input type="text" onclick="showcalendar(event, this)" style="width: 80px; margin-right: 5px;" value="$starttime" name="starttime" class="txt" /> -- <input type="text" onclick="showcalendar(event, this)" style="width: 80px; margin-left: 5px;" value="$endtime" name="endtime" class="txt" /></td>
 			</tr>
 			<tr>
-				<th>$lang[keywords]: </th><td><input type="text" class="txt" name="keyword" value="$keyword" /></td>
-				<th><input type="submit" name="crimesearch" value="$lang[search]" class="btn" /></th><td></td>
+				<th>{$lang['keywords']}: </th><td><input type="text" class="txt" name="keyword" value="$keyword" /></td>
+				<th><input type="submit" name="crimesearch" value="{$lang['search']}" class="btn" /></th><td></td>
 			</tr>
 		</table>
 SEARCH;
@@ -298,7 +298,7 @@ SEARCH;
 		list($count, $clist) = crime('search', $crimeaction, $username, $operator, $starttime, $endtime, $keyword, $start, $lpp);
 
 		showtablefooter();
-		showtableheader($lang[members_ban_crime_record], 'fixpadding', '', 5);
+		showtableheader($lang['members_ban_crime_record'], 'fixpadding', '', 5);
 
 		if($clist) {
 			showtablerow('class="header"', array('class="td24"','class="td24"','class="td31"','','class="td24"'), array($lang['crime_user'], $lang['crime_action'], $lang['crime_dateline'], $lang['crime_reason'], $lang['crime_operator']));
@@ -478,7 +478,7 @@ SEARCH;
 			$related = cplang('logs_report_id').':'.$log['relatedid'];
 		}
 		showtablerow('', array('class="bold"'), array(
-			"<a href=\"home.php?mod=space&uid=$log[uid]\" target=\"_blank\">$log[username]",
+			"<a href=\"home.php?mod=space&uid={$log['uid']}\" target=\"_blank\">{$log['username']}",
 			$log['dateline'],
 			cplang('logs_credit_update_'.$log['operation']),
 			$log['update'],
@@ -788,7 +788,7 @@ EOD;
 				}
 
 				$invite['statuslog'] = $lang['logs_invite_status_'.$invite['status']];
-				$username = "<a href=\"home.php?mod=space&uid=$invite[uid]\">$invite[username]</a>";
+				$username = "<a href=\"home.php?mod=space&uid={$invite['uid']}\">{$invite['username']}</a>";
 				$invite['dateline'] = dgmdate($invite['dateline'], 'Y-n-j H:i');
 				$invite['expiration'] = dgmdate($invite['endtime'], 'Y-n-j H:i');
 				$stats = $invite['statuslog'].($invite['status'] == 2 ? '&nbsp;[<a href="home.php?mod=space&uid='.$invite['fuid'].'" target="_blank">'.$lang['logs_invite_target'].':'.$invite['fusername'].'</a>]' : '');
@@ -816,7 +816,7 @@ EOD;
 			C::t('common_invite')->delete($_GET['delete']);
 		}
 
-		header("Location: $_G[siteurl]".ADMINSCRIPT."?action=logs&operation=invite&lpp=$_GET[lpp]$_GET[pageadd]");
+		header("Location: {$_G['siteurl']}".ADMINSCRIPT."?action=logs&operation=invite&lpp={$_GET['lpp']}{$_GET['pageadd']}");
 	}
 
 } elseif($operation == 'magic') {
@@ -896,7 +896,7 @@ EOD;
 
 		foreach($logs as $log) {
 			showtablerow('', array('class="bold"'), array(
-				"<a href=\"home.php?mod=space&username=".rawurlencode($log['username'])."\" target=\"_blank\">$log[username]",
+				"<a href=\"home.php?mod=space&username=".rawurlencode($log['username'])."\" target=\"_blank\">{$log['username']}",
 				$log['name'],
 				$log['dateline'],
 				$log['amount'],
@@ -1009,9 +1009,9 @@ EOD;
 			$paythread['author'] = $thread['author'];
 			$paythread['tauthorid'] = $thread['authorid'];
 
-			$paythread['seller'] = $paythread['tauthorid'] ? "<a href=\"home.php?mod=space&uid=$paythread[tauthorid]\">$paythread[author]</a>" : cplang('logs_payment_del')."(<a href=\"home.php?mod=space&uid=$paythread[authorid]\">".cplang('logs_payment_view')."</a>)";
-			$paythread['buyer'] = "<a href=\"home.php?mod=space&uid=$paythread[uid]\">$paythread[username]</a>";
-			$paythread['subject'] = $paythread['subject'] ? "<a href=\"forum.php?mod=viewthread&tid=$paythread[tid]\">$paythread[subject]</a>" : cplang('logs_payment_del');
+			$paythread['seller'] = $paythread['tauthorid'] ? "<a href=\"home.php?mod=space&uid={$paythread['tauthorid']}\">{$paythread['author']}</a>" : cplang('logs_payment_del')."(<a href=\"home.php?mod=space&uid={$paythread['authorid']}\">".cplang('logs_payment_view')."</a>)";
+			$paythread['buyer'] = "<a href=\"home.php?mod=space&uid={$paythread['uid']}\">{$paythread['username']}</a>";
+			$paythread['subject'] = $paythread['subject'] ? "<a href=\"forum.php?mod=viewthread&tid={$paythread['tid']}\">{$paythread['subject']}</a>" : cplang('logs_payment_del');
 			$paythread['dateline'] = dgmdate($paythread['dateline'], 'Y-n-j H:i');
 			$paythread['postdateline'] = $paythread['postdateline'] ? dgmdate($paythread['postdateline'], 'Y-n-j H:i') : cplang('logs_payment_del');
 			foreach($_G['setting']['extcredits'] as $id => $credits) {

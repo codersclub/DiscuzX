@@ -140,16 +140,16 @@ if($operation == 'ad') {
 			}
 
 			showtablerow('', array('class="td25"', 'class="td25"', 'class="td25"'), array(
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$adv[advid]\">",
-				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"displayordernew[$adv[advid]]\" value=\"$adv[displayorder]\">",
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"availablenew[$adv[advid]]\" value=\"1\" ".($adv['available'] ? 'checked' : '').">",
-				"<input type=\"text\" class=\"txt\" size=\"15\" name=\"titlenew[$adv[advid]]\" value=\"".dhtmlspecialchars($adv['title'])."\">",
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$adv['advid']}\">",
+				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"displayordernew[{$adv['advid']}]\" value=\"{$adv['displayorder']}\">",
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"availablenew[{$adv['advid']}]\" value=\"1\" ".($adv['available'] ? 'checked' : '').">",
+				"<input type=\"text\" class=\"txt\" size=\"15\" name=\"titlenew[{$adv['advid']}]\" value=\"".dhtmlspecialchars($adv['title'])."\">",
 				!$type ? '<a href="'.ADMINSCRIPT.'?action=adv&operation=ad&type='.$adv['type'].($adv['type'] != 'custom' ? '' : '&customid='.$adv['parameters']['extra']['customid']).'">'.$typenames[$adv['type']].($adv['type'] != 'custom' ? '' : ' '.$customadv[$adv['parameters']['extra']['customid']]).'</a>' : '',
 				$lang['adv_style_'.$adv['parameters']['style']],
 				$adv['starttime'] ? dgmdate($adv['starttime'], 'd') : $lang['unlimited'],
 				$adv['endtime'] ? dgmdate($adv['endtime'], 'd') : $lang['unlimited'],
 				$adv['type'] != 'custom' ? implode(', ', $targets) : $lang['custom'],
-				"<a href=\"".ADMINSCRIPT."?action=adv&operation=edit&advid=$adv[advid]".($adv['type'] != 'custom' ? '' : '&customid='.$adv['parameters']['extra']['customid']).(!$type ? '&from=all' : '')."\" class=\"act\">$lang[edit]</a>"
+				"<a href=\"".ADMINSCRIPT."?action=adv&operation=edit&advid={$adv['advid']}".($adv['type'] != 'custom' ? '' : '&customid='.$adv['parameters']['extra']['customid']).(!$type ? '&from=all' : '')."\" class=\"act\">{$lang['edit']}</a>"
 			));
 		}
 
@@ -633,7 +633,7 @@ if($operation == 'ad') {
 		$name = $custom['name'];
 		if(!submitcheck('submit')) {
 			ajaxshowheader();
-			showformheader("adv&operation=custom&do=edit&id=$_GET[id]");
+			showformheader("adv&operation=custom&do=edit&id={$_GET['id']}");
 			echo $lang['adv_custom_edit'].'<br /><input name="customnew" class="txt" value="'.dhtmlspecialchars($name).'" />&nbsp;'.
 				'<input name="submit" class="btn" type="submit" value="'.$lang['submit'].'" />&nbsp;'.
 				'<input class="btn" type="button" onclick="location.href=\''.ADMINSCRIPT.'?action=adv&operation=list\'" value="'.$lang['cancel'].'" />';
@@ -648,7 +648,7 @@ if($operation == 'ad') {
 	} elseif($do == 'delete') {
 		if(!submitcheck('submit')) {
 			ajaxshowheader();
-			showformheader("adv&operation=custom&do=delete&id=$_GET[id]");
+			showformheader("adv&operation=custom&do=delete&id={$_GET['id']}");
 			echo $lang['adv_custom_delete'].'<br /><input name="submit" class="btn" type="submit" value="'.$lang['delete'].'" />&nbsp;'.
 				'<input class="btn" type="button" onclick="location.href=\''.ADMINSCRIPT.'?action=adv&operation=list\'" value="'.$lang['cancel'].'" />';
 			showformfooter();

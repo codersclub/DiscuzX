@@ -94,7 +94,7 @@ if($operation == 'list') {
 		}
 		if(!$fid) {
 			shownav('global', 'credits_edit');
-			showsubmenu("$lang[credits_edit] - $ruleinfo[rulename]");
+			showsubmenu("{$lang['credits_edit']} - {$ruleinfo['rulename']}");
 		} else {
 			if(!in_array($fid, explode(',', $globalrule['fids']))) {
 				for($i = 1; $i <= 8; $i++) {
@@ -102,7 +102,7 @@ if($operation == 'list') {
 				}
 			}
 			shownav('forum', 'forums_edit');
-			showsubmenu("$forumname - $lang[credits_edit] - $ruleinfo[rulename]");
+			showsubmenu("$forumname - {$lang['credits_edit']} - {$ruleinfo['rulename']}");
 			showtips('forums_edit_tips');
 		}
 		showformheader("credits&operation=edit&rid=$rid&".($fid ? "fid=$fid" : ''));
@@ -115,8 +115,8 @@ if($operation == 'list') {
 			showtableheader('', 'nobottom');
 				$str = <<<EOF
 	<ul onmouseover="altStyle(this);">
-		<li$actives[1]><input type="radio" onclick="$('edit').style.display = '';" $checkarr[1] value="1" name="rule[usecustom]" class="radio">&nbsp;$lang[yes]</li>
-		<li$actives[0]><input type="radio" onclick="$('edit').style.display = 'none';" $checkarr[0] value="0" name="rule[usecustom]" class="radio">&nbsp;$lang[no]</li>
+		<li$actives[1]><input type="radio" onclick="$('edit').style.display = '';" $checkarr[1] value="1" name="rule[usecustom]" class="radio">&nbsp;{$lang['yes']}</li>
+		<li$actives[0]><input type="radio" onclick="$('edit').style.display = 'none';" $checkarr[0] value="0" name="rule[usecustom]" class="radio">&nbsp;{$lang['no']}</li>
 	</ul>
 EOF;
 			showsetting('setting_credits_use_custom_credit', 'usecustom', $usecustom, $str);

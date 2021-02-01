@@ -69,7 +69,7 @@ EOT;
 	showhiddenfields(array('page' => $page, 'pp' => $_GET['pp'] ? $_GET['pp'] : $_GET['perpage']));
 	showtableheader();
 	showsetting('doing_search_detail', 'detail', $detail, 'radio');
-	showsetting('doing_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>$lang[perpage_20]</option><option value='50'>$lang[perpage_50]</option><option value='100'>$lang[perpage_100]</option></select>");
+	showsetting('doing_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>{$lang['perpage_20']}</option><option value='50'>{$lang['perpage_50']}</option><option value='100'>{$lang['perpage_100']}</option></select>");
 	showsetting('doing_search_user', 'users', $users, 'text');
 	showsetting('doing_search_ip', 'userip', $userip, 'text');
 	showsetting('doing_search_keyword', 'keywords', $keywords, 'text');
@@ -128,8 +128,8 @@ if(submitcheck('searchsubmit', 1) || $newlist) {
 			foreach ($query as $doing) {
 				$doing['dateline'] = dgmdate($doing['dateline']);
 				$doings .= showtablerow('', '', array(
-					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$doing[doid]\"  />",
-					"<a href=\"home.php?mod=space&uid=$doing[uid]\" target=\"_blank\">$doing[username]</a>",
+					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$doing['doid']}\"  />",
+					"<a href=\"home.php?mod=space&uid={$doing['uid']}\" target=\"_blank\">{$doing['username']}</a>",
 					$doing['message'],
 					$doing['ip'],
 					$doing['dateline']

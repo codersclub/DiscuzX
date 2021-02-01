@@ -48,22 +48,22 @@ if($operation == 'admin') {
 			$eidentifier = explode(':', $magic['identifier']);
 
 			showtablerow('', array('class="td25"', 'class="td25"', 'class="td25"', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"', '', ''), array(
-				"<input type=\"checkbox\" class=\"checkbox\" name=\"delete[]\" value=\"$magic[magicid]\">",
-				"<input type=\"text\" class=\"txt\" name=\"displayorder[$magic[magicid]]\" value=\"$magic[displayorder]\">",
-				"<input type=\"checkbox\" class=\"checkbox\" name=\"available[$magic[magicid]]\" value=\"1\" ".($magic['available'] ? 'checked' : '').">",
-				"<input type=\"text\" class=\"txt\" style=\"width:80px\" name=\"name[$magic[magicid]]\" value=\"$magic[name]\">".
+				"<input type=\"checkbox\" class=\"checkbox\" name=\"delete[]\" value=\"{$magic['magicid']}\">",
+				"<input type=\"text\" class=\"txt\" name=\"displayorder[{$magic['magicid']}]\" value=\"{$magic['displayorder']}\">",
+				"<input type=\"checkbox\" class=\"checkbox\" name=\"available[{$magic['magicid']}]\" value=\"1\" ".($magic['available'] ? 'checked' : '').">",
+				"<input type=\"text\" class=\"txt\" style=\"width:80px\" name=\"name[{$magic['magicid']}]\" value=\"{$magic['name']}\">".
 				(count($eidentifier) > 1 ? (file_exists(DISCUZ_ROOT.'./source/plugin/'.$eidentifier[0].'/magic/magic_'.$eidentifier[1].'.small.gif') ? '<img class="vmiddle" src="source/plugin/'.$eidentifier[0].'/magic/magic_'.$eidentifier[1].'.small.gif" />' : '')
 					: (file_exists(DISCUZ_ROOT.'./static/image/magic/'.$magic['identifier'].'.small.gif') ? '<img class="vmiddle" src="static/image/magic/'.$magic['identifier'].'.small.gif" />' : '')),
-				"<input type=\"text\" class=\"txt\" name=\"price[$magic[magicid]]\" value=\"$magic[price]\">".$credits,
-				"<input type=\"text\" class=\"txt\" name=\"num[$magic[magicid]]\" value=\"$magic[num]\">".
+				"<input type=\"text\" class=\"txt\" name=\"price[{$magic['magicid']}]\" value=\"{$magic['price']}\">".$credits,
+				"<input type=\"text\" class=\"txt\" name=\"num[{$magic['magicid']}]\" value=\"{$magic['num']}\">".
 					($magic['supplytype'] ? '/ '.$magic['supplynum'].' / '.$lang['magic_suppytype_'.$magic['supplytype']] : ''),
-				"<input type=\"text\" class=\"txt\" name=\"weight[$magic[magicid]]\" value=\"$magic[weight]\"><input type=\"hidden\" name=\"identifier[$magic[magicid]]\" value=\"$magic[identifier]\">",
-				"<a href=\"".ADMINSCRIPT."?action=magics&operation=edit&magicid=$magic[magicid]\" class=\"act\">$lang[detail]</a>"
+				"<input type=\"text\" class=\"txt\" name=\"weight[{$magic['magicid']}]\" value=\"{$magic['weight']}\"><input type=\"hidden\" name=\"identifier[{$magic['magicid']}]\" value=\"{$magic['identifier']}\">",
+				"<a href=\"".ADMINSCRIPT."?action=magics&operation=edit&magicid={$magic['magicid']}\" class=\"act\">{$lang['detail']}</a>"
 			));
-			unset($newmagics[$magic[identifier]]);
+			unset($newmagics[$magic['identifier']]);
 		}
 		foreach($newmagics as $newmagic) {
-			$credits = '<select name="newcredit['.$newmagic['class'].']">';
+			$credits = '<select name="newcredit['.$newmagic['class'].']}">';
 			foreach($_G['setting']['extcredits'] as $i => $extcredit) {
 				$credits .= '<option value="'.$i.'">'.$extcredit['title'].'</option>';
 			}
@@ -71,16 +71,16 @@ if($operation == 'admin') {
 			$eclass = explode(':', $newmagic['class']);
 			showtablerow('', array('class="td25"', 'class="td25"', 'class="td25"', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"', '', ''), array(
 				'',
-				"<input type=\"text\" class=\"txt\" name=\"newdisplayorder[$newmagic[class]]\" value=\"0\">",
-				"<input type=\"checkbox\" class=\"checkbox\" name=\"newavailable[$newmagic[class]]\" value=\"1\">",
-				"<input type=\"text\" class=\"txt\" style=\"width:80px\" name=\"newname[$newmagic[class]]\" value=\"$newmagic[name]\">".
+				"<input type=\"text\" class=\"txt\" name=\"newdisplayorder[{$newmagic['class']}]\" value=\"0\">",
+				"<input type=\"checkbox\" class=\"checkbox\" name=\"newavailable[{$newmagic['class']}]\" value=\"1\">",
+				"<input type=\"text\" class=\"txt\" style=\"width:80px\" name=\"newname[{$newmagic['class']}]\" value=\"{$newmagic['name']}\">".
 					(count($eclass) > 1 ? (file_exists(DISCUZ_ROOT.'./source/plugin/'.$eclass[0].'/magic/magic_'.$eclass[1].'.small.gif') ? '<img class="vmiddle" src="source/plugin/'.$eclass[0].'/magic/magic_'.$eclass[1].'.small.gif" />' : '')
 						: (file_exists(DISCUZ_ROOT.'./static/image/magic/'.$newmagic['class'].'.small.gif') ? '<img class="vmiddle" src="static/image/magic/'.$newmagic['class'].'.small.gif" />' : '')).
-					"<input type=\"hidden\" name=\"newdesc[$newmagic[class]]\" value=\"$newmagic[desc]\" />".
-					"<input type=\"hidden\" name=\"newuseevent[$newmagic[class]]\" value=\"$newmagic[useevent]\" />",
-				"<input type=\"text\" class=\"txt\" name=\"newprice[$newmagic[class]]\" value=\"$newmagic[price]\">".$credits,
-				"<input type=\"text\" class=\"txt\" name=\"newnum[$newmagic[class]]\" value=\"0\">",
-				"<input type=\"text\" class=\"txt\" name=\"newweight[$newmagic[class]]\" value=\"$newmagic[weight]\">",
+					"<input type=\"hidden\" name=\"newdesc[{$newmagic['class']}]\" value=\"{$newmagic['desc']}\" />".
+					"<input type=\"hidden\" name=\"newuseevent[{$newmagic['class']}]\" value=\"{$newmagic['useevent']}\" />",
+				"<input type=\"text\" class=\"txt\" name=\"newprice[{$newmagic['class']}]\" value=\"{$newmagic['price']}\">".$credits,
+				"<input type=\"text\" class=\"txt\" name=\"newnum[{$newmagic['class']}}]\" value=\"0\">",
+				"<input type=\"text\" class=\"txt\" name=\"newweight[{$newmagic['class']}]\" value=\"{$newmagic['weight']}\">",
 				'<font color="#F00">New!</font>'
 			));
 		}

@@ -231,9 +231,9 @@ var rowtypedata = [
 
 		foreach($moderators as $mod) {
 			showtablerow('', array('class="td25"', 'class="td28"'), array(
-				'<input type="checkbox" class="checkbox" name="delete[]" value="'.$mod[uid].'"'.($mod['inherited'] ? ' disabled' : '').' />',
-				'<input type="text" class="txt" name="displayordernew['.$mod[uid].']" value="'.$mod[displayorder].'" size="2" />',
-				"<a href=\"".ADMINSCRIPT."?mod=forum&action=members&operation=group&uid=$mod[uid]\" target=\"_blank\">{$users[$mod['uid']]['username']}</a>",
+				'<input type="checkbox" class="checkbox" name="delete[]" value="'.$mod['uid'].'"'.($mod['inherited'] ? ' disabled' : '').' />',
+				'<input type="text" class="txt" name="displayordernew['.$mod['uid'].']" value="'.$mod['displayorder'].'" size="2" />',
+				"<a href=\"".ADMINSCRIPT."?mod=forum&action=members&operation=group&uid={$mod['uid']}\" target=\"_blank\">{$users[$mod['uid']]['username']}</a>",
 				$modgroups[$users[$mod['uid']]['groupid']],
 				cplang($mod['inherited'] ? 'yes' : 'no'),
 			));
@@ -592,11 +592,11 @@ var rowtypedata = [
 			$groups[$group['type']][] = $group;
 		}
 
-		$styleselect = "<select name=\"styleidnew\"><option value=\"0\">$lang[use_default]</option>";
+		$styleselect = "<select name=\"styleidnew\"><option value=\"0\">{$lang['use_default']}</option>";
 		foreach(C::t('common_style')->fetch_all_data(false, false) as $style) {
-			$styleselect .= "<option value=\"$style[styleid]\" ".
+			$styleselect .= "<option value=\"{$style['styleid']}\" ".
 				($style['styleid'] == $mforum[0]['styleid'] ? 'selected="selected"' : NULL).
-				">$style[name]</option>\n";
+				">{$style['name']}</option>\n";
 		}
 		$styleselect .= '</select>';
 
@@ -605,9 +605,9 @@ var rowtypedata = [
 			foreach(C::t('forum_attachtype')->fetch_all_by_fid($fid) as $type) {
 				$type['maxsize'] = round($type['maxsize'] / 1024);
 				$attachtypes .= showtablerow('', array('class="td25"', 'class="td24"'), array(
-					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$type[id]\" />",
-					"<input type=\"text\" class=\"txt\" size=\"10\" name=\"extension[$type[id]]\" value=\"$type[extension]\" />",
-					"<input type=\"text\" class=\"txt\" size=\"15\" name=\"maxsize[$type[id]]\" value=\"$type[maxsize]\" />"
+					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$type['id']}\" />",
+					"<input type=\"text\" class=\"txt\" size=\"10\" name=\"extension[{$type['id']}]\" value=\"{$type['extension']}\" />",
+					"<input type=\"text\" class=\"txt\" size=\"15\" name=\"maxsize[{$type['id']}]\" value=\"{$type['maxsize']}\" />"
 				), TRUE);
 			}
 		} else {
@@ -667,11 +667,11 @@ var rowtypedata = [
 						foreach($fups as $forum1) {
 							if($forum1['type'] == 'group') {
 								$selected = $forum1['fid'] == $forum['fup'] ? "selected=\"selected\"" : NULL;
-								$fupselect .= "<option value=\"$forum1[fid]\" $selected>$forum1[name]</option>\n";
+								$fupselect .= "<option value=\"{$forum1['fid']}\" $selected>{$forum1['name']}</option>\n";
 								foreach($fups as $forum2) {
 									if($forum2['type'] == 'forum' && $forum2['fup'] == $forum1['fid']) {
 										$selected = $forum2['fid'] == $forum['fup'] ? "selected=\"selected\"" : NULL;
-										$fupselect .= "<option value=\"$forum2[fid]\" $selected>&nbsp; &gt; $forum2[name]</option>\n";
+										$fupselect .= "<option value=\"{$forum2['fid']}\" $selected>&nbsp; &gt; {$forum2['name']}</option>\n";
 									}
 								}
 							}
@@ -679,7 +679,7 @@ var rowtypedata = [
 						foreach($fups as $forum0) {
 							if($forum0['type'] == 'forum' && $forum0['fup'] == 0) {
 								$selected = $forum0['fid'] == $forum['fup'] ? "selected=\"selected\"" : NULL;
-								$fupselect .= "<option value=\"$forum0[fid]\" $selected>$forum0[name]</option>\n";
+								$fupselect .= "<option value=\"{$forum0['fid']}\" $selected>{$forum0['name']}</option>\n";
 							}
 						}
 					}
@@ -724,8 +724,8 @@ var rowtypedata = [
 								'<input type="checkbox" name="threadsortsnew[options][enable]['.$type['typeid'].']" value="1" class="checkbox"'.$enablechecked.' />',
 								$type['name'],
 								$type['description'],
-								"<input class=\"checkbox\" type=\"checkbox\" name=\"threadsortsnew[options][show][{$type[typeid]}]\" value=\"3\" $typeselected[3] />",
-								"<input class=\"radio\" type=\"radio\" name=\"threadsortsnew[defaultshow]\" value=\"$type[typeid]\" ".($forum['threadsorts']['defaultshow'] == $type['typeid'] ? 'checked' : '')." />"
+								"<input class=\"checkbox\" type=\"checkbox\" name=\"threadsortsnew[options][show][{$type['typeid']}]\" value=\"3\" $typeselected[3] />",
+								"<input class=\"radio\" type=\"radio\" name=\"threadsortsnew[defaultshow]\" value=\"{$type['typeid']}\" ".($forum['threadsorts']['defaultshow'] == $type['typeid'] ? 'checked' : '')." />"
 							), TRUE) : '';
 						}
 					}
@@ -799,7 +799,7 @@ var rowtypedata = [
 				showsetting('forums_edit_basic_rules', 'rulesnew', htmlspecialchars_decode(html2bbcode($forum['rules'])), 'textarea');
 				showsetting('forums_edit_basic_keys', 'keysnew', $forumkeys[$fid], 'text');
 				if(!empty($_G['setting']['domain']['root']['forum'])) {
-					$iname = $multiset ? "multinew[{$_G[showsetting_multi]}][domainnew]" : 'domainnew';
+					$iname = $multiset ? "multinew[{$_G['showsetting_multi']}][domainnew]" : 'domainnew';
 					showsetting('forums_edit_extend_domain', '', '', $_G['scheme'].'://<input type="text" name="'.$iname.'" class="txt" value="'.$forum['domain'].'" style="width:100px; margin-right:0px;" >.'.$_G['setting']['domain']['root']['forum']);
 				} elseif(!$multiset) {
 					showsetting('forums_edit_extend_domain', 'domainnew', '', 'text', 'disabled');
@@ -1153,7 +1153,7 @@ EOT;
 							}
 							$colums = array('<input class="checkbox" title="'.cplang('select_all').'" type="checkbox" name="chkallv'.$group['groupid'].'" onclick="checkAll(\'value\', this.form, '.$group['groupid'].', \'chkallv'.$group['groupid'].'\')" id="chkallv_'.$group['groupid'].'" /><label for="chkallv_'.$group['groupid'].'"> '.$group['grouptitle'].'</label>');
 							foreach($perms as $perm) {
-								$checked = strstr($forum[$perm], "\t$group[groupid]\t") ? 'checked="checked"' : NULL;
+								$checked = strstr($forum[$perm], "\t{$group['groupid']}\t") ? 'checked="checked"' : NULL;
 								$colums[] = '<input class="checkbox" type="checkbox" name="'.$perm.'[]" value="'.$group['groupid'].'" chkvalue="'.$group['groupid'].'" '.$checked.'>';
 							}
 							showtablerow('', array('width="21%"', 'width="13%"', 'width="13%"', 'width="13%"', 'width="16%"', 'width="13%"', 'width="13%"'), $colums);
@@ -1463,7 +1463,7 @@ EOT;
 
 				$fup = C::t('forum_forum')->fetch($_GET['fupnew']);
 
-				$fupadd = ", type='".($fup['type'] == 'forum' ? 'sub' : 'forum')."', fup='$fup[fid]'";
+				$fupadd = ", type='".($fup['type'] == 'forum' ? 'sub' : 'forum')."', fup='{$fup['fid']}'";
 				$forumdata['type'] = $fup['type'] == 'forum' ? 'sub' : 'forum';
 				$forumdata['fup'] = $fup['fid'];
 				C::t('forum_moderator')->delete_by_fid_inherited($fid, 1);

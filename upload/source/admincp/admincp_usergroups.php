@@ -24,32 +24,32 @@ if(!$operation) {
 		foreach(C::t('common_usergroup')->range_orderby_creditshigher() as $group) {
 			if($group['type'] == 'member') {
 
-				$membergroupoption .= "<option value=\"g{$group[groupid]}\">".addslashes($group['grouptitle'])."</option>";
+				$membergroupoption .= "<option value=\"g{$group['groupid']}\">".addslashes($group['grouptitle'])."</option>";
 
 				$membergroup .= showtablerow('', array('class="td25"', '', 'class="td23 lightfont"', 'class="td28"', 'class=td28'), array(
-					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[$group[groupid]]\" value=\"$group[groupid]\">",
-					"<input type=\"text\" class=\"txt\" size=\"12\" name=\"groupnew[$group[groupid]][grouptitle]\" value=\"$group[grouptitle]\">",
-					"(groupid:$group[groupid])",
-					"<input type=\"text\" class=\"txt\" size=\"6\" name=\"groupnew[$group[groupid]][creditshigher]\" value=\"$group[creditshigher]\" /> ~ <input type=\"text\" class=\"txt\" size=\"6\" name=\"groupnew[$group[groupid]][creditslower]\" value=\"$group[creditslower]\" disabled />",
-					"<input type=\"text\" class=\"txt\" size=\"2\" name=\"groupnew[$group[groupid]][stars]\" value=\"$group[stars]\">",
-					"<input type=\"text\" id=\"group_color_$group[groupid]_v\" class=\"left txt\" size=\"6\" name=\"groupnew[$group[groupid]][color]\" value=\"$group[color]\" onchange=\"updatecolorpreview('group_color_$group[groupid]')\"><input type=\"button\" id=\"group_color_$group[groupid]\"  class=\"colorwd\" onclick=\"group_color_$group[groupid]_frame.location='static/image/admincp/getcolor.htm?group_color_$group[groupid]|group_color_$group[groupid]_v';showMenu({'ctrlid':'group_color_$group[groupid]'})\" /><span id=\"group_color_$group[groupid]_menu\" style=\"display: none\"><iframe name=\"group_color_$group[groupid]_frame\" src=\"\" frameborder=\"0\" width=\"210\" height=\"148\" scrolling=\"no\"></iframe></span>",
-					"<input class=\"checkbox\" type=\"checkbox\" chkvalue=\"gmember\" value=\"$group[groupid]\" onclick=\"multiupdate(this)\" /><a href=\"".ADMINSCRIPT."?action=usergroups&operation=edit&id=$group[groupid]\" class=\"act\">$lang[edit]</a>".
-						"<a href=\"".ADMINSCRIPT."?action=usergroups&operation=copy&source=$group[groupid]\" title=\"$lang[usergroups_copy_comment]\" class=\"act\">$lang[usergroups_copy]</a>".
-						"<a href=\"".ADMINSCRIPT."?action=usergroups&operation=merge&source=$group[groupid]\" title=\"$lang[usergroups_merge_comment]\" class=\"act\">$lang[usergroups_merge_link]</a>"
+					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[{$group['groupid']}]\" value=\"{$group['groupid']}\">",
+					"<input type=\"text\" class=\"txt\" size=\"12\" name=\"groupnew[{$group['groupid']}]['grouptitle']\" value=\"{$group['grouptitle']}\">",
+					"(groupid:{$group['groupid']})",
+					"<input type=\"text\" class=\"txt\" size=\"6\" name=\"groupnew[{$group['groupid']}]['creditshigher']\" value=\"{$group['creditshigher']}\" /> ~ <input type=\"text\" class=\"txt\" size=\"6\" name=\"groupnew[{$group['groupid']}]['creditslower']\" value=\"{$group['creditslower']}\" disabled />",
+					"<input type=\"text\" class=\"txt\" size=\"2\" name=\"groupnew[{$group['groupid']}]['stars']\" value=\"{$group['stars']}\">",
+					"<input type=\"text\" id=\"group_color_{$group['groupid']}_v\" class=\"left txt\" size=\"6\" name=\"groupnew[{$group['groupid']}]['color']\" value=\"{$group['color']}\" onchange=\"updatecolorpreview('group_color_{$group['groupid']}')\"><input type=\"button\" id=\"group_color_{$group['groupid']}\"  class=\"colorwd\" onclick=\"group_color_{$group['groupid']}_frame.location='static/image/admincp/getcolor.htm?group_color_{$group['groupid']}|group_color_{$group['groupid']}_v';showMenu({'ctrlid':'group_color_{$group['groupid']}'})\" /><span id=\"group_color_{$group['groupid']}_menu\" style=\"display: none\"><iframe name=\"group_color_{$group['groupid']}_frame\" src=\"\" frameborder=\"0\" width=\"210\" height=\"148\" scrolling=\"no\"></iframe></span>",
+					"<input class=\"checkbox\" type=\"checkbox\" chkvalue=\"gmember\" value=\"{$group['groupid']}\" onclick=\"multiupdate(this)\" /><a href=\"".ADMINSCRIPT."?action=usergroups&operation=edit&id={$group['groupid']}\" class=\"act\">{$lang['edit']}</a>".
+						"<a href=\"".ADMINSCRIPT."?action=usergroups&operation=copy&source={$group['groupid']}\" title=\"{$lang['usergroups_copy_comment']}\" class=\"act\">{$lang['usergroups_copy']}</a>".
+						"<a href=\"".ADMINSCRIPT."?action=usergroups&operation=merge&source={$group['groupid']}\" title=\"{$lang['usergroups_merge_comment']}\" class=\"act\">{$lang['usergroups_merge_link']}</a>"
 				), TRUE);
 			} elseif($group['type'] == 'system') {
 				$sysgroup .= showtablerow('', array('', 'class="td23 lightfont"', '', 'class="td28"'), array(
-					"<input type=\"text\" class=\"txt\" size=\"12\" name=\"group_title[$group[groupid]]\" value=\"$group[grouptitle]\">",
-					"(groupid:$group[groupid])",
+					"<input type=\"text\" class=\"txt\" size=\"12\" name=\"group_title[{$group['groupid']}]\" value=\"{$group['grouptitle']}\">",
+					"(groupid:{$group['groupid']})",
 					$lang['usergroups_system_'.$group['groupid']],
-					"<input type=\"text\" class=\"txt\" size=\"2\"name=\"group_stars[$group[groupid]]\" value=\"$group[stars]\">",
-					"<input type=\"text\" id=\"group_color_$group[groupid]_v\" class=\"left txt\" size=\"6\"name=\"group_color[$group[groupid]]\" value=\"$group[color]\" onchange=\"updatecolorpreview('group_color_$group[groupid]')\"><input type=\"button\" id=\"group_color_$group[groupid]\"  class=\"colorwd\" onclick=\"group_color_$group[groupid]_frame.location='static/image/admincp/getcolor.htm?group_color_$group[groupid]|group_color_$group[groupid]_v';showMenu({'ctrlid':'group_color_$group[groupid]'})\" /><span id=\"group_color_$group[groupid]_menu\" style=\"display: none\"><iframe name=\"group_color_$group[groupid]_frame\" src=\"\" frameborder=\"0\" width=\"210\" height=\"148\" scrolling=\"no\"></iframe></span>",
-					"<input class=\"checkbox\" type=\"checkbox\" chkvalue=\"gsystem\" value=\"$group[groupid]\" onclick=\"multiupdate(this)\" /><a href=\"".ADMINSCRIPT."?action=usergroups&operation=edit&id=$group[groupid]\" class=\"act\">$lang[edit]</a>".
-						"<a href=\"".ADMINSCRIPT."?action=usergroups&operation=copy&source=$group[groupid]\" title=\"$lang[usergroups_copy_comment]\" class=\"act\">$lang[usergroups_copy]</a>"
+					"<input type=\"text\" class=\"txt\" size=\"2\"name=\"group_stars[{$group['groupid']}]\" value=\"{$group['stars']}\">",
+					"<input type=\"text\" id=\"group_color_{$group['groupid']}_v\" class=\"left txt\" size=\"6\"name=\"group_color[{$group['groupid']}]\" value=\"{$group['color']}\" onchange=\"updatecolorpreview('group_color_{$group['groupid']}')\"><input type=\"button\" id=\"group_color_{$group['groupid']}\"  class=\"colorwd\" onclick=\"group_color_{$group['groupid']}_frame.location='static/image/admincp/getcolor.htm?group_color_{$group['groupid']}|group_color_{$group['groupid']}_v';showMenu({'ctrlid':'group_color_{$group['groupid']}'})\" /><span id=\"group_color_{$group['groupid']}_menu\" style=\"display: none\"><iframe name=\"group_color_{$group['groupid']}_frame\" src=\"\" frameborder=\"0\" width=\"210\" height=\"148\" scrolling=\"no\"></iframe></span>",
+					"<input class=\"checkbox\" type=\"checkbox\" chkvalue=\"gsystem\" value=\"{$group['groupid']}\" onclick=\"multiupdate(this)\" /><a href=\"".ADMINSCRIPT."?action=usergroups&operation=edit&id={$group['groupid']}\" class=\"act\">{$lang['edit']}</a>".
+						"<a href=\"".ADMINSCRIPT."?action=usergroups&operation=copy&source={$group['groupid']}\" title=\"{$lang['usergroups_copy_comment']}\" class=\"act\">{$lang['usergroups_copy']}</a>"
 				), TRUE);
 			} elseif($group['type'] == 'special' && $group['radminid'] == '0') {
 
-				$specialgroupoption .= "<option value=\"g{$group[groupid]}\">".addslashes($group['grouptitle'])."</option>";
+				$specialgroupoption .= "<option value=\"g{$group['groupid']}\">".addslashes($group['grouptitle'])."</option>";
 
 				$sgroups[] = $group;
 				$sgroupids .= ','.$group['groupid'];
@@ -68,15 +68,15 @@ if(!$operation) {
 			$specifiedusers = "<style>#specifieduser span{width: 9em; height: 2em; float: left; overflow: hidden; margin: 2px;}</style><div id=\"specifieduser\">$specifiedusers</div>";
 
 			$sg = showtablerow('', array('class="td25"', '', 'class="td23 lightfont"', 'class="td28"'), array(
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[$group[groupid]]\" value=\"$group[groupid]\">",
-				"<input type=\"text\" class=\"txt\" size=\"12\" name=\"group_title[$group[groupid]]\" value=\"$group[grouptitle]\">",
-				"(groupid:$group[groupid])",
-				"<input type=\"text\" class=\"txt\" size=\"2\"name=\"group_stars[$group[groupid]]\" value=\"$group[stars]\">",
-				"<input type=\"text\" id=\"group_color_$group[groupid]_v\" class=\"left txt\" size=\"6\"name=\"group_color[$group[groupid]]\" value=\"$group[color]\" onchange=\"updatecolorpreview('group_color_$group[groupid]')\"><input type=\"button\" id=\"group_color_$group[groupid]\"  class=\"colorwd\" onclick=\"group_color_$group[groupid]_frame.location='static/image/admincp/getcolor.htm?group_color_$group[groupid]|group_color_$group[groupid]_v';showMenu({'ctrlid':'group_color_$group[groupid]'})\" /><span id=\"group_color_$group[groupid]_menu\" style=\"display: none\"><iframe name=\"group_color_$group[groupid]_frame\" src=\"\" frameborder=\"0\" width=\"210\" height=\"148\" scrolling=\"no\"></iframe></span>",
-				"<input class=\"checkbox\" type=\"checkbox\" chkvalue=\"gspecial\" value=\"$group[groupid]\" onclick=\"multiupdate(this)\" /><a href=\"".ADMINSCRIPT."?action=usergroups&operation=edit&id=$group[groupid]\" class=\"act\">$lang[edit]</a>".
-					"<a href=\"".ADMINSCRIPT."?action=usergroups&operation=copy&source=$group[groupid]\" title=\"$lang[usergroups_copy_comment]\" class=\"act\">$lang[usergroups_copy]</a>".
-					"<a href=\"".ADMINSCRIPT."?action=usergroups&operation=merge&source=$group[groupid]\" title=\"$lang[usergroups_merge_comment]\" class=\"act\">$lang[usergroups_merge_link]</a>".
-					"<a href=\"".ADMINSCRIPT."?action=usergroups&operation=viewsgroup&sgroupid=$group[groupid]\" onclick=\"ajaxget(this.href, 'sgroup_$group[groupid]', 'sgroup_$group[groupid]');doane(event);\" class=\"act\">$lang[view]</a> &nbsp;"
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[{$group['groupid']}]\" value=\"{$group['groupid']}\">",
+				"<input type=\"text\" class=\"txt\" size=\"12\" name=\"group_title[{$group['groupid']}]\" value=\"{$group['grouptitle']}\">",
+				"(groupid:{$group['groupid']})",
+				"<input type=\"text\" class=\"txt\" size=\"2\"name=\"group_stars[{$group['groupid']}]\" value=\"{$group['stars']}\">",
+				"<input type=\"text\" id=\"group_color_{$group['groupid']}_v\" class=\"left txt\" size=\"6\"name=\"group_color[{$group['groupid']}]\" value=\"{$group['color']}\" onchange=\"updatecolorpreview('group_color_{$group['groupid']}')\"><input type=\"button\" id=\"group_color_{$group['groupid']}\"  class=\"colorwd\" onclick=\"group_color_{$group['groupid']}_frame.location='static/image/admincp/getcolor.htm?group_color_{$group['groupid']}|group_color_{$group['groupid']}_v';showMenu({'ctrlid':'group_color_{$group['groupid']}'})\" /><span id=\"group_color_{$group['groupid']}_menu\" style=\"display: none\"><iframe name=\"group_color_{$group['groupid']}_frame\" src=\"\" frameborder=\"0\" width=\"210\" height=\"148\" scrolling=\"no\"></iframe></span>",
+				"<input class=\"checkbox\" type=\"checkbox\" chkvalue=\"gspecial\" value=\"{$group['groupid']}\" onclick=\"multiupdate(this)\" /><a href=\"".ADMINSCRIPT."?action=usergroups&operation=edit&id={$group['groupid']}\" class=\"act\">{$lang['edit']}</a>".
+					"<a href=\"".ADMINSCRIPT."?action=usergroups&operation=copy&source={$group['groupid']}\" title=\"{$lang['usergroups_copy_comment']}\" class=\"act\">{$lang['usergroups_copy']}</a>".
+					"<a href=\"".ADMINSCRIPT."?action=usergroups&operation=merge&source={$group['groupid']}\" title=\"{$lang['usergroups_merge_comment']}\" class=\"act\">{$lang['usergroups_merge_link']}</a>".
+					"<a href=\"".ADMINSCRIPT."?action=usergroups&operation=viewsgroup&sgroupid={$group['groupid']}\" onclick=\"ajaxget(this.href, 'sgroup_{$group['groupid']}', 'sgroup_{$group['groupid']}');doane(event);\" class=\"act\">{$lang['view']}</a> &nbsp;"
 			), TRUE);
 			$sg .= showtablerow('', array('colspan="5" id="sgroup_'.$group['groupid'].'" style="display: none"'), array(''), TRUE);
 
@@ -95,14 +95,14 @@ if(!$operation) {
 var rowtypedata = [
 	[
 		[1,'', 'td25'],
-		[2,'<input type="text" class="txt" size="12" name="groupnewadd[grouptitle][]"><select name="groupnewadd[projectid][]"><option value="">$lang[usergroups_project]</option><option value="0">------------</option>$membergroupoption</select>'],
+		[2,'<input type="text" class="txt" size="12" name="groupnewadd[grouptitle][]"><select name="groupnewadd[projectid][]"><option value="">{$lang['usergroups_project']}</option><option value="0">------------</option>$membergroupoption</select>'],
 		[1,'<input type="text" class="txt" size="6" name="groupnewadd[creditshigher][]">', 'td28'],
 		[1,'<input type="text" class="txt" size="2" name="groupnewadd[stars][]">', 'td28'],
 		[2,'<input type="text" class="txt" size="6" name="groupnewadd[color][]">']
 	],
 	[
 		[1,'', 'td25'],
-		[2,'<input type="text" class="txt" size="12" name="grouptitlenewadd[]"><select name="groupnewaddproject[]"><option value="">$lang[usergroups_project]</option><option value="0">------------</option>$specialgroupoption</select>'],
+		[2,'<input type="text" class="txt" size="12" name="grouptitlenewadd[]"><select name="groupnewaddproject[]"><option value="">{$lang['usergroups_project']}</option><option value="0">------------</option>$specialgroupoption</select>'],
 		[1,'<input type="text" class="txt" size="2" name="starsnewadd[]">', 'td28'],
 		[2,'<input type="text" class="txt" size="6" name="colornewadd[]">']
 	]
@@ -265,22 +265,22 @@ EOT;
 						foreach($query as $row) {
 							$upforumperm = array();
 							if($row['viewperm'] && in_array($projectid, explode("\t", $row['viewperm']))) {
-								$upforumperm['viewperm'] = "$row[viewperm]$newgid\t";
+								$upforumperm['viewperm'] = "{$row['viewperm']}$newgid\t";
 							}
 							if($row['postperm'] && in_array($projectid, explode("\t", $row['postperm']))) {
-								$upforumperm['postperm'] = "$row[postperm]$newgid\t";
+								$upforumperm['postperm'] = "{$row['postperm']}$newgid\t";
 							}
 							if($row['replyperm'] && in_array($projectid, explode("\t", $row['replyperm']))) {
-								$upforumperm['replyperm'] = "$row[replyperm]$newgid\t";
+								$upforumperm['replyperm'] = "{$row['replyperm']}$newgid\t";
 							}
 							if($row['getattachperm'] && in_array($projectid, explode("\t", $row['getattachperm']))) {
-								$upforumperm['getattachperm'] = "$row[getattachperm]$newgid\t";
+								$upforumperm['getattachperm'] = "{$row['getattachperm']}$newgid\t";
 							}
 							if($row['postattachperm'] && in_array($projectid, explode("\t", $row['postattachperm']))) {
-								$upforumperm['postattachperm'] = "$row[postattachperm]$newgid\t";
+								$upforumperm['postattachperm'] = "{$row['postattachperm']}$newgid\t";
 							}
 							if($row['postimageperm'] && in_array($projectid, explode("\t", $row['postimageperm']))) {
-								$upforumperm['postimageperm'] = "$row[postimageperm]$newgid\t";
+								$upforumperm['postimageperm'] = "{$row['postimageperm']}$newgid\t";
 							}
 							if($upforumperm) {
 								C::t('forum_forumfield')->update($row['fid'], $upforumperm);
@@ -333,22 +333,22 @@ EOT;
 							foreach($query as $row) {
 								$upforumperm = array();
 								if($row['viewperm'] && in_array($projectid, explode("\t", $row['viewperm']))) {
-									$upforumperm['viewperm'] = "$row[viewperm]$newgid\t";
+									$upforumperm['viewperm'] = "{$row['viewperm']}$newgid\t";
 								}
 								if($row['postperm'] && in_array($projectid, explode("\t", $row['postperm']))) {
-									$upforumperm['postperm'] = "$row[postperm]$newgid\t";
+									$upforumperm['postperm'] = "{$row['postperm']}$newgid\t";
 								}
 								if($row['replyperm'] && in_array($projectid, explode("\t", $row['replyperm']))) {
-									$upforumperm['replyperm'] = "$row[replyperm]$newgid\t";
+									$upforumperm['replyperm'] = "{$row['replyperm']}$newgid\t";
 								}
 								if($row['getattachperm'] && in_array($projectid, explode("\t", $row['getattachperm']))) {
-									$upforumperm['getattachperm'] = "$row[getattachperm]$newgid\t";
+									$upforumperm['getattachperm'] = "{$row['getattachperm']}$newgid\t";
 								}
 								if($row['postattachperm'] && in_array($projectid, explode("\t", $row['postattachperm']))) {
-									$upforumperm['postattachperm'] = "$row[postattachperm]$newgid\t";
+									$upforumperm['postattachperm'] = "{$row['postattachperm']}$newgid\t";
 								}
 								if($row['postimageperm'] && in_array($projectid, explode("\t", $row['postimageperm']))) {
-									$upforumperm['postimageperm'] = "$row[postimageperm]$newgid\t";
+									$upforumperm['postimageperm'] = "{$row['postimageperm']}$newgid\t";
 								}
 								if($upforumperm) {
 									C::t('forum_forumfield')->update($row['fid'], $upforumperm);
@@ -435,7 +435,7 @@ EOT;
 		$grouplist = "<select name=\"id\" style=\"width:150px\">\n";
 		$conditions = !empty($_GET['anchor']) && $_GET['anchor'] == 'system' ? 'special' : '';
 		foreach(C::t('common_usergroup')->fetch_all_by_type($conditions) as $group) {
-			$grouplist .= "<option value=\"$group[groupid]\">$group[grouptitle]</option>\n";
+			$grouplist .= "<option value=\"{$group['groupid']}\">{$group['grouptitle']}</option>\n";
 		}
 		$grouplist .= '</select>';
 		cpmsg('usergroups_edit_nonexistence', 'action=usergroups&operation=edit'.(!empty($_GET['highlight']) ? "&highlight={$_GET['highlight']}" : '').(!empty($_GET['highlight']) ? "&anchor={$_GET['anchor']}" : ''), 'form', array(), $grouplist);
@@ -560,7 +560,7 @@ EOT;
 				} else {
 					$groupicon = $_G['setting']['attachurl'].'common/'.$group['icon'].'?'.random(6);
 				}
-				$groupiconhtml = '<label><input type="checkbox" class="checkbox" name="deleteicon[$group[groupid]]" value="yes" /> '.$lang['delete'].'</label><br /><img src="'.$groupicon.'" />';
+				$groupiconhtml = '<label><input type="checkbox" class="checkbox" name="deleteicon['.$group['groupid'].']" value="yes" /> '.$lang['delete'].'</label><br /><img src="'.$groupicon.'" />';
 			}
 			showsetting('usergroups_icon', 'iconnew', $group['icon'], 'filetext', '', 0, $groupiconhtml);
 		}
@@ -1039,7 +1039,7 @@ EOT;
 		if(!$multiset) {
 			$dataarr['system'] = $systemnew;
 			if($_FILES['iconnew']) {
-				$data = array('extid' => "$_GET[id]");
+				$data = array('extid' => "{$_GET['id']}");
 				$iconnew = upload_icon_banner($data, $_FILES['iconnew'], 'usergroup_icon');
 			} else {
 				$iconnew = $_GET['iconnew'];
@@ -1217,7 +1217,7 @@ EOT;
 		$groupselect = array();
 		foreach(C::t('common_usergroup')->fetch_all_not(array(6, 7), true) as $group) {
 			$group['type'] = $group['type'] == 'special' && $group['radminid'] ? 'specialadmin' : $group['type'];
-			$groupselect[$group['type']] .= "<option value=\"$group[groupid]\">$group[grouptitle]</option>\n";
+			$groupselect[$group['type']] .= "<option value=\"{$group['groupid']}\">{$group['grouptitle']}</option>\n";
 		}
 		$groupselect = '<optgroup label="'.$lang['usergroups_member'].'">'.$groupselect['member'].'</optgroup>'.
 			($groupselect['special'] ? '<optgroup label="'.$lang['usergroups_special'].'">'.$groupselect['special'].'</optgroup>' : '').
@@ -1314,7 +1314,7 @@ EOT;
 		$groupselect = array();
 		foreach(C::t('common_usergroup')->fetch_all_not(array(6, 7), true) as $group) {
 			$group['type'] = $group['type'] == 'special' && $group['radminid'] ? 'specialadmin' : $group['type'];
-			$groupselect[$group['type']] .= "<option value=\"$group[groupid]\">$group[grouptitle]</option>\n";
+			$groupselect[$group['type']] .= "<option value=\"{$group['groupid']}\">{$group['grouptitle']}</option>\n";
 		}
 		$groupselect = '<optgroup label="'.$lang['usergroups_member'].'">'.$groupselect['member'].'</optgroup>'.
 			($groupselect['special'] ? '<optgroup label="'.$lang['usergroups_special'].'">'.$groupselect['special'].'</optgroup>' : '');

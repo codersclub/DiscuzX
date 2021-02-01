@@ -92,13 +92,13 @@ if($operation == 'verify') {
 			$orderby = array($orderby => ' selected');
 			$datehtml = $orderbyhtml = '';
 			if($anchor != 'pass') {
-				$datehtml = "<tr><th>$searchlang[members_verify_dateline]</th><td colspan=\"3\">
-					<input type=\"text\" name=\"dateline1\" value=\"$_GET[dateline1]\" size=\"10\" onclick=\"showcalendar(event, this)\"> ~
-					<input type=\"text\" name=\"dateline2\" value=\"$_GET[dateline2]\" size=\"10\" onclick=\"showcalendar(event, this)\"> (YYYY-MM-DD)
+				$datehtml = "<tr><th>{$searchlang['members_verify_dateline']}</th><td colspan=\"3\">
+					<input type=\"text\" name=\"dateline1\" value=\"{$_GET['dateline1']}\" size=\"10\" onclick=\"showcalendar(event, this)\"> ~
+					<input type=\"text\" name=\"dateline2\" value=\"{$_GET['dateline2']}\" size=\"10\" onclick=\"showcalendar(event, this)\"> (YYYY-MM-DD)
 					</td></tr>";
-				$orderbyhtml = "<select name=\"orderby\"><option value=\"dateline\"$orderby[dateline]>$searchlang[members_verify_dateline]</option>	</select>";
+				$orderbyhtml = "<select name=\"orderby\"><option value=\"dateline\"{$orderby['dateline']}>{$searchlang['members_verify_dateline']}</option>	</select>";
 			} else {
-				$orderbyhtml = "<select name=\"orderby\"><option value=\"uid\"$orderby[dateline]>$searchlang[members_verify_uid]</option>	</select>";
+				$orderbyhtml = "<select name=\"orderby\"><option value=\"uid\"{$orderby['dateline']}>{$searchlang['members_verify_uid']}</option>	</select>";
 			}
 
 
@@ -113,30 +113,30 @@ echo <<<EOF
 				<div class="block style4">
 					<table cellspacing="3" cellpadding="3">
 					<tr>
-						<th>$searchlang[members_verify_username]* </th><td><input type="text" name="username" value="$_GET[username]"></td>
-						<th>$searchlang[members_verify_uid]</th><td><input type="text" name="uid" value="$_GET[uid]"> *$searchlang[likesupport]</td>
+						<th>{$searchlang['members_verify_username']}* </th><td><input type="text" name="username" value="{$_GET['username']}"></td>
+						<th>{$searchlang['members_verify_uid']}</th><td><input type="text" name="uid" value="{$_GET['uid']}"> *{$searchlang['likesupport']}</td>
 
 					</tr>
 					$datehtml
 					<tr>
-						<th>$searchlang[resultsort]</th>
+						<th>{$searchlang['resultsort']}</th>
 						<td colspan="3">
 							$orderbyhtml
 							<select name="ordersc">
-							<option value="desc"$ordersc[desc]>$searchlang[orderdesc]</option>
-							<option value="asc"$ordersc[asc]>$searchlang[orderasc]</option>
+							<option value="desc"{$ordersc['desc']}>{$searchlang['orderdesc']}</option>
+							<option value="asc"{$ordersc['asc']}>{$searchlang['orderasc']}</option>
 							</select>
 							<select name="perpage">
-							<option value="10"$perpages[10]>$searchlang[perpage_10]</option>
-							<option value="20"$perpages[20]>$searchlang[perpage_20]</option>
-							<option value="50"$perpages[50]>$searchlang[perpage_50]</option>
-							<option value="100"$perpages[100]>$searchlang[perpage_100]</option>
+							<option value="10"{$perpages[10]}>{$searchlang['perpage_10']}</option>
+							<option value="20"{$perpages[20]}>{$searchlang['perpage_20']}</option>
+							<option value="50"{$perpages[50]}>{$searchlang['perpage_50']}</option>
+							<option value="100"{$perpages[100]}>{$searchlang['perpage_100']}</option>
 							</select>
 							<input type="hidden" name="action" value="verify">
 							<input type="hidden" name="operation" value="verify">
 							<input type="hidden" name="do" value="$vid">
 							<input type="hidden" name="anchor" value="$anchor">
-							<input type="submit" name="searchsubmit" value="$searchlang[search]" class="btn">$expertsearch
+							<input type="submit" name="searchsubmit" value="{$searchlang['search']}" class="btn">$expertsearch
 						</td>
 					</tr>
 					</table>
@@ -249,7 +249,7 @@ EOF;
 			$multipage = '';
 
 			showformheader("verify&operation=verify&do=".$vid.'&anchor='.$anchor);
-			echo "<script>disallowfloat = '{$_G[setting][disallowfloat]}';</script><input type=\"hidden\" name=\"verifysubmit\" value=\"trun\" />";
+			echo "<script>disallowfloat = '{$_G['setting']['disallowfloat']}';</script><input type=\"hidden\" name=\"verifysubmit\" value=\"trun\" />";
 			showtableheader('members_verify_manage', 'fixpadding');
 
 			if($anchor != 'pass') {
@@ -284,7 +284,7 @@ EOF;
 						$verifytype = $value['verifytype'] ? $_G['setting']['verify'][$value['verifytype']]['title'] : $lang['members_verify_profile'];
 						$fieldstr = '<table width="96%">';
 						$i = 0;
-						$fieldstr .= '<tr>'.($anchor == 'authstr' ? '<td width="26">'.$lang[members_verify_refusal].'</td>' : '').'<td width="100">'.$lang['members_verify_fieldid'].'</td><td>'.$lang['members_verify_newvalue'].'</td></tr><tbody id="verifyitem_'.$value[vid].'">';
+						$fieldstr .= '<tr>'.($anchor == 'authstr' ? '<td width="26">'.$lang['members_verify_refusal'].'</td>' : '').'<td width="100">'.$lang['members_verify_fieldid'].'</td><td>'.$lang['members_verify_newvalue'].'</td></tr><tbody id="verifyitem_'.$value['vid'].'">';
 						$i++;
 						foreach($fields as $key => $field) {
 							if(in_array($key, array('constellation', 'zodiac', 'birthyear', 'birthmonth', 'birthprovince', 'birthdist', 'birthcommunity', 'resideprovince', 'residedist', 'residecommunity'))) {
@@ -305,15 +305,15 @@ EOF;
 						$opstr = "";
 
 						if($anchor == 'authstr') {
-							$opstr .= "<label><input class=\"radio\" type=\"radio\" name=\"verify[$value[vid]]\" value=\"validate\" onclick=\"mod_setbg($value[vid], 'validate');showreason($value[vid], 0);\">$lang[validate]</label>&nbsp;<label><input class=\"radio\" type=\"radio\" name=\"verify[$value[vid]]\" value=\"refusal\" id=\"refusal$value[vid]\" onclick=\"mod_setbg($value[vid], 'refusal');showreason($value[vid], 1);\">$lang[members_verify_refusal]</label>";
+							$opstr .= "<label><input class=\"radio\" type=\"radio\" name=\"verify[{$value['vid']}]\" value=\"validate\" onclick=\"mod_setbg({$value['vid']}, 'validate');showreason({$value['vid']}, 0);\">{$lang['validate']}</label>&nbsp;<label><input class=\"radio\" type=\"radio\" name=\"verify[{$value['vid']}]\" value=\"refusal\" id=\"refusal{$value['vid']}\" onclick=\"mod_setbg({$value['vid']}, 'refusal');showreason({$value['vid']}, 1);\">{$lang['members_verify_refusal']}</label>";
 						} elseif ($anchor == 'refusal') {
-							$opstr .= "<label><input class=\"radio\" type=\"radio\" name=\"verify[$value[vid]]\" value=\"validate\" onclick=\"mod_setbg($value[vid], 'validate');\">$lang[validate]</label>";
+							$opstr .= "<label><input class=\"radio\" type=\"radio\" name=\"verify[{$value['vid']}]\" value=\"validate\" onclick=\"mod_setbg({$value['vid']}, 'validate');\">{$lang['validate']}</label>";
 						}
 
-						$fieldstr .= "</tbody><tr><td colspan=\"5\">$opstr &nbsp;<span id=\"reason_$value[vid]\" style=\"display: none;\">$lang[moderate_reasonpm]&nbsp; <input type=\"text\" class=\"txt\" name=\"reason[$value[vid]]\" style=\"margin: 0px;\"></span>&nbsp;<input type=\"button\" value=\"$lang[moderate]\" name=\"singleverifysubmit\" class=\"btn\" onclick=\"singleverify($value[vid]);\"></td></tr></table>";
+						$fieldstr .= "</tbody><tr><td colspan=\"5\">$opstr &nbsp;<span id=\"reason_{$value['vid']}\" style=\"display: none;\">{$lang['moderate_reasonpm']}&nbsp; <input type=\"text\" class=\"txt\" name=\"reason[{$value['vid']}]\" style=\"margin: 0px;\"></span>&nbsp;<input type=\"button\" value=\"{$lang['moderate']}\" name=\"singleverifysubmit\" class=\"btn\" onclick=\"singleverify({$value['vid']}});\"></td></tr></table>";
 
 						$valuearr = array($value['username'], $verifytype, dgmdate($value['dateline'], 'dt'), $fieldstr);
-						showtablerow("id=\"mod_$value[vid]_row\" verifyid=\"$value[vid]\"", $cssarr, $valuearr);
+						showtablerow("id=\"mod_{$value['vid']}_row\" verifyid=\"{$value['vid']}}\"", $cssarr, $valuearr);
 					} else {
 						$fields = $_G['setting']['verify'][$vid]['field'];
 						$verifytype = $vid ? $_G['setting']['verify'][$vid]['title'] : $lang['members_verify_profile'];
@@ -336,9 +336,9 @@ EOF;
 							}
 						}
 						$fieldstr .= "</table>";
-						$opstr = "<ul class=\"nofloat\"><li><label><input class=\"radio\" type=\"radio\" name=\"verify[$value[uid]]\" value=\"export\" onclick=\"mod_setbg($value[uid], 'validate');\">$lang[export]</label></li><li><label><input class=\"radio\" type=\"radio\" name=\"verify[$value[uid]]\" value=\"refusal\" onclick=\"mod_setbg($value[uid], 'refusal');\">$lang[members_verify_refusal]</label></li></ul>";
+						$opstr = "<ul class=\"nofloat\"><li><label><input class=\"radio\" type=\"radio\" name=\"verify[{$value['uid']}]\" value=\"export\" onclick=\"mod_setbg({$value['uid']}, 'validate');\">{$lang['export']}</label></li><li><label><input class=\"radio\" type=\"radio\" name=\"verify[{$value['uid']}]\" value=\"refusal\" onclick=\"mod_setbg({$value['uid']}, 'refusal');\">{$lang['members_verify_refusal']}</label></li></ul>";
 						$valuearr = array($opstr, $value['username'], $verifytype, $fieldstr);
-						showtablerow("id=\"mod_$value[uid]_row\"", $cssarr, $valuearr);
+						showtablerow("id=\"mod_{$value['uid']}_row\"", $cssarr, $valuearr);
 					}
 				}
 				$multipage = multi($count, $perpage, $page, $mpurl);
@@ -554,7 +554,7 @@ EOF;
 		$groupselect = array();
 		foreach(C::t('common_usergroup')->fetch_all_not(array(6, 7)) as $group) {
 			$group['type'] = $group['type'] == 'special' && $group['radminid'] ? 'specialadmin' : $group['type'];
-			$groupselect[$group['type']] .= "<option value=\"$group[groupid]\" ".((is_array($verifyarr['groupid']) && in_array($group['groupid'], $verifyarr['groupid'])) ? 'selected' : '').">$group[grouptitle]</option>\n";
+			$groupselect[$group['type']] .= "<option value=\"{$group['groupid']}\" ".((is_array($verifyarr['groupid']) && in_array($group['groupid'], $verifyarr['groupid'])) ? 'selected' : '').">{$group['grouptitle']}</option>\n";
 		}
 		$groupselect = '<optgroup label="'.$lang['usergroups_member'].'">'.$groupselect['member'].'</optgroup>'.
 			($groupselect['special'] ? '<optgroup label="'.$lang['usergroups_special'].'">'.$groupselect['special'].'</optgroup>' : '').

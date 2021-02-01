@@ -103,14 +103,14 @@ EOT;
 	showhiddenfields(array('page' => $page, 'pp' => $_GET['pp'] ? $_GET['pp'] : $_GET['perpage']));
 	showtableheader();
 	showsetting('blog_search_detail', 'detail', $detail, 'radio');
-	showsetting('blog_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>$lang[perpage_20]</option><option value='50'>$lang[perpage_50]</option><option value='100'>$lang[perpage_100]</option></select>");
-	showsetting('resultsort', '', $orderby, "<select name='orderby'><option value=''>$lang[defaultsort]</option><option value='dateline'>$lang[forums_edit_extend_order_starttime]</option><option value='viewnum'>$lang[blog_search_view]</option><option value='replynum'>$lang[blog_search_reply]</option><option value='hot'>$lang[blog_search_hot]</option></select> ");
-	showsetting('', '', $ordersc, "<select name='ordersc'><option value='desc'>$lang[orderdesc]</option><option value='asc'>$lang[orderasc]</option></select>", '', 0, '', '', '', true);
+	showsetting('blog_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>{$lang['perpage_20']}</option><option value='50'>{$lang['perpage_50']}</option><option value='100'>{$lang['perpage_100']}</option></select>");
+	showsetting('resultsort', '', $orderby, "<select name='orderby'><option value=''>{$lang['defaultsort']}</option><option value='dateline'>{$lang['forums_edit_extend_order_starttime']}</option><option value='viewnum'>{$lang['blog_search_view']}</option><option value='replynum'>{$lang['blog_search_reply']}</option><option value='hot'>{$lang['blog_search_hot']}</option></select> ");
+	showsetting('', '', $ordersc, "<select name='ordersc'><option value='desc'>{$lang['orderdesc']}</option><option value='asc'>{$lang['orderasc']}</option></select>", '', 0, '', '', '', true);
 	showsetting('blog_search_uid', 'uid', $uid, 'text');
 	showsetting('blog_search_blogid', 'blogid', $blogid, 'text');
 	showsetting('blog_search_user', 'users', $users, 'text');
 	showsetting('blog_search_keyword', 'keywords', $keywords, 'text');
-	showsetting('blog_search_friend', '', $friend, "<select name='friend'><option value='0'>$lang[setting_home_privacy_alluser]</option><option value='1'>$lang[setting_home_privacy_friend]</option><option value='2'>$lang[setting_home_privacy_specified_friend]</option><option value='3'>$lang[setting_home_privacy_self]</option><option value='4'>$lang[setting_home_privacy_password]</option></select>");
+	showsetting('blog_search_friend', '', $friend, "<select name='friend'><option value='0'>{$lang['setting_home_privacy_alluser']}</option><option value='1'>{$lang['setting_home_privacy_friend']}</option><option value='2'>{$lang['setting_home_privacy_specified_friend']}</option><option value='3'>{$lang['setting_home_privacy_self']}</option><option value='4'>{$lang['setting_home_privacy_password']}</option></select>");
 	showsetting('blog_search_ip', 'ip', $ip, 'text');
 	showsetting('blog_search_lengthlimit', 'lengthlimit', $lengthlimit, 'text');
 	showsetting('blog_search_view', array('viewnum1', 'viewnum2'), array('', ''), 'range');
@@ -236,29 +236,29 @@ if(submitcheck('searchsubmit', 1) || $newlist) {
 				$blog['subject'] = cutstr($blog['subject'], 30);
 				switch ($blog['friend']) {
 					case '0':
-						$privacy_name = $lang[setting_home_privacy_alluser];
+						$privacy_name = $lang['setting_home_privacy_alluser'];
 						break;
 					case '1':
-						$privacy_name = $lang[setting_home_privacy_friend];
+						$privacy_name = $lang['setting_home_privacy_friend'];
 						break;
 					case '2':
-						$privacy_name = $lang[setting_home_privacy_specified_friend];
+						$privacy_name = $lang['setting_home_privacy_specified_friend'];
 						break;
 					case '3':
-						$privacy_name = $lang[setting_home_privacy_self];
+						$privacy_name = $lang['setting_home_privacy_self'];
 						break;
 					case '4':
-						$privacy_name = $lang[setting_home_privacy_password];
+						$privacy_name = $lang['setting_home_privacy_password'];
 						break;
 					default:
-						$privacy_name = $lang[setting_home_privacy_alluser];
+						$privacy_name = $lang['setting_home_privacy_alluser'];
 				}
-				$blog['friend'] = $blog['friend'] ? " <a href=\"".ADMINSCRIPT."?action=blog&friend=$blog[friend]\">$privacy_name</a>" : $privacy_name;
+				$blog['friend'] = $blog['friend'] ? " <a href=\"".ADMINSCRIPT."?action=blog&friend={$blog['friend']}\">$privacy_name</a>" : $privacy_name;
 				$blogs .= showtablerow('', '', array(
-					"<input class=\"checkbox\" type=\"checkbox\" name=\"ids[]\" value=\"$blog[blogid]\" />",
+					"<input class=\"checkbox\" type=\"checkbox\" name=\"ids[]\" value=\"{$blog['blogid']}\" />",
 					$blog['blogid'],
-					"<a href=\"home.php?mod=space&uid=$blog[uid]\" target=\"_blank\">$blog[username]</a>",
-					"<a href=\"home.php?mod=space&uid=$blog[uid]&do=blog&id=$blog[blogid]\" target=\"_blank\">$blog[subject]</a>",
+					"<a href=\"home.php?mod=space&uid={$blog['uid']}\" target=\"_blank\">{$blog['username']}</a>",
+					"<a href=\"home.php?mod=space&uid={$blog['uid']}&do=blog&id={$blog['blogid']}\" target=\"_blank\">{$blog['subject']}</a>",
 					$blog['viewnum'],
 					$blog['replynum'],
 					$blog['hot'],

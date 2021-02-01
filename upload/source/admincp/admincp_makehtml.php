@@ -67,7 +67,7 @@ form.onsubmit = function(){return false;};
 _attachEvent($('submit_portal_html'), 'click', function(){
 	$('mk_result').style.display = 'block';
 	$('mk_index').style.display = 'none';
-	this.innerHTML = '$lang[makehtml_recreate]';
+	this.innerHTML = '{$lang['makehtml_recreate']}';
 	var starttime = form['starttime'].value;
 	if(starttime){
 		make_html_article(starttime);
@@ -77,18 +77,18 @@ _attachEvent($('submit_portal_html'), 'click', function(){
 
 function make_html_ok() {
 	var dom = $('mk_index');
-	dom.innerHTML = '<div class="mk_msg">$lang[makehtml_allfilecomplete]</div>';
+	dom.innerHTML = '<div class="mk_msg">{$lang['makehtml_allfilecomplete']}</div>';
 }
 function make_html_index() {
 	var dom = $('mk_index');
-	dom.innerHTML = '<div class="mk_msg">$lang[makehtml_waitmaking]</div>';
+	dom.innerHTML = '<div class="mk_msg">{$lang['makehtml_waitmaking']}</div>';
 	dom.style.display = 'block';
 	new make_html_batch('portal.php?', 0, make_html_ok, dom, 1);
 }
 
 function make_html_category(starttime){
 	var dom = $('mk_category');
-	dom.innerHTML = '<div class="mk_msg">$lang[makehtml_waitmakingcategory]</div>';
+	dom.innerHTML = '<div class="mk_msg">{$lang['makehtml_waitmakingcategory']}</div>';
 	dom.style.display = 'block';
 	starttime = starttime || form['starttime'].value;
 	var x = new Ajax();
@@ -96,7 +96,7 @@ function make_html_category(starttime){
 		if(s) {
 			new make_html_batch('portal.php?mod=list&catid=', s.split(','), make_html_topic, dom);
 		} else {
-			dom.innerHTML = '$lang[makehtml_nofindcategory]<br/>$lang[makehtml_startmaketopic]<br /><a href="javascript:void(0);" onclick="\$(\'mk_category\').style.display = \'none\';make_html_topic();">$lang[makehtml_browser_error]</a>';
+			dom.innerHTML = '{$lang['makehtml_nofindcategory']}<br/>{$lang['makehtml_startmaketopic']}<br /><a href="javascript:void(0);" onclick="\$(\'mk_category\').style.display = \'none\';make_html_topic();">{$lang['makehtml_browser_error']}</a>';
 			setTimeout(function(){\$('mk_category').style.display = 'none'; make_html_topic();}, 1000);
 		}
 	});
@@ -104,7 +104,7 @@ function make_html_category(starttime){
 
 function make_html_topic(starttime){
 	var dom = $('mk_topic');
-	dom.innerHTML = '<div class="mk_msg">$lang[makehtml_waitchecktopic]</div>';
+	dom.innerHTML = '<div class="mk_msg">{$lang['makehtml_waitchecktopic']}</div>';
 	dom.style.display = 'block';
 	starttime = starttime || form['starttime'].value;
 	var x = new Ajax();
@@ -112,7 +112,7 @@ function make_html_topic(starttime){
 		if(s) {
 			new make_html_batch('portal.php?mod=topic&topicid=', s.split(','), make_html_index, dom);
 		} else {
-			dom.innerHTML = '$lang[makehtml_nofindtopic]<br/>$lang[makehtml_startmakeindex]<br /><a href="javascript:void(0);" onclick="\$(\'mk_category\').style.display = \'none\';make_html_index();">$lang[makehtml_browser_error]</a>';
+			dom.innerHTML = '{$lang['makehtml_nofindtopic']}<br/>{$lang['makehtml_startmakeindex']}<br /><a href="javascript:void(0);" onclick="\$(\'mk_category\').style.display = \'none\';make_html_index();">{$lang['makehtml_browser_error']}</a>';
 			setTimeout(function(){\$('mk_category').style.display = 'none'; make_html_index();}, 1000);
 		}
 	});
@@ -120,14 +120,14 @@ function make_html_topic(starttime){
 
 function make_html_article(starttime) {
 	var dom = $('mk_article');
-	dom.innerHTML = '<div class="mk_msg">$lang[makehtml_waitcheckarticle]</div>';
+	dom.innerHTML = '<div class="mk_msg">{$lang['makehtml_waitcheckarticle']}</div>';
 	dom.style.display = 'block';
 	var x = new Ajax();
 	x.get('$adminscript?action=makehtml&operation=aids&inajax=1&frame=no&starttime='+starttime, function (s) {
 		if(s){
 			new make_html_batch('portal.php?mod=view&aid=', s.split(','), make_html_category, dom);
 		} else {
-			dom.innerHTML = '$lang[makehtml_nofindarticle]<br/>$lang[makehtml_startmakecategory]<br /><a href="javascript:void(0);" onclick="\$(\'mk_article\').style.display = \'none\';make_html_category();">$lang[makehtml_browser_error]</a>';
+			dom.innerHTML = '{$lang['makehtml_nofindarticle']}<br/>{$lang['makehtml_startmakecategory']}<br /><a href="javascript:void(0);" onclick="\$(\'mk_article\').style.display = \'none\';make_html_category();">{$lang['makehtml_browser_error']}</a>';
 			setTimeout(function(){\$('mk_article').style.display = 'none'; make_html_category();}, 1000);
 		}
 	});
@@ -154,7 +154,7 @@ form.onsubmit = function(){return false;};
 _attachEvent($('submit_portal_html'), 'click', function(){
 	$('mk_result').style.display = 'block';
 	$('mk_index').style.display = 'none';
-	this.innerHTML = '$lang[makehtml_recreate]';
+	this.innerHTML = '{$lang['makehtml_recreate']}';
 	this.disabled = true;
 	make_html_index();
 	return false;
@@ -162,7 +162,7 @@ _attachEvent($('submit_portal_html'), 'click', function(){
 
 function make_html_index() {
 	var dom = $('mk_index');
-	dom.innerHTML = '<div class="mk_msg">$lang[makehtml_waitmaking]</div>';
+	dom.innerHTML = '<div class="mk_msg">{$lang['makehtml_waitmaking']}</div>';
 	dom.style.display = 'block';
 	new make_html_batch('portal.php?', 0, null, dom, 1);
 }
@@ -193,7 +193,7 @@ form.onsubmit = function(){return false;};
 _attachEvent($('submit_portal_html'), 'click', function(){
 	$('mk_result').style.display = 'block';
 	$('mk_index').style.display = 'none';
-	this.innerHTML = '$lang[makehtml_recreate]';
+	this.innerHTML = '{$lang['makehtml_recreate']}';
 	var starttime = form['starttime'].value;
 	if(starttime){
 		make_html_category(starttime);
@@ -213,7 +213,7 @@ _attachEvent($('submit_portal_html'), 'click', function(){
 		} else {
 			var dom = $('mk_index');
 			dom.style.display = 'block';
-			dom.innerHTML = '$lang[makehtml_nofindcategory]';
+			dom.innerHTML = '{$lang['makehtml_nofindcategory']}';
 		}
 	}
 	return false;
@@ -223,11 +223,11 @@ function make_html_category_ok() {
 	var dom = $('mk_index');
 	dom.style.display = 'block';
 	dom.style.color = 'green';
-	dom.innerHTML = '<div class="mk_msg">$lang[makehtml_selectcategorycomplete]</div>';
+	dom.innerHTML = '<div class="mk_msg">{$lang['makehtml_selectcategorycomplete']}</div>';
 }
 function make_html_category(starttime){
 	var dom = $('mk_category');
-	dom.innerHTML = '<div class="mk_msg">$lang[makehtml_waitmakingcategory]</div>';
+	dom.innerHTML = '<div class="mk_msg">{$lang['makehtml_waitmakingcategory']}</div>';
 	dom.style.display = 'block';
 	starttime = starttime || form['starttime'].value;
 	var x = new Ajax();
@@ -235,7 +235,7 @@ function make_html_category(starttime){
 		if(s) {
 			new make_html_batch('portal.php?mod=list&catid=', s.split(','), make_html_category_ok, dom);
 		} else {
-			dom.innerHTML = '$lang[makehtml_nofindcategory]';
+			dom.innerHTML = '{$lang['makehtml_nofindcategory']}';
 			setTimeout(function(){\$('mk_category').style.display = 'none'; make_html_index();}, 1000);
 		}
 	});
@@ -270,7 +270,7 @@ form.onsubmit = function(){return false;};
 _attachEvent($('submit_portal_html'), 'click', function(){
 	$('mk_result').style.display = 'block';
 	$('mk_index').style.display = 'none';
-	this.innerHTML = '$lang[makehtml_recreate]';
+	this.innerHTML = '{$lang['makehtml_recreate']}';
 	var starttime = form['starttime'].value;
 	var category = form['category'];
 	var allcatids = [];
@@ -289,7 +289,7 @@ _attachEvent($('submit_portal_html'), 'click', function(){
 	} else {
 		var dom = $('mk_index');
 		dom.style.display = 'block';
-		dom.innerHTML = '$lang[makehtml_nofindarticle]';
+		dom.innerHTML = '{$lang['makehtml_nofindarticle']}';
 	}
 	return false;
 });
@@ -298,7 +298,7 @@ function make_html_article_ok() {
 	var dom = $('mk_index');
 	dom.style.display = 'block';
 	dom.style.color = 'green';
-	dom.innerHTML = '<div class="mk_msg">$lang[makehtml_allarticlecomplete]</div>';
+	dom.innerHTML = '<div class="mk_msg">{$lang['makehtml_allarticlecomplete']}</div>';
 }
 
 function make_html_article(starttime, catids, startid, endid) {
@@ -306,14 +306,14 @@ function make_html_article(starttime, catids, startid, endid) {
 	startid = startid || 0;
 	endid = endid || 0;
 	var dom = $('mk_article');
-	dom.innerHTML = '<div class="mk_msg">$lang[makehtml_waitcheckarticle]</div>';
+	dom.innerHTML = '<div class="mk_msg">{$lang['makehtml_waitcheckarticle']}</div>';
 	dom.style.display = 'block';
 	var x = new Ajax();
 	x.get('$adminscript?action=makehtml&operation=aids&inajax=1&frame=no&starttime='+starttime+'&catids='+(catids == -1 ? '' : catids.join(','))+'&startid='+startid+'&endid='+endid, function (s) {
 		if(s && s.indexOf('<') < 0){
 			new make_html_batch('portal.php?mod=view&aid=', s.split(','), make_html_article_ok, dom);
 		} else {
-			dom.innerHTML = '$lang[makehtml_nofindarticle]';
+			dom.innerHTML = '{$lang['makehtml_nofindarticle']}';
 		}
 	});
 }
@@ -355,14 +355,14 @@ form.onsubmit = function(){return false;};
 _attachEvent($('submit_portal_html'), 'click', function(){
 	$('mk_result').style.display = 'block';
 	$('mk_index').style.display = 'none';
-	this.innerHTML = '$lang[makehtml_recreate]';
+	this.innerHTML = '{$lang['makehtml_recreate']}';
 	var starttime = form['starttime'].value;
 	if(starttime) {
 		make_html_topic(starttime);
 	} else {
 		var dom = $('mk_index');
 		dom.style.display = 'block';
-		dom.innerHTML = '$lang[makehtml_nofindtopic]';
+		dom.innerHTML = '{$lang['makehtml_nofindtopic']}';
 	}
 	return false;
 });
@@ -371,19 +371,19 @@ function make_html_topic_ok() {
 	var dom = $('mk_index');
 	dom.style.display = 'block';
 	dom.style.color = 'green';
-	dom.innerHTML = '<div class="mk_msg">$lang[makehtml_alltopiccomplete]</div>';
+	dom.innerHTML = '<div class="mk_msg">{$lang['makehtml_alltopiccomplete']}</div>';
 }
 
 function make_html_topic(starttime) {
 	var dom = $('mk_topic');
-	dom.innerHTML = '<div class="mk_msg">$lang[makehtml_waitchecktopic]</div>';
+	dom.innerHTML = '<div class="mk_msg">{$lang['makehtml_waitchecktopic']}</div>';
 	dom.style.display = 'block';
 	var x = new Ajax();
 	x.get('$adminscript?action=makehtml&operation=topicids&inajax=1&frame=no&starttime='+starttime, function (s) {
 		if(s && s.indexOf('<') < 0){
 			new make_html_batch('portal.php?mod=topic&topicid=', s.split(','), make_html_topic_ok, dom);
 		} else {
-			dom.innerHTML = '$lang[makehtml_nofindtopic]';
+			dom.innerHTML = '{$lang['makehtml_nofindtopic']}';
 		}
 	});
 }

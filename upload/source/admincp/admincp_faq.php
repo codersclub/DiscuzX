@@ -29,7 +29,7 @@ if($operation == 'list') {
 		foreach(C::t('forum_faq')->fetch_all_by_fpid() as $faq) {
 			if(empty($faq['fpid'])) {
 				$faqparent[$faq['id']] = $faq;
-				$faqselect .= "<option value=\"$faq[id]\">$faq[title]</option>";
+				$faqselect .= "<option value=\"{$faq['id']}\">{$faq['title']}</option>";
 			} else {
 				$faqsub[$faq['fpid']][] = $faq;
 			}
@@ -38,18 +38,18 @@ if($operation == 'list') {
 		foreach($faqparent as $parent) {
 			$disabled = !empty($faqsub[$parent['id']]) ? 'disabled' : '';
 			showtablerow('', array('', 'class="td23 td28"'), array(
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$parent[id]\" $disabled>",
-				"<input type=\"text\" class=\"txt\" size=\"3\" name=\"displayorder[$parent[id]]\" value=\"$parent[displayorder]\">",
-				"<div class=\"parentnode\"><input type=\"text\" class=\"txt\" size=\"30\" name=\"title[$parent[id]]\" value=\"".dhtmlspecialchars($parent['title'])."\"></div>",
-				"<a href=\"".ADMINSCRIPT."?action=faq&operation=detail&id=$parent[id]\" class=\"act\">".$lang['detail']."</a>"
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$parent['id']}\" $disabled>",
+				"<input type=\"text\" class=\"txt\" size=\"3\" name=\"displayorder[{$parent['id']}]\" value=\"{$parent['displayorder']}\">",
+				"<div class=\"parentnode\"><input type=\"text\" class=\"txt\" size=\"30\" name=\"title[{$parent['id']}]\" value=\"".dhtmlspecialchars($parent['title'])."\"></div>",
+				"<a href=\"".ADMINSCRIPT."?action=faq&operation=detail&id={$parent['id']}\" class=\"act\">".$lang['detail']."</a>"
 			));
 			if(!empty($faqsub[$parent['id']])) {
 				foreach($faqsub[$parent['id']] as $sub) {
 					showtablerow('', array('', 'class="td23 td28"'), array(
-						"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$sub[id]\">",
-						"<input type=\"text\" class=\"txt\" size=\"3\" name=\"displayorder[$sub[id]]\" value=\"$sub[displayorder]\">",
-						"<div class=\"node\"><input type=\"text\" class=\"txt\" size=\"30\" name=\"title[$sub[id]]\" value=\"".dhtmlspecialchars($sub['title'])."\"></div>",
-						"<a href=\"".ADMINSCRIPT."?action=faq&operation=detail&id=$sub[id]\" class=\"act\">".$lang['detail']."</a>"
+						"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$sub['id']}\">",
+						"<input type=\"text\" class=\"txt\" size=\"3\" name=\"displayorder[{$sub['id']}]\" value=\"{$sub['displayorder']}\">",
+						"<div class=\"node\"><input type=\"text\" class=\"txt\" size=\"30\" name=\"title[{$sub['id']}]\" value=\"".dhtmlspecialchars($sub['title'])."\"></div>",
+						"<a href=\"".ADMINSCRIPT."?action=faq&operation=detail&id={$sub['id']}\" class=\"act\">".$lang['detail']."</a>"
 					));
 				}
 			}
@@ -112,7 +112,7 @@ EOT;
 		}
 
 		foreach(C::t('forum_faq')->fetch_all_by_fpid(0) as $parent) {
-			$faqselect .= "<option value=\"$parent[id]\" ".($faq['fpid'] == $parent['id'] ? 'selected' : '').">$parent[title]</option>";
+			$faqselect .= "<option value=\"{$parent['id']}\" ".($faq['fpid'] == $parent['id'] ? 'selected' : '').">{$parent['title']}</option>";
 		}
 
 		shownav('extended', 'faq');

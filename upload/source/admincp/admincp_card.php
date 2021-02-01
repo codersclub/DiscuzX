@@ -176,13 +176,13 @@ if($operation == 'set') {
 
 		foreach($cardlist AS $key => $val) {
 			showtablerow('', array('class="smallefont"', '', '', '', '', '', '', '', '', '', '', ''), array(
-				'<input class="checkbox" type="checkbox" name="delete[]" value="'.$val[id].'">',
+				'<input class="checkbox" type="checkbox" name="delete[]" value="'.$val['id'].'">',
 				$val['id'],
 				$val['price'].cplang('card_make_price_unit'),
 				$val['extcreditsval'].$_G['setting']['extcredits'][$val['extcreditskey']]['title'],
 				$card_type[$val['typeid']]['typename'] ? $card_type[$val['typeid']]['typename'] : cplang('card_type_default'),
 				cplang("card_manage_status_".$val['status']),
-				$val['uid'] ? "<a href='home.php?mod=space&uid={$val[uid]}' target='_blank'>".$members[$val['uid']]['username'] : ' -- ',
+				$val['uid'] ? "<a href='home.php?mod=space&uid={$val['uid']}' target='_blank'>".$members[$val['uid']]['username'] : ' -- ',
 				$val['useddateline'] ? dgmdate($val['useddateline']) : ' -- ',
 				$val['cleardateline'] ? dgmdate($val['cleardateline'], 'Y-m-d') : cplang('card_make_cleardateline_none'),
 				dgmdate($val['dateline'], 'u'),

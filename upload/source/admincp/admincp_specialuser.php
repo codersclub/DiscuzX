@@ -26,7 +26,7 @@ if($suboperation !== 'adduser') {
 			$info = C::t('home_specialuser')->fetch_by_uid_status($_GET['uid'], $status);
 			shownav('user', 'nav_defaultuser');
 			showsubmenu('edit');
-			showformheader('specialuser&operation='.$op.'&do=edit&uid='.$info[uid], '', 'userforum');
+			showformheader('specialuser&operation='.$op.'&do=edit&uid='.$info['uid'], '', 'userforum');
 			showtableheader();
 			showsetting('reason', 'reason', $info['reason'], 'text');
 			showsubmit('editsubmit');
@@ -58,14 +58,14 @@ if($suboperation !== 'adduser') {
 
 			$specialuser['dateline'] = dgmdate($specialuser['dateline']);
 			$arr = array(
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$specialuser[uid]\">",
-				"<input type=\"text\" name=\"displayorder[$specialuser[uid]]\" value=\"$specialuser[displayorder]\" size=\"8\">",
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$specialuser['uid']}\">",
+				"<input type=\"text\" name=\"displayorder[{$specialuser['uid']}]\" value=\"{$specialuser['displayorder']}\" size=\"8\">",
 				$specialuser['uid'],
-				"<a href=\"home.php?mod=space&uid=$specialuser[uid]\" target=\"_blank\">$specialuser[username]</a>",
+				"<a href=\"home.php?mod=space&uid={$specialuser['uid']}\" target=\"_blank\">{$specialuser['username']}</a>",
 				$specialuser['reason'],
-				"<a href=\"home.php?mod=space&uid=$specialuser[opuid]\" target=\"_blank\">$specialuser[opusername]</a>",
+				"<a href=\"home.php?mod=space&uid={$specialuser['opuid']}\" target=\"_blank\">{$specialuser['opusername']}</a>",
 				$specialuser['dateline'],
-				"<a href=\"".ADMINSCRIPT."?action=specialuser&operation=$op&do=edit&uid=$specialuser[uid]\" class=\"act\">".$lang['edit']."</a>"
+				"<a href=\"".ADMINSCRIPT."?action=specialuser&operation=$op&do=edit&uid={$specialuser['uid']}\" class=\"act\">".$lang['edit']."</a>"
 				);
 			showtablerow('', '', $arr);
 		}

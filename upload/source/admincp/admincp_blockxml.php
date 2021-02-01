@@ -116,9 +116,9 @@ if($operation == 'add') {
 		showtablerow('', array('class=""', 'class=""', 'class="td28"'), array(
 			$row['name'],
 			$row['url'],
-			"<a href=\"".ADMINSCRIPT."?action=blockxml&operation=update&id=$row[id]\">".cplang('blockxml_update')."</a>&nbsp;&nbsp;".
-			"<a href=\"".ADMINSCRIPT."?action=blockxml&operation=edit&id=$row[id]\">".cplang('edit')."</a>&nbsp;&nbsp;".
-			"<a href=\"".ADMINSCRIPT."?action=blockxml&operation=delete&id=$row[id]\">".cplang('delete')."</a>&nbsp;&nbsp;"
+			"<a href=\"".ADMINSCRIPT."?action=blockxml&operation=update&id={$row['id']}\">".cplang('blockxml_update')."</a>&nbsp;&nbsp;".
+			"<a href=\"".ADMINSCRIPT."?action=blockxml&operation=edit&id={$row['id']}\">".cplang('edit')."</a>&nbsp;&nbsp;".
+			"<a href=\"".ADMINSCRIPT."?action=blockxml&operation=delete&id={$row['id']}\">".cplang('delete')."</a>&nbsp;&nbsp;"
 		));
 	}
 	showtablefooter();

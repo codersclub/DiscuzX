@@ -213,7 +213,7 @@ if($operation == 'perm') {
 					$isfounder = array_key_exists($id, $founders);
 					showtablerow('style="height:20px"', array('class="td25"', 'class="td24"', 'class="td24"'), array(
 						!$isfounder || isset($adminmembers[$member['uid']]['cpgroupid']) ? "<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$id]\">" : '',
-						"<a href=\"home.php?mod=space&uid=$member[uid]\" target=\"_blank\">$member[username]</a>",
+						"<a href=\"home.php?mod=space&uid={$member['uid']}\" target=\"_blank\">{$member['username']}</a>",
 						$member['cpgroupname'],
 						!$isfounder && $adminmembers[$member['uid']]['cpgroupid'] ? '<a href="'.ADMINSCRIPT.'?action=founder&operation=perm&do=member&id='.$id.'">'.cplang('edit').'</a>' : ''
 						));
@@ -381,7 +381,7 @@ if($operation == 'perm') {
 				}
 				showtablerow('style="height:20px"', array('class="td25"', 'class="td24"', 'class="td25"', 'class="vtop"'), array(
 					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$uid\">",
-					"<input type=\"hidden\" class=\"txtnobd\" name=\"name[$uid]\" value=\"$user[username]\">$user[username]",
+					"<input type=\"hidden\" class=\"txtnobd\" name=\"name[$uid]\" value=\"{$user['username']}\">{$user['username']}",
 					'<input name="chkall_'.$uid.'" id="chkall_'.$uid.'" type="checkbox" class="checkbox" onclick="checkAll(\'prefix\', this.form, \'notifytypes_'.$uid.'\', \'chkall_'.$uid.'\', 1)" />'.cplang('select_all'),
 					$types
 					));

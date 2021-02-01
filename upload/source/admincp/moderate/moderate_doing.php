@@ -38,18 +38,18 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 
 	showtablerow('', array('width="60"', 'width="160"', 'width="60"'),
 		array(
-			cplang('username'), "<input size=\"15\" name=\"username\" type=\"text\" value=\"$_GET[username]\" />",
-			cplang('moderate_content_keyword'), "<input size=\"15\" name=\"keyword\" type=\"text\" value=\"$_GET[keyword]\" />",
+			cplang('username'), "<input size=\"15\" name=\"username\" type=\"text\" value=\"{$_GET['username']}\" />",
+			cplang('moderate_content_keyword'), "<input size=\"15\" name=\"keyword\" type=\"text\" value=\"{$_GET['keyword']}\" />",
 		)
 	);
 	showtablerow('', array('width="60"', 'width="160"', 'width="60"'),
                 array(
-                        "$lang[perpage]",
-                        "<select name=\"tpp\">$tpp_options</select><label><input name=\"showcensor\" type=\"checkbox\" class=\"checkbox\" value=\"yes\" ".($showcensor ? ' checked="checked"' : '')."/> $lang[moderate_showcensor]</label>",
-                        "$lang[moderate_bound]",
+                        "{$lang['perpage']}",
+                        "<select name=\"tpp\">$tpp_options</select><label><input name=\"showcensor\" type=\"checkbox\" class=\"checkbox\" value=\"yes\" ".($showcensor ? ' checked="checked"' : '')."/> {$lang['moderate_showcensor']}</label>",
+                        "{$lang['moderate_bound']}",
                         "<select name=\"filter\">$filteroptions</select>
                         <select name=\"dateline\">$dateline_options</select>
-                        <input class=\"btn\" type=\"submit\" value=\"$lang[search]\" />"
+                        <input class=\"btn\" type=\"submit\" value=\"{$lang['search']}\" />"
                 )
         );
 
@@ -91,19 +91,19 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 			$doing_censor_text = '';
 		}
 		showtagheader('tbody', '', true, 'hover');
-		showtablerow("id=\"mod_$doing[doid]_row1\"", array("id=\"mod_$doing[doid]_row1_op\" rowspan=\"3\" class=\"rowform threadopt\" style=\"width:80px;\"", '', 'width="120"'), array(
-			"<ul class=\"nofloat\"><li><input class=\"radio\" type=\"radio\" name=\"moderate[$doing[doid]]\" id=\"mod_$doing[doid]_1\" value=\"validate\" onclick=\"mod_setbg($doing[doid], 'validate');\"><label for=\"mod_$doing[doid]_1\">$lang[validate]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$doing[doid]]\" id=\"mod_$doing[doid]_2\" value=\"delete\" onclick=\"mod_setbg($doing[doid], 'delete');\"><label for=\"mod_$doing[doid]_2\">$lang[delete]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$doing[doid]]\" id=\"mod_$doing[doid]_3\" value=\"ignore\" onclick=\"mod_setbg($doing[doid], 'ignore');\"><label for=\"mod_$doing[doid]_3\">$lang[ignore]</label></li></ul>",
-			"<h3><a href=\"javascript:;\" onclick=\"display_toggle({$doing[doid]});\">$short_desc $doing_censor_text</a></h3><p>$doing[ip]</p>",
-			"<p><a target=\"_blank\" href=\"".ADMINSCRIPT."?action=members&operation=search&uid=$doing[uid]&submit=yes\">$doing[username]</a></p> <p>$doing[dateline]</p>",
+		showtablerow("id=\"mod_{$doing['doid']}_row1\"", array("id=\"mod_{$doing['doid']}_row1_op\" rowspan=\"3\" class=\"rowform threadopt\" style=\"width:80px;\"", '', 'width="120"'), array(
+			"<ul class=\"nofloat\"><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$doing['doid']}]\" id=\"mod_{$doing['doid']}_1\" value=\"validate\" onclick=\"mod_setbg({$doing['doid']}, 'validate');\"><label for=\"mod_{$doing['doid']}_1\">{$lang['validate']}</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$doing['doid']}]\" id=\"mod_{$doing['doid']}_2\" value=\"delete\" onclick=\"mod_setbg({$doing['doid']}, 'delete');\"><label for=\"mod_{$doing['doid']}_2\">{$lang['delete']}</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$doing['doid']}]\" id=\"mod_{$doing['doid']}_3\" value=\"ignore\" onclick=\"mod_setbg({$doing['doid']}, 'ignore');\"><label for=\"mod_{$doing['doid']}_3\">{$lang['ignore']}</label></li></ul>",
+			"<h3><a href=\"javascript:;\" onclick=\"display_toggle({$doing['doid']});\">$short_desc $doing_censor_text</a></h3><p>{$doing['ip']}</p>",
+			"<p><a target=\"_blank\" href=\"".ADMINSCRIPT."?action=members&operation=search&uid={$doing['uid']}&submit=yes\">{$doing['username']}</a></p> <p>{$doing['dateline']}</p>",
 		));
 
 
 
-		showtablerow("id=\"mod_$doing[doid]_row2\"", 'colspan="4" style="padding: 10px; line-height: 180%;"', '<div style="overflow: auto; overflow-x: hidden; max-height:120px; height:auto !important; height:100px; word-break: break-all;">'.$doing['message'].'</div>');
+		showtablerow("id=\"mod_{$doing['doid']}_row2\"", 'colspan="4" style="padding: 10px; line-height: 180%;"', '<div style="overflow: auto; overflow-x: hidden; max-height:120px; height:auto !important; height:100px; word-break: break-all;">'.$doing['message'].'</div>');
 
 
 
-		showtablerow("id=\"mod_$doing[doid]_row3\"", 'class="threadopt threadtitle" colspan="4"', "<a href=\"?action=moderate&operation=doings&fast=1&doid=$doing[doid]&moderate[$doing[doid]]=validate&page=$page&frame=no\" target=\"fasthandle\">$lang[validate]</a> | <a href=\"?action=moderate&operation=doings&fast=1&doid=$doing[doid]&moderate[$doing[doid]]=delete&page=$page&frame=no\" target=\"fasthandle\">$lang[delete]</a> | <a href=\"?action=moderate&operation=doings&fast=1&doid=$doing[doid]&moderate[$doing[doid]]=ignore&page=$page&frame=no\" target=\"fasthandle\">$lang[ignore]</a>");
+		showtablerow("id=\"mod_{$doing['doid']}_row3\"", 'class="threadopt threadtitle" colspan="4"', "<a href=\"?action=moderate&operation=doings&fast=1&doid={$doing['doid']}&moderate[{$doing['doid']}]=validate&page=$page&frame=no\" target=\"fasthandle\">{$lang['validate']}</a> | <a href=\"?action=moderate&operation=doings&fast=1&doid={$doing['doid']}&moderate[{$doing['doid']}]=delete&page=$page&frame=no\" target=\"fasthandle\">{$lang['delete']}</a> | <a href=\"?action=moderate&operation=doings&fast=1&doid={$doing['doid']}&moderate[{$doing['doid']}]=ignore&page=$page&frame=no\" target=\"fasthandle\">{$lang['ignore']}</a>");
 		showtagfooter('tbody');
 	}
 

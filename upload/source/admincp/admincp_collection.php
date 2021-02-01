@@ -57,7 +57,7 @@ if($operation == 'comment') {
 		}
 		echo '<input type="hidden" name="fromumanage" value="'.$fromumanage.'">';
 		showsetting('threads_search_time', array('starttime', 'endtime'), array($_GET['starttime'], $_GET['endtime']), 'daterange');
-		showsetting('feed_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>$lang[perpage_20]</option><option value='50'>$lang[perpage_50]</option><option value='100'>$lang[perpage_100]</option></select>");
+		showsetting('feed_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>{$lang['perpage_20']}</option><option value='50'>{$lang['perpage_50']}</option><option value='100'>{$lang['perpage_100']}</option></select>");
 		showsubmit('searchsubmit');
 		showtablefooter();
 		showformfooter();
@@ -92,7 +92,7 @@ if($operation == 'comment') {
 		foreach($collectioncomment as $uniquecomment) {
 			if($uniquecomment['rate'] == 0) $uniquecomment['rate'] = '-';
 			showtablerow('', array('class="td25"', 'width=400', ''), array(
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"cidarray[]\" value=\"$uniquecomment[cid]\" />",
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"cidarray[]\" value=\"{$uniquecomment['cid']}\" />",
 				$uniquecomment['message'],
 				$uniquecomment['cid'],
 				"<a href='forum.php?mod=collection&action=view&ctid={$uniquecomment['ctid']}' target='_blank'>{$collectiondata[$uniquecomment['ctid']]['name']}</a>",
@@ -133,7 +133,7 @@ if($operation == 'comment') {
 		showsetting('collection_ctid', 'collection_ctid', $collection_ctid, 'text');
 		showsetting('collection_username', 'collection_username', $collection_username, 'text');
 		showsetting('collection_uid', 'collection_uid', $collection_uid, 'text');
-		showsetting('feed_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>$lang[perpage_20]</option><option value='50'>$lang[perpage_50]</option><option value='100'>$lang[perpage_100]</option></select>");
+		showsetting('feed_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>{$lang['perpage_20']}</option><option value='50'>{$lang['perpage_50']}</option><option value='100'>{$lang['perpage_100']}</option></select>");
 		showsubmit('searchsubmit');
 		showtablefooter();
 		showformfooter();
@@ -157,7 +157,7 @@ if($operation == 'comment') {
 		showsubtitle(array('', 'collection_name', 'collection_username', 'collection_date', 'collection_recommend'));
 		foreach($collection as $uniquecollection) {
 			showtablerow('', array('class="td25"', 'width=400', ''), array(
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"ctidarray[]\" value=\"$uniquecollection[ctid]\" />",
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"ctidarray[]\" value=\"{$uniquecollection['ctid']}\" />",
 				"<a href='forum.php?mod=collection&action=view&ctid={$uniquecollection['ctid']}' target='_blank'>{$uniquecollection['name']}</a>",
 				"<a href='home.php?mod=space&uid={$uniquecollection['uid']}' target='_blank'>{$uniquecollection['username']}</a>",
 				dgmdate($uniquecollection['dateline']),
@@ -205,13 +205,13 @@ if($operation == 'comment') {
 			$collectiondata = C::t('forum_collection')->fetch_all(array_keys($collectionrecommend['ctids']));
 			foreach($collectiondata as $collection) {
 				showtablerow('', array('class="td25"', 'width=400', ''), array(
-					"<input class=\"checkbox\" type=\"checkbox\" name=\"ctidarray[]\" value=\"$collection[ctid]\" />",
+					"<input class=\"checkbox\" type=\"checkbox\" name=\"ctidarray[]\" value=\"{$collection['ctid']}\" />",
 					"<a href='forum.php?mod=collection&action=view&ctid={$collection['ctid']}' target='_blank'>{$collection['name']}</a>",
 					"<a href='home.php?mod=space&uid={$collection['uid']}' target='_blank'>{$collection['username']}</a>",
 					$collection['threadnum'],
 					$collection['commentnum'],
 					dgmdate($collection['dateline']),
-					"<input class=\"txt\" type=\"text\" name=\"ctidorder[{$collection[ctid]}]\" value=\"{$collectionrecommend['ctids'][$collection[ctid]]}\" />",
+					"<input class=\"txt\" type=\"text\" name=\"ctidorder[{$collection['ctid']}]\" value=\"{$collectionrecommend['ctids'][$collection['ctid']]}\" />",
 				));
 			}
 		} else {

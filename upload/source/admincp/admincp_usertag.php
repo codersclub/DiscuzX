@@ -36,7 +36,7 @@ if($operation == '') {
 		array('usertag_add', 'usertag&operation=add', 0),
 	));
 	showtableheader();
-	echo '<form method="post">'. $lang['keywords'].': <input type="text" name="srchname" value="'.$_GET['srchname'].'" /> &nbsp;<input type="submit" name="usertag_search" value="'.$lang[search].'" class="btn" /> </form>';
+	echo '<form method="post">'. $lang['keywords'].': <input type="text" name="srchname" value="'.$_GET['srchname'].'" /> &nbsp;<input type="submit" name="usertag_search" value="'.$lang['search'].'" class="btn" /> </form>';
 	showtablefooter();
 	showformheader('usertag'.$addurl);
 	$tagcount = C::t('common_tag')->fetch_all_by_status(3, $_GET['srchname'], 0, 0, 1);

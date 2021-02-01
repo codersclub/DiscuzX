@@ -90,9 +90,9 @@ EOT;
 	showhiddenfields(array('page' => $page, 'pp' => $_GET['pp'] ? $_GET['pp'] : $_GET['perpage']));
 	showtableheader();
 	showsetting('pic_search_detail', 'detail', $detail, 'radio');
-	showsetting('pic_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>$lang[perpage_20]</option><option value='50'>$lang[perpage_50]</option><option value='100'>$lang[perpage_100]</option></select>");
-	showsetting('resultsort', '', $orderby, "<select name='orderby'><option value=''>$lang[defaultsort]</option><option value='dateline'>$lang[pic_search_createtime]</option><option value='size'>$lang[pic_size]</option><option value='hot'>$lang[pic_search_hot]</option></select> ");
-	showsetting('', '', $ordersc, "<select name='ordersc'><option value='desc'>$lang[orderdesc]</option><option value='asc'>$lang[orderasc]</option></select>", '', 0, '', '', '', true);
+	showsetting('pic_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>{$lang['perpage_20']}</option><option value='50'>{$lang['perpage_50']}</option><option value='100'>{$lang['perpage_100']}</option></select>");
+	showsetting('resultsort', '', $orderby, "<select name='orderby'><option value=''>{$lang['defaultsort']}</option><option value='dateline'>{$lang['pic_search_createtime']}</option><option value='size'>{$lang['pic_size']}</option><option value='hot'>{$lang['pic_search_hot']}</option></select> ");
+	showsetting('', '', $ordersc, "<select name='ordersc'><option value='desc'>{$lang['orderdesc']}</option><option value='asc'>{$lang['orderasc']}</option></select>", '', 0, '', '', '', true);
 	showsetting('pic_search_albumid', 'albumid', $albumid, 'text');
 	showsetting('pic_search_user', 'users', $users, 'text');
 	showsetting('pic_search_picid', 'picid', $picid, 'text');
@@ -145,7 +145,7 @@ if(submitcheck('searchsubmit', 1) || $newlist) {
 		$picidsarr = array('-1');
 		$query = C::t('home_pic')->fetch_all(explode(',', str_replace(' ', '', $picid)));
 		foreach($query as $arr) {
-			$picids .=",$arr[picid]";
+			$picids .=",{$arr['picid']}";
 			$picidsarr[] = $arr['picid'];
 		}
 		$sql .= ' AND p.'.DB::field('picid', $picidsarr);
@@ -156,7 +156,7 @@ if(submitcheck('searchsubmit', 1) || $newlist) {
 		$albumidsarr = array('-1');
 		$query = C::t('home_album')->fetch_all(explode(',', $albumid));
 		foreach($query as $arr) {
-			$albumids .=",$arr[albumid]";
+			$albumids .=",{$arr['albumid']}";
 			$albumidsarr[] = $arr['albumid'];
 		}
 		$sql .= ' AND p.'.DB::field('albumid', $albumidsarr);
@@ -167,7 +167,7 @@ if(submitcheck('searchsubmit', 1) || $newlist) {
 		$uidsarr = array('-1');
 		$query = C::t('home_album')->fetch_uid_by_username(explode(',', $users));
 		foreach($query as $arr) {
-			$uids .= ",$arr[uid]";
+			$uids .= ",{$arr['uid']}";
 			$uidsarr[] = $arr['uid'];
 		}
 		$sql .= ' AND p.'.DB::field('uid', $uidsarr);
@@ -201,12 +201,12 @@ if(submitcheck('searchsubmit', 1) || $newlist) {
 				$pic['albumname'] = empty($pic['albumname']) && empty($pic['albumid']) ? $lang['album_default'] : $pic['albumname'];
 				$pic['albumid'] = empty($pic['albumid']) ? -1 : $pic['albumid'];
 				$pics .= showtablerow('', '', array(
-					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$pic[picid]\" />",
-					"<a href='home.php?mod=space&uid=$pic[uid]&do=album&picid=$pic[picid]'  target='_blank'><img src='$pic[pic]'/></a>",
+					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$pic['picid']}\" />",
+					"<a href='home.php?mod=space&uid={$pic['uid']}&do=album&picid={$pic['picid']}'  target='_blank'><img src='{$pic['pic']}'/></a>",
 					$pic['size'],
-					"<a href='home.php?mod=space&uid=$pic[uid]&do=album&id=$pic[albumid]'  target='_blank'>$pic[albumname]</a>",
-					"<a href=\"home.php?mod=space&uid=$pic[uid]\" target=\"_blank\">".$pic['username']."</a>",
-					$pic['dateline'], "<a href=\"".ADMINSCRIPT."?action=comment&detail=1&searchsubmit=1&idtype=picid&id=$pic[picid]\">".$lang['pic_comment']."</a>"
+					"<a href='home.php?mod=space&uid={$pic['uid']}&do=album&id={$pic['albumid']}'  target='_blank'>{$pic['albumname']}</a>",
+					"<a href=\"home.php?mod=space&uid={$pic['uid']}\" target=\"_blank\">".$pic['username']."</a>",
+					$pic['dateline'], "<a href=\"".ADMINSCRIPT."?action=comment&detail=1&searchsubmit=1&idtype=picid&id={$pic['picid']}\">".$lang['pic_comment']."</a>"
 				), TRUE);
 			}
 			$piccount = C::t('home_pic')->fetch_all_by_sql('1 '.$sql, '', 0, 0, 1);

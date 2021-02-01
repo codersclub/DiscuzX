@@ -213,10 +213,10 @@ if(isfounder()) {
 	$filecheck = C::t('common_cache')->fetch('checktools_filecheck_result');
 	if($filecheck) {
 		list($modifiedfiles, $deletedfiles, $unknownfiles, $doubt) = unserialize($filecheck['cachevalue']);
-		$filecheckresult = "<em class=\"edited\">$lang[filecheck_modify]: $modifiedfiles</em> &nbsp; ".
-			"<em class=\"del\">$lang[filecheck_delete]: $deletedfiles</em> &nbsp; ".
-			"<em class=\"unknown\">$lang[filecheck_unknown]: $unknownfiles</em> &nbsp; ".
-			"<em class=\"unknown\">$lang[filecheck_doubt]: $doubt</em> &nbsp; ".
+		$filecheckresult = "<em class=\"edited\">{$lang['filecheck_modify']}: $modifiedfiles</em> &nbsp; ".
+			"<em class=\"del\">{$lang['filecheck_delete']}: $deletedfiles</em> &nbsp; ".
+			"<em class=\"unknown\">{$lang['filecheck_unknown']}: $unknownfiles</em> &nbsp; ".
+			"<em class=\"unknown\">{$lang['filecheck_doubt']}: $doubt</em> &nbsp; ".
 			$lang['filecheck_last_homecheck'].': '.dgmdate($filecheck['dateline'], 'u').' <a href="'.ADMINSCRIPT.'?action=checktools&operation=filecheck&step=3">['.$lang['filecheck_view_list'].']</a>';
 	} else {
 		$filecheckresult = '';
@@ -275,7 +275,7 @@ foreach(C::t('common_adminnote')->fetch_all_by_access(0) as $note) {
 		$note['dateline'] = dgmdate($note['dateline'], 'dt');
 		showtablerow('', array('', '', ''), array(
 			$isfounder || $_G['member']['username'] == $note['admin'] ? '<a href="'.ADMINSCRIPT.'?action=index&notesubmit=yes&noteid='.$note['id'].'"><img src="static/image/admincp/close.gif" width="7" height="8" title="'.cplang('delete').'" /></a>' : '',
-			"<span class=\"bold\"><a href=\"home.php?mod=space&username=$note[adminenc]\" target=\"_blank\">$note[admin]</a></span> $note[dateline] (".cplang('validity').": $note[expiration] ".cplang('days').")<br />$note[message]",
+			"<span class=\"bold\"><a href=\"home.php?mod=space&username={$note['adminenc']}\" target=\"_blank\">{$note['admin']}</a></span> {$note['dateline']} (".cplang('validity').": {$note['expiration']} ".cplang('days').")<br />{$note['message']}",
 		));
 	}
 }

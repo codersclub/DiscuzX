@@ -48,7 +48,7 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 			if($cat['catid'] == $_GET['catid']) {
 				$selected = 'selected="selected"';
 			}
-			$cat_select .= "<option value=\"$cat[catid]\" $selected>$cat[catname]</option>";
+			$cat_select .= "<option value=\"{$cat['catid']}\" $selected>{$cat['catname']}</option>";
 		}
 		$cat_select = "<select name=\"catid\">$cat_select</select>";
 	}
@@ -63,16 +63,16 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 	if($operation == 'articlecomments') {
 		showtablerow('', array('width="60"', 'width="160"', 'width="60"', 'width="200"', 'width="60"'),
 			array(
-				cplang('username'), "<input size=\"15\" name=\"username\" type=\"text\" value=\"$_GET[username]\" />",
+				cplang('username'), "<input size=\"15\" name=\"username\" type=\"text\" value=\"{$_GET['username']}\" />",
 				cplang('moderate_article_category'), $cat_select,
-				cplang('moderate_content_keyword'), "<input size=\"15\" name=\"keyword\" type=\"text\" value=\"$_GET[keyword]\" />",
+				cplang('moderate_content_keyword'), "<input size=\"15\" name=\"keyword\" type=\"text\" value=\"{$_GET['keyword']}\" />",
 			)
 		);
 	} else {
 		showtablerow('', array('width="60"', 'width="160"', 'width="60"'),
 			array(
-				cplang('username'), "<input size=\"15\" name=\"username\" type=\"text\" value=\"$_GET[username]\" />",
-				cplang('moderate_content_keyword'), "<input size=\"15\" name=\"keyword\" type=\"text\" value=\"$_GET[keyword]\" />",
+				cplang('username'), "<input size=\"15\" name=\"username\" type=\"text\" value=\"{$_GET['username']}\" />",
+				cplang('moderate_content_keyword'), "<input size=\"15\" name=\"keyword\" type=\"text\" value=\"{$_GET['keyword']}\" />",
 			)
 		);
 	}
@@ -80,12 +80,12 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		array('width="60"', 'width="160"', 'width="60"', 'colspan="3"') :
 		array('width="60"', 'width="160"', 'width="60"'),
                 array(
-                        "$lang[perpage]",
-                        "<select name=\"tpp\">$tpp_options</select><label><input name=\"showcensor\" type=\"checkbox\" class=\"checkbox\" value=\"yes\" ".($showcensor ? ' checked="checked"' : '')."/> $lang[moderate_showcensor]</label>",
-                        "$lang[moderate_bound]",
+                        "{$lang['perpage']}",
+                        "<select name=\"tpp\">$tpp_options</select><label><input name=\"showcensor\" type=\"checkbox\" class=\"checkbox\" value=\"yes\" ".($showcensor ? ' checked="checked"' : '')."/> {$lang['moderate_showcensor']}</label>",
+                        "{$lang['moderate_bound']}",
                         "<select name=\"filter\">$filteroptions</select>
                         <select name=\"dateline\">$dateline_options</select>
-                        <input class=\"btn\" type=\"submit\" value=\"$lang[search]\" />"
+                        <input class=\"btn\" type=\"submit\" value=\"{$lang['search']}\" />"
                 )
         );
 
@@ -127,16 +127,16 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 			$articlecomment_censor_text = '';
 		}
 		showtagheader('tbody', '', true, 'hover');
-		showtablerow("id=\"mod_$articlecomment[cid]_row1\"", array("id=\"mod_$articlecomment[cid]_row1_op\" rowspan=\"3\" class=\"rowform threadopt\" style=\"width:80px;\"", '', 'width="120"', 'width="55"'), array(
-			"<ul class=\"nofloat\"><li><input class=\"radio\" type=\"radio\" name=\"moderate[$articlecomment[cid]]\" id=\"mod_$articlecomment[cid]_1\" value=\"validate\" onclick=\"mod_setbg($articlecomment[cid], 'validate');\"><label for=\"mod_$articlecomment[cid]_1\">$lang[validate]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$articlecomment[cid]]\" id=\"mod_$articlecomment[cid]_2\" value=\"delete\" onclick=\"mod_setbg($articlecomment[cid], 'delete');\"><label for=\"mod_$articlecomment[cid]_2\">$lang[delete]</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[$articlecomment[cid]]\" id=\"mod_$articlecomment[cid]_3\" value=\"ignore\" onclick=\"mod_setbg($articlecomment[cid], 'ignore');\"><label for=\"mod_$articlecomment[cid]_3\">$lang[ignore]</label></li></ul>",
-			"<h3><a href=\"javascript:;\" onclick=\"display_toggle({$articlecomment[cid]});\">$articlecomment[title] $articlecomment_censor_text</a></h3>",
-			"<p><a target=\"_blank\" href=\"".ADMINSCRIPT."?action=members&operation=search&uid=$articlecomment[uid]&submit=yes\">$articlecomment[username]</a></p> <p>$articlecomment[dateline]</p>",
-			"<a target=\"_blank\" href=\"portal.php?mod=$mod&$idtype=$articlecomment[id]&modarticlekey=$articlecomment[modarticlekey]#comment_anchor_{$articlecomment[cid]}\">$lang[view]</a>&nbsp;<a href=\"portal.php?mod=portalcp&ac=comment&op=edit&cid=$articlecomment[cid]&modarticlecommentkey=$articlecomment[modarticlecommentkey]\" target=\"_blank\">$lang[edit]</a>",
+		showtablerow("id=\"mod_{$articlecomment['cid']}_row1\"", array("id=\"mod_{$articlecomment['cid']}_row1_op\" rowspan=\"3\" class=\"rowform threadopt\" style=\"width:80px;\"", '', 'width="120"', 'width="55"'), array(
+			"<ul class=\"nofloat\"><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$articlecomment['cid']}]\" id=\"mod_{$articlecomment['cid']}_1\" value=\"validate\" onclick=\"mod_setbg({$articlecomment['cid']}, 'validate');\"><label for=\"mod_{$articlecomment['cid']}_1\">{$lang['validate']}</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$articlecomment['cid']}]\" id=\"mod_{$articlecomment['cid']}_2\" value=\"delete\" onclick=\"mod_setbg({$articlecomment['cid']}, 'delete');\"><label for=\"mod_{$articlecomment['cid']}_2\">{$lang['delete']}</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$articlecomment['cid']}]\" id=\"mod_{$articlecomment['cid']}_3\" value=\"ignore\" onclick=\"mod_setbg({$articlecomment['cid']}, 'ignore');\"><label for=\"mod_{$articlecomment['cid']}_3\">{$lang['ignore']}</label></li></ul>",
+			"<h3><a href=\"javascript:;\" onclick=\"display_toggle({$articlecomment['cid']});\">{$articlecomment['title']} $articlecomment_censor_text</a></h3>",
+			"<p><a target=\"_blank\" href=\"".ADMINSCRIPT."?action=members&operation=search&uid={$articlecomment['uid']}&submit=yes\">{$articlecomment['username']}</a></p> <p>{$articlecomment['dateline']}</p>",
+			"<a target=\"_blank\" href=\"portal.php?mod=$mod&$idtype={$articlecomment['id']}&modarticlekey={$articlecomment['modarticlekey']}#comment_anchor_{$articlecomment['cid']}\">{$lang['view']}</a>&nbsp;<a href=\"portal.php?mod=portalcp&ac=comment&op=edit&cid={$articlecomment['cid']}&modarticlecommentkey={$articlecomment['modarticlecommentkey']}\" target=\"_blank\">{$lang['edit']}</a>",
 		));
 
-		showtablerow("id=\"mod_$articlecomment[cid]_row2\"", 'colspan="4" style="padding: 10px; line-height: 180%;"', '<div style="overflow: auto; overflow-x: hidden; max-height:120px; height:auto !important; height:100px; word-break: break-all;">'.$articlecomment['message'].'</div>');
+		showtablerow("id=\"mod_{$articlecomment['cid']}_row2\"", 'colspan="4" style="padding: 10px; line-height: 180%;"', '<div style="overflow: auto; overflow-x: hidden; max-height:120px; height:auto !important; height:100px; word-break: break-all;">'.$articlecomment['message'].'</div>');
 
-		showtablerow("id=\"mod_$articlecomment[cid]_row3\"", 'class="threadopt threadtitle" colspan="4"', "<a href=\"?action=moderate&operation=$operation&fast=1&cid=$articlecomment[cid]&moderate[$articlecomment[cid]]=validate&page=$page&frame=no\" target=\"fasthandle\">$lang[validate]</a> | <a href=\"?action=moderate&operation=$operation&fast=1&cid=$articlecomment[cid]&moderate[$articlecomment[cid]]=delete&page=$page&frame=no\" target=\"fasthandle\">$lang[delete]</a> | <a href=\"?action=moderate&operation=$operation&fast=1&cid=$articlecomment[cid]&moderate[$articlecomment[cid]]=ignore&page=$page&frame=no\" target=\"fasthandle\">$lang[ignore]</a>");
+		showtablerow("id=\"mod_{$articlecomment['cid']}_row3\"", 'class="threadopt threadtitle" colspan="4"', "<a href=\"?action=moderate&operation=$operation&fast=1&cid={$articlecomment['cid']}&moderate[{$articlecomment['cid']}]=validate&page=$page&frame=no\" target=\"fasthandle\">{$lang['validate']}</a> | <a href=\"?action=moderate&operation=$operation&fast=1&cid={$articlecomment['cid']}&moderate[{$articlecomment['cid']}]=delete&page=$page&frame=no\" target=\"fasthandle\">{$lang['delete']}</a> | <a href=\"?action=moderate&operation=$operation&fast=1&cid={$articlecomment['cid']}&moderate[{$articlecomment['cid']}]=ignore&page=$page&frame=no\" target=\"fasthandle\">{$lang['ignore']}</a>");
 		showtagfooter('tbody');
 	}
 
