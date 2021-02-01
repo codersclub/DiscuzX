@@ -47,11 +47,7 @@ function debugmessage($ajax = 0) {
 		$sql = preg_replace('/'.preg_quote($_G['config']['db']['1']['tablepre']).'[\w_]+/', '<font color=blue>\\0</font>', nl2br(dhtmlspecialchars($string[0])));
 		$sqldebugrow = '<div id="sql_'.$n.'" style="display:none;padding:0">';
 		if(preg_match('/^SELECT /', $string[0])) {
-			if($ismysqli) {
-				$query = $string[3]->query("EXPLAIN ".$string[0]);
-			} else {
-				$query = @mysql_query("EXPLAIN ".$string[0], $string[3]);
-			}
+			$query = $string[3]->query("EXPLAIN ".$string[0]);
 			$i = 0;
 			$sqldebugrow .= '<table style="border-bottom:none">';
 			while($row = DB::fetch($query)) {

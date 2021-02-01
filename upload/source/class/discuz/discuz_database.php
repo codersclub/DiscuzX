@@ -85,7 +85,7 @@ class discuz_database {
 
 	public static function fetch($resourceid, $type = null) {
 		if (!isset($type)) {
-			$type = self::$db->drivertype == 'mysqli' ? MYSQLI_ASSOC : MYSQL_ASSOC;
+			$type = constant('MYSQLI_ASSOC');
 		}
 		return self::$db->fetch_array($resourceid, $type);
 	}

@@ -162,11 +162,11 @@ class db_driver_mysqli
 	}
 
 	function error() {
-		return (($this->curlink) ? $this->curlink->error : mysqli_error());
+		return $this->curlink->error;
 	}
 
 	function errno() {
-		return intval(($this->curlink) ? $this->curlink->errno : mysqli_errno());
+		return $this->curlink->errno;
 	}
 
 	function result($query, $row = 0) {

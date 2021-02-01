@@ -288,12 +288,8 @@ if($method == 'show_license') {
 					show_msg('database_connect_error', $error, 0);
 				}
 			}
-			$mysql_version = $link->server_info;
-			if($mysql_version > '4.1') {
-				$link->query("CREATE DATABASE IF NOT EXISTS `$dbname` DEFAULT CHARACTER SET ".DBCHARSET);
-			} else {
-				$link->query("CREATE DATABASE IF NOT EXISTS `$dbname`");
-			}
+
+			$link->query("CREATE DATABASE IF NOT EXISTS `$dbname` DEFAULT CHARACTER SET " . constant('DBCHARSET'));
 
 			if($link->errno) {
 				show_msg('database_errno_1044', $link->error, 0);

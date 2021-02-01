@@ -60,7 +60,7 @@ function show_msg($error_no, $error_msg = 'ok', $success = 1, $quit = TRUE) {
 
 function check_db($dbhost, $dbuser, $dbpw, $dbname, $tablepre) {
 	if(!function_exists('mysqli_connect')) {
-		show_msg('undefine_func', 'mysql_connect', 0);
+		show_msg('undefine_func', 'mysqli_connect', 0);
 	}
 	if (strpos($dbhost, ":") === FALSE) $dbhost .= ":3306";
 	$link = new mysqli($dbhost, $dbuser, $dbpw);
@@ -1117,13 +1117,8 @@ function check_env() {
 	$errors = array('quit' => false);
 	$quit = false;
 
-	if(!function_exists('mysql_connect') && !function_exists('mysqli_connect')) {
-		$errors[] = 'mysql_unsupport';
-		$quit = true;
-	}
-
-	if(PHP_VERSION < '4.3') {
-		$errors[] = 'php_version_430';
+	if(!function_exists('mysqli_connect')) {
+		$errors[] = 'mysqli_unsupport';
 		$quit = true;
 	}
 
@@ -1327,7 +1322,7 @@ function save_uc_config($config, $file) {
 
 	list($appauthkey, $appid, $ucdbhost, $ucdbname, $ucdbuser, $ucdbpw, $ucdbcharset, $uctablepre, $uccharset, $ucapi, $ucip) = $config;
 
-	$link = function_exists('mysql_connect') ? mysql_connect($ucdbhost, $ucdbuser, $ucdbpw, 1) : new mysqli($ucdbhost, $ucdbuser, $ucdbpw, $ucdbname);
+	$link = new mysqli($ucdbhost, $ucdbuser, $ucdbpw, $ucdbname);
 	$uc_connnect = $link ? 'mysql' : '';
 
 	$date = gmdate("Y-m-d H:i:s", time() + 3600 * 8);

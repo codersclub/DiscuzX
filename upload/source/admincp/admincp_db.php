@@ -304,7 +304,7 @@ if($operation == 'export') {
 			list($dbhost, $dbport) = explode(':', $dbhost);
 
 			$query = DB::query("SHOW VARIABLES LIKE 'basedir'");
-			list(, $mysql_base) = DB::fetch($query, DB::$drivertype == 'mysqli' ? MYSQLI_NUM : MYSQL_NUM);
+			list(, $mysql_base) = DB::fetch($query, constant('MYSQLI_NUM'));
 
 			$dumpfile = addslashes(dirname(dirname(__FILE__))).'/'.$backupfilename.'.sql';
 			@unlink($dumpfile);

@@ -76,11 +76,14 @@ $lang = array(
 	'tips_ucenter' => '请填写 UCenter 相关信息',
 	'tips_ucenter_comment' => 'UCenter 是 Comsenz 公司产品的核心服务程序，Discuz! Board 的安装和运行依赖此程序。如果您已经安装了 UCenter，请填写以下信息。否则，请到 <a href="http://www.discuz.com/" target="blank">Comsenz 产品中心</a> 下载并且安装，然后再继续。',
 
-	'advice_mysql_connect' => '请检查 mysql 模块是否正确加载',
+	'advice_mysql_connect' => '请检查 mysqli 模块是否正确加载',
 	'advice_fsockopen' => '该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能',
 	'advice_gethostbyname' => '是否php配置中禁止了gethostbyname函数。请联系空间商，确定开启了此项功能',
 	'advice_file_get_contents' => '该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能',
 	'advice_xml_parser_create' => '该函数需要 PHP 支持 XML。请联系空间商，确定开启了此项功能',
+
+	'undefine_func' => '不存在的函数',
+	'mysqli_unsupport' => '请检查 mysqli 模块是否正确加载',
 
 	'ucurl' => 'UCenter 的 URL',
 	'ucpw' => 'UCenter 创始人密码',

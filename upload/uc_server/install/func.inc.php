@@ -59,14 +59,13 @@ function show_msg($error_no, $error_msg = 'ok', $success = 1, $quit = TRUE) {
 }
 
 function check_db($dbhost, $dbuser, $dbpw, $dbname, $tablepre) {
-	if(!function_exists('mysql_connect') && !function_exists('mysqli_connect')) {
-		show_msg('undefine_func', 'mysql_connect', 0);
+	if(!function_exists('mysqli_connect')) {
+		show_msg('undefine_func', 'mysqli_connect', 0);
 	}
-	$mysqlmode = function_exists('mysql_connect') ? 'mysql' : 'mysqli';
-	$link = ($mysqlmode == 'mysql') ? @mysql_connect($dbhost, $dbuser, $dbpw) : new mysqli($dbhost, $dbuser, $dbpw);
-	if(($mysqlmode == 'mysql' && !$link) || ($mysqlmode != 'mysql' && $link->connect_errno)) {
-		$errno = ($mysqlmode == 'mysql') ? mysql_errno($link) : $link->connect_errno;
-		$error = ($mysqlmode == 'mysql') ? mysql_error($link) : $link->connect_error;
+	$link = new mysqli($dbhost, $dbuser, $dbpw);
+	if(!$link) {
+		$errno = mysqli_errno($link);
+		$error = mysqli_error($link);
 		if($errno == 1045) {
 			show_msg('database_errno_1045', $error, 0);
 		} elseif($errno == 2003) {
@@ -75,11 +74,11 @@ function check_db($dbhost, $dbuser, $dbpw, $dbname, $tablepre) {
 			show_msg('database_connect_error', $error, 0);
 		}
 	} else {
-		if($query = (($mysqlmode == 'mysql') ? @mysql_query("SHOW TABLES FROM $dbname") : $link->query("SHOW TABLES FROM $dbname"))) {
+		if($query = ($link->query("SHOW TABLES FROM $dbname"))) {
 			if(!$query) {
 				return false;
 			}
-			while($row = (($mysqlmode == 'mysql') ? mysql_fetch_row($query) : $query->fetch_row())) {
+			while($row = ($query->fetch_row())) {
 				if(preg_match("/^$tablepre/", $row[0])) {
 					return false;
 				}
@@ -892,13 +891,8 @@ function check_env() {
 	$errors = array('quit' => false);
 	$quit = false;
 
-	if(!function_exists('mysql_connect')) {
-		$errors[] = 'mysql_unsupport';
-		$quit = true;
-	}
-
-	if(PHP_VERSION < '4.3') {
-		$errors[] = 'php_version_430';
+	if(!function_exists('mysqli_connect')) {
+		$errors[] = 'mysqli_unsupport';
 		$quit = true;
 	}
 
@@ -1086,40 +1080,6 @@ function check_adminuser($username, $password, $email) {
 		$error = empty($error) ? 'error_unknow_type' : $error;
 	}
 	return array('uid' => $uid, 'username' => $username, 'password' => $password, 'email' => $email, 'error' => $error);
-}
-
-function save_uc_config($config, $file) {
-
-	$success = false;
-
-	list($appauthkey, $appid, $ucdbhost, $ucdbname, $ucdbuser, $ucdbpw, $ucdbcharset, $uctablepre, $uccharset, $ucapi, $ucip) = explode('|', $config);
-
-	if($content = file_get_contents($file)) {
-		$content = trim($content);
-		$content = substr($content, -2) == '?>' ? substr($content, 0, -2) : $content;
-		$link = mysql_connect($ucdbhost, $ucdbuser, $ucdbpw, 1);
-		$uc_connnect = $link && mysql_select_db($ucdbname, $link) ? 'mysql' : '';
-		$content = insertconfig($content, "/define\('UC_CONNECT',\s*'.*?'\);/i", "define('UC_CONNECT', '$uc_connnect');");
-		$content = insertconfig($content, "/define\('UC_DBHOST',\s*'.*?'\);/i", "define('UC_DBHOST', '$ucdbhost');");
-		$content = insertconfig($content, "/define\('UC_DBUSER',\s*'.*?'\);/i", "define('UC_DBUSER', '$ucdbuser');");
-		$content = insertconfig($content, "/define\('UC_DBPW',\s*'.*?'\);/i", "define('UC_DBPW', '$ucdbpw');");
-		$content = insertconfig($content, "/define\('UC_DBNAME',\s*'.*?'\);/i", "define('UC_DBNAME', '$ucdbname');");
-		$content = insertconfig($content, "/define\('UC_DBCHARSET',\s*'.*?'\);/i", "define('UC_DBCHARSET', '$ucdbcharset');");
-		$content = insertconfig($content, "/define\('UC_DBTABLEPRE',\s*'.*?'\);/i", "define('UC_DBTABLEPRE', '`$ucdbname`.$uctablepre');");
-		$content = insertconfig($content, "/define\('UC_DBCONNECT',\s*'.*?'\);/i", "define('UC_DBCONNECT', '0');");
-		$content = insertconfig($content, "/define\('UC_KEY',\s*'.*?'\);/i", "define('UC_KEY', '$appauthkey');");
-		$content = insertconfig($content, "/define\('UC_API',\s*'.*?'\);/i", "define('UC_API', '$ucapi');");
-		$content = insertconfig($content, "/define\('UC_CHARSET',\s*'.*?'\);/i", "define('UC_CHARSET', '$uccharset');");
-		$content = insertconfig($content, "/define\('UC_IP',\s*'.*?'\);/i", "define('UC_IP', '$ucip');");
-		$content = insertconfig($content, "/define\('UC_APPID',\s*'?.*?'?\);/i", "define('UC_APPID', '$appid');");
-		$content = insertconfig($content, "/define\('UC_PPP',\s*'?.*?'?\);/i", "define('UC_PPP', '20');");
-
-		if(@file_put_contents($file, $content)) {
-			$success = true;
-		}
-	}
-
-	return $success;
 }
 
 function dhtmlspecialchars($string, $flags = null) {

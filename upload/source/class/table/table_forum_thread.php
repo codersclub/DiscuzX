@@ -74,7 +74,7 @@ class table_forum_thread extends discuz_table
 		$threadtableids = array('0' => 0);
 		$db = DB::object();
 		$query = $db->query("SHOW TABLES LIKE '".str_replace('_', '\_', DB::table('forum_thread').'_%')."'");
-		while($table = $db->fetch_array($query, $db->drivertype == 'mysqli' ? MYSQLI_NUM : MYSQL_NUM)) {
+		while($table = $db->fetch_array($query, constant('MYSQLI_NUM'))) {
 			$tablename = $table[0];
 			$tableid = intval(substr($tablename, strrpos($tablename, '_') + 1));
 			if(empty($tableid)) {
