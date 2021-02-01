@@ -150,7 +150,7 @@ class model_forum_post extends discuz_model {
 
 		useractionlog($this->member['uid'], 'pid');
 
-		if($this->param['geoloc'] && IN_MOBILE == 2) {
+		if($this->param['geoloc'] && defined('IN_MOBILE') && constant('IN_MOBILE') == 2) {
 			list($mapx, $mapy, $location) = explode('|', $this->param['geoloc']);
 			if($mapx && $mapy && $location) {
 				C::t('forum_post_location')->insert(array(
@@ -618,7 +618,7 @@ class model_forum_post extends discuz_model {
 		$this->forum['lastpost'] = explode("\t", $this->forum['lastpost']);
 		if($this->post['dateline'] == $this->forum['lastpost'][2] && ($this->post['author'] == $this->forum['lastpost'][3] || ($this->forum['lastpost'][3] == '' && $this->post['anonymous']))) {
 			$lastthread = C::t('forum_thread')->fetch_by_fid_displayorder($this->forum['fid']);
-			C::t('forum_forum')->update($this->forum['fid'], array('lastpost' => "$lastthread[tid]\t$lastthread[subject]\t$lastthread[lastpost]\t$lastthread[lastposter]"));
+			C::t('forum_forum')->update($this->forum['fid'], array('lastpost' => "{$lastthread['tid']}\t{$lastthread['subject']}\t{$lastthread['lastpost']}\t{$lastthread['lastposter']}"));
 		}
 		C::t('forum_forum')->update_forum_counter($this->forum['fid'], $forumcounter['threads'], $forumcounter['posts']);
 

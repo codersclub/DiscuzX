@@ -40,10 +40,10 @@ class magic_call {
 		$fusername = dimplode($_POST['fusername']);
 		if($fusername) {
 			$query = C::t('home_friend')->fetch_all_by_uid_username($_G['uid'], $_POST['fusername'], 0, $num);
-			$note = lang('spacecp', 'magic_call', array('url'=>"home.php?mod=space&uid=$_G[uid]&do=blog&id=$id"));
+			$note = lang('spacecp', 'magic_call', array('url'=>"home.php?mod=space&uid={$_G['uid']}&do=blog&id=$id"));
 			foreach($query as $value) {
 				$ids[] = $value['fuid'];
-				$value['avatar'] = str_replace("'", "\'", avatar($value[fuid],'small'));
+				$value['avatar'] = str_replace("'", "\'", avatar($value['fuid'],'small'));
 				$list[] = $value;
 				$note_inserts[] = array(
 					'uid' => $value['fuid'],

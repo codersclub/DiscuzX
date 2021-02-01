@@ -131,25 +131,25 @@ function getblockhtml($blockname,$parameters = array()) {
 				if(helper_access::check_module('follow')) {
 					$follow = C::t('home_follow')->fetch_by_uid_followuid($_G['uid'], $uid);
 					if($follow) {
-						$html .= "<li class='ul_flw'><a href=\"home.php?mod=spacecp&ac=follow&op=del&fuid=$space[uid]\" id=\"followmod\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'follow_cancle_follow')."</a></li>";
+						$html .= "<li class='ul_flw'><a href=\"home.php?mod=spacecp&ac=follow&op=del&fuid={$space['uid']}\" id=\"followmod\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'follow_cancle_follow')."</a></li>";
 					} else {
-						$html .= "<li class='ul_flw'><a href=\"home.php?mod=spacecp&ac=follow&op=add&hash=".FORMHASH."&fuid=$space[uid]\" id=\"followmod\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'follow_follow_ta')."</a></li>";
+						$html .= "<li class='ul_flw'><a href=\"home.php?mod=spacecp&ac=follow&op=add&hash=".FORMHASH."&fuid={$space['uid']}\" id=\"followmod\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'follow_follow_ta')."</a></li>";
 					}
 				}
 				if(helper_access::check_module('friend')) {
 					require_once libfile('function/friend');
 					$isfriend = friend_check($uid);
 					if (!$isfriend) {
-						$html .= "<li class='ul_add'><a href=\"home.php?mod=spacecp&ac=friend&op=add&uid=$space[uid]&handlekey=addfriendhk_{$space[uid]}\" id=\"a_friend_li_{$space[uid]}\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'block_profile_friend_add')."</a></li>";
+						$html .= "<li class='ul_add'><a href=\"home.php?mod=spacecp&ac=friend&op=add&uid={$space['uid']}&handlekey=addfriendhk_{$space['uid']}\" id=\"a_friend_li_{$space['uid']}\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'block_profile_friend_add')."</a></li>";
 					} else {
-						$html .= "<li class='ul_ignore'><a href=\"home.php?mod=spacecp&ac=friend&op=ignore&uid=$space[uid]&handlekey=ignorefriendhk_{$space[uid]}\" id=\"a_ignore_{$space[uid]}\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'block_profile_friend_ignore')."</a></li>";
+						$html .= "<li class='ul_ignore'><a href=\"home.php?mod=spacecp&ac=friend&op=ignore&uid={$space['uid']}&handlekey=ignorefriendhk_{$space['uid']}\" id=\"a_ignore_{$space['uid']}\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'block_profile_friend_ignore')."</a></li>";
 					}
-					$html .= "<li class='ul_poke'><a href=\"home.php?mod=spacecp&ac=poke&op=send&uid=$space[uid]&handlekey=propokehk_{$space[uid]}\" id=\"a_poke_{$space[uid]}\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'block_profile_poke')."</a></li>";
+					$html .= "<li class='ul_poke'><a href=\"home.php?mod=spacecp&ac=poke&op=send&uid={$space['uid']}&handlekey=propokehk_{$space['uid']}\" id=\"a_poke_{$space['uid']}\" onclick=\"showWindow(this.id, this.href, 'get', 0);\">".lang('space', 'block_profile_poke')."</a></li>";
 				}
 				if(helper_access::check_module('wall')) {
-					$html .= "<li class='ul_msg'><a href=\"home.php?mod=space&uid=$space[uid]&do=wall\">".lang('space', 'block_profile_wall_to_me')."</a></li>";
+					$html .= "<li class='ul_msg'><a href=\"home.php?mod=space&uid={$space['uid']}&do=wall\">".lang('space', 'block_profile_wall_to_me')."</a></li>";
 				}
-				$html .= "<li class='ul_pm'><a href=\"home.php?mod=spacecp&ac=pm&op=showmsg&handlekey=showmsg_$space[uid]&touid=$space[uid]&pmid=0&daterange=2\" id=\"a_sendpm_$space[uid]\" onclick=\"showWindow('showMsgBox', this.href, 'get', 0)\">".lang('space', 'block_profile_sendmessage')."</a></li>";
+				$html .= "<li class='ul_pm'><a href=\"home.php?mod=spacecp&ac=pm&op=showmsg&handlekey=showmsg_{$space['uid']}&touid={$space['uid']}&pmid=0&daterange=2\" id=\"a_sendpm_{$space['uid']}\" onclick=\"showWindow('showMsgBox', this.href, 'get', 0)\">".lang('space', 'block_profile_sendmessage')."</a></li>";
 			}
 
 			$html .= '</ul>';
@@ -157,9 +157,9 @@ function getblockhtml($blockname,$parameters = array()) {
 			$encodeusername = rawurlencode($space['username']);
 
 			if(checkperm('allowbanuser')) {
-				$managehtml .= '<li><a href="'.($_G['adminid'] == 1 ? "admin.php?action=members&operation=ban&username=$encodeusername&frames=yes" : "forum.php?mod=modcp&action=member&op=ban&uid=$space[uid]").'" id="usermanageli" onmouseover="showMenu(this.id)" class="showmenu" target="_blank">'.lang('home/template', 'member_manage').'</a></li>';
+				$managehtml .= '<li><a href="'.($_G['adminid'] == 1 ? "admin.php?action=members&operation=ban&username=$encodeusername&frames=yes" : "forum.php?mod=modcp&action=member&op=ban&uid={$space['uid']}").'" id="usermanageli" onmouseover="showMenu(this.id)" class="showmenu" target="_blank">'.lang('home/template', 'member_manage').'</a></li>';
 			} elseif (checkperm('allowedituser')) {
-				$managehtml .= '<li><a href="'.($_G['adminid'] == 1 ? "admin.php?action=members&operation=search&username=$encodeusername&submit=yes&frames=yes" : "forum.php?mod=modcp&action=member&op=edit&uid=$space[uid]").'" id="usermanageli" onmouseover="showMenu(this.id)" class="showmenu" target="_blank">'.lang('home/template', 'member_manage').'</a></li>';
+				$managehtml .= '<li><a href="'.($_G['adminid'] == 1 ? "admin.php?action=members&operation=search&username=$encodeusername&submit=yes&frames=yes" : "forum.php?mod=modcp&action=member&op=edit&uid={$space['uid']}").'" id="usermanageli" onmouseover="showMenu(this.id)" class="showmenu" target="_blank">'.lang('home/template', 'member_manage').'</a></li>';
 			}
 			if($_G['adminid'] == 1) {
 				if(helper_access::check_module('forum')) {
@@ -254,10 +254,10 @@ function getblockhtml($blockname,$parameters = array()) {
 				if ($dolist) {
 					foreach($dolist as $dv) {
 						$doid = $dv['doid'];
-						$_GET[key] = $key = random(8);
+						$_GET['key'] = $key = random(8);
 						$html .= "<li class=\"pbn bbda\">";
 						$html .= $dv['message'];
-						$html .= "&nbsp;<a href=\"home.php?mod=space&uid=$dv[uid]&do=doing&view=me&from=space&doid=$dv[doid]\" target=\"_blank\" class=\"xg1\">".lang('space', 'block_doing_reply')."</a>";
+						$html .= "&nbsp;<a href=\"home.php?mod=space&uid={$dv['uid']}&do=doing&view=me&from=space&doid={$dv['doid']}\" target=\"_blank\" class=\"xg1\">".lang('space', 'block_doing_reply')."</a>";
 						$html .= "</li>";
 					}
 				} else {
@@ -299,7 +299,7 @@ function getblockhtml($blockname,$parameters = array()) {
 											'blogid' => $value['blogid'],
 											'src' => $value['pic']));
 								}
-								$html .= "<dd>$value[message]</dd>";
+								$html .= "<dd>{$value['message']}</dd>";
 							}
 							$html .= lang('space', 'blog_li_ext', array('uid'=>$value['uid'],'blogid'=>$value['blogid'],'viewnum'=>$value['viewnum'],'replynum'=>$value['replynum']));
 							$html .= "</dl>";
@@ -338,7 +338,7 @@ function getblockhtml($blockname,$parameters = array()) {
 									'blogid' => $value['blogid'],
 									'src' => $value['pic']));
 						}
-						$html .= "<dd>$value[message]</dd>";
+						$html .= "<dd>{$value['message']}</dd>";
 					}
 					$html .= lang('space', 'blog_li_ext', array('uid'=>$value['uid'],'blogid'=>$value['blogid'],'viewnum'=>$value['viewnum'],'replynum'=>$value['replynum']));
 					$html .= "</dl>";
@@ -405,7 +405,7 @@ function getblockhtml($blockname,$parameters = array()) {
 			$view = 'me';
 			$from = 'space';
 			if ($_G['setting']['allowviewuserthread'] !== -1) {
-				$fidsql = empty($_G['setting']['allowviewuserthread']) ? '' : " AND fid IN({$_G[setting][allowviewuserthread]}) ";
+				$fidsql = empty($_G['setting']['allowviewuserthread']) ? '' : " AND fid IN({$_G['setting']['allowviewuserthread']}) ";
 				$viewfids = str_replace("'", '', $_G['setting']['allowviewuserthread']);
 				if(!empty($viewfids)) {
 					$viewfids = explode(',', $viewfids);
@@ -436,7 +436,7 @@ function getblockhtml($blockname,$parameters = array()) {
 
 			foreach ($friendlist as $key => $value) {
 				$classname = $_G['ols'][$value['fuid']]?'gol':'';
-				$html .= '<li><a href="home.php?mod=space&uid='.$value['fuid'].'" target="_blank" class="avt"><em class="'.$classname.'"></em>'.avatar($value['fuid'],'small').'</a><p><a href="home.php?mod=space&uid='.$value[fuid].'" target="_blank">'.$value['fusername'].'</a></p></li>';
+				$html .= '<li><a href="home.php?mod=space&uid='.$value['fuid'].'" target="_blank" class="avt"><em class="'.$classname.'"></em>'.avatar($value['fuid'],'small').'</a><p><a href="home.php?mod=space&uid='.$value['fuid'].'" target="_blank">'.$value['fusername'].'</a></p></li>';
 			}
 			$html = !$html ? '<p class="emp">'.lang('space','block_friend_no_content').($space['self'] ? lang('space', 'block_friend_no_content_publish', $space) : '').'</p>' : '<ul class="ml mls cl">'.$html.'</ul>';
 			break;
@@ -500,7 +500,7 @@ function getblockhtml($blockname,$parameters = array()) {
 					}
 
 					if ($value['body_general']) {
-						$html .= '<div class="quote'.($value['image'] ? 'z' : '')."\"><blockquote>$value[body_general]</blockquote></div>";
+						$html .= '<div class="quote'.($value['image'] ? 'z' : '')."\"><blockquote>{$value['body_general']}</blockquote></div>";
 					}
 					$html .= '</div></li>';
 				}
@@ -638,29 +638,29 @@ function mkfeedhtml($value) {
 	$_GET['uid'] = intval($_GET['uid']);
 	$_GET['view'] = dhtmlspecialchars($_GET['view']);
 	$html = '';
-	$html .= "<li class=\"cl $value[magic_class]\" id=\"feed_{$value[feedid]}_li\">";
-	$html .= "<div class=\"cl\" {$value[style]}>";
-	$html .= "<a class=\"t\" href=\"home.php?mod=space&uid=$_GET[uid]&do=home&view=$_GET[view]&icon=$value[icon]\" title=\"".lang('space', 'feed_view_only')."\"><img src=\"$value[icon_image]\" /></a>$value[title_template]";
-	$html .= "\t<span class=\"xg1\">".dgmdate($value[dateline], 'n-j H:i')."</span>";
+	$html .= "<li class=\"cl {$value['magic_class']}\" id=\"feed_{$value['feedid']}_li\">";
+	$html .= "<div class=\"cl\" {$value['style']}>";
+	$html .= "<a class=\"t\" href=\"home.php?mod=space&uid={$_GET['uid']}&do=home&view={$_GET['view']}&icon={$value['icon']}\" title=\"".lang('space', 'feed_view_only')."\"><img src=\"{$value['icon_image']}\" /></a>{$value['title_template']}";
+	$html .= "\t<span class=\"xg1\">".dgmdate($value['dateline'], 'n-j H:i')."</span>";
 
 	$html .= "<div class=\"ec\">";
 
 	if ($value['image_1']) {
-		$html .= "<a href=\"$value[image_1_link]\"{$value[target]}><img src=\"$value[image_1]\" alt=\"\" class=\"tn\" /></a>";
+		$html .= "<a href=\"{$value['image_1_link']}\"{$value['target']}><img src=\"{$value['image_1']}\" alt=\"\" class=\"tn\" /></a>";
 	}
 	if ($value['image_2']) {
-		$html .= "<a href=\"$value[image_2_link]\"{$value[target]}><img src=\"$value[image_2]\" alt=\"\" class=\"tn\" /></a>";
+		$html .= "<a href=\"{$value['image_2_link']}}\"{$value['target']}><img src=\"{$value['image_2']}\" alt=\"\" class=\"tn\" /></a>";
 	}
 	if ($value['image_3']) {
-		$html .= "<a href=\"$value[image_3_link]\"{$value[target]}><img src=\"$value[image_3]\" alt=\"\" class=\"tn\" /></a>";
+		$html .= "<a href=\"{$value['image_3_link']}\"{$value['target']}><img src=\"{$value['image_3']}\" alt=\"\" class=\"tn\" /></a>";
 	}
 	if ($value['image_4']) {
-		$html .= "<a href=\"$value[image_4_link]\"{$value[target]}><img src=\"$value[image_4]\" alt=\"\" class=\"tn\" /></a>";
+		$html .= "<a href=\"{$value['image_4_link']}\"{$value['target']}><img src=\"{$value['image_4']}\" alt=\"\" class=\"tn\" /></a>";
 	}
 
 	if ($value['body_template']) {
 		$style = $value['image_3'] ? ' style="clear: both; zoom: 1;"' : '';
-		$html .= "<div class=\"d\" $style>$value[body_template]</div>";
+		$html .= "<div class=\"d\" $style>{$value['body_template']}</div>";
 	}
 
 	if (!empty($value['body_data']['flashvar'])) {
@@ -677,7 +677,7 @@ function mkfeedhtml($value) {
 
 	if ($value['body_general']) {
 		$classname = $value['image_1'] ? ' z' : '';
-		$html .= "<div class=\"quote$classname\"><blockquote>$value[body_general]</blockquote></div>";
+		$html .= "<div class=\"quote$classname\"><blockquote>{$value['body_general']}</blockquote></div>";
 	}
 	$html .= "</div>";
 	$html .= "</div>";

@@ -172,7 +172,7 @@ function block_fetch_content($bid, $isjscall=false, $forceupdate=false) {
 			if($block['title']) $str .= $block['title'];
 			$str .= '<div id="portal_block_'.$bid.'_content" class="dxb_bc">';
 			if($block['summary']) {
-				$str .= "<div class=\"portal_block_summary\">$block[summary]</div>";
+				$str .= "<div class=\"portal_block_summary\">{$block['summary']}</div>";
 			}
 			$str .= block_template($bid);
 			$str .= '</div>';
@@ -187,7 +187,7 @@ function block_fetch_content($bid, $isjscall=false, $forceupdate=false) {
 		$classname = !empty($block['classname']) ? $block['classname'].' ' : '';
 		$div = "<div id=\"portal_block_$bid\" class=\"{$classname}block move-span\">";
 		if(($_GET['diy'] === 'yes' || $_GET['inajax']) && check_diy_perm()) {
-			$div .= "<div class='block-name'>$block[name] (ID:$bid)</div>";
+			$div .= "<div class='block-name'>{$block['name']} (ID:$bid)</div>";
 		}
 		$str = $div.$str."</div>";
 	}
@@ -553,7 +553,7 @@ function block_makeform($blocksetting, $values){
 			$s .= '</select>';
 		} elseif($type == 'calendar') {
 			if(! $calendar_loaded) {
-				$s .= "<script type=\"text/javascript\" src=\"{$_G[setting][jspath]}calendar.js?".VERHASH."\"></script>";
+				$s .= "<script type=\"text/javascript\" src=\"{$_G['setting']['jspath']}calendar.js?".VERHASH."\"></script>";
 				$calendar_loaded = true;
 			}
 			$s .= '<input type="text" name="'.$varname.'" class="px" value="'.dhtmlspecialchars($value).'" onclick="showcalendar(event, this, true)" />';
@@ -669,7 +669,7 @@ function block_updateitem($bid, $items=array()) {
 			if($block['picwidth'] && $block['picheight'] && $curitem['picflag']) { //picflag=0为url地址
 				$thumbpath = empty($curitem['thumbpath']) ? block_thumbpath($block, $curitem) : $curitem['thumbpath'];
 				if($_G['setting']['ftp']['on']) {
-					if(empty($ftp) || empty($ftp->connectid)) {
+					if(empty($ftp)) {
 						$ftp = & discuz_ftp::instance();
 						$ftp->connect();
 					}

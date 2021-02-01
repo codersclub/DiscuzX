@@ -26,7 +26,7 @@ function checkautoclose($thread) {
 function forum(&$forum) {
 	global $_G;
 	$lastvisit = $_G['member']['lastvisit'];
-	if(!$forum['viewperm'] || ($forum['viewperm'] && forumperm($forum['viewperm'])) || !empty($forum['allowview']) || (isset($forum['users']) && strstr($forum['users'], "\t$_G[uid]\t"))) {
+	if(!$forum['viewperm'] || ($forum['viewperm'] && forumperm($forum['viewperm'])) || !empty($forum['allowview']) || (isset($forum['users']) && strstr($forum['users'], "\t{$_G['uid']}\t"))) {
 		$forum['permission'] = 2;
 	} elseif(!$_G['setting']['hideprivate']) {
 		$forum['permission'] = 1;
@@ -99,14 +99,14 @@ function forumselect($groupselectable = FALSE, $arrayformat = 0, $selectedfid = 
 				$forumlist .= $groupselectable ? '<option value="'.($evalue ? 'gid_' : '').$forum['fid'].'" class="bold">--'.$forum['name'].'</option>' : '</optgroup><optgroup label="--'.$forum['name'].'">';
 			}
 			$visible[$forum['fid']] = true;
-		} elseif($forum['type'] == 'forum' && isset($visible[$forum['fup']]) && (!$forum['viewperm'] || ($forum['viewperm'] && forumperm($forum['viewperm'])) || strstr($forum['users'], "\t$_G[uid]\t")) && (!$special || (substr($forum['allowpostspecial'], -$special, 1)))) {
+		} elseif($forum['type'] == 'forum' && isset($visible[$forum['fup']]) && (!$forum['viewperm'] || ($forum['viewperm'] && forumperm($forum['viewperm'])) || strstr($forum['users'], "\t{$_G['uid']}\t")) && (!$special || (substr($forum['allowpostspecial'], -$special, 1)))) {
 			if($arrayformat) {
 				$forumlist[$forum['fup']]['sub'][$forum['fid']] = $forum['name'];
 			} else {
 				$forumlist .= '<option value="'.($evalue ? 'fid_' : '').$forum['fid'].'"'.$selected.'>'.$forum['name'].'</option>';
 			}
 			$visible[$forum['fid']] = true;
-		} elseif($forum['type'] == 'sub' && isset($visible[$forum['fup']]) && (!$forum['viewperm'] || ($forum['viewperm'] && forumperm($forum['viewperm'])) || strstr($forum['users'], "\t$_G[uid]\t")) && (!$special || substr($forum['allowpostspecial'], -$special, 1))) {
+		} elseif($forum['type'] == 'sub' && isset($visible[$forum['fup']]) && (!$forum['viewperm'] || ($forum['viewperm'] && forumperm($forum['viewperm'])) || strstr($forum['users'], "\t{$_G['uid']}\t")) && (!$special || substr($forum['allowpostspecial'], -$special, 1))) {
 			if($arrayformat) {
 				$forumlist[$forumcache[$forum['fup']]['fup']]['child'][$forum['fup']][$forum['fid']] = $forum['name'];
 			} else {

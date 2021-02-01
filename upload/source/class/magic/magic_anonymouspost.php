@@ -78,7 +78,7 @@ class magic_anonymouspost {
 			$query = C::t('forum_forum')->fetch($post['fid']);
 			$forum['lastpost'] = explode("\t", $query['lastpost']);
 			if($post['dateline'] == $forum['lastpost'][2] && ($post['author'] == $forum['lastpost'][3] || ($forum['lastpost'][3] == '' && $post['anonymous']))) {
-				$lastpost = "$thread[tid]\t$thread[subject]\t$_G[timestamp]\t$lastposter";
+				$lastpost = "{$thread['tid']}\t{$thread['subject']}\t{$_G['timestamp']}\t$lastposter";
 				C::t('forum_forum')->update($post['fid'], array('lastpost' => $lastpost));
 			}
 			C::t('forum_thread')->update($post['tid'], array('author' => $author, 'lastposter' => $lastposter));

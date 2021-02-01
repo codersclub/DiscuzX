@@ -77,7 +77,7 @@ class table_common_template_permission extends discuz_table
 				$inheritedtplname = $uptplname ? $uptplname : '';
 				foreach ($templates as $tpl) {
 					if($tpl) {
-						$blockperms[] = "('$tpl','$user[uid]','$user[allowmanage]','$user[allowrecommend]','$user[needverify]','$inheritedtplname')";
+						$blockperms[] = "('$tpl','{$user['uid']}','{$user['allowmanage']}','{$user['allowrecommend']}','{$user['needverify']}','$inheritedtplname')";
 						$inheritedtplname = empty($inheritedtplname) ? $tpl : $inheritedtplname;
 					}
 				}

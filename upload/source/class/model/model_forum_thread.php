@@ -215,7 +215,7 @@ class model_forum_thread extends discuz_model
 		updatestat($this->param['isgroup'] ? 'groupthread' : $statarr[$this->param['special']]);
 
 
-		if($this->param['geoloc'] && IN_MOBILE == 2) {
+		if($this->param['geoloc'] && defined('IN_MOBILE') && constant('IN_MOBILE') == 2) {
 			list($mapx, $mapy, $location) = explode('|', $this->param['geoloc']);
 			if($mapx && $mapy && $location) {
 				C::t('forum_post_location')->insert(array(

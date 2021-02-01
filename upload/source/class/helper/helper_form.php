@@ -118,7 +118,7 @@ class helper_form {
 				$tmp = parse_url($val);
 				$return[1][$key] = $tmp['host'];
 				if($tmp['port']){
-					$return[1][$key] .= ":$tmp[port]";
+					$return[1][$key] .= ":{$tmp['port']}";
 				}
 			}
 		}

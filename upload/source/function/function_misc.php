@@ -105,7 +105,7 @@ function procthread($thread, $timeformat = 'd') {
 function modlog($thread, $action) {
 	global $_G;
 	$reason = $_GET['reason'];
-	writelog('modslog', dhtmlspecialchars("$_G[timestamp]\t$_G[username]\t$_G[adminid]\t$_G[clientip]\t".$_G['forum']['fid']."\t".$_G['forum']['name']."\t$thread[tid]\t$thread[subject]\t$action\t$reason\t".$_G['toforum']['fid']."\t".$_G['toforum']['name']));
+	writelog('modslog', dhtmlspecialchars("{$_G['timestamp']}\t{$_G['username']}\t{$_G['adminid']}\t{$_G['clientip']}\t".$_G['forum']['fid']."\t".$_G['forum']['name']."\t{$thread['tid']}\t{$thread['subject']}\t$action\t$reason\t".$_G['toforum']['fid']."\t".$_G['toforum']['name']));
 }
 
 function checkreasonpm() {
@@ -166,7 +166,7 @@ function savebanlog($username, $origgroupid, $newgroupid, $expiration, $reason) 
 		$param = func_get_args();
 		hookscript('savebanlog', 'global', 'funcs', array('param' => $param), 'savebanlog');
 	}
-	writelog('banlog', dhtmlspecialchars("$_G[timestamp]\t{$_G[member][username]}\t$_G[groupid]\t$_G[clientip]\t$username\t$origgroupid\t$newgroupid\t$expiration\t$reason"));
+	writelog('banlog', dhtmlspecialchars("{$_G['timestamp']}\t{$_G['member']['username']}\t{$_G['groupid']}\t{$_G['clientip']}\t$username\t$origgroupid\t$newgroupid\t$expiration\t$reason"));
 }
 
 function clearlogstring($str) {

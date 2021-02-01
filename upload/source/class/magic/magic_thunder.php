@@ -39,7 +39,7 @@ class magic_thunder {
 			'thunder', 'magicuse_thunder_announce_title',
 				array(
 					'uid' => $uid,
-					'username' => "<a href=\"home.php?mod=space&uid=$uid\">$_G[username]</a>"),
+					'username' => "<a href=\"home.php?mod=space&uid=$uid\">{$_G['username']}</a>"),
 				'magicuse_thunder_announce_body',
 				array(
 					'uid' => $uid,

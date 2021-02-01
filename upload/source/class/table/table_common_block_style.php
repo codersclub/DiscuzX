@@ -44,7 +44,7 @@ class table_common_block_style extends discuz_table
 		foreach($styles as $value) {
 			if(!empty($value['blockclass'])) {
 				$value = daddslashes($value);
-				$inserts[] = "('$value[blockclass]', '$value[name]', '$value[template]', '$value[hash]', '$value[getpic]', '$value[getsummary]', '$value[settarget]', '$value[fields]', '$value[moreurl]')";
+				$inserts[] = "('{$value['blockclass']}', '{$value['name']}', '{$value['template']}', '{$value['hash']}', '{$value['getpic']}', '{$value['getsummary']}', '{$value['settarget']}', '{$value['fields']}', '{$value['moreurl']}')";
 			}
 		}
 		if(!empty($inserts)) {

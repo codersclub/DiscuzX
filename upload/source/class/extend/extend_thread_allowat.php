@@ -67,7 +67,7 @@ class extend_thread_allowat extends extend_thread_base {
 			$atnum = $maxselect = 0;
 			foreach(C::t('home_notification')->fetch_all_by_authorid_fromid($this->member['uid'], $this->thread['tid'], 'at') as $row) {
 				$atnum ++;
-				$ateduids[$row[uid]] = $row['uid'];
+				$ateduids[$row['uid']] = $row['uid'];
 			}
 			$maxselect = $this->group['allowat'] - $atnum;
 			if($maxselect > 0 && !empty($atlist_tmp)) {
@@ -75,7 +75,7 @@ class extend_thread_allowat extends extend_thread_base {
 				if(empty($at_anyone)) {
 					foreach(C::t('home_follow')->fetch_all_by_uid_fusername($this->member['uid'], $atlist_tmp) as $row) {
 						if(!in_array($row['followuid'], $ateduids)) {
-							$this->atlist[$row[followuid]] = $row['fusername'];
+							$this->atlist[$row['followuid']] = $row['fusername'];
 						}
 						if(count($this->atlist) == $maxselect) {
 							break;
@@ -85,14 +85,14 @@ class extend_thread_allowat extends extend_thread_base {
 						$query = C::t('home_friend')->fetch_all_by_uid_username($this->member['uid'], $atlist_tmp);
 						foreach($query as $row) {
 							if(!in_array($row['followuid'], $ateduids)) {
-								$this->atlist[$row[fuid]] = $row['fusername'];
+								$this->atlist[$row['fuid']] = $row['fusername'];
 							}
 						}
 					}
 				} else {
 					foreach(C::t('common_member')->fetch_all_by_username($atlist_tmp) as $row) {
 						if(!in_array($row['uid'], $ateduids)) {
-							$this->atlist[$row[uid]] = $row['username'];
+							$this->atlist[$row['uid']] = $row['username'];
 						}
 						if(count($this->atlist) == $maxselect) {
 							break;
@@ -126,7 +126,7 @@ class extend_thread_allowat extends extend_thread_base {
 			$atnum = $maxselect = 0;
 			foreach(C::t('home_notification')->fetch_all_by_authorid_fromid($this->member['uid'], $this->thread['tid'], 'at') as $row) {
 				$atnum ++;
-				$ateduids[$row[uid]] = $row['uid'];
+				$ateduids[$row['uid']] = $row['uid'];
 			}
 			$maxselect = $this->group['allowat'] - $atnum;
 			preg_match_all("/@([^\r\n]*?)\s/i", $parameters['message'].' ', $atlist_tmp);
@@ -135,7 +135,7 @@ class extend_thread_allowat extends extend_thread_base {
 				if(empty($this->setting['at_anyone'])) {
 					foreach(C::t('home_follow')->fetch_all_by_uid_fusername($this->member['uid'], $atlist_tmp) as $row) {
 						if(!in_array($row['followuid'], $ateduids)) {
-							$this->atlist[$row[followuid]] = $row['fusername'];
+							$this->atlist[$row['followuid']] = $row['fusername'];
 						}
 						if(count($this->atlist) == $maxselect) {
 							break;
@@ -145,14 +145,14 @@ class extend_thread_allowat extends extend_thread_base {
 						$query = C::t('home_friend')->fetch_all_by_uid_username($this->member['uid'], $atlist_tmp);
 						foreach($query as $row) {
 							if(!in_array($row['followuid'], $ateduids)) {
-								$this->atlist[$row[fuid]] = $row['fusername'];
+								$this->atlist[$row['fuid']] = $row['fusername'];
 							}
 						}
 					}
 				} else {
 					foreach(C::t('common_member')->fetch_all_by_username($atlist_tmp) as $row) {
 						if(!in_array($row['uid'], $ateduids)) {
-							$this->atlist[$row[uid]] = $row['username'];
+							$this->atlist[$row['uid']] = $row['username'];
 						}
 						if(count($this->atlist) == $maxselect) {
 							break;

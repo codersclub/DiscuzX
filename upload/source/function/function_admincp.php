@@ -318,14 +318,14 @@ function cpheader() {
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=$charset">
 <meta http-equiv="x-ua-compatible" content="ie=7" />
-<link href="static/image/admincp/admincp.css?{$_G[style][verhash]}" rel="stylesheet" type="text/css" />
+<link href="static/image/admincp/admincp.css?{$_G['style']['verhash']}" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <script type="text/JavaScript">
-var admincpfilename = '$basescript', IMGDIR = '$IMGDIR', STYLEID = '$STYLEID', VERHASH = '$VERHASH', IN_ADMINCP = true, ISFRAME = $frame, STATICURL='static/', SITEURL = '$_G[siteurl]', JSPATH = '{$_G[setting][jspath]}';
+var admincpfilename = '$basescript', IMGDIR = '$IMGDIR', STYLEID = '$STYLEID', VERHASH = '$VERHASH', IN_ADMINCP = true, ISFRAME = $frame, STATICURL='static/', SITEURL = '{$_G['siteurl']}', JSPATH = '{$_G['setting']['jspath']}';
 </script>
-<script src="{$_G[setting][jspath]}common.js?{$_G[style][verhash]}" type="text/javascript"></script>
-<script src="{$_G[setting][jspath]}admincp.js?{$_G[style][verhash]}" type="text/javascript"></script>
+<script src="{$_G['setting']['jspath']}common.js?{$_G['style']['verhash']}" type="text/javascript"></script>
+<script src="{$_G['setting']['jspath']}admincp.js?{$_G['style']['verhash']}" type="text/javascript"></script>
 <script type="text/javascript">
 if(ISFRAME && !parent.document.getElementById('leftmenu') && !parent.parent.document.getElementById('leftmenu')) {
 	redirect(admincpfilename + '?frames=yes&' + document.URL.substr(document.URL.indexOf(admincpfilename) + admincpfilename.length + 1));
@@ -397,7 +397,7 @@ function showsubmenuanchors($title, $menus = array(), $right = '') {
 		return;
 	}
 	echo <<<EOT
-<script type="text/JavaScript">var currentAnchor = '$GLOBALS[anchor]';</script>
+<script type="text/JavaScript">var currentAnchor = '{$GLOBALS['anchor']}';</script>
 EOT;
 	$s = '<div class="itemtitle">'.$right.'<h3>'.cplang($title).'</h3>';
 	$s .= '<ul class="tab1" id="submenu">';
@@ -1087,8 +1087,8 @@ function getorders($alloworders, $default, $pre='') {
 		if(empty($_GET['ordersc'])) $_GET['ordersc'] = 'desc';
 	}
 
-	$orders['sql'] = " ORDER BY {$pre}$_GET[orderby] ";
-	$orders['urls'][] = "orderby=$_GET[orderby]";
+	$orders['sql'] = " ORDER BY {$pre}{$_GET['orderby']} ";
+	$orders['urls'][] = "orderby={$_GET['orderby']}";
 
 	if(!empty($_GET['ordersc']) && $_GET['ordersc'] == 'desc') {
 		$orders['urls'][] = 'ordersc=desc';

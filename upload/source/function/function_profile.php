@@ -191,7 +191,7 @@ function profile_setting($fieldid, $space=array(), $showstatus=false, $ignoreunc
 	}
 	$html .= !$ignoreshowerror ? "<div class=\"rq mtn\" id=\"showerror_$fieldid\"></div>" : '';
 	if($showstatus) {
-		$html .= "<p class=\"d\">$value[description]";
+		$html .= "<p class=\"d\">{$value['description']}";
 		if($space[$fieldid]=='' && $value['unchangeable']) {
 			$html .= lang('spacecp', 'profile_unchangeable');
 		}

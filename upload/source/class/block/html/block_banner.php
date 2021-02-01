@@ -72,8 +72,8 @@ class block_banner extends commonblock_html {
 			.($parameter['text'] ? ' alt="'.$parameter['text'].'" title="'.$parameter['text'].'"' : '')
 			.' />';
 		if($parameter['url']) {
-			$target = $parameter['atarget']  ? " target=\"$parameter[atarget]\"" : '';
-			$return = "<a href=\"$parameter[url]\"$target>$return</a>";
+			$target = $parameter['atarget']  ? " target=\"{$parameter['atarget']}\"" : '';
+			$return = "<a href=\"{$parameter['url']}\"$target>$return</a>";
 		}
 		return array('html' => $return, 'data' => null);
 	}

@@ -124,7 +124,7 @@ class block_album extends discuz_block {
 				'id' => $data['albumid'],
 				'idtype' => 'albumid',
 				'title' => cutstr($data['albumname'], $titlelength, ''),
-				'url' => "home.php?mod=space&uid=$data[uid]&do=album&id=$data[albumid]",
+				'url' => "home.php?mod=space&uid={$data['uid']}&do=album&id={$data['albumid']}",
 				'pic' => 'album/'.$data['pic'],
 				'picflag' => $data['picflag'],
 				'summary' => '',

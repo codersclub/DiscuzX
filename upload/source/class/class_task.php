@@ -193,7 +193,7 @@ class task {
 		if(!in_array($this->task['applyperm'], array('', 'member', 'admin'))) {
 			$query = C::t('common_usergroup')->fetch_all(explode(',', str_replace("\t", ',', $this->task['applyperm'])));
 			foreach($query as $group) {
-				$this->task['grouprequired'] .= $comma.$group[grouptitle];
+				$this->task['grouprequired'] .= $comma.$group['grouptitle'];
 				$comma = ', ';
 			}
 		}
@@ -422,7 +422,7 @@ class task {
 				} elseif($this->task['reward'] == 'invite') {
 					$rewardtext = $this->task['prize'];
 				}
-				notification_add($_G[uid], 'task', 'task_reward_'.$notification, array(
+				notification_add($_G['uid'], 'task', 'task_reward_'.$notification, array(
 					'taskid' => $this->task['taskid'],
 					'name' => $this->task['name'],
 					'creditbonus' => $_G['setting']['extcredits'][$this->task['prize']]['title'].' '.$this->task['bonus'].' '.$_G['setting']['extcredits'][$this->task['prize']]['unit'],
@@ -587,7 +587,7 @@ class task {
 		$codes = array();
 		for ($i=0; $i < $num; $i++) {
 			$code = strtolower(random(6));
-			$codes[] = "('$_G[uid]', '$code', '$_G[timestamp]', '$expiration', '$_G[clientip]')";
+			$codes[] = "('{$_G['uid']}', '$code', '{$_G['timestamp']}', '$expiration', '{$_G['clientip']}')";
 			$invitedata = array(
 					'uid' => $_G['uid'],
 					'code' => $code,
@@ -643,7 +643,7 @@ class task {
 			$h = floor($t / 3600);
 			$m = floor(($t - $h * 3600) / 60);
 			$s = floor($t - $h * 3600 - $m * 60);
-			return ($h ? "$h{$_G['setting']['dlang'][date][4]}" : '').($m ? "$m{$_G[setting][dlang][date][6]}" : '').($h || !$s ? '' : "$s{$_G[setting][dlang][date][7]}");
+			return ($h ? "$h{$_G['setting']['dlang']['date'][4]}" : '').($m ? "$m{$_G['setting']['dlang']['date'][6]}" : '').($h || !$s ? '' : "$s{$_G['setting']['dlang']['date'][7]}");
 		}
 		return '';
 	}

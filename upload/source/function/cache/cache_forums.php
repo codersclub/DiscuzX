@@ -29,7 +29,7 @@ function build_cache_forums() {
 
 		if(!isset($forumlist[$forum['fid']])) {
 			if($forum['uid']) {
-				$forum['users'] = "\t$forum[uid]\t";
+				$forum['users'] = "\t{$forum['uid']}\t";
 			}
 			unset($forum['uid']);
 			if($forum['fup']) {
@@ -40,7 +40,7 @@ function build_cache_forums() {
 			if(!$forumlist[$forum['fid']]['users']) {
 				$forumlist[$forum['fid']]['users'] = "\t";
 			}
-			$forumlist[$forum['fid']]['users'] .= "$forum[uid]\t";
+			$forumlist[$forum['fid']]['users'] .= "{$forum['uid']}\t";
 		}
 	}
 

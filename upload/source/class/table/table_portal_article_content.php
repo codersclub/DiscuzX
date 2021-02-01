@@ -44,7 +44,7 @@ class table_portal_article_content extends discuz_table
 		$sql = array();
 		foreach($inserts as $value) {
 			$value['aid'] = dintval($value['aid']);
-			$sql[] = "('$value[aid]', '".addslashes($value['content'])."', '$value[pageorder]', '$value[dateline]', '$value[id]', '$value[idtype]')";
+			$sql[] = "('{$value['aid']}', '".addslashes($value['content'])."', '{$value['pageorder']}', '{$value['dateline']}', '{$value['id']}', '{$value['idtype']}')";
 		}
 		if($sql) {
 			DB::query('INSERT INTO '.DB::table($this->_table)."(`aid`, `content`, `pageorder`, `dateline`, `id`, `idtype`) VALUES ".implode(', ', $sql));

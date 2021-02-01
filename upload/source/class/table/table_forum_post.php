@@ -903,7 +903,7 @@ class table_forum_post extends discuz_table
 			$threadtable = $tableid ? "forum_thread_$tableid" : 'forum_thread';
 			$query = DB::query("SELECT tid, posttableid FROM ".DB::table($threadtable)." WHERE tid IN(".dimplode(array_keys($tids)).")");
 			while ($value = DB::fetch($query)) {
-				$posttable = 'forum_post'.($value['posttableid'] ? "_$value[posttableid]" : '');
+				$posttable = 'forum_post'.($value['posttableid'] ? "_{$value['posttableid']}" : '');
 				$tables[$posttable][$value['tid']] = $value['tid'];
 				unset($tids[$value['tid']]);
 			}

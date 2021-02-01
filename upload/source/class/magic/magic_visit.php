@@ -115,11 +115,11 @@ class magic_visit {
 			$ip = $_G['clientip'];
 			$note_inserts = array();
 			foreach ($fids as $fid) {
-				$actor = "<a href=\"home.php?mod=space&uid=$_G[uid]\">$_G[username]</a>";
+				$actor = "<a href=\"home.php?mod=space&uid={$_G['uid']}\">{$_G['username']}</a>";
 				$inserts[] = array(
 					'uid' => $fid,
 					'id' => $fid,
-					'idtype'=> uid,
+					'idtype'=> 'uid',
 					'authorid' => $_G['uid'],
 					'author' => $_G['username'],
 					'ip' => $ip,

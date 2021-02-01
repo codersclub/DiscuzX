@@ -37,7 +37,7 @@ $message = <<<EOT
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="$_G[charset]" />
+<meta charset="{$_G['charset']}" />
 <meta name="renderer" content="webkit" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>$subject</title>
@@ -76,7 +76,7 @@ EOT;
 	} elseif($_G['setting']['mail']['mailsend'] == 2) {
 
 		if(!$fp = fsocketopen($_G['setting']['mail']['server'], $_G['setting']['mail']['port'], $errno, $errstr, 30)) {
-			runlog('SMTP', "({$_G[setting][mail][server]}:{$_G[setting][mail][port]}) CONNECT - Unable to connect to the SMTP server", 0);
+			runlog('SMTP', "({$_G['setting']['mail']['server']}:{$_G['setting']['mail']['port']}) CONNECT - Unable to connect to the SMTP server", 0);
 			return false;
 		}
 		stream_set_blocking($fp, true);
@@ -84,7 +84,7 @@ EOT;
 		$lastmessage = fgets($fp, 512);
 		if(substr($lastmessage, 0, 3) != '220') {
 			fputs($fp, "QUIT\r\n");
-			runlog('SMTP', "{$_G[setting][mail][server]}:{$_G[setting][mail][port]} CONNECT - $lastmessage", 0);
+			runlog('SMTP', "{$_G['setting']['mail']['server']}:{$_G['setting']['mail']['port']} CONNECT - $lastmessage", 0);
 			return false;
 		}
 
@@ -99,7 +99,7 @@ EOT;
 		$lastmessage = fgets($fp, 512);
 		if(substr($lastmessage, 0, 3) != 220 && substr($lastmessage, 0, 3) != 250) {
 			fputs($fp, "QUIT\r\n");
-			runlog('SMTP', "({$_G[setting][mail][server]}:{$_G[setting][mail][port]}) HELO/EHLO - $lastmessage", 0);
+			runlog('SMTP', "({$_G['setting']['mail']['server']}:{$_G['setting']['mail']['port']}) HELO/EHLO - $lastmessage", 0);
 			return false;
 		}
 
@@ -115,7 +115,7 @@ EOT;
 			$lastmessage = fgets($fp, 512);
 			if(substr($lastmessage, 0, 3) != 334) {
 				fputs($fp, "QUIT\r\n");
-				runlog('SMTP', "({$_G[setting][mail][server]}:{$_G[setting][mail][port]}) AUTH LOGIN - $lastmessage", 0);
+				runlog('SMTP', "({$_G['setting']['mail']['server']}:{$_G['setting']['mail']['port']}) AUTH LOGIN - $lastmessage", 0);
 				return false;
 			}
 
@@ -123,7 +123,7 @@ EOT;
 			$lastmessage = fgets($fp, 512);
 			if(substr($lastmessage, 0, 3) != 334) {
 				fputs($fp, "QUIT\r\n");
-				runlog('SMTP', "({$_G[setting][mail][server]}:{$_G[setting][mail][port]}) USERNAME - $lastmessage", 0);
+				runlog('SMTP', "({$_G['setting']['mail']['server']}:{$_G['setting']['mail']['port']}) USERNAME - $lastmessage", 0);
 				return false;
 			}
 
@@ -131,7 +131,7 @@ EOT;
 			$lastmessage = fgets($fp, 512);
 			if(substr($lastmessage, 0, 3) != 235) {
 				fputs($fp, "QUIT\r\n");
-				runlog('SMTP', "({$_G[setting][mail][server]}:{$_G[setting][mail][port]}) PASSWORD - $lastmessage", 0);
+				runlog('SMTP', "({$_G['setting']['mail']['server']}:{$_G['setting']['mail']['port']}) PASSWORD - $lastmessage", 0);
 				return false;
 			}
 
@@ -145,7 +145,7 @@ EOT;
 			$lastmessage = fgets($fp, 512);
 			if(substr($lastmessage, 0, 3) != 250) {
 				fputs($fp, "QUIT\r\n");
-				runlog('SMTP', "({$_G[setting][mail][server]}:{$_G[setting][mail][port]}) MAIL FROM - $lastmessage", 0);
+				runlog('SMTP', "({$_G['setting']['mail']['server']}:{$_G['setting']['mail']['port']}) MAIL FROM - $lastmessage", 0);
 				return false;
 			}
 		}
@@ -156,7 +156,7 @@ EOT;
 			fputs($fp, "RCPT TO: <".preg_replace("/.*\<(.+?)\>.*/", "\\1", $toemail).">\r\n");
 			$lastmessage = fgets($fp, 512);
 			fputs($fp, "QUIT\r\n");
-			runlog('SMTP', "({$_G[setting][mail][server]}:{$_G[setting][mail][port]}) RCPT TO - $lastmessage", 0);
+			runlog('SMTP', "({$_G['setting']['mail']['server']}:{$_G['setting']['mail']['port']}) RCPT TO - $lastmessage", 0);
 			return false;
 		}
 
@@ -164,7 +164,7 @@ EOT;
 		$lastmessage = fgets($fp, 512);
 		if(substr($lastmessage, 0, 3) != 354) {
 			fputs($fp, "QUIT\r\n");
-			runlog('SMTP', "({$_G[setting][mail][server]}:{$_G[setting][mail][port]}) DATA - $lastmessage", 0);
+			runlog('SMTP', "({$_G['setting']['mail']['server']}:{$_G['setting']['mail']['port']}) DATA - $lastmessage", 0);
 			return false;
 		}
 
@@ -187,7 +187,7 @@ EOT;
 		$lastmessage = fgets($fp, 512);
 		if(substr($lastmessage, 0, 3) != 250) {
 			fputs($fp, "QUIT\r\n");
-			runlog('SMTP', "({$_G[setting][mail][server]}:{$_G[setting][mail][port]}) END - $lastmessage", 0);
+			runlog('SMTP', "({$_G['setting']['mail']['server']}:{$_G['setting']['mail']['port']}) END - $lastmessage", 0);
 			return false;
 		}
 		fputs($fp, "QUIT\r\n");

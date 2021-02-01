@@ -600,7 +600,7 @@ function template($file, $templateid = 0, $tpldir = '', $gettplfile = 0, $primal
 	$filebak = $file;
 
 	if(defined('IN_MOBILE') && !defined('TPL_DEFAULT') && strpos($file, $_G['mobiletpl'][IN_MOBILE].'/') === false || (isset($_G['forcemobilemessage']) && $_G['forcemobilemessage'])) {
-		if(IN_MOBILE == 2) {
+		if(defined('IN_MOBILE') && constant('IN_MOBILE') == 2) {
 			$oldfile .= !empty($_G['inajax']) && ($oldfile == 'common/header' || $oldfile == 'common/footer') ? '_ajax' : '';
 		}
 		$file = $_G['mobiletpl'][IN_MOBILE].'/'.$oldfile;

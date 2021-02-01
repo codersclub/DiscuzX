@@ -80,7 +80,7 @@ class tag
 		if($tagidarray) {
 			$results = C::t('common_tag')->get_byids($tagidarray);
 			foreach($results as $result) {
-				$tagarray[$result[tagid]] = $result['tagname'];
+				$tagarray[$result['tagid']] = $result['tagname'];
 			}
 		}
 		$tags = $this->add_tag($tags, $itemid, $idtype, 1);
@@ -127,21 +127,21 @@ class tag
 				$tagnames = C::t('common_tag')->get_byids($tagidarray);
 				$results = C::t('common_tagitem')->select($tagidarray);
 				foreach($results as $result) {
-					$result['tagname'] = addslashes($tagnames[$result[tagid]]['tagname']);
+					$result['tagname'] = addslashes($tagnames[$result['tagid']]['tagname']);
 					if($result['idtype'] == 'tid') {
-						$itemid = $result[itemid];
+						$itemid = $result['itemid'];
 						if(!isset($tidarray[$itemid])) {
 							$post = C::t('forum_post')->fetch_threadpost_by_tid_invisible($itemid);
 							$tidarray[$itemid] = $post['tags'];
 						}
-						$tidarray[$itemid] = str_replace("$result[tagid],$result[tagname]\t", '', $tidarray[$itemid]);
+						$tidarray[$itemid] = str_replace("{$result['tagid']},{$result['tagname']}\t", '', $tidarray[$itemid]);
 					} elseif($result['idtype'] == 'blogid') {
-						$itemid = $result[itemid];
+						$itemid = $result['itemid'];
 						if(!isset($blogidarray[$itemid])) {
 							$blogfield = C::t('home_blogfield')->fetch($itemid);
 							$blogidarray[$itemid] = $blogfield['tag'];
 						}
-						$blogidarray[$itemid] = str_replace("$result[tagid],$result[tagname]\t", '', $blogidarray[$itemid]);
+						$blogidarray[$itemid] = str_replace("{$result['tagid']},{$result['tagname']}\t", '', $blogidarray[$itemid]);
 					}
 				}
 			}
@@ -188,21 +188,21 @@ class tag
 			$tagnames = C::t('common_tag')->get_byids($tagidarray);
 			$items = C::t('common_tagitem')->select($tagidarray);
 			foreach($items as $result) {
-				$result['tagname'] = addslashes($tagnames[$result[tagid]]['tagname']);
+				$result['tagname'] = addslashes($tagnames[$result['tagid']]['tagname']);
 				if($result['idtype'] == 'tid') {
-					$itemid = $result[itemid];
+					$itemid = $result['itemid'];
 					if(!isset($tidarray[$itemid])) {
 						$post = C::t('forum_post')->fetch_threadpost_by_tid_invisible($itemid);
 						$tidarray[$itemid] = $post['tags'];
 					}
-					$tidarray[$itemid] = str_replace("$result[tagid],$result[tagname]\t", '', $tidarray[$itemid]);
+					$tidarray[$itemid] = str_replace("{$result['tagid']},{$result['tagname']}\t", '', $tidarray[$itemid]);
 				} elseif($result['idtype'] == 'blogid') {
-					$itemid = $result[itemid];
+					$itemid = $result['itemid'];
 					if(!isset($blogidarray[$itemid])) {
 						$blogfield = C::t('home_blogfield')->fetch($itemid);
 						$blogidarray[$itemid] = $blogfield['tag'];
 					}
-					$blogidarray[$itemid] = str_replace("$result[tagid],$result[tagname]\t", '', $blogidarray[$itemid]);
+					$blogidarray[$itemid] = str_replace("{$result['tagid']},{$result['tagname']}\t", '', $blogidarray[$itemid]);
 				}
 			}
 		}

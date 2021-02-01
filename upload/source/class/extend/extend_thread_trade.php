@@ -127,7 +127,7 @@ class extend_thread_trade extends extend_thread_base {
 				$this->feed['body_template'] = 'feed_thread_goods_message_3';
 			}
 			$this->feed['body_data'] = array(
-				'itemname'=> "<a href=\"forum.php?mod=viewthread&do=tradeinfo&tid=".$this->tid."&pid=$pid\">$_GET[item_name]</a>",
+				'itemname'=> "<a href=\"forum.php?mod=viewthread&do=tradeinfo&tid=".$this->tid."&pid=$pid\">{$_GET['item_name']}</a>",
 				'itemprice'=> $_GET['item_price'],
 				'itemcredit'=> $_GET['item_credit'],
 				'creditunit'=> $this->setting['extcredits'][$this->setting['creditstransextra'][5]]['unit'].$this->setting['extcredits'][$this->setting['creditstransextra'][5]]['title']

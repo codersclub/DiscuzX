@@ -26,7 +26,7 @@ class helper_mobile {
 			if('utf-8' != CHARSET) {
 				$content = diconv($content, CHARSET, 'utf-8');
 			}
-			if(IN_MOBILE === '3') {
+			if(defined('IN_MOBILE') && constant('IN_MOBILE') === '3') {
 				header("Content-type: text/vnd.wap.wml; charset=utf-8");
 			} else {
 				@header('Content-Type: text/html; charset=utf-8');

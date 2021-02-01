@@ -79,7 +79,7 @@ function add_comment($message, $id, $idtype, $cid = 0) {
 			if(!ckfriend($album['uid'], $album['friend'], $album['target_ids'])) {
 				showmessage('no_privilege_ckfriend_pic');
 			} elseif(!$tospace['self'] && $album['friend'] == 4) {
-				$cookiename = "view_pwd_album_$album[albumid]";
+				$cookiename = "view_pwd_album_{$album['albumid']}";
 				$cookievalue = empty($_G['cookie'][$cookiename])?'':$_G['cookie'][$cookiename];
 				if($cookievalue != md5(md5($album['password']))) {
 					showmessage('no_privilege_ckpassword_pic');
@@ -103,7 +103,7 @@ function add_comment($message, $id, $idtype, $cid = 0) {
 			if(!ckfriend($blog['uid'], $blog['friend'], $blog['target_ids'])) {
 				showmessage('no_privilege_ckfriend_blog');
 			} elseif(!$tospace['self'] && $blog['friend'] == 4) {
-				$cookiename = "view_pwd_blog_$blog[blogid]";
+				$cookiename = "view_pwd_blog_{$blog['blogid']}";
 				$cookievalue = empty($_G['cookie'][$cookiename])?'':$_G['cookie'][$cookiename];
 				if($cookievalue != md5(md5($blog['password']))) {
 					showmessage('no_privilege_ckpassword_blog');
@@ -114,7 +114,7 @@ function add_comment($message, $id, $idtype, $cid = 0) {
 				showmessage('do_not_accept_comments');
 			}
 			if($blog['target_ids']) {
-				$blog['target_ids'] .= ",$blog[uid]";
+				$blog['target_ids'] .= ",{$blog['uid']}";
 			}
 
 			$hotarr = array('blogid', $blog['blogid'], $blog['hotuser']);
@@ -161,29 +161,29 @@ function add_comment($message, $id, $idtype, $cid = 0) {
 		case 'uid':
 			$fs['icon'] = 'wall';
 			$fs['title_template'] = 'feed_comment_space';
-			$fs['title_data'] = array('touser'=>"<a href=\"home.php?mod=space&uid=$tospace[uid]\">$tospace[username]</a>");
+			$fs['title_data'] = array('touser'=>"<a href=\"home.php?mod=space&uid={$tospace['uid']}\">{$tospace['username']}</a>");
 			break;
 		case 'picid':
 			$fs['title_template'] = 'feed_comment_image';
-			$fs['title_data'] = array('touser'=>"<a href=\"home.php?mod=space&uid=$tospace[uid]\">".$tospace['username']."</a>");
+			$fs['title_data'] = array('touser'=>"<a href=\"home.php?mod=space&uid={$tospace['uid']}\">".$tospace['username']."</a>");
 			$fs['body_template'] = '{pic_title}';
 			$fs['body_data'] = array('pic_title'=>$pic['title']);
 			$fs['body_general'] = $summay;
 			$fs['images'] = array(pic_get($pic['filepath'], 'album', $pic['thumb'], $pic['remote']));
-			$fs['image_links'] = array("home.php?mod=space&uid=$tospace[uid]&do=album&picid=$pic[picid]");
+			$fs['image_links'] = array("home.php?mod=space&uid={$tospace['uid']}&do=album&picid={$pic['picid']}");
 			$fs['target_ids'] = $album['target_ids'];
 			$fs['friend'] = $album['friend'];
 			break;
 		case 'blogid':
 			C::t('home_blog')->increase($id, 0, array('replynum'=>1));
 			$fs['title_template'] = 'feed_comment_blog';
-			$fs['title_data'] = array('touser'=>"<a href=\"home.php?mod=space&uid=$tospace[uid]\">".$tospace['username']."</a>", 'blog'=>"<a href=\"home.php?mod=space&uid=$tospace[uid]&do=blog&id=$id\">$blog[subject]</a>");
+			$fs['title_data'] = array('touser'=>"<a href=\"home.php?mod=space&uid={$tospace['uid']}\">".$tospace['username']."</a>", 'blog'=>"<a href=\"home.php?mod=space&uid={$tospace['uid']}&do=blog&id=$id\">{$blog['subject']}</a>");
 			$fs['target_ids'] = $blog['target_ids'];
 			$fs['friend'] = $blog['friend'];
 			break;
 		case 'sid':
 			$fs['title_template'] = 'feed_comment_share';
-			$fs['title_data'] = array('touser'=>"<a href=\"home.php?mod=space&uid=$tospace[uid]\">".$tospace['username']."</a>", 'share'=>"<a href=\"home.php?mod=space&uid=$tospace[uid]&do=share&id=$id\">".str_replace(lang('spacecp', 'share_action'), '', $share['title_template'])."</a>");
+			$fs['title_data'] = array('touser'=>"<a href=\"home.php?mod=space&uid={$tospace['uid']}\">".$tospace['username']."</a>", 'share'=>"<a href=\"home.php?mod=space&uid={$tospace['uid']}&do=share&id=$id\">".str_replace(lang('spacecp', 'share_action'), '', $share['title_template'])."</a>");
 			break;
 	}
 
@@ -215,7 +215,7 @@ function add_comment($message, $id, $idtype, $cid = 0) {
 
 	switch ($idtype) {
 		case 'uid':
-			$n_url = "home.php?mod=space&uid=$tospace[uid]&do=wall&cid=$cid";
+			$n_url = "home.php?mod=space&uid={$tospace['uid']}&do=wall&cid=$cid";
 
 			$note_type = 'wall';
 			$note = 'wall';
@@ -236,7 +236,7 @@ function add_comment($message, $id, $idtype, $cid = 0) {
 			$action = 'guestbook';
 			break;
 		case 'picid':
-			$n_url = "home.php?mod=space&uid=$tospace[uid]&do=album&picid=$id&cid=$cid";
+			$n_url = "home.php?mod=space&uid={$tospace['uid']}&do=album&picid=$id&cid=$cid";
 
 			$note_type = 'comment';
 			$note = 'pic_comment';
@@ -249,7 +249,7 @@ function add_comment($message, $id, $idtype, $cid = 0) {
 
 			break;
 		case 'blogid':
-			$n_url = "home.php?mod=space&uid=$tospace[uid]&do=blog&id=$id&cid=$cid";
+			$n_url = "home.php?mod=space&uid={$tospace['uid']}&do=blog&id=$id&cid=$cid";
 
 			$note_type = 'comment';
 			$note = 'blog_comment';
@@ -262,7 +262,7 @@ function add_comment($message, $id, $idtype, $cid = 0) {
 
 			break;
 		case 'sid':
-			$n_url = "home.php?mod=space&uid=$tospace[uid]&do=share&id=$id&cid=$cid";
+			$n_url = "home.php?mod=space&uid={$tospace['uid']}&do=share&id=$id&cid=$cid";
 
 			$note_type = 'comment';
 			$note = 'share_comment';

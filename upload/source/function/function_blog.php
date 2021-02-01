@@ -167,7 +167,7 @@ function blog_post($POST, $olds=array()) {
 		}
 		foreach ($uploads as $value) {
 			$picurl = pic_get($value['filepath'], 'album', $value['thumb'], $value['remote'], 0);
-			$message .= "<div class=\"uchome-message-pic\"><img src=\"$picurl\"><p>$value[title]</p></div>";
+			$message .= "<div class=\"uchome-message-pic\"><img src=\"$picurl\"><p>{$value['title']}</p></div>";
 		}
 	}
 

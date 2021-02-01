@@ -85,8 +85,8 @@ class helper_seo {
 			foreach($_G['cache']['relatedlink'] as $link) {
 				$link['extent'] = sprintf('%04b', $link['extent']);
 				if($link['extent'][$allextent[$extent]] && $link['name'] && $link['url']) {
-					$searcharray[$link[name]] = '/('.preg_quote($link['name']).')/i';
-					$replacearray[$link[name]] = "<a href=\"$link[url]\" target=\"_blank\" class=\"relatedlink\">$link[name]</a>";
+					$searcharray[$link['name']] = '/('.preg_quote($link['name']).')/i';
+					$replacearray[$link['name']] = "<a href=\"{$link['url']}\" target=\"_blank\" class=\"relatedlink\">{$link['name']}</a>";
 				}
 			}
 			if($searcharray && $replacearray) {

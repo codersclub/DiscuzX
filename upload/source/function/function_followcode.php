@@ -142,8 +142,8 @@ function followcode($message, $tid = 0, $pid = 0, $length = 0, $allowimg = true)
 			if(!empty($_G['delattach']) && in_array($aid, $_G['delattach'])) {
 				continue;
 			}
-			$message .= "[attach]$attach[aid][/attach]";
-			$message = preg_replace("/\[attach\]$attach[aid]\[\/attach\]/i", fparseattach($attach['aid'], $length, $extra), $message, 1);
+			$message .= "[attach]{$attach['aid']}[/attach]";
+			$message = preg_replace("/\[attach\]{$attach['aid']}\[\/attach\]/i", fparseattach($attach['aid'], $length, $extra), $message, 1);
 		}
 	}
 

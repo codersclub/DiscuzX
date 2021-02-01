@@ -109,7 +109,7 @@ function pluginupgrade($pluginarray, $installtype) {
 		}
 		foreach($pluginarray['var'] as $config) {
 			if(!in_array($config['variable'], $pluginvars)) {
-				$data = array('pluginid' => $plugin[pluginid]);
+				$data = array('pluginid' => $plugin['pluginid']);
 				foreach($config as $key => $val) {
 					$data[$key] = $val;
 				}
@@ -276,10 +276,10 @@ function updatetable($sql) {
 
 			$maths[3] = strtoupper($maths[3]);
 			if($maths[3] == 'MEMORY' || $maths[3] == 'HEAP') {
-				$type = helper_dbtool::dbversion() > '4.1' ? " ENGINE=MEMORY".(empty($config['dbcharset'])?'':" DEFAULT CHARSET=$config[dbcharset]" ): " TYPE=HEAP";
+				$type = helper_dbtool::dbversion() > '4.1' ? " ENGINE=MEMORY".(empty($config['dbcharset'])?'':" DEFAULT CHARSET={$config['dbcharset']}" ): " TYPE=HEAP";
 			} else {
 				$engine = $config['engine'] !== 'innodb' ? 'MyISAM' : 'InnoDB';
-				$type = helper_dbtool::dbversion() > '4.1' ? " ENGINE=". $engine . (empty($config['dbcharset']) ? '' :" DEFAULT CHARSET=$config[dbcharset]") : " TYPE=" . $engine;
+				$type = helper_dbtool::dbversion() > '4.1' ? " ENGINE=". $engine . (empty($config['dbcharset']) ? '' :" DEFAULT CHARSET={$config['dbcharset']}") : " TYPE=" . $engine;
 			}
 			$usql = $maths[1].$type;
 

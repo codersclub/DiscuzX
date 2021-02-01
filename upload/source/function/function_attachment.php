@@ -80,7 +80,7 @@ function parseattach($attachpids, $attachtags, &$postlist, $skipaids = array()) 
 	foreach(C::t('forum_attachment_n')->fetch_all_by_id('tid:'.$_G['tid'], 'pid', $attachpids) as $attach) {
 		$attachexists = TRUE;
 		if($skipaids && in_array($attach['aid'], $skipaids)) {
-			$skipattachcode[$attach[pid]][] = "/\[attach\]$attach[aid]\[\/attach\]/i";
+			$skipattachcode[$attach['pid']][] = "/\[attach\]{$attach['aid']}\[\/attach\]/i";
 			continue;
 		}
 		$attached = 0;
@@ -118,7 +118,7 @@ function parseattach($attachpids, $attachtags, &$postlist, $skipaids = array()) 
 			$postlist[$attach['pid']]['attachments'][$attach['aid']] = $attach;
 		}
 		if(!defined('IN_MOBILE_API') && !empty($attachtags[$attach['pid']]) && is_array($attachtags[$attach['pid']]) && in_array($attach['aid'], $attachtags[$attach['pid']])) {
-			$findattach[$attach['pid']][$attach['aid']] = "/\[attach\]$attach[aid]\[\/attach\]/i";
+			$findattach[$attach['pid']][$attach['aid']] = "/\[attach\]{$attach['aid']}\[\/attach\]/i";
 			$attached = 1;
 		}
 

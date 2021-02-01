@@ -23,7 +23,7 @@ class task_gift {
 	var $conditions = array();
 
 	function preprocess($task) {
-		dheader("Location: home.php?mod=task&do=draw&id=$task[taskid]");
+		dheader("Location: home.php?mod=task&do=draw&id={$task['taskid']}");
 	}
 
 	function csc($task = array()) {

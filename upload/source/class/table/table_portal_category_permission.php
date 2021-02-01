@@ -81,7 +81,7 @@ class table_portal_category_permission extends discuz_table
 				$inheritedcatid = !empty($user['inheritedcatid']) ? $user['inheritedcatid'] : ($upid ? $upid : 0);
 				foreach ($catids as $catid) {
 					if($catid) {
-						$perms[] = "('$catid','$user[uid]','$user[allowpublish]','$user[allowmanage]','$inheritedcatid')";
+						$perms[] = "('$catid','{$user['uid']}','{$user['allowpublish']}','{$user['allowmanage']}','$inheritedcatid')";
 						$inheritedcatid = empty($inheritedcatid) ? $catid : $inheritedcatid;
 					}
 				}

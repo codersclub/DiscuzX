@@ -46,9 +46,9 @@ class table_common_block_item extends discuz_table
 			foreach($itemlist as $value) {
 				if($value) {
 					$value = daddslashes($value);
-					$inserts[] = "('$value[itemid]', '$bid', '$value[itemtype]', '$value[id]', '$value[idtype]', '$value[title]',
-						'$value[url]', '$value[pic]', '$value[picflag]', '$value[makethumb]', '$value[thumbpath]', '$value[summary]',
-						'$value[showstyle]', '$value[related]', '$value[fields]', '$value[displayorder]', '$value[startdate]', '$value[enddate]')";
+					$inserts[] = "('{$value['itemid']}', '$bid', '{$value['itemtype']}', '{$value['id']}', '{$value['idtype']}', '{$value['title']}',
+						'{$value['url']}', '{$value['pic']}', '{$value['picflag']}', '{$value['makethumb']}', '{$value['thumbpath']}', '{$value['summary']}',
+						'{$value['showstyle']}', '{$value['related']}', '{$value['fields']}', '{$value['displayorder']}', '{$value['startdate']}', '{$value['enddate']}')";
 				}
 			}
 		}

@@ -25,7 +25,7 @@ class table_portal_article_trash extends discuz_table
 		$sql = array();
 		foreach($inserts as $value) {
 			if(($value['aid'] = dintval($value['aid']))) {
-				$sql[] = "('$value[aid]', '".addslashes($value['content'])."')";
+				$sql[] = "('{$value['aid']}', '".addslashes($value['content'])."')";
 			}
 		}
 		if($sql) {

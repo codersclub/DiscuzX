@@ -532,15 +532,15 @@ class register_ctl {
 				checkemail($_GET['email']);
 			}
 			if($sendurl) {
-				$hashstr = urlencode(authcode("$_GET[email]\t$_G[timestamp]", 'ENCODE', $_G['config']['security']['authkey']));
-				$registerurl = $_G['setting']['securesiteurl']."member.php?mod=".$this->setting['regname']."&amp;hash={$hashstr}&amp;email={$_GET[email]}";
+				$hashstr = urlencode(authcode("{$_GET['email']}\t{$_G['timestamp']}", 'ENCODE', $_G['config']['security']['authkey']));
+				$registerurl = $_G['setting']['securesiteurl']."member.php?mod=".$this->setting['regname']."&amp;hash={$hashstr}&amp;email={$_GET['email']}";
 				$email_register_message = lang('email', 'email_register_message', array(
 					'bbname' => $this->setting['bbname'],
 					'siteurl' => $_G['setting']['securesiteurl'],
 					'url' => $registerurl
 				));
-				if(!sendmail("$_GET[email] <$_GET[email]>", lang('email', 'email_register_subject'), $email_register_message)) {
-					runlog('sendmail', "$_GET[email] sendmail failed.");
+				if(!sendmail("{$_GET['email']} <{$_GET['email']}>", lang('email', 'email_register_subject'), $email_register_message)) {
+					runlog('sendmail', "{$_GET['email']} sendmail failed.");
 				}
 				showmessage('register_email_send_succeed', dreferer(), array('bbname' => $this->setting['bbname']), array('showdialog' => false, 'msgtype' => 3, 'closetime' => 10));
 			}
@@ -883,9 +883,9 @@ class register_ctl {
 			switch($this->setting['regverify']) {
 				case 1:
 					$idstring = random(6);
-					$authstr = $this->setting['regverify'] == 1 ? "$_G[timestamp]\t2\t$idstring" : '';
+					$authstr = $this->setting['regverify'] == 1 ? "{$_G['timestamp']}\t2\t$idstring" : '';
 					C::t('common_member_field_forum')->update($_G['uid'], array('authstr' => $authstr));
-					$verifyurl = $_G['setting']['securesiteurl']."member.php?mod=activate&amp;uid={$_G[uid]}&amp;id=$idstring";
+					$verifyurl = $_G['setting']['securesiteurl']."member.php?mod=activate&amp;uid={$_G['uid']}&amp;id=$idstring";
 					$email_verify_message = lang('email', 'email_verify_message', array(
 						'username' => $_G['member']['username'],
 						'bbname' => $this->setting['bbname'],

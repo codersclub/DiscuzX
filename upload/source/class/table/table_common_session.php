@@ -70,7 +70,7 @@ class table_common_session extends discuz_table
 
 		$session = daddslashes($session);
 		//当前用户的sid
-		$condition = " sid='{$session[sid]}' ";
+		$condition = " sid='{$session['sid']}' ";
 		//过期的 session
 		$condition .= " OR lastactivity<$onlinehold ";
 		//频繁的同一ip游客

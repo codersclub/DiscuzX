@@ -24,7 +24,7 @@ include loadarchiver('common/header');
 		<?php endforeach; ?>
 	</ul>
 	<div class="page">
-		<?php echo arch_multi($_G['forum_threadcount'], $_G['tpp'], $page, "?fid-$_G[fid].html"); ?>
+		<?php echo arch_multi($_G['forum_threadcount'], $_G['tpp'], $page, "?fid-{$_G['fid']}.html"); ?>
 	</div>
 </div>
 

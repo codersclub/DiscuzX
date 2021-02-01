@@ -40,9 +40,9 @@ class magic_doodle {
 		magicshowtips(lang('magic/doodle', 'doodle_info'));
 		echo '
 <p>
-	<input type="hidden" name="showid" value="'.htmlspecialchars($_GET[showid]).'" />
-	<input type="hidden" name="mtarget" value="'.htmlspecialchars($_GET[target]).'" />
-	<input type="hidden" name="from" value="'.htmlspecialchars($_GET[from]).'" />
+	<input type="hidden" name="showid" value="'.htmlspecialchars($_GET['showid']).'" />
+	<input type="hidden" name="mtarget" value="'.htmlspecialchars($_GET['target']).'" />
+	<input type="hidden" name="from" value="'.htmlspecialchars($_GET['from']).'" />
 </p>
 ';
 	}

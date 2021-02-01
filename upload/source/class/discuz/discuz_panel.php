@@ -93,9 +93,9 @@ class discuz_panel {
 			return FALSE;
 		} elseif(empty($founders)) {
 			return TRUE;
-		} elseif(strexists(",$founders,", ",$user[uid],")) {
+		} elseif(strexists(",$founders,", ",{$user['uid']},")) {
 			return TRUE;
-		} elseif(!is_numeric($user['username']) && strexists(",$founders,", ",$user[username],")) {
+		} elseif(!is_numeric($user['username']) && strexists(",$founders,", ",{$user['username']},")) {
 			return TRUE;
 		} else {
 			return FALSE;

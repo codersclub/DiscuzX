@@ -98,7 +98,7 @@ class table_common_block_permission extends discuz_table
 					$tplname = !empty($user['inheritedtplname']) ? $user['inheritedtplname'] : $tplname;
 					foreach ($bids as $bid) {
 						if(empty($notinherit[$bid][$user['uid']])) {
-							$blockperms[] = "('$bid','$user[uid]','$user[allowmanage]','$user[allowrecommend]','$user[needverify]','$tplname')";
+							$blockperms[] = "('$bid','{$user['uid']}','{$user['allowmanage']}','{$user['allowrecommend']}','{$user['needverify']}','$tplname')";
 						}
 					}
 				}
@@ -119,7 +119,7 @@ class table_common_block_permission extends discuz_table
 		if(!empty($bid) && !empty($users)) {
 			foreach ($users as $v) {
 				if(($v['uid'] = dintval($v['uid']))) {
-					$sqlarr[] = "('$bid','$v[uid]','$v[allowmanage]','$v[allowrecommend]','$v[needverify]','')";
+					$sqlarr[] = "('$bid','{$v['uid']}','{$v['allowmanage']}','{$v['allowrecommend']}','{$v['needverify']}','')";
 					$uids[] = $v['uid'];
 				}
 			}

@@ -66,7 +66,7 @@ class helper_notification {
 		} elseif($category == 1 || $category == 2) {
 			$categoryname = $type;
 		}
-		$notevars['actor'] = "<a href=\"home.php?mod=space&uid=$_G[uid]\">".$_G['member']['username']."</a>";
+		$notevars['actor'] = "<a href=\"home.php?mod=space&uid={$_G['uid']}\">".$_G['member']['username']."</a>";
 
 		$vars = explode(':', $note);
 		if(count($vars) == 2) {

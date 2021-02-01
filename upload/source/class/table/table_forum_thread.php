@@ -530,7 +530,7 @@ class table_forum_thread extends discuz_table
 	public function fetch_all_by_special($special, $authorid = 0, $replies = 0, $displayorder = null, $subject = '', $join = 0, $start = 0, $limit = 0, $order = 'dateline', $sort = 'DESC') {
 		$condition = $this->make_special_condition($special, $authorid, $replies, $displayorder, $subject, $join, 0);
 		$ordersql = !empty($order) ? ' ORDER BY t.'.DB::order($order, $sort) : '';
-		return DB::fetch_all("SELECT t.* FROM %t t $condition[jointable] ".$condition['where'].$ordersql.DB::limit($start, $limit), $condition['parameter'], $this->_pk);
+		return DB::fetch_all("SELECT t.* FROM %t t {$condition['jointable']} ".$condition['where'].$ordersql.DB::limit($start, $limit), $condition['parameter'], $this->_pk);
 	}
 	public function fetch_all_heats() {
 		$heatdateline = getglobal('timestamp') - 86400 * getglobal('setting/indexhot/days');
@@ -585,7 +585,7 @@ class table_forum_thread extends discuz_table
 
 	public function count_by_special($special, $authorid = 0, $replies = 0, $displayorder = null, $subject = '', $join = 0) {
 		$condition = $this->make_special_condition($special, $authorid, $replies, $displayorder, $subject, $join, 0);
-		return DB::result_first("SELECT COUNT(*) FROM %t t $condition[jointable] ".$condition['where'], $condition['parameter']);
+		return DB::result_first("SELECT COUNT(*) FROM %t t {$condition['jointable']} ".$condition['where'], $condition['parameter']);
 	}
 	private function make_special_condition($special, $authorid = 0, $replies = 0, $displayorder = null, $subject = '', $join = 0, $tableid = 0) {
 		$wherearr = $condition = array();

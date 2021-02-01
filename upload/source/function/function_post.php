@@ -376,7 +376,7 @@ function checkpost($subject, $message, $special = 0) {
 		if($_G['setting']['maxpostsize'] && strlen($message) > $_G['setting']['maxpostsize']) {
 			return 'post_message_toolong';
 		} elseif($_G['setting']['minpostsize']) {
-			$minpostsize = !IN_MOBILE || !$_G['setting']['minpostsize_mobile'] ? $_G['setting']['minpostsize'] : $_G['setting']['minpostsize_mobile'];
+			$minpostsize = !defined('IN_MOBILE') || !constant('IN_MOBILE') || !$_G['setting']['minpostsize_mobile'] ? $_G['setting']['minpostsize'] : $_G['setting']['minpostsize_mobile'];
 			if(strlen(preg_replace("/\[quote\].+?\[\/quote\]/is", '', $message)) < $minpostsize || strlen(preg_replace("/\[postbg\].+?\[\/postbg\]/is", '', $message)) < $minpostsize) {
 				return 'post_message_tooshort';
 			}
@@ -454,7 +454,7 @@ function updateforumcount($fid) {
 	$thread['subject'] = addslashes($thread['subject']);
 	$thread['lastposter'] = $thread['author'] ? addslashes($thread['lastposter']) : lang('forum/misc', 'anonymous');
 	$tid = $thread['closed'] > 1 ? $thread['closed'] : $thread['tid'];
-	$setarr = array('posts' => $posts, 'threads' => $threads, 'lastpost' => "$tid\t$thread[subject]\t$thread[lastpost]\t$thread[lastposter]");
+	$setarr = array('posts' => $posts, 'threads' => $threads, 'lastpost' => "$tid\t{$thread['subject']}\t{$thread['lastpost']}\t${thread['lastposter']}");
 	C::t('forum_forum')->update($fid, $setarr);
 }
 
@@ -594,7 +594,7 @@ function messagecutstr($str, $length = 0, $dot = ' ...') {
 			"/\[\/($bbcodes)\]/i",
 			"/\\\\u/i"
 		), array(
-			"[b]$language[post_hidden][/b]",
+			"[b]{$language['post_hidden']}[/b]",
 			'',
 			'',
 			'\\1',

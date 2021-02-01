@@ -73,7 +73,7 @@ function debugmessage($ajax = 0) {
 			$error['class'] = isset($error['class']) ? $error['class'] : '';
 			$error['type'] = isset($error['type']) ? $error['type'] : '';
 			$error['function'] = isset($error['function']) ? $error['function'] : '';
-			$sqldebugrow .= "<tr><td>$error[file]</td><td>$error[line]</td><td>$error[class]$error[type]$error[function]()</td></tr>";
+			$sqldebugrow .= "<tr><td>{$error['file']}</td><td>{$error['line']}</td><td>{$error['class']}{$error['type']}{$error['function']}()</td></tr>";
 			if(strexists($error['file'], 'discuz/discuz_table') || strexists($error['file'], 'table/table')) {
 				$dt = ' &bull; '.$error['file'];
 				$discuz_table++;
@@ -112,7 +112,7 @@ elseif(isset($_GET[\''.$viewcachek.'\'])) {
 			echo \'<a href="'.$debugfile.'?k='.$akey.'&'.$viewcachek.'&c=\'.$names[\'cname\'].\'" target="_blank" style="float:left;width:200px">\'.$names[\'cname\'].\'</a>\';
 		}
 	} else {
-		$cache = DB::fetch_first("SELECT * FROM ".DB::table("common_syscache")." WHERE cname=\'$_GET[c]\'");
+		$cache = DB::fetch_first("SELECT * FROM ".DB::table("common_syscache")." WHERE cname=\'".$_GET[\'c\']."\'");
 		echo \'$_G[\\\'cache\\\'][\'.$_GET[\'c\'].\']<br>\';
 		debug($cache[\'ctype\'] ? dunserialize($cache[\'data\']) : $cache[\'data\']);
 	}

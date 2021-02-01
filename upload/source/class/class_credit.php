@@ -115,7 +115,7 @@ class credit {
 							$logarr = array(
 								'cyclenum' => "cyclenum=$cyclenunm",
 								'total' => "total=total+'$coef'",
-								'dateline' => "dateline='$_G[timestamp]'"
+								'dateline' => "dateline='{$_G['timestamp']}'"
 							);
 							$updatecredit = true;
 						}
@@ -148,7 +148,7 @@ class credit {
 							$logarr = array(
 								'cyclenum' => "cyclenum=cyclenum+'$coef'",
 								'total' => "total=total+'$coef'",
-								'dateline' => "dateline='$_G[timestamp]'"
+								'dateline' => "dateline='{$_G['timestamp']}'"
 							);
 							$updatecredit = true;
 						} elseif($_G['timestamp'] >= $nextcycle) {
@@ -156,8 +156,8 @@ class credit {
 							$logarr = array(
 								'cyclenum' => "cyclenum=$coef",
 								'total' => "total=total+'$coef'",
-								'dateline' => "dateline='$_G[timestamp]'",
-								'starttime' => "starttime='$_G[timestamp]'",
+								'dateline' => "dateline='{$_G['timestamp']}'",
+								'starttime' => "starttime='{$_G['timestamp']}'",
 							);
 							$updatecredit = true;
 						}

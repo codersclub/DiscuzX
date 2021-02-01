@@ -728,17 +728,17 @@ function category_showselect($type, $name='catid', $shownull=true, $current='') 
 	foreach ($category as $value) {
 		if($value['level'] == 0) {
 			$selected = ($current && $current==$value['catid']) ? 'selected="selected"' : '';
-			$select .= "<option value=\"$value[catid]\"$selected>$value[catname]</option>";
+			$select .= "<option value=\"{$value['catid']}\"$selected>{$value['catname']}</option>";
 			if(!$value['children']) {
 				continue;
 			}
 			foreach ($value['children'] as $catid) {
 				$selected = ($current && $current==$catid) ? 'selected="selected"' : '';
-				$select .= "<option value=\"{$category[$catid][catid]}\"$selected>-- {$category[$catid][catname]}</option>";
+				$select .= "<option value=\"{$category[$catid]['catid']}\"$selected>-- {$category[$catid]['catname']}</option>";
 				if($category[$catid]['children']) {
 					foreach ($category[$catid]['children'] as $catid2) {
 						$selected = ($current && $current==$catid2) ? 'selected="selected"' : '';
-						$select .= "<option value=\"{$category[$catid2][catid]}\"$selected>---- {$category[$catid2][catname]}</option>";
+						$select .= "<option value=\"{$category[$catid2]['catid']}\"$selected>---- {$category[$catid2]['catname']}</option>";
 					}
 				}
 			}

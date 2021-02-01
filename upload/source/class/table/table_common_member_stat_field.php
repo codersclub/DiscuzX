@@ -33,7 +33,7 @@ class table_common_member_stat_field extends discuz_table
 		$sql = array();
 		foreach($inserts as $value) {
 			if($value['fieldid']) {
-				$sql[] = "('$value[fieldid]', '".addslashes($value['fieldvalue'])."')";
+				$sql[] = "('{$value['fieldid']}', '".addslashes($value['fieldvalue'])."')";
 			}
 		}
 		if($sql) {

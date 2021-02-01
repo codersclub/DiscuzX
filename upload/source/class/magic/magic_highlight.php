@@ -108,7 +108,7 @@ class magic_highlight {
 		$lang = lang('magic/highlight');
 		magicshowsetting(lang('magic/highlight', 'highlight_info_'.$idtype, array('expiration' => $this->parameters['expiration'])), 'id', $id, 'hidden');
 echo <<<EOF
-	<p class="mtm mbn">$lang[highlight_color]</p>
+	<p class="mtm mbn">{$lang['highlight_color']}</p>
 	<div class="hasd mbm cl">
 		<input type="hidden" id="highlight_color" name="highlight_color" />
 		<input type="hidden" id="highlight_idtype" name="idtype" value="$idtype"/>

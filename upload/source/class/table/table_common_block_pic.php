@@ -30,7 +30,7 @@ class table_common_block_pic extends discuz_table
 			$data = daddslashes($data);
 			$str = array();
 			foreach($data as $value) {
-				$str[] = "('$value[bid]', '$value[pic]', '$value[picflag]', '$value[type]')";
+				$str[] = "('{$value['bid']}', '{$value['pic']}', '{$value['picflag']}', '{$value['type']}')";
 			}
 			if($str) {
 				DB::query('INSERT INTO '.DB::table($this->_table).' (bid, pic, picflag, `type`) VALUES '.implode(',', $str));

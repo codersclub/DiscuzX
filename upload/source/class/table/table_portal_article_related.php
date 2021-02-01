@@ -32,8 +32,8 @@ class table_portal_article_related extends discuz_table
 			unset($list[$aid]);
 			foreach($list as $value) {
 				if(($value['aid'] = dintval($value['aid']))) {
-					$replaces[] = "('$aid', '$value[aid]', '$displayorder')";
-					$replaces[] = "('$value[aid]', '$aid', '0')";
+					$replaces[] = "('$aid', '{$value['aid']}', '$displayorder')";
+					$replaces[] = "('{$value['aid']}', '$aid', '0')";
 					$displayorder++;
 				}
 			}

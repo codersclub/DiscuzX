@@ -135,7 +135,7 @@ LUA;
 	 * 		$sid，基于key直接删除: $prefix$sid
 	 * 		$lastactivity < $onlinehold: 基于 idx_lastactivity sortedset筛选
 	 * 		$uid = 0 and $ip = clientip and $lastactivity > $guestspan: 基于 idx_uid_group_0 sortedset筛选
-	 * 		$uid = $session[uid]: 基于uid set
+	 * 		$uid = $session['uid']: 基于uid set
 	 * 删除后要更新所有索引
 	 * 		idx_ip_$ipaddress: SortedSet，member是sid, score是lastactivity
 	 * 		idx_invisible_$invisible: SortedSet, member是sid, score是lastactivity
