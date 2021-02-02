@@ -56,11 +56,6 @@ class block_article extends discuz_block {
 				'type' => 'calendar',
 				'default' => ''
 			),
-			'picrequired' => array(
-				'title' => 'articlelist_picrequired',
-				'type' => 'radio',
-				'default' => '0'
-			),
 			'orderby' => array(
 				'title' => 'articlelist_orderby',
 				'type' => 'mradio',
