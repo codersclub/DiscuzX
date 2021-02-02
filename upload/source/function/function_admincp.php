@@ -741,9 +741,9 @@ function showsetting($setname, $varname, $value, $type = 'radio', $disabled = ''
 		echo '<td class="vtop rowform"><p class="td27m">'.$name.'</p>'.$s.'</td>';
 		$_G['showsetting_multirow_n']++;
 		if($_G['showsetting_multirow_n'] == 2) {
-			if(empty($_G['showsetting_multirow_n'])) {
-				echo '</tr>';
-			}
+			
+			echo '</tr>';
+			
 			$_G['showsetting_multirow_n'] = 0;
 		}
 		return;
