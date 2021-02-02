@@ -573,7 +573,8 @@ if($operation == 'export') {
 		} elseif(!$checkperm) {
 			cpmsg('database_run_query_denied', '', 'error');
 		}
-		$sqlquery = splitsql(str_replace(array(' {tablepre}', ' cdb_', ' `cdb_', ' pre_', ' `pre_'), array(' '.$tablepre, ' '.$tablepre, ' `'.$tablepre, ' '.$tablepre, ' `'.$tablepre), $queries));
+		$sqlquery = str_replace(array(' cdb_', ' `cdb_', ' pre_', ' `pre_'), array(' {tablepre}', ' `{tablepre}', ' {tablepre}', ' `{tablepre}'), $queries);
+		$sqlquery = splitsql(str_replace(array(' {tablepre}', ' `{tablepre}'), array(' '.$tablepre, ' `'.$tablepre), $sqlquery));
 		$affected_rows = 0;
 		foreach($sqlquery as $sql) {
 			if(trim($sql) != '') {

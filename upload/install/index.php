@@ -321,8 +321,7 @@ if($method == 'show_license') {
 			}
 		}
 
-		// 表前缀格式限制最后一个字符为 _ , 避免形如 pre_1 的表前缀产生导致程序处理出错.
-		if(strpos($tablepre, '.') !== false || intval($tablepre[0]) || strrpos($tablepre, '_') !== strlen($tablepre) - 1) {
+		if(strpos($tablepre, '.') !== false || intval($tablepre[0])) {
 			show_msg('tablepre_invalid', $tablepre, 0);
 		}
 
