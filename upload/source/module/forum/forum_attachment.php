@@ -244,7 +244,7 @@ $mimetype = ext_to_mimetype($attach['filename']);
 $filesize = !$attach['remote'] ? filesize($filename) : $attach['filesize'];
 // 如果range_end没有传入，更新range_end
 if ($has_range_header && !$range_end) $range_end = $filesize - 1;
-$attach['filename'] = '"'.(strtolower(CHARSET) == 'utf-8' && strexists($_SERVER['HTTP_USER_AGENT'], 'MSIE') ? urlencode($attach['filename']) : $attach['filename']).'"';
+$attach['filename'] = '"'.(strtolower(CHARSET) == 'utf-8' && (strexists($_SERVER['HTTP_USER_AGENT'], 'MSIE') || strexists($_SERVER['HTTP_USER_AGENT'], 'Trident') || strexists($_SERVER['HTTP_USER_AGENT'], 'Edge')) ? urlencode($attach['filename']) : $attach['filename']).'"';
 
 dheader('Date: '.gmdate('D, d M Y H:i:s', $attach['dateline']).' GMT');
 dheader('Last-Modified: '.gmdate('D, d M Y H:i:s', $attach['dateline']).' GMT');

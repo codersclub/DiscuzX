@@ -425,7 +425,7 @@ IconIndex=1
 		$filename = $_G['setting']['bbname'].'.url';
 	}
 
-	if(!strexists($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
+	if(!(strexists($_SERVER['HTTP_USER_AGENT'], 'MSIE') || strexists($_SERVER['HTTP_USER_AGENT'], 'Trident') || strexists($_SERVER['HTTP_USER_AGENT'], 'Edge'))) {
 		$filename = diconv($filename, CHARSET, 'UTF-8');
 	} else {
 		$filename = diconv($filename, CHARSET, 'GBK');

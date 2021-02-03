@@ -501,7 +501,7 @@ if($_GET['op'] == 'checknewpm') {
 	$contents = nl2br($contents);
 
 	$filesize = strlen($contents);
-	$filename = '"'.(strtolower(CHARSET) == 'utf-8' && strexists($_SERVER['HTTP_USER_AGENT'], 'MSIE') ? urlencode($filename) : $filename).'"';
+	$filename = '"'.(strtolower(CHARSET) == 'utf-8' && (strexists($_SERVER['HTTP_USER_AGENT'], 'MSIE') || strexists($_SERVER['HTTP_USER_AGENT'], 'Trident') || strexists($_SERVER['HTTP_USER_AGENT'], 'Edge')) ? urlencode($filename) : $filename).'"';
 
 	dheader('Date: '.gmdate('D, d M Y H:i:s', $val['dateline']).' GMT');
 	dheader('Last-Modified: '.gmdate('D, d M Y H:i:s', $val['dateline']).' GMT');
