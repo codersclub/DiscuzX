@@ -62,12 +62,12 @@ if($operation == 'delete') {
 	}
 
 	$filesize = $attach['filesize'];
-	$attach['filename'] = '"'.(strtolower(CHARSET) == 'utf-8' && strexists($_SERVER['HTTP_USER_AGENT'], 'MSIE') ? urlencode($attach['filename']) : $attach['filename']).'"';
+	$filenameencode = strtolower(CHARSET) == 'utf-8' ? rawurlencode($attach['filename']) : rawurlencode(diconv($attach['filename'], CHARSET, 'UTF-8'));
 
 	dheader('Date: '.gmdate('D, d M Y H:i:s', $attach['dateline']).' GMT');
 	dheader('Last-Modified: '.gmdate('D, d M Y H:i:s', $attach['dateline']).' GMT');
 	dheader('Content-Encoding: none');
-	dheader('Content-Disposition: attachment; filename='.$attach['filename']);
+	dheader('Content-Disposition: attachment; filename="'.(($attach['filename'] == $filenameencode) ? $attach['filename'].'"' : $filenameencode.'"; filename*=utf-8\'\''.$filenameencode));
 	dheader('Content-Type: '.$attach['filetype']);
 	dheader('Content-Length: '.$filesize);
 

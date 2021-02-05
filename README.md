@@ -203,4 +203,4 @@ Discuz! X提供3.4(稳定版)和正在开发中的3.5(不稳定版本)的每日�
 - 由于 X3.2、X3.3 已停更，X3.4 漏洞和相关修补同样适用于 X3.2、X3.3 版本，请随时关注[更新列表](https://gitee.com/Discuz/DiscuzX/commits/master)，您可进行手动修补，让自己的站点时刻保持最安全的状态!
 
 ### 截图
-![系统信息](https://images.gitee.com/uploads/images/2019/0329/093457_81b74b91_1157835.png "系统信息截图")
+![系统信息](./readme/screenshot.png "系统信息截图")

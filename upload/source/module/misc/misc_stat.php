@@ -42,12 +42,13 @@ if($op == 'basic') {
 	extract($statvars);
 	if($_GET['exportexcel']) {
 		$filename = 'stat_modworks_'.($username ? $username.'_' : '').$starttime.'_'.$endtime.'.csv';
+		$filenameencode = strtolower(CHARSET) == 'utf-8' ? rawurlencode($filename) : rawurlencode(diconv($filename, CHARSET, 'UTF-8'));
 		include template('forum/stat_misc_export');
 		$csvstr = ob_get_contents();
 		ob_end_clean();
 		header('Content-Encoding: none');
 		header('Content-Type: application/octet-stream');
-		header('Content-Disposition: attachment; filename='.$filename);
+		header('Content-Disposition: attachment; filename="'.(($filename == $filenameencode) ? $filename.'"' : $filenameencode.'"; filename*=utf-8\'\''.$filenameencode));
 		header('Pragma: no-cache');
 		header('Expires: 0');
 		if($_G['charset'] != 'gbk') {

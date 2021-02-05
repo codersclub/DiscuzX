@@ -275,7 +275,7 @@ if($op == 'blockclass') {
 					$str = serialize($diycontent);
 					dheader('Content-Length: '.strlen($str));
 					dheader('Content-Disposition: attachment; filename='.$filename.'.txt');
-					dheader('Content-Type: text/plant');
+					dheader('Content-Type: text/plain');
 				} else {
 					require_once libfile('class/xml');
 					$str = array2xml($diycontent, true);

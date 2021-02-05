@@ -429,13 +429,9 @@ IconIndex=1
 		$filename = $_G['setting']['bbname'].'.url';
 	}
 
-	if(!strexists($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
-		$filename = diconv($filename, CHARSET, 'UTF-8');
-	} else {
-		$filename = diconv($filename, CHARSET, 'GBK');
-	}
+	$filenameencode = strtolower(CHARSET) == 'utf-8' ? rawurlencode($filename) : rawurlencode(diconv($filename, CHARSET, 'UTF-8'));
 	dheader('Content-type: application/octet-stream');
-	dheader('Content-Disposition: attachment; filename="'.$filename.'"');
+	dheader('Content-Disposition: attachment; filename="'.(($filename == $filenameencode) ? $filename.'"' : $filenameencode.'"; filename*=utf-8\'\''.$filenameencode));
 	echo $shortcut;
 	exit;
 } elseif($_GET['action'] == 'livelastpost') {
