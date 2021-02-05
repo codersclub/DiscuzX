@@ -342,7 +342,7 @@ EOF;
 				if($anchor != 'pass') {
 					showsubmit('batchverifysubmit', 'submit', '', '<a href="#all" onclick="mod_setbg_all(\'validate\')">'.cplang('moderate_all_validate').'</a>'. ($anchor == 'authstr' ? ' &nbsp;<a href="#all" onclick="mod_setbg_all(\'refusal\')">'.cplang('moderate_refusal_all').'</a>' : '').' &nbsp;<a href="#all" onclick="mod_cancel_all();">'.cplang('moderate_cancel_all').'</a>', $multipage, false);
 				} else {
-					showsubmit('batchverifysubmit', 'submit', '', '<a href="#all" onclick="mod_setbg_all(\'export\')">'.cplang('moderate_export_all').'</a> &nbsp;<a href="#all" onclick="mod_setbg_all(\'refusal\')">'.cplang('moderate_refusal_all').'</a> &nbsp;<a href="#all" onclick="mod_cancel_all();">'.cplang('moderate_cancel_all').'</a> &nbsp;|&nbsp;<a href="'.ADMINSCRIPT.'?action=verify&operation=verify&do=1&anchor=pass&verifysubmit=true">'.cplang('moderate_export_getall').'</a>', $multipage, false);
+					showsubmit('batchverifysubmit', 'submit', '', '<a href="#all" onclick="mod_setbg_all(\'export\')">'.cplang('moderate_export_all').'</a> &nbsp;<a href="#all" onclick="mod_setbg_all(\'refusal\')">'.cplang('moderate_refusal_all').'</a> &nbsp;<a href="#all" onclick="mod_cancel_all();">'.cplang('moderate_cancel_all').'</a> &nbsp;|&nbsp;<a href="'.ADMINSCRIPT.'?action=verify&operation=verify&do='.$vid.'&anchor=pass&verifysubmit=true">'.cplang('moderate_export_getall').'</a>', $multipage, false);
 				}
 			} else {
 				showtablerow('', 'colspan="'.count($cssarr).'"', '<strong>'.cplang('moderate_nodata').'</strong>');
