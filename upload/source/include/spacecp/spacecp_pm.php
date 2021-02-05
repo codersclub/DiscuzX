@@ -501,12 +501,12 @@ if($_GET['op'] == 'checknewpm') {
 	$contents = nl2br($contents);
 
 	$filesize = strlen($contents);
-	$filename = '"'.(strtolower(CHARSET) == 'utf-8' && (strexists($_SERVER['HTTP_USER_AGENT'], 'MSIE') || strexists($_SERVER['HTTP_USER_AGENT'], 'Trident') || strexists($_SERVER['HTTP_USER_AGENT'], 'Edge')) ? urlencode($filename) : $filename).'"';
+	$filenameencode = strtolower(CHARSET) == 'utf-8' ? rawurlencode($filename) : rawurlencode(diconv($filename, CHARSET, 'UTF-8'));
 
 	dheader('Date: '.gmdate('D, d M Y H:i:s', $val['dateline']).' GMT');
 	dheader('Last-Modified: '.gmdate('D, d M Y H:i:s', $val['dateline']).' GMT');
 	dheader('Content-Encoding: none');
-	dheader('Content-Disposition: attachment; filename='.$filename);
+	dheader('Content-Disposition: attachment; filename="'.(($filename == $filenameencode) ? $filename.'"' : $filenameencode.'"; filename*=utf-8\'\''.$filenameencode));
 
 	dheader('Content-Type: application/octet-stream');
 	dheader('Content-Length: '.$filesize);
