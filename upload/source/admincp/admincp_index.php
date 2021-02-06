@@ -58,7 +58,6 @@ if(submitcheck('notesubmit', 1)) {
 }
 
 $serverinfo = PHP_OS.' / PHP v'.PHP_VERSION;
-$serverinfo .= @ini_get('safe_mode') ? ' Safe Mode' : NULL;
 $serversoft = $_SERVER['SERVER_SOFTWARE'];
 $dbversion = helper_dbtool::dbversion();
 
