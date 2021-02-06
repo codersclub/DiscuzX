@@ -119,7 +119,7 @@ $_config['ipgetter']['dnslist']['list']['0'] = 'comsenz.com';
 
 #### 4. 支持包括论坛在内在所有功能开关
 
-3.5现在支持几乎所有功能的开关，管理员甚至可以关闭论坛，只使用门户。相关的修改请点击 [PR291](https://gitee.com/ComsenzDiscuz/DiscuzX/pulls/291)
+3.5现在支持几乎所有功能的开关，管理员甚至可以关闭论坛，只使用门户。相关的修改请点击 [PR291](https://gitee.com/Discuz/DiscuzX/pulls/291)
 
 
 #### 5. 其它改动
