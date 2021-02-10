@@ -1,4 +1,5 @@
-jQuery.noConflict();
+(function(){
+var jQuery = window.jQuery.noConflict(true);
 var dwidth = data[data.indexOf('width')+1];
 var dheight = data[data.indexOf('height')+1];
 jQuery('#avatardesigner').width(dwidth-20);
@@ -18,6 +19,9 @@ jQuery('#avatardisplaycanvas').attr('width', dwidth-20);
 jQuery('#avatardisplaycanvas').attr('height', dheight-25);
 $('avatarform').target ='uploadframe';
 $('avatarfile').onchange = uploadAvatarDone;
+$('avatarimage').onload = forceSelectorInsideAvatar;
+$('backfileselection').onclick = showAvatarFileSelector;
+$('avconfirm').onclick = saveAvatar;
 
 jQuery(document).ready(function () {
     jQuery("#selector")
@@ -302,3 +306,4 @@ function rectAvatarDone(res) {
         alert('上传失败');
     }
 }
+})();

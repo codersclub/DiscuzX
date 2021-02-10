@@ -3,7 +3,7 @@
 		<input type="file" name="Filedata" id="avatarfile" accept="image/*" />
 	</div>
 	<div id="avataradjuster">
-		<img id="avatarimage" style="visibility: hidden;" onload="forceSelectorInsideAvatar();" />
+		<img id="avatarimage" style="visibility: hidden;" />
 		<canvas id="avatarcanvas" style="position: absolute; top: 0px; left: 0px;"></canvas>
 		<div id="widgetparent" style="position: absolute; left: 0px; top: 0px;">
 			<div id="selector" class='ui-widget-content' style="position: absolute; width: 120px; height: 120px; overflow:hidden; cursor: move; border: 1px solid lightgrey; background-color: transparent; background-image: none;">
@@ -11,13 +11,13 @@
 		</div>
 		
 		<div class="backfileselectiondiv">
-				<input type="button" name="backfileselection" class="backfileselection" value="Select File" onclick="showAvatarFileSelector();" />
+				<input type="button" id="backfileselection" name="backfileselection" class="backfileselection" value="Select File" />
 		</div>
 		
 		<div id="slider" style="height: 0px; position: absolute; right: 9px; top: 105px; width: 100px;"></div>
 		
 		<div class="saveAvatardiv">
-			<input type="submit" name="confirm" value="{lang confirms}" class="saveAvatar" style="" onclick="saveAvatar();" />
+			<input type="submit" id="avconfirm" name="confirm" value="{lang confirms}" class="saveAvatar" style="" />
 		</div>
 		
 		<input type="hidden" id="avatar1" name="avatar1" />
@@ -35,7 +35,6 @@
 
 <script src="{STATICURL}js/mobile/jquery.min.js?{VERHASH}"></script>
 <script type="text/javascript">
-	jQuery.noConflict();
 	var data = "{echo implode(",", $uc_avatarflash);}".split(',');
 </script>
 
