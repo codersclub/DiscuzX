@@ -3343,6 +3343,11 @@ EOT;
 
 	if($operation == 'mobile') {
 		$settingnew['mobile_arr']['allowmobile'] = intval($settingnew['mobile']['allowmobile']);
+		if(!$settingnew['mobile_arr']['allowmobile']) {
+			C::t('common_nav')->update_by_navtype_type_identifier(1, 0, 'mobile', array('available' => 0));
+		} else {
+			C::t('common_nav')->update_by_navtype_type_identifier(1, 0, 'mobile', array('available' => 1));
+		}
 		$settingnew['mobile_arr']['allowmnew'] = intval($settingnew['mobile']['allowmnew']);
 		$settingnew['mobile_arr']['mobileforward'] = intval($settingnew['mobile']['mobileforward']);
         	$settingnew['mobile_arr']['otherindex'] = intval($settingnew['mobile']['otherindex']);
