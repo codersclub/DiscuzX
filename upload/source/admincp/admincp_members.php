@@ -345,11 +345,11 @@ EOF;
 		if(!empty($_GET['uidarray'])) {
 			$uids = array();
 			$allmember = C::t('common_member')->fetch_all($_GET['uidarray']);
-			$count = count($allmember);
+			
 			$membernum = 0;
 			foreach($allmember as $uid => $member) {
 				if($member['adminid'] !== 1 && $member['groupid'] !== 1) {
-					if($count < 2000 || !empty($_GET['uidarray'])) {
+					if($membernum < 2000 ) {
 						$extra .= '<input type="hidden" name="uidarray[]" value="'.$member['uid'].'" />';
 					}
 					$uids[] = $member['uid'];
@@ -361,7 +361,7 @@ EOF;
 			$uids = searchmembers($search_condition, $delmemberlimit, 0);
 		}
 		$allnum = intval($_GET['allnum']);
-		$conditions = $uids ? 'm.uid IN ('.dimplode($uids).')' : '0';
+		
 
 		if((empty($membernum) || empty($uids))) {
 			if($deletestart) {
@@ -397,10 +397,8 @@ EOF;
 
 			} else {
 
-				if(empty($uids)) {
-					cpmsg('members_no_find_deluser', '', 'error');
-				}
-				$numdeleted = $numdeleted ? $numdeleted : count($uids);
+				
+				
 				$pertask = 1000;
 				$current = $_GET['current'] ? intval($_GET['current']) : 0;
 				$deleteitem = $_GET['deleteitem'] ? trim($_GET['deleteitem']) : 'post';
