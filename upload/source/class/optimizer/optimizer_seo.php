@@ -22,7 +22,7 @@ class optimizer_seo {
 		$seokeywords = C::t('common_setting')->fetch('seokeywords', true);
 		$seodescription = C::t('common_setting')->fetch('seodescription', true);
 		$rewritestatus = C::t('common_setting')->fetch('rewritestatus', true);
-		if(!$seotitle || !$seokeywords || $seodescription || !$rewritestatus) {
+		if(!$seotitle || !$seokeywords || !$seodescription || !$rewritestatus) {
 			$return = array('status' => 1, 'type' =>'header', 'lang' => lang('optimizer', 'optimizer_seo_advice'));
 		} else {
 			$return = array('status' => 0, 'type' =>'none', 'lang' => lang('optimizer', 'optimizer_seo_no_need'));
