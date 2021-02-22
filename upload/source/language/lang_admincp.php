@@ -2028,6 +2028,7 @@ $lang = array
 	'setting_mail_setting_send_1' => '通过 PHP 函数的 sendmail 发送(推荐此方式)',
 	'setting_mail_setting_send_2' => '通过 SOCKET 连接 SMTP 服务器发送(支持 ESMTP 验证)',
 	'setting_mail_setting_send_3' => '通过 PHP 函数 SMTP 发送 Email(仅 Windows 主机下有效，不支持 ESMTP 验证)',
+	'setting_mail_setting_send_4' => '通过插件发送(插件控制发送流程)',
 	'setting_mail_setting_server' => 'SMTP 服务器',
 	'setting_mail_setting_port' => '端口',
 	'setting_mail_setting_validate' => '验证',
@@ -2043,6 +2044,8 @@ $lang = array
 	'setting_mail_setting_includeuser' => '收件人地址中包含用户名',
 	'setting_mail_setting_includeuser_comment' => '选择“是”将在收件人的邮件地址中包含站点用户名',
 	'setting_mail_setting_edit_addnew' => '添加新SMTP服务器',
+	'setting_mail_setting_plugin' => '插件标识及脚本标识',
+	'setting_mail_setting_plugin_comment' => '填写插件的标识符和脚本名称的后半段，用英文冒号隔开',
 
 	'setting_mail_check' => '检测',
 	'setting_mail_check_test_from' => '测试发件人',

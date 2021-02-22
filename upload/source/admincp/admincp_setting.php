@@ -1547,9 +1547,10 @@ EOF;
 		showtableheader('', '', 'id="mailsetting"'.($_GET['anchor'] != 'setting' ? ' style="display: none"' : ''));
 
 		showsetting('setting_mail_setting_send', array('settingnew[mail][mailsend]', array(
-			array(1, $lang['setting_mail_setting_send_1'], array('hidden1' => 'none', 'hidden2' => 'none')),
-			array(2, $lang['setting_mail_setting_send_2'], array('hidden1' => 'none', 'hidden2' => '')),
-			array(3, $lang['setting_mail_setting_send_3'], array('hidden1' => '', 'hidden2' => 'none'))
+			array(1, $lang['setting_mail_setting_send_1'], array('hidden1' => 'none', 'hidden2' => 'none', 'hidden3' => 'none')),
+			array(2, $lang['setting_mail_setting_send_2'], array('hidden1' => 'none', 'hidden2' => '', 'hidden3' => 'none')),
+			array(3, $lang['setting_mail_setting_send_3'], array('hidden1' => '', 'hidden2' => 'none', 'hidden3' => 'none')),
+			array(4, $lang['setting_mail_setting_send_4'], array('hidden1' => 'none', 'hidden2' => 'none', 'hidden3' => ''))
 		)), $setting['mail']['mailsend'], 'mradio');
 		$sendtype = $setting['mail']['mailsend'] == 2 ? 0 : 1;
 		showtagheader('tbody', 'hidden1', $setting['mail']['mailsend'] == 3, 'sub');
@@ -1640,6 +1641,9 @@ EOF;
 		showtablefooter();
 		echo '</td></tr>';
 
+		showtagfooter('tbody');
+		showtagheader('tbody', 'hidden3', $setting['mail']['mailsend'] == 4, 'sub');
+		showsetting('setting_mail_setting_plugin', 'settingnew[mail][plugin]', $setting['mail']['plugin'], 'text');
 		showtagfooter('tbody');
 		showsetting('setting_mail_setting_delimiter', array('settingnew[mail][maildelimiter]', array(
 			array(1, $lang['setting_mail_setting_delimiter_crlf']),

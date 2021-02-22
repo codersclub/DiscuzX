@@ -17,6 +17,14 @@ function sendmail($toemail, $subject, $message = '', $from = '') {
 	if(!is_array($_G['setting']['mail'])) {
 		$_G['setting']['mail'] = dunserialize($_G['setting']['mail']);
 	}
+	if($_G['setting']['mail']['mailsend'] == 4) {
+		$etype = explode(':', $_G['setting']['mail']['plugin']);
+		$codefile = DISCUZ_ROOT.'./source/plugin/'.$etype[0].'/mailsend/mailsend_'.$etype[1].'.php';
+		include_once $codefile;
+		$class = 'mailsend_'.$etype[1];
+		$code = new $class();
+		return $code->sendmail($toemail, $subject, $message, $from);
+	}
 	$_G['setting']['mail']['server'] = $_G['setting']['mail']['port'] = $_G['setting']['mail']['auth'] = $_G['setting']['mail']['from'] = $_G['setting']['mail']['auth_username'] = $_G['setting']['mail']['auth_password'] = '';
 	if($_G['setting']['mail']['mailsend'] != 1) {
 		$smtpnum = count($_G['setting']['mail']['smtp']);
