@@ -235,14 +235,6 @@ class SimpleUnzip {
 								break;
 
 							case 12: // BZIP2
-								if(! extension_loaded('bz2')) {
-								    if(strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-								      @dl('php_bz2.dll');
-								    } else {
-								      @dl('bz2.so');
-								    }
-								}
-
 								if(extension_loaded('bz2')) {
 								    $vZ = bzdecompress($vZ);
 								} else {
