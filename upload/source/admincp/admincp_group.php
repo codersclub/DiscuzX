@@ -292,7 +292,7 @@ var rowtypedata = [
 					$nums[$fup['fup']] ++;
 				}
 				foreach($nums as $fup => $num) {
-					C::t('forum_forumfield')->update_groupnum($fup, -$num);
+					empty($start) && C::t('forum_forumfield')->update_groupnum($fup, -$num);
 				}
 				foreach(C::t('forum_thread')->fetch_all_by_fid($fidarray, $start, $pp) as $thread) {
 					$tids[] = $thread['tid'];
