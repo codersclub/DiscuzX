@@ -114,7 +114,7 @@ var rowtypedata = [
 				foreach ($forums[$id] as $forum) {
 					$showed[] = showgroup($forum);
 					$lastfid = 0;
-					if(!empty($subs[$forum['fid']])) {
+					if(!empty($subs[$forum['fid']])) {//群组不展示了  废弃代码
 						foreach ($subs[$forum['fid']] as $sub) {
 							$showed[] = showgroup($sub, 'sub');
 							$lastfid = $sub['fid'];
@@ -400,7 +400,7 @@ var rowtypedata = [
 				$threads = $posts = 0;
 				$archive = 0;
 				foreach($threadtables as $tableid) {
-					C::t('forum_thread')->count_posts_by_fid($targetgroup, $tableid);
+					$data = C::t('forum_thread')->count_posts_by_fid($targetgroup, $tableid);
 					$threads += $data['threads'];
 					$posts += $data['posts'];
 					if($data['threads'] > 0 && $tableid != 0) {
@@ -506,7 +506,7 @@ var rowtypedata = [
 
 		} else {
 
-			$threads = C::t('forum_thread')->count_by_fid($fid);
+			$threads = C::t('forum_thread')->count_by_fid($fid);//群组不展示了  废弃代码
 			$formhash = formhash();
 			cpmsg('grouptype_delete_alarm', "action=group&operation=deletetype&fid=$fid&confirmed=1&formhash=$formhash", 'loadingform', array(), '<div id="percent">0%</div>', FALSE);
 			echo "
@@ -622,7 +622,7 @@ var rowtypedata = [
 		if($_GET['namenew'] && $_GET['namenew'] != $group['name'] && C::t('forum_forum')->fetch_fid_by_name($_GET['namenew'])) {
 			cpmsg('group_name_exist', 'action=group&operation=editgroup&fid='.$fid, 'error');
 		}
-		$setarr['name'] = $_GET['namenew'];
+		trim($_GET['namenew']) && $setarr['name'] = $_GET['namenew'];
 		C::t('forum_forum')->update($fid, $setarr);
 
 		if(!empty($_GET['fupnew']) && $_GET['fupnew'] != $group['fup']) {
@@ -920,7 +920,7 @@ EOT;
 			$levelnew['postpolicy']['allowpostspecial'] = bindec(intval($levelnew['postpolicy']['allowpostspecial'][6]).intval($levelnew['postpolicy']['allowpostspecial'][5]).intval($levelnew['postpolicy']['allowpostspecial'][4]).intval($levelnew['postpolicy']['allowpostspecial'][3]).intval($levelnew['postpolicy']['allowpostspecial'][2]).intval($levelnew['postpolicy']['allowpostspecial'][1]));
 
 			$dataarr['postpolicy'] = serialize($levelnew['postpolicy']);
-			$dataarr['specialswitch']['membermaximum'] = intval($dataarr['specialswitch']['membermaximum']);
+			$_GET['specialswitchnew']['membermaximum'] = intval($_GET['specialswitchnew']['membermaximum']);
 			$dataarr['specialswitch'] = serialize($_GET['specialswitchnew']);
 			if($_GET['deleteicon']) {
 				@unlink($_G['setting']['attachurl'].'common/'.$grouplevel['icon']);
@@ -993,7 +993,7 @@ EOT;
 			$updateforum = '-';
 		}
 		foreach($fups as $fid => $num) {
-			C::t('forum_forumfield')->update_groupnum($fid, $updateforum.$num);
+			$updateforum && C::t('forum_forumfield')->update_groupnum($fid, $updateforum.$num);
 		}
 		cpmsg('group_mod_succeed', 'action=group&operation=mod', 'succeed');
 	}
