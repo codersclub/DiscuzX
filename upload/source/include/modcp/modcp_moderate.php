@@ -69,6 +69,7 @@ if($op == 'members') {
 					C::t('common_member_validate')->update($uids, array('moddate' => $_G['timestamp'], 'admin' => $_G['username'], 'status' => '1', 'remark' => $reason));
 				}
 
+				$sendemail = isset($_GET['sendemail']) ? $_GET['sendemail'] : 0;
 				if($sendemail) {
 					if(!function_exists('sendmail')) {
 						include libfile('function/mail');

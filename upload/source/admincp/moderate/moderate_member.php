@@ -245,7 +245,7 @@ EOT;
 						if(isset($members[$uid])) {
 							$member = $members[$uid];
 							$member['regdate'] = dgmdate($member['regdate']);
-							$member['submitdate'] = dgmdate($member['submitdate']);
+							$member['submitdate'] = dgmdate($allmembervalidate[$uid]['submitdate']);
 							$member['moddate'] = dgmdate(TIMESTAMP);
 							$member['operation'] = $o;
 							$member['remark'] = $_GET['remark'][$uid] ? dhtmlspecialchars($_GET['remark'][$uid]) : $lang['none'];
@@ -254,8 +254,8 @@ EOT;
 								'bbname' => $_G['setting']['bbname'],
 								'regdate' => $member['regdate'],
 								'submitdate' => $member['submitdate'],
-								'submittimes' => $member['submittimes'],
-								'message' => $member['message'],
+								'submittimes' => $allmembervalidate[$uid]['submittimes'],
+								'message' => $allmembervalidate[$uid]['message'],
 								'modresult' => lang('email', 'moderate_member_'.$member['operation']),
 								'moddate' => $member['moddate'],
 								'adminusername' => $_G['member']['username'],
