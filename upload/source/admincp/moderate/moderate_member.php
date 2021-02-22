@@ -249,21 +249,24 @@ EOT;
 							$member['moddate'] = dgmdate(TIMESTAMP);
 							$member['operation'] = $o;
 							$member['remark'] = $_GET['remark'][$uid] ? dhtmlspecialchars($_GET['remark'][$uid]) : $lang['none'];
-							$moderate_member_message = lang('email', 'moderate_member_message', array(
-								'username' => $member['username'],
-								'bbname' => $_G['setting']['bbname'],
-								'regdate' => $member['regdate'],
-								'submitdate' => $member['submitdate'],
-								'submittimes' => $member['submittimes'],
-								'message' => $member['message'],
-								'modresult' => lang('email', 'moderate_member_'.$member['operation']),
-								'moddate' => $member['moddate'],
-								'adminusername' => $_G['member']['username'],
-								'remark' => $member['remark'],
-								'siteurl' => $_G['siteurl'],
-							));
+							$moderate_member_message = array(
+								'tpl' => 'moderate_member',
+								'var' => array(
+									'username' => $member['username'],
+									'bbname' => $_G['setting']['bbname'],
+									'regdate' => $member['regdate'],
+									'submitdate' => $member['submitdate'],
+									'submittimes' => $allmembervalidate[$uid]['submittimes'],
+									'message' => $allmembervalidate[$uid]['message'],
+									'modresult' => lang('email', 'moderate_member_'.$member['operation']),
+									'moddate' => $member['moddate'],
+									'adminusername' => $_G['member']['username'],
+									'remark' => $member['remark'],
+									'siteurl' => $_G['siteurl'],
+								)
+							);
 
-							if(!sendmail("{$member['username']} <{$member['email']}>", lang('email', 'moderate_member_subject'), $moderate_member_message)) {
+							if(!sendmail("{$member['username']} <{$member['email']}>", $moderate_member_message)) {
 								runlog('sendmail', "{$member['email']} sendmail failed.");
 							}
 						}

@@ -561,16 +561,18 @@ function emailcheck_send($uid, $email) {
 
 		$hash = authcode("$uid\t$email\t$timestamp", 'ENCODE', md5(substr(md5($_G['config']['security']['authkey']), 0, 16)));
 		$verifyurl = $_G['setting']['securesiteurl'].'home.php?mod=misc&amp;ac=emailcheck&amp;hash='.urlencode($hash);
-		$mailsubject = lang('email', 'email_verify_subject');
-		$mailmessage = lang('email', 'email_verify_message', array(
-			'username' => $_G['member']['username'],
-			'bbname' => $_G['setting']['bbname'],
-			'siteurl' => $_G['setting']['securesiteurl'],
-			'url' => $verifyurl
-		));
+		$mailmessage = array(
+			'tpl' => 'email_verify', 
+			'var' => array(
+				'username' => $_G['member']['username'],
+				'bbname' => $_G['setting']['bbname'],
+				'siteurl' => $_G['setting']['securesiteurl'],
+				'url' => $verifyurl
+			)
+		);
 
 		require_once libfile('function/mail');
-		if(!sendmail($email, $mailsubject, $mailmessage)) {
+		if(!sendmail($email, $mailmessage)) {
 			runlog('sendmail', "$email sendmail failed.");
 		}
 	}

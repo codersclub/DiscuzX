@@ -92,7 +92,12 @@ if(!empty($_G['setting']['advexpiration']['allow'])) {
 					notification_add($member['uid'], 'system', 'system_adv_expiration', $noticelang, 1);
 				}
 				if(in_array('mail', $_G['setting']['advexpiration']['method'])) {
-					if(!sendmail("{$member['username']} <{$member['email']}>", lang('email', 'adv_expiration_subject', $noticelang), lang('email', 'adv_expiration_message', $noticelang))) {
+					$advexpvar = array(
+						'tpl' => 'adv_expiration',
+						'var' => $noticelang,
+						'svar' => $noticelang,
+					);
+					if(!sendmail("{$member['username']} <{$member['email']}>", $advexpvar)) {
 						runlog('sendmail', "{$member['email']} sendmail failed.");
 					}
 				}

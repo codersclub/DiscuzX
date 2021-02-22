@@ -1106,15 +1106,17 @@ EOF;
 			if(!function_exists('sendmail')) {
 				include libfile('function/mail');
 			}
-			$add_member_subject = lang('email', 'add_member_subject');
-			$add_member_message = lang('email', 'add_member_message', array(
-				'newusername' => $newusername,
-				'bbname' => $_G['setting']['bbname'],
-				'adminusername' => $_G['member']['username'],
-				'siteurl' => $_G['siteurl'],
-				'newpassword' => $newpassword,
-			));
-			if(!sendmail("$newusername <$newemail>", $add_member_subject, $add_member_message)) {
+			$add_member_subject = array(
+				'tpl' => 'add_member',
+				'var' => array(
+					'newusername' => $newusername,
+					'bbname' => $_G['setting']['bbname'],
+					'adminusername' => $_G['member']['username'],
+					'siteurl' => $_G['siteurl'],
+					'newpassword' => $newpassword,
+				),
+			);
+			if(!sendmail("$newusername <$newemail>", $add_member_subject)) {
 				runlog('sendmail', "$newemail sendmail failed.");
 			}
 		}

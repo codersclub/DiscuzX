@@ -1,0 +1,35 @@
+<!--{subtemplate email/header}-->
+<body>
+{lang get_passwd_subject}<br />
+<p>{$var['username']}{lang comma}{lang show_sender}</p>
+
+<p>{lang show_reason}{lang get_passwd_reason}</p>
+<p>
+----------------------------------------------------------------------<br />
+<strong>{lang important}</strong><br />
+----------------------------------------------------------------------</p>
+
+<p>{lang get_passwd_if_not}</p>
+<p>
+----------------------------------------------------------------------<br />
+<strong>{lang get_passwd_explain}</strong><br />
+----------------------------------------------------------------------</p>
+</p>
+{lang get_passwd_click_link}<br />
+
+<a href="{$var['siteurl']}member.php?mod=getpasswd&amp;uid={$var['uid']}&amp;id={$var['idstring']}&amp;sign={$var['sign']}" target="_blank">{$var['siteurl']}member.php?mod=getpasswd&amp;uid={$var['uid']}&amp;id={$var['idstring']}&amp;sign={$var['sign']}</a>
+<br />
+({lang if_not_link})</p>
+
+<p>{lang get_passwd_new_pwd}</p>
+
+<p>{lang show_ip}</p>
+
+
+<p>
+{lang sincerely}<br />
+</p>
+<p>{lang admin_team}.
+{$var['siteurl']}</p>
+</body>
+</html>

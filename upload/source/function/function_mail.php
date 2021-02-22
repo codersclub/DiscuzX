@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 
 set_time_limit(0);
-function sendmail($toemail, $subject, $message, $from = '') {
+function sendmail($toemail, $subject, $message = '', $from = '') {
 	global $_G;
 	if(!is_array($_G['setting']['mail'])) {
 		$_G['setting']['mail'] = dunserialize($_G['setting']['mail']);
@@ -31,6 +31,19 @@ function sendmail($toemail, $subject, $message, $from = '') {
 			$_G['setting']['mail']['auth_password'] = $smtp['auth_password'];
 		}
 	}
+
+	ob_start();
+	if(is_array($subject) && $subject['tpl']) {
+		$tpl = $subject['tpl'];
+		$var = $subject['var'];
+		$subject = lang('email/template', $tpl.'_subject', (!empty($subject['svar']) ? $subject['svar'] : array()));
+		include template('email/'.$tpl);
+	} else {
+		include template('email/default');
+	}
+	$message = ob_get_contents();
+	ob_end_clean();
+
 	$message = preg_replace("/href\=\"(?!(http|https)\:\/\/)(.+?)\"/i", 'href="'.$_G['setting']['securesiteurl'].'\\2"', $message);
 
 $message = <<<EOT

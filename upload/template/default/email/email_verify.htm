@@ -1,0 +1,30 @@
+<!--{subtemplate email/header}-->
+<body>
+{lang email_verify_subject}<br />
+<p>{$var['username']}{lang comma}{lang show_sender}</p>
+
+<p>{lang show_reason}{lang email_verify_reason}
+{lang have_not_visit}{lang have_not_do_this}{lang ignore_email}{lang no_more_action}</p>
+<br />
+----------------------------------------------------------------------<br />
+<strong>{lang email_verify_explain}</strong><br />
+----------------------------------------------------------------------<br />
+<br />
+<p>{lang email_verify_explain2}</p>
+
+<p>{lang email_verify_click_link}<br />
+
+<a href="{$var['url']}" target="_blank">{$var['url']}</a>
+<br />
+({lang if_not_link})</p>
+
+<p>{lang thanks_for_visit}</p>
+
+
+<p>
+{lang sincerely}<br />
+
+{lang admin_team}.<br />
+{$var['siteurl']}</p>
+</body>
+</html>
