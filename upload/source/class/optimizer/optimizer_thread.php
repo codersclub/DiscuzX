@@ -30,7 +30,7 @@ class optimizer_thread {
 
 	public function optimizer() {
 		$adminfile = defined(ADMINSCRIPT) ? ADMINSCRIPT : 'admin.php';
-		dheader('Location: '.$_G['siteurl'].$adminfile.'?action=postsplit&operation=manage');
+		dheader('Location: '.$_G['siteurl'].$adminfile.'?action=threadsplit&operation=manage');
 	}
 }
 

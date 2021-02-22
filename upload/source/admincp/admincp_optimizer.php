@@ -36,18 +36,12 @@ $security_option = array(
 	'optimizer_usergroup4',
 	'optimizer_usergroup5',
 	'optimizer_usergroup6',
-	'optimizer_cloudsecurity',
 	'optimizer_attachexpire',
 	'optimizer_attachrefcheck',
 	'optimizer_filecheck',
 	'optimizer_plugin',
-	'optimizer_upgrade',
-	'optimizer_patch',
 	'optimizer_loginpwcheck',
 	'optimizer_loginoutofdate',
-	'optimizer_eviluser',
-	'optimizer_white_list',
-	'optimizer_security_daily',
 );
 
 if($_G['setting']['connect']['allow']) {

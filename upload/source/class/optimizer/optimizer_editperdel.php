@@ -29,7 +29,7 @@ class optimizer_editperdel {
 
 	public function optimizer() {
 		$adminfile = defined(ADMINSCRIPT) ? ADMINSCRIPT : 'admin.php';
-		dheader('Location: '.$_G['siteurl'].$adminfile.'?action=setting&operation=access');
+		dheader('Location: '.$_G['siteurl'].$adminfile.'?action=setting&operation=permissions');
 	}
 }
 

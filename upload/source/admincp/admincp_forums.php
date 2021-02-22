@@ -822,7 +822,11 @@ var rowtypedata = [
 					showtips('forums_edit_tips');
 				}
 				showtableheader('forums_edit_extend', 'nobottom');
-				showsetting('forums_edit_extend_style', '', '', $styleselect);
+				$multi_styleselect = $_GET['multi'] ? preg_replace('/\w+new/', 'multinew['.$_G['showsetting_multi'].'][\\0]', $styleselect) : $styleselect;
+				$styleid = $forum['styleid'];
+				$multi_styleselect = str_replace("selected=\"selected\"", "", $multi_styleselect);
+				$multi_styleselect = str_replace("value=\"$styleid\"", "value=\"$styleid\" selected=\"selected\"", $multi_styleselect);
+				showsetting('forums_edit_extend_style', '', '', $multi_styleselect);
 				if($forum['type'] != 'sub') {
 					showsetting('forums_edit_extend_sub_horizontal', 'forumcolumnsnew', $forum['forumcolumns'], 'text');
 					showsetting('forums_edit_extend_subforumsindex', array('subforumsindexnew', array(
