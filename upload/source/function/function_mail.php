@@ -54,22 +54,6 @@ function sendmail($toemail, $subject, $message = '', $from = '') {
 
 	$message = preg_replace("/href\=\"(?!(http|https)\:\/\/)(.+?)\"/i", 'href="'.$_G['setting']['securesiteurl'].'\\2"', $message);
 
-$message = <<<EOT
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="{$_G['charset']}" />
-<meta name="renderer" content="webkit" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>$subject</title>
-</head>
-<body>
-$subject<br />
-$message
-</body>
-</html>
-EOT;
-
 	$mailusername = isset($_G['setting']['mail']['mailusername']) ? $_G['setting']['mail']['mailusername'] : 1;
 	$_G['setting']['mail']['port'] = $_G['setting']['mail']['port'] ? $_G['setting']['mail']['port'] : 25;
 	$_G['setting']['mail']['mailsend'] = $_G['setting']['mail']['mailsend'] ? $_G['setting']['mail']['mailsend'] : 1;
