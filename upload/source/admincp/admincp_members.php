@@ -2148,7 +2148,7 @@ EOF;
 				$ipbanned .= showtablerow('', array('class="td25"'), array(
 					"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[$banned[id]]\" value=\"$banned[id]\" $disabled />",
 					$theip,
-					convertip($theip, "./"),
+					convertip($theip),
 					$banned[admin],
 					$banned[dateline],
 					"<input type=\"text\" class=\"txt\" size=\"10\" name=\"expirationnew[$banned[id]]\" value=\"$banned[expiration]\" $disabled />"

@@ -1814,7 +1814,7 @@ function periodscheck($periods, $showmessage = 1) {
 		if($_G['setting']['postignorearea']) {
 			$location = $whitearea = '';
 			require_once libfile('function/misc');
-			$location = trim(convertip($_G['clientip'], "./"));
+			$location = trim(convertip($_G['clientip']));
 			if($location) {
 				$whitearea = preg_quote(trim($_G['setting']['postignorearea']), '/');
 				$whitearea = str_replace(array("\\*"), array('.*'), $whitearea);

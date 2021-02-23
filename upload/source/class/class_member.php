@@ -391,7 +391,7 @@ class register_ctl {
 		if($this->setting['regverify']) {
 			if($this->setting['areaverifywhite']) {
 				$location = $whitearea = '';
-				$location = trim(convertip($_G['clientip'], "./"));
+				$location = trim(convertip($_G['clientip']));
 				if($location) {
 					$whitearea = preg_quote(trim($this->setting['areaverifywhite']), '/');
 					$whitearea = str_replace(array("\\*"), array('.*'), $whitearea);
@@ -417,7 +417,7 @@ class register_ctl {
 		if($this->setting['regstatus'] == 2) {
 			if($this->setting['inviteconfig']['inviteareawhite']) {
 				$location = $whitearea = '';
-				$location = trim(convertip($_G['clientip'], "./"));
+				$location = trim(convertip($_G['clientip']));
 				if($location) {
 					$whitearea = preg_quote(trim($this->setting['inviteconfig']['inviteareawhite']), '/');
 					$whitearea = str_replace(array("\\*"), array('.*'), $whitearea);
