@@ -245,7 +245,7 @@ class discuz_application extends discuz_base{
 			unset($_GET['handlekey']);
 		}
 
-		if(!empty($this->var['config']['input']['compatible'])) {
+		if(!empty($this->var['config']['input']['compatible']) && !defined('DISCUZ_DEPRECATED')) {
 			foreach($_GET as $k => $v) {
 				$this->var['gp_'.$k] = daddslashes($v);
 			}
@@ -300,6 +300,13 @@ class discuz_application extends discuz_base{
 			define('DISCUZ_DEBUG', false);
 			error_reporting(0);
 		}
+
+		// DISCUZ_DEPRECATED 用于标识 Discuz! X 体系内即将废弃的功能、函数或方法, 便于二开站点维护或三方插件开发
+		// 开启后系统出错意味着相关功能将在后续版本删除或抛出异常, 我们建议您不要继续依赖已在此标识下抛出异常的功能
+		if(!empty($this->var['config']['deprecated'])) {
+			define('DISCUZ_DEPRECATED', $this->var['config']['deprecated']);
+		}
+
 		define('STATICURL', !empty($this->var['config']['output']['staticurl']) ? $this->var['config']['output']['staticurl'] : 'static/');
 		$this->var['staticurl'] = STATICURL;
 
