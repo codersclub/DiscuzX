@@ -96,7 +96,7 @@ if($operation == 'export') {
 		showtagfooter('tbody');
 
 		showtagheader('tbody', 'advanceoption');
-		showsetting('db_export_method', '', '', '<ul class="nofloat"><li><input class="radio" type="radio" name="method" value="shell" '.$shelldisabled.' onclick="if(\''.intval($db->version() < '4.1').'\') {if(this.form.sqlcompat[2].checked==true) this.form.sqlcompat[0].checked=true; this.form.sqlcompat[2].disabled=true; this.form.sizelimit.disabled=true;} else {this.form.sqlcharset[0].checked=true; for(var i=1; i<=5; i++) {if(this.form.sqlcharset[i]) this.form.sqlcharset[i].disabled=true;}}" id="method_shell" /><label="method_shell"> '.$lang['db_export_shell'].'</label></li><li><input class="radio" type="radio" name="method" value="multivol" checked="checked" onclick="this.form.sqlcompat[2].disabled=false; this.form.sizelimit.disabled=false; for(var i=1; i<=5; i++) {if(this.form.sqlcharset[i]) this.form.sqlcharset[i].disabled=false;}" id="method_multivol" /><label for="method_multivol"> '.$lang['db_export_multivol'].'</label> <input type="text" class="txt" size="40" name="sizelimit" value="2048" /></li></ul>');
+		showsetting('db_export_method', '', '', '<ul class="nofloat"><li><input class="radio" type="radio" name="method" value="shell" '.$shelldisabled.' onclick="if('.intval($db->version() < '4.1').') {if(this.form.sqlcompat[2].checked==true) this.form.sqlcompat[0].checked=true; this.form.sqlcompat[2].disabled=true; this.form.sizelimit.disabled=true;} else {this.form.sqlcharset[0].checked=true; for(var i=1; i<=5; i++) {if(this.form.sqlcharset[i]) this.form.sqlcharset[i].disabled=true;}}" id="method_shell" /><label="method_shell"> '.$lang['db_export_shell'].'</label></li><li><input class="radio" type="radio" name="method" value="multivol" checked="checked" onclick="this.form.sqlcompat[2].disabled=false; this.form.sizelimit.disabled=false; for(var i=1; i<=5; i++) {if(this.form.sqlcharset[i]) this.form.sqlcharset[i].disabled=false;}" id="method_multivol" /><label for="method_multivol"> '.$lang['db_export_multivol'].'</label> <input type="text" class="txt" size="40" name="sizelimit" value="2048" /></li></ul>');
 		showtitle('db_export_options');
 		showsetting('db_export_options_extended_insert', 'extendins', 0, 'radio');
 		showsetting('db_export_options_sql_compatible', array('sqlcompat', array(
@@ -389,8 +389,9 @@ if($operation == 'export') {
 						);
 						$exportsize[$key] += $filesize;
 					} elseif(preg_match("/\.zip$/i", $entry)) {
+						$key = preg_replace('/^(.+?)(\-\d+)\.zip$/i', '\\1', basename($entry));                        
 						$filesize = filesize($entry);
-						$exportziplog[] = array(
+						$exportziplog[$key] = array(
 							'type' => 'zip',
 							'filename' => $entry,
 							'size' => filesize($entry),
@@ -464,13 +465,15 @@ if($operation == 'export') {
 		}
 
 		foreach($exportziplog as $info) {
+			sort($val);//修改 确保-1.zip排前面,才会自动解压-2.zip    
+			$info = $val[0];                    
 			$info['dateline'] = is_int($info['dateline']) ? dgmdate($info['dateline']) : $lang['unknown'];
 			$info['size'] = sizecount($info['size']);
 			$info['method'] = $info['method'] == 'multivol' ? $lang['db_multivol'] : $lang['db_zip'];
 			$datafile_server = '.'.$info['filename'];
 			showtablerow('', '', array(
 				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"".basename($info['filename'])."\">",
-				"<a href=\"$info[filename]\">".substr(strrchr($info['filename'], "/"), 1)."</a>",
+				"<a href=\"javascript:;\" onclick=\"display('exportlog_zip_$key')\">".substr(strrchr($info['filename'], "/"), 1)."</a>",   
 				'',
 				$info['dateline'],
 				$lang['db_export_'.$info['type']],
@@ -478,7 +481,23 @@ if($operation == 'export') {
 				$info['method'],
 				'',
 				"<a href=\"".$datasiteurl."restore.php?operation=importzip&datafile_server=$datafile_server&importsubmit=yes\"  onclick=\"return confirm('$lang[db_import_confirm_zip]');\" class=\"act\" target=\"_blank\">$lang[db_import_unzip]</a>"
-			));
+			)); 			
+			echo '<tbody id="exportlog_zip_'.$key.'" style="display:none">';
+			foreach($val as $info) {
+				$info['dateline'] = is_int($info['dateline']) ? dgmdate($info['dateline']) : $lang['unknown'];
+				$info['size'] = sizecount($info['size']);
+				showtablerow('', '', array(
+					'',
+					"<a href=\"$info[filename]\">".substr(strrchr($info['filename'], "/"), 1)."</a>",
+					$info['version'],
+					$info['dateline'],
+					'',
+					$info['size'],
+					'',
+					"",
+					''
+				));
+
 		}
 
 		showsubmit('deletesubmit', 'submit', 'del');
@@ -489,13 +508,18 @@ if($operation == 'export') {
 	} else {
 		if(is_array($_GET['delete'])) {
 			foreach($_GET['delete'] as $filename) {
+				$type = ".sql";
+				if(strpos($filename, '-1.zip') !== FALSE) {
+					$type = ".zip";
+					$filename = str_replace('-1.zip', '', $filename);
+				}                
 				$file_path = './data/'.$backupdir.'/'.str_replace(array('/', '\\'), '', $filename);
 				if(is_file($file_path)) {
 					@unlink($file_path);
 				} else {
 					$i = 1;
 					while(1) {
-						$file_path = './data/'.$backupdir.'/'.str_replace(array('/', '\\'), '', $filename.'-'.$i.'.sql');
+						$file_path = './data/'.$backupdir.'/'.str_replace(array('/', '\\'), '', $filename.'-'.$i.$type);
 						if(is_file($file_path)) {
 							@unlink($file_path);
 							$i++;
@@ -678,7 +702,9 @@ if($operation == 'export') {
 	if(!C::t('common_setting')->fetch_all_field()) {
 		cpmsg('dbcheck_permissions_invalid', '', 'error');
 	}
-
+	$installSqlPath = DISCUZ_ROOT.'./install/install.sql';
+	if(!file_exists($installSqlPath))
+		$installSqlPath = DISCUZ_ROOT.'./install/data/install.sql';
 	$step = max(1, intval($_GET['step']));
 	if($step == 3) {
 
@@ -703,7 +729,7 @@ if($operation == 'export') {
 
 		$except = array('threads' => array('sgid'));
 		foreach(C::t('common_member_profile_setting')->range() as $profilefields) {
-			$except['memberfields'][] = 'field_'.$profilefields[$fieldid];
+			$except['memberfields'][] = 'field_'.$profilefields['fieldid'];
 		}
 
 		if(submitcheck('repairsubmit') && (!empty($repair) || !empty($setting) || !empty($repairtable) || !empty($missingtable))) {
@@ -713,8 +739,8 @@ if($operation == 'export') {
 
 			foreach($missingtable as $value) {
 				if(!isset($installdata)) {
-					$fp = fopen(DISCUZ_ROOT.'./install/install.sql', "rb");
-					$installdata = fread($fp, filesize(DISCUZ_ROOT.'./install/install.sql'));
+					$fp = fopen($installSqlPath, "rb");
+					$installdata = fread($fp, filesize($installSqlPath));
 					fclose($fp);
 				}
 				preg_match("/CREATE TABLE ".DB::table($value)."\s+\(.+?;/is", $installdata, $a);
@@ -803,7 +829,7 @@ if($operation == 'export') {
 			}
 		}
 
-		$installexists = file_exists(DISCUZ_ROOT.'./install/install.sql');
+		$installexists = file_exists($installSqlPath);
 		$discuzdbnew = $deltables = $excepttables = $missingtables = $charseterror = array();
 		foreach($discuzdb as $dbtable => $fields) {
 			if($fieldsquery = DB::query("SHOW FIELDS FROM ".DB::table($dbtable), 'SILENT')) {
