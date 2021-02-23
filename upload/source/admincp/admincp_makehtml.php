@@ -49,7 +49,7 @@ if(!in_array($operation, array('aids', 'catids', 'topicids'))) {
 	showsubmenu('html', $_nav, '');
 }
 if($operation == 'all') {
-	/*search={"¨¦¨²3¨¦¨¨?2?":"action=makehtml&operation=all"}*/
+	/*search={"nav_makehtml":"action=makehtml&operation=all"}*/
 	showtips('makehtml_tips_all');
 
 	showformheader('makehtml&operation=all');
@@ -416,7 +416,7 @@ EOT;
 } elseif ($operation == 'makehtmlsetting') {
 
 	if(!submitcheck('makehtmlsetting')) {
-		/*search={"html":"action=makehtml&operation=makehtmlsetting","setting_functions_makehtml":"action=makehtml&operation=makehtmlsetting"}*/
+		/*search={"nav_makehtml":"action=makehtml","setting_functions_makehtml":"action=makehtml&operation=makehtmlsetting"}*/
 		$setting = $_G['setting'];
 		showformheader("makehtml&operation=makehtmlsetting");
 		showtableheader('', 'nobottom', 'id="makehtml"'.($_GET['operation'] != 'makehtmlsetting' ? ' style="display: none"' : ''));
@@ -494,7 +494,7 @@ EOT;
 		cpmsg('admincp_makehtml_cleanhtml_error', 'action=makehtml&operation=makehtmlsetting', 'error');
 	} else {
 		if(!submitcheck('cleanhtml')) {
-			/*search={"??¨¤¨ªHTML":"action=makehtml&operation=htmlclean"}*/
+			/*search={"nav_makehtml":"action=makehtml","makehtml_clear":"action=makehtml&operation=cleanhtml"}*/
 
 			showformheader("makehtml&operation=cleanhtml");
 			showtableheader();
