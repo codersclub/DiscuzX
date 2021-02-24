@@ -890,7 +890,7 @@ class register_ctl {
 					C::t('common_member_field_forum')->update($_G['uid'], array('authstr' => $authstr));
 					$verifyurl = $_G['setting']['securesiteurl']."member.php?mod=activate&amp;uid={$_G['uid']}&amp;id=$idstring";
 					$email_verify_message = array(
-						'tpl', 'email_verify',
+						'tpl' => 'email_verify',
 						'var' => array(
 							'username' => $_G['member']['username'],
 							'bbname' => $this->setting['bbname'],
