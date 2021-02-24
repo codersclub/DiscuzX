@@ -84,6 +84,13 @@ $lang = array
 	'email_to_invite_reason' => ' {$_G[\'member\'][\'username\']} 通过 {$var[\'bbname\']} 的“发送邀请码给朋友” 功能推荐了如下的内容给您。',
 	'email_to_invite_not_official' => '请注意这封信仅仅是由用户使用 “发送邀请码给朋友”发送的，不是网站官方邮件，',
 
+	'invitemail_subject' => '{username}邀请您加入{sitename}，并成为好友',
+	'invitemail_from' => 'Hi，我是{$var[\'username\']}，邀请您也加入{$var[\'sitename\']}并成为我的好友',
+	'invitemail_reason' => '请加入到我的好友中，您就可以了解我的近况，与我一起交流，随时与我保持联系。',
+	'invitemail_start' => '邀请附言：',
+	'invitemail_accept_invite' => '请您点击以下链接，接受好友邀请：',
+	'invitemail_viewpage' => '如果您拥有{$var[\'sitename\']}上面的账号，请点击以下链接查看我的个人主页：',
+
 	'moderate_member_subject' => '用户审核结果通知',
 	'moderate_member_reason' => '这个邮箱地址在 {$var[\'bbname\']} 被新用户注册时所使用，且管理员设置了对新用户需要进行人工审核，本邮件将通知您提交申请的审核结果。',
 	'moderate_member_info' => '注册信息与审核结果',

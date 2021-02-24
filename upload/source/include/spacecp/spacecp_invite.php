@@ -46,8 +46,6 @@ $mailvar = array(
 	'siteurl' => $siteurl
 );
 
-$appinfo = array();
-
 if(!$creditnum) {
 	$inviteurl = getinviteurl(0, 0);
 }
@@ -248,16 +246,18 @@ $navtitle = lang('core', 'title_invite_friend');
 include template('home/spacecp_invite');
 
 function createmail($mail, $mailvar) {
-	global $_G, $space, $appinfo;
+	global $_G;
 
 	$mailvar['saymsg'] = empty($_POST['saymsg'])?'':getstr($_POST['saymsg'], 500);
 
 	require_once libfile('function/mail');
+	$tplarray = array(
+		'tpl' => 'invitemail',
+		'var' => $mailvar,
+		'svar'=> $mailvar
+	);
 
-	$subject = lang('spacecp', $appinfo?'app_invite_subject':'invite_subject', $mailvar);
-	$message = lang('spacecp', $appinfo?'app_invite_massage':'invite_massage', $mailvar);
-
-	if(!sendmail($mail, $subject, $message)) {
+	if(!sendmail($mail, $tplarray)) {
 		runlog('sendmail', "$mail sendmail failed.");
 	}
 }

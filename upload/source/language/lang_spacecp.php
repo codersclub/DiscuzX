@@ -71,40 +71,6 @@ $lang = array(
 	'mail_my' => '好友与我的互动提醒',
   	'mail_system' => '系统提醒',
 
-	'invite_subject' => '{username}邀请您加入{sitename}，并成为好友',
-	'invite_massage' => '<table border="0">
-		<tr>
-		<td valign="top">{avatar}</td>
-		<td valign="top">
-		<h3>Hi，我是{username}，邀请您也加入{sitename}并成为我的好友</h3><br>
-		请加入到我的好友中，您就可以了解我的近况，与我一起交流，随时与我保持联系。<br>
-		<br>
-		邀请附言：<br>{saymsg}
-		<br><br>
-		<strong>请您点击以下链接，接受好友邀请：</strong><br>
-		<a href="{inviteurl}">{inviteurl}</a><br>
-		<br>
-		<strong>如果您拥有{sitename}上面的账号，请点击以下链接查看我的个人主页：</strong><br>
-		<a href="{siteurl}home.php?mod=space&uid={uid}">{siteurl}home.php?mod=space&uid={uid}</a><br>
-		</td></tr></table>',
-
-	'app_invite_subject' => '{username}邀请您加入{sitename}，一起来玩{appname}',
-	'app_invite_massage' => '<table border="0">
-		<tr>
-		<td valign="top">{avatar}</td>
-		<td valign="top">
-		<h3>Hi，我是{username}，在{sitename}上玩 {appname}，邀请您也加入一起玩</h3><br>
-		<br>
-		邀请附言：<br>
-		{saymsg}
-		<br><br>
-		<strong>请您点击以下链接，接受好友邀请一起玩{appname}：</strong><br>
-		<a href="{inviteurl}">{inviteurl}</a><br>
-		<br>
-		<strong>如果您拥有{sitename}上面的账号，请点击以下链接查看我的个人主页：</strong><br>
-		<a href="{siteurl}home.php?mod=space&uid={uid}">{siteurl}home.php?mod=space&uid={uid}</a><br>
-		</td></tr></table>',
-
 	'person' => '人',
 	'delete' => '删除',
 

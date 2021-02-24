@@ -1,0 +1,20 @@
+<!--{subtemplate email/header}-->
+<body>
+$subject<br />
+<table border="0">
+<tr>
+<td valign="top">{$var['avatar']}</td>
+<td valign="top">
+<h3>{lang invitemail_from}</h3><br>
+{lang invitemail_reason}<br>
+<br>
+{lang invitemail_start}<br>{$var['saymsg']}
+<br><br>
+<strong>{lang invitemail_accept_invite}</strong><br>
+<a href="{$var['inviteurl']}">{$var['inviteurl']}</a><br>
+<br>
+<strong>{lang invitemail_viewpage}</strong><br>
+<a href="{$var['siteurl']}home.php?mod=space&uid={$var['uid']}">{$var['siteurl']}home.php?mod=space&uid={$var['uid']}</a><br>
+</td></tr></table>
+</body>
+</html>
