@@ -488,7 +488,7 @@ $lang = array (
   'lostpasswd_many_users_use_email' => '抱歉，存在多个使用此 Email 的用户，请填写您需要找回密码的用户名',
   'getpasswd_account_invalid' => '抱歉，创始人、受保护用户、拥有站点设置权限的用户不能使用取回密码功能',
   'getpasswd_send_succeed' => '取回密码的方法已通过 Email 发送到您的信箱中，<br />请在 3 天之内修改您的密码',
-  'getpasswd_has_send' => '取回密码的方法已通过 Email 发送到您的信箱中，如果您没有收到，请稍等15分钟后重试',
+  'getpasswd_has_send' => '您已经申请过取回密码邮件了，如果您没有收到，请稍等15分钟后重试',
 
   'submit_verify_succeed' => '审核请求提交成功，现在将返回个人中心',
 

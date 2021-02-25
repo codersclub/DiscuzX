@@ -4357,6 +4357,8 @@ $lang = array
 	'usergroups_edit_credit_exempt_outperm' => '管辖版块外',
 
 	'usergroups_edit_home' => '空间相关',
+	'usergroups_edit_home_allow_viewprofile' => '允许查看用户资料',
+	'usergroups_edit_home_allow_viewprofile_comment' => '设置是否允许查看其他用户的资料信息',
 	'usergroups_edit_home_allow_blog' => '发表日志',
 	'usergroups_edit_home_allow_blog_mod' => '发表日志需要审核',
 	'usergroups_edit_home_allow_doing' => '发表记录',
@@ -7083,6 +7085,22 @@ url.rewrite-once = (
 {caddy}
 </pre>',
 
+	'detect_environment' => '运行环境检测',
+	'contributors' => 'Discuz! 开源贡献者',
+	'contributors_see' => 'Click Here To See Them',
+	'detect_environment_error' => '你的服务器无法检测新版，请点击查看新版',
+	'refresh' => '刷新',
+	'qq_group' => 'QQ群：',
+	'discuz_news' => 'Discuz! 动态',
+	'log_in_to_update' => '暂未获取到动态，请登录 Discuz! 社区 查看。',
+	'download_latest' => 'Discuz! X3.4 最新版本下载',
+	'org_name' => '腾讯云计算（北京）有限责任公司',
+	'dev_manager' => '戴志康 (Kevin \'Crossday\' Day)',
+	'app_discussion' => 'Discuz! 应用讨论区',
+	'org_site' => '公司网站',
+	'purchase_service' => '购买授权',
+	'discussion_area' => '讨论区',
+	'app_center' => 'Discuz! 应用中心',
 );
 
 $adminextend = array();

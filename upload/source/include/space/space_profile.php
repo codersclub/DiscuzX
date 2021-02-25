@@ -10,6 +10,9 @@
 if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
+if(!$_G['uid'] && $_G['setting']['privacy']['view']['profile']) {
+	showmessage('home_no_privilege', '', array(), array('login' => true));
+}
 
 require_once libfile('function/spacecp');
 
@@ -81,7 +84,14 @@ if(strtotime($space['regdate']) + $space['oltime'] * 3600 > TIMESTAMP) {
 }
 require_once libfile('function/friend');
 $isfriend = friend_check($space['uid'], 1);
-
+if(!$_G['adminid']){
+	if($_G['setting']['privacy']['view']['profile'] == 1 && !$isfriend) {
+		showmessage('specified_user_is_not_your_friend', '', array(), array());
+	}
+	if($_G['setting']['privacy']['view']['profile'] == 2 && !$space['self']) {
+		showmessage('is_blacklist', '', array(), array());
+	}
+}
 loadcache('profilesetting');
 include_once libfile('function/profile');
 $profiles = array();

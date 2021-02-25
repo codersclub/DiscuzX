@@ -119,7 +119,7 @@ class table_common_usergroup extends discuz_table
 		if($ordersql = DB::order($orderby, 'DESC')) {
 			$ordersql = ' ORDER BY '.$ordersql;
 		}
-		return DB::fetch_all('SELECT * FROM %t WHERE %i', array($this->_table, DB::field('radminid', intval($radminid), $glue) . $ordersql), 'groupid');
+		return DB::fetch_all('SELECT * FROM %t WHERE %i', array($this->_table, DB::field('radminid', dintval($radminid, true), $glue) . $ordersql), 'groupid');
 	}
 
 	public function fetch_table_struct($result = 'FIELD') {
