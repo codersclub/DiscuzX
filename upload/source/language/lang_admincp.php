@@ -4352,6 +4352,8 @@ $lang = array
 	'usergroups_edit_credit_exempt_outperm' => '管辖版块外',
 
 	'usergroups_edit_home' => '空间相关',
+	'usergroups_edit_home_allow_viewprofile' => '允许查看用户资料',
+	'usergroups_edit_home_allow_viewprofile_comment' => '设置是否允许查看其他用户的资料信息',
 	'usergroups_edit_home_allow_blog' => '发表日志',
 	'usergroups_edit_home_allow_blog_mod' => '发表日志需要审核',
 	'usergroups_edit_home_allow_doing' => '发表记录',

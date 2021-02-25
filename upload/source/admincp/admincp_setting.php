@@ -278,6 +278,12 @@ if(!submitcheck('settingsubmit')) {
 			array(2, $lang['setting_home_privacy_self']),
 			array(3, $lang['setting_home_privacy_register'])
 		)), $setting['privacy']['view']['index'], 'select');
+		showsetting('setting_home_privacy_view_profile', array('settingnew[privacy][view][profile]', array(
+			array(0, $lang['setting_home_privacy_alluser']),
+			array(1, $lang['setting_home_privacy_friend']),
+			array(2, $lang['setting_home_privacy_self']),
+			array(3, $lang['setting_home_privacy_register'])
+		)), $setting['privacy']['view']['profile'], 'select');
 		showsetting('setting_home_privacy_view_friend', array('settingnew[privacy][view][friend]', array(
 			array(0, $lang['setting_home_privacy_alluser']),
 			array(1, $lang['setting_home_privacy_friend']),
