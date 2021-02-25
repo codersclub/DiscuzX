@@ -209,7 +209,9 @@ EOT;
 
 function sendmail_cron($toemail, $subject, $message) {
 	global $_G;
-
+	if(preg_match("/^wechat_[\w]{10}@null.null$/i", $toemail)){
+		return false;
+	}
 	$toemail = addslashes($toemail);
 
 	$value = C::t('common_mailcron')->fetch_all_by_email($toemail, 0, 1);
