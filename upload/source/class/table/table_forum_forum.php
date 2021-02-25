@@ -38,10 +38,10 @@ class table_forum_forum extends discuz_table
 		return DB::fetch_all("SELECT * FROM ".DB::table($this->_table)." WHERE $typesql $statussql $fupsql $limitsql");
 	}
 	public function fetch_info_by_fid($fid) {
-		$data = $this->fetch_cache($fid);
-		if($data === false || !array_key_exists('description', $data)) {
+		$cache_name = $fid . "_with_fields";
+		if(($data = $this->fetch_cache($cache_name)) === false) {
 			$data = DB::fetch_first("SELECT ff.*, f.* FROM %t f LEFT JOIN %t ff ON ff.fid=f.fid WHERE f.fid=%d", array($this->_table, 'forum_forumfield', $fid));
-			$this->store_cache($fid, $data);
+			$this->store_cache($cache_name, $data);
 		}
 		return $data;
 	}
