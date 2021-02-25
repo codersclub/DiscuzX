@@ -1098,7 +1098,13 @@ function output_replace($content) {
 		}
 
 		foreach($_G['setting']['output']['preg']['search'] as $key => $value) {
-			$content = preg_replace_callback($value, create_function('$matches', 'return '.$_G['setting']['output']['preg']['replace'][$key].';'), $content);
+			$content = preg_replace_callback(
+				$value,
+				function ($matches) use ($_G, $key) {
+					return eval('return ' . $_G['setting']['output']['preg']['replace'][$key] . ';');
+				},
+				$content
+			);
 		}
 	}
 

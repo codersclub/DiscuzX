@@ -992,7 +992,9 @@ function block_convert($bid, $toblockclass) {
 					$blockstyle['fields'][$key] = str_replace($convertrule['searchkeys'], $convertrule['replacekeys'], $value);
 				}
 
-				$fun = create_function('&$v','$v = "{".$v."}";');
+				$fun = function(&$v) {
+					$v = "{".$v."}";
+				};
 				array_walk($convertrule['searchkeys'], $fun);
 				array_walk($convertrule['replacekeys'], $fun);
 

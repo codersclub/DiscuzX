@@ -1207,7 +1207,13 @@ function viewthread_procpost($post, $lastvisit, $ordertype, $maxposition = 0) {
 			if(!defined('IN_MOBILE')) {
 				$messageindex = false;
 				if(strpos($post['message'], '[/index]') !== FALSE) {
-					$post['message'] = preg_replace_callback("/\s?\[index\](.+?)\[\/index\]\s?/is", create_function('$matches', 'return parseindex($matches[1], '.intval($post['pid']).');'), $post['message']);
+					$post['message'] = preg_replace_callback(
+						"/\s?\[index\](.+?)\[\/index\]\s?/is",
+						function($matches) use ($post) {
+							return parseindex($matches[1], intval($post['pid']));
+						},
+						$post['message']
+					);
 					$messageindex = true;
 					unset($_GET['threadindex']);
 				}
@@ -1249,7 +1255,16 @@ function viewthread_procpost($post, $lastvisit, $ordertype, $maxposition = 0) {
 					$post['message'] = parse_related_link($post['message'], $relatedtype);
 				}
 				if(strpos($post['message'], '[/begin]') !== FALSE) {
-					$post['message'] = preg_replace_callback("/\[begin(=\s*([^\[\<\r\n]*?)\s*,(\d*),(\d*),(\d*),(\d*))?\]\s*([^\[\<\r\n]+?)\s*\[\/begin\]/is", create_function('$matches', 'return '.intval($_G['cache']['usergroups'][$post['groupid']]['allowbegincode']).' ? parsebegin($matches[2], $matches[7], $matches[3], $matches[4], $matches[5], $matches[6]) : \'\';'), $post['message']);
+					$post['message'] = preg_replace_callback(
+						"/\[begin(=\s*([^\[\<\r\n]*?)\s*,(\d*),(\d*),(\d*),(\d*))?\]\s*([^\[\<\r\n]+?)\s*\[\/begin\]/is",
+						function ($matches) {
+							if (!intval($_G['cache']['usergroups'][$post['groupid']]['allowbegincode'])) {
+								return '';
+							}
+							return parsebegin($matches[2], $matches[7], $matches[3], $matches[4], $matches[5], $matches[6]);
+						},
+						$post['message']
+					);
 				}
 			}
 		}

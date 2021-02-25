@@ -448,27 +448,57 @@ function build_cache_setting() {
 		if($output['preg']) {
 			foreach($data['footernavs'] as $id => $nav) {
 				foreach ($output['preg']['search'] as $key => $value) {
-					$data['footernavs'][$id]['code'] = preg_replace_callback($value, create_function('$matches', 'return '.$output['preg']['replace'][$key].';'), $nav['code']);
+					$data['footernavs'][$id]['code'] = preg_replace_callback(
+						$value,
+						function ($matches) use ($output, $key) {
+							return eval('return ' . $output['preg']['replace'][$key] . ';');
+						},
+						$nav['code']
+					);
 				}
 			}
 			foreach($data['spacenavs'] as $id => $nav) {
 				foreach ($output['preg']['search'] as $key => $value) {
-					$data['spacenavs'][$id]['code'] = preg_replace_callback($value, create_function('$matches', 'return '.$output['preg']['replace'][$key].';'), $nav['code']);
+					$data['spacenavs'][$id]['code'] = preg_replace_callback(
+						$value,
+						function ($matches) use ($output, $key) {
+							return eval('return ' . $output['preg']['replace'][$key] . ';');
+						},
+						$nav['code']
+					);
 				}
 			}
 			foreach($data['mynavs'] as $id => $nav) {
 				foreach ($output['preg']['search'] as $key => $value) {
-					$data['mynavs'][$id]['code'] = preg_replace_callback($value, create_function('$matches', 'return '.$output['preg']['replace'][$key].';'), $nav['code']);
+					$data['mynavs'][$id]['code'] = preg_replace_callback(
+						$value,
+						function ($matches) use ($output, $key) {
+							return eval('return ' . $output['preg']['replace'][$key] . ';');
+						},
+						$nav['code']
+					);
 				}
 			}
 			foreach($data['topnavs'] as $id => $nav) {
 				foreach ($output['preg']['search'] as $key => $value) {
-					$data['topnavs'][$id]['code'] = preg_replace_callback($value, create_function('$matches', 'return '.$output['preg']['replace'][$key].';'), $nav['code']);
+					$data['topnavs'][$id]['code'] = preg_replace_callback(
+						$value,
+						function ($matches) use ($output, $key) {
+							return eval('return ' . $output['preg']['replace'][$key] . ';');
+						},
+						$nav['code']
+					);
 				}
 			}
 			foreach($data['plugins']['jsmenu'] as $id => $nav) {
 				foreach ($output['preg']['search'] as $key => $value) {
-					$data['plugins']['jsmenu'][$id]['url'] = preg_replace_callback($value, create_function('$matches', 'return '.$output['preg']['replace'][$key].';'), $nav['url']);
+					$data['plugins']['jsmenu'][$id]['url'] = preg_replace_callback(
+						$value,
+						function ($matches) use ($output, $key) {
+							return eval('return ' . $output['preg']['replace'][$key] . ';');
+						},
+						$nav['url']
+					);
 				}
 			}
 		}
@@ -1002,7 +1032,13 @@ function get_cachedata_threadprofile() {
 	}
 	foreach($data['template'] as $id => $template) {
 		foreach($template as $type => $row) {
-			$data['template'][$id][$type] = preg_replace_callback('/\{([\w:]+)(=([^}]+?))?\}(([^}]+?)\{\*\}([^}]+?)\{\/\\1\})?/s', create_function('$matches', 'return get_cachedata_threadprofile_nodeparse('.intval($id).', \''.addslashes($type).'\', $matches[1], $matches[5], $matches[6], $matches[3]);'), $template[$type]);
+			$data['template'][$id][$type] = preg_replace_callback(
+				'/\{([\w:]+)(=([^}]+?))?\}(([^}]+?)\{\*\}([^}]+?)\{\/\\1\})?/s',
+				function ($matches) use ($id, $type) {
+					return get_cachedata_threadprofile_nodeparse(intval($id), ''.addslashes($type).'', $matches[1], $matches[5], $matches[6], $matches[3]);
+				},
+				$template[$type]
+			);
 		}
 	}
 	$data['code'] = $_G['cachedata_threadprofile_code'];
