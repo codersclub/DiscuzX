@@ -17,11 +17,10 @@ if($_G['uid']) {
 	$limit = 200;
 	if($_G['cookie']['atlist']) {
 		$cookies = explode(',', $_G['cookie']['atlist']);
-		foreach(C::t('common_member')->fetch_all($cookies, false, 0) as $row) {
-			$temp[$row[uid]] = $row['username'];
-		}
-		foreach($cookies as $uid) {
-			$atlist_cookie[$uid] = $temp[$uid];
+		foreach(C::t('common_member')->fetch_all($cookies, false) as $row) {
+			if ($row['uid'] != $_G['uid'] && in_array($row['uid'], $cookies)) {
+				$atlist_cookie[$row['uid']] = $row['username'];
+			}
 		}
 	}
 	foreach(C::t('home_follow')->fetch_all_following_by_uid($_G['uid'], 0, 0, $limit) as $row) {
@@ -32,7 +31,7 @@ if($_G['uid']) {
 	}
 	$num = count($atlist);
 	if($num < $limit) {
-		$query = C::t('home_friend')->fetch_all_by_uid($_G['uid']);
+		$query = C::t('home_friend')->fetch_all_by_uid($_G['uid'], 0, $limit * 2);
 		foreach($query as $row) {
 			if(count($atlist) == $limit) {
 				break;
