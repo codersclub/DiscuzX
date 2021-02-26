@@ -9,17 +9,17 @@
 <!-- header end -->
 <!-- registerbox start -->
 <div class="loginbox registerbox">
+	<form method="post" autocomplete="off" name="register" id="registerform" action="member.php?mod={$_G[setting][regname]}&mobile=2">
+	<input type="hidden" name="regsubmit" value="yes" />
+	<input type="hidden" name="formhash" value="{FORMHASH}" />
+	<!--{eval $dreferer = str_replace('&amp;', '&', dreferer());}-->
+	<input type="hidden" name="referer" value="$dreferer" />
+	<input type="hidden" name="activationauth" value="{if $_GET[action] == 'activation'}$activationauth{/if}" />
+	<input type="hidden" name="agreebbrule" value="$bbrulehash" id="agreebbrule" checked="checked" />
+	<!--{if $_G['setting']['sendregisterurl']}-->
+		<input type="hidden" name="hash" value="$_GET[hash]" />
+	<!--{/if}-->
 	<div class="login_from">
-		<form method="post" autocomplete="off" name="register" id="registerform" action="member.php?mod={$_G[setting][regname]}&mobile=2">
-		<input type="hidden" name="regsubmit" value="yes" />
-		<input type="hidden" name="formhash" value="{FORMHASH}" />
-		<!--{eval $dreferer = str_replace('&amp;', '&', dreferer());}-->
-		<input type="hidden" name="referer" value="$dreferer" />
-		<input type="hidden" name="activationauth" value="{if $_GET[action] == 'activation'}$activationauth{/if}" />
-		<input type="hidden" name="agreebbrule" value="$bbrulehash" id="agreebbrule" checked="checked" />
-		<!--{if $_G['setting']['sendregisterurl']}-->
-			<input type="hidden" name="hash" value="$_GET[hash]" />
-		<!--{/if}-->
 		<ul>
 			<!--{if $sendurl}-->
 				<li class="bl_none"><input type="email" tabindex="1" class="px p_fre" size="30" autocomplete="off" value="" name="{$_G['setting']['reginput']['email']}" placeholder="{lang registeremail}" fwin="login"></li>
