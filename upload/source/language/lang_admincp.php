@@ -1289,6 +1289,7 @@ $lang = array
 	'setting_home_privacy' => '隐私设置',
 	'setting_home_privacy_new_user' => '新用户默认隐私设置',
 	'setting_home_privacy_view_index' => '个人空间首页',
+	'setting_home_privacy_view_profile' => '个人空间资料',
 	'setting_home_privacy_alluser' => '全站用户可见',
 	'setting_home_privacy_friend' => '仅好友可见',
 	'setting_home_privacy_self' => '仅自己可见',
