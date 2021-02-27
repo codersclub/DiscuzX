@@ -169,7 +169,6 @@ if($operation == 'admin') {
 			$isdefault1 = $id == $defaultid1 ? 'checked' : '';
 			$isdefault2 = $id == $defaultid2 ? 'checked' : '';
 			$isdefault3 = $id == $defaultid3 ? 'checked' : '';
-			$mobile1exists = file_exists($style['directory'].'/mobile');
 			$d1exists = file_exists($style['directory'].'/mobile');
 			$d2exists = file_exists($style['directory'].'/touch') || file_exists($style['directory'].'/m');
 			$d3exists = file_exists($style['directory'].'/wml');
