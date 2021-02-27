@@ -451,7 +451,7 @@ if($operation == 'export') {
 				$info['size'] = sizecount($info['size']);
 				showtablerow('', '', array(
 					'',
-					"<a href=\"$info[filename]\">".substr(strrchr($info['filename'], "/"), 1)."</a>",
+					"<a href=\"{$info['filename']}">".substr(strrchr($info['filename'], "/"), 1)."</a>",
 					$info['version'],
 					$info['dateline'],
 					'',
@@ -488,7 +488,7 @@ if($operation == 'export') {
 				$info['size'] = sizecount($info['size']);
 				showtablerow('', '', array(
 					'',
-					"<a href=\"$info[filename]\">".substr(strrchr($info['filename'], "/"), 1)."</a>",
+					"<a href=\"{$info['filename']}\">".substr(strrchr($info['filename'], "/"), 1)."</a>",
 					$info['version'],
 					$info['dateline'],
 					'',
