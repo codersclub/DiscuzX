@@ -429,6 +429,7 @@ CSS 写作注意事项：
 			.fdiy .tfm .px, .fdiy .tfm .pt { width: auto; }
 			.p_fre { width: auto !important; }
 			.er { border-color: #F66 #FFBDB9 #FFBDB9 #F66; background-color: #FDF4F4; }
+			.er:focus { border-color: {MENUBGCOLOR}; box-shadow: 0 0 2px {MENUBGCOLOR}; background-color: #FFF; }
 		.pt { overflow-y: auto; }
 			div.pt { height: 100px; line-height: 100px; }
 		.ps, select { padding: 2px 2px 2px 1px; }
@@ -454,8 +455,8 @@ CSS 写作注意事项：
 	a.pn { height: 21px; line-height: 21px; color: {TABLETEXT} !important; }
 		a.pn:hover { text-decoration: none; }
 
-	.pnc, a.pnc { border-color: #235994; background-color: #06C; color: #FFF !important; }
-		.pnc:active { background: #2458A7; }
+	.pnc, a.pnc { border-color: #06C; background-color: #06C; color: #FFF !important; }
+		.pnc:active { background: #0059b3; }
 		.pnc:focus { box-shadow: 0 0 0 2px rgba(36, 88, 167, 0.25); }
 
 	.pnpost .pn { height: 26px; }
@@ -831,7 +832,7 @@ CSS 写作注意事项：
 	.tb .y { float: right; margin-right: 0; }
 		.tb .y a { border: none; background: transparent; }
 		.tb .y.showmenu a { display: inline-block; }
-	.tb .o { margin: 1px 4px 0 2px; border: 1px solid #235994; }
+	.tb .o { margin: 1px 4px 0 2px; border: 1px solid #06C; border-radius: 3px; }
 	.tb .o, .tb .o a { height: 23px; line-height: 23px; background: #06C; }
 		.tb .o a { padding: 0 15px; border: none; font-weight: 700; color: #FFF; }
 	.tb_h { margin: 0; padding: 0; background-color: {SPECIALBG}; }
@@ -1238,7 +1239,6 @@ CSS 写作注意事项：
 			.rfm .tipwide { padding-top: 0; }
 		.rfm th { padding-right: 10px; width: 10em; text-align: right; }
 		.rfm .px { width: 220px; }
-			.rfm .px:focus { border-color: {HIGHLIGHTLINK}; background: #FFF; }
 		.rfm .p_tip { position: absolute; z-index: 2; display: none; padding-left: 10px; width: 390px; background: {WRAPBG}; color: {MIDTEXT}; font-style: normal; }
 		.rfm .p_chk { position: absolute; z-index: 1; padding-left: 10px; width: 390px; color: red; font-weight: 700; font-family: {FONT}; }
 		.rfm #emailmore { position: absolute; }
@@ -1270,11 +1270,10 @@ CSS 写作注意事项：
 	.m_c .blr { margin: 0 auto; }
 .lgfm { font: {FONTSIZE} {FONT}; float: left; margin-bottom: 10px; padding: 20px 0; width: 280px; border-right: 1px solid #CCC; }
 	.rgs { margin-bottom: 10px; }
-	.lgfm label, .lgfm p, .reginfo { clear: both; overflow: hidden; display: block; margin-bottom: 10px; line-height: 22px; }
+	.lgfm label, .lgfm p, .reginfo { clear: both; display: block; margin-bottom: 10px; line-height: 22px; }
 		/* 自定义的注册信息 */
 		.reginfo label { display: inline; }
 		.reg_c { float: left; width: 200px; }
-	.lgfm .txt, .lgfm .px { padding: 2px 4px; height: 16px; border: 1px solid; border-color: {INPUTBORDERDARKCOLOR} {INPUTBORDER} {INPUTBORDER} {INPUTBORDERDARKCOLOR}; background-image: none; }
 		.lgfm .txt, .lgfm .px, .lgfm .pt { width: 170px; }
 	.lgfm .ftid a, .lgfm .ftid a:hover { height: 20px; background-position: 100% -1px; border-color: {INPUTBORDERDARKCOLOR} {INPUTBORDER} {INPUTBORDER} {INPUTBORDERDARKCOLOR}; }
 	.fsb { clear: both; margin-top: 8px; padding: 10px; }

@@ -10,14 +10,14 @@
 				<div class="c cl">
 					<div class="lgfm">
 						<label><em>{lang username}:</em>$member[username]</label>
-						<label><em>{lang new_password}:</em><input type="password" id="newpasswd1" name="newpasswd1" size="25" class="px" /></label>
+						<label><em>{lang new_password}:</em><input type="password" id="newpasswd1" name="newpasswd1" size="25" class="px" /><span><i id="tip_newpasswd1" class="p_tip"></i></span></label>
 						<p style="height:22px;">
 							
 							<i class="d" id="chk_newpasswd1">{lang register_password_tips}<!--{if $_G['setting']['pwlength']}-->, {lang register_password_length_tips1} $_G['setting']['pwlength'] {lang register_password_length_tips2}<!--{/if}--></i>
 						</p>
-						<label><em>{lang new_password_confirm}:</em><input type="password" id="newpasswd2" name="newpasswd2" size="25" class="px" /></label>
+						<label><em>{lang new_password_confirm}:</em><input type="password" id="newpasswd2" name="newpasswd2" size="25" class="px" /><span><i id="tip_newpasswd2" class="p_tip"></i></span></label>
 						<p style="height:22px;"><i class="d" id="chk_newpasswd2"></i></p>
-					</div><em><i id="tip_newpasswd1" class="p_tip"></i><em><em><i id="tip_newpasswd2" class="p_tip"></i><em>
+					</div>
 					<div class="lgf minf">
 						<h4>{lang login_guest}</h4>
 					</div>
