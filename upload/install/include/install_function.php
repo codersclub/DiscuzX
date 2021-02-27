@@ -1374,8 +1374,8 @@ function uc_write_config($config, $file, $password) {
 	$ucauthkey = _generate_key();
 	$ucsiteid = _generate_key();
 	$ucmykey = _generate_key();
-	$salt = substr(_generate_key(), 0, 6);
-	$pw = md5(md5($password).$salt);
+	$salt = '';
+	$pw = password_hash($password, PASSWORD_BCRYPT);
 	$config = "<?php \r\ndefine('UC_DBHOST', '$ucdbhost');\r\n";
 	$config .= "define('UC_DBUSER', '$ucdbuser');\r\n";
 	$config .= "define('UC_DBPW', '$ucdbpw');\r\n";
@@ -1435,9 +1435,9 @@ function install_uc_server() {
 	$config = array($appauthkey,$appid,$ucdbhost,$ucdbname,$ucdbuser,$ucdbpw,$ucdbcharset,$uctablepre,$uccharset,$ucapi,$ucip);
 	save_uc_config($config, ROOT_PATH.'./config/config_ucenter.php');
 
-	$salt = substr(uniqid(rand()), -6);
-	$passwordmd5 = md5(md5($password).$salt);
-	$db->query("INSERT INTO {$uctablepre}members SET $sqladd username='$username', password='$passwordmd5', email='$email', regip='hidden', regdate='".time()."', salt='$salt'");
+	$salt = '';
+	$passwordhash = password_hash($password, PASSWORD_BCRYPT);
+	$db->query("INSERT INTO {$uctablepre}members SET $sqladd username='$username', password='$passwordhash', email='$email', regip='hidden', regdate='".time()."', salt='$salt'");
 	$uid = $db->insert_id();
 	$db->query("INSERT INTO {$uctablepre}memberfields SET uid='$uid'");
 

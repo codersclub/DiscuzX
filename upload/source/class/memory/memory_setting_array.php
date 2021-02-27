@@ -36,7 +36,7 @@ class memory_setting_array implements ArrayAccess {
 			'connect', 'taskon', 'menunavs', 'subnavs', 'search', 'blogstatus', 'albumstatus', 'srchhotkeywords',
 			'forumallowside', 'focus', 'site_qq', 'footernavs', 'siteurl', 'sitename', 'icp', 'statcode', 'debug',
 			'boardlicensed', 'followstatus', 'disableipnotice', 'rewritestatus', 'ftp', 'visitbanperiods',
-			'cacheindexlife', 'whosonline_contract', 'regname', 'reglinkname', 'pwdsafety', 'autoidselect',
+			'cacheindexlife', 'whosonline_contract', 'regname', 'reglinkname', 'autoidselect',
 			'uidlogin', 'forumstatus', 'friendstatus', 'guidestatus', 'favoritestatus', 'mps', 'mpsid'
 		),
 		'forumdisplay_fields' => array(

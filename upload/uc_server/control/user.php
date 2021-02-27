@@ -138,14 +138,15 @@ class usercontrol extends base {
 			$user = $_ENV['user']->get_user_by_username($username);
 		}
 
-		$passwordmd5 = preg_match('/^\w{32}$/', $password) ? $password : md5($password);
 		if(empty($user)) {
 			$status = -1;
-		} elseif($user['password'] != md5($passwordmd5.$user['salt'])) {
+		} elseif(!$_ENV['user']->verify_password($password, $user['password'], $user['salt'])) {
 			$status = -2;
 		} elseif($checkques && $user['secques'] != $_ENV['user']->quescrypt($questionid, $answer)) {
 			$status = -3;
 		} else {
+			// 密码升级作为附属流程, 失败与否不影响登录操作
+			$_ENV['user']->upgrade_password($username, $password, $user['password'], $user['salt']);
 			$status = $user['uid'];
 		}
 		if($ip && $this->settings['login_failedtime'] && $status <= 0) {

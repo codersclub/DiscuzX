@@ -1,6 +1,6 @@
 <!--{if CURMODULE != 'logging'}-->
 	<script type="text/javascript" src="{$_G[setting][jspath]}logging.js?{VERHASH}"></script>
-	<form method="post" autocomplete="off" id="lsform" action="member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes" onsubmit="{if $_G['setting']['pwdsafety']}pwmd5('ls_password');{/if}return lsSubmit();">
+	<form method="post" autocomplete="off" id="lsform" action="member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes" onsubmit="return lsSubmit();">
 	<div class="fastlg cl">
 		<span id="return_ls" style="display:none"></span>
 		<div class="y pns">
@@ -40,9 +40,4 @@
 		<!--{hook/global_login_extra}-->
 	</div>
 	</form>
-
-	<!--{if $_G['setting']['pwdsafety']}-->
-		<script type="text/javascript" src="{$_G['setting']['jspath']}md5.js?{VERHASH}" reload="1"></script>
-	<!--{/if}-->
-
 <!--{/if}-->

@@ -1805,8 +1805,6 @@ $lang = array
 
 
 	'setting_functions_other' => '其他',
-	'setting_functions_other_pwdsafety' => '启用登录密码加密',
-	'setting_functions_other_pwdsafety_comment' => '选择“是”，站点登录时的密码将进行加密后再传输',
 	'setting_functions_other_uidlogin' => '启用UID登录',
 	'setting_functions_other_uidlogin_comment' => '选择“是”，站点登录时允许通过 UID的方式登录验证',
 	'setting_functions_other_autoidselect' => '启用登录自动选择帐号',

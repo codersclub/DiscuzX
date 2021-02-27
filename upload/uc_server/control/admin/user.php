@@ -73,8 +73,7 @@ class control extends adminbase {
 					$this->user['username'] = $username;
 					if($isfounder == 1) {
 						$this->user['username'] = 'UCenterAdministrator';
-						$md5password =  md5(md5($password).UC_FOUNDERSALT);
-						if($md5password == UC_FOUNDERPW) {
+						if($_ENV['user']->verify_password($password, UC_FOUNDERPW, UC_FOUNDERSALT)) {
 							$username = $this->user['username'];
 							$this->view->sid = $this->sid_encode($this->user['username']);
 						} else {
@@ -83,8 +82,9 @@ class control extends adminbase {
 					} else {
 						$admin = $this->db->fetch_first("SELECT a.uid,m.username,m.salt,m.password FROM ".UC_DBTABLEPRE."admins a LEFT JOIN ".UC_DBTABLEPRE."members m USING(uid) WHERE a.username='$username'");
 						if(!empty($admin)) {
-							$md5password =  md5(md5($password).$admin['salt']);
-							if($admin['password'] == $md5password) {
+							if($_ENV['user']->verify_password($password, $admin['password'], $admin['salt'])) {
+								// 密码升级作为附属流程, 失败与否不影响登录操作
+								$_ENV['user']->upgrade_password($username, $password, $admin['password'], $admin['salt']);
 								$this->view->sid = $this->sid_encode($admin['username']);
 							} else {
 								$errorcode = UC_LOGIN_ERROR_ADMIN_PW;
@@ -270,9 +270,8 @@ class control extends adminbase {
 				$_ENV['note']->add('renameuser', 'uid='.$uid.'&oldusername='.urlencode($username).'&newusername='.urlencode($newusername));
 			}
 			if($password) {
-				$salt = substr(uniqid(rand()), 0, 6);
-				$orgpassword = $password;
-				$password = md5(md5($password).$salt);
+				$salt = '';
+				$password = $_ENV['user']->generate_password($password);
 				$sqladd .= "password='$password', salt='$salt', ";
 				$this->load('note');
 				$_ENV['note']->add('updatepw', 'username='.urlencode($username).'&password=');

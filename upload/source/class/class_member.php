@@ -138,7 +138,7 @@ class logging_ctl {
 				$ucsynlogin = $this->setting['allowsynlogin'] ? uc_user_synlogin($_G['uid']) : '';
 
 				$pwold = false;
-				if($this->setting['strongpw'] && !$this->setting['pwdsafety']) {
+				if($this->setting['strongpw']) {
 					if(in_array(1, $this->setting['strongpw']) && !preg_match("/\d+/", $_GET['password'])) {
 						$pwold = true;
 					}

@@ -20,7 +20,7 @@
 	<!--{if $_GET[infloat]}-->
 		<h2 class="log_tit"><a href="javascript:;" onclick="popup.close();"><span class="icon_close y">&nbsp;</span></a>{lang login}</h2>
 	<!--{/if}-->
-		<form id="loginform" method="post" action="member.php?mod=logging&action=login&loginsubmit=yes&loginhash=$loginhash&mobile=2" onsubmit="{if $_G['setting']['pwdsafety']}pwmd5('password3_$loginhash');{/if}" >
+		<form id="loginform" method="post" action="member.php?mod=logging&action=login&loginsubmit=yes&loginhash=$loginhash&mobile=2">
 		<input type="hidden" name="formhash" id="formhash" value='{FORMHASH}' />
 		<input type="hidden" name="referer" id="referer" value="<!--{if dreferer()}-->{echo dreferer()}<!--{else}-->forum.php?mobile=2<!--{/if}-->" />
 		<input type="hidden" name="fastloginfield" value="username">
@@ -70,10 +70,6 @@
 	<!--{hook/logging_bottom_mobile}-->
 </div>
 <!-- userinfo end -->
-
-<!--{if $_G['setting']['pwdsafety']}-->
-	<script type="text/javascript" src="{$_G['setting']['jspath']}md5.js?{VERHASH}" reload="1"></script>
-<!--{/if}-->
 <!--{eval updatesession();}-->
 
 <script type="text/javascript">

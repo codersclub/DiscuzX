@@ -409,7 +409,6 @@ INSERT INTO pre_common_setting VALUES ('postnocustom','');
 INSERT INTO pre_common_setting VALUES ('postperpage','10');
 INSERT INTO pre_common_setting VALUES ('privacy','a:2:{s:4:\"view\";a:8:{s:5:\"index\";i:0;s:6:\"friend\";i:0;s:4:\"wall\";i:0;s:4:\"home\";i:0;s:5:\"doing\";i:0;s:4:\"blog\";i:0;s:5:\"album\";i:0;s:5:\"share\";i:0;}s:4:\"feed\";a:5:{s:5:\"doing\";i:1;s:4:\"blog\";i:1;s:6:\"upload\";i:1;s:4:\"poll\";i:1;s:9:\"newthread\";i:1;}}');
 INSERT INTO pre_common_setting VALUES ('pvfrequence','60');
-INSERT INTO pre_common_setting VALUES ('pwdsafety','0');
 INSERT INTO pre_common_setting VALUES ('pwlength','6');
 INSERT INTO pre_common_setting VALUES ('qihoo','a:9:{s:6:\"status\";i:0;s:9:\"searchbox\";i:6;s:7:\"summary\";i:1;s:6:\"jammer\";i:1;s:9:\"maxtopics\";i:10;s:8:\"keywords\";s:0:\"\";s:10:\"adminemail\";s:0:\"\";s:8:\"validity\";i:1;s:14:\"relatedthreads\";a:6:{s:6:\"bbsnum\";i:0;s:6:\"webnum\";i:0;s:4:\"type\";a:3:{s:4:\"blog\";s:4:\"blog\";s:4:\"news\";s:4:\"news\";s:3:\"bbs\";s:3:\"bbs\";}s:6:\"banurl\";s:0:\"\";s:8:\"position\";i:1;s:8:\"validity\";i:1;}}');
 INSERT INTO pre_common_setting VALUES ('ratelogon','1');

@@ -560,8 +560,8 @@ function get_onlineip() {
 
 function config_edit() {
 	extract($GLOBALS, EXTR_SKIP);
-	$ucsalt = substr(uniqid(rand()), 0, 6);
-	$ucfounderpw= md5(md5($ucfounderpw).$ucsalt);
+	$ucsalt = '';
+	$ucfounderpw = password_hash($ucfounderpw, PASSWORD_BCRYPT);
 	$regdate = time();
 
 	$ucauthkey = generate_key();

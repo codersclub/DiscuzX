@@ -3,7 +3,7 @@
 <div class="box"><a href="forum.php">{lang return_forum}</a><span class="pipe">|</span><a href="javascript:history.back();" onclick="javascript:history.back();" title="{lang goback}" >{lang goback}</a></div>
 <div class="bm mtn">
 	<div class="bm_h">{lang login}</div>
-		<form method="post" action="member.php?mod=logging&action=login&loginsubmit=yes&loginhash=$loginhash&mobile=yes" onsubmit="{if $_G['setting']['pwdsafety']}pwmd5('password3_$loginhash');{/if}" >
+		<form method="post" action="member.php?mod=logging&action=login&loginsubmit=yes&loginhash=$loginhash&mobile=yes">
 		<input type="hidden" name="formhash" id="formhash" value='{FORMHASH}' />
 		<input type="hidden" name="referer" id="referer" value="<!--{if dreferer()}-->{echo dreferer()}<!--{else}-->forum.php?mobile=yes<!--{/if}-->" />
 		<!--{if $auth}-->
@@ -51,9 +51,5 @@
     </div>
 </form>
 </div>
-
-<!--{if $_G['setting']['pwdsafety']}-->
-	<script type="text/javascript" src="{$_G['setting']['jspath']}md5.js?{VERHASH}" reload="1"></script>
-<!--{/if}-->
 <!--{eval updatesession();}-->
 <!--{template common/footer}-->

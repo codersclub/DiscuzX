@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS uc_members;
 CREATE TABLE uc_members (
   uid mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   username char(15) NOT NULL DEFAULT '',
-  `password` char(32) NOT NULL DEFAULT '',
+  `password` varchar(255) NOT NULL DEFAULT '',
   email char(32) NOT NULL DEFAULT '',
   myid char(30)  NOT NULL DEFAULT '',
   myidkey char(16) NOT NULL DEFAULT '',
@@ -30,7 +30,7 @@ CREATE TABLE uc_members (
   regdate int(10) unsigned NOT NULL DEFAULT '0',
   lastloginip int(10) NOT NULL DEFAULT '0',
   lastlogintime int(10) unsigned NOT NULL DEFAULT '0',
-  salt char(6) NOT NULL,
+  salt varchar(20) NOT NULL DEFAULT '',
   secques char(8) NOT NULL default '',
   PRIMARY KEY(uid),
   UNIQUE KEY username(username),

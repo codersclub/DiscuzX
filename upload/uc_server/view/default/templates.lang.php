@@ -306,6 +306,10 @@ $languages = array(
 	'setting_addappbyurl_comment' => '是否启用通过 URL 添加应用功能，建议只有必须通过 URL 添加应用时开启',
 	'setting_insecureuserdelete' => '启用不安全的删除用户接口',
 	'setting_insecureuserdelete_comment' => '是否启用不安全的删除用户接口，建议只有必须使用此接口且无法改造应用时开启',
+	'setting_passwordalgo' => 'UCenter 密码算法',
+	'setting_passwordalgo_comment' => '取值为您当前 PHP 版本支持密码散列算法的常量名。请注意使用高版本 PHP 独有的算法后不能降级到更低的 PHP 版本，否则用户无法验证密码。默认值为空。',
+	'setting_passwordoptions' => 'UCenter 密码算法配置',
+	'setting_passwordoptions_comment' => '取值为密码散列算法的配置信息，以一行 JSON 数组的形式存储，请自行确认相关配置是否正确。当配置本项时, UCenter 密码算法不能为空。默认值为空。',
 
 	'setting_user_failedtime' => '允许用户登录失败次数',
 	'setting_user_failedtime_comment' => '用户登录失败超过设置的数据，将在15分钟内无法登录，0为不限制次数',

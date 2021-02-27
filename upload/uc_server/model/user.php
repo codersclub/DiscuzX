@@ -13,6 +13,7 @@ class usermodel {
 
 	var $db;
 	var $base;
+	var $passwordsetting;
 
 	function __construct(&$base) {
 		$this->usermodel($base);
@@ -138,16 +139,18 @@ class usermodel {
 		$user = $this->get_user_by_username($username);
 		if(empty($user['username'])) {
 			return -1;
-		} elseif($user['password'] != md5(md5($password).$user['salt'])) {
+		} elseif(!$this->verify_password($password, $user['password'], $user['salt'])) {
 			return -2;
 		}
+		// 密码升级作为附属流程, 失败与否不影响登录操作
+		$this->upgrade_password($username, $password, $user['password'], $user['salt']);
 		return $user['uid'];
 	}
 
 	function add_user($username, $password, $email, $uid = 0, $questionid = '', $answer = '', $regip = '') {
 		$regip = empty($regip) ? $this->base->onlineip : $regip;
-		$salt = substr(uniqid(rand()), -6);
-		$password = md5(md5($password).$salt);
+		$salt = '';
+		$password = $this->generate_password($password);
 		$sqladd = $uid ? "uid='".intval($uid)."'," : '';
 		$sqladd .= $questionid > 0 ? " secques='".$this->quescrypt($questionid, $answer)."'," : " secques='',";
 		$this->db->query("INSERT INTO ".UC_DBTABLEPRE."members SET $sqladd username='$username', password='$password', email='$email', regip='$regip', regdate='".$this->base->time."', salt='$salt'");
@@ -166,11 +169,11 @@ class usermodel {
 			}
 		}
 
-		if(!$ignoreoldpw && $data['password'] != md5(md5($oldpw).$data['salt'])) {
+		if(!$ignoreoldpw && !$this->verify_password($oldpw, $data['password'], $data['salt'])) {
 			return -1;
 		}
 
-		$sqladd = $newpw ? "password='".md5(md5($newpw).$data['salt'])."'" : '';
+		$sqladd = $newpw ? "password='".$this->generate_password($newpw)."', salt=''" : '';
 		$sqladd .= $email ? ($sqladd ? ',' : '')." email='$email'" : '';
 		if($questionid !== '') {
 			if($questionid > 0) {
@@ -325,6 +328,61 @@ class usermodel {
 	function user_log_list($page, $ppp, $totalnum) {
 		$start = $this->base->page_get_start($page, $ppp, $totalnum);
 		return $this->db->fetch_all("SELECT * FROM ".UC_DBTABLEPRE."memberlogs LIMIT $start, $ppp");
+	}
+
+	function get_passwordalgo() {
+		$algo = $this->base->settings['passwordalgo'];
+		if(empty($algo)) {
+			return constant('PASSWORD_BCRYPT');
+		} else {
+			return constant($algo) === null ? constant('PASSWORD_BCRYPT') : constant($algo);
+		}
+	}
+
+	function get_passwordoptions() {
+		$options = $this->base->settings['passwordoptions'];
+		if(empty($options)) {
+			return array();
+		} else {
+			$result = json_decode($options, true);
+			return is_array($result) ? $result : array();
+		}
+	}
+
+	function generate_password($password) {
+		$algo = $this->get_passwordalgo();
+		$options = $this->get_passwordoptions();
+		// 当用户配置有问题时, password_hash 可能返回 false 或无法校验通过的密码, 此时使用 BCRYPT 备份方案生成密码, 保证上游应用正常
+		// 密码散列算法会在部分出错情况下返回 NULL 并报 Warning, 在此特殊处理
+		$hash = password_hash($password, $algo, $options);
+		return ($hash === false || $hash === null || !password_verify($password, $hash)) ? password_hash($password, PASSWORD_BCRYPT) : $hash;
+	}
+
+	function verify_password($password, $hash, $salt = '') {
+		// salt 为空说明是新算法, 直接根据 password_verify 出结果
+		// 否则如 strlen(salt) == 6 说明是老算法, 适用老算法匹配
+		// 均不符合则为第三方转换算法, 如符合命名规则则根据 salt 匹配第三方文件
+		if(empty($salt)) {
+			return password_verify($password, $hash);
+		} else if(strlen($salt) == 6) {
+			return hash_equals($hash, md5(md5($password).$salt));
+		} else if(strlen($salt) > 6 && strlen($salt) < 20 && file_exists(UC_ROOT . "lib/uc_password_$salt.class.php")) {
+			$classname = "uc_password_$salt";
+			include(UC_ROOT . "lib/uc_password_$salt.class.php");
+			return $classname::verify_password($password, $hash);
+		}
+		return false;
+	}
+
+	function upgrade_password($username, $password, $hash, $salt = '') {
+		$algo = $this->get_passwordalgo();
+		$options = $this->get_passwordoptions();
+		if (!empty($salt) || password_needs_rehash($hash, $algo, $options)) {
+			$password_new = $this->generate_password($password);
+			$sqladd = "password = '$password_new', salt = ''";
+			return $this->db->query("UPDATE ".UC_DBTABLEPRE."members SET $sqladd WHERE username='$username'");
+		}
+		return true;
 	}
 
 }
