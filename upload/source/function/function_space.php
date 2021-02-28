@@ -574,9 +574,6 @@ function getblockhtml($blockname,$parameters = array()) {
 			$html = '<div class="ml mls cl">'.$html.'</div>';
 			break;
 
-		case 'myapp':
-			$html = '';		
-			break;
 		case 'block1':
 		case 'block2':
 		case 'block3':

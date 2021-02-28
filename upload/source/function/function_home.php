@@ -492,7 +492,6 @@ function getuserdefaultdiy() {
 									'block`wall' => array('attr' => array('name'=>'wall'))
 							),
 							'column`frame1_right' => array(
-									'block`myapp' => array('attr' => array('name'=>'myapp')),
 									'block`friend' => array('attr' => array('name'=>'friend')),
 									'block`visitor' => array('attr' => array('name'=>'visitor')),
 									'block`group' => array('attr' => array('name'=>'group'))
