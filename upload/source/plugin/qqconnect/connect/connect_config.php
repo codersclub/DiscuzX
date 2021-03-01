@@ -108,7 +108,7 @@ if(submitcheck('connectsubmit')) {
 
 } else {
 
-	if($_G[inajax] && $op == 'synconfig') {
+	if($_G['inajax'] && $op == 'synconfig') {
 		C::t('#qqconnect#common_member_connect')->update($_G['uid'],
 			array(
 				'conispublisht' => 0,

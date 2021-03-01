@@ -51,20 +51,20 @@ CREATE TABLE IF NOT EXISTS pre_common_connect_guest (
 ) TYPE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `pre_connect_disktask` (
- `taskid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '任务ID',
- `aid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '附件ID',
- `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
- `openid` char(32) NOT NULL DEFAULT '' COMMENT 'openId',
- `filename` varchar(255) NOT NULL DEFAULT '' COMMENT '附件名称',
- `verifycode` char(32) NOT NULL DEFAULT '' COMMENT '下载验证码',
- `status` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '下载状态',
- `dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '添加任务的时间',
- `downloadtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '下载完成时间',
- `extra` text COMMENT '保留字段',
+ `taskid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `aid` int(10) unsigned NOT NULL DEFAULT '0',
+ `uid` int(10) unsigned NOT NULL DEFAULT '0',
+ `openid` char(32) NOT NULL DEFAULT '',
+ `filename` varchar(255) NOT NULL DEFAULT '',
+ `verifycode` char(32) NOT NULL DEFAULT '',
+ `status` smallint(6) unsigned NOT NULL DEFAULT '0',
+ `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+ `downloadtime` int(10) unsigned NOT NULL DEFAULT '0',
+ `extra` text,
  PRIMARY KEY (`taskid`),
  KEY `openid` (`openid`),
  KEY `status` (`status`)
-) TYPE=MyISAM COMMENT='网盘下载任务表';
+) TYPE=MyISAM;
 
 EOF;
 
