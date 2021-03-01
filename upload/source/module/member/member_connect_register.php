@@ -12,7 +12,8 @@ if(!defined('IN_DISCUZ')) {
 }
 
 $from_connect = $_G['setting']['connect']['allow'] ? 1 : 0;
-$regname = 'connect';
+//PC用的 $regname，手机用的 $_G['setting']['regname']
+$_G['setting']['regname'] = $regname = 'connect';
 
 if(empty($_POST)) {
 
@@ -88,7 +89,7 @@ if(empty($_POST)) {
 		'conopenid' => $conopenid,
 		'conispublishfeed' => $conispublishfeed,
 		'conispublisht' => $conispublisht,
-		'conisregister' => '1',
+		'conisregister' => $this->setting['ignorepassword'] ? '1' : '0',
 		'conisqzoneavatar' => '0',
 		'conisfeed' => '1',
 		'conisqqshow' => '0',

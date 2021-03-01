@@ -284,3 +284,28 @@ class mobileplugin_qqconnect extends plugin_qqconnect_base {
 	}
 
 }
+
+class mobileplugin_qqconnect_member extends mobileplugin_qqconnect {
+
+	function connect_member() {
+		global $_G, $seccodecheck, $secqaacheck, $connect_guest;
+
+		if($this->allow) {
+			if($_G['uid'] && $_G['member']['conisbind']) {
+				dheader('location: '.$_G['siteurl'].'index.php');
+			}
+			$connect_guest = array();
+			if($_G['connectguest'] && (submitcheck('regsubmit', 0, $seccodecheck, $secqaacheck) || submitcheck('loginsubmit', 1, $seccodestatus))) {
+				if(!$_GET['auth_hash']) {
+					$_GET['auth_hash'] = $_G['cookie']['con_auth_hash'];
+				}
+				$conopenid = authcode($_GET['auth_hash']);
+				$connect_guest = C::t('#qqconnect#common_connect_guest')->fetch($conopenid);
+				if(!$connect_guest) {
+					dsetcookie('con_auth_hash');
+					showmessage('qqconnect:connect_login_first');
+				}
+			}
+		}
+	}
+}

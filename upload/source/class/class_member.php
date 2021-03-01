@@ -374,9 +374,13 @@ class register_ctl {
 				}
 			} elseif(!$this->setting['regstatus']) {
 				if($this->setting['regconnect']) {
-					dheader('location:connect.php?mod=login&op=init&referer=forum.php&statfrom=login_simple');
+					//不是QQ互联登录则跳转到QQ互联，避免越权完成普通注册
+					if(CURMODULE != 'connect'){
+						dheader('location:connect.php?mod=login&op=init&referer=forum.php&statfrom=login_simple');
+					}
+				}else{
+					showmessage(!$this->setting['regclosemessage'] ? 'register_disable' : str_replace(array("\r", "\n"), '', $this->setting['regclosemessage']));
 				}
-				showmessage(!$this->setting['regclosemessage'] ? 'register_disable' : str_replace(array("\r", "\n"), '', $this->setting['regclosemessage']));
 			}
 		}
 
