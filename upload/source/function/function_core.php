@@ -670,7 +670,7 @@ function getcurrentnav() {
 			$_GET['mod'] = 'follow';
 		}
 		foreach($_G['setting']['navmns'][$_G['basefilename']] as $navmn) {
-			if($navmn[0] == array_intersect_assoc($navmn[0], $_GET) || ($navmn[0]['mod'] == 'space' && $_GET['mod'] == 'spacecp' && ($navmn[0]['do'] == $_GET['ac'] || $navmn[0]['do'] == 'album' && $_GET['ac'] == 'upload'))) {
+			if($navmn[0] == array_intersect_assoc($navmn[0], $_GET) || (isset($_GET['gid']) && $navmn[0]['mod'] == 'forumdisplay' && $navmn[0]['fid'] == $_GET['gid'])  || ($navmn[0]['mod'] == 'space' && $_GET['mod'] == 'spacecp' && ($navmn[0]['do'] == $_GET['ac'] || $navmn[0]['do'] == 'album' && $_GET['ac'] == 'upload'))) {
 				$mnid = $navmn[1];
 			}
 		}
