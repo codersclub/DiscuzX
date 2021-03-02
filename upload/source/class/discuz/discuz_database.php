@@ -92,7 +92,7 @@ class discuz_database {
 
 	public static function fetch_first($sql, $arg = array(), $silent = false) {
 		$res = self::query($sql, $arg, $silent, false);
-		if($res == 0){
+		if($res === 0){
 			return array();
 		}
 		$ret = self::$db->fetch_array($res);
