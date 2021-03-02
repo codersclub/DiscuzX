@@ -638,8 +638,7 @@ var formdialog = {
 				evalscript(s.lastChild.firstChild.nodeValue);
 			})
 			.error(function() {
-				window.location.href = obj.attr('href');
-				popup.close();
+				popup.open('表单提交异常，无法完成您的请求', 'alert');
 			});
 			return false;
 		});

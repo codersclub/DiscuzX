@@ -55,7 +55,15 @@ if($operation == 'import') {
 			$datafile = getgpc('datafile_server', 'G');
 		}
 		$datafile = urldecode($datafile);
-		if(file_exists($datafile) && @$fp = fopen($datafile, 'rb')) {
+		if(!file_exists($datafile)) {
+			if(getgpc('autoimport', 'G')) {
+				touch($lock_file);
+				show_msg('database_import_multivol_succeed', '', 'message', 1);
+			} else {
+				show_msg('database_import_file_illegal');
+			}
+		}
+		if(@$fp = fopen($datafile, 'rb')) {
 			$confirm = trim(getgpc('confirm', 'G'));
 			$confirm = $confirm ? 1 : 0;
 			$sqldump = fgets($fp, 256);

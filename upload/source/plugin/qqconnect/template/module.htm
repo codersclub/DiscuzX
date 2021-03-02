@@ -318,7 +318,7 @@ function tpl_spacecp_profile_bottom() {
 <!--{block return}-->
 	<script type="text/javascript">
 	function connect_handle_get_weibosign(response, ajax) {
-		// 返回值形如: errCode=XX&result=XX
+		// response: errCode=XX&result=XX
 		if (typeof(response) == "string" && response.indexOf("&") > 0) {
 
 			var errCode = response.substring(0, response.indexOf("&"));
@@ -335,7 +335,7 @@ function tpl_spacecp_profile_bottom() {
 		if (response.errCode == '0') {
 			seditor_insertunit('sightml', response.result);
 		} else {
-			// 请求失败
+			// error
 			showDialog('{lang qqconnect:connect_wbsign_no_account}');
 		}
 	}

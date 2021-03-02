@@ -357,7 +357,8 @@ if($method == 'show_license') {
 	} else {
 		show_header();
 		echo '</div><div class="main" style="margin-top: -123px;padding-left:30px"><span id="platformIntro"></span>';
-		echo '<p align="center"><a href="'.$default_appurl.'">'.$lang['install_finish'].'</a></p><br />';
+		echo '<iframe frameborder="0" width="700" height="550" allowTransparency="true" src="https://addon.dismall.com/api/outer.php?id=installed&siteurl='.urlencode($default_appurl).'&version='.DISCUZ_VERSION.'&release='.DISCUZ_RELEASE.'"></iframe>';
+		echo '<p align="center"><a href="'.$default_appurl.'" style="padding: 10px 20px;color: #fff;background: #09C;border-radius: 4px;height: 40px;line-height: 40px;font-size: 16px;">'.$lang['install_finish'].'</a></p><br />';
 		echo '</div>';
 		show_footer();
 	}
