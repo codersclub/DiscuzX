@@ -57,7 +57,7 @@ if($_GET['mod'] != 'tag'){
 $modarray = array('seccode', 'secqaa', 'initsys', 'invite', 'faq', 'report',
 				'swfupload', 'stat', 'ranklist', 'buyinvitecode',
 				'tag', 'diyhelp', 'mobile', 'patch', 'getatuser', 'imgcropper',
-				'userstatus', 'signin');
+				'userstatus',);
 
 $modcachelist = array(
 	'ranklist' => array('forums', 'diytemplatename'),
@@ -84,9 +84,6 @@ switch ($mod) {
 		$discuz->init_cron = false;
 		$discuz->init_session = false;
 		break;
-	case 'updatecache':
-		$discuz->init_cron = false;
-		$discuz->init_session = false;
 	default:
 		break;
 }
