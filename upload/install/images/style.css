@@ -39,7 +39,7 @@ table{ border-collapse:collapse; }
 	.btnbox input{ margin:0 2px; }
 	.btnbox textarea{ margin-bottom:10px; height:150px; }
 .btn{ margin-top:10px; }
-.footer{ line-height:40px; text-align:center; background:url(bg_footer.gif) repeat-x; font-size:11px; }
+.footer{ line-height:40px; text-align:center; background:#F7FBFE url(bg_footer.gif) repeat-x; font-size:11px; }
 
 /* form */
 .txt{ width:200px; }
