@@ -303,8 +303,9 @@ if($operation == 'export') {
 			require DISCUZ_ROOT . './config/config_global.php';
 			list($dbhost, $dbport) = explode(':', $dbhost);
 
+			$db = DB::object();
 			$query = DB::query("SHOW VARIABLES LIKE 'basedir'");
-			list(, $mysql_base) = DB::fetch($query, DB::$drivertype == 'mysqli' ? MYSQLI_NUM : MYSQL_NUM);
+			list(, $mysql_base) = DB::fetch($query, $db->drivertype == 'mysqli' ? MYSQLI_NUM : MYSQL_NUM);
 
 			$dumpfile = addslashes(dirname(dirname(__FILE__))).'/'.$backupfilename.'.sql';
 			@unlink($dumpfile);
