@@ -385,4 +385,32 @@ class usermodel {
 		return true;
 	}
 
+	function reset_founderpw($newpw) {
+		$configfile = UC_ROOT.'./data/config.inc.php';
+		if(!is_writable($configfile)) {
+			return -4;
+		} else {
+			$config = file_get_contents($configfile);
+			$salt = '';
+			$hashnewpw = str_replace('$', '#', $this->generate_password($newpw));
+			$config = preg_replace("/define\('UC_FOUNDERSALT',\s*'.*?'\);/i", "define('UC_FOUNDERSALT', '$salt');", $config);
+			$config = preg_replace("/define\('UC_FOUNDERPW',\s*'.*?'\);/i", "define('UC_FOUNDERPW', '$hashnewpw');", $config);
+			$config = str_replace('#', '$', $config);
+			$fp = @fopen($configfile, 'w');
+			@fwrite($fp, $config);
+			@fclose($fp);
+			return 2;
+		}
+	}
+
+	function upgrade_founderpw($password, $hash, $salt = '') {
+		$algo = $this->get_passwordalgo();
+		$options = $this->get_passwordoptions();
+		if (!empty($salt) || password_needs_rehash($hash, $algo, $options)) {
+			$password_new = $this->generate_password($password);
+			return $this->reset_founderpw($password);
+		}
+		return true;
+	}
+
 }

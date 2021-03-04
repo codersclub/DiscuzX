@@ -74,6 +74,11 @@ class control extends adminbase {
 					if($isfounder == 1) {
 						$this->user['username'] = 'UCenterAdministrator';
 						if($_ENV['user']->verify_password($password, UC_FOUNDERPW, UC_FOUNDERSALT)) {
+							// 密码升级作为附属流程, 失败与否不影响登录操作
+							$chkstatus = $_ENV['user']->upgrade_founderpw($password, UC_FOUNDERPW, UC_FOUNDERSALT);
+							if($chkstatus === 2) {
+								$this->writelog('admin_pw_upgrade');
+							}
 							$username = $this->user['username'];
 							$this->view->sid = $this->sid_encode($this->user['username']);
 						} else {
