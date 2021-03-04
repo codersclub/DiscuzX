@@ -15,7 +15,6 @@ if(!$_G['setting']['forumstatus']) {
 	showmessage('forum_status_off');
 }
 
-$_G['mnid'] = 'mn_F'.$gid;
 $gquery = C::t('forum_forum')->fetch_all_info_by_fids($gid);
 $query = C::t('forum_forum')->fetch_all_info_by_fids(0, 1, 0, $gid, 1, 0, 0, 'forum');
 if(!empty($_G['member']['accessmasks'])) {
