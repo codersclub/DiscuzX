@@ -30,7 +30,6 @@
 						<!--{/if}-->
 					</li>
 				<!--{/if}-->
-				<!--{eval require_once libfile('function/friend');$isfriend=friend_check($space[uid]);}-->
 				<!--{if !$isfriend}-->
 				<li class="ul_add"><a href="home.php?mod=spacecp&ac=friend&op=add&uid=$space[uid]&handlekey=addfriendhk_{$space[uid]}" id="a_friend_li_{$space[uid]}" onclick="showWindow(this.id, this.href, 'get', 0);">{lang add_friend}</a></li>
 				<!--{else}-->

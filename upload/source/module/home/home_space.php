@@ -115,6 +115,8 @@ list($seccodecheck, $secqaacheck) = seccheck('publish');
 if($do != 'index') {
 	$_G['disabledwidthauto'] = 0;
 }
+require_once libfile('function/friend');
+$isfriend = friend_check($space['uid']);
 require_once libfile('space/'.$do, 'include');
 
 ?>
