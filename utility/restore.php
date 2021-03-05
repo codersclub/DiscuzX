@@ -132,14 +132,17 @@ if($operation == 'import') {
 				show_msg('database_import_succeed', '', 'message', 1);
 			}
 		} elseif($dumpinfo['method'] == 'shell') {
-
+ 			$dbhost = $_config['db'][1]['dbhost'];
+			$dbname = $_config['db'][1]['dbname'];
+			$dbpw = $_config['db'][1]['dbpw'];
+			$dbuser = $_config['db'][1]['dbuser'];
 			list($dbhost, $dbport) = explode(':', $dbhost);
 			$query = $db->query("SHOW VARIABLES LIKE 'basedir'");
-			list(, $mysql_base) = $db->fetch($query, $db->drivertype == 'mysqli' ? MYSQLI_NUM : MYSQL_NUM);
-
+			list(, $mysql_base) = $db->fetch_array($query, $db->drivertype == 'mysqli' ? MYSQLI_NUM : MYSQL_NUM);
+			$datafile = addslashes(dirname(dirname(__FILE__))).str_replace('..', '', $datafile) ;
 			$mysqlbin = $mysql_base == '/' ? '' : addslashes($mysql_base).'bin/';
 			shell_exec($mysqlbin.'mysql -h"'.$dbhost.($dbport ? (is_numeric($dbport) ? ' -P'.$dbport : ' -S"'.$dbport.'"') : '').
-				'" -u"'.$dbuser.'" -p"'.$dbpw.'" "'.$dbname.'" < '.getgpc('datafile'));
+				'" -u"'.$dbuser.'" -p"'.$dbpw.'" "'.$dbname.'" < '.$datafile);
 
 			show_msg('database_import_succeed', '', 'message', 1);
 		} else {
@@ -325,14 +328,14 @@ function show_importfile_list($exportlog = array(), $exportziplog = array(), $ex
 	}
 
 	foreach($exportziplog as $key => $val) {
-
+		sort($val);//确保-1.zip排前面,才会自动解压-2.zip
 		$info = $val[0];
 		$info['dateline'] = is_int($info['dateline']) ? gmdate('Y-m-d H:i:s', $info['dateline'] + 3600 * 8) : lang('unknown');
 		$info['size'] = sizecount($info['size']);
 		$info['method'] = $info['method'] == 'multivol' ? lang('db_multivol') : lang('db_zip');
 		echo "<tr>";
 		echo
-			"<td><a href=\"javascript:;\" onclick=\"display('exportlog_$key')\">".basename($info['filename'])."</a></td>",
+			"<td><a href=\"javascript:;\" onclick=\"display('exportlog_zip_$key')\">".basename($info['filename'])."</a></td>",
 			"<td colspan='2'>".dirname($info['filename'])."</td>",
 			"<td width='140'>".$info['dateline']."</td>",
 			"<td width='170'>".lang('db_export_'.$info['type'])."</td>",
@@ -341,7 +344,7 @@ function show_importfile_list($exportlog = array(), $exportziplog = array(), $ex
 			"<td width='40'><a href=\"{$siteurl}restore.php?operation=importzip&datafile_server=$info[filename]&importsubmit=yes\" onclick=\"return confirm('".lang('database_import_confirm_zip')."');\">".lang('db_import_unzip')."</a></td>"
 		;
 		echo "</tr>\n";
-		echo '<tbody id="exportlog_'.$key.'" style="display:none">';
+		echo '<tbody id="exportlog_zip_'.$key.'" style="display:none">';
 		foreach($val as $info) {
 			$info['dateline'] = is_int($info['dateline']) ? gmdate('Y-m-d H:i:s', $info['dateline'] + 3600 * 8) : lang('unknown');
 			$info['size'] = sizecount($info['size']);
@@ -566,6 +569,7 @@ function lang($lang_key, $force = true, $replace = array()) {
 				'db_export_discuz_uc' => 'Discuz! 和 UCenter 数据',
 				'db_multivol' => '多卷',
 				'db_import_unzip' => '解压缩',
+				'db_export_custom' => '自定义备份',                
 				'db_export_zip' => '压缩备份',
 				'db_zip' => 'ZIP',
 				'db_shell' => 'Shell',
