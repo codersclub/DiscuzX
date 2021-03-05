@@ -297,21 +297,25 @@ if($operation == 'export') {
 
 			$tablesstr = '';
 			foreach($tables as $table) {
-				$tablesstr .= '"'.$table.'" ';
+				$tablesstr .= ''.escapeshellarg($table).' ';
 			}
 
 			require DISCUZ_ROOT . './config/config_global.php';
+			$dbhost = $_config['db'][1]['dbhost'];
+			$dbname = $_config['db'][1]['dbname'];
+			$dbpw = $_config['db'][1]['dbpw'];
+			$dbuser = $_config['db'][1]['dbuser'];            
 			list($dbhost, $dbport) = explode(':', $dbhost);
 
 			$db = DB::object();
 			$query = DB::query("SHOW VARIABLES LIKE 'basedir'");
 			list(, $mysql_base) = DB::fetch($query, $db->drivertype == 'mysqli' ? MYSQLI_NUM : MYSQL_NUM);
 
-			$dumpfile = addslashes(dirname(dirname(__FILE__))).'/'.$backupfilename.'.sql';
+			$dumpfile = addslashes(dirname(dirname(dirname(__FILE__)))).'/'.$backupfilename.'.sql';
 			@unlink($dumpfile);
 
 			$mysqlbin = $mysql_base == '/' ? '' : addslashes($mysql_base).'bin/';
-			@shell_exec($mysqlbin.'mysqldump --force --quick '.($db->version() > '4.1' ? '--skip-opt --create-options' : '-all').' --add-drop-table'.($_GET['extendins'] == 1 ? ' --extended-insert' : '').''.($db->version() > '4.1' && $_GET['sqlcompat'] == 'MYSQL40' ? ' --compatible=mysql40' : '').' --host="'.$dbhost.($dbport ? (is_numeric($dbport) ? ' --port='.$dbport : ' --socket="'.$dbport.'"') : '').'" --user="'.$dbuser.'" --password="'.$dbpw.'" "'.$dbname.'" '.escapeshellarg($tablesstr).' > '.$dumpfile);
+			@shell_exec($mysqlbin.'mysqldump --force --quick '.($db->version() > '4.1' ? '--skip-opt --create-options' : '-all').' --add-drop-table'.($_GET['extendins'] == 1 ? ' --extended-insert' : '').''.($db->version() > '4.1' && $_GET['sqlcompat'] == 'MYSQL40' ? ' --compatible=mysql40' : '').' --host="'.$dbhost.($dbport ? (is_numeric($dbport) ? ' --port='.$dbport : ' --socket="'.$dbport.'"') : '').'" --user="'.$dbuser.'" --password="'.$dbpw.'" "'.$dbname.'" '.$tablesstr.' > '.$dumpfile);
 
 			if(@file_exists($dumpfile)) {
 
