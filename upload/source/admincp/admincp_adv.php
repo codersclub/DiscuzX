@@ -565,6 +565,7 @@ if($operation == 'ad') {
 			}
 			if($adv['class'] == 'custom') {
 				$customadv = $adv;
+				$img = file_exists(DISCUZ_ROOT.'./static/image/admincp/'.$customadv['class'].'.gif') ? '<img src="static/image/admincp/'.$customadv['class'].'.gif" /><br />' : '';
 				echo '<td width="'.$rowwidth.'%" class="hover" align="center">';
 				echo $img.$lang['adv_custom_add'];
 				showformheader("adv&operation=custom&do=add");

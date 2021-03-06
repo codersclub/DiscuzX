@@ -6030,7 +6030,7 @@ $lang = array
 	'db_import_confirm' => '导入和当前 Discuz! 版本不一致的数据极有可能产生无法解决的故障，您确定继续吗？',
 	'db_import_confirm_sql' => '您确定导入该备份吗？',
 	'db_import_confirm_zip' => '您确定解压该备份吗？',
-	'db_import_tips' => '<li>本功能在恢复备份数据的同时，将全部覆盖原有数据，请确定恢复前已将论坛关闭，恢复全部完成后可以将论坛重新开放。</li><li>恢复数据前请在 Discuz! X2.5 安装文件目录下utility文件夹内找到 restore.php 文件，然后将 restore.php 文件上传到程序文件夹data目录下。<b>为了您站点的安全，成功恢复数据后请务必及时删除 restore.php 文件。</b></li><li>您可以在数据备份记录处查看站点的备份文件的详细信息，删除过期的备份,并导入需要的备份。</li>',
+	'db_import_tips' => '<li>本功能在恢复备份数据的同时，将全部覆盖原有数据，请确定恢复前已将论坛关闭，恢复全部完成后可以将论坛重新开放。</li><li>恢复数据前请在 Discuz! 安装文件目录下 utility 文件夹内找到 restore.php 文件，然后将 restore.php 文件上传到程序文件夹data目录下。<b>为了您站点的安全，成功恢复数据后请务必及时删除 restore.php 文件。</b></li><li>您可以在数据备份记录处查看站点的备份文件的详细信息，删除过期的备份,并导入需要的备份。</li>',
 	'do_import_option' => '<ul><li>您可以在本页面数据备份记录处导入备份恢复数据，也可以通过在浏览器中执行 <a href="{restore_url}" target="_blank">{restore_url}</a> 恢复数据',
 	'db_import_from_server' => '从服务器(填写文件名或 URL)',
 	'db_import_from_local' => '从本地文件',

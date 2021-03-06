@@ -100,22 +100,22 @@ if($operation == 'export') {
 		showtitle('db_export_options');
 		showsetting('db_export_options_extended_insert', 'extendins', 0, 'radio');
 		showsetting('db_export_options_sql_compatible', array('sqlcompat', array(
-			array('', $lang['default']),
+			array('0', $lang['default']),
 			array('MYSQL40', 'MySQL 3.23/4.0.x'),
 			array('MYSQL41', 'MySQL 4.1.x/5.x')
-		)), '', 'mradio');
+		)), '0', 'mradio');
 		showsetting('db_export_options_charset', array('sqlcharset', array(
-			array('', cplang('default')),
+			array('0', cplang('default')),
 			$dbcharset ? array($dbcharset, strtoupper($dbcharset)) : array(),
 			$db->version() > '4.1' && $dbcharset != 'utf8' ? array('utf8', 'UTF-8') : array()
-		), TRUE), 0, 'mradio');
+		), TRUE), '0', 'mradio');
 		showsetting('db_export_usehex', 'usehex', 1, 'radio');
 		if(function_exists('gzcompress')) {
 			showsetting('db_export_usezip', array('usezip', array(
 				array('1', $lang['db_export_zip_1']),
 				array('2', $lang['db_export_zip_2']),
 				array('0', $lang['db_export_zip_3'])
-			)), 0, 'mradio');
+			)), '0', 'mradio');
 		}
 		showsetting('db_export_filename', '', '', '<input type="text" class="txt" name="filename" value="'.$defaultfilename.'" />.sql');
 		showtagfooter('tbody');
@@ -131,6 +131,18 @@ if($operation == 'export') {
 
 		if(!$_GET['filename'] || !preg_match('/^[\w\_]+$/', $_GET['filename'])) {
 			cpmsg('database_export_filename_invalid', '', 'error');
+		}
+
+		if(!in_array($_GET['type'], array('discuz', 'discuz_uc', 'custom'))) {
+			$_GET['type'] = 'discuz';
+		}
+
+		if(!in_array($_GET['method'], array('multivol', 'shell'))) {
+			$_GET['method'] = 'multivol';
+		}
+
+		if(!$_GET['sqlcharset'] || !preg_match('/^[\w\_\-]+$/', $_GET['sqlcharset'])) {
+			$_GET['sqlcharset'] = strtolower($dbcharset);
 		}
 
 		$time = dgmdate(TIMESTAMP);
@@ -156,7 +168,7 @@ if($operation == 'export') {
 		}
 
 		$volume = intval($_GET['volume']) + 1;
-		$idstring = '# Identify: '.base64_encode("{$_G['timestamp']},".$_G['setting']['version'].",{$_GET['type']},{$_GET['method']},{$volume},{$tablepre},{$dbcharset}")."\n";
+		$idstring = '# Identify: '.base64_encode("{$_G['timestamp']},".$_G['setting']['version'].",{$_GET['type']},{$_GET['method']},{$volume},{$tablepre},{$_GET['sqlcharset']}")."\n";
 
 
 		$dumpcharset = $_GET['sqlcharset'] ? $_GET['sqlcharset'] : str_replace('-', '', $_G['charset']);
@@ -209,7 +221,7 @@ if($operation == 'export') {
 					"# Type: {$_GET['type']}\n".
 					"# Table Prefix: $tablepre\n".
 					"#\n".
-					"# Discuz! Home: http://www.discuz.com\n".
+					"# Discuz! Home: http://www.discuz.net\n".
 					"# Please visit our website for newest infomation about Discuz!\n".
 					"# --------------------------------------------------------\n\n\n".
 					"$setnames".
@@ -297,22 +309,25 @@ if($operation == 'export') {
 
 			$tablesstr = '';
 			foreach($tables as $table) {
-				$tablesstr .= '"'.$table.'" ';
+				$tablesstr .= ''.escapeshellarg($table).' ';
 			}
 
 			require DISCUZ_ROOT . './config/config_global.php';
+			$dbhost = $_config['db'][1]['dbhost'];
+			$dbname = $_config['db'][1]['dbname'];
+			$dbpw = $_config['db'][1]['dbpw'];
+			$dbuser = $_config['db'][1]['dbuser'];            
 			list($dbhost, $dbport) = explode(':', $dbhost);
 
 			$db = DB::object();
 			$query = DB::query("SHOW VARIABLES LIKE 'basedir'");
 			list(, $mysql_base) = DB::fetch($query, constant('MYSQLI_NUM'));
 
-			$dumpfile = addslashes(dirname(dirname(__FILE__))).'/'.$backupfilename.'.sql';
+			$dumpfile = addslashes(dirname(dirname(dirname(__FILE__)))).'/'.$backupfilename.'.sql';
 			@unlink($dumpfile);
 
-			$mysqlbin = $mysql_base == '/' ? '' : addslashes($mysql_base).'bin/';
-			@shell_exec($mysqlbin.'mysqldump --force --quick '.($db->version() > '4.1' ? '--skip-opt --create-options' : '-all').' --add-drop-table'.($_GET['extendins'] == 1 ? ' --extended-insert' : '').''.($db->version() > '4.1' && $_GET['sqlcompat'] == 'MYSQL40' ? ' --compatible=mysql40' : '').' --host="'.$dbhost.($dbport ? (is_numeric($dbport) ? ' --port='.$dbport : ' --socket="'.$dbport.'"') : '').'" --user="'.$dbuser.'" --password="'.$dbpw.'" "'.$dbname.'" '.escapeshellarg($tablesstr).' > '.$dumpfile);
-
+			$mysqlbin = $mysql_base == '/' ? '' : addslashes(rtrim($mysql_base, '/\\')).'/bin/';
+			@shell_exec($mysqlbin.'mysqldump --force --quick '.($db->version() > '4.1' ? '--skip-opt --create-options' : '-all').' --add-drop-table'.($_GET['extendins'] == 1 ? ' --extended-insert' : '').''.($db->version() > '4.1' && $_GET['sqlcompat'] == 'MYSQL40' ? ' --compatible=mysql40' : '').' --host="'.$dbhost.'"'.($dbport ? (is_numeric($dbport) ? ' --port='.$dbport : ' --socket="'.$dbport.'"') : '').' --user="'.$dbuser.'" --password="'.$dbpw.'" "'.$dbname.'" '.$tablesstr.' > '.$dumpfile);
 			if(@file_exists($dumpfile)) {
 
 				if($_GET['usezip']) {
@@ -367,7 +382,7 @@ if($operation == 'export') {
 
 	if(!submitcheck('deletesubmit')) {
 
-		$exportlog = $exportsize = $exportziplog = array();
+		$exportlog = $exportziplog = $exportsize = $exportzipsize = $exportfiletime = $exportzipfiletime = array();
 		if(is_dir(DISCUZ_ROOT.'./data/'.$backupdir)) {
 			$dir = dir(DISCUZ_ROOT.'./data/'.$backupdir);
 			while($entry = $dir->read()) {
@@ -375,6 +390,7 @@ if($operation == 'export') {
 				if(is_file($entry)) {
 					if(preg_match("/\.sql$/i", $entry)) {
 						$filesize = filesize($entry);
+						$filemtime = filemtime($entry);
 						$fp = fopen($entry, 'rb');
 						$identify = explode(',', base64_decode(preg_replace("/^# Identify:\s*(\w+).*/s", "\\1", fgets($fp, 256))));
 						fclose($fp);
@@ -385,23 +401,33 @@ if($operation == 'export') {
 							'method' => $identify[3],
 							'volume' => $identify[4],
 							'filename' => $entry,
-							'dateline' => filemtime($entry),
+							'dateline' => $filemtime,
 							'size' => $filesize
 						);
 						$exportsize[$key] += $filesize;
+						$exportfiletime[$key] = $filemtime;
 					} elseif(preg_match("/\.zip$/i", $entry)) {
-						$key = preg_replace('/^(.+?)(\-\d+)\.zip$/i', '\\1', basename($entry));                        
+						$key = preg_replace('/^(.+?)(\-\d+)\.zip$/i', '\\1', basename($entry));                      
 						$filesize = filesize($entry);
-						$exportziplog[$key] = array(
+						$filemtime = filemtime($entry);
+						$exportziplog[$key][] = array(
 							'type' => 'zip',
 							'filename' => $entry,
-							'size' => filesize($entry),
-							'dateline' => filemtime($entry)
+							'size' => $filesize,
+							'dateline' => $filemtime
 						);
+						$exportzipsize[$key] += $filesize;
+						$exportzipfiletime[$key] = $filemtime;
 					}
 				}
 			}
 			$dir->close();
+			if (!empty($exportlog)) {
+				array_multisort($exportfiletime, SORT_DESC, SORT_STRING, $exportlog);
+			}
+			if (!empty($exportziplog)) {
+				array_multisort($exportzipfiletime, SORT_DESC, SORT_STRING, $exportziplog);
+			}
 		} else {
 			cpmsg('database_export_dest_invalid', '', 'error');
 		}
@@ -433,18 +459,18 @@ if($operation == 'export') {
 			$info['dateline'] = is_int($info['dateline']) ? dgmdate($info['dateline']) : $lang['unknown'];
 			$info['size'] = sizecount($exportsize[$key]);
 			$info['volume'] = count($val);
-			$info['method'] = $info['type'] != 'zip' ? ($info['method'] == 'multivol' ? $lang['db_multivol'] : $lang['db_shell']) : '';
+			$info['method'] = $info['method'] == 'multivol' ? $lang['db_multivol'] : $lang['db_shell'];
 			$datafile_server = '.'.$info['filename'];
 			showtablerow('', '', array(
 				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"".$key."\">",
-				"<a href=\"javascript:;\" onclick=\"display('exportlog_$key')\">".$key."</a>",
+				"<a href=\"javascript:;\" onclick=\"display('exportlog_$key')\">".basename($info['filename'])."</a>",
 				$info['version'],
 				$info['dateline'],
 				$lang['db_export_'.$info['type']],
 				$info['size'],
 				$info['method'],
-				$info['volume'],
-				$info['type'] == 'zip' ? "<a href=\"".$datasiteurl."restore.php?operation=importzip&datafile_server=$datafile_server&importsubmit=yes\"  onclick=\"return confirm('{$lang['db_import_confirm_zip']}');\" class=\"act\" target=\"_blank\">{$lang['db_import_unzip']}</a>" : "<a class=\"act\" href=\"".$datasiteurl."restore.php?operation=import&from=server&datafile_server=$datafile_server&importsubmit=yes\"".($info['version'] != $_G['setting']['version'] ? " onclick=\"return confirm('{$lang['db_import_confirm']}');\"" : " onclick=\"return confirm('{$lang['db_import_confirm_sql']}');\"")." class=\"act\" target=\"_blank\">{$lang['import']}</a>"
+				"<a href=\"javascript:;\" onclick=\"display('exportlog_$key')\">".$info['volume']."</a>",
+				"<a class=\"act\" href=\"".$datasiteurl."restore.php?operation=import&from=server&datafile_server=$datafile_server&importsubmit=yes\"".($info['version'] != $_G['setting']['version'] ? " onclick=\"return confirm('{$lang['db_import_confirm']}');\"" : " onclick=\"return confirm('{$lang['db_import_confirm_sql']}');\"")." class=\"act\" target=\"_blank\">{$lang['import']}</a>"
 			));
 			echo '<tbody id="exportlog_'.$key.'" style="display:none">';
 			foreach($val as $info) {
@@ -458,29 +484,30 @@ if($operation == 'export') {
 					'',
 					$info['size'],
 					'',
-					$info['volume'],
+					'',
 					''
 				));
 			}
 			echo '</tbody>';
 		}
 
-		foreach($exportziplog as $info) {
-			sort($val);//修改 确保-1.zip排前面,才会自动解压-2.zip    
-			$info = $val[0];                    
+		foreach($exportziplog as $key => $val) {   
+			sort($val);//修改 确保-1.zip排前面,才会自动解压-2.zip
+			$info = $val[0];
+			$info['volume'] = count($val);
 			$info['dateline'] = is_int($info['dateline']) ? dgmdate($info['dateline']) : $lang['unknown'];
-			$info['size'] = sizecount($info['size']);
+			$info['size'] = sizecount($exportzipsize[$key]);
 			$info['method'] = $info['method'] == 'multivol' ? $lang['db_multivol'] : $lang['db_zip'];
 			$datafile_server = '.'.$info['filename'];
 			showtablerow('', '', array(
 				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"".basename($info['filename'])."\">",
-				"<a href=\"javascript:;\" onclick=\"display('exportlog_zip_$key')\">".substr(strrchr($info['filename'], "/"), 1)."</a>",   
+				"<a href=\"javascript:;\" onclick=\"display('exportlog_zip_$key')\">".basename($info['filename'])."</a>",
 				'',
 				$info['dateline'],
-				$lang['db_export_'.$info['type']],
+				($info['volume'] > 1 ? $lang['db_multivol'] : '').$lang['db_export_'.$info['type']],
 				$info['size'],
 				$info['method'],
-				'',
+				"<a href=\"javascript:;\" onclick=\"display('exportlog_zip_$key')\">".$info['volume']."</a>",
 				"<a href=\"".$datasiteurl."restore.php?operation=importzip&datafile_server=$datafile_server&importsubmit=yes\"  onclick=\"return confirm('{$lang['db_import_confirm_zip']}');\" class=\"act\" target=\"_blank\">{$lang['db_import_unzip']}</a>"
 			)); 			
 			echo '<tbody id="exportlog_zip_'.$key.'" style="display:none">';
@@ -495,10 +522,11 @@ if($operation == 'export') {
 					'',
 					$info['size'],
 					'',
-					"",
+					'',
 					''
 				));
 			}
+			echo '</tbody>';
 		}
 
 		showsubmit('deletesubmit', 'submit', 'del');
@@ -530,7 +558,7 @@ if($operation == 'export') {
 					}
 				}
 			}
-			cpmsg('database_file_delete_succeed', '', 'succeed');
+			cpmsg('database_file_delete_succeed', 'action=db&operation=import', 'succeed');
 		} else {
 			cpmsg('database_file_delete_invalid', '', 'error');
 		}
