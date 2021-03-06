@@ -62,6 +62,10 @@ if(empty($action) || $frames != null) {
 	}
 } else {
 	cpheader();
-	cpmsg('action_noaccess', '', 'error');
+	if($action == 'cloudaddons') {
+		cpmsg('cloudaddons_noaccess', '', 'error');
+	} else {
+		cpmsg('action_noaccess', '', 'error');
+	}
 }
 ?>
