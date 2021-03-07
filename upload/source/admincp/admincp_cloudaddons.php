@@ -18,19 +18,32 @@ if(!$admincp->isfounder) {
 	cpmsg('noaccess_isfounder', '', 'error');
 }
 
-if(!$operation) {
+if(!$operation || in_array($operation, array('plugins', 'templates'))) {
 
 	cloudaddons_check();
 	shownav('cloudaddons');
 	$extra = '';
-	if(!empty($_GET['id'])) {
-		$extra .= '&mod=app&ac=item&id='.rawurlencode($_GET['id']);
+	if(empty($_GET['frame'])) {
+		parse_str($_SERVER['QUERY_STRING'], $query);
+		$query['frame'] = 'no';
+		$query_sting_tmp = http_build_query($query);
+		$url = ADMINSCRIPT.'?'.$query_sting_tmp;
+		echo '<script type="text/javascript">top.location.href=\''.$url.'\';</script>';
+	} else {
+		if(!empty($operation)) {
+			$extra .= '&view='.rawurlencode($operation);
+		}elseif(!empty($_GET['id'])) {
+			$extra .= '&mod=app&ac=item&id='.rawurlencode($_GET['id']);
+		}
+		if(!empty($_GET['from'])) {
+			$extra .= '&from='.rawurlencode($_GET['from']);
+		}
+		if(!empty($_GET['extra'])) {
+			$extra .= '&'.addslashes($_GET['extra']);
+		}
+		$url = cloudaddons_url($extra);
+		echo '<script type="text/javascript">location.href=\''.$url.'\';</script>';
 	}
-	if(!empty($_GET['extra'])) {
-		$extra .= '&'.addslashes($_GET['extra']);
-	}
-	$url = cloudaddons_url($extra);
-	echo '<script type="text/javascript">location.href=\''.$url.'\';</script>';
 
 } elseif($operation == 'download') {
 	$step = intval($_GET['step']);

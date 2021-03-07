@@ -16,11 +16,12 @@ if(!$_G['uid'] && $_G['setting']['privacy']['view']['profile']) {
 
 require_once libfile('function/spacecp');
 
-space_merge($space, 'count');
-space_merge($space, 'field_home');
-space_merge($space, 'field_forum');
-space_merge($space, 'profile');
-space_merge($space, 'status');
+$inarchive = isset($space['_inarchive']) && $space['_inarchive'];
+space_merge($space, 'count', $inarchive);
+space_merge($space, 'field_home', $inarchive);
+space_merge($space, 'field_forum', $inarchive);
+space_merge($space, 'profile', $inarchive);
+space_merge($space, 'status', $inarchive);
 getonlinemember(array($space['uid']));
 
 $space['admingroup'] = $_G['cache']['usergroups'][$space['adminid']];

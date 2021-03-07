@@ -35,14 +35,6 @@ if(!$operation) {
 	if(!submitcheck('submit')) {
 
 		loadcache('plugin');
-		shownav('plugin');
-		showsubmenu('nav_plugins', array(
-			array('plugins_list', 'plugins'),
-			$isplugindeveloper ? array('plugins_add', 'plugins&operation=add', 0) : array(),
-			array('cloudaddons_plugin_link', 'cloudaddons'),
-		), '<a href="'.ADMINSCRIPT.'?action=plugins&operation=upgradecheck" class="bold" style="float:right;padding-right:40px;">'.$lang['plugins_validator'].'</a>');
-		showformheader('plugins');
-		showtableheader('', 'psetting');
 		$outputsubmit = false;
 		$plugins = $addonids = array();
 		$plugins = C::t('common_plugin')->fetch_all_data();
@@ -57,22 +49,37 @@ if(!$operation) {
 			loadcache('addoncheck_plugin');
 			$checkresult = $_G['cache']['addoncheck_plugin'];
 		}
+		$updatecount = 0;
 		$splitavailable = array();
 		foreach($plugins as $plugin) {
 			$addonid = $plugin['identifier'].'.plugin';
 			$updateinfo = '';
 			list(, $newver, $sysver) = explode(':', $checkresult[$addonid]);
 			if($sysver && $sysver > $plugin['version']) {
-				$updateinfo = '<a href="'.ADMINSCRIPT.'?action=cloudaddons&id='.$addonid.'" title="'.$lang['plugins_online_update'].'"><font color="red">'.$lang['plugins_find_newversion'].' '.$sysver.'</font></a>';
+				$updateinfo = '<a href="'.ADMINSCRIPT.'?action=cloudaddons&id='.$addonid.'&from=newver" title="'.$lang['plugins_online_update'].'" target="_blank"><font color="red">'.$lang['plugins_find_newversion'].' '.$sysver.'</font></a>';
 			} elseif($newver) {
-				$updateinfo = '<a href="'.ADMINSCRIPT.'?action=cloudaddons&id='.$addonid.'" title="'.$lang['plugins_online_update'].'"><font color="red">'.$lang['plugins_find_newversion'].' '.$newver.'</font></a>';
+				$updateinfo = '<a href="'.ADMINSCRIPT.'?action=cloudaddons&id='.$addonid.'&from=newver" title="'.$lang['plugins_online_update'].'" target="_blank"><font color="red">'.$lang['plugins_find_newversion'].' '.$newver.'</font></a>';
 			}
 			$plugins[] = $plugin['identifier'];
 			$hookexists = FALSE;
 			$plugin['modules'] = dunserialize($plugin['modules']);
 			$submenuitem = array();
 			if(isset($_G['cache']['plugin'][$plugin['identifier']])) {
-				$submenuitem[] = '<a href="'.ADMINSCRIPT.'?action=plugins&operation=config&do='.$plugin['pluginid'].'">'.$lang['config'].'</a>';
+				//为配合插件完全接管变量设置功能，当插件第一个后台设置模块为config时，插件列表不显示默认的设置
+				$configexists = FALSE;
+				if(is_array($plugin['modules'])) {
+					foreach($plugin['modules'] as $k => $module) {
+						if ($module['type'] == 3) {
+							if ($module['name'] == 'config') {
+								$configexists = TRUE;
+							}
+							break;
+						}
+					}
+				}
+				if (!$configexists) {
+					$submenuitem[] = '<a href="'.ADMINSCRIPT.'?action=plugins&operation=config&do='.$plugin['pluginid'].'">'.$lang['config'].'</a>';
+				}
 			}
 			if(is_array($plugin['modules'])) {
 				foreach($plugin['modules'] as $k => $module) {
@@ -92,10 +99,9 @@ if(!$operation) {
 			$hl = !empty($_GET['hl']) && $_GET['hl'] == $plugin['pluginid'];
 			$intro = $title = '';
 			if($updateinfo) {
-				$order = 'updatelist';
-			} else {
-				$order = $plugin['available'] ? 'open' : 'close';
+				$updatecount++;
 			}
+			$order = $plugin['available'] ? 'open' : 'close';
 			if($plugin['pluginid'] == $_GET['hl']) {
 				$order = 'hightlight';
 			} else {
@@ -113,10 +119,10 @@ if(!$operation) {
 			}
 			$pluginlist[$order][$plugin['pluginid']] = $title.showtablerow('class="hover'.($hl ? ' hl' : '').'"', array('valign="top" style="width:45px"', 'valign="top"', 'align="right" valign="bottom" style="width:160px"'), array(
 				'<img src="'.cloudaddons_pluginlogo_url($plugin['identifier']).'" onerror="this.src=\'static/image/admincp/plugin_logo.png\';this.onerror=null" width="40" height="40" align="left" />',
-					'<span '.($plugin['available'] ? 'class="bold"' : 'class="bold light"').'>'.dhtmlspecialchars($plugin['name']).' '.dhtmlspecialchars($plugin['version']).'</span> <span class="sml">('.$plugin['identifier'].')</span>'.($updateinfo ? ' <b>'.$updateinfo.'</b>' : '').
+					'<span '.($plugin['available'] ? 'class="bold"' : 'class="bold light"').'>'.dhtmlspecialchars($plugin['name']).' '.dhtmlspecialchars($plugin['version']).'</span> <span class="sml">(<a href="'.ADMINSCRIPT.'?action=cloudaddons&id='.$plugin['identifier'].'.plugin" style="color: #555;" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$plugin['identifier'].'</a>)</span>'.($updateinfo ? ' <b>'.$updateinfo.'</b>' : '').
 					($plugin['description'] || $plugin['modules']['extra']['intro'] ? '<a href="javascript:;" onclick="display(\'intro_'.$plugin['pluginid'].'\')" class="memo">'.cplang('plugins_home').'</a><div id="intro_'.$plugin['pluginid'].'" class="memo" style="display:none">'.$plugin['description'].'<br />'.$plugin['modules']['extra']['intro'].'</div>' : '').
 				'<p><span class="light">'.($plugin['copyright'] ? cplang('author').': '.dhtmlspecialchars($plugin['copyright']).' | ' : '').
-					'<a href="'.ADMINSCRIPT.'?action=cloudaddons&id='.$plugin['identifier'].'.plugin" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$lang['plugins_visit'].'</a></span></p>'.
+					'<a href="'.ADMINSCRIPT.'?action=cloudaddons&id='.$plugin['identifier'].'.plugin&from=comment" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$lang['plugins_visit'].'</a></span></p>'.
 				'<p>'.implode(' | ', $submenuitem).'</p>',
 				($hookexists !== FALSE && $plugin['available'] ? $lang['display_order'].": <input class=\"txt num\" type=\"text\" id=\"displayorder_{$plugin['pluginid']}\" name=\"displayordernew[{$plugin['pluginid']}][$hookexists]\" value=\"$hookorder\" /><br /><br />" : '').
 					(!$plugin['available'] ? "<a href=\"".ADMINSCRIPT."?action=plugins&operation=enable&pluginid={$plugin['pluginid']}&formhash=".FORMHASH.(!empty($_GET['system']) ? '&system=1' : '')."\" class=\"bold\">{$lang['enable']}</a>&nbsp;&nbsp;" : "<a href=\"".ADMINSCRIPT."?action=plugins&operation=disable&pluginid={$plugin['pluginid']}&formhash=".FORMHASH.(!empty($_GET['system']) ? '&system=1' : '')."\">{$lang['closed']}</a>&nbsp;&nbsp;").
@@ -125,9 +131,19 @@ if(!$operation) {
 					($isplugindeveloper && !$plugin['modules']['system'] ? "<a href=\"".ADMINSCRIPT."?action=plugins&operation=edit&pluginid={$plugin['pluginid']}\">{$lang['plugins_editlink']}</a>&nbsp;&nbsp;" : ''),
 			), true);
 		}
-		$pluginlist = (array)$pluginlist;
+
+		shownav('plugin', 'plugins_list');
+		showsubmenu('nav_plugins', array(
+			array('plugins_list', 'plugins', 1),
+			$isplugindeveloper ? array('plugins_add', 'plugins&operation=add', 0) : array(),
+			array('plugins_validator'.($updatecount ? '_new' : ''), 'plugins&operation=upgradecheck', 0),
+			array('cloudaddons_plugin_link', 'cloudaddons&operation=plugins&from=more', 0, 1),
+		), '<a href="https://www.dismall.com/?from=plugins_question" target="_blank" class="bold" style="float:right;padding-right:40px;">'.$lang['plugins_question'].'</a>', array('updatecount' => $updatecount));
+		showformheader('plugins');
+		showtableheader('', 'psetting');
+
 		ksort($pluginlist);
-		$pluginlist = (array)$pluginlist['hightlight'] + (array)$pluginlist['updatelist'] + (array)$pluginlist['open'] + (array)$pluginlist['close'];
+		$pluginlist = (array)$pluginlist['hightlight'] + (array)$pluginlist['open'] + (array)$pluginlist['close'];
 		echo implode('', $pluginlist);
 
 		if(empty($_GET['system'])) {
@@ -160,9 +176,9 @@ if(!$operation) {
 						$file = $entrydir.'/'.$f;
 						$newlist .= showtablerow('class="hover"', array('style="width:45px"', 'valign="top"', 'align="right" valign="bottom" style="width:160px"'), array(
 							'<img src="'.cloudaddons_pluginlogo_url($entry).'" onerror="this.src=\'static/image/admincp/plugin_logo.png\';this.onerror=null" width="40" height="40" align="left" style="margin-right:5px" />',
-							'<span class="bold light">'.$entrytitle.' '.$entryversion.($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').'</span> <span class="sml light">('.$entry.')</span>'.
-							'<p><span class="author">'.($entrycopyright ? cplang('author').': '.$entrycopyright.' | ' : '').
-							'<a href="'.ADMINSCRIPT.'?action=cloudaddons&id='.$entry.'.plugin" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$lang['plugins_visit'].'</a></p>',
+							'<span class="bold light">'.$entrytitle.' '.$entryversion.($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').'</span> <span class="sml light">(<a href="'.ADMINSCRIPT.'?action=cloudaddons&id='.$plugin['identifier'].'.plugin" style="color: #555;" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$entry.'</a>)</span>'.
+							'<p><span class="light">'.($entrycopyright ? cplang('author').': '.$entrycopyright.' | ' : '').
+							'<a href="'.ADMINSCRIPT.'?action=cloudaddons&id='.$entry.'.plugin&from=comment" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$lang['plugins_visit'].'</a></p>',
 							'<a href="'.ADMINSCRIPT.'?action=plugins&operation=import&dir='.$entry.'" class="bold">'.$lang['plugins_config_install'].'</a>'
 						), true);
 					}
@@ -175,9 +191,9 @@ if(!$operation) {
 		}
 
 		if($outputsubmit) {
-			showsubmit('submit', 'submit', '', '<a href="'.ADMINSCRIPT.'?action=cloudaddons">'.cplang('cloudaddons_plugin_link').'</a>');
+			showsubmit('submit', 'submit', '', '<a href="'.ADMINSCRIPT.'?action=cloudaddons&operation=plugins&from=more" target="_blank">'.cplang('cloudaddons_plugin_link').'</a>');
 		} else {
-			showsubmit('', '', '', '<a href="'.ADMINSCRIPT.'?action=cloudaddons">'.cplang('cloudaddons_plugin_link').'</a>');
+			showsubmit('', '', '', '<a href="'.ADMINSCRIPT.'?action=cloudaddons&operation=plugins&from=more" target="_blank">'.cplang('cloudaddons_plugin_link').'</a>');
 		}
 		showtablefooter();
 		showformfooter();
@@ -225,6 +241,7 @@ if(!$operation) {
 		}
 	}
 
+	$available = $operation == 'enable' ? 1 : 0;
 	if($operation == 'enable') {
 
 		require_once libfile('cache/setting', 'function');
@@ -248,6 +265,19 @@ if(!$operation) {
 				}
 			}
 		}
+		$addonid = $dir.'.plugin';
+		$array = cloudaddons_getmd5($addonid);
+		$array = array();
+		if(preg_match('/^[a-z0-9_\.]+$/i', $addonid) && file_exists(DISCUZ_ROOT.'./data/addonmd5/'.$addonid.'.xml')) {
+			require_once libfile('class/xml');
+			$xml = implode('', @file(DISCUZ_ROOT.'./data/addonmd5/'.$addonid.'.xml'));
+			$array = xml2array($xml);
+		} else {
+			$array = false;
+		}
+		if(dfsockopen(cloudaddons_url('&from=s').'&mod=app&ac=vali'.'dator&ver=2&addonid='.$addonid.($array !== false ? '&rid='.$array['RevisionID'].'&sn='.$array['SN'].'&rd='.$array['RevisionDateline'] : ''), 0, '', '', false, CLOUDADDONS_DOWNLOAD_IP, 15) === '0') {
+			$available = 0;
+		}
 		if($exists) {
 			$plugins = array();
 			foreach(C::t('common_plugin')->fetch_all_by_identifier(array_keys($exists)) as $plugin) {
@@ -259,7 +289,6 @@ if(!$operation) {
 			$conflictplugins = '<div align="left" style="margin: auto 100px; border: 1px solid #DEEEFA;padding: 4px;line-height: 25px;">'.implode('<br />', $plugins).'</div>';
 		}
 	}
-	$available = $operation == 'enable' ? 1 : 0;
 	C::t('common_plugin')->update($_GET['pluginid'], array('available' => $available));
 	updatecache(array('plugin', 'setting', 'styles'));
 	cleartemplatecache();
@@ -340,9 +369,8 @@ if(!$operation) {
 } elseif($operation == 'import') {
 
 	if(submitcheck('importsubmit') || isset($_GET['dir'])) {
-		cloudaddons_validator($_GET['dir'].'.plugin');
-
 		if(!isset($_GET['installtype'])) {
+			cloudaddons_validator($_GET['dir'].'.plugin');
 			$pdir = DISCUZ_ROOT.'./source/plugin/'.$_GET['dir'];
 			$d = dir($pdir);
 			$xmls = '';
@@ -385,6 +413,11 @@ if(!$operation) {
 					'<button onclick="location.href=\''.ADMINSCRIPT.'?action=plugins&operation=import&dir='.$dir.'&installtype='.$installtype.'&license=yes\'">'.$lang['plugins_import_agree'].'</button>&nbsp;&nbsp;'.
 					'<button onclick="location.href=\''.ADMINSCRIPT.'?action=plugins\'">'.$lang['plugins_import_pass'].'</button></center></div>';
 				exit;
+			}
+			$addonid = $dir.'.plugin';
+			$array = cloudaddons_getmd5($addonid);
+			if(cloudaddons_open('&mod=app&ac=validator&ver=2&addonid='.$addonid.($array !== false ? '&rid='.$array['RevisionID'].'&sn='.$array['SN'].'&rd='.$array['RevisionDateline'] : '')) === '0') {
+				cpmsg('c'.'lou'.'dad'.'dons'.'_genu'.'ine_m'.'essa'.'ge', '', 'error', array('addonid' => $addonid));
 			}
 		}
 
@@ -844,7 +877,7 @@ if(!$operation) {
 		showsubmenu('nav_plugins', array(
 			array('plugins_list', 'plugins', 0),
 			array('plugins_add', 'plugins&operation=add', 1),
-			array('cloudaddons_plugin_link', 'cloudaddons'),
+			array('cloudaddons_plugin_link', 'cloudaddons&operation=plugins&from=more', 0, 1),
 		));
 		showtips('plugins_add_tips');
 
@@ -879,6 +912,7 @@ if(!$operation) {
 			'copyright' => $copyrightnew,
 		);
 		$pluginid = C::t('common_plugin')->insert($data, true);
+		dmkdir(DISCUZ_ROOT.'./source/plugin/'.$identifiernew.'/');
 		updatecache(array('plugin', 'setting', 'styles'));
 		cleartemplatecache();
 		cpmsg('plugins_add_succeed', "action=plugins&operation=edit&pluginid=$pluginid", 'succeed');
@@ -1527,9 +1561,9 @@ if(!$operation) {
 	}
 	foreach($result as $id => $row) {
 		if($row['result'] == 0) {
-			$errarray[] = '<a href="'.ADMINSCRIPT.'?action=cloudaddons&id='.$id.'.plugin" target="_blank">'.$plugins[$id].'</a>';
+			$errarray[] = '<a href="'.ADMINSCRIPT.'?action=cloudaddons&id='.$id.'.plugin&from=newver" target="_blank">'.$plugins[$id].'</a>';
 		} elseif($row['result'] == 2) {
-			$newarray[] = '<a href="'.ADMINSCRIPT.'?action=cloudaddons&id='.$id.'.plugin" target="_blank">'.$plugins[$id].($row['newver'] ? ' -> '.$row['newver'] : '').'</a>';
+			$newarray[] = '<a href="'.ADMINSCRIPT.'?action=cloudaddons&id='.$id.'.plugin&from=newver" target="_blank">'.$plugins[$id].($row['newver'] ? ' -> '.$row['newver'] : '').'</a>';
 		}
 	}
 	if(!$nowarray && !$newarray && !$errarray) {
@@ -1538,9 +1572,10 @@ if(!$operation) {
 		shownav('plugin');
 		showsubmenu('nav_plugins', array(
 			array('plugins_list', 'plugins', 0),
+			array('plugins_validator', 'plugins&operation=upgradecheck', 1),
 			$isplugindeveloper ? array('plugins_add', 'plugins&operation=add', 0) : array(),
-			array('cloudaddons_plugin_link', 'cloudaddons'),
-		), '<a href="'.ADMINSCRIPT.'?action=plugins&operation=upgradecheck" class="bold" style="float:right;padding-right:40px;">'.$lang['plugins_validator'].'</a>');
+			array('cloudaddons_plugin_link', 'cloudaddons&operation=plugins&from=more', 0, 1),
+		), '<a href="https://www.dismall.com/?from=plugins_question" target="_blank" class="bold" style="float:right;padding-right:40px;">'.$lang['plugins_question'].'</a>');
 		showtableheader();
 		if($nowarray) {
 			showtitle('plugins_validator_nowupgrade');
