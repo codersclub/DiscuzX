@@ -710,7 +710,7 @@ if(!$operation) {
 		if(!submitcheck('editsubmit')) {
 			$operation = '';
 			shownav('plugin', $plugin['name']);
-			showsubmenuanchors($plugin['name'], $submenuitem);
+			showsubmenuanchors($plugin['name'].' '.$plugin['version'].(!$plugin['available'] ? ' ('.$lang['plugins_unavailable'].')' : ''), $submenuitem);
 
 			if($pluginvars) {
 				showformheader("plugins&operation=config&do=$pluginid");
@@ -854,7 +854,7 @@ if(!$operation) {
 
 		if($modfile) {
 			shownav('plugin', $plugin['name']);
-			showsubmenu($plugin['name'], $submenuitem);
+			showsubmenu($plugin['name'].' '.$plugin['version'].(!$plugin['available'] ? ' ('.$lang['plugins_unavailable'].')' : ''), $submenuitem);
 			if(!@include(DISCUZ_ROOT.$modfile)) {
 				cpmsg('plugins_setting_module_nonexistence', '', 'error', array('modfile' => $modfile));
 			} else {
