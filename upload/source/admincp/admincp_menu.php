@@ -34,7 +34,7 @@ $topmenu = array (
 
 $menu['index'] = array(
 	array('menu_home', 'index'),
-	array('menu_cloudaddons', 'cloudaddons', '_blank'),
+	array('menu_cloudaddons', 'cloudaddons&frame=no', '_blank'),
 	array('menu_custommenu_manage', 'misc_custommenu'),
 );
 
@@ -211,7 +211,7 @@ if(file_exists($menudir = DISCUZ_ROOT.'./source/admincp/menu')) {
 
 if($isfounder) {
 	$menu['plugin'] = array(
-		array('menu_addons', 'cloudaddons', '_blank'),
+		array('menu_addons', 'cloudaddons&frame=no', '_blank'),
 		array('menu_plugins', 'plugins'),
 	);
 }
@@ -246,7 +246,7 @@ $menu['tools'] = array(
 
 $topmenu['cloudaddons'] = '';
 $menu['cloudaddons'] = array(
-	array('menu_addons', 'cloudaddons', '_blank'),
+	array('menu_addons', 'cloudaddons&frame=no', '_blank'),
 );
 
 if($isfounder) {
