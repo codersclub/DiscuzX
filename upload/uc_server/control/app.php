@@ -51,7 +51,7 @@ class appcontrol extends base {
 			exit('-1');
 		}
 
-		if(md5(md5($ucfounderpw).UC_FOUNDERSALT) == UC_FOUNDERPW || (strlen($ucfounderpw) == 32 && $ucfounderpw == md5(UC_FOUNDERPW))) {
+		if($_ENV['user']->verify_password($ucfounderpw, UC_FOUNDERPW, UC_FOUNDERSALT) || (strlen($ucfounderpw) == 32 && hash_equals($ucfounderpw, md5(UC_FOUNDERPW)))) {
 			@ob_start();
 			$return  = '';
 
