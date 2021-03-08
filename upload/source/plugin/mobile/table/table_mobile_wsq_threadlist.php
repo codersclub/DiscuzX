@@ -22,7 +22,7 @@ class table_mobile_wsq_threadlist extends discuz_table {
 		parent::__construct();
 	}
 
-	public function insert($tid, $data, $return_insert_id = false, $replace = false, $silent = false) {
+	public function insert_thread($tid, $data, $return_insert_id = false, $replace = false, $silent = false) {
 		if($this->_allowmem) {
 			$this->store_cache($tid, $data);
 		}

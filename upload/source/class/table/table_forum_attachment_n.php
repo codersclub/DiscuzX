@@ -56,7 +56,50 @@ class table_forum_attachment_n extends discuz_table
 		}
 	}
 
-	public function delete($tableid, $val){
+	public function delete($val, $unbuffered = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception("UnsupportedOperationException");
+		} else {
+			return $this->delete_attachment($val, $unbuffered);
+		}
+	}
+
+	public function update($val, $data, $unbuffered = false, $low_priority = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception("UnsupportedOperationException");
+		} else {
+			return $this->update_attachment($val, $data, $unbuffered);
+		}
+	}
+
+	public function insert($data, $return_insert_id = false, $replace = false, $silent = false, $null = false) {
+		// $null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception("UnsupportedOperationException");
+		} else {
+			return $this->insert_attachment($data, $return_insert_id, $replace, $silent, $null);
+		}
+	}
+
+	public function fetch($id, $force_from_db = false, $null = false) {
+		// $null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception("UnsupportedOperationException");
+		} else {
+			return $this->fetch_attachment($id, $force_from_db, $null);
+		}
+	}
+
+	public function fetch_all($ids, $force_from_db = false, $null1 = false , $null2 = false) {
+		// $null 1~n 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception("UnsupportedOperationException");
+		} else {
+			return $this->fetch_all_attachment($ids, $force_from_db, $null1, $null2);
+		}
+	}
+
+	public function delete_attachment($tableid, $val){
 		return DB::delete($this->_get_table($tableid), DB::field($this->_pk, $val));
 	}
 
@@ -64,21 +107,21 @@ class table_forum_attachment_n extends discuz_table
 		return $this->_check_id($idtype, $id) ? DB::delete($this->_get_table($tableid), DB::field($idtype, $id)) : false;
 	}
 
-	public function update($tableid, $val, $data) {
+	public function update_attachment($tableid, $val, $data) {
 		if(!$data) {
 			return;
 		}
 		return DB::update($this->_get_table($tableid), $data, DB::field($this->_pk, $val));
 	}
 
-	public function insert($tableid, $data, $return_insert_id = false, $replace = false, $silent = false) {
+	public function insert_attachment($tableid, $data, $return_insert_id = false, $replace = false, $silent = false) {
 		if(!$data) {
 			return;
 		}
 		return DB::insert($this->_get_table($tableid), $data, $return_insert_id, $replace, $silent);
 	}
 
-	public function fetch($tableid, $aid, $isimage = false){
+	public function fetch_attachment($tableid, $aid, $isimage = false){
 		$isimage = $isimage === false ? '' : ' AND '.DB::field('isimage', $isimage);
 		return !empty($aid) ? DB::fetch_first('SELECT * FROM %t WHERE %i %i', array($this->_get_table($tableid), DB::field($this->_pk, $aid), $isimage)) : array();
 	}
@@ -95,7 +138,7 @@ class table_forum_attachment_n extends discuz_table
 		return $this->_check_id($idtype, $id) ? DB::result_first('SELECT COUNT(*) FROM %t WHERE %i AND isimage IN (1, -1)', array($this->_get_table($tableid), DB::field($idtype, $id))) : 0;
 	}
 
-	public function fetch_all($tableid, $aids, $remote = false, $isimage = false){
+	public function fetch_all_attachment($tableid, $aids, $remote = false, $isimage = false){
 		$remote = $remote === false ? '' : ' AND '.DB::field('remote', $remote);
 		$isimage = $isimage === false ? '' : ' AND '.DB::field('isimage', $isimage);
 		return !empty($aids) ? DB::fetch_all('SELECT * FROM %t WHERE %i %i %i', array($this->_get_table($tableid), DB::field($this->_pk, $aids), $remote, $isimage)) : array();

@@ -269,7 +269,20 @@ class table_common_member extends discuz_table_archive
 		return false;
 	}
 
-	public function insert($uid, $username, $password, $email, $ip, $groupid, $extdata, $adminid = 0, $port = 0) {
+	public function insert($data, $return_insert_id = false, $replace = false, $silent = false, $null1 = null, $null2 = null, $null3 = null, $null4 = 0, $null5 = 0) {
+		// $null 1~n 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::insert($data, $return_insert_id, $replace, $silent);
+		} else {
+			if ($return_insert_id === false || $replace === false || $silent === false || $null1 === null || $null2 === null || $null3 === null) {
+				throw new Exception("Invalid Use C:t('common_member')->insert Function.");
+			}
+			return $this->insert_user($data, $return_insert_id, $replace, $silent, $null1, $null2, $null3, $null4, $null5);
+		}
+	}
+
+	public function insert_user($uid, $username, $password, $email, $ip, $groupid, $extdata, $adminid = 0, $port = 0) {
 		if(($uid = dintval($uid))) {
 			$credits = isset($extdata['credits']) ? $extdata['credits'] : array();
 			$profile = isset($extdata['profile']) ? $extdata['profile'] : array();

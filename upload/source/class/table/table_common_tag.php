@@ -38,7 +38,17 @@ class table_common_tag extends discuz_table
 		return DB::fetch_all("SELECT * FROM %t WHERE $statussql $namesql ORDER BY ".DB::order('tagid', $order)." ".DB::limit($startlimit, $count), $data);
 	}
 
-	public function insert($tagname, $status = 0) {
+	public function insert($data, $return_insert_id = false, $replace = false, $silent = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::insert($data, $return_insert_id, $replace, $silent);
+		} else {
+			$return_insert_id = $return_insert_id === false ? 0 : $return_insert_id;
+			return $this->insert_tag($data, $return_insert_id);
+		}
+	}
+
+	public function insert_tag($tagname, $status = 0) {
 		DB::query('INSERT INTO %t (tagname, status) VALUES (%s, %d)', array($this->_table, $tagname, $status));
 		return DB::insert_id();
 	}

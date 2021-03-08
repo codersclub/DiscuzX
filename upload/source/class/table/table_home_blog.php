@@ -30,7 +30,19 @@ class table_home_blog extends discuz_table
 	public function update_dateline_by_id_idtype_uid($id, $idtype, $dateline, $uid) {
 		return DB::update($this->_table, array('dateline' => $dateline), DB::field($idtype, $id).' AND '.DB::field('uid', $uid));
 	}
-	public function range($start = 0, $limit = 0, $ordersc = 'DESC', $orderby = 'dateline', $friend = null, $status = null, $uid = null, $dateline = null) {
+
+	public function range($start = 0, $limit = 0, $sort = '', $null1 = 'dateline', $null2 = null, $null3 = null, $null4 = null, $null5 = null) {
+		// $null 1~n 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::range($start, $limit, $sort);
+		} else {
+			$sort = $sort === '' ? 'DESC' : $sort;
+			return $this->range_blog($start, $limit, $sort, $null1, $null2, $null3, $null4, $null5);
+		}
+	}
+
+	public function range_blog($start = 0, $limit = 0, $ordersc = 'DESC', $orderby = 'dateline', $friend = null, $status = null, $uid = null, $dateline = null) {
 		$wheresql = '1';
 		$wheresql .= ($friend !== null) ? ' AND '.DB::field('friend', $friend) : '';
 		$wheresql .= $uid ? ' AND '.DB::field('uid', $uid) : '';
@@ -44,7 +56,18 @@ class table_home_blog extends discuz_table
 		return DB::fetch_all('SELECT * FROM %t WHERE %i', array($this->_table, $wheresql), $this->_pk);
 	}
 
-	public function fetch_all($blogid, $orderby = '', $ordersc = '', $start = 0, $limit = 0) {
+	public function fetch_all($ids, $force_from_db = false, $null1 = '', $null2 = 0, $null3 = 0) {
+		// $null 1~n 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch_all($ids, $force_from_db);
+		} else {
+			$force_from_db = $force_from_db === false ? '' : $force_from_db;
+			return $this->fetch_all_blog($ids, $force_from_db, $null1, $null2, $null3);
+		}
+	}
+
+	public function fetch_all_blog($blogid, $orderby = '', $ordersc = '', $start = 0, $limit = 0) {
 		if(!$blogid) {
 			return null;
 		}

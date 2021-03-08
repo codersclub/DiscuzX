@@ -36,7 +36,18 @@ class table_forum_collection extends discuz_table
 		return DB::fetch_all('SELECT * FROM %t WHERE uid=%d %i'.DB::limit($start, $limit), array($this->_table, $uid, $sql), $this->_pk);
 	}
 
-	public function range($start = 0, $limit = 0, $reqthread = 0, $pK = true) {
+	public function range($start = 0, $limit = 0, $sort = '', $null = true) {
+		// $null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::range($start, $limit, $sort);
+		} else {
+			$sort = $sort === '' ? 0 : $sort;
+			return $this->range_collection($start, $limit, $sort, $null);
+		}
+	}
+
+	public function range_collection($start = 0, $limit = 0, $reqthread = 0, $pK = true) {
 		return DB::fetch_all('SELECT * FROM %t WHERE threadnum>=%d ORDER BY lastupdate DESC '.DB::limit($start, $limit), array($this->_table, $reqthread), $pK ? $this->_pk : '');
 	}
 

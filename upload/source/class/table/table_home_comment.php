@@ -42,7 +42,18 @@ class table_home_comment extends discuz_table
 		DB::delete($this->_table, DB::field('uid', $uids).' OR ('.DB::field('id', $uids).' AND idtype=\'uid\')');
 	}
 
-	public function delete($cid = '', $id = '', $idtype = '') {
+	public function delete($val, $unbuffered = false, $null = '') {
+		// $null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::delete($val, $unbuffered);
+		} else {
+			$unbuffered = $unbuffered === false ? '' : $unbuffered;
+			return $this->delete_comment($val, $unbuffered, $null);
+		}
+	}
+
+	public function delete_comment($cid = '', $id = '', $idtype = '') {
 		$condition = array();
 
 		if($cid) {
@@ -61,7 +72,17 @@ class table_home_comment extends discuz_table
 		DB::delete($this->_table, implode(' AND ', $condition));
 	}
 
-	public function update($cids, $data, $authorid = '') {
+	public function update($val, $data, $unbuffered = false, $low_priority = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::update($val, $data, $unbuffered, $low_priority);
+		} else {
+			$unbuffered = $unbuffered === false ? '' : $unbuffered;
+			return $this->update_comment($val, $data, $unbuffered);
+		}
+	}
+
+	public function update_comment($cids, $data, $authorid = '') {
 		$condition = array();
 		if($cids) {
 			$condition[] = DB::field('cid', $cids);
@@ -105,7 +126,17 @@ class table_home_comment extends discuz_table
 		return DB::fetch_first('SELECT * FROM %t WHERE '.$cidsql.' id=%d AND idtype=%s', array($this->_table, $id, $idtype));
 	}
 
-	public function fetch($cid, $authorid = '') {
+	public function fetch($id, $force_from_db = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch($id, $force_from_db);
+		} else {
+			$force_from_db = $force_from_db === false ? '' : $force_from_db;
+			return $this->fetch_comment($id, $force_from_db);
+		}
+	}
+	
+	public function fetch_comment($cid, $authorid = '') {
 		if(!$cid) {
 			return null;
 		}

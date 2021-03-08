@@ -15,7 +15,16 @@ class table_forum_hotreply_member extends discuz_table {
 		parent::__construct();
 	}
 
-	public function fetch($pid, $uid) {
+	public function fetch($id, $force_from_db = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch($id, $force_from_db);
+		} else {
+			return $this->fetch_member($id, $force_from_db);
+		}
+	}
+
+	public function fetch_member($pid, $uid) {
 		return DB::fetch_first('SELECT * FROM %t WHERE pid=%d AND uid=%d', array($this->_table, $pid, $uid));
 	}
 

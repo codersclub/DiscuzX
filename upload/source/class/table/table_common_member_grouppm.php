@@ -29,7 +29,16 @@ class table_common_member_grouppm extends discuz_table
 		return $gpmid ? DB::result_first('SELECT COUNT(*) FROM %t WHERE gpmid=%d AND dateline'.($type ? '>' : '=').'0', array($this->_table, $gpmid)) : 0;
 	}
 
-	public function fetch($uid, $gpmid) {
+	public function fetch($id, $force_from_db = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch($id, $force_from_db);
+		} else {
+			return $this->fetch_gpm($id, $force_from_db);
+		}
+	}
+
+	public function fetch_gpm($uid, $gpmid) {
 		return $uid && $gpmid ? DB::fetch_first('SELECT * FROM %t WHERE uid=%d AND gpmid=%d', array($this->_table, $uid, $gpmid)) : '';
 	}
 
@@ -41,7 +50,16 @@ class table_common_member_grouppm extends discuz_table
 		return $uid ? DB::fetch_all('SELECT * FROM %t WHERE uid=%d AND `status`'.($type ? '>=' : '=').'0', array($this->_table, $uid), 'gpmid') : array();
 	}
 
-	public function update($uid, $gpmid, $data) {
+	public function update($val, $data, $unbuffered = false, $low_priority = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::update($val, $data, $unbuffered, $low_priority);
+		} else {
+			return $this->update_gpm($val, $data, $unbuffered);
+		}
+	}
+
+	public function update_gpm($uid, $gpmid, $data) {
 		return ($uid = dintval($uid)) && ($gpmid = dintval($gpmid, true)) && $data && is_array($data) ? DB::update($this->_table, $data, DB::field('gpmid', $gpmid).' AND '.DB::field('uid', $uid)) : false;
 	}
 

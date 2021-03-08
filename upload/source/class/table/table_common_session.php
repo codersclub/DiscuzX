@@ -21,7 +21,17 @@ class table_common_session extends discuz_table
 		parent::__construct();
 	}
 
-	public function fetch($sid, $ip = false, $uid = false) {
+	public function fetch($id, $force_from_db = false, $null = false) {
+		// $null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch($id, $force_from_db);
+		} else {
+			return $this->fetch_session($id, $force_from_db, $null);
+		}
+	}
+
+	public function fetch_session($sid, $ip = false, $uid = false) {
 		if(empty($sid)) {
 			return array();
 		}

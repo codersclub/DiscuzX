@@ -21,7 +21,16 @@ class table_common_member_profile_setting extends discuz_table
 		parent::__construct();
 	}
 
-	public function range($start = 0, $limit = 0) {
+	public function range($start = 0, $limit = 0, $sort = '') {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::range($start, $limit, $sort);
+		} else {
+			return $this->range_setting($start, $limit);
+		}
+	}
+
+	public function range_setting($start = 0, $limit = 0) {
 		return DB::fetch_all('SELECT * FROM '.DB::table($this->_table).' ORDER BY available DESC, displayorder'.DB::limit($start, $limit), null, $this->_pk);
 	}
 	public function fetch_all_by_available_unchangeable($available, $unchangeable) {

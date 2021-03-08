@@ -21,7 +21,18 @@ class table_common_secquestion extends discuz_table
 		parent::__construct();
 	}
 
-	public function fetch_all($start = 0, $limit = 0) {
+	public function fetch_all($ids = null, $force_from_db = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch_all($ids, $force_from_db);
+		} else {
+			$ids = $ids === null ? 0 : $ids;
+			$force_from_db = $force_from_db === false ? 0 : $force_from_db;
+			return $this->fetch_all_secquestion($ids, $force_from_db);
+		}
+	}
+
+	public function fetch_all_secquestion($start = 0, $limit = 0) {
 		return DB::fetch_all('SELECT * FROM %t'.DB::limit($start, $limit), array($this->_table));
 	}
 

@@ -21,7 +21,16 @@ class table_forum_threadhidelog extends discuz_table
 		parent::__construct();
 	}
 
-	public function insert($tid, $uid) {
+	public function insert($data, $return_insert_id = false, $replace = false, $silent = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::insert($data, $return_insert_id, $replace, $silent);
+		} else {
+			return $this->insert_hidelog($data, $return_insert_id);
+		}
+	}
+
+	public function insert_hidelog($tid, $uid) {
 		if(!DB::fetch_first('SELECT * FROM %t WHERE tid=%d AND uid=%d', array($this->_table, $tid, $uid))) {
 			DB::insert($this->_table, array('tid' => $tid, 'uid' => $uid));
 			DB::query("UPDATE %t SET hidden=hidden+1 WHERE tid=%d", array('forum_thread', $tid));

@@ -20,11 +20,11 @@ class table_mobile_setting extends discuz_table {
 		parent::__construct();
 	}
 
-	public function fetch($skey) {
+	public function fetch($skey, $force_from_db = 1) {
 		return DB::result_first('SELECT svalue FROM %t WHERE skey=%s', array($this->_table, $skey));
 	}
 
-	public function fetch_all($skeyarr) {
+	public function fetch_all($skeyarr, $force_from_db = 1) {
 		if(!empty($skeyarr)) {
 			return array();
 		}

@@ -21,12 +21,39 @@ class table_common_setting extends discuz_table
 		parent::__construct();
 	}
 
-	public function fetch($skey, $auto_unserialize = false) {
+	public function fetch($id, $force_from_db = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch($id, $force_from_db);
+		} else {
+			return $this->fetch_setting($id, $force_from_db);
+		}
+	}
+
+	public function fetch_all($ids, $force_from_db = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch_all($ids, $force_from_db);
+		} else {
+			return $this->fetch_all_setting($ids, $force_from_db);
+		}
+	}
+
+	public function update($val, $data, $unbuffered = false, $low_priority = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::update($val, $data, $unbuffered, $low_priority);
+		} else {
+			return $this->update_setting($val, $data);
+		}
+	}
+
+	public function fetch_setting($skey, $auto_unserialize = false) {
 		$data = DB::result_first('SELECT svalue FROM '.DB::table($this->_table).' WHERE '.DB::field($this->_pk, $skey));
 		return $auto_unserialize ? (array)unserialize($data) : $data;
 	}
 
-	public function fetch_all($skeys = array(), $auto_unserialize = false){
+	public function fetch_all_setting($skeys = array(), $auto_unserialize = false){
 		$data = array();
 		$where = !empty($skeys) ? ' WHERE '.DB::field($this->_pk, $skeys) : '';
 		$query = DB::query('SELECT * FROM '.DB::table($this->_table).$where);
@@ -36,7 +63,7 @@ class table_common_setting extends discuz_table
 		return $data;
 	}
 
-	public function update($skey, $svalue){
+	public function update_setting($skey, $svalue){
 		return DB::insert($this->_table, array($this->_pk => $skey, 'svalue' => is_array($svalue) ? serialize($svalue) : $svalue), false, true);
 	}
 

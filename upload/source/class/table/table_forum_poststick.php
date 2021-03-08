@@ -44,7 +44,16 @@ class table_forum_poststick extends discuz_table
 		return DB::query('DELETE FROM %t WHERE '.DB::field('tid', $tids), array($this->_table));
 	}
 
-	public function delete($tid, $pid) {
+	public function delete($val, $unbuffered = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::delete($val, $unbuffered);
+		} else {
+			return $this->delete_stick($val, $unbuffered);
+		}
+	}
+
+	public function delete_stick($tid, $pid) {
 		return DB::query('DELETE FROM %t WHERE tid=%d AND pid=%d', array($this->_table, $tid, $pid));
 	}
 

@@ -46,7 +46,17 @@ class table_common_usergroup extends discuz_table
 		return DB::fetch_all('SELECT '.($allfields ? '*' : 'groupid, grouptitle').' FROM %t '.$wheresql, $parameter, $this->_pk);
 	}
 
-	public function update($id, $data, $type = '') {
+	public function update($val, $data, $unbuffered = false, $low_priority = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::update($val, $data, $unbuffered, $low_priority);
+		} else {
+			$unbuffered = $unbuffered === false ? '' : $unbuffered;
+			return $this->update_usergroup($val, $data, $unbuffered);
+		}
+	}
+
+	public function update_usergroup($id, $data, $type = '') {
 		if(!is_array($data) || !$data || !is_array($data) || !$id) {
 			return null;
 		}
@@ -57,7 +67,17 @@ class table_common_usergroup extends discuz_table
 		return DB::update($this->_table, $data, $condition);
 	}
 
-	public function delete($id, $type = '') {
+	public function delete($val, $unbuffered = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::delete($val, $unbuffered);
+		} else {
+			$unbuffered = $unbuffered === false ? '' : $unbuffered;
+			return $this->delete_usergroup($val, $unbuffered);
+		}
+	}
+
+	public function delete_usergroup($id, $type = '') {
 		if(!$id) {
 			return null;
 		}
@@ -92,7 +112,17 @@ class table_common_usergroup extends discuz_table
 			return DB::result_first($sql);
 		}
 	}
-	public function fetch_all($ids) {
+
+	public function fetch_all($ids, $force_from_db = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch_all($ids, $force_from_db);
+		} else {
+			return $this->fetch_all_usergroup($ids);
+		}
+	}
+
+	public function fetch_all_usergroup($ids) {
 		if(!$ids) {
 			return null;
 		}

@@ -21,7 +21,16 @@ class table_forum_threadimage extends discuz_table
 		parent::__construct();
 	}
 
-	public function delete($tid) {
+	public function delete($val, $unbuffered = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::delete($val, $unbuffered);
+		} else {
+			return $this->delete_threadimage($val);
+		}
+	}
+
+	public function delete_threadimage($tid) {
 		return ($tid = dintval($tid)) ? DB::delete('forum_threadimage', "tid='$tid'") : false;
 	}
 	public function delete_by_tid($tids) {

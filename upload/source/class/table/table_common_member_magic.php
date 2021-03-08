@@ -21,7 +21,19 @@ class table_common_member_magic extends discuz_table
 		parent::__construct();
 	}
 
-	public function delete($uid = null, $magicid = null) {
+	public function delete($val = null, $unbuffered = false) {
+		// $val = null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::delete($val, $unbuffered);
+		} else {
+			$unbuffered = $unbuffered === false ? null : $unbuffered;
+			return $this->delete_magic($val, $unbuffered);
+		}
+	}
+
+	public function delete_magic($uid = null, $magicid = null) {
+		// $uid = null, $magicid = null 需要在取消兼容层后删除
 		$para = array();
 		if($uid) {
 			$para[] = DB::field('uid', $uid);
@@ -35,7 +47,39 @@ class table_common_member_magic extends discuz_table
 		return DB::delete($this->_table, $where);
 	}
 
-	public function fetch_all($uid, $magicid = '', $start = 0, $limit = 0) {
+	public function fetch_all($ids, $force_from_db = false, $null1 = 0, $null2 = 0) {
+		// $null 1~n 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch_all($ids, $force_from_db);
+		} else {
+			$force_from_db = $force_from_db === false ? '' : $force_from_db;
+			return $this->fetch_all_magic($ids, $force_from_db, $null1, $null2);
+		}
+	}
+
+	public function fetch($id, $force_from_db = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch($id, $force_from_db);
+		} else {
+			return $this->fetch_magic($id, $force_from_db);
+		}
+	}
+
+	public function count($null1 = null, $null2 = null) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::count();
+		} else {
+			if ($null1 === null || $null2 === null) {
+				throw new Exception("Invalid Use C:t('common_member_magic')->count Function.");
+			}
+			return $this->count_magic($null1, $null2);
+		}
+	}
+
+	public function fetch_all_magic($uid, $magicid = '', $start = 0, $limit = 0) {
 		$para = array();
 		if($uid) {
 			$para[] = DB::field('uid', $uid);
@@ -53,7 +97,7 @@ class table_common_member_magic extends discuz_table
 		return DB::fetch_all('SELECT * FROM %t WHERE %i', array($this->_table, $para.$sql));
 	}
 
-	public function fetch($uid, $magicid) {
+	public function fetch_magic($uid, $magicid) {
 		$para = array();
 		if($uid) {
 			$para[] = DB::field('uid', $uid);
@@ -68,7 +112,7 @@ class table_common_member_magic extends discuz_table
 		return DB::fetch_first('SELECT * FROM %t WHERE %i', array($this->_table, $sql));
 	}
 
-	public function count($uid, $magicid) {
+	public function count_magic($uid, $magicid) {
 		$para = array();
 		if($uid) {
 			$para[] = DB::field('uid', $uid);

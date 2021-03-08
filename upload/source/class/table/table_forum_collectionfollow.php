@@ -21,8 +21,17 @@ class table_forum_collectionfollow extends discuz_table
 		parent::__construct();
 	}
 
+	public function fetch_all($ids, $force_from_db = false, $null1 = 0, $null2 = 0) {
+		// $null 1~n 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch_all($ids, $force_from_db);
+		} else {
+			return $this->fetch_all_collectionfollow($ids, $force_from_db, $null1, $null2);
+		}
+	}
 
-	public function fetch_all($ctid, $order = false, $start = 0, $limit = 0) {
+	public function fetch_all_collectionfollow($ctid, $order = false, $start = 0, $limit = 0) {
 		if(!$ctid) {
 			return null;
 		}
@@ -73,7 +82,17 @@ class table_forum_collectionfollow extends discuz_table
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE uid=%d', array($this->_table, $uid));
 	}
 
-	public function update($ctid, $uid, $data, $unbuffered = false, $low_priority = false) {
+	public function update($val, $data, $unbuffered = false, $low_priority = false, $null = false) {
+		// $null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::update($val, $data, $unbuffered, $low_priority);
+		} else {
+			return $this->update_collectionfollow($val, $data, $unbuffered, $low_priority, $null);
+		}
+	}
+
+	public function update_collectionfollow($ctid, $uid, $data, $unbuffered = false, $low_priority = false) {
 		if(!empty($data) && is_array($data) && $ctid && $uid) {
 			return DB::update($this->_table, $data, DB::field('ctid', $ctid).' AND '.DB::field('uid', $uid), $unbuffered, $low_priority);
 		}

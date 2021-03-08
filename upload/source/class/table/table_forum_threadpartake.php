@@ -21,11 +21,29 @@ class table_forum_threadpartake extends discuz_table
 		parent::__construct();
 	}
 
-	public function delete($dateline) {
+	public function delete($val, $unbuffered = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::delete($val, $unbuffered);
+		} else {
+			return $this->delete_threadpartake($val);
+		}
+	}
+
+	public function fetch($id, $force_from_db = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch($id, $force_from_db);
+		} else {
+			return $this->fetch_threadpartake($id, $force_from_db);
+		}
+	}
+
+	public function delete_threadpartake($dateline) {
 		return DB::query('DELETE FROM %t WHERE dateline<%d', array($this->_table, $dateline), false, true);
 	}
 
-	public function fetch($tid, $uid) {
+	public function fetch_threadpartake($tid, $uid) {
 		return DB::fetch_first('SELECT * FROM %t WHERE tid=%d AND uid=%d', array($this->_table, $tid, $uid));
 	}
 

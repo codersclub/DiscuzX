@@ -53,7 +53,17 @@ class table_forum_order extends discuz_table
 		return DB::fetch_all('SELECT o.*'.(($uid !== 0) ? ', m.username' : '').' FROM %t o'.(($uid !== 0) ? ', '.DB::table('common_member').' m WHERE o.uid=m.uid' : ' WHERE 1 ').' %i ORDER BY o.submitdate DESC '.DB::limit($start, $limit), array($this->_table, $sql));
 	}
 
-	public function fetch_all($orderid, $status = '') {
+	public function fetch_all($ids, $force_from_db = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch_all($ids, $force_from_db);
+		} else {
+			$force_from_db = $force_from_db === false ? '' : $force_from_db;
+			return $this->fetch_all_order($ids, $force_from_db);
+		}
+	}
+
+	public function fetch_all_order($orderid, $status = '') {
 		if(empty($orderid)) {
 			return array();
 		}

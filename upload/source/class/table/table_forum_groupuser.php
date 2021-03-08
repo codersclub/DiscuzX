@@ -64,7 +64,16 @@ class table_forum_groupuser extends discuz_table
 		}
 		return DB::result_first("SELECT COUNT(*) FROM %t WHERE fid=%d".$levelsql, array($this->_table, $fid));
 	}
-	public function insert($fid, $uid, $username, $level, $joindateline, $lastupdate = 0) {
+	public function insert($data, $return_insert_id = false, $replace = false, $silent = false, $null1 = 0, $null2 = 0) {
+		// $null 1~n 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::insert($data, $return_insert_id, $replace, $silent);
+		} else {
+			return $this->insert_groupuser($data, $return_insert_id, $replace, $silent, $null1, $null2);
+		}
+	}
+	public function insert_groupuser($fid, $uid, $username, $level, $joindateline, $lastupdate = 0) {
 		DB::query("INSERT INTO %t (fid, uid, username, level, joindateline, lastupdate) VALUES (%d,%d,%s,%d,%d,%d)", array($this->_table, $fid, $uid, addslashes($username), $level, $joindateline, $lastupdate));
 	}
 	public function update_counter_for_user($uid, $fid, $threads = 0, $replies = 0) {

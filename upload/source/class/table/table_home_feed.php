@@ -25,7 +25,18 @@ class table_home_feed extends discuz_table
 		return DB::query("OPTIMIZE TABLE %t", array($this->_table), true);
 	}
 
-	public function fetch($id, $idtype = '', $uid = '', $feedid = '') {
+	public function fetch($id, $force_from_db = false, $null1 = '', $null2 = '') {
+		// $null 1~n 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch($id, $force_from_db);
+		} else {
+			$force_from_db = $force_from_db === false ? '' : $force_from_db;
+			return $this->fetch_feed($id, $force_from_db, $null1, $null2);
+		}
+	}
+
+	public function fetch_feed($id, $idtype = '', $uid = '', $feedid = '') {
 		$wherearr = array();
 		if($feedid) {
 			$wherearr[] = DB::field('feedid', $feedid);
@@ -57,7 +68,19 @@ class table_home_feed extends discuz_table
 		return DB::fetch_all('SELECT * FROM %t USE INDEX(hot) WHERE dateline>=%d ORDER BY hot DESC LIMIT 0,10', array($this->_table, $hotstarttime));
 	}
 
-	public function update($id, $data, $idtype = '', $uid = '', $feedid = '') {
+	public function update($val, $data, $unbuffered = false, $low_priority = false, $null = '') {
+		// $null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::update($val, $data, $unbuffered, $low_priority);
+		} else {
+			$unbuffered = $unbuffered === false ? '' : $unbuffered;
+			$low_priority = $low_priority === false ? '' : $low_priority;
+			return $this->update_feed($val, $data, $unbuffered, $low_priority, $null);
+		}
+	}
+
+	public function update_feed($id, $data, $idtype = '', $uid = '', $feedid = '') {
 		$condition = array();
 		if($feedid) {
 			$condition[] = DB::field('feedid', $feedid);
@@ -126,7 +149,17 @@ class table_home_feed extends discuz_table
 		DB::delete($this->_table, DB::field('icon', $icon));
 	}
 
-	public function delete($feedid, $uid = '') {
+	public function delete($val, $unbuffered = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::delete($val, $unbuffered);
+		} else {
+			$unbuffered = $unbuffered === false ? '' : $unbuffered;
+			return $this->delete_feed($val, $unbuffered);
+		}
+	}
+	
+	public function delete_feed($feedid, $uid = '') {
 		$condition = array();
 
 		if($feedid) {

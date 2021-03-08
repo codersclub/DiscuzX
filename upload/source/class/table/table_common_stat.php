@@ -49,7 +49,17 @@ class table_common_stat extends discuz_table
 		return DB::result_first("SELECT AVG(post) FROM ".DB::table($this->_table));
 	}
 
-	public function fetch_all($begin, $end, $field = '*') {
+	public function fetch_all($ids, $force_from_db = false, $null = '*') {
+		// $null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch_all($ids, $force_from_db);
+		} else {
+			return $this->fetch_all_stat($ids, $force_from_db, $null);
+		}
+	}
+
+	public function fetch_all_stat($begin, $end, $field = '*') {
 		$data = array();
 		$query = DB::query('SELECT %i FROM %t WHERE daytime>=%d AND daytime<=%d ORDER BY daytime', array($field, $this->_table, $begin, $end));
 		while($value = DB::fetch($query)) {

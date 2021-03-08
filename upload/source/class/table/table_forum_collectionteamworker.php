@@ -72,7 +72,17 @@ class table_forum_collectionteamworker extends discuz_table
 		return DB::update($this->_table, array('name'=>$title), DB::field('ctid', $ctid));
 	}
 
-	public function update($ctid, $uid, $data, $unbuffered = false, $low_priority = false) {
+	public function update($val, $data, $unbuffered = false, $low_priority = false, $null = false) {
+		// $null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::update($val, $data, $unbuffered, $low_priority);
+		} else {
+			return $this->update_teamworker($val, $data, $unbuffered, $low_priority, $null);
+		}
+	}
+
+	public function update_teamworker($ctid, $uid, $data, $unbuffered = false, $low_priority = false) {
 		if(!empty($data) && is_array($data) && $ctid && $uid) {
 			return DB::update($this->_table, $data, DB::field('ctid', $ctid).' AND '.DB::field('uid', $uid), $unbuffered, $low_priority);
 		}

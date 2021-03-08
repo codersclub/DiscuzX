@@ -20,7 +20,7 @@ class table_common_member_archive extends table_common_member
 		$this->_pk    = 'uid';
 	}
 
-	public function fetch($id){
+	public function fetch($id, $force_from_db = true, $fetch_archive = 1){
 		$data = array();
 		if(isset($this->membersplit) && ($id = dintval($id)) && ($data = DB::fetch_first('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field($this->_pk, $id)))) {
 			$data['_inarchive'] = true;
@@ -28,7 +28,7 @@ class table_common_member_archive extends table_common_member
 		return $data;
 	}
 
-	public function fetch_by_username($username) {
+	public function fetch_by_username($username, $fetch_archive = 1) {
 		$user = array();
 		if(isset($this->membersplit) && $username && ($user = DB::fetch_first('SELECT * FROM %t WHERE username=%s', array($this->_table, $username)))) {
 			$user['_inarchive'] = true;
@@ -36,7 +36,7 @@ class table_common_member_archive extends table_common_member
 		return $user;
 	}
 
-	public function fetch_uid_by_username($username) {
+	public function fetch_uid_by_username($username, $fetch_archive = 1) {
 		$uid = 0;
 		if(isset($this->membersplit) && $username) {
 			$uid = DB::result_first('SELECT uid FROM %t WHERE username=%s', array($this->_table, $username));
@@ -44,11 +44,11 @@ class table_common_member_archive extends table_common_member
 		return $uid;
 	}
 
-	public function count() {
+	public function count($fetch_archive = 1) {
 		return isset($this->membersplit) ? DB::result_first('SELECT COUNT(*) FROM %t', array($this->_table)) : 0;
 	}
 
-	public function fetch_by_email($email) {
+	public function fetch_by_email($email, $fetch_archive = 1) {
 		$user = array();
 		if(isset($this->membersplit) && $email && ($user = DB::fetch_first('SELECT * FROM %t WHERE email=%s', array($this->_table, $email)))) {
 			$user['_inarchive'] = true;
@@ -57,7 +57,7 @@ class table_common_member_archive extends table_common_member
 	}
 
 
-	public function count_by_email($email) {
+	public function count_by_email($email, $fetch_archive = 1) {
 		$count = 0;
 		if(isset($this->membersplit) && $email) {
 			$count = DB::result_first('SELECT COUNT(*) FROM %t WHERE email=%s', array($this->_table, $email));
@@ -65,7 +65,7 @@ class table_common_member_archive extends table_common_member
 		return $count;
 	}
 
-	public function fetch_all($ids) {
+	public function fetch_all($ids, $force_from_db = false, $fetch_archive = 1) {
 		$data = array();
 		if(isset($this->membersplit) && ($ids = dintval($ids, true))) {
 			$query = DB::query('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field($this->_pk, $ids));
@@ -95,7 +95,7 @@ class table_common_member_archive extends table_common_member
 		}
 	}
 
-	public function delete($val, $unbuffered = false) {
+	public function delete($val, $unbuffered = false, $fetch_archive = 1) {
 		return isset($this->membersplit) && ($val = dintval($val, true)) && DB::delete($this->_table, DB::field($this->_pk, $val), null, $unbuffered);
 	}
 

@@ -52,7 +52,17 @@ class table_portal_article_title extends discuz_table
 		}
 		return DB::update($this->_table, $data, DB::field('catid', $catid));
 	}
-	public function range($start = 0, $limit = 0) {
+
+	public function range($start = 0, $limit = 0, $sort = '') {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::range($start, $limit, $sort);
+		} else {
+			return $this->range_title($start, $limit);
+		}
+	}
+
+	public function range_title($start = 0, $limit = 0) {
 		return DB::fetch_all('SELECT * FROM '.DB::table($this->_table).' ORDER BY dateline DESC'.DB::limit($start, $limit));
 	}
 	public function fetch_all_by_sql($where, $order = '', $start = 0, $limit = 0, $count = 0, $alias = '') {

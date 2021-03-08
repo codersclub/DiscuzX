@@ -35,7 +35,17 @@ class table_forum_forum_threadtable extends discuz_table
 		return DB::fetch_all('SELECT * FROM %t WHERE '.DB::field('fid', $fids), array($this->_table));
 	}
 
-	public function update($fid, $threadtableid, $data, $unbuffered = false, $low_priority = false) {
+	public function update($val, $data, $unbuffered = false, $low_priority = false, $null = false) {
+		// $null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::update($val, $data, $unbuffered, $low_priority);
+		} else {
+			return $this->update_threadtable($val, $data, $unbuffered, $low_priority, $null);
+		}
+	}
+
+	public function update_threadtable($fid, $threadtableid, $data, $unbuffered = false, $low_priority = false) {
 		if(empty($data)) {
 			return false;
 		}
@@ -49,7 +59,17 @@ class table_forum_forum_threadtable extends discuz_table
 		return DB::update($this->_table, $data, DB::field('threadtableid', $threadtableid), $unbuffered, $low_priority);
 	}
 
-	public function delete($fid, $threadtableid, $unbuffered = false) {
+	public function delete($val, $unbuffered = false, $null = false) {
+		// $null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::delete($val, $unbuffered);
+		} else {
+			return $this->delete_threadtable($val, $unbuffered, $null);
+		}
+	}
+
+	public function delete_threadtable($fid, $threadtableid, $unbuffered = false) {
 		return DB::delete($this->_table, array('fid' => dintval($fid), 'threadtableid' => dintval($threadtableid)), null, $unbuffered);
 	}
 

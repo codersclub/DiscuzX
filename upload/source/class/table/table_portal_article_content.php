@@ -32,7 +32,16 @@ class table_portal_article_content extends discuz_table
 		return $aid ? DB::fetch_first('SELECT * FROM %t WHERE aid=%d ORDER BY pageorder'.DB::LIMIT($page-1, 1), array($this->_table, $aid)) : false;
 	}
 
-	public function fetch_all($aid) {
+	public function fetch_all($ids, $force_from_db = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch_all($ids, $force_from_db);
+		} else {
+			return $this->fetch_all_by_aid($ids);
+		}
+	}
+
+	public function fetch_all_by_aid($aid) {
 		return $aid ? DB::fetch_all('SELECT * FROM %t WHERE aid=%d ORDER BY pageorder', array($this->_table, $aid)) : array();
 	}
 

@@ -37,7 +37,17 @@ class table_forum_typevar extends discuz_table
 		return DB::fetch_all('SELECT * FROM %t WHERE sortid=%d '.($order ? 'ORDER BY '.DB::order('displayorder', $order) : ''), array($this->_table, $sortid), 'optionid');
 	}
 
-	public function update($sortid, $optionid, $data, $unbuffered = false, $low_priority = false) {
+	public function update($val, $data, $unbuffered = false, $low_priority = false, $null = false) {
+		// $null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::update($val, $data, $unbuffered, $low_priority);
+		} else {
+			return $this->update_typevar($val, $data, $unbuffered, $low_priority, $null);
+		}
+	}
+
+	public function update_typevar($sortid, $optionid, $data, $unbuffered = false, $low_priority = false) {
 		if(empty($data)) {
 			return false;
 		}
@@ -51,7 +61,18 @@ class table_forum_typevar extends discuz_table
 		return DB::update($this->_table, $data, array('search' => $search), $unbuffered, $low_priority);
 	}
 
-	public function delete($sortids = null, $optionids = null) {
+	public function delete($val = null, $unbuffered = false) {
+		// $val = null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::delete($val, $unbuffered);
+		} else {
+			$unbuffered = $unbuffered === false ? null : $unbuffered;
+			return $this->delete_typevar($val, $unbuffered);
+		}
+	}
+
+	public function delete_typevar($sortids = null, $optionids = null) {
 		$where = array();
 		$sortids && $where[] = DB::field('sortid', $sortids);
 		$optionids && $where[] = DB::field('optionid', $optionids);

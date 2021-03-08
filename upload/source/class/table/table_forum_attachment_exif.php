@@ -21,7 +21,17 @@ class table_forum_attachment_exif extends discuz_table
 		parent::__construct();
 	}
 
-	public function insert($aid, $exif) {
+
+	public function insert($data, $return_insert_id = false, $replace = false, $silent = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::insert($data, $return_insert_id, $replace, $silent);
+		} else {
+			return $this->insert_exif($data, $return_insert_id);
+		}
+	}
+
+	public function insert_exif($aid, $exif) {
 		DB::insert($this->_table, array('aid' => $aid, 'exif' => $exif), false, true, true);
 	}
 

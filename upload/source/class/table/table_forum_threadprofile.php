@@ -21,7 +21,17 @@ class table_forum_threadprofile extends discuz_table
 		parent::__construct();
 	}
 
-	public function fetch_all() {
+	public function fetch_all($ids = null, $force_from_db = false) {
+		// $ids = null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch_all($ids, $force_from_db);
+		} else {
+			return $this->fetch_all_threadprofile();
+		}
+	}
+
+	public function fetch_all_threadprofile() {
 		return DB::fetch_all('SELECT * FROM %t', array($this->table), $this->_pk);
 	}
 

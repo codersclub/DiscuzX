@@ -20,11 +20,11 @@ class table_common_member_field_forum_archive extends table_common_member_field_
 		$this->_pk    = 'uid';
 	}
 
-	public function fetch($id){
+	public function fetch($id, $force_from_db = true, $fetch_archive = 1){
 		return ($id = dintval($id)) ? DB::fetch_first('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field($this->_pk, $id)) : array();
 	}
 
-	public function fetch_all($ids) {
+	public function fetch_all($ids, $force_from_db = true, $fetch_archive = 1) {
 		$data = array();
 		if(($ids = dintval($ids, true))) {
 			$query = DB::query('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field($this->_pk, $ids));
@@ -35,7 +35,7 @@ class table_common_member_field_forum_archive extends table_common_member_field_
 		return $data;
 	}
 
-	public function delete($val, $unbuffered = false) {
+	public function delete($val, $unbuffered = false, $fetch_archive = 1) {
 		return ($val = dintval($val, true)) && DB::delete($this->_table, DB::field($this->_pk, $val), null, $unbuffered);
 	}
 }

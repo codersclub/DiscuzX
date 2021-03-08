@@ -29,8 +29,8 @@ class table_common_block extends discuz_table
 
 	}
 
-	public function fetch($bid) {
-		if(($block = parent::fetch(dintval($bid)))) {
+	public function fetch($bid, $force_from_db = false) {
+		if(($block = parent::fetch(dintval($bid), $force_from_db))) {
 			$block['param'] = $block['param'] ? dunserialize($block['param']) : array();
 		}
 		return $block;
@@ -103,7 +103,16 @@ class table_common_block extends discuz_table
 		return false;
 	}
 
-	public function clear_cache($bids) {
+	public function clear_cache($ids, $pre_cache_key = null) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::clear_cache($ids, $pre_cache_key);
+		} else {
+			return $this->clear_blockcache($ids);
+		}
+	}
+
+	public function clear_blockcache($bids) {
 		if($this->allowmem) {
 			memory('rm', $bids,'blockcache_');
 			memory('rm', $bids, 'blockcache_htm_');

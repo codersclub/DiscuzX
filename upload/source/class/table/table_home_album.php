@@ -80,12 +80,32 @@ class table_home_album extends discuz_table
 		return DB::fetch_all('SELECT uid FROM %t WHERE uid IN (%n)', array($this->_table, $uid), 'uid');
 	}
 
-	public function fetch($albumid, $uid = '') {
+	public function fetch($id, $force_from_db = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch($id, $force_from_db);
+		} else {
+			$force_from_db = $force_from_db === false ? '' : $force_from_db;
+			return $this->fetch_album($id, $force_from_db);
+		}
+	}
+
+	public function fetch_all($ids, $force_from_db = false, $null1 = 0, $null2 = 0) {
+		// $null 1~n 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch_all($ids, $force_from_db);
+		} else {
+			return $this->fetch_all_album($ids, $force_from_db, $null1, $null2);
+		}
+	}
+
+	public function fetch_album($albumid, $uid = '') {
 		$data = $this->fetch_all_by_uid($uid, false, 0, 0, $albumid);
 		return $data[0];
 	}
 
-	public function fetch_all($albumids, $order = false, $start = 0, $limit = 0) {
+	public function fetch_all_album($albumids, $order = false, $start = 0, $limit = 0) {
 		return $this->fetch_all_by_uid('', $order, $start, $limit, $albumids);
 	}
 

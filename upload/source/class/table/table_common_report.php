@@ -27,7 +27,19 @@ class table_common_report extends discuz_table
 		return DB::result_first('SELECT count(*) FROM '.DB::table('common_report').' WHERE '.$idsql.$where.$fidsql);
 	}
 
-	public function fetch_all($start = 0, $limit = 100, $operated = 0, $fid = 0) {
+	public function fetch_all($ids = null, $force_from_db = false, $null1 = 0, $null2 = 0) {
+		// $null 1~n 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::fetch_all($ids, $force_from_db);
+		} else {
+			$ids = $ids === null ? 0 : $ids;
+			$force_from_db = $force_from_db === false ? 100 : $force_from_db;
+			return $this->fetch_all_report($ids, $force_from_db, $null1, $null2);
+		}
+	}
+
+	public function fetch_all_report($start = 0, $limit = 100, $operated = 0, $fid = 0) {
 		$where = empty($operated) ? 'opuid=0' : 'opuid>0';
 		$order = empty($operated) ? 'num' : 'optime';
 		$fidsql = $fid ? ' AND '.DB::field('fid', $fid) : '';

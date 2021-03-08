@@ -141,7 +141,37 @@ class table_common_moderate extends discuz_table
 		return $return;
 	}
 
-	public function delete($id, $idtype, $unbuffered = false) {
+	public function delete($val, $unbuffered = false, $null = false) {
+		// $null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::delete($val, $unbuffered);
+		} else {
+			return $this->delete_moderate($val, $unbuffered, $null);
+		}
+	}
+
+	public function insert($data, $return_insert_id = false, $replace = false, $silent = false, $null = false) {
+		// $null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::insert($data, $return_insert_id, $replace, $silent);
+		} else {
+			return $this->insert_moderate($data, $return_insert_id, $replace, $silent, $null);
+		}
+	}
+
+	public function update($val, $data, $unbuffered = false, $low_priority = false, $null = false) {
+		// $null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::update($val, $data, $unbuffered, $low_priority);
+		} else {
+			return $this->update_moderate($val, $data, $unbuffered, $low_priority, $null);
+		}
+	}
+
+	public function delete_moderate($id, $idtype, $unbuffered = false) {
 		if(!isset($this->_tables[$idtype])) {
 			return false;
 		}
@@ -152,7 +182,7 @@ class table_common_moderate extends discuz_table
 		return DB::delete($table, implode(' AND ', $wheresql), 0, $unbuffered);
 	}
 
-	public function insert($idtype, $data, $return_insert_id = false, $replace = false, $silent = false) {
+	public function insert_moderate($idtype, $data, $return_insert_id = false, $replace = false, $silent = false) {
 		if(!isset($this->_tables[$idtype]) || empty($data)) {
 			return false;
 		}
@@ -161,7 +191,7 @@ class table_common_moderate extends discuz_table
 		return DB::insert($table, $data, $return_insert_id, $replace, $silent);
 	}
 
-	public function update($id, $idtype, $data, $unbuffered = false, $low_priority = false) {
+	public function update_moderate($id, $idtype, $data, $unbuffered = false, $low_priority = false) {
 		if(!isset($this->_tables[$idtype]) || empty($data)) {
 			return false;
 		}

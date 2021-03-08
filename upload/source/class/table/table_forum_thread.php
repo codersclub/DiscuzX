@@ -23,7 +23,16 @@ class table_forum_thread extends discuz_table
 		parent::__construct();
 	}
 
-	public function fetch($tid, $tableid = 0) {
+	public function fetch($id, $force_from_db = false) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('UnsupportedOperationException');
+		} else {
+			$force_from_db = $force_from_db === false ? 0 : $force_from_db;
+			return $this->fetch_thread($id, $force_from_db);
+		}
+	}
+
+	public function fetch_thread($tid, $tableid = 0) {
 		$tid = intval($tid);
 		$data = array();
 		if($tid && ($data = $this->fetch_cache($tid)) === false) {
@@ -35,7 +44,7 @@ class table_forum_thread extends discuz_table
 	}
 
 	public function fetch_by_tid_displayorder($tid, $displayorder = null, $glue = '>=',  $authorid = null, $tableid = 0) {
-		$data = $this->fetch($tid, $tableid);
+		$data = $this->fetch_thread($tid, $tableid);
 		if(!empty($data)) {
 			if(($displayorder !== null && !($this->compare_number($data['displayorder'], $displayorder, $glue))) || ($authorid !== null && $data['authorid'] != $authorid)) {
 				$data = array();
@@ -60,7 +69,7 @@ class table_forum_thread extends discuz_table
 	}
 	public function fetch_by_tid_fid_displayorder($tid, $fid, $displayorder = null, $tableid = 0, $glue = '>=') {
 		if($tid) {
-			$data = $this->fetch($tid, $tableid);
+			$data = $this->fetch_thread($tid, $tableid);
 			if(!empty($data)) {
 				if(($data['fid'] != $fid) || ($displayorder !== null && !($this->compare_number($data['displayorder'], $displayorder, $glue)))) {
 					$data = array();

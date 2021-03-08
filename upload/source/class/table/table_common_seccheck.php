@@ -104,9 +104,9 @@ class table_common_seccheck extends discuz_table
 		return $data;
 	}
 
-	public function delete($ssid) {
-		if (!$this->_allowmem) {
-			return parent::delete($ssid);
+	public function delete($ssid, $force_from_db = false) {
+		if (!$this->_allowmem || $force_from_db) {
+			return parent::delete($ssid, $force_from_db);
 		}
 		$ssid = dintval($ssid);
 		memory('rm', $ssid . "_verified", $this->_pre_cache_key);

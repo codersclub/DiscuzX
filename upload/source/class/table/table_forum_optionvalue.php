@@ -37,7 +37,15 @@ class table_forum_optionvalue extends discuz_table
 		}
 	}
 
-	public function truncate($sortid) {
+	public function truncate($null = 0) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception("UnsupportedOperationException");
+		} else {
+			return $this->truncate_by_sortid($null);
+		}
+	}
+
+	public function truncate_by_sortid($sortid) {
 		if(!$sortid) {
 			return;
 		}
@@ -118,7 +126,15 @@ class table_forum_optionvalue extends discuz_table
 		return $return;
 	}
 
-	public function update($sortid, $tid, $fid, $fields) {
+	public function update($sortid, $tid, $fid = null, $fields = null) {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception("UnsupportedOperationException");
+		} else {
+			return $this->update_optionvalue($sortid, $tid, $fid, $fields);
+		}
+	}
+
+	public function update_optionvalue($sortid, $tid, $fid, $fields) {
 		if(!$sortid || !$fields) {
 			return;
 		}
@@ -127,7 +143,16 @@ class table_forum_optionvalue extends discuz_table
 		DB::query("UPDATE %t SET %i WHERE tid=%d AND fid=%d", array($this->_table, $fields, $tid, $fid));
 	}
 
-	public function insert($sortid, $fields, $replace = false) {
+	public function insert($sortid, $fields = null, $replace = false, $null = null) {
+		// $null 需要在取消兼容层后删除
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception("UnsupportedOperationException");
+		} else {
+			return $this->insert_optionvalue($sortid, $fields, $replace);
+		}
+	}
+
+	public function insert_optionvalue($sortid, $fields, $replace = false) {
 		if(!$sortid || !$fields) {
 			return;
 		}

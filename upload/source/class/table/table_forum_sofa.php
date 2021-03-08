@@ -21,7 +21,16 @@ class table_forum_sofa extends discuz_table
 		parent::__construct();
 	}
 
-	public function range($start = 0, $limit = 20) {
+	public function range($start = 0, $limit = 0, $sort = '') {
+		if (defined('DISCUZ_DEPRECATED')) {
+			throw new Exception('NotImplementedException');
+			return parent::range($start, $limit, $sort);
+		} else {
+			return $this->range_sofa($start, $limit);
+		}
+	}
+
+	public function range_sofa($start = 0, $limit = 20) {
 		return DB::fetch_all('SELECT * FROM %t ORDER BY tid DESC %i', array($this->_table, DB::limit($start, $limit)), $this->_pk);
 	}
 
