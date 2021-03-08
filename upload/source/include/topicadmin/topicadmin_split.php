@@ -95,7 +95,7 @@ if(!submitcheck('modsubmit')) {
 		}
 		$maxposition ++;
 	}
-	C::t('forum_thread')->update($newtid, array('author'=>$fpost['author'], 'authorid'=>$fpost['authorid'], 'dateline'=>$fpost['dateline'], 'rate'=>intval(@($fpost['rate'] / abs($fpost['rate']))), 'maxposition' => $maxposition));
+	C::t('forum_thread')->update($newtid, array('author'=>$fpost['author'], 'authorid'=>$fpost['authorid'], 'dateline'=>$fpost['dateline'], 'rate'=>intval(abs($fpost['rate']) ? ($fpost['rate'] / abs($fpost['rate'])) : 0), 'maxposition' => $maxposition));
 	updatethreadcount($_G['tid']);
 	updatethreadcount($newtid);
 	updateforumcount($_G['fid']);

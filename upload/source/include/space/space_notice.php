@@ -115,7 +115,7 @@ if($view) {
 
 
 }
-dsetcookie('promptstate_'.$_G['uid'], $newprompt, 31536000);
+dsetcookie('promptstate_'.$_G['uid'], '', 31536000);
 include_once template("diy:home/space_notice");
 
 ?>

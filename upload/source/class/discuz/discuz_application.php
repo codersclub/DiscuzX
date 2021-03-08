@@ -104,6 +104,14 @@ class discuz_application extends discuz_base{
 			}
 		}
 
+		if(!defined('APPTYPEID')) {
+			define('APPTYPEID', 0);
+		}
+
+		if(!defined('CURSCRIPT')) {
+			define('CURSCRIPT', null);
+		}
+
 		global $_G;
 		$_G = array(
 			'uid' => 0,

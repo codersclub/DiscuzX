@@ -265,7 +265,7 @@ Class upload{
 					imagejpeg($img_dst, $g_dstfile, $g_imgcomp);
 					break;
 				case 'gif':
-					imagegif($img_dst, $g_dstfile, $g_imgcomp);
+					imagegif($img_dst, $g_dstfile);
 					break;
 			}
 			imagedestroy($img_dst);

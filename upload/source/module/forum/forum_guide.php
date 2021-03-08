@@ -209,8 +209,8 @@ function get_guide_list($view, $start = 0, $num = 50, $again = 0) {
 		$forumnames = C::t('forum_forum')->fetch_all_name_by_fid($fids);
 	}
 	$threadlist = array();
-	$threadids = array();
 	if($tids) {
+		$threadids = array();
 		foreach($tids as $key => $tid) {
 			if($list[$tid]) {
 				$threadlist[$key] = $list[$tid];
@@ -222,6 +222,7 @@ function get_guide_list($view, $start = 0, $num = 50, $again = 0) {
 	}
 	unset($list);
 	if($updatecache) {
+		$threadids = is_array($threadids) ? $threadids : array();
 		$threadcount = count($threadids);
 		$data = array('cachetime' => TIMESTAMP, 'data' => $threadids);
 		$_G['cache']['forum_guide'][$view.($view=='sofa' && $_G['fid'] ? $_G['fid'] : '')] = $data;

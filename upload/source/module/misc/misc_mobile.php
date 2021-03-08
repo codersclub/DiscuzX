@@ -22,7 +22,6 @@ include DISCUZ_ROOT.'./source/language/mobile/lang_template.php';
 $_G['lang'] = array_merge($_G['lang'], $lang);
 $navtitle = $_G['lang']['misc_mobile_title'];
 if($_GET['view'] == true) {
-	include libfile('forum/forum_index_mobile', 'module');
 	include libfile('function/forumlist');
 	loadcache('userstats');
 

@@ -113,7 +113,7 @@ function update_announcecache() {
 	updatecache(array('announcements', 'announcements_forum'));
 }
 
-function save_announce($id = 0, $starttime, $endtime, $subject, $type, $message, $displayorder = 0) {
+function save_announce($id, $starttime, $endtime, $subject, $type, $message, $displayorder = 0) {
 	global $_G;
 
 	$displayorder = intval($displayorder);

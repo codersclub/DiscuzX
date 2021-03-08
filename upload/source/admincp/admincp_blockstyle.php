@@ -84,14 +84,14 @@ BLOCKCLASSSEL;
 			if($_GET['styleid']) {
 				$styleid = intval($_GET['styleid']);
 				C::t('common_block_style')->update($styleid, $arr);
-				require_once libfile('function/cache');
-				updatecache('blockclass');
+				require_once libfile('function/block');
+				blockclass_cache();
 				cpmsg('blockstyle_edit_succeed', 'action=blockstyle&operation=edit&blockclass='.$_GET['blockclass'].'&styleid='.$styleid.'&preview='.($_POST['preview']?'1':'0'), 'succeed');
 			} else {
 				$styleid = C::t('common_block_style')->insert($arr, true);
 				$msg = 'blockstyle_create_succeed';
-				require_once libfile('function/cache');
-				updatecache('blockclass');
+				require_once libfile('function/block');
+				blockclass_cache();
 				cpmsg('blockstyle_create_succeed', 'action=blockstyle&operation=edit&blockclass='.$_GET['blockclass'].'&styleid='.$styleid.'&preview='.($_POST['preview']?'1':'0'), 'succeed');
 			}
 		}
@@ -181,7 +181,8 @@ BLOCKCLASSSEL;
 		}
 		C::t('common_block')->update_by_styleid($styleid, array('styleid' => $_POST['moveto']));
 		C::t('common_block_style')->delete($_GET['styleid']);
-		updatecache('blockclass');
+		require_once libfile('function/block');
+		blockclass_cache();
 		cpmsg('blockstyle_delete_succeed', 'action=blockstyle', 'succeed');
 	}
 
@@ -201,7 +202,8 @@ BLOCKCLASSSEL;
 
 	} else {
 		C::t('common_block_style')->delete($_GET['styleid']);
-		updatecache('blockclass');
+		require_once libfile('function/block');
+		blockclass_cache();
 		cpmsg('blockstyle_delete_succeed', 'action=blockstyle', 'succeed');
 	}
 

@@ -289,7 +289,7 @@ class seccode {
 				$font[$i]['data'] = getimagesize($this->imcodefile);
 				$font[$i]['width'] = $font[$i]['data'][0] + mt_rand(0, 6) - 4;
 				$font[$i]['height'] = $font[$i]['data'][1] + mt_rand(0, 6) - 4;
-				$font[$i]['width'] += mt_rand(0, $this->width / 5 - $font[$i]['width']);
+				$font[$i]['width'] += mt_rand(0, max(0, $this->width / 5 - $font[$i]['width']));
 				$widthtotal += $font[$i]['width'];
 			} else {
 				$font[$i]['file'] = '';

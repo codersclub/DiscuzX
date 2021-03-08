@@ -18,10 +18,6 @@ $cachelist = array('grouptype', 'groupindex', 'diytemplatenamegroup');
 $discuz->cachelist = $cachelist;
 $discuz->init();
 
-if(!$_G['setting']['groupstatus']) {
-	showmessage('group_module_status_off');
-}
-
 $_G['disabledwidthauto'] = 0;
 
 $modarray = array('index', 'my', 'attentiongroup');
@@ -30,6 +26,10 @@ $mod = !in_array($_G['mod'], $modarray) ? 'index' : $_G['mod'];
 define('CURMODULE', $mod);
 
 runhooks();
+
+if(!$_G['setting']['groupstatus']) {
+	showmessage('group_module_status_off');
+}
 
 $navtitle = str_replace('{bbname}', $_G['setting']['bbname'], $_G['setting']['seotitle']['group']);
 

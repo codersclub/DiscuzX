@@ -24,8 +24,10 @@ function build_cache_secqaa() {
 		$data[$i] = $secqaa;
 		$i++;
 	}
-	while(($secqaas = count($data)) < 9) {
-		$data[$secqaas + 1] = $data[array_rand($data)];
+	if(!empty($data)) {
+		while(($secqaas = count($data)) < 9) {
+			$data[$secqaas + 1] = $data[array_rand($data)];
+		}
 	}
 	savecache('secqaa', $data);
 }

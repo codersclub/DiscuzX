@@ -7,7 +7,7 @@
 <title>$_G[forum_thread][subject] - $_G['setting']['bbname'] - Powered by Discuz!</title>
 <style type="text/css">
 body 	   {margin: 10px 80px;}
-body,table {font-size: {FONTSIZE}; font-family: {FONT};}
+body,table {font-size: {$_G['style']['fontsize']}; font-family: {$_G['style']['font']};}
 h1 { font-size: 24px; margin-bottom: 20px; color: #999; }
 </style>
 <script type="text/javascript" src="{$_G['setting']['jspath']}common.js?{VERHASH}"></script>
@@ -60,8 +60,8 @@ h1 { font-size: 24px; margin-bottom: 20px; color: #999; }
 	<!--{/if}-->
 <!--{/loop}-->
 
-<br /><br /><br /><br /><hr noshade size="2" width="100%" color="{BORDERCOLOR}">
-<table cellspacing="0" cellpadding="0" border="0" width="95%" align="center" style="font-size: {SMFONTSIZE}; font-family: {SMFONT}">
+<br /><br /><br /><br /><hr noshade size="2" width="100%" color="{$_G['style']['commonborder']}">
+<table cellspacing="0" cellpadding="0" border="0" width="95%" align="center" style="font-size: {$_G['style']['smfontsize']}; font-family: {$_G['style']['smfont']}">
 <tr><td>{lang welcometo} $_G['setting']['bbname'] ($_G[siteurl])</td>
 <td align="right">
 Powered by Discuz! $_G['setting']['version']</td></tr></table>

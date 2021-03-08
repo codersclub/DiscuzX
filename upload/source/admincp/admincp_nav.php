@@ -282,7 +282,7 @@ EOT;
 			showsetting('misc_customnav_url', 'urlnew', $nav['url'], 'text', ($nav['type'] == '0' || $nav['type'] == '4'));
 			showsetting('misc_customnav_style', array('stylenew', array(cplang('misc_customnav_style_underline'), cplang('misc_customnav_style_italic'), cplang('misc_customnav_style_bold'))), $string[0], 'binmcheckbox');
 			showsetting('misc_customnav_style_color', array('colornew', array(
-				array(0, '<span style="color: '.LINK.';">Default</span>'),
+				array(0, '<span style="color: '.$_G['style']['tabletext'].';">Default</span>'),
 				array(1, '<span style="color: Red;">Red</span>'),
 				array(2, '<span style="color: Orange;">Orange</span>'),
 				array(3, '<span style="color: Yellow;">Yellow</span>'),
@@ -491,7 +491,7 @@ EOT;
 			showsetting('misc_customnav_url', 'urlnew', $nav['url'], 'text', $nav['type'] == '0');
 			showsetting('misc_customnav_style', array('stylenew', array(cplang('misc_customnav_style_underline'), cplang('misc_customnav_style_italic'), cplang('misc_customnav_style_bold'))), $string[0], 'binmcheckbox');
 			showsetting('misc_customnav_style_color', array('colornew', array(
-				array(0, '<span style="color: '.LINK.';">Default</span>'),
+				array(0, '<span style="color: '.$_G['style']['tabletext'].';">Default</span>'),
 				array(1, '<span style="color: Red;">Red</span>'),
 				array(2, '<span style="color: Orange;">Orange</span>'),
 				array(3, '<span style="color: Yellow;">Yellow</span>'),
@@ -1084,7 +1084,7 @@ EOT;
 			showsetting('misc_customnav_url', 'urlnew', $nav['url'], 'text', $nav['type'] == '0');
 			showsetting('misc_customnav_style', array('stylenew', array(cplang('misc_customnav_style_underline'), cplang('misc_customnav_style_italic'), cplang('misc_customnav_style_bold'))), $string[0], 'binmcheckbox');
 			showsetting('misc_customnav_style_color', array('colornew', array(
-				array(0, '<span style="color: '.LINK.';">Default</span>'),
+				array(0, '<span style="color: '.$_G['style']['tabletext'].';">Default</span>'),
 				array(1, '<span style="color: Red;">Red</span>'),
 				array(2, '<span style="color: Orange;">Orange</span>'),
 				array(3, '<span style="color: Yellow;">Yellow</span>'),

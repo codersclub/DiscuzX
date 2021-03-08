@@ -126,7 +126,7 @@ if($do == 'feed') {
 		}
 		if(!empty($users)) {
 			if(count($recommend) < 10) {
-				$randkeys = array_rand($users, 11 - count($recommend));
+				$randkeys = array_rand($users, min(count($users), 11 - count($recommend)));
 				foreach($randkeys as $ruid) {
 					if($ruid != $_G['uid']) {
 						$recommend[$ruid] = $users[$ruid];

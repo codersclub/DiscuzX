@@ -594,7 +594,7 @@ function parseflv($url, $width = 0, $height = 0) {
 }
 
 function parseimg($width, $height, $src, $lazyload, $pid, $extra = '') {
-	global $_G;
+	global $_G, $aimgs;
 	static $styleoutput = null;
 	if($_G['setting']['domainwhitelist_affectimg']) {
 		$tmp = parse_url($src);
@@ -616,7 +616,7 @@ function parseimg($width, $height, $src, $lazyload, $pid, $extra = '') {
 	}
 	$attrsrc = !IS_ROBOT && $lazyload ? 'file' : 'src';
 	$rimg_id = random(5);
-	$GLOBALS['aimgs'][$pid][] = $rimg_id;
+	$aimgs[$pid][] = $rimg_id;
 	$guestviewthumb = !empty($_G['setting']['guestviewthumb']['flag']) && empty($_G['uid']);
 	$img = '';
 	if($guestviewthumb) {

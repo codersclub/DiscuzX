@@ -754,6 +754,7 @@ var rowtypedata = [
 				$forum['formulapermusers'] = $forum['formulaperm']['users'];
 				$forum['formulaperm'] = $forum['formulaperm'][0];
 				$forum['extra'] = dunserialize($forum['extra']);
+				$forum['threadsorts'] = is_array($forum['threadsorts']) ? $forum['threadsorts'] : array();
 				$forum['threadsorts']['default'] = $forum['threadsorts']['defaultshow'] ? 1 : 0;
 
 				$_G['multisetting'] = $multiset ? 1 : 0;

@@ -36,7 +36,7 @@ class memory_driver_apcu {
 	}
 
 	public function clear() {
-		return apcu_clear_cache('user');
+		return apcu_clear_cache();
 	}
 
 	public function inc($key, $step = 1) {

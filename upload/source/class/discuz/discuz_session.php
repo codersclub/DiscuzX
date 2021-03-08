@@ -177,9 +177,10 @@ class discuz_session {
 					dsetcookie('ulastactivity', authcode($ulastactivity, 'ENCODE'), 31536000);
 				}
 			}
-			$oltimespan = $_G['setting']['oltimespan'];
-			$lastolupdate = C::app()->session->var['lastolupdate'];
-			if($_G['uid'] && $oltimespan && TIMESTAMP - ($lastolupdate ? $lastolupdate : $ulastactivity) > $oltimespan * 60) {
+			$ulastactivity = (int)$ulastactivity;
+			$oltimespan = (int)$_G['setting']['oltimespan'];
+			$lastolupdate = (int)C::app()->session->var['lastolupdate'];
+			if($_G['uid'] && $oltimespan && (int)TIMESTAMP - ($lastolupdate ? $lastolupdate : $ulastactivity) > $oltimespan * 60) {
 				$isinsert = false;
 				if(C::app()->session->isnew) {
 					$oldata = C::t('common_onlinetime')->fetch($_G['uid']);

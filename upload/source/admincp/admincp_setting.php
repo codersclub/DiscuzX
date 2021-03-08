@@ -2882,6 +2882,8 @@ EOT;
 		$settingnew['creditsformulaexp'] = addslashes('<u>'.$lang['setting_credits_formula_credits'].'</u>='.$settingnew['creditsformulaexp']);
 
 		$initformula = str_replace('posts', '0', $settingnew['creditsformula']);
+		$initformula = str_replace('digest0', '0', $initformula);
+
 		for($i = 1; $i <= 8; $i++) {
 			$settingnew['initcredits'][$i] = intval($settingnew['initcredits'][$i]);
 			$initformula = str_replace('extcredits'.$i, $settingnew['initcredits'][$i], $initformula);

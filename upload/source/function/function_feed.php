@@ -25,7 +25,6 @@ function feed_add($icon, $title_template='', $title_data=array(), $body_template
 	}
 
 	$feedarr = array(
-		'appid' => $appid,
 		'icon' => $icon,
 		'uid' => $uid ? intval($uid) : $_G['uid'],
 		'username' => $username ? $username : $_G['username'],

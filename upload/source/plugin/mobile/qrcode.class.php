@@ -128,13 +128,15 @@ class QRtools {
 	}
 
 	public static function markTime($markerId) {
+		global $qr_time_bench;
 		list($usec, $sec) = explode(" ", microtime());
 		$time = ((float) $usec + (float) $sec);
 
-		if (!isset($GLOBALS['qr_time_bench']))
-			$GLOBALS['qr_time_bench'] = array();
+		if (!isset($qr_time_bench)) {
+			$qr_time_bench = array();
+		}
 
-		$GLOBALS['qr_time_bench'][$markerId] = $time;
+		$qr_time_bench[$markerId] = $time;
 	}
 
 	public static function timeBenchmark() {

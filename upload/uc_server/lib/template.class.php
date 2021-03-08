@@ -188,8 +188,6 @@ class template {
 	}
 
 	function __destruct() {
-		if($_COOKIE['sid']) {
-		}
 		$sid = rawurlencode($this->sid);
 		$content = preg_replace_callback("/\<a(\s*[^\>]+\s*)href\=([\"|\']?)([^\"\'\s]+)/is", array($this, 'destruct_callback_transsid_312'), ob_get_contents());
 		$content = preg_replace("/(\<form.+?\>)/is", "\\1\n<input type=\"hidden\" name=\"sid\" value=\"".rawurldecode(rawurldecode(rawurldecode($sid)))."\" />", $content);

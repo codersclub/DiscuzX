@@ -516,8 +516,8 @@ function block_import($data) {
 		$newid = C::t('common_block')->insert($block, true);
 		$blockmapping[$oid] = $newid;
 	}
-	include_once libfile('function/cache');
-	updatecache('blockclass');
+	require_once libfile('function/block');
+	blockclass_cache();
 	return $blockmapping;
 }
 

@@ -107,7 +107,11 @@ if (!empty($_GET['xml'])) {
 	exit();
 }
 
-$actives = array($type => ' class="a"');
+$actives = array();
+
+foreach ($type as $tmp) {
+        $actives[$tmp] = ' class="a"';
+}
 
 require_once libfile('function/home');
 $siteurl = getsiteurl();

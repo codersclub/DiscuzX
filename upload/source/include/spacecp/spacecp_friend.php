@@ -355,7 +355,7 @@ if($op == 'add') {
 		}
 	} else {
 
-		dsetcookie('promptstate_'.$space['uid'], $newprompt, 31536000);
+		dsetcookie('promptstate_'.$space['uid'], '', 31536000);
 
 	}
 

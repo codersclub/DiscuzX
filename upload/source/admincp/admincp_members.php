@@ -1756,8 +1756,6 @@ EOF;
 						foreach($prune['thread'] as $tid => $decrease) {
 							updatethreadcount($tid);
 						}
-						foreach(array_unique($prune['forums']) as $fid) {
-						}
 					}
 
 					if($_G['setting']['globalstick']) {

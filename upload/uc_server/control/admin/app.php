@@ -215,7 +215,9 @@ class control extends adminbase {
 				$tmp .= $field.','.$memo."\n";
 			}
 		}
-		$tagtemplates['fields'] = $tmp;
+		if(!empty($tmp)) {
+			$tagtemplates['fields'] = $tmp;
+		}
 		$a = getgpc('a');
 		$this->view->assign('a', $a);
 		$app = $_ENV['app']->get_app_by_appid($appid);
@@ -240,7 +242,7 @@ class control extends adminbase {
 		$this->view->assign('updated', $updated);
 		$addapp = getgpc('addapp');
 		$this->view->assign('addapp', $addapp);
-		$this->view->assign('extraurl', implode("\n", $app['extra']['extraurl']));
+		$this->view->assign('extraurl', is_array($app['extra']['extraurl']) ? implode("\n", $app['extra']['extraurl']) : (string)$app['extra']['extraurl']);
 		$this->view->assign('apppath', $app['extra']['apppath']);
 		$this->view->assign('tagtemplates', $tagtemplates);
 		$this->view->display('admin_app');

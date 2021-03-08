@@ -59,25 +59,9 @@ if ($operation === "fetch") {
         $sl3->close();
         header('Content-Type: application/json');
         ob_start();
-        echo json_encode(array_to_utf8($rsa));
+        echo json_encode($rsa);
         ob_end_flush();
         exit();
-}
-
-function array_to_utf8($val) {
-        $charset = strtolower(CHARSET);
-        if ($charset === 'utf-8') {
-                return $val;
-        }
-        if (is_array($val)) {
-                // array_map会丢失key
-                $data = array();
-                foreach ($val as $k => $v) {
-                        $data[$k] = $this->to_utf8($v);
-                }
-                return $data;
-        }
-        return mb_convert_encoding($val, "utf-8", $charset);
 }
 
 // 以下为没有任何operation时显示的默认页面

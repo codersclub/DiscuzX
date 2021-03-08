@@ -181,7 +181,7 @@ class Cloud_Service_Client_OAuth {
 
 	public function rawurlencode($input) {
 		if(is_array($input)) {
-			return array_map(array(__CLASS__, 'rawurlencode'), $input);
+			return array_map(array($this, 'rawurlencode'), $input);
 		} elseif(is_scalar($input)) {
 			return str_replace('%7E', '~', rawurlencode($input));
 		} else {

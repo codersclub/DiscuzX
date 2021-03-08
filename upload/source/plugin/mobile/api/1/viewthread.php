@@ -20,12 +20,12 @@ class mobile_api {
 	}
 
 	public static function output() {
-		global $_G, $thread;
+		global $_G, $thread, $postlist, $threadsortshow;
 		if($GLOBALS['hiddenreplies']) {
-			foreach($GLOBALS['postlist'] as $k => $post) {
+			foreach($postlist as $k => $post) {
 				if(!$post['first'] && $_G['uid'] != $post['authorid'] && $_G['uid'] != $_G['forum_thread']['authorid'] && !$_G['forum']['ismoderator']) {
-					$GLOBALS['postlist'][$k]['message'] = lang('plugin/mobile', 'mobile_post_author_visible');
-					$GLOBALS['postlist'][$k]['attachments'] = array();
+					$postlist[$k]['message'] = lang('plugin/mobile', 'mobile_post_author_visible');
+					$postlist[$k]['attachments'] = array();
 				}
 			}
 		}
@@ -35,7 +35,7 @@ class mobile_api {
 		$variable = array(
 			'thread' => $_G['thread'],
 			'fid' => $_G['fid'],
-			'postlist' => array_values(mobile_core::getvalues($GLOBALS['postlist'], array('/^\d+$/'), array('pid', 'tid', 'author', 'first', 'dbdateline', 'dateline', 'username', 'adminid', 'memberstatus', 'authorid', 'username', 'groupid', 'memberstatus', 'status', 'message', 'number', 'memberstatus', 'groupid', 'attachment', 'attachments', 'attachlist', 'imagelist', 'anonymous'))),
+			'postlist' => array_values(mobile_core::getvalues($postlist, array('/^\d+$/'), array('pid', 'tid', 'author', 'first', 'dbdateline', 'dateline', 'username', 'adminid', 'memberstatus', 'authorid', 'username', 'groupid', 'memberstatus', 'status', 'message', 'number', 'memberstatus', 'groupid', 'attachment', 'attachments', 'attachlist', 'imagelist', 'anonymous'))),
 			'imagelist' => array(),
 			'ppp' => $_G['ppp'],
 			'setting_rewriterule' => $_G['setting']['rewriterule'],
@@ -44,20 +44,20 @@ class mobile_api {
 			'cache_custominfo_postno' => $_G['cache']['custominfo']['postno'],
 		);
 
-		if(!empty($GLOBALS['threadsortshow'])) {
+		if(!empty($threadsortshow)) {
 			$optionlist = array();
-			foreach ($GLOBALS['threadsortshow']['optionlist'] AS $key => $val) {
+			foreach ($threadsortshow['optionlist'] AS $key => $val) {
 				$val['optionid'] = $key;
 				$optionlist[] = $val;
 			}
 			if(!empty($optionlist)) {
-				$GLOBALS['threadsortshow']['optionlist'] = $optionlist;
-				$GLOBALS['threadsortshow']['threadsortname'] = $_G['forum']['threadsorts']['types'][$thread['sortid']];
+				$threadsortshow['optionlist'] = $optionlist;
+				$threadsortshow['threadsortname'] = $_G['forum']['threadsorts']['types'][$thread['sortid']];
 			}
 		}
-		$threadsortshow = mobile_core::getvalues($GLOBALS['threadsortshow'], array('/^(?!typetemplate).*$/'));
-		if(!empty($threadsortshow)) {
-			$variable['threadsortshow'] = $threadsortshow;
+		$threadsortshowvar = mobile_core::getvalues($threadsortshow, array('/^(?!typetemplate).*$/'));
+		if(!empty($threadsortshowvar)) {
+			$variable['threadsortshow'] = $threadsortshowvar;
 		}
 		foreach($variable['postlist'] as $k => $post) {
 			if(!$_G['forum']['ismoderator'] && $_G['setting']['bannedmessages'] & 1 && (($post['authorid'] && !$post['username']) || ($_G['thread']['digest'] == 0 && ($post['groupid'] == 4 || $post['groupid'] == 5 || $post['memberstatus'] == '-1')))) {

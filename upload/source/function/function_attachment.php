@@ -70,7 +70,7 @@ function attachtype($type, $returnval = 'html') {
 }
 
 function parseattach($attachpids, $attachtags, &$postlist, $skipaids = array()) {
-	global $_G;
+	global $_G, $aimgs, $firstimgs;
 	if(!$attachpids) {
 		return;
 	}
@@ -94,7 +94,7 @@ function parseattach($attachpids, $attachtags, &$postlist, $skipaids = array()) 
 		}
 		$attach['attachimg'] = $attach['isimage'] && (!$attach['readperm'] || $_G['group']['readaccess'] >= $attach['readperm']) ? 1 : 0;
 		if($attach['attachimg']) {
-			$GLOBALS['aimgs'][$attach['pid']][] = $attach['aid'];
+			$aimgs[$attach['pid']][] = $attach['aid'];
 		}
 		if($attach['price']) {
 			if($_G['setting']['maxchargespan'] && TIMESTAMP - $attach['dateline'] >= $_G['setting']['maxchargespan'] * 3600) {
@@ -129,7 +129,7 @@ function parseattach($attachpids, $attachtags, &$postlist, $skipaids = array()) 
 					$postlist[$attach['pid']]['imagelistcount']++;
 				}
 				if($postlist[$attach['pid']]['first']) {
-					$GLOBALS['firstimgs'][] = $attach['aid'];
+					$firstimgs[] = $attach['aid'];
 				}
 			} else {
 				if(!$hideattachs && (!$_G['forum_skipaidlist'] || !in_array($attach['aid'], $_G['forum_skipaidlist']))) {
