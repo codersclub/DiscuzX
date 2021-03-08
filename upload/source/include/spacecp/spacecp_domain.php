@@ -48,7 +48,7 @@ if(submitcheck('domainsubmit')) {
 }
 
 $defaultop = '';
-$profilegroup = C::t('common_setting')->fetch('profilegroup', true);
+$profilegroup = C::t('common_setting')->fetch_setting('profilegroup', true);
 
 $actives = array('profile' =>' class="a"');
 $opactives = array('domain' =>' class="a"');

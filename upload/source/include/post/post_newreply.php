@@ -56,7 +56,7 @@ if($_G['setting']['commentnumber'] && !empty($_GET['comment'])) {
 	if(!submitcheck('commentsubmit', 0, $seccodecheck, $secqaacheck)) {
 		showmessage('submitcheck_error', NULL);
 	}
-	$post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $_GET['pid']);
+	$post = C::t('forum_post')->fetch_post('tid:'.$_G['tid'], $_GET['pid']);
 	if(!$post || !($_G['setting']['commentpostself'] || $post['authorid'] != $_G['uid']) || !(($post['first'] && $_G['setting']['commentfirstpost'] && in_array($_G['group']['allowcommentpost'], array(1, 3)) || (!$post['first'] && in_array($_G['group']['allowcommentpost'], array(2, 3)))))) {
 		showmessage('postcomment_error');
 	}
@@ -92,7 +92,7 @@ if($_G['setting']['commentnumber'] && !empty($_GET['comment'])) {
 		'useip' => $_G['clientip'],
 		'port'=> $_G['remoteport']
 	), true);
-	C::t('forum_post')->update('tid:'.$_G['tid'], $_GET['pid'], array('comment' => 1));
+	C::t('forum_post')->update_post('tid:'.$_G['tid'], $_GET['pid'], array('comment' => 1));
 
 	$comments = $thread['comments'] ? $thread['comments'] + 1 : C::t('forum_postcomment')->count_by_tid($_G['tid']);
 	C::t('forum_thread')->update($_G['tid'], array('comments' => $comments));
@@ -173,7 +173,7 @@ if(!submitcheck('replysubmit', 0, $seccodecheck, $secqaacheck)) {
 	$language = lang('forum/misc');
 	$noticeauthor = $noticetrimstr = '';
 	if(isset($_GET['repquote']) && $_GET['repquote'] = intval($_GET['repquote'])) {
-		$thaquote = C::t('forum_post')->fetch('tid:'.$_G['tid'], $_GET['repquote']);
+		$thaquote = C::t('forum_post')->fetch_post('tid:'.$_G['tid'], $_GET['repquote']);
 		if(!($thaquote && ($thaquote['invisible'] == 0 || $thaquote['authorid'] == $_G['uid'] && $thaquote['invisible'] == -2))) {
 			$thaquote = array();
 		}
@@ -230,7 +230,7 @@ if(!submitcheck('replysubmit', 0, $seccodecheck, $secqaacheck)) {
 		$reppid = $_GET['repquote'];
 
 	} elseif(isset($_GET['reppost']) && $_GET['reppost'] = intval($_GET['reppost'])) {
-		$thapost = C::t('forum_post')->fetch('tid:'.$_G['tid'], $_GET['reppost']);
+		$thapost = C::t('forum_post')->fetch_post('tid:'.$_G['tid'], $_GET['reppost']);
 		if(!($thapost && ($thapost['invisible'] == 0 || $thapost['authorid'] == $_G['uid'] && $thapost['invisible'] == -2))) {
 			$thapost = array();
 		}

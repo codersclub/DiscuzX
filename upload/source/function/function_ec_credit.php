@@ -57,7 +57,7 @@ function updateusercredit($uid, $type, $level) {
 		return;
 	}
 
-	if($cache = C::t('forum_spacecache')->fetch($uid, $type)) {
+	if($cache = C::t('forum_spacecache')->fetch_spacecache($uid, $type)) {
 		$expiration = $cache['expiration'];
 		$cache = dunserialize($cache['value']);
 	} else {

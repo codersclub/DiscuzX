@@ -48,7 +48,7 @@ if(empty($_GET['do']) || $_GET['do'] == 'tradeinfo') {
 		}
 	}
 	if(empty($_GET['do'])) {
-		$tradepostlist = C::t('forum_post')->fetch_all('tid:'.$_G['tid'], $tradespids);
+		$tradepostlist = C::t('forum_post')->fetch_all_post('tid:'.$_G['tid'], $tradespids);
 	}
 	$trades = $tradesstick + $trades;
 	unset($trade);
@@ -66,7 +66,7 @@ if(empty($_GET['do']) || $_GET['do'] == 'tradeinfo') {
 	if($_GET['do'] == 'tradeinfo') {
 		$trade = $trades[$_GET['pid']];
 		unset($trades);
-		$post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $_GET['pid']);
+		$post = C::t('forum_post')->fetch_post('tid:'.$_G['tid'], $_GET['pid']);
 		if($post) {
 			$post = array_merge(C::t('common_member_status')->fetch($post['authorid']), C::t('common_member_profile')->fetch($post['authorid']),
 				$post, getuserbyuid($post['authorid']));

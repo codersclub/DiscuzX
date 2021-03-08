@@ -29,7 +29,7 @@ C::t('common_seccheck')->truncate();
 
 if($_G['setting']['heatthread']['type'] == 2 && $_G['setting']['heatthread']['period']) {
 	$partakeperoid = 86400 * $_G['setting']['heatthread']['period'];
-	C::t('forum_threadpartake')->delete($_G['timestamp'] - $partakeperoid);
+	C::t('forum_threadpartake')->delete_threadpartake($_G['timestamp'] - $partakeperoid);
 }
 
 C::t('common_member_count')->clear_today_data();

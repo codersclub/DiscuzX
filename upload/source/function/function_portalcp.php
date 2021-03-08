@@ -261,7 +261,7 @@ function getdiytplnames($tpls) {
 }
 
 function getdiytplname($targettplname, $tpldirectory) {
-	$diydata = C::t('common_diy_data')->fetch($targettplname, $tpldirectory);
+	$diydata = C::t('common_diy_data')->fetch_diy($targettplname, $tpldirectory);
 	$diytplname = $diydata ? $diydata['name'] : '';
 	if(empty($diytplname) && ($data = getdiytplnames(array($targettplname)))) {
 		$diytplname = array_shift(array_shift($data));
@@ -873,7 +873,7 @@ function updatetopic($topic = ''){
 
 	if($topicid) {
 		C::t('portal_topic')->update($topicid, $setarr);
-		C::t('common_diy_data')->update('portal/portal_topic_content_'.$topicid, getdiydirectory($topic['primaltplname']), array('name'=>$setarr['title']));
+		C::t('common_diy_data')->update_diy('portal/portal_topic_content_'.$topicid, getdiydirectory($topic['primaltplname']), array('name'=>$setarr['title']));
 	} else {
 		$setarr['uid'] = $_G['uid'];
 		$setarr['username'] = $_G['username'];
@@ -896,7 +896,7 @@ function updatetopic($topic = ''){
 		if(strpos($primaltplname, ':') !== false) {
 			list($tpldirectory, $primaltplname) = explode(':', $primaltplname);
 		}
-		C::t('common_diy_data')->update($targettplname, getdiydirectory($topic['primaltplname']), array('primaltplname'=>$primaltplname, 'tpldirectory'=>$tpldirectory));
+		C::t('common_diy_data')->update_diy($targettplname, getdiydirectory($topic['primaltplname']), array('primaltplname'=>$primaltplname, 'tpldirectory'=>$tpldirectory));
 		updatediytemplate($targettplname);
 	}
 

@@ -36,7 +36,7 @@ if($_GET['op'] == 'delete') {
 
 	if(submitcheck('hotsubmit')) {
 		C::t('home_share')->update($sid, array('hot'=>$_POST['hot']));
-		C::t('home_feed')->update($sid, array('hot'=>$_POST['hot']), 'sid');
+		C::t('home_feed')->update_feed($sid, array('hot'=>$_POST['hot']), 'sid');
 
 		showmessage('do_success', dreferer());
 	}
@@ -137,7 +137,7 @@ if($_GET['op'] == 'delete') {
 
 			$feed_hash_data = "albumid{$id}";
 
-			if(!$album = C::t('home_album')->fetch($id)) {
+			if(!$album = C::t('home_album')->fetch_album($id)) {
 				showmessage('album_does_not_exist');
 			}
 			if($album['friend']) {
@@ -170,7 +170,7 @@ if($_GET['op'] == 'delete') {
 				showmessage('image_does_not_exist');
 			}
 			$picfield = C::t('home_picfield')->fetch($id);
-			$album = C::t('home_album')->fetch($pic['albumid']);
+			$album = C::t('home_album')->fetch_album($pic['albumid']);
 			$pic = array_merge($pic, $picfield, $album);
 			if(in_array($pic['status'], array(1, 2))) {
 				showmessage('moderate_pic_not_share');
@@ -209,7 +209,7 @@ if($_GET['op'] == 'delete') {
 
 			$actives = array('share' => ' class="active"');
 
-			$thread = C::t('forum_thread')->fetch($id);
+			$thread = C::t('forum_thread')->fetch_thread($id);
 			if(in_array($thread['displayorder'], array(-2, -3))) {
 				showmessage('moderate_thread_not_share');
 			}

@@ -55,7 +55,7 @@ if($activity['ufield']) {
 }
 
 if($activity['aid']) {
-	$attach = C::t('forum_attachment_n')->fetch('tid:'.$_G['tid'], $activity['aid']);
+	$attach = C::t('forum_attachment_n')->fetch_attachment('tid:'.$_G['tid'], $activity['aid']);
 	if($attach['isimage']) {
 		$activity['attachurl'] = ($attach['remote'] ? $_G['setting']['ftp']['attachurl'] : $_G['setting']['attachurl']).'forum/'.$attach['attachment'];
 		$activity['thumb'] = $attach['thumb'] ? getimgthumbname($activity['attachurl']) : $activity['attachurl'];

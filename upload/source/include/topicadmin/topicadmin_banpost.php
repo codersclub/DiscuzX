@@ -25,7 +25,7 @@ if(!($banpids = dimplode($topiclist))) {
 
 $posts = $authors = array();
 $banstatus = 0;
-foreach(C::t('forum_post')->fetch_all('tid:'.$_G['tid'], $topiclist) as $post) {
+foreach(C::t('forum_post')->fetch_all_post('tid:'.$_G['tid'], $topiclist) as $post) {
 	if($post['tid'] != $_G['tid']) {
 		continue;
 	}

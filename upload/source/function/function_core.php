@@ -711,7 +711,7 @@ function loadcache($cachenames, $force = false) {
 	}
 
 	if(!empty($caches)) {
-		$cachedata = C::t('common_syscache')->fetch_all($caches);
+		$cachedata = C::t('common_syscache')->fetch_all_syscache($caches);
 		foreach($cachedata as $cname => $data) {
 			if($cname == 'setting') {
 				$_G['setting'] = $data;
@@ -799,7 +799,7 @@ function dnumber($number) {
 }
 
 function savecache($cachename, $data) {
-	C::t('common_syscache')->insert($cachename, $data);
+	C::t('common_syscache')->insert_syscache($cachename, $data);
 }
 
 function save_syscache($cachename, $data) {
@@ -1690,7 +1690,7 @@ function g_icon($groupid, $return = 0) {
 }
 function updatediytemplate($targettplname = '', $tpldirectory = '') {
 	$r = false;
-	$alldata = !empty($targettplname) ? array( C::t('common_diy_data')->fetch($targettplname, $tpldirectory)) : C::t('common_diy_data')->range();
+	$alldata = !empty($targettplname) ? array( C::t('common_diy_data')->fetch_diy($targettplname, $tpldirectory)) : C::t('common_diy_data')->range();
 	require_once libfile('function/portalcp');
 	foreach($alldata as $value) {
 		$r = save_diy_data($value['tpldirectory'], $value['primaltplname'], $value['targettplname'], dunserialize($value['diycontent']));

@@ -72,7 +72,7 @@ class extend_thread_replycredit extends extend_thread_base {
 					}
 					if($rand_replycredit) {
 						updatemembercount($this->member['uid'], array($replycredit_rule['extcreditstype'] => $replycredit_rule['extcredits']), 1, 'RCA', $this->thread['tid']);
-						C::t('forum_post')->update('tid:'.$this->thread['tid'], $this->pid, array('replycredit' => $replycredit_rule['extcredits']));
+						C::t('forum_post')->update_post('tid:'.$this->thread['tid'], $this->pid, array('replycredit' => $replycredit_rule['extcredits']));
 						C::t('forum_thread')->update($this->thread['tid'], (array)DB::field('replycredit', $this->thread['replycredit'] - $replycredit_rule['extcredits']), false, false, 0, true);
 					}
 				}

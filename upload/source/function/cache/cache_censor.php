@@ -17,7 +17,7 @@ function build_cache_censor() {
 	$bannednum = $modnum = 0;
 	$data = array('filter' => array(), 'banned' => array(), 'mod' => array());
 
-	foreach(C::t('common_word')->fetch_all() as $censor) {
+	foreach(C::t('common_word')->fetch_all_word() as $censor) {
 		if(preg_match('/^\/(.+?)\/$/', $censor['find'], $a)) {
 			switch($censor['replacement']) {
 				case '{BANNED}':

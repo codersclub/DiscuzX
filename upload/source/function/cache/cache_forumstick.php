@@ -13,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 function build_cache_forumstick() {
 	$data = array();
-	$forumstickthreads = C::t('common_setting')->fetch('forumstickthreads', true);
+	$forumstickthreads = C::t('common_setting')->fetch_setting('forumstickthreads', true);
 	$forumstickcached = array();
 	if($forumstickthreads) {
 		foreach($forumstickthreads as $forumstickthread) {

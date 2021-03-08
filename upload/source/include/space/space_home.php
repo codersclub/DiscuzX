@@ -322,7 +322,7 @@ if($space['self'] && empty($start)) {
 		}
 
 		if($space['feedfriend']) {
-			$birthdaycache = C::t('forum_spacecache')->fetch($_G['uid'], 'birthday');
+			$birthdaycache = C::t('forum_spacecache')->fetch_spacecache($_G['uid'], 'birthday');
 			if(empty($birthdaycache) || TIMESTAMP > $birthdaycache['expiration']) {
 				$birthlist = C::t('common_member_profile')->fetch_all_will_birthday_by_uid($space['feedfriend']);
 

@@ -28,7 +28,7 @@ if(submitcheck('pwdsubmit')) {
 		if (!$_G['setting']['albumstatus']) {
 			showmessage('album_status_off');
 		}
-		$itemarr = C::t('home_album')->fetch($albumid);
+		$itemarr = C::t('home_album')->fetch_album($albumid);
 		$itemurl = "home.php?mod=space&uid={$itemarr['uid']}&do=album&id={$itemarr['albumid']}";
 		$cookiename = 'view_pwd_album_'.$albumid;
 	}

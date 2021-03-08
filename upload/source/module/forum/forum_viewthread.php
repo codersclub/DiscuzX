@@ -404,7 +404,7 @@ if(empty($_GET['viewpid'])) {
 	$sticklist = array();
 	if($_G['page'] === 1 && $_G['forum_thread']['stickreply'] && empty($_GET['authorid'])) {
 		$poststick = C::t('forum_poststick')->fetch_all_by_tid($_G['tid']);
-		foreach(C::t('forum_post')->fetch_all($posttableid, array_keys($poststick)) as $post) {
+		foreach(C::t('forum_post')->fetch_all_post($posttableid, array_keys($poststick)) as $post) {
 			if($post['invisible'] != 0) {
 				continue;
 			}
@@ -580,10 +580,10 @@ if(!$maxposition && empty($postarr)) {
 		$post = array();
 		if($_G['forum_thread']['special'] == 2) {
 			if(!in_array($_GET['viewpid'], $tpids)) {
-				$post = C::t('forum_post')->fetch('tid:'.$_G['tid'],$_GET['viewpid']);
+				$post = C::t('forum_post')->fetch_post('tid:'.$_G['tid'],$_GET['viewpid']);
 			}
 		} elseif($_G['forum_thread']['special'] == 5) {
-			$post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $_GET['viewpid']);
+			$post = C::t('forum_post')->fetch_post('tid:'.$_G['tid'], $_GET['viewpid']);
 			$debatpost = C::t('forum_debatepost')->fetch($_GET['viewpid']);
 			if(!isset($_GET['stand']) || (isset($_GET['stand']) && ($post['first'] == 1 || $debatpost['stand'] == $_GET['stand']))) {
 				$post = array_merge($post, $debatpost);
@@ -592,7 +592,7 @@ if(!$maxposition && empty($postarr)) {
 			}
 			unset($debatpost);
 		} else {
-			$post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $_GET['viewpid']);
+			$post = C::t('forum_post')->fetch_post('tid:'.$_G['tid'], $_GET['viewpid']);
 		}
 		if($post['tid'] != $_G['tid']) {
 			$post = array();
@@ -1548,7 +1548,7 @@ function getrelateitem($tagarray, $tid, $relatenum, $relatetime, $relatecache = 
 		return '';
 	}
 	if(empty($relatecache)) {
-		$thread = C::t('forum_thread')->fetch($tid);
+		$thread = C::t('forum_thread')->fetch_thread($tid);
 		$relatecache = $thread['relatebytag'];
 	}
 	if($relatecache) {

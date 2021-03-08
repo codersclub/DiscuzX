@@ -120,7 +120,7 @@ class helper_notification {
 				}
 				C::t('common_member_newprompt')->update($touid, array('data' => serialize($newprompt['data'])));
 			} else {
-				C::t('common_member_newprompt')->insert($touid, array($categoryname => 1));
+				C::t('common_member_newprompt')->insert_newprompt($touid, array($categoryname => 1));
 			}
 			require_once libfile('function/mail');
 			$mail_subject = lang('notification', 'mail_to_user');

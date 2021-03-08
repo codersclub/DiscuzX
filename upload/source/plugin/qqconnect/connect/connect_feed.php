@@ -195,7 +195,7 @@ if ($op == 'new') {
 		}
 
 		$thread = C::t('forum_thread')->fetch_by_tid_displayorder($tid, 0);
-		$post = C::t('forum_post')->fetch('tid:'.$tid, $pid);
+		$post = C::t('forum_post')->fetch_post('tid:'.$tid, $pid);
 
 		if (empty($thread) || empty($post)) {
 			$connectService->connectJsOutputMessage('', 'connect_thread_id_miss', 1);

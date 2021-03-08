@@ -320,7 +320,7 @@ if(!$gid && (!defined('FORUM_INDEX_PAGE_MEMORY') || !FORUM_INDEX_PAGE_MEMORY)) {
 			$onlinenum = C::app()->session->count();
 			if($onlinenum > $onlineinfo[0]) {
 				$onlinerecord = "$onlinenum\t".TIMESTAMP;
-				C::t('common_setting')->update('onlinerecord', $onlinerecord);
+				C::t('common_setting')->update_setting('onlinerecord', $onlinerecord);
 				savecache('onlinerecord', $onlinerecord);
 				$onlineinfo = array($onlinenum, TIMESTAMP);
 			}

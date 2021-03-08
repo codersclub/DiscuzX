@@ -29,7 +29,7 @@ if($operation == 'global') {
 		$feedid = intval($_GET['feedid']);
 		$feed = array();
 		if($feedid) {
-			$feed = C::t('home_feed')->fetch('', '', '', $feedid);
+			$feed = C::t('home_feed')->fetch_feed('', '', '', $feedid);
 
 			if($feed['uid']) {
 				require_once libfile('function/feed');
@@ -145,7 +145,7 @@ EOF;
 			$setarr['dateline'] = $newtimestamp;
 			$setarr['hot'] = intval($feednew['hot']);
 
-			C::t('home_feed')->update('', $setarr, '', '', $feedid);
+			C::t('home_feed')->update_feed('', $setarr, '', '', $feedid);
 		}
 		cpmsg('feed_global_add_success', '', 'succeed');
 	}

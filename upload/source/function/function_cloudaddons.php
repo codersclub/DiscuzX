@@ -35,12 +35,12 @@ function cloudaddons_md5($file) {
 function cloudaddons_getuniqueid() {
 	global $_G;
 	if(CLOUDADDONS_WEBSITE_URL == 'https://addon.dismall.com') {
-		return $_G['setting']['siteuniqueid'] ? $_G['setting']['siteuniqueid'] : C::t('common_setting')->fetch('siteuniqueid');
+		return $_G['setting']['siteuniqueid'] ? $_G['setting']['siteuniqueid'] : C::t('common_setting')->fetch_setting('siteuniqueid');
 	} else {
 		if(!$_G['setting']['addon_uniqueid']) {
 			$chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
 			$addonuniqueid = $chars[date('y')%60].$chars[date('n')].$chars[date('j')].$chars[date('G')].$chars[date('i')].$chars[date('s')].substr(md5($_G['clientip'].TIMESTAMP), 0, 4).random(6);
-			C::t('common_setting')->update('addon_uniqueid', $addonuniqueid);
+			C::t('common_setting')->update_setting('addon_uniqueid', $addonuniqueid);
 			require_once libfile('function/cache');
 			updatecache('setting');
 		}

@@ -21,7 +21,7 @@ $topicperpage = 50;
 if(empty($operation)) {
 	$operation = 'manage';
 }
-$settings = C::t('common_setting')->fetch_all(array('threadtableids', 'threadtable_info'), true);
+$settings = C::t('common_setting')->fetch_all_setting(array('threadtableids', 'threadtable_info'), true);
 $threadtableids = $settings['threadtableids'] ? $settings['threadtableids'] : array();
 $threadtable_info = $settings['threadtable_info'] ? $settings['threadtable_info'] : array();
 if($operation == 'manage') {
@@ -64,7 +64,7 @@ if($operation == 'manage') {
 		foreach(array_keys($_GET['displayname']) as $tableid) {
 			$threadtable_info[$tableid]['displayname'] = $_GET['displayname'][$tableid];
 		}
-		C::t('common_setting')->update('threadtable_info', $threadtable_info);
+		C::t('common_setting')->update_setting('threadtable_info', $threadtable_info);
 		savecache('threadtable_info', $threadtable_info);
 		update_threadtableids();
 		updatecache('setting');
@@ -98,7 +98,7 @@ if($operation == 'manage') {
 
 	update_threadtableids();
 
-	C::t('common_setting')->update('threadtable_info', $threadtable_info);
+	C::t('common_setting')->update_setting('threadtable_info', $threadtable_info);
 	savecache('threadtable_info', $threadtable_info);
 	updatecache('setting');
 	cpmsg('threadsplit_drop_table_succeed', 'action=threadsplit&operation=manage', 'succeed');
@@ -449,7 +449,7 @@ function threadsplit_search_threads($conditions, $offset = null, $length = null,
 
 function update_threadtableids() {
 	$threadtableids = C::t('forum_thread')->fetch_thread_table_ids();
-	C::t('common_setting')->update('threadtableids', $threadtableids);
+	C::t('common_setting')->update_setting('threadtableids', $threadtableids);
 	savecache('threadtableids', $threadtableids);
 }
 ?>

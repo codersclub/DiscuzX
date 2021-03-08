@@ -28,7 +28,7 @@ if (!$_G['inajax']) {
 
 if ($_GET['anchor'] == 'setting') {
 
-	$setting = C::t('common_setting')->fetch_all(array('extcredits', 'connect', 'connectsiteid', 'connectsitekey', 'regconnect', 'connectappid', 'connectappkey'));
+	$setting = C::t('common_setting')->fetch_all_setting(array('extcredits', 'connect', 'connectsiteid', 'connectsitekey', 'regconnect', 'connectappid', 'connectappkey'));
 	$setting['connect'] = (array)dunserialize($setting['connect']);
 
 	if(!submitcheck('connectsubmit')) {
@@ -110,7 +110,7 @@ if ($_GET['anchor'] == 'setting') {
 		if($res['mblogCode']) {
 			$_GET['connectnew']['turl_code'] = $res['mblogCode'];
 			$connectnew = serialize($_GET['connectnew']);
-			C::t('common_setting')->update('connect', $connectnew);
+			C::t('common_setting')->update_setting('connect', $connectnew);
 		}
 
 		updatecache(array('setting', 'fields_register', 'fields_connect_register'));

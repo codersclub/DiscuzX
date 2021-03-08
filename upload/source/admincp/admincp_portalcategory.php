@@ -82,15 +82,15 @@ SCRIPT;
 				}
 				if($sets) {
 					C::t('portal_category')->update($key, $sets);
-					C::t('common_diy_data')->update('portal/list_'.$key, getdiydirectory($portalcategory[$key]['primaltplname']), array('name'=>$value));
-					C::t('common_diy_data')->update('portal/view_'.$key, getdiydirectory($portalcategory[$key]['articleprimaltplname']), array('name'=>$value));
+					C::t('common_diy_data')->update_diy('portal/list_'.$key, getdiydirectory($portalcategory[$key]['primaltplname']), array('name'=>$value));
+					C::t('common_diy_data')->update_diy('portal/view_'.$key, getdiydirectory($portalcategory[$key]['articleprimaltplname']), array('name'=>$value));
 					$cachearr[] = 'diytemplatename';
 				}
 			}
 		}
 
 		if($_GET['newsetindex']) {
-			C::t('common_setting')->update('defaultindex', $portalcategory[$_GET['newsetindex']]['caturl']);
+			C::t('common_setting')->update_setting('defaultindex', $portalcategory[$_GET['newsetindex']]['caturl']);
 			$cachearr[] = 'setting';
 		}
 		include_once libfile('function/cache');
@@ -577,8 +577,8 @@ SCRIPT;
 		if($_GET['catid']) {
 			C::t('portal_category')->update($cate['catid'], $editcat);
 			if($cate['catname'] != $_GET['catname']) {
-				C::t('common_diy_data')->update('portal/list_'.$cate['catid'], getdiydirectory($cate['primaltplname']), array('name'=>$_GET['catname']));
-				C::t('common_diy_data')->update('portal/view_'.$cate['catid'], getdiydirectory($cate['articleprimaltplname']), array('name'=>$_GET['catname']));
+				C::t('common_diy_data')->update_diy('portal/list_'.$cate['catid'], getdiydirectory($cate['primaltplname']), array('name'=>$_GET['catname']));
+				C::t('common_diy_data')->update_diy('portal/view_'.$cate['catid'], getdiydirectory($cate['articleprimaltplname']), array('name'=>$_GET['catname']));
 				$cachearr[] = 'diytemplatename';
 			}
 		} else {
@@ -721,10 +721,10 @@ SCRIPT;
 		}
 
 		if($_GET['setindex']) {
-			C::t('common_setting')->update('defaultindex', $portalcategory[$_GET['catid']]['caturl']);
+			C::t('common_setting')->update_setting('defaultindex', $portalcategory[$_GET['catid']]['caturl']);
 			$cachearr[] = 'setting';
 		} elseif($oldsetindex) {
-			C::t('common_setting')->update('defaultindex', '');
+			C::t('common_setting')->update_setting('defaultindex', '');
 			$cachearr[] = 'setting';
 		}
 
@@ -844,7 +844,7 @@ function deleteportalcategory($ids) {
 		$tpls[] = 'portal/view_'.$id;
 	}
 	if(in_array($_G['setting']['defaultindex'], $defaultindex)) {
-		C::t('common_setting')->update('defaultindex', '');
+		C::t('common_setting')->update_setting('defaultindex', '');
 	}
 	C::t('common_diy_data')->delete($tpls, NULL);
 	C::t('common_template_block')->delete_by_targettplname($tpls);
@@ -1020,18 +1020,18 @@ function remakediytemplate($primaltplname, $targettplname, $diytplname, $olddire
 		list($tpldirectory, $primaltplname) = explode(':', $primaltplname);
 	}
 	$tpldirectory = ($tpldirectory ? $tpldirectory : $_G['cache']['style_default']['tpldir']);
-	$newdiydata = C::t('common_diy_data')->fetch($targettplname, $tpldirectory);
+	$newdiydata = C::t('common_diy_data')->fetch_diy($targettplname, $tpldirectory);
 	if($newdiydata) {
 		return false;
 	}
-	$diydata = C::t('common_diy_data')->fetch($targettplname, $olddirectory);
+	$diydata = C::t('common_diy_data')->fetch_diy($targettplname, $olddirectory);
 	$diycontent = empty($diydata['diycontent']) ? '' : $diydata['diycontent'];
 	if($diydata) {
-		C::t('common_diy_data')->update($targettplname, $olddirectory, array('primaltplname'=>$primaltplname, 'tpldirectory'=>$tpldirectory));
+		C::t('common_diy_data')->update_diy($targettplname, $olddirectory, array('primaltplname'=>$primaltplname, 'tpldirectory'=>$tpldirectory));
 	} else {
 		$diycontent = '';
 		if(in_array($primaltplname, array('portal/list', 'portal/view'))) {
-			$diydata = C::t('common_diy_data')->fetch($targettplname, $olddirectory);
+			$diydata = C::t('common_diy_data')->fetch_diy($targettplname, $olddirectory);
 			$diycontent = empty($diydata['diycontent']) ? '' : $diydata['diycontent'];
 		}
 		$diyarr = array(

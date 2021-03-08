@@ -87,12 +87,12 @@ class task {
 				}
 				if($result === TRUE) {
 					$task['csc'] = '100';
-					C::t('common_mytask')->update($_G['uid'], $task['taskid'], array('csc' => $task['csc']));
+					C::t('common_mytask')->update_mytask($_G['uid'], $task['taskid'], array('csc' => $task['csc']));
 				} elseif($result === FALSE) {
-					C::t('common_mytask')->update($_G['uid'], $task['taskid'], array('status' => -1));
+					C::t('common_mytask')->update_mytask($_G['uid'], $task['taskid'], array('status' => -1));
 				} else {
 					$task['csc'] = floatval($result['csc']);
-					C::t('common_mytask')->update($_G['uid'], $task['taskid'], array('csc' => $task['csc']."\t".$_G['timestamp']));
+					C::t('common_mytask')->update_mytask($_G['uid'], $task['taskid'], array('csc' => $task['csc']."\t".$_G['timestamp']));
 				}
 			}
 			if(in_array($item, array('done', 'failed')) && $task['period']) {
@@ -125,7 +125,7 @@ class task {
 		}
 
 		if($groupids) {
-			foreach(C::t('common_usergroup')->fetch_all($groupids) as $group) {
+			foreach(C::t('common_usergroup')->fetch_all_usergroup($groupids) as $group) {
 				$this->listdata[$group['groupid']] = $group['grouptitle'];
 			}
 		}
@@ -191,7 +191,7 @@ class task {
 		$this->task['grouprequired'] = $comma = '';
 		$this->task['applyperm'] = $this->task['applyperm'] == 'all' ? '' : $this->task['applyperm'];
 		if(!in_array($this->task['applyperm'], array('', 'member', 'admin'))) {
-			$query = C::t('common_usergroup')->fetch_all(explode(',', str_replace("\t", ',', $this->task['applyperm'])));
+			$query = C::t('common_usergroup')->fetch_all_usergroup(explode(',', str_replace("\t", ',', $this->task['applyperm'])));
 			foreach($query as $group) {
 				$this->task['grouprequired'] .= $comma.$group['grouptitle'];
 				$comma = ', ';
@@ -234,13 +234,13 @@ class task {
 				}
 				if($result === TRUE) {
 					$this->task['csc'] = '100';
-					C::t('common_mytask')->update($_G['uid'], $id, array('csc' => $this->task['csc']));
+					C::t('common_mytask')->update_mytask($_G['uid'], $id, array('csc' => $this->task['csc']));
 				} elseif($result === FALSE) {
-					C::t('common_mytask')->update($_G['uid'], $id, array('status' => -1));
+					C::t('common_mytask')->update_mytask($_G['uid'], $id, array('status' => -1));
 					dheader("Location: home.php?mod=task&do=view&id=$id");
 				} else {
 					$this->task['csc'] = floatval($result['csc']);
-					C::t('common_mytask')->update($_G['uid'], $id, array('csc' => $this->task['csc']."\t".$_G['timestamp']));
+					C::t('common_mytask')->update_mytask($_G['uid'], $id, array('csc' => $this->task['csc']."\t".$_G['timestamp']));
 				}
 			}
 		} elseif($this->task['status'] == '1') {
@@ -328,16 +328,16 @@ class task {
 			showmessage('task_full');
 		}
 
-		if($this->task['relatedtaskid'] && !C::t('common_mytask')->count($_G['uid'], $this->task['relatedtaskid'], 1)) {
+		if($this->task['relatedtaskid'] && !C::t('common_mytask')->count_mytask($_G['uid'], $this->task['relatedtaskid'], 1)) {
 			return -1;
-		} elseif($this->task['exclusivetaskid'] && C::t('common_mytask')->count($_G['uid'], $this->task['exclusivetaskid'])) {
+		} elseif($this->task['exclusivetaskid'] && C::t('common_mytask')->count_mytask($_G['uid'], $this->task['exclusivetaskid'])) {
 			return -5;
 		} elseif($this->task['applyperm'] && $this->task['applyperm'] != 'all' && !(($this->task['applyperm'] == 'member' && in_array($_G['adminid'], array(0, -1))) || ($this->task['applyperm'] == 'admin' && $_G['adminid'] > '0') || preg_match("/(^|\t)(".$_G['groupid'].")(\t|$)/", $this->task['applyperm']))) {
 			return -2;
-		} elseif(!$this->task['period'] && C::t('common_mytask')->count($_G['uid'], $id)) {
+		} elseif(!$this->task['period'] && C::t('common_mytask')->count_mytask($_G['uid'], $id)) {
 			return -3;
 		} elseif($this->task['period']) {
-			$mytask = C::t('common_mytask')->fetch($_G['uid'], $id);
+			$mytask = C::t('common_mytask')->fetch_mytask($_G['uid'], $id);
 			$task = C::t('common_task')->fetch($id);
 			$mytask['period'] = $task['period'];
 			$mytask['periodtype'] = $task['periodtype'];
@@ -383,7 +383,7 @@ class task {
 			showmessage('task_not_underway');
 		} elseif($this->task['tasklimits'] && $this->task['achievers'] >= $this->task['tasklimits']) {
 			return -1;
-		} elseif($this->task['exclusivetaskid'] && C::t('common_mytask')->count($_G['uid'], $this->task['exclusivetaskid'])) {
+		} elseif($this->task['exclusivetaskid'] && C::t('common_mytask')->count_mytask($_G['uid'], $this->task['exclusivetaskid'])) {
 			return -4;
 		}
 
@@ -450,7 +450,7 @@ class task {
 
 		} elseif($result === FALSE) {
 
-			C::t('common_mytask')->update($_G['uid'], $id, array('status' => -1));
+			C::t('common_mytask')->update_mytask($_G['uid'], $id, array('status' => -1));
 			if($_G['inajax']) {
 				$this->message('-1', 'task_failed');
 			} else {
@@ -462,7 +462,7 @@ class task {
 			$result['t'] = $this->timeformat($result['remaintime']);
 			$this->messagevalues['values'] = array('csc' => $result['csc'], 't' => $result['t']);
 			if($result['csc']) {
-				C::t('common_mytask')->update($_G['uid'], $id, array('csc' => $result['csc']."\t".$_G['timestamp']));
+				C::t('common_mytask')->update_mytask($_G['uid'], $id, array('csc' => $result['csc']."\t".$_G['timestamp']));
 				$this->messagevalues['msg'] = $result['t'] ? 'task_doing_rt' : 'task_doing';
 			} else {
 				$this->messagevalues['msg'] = $result['t'] ? 'task_waiting_rt' : 'task_waiting';
@@ -487,7 +487,7 @@ class task {
 			showmessage('task_not_underway');
 		}
 
-		C::t('common_mytask')->delete($_G['uid'], $id);
+		C::t('common_mytask')->delete_mytask($_G['uid'], $id);
 		C::t('common_task')->update_applicants($id, -1);
 	}
 
@@ -504,7 +504,7 @@ class task {
 
 	function delete($id) {
 		global $_G;
-		$mytask = C::t('common_mytask')->fetch($_G['uid'], $id);
+		$mytask = C::t('common_mytask')->fetch_mytask($_G['uid'], $id);
 		$this->task = C::t('common_task')->fetch($id);
 		if($this->task['available'] != 2 || empty($mytask) || $mytask['status'] == 1) {
 			showmessage('task_nonexistence');
@@ -523,7 +523,7 @@ class task {
 			$taskclass->delete($this->task);
 		}
 
-		C::t('common_mytask')->delete($_G['uid'], $id);
+		C::t('common_mytask')->delete_mytask($_G['uid'], $id);
 		C::t('common_task')->update_applicants($id, -1);
 		return true;
 	}
@@ -548,7 +548,7 @@ class task {
 	function reward_magic($magicid, $num) {
 		global $_G;
 
-		if(C::t('common_member_magic')->count($_G['uid'], $magicid)) {
+		if(C::t('common_member_magic')->count_magic($_G['uid'], $magicid)) {
 			C::t('common_member_magic')->increase($_G['uid'], $magicid, array('num' => $num), false, true);
 		} else {
 			C::t('common_member_magic')->insert(array(

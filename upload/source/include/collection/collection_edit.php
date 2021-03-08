@@ -259,7 +259,7 @@ if(empty($op) || $op == 'add') {
 	if(in_array($_G['collection']['lastpost'], $_GET['delthread']) && ($_G['collection']['threadnum'] - $decthread) > 0) {
 		$collection_thread = C::t('forum_collectionthread')->fetch_by_ctid_dateline($ctid);
 		if($collection_thread) {
-			$thread = C::t('forum_thread')->fetch($collection_thread['tid']);
+			$thread = C::t('forum_thread')->fetch_thread($collection_thread['tid']);
 			$lastpost = array(
 				'lastpost' => $thread['tid'],
 				'lastsubject' => $thread['subject'],

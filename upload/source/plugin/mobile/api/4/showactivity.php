@@ -27,7 +27,7 @@ class mobile_api {
 			if(!$_G['wechat']['setting']['wsq_allow'] || !in_array($_GET['tid'], (array)$_G['wechat']['setting']['showactivity']['tids'])) {
 				mobile_core::result(mobile_core::variable(array('result' => -2)));
 			}
-			$postinfo = C::t('forum_post')->fetch('tid:'.$_GET['tid'], $_GET['pid']);
+			$postinfo = C::t('forum_post')->fetch_post('tid:'.$_GET['tid'], $_GET['pid']);
 			if(!$postinfo) {
 				mobile_core::result(mobile_core::variable(array('result' => -3)));
 			}

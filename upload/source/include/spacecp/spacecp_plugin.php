@@ -19,7 +19,7 @@ if(!$op || $op == 'credit') {
 	include template('home/spacecp_plugin');
 } elseif($op == 'profile') {
 	$defaultop = '';
-	$profilegroup = C::t('common_setting')->fetch('profilegroup', true);
+	$profilegroup = C::t('common_setting')->fetch_setting('profilegroup', true);
 	$operation = 'plugin';
 	include template('home/spacecp_profile');
 }

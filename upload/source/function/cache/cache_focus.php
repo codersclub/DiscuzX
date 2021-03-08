@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 function build_cache_focus() {
 	$data = array();
 
-	$focus = C::t('common_setting')->fetch('focus', true);
+	$focus = C::t('common_setting')->fetch_setting('focus', true);
 	$data['title'] = $focus['title'];
 	$data['cookie'] = intval($focus['cookie']);
 	$data['data'] = array();

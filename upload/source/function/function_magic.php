@@ -20,7 +20,7 @@ function getmagic($magicid, $magicnum, $weight, $totalweight, $uid, $maxmagicswe
 	if($weight + $totalweight > $maxmagicsweight && !$force) {
 		showmessage('magics_weight_range_invalid', '', array('less' => $weight + $totalweight - $maxmagicsweight));
 	} else {
-		if(C::t('common_member_magic')->count($uid, $magicid)) {
+		if(C::t('common_member_magic')->count_magic($uid, $magicid)) {
 			C::t('common_member_magic')->increase($uid, $magicid, array('num' => $magicnum), false, true);
 		} else {
 			C::t('common_member_magic')->insert(array(
@@ -34,7 +34,7 @@ function getmagic($magicid, $magicnum, $weight, $totalweight, $uid, $maxmagicswe
 
 function getmagicweight($uid, $magicarray) {
 	$totalweight = 0;
-	$query = C::t('common_member_magic')->fetch_all($uid);
+	$query = C::t('common_member_magic')->fetch_all_magic($uid);
 	foreach($query as $magic) {
 		$totalweight += $magicarray[$magic['magicid']]['weight'] * $magic['num'];
 	}
@@ -61,9 +61,9 @@ function getpostinfo($id, $type, $colsarray = '') {
 			$info = C::t('forum_thread')->fetch_by_tid_displayorder($id, 0);
 			break;
 		case 'pid':
-			$info = C::t('forum_post')->fetch($_G['tid'], $id);
+			$info = C::t('forum_post')->fetch_post($_G['tid'], $id);
 			if($info && $info['invisible'] == 0) {
-				$thread = C::t('forum_thread')->fetch($_G['tid']);
+				$thread = C::t('forum_thread')->fetch_thread($_G['tid']);
 				$thread['thread_author'] = $thread['author'];
 				$thread['thread_authorid'] = $thread['authorid'];
 				$thread['thread_status'] = $thread['status'];
@@ -174,7 +174,7 @@ function usemagic($magicid, $totalnum, $num = 1) {
 	global $_G;
 
 	if($totalnum == $num) {
-		C::t('common_member_magic')->delete($_G['uid'], $magicid);
+		C::t('common_member_magic')->delete_magic($_G['uid'], $magicid);
 	} else {
 		C::t('common_member_magic')->increase($_G['uid'], $magicid, array('num' => -$num));
 	}

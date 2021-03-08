@@ -289,13 +289,13 @@ EOT;
 
 function moderateswipe($type, $ids) {
 	if($type == 'pid') {
-		$exist_ids = array_keys(C::t('forum_post')->fetch_all(0, $ids));
+		$exist_ids = array_keys(C::t('forum_post')->fetch_all_post(0, $ids));
 	} elseif($type == 'tid') {
 		$exist_ids = array_keys(C::t('forum_thread')->fetch_all($ids));
 	}
 	$remove_ids = array_diff($ids, $exist_ids);
 	if($remove_ids) {
-		return C::t('common_moderate')->delete($remove_ids, $type);
+		return C::t('common_moderate')->delete_moderate($remove_ids, $type);
 	} else {
 		return 0;
 	}

@@ -31,7 +31,7 @@ switch ($idtype) {
 		$item = C::t('home_pic')->fetch($id);
 		if($item) {
 			$picfield = C::t('home_picfield')->fetch($id);
-			$album = C::t('home_album')->fetch($item['albumid']);
+			$album = C::t('home_album')->fetch_album($item['albumid']);
 			$item['hotuser'] = $picfield['hotuser'];
 			$item['friend'] = $album['friend'];
 			$item['username'] = $album['username'];

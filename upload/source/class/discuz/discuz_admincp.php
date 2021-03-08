@@ -80,10 +80,10 @@ class discuz_admincp
 			if(!$this->isfounder) {
 				$session = C::t('common_admincp_member')->fetch($this->adminuser['uid']);
 				if($session) {
-					$session = array_merge($session, C::t('common_admincp_session')->fetch($this->adminuser['uid'], $this->panel));
+					$session = array_merge($session, C::t('common_admincp_session')->fetch_session($this->adminuser['uid'], $this->panel));
 				}
 			} else {
-				$session = C::t('common_admincp_session')->fetch($this->adminuser['uid'], $this->panel);
+				$session = C::t('common_admincp_session')->fetch_session($this->adminuser['uid'], $this->panel);
 			}
 
 			if(empty($session)) {
@@ -129,7 +129,7 @@ class discuz_admincp
 		}
 
 		if($this->cpaccess == 1) {
-			C::t('common_admincp_session')->delete($this->adminuser['uid'], $this->panel, $this->sessionlife);
+			C::t('common_admincp_session')->delete_session($this->adminuser['uid'], $this->panel, $this->sessionlife);
 			C::t('common_admincp_session')->insert(array(
 				'uid' => $this->adminuser['uid'],
 				'adminid' => $this->adminuser['adminid'],
@@ -140,7 +140,7 @@ class discuz_admincp
 			));
 		} elseif ($this->cpaccess == 3) {
 			$this->load_admin_perms();
-			C::t('common_admincp_session')->update($this->adminuser['uid'], $this->panel, array('dateline' => TIMESTAMP, 'ip' => $this->core->var['clientip'], 'errorcount' => -1));
+			C::t('common_admincp_session')->update_session($this->adminuser['uid'], $this->panel, array('dateline' => TIMESTAMP, 'ip' => $this->core->var['clientip'], 'errorcount' => -1));
 		}
 
 		if($this->cpaccess != 3) {
@@ -157,11 +157,11 @@ class discuz_admincp
 		loaducenter();
 		$ucresult = uc_user_login($this->adminuser['uid'], $_POST['admin_password'], 1, 1, $_POST['admin_questionid'], $_POST['admin_answer'], $this->core->var['clientip']);
 		if($ucresult[0] > 0) {
-			C::t('common_admincp_session')->update($this->adminuser['uid'], $this->panel, array('dateline' => TIMESTAMP, 'ip' => $this->core->var['clientip'], 'errorcount' => -1));
+			C::t('common_admincp_session')->update_session($this->adminuser['uid'], $this->panel, array('dateline' => TIMESTAMP, 'ip' => $this->core->var['clientip'], 'errorcount' => -1));
 			dheader('Location: '.ADMINSCRIPT.'?'.cpurl('url', array('sid')));
 		} else {
 			$errorcount = $this->adminsession['errorcount'] + 1;
-			C::t('common_admincp_session')->update($this->adminuser['uid'], $this->panel, array('dateline' => TIMESTAMP, 'ip' => $this->core->var['clientip'], 'errorcount' => $errorcount));
+			C::t('common_admincp_session')->update_session($this->adminuser['uid'], $this->panel, array('dateline' => TIMESTAMP, 'ip' => $this->core->var['clientip'], 'errorcount' => $errorcount));
 		}
 	}
 
@@ -273,7 +273,7 @@ class discuz_admincp
 	}
 
 	function do_admin_logout() {
-		C::t('common_admincp_session')->delete($this->adminuser['uid'], $this->panel, $this->sessionlife);
+		C::t('common_admincp_session')->delete_session($this->adminuser['uid'], $this->panel, $this->sessionlife);
 	}
 
 	function admincpfile($action) {

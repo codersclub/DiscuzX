@@ -186,7 +186,7 @@ if(submitcheck("articlesubmit", 0, $seccodecheck, $secqaacheck)) {
 	$contents = preg_split($regexp, $content);
 	$cpostcount = count($contents);
 
-	$dbcontents = C::t('portal_article_content')->fetch_all($aid);
+	$dbcontents = C::t('portal_article_content')->fetch_all_by_aid($aid);
 
 	$pagecount = $cdbcount = count($dbcontents);
 	if($cdbcount > $cpostcount) {
@@ -250,7 +250,7 @@ if(submitcheck("articlesubmit", 0, $seccodecheck, $secqaacheck)) {
 				}
 				break;
 			case 'tid':
-				$thread = C::t('forum_thread')->fetch($id);
+				$thread = C::t('forum_thread')->fetch_thread($id);
 				if(!empty($thread)) {
 					$notify = array(
 						'url' => "forum.php?mod=viewthread&tid=$id",
@@ -304,7 +304,7 @@ if(submitcheck("articlesubmit", 0, $seccodecheck, $secqaacheck)) {
 	$posts = array();
 	$tid = intval($_GET['tid']);
 	if($tid && $pids) {
-		foreach(C::t('forum_post')->fetch_all('tid:'.$tid, $pids) as $value) {
+		foreach(C::t('forum_post')->fetch_all_post('tid:'.$tid, $pids) as $value) {
 			if($value['tid'] != $tid) {
 				continue;
 			}
@@ -440,7 +440,7 @@ if($op == 'delete') {
 	$pushedids = array();
 	$pushcount = $pushedcount = 0;
 	if(!empty($pids)) {
-		foreach(C::t('portal_article_content')->fetch_all($aid) as $value) {
+		foreach(C::t('portal_article_content')->fetch_all_by_aid($aid) as $value) {
 			$pushedids[] = intval($value['id']);
 			$pushedcount++;
 		}
@@ -511,7 +511,7 @@ if($op == 'delete') {
 
 	if($article) {
 
-		foreach(C::t('portal_article_content')->fetch_all($aid) as $key => $value) {
+		foreach(C::t('portal_article_content')->fetch_all_by_aid($aid) as $key => $value) {
 			$nextpage = '';
 			if($key > 0) {
 				$pagetitle = $value['title'] ? '[title='.$value['title'].']' : '';
@@ -594,7 +594,7 @@ if($op == 'delete') {
 			break;
 		default:
 			$posttable = getposttablebytid($_GET['from_id']);
-			$thread = C::t('forum_thread')->fetch($_GET['from_id']);
+			$thread = C::t('forum_thread')->fetch_thread($_GET['from_id']);
 			$thread = array_merge($thread, C::t('forum_post')->fetch_threadpost_by_tid_invisible($_GET['from_id']));
 			if($thread) {
 				$article['title'] = $thread['subject'];

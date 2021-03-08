@@ -154,7 +154,7 @@ SEARCH;
 	loadcache('diytemplatename');
 	$targettplname = $_GET['targettplname'];
 	$tpldirectory = $_GET['tpldirectory'];
-	$diydata = C::t('common_diy_data')->fetch($targettplname, $tpldirectory);
+	$diydata = C::t('common_diy_data')->fetch_diy($targettplname, $tpldirectory);
 	if(empty($diydata)) { cpmsg_error('diytemplate_targettplname_error', dreferer());}
 	if(!submitcheck('editsubmit')) {
 		if(empty($diydata['name'])) $diydata['name'] = $_G['cache']['diytemplatename'][$diydata['targettplname']];
@@ -181,7 +181,7 @@ SEARCH;
 	} else {
 
 		$editdiydata = array('name'=>$_GET['name']);
-		C::t('common_diy_data')->update($targettplname, $tpldirectory, $editdiydata);
+		C::t('common_diy_data')->update_diy($targettplname, $tpldirectory, $editdiydata);
 
 		include_once libfile('function/cache');
 		updatecache('diytemplatename');
@@ -192,7 +192,7 @@ SEARCH;
 	loadcache('diytemplatename');
 	$targettplname = $_GET['targettplname'];
 	$tpldirectory = $_GET['tpldirectory'];
-	$diydata = C::t('common_diy_data')->fetch($targettplname, $tpldirectory);
+	$diydata = C::t('common_diy_data')->fetch_diy($targettplname, $tpldirectory);
 	if(empty($diydata)) { cpmsg_error('diytemplate_targettplname_error', dreferer());}
 	if(!submitcheck('permsubmit')) {
 		shownav('portal', 'diytemplate', 'diytemplate_perm');

@@ -69,7 +69,7 @@ if($_GET['op'] == 'delete') {
 	switch($type) {
 		case 'thread':
 			$idtype = 'tid';
-			$thread = C::t('forum_thread')->fetch($id);
+			$thread = C::t('forum_thread')->fetch_thread($id);
 			$title = $thread['subject'];
 			$icon = '<img src="static/image/feed/thread.gif" alt="thread" class="vm" /> ';
 			break;
@@ -97,7 +97,7 @@ if($_GET['op'] == 'delete') {
 			break;
 		case 'album':
 			$idtype = 'albumid';
-			$result = C::t('home_album')->fetch($id, $spaceuid);
+			$result = C::t('home_album')->fetch_album($id, $spaceuid);
 			$title = $result['albumname'];
 			$icon = '<img src="static/image/feed/album.gif" alt="album" class="vm" /> ';
 			break;

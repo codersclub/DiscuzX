@@ -169,7 +169,7 @@ if(!submitcheck('modsubmit')) {
 				foreach($delkeys as $k) {
 					unset($forumstickthreads[$k]);
 				}
-				C::t('common_setting')->update('forumstickthreads', $forumstickthreads);
+				C::t('common_setting')->update_setting('forumstickthreads', $forumstickthreads);
 
 				$stickmodify = 0;
 				foreach($threadlist as $thread) {
@@ -428,7 +428,7 @@ if(!submitcheck('modsubmit')) {
 				foreach($delkeys as $k) {
 					unset($forumstickthreads[$k]);
 				}
-				C::t('common_setting')->update('forumstickthreads', $forumstickthreads);
+				C::t('common_setting')->update_setting('forumstickthreads', $forumstickthreads);
 
 				C::t('forum_forum_threadtable')->delete_none_threads();
 				if(!empty($deleteredirect)) {
@@ -581,7 +581,7 @@ if(!submitcheck('modsubmit')) {
 				$typeoptionvars = C::t('forum_typeoptionvar')->fetch_all_by_tid_optionid($tidsarr);
 				foreach($typeoptionvars as $typeoptionvar) {
 					C::t('forum_typeoptionvar')->update_by_tid($typeoptionvar['tid'], array('fid' => $moveto));
-					C::t('forum_optionvalue')->update($typeoptionvar['sortid'], $typeoptionvar['tid'], $_G['fid'], "fid='$moveto'");
+					C::t('forum_optionvalue')->update_optionvalue($typeoptionvar['sortid'], $typeoptionvar['tid'], $_G['fid'], "fid='$moveto'");
 				}
 
 				if($_G['setting']['globalstick'] && $stickmodify) {

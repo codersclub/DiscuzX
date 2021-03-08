@@ -24,7 +24,7 @@ class table_common_admingroup extends discuz_table
 	public function fetch_all_merge_usergroup($gids = array()) {
 		$admingroups = empty($gids) ? $this->range() : $this->fetch_all($gids);
 		$data = array();
-		foreach(C::t('common_usergroup')->fetch_all(array_keys($admingroups)) as $gid=>$value) {
+		foreach(C::t('common_usergroup')->fetch_all_usergroup(array_keys($admingroups)) as $gid=>$value) {
 			$data[$gid] = array_merge($admingroups[$gid], $value);
 		}
 		return $data;

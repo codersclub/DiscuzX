@@ -135,7 +135,7 @@ EOT;
 		$blogs = $catids = array();
 		$selectblogids = !empty($_GET['ids']) && is_array($_GET['ids']) ? $_GET['ids'] : array();
 		if($selectblogids) {
-			$query = C::t('home_blog')->fetch_all($selectblogids);
+			$query = C::t('home_blog')->fetch_all_blog($selectblogids);
 			foreach($query as $value) {
 				$blogs[$value['blogid']] = $value;
 				$catids[] = intval($value['catid']);

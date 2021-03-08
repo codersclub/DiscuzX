@@ -59,7 +59,7 @@ if (!empty($_GET['xml'])) {
 		}
 		$type = 'statistic';
 	}
-	foreach (C::t('common_stat')->fetch_all($begin, $end, $field) as $value) {
+	foreach (C::t('common_stat')->fetch_all_stat($begin, $end, $field) as $value) {
 		$xaxis .= "<value xid='$count'>" . substr($value['daytime'], 4, 4) . "</value>";
 		if ($type == 'all') {
 			foreach ($cols as $ck => $cvs) {

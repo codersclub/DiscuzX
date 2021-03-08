@@ -61,7 +61,7 @@ class magic_repent {
 		require_once libfile('function/delete');
 		if($post['first']) {
 			if($have_replycredit = C::t('forum_replycredit')->fetch($post['tid'])) {
-				$thread = C::t('forum_thread')->fetch($post['tid']);
+				$thread = C::t('forum_thread')->fetch_thread($post['tid']);
 				if($thread['replycredit']) {
 					updatemembercount($post['authorid'], array($_G['setting']['creditstransextra'][10] => $replycredit));
 				}

@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 
 function build_cache_antitheft() {
-	$data = C::t('common_setting')->fetch('antitheftsetting', true);
+	$data = C::t('common_setting')->fetch_setting('antitheftsetting', true);
 	savecache('antitheft', $data);
 }
 

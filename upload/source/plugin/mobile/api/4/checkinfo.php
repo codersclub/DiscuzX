@@ -26,7 +26,7 @@ require_once DISCUZ_ROOT.'./source/plugin/wechat/wsq.class.php';
 $result = wsq::check($_GET);
 
 if($result) {
-	$setting = C::t('common_setting')->fetch_all(array('mobilewechat'));
+	$setting = C::t('common_setting')->fetch_all_setting(array('mobilewechat'));
 	$setting = unserialize($setting['mobilewechat']);
 	$setting['wsq_status'] = 1;
 	$settings = array('mobilewechat' => serialize($setting));

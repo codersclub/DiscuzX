@@ -18,9 +18,9 @@ class optimizer_inviteregister {
 	}
 
 	public function check() {
-		$regstatus = C::t('common_setting')->fetch('regstatus');
+		$regstatus = C::t('common_setting')->fetch_setting('regstatus');
 		if($regstatus >= 2) {
-			$inviteconfig = C::t('common_setting')->fetch('inviteconfig', true);
+			$inviteconfig = C::t('common_setting')->fetch_setting('inviteconfig', true);
 			if(!$inviteconfig['inviteareawhite']) {
 				$return = array('status' => 2, 'type' =>'header', 'lang' => lang('optimizer', 'optimizer_inviteregister_tip'));
 			} else {

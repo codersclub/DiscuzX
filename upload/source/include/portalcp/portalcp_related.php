@@ -93,7 +93,7 @@ if($op == 'manual') {
 	}
 } else {
 	$count = 0;
-	$query = C::t('portal_article_title')->range(0, 50);
+	$query = C::t('portal_article_title')->range_title(0, 50);
 	foreach($query as $value) {
 		$articlelist[] = $value;
 		$count++;

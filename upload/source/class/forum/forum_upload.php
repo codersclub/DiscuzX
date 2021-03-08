@@ -138,7 +138,7 @@ class forum_upload {
 		);
 		C::t('forum_attachment_unused')->insert($insert);
 		if($upload->attach['isimage'] && $_G['setting']['showexif']) {
-			C::t('forum_attachment_exif')->insert($aid, $exif);
+			C::t('forum_attachment_exif')->insert_exif($aid, $exif);
 		}
 		return $this->uploadmsg(0);
 	}

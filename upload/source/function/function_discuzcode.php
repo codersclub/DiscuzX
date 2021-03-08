@@ -241,7 +241,7 @@ function discuzcode($message, $smileyoff = false, $bbcodeoff = false, $htmlon = 
 				if($authorreplyexist === null) {
 					if(!$_G['forum']['ismoderator']) {
 						if($_G['uid']) {
-							$_post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $pid);
+							$_post = C::t('forum_post')->fetch_post('tid:'.$_G['tid'], $pid);
 							$authorreplyexist = $_post['tid'] == $_G['tid'] ? C::t('forum_post')->fetch_pid_by_tid_authorid($_G['tid'], $_G['uid']) : FALSE;
 						}
 					} else {

@@ -19,7 +19,7 @@ if($op == 'comment') {
 
 	$idtype_array = array('picid' => 'album', 'blogid' => 'blog', 'sid' => 'share', 'uid' => 'wall');
 
-	$cmt = C::t('home_comment')->fetch($cid);
+	$cmt = C::t('home_comment')->fetch_comment($cid);
 	if(empty($cmt['idtype']) || !array_key_exists($cmt['idtype'], $idtype_array)) {
 		showmessage('no_privilege_comment', '', array(), array('return' => true));
 	} else if(!$_G['setting'][$idtype_array[$cmt['idtype']].'status']) {

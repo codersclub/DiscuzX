@@ -18,7 +18,7 @@ class optimizer_ipregctrl {
 	}
 
 	public function check() {
-		$ipregctrl = C::t('common_setting')->fetch('ipregctrl');
+		$ipregctrl = C::t('common_setting')->fetch_setting('ipregctrl');
 		if($ipregctrl) {
 			$return = array('status' => 0, 'type' =>'none', 'lang' => lang('optimizer', 'optimizer_ipregctrl_no_need'));
 		} else {

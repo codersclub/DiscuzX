@@ -87,7 +87,7 @@ function build_cache_setting() {
 					}
 					$setting['svalue'][$key]['field'] = $temp;
 				}
-				C::t('common_setting')->update('profilegroup', $setting['svalue']);
+				C::t('common_setting')->update_setting('profilegroup', $setting['svalue']);
 			}
 		}
 		$_G['setting'][$setting['skey']] = $data[$setting['skey']] = $setting['svalue'];
@@ -1011,8 +1011,8 @@ function get_cachedata_threadprofile() {
 	if(!helper_dbtool::isexisttable('forum_threadprofile')) {
 		return;
 	}
-	$threadprofiles = C::t('forum_threadprofile')->fetch_all();
-	$threadprofile_group = C::t('forum_threadprofile_group')->fetch_all();
+	$threadprofiles = C::t('forum_threadprofile')->fetch_all_threadprofile();
+	$threadprofile_group = C::t('forum_threadprofile_group')->fetch_all_threadprofile();
 	$data = array();
 	foreach($threadprofiles as $id => $threadprofile) {
 		if($threadprofile['global']) {

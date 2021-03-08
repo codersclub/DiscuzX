@@ -78,7 +78,7 @@ if($operation == 'app') {
 			C::t('common_nav')->update_by_identifier('mobile', array('url' => (!$_GET['appnew']['mobile'] ? 'forum.php?mobile=yes' : $_G['scheme'].'://'.$_GET['appnew']['mobile'])));
 		}
 
-		C::t('common_setting')->update('domain',$_G['setting']['domain']);
+		C::t('common_setting')->update_setting('domain',$_G['setting']['domain']);
 		updatecache('setting');
 		cpmsg('setting_update_succeed', 'action=domain&operation=app', 'succeed');
 	}
@@ -129,7 +129,7 @@ if($operation == 'app') {
 			$_G['setting']['domain']['root'][$idtype] = $domain;
 
 		}
-		C::t('common_setting')->update('domain', $_G['setting']['domain']);
+		C::t('common_setting')->update_setting('domain', $_G['setting']['domain']);
 		updatecache('setting');
 		cpmsg('setting_update_succeed', 'action=domain&operation=root', 'succeed');
 	}

@@ -61,7 +61,7 @@ function deletemember($uids, $delpost = true) {
 	C::t('home_friend')->delete_by_uid_fuid($arruids);
 	C::t('home_friend_request')->delete_by_uid_or_fuid($arruids);
 	C::t('common_invite')->delete_by_uid_or_fuid($arruids);
-	C::t('common_moderate')->delete($arruids, 'uid_cid');
+	C::t('common_moderate')->delete_moderate($arruids, 'uid_cid');
 	C::t('common_member_forum_buylog')->delete_by_uid($arruids);
 	C::t('forum_threadhidelog')->delete_by_uid($arruids);
 	C::t('common_member_crime')->delete_by_uid($arruids);
@@ -127,7 +127,7 @@ function deletepost($ids, $idtype = 'pid', $credit = false, $posttableid = false
 		foreach($posttableids as $id) {
 			$postlist = array();
 			if($idtype == 'pid') {
-				$postlist = C::t('forum_post')->fetch_all($id, $ids, false);
+				$postlist = C::t('forum_post')->fetch_all_post($id, $ids, false);
 			} elseif($idtype == 'tid') {
 				$postlist = C::t('forum_post')->fetch_all_by_tid($id, $ids, false);
 			} elseif($idtype == 'authorid') {
@@ -167,10 +167,10 @@ function deletepost($ids, $idtype = 'pid', $credit = false, $posttableid = false
 
 	foreach($posttableids as $id) {
 		if($recycle) {
-			C::t('forum_post')->update($id, $ids, array('invisible' => -5));
+			C::t('forum_post')->update_post($id, $ids, array('invisible' => -5));
 		} else {
 			if($idtype == 'pid') {
-				C::t('forum_post')->delete($id, $ids);
+				C::t('forum_post')->delete_post($id, $ids);
 				C::t('forum_postcomment')->delete_by_pid($ids);
 				C::t('forum_postcomment')->delete_by_rpid($ids);
 			} elseif($idtype == 'tid') {
@@ -194,7 +194,7 @@ function deletepost($ids, $idtype = 'pid', $credit = false, $posttableid = false
 	}
 	if($idtype == 'pid') {
 		C::t('forum_postcomment')->delete_by_rpid($ids);
-		C::t('common_moderate')->delete($ids, 'pid');
+		C::t('common_moderate')->delete_moderate($ids, 'pid');
 		C::t('forum_post_location')->delete($ids);
 		C::t('forum_filter_post')->delete_by_pid($ids);
 		C::t('forum_hotreply_number')->delete_by_pid($ids);
@@ -277,7 +277,7 @@ function deletethread($tids, $membercount = false, $credit = false, $ponly = fal
 		$threadtableids = array_merge(array(0), $threadtableids);
 	}
 
-	C::t('common_moderate')->delete($arrtids, 'tid');
+	C::t('common_moderate')->delete_moderate($arrtids, 'tid');
 	C::t('forum_threadclosed')->delete($arrtids);
 	C::t('forum_newthread')->delete_by_tids($arrtids);
 
@@ -386,7 +386,7 @@ function deletethread($tids, $membercount = false, $credit = false, $ponly = fal
 			if(in_array($collectioninfo[$collection['ctid']]['lastpost'], $arrtids) && ($collectioninfo[$collection['ctid']]['threadnum'] - $decthread) > 0) {
 				$collection_thread = C::t('forum_collectionthread')->fetch_by_ctid_dateline($collection['ctid']);
 				if($collection_thread) {
-					$thread = C::t('forum_thread')->fetch($collection_thread['tid']);
+					$thread = C::t('forum_thread')->fetch_thread($collection_thread['tid']);
 					$lastpost = array(
 						'lastpost' => $thread['tid'],
 						'lastsubject' => $thread['subject'],
@@ -457,7 +457,7 @@ function deletethread($tids, $membercount = false, $credit = false, $ponly = fal
 	C::t('forum_hotreply_member')->delete_by_tid($arrtids);
 	C::t('forum_hotreply_number')->delete_by_tid($arrtids);
 	C::t('home_feed')->delete_by_id_idtype($arrtids, 'tid');
-	C::t('common_tagitem')->delete(0, $arrtids, 'tid');
+	C::t('common_tagitem')->delete_tagitem(0, $arrtids, 'tid');
 	C::t('forum_threadrush')->delete($arrtids);
 	if($_G['setting']['plugins']['func'][HOOKTYPE]['deletethread']) {
 		hookscript('deletethread', 'global', 'funcs', array('param' => $hookparam, 'step' => 'delete'), 'deletethread');
@@ -488,7 +488,7 @@ function deleteattach($ids, $idtype = 'aid') {
 		if($attachtable == 127) {
 			continue;
 		}
-		$attachs = C::t('forum_attachment_n')->fetch_all($attachtable, $aids);
+		$attachs = C::t('forum_attachment_n')->fetch_all_attachment($attachtable, $aids);
 		foreach($attachs as $attach) {
 			if($attach['picid']) {
 				$pics[] = $attach['picid'];
@@ -496,7 +496,7 @@ function deleteattach($ids, $idtype = 'aid') {
 			dunlink($attach);
 		}
 		C::t('forum_attachment_exif')->delete($aids);
-		C::t('forum_attachment_n')->delete($attachtable, $aids);
+		C::t('forum_attachment_n')->delete_attachment($attachtable, $aids);
 	}
 	C::t('forum_attachment')->delete_by_id($idtype, $ids);
 	if($pics) {
@@ -536,9 +536,9 @@ function deletecomments($cids) {
 
 	if(empty($dels)) return array();
 
-	C::t('home_comment')->delete($newcids);
+	C::t('home_comment')->delete_comment($newcids);
 	for($i = 0; $i < count($newcids); $i++) {
-		C::t('common_moderate')->delete($newcids[$i], $deltypes[$i]);
+		C::t('common_moderate')->delete_moderate($newcids[$i], $deltypes[$i]);
 	}
 
 	if($counts) {
@@ -561,7 +561,7 @@ function deleteblogs($blogids, $force = false) {
 	$blogs = $newblogids = $counts = array();
 	$allowmanage = checkperm('manageblog');
 
-	$query = C::t('home_blog')->fetch_all($blogids);
+	$query = C::t('home_blog')->fetch_all_blog($blogids);
 	foreach($query as $value) {
 		if($allowmanage || $value['uid'] == $_G['uid']) {
 			$blogs[] = $value;
@@ -577,8 +577,8 @@ function deleteblogs($blogids, $force = false) {
 	}
 	if(empty($blogs)) return array();
 
-	C::t('common_moderate')->delete($newblogids, 'blogid');
-	C::t('common_moderate')->delete($newblogids, 'blogid_cid');
+	C::t('common_moderate')->delete_moderate($newblogids, 'blogid');
+	C::t('common_moderate')->delete_moderate($newblogids, 'blogid_cid');
 
 	if(getglobal('setting/blogrecyclebin') && !$force) {
 		C::t('home_blog')->update($newblogids, array('status' => -1));
@@ -586,7 +586,7 @@ function deleteblogs($blogids, $force = false) {
 	}
 	C::t('home_blog')->delete($newblogids);
 	C::t('home_blogfield')->delete($newblogids);
-	C::t('home_comment')->delete('', $newblogids, 'blogid');
+	C::t('home_comment')->delete_comment('', $newblogids, 'blogid');
 	C::t('home_feed')->delete_by_id_idtype($newblogids, 'blogid');
 	C::t('home_clickuser')->delete_by_id_idtype($newblogids, 'blogid');
 
@@ -596,7 +596,7 @@ function deleteblogs($blogids, $force = false) {
 		}
 	}
 
-	C::t('common_tagitem')->delete(0, $newblogids, 'blogid');
+	C::t('common_tagitem')->delete_tagitem(0, $newblogids, 'blogid');
 
 	return $blogs;
 }
@@ -617,7 +617,7 @@ function deletefeeds($feedids) {
 
 	if(empty($newfeedids)) return array();
 
-	C::t('home_feed')->delete($newfeedids);
+	C::t('home_feed')->delete_feed($newfeedids);
 
 	return $feeds;
 }
@@ -642,10 +642,10 @@ function deleteshares($sids) {
 	if(empty($shares)) return array();
 
 	C::t('home_share')->delete($newsids);
-	C::t('home_comment')->delete('', $newsids, 'sid');
+	C::t('home_comment')->delete_comment('', $newsids, 'sid');
 	C::t('home_feed')->delete_by_id_idtype($newsids, 'sid');
-	C::t('common_moderate')->delete($newsids, 'sid');
-	C::t('common_moderate')->delete($newsids, 'sid_cid');
+	C::t('common_moderate')->delete_moderate($newsids, 'sid');
+	C::t('common_moderate')->delete_moderate($newsids, 'sid_cid');
 
 	if($counts) {
 		foreach ($counts as $uid => $setarr) {
@@ -680,7 +680,7 @@ function deletedoings($ids) {
 	C::t('home_doing')->delete($newdoids);
 	C::t('home_docomment')->delete_by_doid_uid($newdoids);
 	C::t('home_feed')->delete_by_id_idtype($newdoids, 'doid');
-	C::t('common_moderate')->delete($newdoids, 'doid');
+	C::t('common_moderate')->delete_moderate($newdoids, 'doid');
 
 	if($counts) {
 		foreach ($counts as $uid => $setarr) {
@@ -737,11 +737,11 @@ function deletepics($picids) {
 		}
 	}
 
-	C::t('home_comment')->delete('', $newids, 'picid');
+	C::t('home_comment')->delete_comment('', $newids, 'picid');
 	C::t('home_feed')->delete_by_id_idtype($newids, 'picid');
 	C::t('home_clickuser')->delete_by_id_idtype($newids, 'picid');
-	C::t('common_moderate')->delete($newids, 'picid');
-	C::t('common_moderate')->delete($newids, 'picid_cid');
+	C::t('common_moderate')->delete_moderate($newids, 'picid');
+	C::t('common_moderate')->delete_moderate($newids, 'picid_cid');
 
 	if($sizes) {
 		foreach ($sizes as $uid => $setarr) {
@@ -777,7 +777,7 @@ function deletealbums($albumids) {
 	$sizes = $dels = $newids = $counts = array();
 	$allowmanage = checkperm('managealbum');
 
-	$albums = C::t('home_album')->fetch_all($albumids);
+	$albums = C::t('home_album')->fetch_all_album($albumids);
 	foreach($albums as $value) {
 		if($value['albumid']) {
 			if($allowmanage || $value['uid'] == $_G['uid']) {
@@ -880,7 +880,7 @@ function deletearticle($aids, $istrash = true) {
 		}
 
 		C::t('portal_article_title')->delete($dels);
-		C::t('common_moderate')->delete($dels, 'aid');
+		C::t('common_moderate')->delete_moderate($dels, 'aid');
 
 		$catids = array_unique($catids);
 		if($catids) {
@@ -922,7 +922,7 @@ function deletearticlerelated($dels) {
 	}
 
 	C::t('portal_comment')->delete_by_id_idtype($dels, 'aid');
-	C::t('common_moderate')->delete($dels, 'aid_cid');
+	C::t('common_moderate')->delete_moderate($dels, 'aid_cid');
 
 	C::t('portal_article_related')->delete_by_aid_raid($dels);
 
@@ -963,7 +963,7 @@ function deleteportaltopic($dels) {
 
 	C::t('portal_topic')->delete($dels);
 	C::t('portal_comment')->delete_by_id_idtype($dels, 'topicid');
-	C::t('common_moderate')->delete($dels, 'topicid_cid');
+	C::t('common_moderate')->delete_moderate($dels, 'topicid_cid');
 
 	include_once libfile('function/block');
 	block_clear();

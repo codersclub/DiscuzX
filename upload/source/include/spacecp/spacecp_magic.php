@@ -29,13 +29,13 @@ if($op == 'cancelflicker') {
 	$mid = 'flicker';
 	$_GET['idtype'] = 'cid';
 	$_GET['id'] = intval($_GET['id']);
-	$value = C::t('home_comment')->fetch($_GET['id'], $_G['uid']);
+	$value = C::t('home_comment')->fetch_comment($_GET['id'], $_G['uid']);
 	if(!$value || !$value['magicflicker']) {
 		showmessage('no_flicker_yet');
 	}
 
 	if(submitcheck('cancelsubmit')) {
-		C::t('home_comment')->update('', array('magicflicker'=>0), $_G['uid']);
+		C::t('home_comment')->update_comment('', array('magicflicker'=>0), $_G['uid']);
 		showmessage('do_success', dreferer(), array(), array('showdialog' => 1, 'closetime' => true));
 	}
 
@@ -55,14 +55,14 @@ if($op == 'cancelflicker') {
 
 	if(submitcheck('cancelsubmit')) {
 		DB::update($tablename, array('magiccolor'=>0), array($_GET['idtype']=>$_GET['id']));
-		$feed = C::t('home_feed')->fetch($_GET['id'], $_GET['idtype']);
+		$feed = C::t('home_feed')->fetch_feed($_GET['id'], $_GET['idtype']);
 		if($feed) {
 			$feed['body_data'] = dunserialize($feed['body_data']);
 			if($feed['body_data']['magic_color']) {
 				unset($feed['body_data']['magic_color']);
 			}
 			$feed['body_data'] = serialize($feed['body_data']);
-			C::t('home_feed')->update('', array('body_data'=>$feed['body_data']), '', '', $feed['feedid']);
+			C::t('home_feed')->update_feed('', array('body_data'=>$feed['body_data']), '', '', $feed['feedid']);
 		}
 		showmessage('do_success', dreferer(), 0);
 	}

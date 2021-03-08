@@ -123,7 +123,7 @@ class task_post {
 			$value = '<a href="forum.php?mod=forumdisplay&fid='.$value.'"><strong>'.$_G['cache']['forums'][$value]['name'].'</strong></a>';
 		} elseif(!empty($taskvars['complete']['threadid'])) {
 			$value = intval($taskvars['complete']['threadid']['value']);
-			$thread = C::t('forum_thread')->fetch($value);
+			$thread = C::t('forum_thread')->fetch_thread($value);
 			$value = '<a href="forum.php?mod=viewthread&tid='.$value.'"><strong>'.($thread['subject'] ? $thread['subject'] : 'TID '.$value).'</strong></a>';
 		} elseif(!empty($taskvars['complete']['author'])) {
 			$value = $taskvars['complete']['author']['value'];

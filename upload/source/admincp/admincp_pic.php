@@ -154,7 +154,7 @@ if(submitcheck('searchsubmit', 1) || $newlist) {
 	if($albumid !='') {
 		$albumids = '-1';
 		$albumidsarr = array('-1');
-		$query = C::t('home_album')->fetch_all(explode(',', $albumid));
+		$query = C::t('home_album')->fetch_all_album(explode(',', $albumid));
 		foreach($query as $arr) {
 			$albumids .=",{$arr['albumid']}";
 			$albumidsarr[] = $arr['albumid'];

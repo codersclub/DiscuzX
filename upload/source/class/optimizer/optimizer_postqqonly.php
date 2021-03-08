@@ -18,7 +18,7 @@ class optimizer_postqqonly {
 	}
 
 	public function check() {
-		$accountguard = C::t('common_setting')->fetch('accountguard', true);
+		$accountguard = C::t('common_setting')->fetch_setting('accountguard', true);
 		if(!$accountguard['postqqonly']) {
 			$return = array('status' => 1, 'type' =>'header', 'lang' => lang('optimizer', 'optimizer_postqqonly_need'));
 		} else {

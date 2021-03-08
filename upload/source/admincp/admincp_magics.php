@@ -26,7 +26,7 @@ if($operation == 'admin') {
 		/*search={"nav_magics":"action=magics"}*/
 		showtips('magics_tips');
 
-		$settings = C::t('common_setting')->fetch_all(array('magicdiscount'));
+		$settings = C::t('common_setting')->fetch_all_setting(array('magicdiscount'));
 		showformheader('magics&operation=admin');
 		showtableheader();
 		showsetting('magics_config_discount', 'settingsnew[magicdiscount]', $settings['magicdiscount'], 'text');
@@ -95,7 +95,7 @@ if($operation == 'admin') {
 
 		if($ids = dimplode($_GET['delete'])) {
 			C::t('common_magic')->delete($_GET['delete']);
-			C::t('common_member_magic')->delete('', $_GET['delete']);
+			C::t('common_member_magic')->delete_magic('', $_GET['delete']);
 			C::t('common_magiclog')->delete_by_magicid($_GET['delete']);
 
 		}

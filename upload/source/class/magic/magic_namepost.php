@@ -65,7 +65,7 @@ class magic_namepost {
 			$authorid = $post['authorid'];
 			$author = $post['anonymous'] ? '' : 1;
 		} elseif($idtype == 'cid') {
-			$comment = C::t('home_comment')->fetch($id);
+			$comment = C::t('home_comment')->fetch_comment($id);
 			$authorid = $comment['authorid'];
 			$author = $comment['author'];
 		}

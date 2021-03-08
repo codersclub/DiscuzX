@@ -147,12 +147,12 @@ EOT;
 
 		$tids = $pids = array();
 		for($attachi = 0;$attachi < 10;$attachi++) {
-			foreach(C::t('forum_attachment_n')->fetch_all($attachi, $_GET['delete']) as $attach) {
+			foreach(C::t('forum_attachment_n')->fetch_all_attachment($attachi, $_GET['delete']) as $attach) {
 				dunlink($attach);
 				$tids[$attach['tid']] = $attach['tid'];
 				$pids[$attach['pid']] = $attach['pid'];
 			}
-			C::t('forum_attachment_n')->delete($attachi, $_GET['delete']);
+			C::t('forum_attachment_n')->delete_attachment($attachi, $_GET['delete']);
 
 			$attachtids = array();
 			foreach(C::t('forum_attachment_n')->fetch_all_by_id($attachi, 'tid', $tids) as $attach) {
@@ -174,7 +174,7 @@ EOT;
 		loadcache('posttableids');
 		$posttableids = $_G['cache']['posttableids'] ? $_G['cache']['posttableids'] : array('0');
 		foreach($posttableids as $id) {
-			C::t('forum_post')->update($id, $pids, array('attachment' => '0'));
+			C::t('forum_post')->update_post($id, $pids, array('attachment' => '0'));
 		}
 
 		$cpmsg = cplang('attach_edit_succeed');

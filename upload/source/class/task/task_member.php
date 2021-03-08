@@ -73,7 +73,7 @@ class task_member {
 
 		$taskvars['time'] = floatval($taskvars['time']);
 		if($taskvars['act'] == 'favorite') {
-			$favorite = C::t('forum_spacecache')->fetch($_G['uid'], 'favorite'.$task['taskid']);
+			$favorite = C::t('forum_spacecache')->fetch_spacecache($_G['uid'], 'favorite'.$task['taskid']);
 			$favorite = $favorite['value'];
 			$num = C::t('home_favorite')->count_by_uid_idtype($_G['uid'], 'tid') - $favorite;
 		} elseif($taskvars['act'] == 'magic') {
@@ -83,7 +83,7 @@ class task_member {
 
 		if($num && $num >= $taskvars['num']) {
 			if($taskvars['act'] == 'favorite') {
-				C::t('forum_spacecache')->delete($_G['uid'], $taskvars['act'].$task['taskid']);
+				C::t('forum_spacecache')->delete_spacecache($_G['uid'], $taskvars['act'].$task['taskid']);
 			}
 			return TRUE;
 		} elseif($taskvars['time'] && TIMESTAMP >= $task['applytime'] + 3600 * $taskvars['time'] && (!$num || $num < $taskvars['num'])) {

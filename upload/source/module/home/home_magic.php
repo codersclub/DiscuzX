@@ -271,7 +271,7 @@ if($action == 'shop') {
 		$magiccount = C::t('common_member_magic')->count_by_uid($_G['uid']);
 
 		$multipage = multi($magiccount, $_G['tpp'], $page, "home.php?mod=magic&action=mybox&pid=$pid$typeadd");
-		$query = C::t('common_member_magic')->fetch_all($_G['uid'], null, $start_limit, $_G['tpp']);
+		$query = C::t('common_member_magic')->fetch_all_magic($_G['uid'], null, $start_limit, $_G['tpp']);
 		foreach($query as $value) {
 			$magicids[] = $value['magicid'];
 		}
@@ -293,13 +293,13 @@ if($action == 'shop') {
 	} else {
 
 		$magicid = intval($_GET['magicid']);
-		$membermagic = C::t('common_member_magic')->fetch($_G['uid'], $magicid);
+		$membermagic = C::t('common_member_magic')->fetch_magic($_G['uid'], $magicid);
 		$magic = $membermagic +	C::t('common_magic')->fetch($magicid);
 
 		if(!$membermagic) {
 			showmessage('magics_nonexistence');
 		} elseif(!$magic['num']) {
-			C::t('common_member_magic')->delete($_G['uid'], $magic['magicid']);
+			C::t('common_member_magic')->delete_magic($_G['uid'], $magic['magicid']);
 			showmessage('magics_nonexistence');
 		}
 		$magicperm = dunserialize($magic['magicperm']);
@@ -318,7 +318,7 @@ if($action == 'shop') {
 			}
 
 			if($magic['num'] <= 0) {
-				C::t('common_member_magic')->delete($_G['uid'], $magic['magicid']);
+				C::t('common_member_magic')->delete_magic($_G['uid'], $magic['magicid']);
 				showmessage('magics_nopermission');
 			}
 

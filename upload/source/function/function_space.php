@@ -276,7 +276,7 @@ function getblockhtml($blockname,$parameters = array()) {
 				$bids = array_slice($stickblogs, 0, $shownum);
 				if(count($bids)) {
 					if(!isset($parameters['showmessage'])) $parameters['showmessage'] = 150;
-					$data_blog = C::t('home_blog')->fetch_all($bids);
+					$data_blog = C::t('home_blog')->fetch_all_blog($bids);
 					if($parameters['showmessage'] > 0) {
 						$data_blogfield = C::t('home_blogfield')->fetch_all($bids);
 					}

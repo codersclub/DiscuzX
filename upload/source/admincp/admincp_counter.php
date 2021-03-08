@@ -39,7 +39,7 @@ if(submitcheck('forumsubmit', 1)) {
 			$threads += $data['threads'];
 			$posts += $data['posts'];
 			if($data['threads'] == 0 && $tableid != 0) {
-				C::t('forum_forum_threadtable')->delete($forum['fid'], $tableid);
+				C::t('forum_forum_threadtable')->delete_threadtable($forum['fid'], $tableid);
 			}
 			if($data['threads'] > 0 && $tableid != 0) {
 				$archive = 1;
@@ -74,7 +74,7 @@ if(submitcheck('forumsubmit', 1)) {
 		$processed = 1;
 		$membersarray[$thread['authorid']]++;
 	}
-	$threadtableids = C::t('common_setting')->fetch('threadtableids', true);
+	$threadtableids = C::t('common_setting')->fetch_setting('threadtableids', true);
 	foreach($threadtableids as $tableid) {
 		if(!$tableid) {
 			continue;
@@ -105,7 +105,7 @@ if(submitcheck('forumsubmit', 1)) {
 	$nextlink = "action=counter&current=$next&pertask=$pertask&membersubmit=yes";
 	$processed = 0;
 
-	$threadtableids = C::t('common_setting')->fetch('threadtableids', true);
+	$threadtableids = C::t('common_setting')->fetch_setting('threadtableids', true);
 	$queryt = C::t('common_member')->range($current, $pertask);
 	foreach($queryt as $mem) {
 		$processed = 1;
@@ -222,7 +222,7 @@ if(submitcheck('forumsubmit', 1)) {
 		$fields = "tid mediumint(8) UNSIGNED NOT NULL DEFAULT '0',fid smallint(6) UNSIGNED NOT NULL DEFAULT '0',KEY (fid)";
 		C::t('forum_optionvalue')->create($sortid, $fields, $dbcharset);
 		if($changesort) {
-			C::t('forum_optionvalue')->truncate($sortid);
+			C::t('forum_optionvalue')->truncate_by_sortid($sortid);
 		}
 		$opids = array_keys($optionids[$sortid]);
 
@@ -273,7 +273,7 @@ if(submitcheck('forumsubmit', 1)) {
 				foreach($fieldval as $ikey => $ival) {
 					$rfields[] = "`$ikey`='$ival'";
 				}
-				C::t('forum_optionvalue')->insert($sortid, "SET ".implode(',', $rfields), true);
+				C::t('forum_optionvalue')->insert_optionvalue($sortid, "SET ".implode(',', $rfields), true);
 			}
 		}
 		$cursort ++;

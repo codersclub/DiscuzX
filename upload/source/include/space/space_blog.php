@@ -355,7 +355,7 @@ if($id) {
 function blog_get_stick($uid, $stickblogs, $summarylen) {
 	$list = array_flip($stickblogs);
 	if($stickblogs) {
-		$data_blog = C::t('home_blog')->fetch_all($stickblogs);
+		$data_blog = C::t('home_blog')->fetch_all_blog($stickblogs);
 		$data_blogfield = C::t('home_blogfield')->fetch_all($stickblogs);
 		foreach($data_blog as $curblogid=>$value) {
 			$value = array_merge($value, (array)$data_blogfield[$curblogid]);

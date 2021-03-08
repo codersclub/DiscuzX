@@ -11,7 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 $defaultop = '';
-	$profilegroup = C::t('common_setting')->fetch('profilegroup', true);
+	$profilegroup = C::t('common_setting')->fetch_setting('profilegroup', true);
 	foreach($profilegroup as $key => $value) {
 		if($value['available']) {
 			$defaultop = $key;

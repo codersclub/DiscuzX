@@ -164,7 +164,7 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 	}
 
 	if($moderation['validate']) {
-		$validates = C::t('home_comment')->update($moderation['validate'], array('status' => '0'));
+		$validates = C::t('home_comment')->update_comment($moderation['validate'], array('status' => '0'));
 	}
 	if(!empty($moderation['delete'])) {
 		require_once libfile('function/delete');
@@ -172,7 +172,7 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		$deletes = count($comments);
 	}
 	if($moderation['ignore']) {
-		$ignores = C::t('home_comment')->update($moderation['ignore'], array('status' => '2'));
+		$ignores = C::t('home_comment')->update_comment($moderation['ignore'], array('status' => '2'));
 	}
 
 	if($_GET['fast']) {

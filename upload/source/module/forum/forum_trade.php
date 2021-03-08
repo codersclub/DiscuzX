@@ -119,7 +119,7 @@ if(!empty($orderid)) {
 				$netcredit = 0;
 			}
 			$data = array('lastbuyer' => $tradelog['buyer'], 'lastupdate' => $_G['timestamp']);
-			C::t('forum_trade')->update($tradelog['tid'], $tradelog['pid'], $data);
+			C::t('forum_trade')->update_trade($tradelog['tid'], $tradelog['pid'], $data);
 			C::t('forum_trade')->update_counter($tradelog['tid'], $tradelog['pid'], $tradelog['number'], $tradelog['price'], $netcredit);
 			notification_add($tradelog['sellerid'], 'goods', 'trade_success', array(
 				'orderid' => $orderid,
@@ -196,7 +196,7 @@ if(!empty($orderid)) {
 					showmessage('trade_lack');
 				}
 				$amount = $trade['amount'] + $tradelog['number'] - $newnumber;
-				C::t('forum_trade')->update($tradelog['tid'], $tradelog['pid'], array('amount' => $amount));
+				C::t('forum_trade')->update_trade($tradelog['tid'], $tradelog['pid'], array('amount' => $amount));
 				$tradelog['number'] = $newnumber;
 
 				$update = array(
@@ -264,7 +264,7 @@ if(!empty($orderid)) {
 	} else {
 		$pid = $_GET['pid'];
 	}
-	$thread = C::t('forum_thread')->fetch($_G['tid']);
+	$thread = C::t('forum_thread')->fetch_thread($_G['tid']);
 	if($thread['closed']) {
 		showmessage('trade_closed', 'forum.php?mod=viewthread&tid='.$_G['tid'].'&page='.$page);
 	}

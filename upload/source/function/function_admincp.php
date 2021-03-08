@@ -68,7 +68,7 @@ function upgradeinformation($status = 0) {
 	}
 
 	$update = array();
-	$siteuniqueid = C::t('common_setting')->fetch('siteuniqueid');
+	$siteuniqueid = C::t('common_setting')->fetch_setting('siteuniqueid');
 
 	$update['uniqueid'] = $siteuniqueid;
 	$update['curversion'] = $upgrade_step['curversion'];
@@ -1103,7 +1103,7 @@ function blog_replynum_stat($start, $perpage) {
 
 	$next = false;
 	$updates = array();
-	$query = C::t('home_blog')->range($start, $perpage);
+	$query = C::t('home_blog')->range_blog($start, $perpage);
 	foreach($query as $value) {
 		$next = true;
 		$count = C::t('home_comment')->count_by_id_idtype($value['blogid'], 'blogid');

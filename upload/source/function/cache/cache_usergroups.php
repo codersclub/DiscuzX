@@ -53,7 +53,7 @@ function build_cache_usergroups() {
 
 function build_cache_usergroups_single() {
 	$pluginvalue = pluginsettingvalue('groups');
-	$allowthreadplugin = C::t('common_setting')->fetch('allowthreadplugin', true);
+	$allowthreadplugin = C::t('common_setting')->fetch_setting('allowthreadplugin', true);
 
 	$data_uf = C::t('common_usergroup_field')->range();
 	$data_ag = C::t('common_admingroup')->range();

@@ -90,7 +90,7 @@ if(!empty($_GET['cedit'])) {
 
 if($_GET['action'] == 'edit' || $_GET['action'] == 'reply') {
 
-	$thread = C::t('forum_thread')->fetch($_G['tid']);
+	$thread = C::t('forum_thread')->fetch_thread($_G['tid']);
 	if(!$_G['forum_auditstatuson'] && !($thread['displayorder']>=0 || (in_array($thread['displayorder'], array(-4, -2)) && $thread['authorid']==$_G['uid']))) {
 		$thread = array();
 	}

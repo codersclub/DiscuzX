@@ -18,7 +18,7 @@ class optimizer_attachrefcheck {
 	}
 
 	public function check() {
-		$attachrefcheck = C::t('common_setting')->fetch('attachrefcheck');
+		$attachrefcheck = C::t('common_setting')->fetch_setting('attachrefcheck');
 		if(!$attachrefcheck) {
 			$return = array('status' => 2, 'type' =>'header', 'lang' => lang('optimizer', 'optimizer_attachrefcheck_need'));
 		} else {

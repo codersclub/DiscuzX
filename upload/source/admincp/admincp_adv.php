@@ -497,7 +497,7 @@ if($operation == 'ad') {
 
 	if(submitcheck('advsubmit')) {
 		$_GET['advexpirationnew']['allow'] = $_GET['advexpirationnew']['allow'] && $_GET['advexpirationnew']['day'] > 0 && $_GET['advexpirationnew']['method'] && $_GET['advexpirationnew']['users'];
-		C::t('common_setting')->update('advexpiration', $_GET['advexpirationnew']);
+		C::t('common_setting')->update_setting('advexpiration', $_GET['advexpirationnew']);
 		updatecache('setting');
 		cpmsg('setting_update_succeed', 'action=adv&operation=setting', 'succeed');
 	} else {
@@ -508,7 +508,7 @@ if($operation == 'ad') {
 			array('adv_admin_listall', 'adv&operation=ad', 0),
 		));
 
-		$advexpiration = C::t('common_setting')->fetch('advexpiration', true);
+		$advexpiration = C::t('common_setting')->fetch_setting('advexpiration', true);
 		showformheader('adv&operation=setting');
 		showtableheader();
 		showsetting('adv_setting_advexpiration', 'advexpirationnew[allow]', $advexpiration['allow'], 'radio', 0, 1);

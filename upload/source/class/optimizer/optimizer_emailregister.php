@@ -18,7 +18,7 @@ class optimizer_emailregister {
 	}
 
 	public function check() {
-		$sendregister = C::t('common_setting')->fetch('sendregisterurl');
+		$sendregister = C::t('common_setting')->fetch_setting('sendregisterurl');
 		if($sendregister) {
 			$return = array('status' => 2, 'type' =>'header', 'lang' => lang('optimizer', 'optimizer_emailregister_normal'), 'extraurl' => '&checkemail=1');
 		} else {

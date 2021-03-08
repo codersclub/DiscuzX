@@ -57,7 +57,7 @@ class extend_thread_sort extends extend_thread_base {
 			}
 
 			if($filedname && $valuelist) {
-				C::t('forum_optionvalue')->insert($sortid, "($filedname, tid, fid) VALUES ($valuelist, '{$tid}', '$fid')");
+				C::t('forum_optionvalue')->insert_optionvalue($sortid, "($filedname, tid, fid) VALUES ($valuelist, '{$tid}', '$fid')");
 			}
 
 			if($sortaids) {
@@ -102,9 +102,9 @@ class extend_thread_sort extends extend_thread_base {
 						$identifier = $_G['forum_optionlist'][$optionid]['identifier'];
 						$newsortaid = intval($_GET['typeoption'][$identifier]['aid']);
 						if($newsortaid && $_GET['oldsortaid'][$identifier] && $newsortaid != $_GET['oldsortaid'][$identifier]) {
-							$attach = C::t('forum_attachment_n')->fetch('tid:'.$this->thread['tid'], $_GET['oldsortaid'][$identifier]);
+							$attach = C::t('forum_attachment_n')->fetch_attachment('tid:'.$this->thread['tid'], $_GET['oldsortaid'][$identifier]);
 							C::t('forum_attachment')->delete($_GET['oldsortaid'][$identifier]);
-							C::t('forum_attachment_n')->delete('tid:'.$this->thread['tid'], $_GET['oldsortaid'][$identifier]);
+							C::t('forum_attachment_n')->delete_attachment('tid:'.$this->thread['tid'], $_GET['oldsortaid'][$identifier]);
 							dunlink($attach);
 							$this->param['threadimageaid'] = $newsortaid;
 							convertunusedattach($newsortaid, $this->thread['tid'], $this->post['pid']);
@@ -129,10 +129,10 @@ class extend_thread_sort extends extend_thread_base {
 				if($sql || ($filedname && $valuelist)) {
 					if(C::t('forum_optionvalue')->fetch_all_tid($parameters['sortid'], "WHERE tid='".$this->thread['tid']."'")) {
 						if($sql) {
-							C::t('forum_optionvalue')->update($parameters['sortid'], $this->thread['tid'], $this->forum['fid'], $sql);
+							C::t('forum_optionvalue')->update_optionvalue($parameters['sortid'], $this->thread['tid'], $this->forum['fid'], $sql);
 						}
 					} elseif($filedname && $valuelist) {
-						C::t('forum_optionvalue')->insert($parameters['sortid'], "($filedname, tid, fid) VALUES ($valuelist, '".$this->thread['tid']."', '".$this->forum['fid']."')");
+						C::t('forum_optionvalue')->insert_optionvalue($parameters['sortid'], "($filedname, tid, fid) VALUES ($valuelist, '".$this->thread['tid']."', '".$this->forum['fid']."')");
 					}
 				}
 			}

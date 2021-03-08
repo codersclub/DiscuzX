@@ -45,7 +45,7 @@ class task_promotion {
 	function csc($task = array()) {
 		global $_G;
 
-		$promotion = C::t('forum_spacecache')->fetch($_G['uid'], 'promotion'.$task['taskid']);
+		$promotion = C::t('forum_spacecache')->fetch_spacecache($_G['uid'], 'promotion'.$task['taskid']);
 		$promotion = $promotion['value'];
 		$num = C::t('forum_promotion')->count_by_uid($_G['uid']) - $promotion;
 		$numlimit = C::t('common_taskvar')->get_value_by_taskid($task['taskid'], 'num');
@@ -59,7 +59,7 @@ class task_promotion {
 	function sufprocess($task) {
 		global $_G;
 
-		C::t('forum_spacecache')->delete($_G['uid'], 'promotion'.$task['taskid']);
+		C::t('forum_spacecache')->delete_spacecache($_G['uid'], 'promotion'.$task['taskid']);
 	}
 
 }

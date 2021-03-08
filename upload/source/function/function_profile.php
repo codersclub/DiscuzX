@@ -392,7 +392,7 @@ function countprofileprogress($uid = 0) {
 	global $_G;
 
 	$uid = intval(!$uid ? $_G['uid'] : $uid);
-	if(($profilegroup = C::t('common_setting')->fetch('profilegroup', true))) {
+	if(($profilegroup = C::t('common_setting')->fetch_setting('profilegroup', true))) {
 		$fields = array();
 		foreach($profilegroup as $type => $value) {
 			foreach($value['field'] as $key => $field) {

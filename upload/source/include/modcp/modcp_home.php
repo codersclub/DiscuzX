@@ -30,7 +30,7 @@ if($op == 'addnote' && submitcheck('submit')) {
 
 if($op == 'delete' && submitcheck('notlistsubmit')) {
 	if(is_array($_GET['delete']) && $deleteids = dimplode($_GET['delete'])) {
-		C::t('common_adminnote')->delete($_GET['delete'], ($_G['adminid'] == 1 ? '' : $_G['username']));
+		C::t('common_adminnote')->delete_note($_GET['delete'], ($_G['adminid'] == 1 ? '' : $_G['username']));
 	}
 }
 
@@ -43,7 +43,7 @@ switch($_G['adminid']) {
 $notelist = array();
 foreach(C::t('common_adminnote')->fetch_all_by_access(explode(',', $access)) as $note) {
 	if($note['expiration'] < TIMESTAMP) {
-		C::t('common_adminnote')->delete($note['id']);
+		C::t('common_adminnote')->delete_note($note['id']);
 	} else {
 		$note['expiration'] = ceil(($note['expiration'] - $note['dateline']) / 86400);
 		$note['dateline'] = dgmdate($note['dateline']);

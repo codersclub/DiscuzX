@@ -108,7 +108,7 @@ if($_GET['subop'] == 'view') {
 
 	$grouppm = C::t('common_grouppm')->fetch($_GET['pmid']);
 	if(!$grouppm) {
-		$grouppm = array_merge((array)C::t('common_member_grouppm')->fetch($_G['uid'], $_GET['pmid']), $grouppm);
+		$grouppm = array_merge((array)C::t('common_member_grouppm')->fetch_gpm($_G['uid'], $_GET['pmid']), $grouppm);
 	}
 	if($grouppm) {
 		$grouppm['numbers'] = $grouppm['numbers'] - 1;

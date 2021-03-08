@@ -20,7 +20,7 @@ if(empty($_GET['updated'])) {
 	}
 }
 
-$setting = C::t('common_setting')->fetch_all(array('mobilewechat', 'mobile'));
+$setting = C::t('common_setting')->fetch_all_setting(array('mobilewechat', 'mobile'));
 $mobilesetting = (array)unserialize($setting['mobile']);
 $setting = (array)unserialize($setting['mobilewechat']);
 

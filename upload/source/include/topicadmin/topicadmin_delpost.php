@@ -28,7 +28,7 @@ if(!($deletepids = dimplode($topiclist))) {
 	showmessage('admin_nopermission');
 }  else {
 	$posttable = getposttablebytid($_G['tid']);
-	foreach(C::t('forum_post')->fetch_all('tid:'.$_G['tid'], $topiclist, false) as $post) {
+	foreach(C::t('forum_post')->fetch_all_post('tid:'.$_G['tid'], $topiclist, false) as $post) {
 		if($post['tid'] != $_G['tid']) {
 			continue;
 		}
@@ -74,7 +74,7 @@ if(!submitcheck('modsubmit')) {
 		} else {
 			$logs = array();
 			$ratelog = C::t('forum_ratelog')->fetch_all_by_pid($pids);
-			$rposts = C::t('forum_post')->fetch_all('tid:'.$_G['tid'], $pids, false);
+			$rposts = C::t('forum_post')->fetch_all_post('tid:'.$_G['tid'], $pids, false);
 			foreach(C::t('forum_ratelog')->fetch_all_by_pid($pids) as $rpid => $author) {
 				if($author['score'] > 0) {
 					$rpost = $rposts[$rpid];

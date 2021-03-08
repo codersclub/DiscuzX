@@ -278,7 +278,7 @@ function recyclebinpostundelete($undeletepids, $posttableid = false) {
 
 	$postarray = $ruidarray = $fidarray = $tidarray = array();
 	foreach($posttableids as $ptid) {
-		foreach(C::t('forum_post')->fetch_all($ptid, $undeletepids, false) as $post) {
+		foreach(C::t('forum_post')->fetch_all_post($ptid, $undeletepids, false) as $post) {
 			if(!$post['first']) {
 				$ruidarray[$post['fid']][] = $post['authorid'];
 			}
@@ -291,7 +291,7 @@ function recyclebinpostundelete($undeletepids, $posttableid = false) {
 		return $postsundel;
 	}
 
-	C::t('forum_post')->update($posttableid, $undeletepids, array('invisible' => '0'), true);
+	C::t('forum_post')->update_post($posttableid, $undeletepids, array('invisible' => '0'), true);
 
 	include_once libfile('function/post');
 	if($ruidarray) {

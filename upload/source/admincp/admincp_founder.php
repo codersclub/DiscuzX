@@ -411,7 +411,7 @@ if($operation == 'perm') {
 					$newnotifyusers[$newuid] = array('username' => $newusername, 'types' => '');
 				}
 			}
-			C::t('common_setting')->update('notifyusers', $newnotifyusers);
+			C::t('common_setting')->update_setting('notifyusers', $newnotifyusers);
 			updatecache('setting');
 			cpmsg('founder_perm_notifyusers_succeed', 'action=founder&operation=perm&do=notifyusers', 'succeed');
 		}

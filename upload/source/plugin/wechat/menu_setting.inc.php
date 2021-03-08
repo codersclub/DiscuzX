@@ -11,7 +11,7 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
 
-$setting = C::t('common_setting')->fetch_all(array('wechatmenu'));
+$setting = C::t('common_setting')->fetch_all_setting(array('wechatmenu'));
 $setting = (array)unserialize($setting['wechatmenu']);
 
 require_once DISCUZ_ROOT . './source/plugin/wechat/wechat.lib.class.php';

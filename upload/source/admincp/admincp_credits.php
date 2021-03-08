@@ -207,7 +207,7 @@ EOF;
 					$lowerlimit['creditspolicy']['lowerlimit'][$i] = (float)$rule['extcredits'.$i];
 				}
 			}
-			C::t('common_setting')->update('creditspolicy', $lowerlimit['creditspolicy']);
+			C::t('common_setting')->update_setting('creditspolicy', $lowerlimit['creditspolicy']);
 			updatecache(array('setting', 'creditrule'));
 		}
 		cpmsg('credits_update_succeed', 'action=credits&operation=list&anchor=policytable', 'succeed');

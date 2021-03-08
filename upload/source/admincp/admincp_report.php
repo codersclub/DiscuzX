@@ -43,7 +43,7 @@ if(submitcheck('resolvesubmit')) {
 if(submitcheck('receivesubmit') && $admincp->isfounder) {
 	$supmoderator = $_GET['supmoderator'];
 	$adminuser = $_GET['adminuser'];
-	C::t('common_setting')->update('report_receive', array('adminuser' => $adminuser, 'supmoderator' => $supmoderator));
+	C::t('common_setting')->update_setting('report_receive', array('adminuser' => $adminuser, 'supmoderator' => $supmoderator));
 	updatecache('setting');
 	cpmsg('report_receive_succeed', 'action=report&operation=receiveuser', 'succeed');
 }
@@ -75,7 +75,7 @@ if($operation == 'newreport') {
 	}
 	showsubtitle(array('', 'report_detail', 'report_user', ($report_reward['max'] != $report_reward['min'] ? 'operation' : '')));
 	$reportcount = C::t('common_report')->fetch_count();
-	$query = C::t('common_report')->fetch_all($start, $lpp);
+	$query = C::t('common_report')->fetch_all_report($start, $lpp);
 	foreach($query as $row) {
 		showtablerow('', array('class="td25"', 'class="td28"', '', ''), array(
 			'<input type="checkbox" class="checkbox" name="reportids[]" value="'.$row['id'].'" />',
@@ -99,7 +99,7 @@ if($operation == 'newreport') {
 	showtableheader();
 	showsubtitle(array('', 'report_detail', 'report_optuser', 'report_opttime'));
 	$reportcount = C::t('common_report')->fetch_count(1);
-	$query = C::t('common_report')->fetch_all($start, $lpp, 1);
+	$query = C::t('common_report')->fetch_all_report($start, $lpp, 1);
 	foreach($query as $row) {
 		if($row['opresult'] == 'ignore') {
 			$opresult = cplang('report_newreport_no_operate');

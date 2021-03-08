@@ -229,8 +229,8 @@ if($op == 'blockclass') {
 
 			list($tpl,$id) = explode(':', $tpl);
 			$tplname = $id ? $tpl.'_'.$id : $tpl;
-			$diydata = C::t('common_diy_data')->fetch($tplname, $tpldirectory);
-			if(empty($diydata) && $id) $diydata = C::t('common_diy_data')->fetch($tpl, $tpldirectory);
+			$diydata = C::t('common_diy_data')->fetch_diy($tplname, $tpldirectory);
+			if(empty($diydata) && $id) $diydata = C::t('common_diy_data')->fetch_diy($tpl, $tpldirectory);
 			if ($diydata) {
 
 				$filename = $diydata['targettplname'];

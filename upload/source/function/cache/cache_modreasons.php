@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 
 function build_cache_modreasons() {
-	$settings = C::t('common_setting')->fetch_all(array('modreasons', 'userreasons'));
+	$settings = C::t('common_setting')->fetch_all_setting(array('modreasons', 'userreasons'));
 	foreach($settings as $key => $data) {
 		$data = str_replace(array("\r\n", "\r"), array("\n", "\n"), $data);
 		$data = explode("\n", trim($data));

@@ -297,7 +297,7 @@ EOF;
 		'position' => '', 'revenue' => '', 'affectivestatus' => '', 'lookingfor' => '', 'bloodtype' => '', 'height' => '', 'weight' => '',
 		'alipay' => '', 'icq' => '', 'qq' => '', 'yahoo' => '', 'msn' => '', 'taobao' => '', 'site' => '', 'bio' => '', 'interest' => '',
 		'field1' => '', 'field2' => '', 'field3' => '', 'field4' => '', 'field5' => '', 'field6' => '', 'field7' => '', 'field8' => '');
-	foreach(C::t('common_member_profile_setting')->range() as $value) {
+	foreach(C::t('common_member_profile_setting')->range_setting() as $value) {
 		if(isset($title[$value['fieldid']])) {
 			$title[$value['fieldid']] = $value['title'];
 		}
@@ -1099,7 +1099,7 @@ EOF;
 		loadcache('fields_register');
 		$init_arr = explode(',', $_G['setting']['initcredits']);
 		$password = md5(random(10));
-		C::t('common_member')->insert($uid, $newusername, $password, $newemail, 'Manual Acting', $_GET['newgroupid'], $init_arr, $newadminid);
+		C::t('common_member')->insert_user($uid, $newusername, $password, $newemail, 'Manual Acting', $_GET['newgroupid'], $init_arr, $newadminid);
 		if($_GET['emailnotify']) {
 			if(!function_exists('sendmail')) {
 				include libfile('function/mail');
@@ -1319,7 +1319,7 @@ EOF;
 
 		eval("\$membercredit = @round({$_G['setting']['creditsformula']});");
 
-		if(($jscreditsformula = C::t('common_setting')->fetch('creditsformula'))) {
+		if(($jscreditsformula = C::t('common_setting')->fetch_setting('creditsformula'))) {
 			$jscreditsformula = str_replace(array('digestposts', 'posts', 'threads'), array($member['digestposts'], $member['posts'],$member['threads']), $jscreditsformula);
 		}
 
@@ -1778,7 +1778,7 @@ EOF;
 					$blogids[] = $value['blogid'];
 				}
 				if(!empty($blogids)) {
-					C::t('common_moderate')->delete($blogids, 'blogid');
+					C::t('common_moderate')->delete_moderate($blogids, 'blogid');
 				}
 				C::t('home_blog')->delete_by_uid($member['uid']);
 				C::t('home_blogfield')->delete_by_uid($member['uid']);
@@ -1795,7 +1795,7 @@ EOF;
 					deletepicfiles($value);
 				}
 				if(!empty($picids)) {
-					C::t('common_moderate')->delete($picids, 'picid');
+					C::t('common_moderate')->delete_moderate($picids, 'picid');
 				}
 				C::t('home_pic')->delete_by_uid($member['uid']);
 				C::t('home_feed')->delete_by_uid_idtype($member['uid'], 'albumid');
@@ -1808,7 +1808,7 @@ EOF;
 					$shareids[] = $value['sid'];
 				}
 				if(!empty($shareids)) {
-					C::t('common_moderate')->delete($shareids, 'sid');
+					C::t('common_moderate')->delete_moderate($shareids, 'sid');
 				}
 				C::t('home_share')->delete_by_uid($member['uid']);
 				C::t('home_feed')->delete_by_uid_idtype($member['uid'], 'sid');
@@ -1823,7 +1823,7 @@ EOF;
 					$doids[$value['doid']] = $value['doid'];
 				}
 				if(!empty($doids)) {
-					C::t('common_moderate')->delete($doids, 'doid');
+					C::t('common_moderate')->delete_moderate($doids, 'doid');
 				}
 				C::t('home_doing')->delete_by_uid($member['uid']);
 				C::t('common_member_field_home')->update($member['uid'], array('recentnote' => '', 'spacenote' => ''));
@@ -1842,7 +1842,7 @@ EOF;
 				}
 				if(!empty($delcids)) {
 					foreach($delcids as $key => $ids) {
-						C::t('common_moderate')->delete($ids, $key);
+						C::t('common_moderate')->delete_moderate($ids, $key);
 					}
 				}
 				C::t('home_comment')->delete_by_uid_idtype($member['uid']);
@@ -2476,7 +2476,7 @@ EOF;
 		$field['isfixed1'] = in_array($fieldid, $fixedfields1);
 		$field['isfixed2'] = $field['isfixed1'] || in_array($fieldid, $fixedfields2);
 		$field['customable'] = preg_match('/^field[1-8]$/i', $fieldid);
-		$profilegroup = C::t('common_setting')->fetch('profilegroup', true);
+		$profilegroup = C::t('common_setting')->fetch_setting('profilegroup', true);
 		$profilevalidate = array();
 		include libfile('spacecp/profilevalidate', 'include');
 		$field['validate'] = $field['validate'] ? $field['validate'] : ($profilevalidate[$fieldid] ? $profilevalidate[$fieldid] : '');
@@ -2640,11 +2640,11 @@ EOF;
 					unset($profilegroup[$type]['field'][$fieldid]);
 				}
 			}
-			C::t('common_setting')->update('profilegroup', $profilegroup);
+			C::t('common_setting')->update_setting('profilegroup', $profilegroup);
 			require_once libfile('function/cache');
 			if(!isset($_G['setting']['privacy']['profile']) || $_G['setting']['privacy']['profile'][$fieldid] != $_POST['privacy']) {
 				$_G['setting']['privacy']['profile'][$fieldid] = $_POST['privacy'];
-				C::t('common_setting')->update('privacy', $_G['setting']['privacy']);
+				C::t('common_setting')->update_setting('privacy', $_G['setting']['privacy']);
 			}
 			updatecache(array('profilesetting','fields_required', 'fields_optional', 'fields_register', 'setting'));
 			include_once libfile('function/block');
@@ -2655,7 +2655,7 @@ EOF;
 	} else {
 
 		$list = array();
-		foreach(C::t('common_member_profile_setting')->range() as $fieldid => $value) {
+		foreach(C::t('common_member_profile_setting')->range_setting() as $fieldid => $value) {
 			$list[$fieldid] = array(
 				'title'=>$value['title'],
 				'displayorder'=>$value['displayorder'],
@@ -3157,7 +3157,7 @@ function notifymembers($operation, $variable) {
 	if(!empty($_GET['current'])) {
 
 		$subject = $message = '';
-		if($settings = C::t('common_setting')->fetch($variable, true)) {
+		if($settings = C::t('common_setting')->fetch_setting($variable, true)) {
 			$subject = $settings['subject'];
 			$message = $settings['message'];
 		}
@@ -3316,7 +3316,7 @@ function notifymembers($operation, $variable) {
 						if(empty($magicnum[$magicid])) {
 							continue;
 						}
-						$query = C::t('common_member_magic')->fetch_all($uids ? $uids : -1, $magicid);
+						$query = C::t('common_member_magic')->fetch_all_magic($uids ? $uids : -1, $magicid);
 						foreach($query as $row) {
 							$uparray[] = $row['uid'];
 						}
@@ -3343,7 +3343,7 @@ function notifymembers($operation, $variable) {
 			}
 		}
 
-		C::t('common_setting')->update($variable, array('subject' => $subject, 'message' => $message));
+		C::t('common_setting')->update_setting($variable, array('subject' => $subject, 'message' => $message));
 	}
 
 	$pertask = intval($_GET['pertask']);

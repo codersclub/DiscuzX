@@ -29,7 +29,7 @@ class extend_thread_comment extends extend_thread_base {
 		if(!empty($_GET['noticeauthor']) && !$this->param['isanonymous'] && !$this->param['modnewreplies']) {
 			if($this->postcomment) {
 				$rpid = intval($_GET['reppid']);
-				if($rpost = C::t('forum_post')->fetch('tid:'.$this->thread['tid'], $rpid)) {
+				if($rpost = C::t('forum_post')->fetch_post('tid:'.$this->thread['tid'], $rpid)) {
 					if(!$rpost['first']) {
 						$cid = C::t('forum_postcomment')->insert(array(
 							'tid' => $this->thread['tid'],
@@ -44,7 +44,7 @@ class extend_thread_comment extends extend_thread_base {
 							'port'=>getglobal('remoteport')
 						), true);
 
-						C::t('forum_post')->update('tid:'.$this->thread['tid'], $rpid, array('comment' => 1));
+						C::t('forum_post')->update_post('tid:'.$this->thread['tid'], $rpid, array('comment' => 1));
 						C::t('forum_postcache')->delete($rpid);
 					}
 				}

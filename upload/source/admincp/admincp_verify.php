@@ -612,13 +612,13 @@ EOF;
 			}
 			$_G['setting']['verify'][$i]['icon'] = !$icon_url['host'] ? str_replace($_G['setting']['attachurl'].'common/', '', $_G['setting']['verify'][$i]['icon']) : $_G['setting']['verify'][$i]['icon'] ;
 		}
-		C::t('common_setting')->update('verify', $_G['setting']['verify']);
+		C::t('common_setting')->update_setting('verify', $_G['setting']['verify']);
 		if(isset($verifynew['viewrealname']) && !$verifynew['viewrealname']) {
 			C::t('common_member_profile_setting')->update('realname', array('showinthread' => 0));
-			$custominfo = C::t('common_setting')->fetch('customauthorinfo', true);
+			$custominfo = C::t('common_setting')->fetch_setting('customauthorinfo', true);
 			if(isset($custominfo[0]['field_realname'])) {
 				unset($custominfo[0]['field_realname']);
-				C::t('common_setting')->update('customauthorinfo', $custominfo);
+				C::t('common_setting')->update_setting('customauthorinfo', $custominfo);
 				updatecache(array('custominfo'));
 			}
 		}
@@ -667,7 +667,7 @@ EOF;
 			$_G['setting']['verify'][$key]['title'] = $value['title'];
 		}
 		$_G['setting']['verify']['enabled'] = $enabled;
-		C::t('common_setting')->update('verify', $_G['setting']['verify']);
+		C::t('common_setting')->update_setting('verify', $_G['setting']['verify']);
 		updatecache(array('setting'));
 		updatemenu('user');
 		cpmsg('members_verify_update_succeed', 'action=verify', 'succeed');

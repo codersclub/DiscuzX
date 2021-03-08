@@ -115,7 +115,7 @@ if($op == 'add') {
 				);
 				$fid = C::t('forum_forum')->insert($forumarr, true);
 				C::t('forum_forumfield')->insert(array('fid' => $fid));
-				C::t('common_setting')->update('followforumid', $fid);
+				C::t('common_setting')->update_setting('followforumid', $fid);
 				include libfile('function/cache');
 				updatecache('setting');
 			}

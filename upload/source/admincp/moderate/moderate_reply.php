@@ -213,13 +213,13 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		}
 	}
 	if($ignorepids = dimplode($moderation['ignore'])) {
-		$ignores = C::t('forum_post')->update($posttable, $moderation['ignore'], array('invisible' => -3), false, false, 0, -2, $fidadd['fids']);
+		$ignores = C::t('forum_post')->update_post($posttable, $moderation['ignore'], array('invisible' => -3), false, false, 0, -2, $fidadd['fids']);
 		updatemoderate('pid', $moderation['ignore'], 1);
 	}
 
 	if($deletepids = dimplode($moderation['delete'])) {
 		$pids = $recyclebinpids = array();
-		foreach(C::t('forum_post')->fetch_all($posttable, $moderation['delete']) as $post) {
+		foreach(C::t('forum_post')->fetch_all_post($posttable, $moderation['delete']) as $post) {
 			if($post['invisible'] != $displayorder || $post['first'] != 0 || ($fidadd['fids'] && $post['fid'] != $fidadd['fids'])) {
 				continue;
 			}
@@ -277,7 +277,7 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 	if($validatepids = dimplode($moderation['validate'])) {
 		$forums = $threads = $attachments = $pidarray = $authoridarray = array();
 		$tids = $postlist = array();
-		foreach(C::t('forum_post')->fetch_all($posttable, $moderation['validate']) as $post) {
+		foreach(C::t('forum_post')->fetch_all_post($posttable, $moderation['validate']) as $post) {
 			if($post['first'] != 0) {
 				continue;
 			}
@@ -328,8 +328,8 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		}
 
 		if(!empty($pidarray)) {
-			C::t('forum_post')->update($posttable, $pidarray, array('status' => 4), false, false, null, -2, null, 0);
-			$validates = C::t('forum_post')->update($posttable, $pidarray, array('invisible' => 0));
+			C::t('forum_post')->update_post($posttable, $pidarray, array('status' => 4), false, false, null, -2, null, 0);
+			$validates = C::t('forum_post')->update_post($posttable, $pidarray, array('invisible' => 0));
 			updatemodworks('MOD', $validates);
 			updatemoderate('pid', $pidarray, 2);
 		} else {

@@ -21,14 +21,14 @@ if (!in_array($op, array('cookie'))) {
 
 if ($op == 'cookie') {
 	loadcache('connect_login_report_date');
-	$cookieLogins = C::t('common_setting')->fetch('connect_login_times');
+	$cookieLogins = C::t('common_setting')->fetch_setting('connect_login_times');
 	if (dgmdate(TIMESTAMP, 'Y-m-d') != $_G['cache']['connect_login_report_date']) {
 		if (!discuz_process::islocked('connect_login_report', 600)) {
 			$result = $connectService->connectCookieLoginReport($cookieLogins);
 			if (isset($result['status']) && $result['status'] == 0) {
 				$date = dgmdate(TIMESTAMP, 'Y-m-d');
-				C::t('common_setting')->update('connect_login_times', 0);
-				C::t('common_setting')->update('connect_login_report_date', $date);
+				C::t('common_setting')->update_setting('connect_login_times', 0);
+				C::t('common_setting')->update_setting('connect_login_report_date', $date);
 				savecache('connect_login_report_date', $date);
 			}
 		}

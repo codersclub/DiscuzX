@@ -161,7 +161,7 @@ if($_GET['view'] == 'me') {
 	}
 
 	$caches = array();
-	foreach(C::t('forum_spacecache')->fetch_all($uid, array('buyercredit', 'sellercredit')) as $cache) {
+	foreach(C::t('forum_spacecache')->fetch_all_spacecache($uid, array('buyercredit', 'sellercredit')) as $cache) {
 		$caches[$cache['variable']] = dunserialize($cache['value']);
 		$caches[$cache['variable']]['expiration'] = $cache['expiration'];
 	}

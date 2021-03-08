@@ -59,20 +59,20 @@ if(!submitcheck('modsubmit')) {
 		}
 		ksort($pidlist);
 		foreach($pidlist as $row) {
-			C::t('forum_post')->update('tid:'.$row['tid'], $row['pid'], array('position' => $pos));
+			C::t('forum_post')->update_post('tid:'.$row['tid'], $row['pid'], array('position' => $pos));
 			$pos ++;
 		}
 		unset($pidlist);
 	} else {
 		C::t('forum_post')->increase_position_by_tid($thread['posttableid'], array($_G['tid'], $othertid), $other['maxposition'] + $thread['maxposition']);
 		foreach(C::t('forum_post')->fetch_all_by_tid('tid:'.$_G['tid'], array($_G['tid'], $othertid), false, 'ASC') as $row) {
-			C::t('forum_post')->update('tid:'.$_G['tid'], $row['pid'], array('position' => $pos));
+			C::t('forum_post')->update_post('tid:'.$_G['tid'], $row['pid'], array('position' => $pos));
 			$pos ++;
 		}
 	}
 	if($posttable != $otherposttable) {
 		foreach(C::t('forum_post')->fetch_all_by_tid('tid:'.$othertid, $othertid) as $row) {
-			C::t('forum_post')->insert('tid:'.$_G['tid'], $row);
+			C::t('forum_post')->insert_post('tid:'.$_G['tid'], $row);
 		}
 		C::t('forum_post')->delete_by_tid('tid:'.$othertid, $othertid);
 	}
@@ -89,7 +89,7 @@ if(!submitcheck('modsubmit')) {
 	C::t('forum_threadmod')->delete_by_tid($othertid);
 
 	C::t('forum_post')->update_by_tid('tid:'.$_G['tid'], $_G['tid'], array('first' => 0, 'fid' => $_G['forum']['fid']));
-	C::t('forum_post')->update('tid:'.$_G['tid'], $firstpost['pid'], array('first' => 1));
+	C::t('forum_post')->update_post('tid:'.$_G['tid'], $firstpost['pid'], array('first' => 1));
 	$fieldarr = array(
 			'views' => $other['views'],
 			'replies' => $other['replies'],

@@ -18,10 +18,10 @@ class optimizer_seo {
 	}
 
 	public function check() {
-		$seotitle = C::t('common_setting')->fetch('seotitle', true);
-		$seokeywords = C::t('common_setting')->fetch('seokeywords', true);
-		$seodescription = C::t('common_setting')->fetch('seodescription', true);
-		$rewritestatus = C::t('common_setting')->fetch('rewritestatus', true);
+		$seotitle = C::t('common_setting')->fetch_setting('seotitle', true);
+		$seokeywords = C::t('common_setting')->fetch_setting('seokeywords', true);
+		$seodescription = C::t('common_setting')->fetch_setting('seodescription', true);
+		$rewritestatus = C::t('common_setting')->fetch_setting('rewritestatus', true);
 		if(!$seotitle || !$seokeywords || !$seodescription || !$rewritestatus) {
 			$return = array('status' => 1, 'type' =>'header', 'lang' => lang('optimizer', 'optimizer_seo_advice'));
 		} else {

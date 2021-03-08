@@ -22,7 +22,7 @@ if(!$operation) {
 			$gids[] = $g['groupid'];
 		}
 		if($gids) {
-			C::t('common_usergroup')->delete($gids);
+			C::t('common_usergroup')->delete_usergroup($gids);
 			C::t('common_usergroup_field')->delete($gids);
 			C::t('common_admingroup')->delete($gids);
 			$newgroupid = C::t('common_usergroup')->fetch_new_groupid();
@@ -81,7 +81,7 @@ if(!$operation) {
 			$stars = intval($_GET['group_stars'][$gid]);
 			$color = dhtmlspecialchars($_GET['group_color'][$gid]);
 			if($group['color'] != $color || $group['stars'] != $stars || $group['icon'] != $avatar) {
-				C::t('common_usergroup')->update($gid, array('stars' => $stars, 'color' => $color));
+				C::t('common_usergroup')->update_usergroup($gid, array('stars' => $stars, 'color' => $color));
 			}
 		}
 
@@ -89,7 +89,7 @@ if(!$operation) {
 		$radminidnew = intval($_GET['radminidnew']);
 
 		foreach($_GET['newradminid'] as $groupid => $newradminid) {
-			C::t('common_usergroup')->update($groupid, array('radminid' => $newradminid));
+			C::t('common_usergroup')->update_usergroup($groupid, array('radminid' => $newradminid));
 		}
 
 		if($grouptitlenew && in_array($radminidnew, array(1, 2, 3))) {
@@ -444,7 +444,7 @@ function deletegroupcache($groupidarray) {
 			}
 		}
 		if(!empty($cachenames)) {
-			C::t('common_syscache')->delete($cachenames);
+			C::t('common_syscache')->delete_syscache($cachenames);
 		}
 	}
 }

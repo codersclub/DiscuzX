@@ -107,7 +107,7 @@ class logging_ctl {
 					$init_arr = explode(',', $this->setting['initcredits']);
 					$groupid = $this->setting['regverify'] ? 8 : $this->setting['newusergroupid'];
 
-					C::t('common_member')->insert($uid, $result['ucresult']['username'], md5(random(10)), $result['ucresult']['email'], $_G['clientip'], $groupid, $init_arr);
+					C::t('common_member')->insert_user($uid, $result['ucresult']['username'], md5(random(10)), $result['ucresult']['email'], $_G['clientip'], $groupid, $init_arr);
 					$result['member'] = getuserbyuid($uid);
 					$result['status'] = 1;
 				}
@@ -780,7 +780,7 @@ class register_ctl {
 
 			$init_arr = array('credits' => explode(',', $this->setting['initcredits']), 'profile'=>$profile, 'emailstatus' => $emailstatus);
 
-			C::t('common_member')->insert($uid, $username, $password, $email, $_G['clientip'], $groupinfo['groupid'], $init_arr, 0, $_G['remoteport']);
+			C::t('common_member')->insert_user($uid, $username, $password, $email, $_G['clientip'], $groupinfo['groupid'], $init_arr, 0, $_G['remoteport']);
 			if($emailstatus) {
 				updatecreditbyaction('realemail', $uid);
 			}

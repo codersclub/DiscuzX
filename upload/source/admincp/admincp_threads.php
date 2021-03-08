@@ -453,7 +453,7 @@ EOT;
 	} elseif($operation == 'forumstick') {
 		shownav('topic', 'threads_forumstick');
 		loadcache(array('forums', 'grouptype'));
-		$forumstickthreads = C::t('common_setting')->fetch('forumstickthreads', true);
+		$forumstickthreads = C::t('common_setting')->fetch_setting('forumstickthreads', true);
 		if(!submitcheck('forumsticksubmit')) {
 			showsubmenu('threads_forumstick', array(
 				array('admin', 'threads&operation=forumstick', !$do),
@@ -591,7 +591,7 @@ EOT;
 				if(empty($_GET['forumsticktargets'])) {
 					cpmsg('threads_forumstick_targets_empty', "action=threads&operation=forumstick&do=add", 'error');
 				}
-				$stickthread = C::t('forum_thread')->fetch($forumstick_tid);
+				$stickthread = C::t('forum_thread')->fetch_thread($forumstick_tid);
 				$stickthread_tmp = array(
 					'subject' => $stickthread['subject'],
 					'tid' => $forumstick_tid,
@@ -607,7 +607,7 @@ EOT;
 				C::t('forum_thread')->update($forumstick_tid, array('displayorder'=>4));
 			}
 
-			C::t('common_setting')->update('forumstickthreads', $forumstickthreads);
+			C::t('common_setting')->update_setting('forumstickthreads', $forumstickthreads);
 			updatecache(array('forumstick', 'setting'));
 			cpmsg('threads_forumstick_'.$do.'_succeed', "action=threads&operation=forumstick", 'succeed');
 		}

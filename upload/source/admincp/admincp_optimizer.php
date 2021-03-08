@@ -89,8 +89,8 @@ if($operation == 'optimize_unit') {
 
 	$checkstatus = $optimizer->check();
 
-	C::t('common_optimizer')->update($type.'_checkrecord', ($checkstatus['status'] == 1 ? $checkstatus['status'] : 0));
-	C::t('common_optimizer')->update($check_record_time_key, $_G['timestamp']);
+	C::t('common_optimizer')->update_optimizer($type.'_checkrecord', ($checkstatus['status'] == 1 ? $checkstatus['status'] : 0));
+	C::t('common_optimizer')->update_optimizer($check_record_time_key, $_G['timestamp']);
 
 	include template('common/header_ajax');
 	echo '<script type="text/javascript">updatecheckstatus(\''.$type.'\', \''.$checkstatus['lang'].'\', \''.$checkstatus['status'].'\', \''.$checkstatus['type'].'\', \''.$checkstatus['extraurl'].'\');</script>';
@@ -137,7 +137,7 @@ if($operation == 'optimize_unit') {
 
 } else {
 
-	$checkrecordtime = C::t('common_optimizer')->fetch($check_record_time_key);
+	$checkrecordtime = C::t('common_optimizer')->fetch_optimizer($check_record_time_key);
 
 	if(!$_GET['checking'] && $_GET['anchor'] == 'security') {
 		showtips('optimizer_security_tips');

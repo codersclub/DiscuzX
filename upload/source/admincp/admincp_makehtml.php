@@ -481,7 +481,7 @@ EOT;
 				}
 			}
 			$settingnew['makehtml']['htmldirformat'] = intval($settingnew['makehtml']['htmldirformat']);
-			C::t('common_setting')->update('makehtml', $settingnew['makehtml']);
+			C::t('common_setting')->update_setting('makehtml', $settingnew['makehtml']);
 			updatecache('setting');
 		}
 		cpmsg('setting_update_succeed', 'action=makehtml&operation=makehtmlsetting', 'succeed');

@@ -13,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 function build_cache_domainwhitelist() {
 
-	$data = C::t('common_setting')->fetch('domainwhitelist');
+	$data = C::t('common_setting')->fetch_setting('domainwhitelist');
 	$data = $data ? explode("\r\n", $data) : array();
 	savecache('domainwhitelist', $data);
 }

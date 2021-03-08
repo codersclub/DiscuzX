@@ -832,7 +832,7 @@ $_G['hiddenexists'] = !$_G['forum']['ismoderator'] && $_G['hiddenexists'] && $_G
 $livethread = array();
 if($_G['forum']['livetid'] && $page == 1 && (!$filter || ($filter == 'sortid' && $_G['forum']['threadsorts']['defaultshow'] == $_GET['sortid']))) {
 	include_once libfile('function/post');
-	$livethread = C::t('forum_thread')->fetch($_G['forum']['livetid']);
+	$livethread = C::t('forum_thread')->fetch_thread($_G['forum']['livetid']);
 	$livepost = C::t('forum_post')->fetch_threadpost_by_tid_invisible($_G['forum']['livetid']);
 	$livemessage = messagecutstr($livepost['message'], 200);
 	$liveallowpostreply = ($_G['forum']['allowreply'] != -1) && (($livethread['isgroup'] || (!$livethread['closed'] && !checkautoclose($livethread))) || $_G['forum']['ismoderator']) && ((!$_G['forum']['replyperm'] && $_G['group']['allowreply']) || ($_G['forum']['replyperm'] && forumperm($_G['forum']['replyperm'])) || $_G['forum']['allowreply']);

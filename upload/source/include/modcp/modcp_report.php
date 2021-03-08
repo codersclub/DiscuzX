@@ -58,7 +58,7 @@ if(!empty($_G['fid'])) {
 	$start = ($page - 1) * $lpp;
 
 	$reportcount = C::t('common_report')->fetch_count(0, 0, $_G['fid']);
-	$query = C::t('common_report')->fetch_all($start, $lpp, 0, $_G['fid']);
+	$query = C::t('common_report')->fetch_all_report($start, $lpp, 0, $_G['fid']);
 	foreach($query as $row) {
 		$row['dateline'] = dgmdate($row['dateline']);
 		$reportlist[] = $row;

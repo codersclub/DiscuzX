@@ -43,7 +43,7 @@ class magic_downdateline {
 		$tablename = gettablebyidtype($idtype);
 		C::t($tablename)->update_dateline_by_id_idtype_uid($id, $idtype, $newdateline, $_G['uid']);
 
-		C::t('home_feed')->update($id, array('dateline'=>$newdateline), $idtype, $_G['uid']);
+		C::t('home_feed')->update_feed($id, array('dateline'=>$newdateline), $idtype, $_G['uid']);
 
 		usemagic($this->magic['magicid'], $this->magic['num']);
 		updatemagiclog($this->magic['magicid'], '2', '1', '0', '0', $idtype, $id);

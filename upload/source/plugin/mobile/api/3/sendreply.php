@@ -62,7 +62,7 @@ class mobile_api {
 					$poststatus = setstatus(10 - $i, $mobiletype[$i], $poststatus);
 				}
 			}
-			C::t('forum_post')->update('tid:'.$values['tid'], $values['pid'], array('status' => $poststatus));
+			C::t('forum_post')->update_post('tid:'.$values['tid'], $values['pid'], array('status' => $poststatus));
 
 			if($_POST['location']) {
 				list($mapx, $mapy, $location) = explode('|', dhtmlspecialchars($_POST['location']));

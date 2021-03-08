@@ -24,7 +24,7 @@ if(empty($topiclist)) {
 }
 $sticktopiclist = $posts = array();
 foreach($topiclist as $pid) {
-	$post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $pid, false);
+	$post = C::t('forum_post')->fetch_post('tid:'.$_G['tid'], $pid, false);
 	$sticktopiclist[$pid] = $post['position'];
 }
 
@@ -54,7 +54,7 @@ if(!submitcheck('modsubmit')) {
 		}
 	} else {
 		foreach($sticktopiclist as $pid => $postnum) {
-			C::t('forum_poststick')->delete($_G['tid'], $pid);
+			C::t('forum_poststick')->delete_stick($_G['tid'], $pid);
 		}
 	}
 

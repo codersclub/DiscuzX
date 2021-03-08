@@ -136,7 +136,7 @@ if($_GET['op'] == 'delete') {
 			require_once libfile('function/feed');
 			feed_publish($blog['blogid'], 'blogid');
 		} else {
-			C::t('home_feed')->update($blog['blogid'], array('hot'=>$_POST['hot']), 'blogid');
+			C::t('home_feed')->update_feed($blog['blogid'], array('hot'=>$_POST['hot']), 'blogid');
 		}
 
 		showmessage('do_success', "home.php?mod=space&uid={$blog['uid']}&do=blog&id={$blog['blogid']}");

@@ -1025,7 +1025,7 @@ class table_forum_thread extends discuz_table
 	}
 	public function count_all_thread() {
 		$count = 0;
-		$settings = C::t('common_setting')->fetch_all('threadtableids', true);
+		$settings = C::t('common_setting')->fetch_all_setting('threadtableids', true);
 		if(empty($settings['threadtableids']) || !is_array($settings['threadtableids'])) {
 			$settings['threadtableids'] = array(0);
 		}

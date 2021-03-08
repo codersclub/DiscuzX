@@ -74,7 +74,7 @@ class magic_anonymouspost {
 				$author = $thread['author'];
 				$lastposter = '';
 			}
-			C::t('forum_post')->update('tid:'.$post['tid'], $id, array('anonymous' => 1));
+			C::t('forum_post')->update_post('tid:'.$post['tid'], $id, array('anonymous' => 1));
 			$query = C::t('forum_forum')->fetch($post['fid']);
 			$forum['lastpost'] = explode("\t", $query['lastpost']);
 			if($post['dateline'] == $forum['lastpost'][2] && ($post['author'] == $forum['lastpost'][3] || ($forum['lastpost'][3] == '' && $post['anonymous']))) {
@@ -83,13 +83,13 @@ class magic_anonymouspost {
 			}
 			C::t('forum_thread')->update($post['tid'], array('author' => $author, 'lastposter' => $lastposter));
 		} elseif($idtype == 'cid') {
-			$value = C::t('home_comment')->fetch($id, intval($_G['uid']));
+			$value = C::t('home_comment')->fetch_comment($id, intval($_G['uid']));
 			if(empty($value)) {
 				showmessage(lang('magic/anonymouspost', 'anonymouspost_use_error'));
 			} elseif($value['author'] == '') {
 				showmessage(lang('magic/anonymouspost', 'anonymouspost_once_limit'));
 			}
-			C::t('home_comment')->update($id, array('author'=>''), $_G['uid']);
+			C::t('home_comment')->update_comment($id, array('author'=>''), $_G['uid']);
 		}
 
 		usemagic($this->magic['magicid'], $this->magic['num']);

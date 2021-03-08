@@ -468,7 +468,7 @@ class model_forum_post extends discuz_model {
 
 
 		if(getglobal('forum_auditstatuson') && $this->param['audit'] == 1) {
-			C::t('forum_post')->update($this->thread['posttableid'], $this->post['pid'], array('status' => 4), false, false, null, -2, null, 0);
+			C::t('forum_post')->update_post($this->thread['posttableid'], $this->post['pid'], array('status' => 4), false, false, null, -2, null, 0);
 			updatepostcredits('+', $this->post['authorid'], ($isfirstpost ? 'post' : 'reply'), $this->forum['fid']);
 			updatemodworks('MOD', 1);
 			updatemodlog($this->thread['tid'], 'MOD');
@@ -514,7 +514,7 @@ class model_forum_post extends discuz_model {
 		} else {
 			$setarr['invisible'] = $pinvisible;
 		}
-		C::t('forum_post')->update('tid:'.$this->thread['tid'], $this->post['pid'], $setarr);
+		C::t('forum_post')->update_post('tid:'.$this->thread['tid'], $this->post['pid'], $setarr);
 
 
 
@@ -576,17 +576,17 @@ class model_forum_post extends discuz_model {
 
 		if(!$this->param['handlereplycredit']) {
 			if(!$isfirstpost && !$this->param['isanonymous']) {
-				$postreplycredit = C::t('forum_post')->fetch('tid:'.$this->thread['tid'], $this->post['pid']);
+				$postreplycredit = C::t('forum_post')->fetch_post('tid:'.$this->thread['tid'], $this->post['pid']);
 				$postreplycredit = $postreplycredit['replycredit'];
 				if($postreplycredit) {
-					C::t('forum_post')->update('tid:'.$this->thread['tid'], $this->post['pid'], array('replycredit' => 0));
+					C::t('forum_post')->update_post('tid:'.$this->thread['tid'], $this->post['pid'], array('replycredit' => 0));
 					updatemembercount($this->post['authorid'], array($replycredit_rule['extcreditstype'] => '-'.$postreplycredit));
 				}
 			}
 		}
 
 
-		C::t('forum_post')->delete('tid:'.$this->thread['tid'], $this->post['pid']);
+		C::t('forum_post')->delete_post('tid:'.$this->thread['tid'], $this->post['pid']);
 
 
 		$forumcounter = array();
@@ -597,7 +597,7 @@ class model_forum_post extends discuz_model {
 				C::t($table)->delete_by_tid($this->thread['tid']);
 			}
 			C::t('forum_thread')->delete_by_tid($this->thread['tid']);
-			C::t('common_moderate')->delete($this->thread['tid'], 'tid');
+			C::t('common_moderate')->delete_moderate($this->thread['tid'], 'tid');
 			C::t('forum_threadmod')->delete_by_tid($this->thread['tid']);
 			if($this->setting['globalstick'] && in_array($this->thread['displayorder'], array(2, 3))) {
 				require_once libfile('function/cache');

@@ -75,7 +75,7 @@ if($_GET['action'] == 'group') {
 } elseif($_GET['action'] == 'thread') {
 	$inviteduids = array();
 	$id = intval($_GET['id']);
-	$thread = C::t('forum_thread')->fetch($id);
+	$thread = C::t('forum_thread')->fetch_thread($id);
 	$at = 0;
 	$maxselect = 20;
 	if(empty($_GET['activity'])) {

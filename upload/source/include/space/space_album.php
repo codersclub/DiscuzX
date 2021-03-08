@@ -32,7 +32,7 @@ if($id) {
 	ckstart($start, $perpage);
 
 	if($id > 0) {
-		$album = C::t('home_album')->fetch($id, $space['uid']);
+		$album = C::t('home_album')->fetch_album($id, $space['uid']);
 		if(empty($album)) {
 			showmessage('to_view_the_photo_does_not_exist');
 		}
@@ -129,7 +129,7 @@ if($id) {
 
 	$album = array();
 	if($pic['albumid']) {
-		$album = C::t('home_album')->fetch($pic['albumid']);
+		$album = C::t('home_album')->fetch_album($pic['albumid']);
 		if(!$album) {
 			C::t('home_pic')->update_for_albumid($pic['albumid'], array('albumid' => 0));
 		}

@@ -30,7 +30,7 @@ if($_GET['goto'] == 'findpost') {
 	if($pid) {
 
 		if($thread) {
-			$post = C::t('forum_post')->fetch($thread['posttableid'], $pid);
+			$post = C::t('forum_post')->fetch_post($thread['posttableid'], $pid);
 		} else {
 			$post = get_post_by_pid($pid);
 		}
@@ -55,7 +55,7 @@ if($_GET['goto'] == 'findpost') {
 			}
 
 			if($pid) {
-				$post = C::t('forum_post')->fetch($thread['posttableid'], $pid);
+				$post = C::t('forum_post')->fetch_post($thread['posttableid'], $pid);
 				if($post['invisible'] != 0) {
 					$post = array();
 				}

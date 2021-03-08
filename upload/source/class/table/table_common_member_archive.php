@@ -82,14 +82,14 @@ class table_common_member_archive extends table_common_member
 			unset($member['_inarchive']);
 			DB::insert('common_member',$member);
 			C::t('common_member_count')->insert(C::t('common_member_count_archive')->fetch($uid));
-			C::t('common_member_status')->insert(C::t('common_member_status_archive')->fetch($uid));
-			C::t('common_member_profile')->insert(C::t('common_member_profile_archive')->fetch($uid));
+			C::t('common_member_status')->insert(C::t('common_member_status_archive')->fetch_status($uid));
+			C::t('common_member_profile')->insert(C::t('common_member_profile_archive')->fetch_profile($uid));
 			C::t('common_member_field_home')->insert(C::t('common_member_field_home_archive')->fetch($uid));
 			C::t('common_member_field_forum')->insert(C::t('common_member_field_forum_archive')->fetch($uid));
 			$this->delete($uid);
 			C::t('common_member_count_archive')->delete($uid);
-			C::t('common_member_status_archive')->delete($uid);
-			C::t('common_member_profile_archive')->delete($uid);
+			C::t('common_member_status_archive')->delete_status($uid);
+			C::t('common_member_profile_archive')->delete_profile($uid);
 			C::t('common_member_field_home_archive')->delete($uid);
 			C::t('common_member_field_forum_archive')->delete($uid);
 		}

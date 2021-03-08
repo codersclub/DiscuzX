@@ -18,8 +18,8 @@ class optimizer_regmaildomain {
 	}
 
 	public function check() {
-		$regmaildomain = C::t('common_setting')->fetch('regmaildomain');
-		$maildomainlist = C::t('common_setting')->fetch('maildomainlist');
+		$regmaildomain = C::t('common_setting')->fetch_setting('regmaildomain');
+		$maildomainlist = C::t('common_setting')->fetch_setting('maildomainlist');
 		if($regmaildomain == 2 && !$maildomainlist) {
 			$return = array('status' => 1, 'type' =>'header', 'lang' => lang('optimizer', 'optimizer_regmaildomain_need'));
 		} else {

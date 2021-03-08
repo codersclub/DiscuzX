@@ -63,7 +63,7 @@ if(!submitcheck('searchsubmit', 1)) {
 		$bloglist = array();
 		$pricount = 0;
 		$blogidarray = explode(',', $index['ids']);
-		$data_blog = C::t('home_blog')->fetch_all($blogidarray, 'dateline', 'DESC', $start_limit, $_G['tpp']);
+		$data_blog = C::t('home_blog')->fetch_all_blog($blogidarray, 'dateline', 'DESC', $start_limit, $_G['tpp']);
 		$data_blogfield = C::t('home_blogfield')->fetch_all($blogidarray);
 
 		foreach($data_blog as $curblogid => $value) {

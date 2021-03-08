@@ -18,7 +18,7 @@ class optimizer_loginoutofdate {
 	}
 
 	public function check() {
-		$accountguard = C::t('common_setting')->fetch('accountguard', true);
+		$accountguard = C::t('common_setting')->fetch_setting('accountguard', true);
 		if(!$accountguard['loginoutofdate']) {
 			$return = array('status' => 1, 'type' =>'header', 'lang' => lang('optimizer', 'optimizer_loginoutofdate_need'));
 		} else {

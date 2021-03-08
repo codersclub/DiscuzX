@@ -229,7 +229,7 @@ if($op == 'replies') {
 
 		$pmlist = array();
 		if($ignorepids = dimplode($moderation['ignore'])) {
-			C::t('forum_post')->update($posttableid, $moderation['ignore'], array('invisible' => -3), true, false, 0, -2, ($modfids ? explode(',', $modfids) : null));
+			C::t('forum_post')->update_post($posttableid, $moderation['ignore'], array('invisible' => -3), true, false, 0, -2, ($modfids ? explode(',', $modfids) : null));
 			updatemoderate('pid', $moderation['ignore'], 1);
 		}
 
@@ -237,7 +237,7 @@ if($op == 'replies') {
 			$deleteauthorids = array();
 			$recyclebinpids = array();
 			$pids = array();
-			foreach(C::t('forum_post')->fetch_all($posttableid, $moderation['delete']) as $post) {
+			foreach(C::t('forum_post')->fetch_all_post($posttableid, $moderation['delete']) as $post) {
 				if($post['invisible'] != $pstat || $post['first'] != 0 || ($modfids ? !in_array($post['fid'], explode(',', $modfids)) : 0)) {
 					continue;
 				}
@@ -261,7 +261,7 @@ if($op == 'replies') {
 			}
 
 			if($recyclebinpids) {
-				C::t('forum_post')->update($posttableid, $recyclebinpids, array('invisible' => '-5'), true);
+				C::t('forum_post')->update_post($posttableid, $recyclebinpids, array('invisible' => '-5'), true);
 			}
 
 			if($pids) {
@@ -301,7 +301,7 @@ if($op == 'replies') {
 
 			$threads = $lastpost = $attachments = $pidarray = array();
 			$postlist = $tids = array();
-			foreach(C::t('forum_post')->fetch_all($posttableid, $moderation['validate']) as $post) {
+			foreach(C::t('forum_post')->fetch_all_post($posttableid, $moderation['validate']) as $post) {
 				if($post['invisible'] != $pstat || $post['first'] != '0' || ($modfids ? !in_array($post['fid'], explode(',', $modfids)) : 0)) {
 					continue;
 				}
@@ -361,7 +361,7 @@ if($op == 'replies') {
 
 			if(!empty($pidarray)) {
 				$pidarray[] = 0;
-				$repliesmod = C::t('forum_post')->update($posttableid, $pidarray, array('invisible' => '0'), true);
+				$repliesmod = C::t('forum_post')->update_post($posttableid, $pidarray, array('invisible' => '0'), true);
 				updatemodworks('MOD', $repliesmod);
 				updatemoderate('pid', $pidarray, 2);
 			} else {

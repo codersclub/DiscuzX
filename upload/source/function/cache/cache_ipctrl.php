@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 
 function build_cache_ipctrl() {
-	$data = C::t('common_setting')->fetch_all(array('ipregctrl', 'ipverifywhite'));
+	$data = C::t('common_setting')->fetch_all_setting(array('ipregctrl', 'ipverifywhite'));
 	savecache('ipctrl', $data);
 }
 

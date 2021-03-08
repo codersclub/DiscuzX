@@ -61,7 +61,7 @@ if(!submitcheck('searchsubmit', 1)) {
 
 		$albumlist = array();
 		$maxalbum = $nowalbum = 0;
-		$query = C::t('home_album')->fetch_all(explode(',', $index['ids']), 'updatetime', $start_limit, $_G['tpp']);
+		$query = C::t('home_album')->fetch_all_album(explode(',', $index['ids']), 'updatetime', $start_limit, $_G['tpp']);
 		foreach($query as $value) {
 			if($value['friend'] != 4 && ckfriend($value['uid'], $value['friend'], $value['target_ids'])) {
 				$value['pic'] = pic_cover_get($value['pic'], $value['picflag']);

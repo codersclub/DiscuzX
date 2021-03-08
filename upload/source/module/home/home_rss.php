@@ -36,7 +36,7 @@ if(empty($space)) {
 
 $uidsql = empty($space['uid'])?'':" AND b.uid='{$space['uid']}'";
 
-$data_blog = C::t('home_blog')->range(0, $pagenum, 'DESC', 'dateline', 0, null, $uid);
+$data_blog = C::t('home_blog')->range_blog(0, $pagenum, 'DESC', 'dateline', 0, null, $uid);
 $blogids = array_keys($data_blog);
 $data_blogfield = C::t('home_blogfield')->fetch_all($blogids);
 

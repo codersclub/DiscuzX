@@ -18,7 +18,7 @@ class optimizer_pwlength {
 	}
 
 	public function check() {
-		$pwlength = C::t('common_setting')->fetch('pwlength');
+		$pwlength = C::t('common_setting')->fetch_setting('pwlength');
 		if($pwlength < 6) {
 			$return = array('status' => 1, 'type' =>'header', 'lang' => lang('optimizer', 'optimizer_pwlength_need'));
 		} else {

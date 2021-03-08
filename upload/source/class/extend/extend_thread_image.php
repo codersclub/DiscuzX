@@ -41,7 +41,7 @@ class extend_thread_image extends extend_thread_base {
 
 		if($threadimageaid) {
 			if(!$threadimage) {
-				$threadimage = C::t('forum_attachment_n')->fetch('tid:'.$tid, $threadimageaid);
+				$threadimage = C::t('forum_attachment_n')->fetch_attachment('tid:'.$tid, $threadimageaid);
 			}
 			$threadimage = daddslashes($threadimage);
 			C::t('forum_threadimage')->insert(array(

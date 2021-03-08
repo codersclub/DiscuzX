@@ -18,7 +18,7 @@ class optimizer_newbiespan {
 	}
 
 	public function check() {
-		$newbiespan = C::t('common_setting')->fetch('newbiespan');
+		$newbiespan = C::t('common_setting')->fetch_setting('newbiespan');
 		if($newbiespan) {
 			$return = array('status' => 0, 'type' =>'none', 'lang' => lang('optimizer', 'optimizer_newbiespan_no_need'));
 		} else {

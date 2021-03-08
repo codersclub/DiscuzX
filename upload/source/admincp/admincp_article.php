@@ -39,7 +39,7 @@ if($operation == 'tag') {
 	showtips('article_tag_tip');
 
 	if(submitcheck('articletagsubmit')) {
-		C::t('common_setting')->update('article_tags', $_POST['tag']);
+		C::t('common_setting')->update_setting('article_tags', $_POST['tag']);
 		updatecache('setting');
 		cpmsg('update_articletag_succeed', 'action=article&operation=tag', 'succeed');
 	}

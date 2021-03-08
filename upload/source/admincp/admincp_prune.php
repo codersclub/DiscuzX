@@ -104,7 +104,7 @@ EOT;
 
 	loadcache('posttableids');
 	$posttable = in_array($_GET['posttableid'], $_G['cache']['posttableids']) ? $_GET['posttableid'] : 0;
-	foreach(C::t('forum_post')->fetch_all($posttable, ($pids ? explode(',', $pids) : $_GET['pidarray']), false) as $post) {
+	foreach(C::t('forum_post')->fetch_all_post($posttable, ($pids ? explode(',', $pids) : $_GET['pidarray']), false) as $post) {
 		$prune['forums'][] = $post['fid'];
 		$prune['thread'][$post['tid']]++;
 

@@ -223,7 +223,7 @@ EOT;
 					cpmsg('usergroups_update_credits_duplicate', '', 'error');
 				}
 				if(in_array($id, $groupnewkeys)) {
-					C::t('common_usergroup')->update($id, array('grouptitle' => $group['grouptitle'], 'creditshigher' => $creditshighernew, 'creditslower' => $creditslowernew, 'stars' => $group['stars'], 'color' => $group['color']), 'member');
+					C::t('common_usergroup')->update_usergroup($id, array('grouptitle' => $group['grouptitle'], 'creditshigher' => $creditshighernew, 'creditslower' => $creditslowernew, 'stars' => $group['stars'], 'color' => $group['color']), 'member');
 					C::t('forum_onlinelist')->update_by_groupid($id, array('title' => $group['grouptitle']));
 
 				} elseif($group['grouptitle'] && $group['creditshigher'] != '') {
@@ -291,7 +291,7 @@ EOT;
 			}
 
 			if($_GET['delete']) {
-				C::t('common_usergroup')->delete($_GET['delete'], 'member');
+				C::t('common_usergroup')->delete_usergroup($_GET['delete'], 'member');
 				C::t('common_usergroup_field')->delete($_GET['delete']);
 				C::t('forum_onlinelist')->delete_by_groupid($_GET['delete']);
 				deletegroupcache($_GET['delete']);
@@ -362,14 +362,14 @@ EOT;
 			if(is_array($_GET['group_title'])) {
 				foreach($_GET['group_title'] as $id => $title) {
 					if(!$_GET['delete'][$id]) {
-						C::t('common_usergroup')->update($id, array('grouptitle' => $_GET['group_title'][$id], 'stars' => $_GET['group_stars'][$id], 'color' => $_GET['group_color'][$id]));
+						C::t('common_usergroup')->update_usergroup($id, array('grouptitle' => $_GET['group_title'][$id], 'stars' => $_GET['group_stars'][$id], 'color' => $_GET['group_color'][$id]));
 						C::t('forum_onlinelist')->update_by_groupid($id, array('title' => $_GET['group_title'][$id]));
 					}
 				}
 			}
 
 			if(($ids = $_GET['delete'])) {
-				C::t('common_usergroup')->delete($ids, 'special');
+				C::t('common_usergroup')->delete_usergroup($ids, 'special');
 				C::t('forum_onlinelist')->delete_by_groupid($ids);
 				C::t('common_admingroup')->delete($ids);
 				$newgroupid = C::t('common_usergroup')->fetch_new_groupid();
@@ -380,7 +380,7 @@ EOT;
 		} elseif($_GET['type'] == 'system') {
 			if(is_array($_GET['group_title'])) {
 				foreach($_GET['group_title'] as $id => $title) {
-					C::t('common_usergroup')->update($id, array('grouptitle' => $_GET['group_title'][$id], 'stars' => $_GET['group_stars'][$id], 'color' => $_GET['group_color'][$id]));
+					C::t('common_usergroup')->update_usergroup($id, array('grouptitle' => $_GET['group_title'][$id], 'stars' => $_GET['group_stars'][$id], 'color' => $_GET['group_color'][$id]));
 					C::t('forum_onlinelist')->update_by_groupid($id, array('title' => $_GET['group_title'][$id]));
 				}
 			}
@@ -441,7 +441,7 @@ EOT;
 		cpmsg('usergroups_edit_nonexistence', 'action=usergroups&operation=edit'.(!empty($_GET['highlight']) ? "&highlight={$_GET['highlight']}" : '').(!empty($_GET['highlight']) ? "&anchor={$_GET['anchor']}" : ''), 'form', array(), $grouplist);
 	}
 
-	$group_data = C::t('common_usergroup')->fetch_all($gids);
+	$group_data = C::t('common_usergroup')->fetch_all_usergroup($gids);
 	$groupfield_data = C::t('common_usergroup_field')->fetch_all($gids);
 	if(!$group_data) {
 		cpmsg('usergroups_nonexistence', '', 'error');
@@ -455,7 +455,7 @@ EOT;
 		}
 	}
 
-	$allowthreadplugin = $_G['setting']['threadplugins'] ? C::t('common_setting')->fetch('allowthreadplugin', true) : array();
+	$allowthreadplugin = $_G['setting']['threadplugins'] ? C::t('common_setting')->fetch_setting('allowthreadplugin', true) : array();
 	if(!submitcheck('detailsubmit')) {
 
 		$grouplist = $groupcount = array();
@@ -1056,7 +1056,7 @@ EOT;
 				$dataarr['icon'] = '';
 			}
 		}
-		C::t('common_usergroup')->update($_GET['id'], $dataarr);
+		C::t('common_usergroup')->update_usergroup($_GET['id'], $dataarr);
 
 		if($pluginsetting) {
 			foreach($_GET['pluginnew'] as $pluginvarid => $value) {
@@ -1173,9 +1173,9 @@ EOT;
 		C::t('common_usergroup_field')->update($_GET['id'], $dataarr);
 
 		if($_G['setting']['threadplugins']) {
-			$allowthreadplugin = C::t('common_setting')->fetch('allowthreadplugin', true);
+			$allowthreadplugin = C::t('common_setting')->fetch_setting('allowthreadplugin', true);
 			$allowthreadplugin[$_GET['id']] = $_GET['allowthreadpluginnew'];
-			C::t('common_setting')->update('allowthreadplugin', $allowthreadplugin);
+			C::t('common_setting')->update_setting('allowthreadplugin', $allowthreadplugin);
 		}
 		if(empty($row['single'])) {
 			foreach($row as $key => $value) {
@@ -1350,7 +1350,7 @@ EOT;
 		}
 
 		if($_GET['delete_source']) {
-			C::t('common_usergroup')->delete($source, $sourceusergroup['type']);
+			C::t('common_usergroup')->delete_usergroup($source, $sourceusergroup['type']);
 			C::t('common_usergroup_field')->delete($source);
 			C::t('forum_onlinelist')->delete_by_groupid($source);
 		}
@@ -1387,7 +1387,7 @@ function deletegroupcache($groupidarray) {
 			}
 		}
 		if(!empty($cachenames)) {
-			C::t('common_syscache')->delete($cachenames);
+			C::t('common_syscache')->delete_syscache($cachenames);
 		}
 	}
 }

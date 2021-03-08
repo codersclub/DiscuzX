@@ -21,7 +21,7 @@ if(empty($operation)) {
 	$operation = 'manage';
 }
 
-$setting = C::t('common_setting')->fetch_all(array('posttable_info', 'posttableids', 'threadtableids'), true);
+$setting = C::t('common_setting')->fetch_all_setting(array('posttable_info', 'posttableids', 'threadtableids'), true);
 if($setting['posttable_info']) {
 	$posttable_info = $setting['posttable_info'];
 } else {
@@ -78,7 +78,7 @@ if($operation == 'manage') {
 			$posttable_info[$key]['memo'] = dhtmlspecialchars($value);
 		}
 
-		C::t('common_setting')->update('posttable_info', $posttable_info);
+		C::t('common_setting')->update_setting('posttable_info', $posttable_info);
 		savecache('posttable_info', $posttable_info);
 		update_posttableids();
 		updatecache('setting');
@@ -146,7 +146,7 @@ if($operation == 'manage') {
 					DB::query($createsql);
 
 					$posttable_info[$targettable]['memo'] = $_GET['memo'];
-					C::t('common_setting')->update('posttable_info', $posttable_info);
+					C::t('common_setting')->update_setting('posttable_info', $posttable_info);
 					savecache('posttable_info', $posttable_info);
 					update_posttableids();
 					$createtable = true;
@@ -249,7 +249,7 @@ if($operation == 'manage') {
 			C::t('forum_post')->drop_table($fromtableid);
 
 			unset($posttable_info[$fromtableid]);
-			C::t('common_setting')->update('posttable_info', $posttable_info);
+			C::t('common_setting')->update_setting('posttable_info', $posttable_info);
 			savecache('posttable_info', $posttable_info);
 			update_posttableids();
 			$optimize = false;
@@ -303,7 +303,7 @@ function getmaxposttableid() {
 
 function update_posttableids() {
 	$tableids = get_posttableids();
-	C::t('common_setting')->update('posttableids', $tableids);
+	C::t('common_setting')->update_setting('posttableids', $tableids);
 	savecache('posttableids', $tableids);
 }
 

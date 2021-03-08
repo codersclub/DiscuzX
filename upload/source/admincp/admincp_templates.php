@@ -85,7 +85,7 @@ if($operation == 'admin') {
 				cpmsg('tpl_delete_invalid', '', 'error');
 			}
 			if($_GET['delete']) {
-				C::t('common_template')->delete($_GET['delete']);
+				C::t('common_template')->delete_tpl($_GET['delete']);
 				C::t('common_style')->update($_GET['delete'], array('templateid' => 1));
 			}
 		}

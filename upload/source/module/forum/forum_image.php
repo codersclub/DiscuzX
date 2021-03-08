@@ -32,7 +32,7 @@ if(dsign($id.'|'.$dw.'|'.$dh) != $_GET['key']) {
 	dheader('location: '.$_G['siteurl'].'static/image/common/none.gif');
 }
 
-if($attach = C::t('forum_attachment_n')->fetch('aid:'.$daid, $daid, array(1, -1))) {
+if($attach = C::t('forum_attachment_n')->fetch_attachment('aid:'.$daid, $daid, array(1, -1))) {
 	if(!$dw && !$dh && $attach['tid'] != $id) {
 	       dheader('location: '.$_G['siteurl'].'static/image/common/none.gif');
 	}

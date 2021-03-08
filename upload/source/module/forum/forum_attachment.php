@@ -47,7 +47,7 @@ if($_G['setting']['attachexpire']) {
 
 	if(TIMESTAMP - $t > $_G['setting']['attachexpire'] * 3600) {
 		$aid = intval($aid);
-		if($attach = C::t('forum_attachment_n')->fetch($tableid, $aid)) {
+		if($attach = C::t('forum_attachment_n')->fetch_attachment($tableid, $aid)) {
 			if($attach['isimage']) {
 				dheader('location: '.$_G['siteurl'].'static/image/common/none.gif');
 			} else {
@@ -92,11 +92,11 @@ $archiveid = in_array($_GET['archiveid'], $threadtableids) ? intval($_GET['archi
 
 $attachexists = FALSE;
 if(!empty($aid) && is_numeric($aid)) {
-	$attach = C::t('forum_attachment_n')->fetch($tableid, $aid);
+	$attach = C::t('forum_attachment_n')->fetch_attachment($tableid, $aid);
 	$thread = C::t('forum_thread')->fetch_by_tid_displayorder($attach['tid'], 0, '>=', null, $archiveid);
 	if($_G['uid'] && $attach['uid'] != $_G['uid']) {
 		if($attach) {
-			$attachpost = C::t('forum_post')->fetch($thread['posttableid'], $attach['pid'], false);
+			$attachpost = C::t('forum_post')->fetch_post($thread['posttableid'], $attach['pid'], false);
 			$attach['invisible'] = $attachpost['invisible'];
 			unset($attachpost);
 		}

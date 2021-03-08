@@ -678,7 +678,7 @@ if($op == 'block') {
 			if($sendreasonpm) {
 				require_once libfile('function/misc');
 				if((in_array($_GET['idtype'], array('tids', 'tid', 'gtid')))) {
-					$sendreasonpmcontent = C::t('forum_thread')->fetch($item['id']);
+					$sendreasonpmcontent = C::t('forum_thread')->fetch_thread($item['id']);
 					sendreasonpm($sendreasonpmcontent, 'recommend_note_post', array(
 						'tid' => $item['id'],
 						'subject' => $sendreasonpmcontent['subject'],
@@ -805,7 +805,7 @@ if($op == 'block') {
 		$setarr = array('classname'=>getstr($_POST['classname'], 100, 0, 0, 0, -1));
 		C::t('common_block')->update($bid, $setarr);
 	}
-	C::t('common_block')->clear_cache($bid);
+	C::t('common_block')->clear_blockcache($bid);
 
 	showmessage('do_success');
 } elseif ($op == 'saveblocktitle') {
@@ -826,7 +826,7 @@ if($op == 'block') {
 		C::t('common_block')->update($bid, $setarr);
 	}
 
-	C::t('common_block')->clear_cache($bid);
+	C::t('common_block')->clear_blockcache($bid);
 
 	showmessage('do_success');
 } elseif ($op == 'convert') {

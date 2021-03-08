@@ -22,11 +22,11 @@ if($_GET['op'] == 'requote') {
 	$article = C::t('portal_article_title')->fetch($aid);
 
 	if($article['idtype'] == 'tid') {
-		$comment = C::t('forum_post')->fetch('tid:'.$article['id'], $cid);
+		$comment = C::t('forum_post')->fetch_post('tid:'.$article['id'], $cid);
 		$comment['uid'] = $comment['authorid'];
 		$comment['username'] = $comment['author'];
 	} elseif($article['idtype'] == 'blogid') {
-		$comment = C::t('home_comment')->fetch($cid);
+		$comment = C::t('home_comment')->fetch_comment($cid);
 		$comment['uid'] = $comment['authorid'];
 		$comment['username'] = $comment['author'];
 	} else {

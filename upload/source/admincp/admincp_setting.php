@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 
 cpheader();
 
-$setting = C::t('common_setting')->fetch_all(null);
+$setting = C::t('common_setting')->fetch_all_setting(null);
 
 if(!$isfounder) {
 	unset($setting['ftp']);
@@ -698,8 +698,8 @@ if(!submitcheck('settingsubmit')) {
 
 		/*search={"setting_styles":"action=setting&operation=styles","setting_styles_threadprofile":"action=setting&operation=styles&anchor=threadprofile"}*/
 		loadcache('usergroups');
-		$threadprofiles = C::t('forum_threadprofile')->fetch_all();
-		$threadprofile_group = C::t('forum_threadprofile_group')->fetch_all();
+		$threadprofiles = C::t('forum_threadprofile')->fetch_all_threadprofile();
+		$threadprofile_group = C::t('forum_threadprofile_group')->fetch_all_threadprofile();
 		showtagheader('div', 'threadprofile', $_GET['anchor'] == 'threadprofile');
 
 		echo '<table><tr><td valign="top" width="350">';
@@ -1843,7 +1843,7 @@ EOT;
 		showsubtitle(array('', 'setting_sec_secqaa_question', 'setting_sec_secqaa_answer'));
 
 		$qaaext = array();
-		foreach(C::t('common_secquestion')->fetch_all($start_limit, 10) as $item) {
+		foreach(C::t('common_secquestion')->fetch_all_secquestion($start_limit, 10) as $item) {
 			if(!$item['type']) {
 				showtablerow('', array('', 'class="td26"'), array(
 					'<input class="checkbox" type="checkbox" name="delete[]" value="'.$item['id'].'">',
@@ -2324,7 +2324,7 @@ EOT;
 		showtablefooter();
 
 		if(!isset($setting['memory'])) {
-			C::t('common_setting')->update('memory', '');
+			C::t('common_setting')->update_setting('memory', '');
 			$setting['memory'] = '';
 		}
 
@@ -2369,7 +2369,7 @@ EOT;
 					} elseif($k == 'forumindex') {
 						memory('rm', 'forum_index_page_'.$id);
 					} elseif($k == 'diyblock' || $k == 'diyblockoutput') {
-						C::t('common_block')->clear_cache($id);
+						C::t('common_block')->clear_blockcache($id);
 					} else {
 						C::t($k)->clear_cache($id);
 					}
@@ -2496,13 +2496,13 @@ EOT;
 				if(empty($_GET['ips'])) {
 					cpmsg('setting_antitheft_choose_ip', $url, 'error');
 				}
-				$antitheftsetting = C::t('common_setting')->fetch('antitheftsetting', true);
+				$antitheftsetting = C::t('common_setting')->fetch_setting('antitheftsetting', true);
 				if($_GET['optype'] == 'white' || $_GET['optype'] == 'black') {
 					$ips = explode("\n", $antitheftsetting[$_GET['optype']]);
 					$ips = array_diff($_GET['ips'], $ips);
 					if($ips) {
 						$antitheftsetting[$_GET['optype']] = $antitheftsetting[$_GET['optype']]."\n".implode("\n", $ips);
-						C::t('common_setting')->update('antitheftsetting', $antitheftsetting);
+						C::t('common_setting')->update_setting('antitheftsetting', $antitheftsetting);
 						updatecache('antitheft');
 					}
 					C::t('common_visit')->delete($_GET['ips']);

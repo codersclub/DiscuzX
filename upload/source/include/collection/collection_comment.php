@@ -95,7 +95,7 @@ if(empty($op) || $op == 'add') {
 	if(!$collectionthread['ctid']) {
 		showmessage('collection_permission_deny');
 	}
-	$thread = C::t('forum_thread')->fetch($tid);
+	$thread = C::t('forum_thread')->fetch_thread($tid);
 
 	include template('forum/collection_commentpop');
 } elseif($op == 'recommend') {

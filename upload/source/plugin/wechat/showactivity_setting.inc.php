@@ -11,7 +11,7 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
 
-$setting = C::t('common_setting')->fetch_all(array('mobilewechat'));
+$setting = C::t('common_setting')->fetch_all_setting(array('mobilewechat'));
 $setting = (array)unserialize($setting['mobilewechat']);
 $ac = !empty($_GET['ac']) ? $_GET['ac'] : '';
 
@@ -190,7 +190,7 @@ if(!$ac) {
 	}
 	$posttableid = $thread['posttableid'];
 	$posts = DB::fetch_all("SELECT * FROM %t WHERE tid=%d", array('forum_debatepost', $_GET['tid']), 'pid');
-	foreach(C::t('forum_post')->fetch_all($posttableid, array_keys($posts), false) as $post) {
+	foreach(C::t('forum_post')->fetch_all_post($posttableid, array_keys($posts), false) as $post) {
 		$array[$posts[$post['pid']]['voters'].'.'.$post['position']] = $post['author'].','.$posts[$post['pid']]['voters'].','.$post['position'];
 	}
 	ob_end_clean();

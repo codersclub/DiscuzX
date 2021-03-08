@@ -32,7 +32,7 @@ if($_GET['access']) {
 			$dir = $dir.$dir1.'/'.$dir2.'/'.$dir3.'/';
 			$file = $dir.'/qr_t'.$tid.'.jpg';
 			if(!file_exists($file) || !filesize($file)) {
-				if(!C::t('forum_thread')->fetch($tid)) {
+				if(!C::t('forum_thread')->fetch_thread($tid)) {
 					exit;
 				}
 				dmkdir($dir);

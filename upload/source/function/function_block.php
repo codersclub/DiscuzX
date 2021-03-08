@@ -200,7 +200,7 @@ function block_updatecache($bid, $forceupdate=false) {
 	if((isset($_G['block'][$bid]['cachetime']) && $_G['block'][$bid]['cachetime'] < 0) || !$forceupdate && discuz_process::islocked('block_update_cache', 5)) {
 		return false;
 	}
-	C::t('common_block')->clear_cache($bid);
+	C::t('common_block')->clear_blockcache($bid);
 	$block = empty($_G['block'][$bid])?array():$_G['block'][$bid];
 	if(!$block) {
 		return false;
@@ -419,7 +419,7 @@ function block_template($bid) {
 							}
 							if($_G['block_makethumb']) {
 								C::t('common_block_item')->update($itemid, array('makethumb'=>1, 'thumbpath' => $thumbpath));
-								C::t('common_block')->clear_cache($block['bid']);
+								C::t('common_block')->clear_blockcache($block['bid']);
 								$thumbdata = array('bid' => $block['bid'], 'itemid' => $itemid, 'pic' => $thumbpath, 'picflag' => $picflag, 'type' => '0');
 								C::t('common_block_pic')->insert($thumbdata);
 							}

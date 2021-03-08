@@ -27,11 +27,11 @@ require_once libfile('function/attachment');
 require_once libfile('function/discuzcode');
 $isfounder = isfounder();
 
-$siteuniqueid = C::t('common_setting')->fetch('siteuniqueid');
+$siteuniqueid = C::t('common_setting')->fetch_setting('siteuniqueid');
 if(empty($siteuniqueid) || strlen($siteuniqueid) < 16) {
 	$chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
 	$siteuniqueid = 'DX'.$chars[date('y')%60].$chars[date('n')].$chars[date('j')].$chars[date('G')].$chars[date('i')].$chars[date('s')].substr(md5($_G['clientip'].$_G['username'].TIMESTAMP), 0, 4).random(4);
-	C::t('common_setting')->update('siteuniqueid', $siteuniqueid);
+	C::t('common_setting')->update_setting('siteuniqueid', $siteuniqueid);
 	require_once libfile('function/cache');
 	updatecache('setting');
 }
@@ -39,7 +39,7 @@ if(empty($siteuniqueid) || strlen($siteuniqueid) < 16) {
 
 if(submitcheck('notesubmit', 1)) {
 	if(!empty($_GET['noteid']) && is_numeric($_GET['noteid'])) {
-		C::t('common_adminnote')->delete($_GET['noteid'], ($isfounder ? '' : $_G['username']));
+		C::t('common_adminnote')->delete_note($_GET['noteid'], ($isfounder ? '' : $_G['username']));
 	}
 	if(!empty($_GET['newmessage'])) {
 		$newaccess = 0;
@@ -121,7 +121,7 @@ if(empty($newversion['newversion']) || !is_array($newversion['newversion']) || a
 	$newversion = json_decode(cloudaddons_open('&mod=app&ac=upgrade'), true);
 	if(!empty($newversion['newversion'])){
 		$newversion['updatetime'] = $_G['timestamp'];
-		C::t('common_setting')->update('cloudaddons_newversion', ((CHARSET == 'utf-8') ? $newversion : json_encode($newversion)));
+		C::t('common_setting')->update_setting('cloudaddons_newversion', ((CHARSET == 'utf-8') ? $newversion : json_encode($newversion)));
 		updatecache('setting');
 	}else{
 		$newversion = array();
@@ -130,7 +130,7 @@ if(empty($newversion['newversion']) || !is_array($newversion['newversion']) || a
 
 showsubmenu('home_welcome', array(), '', array('bbname' => $_G['setting']['bbname']));
 
-$save_master = C::t('common_setting')->fetch_all(array('mastermobile', 'masterqq', 'masteremail'));
+$save_master = C::t('common_setting')->fetch_all_setting(array('mastermobile', 'masterqq', 'masteremail'));
 $save_mastermobile = $save_master['mastermobile'];
 $save_mastermobile = !empty($save_mastermobile) ? authcode($save_mastermobile, 'DECODE', $_G['config']['security']['authkey']) : '';
 $save_masterqq = $save_master['masterqq'] ? $save_master['masterqq'] : '';
@@ -267,7 +267,7 @@ showtableheader('home_notes', 'fixpadding"', '', '3');
 
 foreach(C::t('common_adminnote')->fetch_all_by_access(0) as $note) {
 	if($note['expiration'] < TIMESTAMP) {
-		C::t('common_adminnote')->delete($note['id']);
+		C::t('common_adminnote')->delete_note($note['id']);
 	} else {
 		$note['adminenc'] = rawurlencode($note['admin']);
 		$note['expiration'] = ceil(($note['expiration'] - $note['dateline']) / 86400);

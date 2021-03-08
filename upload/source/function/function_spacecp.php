@@ -499,7 +499,7 @@ function hot_update($idtype, $id, $hotuser) {
 		default:
 			return false;
 	}
-	if($feed = C::t('home_feed')->fetch($id, $idtype)) {
+	if($feed = C::t('home_feed')->fetch_feed($id, $idtype)) {
 		if(empty($feed['friend'])) {
 			C::t('home_feed')->update_hot_by_feedid($feed['feedid'], 1);
 		}

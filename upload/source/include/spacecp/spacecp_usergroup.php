@@ -257,7 +257,7 @@ if(in_array($do, array('buy', 'exit'))) {
 	$groupids = array_merge($extgroupids, $expiryids, $groupids);
 	$usermoney = $space['extcredits'.$_G['setting']['creditstrans']];
 	if($groupids) {
-		foreach(C::t('common_usergroup')->fetch_all($groupids) as $group) {
+		foreach(C::t('common_usergroup')->fetch_all_usergroup($groupids) as $group) {
 			$isexp = in_array($group['groupid'], $expgrouparray);
 			if($_G['cache']['usergroups'][$group['groupid']]['pubtype'] == 'buy') {
 				list($dailyprice) = explode("\t", $group['system']);

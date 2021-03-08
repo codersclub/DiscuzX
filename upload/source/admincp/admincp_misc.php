@@ -259,7 +259,7 @@ var rowtypedata = [
 				}
 			}
 		}
-		C::t('common_setting')->update('relatedlinkstatus', $_GET['relatedlinkstatus']);
+		C::t('common_setting')->update_setting('relatedlinkstatus', $_GET['relatedlinkstatus']);
 		updatecache(array('relatedlink','setting'));
 		cpmsg('relatedlink_succeed', 'action=misc&operation=relatedlink', 'succeed');
 
@@ -441,7 +441,7 @@ var rowtypedata = [
 		dheader('Content-Encoding: none');
 		dheader('Content-Disposition: attachment; filename=CensorWords.txt');
 		dheader('Content-Type: text/plain');
-		foreach(C::t('common_word_type')->fetch_all() as $result) {
+		foreach(C::t('common_word_type')->fetch_all_word_type() as $result) {
 			$result['used'] = 0;
 			$word_type[$result['id']] = $result;
 		}
@@ -469,7 +469,7 @@ var rowtypedata = [
 		if($_G['adminid'] == 1 && $_GET['overwrite'] == 2) {
 			C::t('common_word')->truncate();
 		} else {
-			foreach(C::t('common_word')->fetch_all() as $censor) {
+			foreach(C::t('common_word')->fetch_all_word() as $censor) {
 				$oldwords[md5($censor['find'])] = $censor['admin'];
 			}
 		}
@@ -563,7 +563,7 @@ var rowtypedata = [
 		$ppp = 50;
 		$startlimit = ($page - 1) * $ppp;
 
-		foreach(C::t('common_word_type')->fetch_all() as $result) {
+		foreach(C::t('common_word_type')->fetch_all_word_type() as $result) {
 			$result['typename'] = dhtmlspecialchars($result['typename']);
 			$word_type[$result['id']] = $result;
 			$word_type_option .= "<option value=\"{$result['id']}\">{$result['typename']}</option>";
@@ -687,7 +687,7 @@ EOT;
 		showtableheader('', 'fixpadding', 'wordtypeform');
 		showsubtitle(array('', 'misc_censor_wordtype_name'));
 		if($wordtypecount = C::t('common_word_type')->count()) {
-			foreach(C::t('common_word_type')->fetch_all() as $result) {
+			foreach(C::t('common_word_type')->fetch_all_word_type() as $result) {
 				showtablerow('', array('class="td25"', ''), array("<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$result['id']}\" >", "<input type=\"text\" class=\"txt\" size=\"10\" name=\"typename[{$result['id']}]\" value=\"{$result['typename']}\">"));
 			}
 		}
@@ -1294,7 +1294,7 @@ var rowtypedata = [
 
 	require_once libfile('function/post');
 
-	$focus = C::t('common_setting')->fetch('focus', true);
+	$focus = C::t('common_setting')->fetch_setting('focus', true);
 	$focus_position_array = array(
 		array('portal', cplang('misc_focus_position_portal')),
 		array('home', cplang('misc_focus_position_home')),
@@ -1349,7 +1349,7 @@ var rowtypedata = [
 				}
 			}
 			$newfocus['cookie'] = $focus['cookie'];
-			C::t('common_setting')->update('focus', $newfocus);
+			C::t('common_setting')->update_setting('focus', $newfocus);
 			updatecache(array('setting', 'focus'));
 
 			cpmsg('focus_update_succeed', 'action=misc&operation=focus', 'succeed');
@@ -1405,7 +1405,7 @@ var rowtypedata = [
 					'filename' => basename($_GET['focus_image']),
 					'position' => $_GET['focus_position'],
 				);
-				C::t('common_setting')->update('focus', $focus);
+				C::t('common_setting')->update_setting('focus', $focus);
 				updatecache(array('setting', 'focus'));
 			} else {
 				cpmsg('focus_topic_addrequired', '', 'error');
@@ -1461,7 +1461,7 @@ var rowtypedata = [
 					'position' => $_GET['focus_position'],
 				);
 				$focus['data'][$id] = $item;
-				C::t('common_setting')->update('focus', $focus);
+				C::t('common_setting')->update_setting('focus', $focus);
 				updatecache(array('setting', 'focus'));
 			}
 
@@ -1495,7 +1495,7 @@ var rowtypedata = [
 			$focus['title'] = empty($focus['title']) ? cplang('misc_focus') : $focus['title'];
 			$focus['cookie'] = trim(intval($_GET['focus_cookie']));
 			$focus['cookie'] = empty($focus['cookie']) ? 0 : $focus['cookie'];
-			C::t('common_setting')->update('focus', $focus);
+			C::t('common_setting')->update_setting('focus', $focus);
 			updatecache(array('setting', 'focus'));
 
 			cpmsg('focus_conf_succeed', 'action=misc&operation=focus&do=config', 'succeed');
@@ -1512,7 +1512,7 @@ var rowtypedata = [
 		$key = dfsockopen($url);
 		$newstatdisable = $key == $statkey ? 0 : 1;
 		if($newstatdisable != $statdisable) {
-			C::t('common_setting')->update('statdisable', $newstatdisable);
+			C::t('common_setting')->update_setting('statdisable', $newstatdisable);
 			require_once libfile('function/cache');
 			updatecache('setting');
 		}
@@ -1564,7 +1564,7 @@ EOT;
 		} else {
 
 			if($ids = dimplode($_GET['delete'])) {
-				C::t('common_admincp_cmenu')->delete($_GET['delete'], $_G['uid']);
+				C::t('common_admincp_cmenu')->delete_cmenu($_GET['delete'], $_G['uid']);
 			}
 
 			if(is_array($_GET['titlenew'])) {

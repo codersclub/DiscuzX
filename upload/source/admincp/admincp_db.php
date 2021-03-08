@@ -25,12 +25,12 @@ if(!isfounder()) cpmsg('noaccess_isfounder', '', 'error');
 
 $excepttables = array($tablepre.'common_admincp_session', $tablepre.'common_syscache', $tablepre.'common_failedlogin', $tablepre.'forum_rsscache', $tablepre.'common_searchindex', $tablepre.'forum_spacecache', $tablepre.'common_session');
 
-$backupdir = C::t('common_setting')->fetch('backupdir');
+$backupdir = C::t('common_setting')->fetch_setting('backupdir');
 
 if(!$backupdir) {
 	$backupdir = random(6);
 	@mkdir('./data/backup_'.$backupdir, 0777);
-	C::t('common_setting')->update('backupdir',$backupdir);
+	C::t('common_setting')->update_setting('backupdir',$backupdir);
 }
 $backupdir = 'backup_'.$backupdir;
 if(!is_dir('./data/'.$backupdir)) {
@@ -46,7 +46,7 @@ if($operation == 'export') {
 
 		$tables = '';
 		$dztables = array();
-		$tables = C::t('common_setting')->fetch('custombackup', true);
+		$tables = C::t('common_setting')->fetch_setting('custombackup', true);
 
 		$discuz_tables = fetchtablelist($tablepre);
 
@@ -151,9 +151,9 @@ if($operation == 'export') {
 		} elseif($_GET['type'] == 'custom') {
 			$tables = array();
 			if(empty($_GET['setup'])) {
-				$tables = C::t('common_setting')->fetch('custombackup', true);
+				$tables = C::t('common_setting')->fetch_setting('custombackup', true);
 			} else {
-				C::t('common_setting')->update('custombackup', empty($_GET['customtables'])? '' : $_GET['customtables']);
+				C::t('common_setting')->update_setting('custombackup', empty($_GET['customtables'])? '' : $_GET['customtables']);
 				$tables = & $_GET['customtables'];
 			}
 			if( !is_array($tables) || empty($tables)) {
@@ -757,7 +757,7 @@ if($operation == 'export') {
 		$repairtable = is_array($_GET['repairtable']) && !empty($_GET['repairtable']) ? $_GET['repairtable'] : array();
 
 		$except = array('threads' => array('sgid'));
-		foreach(C::t('common_member_profile_setting')->range() as $profilefields) {
+		foreach(C::t('common_member_profile_setting')->range_setting() as $profilefields) {
 			$except['memberfields'][] = 'field_'.$profilefields['fieldid'];
 		}
 
@@ -836,7 +836,7 @@ if($operation == 'export') {
 
 			if(!empty($setting)) {
 				$settingsdatanow = $newsettings = array();
-				$allsetting = C::t('common_setting')->fetch_all();
+				$allsetting = C::t('common_setting')->fetch_all_setting();
 				$settingsdatanew = array_keys($allsetting);
 				unset($allsetting);
 				$settingsdellist = is_array($settingsdata) ? array_diff($settingsdata, $settingsdatanew) : array();
@@ -901,7 +901,7 @@ if($operation == 'export') {
 		$dbmd5new = md5(serialize($discuzdbnew));
 
 		$settingsdatanow = array();
-		$allsetting = C::t('common_setting')->fetch_all();
+		$allsetting = C::t('common_setting')->fetch_all_setting();
 		$settingsdatanew = array_keys($allsetting);
 		unset($allsetting);
 		$settingsdellist = is_array($settingsdata) ? array_diff($settingsdata, $settingsdatanew) : array();

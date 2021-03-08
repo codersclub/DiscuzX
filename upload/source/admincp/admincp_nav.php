@@ -233,7 +233,7 @@ EOT;
 			}
 
 			if($_GET['defaultindex'] && $_GET['defaultindex'] != '#') {
-				C::t('common_setting')->update('defaultindex', $_GET['defaultindex']);
+				C::t('common_setting')->update_setting('defaultindex', $_GET['defaultindex']);
 			}
 
 			updatecache('setting');

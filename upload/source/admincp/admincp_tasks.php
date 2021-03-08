@@ -17,7 +17,7 @@ $id = intval($_GET['id']);
 $membervars = array('act', 'num', 'time');
 $postvars = array('act', 'forumid', 'num', 'time', 'threadid', 'authorid');
 $modvars = array();
-$custom_types = C::t('common_setting')->fetch('tasktypes', true);
+$custom_types = C::t('common_setting')->fetch_setting('tasktypes', true);
 $custom_scripts = array_keys($custom_types);
 
 $submenus = array();
@@ -547,7 +547,7 @@ if(!($operation)) {
 
 	C::t('common_task')->delete($id);
 	C::t('common_taskvar')->delete_by_taskid($id);
-	C::t('common_mytask')->delete(0, $id);
+	C::t('common_mytask')->delete_mytask(0, $id);
 
 	cpmsg('tasks_del', 'action=tasks', 'succeed');
 
@@ -601,7 +601,7 @@ if(!($operation)) {
 	}
 
 	$custom_types[$_GET['script']] = array('name' => lang('task/'.$_GET['script'], $task->name), 'version' => $task->version);
-	C::t('common_setting')->update('tasktypes', $custom_types);
+	C::t('common_setting')->update_setting('tasktypes', $custom_types);
 
 	cpmsg('tasks_installed', 'action=tasks&operation=type', 'succeed');
 
@@ -618,7 +618,7 @@ if(!($operation)) {
 	if($ids) {
 		C::t('common_task')->delete($ids);
 		C::t('common_taskvar')->delete_by_taskid($ids);
-		C::t('common_mytask')->delete(0, $ids);
+		C::t('common_mytask')->delete_mytask(0, $ids);
 	}
 
 	$escript = explode(':', $_GET['script']);
@@ -635,7 +635,7 @@ if(!($operation)) {
 	}
 
 	unset($custom_types[$_GET['script']]);
-	C::t('common_setting')->update('tasktypes', $custom_types);
+	C::t('common_setting')->update_setting('tasktypes', $custom_types);
 	cpmsg('tasks_uninstalled', 'action=tasks&operation=type', 'succeed');
 
 } elseif($operation == 'upgrade' && $_GET['script']) {
@@ -662,7 +662,7 @@ if(!($operation)) {
 
 	C::t('common_task')->update_by_scriptname($_GET['script'], array('version' => $task->version));
 	$custom_types[$_GET['script']] = array('name' => $task->name, 'version' => $task->version);
-	C::t('common_setting')->update('tasktypes', $custom_types);
+	C::t('common_setting')->update_setting('tasktypes', $custom_types);
 
 	cpmsg('tasks_updated', 'action=tasks&operation=type', 'succeed');
 

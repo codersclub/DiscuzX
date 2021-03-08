@@ -20,7 +20,7 @@ $page = empty($_GET['page'])?0:intval($_GET['page']);
 if($page<1) $page=1;
 
 if($feedid) {
-	if(!$feed = C::t('home_feed')->fetch('', '', '', $feedid)) {
+	if(!$feed = C::t('home_feed')->fetch_feed('', '', '', $feedid)) {
 		showmessage('feed_no_found');
 	}
 }

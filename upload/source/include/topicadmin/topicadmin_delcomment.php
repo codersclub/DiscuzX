@@ -40,7 +40,7 @@ if(!submitcheck('modsubmit')) {
 	C::t('forum_postcomment')->delete($commentid);
 	$result = C::t('forum_postcomment')->count_by_pid($postcomment['pid']);
 	if(!$result) {
-		C::t('forum_post')->update($_G['thread']['posttableid'], $postcomment['pid'], array('comment' => 0));
+		C::t('forum_post')->update_post($_G['thread']['posttableid'], $postcomment['pid'], array('comment' => 0));
 	}
 	if($thread['comments']) {
 		C::t('forum_thread')->update($_G['tid'], array('comments' => $thread['comments'] - 1));

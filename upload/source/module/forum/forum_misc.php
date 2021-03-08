@@ -36,7 +36,7 @@ if($_GET['action'] == 'paysucceed') {
 
 	$aid = intval($_GET['aid']);
 
-	$attach = C::t('forum_attachment_n')->fetch('aid:'.$aid, $aid);
+	$attach = C::t('forum_attachment_n')->fetch_attachment('aid:'.$aid, $aid);
 	$thread = C::t('forum_thread')->fetch_by_tid_displayorder($attach['tid'], 0);
 
 	checklowerlimit('getattach', 0, 1, $thread['fid']);
@@ -65,7 +65,7 @@ if($_GET['action'] == 'paysucceed') {
 		showmessage('group_nopermission', NULL, array('grouptitle' => $_G['group']['grouptitle']), array('login' => 1));
 	} else {
 		$attachtable = !empty($_GET['tid']) ? 'tid:'.dintval($_GET['tid']) : 'aid:'.$aid;
-		$attach = C::t('forum_attachment_n')->fetch($attachtable, $aid);
+		$attach = C::t('forum_attachment_n')->fetch_attachment($attachtable, $aid);
 		$attachmember = getuserbyuid($attach['uid']);
 		$attach['author'] = $attachmember['username'];
 		if($attach['price'] <= 0) {
@@ -81,7 +81,7 @@ if($_GET['action'] == 'paysucceed') {
 	$status = $balance < $attach['price'] ? 1 : 0;
 
 	if($_G['adminid'] == 3) {
-		$fid = C::t('forum_thread')->fetch($attach['tid']);
+		$fid = C::t('forum_thread')->fetch_thread($attach['tid']);
 		$fid = $fid['fid'];
 		$ismoderator = C::t('forum_moderator')->fetch_uid_by_fid_uid($fid, $_G['uid']);
 	} elseif(in_array($_G['adminid'], array(1, 2))) {
@@ -219,13 +219,13 @@ if($_GET['action'] == 'paysucceed') {
 	if(!$_G['setting']['commentnumber']) {
 		showmessage('postcomment_closed');
 	}
-	$thread = C::t('forum_thread')->fetch($_GET['tid']);
+	$thread = C::t('forum_thread')->fetch_thread($_GET['tid']);
 	if($thread['closed'] && !$_G['forum']['ismoderator']) {
 		showmessage('thread_closed');
 	}
-	$post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $_GET['pid']);
+	$post = C::t('forum_post')->fetch_post('tid:'.$_G['tid'], $_GET['pid']);
 	if($_G['group']['allowcommentitem'] && !empty($_G['uid']) && $post['authorid'] != $_G['uid']) {
-		$thread = C::t('forum_thread')->fetch($post['tid']);
+		$thread = C::t('forum_thread')->fetch_thread($post['tid']);
 		$itemi = $thread['special'];
 		if($thread['special'] > 0) {
 			if($thread['special'] == 2){
@@ -295,7 +295,7 @@ if($_GET['action'] == 'paysucceed') {
 		showmessage('postappend_not_open');
 	}
 
-	$post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $_GET['pid']);
+	$post = C::t('forum_post')->fetch_post('tid:'.$_G['tid'], $_GET['pid']);
 	if($post['authorid'] != $_G['uid']) {
 		showmessage('postappend_only_yourself');
 	}
@@ -313,7 +313,7 @@ if($_GET['action'] == 'paysucceed') {
 		}
 		require_once libfile('function/post');
 		$bbcodeoff = checkbbcodes($message, 0);
-		C::t('forum_post')->update('tid:'.$_G['tid'], $_GET['pid'], array(
+		C::t('forum_post')->update_post('tid:'.$_G['tid'], $_GET['pid'], array(
 			'message' => $message,
 			'bbcodeoff' => $bbcodeoff,
 			'port' => $_G['remoteport']
@@ -339,7 +339,7 @@ if($_GET['action'] == 'paysucceed') {
 } elseif($_GET['action'] == 'loadsave') {
 
 	$message = '&nbsp;';
-	$savepost = C::t('forum_post')->fetch(0, $_GET['pid']);
+	$savepost = C::t('forum_post')->fetch_post(0, $_GET['pid']);
 	if($savepost) {
 		$message = $savepost['message'];
 		if($_GET['type']) {
@@ -440,7 +440,7 @@ IconIndex=1
 	$livetid = $forum['livetid'];
 	$postlist = array();
 	if($livetid) {
-		$thread = C::t('forum_thread')->fetch($livetid);
+		$thread = C::t('forum_thread')->fetch_thread($livetid);
 		$postlist['count'] = $thread['replies'];
 		$postarr = C::t('forum_post')->fetch_all_by_tid('tid:'.$livetid, $livetid, true, 'DESC', 20);
 		ksort($postarr);
@@ -472,7 +472,7 @@ IconIndex=1
 		}
 	}
 
-	$thread = C::t('forum_thread')->fetch($_G['tid']);
+	$thread = C::t('forum_thread')->fetch_thread($_G['tid']);
 	if(!($thread['displayorder']>=0 || $thread['displayorder']==-4 && $thread['authorid']==$_G['uid'])) {
 		$thread = array();
 	}
@@ -644,7 +644,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 		$sendreasonpm = 0;
 	}
 
-	$post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $_GET['pid']);
+	$post = C::t('forum_post')->fetch_post('tid:'.$_G['tid'], $_GET['pid']);
 	if($post['invisible'] != 0 || $post['authorid'] == 0) {
 		$post = array();
 	}
@@ -792,7 +792,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 	foreach($_G['group']['raterange'] as $id => $rating) {
 		$maxratetoday[$id] = $rating['mrpd'];
 	}
-	$post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $_GET['pid']);
+	$post = C::t('forum_post')->fetch_post('tid:'.$_G['tid'], $_GET['pid']);
 	if($post['invisible'] != 0 || $post['authorid'] == 0) {
 		$post = array();
 	}
@@ -872,7 +872,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 
 	$loglist = $logcount = array();
 
-	$post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $_GET['pid']);
+	$post = C::t('forum_post')->fetch_post('tid:'.$_G['tid'], $_GET['pid']);
 	if($post['invisible'] != 0) {
 		$post = array();
 	}
@@ -1029,7 +1029,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 } elseif($_GET['action'] == 'bestanswer' && $_G['tid'] && $_GET['pid'] && submitcheck('bestanswersubmit')) {
 
 	$forward = 'forum.php?mod=viewthread&tid='.$_G['tid'].($_GET['from'] ? '&from='.$_GET['from'] : '');
-	$post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $_GET['pid'], false);
+	$post = C::t('forum_post')->fetch_post('tid:'.$_G['tid'], $_GET['pid'], false);
 	if($post['tid'] != $_G['tid']) {
 		$post = array();
 	}
@@ -1044,7 +1044,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 	updatemembercount($post['authorid'], array($_G['setting']['creditstransextra'][2] => $thread['price']), 1, 'RAC', $_G['tid']);
 	$thread['price'] = '-'.$thread['price'];
 	C::t('forum_thread')->update($_G['tid'], array('price'=>$thread['price']));
-	C::t('forum_post')->update('tid:'.$_G['tid'], $_GET['pid'], array(
+	C::t('forum_post')->update_post('tid:'.$_G['tid'], $_GET['pid'], array(
 		'dateline' => $thread['dateline'] + 1,
 	));
 
@@ -1457,7 +1457,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 			if(!$_GET['stick'][$trade['pid']] || $displayordernew > 0 && $_G['group']['tradestick'] < $count) {
 				$displayordernew = -1 * (128 - $displayordernew);
 			}
-			C::t('forum_trade')->update($_G['tid'], $trade['pid'], array('displayorder' => $displayordernew));
+			C::t('forum_trade')->update_trade($_G['tid'], $trade['pid'], array('displayorder' => $displayordernew));
 		}
 
 		showmessage('trade_displayorder_updated', "forum.php?mod=viewthread&tid={$_G['tid']}".($_GET['from'] ? '&from='.$_GET['from'] : ''));
@@ -1758,7 +1758,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 
 	$doArray = array('support', 'against');
 
-	$post = C::t('forum_post')->fetch('tid:'.$_GET['tid'], $_GET['pid'], false);
+	$post = C::t('forum_post')->fetch_post('tid:'.$_GET['tid'], $_GET['pid'], false);
 
 	if(!in_array($_GET['do'], $doArray) || empty($post) || $post['first'] == 1 || ($_G['setting']['threadfilternum'] && $_G['setting']['filterednovote'] && getstatus($post['status'], 11))) {
 		showmessage('undefined_action', NULL);
@@ -1778,7 +1778,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 			'total' => 0,
 		), true);
 	} else {
-		if(C::t('forum_hotreply_member')->fetch($post['pid'], $_G['uid'])) {
+		if(C::t('forum_hotreply_member')->fetch_member($post['pid'], $_G['uid'])) {
 			showmessage('noreply_voted_error', '', array(), array('msgtype' => 3));
 		}
 	}
@@ -1813,7 +1813,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 	if(C::t('forum_forumrecommend')->fetch($thread['tid'])) {
 		showmessage('thread_hidden_error', NULL);
 	}
-	C::t('forum_threadhidelog')->insert($_GET['tid'], $_G['uid']);
+	C::t('forum_threadhidelog')->insert_hidelog($_GET['tid'], $_G['uid']);
 	if($thread['hidden'] + 1 == $_G['setting']['threadhidethreshold']) {
 		notification_add($thread['authorid'], 'post', 'thread_hidden', array('tid' => $thread['tid'], 'subject' => $thread['subject']), 1);
 	}

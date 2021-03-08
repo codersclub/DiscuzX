@@ -396,7 +396,7 @@ class credit {
 				$logarr['uid'] = $rulelog['uid'];
 				C::t('common_credit_rule_log_field')->insert($logarr);
 			} elseif($logarr) {
-				C::t('common_credit_rule_log_field')->update($rulelog['uid'], $rulelog['clid'],$logarr);
+				C::t('common_credit_rule_log_field')->update_field($rulelog['uid'], $rulelog['clid'],$logarr);
 			}
 		}
 	}
@@ -504,7 +504,7 @@ class credit {
 		global $_G;
 
 		$uid = $uid ? $uid : $_G['uid'];
-		return C::t('common_credit_rule_log_field')->fetch($uid, $clid);
+		return C::t('common_credit_rule_log_field')->fetch_field($uid, $clid);
 	}
 }
 

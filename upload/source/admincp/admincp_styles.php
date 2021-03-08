@@ -126,10 +126,10 @@ if($operation == 'admin') {
 		$tpldirs[] = realpath($row['directory']);
 	}
 
-	$defaultid = C::t('common_setting')->fetch('styleid');
-	$defaultid1 = C::t('common_setting')->fetch('styleid1');
-	$defaultid2 = C::t('common_setting')->fetch('styleid2');
-	$defaultid3 = C::t('common_setting')->fetch('styleid3');
+	$defaultid = C::t('common_setting')->fetch_setting('styleid');
+	$defaultid1 = C::t('common_setting')->fetch_setting('styleid1');
+	$defaultid2 = C::t('common_setting')->fetch_setting('styleid2');
+	$defaultid3 = C::t('common_setting')->fetch_setting('styleid3');
 
 	if(!submitcheck('stylesubmit')) {
 		$narray = array();
@@ -287,7 +287,7 @@ if($operation == 'admin') {
 						}
 						$defaultids[] = $defaultnew;
 					}
-					C::t('common_setting')->update('styleid'.$dfid, $defaultnew);
+					C::t('common_setting')->update_setting('styleid'.$dfid, $defaultnew);
 				}
 			}
 
@@ -326,7 +326,7 @@ if($operation == 'admin') {
 						foreach(C::t('common_template')->fetch_all($tplids) as $tpl) {
 							cloudaddons_uninstall(basename($tpl['directory']).'.template', $tpl['directory']);
 						}
-						C::t('common_template')->delete($tplids);
+						C::t('common_template')->delete_tpl($tplids);
 					}
 				}
 			}

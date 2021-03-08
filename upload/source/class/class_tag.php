@@ -36,7 +36,7 @@ class tag
 						$tagid = $result['tagid'];
 					}
 				} else {
-					$tagid = C::t('common_tag')->insert($tagname,$status);
+					$tagid = C::t('common_tag')->insert_tag($tagname,$status);
 				}
 				if($tagid) {
 					if($itemid) {
@@ -92,7 +92,7 @@ class tag
 		}
 		foreach($tagarray as $tagid => $tagname) {
 			if(!in_array($tagname, $tagarraynew)) {
-				C::t('common_tagitem')->delete($tagid, $itemid, $idtype);
+				C::t('common_tagitem')->delete_tagitem($tagid, $itemid, $idtype);
 				$tagstr = str_replace("$tagid,$tagname\t", '', $tagstr);
 			}
 		}
@@ -218,7 +218,7 @@ class tag
 			}
 		}
 		C::t('common_tag')->delete_byids($tagidarray);
-		C::t('common_tagitem')->delete($tagidarray);
+		C::t('common_tagitem')->delete_tagitem($tagidarray);
 		return true;
 	}
 

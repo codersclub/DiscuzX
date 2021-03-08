@@ -121,7 +121,7 @@ if($_GET['view'] == 'me') {
 			$pids[] = $value['pid'];
 			$tids[] = $value['tid'];
 		}
-		$pids = C::t('forum_post')->fetch_all(0, $pids);
+		$pids = C::t('forum_post')->fetch_all_post(0, $pids);
 		$tids = C::t('forum_thread')->fetch_all($tids);
 
 		$list = $fids = array();

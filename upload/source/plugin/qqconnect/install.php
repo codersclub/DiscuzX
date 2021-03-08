@@ -11,7 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-$connect = C::t('common_setting')->fetch('connect', true);
+$connect = C::t('common_setting')->fetch_setting('connect', true);
 
 $sql = <<<EOF
 
@@ -190,6 +190,6 @@ if ($needCreateGroup) {
 $https = json_decode(dfsockopen('https://graph.qq.com/user/get_user_info'));
 $connect['oauth2'] = $https->ret == -1 ? 1 : 0;
 
-C::t('common_setting')->update('connect', serialize($connect));
+C::t('common_setting')->update_setting('connect', serialize($connect));
 updatecache('setting');
 $finish = true;

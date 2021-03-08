@@ -132,16 +132,16 @@ class helper_form {
 		}
 		if(!$status) {
 			foreach($ids as $id) {
-				C::t('common_moderate')->insert($idtype, array(
+				C::t('common_moderate')->insert_moderate($idtype, array(
 					'id' => $id,
 					'status' => 0,
 					'dateline' => TIMESTAMP,
 				), false, true);
 			}
 		} elseif($status == 1) {
-			C::t('common_moderate')->update($ids, $idtype, array('status' => 1));
+			C::t('common_moderate')->update_moderate($ids, $idtype, array('status' => 1));
 		} elseif($status == 2) {
-			C::t('common_moderate')->delete($ids, $idtype);
+			C::t('common_moderate')->delete_moderate($ids, $idtype);
 		}
 	}
 }

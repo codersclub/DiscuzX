@@ -15,11 +15,11 @@ $yesterdayposts = intval(C::t('forum_forum')->fetch_sum_todaypost());
 
 C::t('forum_forum')->update_oldrank_and_yesterdayposts();
 
-$historypost = C::t('common_setting')->fetch('historyposts');
+$historypost = C::t('common_setting')->fetch_setting('historyposts');
 $hpostarray = explode("\t", $historypost);
 $_G['setting']['historyposts'] = $hpostarray[1] < $yesterdayposts ? "$yesterdayposts\t$yesterdayposts" : "$yesterdayposts\t$hpostarray[1]";
 
-C::t('common_setting')->update('historyposts', $_G['setting']['historyposts']);
+C::t('common_setting')->update_setting('historyposts', $_G['setting']['historyposts']);
 $date = date('Y-m-d', TIMESTAMP - 86400);
 
 C::t('forum_statlog')->insert_stat_log($date);

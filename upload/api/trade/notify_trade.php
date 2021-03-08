@@ -68,7 +68,7 @@ if($notifydata['validator']) {
 					} else {
 						$netcredit = 0;
 					}
-					C::t('forum_trade')->update($tradelog['tid'], $tradelog['pid'], array('lastbuyer' => $tradelog['buyer'], 'lastupdate' => $_G['timestamp']));
+					C::t('forum_trade')->update_trade($tradelog['tid'], $tradelog['pid'], array('lastbuyer' => $tradelog['buyer'], 'lastupdate' => $_G['timestamp']));
 					C::t('forum_trade')->update_counter($tradelog['tid'], $tradelog['pid'], $tradelog['number'], $tradelog['price'], $netcredit);
 
 					updatecreditbyaction('tradefinished', $tradelog['sellerid']);

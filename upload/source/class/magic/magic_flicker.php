@@ -29,7 +29,7 @@ class magic_flicker {
 	function usesubmit() {
 		global $_G;
 
-		C::t('home_comment')->update($_GET['id'], array('magicflicker' => 1), $_G['uid']);
+		C::t('home_comment')->update_comment($_GET['id'], array('magicflicker' => 1), $_G['uid']);
 		usemagic($this->magic['magicid'], $this->magic['num']);
 		updatemagiclog($this->magic['magicid'], '2', '1', '0');
 		showmessage(lang('magic/flicker', 'flicker_succeed'), dreferer(), array(), array('alert' => 'right', 'showdialog' => 1, 'closetime' => true, 'locationtime' => true));

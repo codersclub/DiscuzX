@@ -62,7 +62,7 @@ if(submitcheck('commentsubmit', 0, $seccodecheck, $secqaacheck)) {
 
 $cid = empty($_GET['cid'])?0:intval($_GET['cid']);
 
-$cmt = C::t('home_comment')->fetch($cid);
+$cmt = C::t('home_comment')->fetch_comment($cid);
 if(empty($cmt)) {
 	showmessage('comments_do_not_exist');
 } else if(empty($cmt['idtype']) || !array_key_exists($cmt['idtype'], $idtype_array)) {
@@ -77,7 +77,7 @@ if($_GET['op'] == 'edit') {
 	} else {
 		$authorid = '';
 	}
-	if(!$comment = C::t('home_comment')->fetch($cid, $authorid)) {
+	if(!$comment = C::t('home_comment')->fetch_comment($cid, $authorid)) {
 		showmessage('no_privilege_comment_edit');
 	}
 
@@ -94,7 +94,7 @@ if($_GET['op'] == 'edit') {
 		if($comment_status == 1) {
 			manage_addnotify('verifycommontes');
 		}
-		C::t('home_comment')->update($comment['cid'], array('message'=>$message, 'status'=>$comment_status));
+		C::t('home_comment')->update_comment($comment['cid'], array('message'=>$message, 'status'=>$comment_status));
 		showmessage('do_success', dreferer(), array('cid' => $comment['cid']), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
 	}
 

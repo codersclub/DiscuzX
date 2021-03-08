@@ -18,7 +18,7 @@ class optimizer_editperdel {
 	}
 
 	public function check() {
-		$editperdel = C::t('common_setting')->fetch('editperdel');
+		$editperdel = C::t('common_setting')->fetch_setting('editperdel');
 		if($editperdel) {
 			$return = array('status' => 0, 'type' =>'none', 'lang' => lang('optimizer', 'optimizer_editperdel_no_need'));
 		} else {

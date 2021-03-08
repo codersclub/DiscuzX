@@ -146,7 +146,7 @@ function getblogbyid($blogidarray) {
 
 	$bloglist = array();
 	if(!empty($blogidarray)) {
-		$data_blog = C::t('home_blog')->fetch_all($blogidarray, 'dateline', 'DESC');
+		$data_blog = C::t('home_blog')->fetch_all_blog($blogidarray, 'dateline', 'DESC');
 		$data_blogfield = C::t('home_blogfield')->fetch_all($blogidarray);
 
 		require_once libfile('function/spacecp');

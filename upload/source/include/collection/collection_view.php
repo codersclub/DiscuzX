@@ -61,12 +61,12 @@ if(!$op || $op == 'related') {
 		} elseif($isteamworkers) {
 			$lastvisit = $collectionteamworker[$_G['uid']]['lastvisit'];
 			if($_G['collection']['lastupdate'] >= $lastvisit) {
-				C::t('forum_collectionteamworker')->update($ctid, $_G['uid'], array('lastvisit' => TIMESTAMP), true, true);
+				C::t('forum_collectionteamworker')->update_teamworker($ctid, $_G['uid'], array('lastvisit' => TIMESTAMP), true, true);
 			}
 		} elseif($collectionfollowdata['ctid']) {
 			$lastvisit = $collectionfollowdata['lastvisit'];
 			if($_G['collection']['lastupdate'] >= $lastvisit) {
-				C::t('forum_collectionfollow')->update($ctid, $_G['uid'], array('lastvisit' => TIMESTAMP), true, true);
+				C::t('forum_collectionfollow')->update_collectionfollow($ctid, $_G['uid'], array('lastvisit' => TIMESTAMP), true, true);
 			}
 		} else {
 			$lastvisit = null;
@@ -92,7 +92,7 @@ if(!$op || $op == 'related') {
 
 		$memberrate = C::t('forum_collectioncomment')->fetch_rate_by_ctid_uid($_G['collection']['ctid'], $_G['uid']);
 	}
-	$followers = C::t('forum_collectionfollow')->fetch_all($ctid, true, 0, 6);
+	$followers = C::t('forum_collectionfollow')->fetch_all_collectionfollow($ctid, true, 0, 6);
 
 	include template('forum/collection_view');
 } elseif($op == 'comment') {
@@ -115,7 +115,7 @@ if(!$op || $op == 'related') {
 	$navtitle = lang('core', 'title_collection_followers_list').' - '.$navtitle;
 	$cmemberperpage = 28;
 	$start = ($page-1)*$cmemberperpage;
-	$followers = C::t('forum_collectionfollow')->fetch_all($ctid, true, $start, $cmemberperpage);
+	$followers = C::t('forum_collectionfollow')->fetch_all_collectionfollow($ctid, true, $start, $cmemberperpage);
 	$multipage = multi($_G['collection']['follownum'], $cmemberperpage, $page, "forum.php?mod=collection&action=view&op=followers&ctid={$_G['collection']['ctid']}");
 
 	include template('forum/collection_followers');

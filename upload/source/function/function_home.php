@@ -440,7 +440,7 @@ function getdefaultdoing() {
 	$result = array();
 	$key = 0;
 
-	if(($result = C::t('common_setting')->fetch('defaultdoing'))) {
+	if(($result = C::t('common_setting')->fetch_setting('defaultdoing'))) {
 		$_G['setting']['defaultdoing'] = explode("\r\n", $result);
 		$key = rand(0, count($_G['setting']['defaultdoing'])-1);
 	} else {

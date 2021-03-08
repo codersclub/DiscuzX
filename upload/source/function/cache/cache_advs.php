@@ -59,7 +59,7 @@ function updateadvtype() {
 		$advtype[$row['type']] = 1;
 	}
 	$_G['setting']['advtype'] = $advtype = array_keys($advtype);
-	C::t('common_setting')->update('advtype', $advtype);
+	C::t('common_setting')->update_setting('advtype', $advtype);
 }
 
 ?>

@@ -117,7 +117,7 @@ function getranklist_activity($num = 20, $view = 'heats', $orderby = 'all') {
 		$attachtables[getattachtableid($thread['tid'])][] = $thread['aid'];
 	}
 	foreach($attachtables as $attachtable => $aids) {
-		$attachs = C::t('forum_attachment_n')->fetch_all($attachtable, $aids);
+		$attachs = C::t('forum_attachment_n')->fetch_all_attachment($attachtable, $aids);
 		foreach($attachs as $attach) {
 			$attach['attachurl'] = ($attach['remote'] ? $_G['setting']['ftp']['attachurl'] : $_G['setting']['attachurl']).'forum/'.$attach['attachment'];
 			$data[$attach['tid']] = array_merge($data[$attach['tid']], $attach);
@@ -194,7 +194,7 @@ function getranklist_blog($num = 20, $view = 'hot', $orderby = 'all') {
 	}
 
 	$data = array();
-	$data_blog = C::t('home_blog')->range(0, $num, 'DESC', $view, 0, 0, null, $timestamp);
+	$data_blog = C::t('home_blog')->range_blog(0, $num, 'DESC', $view, 0, 0, null, $timestamp);
 	$blogids = array_keys($data_blog);
 	$data_blogfield = C::t('home_blogfield')->fetch_all($blogids);
 

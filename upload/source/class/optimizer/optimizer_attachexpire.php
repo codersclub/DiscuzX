@@ -18,8 +18,8 @@ class optimizer_attachexpire {
 	}
 
 	public function check() {
-		$attachexpire = C::t('common_setting')->fetch('attachexpire');
-		$remoteftp = C::t('common_setting')->fetch('ftp', true);
+		$attachexpire = C::t('common_setting')->fetch_setting('attachexpire');
+		$remoteftp = C::t('common_setting')->fetch_setting('ftp', true);
 		if(!$attachexpire || ($remoteftp['on'] == 1 && !$remoteftp['hideurl'])) {
 			$return = array('status' => 2, 'type' =>'header', 'lang' => lang('optimizer', 'optimizer_attachexpire_need'));
 		} else {

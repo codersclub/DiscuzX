@@ -18,7 +18,7 @@ cpheader();
 
 if($operation == 'alipay') {
 
-	$settings = C::t('common_setting')->fetch_all(array('ec_account', 'ec_contract'));
+	$settings = C::t('common_setting')->fetch_all_setting(array('ec_account', 'ec_contract'));
 
 	if(!empty($checktype)) {
 		require_once DISCUZ_ROOT.'./api/trade/api_alipay.php';
@@ -125,11 +125,11 @@ EOT;
 		}
 		$settingsnew['ec_account'] = trim($settingsnew['ec_account']);
 		$settingsnew['ec_securitycode'] = trim($settingsnew['ec_securitycode']);
-		C::t('common_setting')->update('ec_account', $settingsnew['ec_account']);
+		C::t('common_setting')->update_setting('ec_account', $settingsnew['ec_account']);
 		$ec_securitycodemasknew = $settingsnew['ec_securitycode'] ? $settingsnew['ec_securitycode'][0].'********'.substr($settingsnew['ec_securitycode'], -4) : '';
 		$settingsnew['ec_securitycode'] = $ec_securitycodemasknew == $ec_securitycodemask ? $ec_securitycode : $settingsnew['ec_securitycode'];
 		$ec_contract = addslashes(authcode($settingsnew['ec_contract']."\t".$settingsnew['ec_securitycode']."\t".$settingsnew['ec_partner']."\t".$settingsnew['ec_creditdirectpay'], 'ENCODE', $_G['config']['security']['authkey']));
-		C::t('common_setting')->update('ec_contract', $ec_contract);
+		C::t('common_setting')->update_setting('ec_contract', $ec_contract);
 		updatecache('setting');
 
 		cpmsg('alipay_succeed', 'action=ec&operation=alipay', 'succeed');
@@ -138,7 +138,7 @@ EOT;
 
 } elseif($operation == 'tenpay') {
 
-	$settings = C::t('common_setting')->fetch_all(array('ec_tenpay_direct', 'ec_tenpay_account', 'ec_tenpay_bargainor', 'ec_tenpay_key', 'ec_tenpay_opentrans_chnid', 'ec_tenpay_opentrans_key'));
+	$settings = C::t('common_setting')->fetch_all_setting(array('ec_tenpay_direct', 'ec_tenpay_account', 'ec_tenpay_bargainor', 'ec_tenpay_key', 'ec_tenpay_opentrans_chnid', 'ec_tenpay_opentrans_key'));
 	if(!empty($checktype)) {
 		require_once DISCUZ_ROOT.'./api/trade/api_tenpay.php';
 		if($checktype == 'credit') {
@@ -349,7 +349,7 @@ EOT;
 			$orderids = array();
 			$confirmdate = dgmdate(TIMESTAMP);
 
-			foreach(C::t('forum_order')->fetch_all($_GET['validate'], '1') as $order) {
+			foreach(C::t('forum_order')->fetch_all_order($_GET['validate'], '1') as $order) {
 				updatemembercount($order['uid'], array($_G['setting']['creditstrans'] => $order['amount']));
 				$orderids[] = $order['orderid'];
 
@@ -393,7 +393,7 @@ EOT;
 
 	if(!submitcheck('creditsubmit')) {
 
-		$ec_credit = C::t('common_setting')->fetch('ec_credit', true);
+		$ec_credit = C::t('common_setting')->fetch_setting('ec_credit', true);
 		$ec_credit = $ec_credit ? $ec_credit : array(
 			'maxcreditspermonth' => '6',
 			'rank' => $defaultrank
@@ -451,7 +451,7 @@ EOT;
 			$ec_creditnew['rank'] = $defaultrank;
 		}
 
-		C::t('common_setting')->update('ec_credit', $ec_creditnew);
+		C::t('common_setting')->update_setting('ec_credit', $ec_creditnew);
 		updatecache('setting');
 
 		cpmsg('ec_credit_succeed', 'action=ec&operation=credit', 'succeed');
@@ -524,7 +524,7 @@ EOT;
 		showtagfooter('div');
 	} else {
 		if($_GET['validate']) {
-			if(C::t('forum_order')->fetch_all($_GET['validate'], '1')) {
+			if(C::t('forum_order')->fetch_all_order($_GET['validate'], '1')) {
 				C::t('forum_order')->update($_GET['validate'], array('status' => '3', 'admin' => $_G['username'], 'confirmdate' => $_G['timestamp']));
 			}
 		}

@@ -87,11 +87,11 @@ class Cloud_Service_Util {
 	}
 
 	public function generateUniqueId() {
-		$siteuniqueid = C::t('common_setting')->fetch('siteuniqueid');
+		$siteuniqueid = C::t('common_setting')->fetch_setting('siteuniqueid');
 		if(empty($siteuniqueid) || strlen($siteuniqueid) < 16) {
 			$chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
 			$siteuniqueid = 'DX'.$chars[date('y')%60].$chars[date('n')].$chars[date('j')].$chars[date('G')].$chars[date('i')].$chars[date('s')].substr(md5($_G['clientip'].$_G['username'].TIMESTAMP), 0, 4).random(4);
-			C::t('common_setting')->update('siteuniqueid', $siteuniqueid);
+			C::t('common_setting')->update_setting('siteuniqueid', $siteuniqueid);
 			require_once libfile('function/cache');
 			updatecache('setting');
 		}

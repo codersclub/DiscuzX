@@ -173,7 +173,7 @@ function get_guide_list($view, $start = 0, $num = 50, $again = 0) {
 			if($_GET['fid']) {
 				$sofa = C::t('forum_sofa')->fetch_all_by_fid($_GET['fid'], $start, $num);
 			} else {
-				$sofa = C::t('forum_sofa')->range($start, $num);
+				$sofa = C::t('forum_sofa')->range_sofa($start, $num);
 				foreach($sofa as $sofatid => $sofathread) {
 					if(!in_array($sofathread, $fids)) {
 						unset($sofathread[$sofatid]);
@@ -279,7 +279,7 @@ function get_my_threads($viewtype, $fid = 0, $filter = '', $searchkey = '', $sta
 			$pids[] = $value['pid'];
 			$tids[] = $value['tid'];
 		}
-		$pids = C::t('forum_post')->fetch_all(0, $pids);
+		$pids = C::t('forum_post')->fetch_all_post(0, $pids);
 		$tids = C::t('forum_thread')->fetch_all($tids);
 
 		$list = $fids = array();

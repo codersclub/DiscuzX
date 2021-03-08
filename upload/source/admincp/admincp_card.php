@@ -61,7 +61,7 @@ if($operation == 'set') {
 		showtablefooter();
 		showformfooter();
 	} else {
-		C::t('common_setting')->update('card', array('open' => $_POST['card_config_open']));
+		C::t('common_setting')->update_setting('card', array('open' => $_POST['card_config_open']));
 		updatecache('setting');
 		cpmsg('card_config_succeed', 'action=card&operation=set', 'succeed');
 	}

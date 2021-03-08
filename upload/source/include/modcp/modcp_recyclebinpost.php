@@ -40,7 +40,7 @@ if($_G['fid'] && $_G['forum']['ismoderator'] && $modforums['recyclebins'][$_G['f
 	if(in_array($_G['adminid'], array(1, 2, 3)) && ($op == 'delete' || $op == 'restore') && submitcheck('dosubmit')) {
 		if($ids = dimplode($_GET['moderate'])) {
 			$pidarray = array();
-			foreach(C::t('forum_post')->fetch_all($posttableid, $_GET['moderate'], false) as $post) {
+			foreach(C::t('forum_post')->fetch_all_post($posttableid, $_GET['moderate'], false) as $post) {
 				if($post['fid'] != $_G['fid'] || $post['invisible'] != '-5') {
 					continue;
 				}

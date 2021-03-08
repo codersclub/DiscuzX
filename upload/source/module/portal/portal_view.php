@@ -66,7 +66,7 @@ $multi = '';
 $content = C::t('portal_article_content')->fetch_by_aid_page($aid, $page);
 
 if($article['contents'] && $article['showinnernav']) {
-	foreach(C::t('portal_article_content')->fetch_all($aid) as $value) {
+	foreach(C::t('portal_article_content')->fetch_all_by_aid($aid) as $value) {
 		$contents[] = $value;
 	}
 	if(empty($contents)) {
@@ -94,7 +94,7 @@ if($article['idtype'] == 'tid' || $content['idtype']=='pid') {
 	$thread = get_thread_by_tid($article['id']);
 	if(!empty($thread)) {
 		if($content['idtype']=='pid') {
-			$firstpost = C::t('forum_post')->fetch($thread['posttableid'], $content['id']);
+			$firstpost = C::t('forum_post')->fetch_post($thread['posttableid'], $content['id']);
 		} else {
 			$firstpost = C::t('forum_post')->fetch_threadpost_by_tid_invisible($article['id']);
 		}

@@ -24,7 +24,7 @@ if(!($warnpids = dimplode($topiclist))) {
 
 $posts = $authors = array();
 $authorwarnings = $warningauthor = $warnstatus = '';
-$postlist = C::t('forum_post')->fetch_all('tid:'.$_G['tid'], $topiclist);
+$postlist = C::t('forum_post')->fetch_all_post('tid:'.$_G['tid'], $topiclist);
 foreach($postlist as $post) {
 	$uids[] = $post['authorid'];
 }

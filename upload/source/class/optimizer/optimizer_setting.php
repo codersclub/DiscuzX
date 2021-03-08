@@ -128,7 +128,7 @@ class optimizer_setting {
 
 	public function get_option() {
 		$return = array();
-		$settings = C::t('common_setting')->fetch_all(array_keys($this->setting));
+		$settings = C::t('common_setting')->fetch_all_setting(array_keys($this->setting));
 		foreach($this->setting as $k => $setting) {
 			if($settings[$k] == $setting['initvalue']) {
 				$return[] = array($k, $setting['title'], $setting['description'], $setting['optimizerdesc'], '1');

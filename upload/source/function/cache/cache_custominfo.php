@@ -13,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 function build_cache_custominfo() {
 
-	$data = C::t('common_setting')->fetch_all(array('extcredits', 'customauthorinfo', 'postno', 'postnocustom'));
+	$data = C::t('common_setting')->fetch_all_setting(array('extcredits', 'customauthorinfo', 'postno', 'postnocustom'));
 	$data['customauthorinfo'] = unserialize($data['customauthorinfo']);
 	$data['customauthorinfo'] = $data['customauthorinfo'][0];
 	$data['fieldsadd'] = '';

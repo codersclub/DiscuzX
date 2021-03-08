@@ -168,7 +168,7 @@ if(!$operation) {
 	if(!is_dir($smdir)) {
 		cpmsg('smilies_directory_invalid', '', 'error', array('smurl' => $smurl));
 	}
-	$fastsmiley = C::t('common_setting')->fetch('fastsmiley', true);
+	$fastsmiley = C::t('common_setting')->fetch_setting('fastsmiley', true);
 
 	if(!$do) {
 
@@ -274,7 +274,7 @@ EOT;
 			}
 
 			$fastsmiley[$id] = array_diff(array_unique(array_merge((array)$fastsmiley[$id], (array)$_GET['fast'])), $unsfast);
-			C::t('common_setting')->update('fastsmiley', $fastsmiley);
+			C::t('common_setting')->update_setting('fastsmiley', $fastsmiley);
 			updatecache(array('smilies', 'smileycodes', 'smilies_js'));
 			cpmsg('smilies_edit_succeed', "action=smilies&operation=edit&id=$id&page={$_GET['page']}", 'succeed');
 

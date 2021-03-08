@@ -405,7 +405,7 @@ class WeChat {
 		}
 
 		$init_arr = array('credits' => explode(',', $_G['setting']['initcredits']));
-		C::t('common_member')->insert($uid, $username, $password, $email, $_G['clientip'], $groupid, $init_arr);
+		C::t('common_member')->insert_user($uid, $username, $password, $email, $_G['clientip'], $groupid, $init_arr);
 
 		if($_G['setting']['regctrl'] || $_G['setting']['regfloodctrl']) {
 			C::t('common_regip')->delete_by_dateline($_G['timestamp']-($_G['setting']['regctrl'] > 72 ? $_G['setting']['regctrl'] : 72)*3600);

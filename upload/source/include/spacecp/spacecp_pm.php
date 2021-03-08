@@ -96,7 +96,7 @@ if($_GET['op'] == 'checknewpm') {
 			$messageappend = dhtmlspecialchars('[url='.$_G['siteurl'].'forum.php?mod=redirect&goto=findpost&pid='.$comment['pid'].'&ptid='.$comment['tid'].'][b]'.lang('spacecp', 'pm_comment').'[/b][/url][quote]'.$comment['comment'].'[/quote]');
 		}
 	} elseif(!empty($_GET['tid']) && !empty($_GET['pid'])) {
-		$thread = C::t('forum_thread')->fetch($_GET['tid']);
+		$thread = C::t('forum_thread')->fetch_thread($_GET['tid']);
 		if($thread) {
 			$messageappend = dhtmlspecialchars('[url='.$_G['siteurl'].'forum.php?mod=redirect&goto=findpost&pid='.intval($_GET['pid']).'&ptid='.$thread['tid'].'][b]'.lang('spacecp', 'pm_thread_about', array('subject' => $thread['subject'])).'[/b][/url]');
 		}

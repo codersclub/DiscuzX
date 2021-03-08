@@ -176,7 +176,7 @@ if($action == 'index') {
 
 		if($_G['forum']['livetid']) {
 			include_once libfile('function/post');
-			$livethread = C::t('forum_thread')->fetch($_G['forum']['livetid']);
+			$livethread = C::t('forum_thread')->fetch_thread($_G['forum']['livetid']);
 			$livepost = C::t('forum_post')->fetch_threadpost_by_tid_invisible($_G['forum']['livetid']);
 			$livemessage = messagecutstr($livepost['message'], 200);
 			$liveallowpostreply = $groupuser['uid'] && $groupuser['level'] ? true : false;
@@ -458,7 +458,7 @@ if($action == 'index') {
 				$group_recommend = dunserialize($_G['setting']['group_recommend']);
 				if($group_recommend[$_G['fid']]) {
 					$group_recommend[$_G['fid']]['icon'] = get_groupimg($iconnew);
-					C::t('common_setting')->update('group_recommend', $group_recommend);
+					C::t('common_setting')->update_setting('group_recommend', $group_recommend);
 					include libfile('function/cache');
 					updatecache('setting');
 				}

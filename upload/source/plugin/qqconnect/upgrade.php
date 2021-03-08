@@ -106,7 +106,7 @@ if($sql) {
 	runquery($sql);
 }
 
-$connect = C::t('common_setting')->fetch('connect', true);
+$connect = C::t('common_setting')->fetch_setting('connect', true);
 
 if (!array_key_exists('reply', $connect['t'])) {
 	$connect['t']['reply'] = 1;
@@ -153,6 +153,6 @@ $https = json_decode(dfsockopen('https://graph.qq.com/user/get_user_info'));
 $newConnect['oauth2'] = $https->ret == -1 ? 1 : 0;
 
 $updateData = array_merge($connect, $newConnect);
-C::t('common_setting')->update('connect', serialize($updateData));
+C::t('common_setting')->update_setting('connect', serialize($updateData));
 updatecache('setting');
 $finish = true;

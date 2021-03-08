@@ -191,7 +191,7 @@ if($op == 'post') {
 			$result = $modsession->get($cachekey);
 			$result['pids'] = explode(',', $result['pids']);
 			$keys = array_flip($result['pids']);
-			foreach(C::t('forum_post')->fetch_all($posttableid, $_GET['delete'], false) as $post) {
+			foreach(C::t('forum_post')->fetch_all_post($posttableid, $_GET['delete'], false) as $post) {
 				if($fidaddarr && !in_array($post['fid'], $fidaddarr)) {
 					continue;
 				}

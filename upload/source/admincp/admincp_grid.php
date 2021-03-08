@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 cpheader();
 
 if(!submitcheck('gridssubmit')) {
-	$grid = C::t('common_setting')->fetch('grid', true);
+	$grid = C::t('common_setting')->fetch_setting('grid', true);
 	shownav('forum', 'forums_grid');
 	showsubmenu('forums_grid');
 	showtips('forums_grid_tips');
@@ -34,9 +34,9 @@ if(!submitcheck('gridssubmit')) {
 	showformfooter();
 } else {
 	$_POST['grid']['fids'] = in_array(0, $_POST['grid']['fids']) ? array(0) : $_POST['grid']['fids'];
-	C::t('common_setting')->update('grid', $_POST['grid']);
+	C::t('common_setting')->update_setting('grid', $_POST['grid']);
 	updatecache('setting');
-	C::t('common_syscache')->delete('grids');
+	C::t('common_syscache')->delete_syscache('grids');
 	cpmsg('setting_update_succeed', 'action=grid', 'succeed');
 }
 ?>

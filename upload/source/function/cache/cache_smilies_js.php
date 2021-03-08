@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 function build_cache_smilies_js() {
 	global $_G;
 
-	$fastsmiley = C::t('common_setting')->fetch('fastsmiley', true);
+	$fastsmiley = C::t('common_setting')->fetch_setting('fastsmiley', true);
 	$return_type = 'var smilies_type = new Array();';
 	$return_array = 'var smilies_array = new Array();var smilies_fast = new Array();';
 	$spp = $_G['setting']['smcols'] * $_G['setting']['smrows'];

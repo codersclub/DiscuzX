@@ -114,7 +114,7 @@ EOT;
 		$albums = $catids = array();
 		$selectalbumids = !empty($_GET['ids']) && is_array($_GET['ids']) ? $_GET['ids'] : array();
 		if($selectalbumids) {
-			$query = C::t('home_album')->fetch_all($selectalbumids);
+			$query = C::t('home_album')->fetch_all_album($selectalbumids);
 			foreach($query as $value) {
 				$albums[$value['albumid']] = $value;
 				$catids[] = intval($value['catid']);

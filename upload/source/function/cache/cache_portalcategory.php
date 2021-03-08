@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 function build_cache_portalcategory() {
 	global $_G;
 
-	$data = C::t('portal_category')->range();
+	$data = C::t('portal_category')->range_category();
 	foreach($data as $key => $value) {
 		$upid = $value['upid'];
 		$data[$key]['level'] = 0;

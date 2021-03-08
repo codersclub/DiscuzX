@@ -97,7 +97,7 @@ var rowtypedata = [
 
 			if($_GET['delete']) {
 				C::t('forum_typeoptionvar')->delete_by_sortid($_GET['delete']);
-				C::t('forum_typevar')->delete($_GET['delete']);
+				C::t('forum_typevar')->delete_typevar($_GET['delete']);
 				$affected_rows = C::t('forum_threadtype')->delete($_GET['delete']);
 			}
 
@@ -260,7 +260,7 @@ EOT;
 
 		if($ids = dimplode($_GET['delete'])) {
 			C::t('forum_typeoption')->delete($_GET['delete']);
-			C::t('forum_typevar')->delete(null, $_GET['delete']);
+			C::t('forum_typevar')->delete_typevar(null, $_GET['delete']);
 		}
 
 		if(is_array($_GET['title'])) {
@@ -645,7 +645,7 @@ EOT;
 
 			if($delete) {
 				if($ids = dimplode($delete)) {
-					C::t('forum_typevar')->delete($_GET['sortid'], $delete);
+					C::t('forum_typevar')->delete_typevar($_GET['sortid'], $delete);
 				}
 				foreach($delete as $id) {
 					unset($addoption[$id]);
@@ -738,7 +738,7 @@ EOT;
 							}
 						}
 
-						C::t('forum_typevar')->update($_GET['sortid'], $id, array(
+						C::t('forum_typevar')->update_typevar($_GET['sortid'], $id, array(
 							'displayorder' => $_GET['displayorder'][$id],
 							'available' => $_GET['available'][$id],
 							'required' => $_GET['required'][$id],
@@ -747,7 +747,7 @@ EOT;
 							'subjectshow' => $_GET['subjectshow'][$id],
 						));
 					} else {
-						C::t('forum_typevar')->delete($_GET['sortid'], $id);
+						C::t('forum_typevar')->delete_typevar($_GET['sortid'], $id);
 					}
 				}
 			}
