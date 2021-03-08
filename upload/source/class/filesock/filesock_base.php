@@ -134,10 +134,11 @@ class filesock_base {
 		$config = $_G['config']['security']['fsockopensafe'];
 		$dnsresult = [[],[]];
 		$recordtype = 0;
-		if(in_array('ipv4', $config['ipversion'])) {
+		$ipversion = is_array($config['ipversion']) ? $config['ipversion'] : array('ipv6', 'ipv4');
+		if(in_array('ipv4', $ipversion)) {
 			$recordtype += DNS_A;
 		}
-		if(in_array('ipv6', $config['ipversion'])) {
+		if(in_array('ipv6', $ipversion)) {
 			$recordtype += DNS_AAAA;
 		}
 		$dnsq = dns_get_record($host, $recordtype);
