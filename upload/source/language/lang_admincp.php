@@ -7040,8 +7040,8 @@ $lang = array
 
 	'cloudaddons_ftp_setting' => '站点 FTP 设置',
 	'cloudaddons_unwriteabledirs' => '站点 {basedir} 目录下的以下目录不可写，无法在线安装此应用，请填写本站点的 FTP 连接参数(本设置不会被保存):<br />{unwriteabledirs}',
-	'cloudaddons_plugin_link' => '<b class="highlight">获取更多插件</b>',
-	'cloudaddons_style_link' => '<b class="highlight">获取更多模板</b>',
+	'cloudaddons_plugin_link' => '获取更多插件',
+	'cloudaddons_style_link' => '获取更多模板',
 	'cloudaddons_linkto' => '在应用中心查看',
 	'plugins_validator_nowupgrade' => '以下插件现在可以更新为新版本，点击安装更新',
 	'plugins_validator_newversion' => '以下插件存在新版本，点击安装更新',

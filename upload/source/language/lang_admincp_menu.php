@@ -137,7 +137,6 @@ $lang = array
 	'menu_optimizer' => '优化大师',
 	'menu_security' => '安全大师',
 
-	'menu_cloudaddons' => 'Discuz! 应用中心',
 	'menu_addons' => '应用中心',
 	'menu_plugins' => '插件管理',
 	'menu_tasks' => '站点任务',
