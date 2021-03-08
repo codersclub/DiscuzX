@@ -36,7 +36,7 @@ function deletemember($uids, $delpost = true) {
 		C::t($table)->delete($arruids, true, 1);
 	}
 
-	foreach(array( 'common_member_log', 'common_member_verify', 'common_member_validate', 'common_member_magic') as $table) {
+	foreach(array('common_member_verify', 'common_member_validate', 'common_member_magic') as $table) {
 		C::t($table)->delete($arruids, true);
 	}
 

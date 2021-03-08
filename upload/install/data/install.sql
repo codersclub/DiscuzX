@@ -806,14 +806,6 @@ CREATE TABLE pre_common_member_grouppm (
   KEY gpmid (gpmid)
 ) ENGINE=InnoDB;
 
-DROP TABLE IF EXISTS pre_common_member_log;
-CREATE TABLE pre_common_member_log (
-  uid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `action` char(10) NOT NULL DEFAULT '',
-  dateline int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (uid)
-) ENGINE=InnoDB;
-
 DROP TABLE IF EXISTS pre_common_member_magic;
 CREATE TABLE pre_common_member_magic (
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -2892,19 +2884,6 @@ CREATE TABLE pre_forum_threadimage (
   attachment varchar(255) NOT NULL DEFAULT '',
   remote tinyint(1) unsigned NOT NULL DEFAULT '0',
   KEY tid (tid)
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS pre_forum_threadlog;
-CREATE TABLE pre_forum_threadlog (
-  tid int(10) unsigned NOT NULL DEFAULT '0',
-  fid smallint(6) unsigned NOT NULL DEFAULT '0',
-  uid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  otherid smallint(6) unsigned NOT NULL DEFAULT '0',
-  `action` char(10) NOT NULL,
-  expiry int(10) unsigned NOT NULL DEFAULT '0',
-  dateline int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (tid,fid,uid),
-  KEY dateline (dateline)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_forum_threadmod;
