@@ -1791,6 +1791,7 @@ $lang = array
 	'setting_functions_makehtml_topichtmldir_invalid' => '专题HTML文件的存放目录只能包含字母、数字、下划线(_)和\,请确认存放目录的合法性',
 	'setting_functions_makehtml_indexname' => '门户首页静态文件名',
 	'setting_functions_makehtml_indexname_comment' => '生成门户首页的静态文件名，默认为index，不带扩展名',
+	'setting_functions_makehtml_indexname_invalid' => '门户首页静态文件名只能包含字母、数字、下划线(_)，请确认文件名的合法性',
 	'setting_functions_makehtml_extendname' => '静态文件扩展名',
 	'setting_functions_makehtml_extendname_comment' => '所有静态文件的扩展名，默认为html',
 	'setting_functions_makehtml_make_has_no_foldername' => '<span title="此文章所属频道未设置目录名称">生成</span>',
