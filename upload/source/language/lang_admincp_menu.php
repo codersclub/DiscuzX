@@ -32,7 +32,7 @@ $lang = array
 	'header_bbs' => '站点首页',
 	'header_portal' => '门户',
 	'header_group' => '群组',
-	'header_safe' => '防灌水',
+	'header_safe' => '安全',
 	'header_founder' => '站长',
 	'header_cloudaddons' => '应用中心',
 
