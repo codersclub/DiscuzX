@@ -994,7 +994,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 
 	foreach(C::t('forum_threadmod')->fetch_all_by_tid($_G['tid']) as $log) {
 		$log['dateline'] = dgmdate($log['dateline'], 'u');
-		$log['expiration'] = !empty($log['expiration']) ? dgmdate($log['expiration'], 'd') : '';
+		$log['expiration'] = !empty($log['expiration']) ? dgmdate($log['expiration'], 'dt') : '';
 		$log['status'] = empty($log['status']) ? 'style="text-decoration: line-through" disabled' : '';
 		if(!$modactioncode[$log['action']] && preg_match('/S(\d\d)/', $log['action'], $a) || $log['action'] == 'SPA') {
 			loadcache('stamps');
@@ -1019,6 +1019,8 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 	if(empty($loglist)) {
 		showmessage('threadmod_nonexistence');
 	}
+
+	$reasons_public = $_G['setting']['modreasons_public'];
 
 	include template('forum/viewthread_mod');
 
