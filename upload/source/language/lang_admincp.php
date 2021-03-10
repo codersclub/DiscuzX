@@ -609,6 +609,7 @@ $lang = array
 	'founder_optimizer_status' => '状态',
 
 	'founder_optimizer_security' => '安全测试',
+	'founder_optimizer_serversec' => '底层安全',
 	'founder_optimizer_performance' => '性能优化',
 	'founder_optimizer_low' => '低',
 	'founder_optimizer_middle' => '中',
@@ -6884,6 +6885,8 @@ $lang = array
 	'postsplit_manage_submit' => '确认分表',
 
 	'optimizer_security_tips' => '<li>体检可以帮助您发现网站问题，消除安全风险</li><li>设置项安全检测</li><li>安装插件安全及更新检测</li>',
+	'optimizer_serversec_tips' => '<li>体检可以帮助您发现网站底层问题，消除安全风险</li>',
+	'optimizer_performance_tips' => '<li>体检可以帮助您发现网站性能问题，增强网站性能</li>',
 	'optimizer_check_unit_optimizer_plugin' => '检测应用是否有新的更新',
 	'optimizer_check_unit_optimizer_upgrade' => '查看是否有新的产品版本',
 	'optimizer_check_unit_optimizer_patch' => '检测产品是有有漏洞补丁发布',
@@ -6919,6 +6922,8 @@ $lang = array
 	'optimizer_check_unit_optimizer_security_daily' => '检测是否开启防水墙每日优化计划任务',
 	'optimizer_check_unit_optimizer_postqqonly' => '检测发帖需要绑定QQ号检测是否开启',
 	'optimizer_check_unit_optimizer_aggid' => '检测“管理员，超级版主，版主”QQ登录检测是否开启',
+	'optimizer_check_unit_optimizer_dos8p3' => '检测 DOS 8.3 文件名支持是否开启',
+	'optimizer_check_unit_optimizer_httphost' => '检测空 HOST 访问是否开启',
 
 	'domain_topic' => '专题',
 	'domain_home' => '个人空间',

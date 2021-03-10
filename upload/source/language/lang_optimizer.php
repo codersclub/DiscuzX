@@ -119,5 +119,9 @@ $lang = array
 	'optimizer_white_list_no_need' => '未设置白名单',
 	'optimizer_security_daily_need' => '开启防水墙每日优化，可清除删帖后首页痕迹',
 	'optimizer_white_list_no_need' => '该计划任务已开启',
+	'optimizer_dos8p3_need' => 'DOS 8.3 文件名支持错误开启',
+	'optimizer_dos8p3_no_need' => 'DOS 8.3 文件名支持未开启或底层不支持',
+	'optimizer_httphost_need' => '空 HOST 访问已开启',
+	'optimizer_httphost_no_need' => '空 HOST 访问支持未开启或底层不支持',
 );
 ?>

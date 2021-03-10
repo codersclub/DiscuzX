@@ -136,6 +136,7 @@ $lang = array
 	'menu_upgrade' => '在线升级',
 	'menu_optimizer' => '优化大师',
 	'menu_security' => '安全大师',
+	'menu_serversec' => '底层安全',
 
 	'menu_addons' => '应用中心',
 	'menu_plugins' => '插件管理',

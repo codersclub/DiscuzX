@@ -169,6 +169,7 @@ $menu['safe'] = array(
 	array('menu_safe_setting', 'setting_sec'),
 	array('menu_safe_seccheck', 'setting_seccheck'),
 	array('menu_security', 'optimizer_security'),
+	array('menu_serversec', 'optimizer_serversec'),
 	array('menu_safe_accountguard', 'setting_accountguard'),
 );
 
