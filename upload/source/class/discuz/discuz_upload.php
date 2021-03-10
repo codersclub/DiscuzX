@@ -114,7 +114,8 @@ Class discuz_upload{
 		} elseif($imageinfo = @getimagesize($target)) {
 			list($width, $height, $type) = !empty($imageinfo) ? $imageinfo : array('', '', '');
 			$size = $width * $height;
-			if($size > 16777216 || $size < 16 ) {
+			// Imagick 不受最大大小限制, GD 限制值从数据库读取
+			if((!getglobal('setting/imagelib') && $size > (getglobal('setting/gdlimit') ? getglobal('setting/gdlimit') : 16777216)) || $size < 16 ) {
 				return false;
 			} elseif($ext == 'swf' && $type != 4 && $type != 13) {
 				return false;

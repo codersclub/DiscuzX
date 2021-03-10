@@ -1949,6 +1949,7 @@ EOT;
 			array(0, $lang['setting_attach_image_watermarktype_GD'], array('imagelibext' => 'none')),
 			array(1, $lang['setting_attach_image_watermarktype_IM'], array('imagelibext' => ''))
 		)), $setting['imagelib'], 'mradio');
+		showsetting('setting_attach_image_gdlimit', 'settingnew[gdlimit]', $setting['gdlimit'], 'text');
 		showsetting('setting_attach_image_thumbquality', 'settingnew[thumbquality]', $setting['thumbquality'], 'text');
 		showsetting('setting_attach_image_disabledmobile', 'settingnew[thumbdisabledmobile]', !$setting['thumbdisabledmobile'], 'radio');
 		showsetting('setting_attach_image_preview', '', '', cplang('setting_attach_image_thumb_preview_btn'));
