@@ -921,7 +921,15 @@ if($operation == 'export') {
 					} elseif(!isset($discuzdbnew[$dbtable][$key])) {
 						$dellist[] = $value;
 					} elseif($tempvalue != $discuzdbnew[$dbtable][$key]) {
-						$modifylist[] = $value;
+						// MySQL 8.0.17 开始不再支持除tinyint(1)以外的任何int类数据类型的显示宽度，检测到此行为则移除数值。
+						if((strpos($tempvalue['Type'], 'int(') !== false) && (strpos($discuzdbnew[$dbtable][$key]['Type'], '(') === false)) {
+							$tempvalue['Type'] = preg_replace('/\(\d+\)/', '', $tempvalue['Type']);
+							if($tempvalue != $discuzdbnew[$dbtable][$key]) {
+								$modifylist[] = $value;
+							}
+						} else {
+							$modifylist[] = $value;
+						}
 					}
 				}
 				if(is_array($discuzdbnew[$dbtable])) {
