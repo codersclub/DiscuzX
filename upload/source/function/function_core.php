@@ -1065,8 +1065,12 @@ function output() {
 			if($fp = @fopen(CACHE_FILE, 'w')) {
 				flock($fp, LOCK_EX);
 				$content = empty($content) ? ob_get_contents() : $content;
-				$temp_formhash = substr(md5(substr($_G['timestamp'], 0, -3).substr($_G['config']['security']['authkey'], 3, -3)), 8, 8);
+				$temp_md5 = md5(substr($_G['timestamp'], 0, -3).substr($_G['config']['security']['authkey'], 3, -3));
+				$temp_formhash = substr($temp_md5, 8, 8);
 				$content = preg_replace('/(name=[\'|\"]formhash[\'|\"] value=[\'\"]|formhash=)('.constant("FORMHASH").')/ismU', '${1}'.$temp_formhash, $content);
+				//避免siteurl伪造被缓存
+				$temp_siteurl = 'siteurl_'.substr($temp_md5, 16, 8);
+				$content = preg_replace('/("|\')('.preg_quote($_G['siteurl'], '/').')/ismU', '${1}'.$temp_siteurl, $content);
 				fwrite($fp, empty($content) ? ob_get_contents() : $content);
 			}
 			@fclose($fp);
