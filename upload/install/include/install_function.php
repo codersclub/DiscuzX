@@ -756,7 +756,7 @@ function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {
 
 function generate_key() {
 	$random = random(32);
-	$info = md5($_SERVER['SERVER_SOFTWARE'].$_SERVER['SERVER_NAME'].$_SERVER['SERVER_ADDR'].$_SERVER['SERVER_PORT'].$_SERVER['HTTP_USER_AGENT'].time());
+	$info = md5($_SERVER['SERVER_SOFTWARE'].$_SERVER['SERVER_NAME'].(isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '').$_SERVER['SERVER_PORT'].$_SERVER['HTTP_USER_AGENT'].time());
 	$return = array();
 	for($i=0; $i<64; $i++) {
 		$p = intval($i/2);
@@ -1374,7 +1374,7 @@ EOT;
 
 function _generate_key() {
 	$random = random(32);
-	$info = md5($_SERVER['SERVER_SOFTWARE'].$_SERVER['SERVER_NAME'].$_SERVER['SERVER_ADDR'].$_SERVER['SERVER_PORT'].$_SERVER['HTTP_USER_AGENT'].time());
+	$info = md5($_SERVER['SERVER_SOFTWARE'].$_SERVER['SERVER_NAME'].(isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '').$_SERVER['SERVER_PORT'].$_SERVER['HTTP_USER_AGENT'].time());
 	$return = array();
 	for($i=0; $i<32; $i++) {
 		$return[$i] = $random[$i].$info[$i];
@@ -1544,14 +1544,17 @@ function buildarray($array, $level = 0, $pre = '$_config') {
 				$return .= "// $newline //\r\n";
 			}
 		}
-
-		$ks[$level] = $ks[$level - 1]."['$key']";
+		$ks[$level] = $level ? $ks[$level - 1] : '';
+		if(is_int($key)) {
+			$ks[$level] .= '['.$key.']';
+		} else {
+			$ks[$level] .= "['$key']";
+		}
 		if(is_array($val)) {
-			$ks[$level] = $ks[$level - 1]."['$key']";
 			$return .= buildarray($val, $level + 1, $pre);
 		} else {
-			$val =  is_string($val) || strlen($val) > 12 || !preg_match("/^\-?[1-9]\d*$/", $val) ? '\''.addcslashes($val, '\'\\').'\'' : $val;
-			$return .= $pre.$ks[$level - 1]."['$key']"." = $val;\r\n";
+			$val =  is_string($val) || strlen($val) > 12 || ($val !== 0 && !preg_match("/^\-?[1-9]\d*$/", $val)) ? '\''.addcslashes($val, '\'\\').'\'' : $val;
+			$return .= $pre.$ks[$level]." = $val;\r\n";
 		}
 	}
 	return $return;

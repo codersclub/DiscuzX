@@ -320,7 +320,7 @@ if($method == 'show_license') {
 
 
 		$uid = DZUCFULL ? 1 : $adminuser['uid'];
-		$authkey = md5($_SERVER['SERVER_ADDR'].$_SERVER['HTTP_USER_AGENT'].$dbhost.$dbuser.$dbpw.$dbname.$username.$password.substr(time(), 0, 8)).random(32);
+		$authkey = md5((isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '').$_SERVER['HTTP_USER_AGENT'].$dbhost.$dbuser.$dbpw.$dbname.$username.$password.substr(time(), 0, 8)).random(32);
 		$_config['db'][1]['dbhost'] = $dbhost;
 		$_config['db'][1]['dbname'] = $dbname;
 		$_config['db'][1]['dbpw'] = $dbpw;
@@ -404,7 +404,7 @@ if($method == 'show_license') {
 
 	$onlineip = $_SERVER['REMOTE_ADDR'];
 	$timestamp = time();
-	$backupdir = substr(md5($_SERVER['SERVER_ADDR'].$_SERVER['HTTP_USER_AGENT'].substr($timestamp, 0, 4)), 8, 6);
+	$backupdir = substr(md5((isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '').$_SERVER['HTTP_USER_AGENT'].substr($timestamp, 0, 4)), 8, 6);
 	$ret = false;
 	if(is_dir(ROOT_PATH.'data/backup')) {
 		$ret = @rename(ROOT_PATH.'data/backup', ROOT_PATH.'data/backup_'.$backupdir);
