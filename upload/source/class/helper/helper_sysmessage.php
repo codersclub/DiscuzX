@@ -21,6 +21,8 @@ class helper_sysmessage {
 			$title = $title ? $title : 'System Message';
 		}
 		$charset = CHARSET;
+		$version = DISCUZ_VERSION;
+		$copy = lang('template', 'copyright_s');
 		echo <<<EOT
 <!DOCTYPE html>
 <html>
@@ -31,9 +33,9 @@ class helper_sysmessage {
 <title>$title</title>
 <meta name="keywords" content="" />
 <meta name="description" content="System Message - Discuz! Board" />
-<meta name="generator" content="Discuz! " />
+<meta name="generator" content="Discuz! $version" />
 <meta name="author" content="Discuz! Team and Comsenz UI Team" />
-<meta name="copyright" content="2001-2021 Comsenz Inc." />
+<meta name="copyright" content="$copy" />
 <meta name="MSSmartTagsPreventParsing" content="True" />
 <meta http-equiv="MSThemeCompatible" content="Yes" />
 </head>
