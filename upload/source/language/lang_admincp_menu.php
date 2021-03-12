@@ -149,6 +149,7 @@ $lang = array
 
 	'menu_styles' => '模板管理',
 	'menu_styles_templates' => '模板套系管理',
+	'menu_templates_add' => '设计新模板',
 	'menu_posting_smilies' => '表情管理',
 	'menu_click' => '表态动作',
 	'menu_thread_icon' => '主题图标',

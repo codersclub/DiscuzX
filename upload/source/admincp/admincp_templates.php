@@ -14,6 +14,11 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 cpheader();
 if(!isfounder()) cpmsg('noaccess_isfounder', '', 'error');
 
+$isplugindeveloper = isset($_G['config']['plugindeveloper']) && $_G['config']['plugindeveloper'] > 0;
+if(!$isplugindeveloper) {
+	cpmsg('undefined_action', '', 'error');
+}
+
 $operation = empty($operation) ? 'admin' : $operation;
 
 if($operation == 'admin') {
@@ -36,10 +41,8 @@ if($operation == 'admin') {
 
 		shownav('template', 'templates_admin');
 		showsubmenu('styles_admin', array(
-			array('styles_list', 'styles', 0),
 			array('templates_add', 'templates&operation=add', 0),
 			array('nav_templates', 'templates&operation=admin', 1),
-			array('styles_import', 'styles&operation=import', 0),
 			array('cloudaddons_style_link', 'cloudaddons&frame=no&operation=templates&from=more', 0, 1),
 		));
 		showformheader('templates');
@@ -151,10 +154,8 @@ if($operation == 'admin') {
 	if(!submitcheck('addsubmit')) {
 		shownav('template', 'templates_add');
 		showsubmenu('styles_admin', array(
-			array('styles_list', 'styles', 0),
 			array('templates_add', 'templates&operation=add', 1),
 			array('nav_templates', 'templates&operation=admin', 0),
-			array('styles_import', 'styles&operation=import', 0),
 			array('cloudaddons_style_link', 'cloudaddons&frame=no&operation=templates&from=more', 0, 1),
 		));
 		showtips('templates_add_tips');

@@ -135,8 +135,8 @@ if(!$operation) {
 		shownav('plugin', 'plugins_list');
 		showsubmenu('nav_plugins', array(
 			array('plugins_list', 'plugins', 1),
-			array('plugins_validator'.($updatecount ? '_new' : ''), 'plugins&operation=upgradecheck', 0),
 			$isplugindeveloper ? array('plugins_add', 'plugins&operation=add', 0) : array(),
+			array('plugins_validator'.($updatecount ? '_new' : ''), 'plugins&operation=upgradecheck', 0),
 			array('cloudaddons_plugin_link', 'cloudaddons&frame=no&operation=plugins&from=more', 0, 1),
 		), '<a href="https://www.dismall.com/?from=plugins_question" target="_blank" class="bold" style="float:right;padding-right:40px;">'.$lang['plugins_question'].'</a>', array('updatecount' => $updatecount));
 		showformheader('plugins');
@@ -1572,8 +1572,8 @@ if(!$operation) {
 		shownav('plugin');
 		showsubmenu('nav_plugins', array(
 			array('plugins_list', 'plugins', 0),
-			array('plugins_validator', 'plugins&operation=upgradecheck', 1),
 			$isplugindeveloper ? array('plugins_add', 'plugins&operation=add', 0) : array(),
+			array('plugins_validator', 'plugins&operation=upgradecheck', 1),
 			array('cloudaddons_plugin_link', 'cloudaddons&frame=no&operation=plugins&from=more', 0, 1),
 		), '<a href="https://www.dismall.com/?from=plugins_question" target="_blank" class="bold" style="float:right;padding-right:40px;">'.$lang['plugins_question'].'</a>');
 		showtableheader();

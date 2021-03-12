@@ -3228,6 +3228,7 @@ $lang = array
 	'styles_admin_tips' => '<li>如果把导出的风格文件放置在模板目录下，则可以通过风格管理直接安装风格</li>',
 	'styles_admin_name' => '方案名称',
 	'styles_admin_template' => '所用模板',
+	'styles_home_tips' => '<li>手机版模板需要开启手机版以后才能生效，<a href="?action=setting&operation=mobile">前往手机版设置</a></li><li>如果您是模板开发者，请阅读《<a href="https://open.dismall.com/?ac=document&amp;page=dev_template" target="_blank">Discuz! 技术文档</a>》中的内容，并开启设计模式。</li>',
 	'styles_tips' => '<li>由于扩展配色会重定义某些风格变量，因此某些风格变量可能只对默认配色有效</li>',
 
 	'styles_edit' => '编辑风格',

@@ -238,10 +238,11 @@ if($operation == 'admin') {
 		shownav('template', 'styles_list');
 		showsubmenu('styles_admin', array(
 			array('styles_list', 'styles', 1),
+			array('styles_import', 'styles&operation=import', 0),
 			$isfounder ? array('plugins_validator'.($updatecount ? '_new' : ''), 'styles&operation=upgradecheck', 0) : array(),
-			$isfounder ? array('templates_add', 'templates&operation=add', 0) : array('styles_import', 'styles&operation=import', 0),
 			$isfounder ? array('cloudaddons_style_link', 'cloudaddons&frame=no&operation=templates&from=more', 0, 1) : array(),
 		), '<a href="https://www.dismall.com/?from=templates_question" target="_blank" class="bold" style="float:right;padding-right:40px;">'.$lang['templates_question'].'</a>', array('updatecount' => $updatecount));
+		showtips('styles_home_tips');
 		showformheader('styles');
 		showhiddenfields(array('updatecsscache' => 0));
 		showtableheader();
@@ -350,11 +351,9 @@ if($operation == 'admin') {
 
 	if(!submitcheck('importsubmit') && !isset($_GET['dir'])) {
 
-		shownav('template', 'styles_admin');
+		shownav('template', 'styles_import');
 		showsubmenu('styles_admin', array(
 			array('styles_list', 'styles', 0),
-			$isfounder ? array('templates_add', 'templates&operation=add', 0) : array(),
-			$isfounder ? array('nav_templates', 'templates&operation=admin', 0) : array(),
 			array('styles_import', 'styles&operation=import', 1),
 			$isfounder ? array('cloudaddons_style_link', 'cloudaddons&frame=no&operation=templates&from=more', 0, 1) : array(),
 		), '<a href="https://www.dismall.com/?from=templates_question" target="_blank" class="bold" style="float:right;padding-right:40px;">'.$lang['templates_question'].'</a>');
@@ -669,8 +668,8 @@ function imgpre_switch(id) {
 		shownav('template', 'plugins_validator');
 		showsubmenu('styles_admin', array(
 			array('styles_list', 'styles', 0),
+			array('styles_import', 'styles&operation=import', 0),
 			array('plugins_validator', 'styles&operation=upgradecheck', 1),
-			array('templates_add', 'templates&operation=add', 0),
 			array('cloudaddons_style_link', 'cloudaddons&frame=no&operation=templates&from=more', 0, 1),
 		), '<a href="https://www.dismall.com/?from=templates_question" target="_blank" class="bold" style="float:right;padding-right:40px;">'.$lang['templates_question'].'</a>');
 		showtableheader();
