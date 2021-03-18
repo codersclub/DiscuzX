@@ -42,6 +42,18 @@ if($operation != 'password') {
 
 $allowcstatus = !empty($_G['group']['allowcstatus']) ? true : false;
 $verify = C::t('common_member_verify')->fetch($_G['uid']);
+if(!empty($verify) && is_array($verify)) {
+	foreach($verify as $key => $flag) {
+		if(in_array($key, array('verify1', 'verify2', 'verify3', 'verify4', 'verify5', 'verify6', 'verify7')) && $flag == 1) {
+			$verifyid = intval(substr($key, -1, 1));
+			if($_G['setting']['verify'][$verifyid]['available']) {
+				foreach($_G['setting']['verify'][$verifyid]['field'] as $field) {
+					$_G['cache']['profilesetting'][$field]['unchangeable'] = 1;
+				}
+			}
+		}
+	}
+}
 $validate = array();
 if($_G['setting']['regverify'] == 2 && $_G['groupid'] == 8) {
 	$validate = C::t('common_member_validate')->fetch($_G['uid']);
@@ -78,6 +90,9 @@ if(submitcheck('profilesubmit')) {
 
 	if($_GET['vid']) {
 		$vid = intval($_GET['vid']);
+		if (getuserprofile('verify' . $vid) == 1) {
+			showmessage('spacecp_profile_message2');
+		}
 		$verifyconfig = $_G['setting']['verify'][$vid];
 		if($verifyconfig['available'] && (empty($verifyconfig['groupid']) || in_array($_G['groupid'], $verifyconfig['groupid']))) {
 			$verifyinfo = C::t('common_member_verify_info')->fetch_by_uid_verifytype($_G['uid'], $vid);
@@ -162,6 +177,9 @@ if(submitcheck('profilesubmit')) {
 		if($field['formtype'] == 'file') {
 			unset($setarr[$key]);
 		}
+		if (isset($setarr[$key]) && $_G['cache']['profilesetting'][$key]['unchangeable'] && $space[$key]) {
+			unset($setarr[$key]);
+		}
 		if($vid && $verifyconfig['available'] && isset($verifyconfig['field'][$key])) {
 			if(isset($verifyinfo['field'][$key]) && $setarr[$key] !== $space[$key]) {
 				$verifyarr[$key] = $setarr[$key];
@@ -198,6 +216,8 @@ if(submitcheck('profilesubmit')) {
 				profile_showerror($key);
 			} elseif($field['size'] && $field['size']*1024 < $file['size']) {
 				profile_showerror($key, lang('spacecp', 'filesize_lessthan').$field['size'].'KB');
+			} elseif($_G['cache']['profilesetting'][$key]['unchangeable'] && !empty($space[$key])){
+				profile_showerror($key);
 			}
 			$upload->init($file, 'profile');
 			$attach = $upload->attach;
@@ -496,18 +516,6 @@ if($operation == 'password') {
 		}
 	}
 	$showbtn = ($vid && $verify['verify'.$vid] != 1) || empty($vid);
-	if(!empty($verify) && is_array($verify)) {
-		foreach($verify as $key => $flag) {
-			if(in_array($key, array('verify1', 'verify2', 'verify3', 'verify4', 'verify5', 'verify6', 'verify7')) && $flag == 1) {
-				$verifyid = intval(substr($key, -1, 1));
-				if($_G['setting']['verify'][$verifyid]['available']) {
-					foreach($_G['setting']['verify'][$verifyid]['field'] as $field) {
-						$_G['cache']['profilesetting'][$field]['unchangeable'] = 1;
-					}
-				}
-			}
-		}
-	}
 	if($vid) {
 		if($value = C::t('common_member_verify_info')->fetch_by_uid_verifytype($_G['uid'], $vid)) {
 			$field = dunserialize($value['field']);
