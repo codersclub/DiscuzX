@@ -76,8 +76,13 @@ if($uid && empty($member)) {
 
 if(empty($space)) {
 	if(in_array($do, array('doing', 'blog', 'album', 'share', 'home', 'trade', 'poll', 'activity', 'debate', 'reward', 'group'))) {
-		$_GET['view'] = 'all';
-		$space['uid'] = 0;
+		if(empty($_GET['view']) || $_GET['view'] == 'all') {
+			$_GET['view'] = 'all';
+			$space['uid'] = 0;
+			$space['self'] = 0;
+		} else {
+			showmessage('login_before_enter_home', null, array(), array('showmsg' => true, 'login' => 1));
+		}
 	} else {
 		showmessage('login_before_enter_home', null, array(), array('showmsg' => true, 'login' => 1));
 	}

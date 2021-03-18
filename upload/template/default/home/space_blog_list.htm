@@ -58,8 +58,8 @@
 				<div class="bm bw0">
 					<h1 class="mt"><i class="fico-mypost fic4 fc-p vm"></i>{lang blog}</h1>
 					<ul class="tb cl">
-						<li$actives[we]><a href="home.php?mod=space&do=blog&view=we">{lang friend_blog}</a></li>
-						<li$actives[me]><a href="home.php?mod=space&do=blog&view=me">{lang my_blog}</a></li>
+						<li$actives[we]><a href="home.php?mod=space&do=blog&view=we"{if !$_G['uid']} onclick="showWindow('login', 'member.php?mod=logging&action=login&guestmessage=yes&referer='+encodeURIComponent(this.href))"{/if}>{lang friend_blog}</a></li>
+						<li$actives[me]><a href="home.php?mod=space&do=blog&view=me"{if !$_G['uid']} onclick="showWindow('login', 'member.php?mod=logging&action=login&guestmessage=yes&referer='+encodeURIComponent(this.href))"{/if}>{lang my_blog}</a></li>
 						<li$actives[all]><a href="home.php?mod=space&do=blog&view=all">{lang view_all}</a></li>
 						<!--{if helper_access::check_module('blog')}-->
 						<li class="o"><a href="home.php?mod=spacecp&ac=blog">{lang post_new_blog}</a></li>
@@ -71,8 +71,8 @@
 				<div class="tbn">
 					<h2 class="mt bbda">{lang blog}</h2>
 					<ul>
-						<li$actives[we]><a href="home.php?mod=space&do=blog&view=we">{lang friend_blog}</a></li>
-						<li$actives[me]><a href="home.php?mod=space&do=blog&view=me">{lang my_blog}</a></li>
+						<li$actives[we]><a href="home.php?mod=space&do=blog&view=we"{if !$_G['uid']} onclick="showWindow('login', 'member.php?mod=logging&action=login&guestmessage=yes&referer='+encodeURIComponent(this.href))"{/if}>{lang friend_blog}</a></li>
+						<li$actives[me]><a href="home.php?mod=space&do=blog&view=me"{if !$_G['uid']} onclick="showWindow('login', 'member.php?mod=logging&action=login&guestmessage=yes&referer='+encodeURIComponent(this.href))"{/if}>{lang my_blog}</a></li>
 						<li$actives[all]><a href="home.php?mod=space&do=blog&view=all">{lang view_all}</a></li>
 					</ul>
 				</div>

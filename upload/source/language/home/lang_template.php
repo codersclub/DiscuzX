@@ -607,6 +607,7 @@ $lang = array (
   'space_medal_receive' => '已领取',
   'space_medal_apply' => '申请勋章',
   'content_manage' => '内容管理',
+  'content_isnull' => '抱歉，您尚未输入必须的内容',
   'manage_album' => '管理相册',
   'manage_blog' => '管理日志',
   'manage_comment' => '管理评论',

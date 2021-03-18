@@ -25,7 +25,7 @@ function handlePrompt(type) {
 </script>
 
 <div id="moodfm">
-	<form method="post" autocomplete="off" id="mood_addform" action="home.php?mod=spacecp&ac=doing&view=$_GET[view]" onsubmit="if($('message').value == msgstr){return false;}">
+	<form method="post" autocomplete="off" id="mood_addform" action="home.php?mod=spacecp&ac=doing&view=$_GET[view]" onsubmit="if($('message').value == msgstr){showError('{lang content_isnull}');return false;}">
 		<table cellspacing="0" cellpadding="0">
 			<tr>
 				<td id="mood_statusinput" class="moodfm_input">

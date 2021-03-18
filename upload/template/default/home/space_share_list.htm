@@ -55,8 +55,8 @@
 				<!--{/if}-->
 				<div class="bm bw0">
 					<ul class="tb cl">
-						<li$actives[we]><a href="home.php?mod=space&do=share&view=we">{lang friend_share}</a></li>
-						<li$actives[me]><a href="home.php?mod=space&do=share&view=me">{lang my_share}</a></li>
+						<li$actives[we]><a href="home.php?mod=space&do=share&view=we"{if !$_G['uid']} onclick="showWindow('login', 'member.php?mod=logging&action=login&guestmessage=yes&referer='+encodeURIComponent(this.href))"{/if}>{lang friend_share}</a></li>
+						<li$actives[me]><a href="home.php?mod=space&do=share&view=me"{if !$_G['uid']} onclick="showWindow('login', 'member.php?mod=logging&action=login&guestmessage=yes&referer='+encodeURIComponent(this.href))"{/if}>{lang my_share}</a></li>
 						<li$actives[all]><a href="home.php?mod=space&do=share&view=all">{lang view_all}</a></li>
 					</ul>
 				</div>
@@ -65,8 +65,8 @@
 				<div class="tbn">
 					<h2 class="mt bbda">{lang share}</h2>
 					<ul>
-						<li$actives[we]><a href="home.php?mod=space&do=share&view=we">{lang friend_share}</a></li>
-						<li$actives[me]><a href="home.php?mod=space&do=share&view=me">{lang my_share}</a></li>
+						<li$actives[we]><a href="home.php?mod=space&do=share&view=we"{if !$_G['uid']} onclick="showWindow('login', 'member.php?mod=logging&action=login&guestmessage=yes&referer='+encodeURIComponent(this.href))"{/if}>{lang friend_share}</a></li>
+						<li$actives[me]><a href="home.php?mod=space&do=share&view=me"{if !$_G['uid']} onclick="showWindow('login', 'member.php?mod=logging&action=login&guestmessage=yes&referer='+encodeURIComponent(this.href))"{/if}>{lang my_share}</a></li>
 						<li$actives[all]><a href="home.php?mod=space&do=share&view=all">{lang view_all}</a></li>
 					</ul>
 				</div>

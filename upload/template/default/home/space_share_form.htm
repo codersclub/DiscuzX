@@ -1,4 +1,4 @@
-<form id="shareform" name="shareform" action="home.php?mod=spacecp&ac=share&type=link&view=$_GET[view]&from=$_GET[from]" method="post" autocomplete="off" class="sfm" {if $_GET[view] == 'me'}onsubmit="ajaxpost(this.id, 'return_shareadd')"{/if}>
+<form id="shareform" name="shareform" action="home.php?mod=spacecp&ac=share&type=link&view=$_GET[view]&from=$_GET[from]" method="post" autocomplete="off" class="sfm" onsubmit="if($('share_link').value == 'http://'){showError('{lang content_isnull}');return false;} else {ajaxpost(this.id, 'return_shareadd');}">
 	<p class="mbn c cl"><span id="return_shareadd" class="y xi1"></span>{lang share_web_music_flash}</p>
 	<p>
 		<input type="text" name="link" id="share_link" class="px vm" tabindex="1" onfocus="javascript:if('http://'==this.value)this.value='';$('share_desc').style.display='block';" onblur="javascript:if(''==this.value)this.value='http://';" value="http://" />&nbsp;

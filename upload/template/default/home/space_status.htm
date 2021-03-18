@@ -40,7 +40,7 @@
 </script>
 <!--{if helper_access::check_module('doing')}-->
 <div id="moodfm">
-	<form method="post" autocomplete="off" id="mood_addform" action="home.php?mod=spacecp&ac=doing&handlekey=doing" onsubmit="if($('mood_message').value != msgstr) {ajaxpost(this.id, 'return_doing');} else {return false;}">
+	<form method="post" autocomplete="off" id="mood_addform" action="home.php?mod=spacecp&ac=doing&handlekey=doing" onsubmit="if($('mood_message').value != msgstr) {ajaxpost(this.id, 'return_doing');} else {showError('{lang content_isnull}');return false;}">
 		<table cellspacing="0" cellpadding="0" width="100%">
 			<tr>
 				<td id="mood_statusinput" class="moodfm_input">
