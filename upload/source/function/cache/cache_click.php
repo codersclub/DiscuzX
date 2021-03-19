@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 function build_cache_click() {
 	$data = $keys = array();
 	foreach(C::t('home_click')->fetch_all_by_available() as $value) {
-		if(is_array($data[$value['idtype']]) && count($data[$value['idtype']]) < 8) {
+		if(!isset($data[$value['idtype']]) || count($data[$value['idtype']]) < 8) {
 			$keys[$value['idtype']] = $keys[$value['idtype']] ? ++$keys[$value['idtype']] : 1;
 			$data[$value['idtype']][$keys[$value['idtype']]] = $value;
 		}
