@@ -5542,6 +5542,11 @@ $lang = array
 	'tasks_install' => '安装',
 	'tasks_upgrade' => '升级',
 	'tasks_uninstall' => '卸载',
+	'tasks_status' => '状态',
+	'tasks_status_0' => '未启用',
+	'tasks_status_1' => '未上线',
+	'tasks_status_2' => '进行中',
+	'tasks_status_3' => '已结束',
 
 	'tasks_tips' => '<li>只有标记为“可用”状态的任务，会员才能访问并申请。</li>',
 	'tasks_tips_edit' => '<li>只有任务标示为“可用”状态，会员才可能看到并参与他。</li><li>任务是可以设置开始时间的，您可以预定某个任务何时开始。如果没有设置，那么这个任务默认就是开始了。</li>',

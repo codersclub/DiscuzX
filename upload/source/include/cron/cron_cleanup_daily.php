@@ -13,8 +13,6 @@ if(!defined('IN_DISCUZ')) {
 require_once libfile('function/cache');
 updatecache('forumrecommend');
 
-C::t('common_task')->update_available();
-
 if(C::t('common_advertisement')->close_endtime()) {
 	updatecache(array('setting', 'advs'));
 }

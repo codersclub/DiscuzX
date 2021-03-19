@@ -40,7 +40,7 @@ if(!($operation)) {
 		showsetting('tasks_on', 'taskonnew', $_G['setting']['taskon'], 'radio');
 		showtablefooter();
 		showtableheader('tasks_list', 'fixpadding');
-		showsubtitle(array('display_order', 'available', 'name', 'tasks_reward', 'time', ''));
+		showsubtitle(array('display_order', 'available', 'name', 'tasks_reward', 'time', 'tasks_status', ''));
 
 		$starttasks = array();
 		foreach(C::t('common_task')->fetch_all_data() as $task) {
@@ -78,12 +78,22 @@ if(!($operation)) {
 				$task['time'] = cplang('nolimit');
 			}
 
+			if($task['available'] == 2 && ($task['starttime'] > TIMESTAMP || ($task['endtime'] && $task['endtime'] <= TIMESTAMP))) {
+				$task['available'] = 1;
+				C::t('common_task')->update($task['taskid'], array('available' => 1));
+			}
+			if($task['available'] == 1 && (!$task['starttime'] || $task['starttime'] <= TIMESTAMP) && (!$task['endtime'] || $task['endtime'] > TIMESTAMP)) {
+				$task['available'] = 2;
+				C::t('common_task')->update($task['taskid'], array('available' => 2));
+			}
+
 			showtablerow('', array('class="td25"', 'class="td25"'), array(
 				'<input type="text" class="txt" name="displayordernew['.$task['taskid'].']" value="'.$task['displayorder'].'" size="3" />',
 				"<input class=\"checkbox\" type=\"checkbox\" name=\"availablenew[$task[taskid]]\" value=\"1\"$checked><input type=\"hidden\" name=\"availableold[$task[taskid]]\" value=\"$task[available]\">",
 				"<input type=\"text\" class=\"txt\" name=\"namenew[$task[taskid]]\" size=\"20\" value=\"$task[name]\"><input type=\"hidden\" name=\"nameold[$task[taskid]]\" value=\"$task[name]\">",
 				$reward,
 				$task['time'].'<input type="hidden" name="scriptnamenew['.$task['taskid'].']" value="'.$task['scriptname'].'">',
+				($task['available'] == 1 ? ($task['endtime'] && $task['endtime'] <= TIMESTAMP ? cplang('tasks_status_3') : cplang('tasks_status_1')) : ($task['available'] == 2 ? cplang('tasks_status_2') : cplang('tasks_status_0'))),
 				"<a href=\"".ADMINSCRIPT."?action=tasks&operation=edit&id=$task[taskid]\" class=\"act\">$lang[edit]</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=tasks&operation=delete&id=$task[taskid]\" class=\"act\">$lang[delete]</a>"
 			));
 
@@ -538,6 +548,9 @@ if(!($operation)) {
 				C::t('common_taskvar')->update_by_taskid($id, $item, array('value' => is_array($value) ? serialize($value) : $value));
 			}
 		}
+		require_once libfile('class/task');
+		$tasklib = & task::instance();
+		$tasklib->update_available(1);
 
 		cpmsg('tasks_succeed', "action=tasks", 'succeed');
 

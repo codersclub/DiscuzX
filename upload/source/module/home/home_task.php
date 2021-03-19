@@ -21,6 +21,7 @@ if(!$_G['setting']['taskon'] && $_G['adminid']  != 1) {
 
 require_once libfile('class/task');
 $tasklib = & task::instance();
+$tasklib->update_available();
 
 $_G['mnid'] = 'mn_common';
 $id = intval($_GET['id']);
