@@ -100,7 +100,7 @@ class plugin_qqconnect extends plugin_qqconnect_base {
 
 	function global_login_extra() {
         global $_G;
-		if(!$this->allow || $_G['inshowmessage']) {
+		if(!$this->allow) {
 			return;
 		}
 		return tpl_global_login_extra();
@@ -273,14 +273,6 @@ class mobileplugin_qqconnect extends plugin_qqconnect_base {
 
 	function common() {
 		$this->common_base();
-	}
-
-	function global_footer_mobile() {
-		global $_G;
-
-		if(!$this->allow || !empty($_G['inshowmessage'])) {
-			return;
-		}
 	}
 
 }
