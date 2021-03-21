@@ -9,8 +9,8 @@
 
 error_reporting(0);
 
-define('UC_CLIENT_VERSION', '1.6.0');
-define('UC_CLIENT_RELEASE', '20170101');
+define('UC_CLIENT_VERSION', '1.7.0');
+define('UC_CLIENT_RELEASE', 'Development');
 
 define('API_DELETEUSER', 1);
 define('API_RENAMEUSER', 1);

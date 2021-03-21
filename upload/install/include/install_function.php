@@ -555,6 +555,7 @@ function show_header() {
 	$install_lang = lang(INSTALL_LANG);
 	$title = lang('title_install');
 	$charset = CHARSET;
+	$reldisp = is_numeric(DISCUZ_RELEASE) ? ('Release ' . DISCUZ_RELEASE) : DISCUZ_RELEASE;
 	echo <<<EOT
 <!DOCTYPE html>
 <html>
@@ -578,7 +579,7 @@ function show_header() {
 <div class="container">
 	<div class="header">
 		<h1>$title</h1>
-		<span>Discuz!$version $install_lang $release</span>
+		<span>Discuz! $version $install_lang $reldisp</span>
 EOT;
 
 	$step > 0 && show_step($step);

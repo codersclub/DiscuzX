@@ -4,12 +4,8 @@ define('UC_VERNAME', '中文版');
 
 $lang = array(
 
-	'SC_GBK' => '简体中文版',
-	'TC_BIG5' => '繁体中文版',
 	'SC_UTF8' => '简体中文 UTF8 版',
 	'TC_UTF8' => '繁体中文 UTF8 版',
-	'EN_ISO' => 'ENGLISH ISO8859',
-	'EN_UTF8' => 'ENGLIST UTF-8',
 
 	'title_install' => SOFT_NAME.' 安装向导',
 	'agreement_yes' => '我同意',
@@ -76,11 +72,13 @@ $lang = array(
 	'tips_ucenter' => '请填写 UCenter 相关信息',
 	'tips_ucenter_comment' => 'UCenter 是 Comsenz 公司产品的核心服务程序，Discuz! Board 的安装和运行依赖此程序。如果您已经安装了 UCenter，请填写以下信息。否则，请到 <a href="http://www.discuz.com/" target="blank">Comsenz 产品中心</a> 下载并且安装，然后再继续。',
 
-	'advice_mysql_connect' => '请检查 mysqli 模块是否正确加载',
-	'advice_fsockopen' => '该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能',
-	'advice_gethostbyname' => '是否php配置中禁止了gethostbyname函数。请联系空间商，确定开启了此项功能',
-	'advice_file_get_contents' => '该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能',
-	'advice_xml_parser_create' => '该函数需要 PHP 支持 XML。请联系空间商，确定开启了此项功能',
+	'advice_mysqli_connect' => '请检查 mysqli 模块是否正确加载',
+	'advice_xml_parser_create' => '该函数需要 PHP 支持 XML 。请联系服务商，确定开启了此项功能',
+	'advice_json_encode' => '该函数需要 PHP 支持 JSON 。请联系服务商，确定开启了此项功能',
+	'advice_fsockopen' => '该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系服务商，确定开启了此项功能',
+	'advice_pfsockopen' => '该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系服务商，确定开启了此项功能',
+	'advice_stream_socket_client' => '该函数需要 php.ini 中 stream_socket_client 函数开启。请联系服务商，确定开启了此项功能',
+	'advice_curl_init' => '该函数需要 php.ini 中 curl_init 函数开启。请联系服务商，确定开启了此项功能',
 
 	'undefine_func' => '不存在的函数',
 	'mysqli_unsupport' => '请检查 mysqli 模块是否正确加载',
@@ -213,10 +211,10 @@ $lang = array(
 	'func_name' => '函数名称',
 	'check_result' => '检查结果',
 	'suggestion' => '建议',
-	'advice_mysql' => '请检查 mysql 模块是否正确加载',
-	'advice_fopen' => '该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能',
-	'advice_file_get_contents' => '该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能',
-	'advice_xml' => '该函数需要 PHP 支持 XML。请联系空间商，确定开启了此项功能',
+	'advice_mysqli' => '请检查 mysqli 模块是否正确加载',
+	'advice_fopen' => '该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系服务商，确定开启了此项功能',
+	'advice_file_get_contents' => '该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系服务商，确定开启了此项功能',
+	'advice_xml' => '该函数需要 PHP 支持 XML。请联系服务商，确定开启了此项功能',
 	'none' => '无',
 
 	'dbhost' => '数据库服务器',
