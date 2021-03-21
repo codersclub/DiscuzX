@@ -457,13 +457,6 @@ function get_index_announcements() {
 	return $announcements;
 }
 
-function replace_formhash($timestamp, $input) {
-	global $_G;
-	$temp_formhash = substr(md5(substr($timestamp, 0, -3).substr($_G['config']['security']['authkey'], 3, -3)), 8, 8);
-	$formhash = constant("FORMHASH");
-	return preg_replace('/(name=[\'|\"]formhash[\'|\"] value=[\'\"]|formhash=)'.$temp_formhash.'/ismU', '${1}'.$formhash, $input);
-}
-
 function get_index_page_guest_cache() {
 	global $_G;
 	$indexcache = getcacheinfo(0);

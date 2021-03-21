@@ -36,8 +36,8 @@ if($operation == 'comment') {
 			foreach($cidlist as $uniquecid) {
 				$decreasnum[$uniquecid['ctid']]++;
 			}
-			foreach($cidlist as $uniquecid) {
-				C::t('forum_collection')->update_by_ctid($uniquecid['ctid'], 0, 0, -$decreasnum[$uniquecid['ctid']]);
+			foreach($decreasnum as $ctid => $num) {
+				C::t('forum_collection')->update_by_ctid($ctid, 0, 0, -$num);
 			}
 		}
 		cpmsg('collection_admin_updated', 'action=collection&operation=comment&searchsubmit=yes&perpage='.$_GET['perpage'].'&page='.$_GET['page'], 'succeed');

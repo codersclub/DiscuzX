@@ -678,11 +678,7 @@ if(!submitcheck('modsubmit')) {
 			}
 
 			if($updatemodlog) {
-				if($operation != 'delete') {
-					updatemodlog($moderatetids, $modaction, $expiration);
-				} else {
-					updatemodlog($moderatetids, $modaction, $expiration, 0, $reason);
-				}
+				updatemodlog($moderatetids, $modaction, $expiration, 0, $reason);
 			}
 
 			updatemodworks($modaction, $modpostsnum);

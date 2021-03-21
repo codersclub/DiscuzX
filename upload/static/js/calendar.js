@@ -33,8 +33,8 @@ function loadcalendar() {
 			s += "<td id=d" + (i * 7 + j) + " height=\"19\">0</td>";
 		s += "</tr>";
 	}
-	s += '<tr id="hourminute" class="pns"><td colspan="4" align="left"><input type="text" size="1" value="" id="hour" class="px vm" onKeyUp=\'this.value=this.value > 23 ? 23 : zerofill(this.value);controlid.value=controlid.value.replace(/\\d+(\:\\d+)/ig, this.value+"$1")\'>点';
-	s += '<span id="fullhourselector"><input type="text" size="1" value="" id="minute" class="px vm" onKeyUp=\'this.value=this.value > 59 ? 59 : zerofill(this.value);controlid.value=controlid.value.replace(/(\\d+\:)\\d+/ig, "$1"+this.value)\'>分</span>';
+	s += '<tr id="hourminute" class="pns"><td colspan="4" align="left"><input type="text" size="1" value="" id="hour" class="px vm" style="width: 16px;margin-right: 5px;" onKeyUp=\'this.value=this.value > 23 ? 23 : zerofill(this.value);controlid.value=controlid.value.replace(/\\d+(\:\\d+)/ig, this.value+"$1")\'>点';
+	s += '<span id="fullhourselector"><input type="text" size="1" value="" id="minute" class="px vm" style="width: 16px;margin: 0px 5px;" onKeyUp=\'this.value=this.value > 59 ? 59 : zerofill(this.value);controlid.value=controlid.value.replace(/(\\d+\:)\\d+/ig, "$1"+this.value)\'>分</span>';
 	s += '<span id="halfhourselector"><select id="minutehalfhourly" onchange=\'this.value=this.value > 59 ? 59 : zerofill(this.value);controlid.value=controlid.value.replace(/(\\d+\:)\\d+/ig, "$1"+this.value)\'><option value="00">00</option><option value="30">30</option></select>分</span>';
 	s += '</td><td align="right" colspan="3"><button class="pn" onclick="confirmcalendar();"><em>确定</em></button></td></tr>';
 	s += '</table></div></div>';

@@ -112,8 +112,8 @@ function make_html_topic(starttime){
 		if(s) {
 			new make_html_batch('portal.php?mod=topic&topicid=', s.split(','), make_html_index, dom);
 		} else {
-			dom.innerHTML = '{$lang['makehtml_nofindtopic']}<br/>{$lang['makehtml_startmakeindex']}<br /><a href="javascript:void(0);" onclick="\$(\'mk_category\').style.display = \'none\';make_html_index();">{$lang['makehtml_browser_error']}</a>';
-			setTimeout(function(){\$('mk_category').style.display = 'none'; make_html_index();}, 1000);
+			dom.innerHTML = '{$lang['makehtml_nofindtopic']}<br/>{$lang['makehtml_startmakeindex']}<br /><a href="javascript:void(0);" onclick="\$(\'mk_topic\').style.display = \'none\';make_html_index();">{$lang['makehtml_browser_error']}</a>';
+			setTimeout(function(){\$('mk_topic').style.display = 'none'; make_html_index();}, 1000);
 		}
 	});
 }

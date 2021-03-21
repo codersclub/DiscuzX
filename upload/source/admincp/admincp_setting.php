@@ -1199,6 +1199,7 @@ EOF;
 		showsetting('setting_functions_mod_maxmodworksmonths', 'settingnew[maxmodworksmonths]', $setting['maxmodworksmonths'], 'text');
 		showsetting('setting_functions_mod_losslessdel', 'settingnew[losslessdel]', $setting['losslessdel'], 'text');
 		showsetting('setting_functions_mod_reasons', 'settingnew[modreasons]', $setting['modreasons'], 'textarea');
+		showsetting('setting_functions_mod_reasons_public', 'settingnew[modreasons_public]', $setting['modreasons_public'], 'radio');
 		showsetting('setting_functions_user_reasons', 'settingnew[userreasons]', $setting['userreasons'], 'textarea');
 		showsetting('setting_functions_mod_bannedmessages', array('settingnew[bannedmessages]', array(
 			$lang['setting_functions_mod_bannedmessages_thread'],
@@ -1939,6 +1940,7 @@ EOT;
 			array(0, $lang['setting_attach_image_watermarktype_GD'], array('imagelibext' => 'none')),
 			array(1, $lang['setting_attach_image_watermarktype_IM'], array('imagelibext' => ''))
 		)), $setting['imagelib'], 'mradio');
+		showsetting('setting_attach_image_gdlimit', 'settingnew[gdlimit]', $setting['gdlimit'], 'text');
 		showsetting('setting_attach_image_thumbquality', 'settingnew[thumbquality]', $setting['thumbquality'], 'text');
 		showsetting('setting_attach_image_disabledmobile', 'settingnew[thumbdisabledmobile]', !$setting['thumbdisabledmobile'], 'radio');
 		showsetting('setting_attach_image_preview', '', '', cplang('setting_attach_image_thumb_preview_btn'));

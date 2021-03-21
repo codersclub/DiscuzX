@@ -32,7 +32,7 @@ $lang = array
 	'header_bbs' => '站点首页',
 	'header_portal' => '门户',
 	'header_group' => '群组',
-	'header_safe' => '防灌水',
+	'header_safe' => '安全',
 	'header_founder' => '站长',
 	'header_cloudaddons' => '应用中心',
 
@@ -138,8 +138,8 @@ $lang = array
 	'menu_upgrade' => '在线升级',
 	'menu_optimizer' => '优化大师',
 	'menu_security' => '安全大师',
+	'menu_serversec' => '底层安全',
 
-	'menu_cloudaddons' => 'Discuz! 应用中心',
 	'menu_addons' => '应用中心',
 	'menu_plugins' => '插件管理',
 	'menu_tasks' => '站点任务',
@@ -151,6 +151,7 @@ $lang = array
 
 	'menu_styles' => '模板管理',
 	'menu_styles_templates' => '模板套系管理',
+	'menu_templates_add' => '设计新模板',
 	'menu_posting_smilies' => '表情管理',
 	'menu_click' => '表态动作',
 	'menu_thread_icon' => '主题图标',

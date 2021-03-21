@@ -528,6 +528,52 @@ class task {
 		return true;
 	}
 
+	function update_available($update = 0) {
+		global $_G;
+		$updatetasknext = 0;
+		loadcache('tasknext');
+		$tasknext = getglobal('cache/tasknext');
+		if(!is_array($tasknext)) {
+			$tasknext = array();
+		}
+		if(!isset($tasknext['starttime']) || $tasknext['starttime'] > TIMESTAMP + 86400) {
+			$tasknext['starttime'] = 0;
+		}
+		if(!isset($tasknext['endtime']) || $tasknext['endtime'] > TIMESTAMP + 86400) {
+			$tasknext['endtime'] = 0;
+		}
+		if(TIMESTAMP >= $tasknext['starttime'] || TIMESTAMP >= $tasknext['endtime'] || $update) {
+			$processname = 'update_task_available';
+			if($update || !discuz_process::islocked($processname, 600)) {
+				if(TIMESTAMP >= $tasknext['starttime'] || $update) {
+					//上线开始的活动
+					C::t('common_task')->update_available(2);
+					//下个活动开始时间
+					$starttime = C::t('common_task')->fetch_next_starttime();
+					//下次触发时间不超过24小时
+					$tasknext['starttime'] = $starttime ? min($starttime, TIMESTAMP + 86400) : TIMESTAMP + 86400;
+					$updatetasknext = 1;
+				}
+
+				if(TIMESTAMP >= $tasknext['endtime'] || $update) {
+					//隐藏未开始或者结束的活动
+					C::t('common_task')->update_available(1);
+					//下个活动结束时间
+					$endtime = C::t('common_task')->fetch_next_endtime();
+					//下次触发时间不超过24小时
+					$tasknext['endtime'] = $endtime ? min($endtime, TIMESTAMP + 86400) : TIMESTAMP + 86400;
+					$updatetasknext = 1;
+				}
+
+				if($updatetasknext) {
+					savecache('tasknext', $tasknext);
+				}
+				discuz_process::unlock($processname);
+			}
+		}
+		return true;
+	}
+
 	function reward() {
 		switch($this->task['reward']) {
 			case 'credit': return $this->reward_credit($this->task['prize'], $this->task['bonus']); break;

@@ -179,6 +179,17 @@ function getcacheinfo($tid) {
 	return $cache;
 }
 
+function replace_formhash($timestamp, $input) {
+	global $_G;
+	$temp_md5 = md5(substr($timestamp, 0, -3).substr($_G['config']['security']['authkey'], 3, -3));
+	$temp_formhash = substr($temp_md5, 8, 8);
+	$input = preg_replace('/(name=[\'|\"]formhash[\'|\"] value=[\'\"]|formhash=)'.$temp_formhash.'/ismU', '${1}'.constant("FORMHASH"), $input);
+	//避免siteurl伪造被缓存
+	$temp_siteurl = 'siteurl_'.substr($temp_md5, 16, 8);
+	$input = preg_replace('/("|\')'.$temp_siteurl.'/ismU', '${1}'.$_G['siteurl'], $input);
+	return $input;
+}
+
 function recommendupdate($fid, &$modrecommend, $force = '', $position = 0) {
 	global $_G;
 

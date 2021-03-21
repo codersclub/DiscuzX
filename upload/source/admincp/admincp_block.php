@@ -217,7 +217,7 @@ if($operation=='perm') {
 		$diytemplatename_sel = '<select name="targettplname" id="targettplname">';
 		$diytemplatename_sel .= '<option value="">'.cplang('diytemplate_name').'</option>';
 		foreach($_G['cache']['diytemplatename'] as $key=>$value) {
-			$selected = ($key == $_GET['blockclass'] ? ' selected' : '');
+			$selected = ($key == $_GET['targettplname'] ? ' selected' : '');
 			$diytemplatename_sel .= "<option value=\"$key\"$selected>$value</option>";
 		}
 		$diytemplatename_sel .= '</select>';

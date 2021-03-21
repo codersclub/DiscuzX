@@ -1289,13 +1289,6 @@ function viewthread_procpost($post, $lastvisit, $ordertype, $maxposition = 0) {
 	return $post;
 }
 
-function replace_formhash($timestamp, $input) {
-	global $_G;
-	$temp_formhash = substr(md5(substr($timestamp, 0, -3).substr($_G['config']['security']['authkey'], 3, -3)), 8, 8);
-	$formhash = constant("FORMHASH");
-	return preg_replace('/(name=[\'|\"]formhash[\'|\"] value=[\'\"]|formhash=)'.$temp_formhash.'/ismU', '${1}'.$formhash, $input);
-}
-
 function viewthread_loadcache() {
 	global $_G;
 	$_G['thread']['livedays'] = ceil((TIMESTAMP - $_G['thread']['dateline']) / 86400);	// 本贴子存在了多少天，最少是1天

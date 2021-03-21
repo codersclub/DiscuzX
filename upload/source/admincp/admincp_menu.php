@@ -34,7 +34,6 @@ $topmenu = array (
 
 $menu['index'] = array(
 	array('menu_home', 'index'),
-	array('menu_cloudaddons', 'cloudaddons', '_blank'),
 	array('menu_custommenu_manage', 'misc_custommenu'),
 	$isfounder ? array('menu_setting_runtests', 'runtests') : null,
 );
@@ -67,7 +66,6 @@ $menu['global'] = array(
 $menu['style'] = array(
 	array('menu_setting_customnav', 'nav'),
 	array('menu_setting_styles', 'setting_styles'),
-	array('menu_styles', 'styles'),
 	array('menu_posting_smilies', 'smilies'),
 	array('menu_click', 'click'),
 	array('menu_thread_stamp', 'misc_stamp'),
@@ -171,6 +169,7 @@ $menu['safe'] = array(
 	array('menu_safe_setting', 'setting_sec'),
 	array('menu_safe_seccheck', 'setting_seccheck'),
 	array('menu_security', 'optimizer_security'),
+	array('menu_serversec', 'optimizer_serversec'),
 	array('menu_safe_accountguard', 'setting_accountguard'),
 );
 
@@ -212,15 +211,16 @@ if(file_exists($menudir = DISCUZ_ROOT.'./source/admincp/menu')) {
 
 if($isfounder) {
 	$menu['plugin'] = array(
-		array('menu_addons', 'cloudaddons', '_blank'),
 		array('menu_plugins', 'plugins'),
 	);
 }
 
 $menu['template'] = array(
 	array('menu_styles', 'styles'),
-	array('menu_setting_mobile', 'setting_mobile'),
 );
+if($isfounder && isset($_G['config']['plugindeveloper']) && $_G['config']['plugindeveloper'] > 0) {
+	$menu['template'][] = array('menu_templates_add', 'templates_add');
+}
 
 loadcache('adminmenu');
 if(is_array($_G['cache']['adminmenu'])) {
@@ -245,11 +245,6 @@ $menu['tools'] = array(
 	$isfounder ? array('menu_tools_hookcheck', 'checktools_hookcheck') : null,
 );
 
-$topmenu['cloudaddons'] = '';
-$menu['cloudaddons'] = array(
-	array('menu_addons', 'cloudaddons', '_blank'),
-);
-
 if($isfounder) {
 	$topmenu['founder'] = '';
 
@@ -265,6 +260,13 @@ if($isfounder) {
 	);
 
 	$menu['uc'] = array();
+}
+
+if($isfounder || $_G['adminid'] == 1) {
+	$topmenu['cloudaddons'] = '';
+	$menu['cloudaddons'] = array(
+		array('menu_addons', 'cloudaddons&frame=no', '_blank'),
+	);
 }
 
 if(!isfounder() && !isset($GLOBALS['admincp']->perms['all'])) {
