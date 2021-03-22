@@ -537,21 +537,21 @@ class task {
 			$processname = 'update_task_available';
 			if($update || !discuz_process::islocked($processname, 600)) {
 				if(TIMESTAMP >= $tasknext['starttime'] || $update) {
-					//ÉÏÏß¿ªÊ¼µÄ»î¶¯
+					//ä¸Šçº¿å¼€å§‹çš„æ´»åŠ¨
 					C::t('common_task')->update_available(2);
-					//ÏÂ¸ö»î¶¯¿ªÊ¼Ê±¼ä
+					//ä¸‹ä¸ªæ´»åŠ¨å¼€å§‹æ—¶é—´
 					$starttime = C::t('common_task')->fetch_next_starttime();
-					//ÏÂ´Î´¥·¢Ê±¼ä²»³¬¹ı24Ğ¡Ê±
+					//ä¸‹æ¬¡è§¦å‘æ—¶é—´ä¸è¶…è¿‡24å°æ—¶
 					$tasknext['starttime'] = $starttime ? min($starttime, TIMESTAMP + 86400) : TIMESTAMP + 86400;
 					$updatetasknext = 1;
 				}
 
 				if(TIMESTAMP >= $tasknext['endtime'] || $update) {
-					//Òş²ØÎ´¿ªÊ¼»òÕß½áÊøµÄ»î¶¯
+					//éšè—æœªå¼€å§‹æˆ–è€…ç»“æŸçš„æ´»åŠ¨
 					C::t('common_task')->update_available(1);
-					//ÏÂ¸ö»î¶¯½áÊøÊ±¼ä
+					//ä¸‹ä¸ªæ´»åŠ¨ç»“æŸæ—¶é—´
 					$endtime = C::t('common_task')->fetch_next_endtime();
-					//ÏÂ´Î´¥·¢Ê±¼ä²»³¬¹ı24Ğ¡Ê±
+					//ä¸‹æ¬¡è§¦å‘æ—¶é—´ä¸è¶…è¿‡24å°æ—¶
 					$tasknext['endtime'] = $endtime ? min($endtime, TIMESTAMP + 86400) : TIMESTAMP + 86400;
 					$updatetasknext = 1;
 				}
