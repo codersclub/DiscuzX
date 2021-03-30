@@ -534,6 +534,10 @@ function checkfiles($currentdir, $ext = '', $sub = 1, $skip = '') {
 	$exts = '/('.$ext.')$/i';
 	$skips = explode(',', $skip);
 
+	if($dir == false) {
+		return;
+	}
+
 	while($entry = @readdir($dir)) {
 		$file = $currentdir.$entry;
 		if($entry != '.' && $entry != '..' && (($ext && preg_match($exts, $entry) || !$ext) || $sub && is_dir($file)) && !in_array($entry, $skips)) {
