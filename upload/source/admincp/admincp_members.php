@@ -150,7 +150,7 @@ EOF;
 			showsubtitle(array('', 'username', 'credits', 'posts', 'admingroup', 'usergroup', ''));
 			echo $members;
 			$condition_str = str_replace('&tablename=master', '', $condition_str);
-			$unarchive = isset($_GET['tablename']) && $_GET['tablename'] == 'archive' ? '<input type="submit" class="btn" id="submit_unarchivesubmit" name="unarchivesubmit" onclick="document.cpform.action=\'admin.php?action=members&operation=unarchive'.$condition_str.'\';document.cpform.submit();" value="'.cplang('unarchive').'">' : '';
+			$unarchive = isset($_GET['tablename']) && $_GET['tablename'] == 'archive' ? '<input type="submit" class="btn" id="submit_unarchivesubmit" name="unarchivesubmit" onclick="document.cpform.action=\''.ADMINSCRIPT.'?action=members&operation=unarchive'.$condition_str.'\';document.cpform.submit();" value="'.cplang('unarchive').'">' : '';
 			showsubmit('deletesubmit', cplang('delete'), ($tmpsearch_condition ? '<input type="checkbox" name="chkall" onclick="checkAll(\'prefix\', this.form, \'uidarray\');if(this.checked){$(\'deleteallinput\').style.display=\'\';}else{$(\'deleteall\').checked = false;$(\'deleteallinput\').style.display=\'none\';}" class="checkbox">'.cplang('select_all') : ''), $unarchive.' &nbsp;&nbsp;&nbsp;<span id="deleteallinput" style="display:none"><input id="deleteall" type="checkbox" name="deleteall" class="checkbox">'.cplang('members_search_deleteall', array('membernum' => $membernum)).'</span>', $multipage);
 		}
 		showtablefooter();
