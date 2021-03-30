@@ -1335,7 +1335,7 @@ EOT;
 			if(!checkformulaperm($_GET['formulapermnew'])) {
 				cpmsg('forums_formulaperm_error', '', 'error');
 			}
-
+			$_GET['formulapermnew'] = trim($_GET['formulapermnew']);
 			$formulapermary[0] = $_GET['formulapermnew'];
 			$formulapermary[1] = preg_replace(
 				array("/(digestposts|posts|threads|oltime|extcredits[1-8])/", "/(regdate|regday|regip|lastip|buyercredit|sellercredit|field\d+)/"),
