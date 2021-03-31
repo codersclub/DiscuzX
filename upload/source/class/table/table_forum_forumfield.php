@@ -37,6 +37,10 @@ class table_forum_forumfield extends discuz_table
 		}
 		return DB::result_first("SELECT COUNT(*) FROM ".DB::table($this->_table)." WHERE founderuid=%d", array($uid));
 	}
+	public function update($val, $data, $unbuffered = false, $low_priority = false) {
+		$this->clear_cache($val."_with_fields", "forum_forum_");
+		return parent::update($val, $data, $unbuffered, $low_priority);
+	}
 	public function update_groupnum($fid, $num) {
 		if(!intval($fid) || !intval($num)) {
 			return false;
