@@ -74,7 +74,7 @@ function formulaperm($formula) {
 		}
 	}
 	$formulatext = $formula[0];
-	$formula = $formula[1];
+	$formula = trim($formula[1]);
 	if($_G['adminid'] == 1 || $_G['forum']['ismoderator'] || in_array($_G['groupid'], explode("\t", $_G['forum']['spviewperm']))) {
 		return FALSE;
 	}

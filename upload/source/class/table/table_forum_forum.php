@@ -111,7 +111,7 @@ class table_forum_forum extends discuz_table
 		return DB::fetch_all('SELECT fid, name FROM %t WHERE status<3 AND type IN (\'forum\', \'sub\') AND recyclebin=%d', array($this->_table, $recyclebin));
 	}
 	public function update($val, $data, $unbuffered = false, $low_priority = false) {
-		$this->clear_cache($val);
+		$this->clear_cache(array($val, $val."_with_fields"));
 		return parent::update($val, $data, $unbuffered, $low_priority);
 	}
 	public function update_threadcaches($threadcache, $fids) {
