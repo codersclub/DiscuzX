@@ -148,7 +148,7 @@ ajax.get = function (url, data, callback, async) {
 var MAX_ID = 0;
 
 function read_status() {
-        ajax.get('/admin.php?action=runtests&operation=fetch&from=' + MAX_ID, '', function(s) {
+        ajax.get('<?php echo ADMINSCRIPT; ?>?action=runtests&operation=fetch&from=' + MAX_ID, '', function(s) {
                 try {
                         var items = JSON.parse(s);
                         for (i = 0; i < items.length; ++i) {
@@ -165,10 +165,10 @@ function read_status() {
 }
 
 function prepare() {
-        ajax.get('/admin.php?action=runtests&operation=prepare', "", function(s) {
+        ajax.get('<?php echo ADMINSCRIPT; ?>?action=runtests&operation=prepare', "", function(s) {
                 top.frames['main'].document.getElementById('content').innerHTML += "previous log deleted <br/> <br/>";
                 MAX_ID = 0;
-                ajax.get('/admin.php?action=runtests&operation=start');
+                ajax.get('<?php echo ADMINSCRIPT; ?>?action=runtests&operation=start');
                 read_status();
         });
 }
