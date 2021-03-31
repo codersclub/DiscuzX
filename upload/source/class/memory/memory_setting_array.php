@@ -44,7 +44,7 @@ class memory_setting_array implements ArrayAccess {
 			'globalstick', 'recommendthread', 'heatthread', 'verify', 'visitedforums', 'fastpost', 'seccodedata',
 			'secqaa', 'creditstransextra', 'extcredits', 'threadplugins', 'leftsidewidth', 'forumseparator',
 			'forumdisplaythreadpreview', 'closeforumorderby', 'minpostsize', 'maxpostsize', 'fastsmilies', 'smcols',
-			'allowreplybg', 'newbiespan'
+			'allowreplybg', 'newbiespan', 'minpostsize_mobile', 'minsubjectsize', 'maxsubjectsize',
 		),
 		'viewthread_fields' => array(
 			'optimizeviews', 'antitheft', 'cachethreadlife', 'close_leftinfo', 'close_leftinfo_userctrl',

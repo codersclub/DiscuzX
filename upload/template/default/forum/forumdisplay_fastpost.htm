@@ -1,6 +1,8 @@
 <script type="text/javascript">
 var postminchars = parseInt('$_G['setting']['minpostsize']');
 var postmaxchars = parseInt('$_G['setting']['maxpostsize']');
+var postminsubjectchars = parseInt('$_G['setting']['minsubjectsize']');
+var postmaxsubjectchars = parseInt('$_G['setting']['maxsubjectsize']');
 var disablepostctrl = parseInt('{$_G['group']['disablepostctrl']}');
 var fid = parseInt('$_G[fid]');
 </script>
@@ -28,8 +30,8 @@ var fid = parseInt('$_G[fid]');
 					</div>
 					<script type="text/javascript" reload="1">simulateSelect('typeid_fast');</script>
 				<!--{/if}-->
-				<input type="text" id="subject" name="subject" class="px" value="" onkeyup="strLenCalc(this, 'checklen', 80);" tabindex="11" style="width: 25em" />
-				<span>{lang comment_message1} <strong id="checklen">80</strong> {lang comment_message2}</span>
+				<input type="text" id="subject" name="subject" class="px" value="" onkeyup="dstrLenCalc(this, 'checklen', $_G['setting']['maxsubjectsize']);" tabindex="11" style="width: 25em" />
+				<span>{lang comment_message1} <strong id="checklen">{$_G['setting']['maxsubjectsize']}</strong> {lang comment_message2}</span>
 			</div>
 
 			<div class="cl">

@@ -369,7 +369,7 @@ function checkmaxperhour($type) {
 
 function checkpost($subject, $message, $special = 0) {
 	global $_G;
-	if(dstrlen($subject) > 80) {
+	if(dstrlen($subject) > 255) {
 		return 'post_subject_toolong';
 	}
 	if(!$_G['group']['disablepostctrl'] && !$special) {
@@ -380,6 +380,11 @@ function checkpost($subject, $message, $special = 0) {
 			if(strlen(preg_replace("/\[quote\].+?\[\/quote\]/is", '', $message)) < $minpostsize || strlen(preg_replace("/\[postbg\].+?\[\/postbg\]/is", '', $message)) < $minpostsize) {
 				return 'post_message_tooshort';
 			}
+		}
+		if($_G['setting']['maxsubjectsize'] && dstrlen($subject) > $_G['setting']['maxsubjectsize']) {
+			return 'post_subject_toolong';
+		} elseif($_G['setting']['minsubjectsize'] && dstrlen($subject) < $_G['setting']['minsubjectsize']) {
+			return 'post_subject_tooshort';
 		}
 	}
 	return FALSE;

@@ -284,8 +284,8 @@ function from_get() {
 function validate(obj) {
 	var title = $('title');
 	if(title) {
-		var slen = strlen(title.value);
-		if (slen < 1 || slen > 80) {
+		var slen = dstrlen(title.value);
+		if (slen < $_G['setting']['minsubjectsize'] || slen > $_G['setting']['maxsubjectsize']) {
 			alert("{lang article_validate_title}");
 			title.focus();
 			return false;

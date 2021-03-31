@@ -117,6 +117,21 @@ function mb_strlen(str) {
 	return len;
 }
 
+function dstrlen(str) {
+	var count = 0;
+	for(var i = 0; i < strlen(str); i++) {
+		value = str.charCodeAt(i);
+		if(value > 127) {
+			count++;
+			if(value >= 55296 && value <= 57343) {
+				i++;
+			}
+		}
+		count++;
+	}
+	return count;
+}
+
 function mb_cutstr(str, maxlen, dot) {
 	var len = 0;
 	var ret = '';
@@ -131,6 +146,37 @@ function mb_cutstr(str, maxlen, dot) {
 		ret += str.substr(i, 1);
 	}
 	return ret;
+}
+
+function dcutstr(str, maxlen, dot = false) {
+	var len = 0;
+	var ret = '';
+	var dot = (dot === false) ? '...' : dot;
+	var flag = true;
+	var strmaxlen = maxlen - dot.length;
+	for(var i = 0; i < strlen(str); i++) {
+		value = str.charCodeAt(i);
+		if(value > 127) {
+			len++;
+		}
+		len++;
+		if(flag && len > strmaxlen) {
+			flag = false;
+			ret = str.substr(0, i);
+			ret += dot;
+		}
+		if(len > maxlen) {
+			break;
+		}
+		if(value >= 55296 && value <= 57343) {
+			i++;
+		}
+	}
+	if(len > maxlen) {
+		return ret;
+	} else {
+		return str;
+	}
 }
 
 function preg_replace(search, replace, str, regswitch) {
@@ -1786,6 +1832,21 @@ function strLenCalc(obj, checklen, maxlen) {
 		$(checklen).innerHTML = curlen - len;
 	} else {
 		obj.value = mb_cutstr(v, maxlen, 0);
+	}
+}
+
+function dstrLenCalc(obj, checklen, maxlen) {
+	var v = obj.value, charlen = 0, maxlen = !maxlen ? 200 : maxlen, curlen = maxlen, len = strlen(v);
+	for(var i = 0; i < v.length; i++) {
+		value = v.charCodeAt(i);
+		if((value > 127 && value < 55296) || value > 57343) {
+			curlen--;
+		}
+	}
+	if(curlen >= len) {
+		$(checklen).innerHTML = curlen - len;
+	} else {
+		obj.value = dcutstr(v, maxlen, '');
 	}
 }
 

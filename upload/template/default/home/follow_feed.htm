@@ -82,14 +82,16 @@
 					<script type="text/javascript">
 						var postminchars = parseInt('$_G['setting']['minpostsize']');
 						var postmaxchars = parseInt('$_G['setting']['maxpostsize']');
+						var postminsubjectchars = parseInt('$_G['setting']['minsubjectsize']');
+						var postmaxsubjectchars = parseInt('$_G['setting']['maxsubjectsize']');
 						var disablepostctrl = parseInt('{$_G['group']['disablepostctrl']}');
 					</script>
 					<!--{eval $dmfid = $_G['setting']['followforumid'] && !empty($defaultforum) ? $_G['setting']['followforumid'] : 0;}-->
 					<form method="post" autocomplete="off" id="fastpostform" action="home.php?mod=spacecp&ac=follow&op=newthread&topicsubmit=yes&infloat=yes&handlekey=fastnewpost&inajax=1" onsubmit="return fastpostvalidate(this);" style="float: left;">
 						<div id="fastpostreturn" style="margin:-5px 0 5px"></div>
 						<div id="flw_post_subject" style="display:none;">
-							<span id="flw_checklen" class="y"><span id="checklen" class="xg1">80</span></span>
-							<input type="text" id="subject" name="subject" onkeyup="strLenCalc(this, 'checklen', 80);" tabindex="11" />
+							<span id="flw_checklen" class="y"><span id="checklen" class="xg1">{$_G['setting']['maxsubjectsize']}</span></span>
+							<input type="text" id="subject" name="subject" onkeyup="strLenCalc(this, 'checklen', $_G['setting']['maxsubjectsize']);" tabindex="11" />
 						</div>
 
 						<div id="flw_post_extra" class="mtn cl">

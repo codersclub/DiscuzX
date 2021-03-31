@@ -511,7 +511,11 @@ function build_cache_setting() {
 	$data['mpsid'] = preg_replace('/[^0-9]+/', '', $data['mps']);
 
 	$data['securesiteurl'] = $_G['siteurl'];
-	
+
+	$data['maxsubjectsize'] = empty($data['maxsubjectsize']) ? 80 : $data['maxsubjectsize'];
+
+	$data['minsubjectsize'] = empty($data['minsubjectsize']) ? 1 : $data['minsubjectsize'];
+
 	savecache('setting', $data);
 	$_G['setting'] = $data;
 }

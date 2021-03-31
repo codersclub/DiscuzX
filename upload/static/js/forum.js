@@ -239,9 +239,13 @@ function fastpostvalidate(theform, noajaxpost) {
 	if(theform.message.value == '' || theform.subject.value == '') {
 		s = '抱歉，您尚未输入标题或内容';
 		theform.message.focus();
-	} else if(mb_strlen(theform.subject.value) > 80) {
-		s = '您的标题超过 80 个字符的限制';
+	} else if(dstrlen(theform.subject.value) > 255) {
+		s = '您的标题超过 255 个字符的限制';
 		theform.subject.focus();
+	}
+	if(!disablepostctrl && ((postminsubjectchars != 0 && dstrlen(theform.subject.value) < postminsubjectchars) || (postminsubjectchars != 0 && dstrlen(theform.subject.value) > postmaxsubjectchars))) {
+		showError('您的标题长度不符合要求。\n\n当前长度: ' + dstrlen(theform.subject.value) + ' 字\n系统限制: ' + postminsubjectchars + ' 到 ' + postmaxsubjectchars + ' 字');
+		return false;
 	}
 	if(!disablepostctrl && ((postminchars != 0 && mb_strlen(theform.message.value) < postminchars) || (postmaxchars != 0 && mb_strlen(theform.message.value) > postmaxchars))) {
 		s = '您的帖子长度不符合要求。\n\n当前长度: ' + mb_strlen(theform.message.value) + ' ' + '字节\n系统限制: ' + postminchars + ' 到 ' + postmaxchars + ' 字节';
