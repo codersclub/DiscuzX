@@ -35,7 +35,6 @@ class plugin_qqconnect_base {
 
 			$_G['connect']['qzone_public_share_url'] = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey';
 			$_G['connect']['referer'] = !$_G['inajax'] && CURSCRIPT != 'member' ? $_G['basefilename'].($_SERVER['QUERY_STRING'] ? '?'.$_SERVER['QUERY_STRING'] : '') : dreferer();
-			$_G['connect']['weibo_public_appkey'] = 'ce7fb946290e4109bdc9175108b6db3a';
 
 			$_G['connect']['login_url'] = $_G['siteurl'].'connect.php?mod=login&op=init&referer='.urlencode($_G['connect']['referer'] ? $_G['connect']['referer'] : 'index.php');
 			$_G['connect']['callback_url'] = $_G['siteurl'].'connect.php?mod=login&op=callback';
@@ -247,17 +246,6 @@ class plugin_qqconnect_group extends plugin_qqconnect {
 
 }
 
-class plugin_qqconnect_home extends plugin_qqconnect {
-
-	function spacecp_profile_bottom() {
-		global $_G;
-
-		if($_G['uid'] && $_G['setting']['connect']['allow']) {
-			return tpl_spacecp_profile_bottom();
-		}
-
-	}
-}
 
 class mobileplugin_qqconnect extends plugin_qqconnect_base {
 

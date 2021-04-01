@@ -28,8 +28,6 @@ class Cloud_Service_Client_ConnectOAuth extends Cloud_Service_Client_OAuth {
 
 	private $_addShareURL = 'http://openapi.qzone.qq.com/share/add_share';
 
-	private $_addWeiBoURL = 'http://openapi.qzone.qq.com/wb/add_weibo';
-
 	private $_addTURL = 'http://openapi.qzone.qq.com/t/add_t';
 
 	private $_addPicTURL = 'http://openapi.qzone.qq.com/t/add_pic_t';

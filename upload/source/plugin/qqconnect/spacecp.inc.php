@@ -201,8 +201,6 @@ if ($pluginop == 'config') {
 				$message = lang('plugin/qqconnect', 'connect_share_token_outofdate', array('login_url' => $_G['connect']['login_url']));
 			} elseif ($errorCode == 3013) {
 				$message = lang('plugin/qqconnect', 'connect_qzone_weibo_same_content');
-			} else if($errorCode == 3020) {
-				$message = lang('plugin/qqconnect', 'connect_weibo_account_not_signup');
 			} else {
 				$code = 100;
 				$message = lang('plugin/qqconnect', 'connect_server_busy');
