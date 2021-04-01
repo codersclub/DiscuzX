@@ -1078,7 +1078,7 @@ CSS 写作注意事项：
 			.ignore_notice { background: transparent; position: absolute; right: 0; top: 0; width: 12px; height: 12px; line-height: 12px; text-align: center; overflow: hidden; color: #ccc; }
 				.ignore_notice:before { content: "\d7"; font-weight: 700; }
 			.p_pop .ignore_noticeli a,.p_pop .ignore_noticeli a:hover,.p_pop .ignore_noticeli a.a { background:none; border-bottom:0; }
-			.p_pop .notice_interactive, .p_pop .notice_system, .p_pop .notice_manage, .p_pop .notice_app, .p_pop .notice_mypost { margin: 3px 2px 5px 0;}
+			.p_pop .notice_interactive, .p_pop .notice_system, .p_pop .notice_manage, .p_pop .notice_app, .p_pop .notice_mypost { margin: 3px 2px 3px 0;}
 
 		/* .blk -> block 内容较为复杂的弹出层使用 .blk 的 class，内部的 a 标签重新定义 */
 		.blk a, .inlinelist a { display: inline; padding: 0; border: none; }
