@@ -321,6 +321,9 @@ class usercontrol extends base {
 		}
 	}
 
+	function oncamera() {
+		$this->view->display('camera');
+	}
 
 	function onuploadavatar() {
 		@header("Expires: 0");

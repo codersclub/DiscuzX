@@ -650,23 +650,18 @@ function uc_avatar($uid, $type = 'virtual', $returnhtml = 1) {
 	$uid = intval($uid);
 	$uc_input = uc_api_input("uid=$uid");
 	$uc_avatarflash = UC_API.'/images/camera.swf?inajax=1&appid='.UC_APPID.'&input='.$uc_input.'&agent='.md5($_SERVER['HTTP_USER_AGENT']).'&ucapi='.urlencode(UC_API).'&avatartype='.$type.'&uploadSize=2048';
+	$uc_avatarhtml5 = UC_API.'/index.php?m=user&a=camera&width=450&height=253&appid='.UC_APPID.'&input='.$uc_input.'&agent='.md5($_SERVER['HTTP_USER_AGENT']).'&ucapi='.urlencode(UC_API).'&avatartype='.$type.'&uploadSize=2048';
 	if($returnhtml) {
-		return '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="450" height="253" id="mycamera" align="middle">
-			<param name="allowScriptAccess" value="always" />
-			<param name="scale" value="exactfit" />
-			<param name="wmode" value="transparent" />
-			<param name="quality" value="high" />
-			<param name="bgcolor" value="#ffffff" />
-			<param name="movie" value="'.$uc_avatarflash.'" />
-			<param name="menu" value="false" />
-			<embed src="'.$uc_avatarflash.'" quality="high" bgcolor="#ffffff" width="450" height="253" name="mycamera" align="middle" allowScriptAccess="always" allowFullScreen="false" scale="exactfit"  wmode="transparent" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
-		</object>';
+		$flash = '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="450" height="253" id="mycamera" align="middle"><param name="allowScriptAccess" value="always" /><param name="scale" value="exactfit" /><param name="wmode" value="transparent" /><param name="quality" value="high" /><param name="bgcolor" value="#ffffff" /><param name="movie" value="'.$uc_avatarflash.'" /><param name="menu" value="false" /><embed src="'.$uc_avatarflash.'" quality="high" bgcolor="#ffffff" width="450" height="253" name="mycamera" align="middle" allowScriptAccess="always" allowFullScreen="false" scale="exactfit"  wmode="transparent" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" /></object>';
+		$html5 = '<iframe src="' . $uc_avatarhtml5 . '" width="450" marginwidth="0" height="253" marginheight="0" scrolling="no" frameborder="0" id="mycamera" name="mycamera" align="middle"></iframe>';
+		return '<script type="text/javascript">document.write(document.createElement("Canvas").getContext ? \'' . $html5 . '\' : \'' . $flash . '\');</script>';
 	} else {
 		return array(
 			'width', '450',
 			'height', '253',
 			'scale', 'exactfit',
 			'src', $uc_avatarflash,
+			'html5_src', $uc_avatarhtml5,
 			'id', 'mycamera',
 			'name', 'mycamera',
 			'quality','high',
