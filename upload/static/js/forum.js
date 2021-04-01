@@ -243,7 +243,7 @@ function fastpostvalidate(theform, noajaxpost) {
 		s = '您的标题超过 255 个字符的限制';
 		theform.subject.focus();
 	}
-	if(!disablepostctrl && ((postminsubjectchars != 0 && dstrlen(theform.subject.value) < postminsubjectchars) || (postminsubjectchars != 0 && dstrlen(theform.subject.value) > postmaxsubjectchars))) {
+	if(!disablepostctrl && dstrlen(trim(theform.subject.value)) && ((postminsubjectchars != 0 && dstrlen(theform.subject.value) < postminsubjectchars) || (postminsubjectchars != 0 && dstrlen(theform.subject.value) > postmaxsubjectchars))) {
 		showError('您的标题长度不符合要求。\n\n当前长度: ' + dstrlen(theform.subject.value) + ' 字\n系统限制: ' + postminsubjectchars + ' 到 ' + postmaxsubjectchars + ' 字');
 		return false;
 	}

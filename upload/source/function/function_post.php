@@ -383,7 +383,7 @@ function checkpost($subject, $message, $special = 0) {
 		}
 		if($_G['setting']['maxsubjectsize'] && dstrlen($subject) > $_G['setting']['maxsubjectsize']) {
 			return 'post_subject_toolong';
-		} elseif($_G['setting']['minsubjectsize'] && dstrlen($subject) < $_G['setting']['minsubjectsize']) {
+		} elseif(dstrlen($subject) && $_G['setting']['minsubjectsize'] && dstrlen($subject) < $_G['setting']['minsubjectsize']) {
 			return 'post_subject_tooshort';
 		}
 	}
