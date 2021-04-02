@@ -219,7 +219,7 @@ function showmenu($key, $menus, $return = 0) {
 		}
 	}
 	if(!$return) {
-		echo '<ul id="menu_'.$key.'" style="display: none">'.$body.'</ul>';
+		echo '<ul id="menu_'.$key.'" onclick="switchheader(\''.$key.'\');" style="display: none">'.$body.'</ul>';
 	} else {
 		return $body;
 	}
