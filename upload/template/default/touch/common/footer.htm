@@ -19,7 +19,7 @@
 		<!--{/if}-->
 	</div>
     <div>
-		<a href="{$_G['setting']['mobile']['simpletypeurl'][0]}">{lang no_simplemobiletype}</a> |  
+		<!--{if $_G['setting']['mobile']['legacy']}--><a href="{$_G['setting']['mobile']['simpletypeurl'][0]}">{lang no_simplemobiletype}</a> |  <!--{/if}-->
 		<a href="javascript:;" style="color:#D7D7D7;">{lang mobile2version}</a> | 
 		<a href="{$_G['setting']['mobile']['nomobileurl']}">{lang nomobiletype}</a> | 
 		<!--{if $clienturl}--><a href="$clienturl">{lang clientversion}</a><!--{/if}-->

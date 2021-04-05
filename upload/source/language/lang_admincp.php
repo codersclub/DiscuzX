@@ -2615,6 +2615,8 @@ $lang = array
 	'setting_mobile_index_forumview_comment' => '如“收起”，论坛首页将默认只展示分区标题<br />用户需点击分区展开该分区下的版块列表',
 	'setting_mobile_come_from' => '手机发帖来源自定义',
 	'setting_mobile_come_from_comment' => '默认留空，如果填写，将在看帖页面"来自手机"处增加自定义文字或图标<br />如:&lt;a href=\'http://m.x.com\'&gt;手机频道&lt;/a&gt;<br />此处支持HTML标签有：&lt;a&gt;&lt;font&gt;&lt;span&gt;&lt;strong&gt;&lt;b&gt;&lt;img&gt;<br />如果使用图标，请保证图片高度在16px(像素)以内',
+	'setting_mobile_legacy' => '是否启用标准版',
+	'setting_mobile_legacy_comment' => '标准版为非触屏设备以及相对较早期设备构建',
 	'setting_mobile_wml' => '是否启用极简版',
 	'setting_mobile_wml_comment' => '极简版为一些仅支持WML语言的较早期的设备浏览网站的内容',
 	'pack' => '收起',

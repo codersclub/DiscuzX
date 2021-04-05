@@ -2482,6 +2482,7 @@ EOT;
 				array(0, $lang['unwind'])
 			)), $setting['mobile']['mobileforumview'] ? $setting['mobile']['mobileforumview'] : 0, 'mradio');
 		showsetting('setting_mobile_come_from', 'settingnew[mobile][mobilecomefrom]', $setting['mobile']['mobilecomefrom'], 'textarea');
+		showsetting('setting_mobile_legacy', 'settingnew[mobile][legacy]', $setting['mobile']['legacy'], 'radio');
 		showsetting('setting_mobile_wml', 'settingnew[mobile][wml]', $setting['mobile']['wml'], 'radio');
 		showsetting('setting_mobile_allowmnew', 'settingnew[mobile][allowmnew]', $setting['mobile']['allowmnew'], 'radio');
 		showtagfooter('tbody');
@@ -3355,6 +3356,7 @@ EOT;
 		$settingnew['mobile_arr']['mobileforumview'] = intval($settingnew['mobile']['mobileforumview']);
 		$settingnew['mobile_arr']['mobilecomefrom'] = preg_replace(array("/\son(.*)=[\'\"](.*?)[\'\"]/i"), '', strip_tags($settingnew['mobile']['mobilecomefrom'], '<a><font><img><span><strong><b>'));
 		$settingnew['mobile_arr']['mobilepreview'] = intval($settingnew['mobile']['mobilepreview']);
+		$settingnew['mobile_arr']['legacy'] = intval($settingnew['mobile']['legacy']);
 		$settingnew['mobile_arr']['wml'] = intval($settingnew['mobile']['wml']);
 		$settingnew['mobile'] = $settingnew['mobile_arr'];
 		unset($settingnew['mobile_arr']);
