@@ -19,22 +19,28 @@ class template {
 	var $blocks = array();
 	var $language = array();
 	var $file = '';
+	var $filetype = 'htm';
+	var $debug = 0;
 
-	function parse_template($tplfile, $templateid, $tpldir, $file, $cachefile) {
-		$basefile = basename(DISCUZ_ROOT.$tplfile, '.htm');
+	function parse_template($tplfile, $templateid = 1, $tpldir = '', $file = '', $cachefile = '', $postparse = null) {
+		$basefile = basename(DISCUZ_ROOT.$tplfile, '.'.$this->filetype);
 		$file == 'common/header' && defined('CURMODULE') && CURMODULE && $file = 'common/header_'.CURMODULE;
 		$this->file = $file;
 
 		if($fp = @fopen(DISCUZ_ROOT.$tplfile, 'r')) {
 			$template = @fread($fp, filesize(DISCUZ_ROOT.$tplfile));
 			fclose($fp);
-		} elseif($fp = @fopen($filename = substr(DISCUZ_ROOT.$tplfile, 0, -4).'.php', 'r')) {
+		} elseif($fp = @fopen($filename = substr(DISCUZ_ROOT.$tplfile, 0, -(strlen($this->filetype) + 1)).'.php', 'r')) {
 			$template = $this->getphptemplate(@fread($fp, filesize($filename)));
 			fclose($fp);
 		} else {
-			$tpl = $tpldir.'/'.$file.'.htm';
+			$tpl = $tpldir.'/'.$file.'.'.$this->filetype;
 			$tplfile = $tplfile != $tpl ? $tpl.', '.$tplfile : $tplfile;
 			$this->error('template_notfound', $tplfile);
+		}
+
+		if($this->debug) {
+			$template = $this->insertdebugmsg($template, $tplfile);
 		}
 
 		$var_regexp = "((\\\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\-\>)?[a-zA-Z0-9_\x7f-\xff]*)(\[[a-zA-Z0-9_\-\.\"\'\[\]\$\x7f-\xff]+\])*)";
@@ -49,6 +55,7 @@ class template {
 		}
 
 		$template = preg_replace("/([\n\r]+)\t+/s", "\\1", $template);
+		$template = preg_replace("/\/\*\*\{(.+?)\}\*\//s", "{\\1}", $template);
 		$template = preg_replace("/\<\!\-\-\{(.+?)\}\-\-\>/s", "{\\1}", $template);
 		$template = preg_replace_callback("/\{lang\s+(.+?)\}/is", array($this, 'parse_template_callback_languagevar_1'), $template);
 		$template = preg_replace_callback("/[\n\r\t]*\{block\/(\d+?)\}[\n\r\t]*/i", array($this, 'parse_template_callback_blocktags_1'), $template);
@@ -61,6 +68,7 @@ class template {
 		$template = preg_replace_callback("/[\n\r\t]*\{eval\s+(.+?)\s*\}[\n\r\t]*/is", array($this, 'parse_template_callback_evaltags_1'), $template);
 		$template = preg_replace_callback("/[\n\r\t]*\{csstemplate\}[\n\r\t]*/is", array($this, 'parse_template_callback_loadcsstemplate'), $template);
 		$template = str_replace("{LF}", "<?=\"\\n\"?>", $template);
+		$template = preg_replace("/\{(\\\$[a-zA-Z0-9_\-\>\[\]\'\"\$\.\x7f-\xff]+)\s(or|\?\?)\s([a-zA-Z0-9\']+)\}/s", "{echo \\1 ?? \\3}", $template);
 		$template = preg_replace("/\{(\\\$[a-zA-Z0-9_\-\>\[\]\'\"\$\.\x7f-\xff]+)\}/s", "<?=\\1?>", $template);
 		$template = preg_replace_callback("/\{hook\/(\w+?)(\s+(.+?))?\}/i", array($this, 'parse_template_callback_hooktags_13'), $template);
 		$template = preg_replace_callback("/$var_regexp/s", array($this, 'parse_template_callback_addquote_1'), $template);
@@ -80,7 +88,9 @@ class template {
 			$headeradd .= "block_get('".implode(',', $this->blocks)."');";
 		}
 
-		$template = "<? if(!defined('IN_DISCUZ')) exit('Access Denied'); {$headeradd}?>\n$template";
+		if($cachefile) {
+			$template = "<? if(!defined('IN_DISCUZ')) exit('Access Denied'); {$headeradd}?>\n$template";
+		}
 
 		$template = preg_replace_callback("/[\n\r\t]*\{template\s+([a-z0-9_:\/]+)\}[\n\r\t]*/is", array($this, 'parse_template_callback_stripvtags_template1'), $template);
 		$template = preg_replace_callback("/[\n\r\t]*\{template\s+(.+?)\}[\n\r\t]*/is", array($this, 'parse_template_callback_stripvtags_template1'), $template);
@@ -101,7 +111,7 @@ class template {
 		}
 		$template = preg_replace("/ \?\>[\n\r]*\<\? /s", " ", $template);
 
-		if(!@$fp = fopen(DISCUZ_ROOT.$cachefile, 'w')) {
+		if($cachefile && !@$fp = fopen(DISCUZ_ROOT.$cachefile, 'w')) {
 			$this->error('directory_notfound', dirname(DISCUZ_ROOT.$cachefile));
 		}
 
@@ -110,10 +120,20 @@ class template {
 		$template = preg_replace_callback("/[\n\r\t]*\{block\s+([a-zA-Z0-9_\[\]']+)\}(.+?)\{\/block\}/is", array($this, 'parse_template_callback_stripblock_12'), $template);
 		$template = preg_replace("/\<\?(\s{1})/is", "<?php\\1", $template);
 		$template = preg_replace("/\<\?\=(.+?)\?\>/is", "<?php echo \\1;?>", $template);
+		if($this->debug) {
+			$template = preg_replace_callback("/\<script[\s\w=\/\"]*?\>.+?\<\/script\>/is", array($this, 'parse_template_callback_scriptdebugconvert_0'), $template);
+		}
+		if(is_callable($postparse)) {
+			$template = $postparse($template);
+		}
 
-		flock($fp, 2);
-		fwrite($fp, $template);
-		fclose($fp);
+		if($cachefile) {
+			flock($fp, 2);
+			fwrite($fp, $template);
+			fclose($fp);
+		} else {
+			return $template;
+		}
 	}
 
 	function parse_template_callback_loadsubtemplate_2($matches) {
@@ -161,7 +181,7 @@ class template {
 	}
 
 	function parse_template_callback_hooktags_13($matches) {
-		return $this->hooktags($matches[1], $matches[3]);
+		return $this->hooktags($matches[1], isset($matches[3]) ? $matches[3] : '');
 	}
 
 	function parse_template_callback_addquote_1($matches) {
@@ -173,7 +193,7 @@ class template {
 	}
 
 	function parse_template_callback_stripvtags_echo1($matches) {
-		return $this->stripvtags('<? echo '.$matches[1].'; ?>');
+		return $this->stripvtags('<? echo '.$this->echopolyfill($matches[1]).'; ?>');
 	}
 
 	function parse_template_callback_stripvtags_if123($matches) {
@@ -185,11 +205,11 @@ class template {
 	}
 
 	function parse_template_callback_stripvtags_loop12($matches) {
-		return $this->stripvtags('<? if(is_array('.$matches[1].')) foreach('.$matches[1].' as '.$matches[2].') { ?>');
+		return $this->stripvtags('<? if(isset('.$matches[1].') && is_array('.$matches[1].')) foreach('.$matches[1].' as '.$matches[2].') { ?>');
 	}
 
 	function parse_template_callback_stripvtags_loop123($matches) {
-		return $this->stripvtags('<? if(is_array('.$matches[1].')) foreach('.$matches[1].' as '.$matches[2].' => '.$matches[3].') { ?>');
+		return $this->stripvtags('<? if(isset('.$matches[1].') && is_array('.$matches[1].')) foreach('.$matches[1].' as '.$matches[2].' => '.$matches[3].') { ?>');
 	}
 
 	function parse_template_callback_transamp_0($matches) {
@@ -202,6 +222,10 @@ class template {
 
 	function parse_template_callback_stripblock_12($matches) {
 		return $this->stripblock($matches[1], $matches[2]);
+	}
+
+	function parse_template_callback_scriptdebugconvert_0($matches) {
+		return $this->scriptdebugconvert($matches[0]);
 	}
 
 	function languagevar($var) {
@@ -225,8 +249,9 @@ class template {
 				} else {
 					list($path) = explode('/', $this->file);
 				}
+				$path = $path == 'common' ? '' : $path.'/';
 
-				foreach(lang($path.'/template') as $k => $v) {
+				foreach(lang($path.'template') as $k => $v) {
 					$this->language['inner'][$k] = $v;
 				}
 
@@ -301,7 +326,7 @@ class template {
 	function evaltags($php) {
 		$i = count($this->replacecode['search']);
 		$this->replacecode['search'][$i] = $search = "<!--EVAL_TAG_$i-->";
-		$this->replacecode['replace'][$i] = "<? $php?>";
+		$this->replacecode['replace'][$i] = $this->debug ? '<? '.preg_replace(array('/^L\d+[\w\.\/]*\-\-\>/', '/\<\!\-\-L\d+[\w\.\/]*\-\-\>/', '/\<\!\-\-L\d+[\w\.\/]*$/', '/^\s*\<\!\-\-/', '/\-\-\>\s*$/'), '', $php).'?>' : "<? $php?>";
 		return $search;
 	}
 
@@ -328,7 +353,7 @@ class template {
 		$filename = DISCUZ_ROOT.$tplfile;
 		if(($content = @implode('', file($filename))) || ($content = $this->getphptemplate(@implode('', file(substr($filename, 0, -4).'.php'))))) {
 			$this->subtemplates[] = $tplfile;
-			return $content;
+			return $this->debug ? $this->insertdebugmsg($content, $tplfile) : $content;
 		} else {
 			return '<!-- '.$file.' -->';
 		}
@@ -385,6 +410,14 @@ class template {
 		return;
 	}
 
+	function echopolyfill($str) {
+		$str = str_replace(' or ', ' ?? ', $str);
+		if(strpos($str, ' ?? ') !== false && version_compare(PHP_VERSION, '7.0', '<')) {
+			$str = preg_replace('/^(.+)\s\?\?\s(.+)$/', "isset(\\1) ? (\\1) : (\\2)", $str);
+		}
+		return $str;
+	}
+
 	function transamp($str) {
 		$str = str_replace('&', '&amp;', $str);
 		$str = str_replace('&amp;amp;', '&amp;', $str);
@@ -392,12 +425,19 @@ class template {
 	}
 
 	function addquote($var) {
-		return str_replace("\\\"", "\"", preg_replace("/\[([a-zA-Z0-9_\-\.\x7f-\xff]+)\]/s", "['\\1']", $var));
+		return str_replace("\\\"", "\"", preg_replace_callback("/\[([a-zA-Z0-9_\-\.\x7f-\xff]+)\]/s", array($this, 'addquote_exec'), $var));
+	}
+
+	function addquote_exec($matches) {
+		return is_numeric($matches[1]) ? '['.$matches[1].']' : "['".$matches[1]."']";
 	}
 
 
 	function stripvtags($expr, $statement = '') {
 		$expr = str_replace('\\\"', '\"', preg_replace("/\<\?\=(\\\$.+?)\?\>/s", "\\1", $expr));
+		if($this->debug) {
+			$expr = preg_replace('/\<\!\-\-L\d+[\w\.\/]*\-\-\>/', '', $expr);
+		}
 		$statement = str_replace('\\\"', '\"', $statement);
 		return $expr.$statement;
 	}
@@ -420,6 +460,25 @@ class template {
 		$s = str_replace('<?', "\nEOF;\n", $s);
 		$s = str_replace("\nphp ", "\n", $s);
 		return "<?\n$constadd\$$var = <<<EOF\n".$s."\nEOF;\n?>";
+	}
+
+	function scriptdebugconvert($str) {
+		return preg_replace('/\<\!\-\-L(\d+[\w\.\/]*)\-\-\>/', '/**L\1*/', $str);
+	}
+
+	function insertdebugmsg($str, $filename) {
+		$startmsg = '<!-- BEGIN '.$filename.' -->';
+		$endmsg = '<!-- END '.$filename.' -->';
+		$count = 2;
+		$debuglevel = $this->debug;
+		$str = preg_replace_callback('/\n(\t*)/', function($matches) use (&$count, $filename, $debuglevel){
+			if($debuglevel > 1) {
+				return "\n".$matches[1].'<!--L'.$count++.$filename.'-->';
+			} else {
+				return "\n".$matches[1].'<!--L'.$count++.'-->';
+			}
+		}, $str);
+		return $startmsg.$str.$endmsg;
 	}
 
 	function error($message, $tplname) {
