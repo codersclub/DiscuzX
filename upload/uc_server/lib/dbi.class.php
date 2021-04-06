@@ -110,19 +110,22 @@ class ucserver_db {
 
 	function query_stmt($sql, $key = array(), $value = array(), $type = '', $saveprep = FALSE, $cachetime = FALSE) {
 		$parse = $this->parse_query($sql, $key, $value);
-		if ($saveprep && array_key_exists(hash("sha256", $parse[0]), $this->stmtcache)) {
+		if($saveprep && array_key_exists(hash("sha256", $parse[0]), $this->stmtcache)) {
 			$stmt = & $this->stmtcache[hash("sha256", $parse[0])];
 		} else {
 			$stmt = $this->link->prepare($parse[0]);
 			$saveprep && $this->stmtcache[hash("sha256", $parse[0])] = & $stmt;
 		}
-		$stmt->bind_param(...$parse[1]);
+		if(!empty($key)) {
+			$stmt->bind_param(...$parse[1]);
+		}
 		if(!($query = $stmt->execute()) && $type != 'SILENT') {
 			$this->halt('MySQL Query Error', $parse[0]);
 		}
 		$this->querynum++;
 		$this->histories[] = $parse[0];
-		return $query;
+		// SELECT 指令返回数组供其他方法使用, 其他情况返回 SQL 执行结果
+		return strncasecmp("SELECT", $sql, 6) ? $query : $stmt->get_result();
 	}
 
 	function affected_rows() {
