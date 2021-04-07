@@ -337,7 +337,7 @@ if($space['self'] && empty($start)) {
 			}
 		}
 
-		if($_G['setting']['taskon']) {
+		if($_G['setting']['taskstatus']) {
 			require_once libfile('class/task');
 			$tasklib = & task::instance();
 			$taskarr = $tasklib->tasklist('canapply');

@@ -89,7 +89,7 @@ if(!($operation)) {
 				"<input class=\"checkbox\" type=\"checkbox\" name=\"availablenew[{$task['taskid']}]\" value=\"1\"$checked><input type=\"hidden\" name=\"availableold[{$task['taskid']}]\" value=\"{$task['available']}\">",
 				"<input type=\"text\" class=\"txt\" name=\"namenew[{$task['taskid']}]\" size=\"20\" value=\"{$task['name']}\"><input type=\"hidden\" name=\"nameold[{$task['taskid']}]\" value=\"{$task['name']}\">",
 				$reward,
-				$task['time'].'<input type="hidden" name="scriptnamenew[{$task['taskid']}]" value="{$task['scriptname']}">',
+				$task['time'].'<input type="hidden" name="scriptnamenew['.$task['taskid'].']" value="'.$task['scriptname'].'">',
 				($task['available'] == 1 ? ($task['endtime'] && $task['endtime'] <= TIMESTAMP ? cplang('tasks_status_3') : cplang('tasks_status_1')) : ($task['available'] == 2 ? cplang('tasks_status_2') : cplang('tasks_status_0'))),
 				"<a href=\"".ADMINSCRIPT."?action=tasks&operation=edit&id={$task['taskid']}\" class=\"act\">{$lang['edit']}</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=tasks&operation=delete&id={$task['taskid']}\" class=\"act\">{$lang['delete']}</a>"
 			));
