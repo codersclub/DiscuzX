@@ -152,8 +152,7 @@ if(!$requestmode) {
 	}
 
 	// 检查版块权限，如果该主题已付费，则放行
-	if(!$ispaid && !$allowgetattach)
-	{
+	if(!$ispaid && !$allowgetattach) {
 		if(($forum['getattachperm'] && !forumperm($forum['getattachperm'])) || ($forum['viewperm'] && !forumperm($forum['viewperm']))) {
 			showmessagenoperm('getattachperm', $forum['fid']);
 		} else {
