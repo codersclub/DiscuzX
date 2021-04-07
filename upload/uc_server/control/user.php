@@ -78,6 +78,8 @@ class usercontrol extends base {
 		$questionid = $this->input('questionid');
 		$answer = $this->input('answer');
 		$regip = $this->input('regip');
+		$secmobicc = $this->input('secmobicc');
+		$secmobile = $this->input('secmobile');
 
 		if(($status = $this->_check_username($username)) < 0) {
 			return $status;
@@ -85,8 +87,11 @@ class usercontrol extends base {
 		if(($status = $this->_check_email($email)) < 0) {
 			return $status;
 		}
+		if(($status = $this->_check_secmobile($secmobicc, $secmobile)) > 0) {
+			return -8;
+		}
 
-		$uid = $_ENV['user']->add_user($username, $password, $email, 0, $questionid, $answer, $regip);
+		$uid = $_ENV['user']->add_user($username, $password, $email, 0, $questionid, $answer, $regip, $secmobicc, $secmobile);
 		return $uid;
 	}
 
@@ -99,11 +104,17 @@ class usercontrol extends base {
 		$ignoreoldpw = $this->input('ignoreoldpw');
 		$questionid = $this->input('questionid');
 		$answer = $this->input('answer');
+		$secmobicc = $this->input('secmobicc');
+		$secmobile = $this->input('secmobile');
 
 		if(!$ignoreoldpw && $email && ($status = $this->_check_email($email, $username)) < 0) {
 			return $status;
 		}
-		$status = $_ENV['user']->edit_user($username, $oldpw, $newpw, $email, $ignoreoldpw, $questionid, $answer);
+		if(($status = $this->_check_secmobile($secmobicc, $secmobile)) > 0) {
+			return -8;
+		}
+
+		$status = $_ENV['user']->edit_user($username, $oldpw, $newpw, $email, $ignoreoldpw, $questionid, $answer, $secmobicc, $secmobile);
 
 		if($newpw && $status > 0) {
 			$this->load('note');
@@ -134,6 +145,10 @@ class usercontrol extends base {
 			$user = $_ENV['user']->get_user_by_uid($username);
 		} elseif($isuid == 2) {
 			$user = $_ENV['user']->get_user_by_email($username);
+		} elseif($isuid == 4) {
+			// isuid == 4 则为手机号码登录，isuid == 3 已被应用占用
+			list($secmobicc, $secmobile) = explode('-', $username);
+			$user = $_ENV['user']->get_user_by_secmobile($secmobicc, $secmobile);
 		} else {
 			$user = $_ENV['user']->get_user_by_username($username);
 		}
@@ -167,6 +182,13 @@ class usercontrol extends base {
 		$this->init_input();
 		$email = $this->input('email');
 		return $this->_check_email($email);
+	}
+
+	function oncheck_secmobile() {
+		$this->init_input();
+		$secmobicc = $this->input('secmobicc');
+		$secmobile = $this->input('secmobile');
+		return $this->_check_secmobile($secmobicc, $secmobile);
 	}
 
 	function oncheck_username() {
@@ -301,6 +323,10 @@ class usercontrol extends base {
 		} else {
 			return 1;
 		}
+	}
+
+	function _check_secmobile($secmobicc, $secmobile, $username = '') {
+		return $_ENV['user']->check_secmobileexists($secmobicc, $secmobile, $username);
 	}
 
 	function ongetcredit($arr) {

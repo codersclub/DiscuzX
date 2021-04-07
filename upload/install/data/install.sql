@@ -476,6 +476,35 @@ CREATE TABLE pre_common_cron (
   KEY nextrun (available,nextrun)
 ) ENGINE=InnoDB;
 
+DROP TABLE IF EXISTS pre_common_smsgw;
+CREATE TABLE pre_common_smsgw (
+  `smsgwid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `available` tinyint(1) NOT NULL DEFAULT '0',
+  `type` int(10) NOT NULL DEFAULT '0',
+  `order` int(10) NOT NULL DEFAULT '0',
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `class` varchar(255) NOT NULL DEFAULT '0',
+  `sendrule` text NOT NULL DEFAULT '',
+  `parameters` text NOT NULL DEFAULT '',
+  PRIMARY KEY (smsgwid)
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS pre_common_smslog;
+CREATE TABLE pre_common_smslog (
+  `smslogid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` mediumint(8) unsigned NOT NULL,
+  `type` int(10) NOT NULL DEFAULT '0',
+  `smsgw` int(10) NOT NULL DEFAULT '0',
+  `status` int(10) NOT NULL DEFAULT '0',
+  `verify` int(10) NOT NULL DEFAULT '0',
+  `secmobicc` varchar(3) NOT NULL DEFAULT '',
+  `secmobile` varchar(12) NOT NULL DEFAULT '',
+  `sendtime` int(10) unsigned NOT NULL DEFAULT '0',
+  `content` text NOT NULL DEFAULT '',
+  PRIMARY KEY (smslogid),
+  KEY lastsent (secmobicc,secmobile,sendtime)
+) ENGINE=InnoDB;
+
 DROP TABLE IF EXISTS pre_common_devicetoken;
 CREATE TABLE pre_common_devicetoken (
   uid mediumint(8) unsigned NOT NULL,
@@ -649,9 +678,12 @@ CREATE TABLE pre_common_member (
   email char(40) NOT NULL DEFAULT '',
   username char(15) NOT NULL DEFAULT '',
   `password` char(32) NOT NULL DEFAULT '',
+  `secmobicc` varchar(3) NOT NULL DEFAULT '',
+  `secmobile` varchar(12) NOT NULL DEFAULT '',
   `status` tinyint(1) NOT NULL DEFAULT '0',
   emailstatus tinyint(1) NOT NULL DEFAULT '0',
   avatarstatus tinyint(1) NOT NULL DEFAULT '0',
+  `secmobilestatus` tinyint(1) NOT NULL DEFAULT '0',
   adminid tinyint(1) NOT NULL DEFAULT '0',
   groupid smallint(6) unsigned NOT NULL DEFAULT '0',
   groupexpiry int(10) unsigned NOT NULL DEFAULT '0',

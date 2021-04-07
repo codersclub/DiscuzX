@@ -81,6 +81,22 @@
 							<!--{if $_G['setting']['regverify'] == 1 && (($_G['group']['grouptype'] == 'member' && in_array($_G['adminid'], array(0, -1))) || $_G['groupid'] == 8) || $_G['member']['freeze']}--><p class="d">{lang memcp_profile_email_comment}</p><!--{/if}-->
 						</td>
 					</tr>
+					<tr>
+						<th>{lang secmobile}</th>
+						<td>
+							<input type="text" name="secmobiccnew" id="secmobiccnew" value="$space[secmobicc]" class="px" style="width: 30px;" />
+							<input type="text" name="secmobilenew" id="secmobilenew" value="$space[secmobile]" class="px" />
+							<p class="d">{lang memcp_profile_secmobile_comment}</p>
+						</td>
+					</tr>
+					<tr>
+						<th>{lang secmobileseccode}</th>
+						<td>
+							<input type="text" name="secmobileseccodenew" id="secmobileseccodenew" value="" class="px" />
+							<button type="button" name="secmobileseccodesendnew" id="secmobileseccodesendnew" value="true" class="pn pnc" onclick="memcp_sendsecmobileseccode();" /><strong>{lang send}</strong></button>
+							<p class="d">{lang memcp_profile_secmobileseccode_comment}</p>
+						</td>
+					</tr>
 
 					<!--{if $_G['member']['freeze'] == 2 || $_G['member']['freeze'] == -1}-->
 					<tr>
@@ -150,6 +166,14 @@
 				<!--{/if}-->
 				var pwlength = <!--{if $_G['setting']['pwlength']}-->$_G['setting']['pwlength']<!--{else}-->0<!--{/if}-->;
 				checkPwdComplexity($('newpassword'), $('newpassword2'), true);
+			</script>
+			<script type="text/javascript">
+			function memcp_sendsecmobileseccode() {
+				memcp_type = 0;
+				memcp_secmobicc = document.getElementById("secmobiccnew").value;
+				memcp_secmobile = document.getElementById("secmobilenew").value;
+				return sendsecmobileseccode(memcp_type, memcp_secmobicc, memcp_secmobile);
+			}
 			</script>
 		<!--{else}-->
 			<!--{hook/spacecp_profile_top}-->

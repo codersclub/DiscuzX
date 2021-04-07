@@ -38,6 +38,10 @@ class usermodel {
 		return $arr;
 	}
 
+	function get_user_by_secmobile($secmobicc, $secmobile) {
+		return $this->db->fetch_first_stmt("SELECT * FROM ".UC_DBTABLEPRE."members WHERE secmobicc=? AND secmobile=?", array('d', 'd'), array($secmobicc, $secmobile));
+	}
+
 	function check_username($username) {
 		$charset = strtolower(UC_CHARSET);
 		if ($charset === 'utf-8') {
@@ -134,6 +138,12 @@ class usermodel {
 		return $email;
 	}
 
+	function check_secmobileexists($secmobicc, $secmobile, $username = '') {
+		$sqladd = $username !== '' ? "AND username<>'$username'" : '';
+		$secmobile = $this->db->result_first("SELECT secmobile FROM  ".UC_DBTABLEPRE."members WHERE secmobicc='$secmobicc' AND secmobile='$secmobile' $sqladd");
+		return $secmobile;
+	}
+
 	function check_login($username, $password, &$user) {
 		$user = $this->get_user_by_username($username);
 		if(empty($user['username'])) {
@@ -146,19 +156,21 @@ class usermodel {
 		return $user['uid'];
 	}
 
-	function add_user($username, $password, $email, $uid = 0, $questionid = '', $answer = '', $regip = '') {
+	function add_user($username, $password, $email, $uid = 0, $questionid = '', $answer = '', $regip = '', $secmobicc = '', $secmobile = '') {
 		$regip = empty($regip) ? $this->base->onlineip : $regip;
 		$salt = '';
 		$password = $this->generate_password($password);
 		$sqladd = $uid ? "uid='".intval($uid)."'," : '';
 		$sqladd .= $questionid > 0 ? " secques='".$this->quescrypt($questionid, $answer)."'," : " secques='',";
+		$sqladd = $secmobicc ? "secmobicc='".$secmobicc."'," : '';
+		$sqladd = $secmobile ? "secmobile='".$secmobile."'," : '';
 		$this->db->query("INSERT INTO ".UC_DBTABLEPRE."members SET $sqladd username='$username', password='$password', email='$email', regip='$regip', regdate='".$this->base->time."', salt='$salt'");
 		$uid = $this->db->insert_id();
 		$this->db->query("INSERT INTO ".UC_DBTABLEPRE."memberfields SET uid='$uid'");
 		return $uid;
 	}
 
-	function edit_user($username, $oldpw, $newpw, $email, $ignoreoldpw = 0, $questionid = '', $answer = '') {
+	function edit_user($username, $oldpw, $newpw, $email, $ignoreoldpw = 0, $questionid = '', $answer = '', $secmobicc = '', $secmobile = '') {
 		$data = $this->db->fetch_first("SELECT username, uid, password, salt FROM ".UC_DBTABLEPRE."members WHERE username='$username'");
 
 		if($ignoreoldpw) {
@@ -174,6 +186,8 @@ class usermodel {
 
 		$sqladd = $newpw ? "password='".$this->generate_password($newpw)."', salt=''" : '';
 		$sqladd .= $email ? ($sqladd ? ',' : '')." email='$email'" : '';
+		$sqladd .= !empty($secmobicc) ? ($sqladd ? ',' : '')." secmobicc='$secmobicc'" : '';
+		$sqladd .= !empty($secmobile) ? ($sqladd ? ',' : '')." secmobile='$secmobile'" : '';
 		if($questionid !== '') {
 			if($questionid > 0) {
 				$sqladd .= ($sqladd ? ',' : '')." secques='".$this->quescrypt($questionid, $answer)."'";

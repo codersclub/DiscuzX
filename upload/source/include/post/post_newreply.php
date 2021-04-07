@@ -40,7 +40,7 @@ if(!$_G['uid'] && !((!$_G['forum']['replyperm'] && $_G['group']['allowreply']) |
 	showmessage('post_forum_newreply_nopermission', NULL);
 }
 
-if(!$_G['uid'] && ($_G['setting']['need_avatar'] || $_G['setting']['need_email'] || $_G['setting']['need_friendnum'])) {
+if(!$_G['uid'] && ($_G['setting']['need_avatar'] || $_G['setting']['need_secmobile'] || $_G['setting']['need_email'] || $_G['setting']['need_friendnum'])) {
 	showmessage('replyperm_login_nopermission', NULL, array(), array('login' => 1));
 }
 

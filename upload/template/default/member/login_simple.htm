@@ -15,6 +15,9 @@
 									<option value="uid">{lang uid}</option>
 									<!--{/if}-->
 									<option value="email">{lang email}</option>
+									<!--{if getglobal('setting/secmobilelogin')}-->
+									<option value="secmobile">{lang secmobile}</option>
+									<!--{/if}-->
 								</select>
 							</span>
 							<script type="text/javascript">simulateSelect('ls_fastloginfield')</script>
@@ -22,7 +25,7 @@
 						<td><input type="text" name="username" id="ls_username" autocomplete="off" class="px vm" tabindex="901" /></td>
 					<!--{else}-->
 						<td><label for="ls_username">{lang account}</label></td>
-						<td><input type="text" name="username" id="ls_username" class="px vm xg1" {if $_G['setting']['autoidselect']} value="{if getglobal('setting/uidlogin')}UID/{/if}{lang username}/Email" onfocus="if(this.value == '{if getglobal('setting/uidlogin')}UID/{/if}{lang username}/Email'){this.value = '';this.className = 'px vm';}" onblur="if(this.value == ''){this.value = '{if getglobal('setting/uidlogin')}UID/{/if}{lang username}/Email';this.className = 'px vm xg1';}"{/if} tabindex="901" /></td>
+						<td><input type="text" name="username" id="ls_username" class="px vm xg1" {if $_G['setting']['autoidselect']} value="{if getglobal('setting/uidlogin')}UID/{/if}{lang username}/Email" onfocus="if(this.value == '{if getglobal('setting/uidlogin')}UID/{/if}{if getglobal('setting/secmobilelogin')}{lang secmobile}/{/if}{lang username}/Email'){this.value = '';this.className = 'px vm';}" onblur="if(this.value == ''){this.value = '{if getglobal('setting/uidlogin')}UID/{/if}{if getglobal('setting/secmobilelogin')}{lang secmobile}/{/if}{lang username}/Email';this.className = 'px vm xg1';}"{/if} tabindex="901" /></td>
 					<!--{/if}-->
 					<td class="fastlg_l"><label for="ls_cookietime"><input type="checkbox" name="cookietime" id="ls_cookietime" class="pc" value="2592000" tabindex="903" />{lang login_permanent}</label></td>
 					<td>&nbsp;<a href="javascript:;" onclick="showWindow('login', 'member.php?mod=logging&action=login&viewlostpw=1')">{lang forgotpw}</a></td>

@@ -37,7 +37,7 @@ class memory_setting_array implements ArrayAccess {
 			'forumallowside', 'focus', 'site_qq', 'footernavs', 'siteurl', 'sitename', 'icp', 'statcode', 'debug',
 			'boardlicensed', 'followstatus', 'disableipnotice', 'rewritestatus', 'ftp', 'visitbanperiods',
 			'cacheindexlife', 'whosonline_contract', 'regname', 'reglinkname', 'autoidselect',
-			'uidlogin', 'forumstatus', 'friendstatus', 'guidestatus', 'favoritestatus', 'mps', 'mpsid'
+			'uidlogin', 'secmobilelogin', 'forumstatus', 'friendstatus', 'guidestatus', 'favoritestatus', 'mps', 'mpsid'
 		),
 		'forumdisplay_fields' => array(
 			'group_admingroupids', 'followforumid', 'targetblank', 'allowmoderatingthread', 'threadmaxpages',
@@ -53,7 +53,7 @@ class memory_setting_array implements ArrayAccess {
 			'ratelogrecord', 'commentnumber', 'sigviewcond', 'lazyload', 'allowattachurl', 'relatedlinkstatus',
 			'numbercard', 'repliesrank', 'vtonlinestatus', 'alloweditpost', 'zoomstatus', 'imagemaxwidth',
 			'bannedmessages', 'authoronleft', 'profilenode', 'magicstatus', 'starthreshold', 'allowfastreply',
-			'sharestatus', 'globalsightml', 'need_avatar', 'need_email', 'need_friendnum'
+			'sharestatus', 'globalsightml', 'need_avatar', 'need_secmobile', 'need_email', 'need_friendnum'
 		)
 	);
 

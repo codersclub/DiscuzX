@@ -314,6 +314,9 @@ if(submitcheck('profilesubmit')) {
 	$membersql = $memberfieldsql = $authstradd1 = $authstradd2 = $newpasswdadd = '';
 	$setarr = array();
 	$emailnew = dhtmlspecialchars($_GET['emailnew']);
+	$secmobiccnew = intval($_GET['secmobiccnew']);
+	$secmobilenew = intval($_GET['secmobilenew']);
+	$secmobileseccode = intval($_GET['secmobileseccodenew']);
 	$ignorepassword = 0;
 	if($_G['setting']['connect']['allow']) {
 		$connect = C::t('#qqconnect#common_member_connect')->fetch($_G['uid']);
@@ -369,12 +372,23 @@ if(submitcheck('profilesubmit')) {
 		showmessage('profile_email_not_change', '', array(), array('return' => true));
 	}
 
+	if((strcmp($secmobiccnew, $_G['member']['secmobicc']) != 0 || strcmp($secmobilenew, $_G['member']['secmobile']) != 0) && $_G['setting']['change_secmobile']) {
+		showmessage('profile_secmobile_not_change', '', array(), array('return' => true));
+	}
+
 	loaducenter();
 	if($emailnew != $_G['member']['email']) {
 		include_once libfile('function/member');
 		checkemail($emailnew);
 	}
-	$ucresult = uc_user_edit(addslashes($_G['username']), $_GET['oldpassword'], $_GET['newpassword'], '', $ignorepassword, $_GET['questionidnew'], $_GET['answernew']);
+	// 校验验证码状态
+	$secmobileseccodestatus = empty($secmobileseccode) ? null : sms::checkseccode($_G['uid'], 0, $secmobiccnew, $secmobilenew, $secmobileseccode);
+	// 如果开启短信功能, 则必须有验证码才允许更新 UCenter 数据
+	if($_G['setting']['smsstatus'] && !$secmobileseccodestatus) {
+		$ucresult = uc_user_edit(addslashes($_G['username']), $_GET['oldpassword'], $_GET['newpassword'], '', $ignorepassword, $_GET['questionidnew'], $_GET['answernew']);
+	} else {
+		$ucresult = uc_user_edit(addslashes($_G['username']), $_GET['oldpassword'], $_GET['newpassword'], '', $ignorepassword, $_GET['questionidnew'], $_GET['answernew'], $secmobiccnew, $secmobilenew);
+	}
 	if($ucresult == -1) {
 		showmessage('profile_passwd_wrong', '', array(), array('return' => true));
 	} elseif($ucresult == -4) {
@@ -383,6 +397,8 @@ if(submitcheck('profilesubmit')) {
 		showmessage('profile_email_domain_illegal', '', array(), array('return' => true));
 	} elseif($ucresult == -6) {
 		showmessage('profile_email_duplicate', '', array(), array('return' => true));
+	} elseif($ucresult == -8) {
+		showmessage('profile_secmobile_duplicate', '', array(), array('return' => true));
 	}
 
 	if(!empty($_GET['newpassword']) || $secquesnew) {
@@ -401,6 +417,17 @@ if(submitcheck('profilesubmit')) {
 		$authstr = true;
 		emailcheck_send($space['uid'], $emailnew);
 		dsetcookie('newemail', "{$space['uid']}\t$emailnew\t{$_G['timestamp']}", 31536000);
+	}
+	// 如果开启了短信验证, 输入了手机号却没有输入验证码, 就尝试发送验证码
+	if($_G['setting']['smsstatus'] && (strcmp($secmobiccnew, $_G['member']['secmobicc']) != 0 || strcmp($secmobilenew, $_G['member']['secmobile']) != 0) && empty($secmobileseccode)) {
+		$secmobileseccode = random(8, 1);
+		sms::sendseccode($_G['uid'], 0, $secmobiccnew, $secmobilenew, $secmobileseccode);
+	}
+	// 如果未开启短信验证, 或者开启了短信验证且正确输入验证码, 则更新用户基础信息
+	if(($_G['setting']['smsstatus'] && $secmobileseccodestatus) || !$_G['setting']['smsstatus']) {
+		$setarr['secmobicc'] = $secmobiccnew;
+		$setarr['secmobile'] = $secmobilenew;
+		$setarr['secmobilestatus'] = $_G['setting']['smsstatus'];
 	}
 	if($setarr) {
 		if($_G['member']['freeze'] == 1) {

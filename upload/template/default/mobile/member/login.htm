@@ -17,6 +17,9 @@
 		<option value="uid">UID</option>
 		<!--{/if}-->
 		<option value="email">Email</option>
+		<!--{if getglobal('setting/secmobilelogin')}-->
+		<option value="secmobile">{lang secmobile}</option>
+		<!--{/if}-->
 		</select>
 		<input type="text" name="username" id="username_{$loginhash}" class="txt" />
 	</p>

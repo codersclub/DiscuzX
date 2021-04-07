@@ -262,6 +262,8 @@ class control extends adminbase {
 			$newusername = getgpc('newusername', 'P');
 			$password = getgpc('password', 'P');
 			$email = getgpc('email', 'P');
+			$secmobicc = intval(getgpc('secmobicc', 'P'));
+			$secmobile = intval(getgpc('secmobile', 'P'));
 			$delavatar = getgpc('delavatar', 'P');
 			$rmrecques = getgpc('rmrecques', 'P');
 			$sqladd = '';
@@ -288,7 +290,7 @@ class control extends adminbase {
 				$_ENV['user']->delete_useravatar($uid);
 			}
 
-			$this->db->query("UPDATE ".UC_DBTABLEPRE."members SET $sqladd email='$email' WHERE uid='$uid'");
+			$this->db->query("UPDATE ".UC_DBTABLEPRE."members SET $sqladd email='$email', secmobicc='$secmobicc', secmobile='$secmobile' WHERE uid='$uid'");
 			$status = $this->db->errno() ? -1 : 1;
 		}
 		$user = $this->db->fetch_first("SELECT * FROM ".UC_DBTABLEPRE."members WHERE uid='$uid'");
@@ -333,6 +335,10 @@ class control extends adminbase {
 		} else {
 			return 1;
 		}
+	}
+
+	function _check_secmobile($secmobicc, $secmobile, $username = '') {
+		return $_ENV['user']->check_secmobileexists($secmobicc, $secmobile, $username);
 	}
 
 	function _format_userlist(&$userlist) {

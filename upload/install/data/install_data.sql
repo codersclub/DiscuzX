@@ -328,6 +328,13 @@ INSERT INTO pre_common_setting VALUES ('group_userperm','a:21:{s:16:\"allowstick
 INSERT INTO pre_common_setting VALUES ('heatthread','a:5:{s:4:\"type\";s:1:\"2\";s:5:\"reply\";i:5;s:9:\"recommend\";i:3;s:6:\"period\";s:2:\"15\";s:10:\"iconlevels\";s:10:\"50,100,200\";}');
 INSERT INTO pre_common_setting VALUES ('guide','a:2:{s:5:\"hotdt\";i:604800;s:8:\"digestdt\";i:604800;}');
 
+INSERT INTO pre_common_setting VALUES ('smsstatus','0');
+INSERT INTO pre_common_setting VALUES ('smsdefaultcc','86');
+INSERT INTO pre_common_setting VALUES ('smstimelimit','86400');
+INSERT INTO pre_common_setting VALUES ('smsnumlimit','5');
+INSERT INTO pre_common_setting VALUES ('smsinterval','300');
+INSERT INTO pre_common_setting VALUES ('smsmillimit','20');
+INSERT INTO pre_common_setting VALUES ('smsglblimit','1000');
 INSERT INTO pre_common_setting VALUES ('hideprivate','1');
 INSERT INTO pre_common_setting VALUES ('historyposts','0	7');
 INSERT INTO pre_common_setting VALUES ('hottopic','10');

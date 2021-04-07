@@ -1292,6 +1292,7 @@ EOF;
 		showtips('setting_tips', 'other_tips', $_GET['anchor'] == 'other');
 		showtableheader('', 'nobottom', 'id="other"'.($_GET['anchor'] != 'other' ? ' style="display: none"' : ''));
 		showsetting('setting_functions_other_uidlogin', 'settingnew[uidlogin]', $setting['uidlogin'], 'radio');
+		showsetting('setting_functions_other_secmobilelogin', 'settingnew[secmobilelogin]', $setting['secmobilelogin'], 'radio');
 		showsetting('setting_functions_other_autoidselect', 'settingnew[autoidselect]', $setting['autoidselect'], 'radio');
 		showsetting('setting_functions_other_submitlock', 'settingnew[submitlock]', $setting['submitlock'], 'radio');
 		showsetting('setting_functions_other_rssstatus', 'settingnew[rssstatus]', $setting['rssstatus'], 'radio');
@@ -1875,8 +1876,10 @@ EOT;
 		showtableheader('', '', 'id="base"'.($_GET['anchor'] != 'base' ? ' style="display: none"' : ''));
 		showsetting('setting_sec_floodctrl', 'settingnew[floodctrl]', $setting['floodctrl'], 'text');
 		showsetting('setting_sec_base_need_email', 'settingnew[need_email]', $setting['need_email'], 'radio');
+		showsetting('setting_sec_base_need_secmobile', 'settingnew[need_secmobile]', $setting['need_secmobile'], 'radio');
 		showsetting('setting_sec_base_need_avatar', 'settingnew[need_avatar]', $setting['need_avatar'], 'radio');
 		showsetting('setting_sec_base_change_email', 'settingnew[change_email]', $setting['change_email'], 'radio');
+		showsetting('setting_sec_base_change_secmobile', 'settingnew[change_secmobile]', $setting['change_secmobile'], 'radio');
 		showsetting('setting_sec_base_need_friendnum', 'settingnew[need_friendnum]', $setting['need_friendnum'], 'text');
 		showtablefooter();
 		/*search*/
@@ -3510,7 +3513,7 @@ EOT;
 				'pollforumid', 'tradeforumid', 'rewardforumid', 'activityforumid', 'debateforumid', 'maxpage',
 				'starcredit', 'topcachetime', 'newspacerealname', 'newspaceavatar', 'newspacenum', 'shownewuser',
 				'feedhotnum', 'showallfriendnum', 'feedread', 'maxsubjectsize', 'minsubjectsize',
-				'need_friendnum', 'need_avatar', 'uniqueemail', 'need_email', 'allowquickviewprofile', 'preventrefresh',
+				'need_friendnum', 'need_avatar', 'need_secmobile', 'uniqueemail', 'need_email', 'allowquickviewprofile', 'preventrefresh',
 				'jscachelife', 'maxmodworksmonths', 'maxonlinelist'))) {
 				$val = (float)$val;
 			}

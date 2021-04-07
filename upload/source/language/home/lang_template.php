@@ -1353,6 +1353,8 @@ $lang = array (
   'email_been_active' => '<i class="fico-email vm fc-v" title="已验证"></i><span class="xi1 vm">当前邮箱已经验证激活</span>',
   'memcp_profile_email_comment' => '!如更改地址，系统将修改您的密码并重新验证其有效性，请慎用 ',
   'memcp_profile_passwd_comment' => '如不需要更改密码，此处请留空 ',
+  'memcp_profile_secmobile_comment' => '国家代码不含加号',
+  'memcp_profile_secmobileseccode_comment' => '在更改完绑定手机号收到验证码后，需要在这里输入验证码',
   'memcp_profile_security_answer_comment' => '如您设置新的安全提问，请在此输入答案 ',
   'memcp_profile_security_comment' => '如果您启用安全提问，登录时需填入相应的项目才能登录 ',
   'memcp_profile_security_keep' => '保持原有的安全提问和答案',

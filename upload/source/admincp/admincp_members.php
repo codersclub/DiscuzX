@@ -674,7 +674,14 @@ EOF;
 				exit;
 			}
 		}
-		if($_GET['do'] == 'mobile') {
+		if($_GET['do'] == 'sms') {
+			shownav('user', 'nav_members_newsletter_sms');
+			showsubmenusteps('nav_members_newsletter_sms', array(
+				array('nav_members_select', !$_GET['submit']),
+				array('nav_members_notify', $_GET['submit']),
+			));
+			showtips('members_newsletter_sms_tips');
+		} else if($_GET['do'] == 'mobile') {
 			shownav('user', 'nav_members_newsletter_mobile');
 			showsubmenusteps('nav_members_newsletter_mobile', array(
 				array('nav_members_select', !$_GET['submit']),
@@ -692,7 +699,10 @@ EOF;
 
 		if(submitcheck('submit', 1)) {
 			$dostr = '';
-			if($_GET['do'] == 'mobile') {
+			if($_GET['do'] == 'sms') {
+				$search_condition['secmobile'] = true;
+				$dostr = '&do=sms';
+			} else if($_GET['do'] == 'mobile') {
 				$search_condition['token_noempty'] = 'token';
 				$dostr = '&do=mobile';
 			}
@@ -2096,6 +2106,9 @@ EOF;
 			array(2, $lang['members_edit_freeze_email']))), $member['freeze'], 'mradio');
 		showsetting('members_edit_email', 'emailnew', $member['email'], 'text');
 		showsetting('members_edit_email_emailstatus', 'emailstatusnew', $member['emailstatus'], 'radio');
+		showsetting('members_edit_secmobile_secmobicc', 'secmobiccnew', $member['secmobicc'], 'text');
+		showsetting('members_edit_secmobile_secmobile', 'secmobilenew', $member['secmobile'], 'text');
+		showsetting('members_edit_secmobile_secmobilestatus', 'secmobilestatusnew', $member['secmobilestatus'], 'radio');
 		showsetting('members_edit_posts', 'postsnew', $member['posts'], 'text');
 		showsetting('members_edit_digestposts', 'digestpostsnew', $member['digestposts'], 'text');
 		showsetting('members_edit_regip', 'regipnew', $member['regip'], 'text');
@@ -2136,7 +2149,9 @@ EOF;
 		require_once libfile('function/discuzcode');
 
 		$questionid = $_GET['clearquestion'] ? 0 : '';
-		$ucresult = uc_user_edit(addslashes($member['username']), $_GET['passwordnew'], $_GET['passwordnew'], addslashes(strtolower(trim($_GET['emailnew']))), 1, $questionid);
+		$secmobicc = intval($_GET['secmobiccnew']);
+		$secmobile = intval($_GET['secmobilenew']);
+		$ucresult = uc_user_edit(addslashes($member['username']), $_GET['passwordnew'], $_GET['passwordnew'], addslashes(strtolower(trim($_GET['emailnew']))), 1, $questionid, '', $secmobicc, $secmobile);
 		if($ucresult < 0) {
 			if($ucresult == -4) {
 				cpmsg('members_email_illegal', '', 'error');
@@ -2144,6 +2159,8 @@ EOF;
 				cpmsg('members_email_domain_illegal', '', 'error');
 			} elseif($ucresult == -6) {
 				cpmsg('members_email_duplicate', '', 'error');
+			} elseif($ucresult == -8) {
+				cpmsg('members_mobile_duplicate', '', 'error');
 			}
 		}
 
@@ -2208,6 +2225,8 @@ EOF;
 		$memberupdate = array();
 		if($ucresult >= 0) {
 			$memberupdate['email'] = strtolower(trim($_GET['emailnew']));
+			$memberupdate['secmobicc'] = $secmobicc;
+			$memberupdate['secmobile'] = $secmobile;
 		}
 		if($ucresult >= 0 && !empty($_GET['passwordnew'])) {
 			$memberupdate['password'] = md5(random(10));
@@ -2217,6 +2236,7 @@ EOF;
 		$status = intval($_GET['statusnew']) ? -1 : 0;
 		$freeze = in_array($_GET['freezenew'], array(-1, 0, 1, 2)) ? $_GET['freezenew'] : 0;
 		$emailstatusnew = intval($_GET['emailstatusnew']);
+		$secmobilestatusnew = intval($_GET['secmobilestatusnew']);
 		if(!empty($_G['setting']['connect']['allow'])) {
 			if($member['uinblack'] && empty($_GET['uinblack'])) {
 				C::t('common_uin_black')->delete($member['uinblack']);
@@ -2230,7 +2250,7 @@ EOF;
 				connectunbind($member);
 			}
 		}
-		$memberupdate = array_merge($memberupdate, array('regdate'=>$regdatenew, 'emailstatus'=>$emailstatusnew, 'status'=>$status, 'freeze'=>$freeze, 'timeoffset'=>$_GET['timeoffsetnew']));
+		$memberupdate = array_merge($memberupdate, array('regdate'=>$regdatenew, 'emailstatus'=>$emailstatusnew, 'secmobilestatus'=>$secmobilestatusnew, 'status'=>$status, 'freeze'=>$freeze, 'timeoffset'=>$_GET['timeoffsetnew']));
 		C::t('common_member'.$tableext)->update($uid, $memberupdate);
 		C::t('common_member_field_home'.$tableext)->update($uid, array('addsize' => $addsize, 'addfriend' => $addfriend));
 		C::t('common_member_count'.$tableext)->update($uid, array('posts' => $_GET['postsnew'], 'digestposts' => $_GET['digestpostsnew']));
@@ -2930,7 +2950,7 @@ function showsearchform($operation = '') {
 	showtagheader('div', 'searchmembers', !$_GET['submit']);
 	echo '<script src="static/js/calendar.js" type="text/javascript"></script>';
 	echo '<style type="text/css">#residedistrictbox select, #birthdistrictbox select{width: auto;}</style>';
-	$formurl = "members&operation=$operation".($_GET['do'] == 'mobile' ? '&do=mobile' : '');
+	$formurl = "members&operation=$operation".(($_GET['do'] == 'mobile' || $_GET['do'] == 'sms') ? '&do=' . $_GET['do'] : '');
 	showformheader($formurl, "onSubmit=\"if($('updatecredittype1') && $('updatecredittype1').checked && !window.confirm('{$lang['members_reward_clean_alarm']}')){return false;} else {return true;}\"");
 	showtableheader();
 	if(isset($_G['setting']['membersplit'])) {
@@ -3125,9 +3145,13 @@ function shownewsletter() {
 	showtableheader();
 	showsetting('members_newsletter_subject', 'subject', '', 'text');
 	showsetting('members_newsletter_message', 'message', '', 'textarea');
-	if($_GET['do'] == 'mobile') {
-		showsetting('members_newsletter_system', 'system', 0, 'radio');
-		showhiddenfields(array('notifymembers' => 'mobile'));
+	if($_GET['do'] == 'mobile' || $_GET['do'] == 'sms') {
+		if($_GET['do'] == 'mobile') {
+			showsetting('members_newsletter_system', 'system', 0, 'radio');
+		} else {
+			showhiddenfields(array('system' => 0));
+		}
+		showhiddenfields(array('notifymembers' => $_GET['do']));
 	} else {
 		showsetting('members_newsletter_method', array('notifymembers', array(
 			    array('email', $lang['email'], array('pmextra' => 'none', 'posttype' => '')),
@@ -3351,7 +3375,7 @@ function notifymembers($operation, $variable) {
 	if(!function_exists('sendmail')) {
 		include libfile('function/mail');
 	}
-	if($_GET['notifymember'] && in_array($_GET['notifymembers'], array('pm', 'notice', 'email'))) {
+	if($_GET['notifymember'] && in_array($_GET['notifymembers'], array('pm', 'notice', 'email', 'sms'))) {
 		$uids = searchmembers($search_condition, $pertask, $current);
 
 		require_once libfile('function/discuzcode');
@@ -3388,6 +3412,8 @@ function notifymembers($operation, $variable) {
 				if(!sendmail("{$member['username']} <{$member['email']}>", $subject, $message.$addmsg)) {
 					runlog('sendmail', "{$member['email']} sendmail failed.");
 				}
+			} elseif($_GET['notifymembers'] == 'sms') {
+				sms::sendmessage($member['uid'], 1, $member['secmobicc'], $member['secmobile'], "[$subject]$message$addmsg", 1);
 			}
 
 			$log = array();

@@ -1925,6 +1925,10 @@ function cknewuser($return=0) {
 		if(empty($return)) showmessage('no_privilege_avatar', '', array(), array());
 		$result = false;
 	}
+	if($_G['setting']['need_secmobile'] && empty($ckuser['secmobilestatus'])) {
+		if(empty($return)) showmessage('no_privilege_secmobile', '', array(), array());
+		$result = false;
+	}
 	if($_G['setting']['need_email'] && empty($ckuser['emailstatus'])) {
 		if(empty($return)) showmessage('no_privilege_email', '', array(), array());
 		$result = false;

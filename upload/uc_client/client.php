@@ -441,8 +441,8 @@ function uc_user_synlogout() {
 	return $return;
 }
 
-function uc_user_edit($username, $oldpw, $newpw, $email, $ignoreoldpw = 0, $questionid = '', $answer = '') {
-	return call_user_func(UC_API_FUNC, 'user', 'edit', array('username'=>$username, 'oldpw'=>$oldpw, 'newpw'=>$newpw, 'email'=>$email, 'ignoreoldpw'=>$ignoreoldpw, 'questionid'=>$questionid, 'answer'=>$answer));
+function uc_user_edit($username, $oldpw, $newpw, $email, $ignoreoldpw = 0, $questionid = '', $answer = '', $secmobicc = '', $secmobile = '') {
+	return call_user_func(UC_API_FUNC, 'user', 'edit', array('username'=>$username, 'oldpw'=>$oldpw, 'newpw'=>$newpw, 'email'=>$email, 'ignoreoldpw'=>$ignoreoldpw, 'questionid'=>$questionid, 'answer'=>$answer, 'secmobicc'=>$secmobicc, 'secmobile'=>$secmobile));
 }
 
 function uc_user_delete($uid) {
@@ -459,6 +459,10 @@ function uc_user_checkname($username) {
 
 function uc_user_checkemail($email) {
 	return call_user_func(UC_API_FUNC, 'user', 'check_email', array('email'=>$email));
+}
+
+function uc_user_checksecmobile($secmobicc, $secmobile) {
+	return call_user_func(UC_API_FUNC, 'user', 'check_secmobile', array('secmobicc'=>$secmobicc, 'secmobile'=>$secmobile));
 }
 
 function uc_user_addprotected($username, $admin='') {

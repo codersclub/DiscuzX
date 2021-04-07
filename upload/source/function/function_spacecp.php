@@ -140,6 +140,10 @@ function pic_save($FILE, $albumid, $title, $iswatermark = true, $catid = 0) {
 			return lang('message', 'no_privilege_avatar');
 		}
 
+		if($_G['setting']['need_secmobile'] && empty($_G['member']['secmobilestatus'])) {
+			return lang('message', 'no_privilege_secmobile');
+		}
+
 		if($_G['setting']['need_email'] && empty($_G['member']['emailstatus'])) {
 			return lang('message', 'no_privilege_email');
 		}

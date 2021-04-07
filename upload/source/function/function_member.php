@@ -20,6 +20,8 @@ function userlogin($username, $password, $questionid, $answer, $loginfield = 'us
 		$isuid = 2;
 	} elseif($loginfield == 'auto') {
 		$isuid = 3;
+	} elseif($loginfield == 'secmobile' && getglobal('setting/secmobilelogin')) {
+		$isuid = 4;
 	} else {
 		$isuid = 0;
 	}
@@ -32,11 +34,17 @@ function userlogin($username, $password, $questionid, $answer, $loginfield = 'us
 			$return['ucresult'] = uc_user_login($username, $password, 1, 1, $questionid, $answer, $ip);
 		} elseif(isemail($username)) {
 			$return['ucresult'] = uc_user_login($username, $password, 2, 1, $questionid, $answer, $ip);
+		} elseif(preg_match('/^(\d{1,12}|\d{1,3}-\d{1,12})$/', $username) && getglobal('setting/secmobilelogin')) {
+			$username = strpos($username, '-') === false ? (getglobal('setting/smsdefaultcc') . '-' . $username) : $username;
+			$return['ucresult'] = uc_user_login($username, $password, 4, 1, $questionid, $answer, $ip);
 		}
 		if($return['ucresult'][0] <= 0 && $return['ucresult'][0] != -3) {
 			$return['ucresult'] = uc_user_login(addslashes($username), $password, 0, 1, $questionid, $answer, $ip);
 		}
 	} else {
+		if($isuid == 4) {
+			$username = strpos($username, '-') === false ? (getglobal('setting/smsdefaultcc') . '-' . $username) : $username;
+		}
 		$return['ucresult'] = uc_user_login(addslashes($username), $password, $isuid, 1, $questionid, $answer, $ip);
 	}
 	$tmp = array();
