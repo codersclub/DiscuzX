@@ -156,7 +156,7 @@ INSERT INTO pre_common_nav VALUES ('','0','记录','Doing','home.php?mod=space&d
 INSERT INTO pre_common_nav VALUES ('', '0', '站点统计', '', 'misc.php?mod=stat', 'stat', 0, 0, 1, 1, 0, 0, 0, 0, '', '', '', 1, '');
 INSERT INTO pre_common_nav VALUES ('', '0', '举报', '', '#', 'report', 0, 0, 1, 2, 0, 0, 0, 0, '', '', '', 1, '');
 INSERT INTO pre_common_nav VALUES ('', '0', 'Archiver', '', 'archiver/', 'archiver', 0, 0, 1, 3, 0, 0, 0, 0, '', '', '', 1, '');
-INSERT INTO pre_common_nav VALUES ('', '0', '手机版', '', 'forum.php?mobile=yes', 'mobile', 0, 0, 0, 3, 0, 0, 0, 0, '', '', '', 1, '');
+INSERT INTO pre_common_nav VALUES ('', '0', '手机版', '', 'forum.php?mobile=yes', 'mobile', 0, 0, 1, 3, 0, 0, 0, 0, '', '', '', 1, '');
 INSERT INTO pre_common_nav VALUES ('', '0', '小黑屋', '', 'forum.php?mod=misc&action=showdarkroom', 'darkroom', 0, 0, 1, 3, 0, 0, 0, 0, '', '', '', 1, '');
 
 INSERT INTO pre_common_nav VALUES ('', '0', '日志', '', 'home.php?mod=space&do=blog', 'blog', 0, 0, -1, 2, 0, 0, 0, 0, '{STATICURL}image/feed/blog.gif', '发布', 'home.php?mod=spacecp&ac=blog', 2, '');
