@@ -268,8 +268,8 @@ if($_G['forum_thread']['replycredit'] > 0) {
 }
 $_G['group']['raterange'] = $_G['setting']['modratelimit'] && $adminid == 3 && !$_G['forum']['ismoderator'] ? array() : $_G['group']['raterange'];
 
-$_G['group']['allowgetattach'] = !empty($_G['forum']['allowgetattach']) || ($_G['group']['allowgetattach'] && !$_G['forum']['getattachperm']) || forumperm($_G['forum']['getattachperm']);
-$_G['group']['allowgetimage'] = !empty($_G['forum']['allowgetimage']) || ($_G['group']['allowgetimage'] && !$_G['forum']['getattachperm']) || forumperm($_G['forum']['getattachperm']);
+$_G['group']['allowgetattach'] = (!empty($_G['forum']['allowgetattach'])) ? ($_G['forum']['allowgetattach'] == 1 ? true : false) : ($_G['forum']['getattachperm'] ? forumperm($_G['forum']['getattachperm']) : $_G['group']['allowgetattach']);
+$_G['group']['allowgetimage'] = (!empty($_G['forum']['allowgetimage'])) ? ($_G['forum']['allowgetimage'] == 1 ? true : false) : ($_G['forum']['getattachperm'] ? forumperm($_G['forum']['getattachperm']) : $_G['group']['allowgetimage']);
 $_G['getattachcredits'] = '';
 if($_G['forum_thread']['attachment']) {
 	$exemptvalue = $_G['forum']['ismoderator'] ? 32 : 4;
