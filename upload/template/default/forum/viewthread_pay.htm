@@ -3,7 +3,7 @@
 <!--{/if}-->
 <!--{if (!defined('IN_ARCHIVER') || (defined('IN_ARCHIVER') && !constant('IN_ARCHIVER')))}-->
 	<div class="locked">
-			<a href="javascript:;" class="y viewpay" title="{lang pay}" onclick="showWindow('pay', 'forum.php?mod=misc&action=pay&tid=$_G[tid]&pid=$post[pid]{if !empty($_GET['from'])}&from=$_GET['from']{/if}')">{lang pay}</a>
+			<a href="forum.php?mod=misc&action=pay&tid=$_G[tid]&pid=$post[pid]{if !empty($_GET['from'])}&from=$_GET['from']{/if}" class="y viewpay" title="{lang pay}" onclick="showWindow('pay', this.href)">{lang pay}</a>
 			<em class="right">
 				<!--{if $thread[payers]}-->{lang have} $thread[payers] {lang people_buy}&nbsp; <!--{/if}-->
 			</em>
