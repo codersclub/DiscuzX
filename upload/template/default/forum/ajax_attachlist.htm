@@ -11,7 +11,7 @@
 					<!--{/if}-->
 					<!--{if $attach['pid']}-->
 						<input type="hidden" name="attachupdate[{$attach[aid]}]" id="attachupdate{$attach[aid]}" size="2" />&nbsp;
-						<!--{if !empty($allowuploadnum)}--><a href="javascript:;" onclick="uploadWindow(function (aid, url, name){$('attachupdate$attach[aid]').value = aid;$('attachname$attach[aid]').title = '';$('attachname$attach[aid]').innerHTML = name;$('attachname$attach[aid]').onmouseover=null}, 'file');return false;">{lang update}</a></span><!--{/if}-->
+						<!--{if !empty($allowuploadnum)}--><a href="javascript:;" onclick="uploadWindow(function (aid, url, name){$('attachupdate$attach[aid]').value = aid;$('attachname$attach[aid]').title = '';$('attachname$attach[aid]').innerHTML = name;$('attachname$attach[aid]').onmouseover=null}, 'file');return false;">{lang update}</a><!--{/if}-->
 					<!--{/if}-->
 				</p>
 				<span id="attachupdate$attach[aid]"></span>
