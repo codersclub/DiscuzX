@@ -302,6 +302,9 @@ if($op == 'blockclass') {
 		$isinner = false;
 		$filename = '';
 		if($_POST['importfilename']) {
+			if (!preg_match("/^\w+$/i", $_POST['importfilename'])) {
+				showmessage('do_success','portal.php',array('status'=>0));
+			}
 			$filename = DISCUZ_ROOT.'./template/default/portal/diyxml/'.$_POST['importfilename'].'.xml';
 			$isinner = true;
 		} else {
