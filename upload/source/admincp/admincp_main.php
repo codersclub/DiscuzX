@@ -188,7 +188,7 @@ echo <<<EOT
 		if(!obj) {
 			return;
 		}
-		var scrollh = document.body.offsetHeight - 160;
+		var scrollh = document.body.offsetHeight - 180;
 		obj.style.overflow = 'visible';
 		obj.style.height = '';
 		$('scrolllink').style.display = 'none';
