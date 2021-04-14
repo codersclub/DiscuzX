@@ -52,7 +52,7 @@ if(!submitcheck('deletesubmit')) {
 		$operation == 'group' && $_GET['inforum'] = 'isgroup';
 		$inforum = $_GET['inforum'] != 'all' && $_GET['inforum'] != 'isgroup' ? intval($_GET['inforum']) : $_GET['inforum'];
 		$authorid = $_GET['author'] ? C::t('common_member')->fetch_uid_by_username($_GET['author']) : 0;
-		$authorid = $_GET['author'] && !$authorid ? C::t('common_member_archive')->fetch_uid_by_username($_GET['author']) : 0;
+		$authorid = $_GET['author'] && !$authorid ? C::t('common_member_archive')->fetch_uid_by_username($_GET['author']) : $authorid;
 		$attachments = '';
 		$attachuids = $attachusers = array();
 		$_GET['perpage'] = intval($_GET['perpage']) < 1 ? 20 : intval($_GET['perpage']);
