@@ -301,7 +301,7 @@ EOT;
 		if((!$membernum = count($uids))) {
 			cpmsg('members_search_noresults', '', 'error');
 		} elseif(!$_GET['confirmed']) {
-			cpmsg('members_delete_confirm', "action=moderate&operation=members&do=del&submitmore=".rawurlencode($_GET['submitmore'])."&regbefore=".rawurlencode($_GET['regbefore'])."&regip=".rawurlencode($_GET['regip'])."&prunesubmit=yes", 'form', array('membernum' => $membernum));
+			cpmsg('members_delete_confirm', "action=moderate&operation=members&do=del&submitmore=".rawurlencode($_GET['submitmore'])."&regbefore=".rawurlencode($_GET['regbefore'])."&modbefore=".rawurlencode($_GET['modbefore'])."&regip=".rawurlencode($_GET['regip'])."&prunesubmit=yes", 'form', array('membernum' => $membernum));
 		} else {
 			$numdeleted = C::t('common_member')->delete_no_validate(array_keys($uids));
 
