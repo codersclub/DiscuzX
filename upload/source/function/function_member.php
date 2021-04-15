@@ -287,7 +287,7 @@ function checkemail($email) {
 	global $_G;
 
 	$email = strtolower(trim($email));
-	if(strlen($email) > 32) {
+	if(strlen($email) > 255) {
 		showmessage('profile_email_illegal', '', array(), array('handle' => false));
 	}
 	if($_G['setting']['regmaildomain']) {

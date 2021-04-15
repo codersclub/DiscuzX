@@ -14,6 +14,10 @@ if(!defined('IN_DISCUZ')) {
 set_time_limit(0);
 function sendmail($toemail, $subject, $message = '', $from = '') {
 	global $_G;
+	// 使用 \@m.invalid 作为保留域名
+	if(preg_match("/@m\.invalid$/i", $toemail)){
+		return false;
+	}
 	if(!is_array($_G['setting']['mail'])) {
 		$_G['setting']['mail'] = dunserialize($_G['setting']['mail']);
 	}
@@ -217,7 +221,8 @@ function sendmail($toemail, $subject, $message = '', $from = '') {
 
 function sendmail_cron($toemail, $subject, $message) {
 	global $_G;
-	if(preg_match("/^wechat_[\w]{10}@null.null$/i", $toemail)){
+	// 使用 \@m.invalid 作为保留域名
+	if(preg_match("/@m\.invalid$/i", $toemail)){
 		return false;
 	}
 	$toemail = addslashes($toemail);

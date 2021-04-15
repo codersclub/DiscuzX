@@ -598,7 +598,7 @@ CREATE TABLE pre_common_invite (
   fuid mediumint(8) unsigned NOT NULL DEFAULT '0',
   fusername char(20) NOT NULL DEFAULT '',
   `type` tinyint(1) NOT NULL DEFAULT '0',
-  email char(40) NOT NULL DEFAULT '',
+  email varchar(255) NOT NULL DEFAULT '',
   inviteip varchar(45) NOT NULL DEFAULT '',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
   endtime int(10) unsigned NOT NULL DEFAULT '0',
@@ -655,7 +655,7 @@ DROP TABLE IF EXISTS pre_common_mailcron;
 CREATE TABLE pre_common_mailcron (
   cid mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   touid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  email varchar(100) NOT NULL DEFAULT '',
+  email varchar(255) NOT NULL DEFAULT '',
   sendtime int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (cid),
   KEY sendtime (sendtime)
@@ -675,7 +675,7 @@ CREATE TABLE pre_common_mailqueue (
 DROP TABLE IF EXISTS pre_common_member;
 CREATE TABLE pre_common_member (
   uid mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  email char(40) NOT NULL DEFAULT '',
+  email varchar(255) NOT NULL DEFAULT '',
   username char(15) NOT NULL DEFAULT '',
   `password` char(32) NOT NULL DEFAULT '',
   `secmobicc` varchar(3) NOT NULL DEFAULT '',
@@ -790,7 +790,7 @@ CREATE TABLE pre_common_member_field_forum (
   medals text NOT NULL,
   sightml text NOT NULL,
   groupterms text NOT NULL,
-  authstr varchar(20) NOT NULL DEFAULT '',
+  authstr varchar(255) NOT NULL DEFAULT '',
   `groups` mediumtext NOT NULL,
   attentiongroup varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (uid)
@@ -2530,7 +2530,7 @@ CREATE TABLE pre_forum_order (
   price float(7,2) unsigned NOT NULL DEFAULT '0.00',
   submitdate int(10) unsigned NOT NULL DEFAULT '0',
   confirmdate int(10) unsigned NOT NULL DEFAULT '0',
-  email char(40) NOT NULL DEFAULT '',
+  email varchar(255) NOT NULL DEFAULT '',
   ip varchar(45) NOT NULL DEFAULT '',
   `port` smallint(6) unsigned NOT NULL DEFAULT '0',
   UNIQUE KEY orderid (orderid),

@@ -304,7 +304,8 @@ class WeChat {
 		$groupid = !$groupid ? ($_G['wechat']['setting']['wechat_newusergroupid'] ? $_G['wechat']['setting']['wechat_newusergroupid'] : $_G['setting']['newusergroupid']) : $groupid;
 
 		$password = md5(random(10));
-		$email = 'wechat_'.strtolower(random(10)).'@null.null';
+		// 使用 m.invalid 作为保留域名
+		$email = 'wechat_'.strtolower(random(10)).'@m.invalid';
 
 		$usernamelen = dstrlen($username);
 		if($usernamelen < 3) {

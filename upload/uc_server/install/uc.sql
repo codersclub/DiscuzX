@@ -25,7 +25,7 @@ CREATE TABLE uc_members (
   `password` varchar(255) NOT NULL DEFAULT '',
   `secmobicc` varchar(3) NOT NULL DEFAULT '',
   `secmobile` varchar(12) NOT NULL DEFAULT '',
-  email char(32) NOT NULL DEFAULT '',
+  email varchar(255) NOT NULL DEFAULT '',
   myid char(30)  NOT NULL DEFAULT '',
   myidkey char(16) NOT NULL DEFAULT '',
   regip varchar(45) NOT NULL DEFAULT '',
