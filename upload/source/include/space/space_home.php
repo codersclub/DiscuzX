@@ -341,7 +341,7 @@ if($space['self'] && empty($start)) {
 			require_once libfile('class/task');
 			$tasklib = & task::instance();
 			$taskarr = $tasklib->tasklist('canapply');
-			$task = $taskarr[array_rand($taskarr)];
+			$task = count($taskarr) ? $taskarr[array_rand($taskarr)] : array();
 		}
 		if($_G['setting']['magicstatus']) {
 			loadcache('magics');
