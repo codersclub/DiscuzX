@@ -587,6 +587,9 @@ function import_diy($file) {
 	$content = file_get_contents($file);
 	require_once libfile('class/xml');
 	if (empty($content)) return $arr;
+	if(fileext($file) == 'php') {
+		$content = preg_replace("/^\<\?php(.+?)\?\>\s+/i", '', $content);
+	}
 	$content = preg_replace("/\<\!\-\-\[name\](.+?)\[\/name\]\-\-\>\s+/i", '', $content);
 	$diycontent = xml2array($content);
 

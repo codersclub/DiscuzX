@@ -297,6 +297,10 @@ if($op == 'blockclass') {
 
 	$tpl = $_POST['tpl'] ? $_POST['tpl'] : $_GET['tpl'];
 	tpl_checkperm($tpl);
+	$tpldir = './template/default/portal/diyxml/';
+	if ($_G['style']['tpldir'] && preg_match("#^\./template/\w+$#i", $_G['style']['tpldir']) && is_dir(DISCUZ_ROOT.$_G['style']['tpldir'].'/portal/diyxml/')) {
+		$tpldir = $_G['style']['tpldir'].'/portal/diyxml/';
+	}
 
 	if (submitcheck('importsubmit')) {
 		$isinner = false;
@@ -305,7 +309,10 @@ if($op == 'blockclass') {
 			if (!preg_match("/^\w+$/i", $_POST['importfilename'])) {
 				showmessage('do_success','portal.php',array('status'=>0));
 			}
-			$filename = DISCUZ_ROOT.'./template/default/portal/diyxml/'.$_POST['importfilename'].'.xml';
+			$filename = DISCUZ_ROOT.$tpldir.$_POST['importfilename'].'.xml';
+			if(!file_exists($filename)) {
+				$filename = DISCUZ_ROOT.$tpldir.$_POST['importfilename'].'.php';
+			}
 			$isinner = true;
 		} else {
 			$upload = new discuz_upload();
@@ -322,7 +329,7 @@ if($op == 'blockclass') {
 				$filename = $attach['target'];
 			}
 		}
-		if($filename) {
+		if($filename && file_exists($filename)) {
 			$arr = import_diy($filename);
 			if(!$isinner) {
 				@unlink($filename);
@@ -343,14 +350,16 @@ if($op == 'blockclass') {
 			} else {
 				showmessage('do_success','portal.php',array('status'=>0));
 			}
+		} else {
+			showmessage('do_success','portal.php',array('status'=>0));
 		}
 	}
 	$xmlarr = array();
 	if ($_GET['type'] == 1) {
-		$xmlfilepath = DISCUZ_ROOT.'./template/default/portal/diyxml/';
+		$xmlfilepath = DISCUZ_ROOT.$tpldir;
 		if(($dh = @opendir($xmlfilepath))) {
 			while(($file = @readdir($dh)) !== false) {
-				if(fileext($file) == 'xml') {
+				if(in_array(fileext($file), array('xml', 'php'))) {
 					$xmlarr[substr($file, 0, -4)] = getdiyxmlname($file, $xmlfilepath);
 				}
 			}
