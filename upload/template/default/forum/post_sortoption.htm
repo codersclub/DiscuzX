@@ -120,13 +120,13 @@
 					<!--{elseif $option['type'] == 'radio'}-->
 						<ul class="xl2">
 						<!--{loop $option['choices'] $id $value}-->
-							<li><label><input type="radio" name="typeoption[{$option[identifier]}]" id="typeoption_$option[identifier]" class="pr" tabindex="1" onclick="checkoption('$option[identifier]', '$option[required]', '$option[type]')" value="$id" $option['value'][$id] $option[unchangeable] class="pr"> $value</label></li>
+							<li><label><input type="radio" name="typeoption[{$option[identifier]}]" id="typeoption_$option[identifier]" tabindex="1" onclick="checkoption('$option[identifier]', '$option[required]', '$option[type]')" value="$id" $option['value'][$id] $option[unchangeable] class="pr"> $value</label></li>
 						<!--{/loop}-->
 						</ul>
 					<!--{elseif $option['type'] == 'checkbox'}-->
 						<ul class="xl2">
 						<!--{loop $option['choices'] $id $value}-->
-							<li><label><input type="checkbox" name="typeoption[{$option[identifier]}][]" id="typeoption_$option[identifier]" class="pc" tabindex="1" onclick="checkoption('$option[identifier]', '$option[required]', '$option[type]')" value="$id" $option['value'][$id][$id] $option[unchangeable] class="pc"> $value</label></li>
+							<li><label><input type="checkbox" name="typeoption[{$option[identifier]}][]" id="typeoption_$option[identifier]" tabindex="1" onclick="checkoption('$option[identifier]', '$option[required]', '$option[type]')" value="$id" $option['value'][$id][$id] $option[unchangeable] class="pc"> $value</label></li>
 						<!--{/loop}-->
 						</ul>
 					<!--{/if}-->
