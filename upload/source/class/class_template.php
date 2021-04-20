@@ -205,11 +205,11 @@ class template {
 	}
 
 	function parse_template_callback_stripvtags_loop12($matches) {
-		return $this->stripvtags('<? if(isset('.$matches[1].') && is_array('.$matches[1].')) foreach('.$matches[1].' as '.$matches[2].') { ?>');
+		return $this->stripvtags($this->looptags($matches[1], $matches[2]));
 	}
 
 	function parse_template_callback_stripvtags_loop123($matches) {
-		return $this->stripvtags('<? if(isset('.$matches[1].') && is_array('.$matches[1].')) foreach('.$matches[1].' as '.$matches[2].' => '.$matches[3].') { ?>');
+		return $this->stripvtags($this->looptags($matches[1], $matches[2], $matches[3]));
 	}
 
 	function parse_template_callback_transamp_0($matches) {
@@ -408,6 +408,22 @@ class template {
 			}
 		}
 		return;
+	}
+
+	function looptags($param1, $param2, $param3 = '') {
+		if(preg_match("/\<\?\=\\\$.+?\?\>/s", $param1)) {
+			$exprtemp = $param1;
+			$return = '<? if(isset('.$param1.') && is_array('.$param1.')) ';
+		} else {
+			$exprtemp = '$l_'.random(8);
+			$return = '<? '.$exprtemp.' = '.$param1.';if(is_array('.$exprtemp.')) ';
+		}
+		if($param3) {
+			$return .= 'foreach('.$exprtemp.' as '.$param2.' => '.$param3.') { ?>';
+		} else {
+			$return .= 'foreach('.$exprtemp.' as '.$param2.') { ?>';
+		}
+		return $return;
 	}
 
 	function echopolyfill($str) {
