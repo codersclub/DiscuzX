@@ -768,9 +768,9 @@ function generate_key() {
 
 function show_db_install() {
 	if(VIEW_OFF) return;
-	global $dbhost, $dbuser, $dbpw, $dbname, $tablepre, $username, $password, $email;
+	global $dbhost, $dbuser, $dbpw, $dbname, $tablepre, $username, $password, $email, $uid;
 	$dzucfull = DZUCFULL;
-	$allinfo = base64_encode(serialize(compact('dbhost', 'dbuser', 'dbpw', 'dbname', 'tablepre', 'username', 'password', 'email', 'dzucfull')));
+	$allinfo = base64_encode(serialize(compact('dbhost', 'dbuser', 'dbpw', 'dbname', 'tablepre', 'username', 'password', 'email', 'dzucfull', 'uid')));
 	init_install_log_file();
 ?>
 <script type="text/javascript">
@@ -1375,7 +1375,7 @@ EOT;
 
 function _generate_key() {
 	$random = random(32);
-	$info = md5($_SERVER['SERVER_SOFTWARE'].$_SERVER['SERVER_NAME'].(isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '').$_SERVER['SERVER_PORT'].$_SERVER['HTTP_USER_AGENT'].time());
+	$info = md5($_SERVER['SERVER_SOFTWARE'].$_SERVER['SERVER_NAME'].(isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '').(isset($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : '').$_SERVER['HTTP_USER_AGENT'].time());
 	$return = array();
 	for($i=0; $i<32; $i++) {
 		$return[$i] = $random[$i].$info[$i];
@@ -1435,15 +1435,9 @@ function install_uc_server() {
 	$appurl = 'http'.($isHTTPS ? 's' : '').'://'. $_SERVER['HTTP_HOST'].$pathinfo['dirname'];
 	$ucapi = $appurl.'/uc_server';
 	$ucip = '';
-	$app_tagtemplates = 'apptagtemplates[template]='.urlencode('<a href="{url}" target="_blank">{subject}</a>').'&'.
-		'apptagtemplates[fields][subject]='.urlencode($lang['tagtemplates_subject']).'&'.
-		'apptagtemplates[fields][uid]='.urlencode($lang['tagtemplates_uid']).'&'.
-		'apptagtemplates[fields][username]='.urlencode($lang['tagtemplates_username']).'&'.
-		'apptagtemplates[fields][dateline]='.urlencode($lang['tagtemplates_dateline']).'&'.
-		'apptagtemplates[fields][url]='.urlencode($lang['tagtemplates_url']);
 
-	$db->query("INSERT INTO {$uctablepre}applications SET name='Discuz! Board', url='$appurl', ip='$ucip', authkey='$appauthkey', synlogin='1', charset='$charset', dbcharset='$dbcharset', type='DISCUZX', recvnote='1', tagtemplates='$apptagtemplates'", $link);
-	$appid = $db->insert_id($link);
+	$db->query("INSERT INTO {$uctablepre}applications SET name='Discuz! Board', url='$appurl', ip='$ucip', authkey='$appauthkey', synlogin='1', charset='$uccharset', dbcharset='$ucdbcharset', type='DISCUZX', recvnote='1', tagtemplates=''");
+	$appid = $db->insert_id();
 	$db->query("ALTER TABLE {$uctablepre}notelist ADD COLUMN app$appid tinyint NOT NULL");
 
 	$config = array($appauthkey,$appid,$ucdbhost,$ucdbname,$ucdbuser,$ucdbpw,$ucdbcharset,$uctablepre,$uccharset,$ucapi,$ucip);
@@ -1451,7 +1445,7 @@ function install_uc_server() {
 
 	$salt = '';
 	$passwordhash = password_hash($password, PASSWORD_BCRYPT);
-	$db->query("INSERT INTO {$uctablepre}members SET $sqladd username='$username', password='$passwordhash', email='$email', regip='hidden', regdate='".time()."', salt='$salt'");
+	$db->query("INSERT INTO {$uctablepre}members SET username='$username', password='$passwordhash', email='$email', regip='hidden', regdate='".time()."', salt='$salt'");
 	$uid = $db->insert_id();
 	$db->query("INSERT INTO {$uctablepre}memberfields SET uid='$uid'");
 
@@ -1612,7 +1606,7 @@ function getframehtml($data = array()) {
 	global $_G;
 	$html = $style = '';
 	foreach ((array)$data as $id => $content) {
-		list($flag, $name) = explode('`', $id);
+		list($flag, $name) = explode('`', $id.'`');
 		if ($flag == 'frame') {
 			$fattr = $content['attr'];
 			$moveable = $fattr['moveable'] == 'true' ? ' move-span' : '';
@@ -1622,7 +1616,7 @@ function getframehtml($data = array()) {
 				$html .= '<div class="'.implode(' ',$fattr['titles']['className']).'"'.$style.'>'.gettitlehtml($fattr['titles'], 'frame').'</div>';
 			}
 			foreach ((array)$content as $colid => $coldata) {
-				list($colflag, $colname) = explode('`', $colid);
+				list($colflag, $colname) = explode('`', $colid.'`');
 				if ($colflag == 'column') {
 					$html .= '<div id="'.$colname.'" class="'.$coldata['attr']['className'].'">';
 					$html .= '<div id="'.$colname.'_temp" class="move-span temp"></div>';
@@ -1778,12 +1772,12 @@ function getframeblock($data) {
 	if (!isset($_G['curtplframe'])) $_G['curtplframe'] = array();
 
 	foreach ((array)$data as $id => $content) {
-		list($flag, $name) = explode('`', $id);
+		list($flag, $name) = explode('`', $id.'`');
 		if ($flag == 'frame' || $flag == 'tab') {
 			foreach ((array)$content as $colid => $coldata) {
-				list($colflag, $colname) = explode('`', $colid);
+				list($colflag, $colname) = explode('`', $colid.'`');
 				if ($colflag == 'column') {
-					getframeblock($coldata,$framename);
+					getframeblock($coldata);
 				}
 			}
 			$_G['curtplframe'][$name] = array('type'=>$flag,'name'=>$name);
@@ -1859,7 +1853,7 @@ function dimplode($array) {
 function implode_field_value($array, $glue = ',') {
 	$sql = $comma = '';
 	foreach ($array as $k => $v) {
-		$sql .= $comma."`$k`='$v'";
+		$sql .= $comma."`$k`='".(is_string($v) ? $v : '')."'";
 		$comma = $glue;
 	}
 	return $sql;
