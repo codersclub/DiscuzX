@@ -309,7 +309,7 @@ function getremotefile($file) {
 	if(!@readfile($_G['setting']['ftp']['attachurl'].'forum/'.$file)) {
 		$ftp = ftpcmd('object');
 		$tmpfile = @tempnam($_G['setting']['attachdir'], '');
-		if($ftp->ftp_get($tmpfile, 'forum/'.$file, FTP_BINARY)) {
+		if(is_object($ftp) && $ftp->ftp_get($tmpfile, 'forum/'.$file, FTP_BINARY)) {
 			@readfile($tmpfile);
 			@unlink($tmpfile);
 		} else {

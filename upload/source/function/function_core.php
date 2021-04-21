@@ -1543,8 +1543,8 @@ function dreferer($default = '') {
 
 function ftpcmd($cmd, $arg1 = '') {
 	static $ftp;
-	$ftpon = getglobal('setting/ftp/on');
-	if(!$ftpon) {
+	$ftpconfig = getglobal('setting/ftp');
+	if(empty($ftpconfig['on']) || empty($ftpconfig['host'])) {
 		return $cmd == 'error' ? -101 : 0;
 	} elseif($ftp == null) {
 		$ftp = & discuz_ftp::instance();
