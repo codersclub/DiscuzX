@@ -408,6 +408,15 @@ if($method == 'show_license') {
 
 		$db->query("REPLACE INTO {$tablepre}common_member (uid, username, password, adminid, groupid, email, regdate) VALUES ('$uid', '$username', '$password', '1', '1', '$email', '".time()."');");
 
+		// UID 是变量, 不做适配会导致积分操作等异常
+		if($uid) {
+			$db->query("REPLACE INTO {$tablepre}common_member_count SET uid='$uid';");
+			$db->query("REPLACE INTO {$tablepre}common_member_status SET uid='$uid';");
+			$db->query("REPLACE INTO {$tablepre}common_member_field_forum SET uid='$uid';");
+			$db->query("REPLACE INTO {$tablepre}common_member_field_home SET uid='$uid';");
+			$db->query("REPLACE INTO {$tablepre}common_member_profile SET uid='$uid';");
+		}
+
 		$notifyusers = addslashes('a:1:{i:1;a:2:{s:8:"username";s:'.strlen($username).':"'.$username.'";s:5:"types";s:20:"11111111111111111111";}}');
 		$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('notifyusers', '$notifyusers')");
 
