@@ -28,6 +28,7 @@ if($_GET['uid'] && $_GET['id'] && $_GET['sign'] === make_getpws_sign($_GET['uid'
 	}
 
 	if(!submitcheck('getpwsubmit') || $_GET['newpasswd1'] != $_GET['newpasswd2']) {
+		$navtitle = lang('core', 'title_getpasswd');
 		$hashid = $_GET['id'];
 		$uid = $_GET['uid'];
 		include template('member/getpasswd');
