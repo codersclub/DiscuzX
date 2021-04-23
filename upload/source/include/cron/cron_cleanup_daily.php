@@ -39,6 +39,7 @@ C::t('forum_tradelog')->expiration_finished(7);
 
 if($_G['setting']['cachethreadon']) {
 	removedir($_G['setting']['cachethreaddir'], TRUE);
+	touch($_G['setting']['cachethreaddir'].'/index.htm');
 }
 removedir($_G['setting']['attachdir'].'image', TRUE);
 @touch($_G['setting']['attachdir'].'image/index.htm');
