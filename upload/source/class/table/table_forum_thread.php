@@ -446,6 +446,10 @@ class table_forum_thread extends discuz_table
 				LEFT JOIN '.DB::table('forum_forum').' f ON f.fid=t.fid '.$sql[0].' ORDER BY t.dateline DESC '.DB::limit($start, $limit), $sql[1]);
 	}
 
+	public function fetch_all_recyclebin_by_dateline($dateline, $start = 0, $limit = 0) {
+		return DB::fetch_all("SELECT tid FROM %t WHERE displayorder=-1 AND dateline<%d".DB::limit($start, $limit), array($this->_table, $dateline));
+	}
+
 	public function fetch_all_moderate($fid = 0, $displayorder = null, $isgroup = null, $dateline = null, $author = null, $subject = null) {
 		$parameter = $this->make_query_condition(null, $fid, $isgroup, $author, $subject, $displayorder, $dateline);
 		return DB::fetch_all('SELECT * FROM %t '.$parameter[0], $parameter[1], $this->_pk);
