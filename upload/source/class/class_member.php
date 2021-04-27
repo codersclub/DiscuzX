@@ -459,11 +459,19 @@ class register_ctl {
 		if(!$invitestatus) {
 			$invite = getinvite();
 		}
+		$paramexist = preg_match_all('/(\?|&(amp)?(;)?)(.+?)=([^&?]*)/i', $_SERVER['QUERY_STRING'], $parammatchs);
+		if($paramexist){
+			foreach($parammatchs[5] as $paramk => $paramv){
+				$param[$parammatchs[4][$paramk]] = $paramv;
+			}
+		}
+		$gethash = isset($_GET['hash']) ? $_GET['hash'] : $param['hash'];
+		$email = isset($_GET['email']) ? $_GET['email'] : $param['email'];
 		$sendurl = $this->setting['sendregisterurl'] ? true : false;
 		if($sendurl) {
-			if(!empty($_GET['hash'])) {
-				$_GET['hash'] = preg_replace("/[^\[A-Za-z0-9_\]%\s+-\/=]/", '', $_GET['hash']);
-				$hash = explode("\t", authcode($_GET['hash'], 'DECODE', $_G['config']['security']['authkey']));
+			if(!empty($gethash)) {
+				$gethash = preg_replace("/[^\[A-Za-z0-9_\]%\s+-\/=]/", '', $gethash);
+				$hash = explode("\t", authcode($gethash, 'DECODE', $_G['config']['security']['authkey']));
 				if(is_array($hash) && isemail($hash[0]) && TIMESTAMP - $hash[1] < 259200) {
 					$sendurl = false;
 				}
@@ -536,24 +544,25 @@ class register_ctl {
 				$sendurl = false;
 			}
 			if(!$activationauth) {
-				checkemail($_GET['email']);
+				$email = $email ? $email : $_GET['email'];
+				checkemail($email);
 			}
 			if($sendurl) {
 				$hashstr = urlencode(authcode("$_GET[email]\t$_G[timestamp]", 'ENCODE', $_G['config']['security']['authkey']));
-				$registerurl = $_G['setting']['securesiteurl']."member.php?mod=".$this->setting['regname']."&amp;hash={$hashstr}&amp;email={$_GET[email]}";
+				$registerurl = $_G['setting']['securesiteurl']."member.php?mod=".$this->setting['regname']."&amp;hash={$hashstr}&amp;email={$email}";
 				$email_register_message = lang('email', 'email_register_message', array(
 					'bbname' => $this->setting['bbname'],
 					'siteurl' => $_G['setting']['securesiteurl'],
 					'url' => $registerurl
 				));
-				if(!sendmail("$_GET[email] <$_GET[email]>", lang('email', 'email_register_subject'), $email_register_message)) {
-					runlog('sendmail', "$_GET[email] sendmail failed.");
+				if(!sendmail("$email <$email>", lang('email', 'email_register_subject'), $email_register_message)) {
+					runlog('sendmail', "$email sendmail failed.");
 				}
 				showmessage('register_email_send_succeed', dreferer(), array('bbname' => $this->setting['bbname']), array('showdialog' => false, 'msgtype' => 3, 'closetime' => 10));
 			}
 			$emailstatus = 0;
 			if($this->setting['sendregisterurl'] && !$sendurl) {
-				$_GET['email'] = strtolower($hash[0]);
+				$email = strtolower($hash[0]);
 				$this->setting['regverify'] = $this->setting['regverify'] == 1 ? 0 : $this->setting['regverify'];
 				if(!$this->setting['regverify']) {
 					$groupinfo['groupid'] = $this->setting['newusergroupid'];
@@ -613,7 +622,7 @@ class register_ctl {
 						showmessage(lang('member/template', 'password_weak').implode(',', $strongpw_str));
 					}
 				}
-				$email = strtolower(trim($_GET['email']));
+				$email = strtolower(trim($email));
 				if(empty($this->setting['ignorepassword'])) {
 					if($_GET['password'] !== $_GET['password2']) {
 						showmessage('profile_passwd_notmatch');
