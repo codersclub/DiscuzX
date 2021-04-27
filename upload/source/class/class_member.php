@@ -154,23 +154,12 @@ class logging_ctl {
 				}
 
 				if($_G['member']['adminid'] != 1) {
-					if($this->setting['accountguard']['loginoutofdate'] && $_G['member']['lastvisit'] && TIMESTAMP - $_G['member']['lastvisit'] > 90 * 86400) {
+					if($this->setting['accountguard']['loginoutofdate'] && $_G['member']['lastvisit'] && TIMESTAMP - $_G['member']['lastvisit'] > 90 * 86400 && $_G['member']['freeze'] != -1) {
 						C::t('common_member')->update($_G['uid'], array('freeze' => 2));
-						C::t('common_member_validate')->insert(array(
-							'uid' => $_G['uid'],
-							'submitdate' => TIMESTAMP,
-							'moddate' => 0,
-							'admin' => '',
-							'submittimes' => 1,
-							'status' => 0,
-							'message' => '',
-							'remark' => '',
-						), false, true);
-						manage_addnotify('verifyuser');
 						showmessage('location_login_outofdate', 'home.php?mod=spacecp&ac=profile&op=password&resend=1', array('type' => 1), array('showdialog' => true, 'striptags' => false, 'locationtime' => true));
 					}
 
-					if($this->setting['accountguard']['loginpwcheck'] && $pwold) {
+					if($this->setting['accountguard']['loginpwcheck'] && $pwold && $_G['member']['freeze'] == 0) {
 						$freeze = $pwold;
 						if($this->setting['accountguard']['loginpwcheck'] == 2 && $freeze) {
 							C::t('common_member')->update($_G['uid'], array('freeze' => 1));

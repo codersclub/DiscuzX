@@ -2827,8 +2827,10 @@ function showsearchform($operation = '') {
 		array(0, $lang['no']),
 	), 1), $_GET['status'], 'mradio');
 	showsetting('members_search_freezestatus', array('freeze', array(
-		array(1, $lang['yes']),
-		array(0, $lang['no']),
+		array(2, $lang['members_edit_freeze_email']),
+		array(-1, $lang['members_edit_freeze_admincp']),
+		array(1, $lang['members_edit_freeze_password']),
+		array(0, $lang['members_edit_freeze_false']),
 	), 1), $_GET['freeze'], 'mradio');
 	showsetting('members_search_emailstatus', array('emailstatus', array(
 		array(1, $lang['yes']),
