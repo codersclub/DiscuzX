@@ -154,23 +154,12 @@ class logging_ctl {
 				}
 
 				if($_G['member']['adminid'] != 1) {
-					if($this->setting['accountguard']['loginoutofdate'] && $_G['member']['lastvisit'] && TIMESTAMP - $_G['member']['lastvisit'] > 90 * 86400) {
+					if($this->setting['accountguard']['loginoutofdate'] && $_G['member']['lastvisit'] && TIMESTAMP - $_G['member']['lastvisit'] > 90 * 86400 && $_G['member']['freeze'] != -1) {
 						C::t('common_member')->update($_G['uid'], array('freeze' => 2));
-						C::t('common_member_validate')->insert(array(
-							'uid' => $_G['uid'],
-							'submitdate' => TIMESTAMP,
-							'moddate' => 0,
-							'admin' => '',
-							'submittimes' => 1,
-							'status' => 0,
-							'message' => '',
-							'remark' => '',
-						), false, true);
-						manage_addnotify('verifyuser');
 						showmessage('location_login_outofdate', 'home.php?mod=spacecp&ac=profile&op=password&resend=1', array('type' => 1), array('showdialog' => true, 'striptags' => false, 'locationtime' => true));
 					}
 
-					if($this->setting['accountguard']['loginpwcheck'] && $pwold) {
+					if($this->setting['accountguard']['loginpwcheck'] && $pwold && $_G['member']['freeze'] == 0) {
 						$freeze = $pwold;
 						if($this->setting['accountguard']['loginpwcheck'] == 2 && $freeze) {
 							C::t('common_member')->update($_G['uid'], array('freeze' => 1));
@@ -456,11 +445,19 @@ class register_ctl {
 		if(!$invitestatus) {
 			$invite = getinvite();
 		}
+		$paramexist = preg_match_all('/(\?|&(amp)?(;)?)(.+?)=([^&?]*)/i', $_SERVER['QUERY_STRING'], $parammatchs);
+		if($paramexist){
+			foreach($parammatchs[5] as $paramk => $paramv){
+				$param[$parammatchs[4][$paramk]] = $paramv;
+			}
+		}
+		$gethash = isset($_GET['hash']) ? $_GET['hash'] : $param['hash'];
+		$email = isset($_GET['email']) ? $_GET['email'] : $param['email'];
 		$sendurl = $this->setting['sendregisterurl'] ? true : false;
 		if($sendurl) {
-			if(!empty($_GET['hash'])) {
-				$_GET['hash'] = preg_replace("/[^\[A-Za-z0-9_\]%\s+-\/=]/", '', $_GET['hash']);
-				$hash = explode("\t", authcode($_GET['hash'], 'DECODE', $_G['config']['security']['authkey']));
+			if(!empty($gethash)) {
+				$gethash = preg_replace("/[^\[A-Za-z0-9_\]%\s+-\/=]/", '', $gethash);
+				$hash = explode("\t", authcode($gethash, 'DECODE', $_G['config']['security']['authkey']));
 				if(is_array($hash) && isemail($hash[0]) && TIMESTAMP - $hash[1] < 259200) {
 					$sendurl = false;
 				}
@@ -533,7 +530,8 @@ class register_ctl {
 				$sendurl = false;
 			}
 			if(!$activationauth) {
-				checkemail($_GET['email']);
+				$email = $email ? $email : $_GET['email'];
+				checkemail($email);
 			}
 			if($sendurl) {
 				$hashstr = urlencode(authcode("{$_GET['email']}\t{$_G['timestamp']}", 'ENCODE', $_G['config']['security']['authkey']));
@@ -553,7 +551,7 @@ class register_ctl {
 			}
 			$emailstatus = 0;
 			if($this->setting['sendregisterurl'] && !$sendurl) {
-				$_GET['email'] = strtolower($hash[0]);
+				$email = strtolower($hash[0]);
 				$this->setting['regverify'] = $this->setting['regverify'] == 1 ? 0 : $this->setting['regverify'];
 				if(!$this->setting['regverify']) {
 					$groupinfo['groupid'] = $this->setting['newusergroupid'];
@@ -613,7 +611,7 @@ class register_ctl {
 						showmessage(lang('member/template', 'password_weak').implode(',', $strongpw_str));
 					}
 				}
-				$email = strtolower(trim($_GET['email']));
+				$email = strtolower(trim($email));
 				if(empty($this->setting['ignorepassword'])) {
 					if($_GET['password'] !== $_GET['password2']) {
 						showmessage('profile_passwd_notmatch');

@@ -13,22 +13,33 @@ if(!defined('IN_DISCUZ')) {
 
 define('NOROBOT', TRUE);
 
-if($_GET['uid'] && $_GET['id'] && $_GET['sign'] === make_getpws_sign($_GET['uid'], $_GET['id'])) {
+$paramexist = preg_match_all('/(\?|&(amp)?(;)?)(.+?)=([^&?]*)/i', $_SERVER['QUERY_STRING'], $parammatchs);
+if($paramexist){
+	foreach($parammatchs[5] as $paramk => $paramv){
+		$param[$parammatchs[4][$paramk]] = $paramv;
+	}
+}
+$uid = isset($_GET['uid']) ? $_GET['uid'] : $param['uid'];
+$id = isset($_GET['id']) ? $_GET['id'] : $param['id'];
+$sign = isset($_GET['sign']) ? $_GET['sign'] : $param['sign'];
+
+if($uid && $id && $sign === make_getpws_sign($uid, $id)) {
 
 	$discuz_action = 141;
 
 
-	$member = getuserbyuid($_GET['uid'], 1);
+	$member = getuserbyuid($uid, 1);
 	$table_ext = isset($member['_inarchive']) ? '_archive' : '';
-	$member = array_merge(C::t('common_member_field_forum'.$table_ext)->fetch($_GET['uid']), $member);
+	$member = array_merge(C::t('common_member_field_forum'.$table_ext)->fetch($uid), $member);
 	list($dateline, $operation, $idstring) = explode("\t", $member['authstr']);
 
-	if($dateline < TIMESTAMP - 86400 * 3 || $operation != 1 || $idstring != $_GET['id']) {
+	if($dateline < TIMESTAMP - 86400 * 3 || $operation != 1 || $idstring != $id) {
 		showmessage('getpasswd_illegal', NULL);
 	}
 
 	if(!submitcheck('getpwsubmit') || $_GET['newpasswd1'] != $_GET['newpasswd2']) {
-		$hashid = $_GET['id'];
+		$navtitle = lang('core', 'title_getpasswd');
+		$hashid = $id;
 		$uid = $_GET['uid'];
 		include template('member/getpasswd');
 	} else {
@@ -65,8 +76,8 @@ if($_GET['uid'] && $_GET['id'] && $_GET['sign'] === make_getpws_sign($_GET['uid'
 		if(isset($member['_inarchive'])) {
 			C::t('common_member_archive')->move_to_master($member['uid']);
 		}
-		C::t('common_member')->update($_GET['uid'], array('password' => $password));
-		C::t('common_member_field_forum')->update($_GET['uid'], array('authstr' => ''));
+		C::t('common_member')->update($uid, array('password' => $password));
+		C::t('common_member_field_forum')->update($uid, array('authstr' => ''));
 		showmessage('getpasswd_succeed', 'index.php', array(), array('login' => 1));
 	}
 

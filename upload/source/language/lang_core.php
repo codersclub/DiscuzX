@@ -168,6 +168,7 @@ $lang = array
 	'title_memcp_promotion' => '访问推广',
 	'title_task' => '任务',
 	'title_login' => '登录',
+	'title_getpasswd' => '找回密码',
 	'title_ranklist_picture' => '图片排行',
 	'title_ranklist_member' => '用户排行',
 	'title_ranklist_thread' => '帖子排行',

@@ -59,7 +59,8 @@ if($operation == 'app') {
 		$_G['setting']['domain']['app'] = array();
 		$appset = false;
 		foreach($_GET['appnew'] as $appkey => $domain) {
-			if(preg_match('/^((http|https|ftp):\/\/|\.)|(\/|\.)$/i', $domain)) {
+			$domain = strtolower($domain);
+			if(!empty($domain) && !preg_match('/^((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$/', $domain)) {
 				cpmsg('setting_domain_http_error', '', 'error');
 			}
 			if(!empty($domain) && in_array($domain, $_G['setting']['domain']['app'])) {
@@ -119,7 +120,8 @@ if($operation == 'app') {
 		$oldroot = $_G['setting']['domain']['root'];
 		$_G['setting']['domain']['root'] = array();
 		foreach($_GET['domainnew'] as $idtype => $domain) {
-			if(preg_match('/^((http|https|ftp):\/\/|\.)|(\/|\.)$/i', $domain)) {
+			$domain = strtolower($domain);
+			if(!empty($domain) && !preg_match('/^((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$/', $domain)) {
 				cpmsg('setting_domain_http_error', '', 'error');
 			}
 			if($_G['setting']['domain']['root'][$idtype] != $domain) {

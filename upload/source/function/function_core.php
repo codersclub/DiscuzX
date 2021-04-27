@@ -1077,7 +1077,7 @@ function output() {
 	}
 	$_G['setting']['ftp'] = array();
 
-	if(defined('CACHE_FILE') && CACHE_FILE && !defined('CACHE_FORBIDDEN') && !defined('IN_MOBILE') && !checkmobile()) {
+	if(defined('CACHE_FILE') && CACHE_FILE && !defined('CACHE_FORBIDDEN') && !defined('IN_MOBILE') && !defined('IS_ROBOT') && !checkmobile()) {
 		if(diskfreespace(DISCUZ_ROOT.'./'.$_G['setting']['cachethreaddir']) > 1000000) {
 			if($fp = @fopen(CACHE_FILE, 'w')) {
 				flock($fp, LOCK_EX);
@@ -1564,8 +1564,8 @@ function dreferer($default = '') {
 
 function ftpcmd($cmd, $arg1 = '') {
 	static $ftp;
-	$ftpon = getglobal('setting/ftp/on');
-	if(!$ftpon) {
+	$ftpconfig = getglobal('setting/ftp');
+	if(empty($ftpconfig['on']) || empty($ftpconfig['host'])) {
 		return $cmd == 'error' ? -101 : 0;
 	} elseif($ftp == null) {
 		$ftp = & discuz_ftp::instance();

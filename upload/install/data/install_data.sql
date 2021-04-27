@@ -61,21 +61,6 @@ INSERT INTO pre_common_cron VALUES ('20','1','system','更新版块最后发表(
 INSERT INTO pre_common_friendlink VALUES ('1','0','官方论坛','https://www.discuz.net','提供最新 Discuz! 产品新闻、软件下载与技术交流','static/image/common/logo_88_31.gif','2');
 INSERT INTO pre_common_friendlink VALUES ('2','4','应用商店','https://addon.dismall.com/','','','2');
 
-
-
-
-INSERT INTO pre_common_member_count SET uid='1';
-
-INSERT INTO pre_common_member_status SET uid='1';
-
-INSERT INTO pre_common_member_field_forum SET uid='1';
-
-
-INSERT INTO pre_common_member_field_home SET uid='1';
-
-
-INSERT INTO pre_common_member_profile SET uid='1';
-
 INSERT INTO pre_common_member_profile_setting VALUES('realname', 1, 0, 0, '真实姓名', '', 0, 0, 0, 0, 0, 0, 1, 'text', 0, '', '');
 INSERT INTO pre_common_member_profile_setting VALUES('gender', 1, 0, 0, '性别', '', 0, 0, 0, 0, 0, 0, 1, 'select', 0, '', '');
 INSERT INTO pre_common_member_profile_setting VALUES('birthyear', 1, 0, 0, '出生年份', '', 0, 0, 0, 0, 0, 0, 1, 'select', 0, '', '');

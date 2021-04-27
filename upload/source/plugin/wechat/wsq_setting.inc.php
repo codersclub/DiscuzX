@@ -168,7 +168,10 @@ if(!submitcheck('settingsubmit')) {
 	}
 
 	if(function_exists('domain_create')) {
-		if(preg_match('/^((http|https|ftp):\/\/|\.)|(\/|\.)$/i', $_GET['setting']['wsq_domain'])) {
+		if(isset($_GET['setting']['wsq_domain'])) {
+			$_GET['setting']['wsq_domain'] = strtolower($_GET['setting']['wsq_domain']);
+		}
+		if(!empty($_GET['setting']['wsq_domain']) && !preg_match('/^((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$/', $_GET['setting']['wsq_domain'])) {
 			cpmsg('setting_domain_http_error', '', 'error');
 		}
 	}

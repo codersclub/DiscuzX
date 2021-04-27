@@ -16,7 +16,7 @@ require_once libfile('function/forumlist');
 $gid = intval(getgpc('gid'));
 $showoldetails = get_index_online_details();
 
-if(!$_G['uid'] && !$gid && $_G['setting']['cacheindexlife'] && !defined('IN_ARCHIVER') && !defined('IN_MOBILE')) {
+if(!$_G['uid'] && !$gid && $_G['setting']['cacheindexlife'] && !defined('IN_ARCHIVER') && !defined('IN_MOBILE') && !defined('IS_ROBOT')) {
 	get_index_page_guest_cache();
 }
 
@@ -128,7 +128,7 @@ if(!$gid && $_G['setting']['collectionstatus'] && ($_G['setting']['collectionrec
 
 }
 
-if(empty($gid) && empty($_G['member']['accessmasks']) && empty($showoldetails)) {
+if(empty($gid) && empty($_G['member']['accessmasks']) && empty($showoldetails) && !defined('IS_ROBOT')) {
 	extract(get_index_memory_by_groupid($_G['member']['groupid']));
 	if(defined('FORUM_INDEX_PAGE_MEMORY') && FORUM_INDEX_PAGE_MEMORY) {
 		categorycollapse();
