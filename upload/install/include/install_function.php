@@ -792,7 +792,11 @@ ajax.get = function (url, callback) {
 };
 
 function request_do_db_init() {
-    ajax.get('index.php?<?= http_build_query(array('method'=>'do_db_init','allinfo'=>$allinfo)) ?>', function() {
+    ajax.get('index.php?<?= http_build_query(array('method'=>'do_db_init','allinfo'=>$allinfo)) ?>', function(callback) {
+            if(callback.indexOf('<?= lang("initdbresult_succ") ?>') !== -1) {
+                append_notice(callback);
+                return;
+            }
             append_notice("<?= lang('initsys') ?> ... ");
 
             ajax.get("../misc.php?mod=initsys", function() {
