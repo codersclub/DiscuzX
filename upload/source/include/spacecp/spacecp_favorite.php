@@ -41,10 +41,28 @@ if($_GET['op'] == 'delete') {
 
 		if(submitcheck('deletesubmit')) {
 			switch($thevalue['idtype']) {
+				case 'tid':
+					C::t('forum_thread')->increase($thevalue['id'], array('favtimes'=>-1));
+					require_once libfile('function/forum');
+					update_threadpartake($thevalue['id']);
+					break;
 				case 'fid':
 					C::t('forum_forum')->update_forum_counter($thevalue['id'], 0, 0, 0, 0, -1);
 					break;
-				default:
+				case 'blogid':
+					C::t('home_blog')->increase($thevalue['id'], 0, array('favtimes' => -1));
+					break;
+				case 'gid':
+					C::t('forum_forum')->update_forum_counter($thevalue['id'], 0, 0, 0, 0, -1);
+					break;
+				case 'albumid':
+					C::t('home_album')->update_num_by_albumid($thevalue['id'], -1, 'favtimes', 0);
+					break;
+				case 'uid':
+					C::t('common_member_status')->increase($thevalue['id'], array('favtimes' => -1));
+					break;
+				case 'aid':
+					C::t('portal_article_count')->increase($thevalue['id'], array('favtimes' => -1));
 					break;
 			}
 			C::t('home_favorite')->delete($favid);
