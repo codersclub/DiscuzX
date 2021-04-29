@@ -11,7 +11,7 @@
 			<item id="datatables"><![CDATA[]]></item>
 			<item id="directory"><![CDATA[qqconnect/]]></item>
 			<item id="copyright"><![CDATA[Comsenz Inc.]]></item>
-			<item id="version"><![CDATA[2.1.3]]></item>
+			<item id="version"><![CDATA[2.1.4]]></item>
 			<item id="__modules">
 				<item id="0">
 					<item id="name"><![CDATA[connect]]></item>
@@ -256,7 +256,8 @@
 				<item id="connect_config_desc_title1"><![CDATA[用QQ帐号轻松登录]]></item>
 				<item id="connect_config_desc_content1"><![CDATA[无需记住本站的帐号和密码，随时使用QQ帐号密码轻松登录]]></item>
 				<item id="connect_config_newpassword_comment"><![CDATA[您目前使用的是QQ帐号绑定本站，您可以在这里设置独立密码，只有设置了独立密码后本站需要填写密码的相应功能才可使用]]></item>
-				<item id="connect_config_desc_content3"><![CDATA[每一个精彩内容绝不放过，简单快捷的将论坛主题分享给好友和听众]]></item>
+				<item id="connect_config_desc_title2"><![CDATA[把本站精彩内容分享到QQ空间和腾讯朋友]]></item>
+				<item id="connect_config_desc_content2"><![CDATA[每一个精彩内容绝不放过，简单快捷的将论坛主题分享给好友和听众]]></item>
 				<item id="connect_config_profile"><![CDATA[个人资料]]></item>
 				<item id="connect_config_link_name"><![CDATA[QQ绑定设置]]></item>
 				<item id="connect_config_default_pulish_feed_title"><![CDATA[发表主题时默认发送动态到QQ空间]]></item>
