@@ -25,17 +25,15 @@
 			$value[body_template]
 		</div>
 		<!--{if $value['type'] == 'video'}-->
-			<!--{if !empty($value['body_data']['imgurl'])}-->
-			<table class="mtm" title="{lang click_play}" onclick="javascript:showFlash('{$value['body_data']['host']}', '{$value['body_data']['flashvar']}', this, '{$value['sid']}');"><tr><td class="vdtn hm" style="background: url($value['body_data']['imgurl']) no-repeat">
-				<img src="{IMGDIR}/vds.png" alt="{lang click_play}" />
-			</td></tr></table>
-			<!--{else}-->
-			<img src="{IMGDIR}/vd.gif" alt="{lang click_play}" onclick="javascript:showFlash('{$value['body_data']['host']}', '{$value['body_data']['flashvar']}', this, '{$value['sid']}');" class="tn" />
+			<!--{if !empty($value['body_data']['player'])}-->
+			{$value['body_data']['player']}
 			<!--{/if}-->
 		<!--{elseif $value['type'] == 'music'}-->
 			<img src="{IMGDIR}/music.gif" alt="{lang click_play}" onclick="javascript:showFlash('music', '{$value['body_data']['musicvar']}', this, '{$value['sid']}');" class="tn" />
 		<!--{elseif $value['type'] == 'flash'}-->
-			<img src="{IMGDIR}/flash.gif" alt="{lang click_view}" onclick="javascript:showFlash('flash', '{$value['body_data']['flashaddr']}', this, '{$value['sid']}');" class="tn" />
+			<!--{if !empty($value['body_data']['player'])}-->
+			{$value['body_data']['player']}
+			<!--{/if}-->
 		<!--{/if}-->
 		<!--{if $value[body_general]}-->
 		<div class="quote{if $value['image']} z{/if}"><blockquote id="quote_{$id}">$value[body_general]</blockquote></div>
