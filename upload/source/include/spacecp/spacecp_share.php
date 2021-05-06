@@ -333,6 +333,11 @@ if($_GET['op'] == 'delete') {
 				$arr['body_data']['flashaddr'] = $link;
 				$type = 'flash';
 			}
+			if(preg_match("/\.(mp4|m4v|3gp|ogv|webm)$/i", $link)) {
+				$arr['title_template'] = lang('spacecp', 'share_video');
+				$arr['body_data']['videovar'] = $link;
+				$type = 'video';
+			}
 		}
 
 		if($_GET['iscomment'] && $_POST['general'] && $commentcable[$type] && $id) {
