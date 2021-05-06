@@ -69,6 +69,7 @@ function feed_add($icon, $title_template='', $title_data=array(), $body_template
 
 function mkfeed($feed, $actors=array()) {
 	global $_G;
+	require_once libfile('function/discuzcode');
 	$feed['title_data'] = empty($feed['title_data'])?array():(is_array($feed['title_data'])?$feed['title_data']:@dunserialize($feed['title_data']));
 	if(!is_array($feed['title_data'])) $feed['title_data'] = array();
 
