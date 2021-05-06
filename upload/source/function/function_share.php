@@ -32,6 +32,9 @@ function mkshare($share) {
 		if($share['body_data']['musicvar']){
 			$share['body_data']['player'] = parseaudio($share['body_data']['data']);
 		}
+		if($share['body_data']['videovar']){
+			$share['body_data']['player'] = parsemedia('x,500,373',$share['body_data']['data']);
+		}
 	}
 	$share['body_template'] = str_replace($searchs, $replaces, $share['body_template']);
 

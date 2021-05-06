@@ -96,7 +96,17 @@ function mkfeed($feed, $actors=array()) {
 			$replaces[] = $feed['body_data'][$key];
 		}
 	}
-
+	
+	if($feed['body_data']['flashvar']){
+		$feed['body_data']['player'] = parseflv($feed['body_data']['data'], '500', '373');
+	}
+	if($feed['body_data']['musicvar']){
+		$feed['body_data']['player'] = parseaudio($feed['body_data']['data']);
+	}
+	if($feed['body_data']['videovar']){
+		$feed['body_data']['player'] = parsemedia('x,500,373', $feed['body_data']['data']);
+	}
+	
 	$feed['magic_class'] = '';
 	if(!empty($feed['body_data']['magic_thunder'])) {
 		$feed['magic_class'] = 'magicthunder';
