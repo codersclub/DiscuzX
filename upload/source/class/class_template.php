@@ -411,7 +411,7 @@ class template {
 	}
 
 	function looptags($param1, $param2, $param3 = '') {
-		if(preg_match("/\<\?\=\\\$.+?\?\>/s", $param1)) {
+		if(preg_match("/^\<\?\=\\\$.+?\?\>$/s", $param1)) {
 			$exprtemp = $param1;
 			$return = '<? if(isset('.$param1.') && is_array('.$param1.')) ';
 		} else {
