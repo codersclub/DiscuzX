@@ -44,18 +44,8 @@
 			</div>
 			<!--{/if}-->
 
-			<!--{if !empty($value['body_data']['flashvar'])}-->
-				<!--{if !empty($value['body_data']['imgurl'])}-->
-				<table class="mtm" title="{lang click_play}" onclick="javascript:showFlash('{$value['body_data']['host']}', '{$value['body_data']['flashvar']}', this, '{$value['feedid']}');"><tr><td class="vdtn hm" style="background: url($value['body_data']['imgurl']) no-repeat">
-					<img src="{IMGDIR}/vds.png" alt="{lang click_play}" />
-				</td></tr></table>
-				<!--{else}-->
-				<img src="{IMGDIR}/vd.gif" alt="{lang click_play}" onclick="javascript:showFlash('{$value['body_data']['host']}', '{$value['body_data']['flashvar']}', this, '{$value['feedid']}');" class="tn" />
-				<!--{/if}-->
-			<!--{elseif !empty($value['body_data']['musicvar'])}-->
-			<img src="{IMGDIR}/music.gif" alt="{lang click_play}" onclick="javascript:showFlash('music', '{$value['body_data']['musicvar']}', this, '{$value['feedid']}');" class="tn" />
-			<!--{elseif !empty($value['body_data']['flashaddr'])}-->
-			<img src="{IMGDIR}/flash.gif" alt="{lang click_view}" onclick="javascript:showFlash('flash', '{$value['body_data']['flashaddr']}', this, '{$value['feedid']}');" class="tn" />
+			<!--{if !empty($value['body_data']['player'])}-->
+			{$value['body_data']['player']}
 			<!--{/if}-->
 
 			<!--{if $user_list[$value['hash_data']]}-->
