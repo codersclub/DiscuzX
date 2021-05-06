@@ -29,7 +29,9 @@
 			{$value['body_data']['player']}
 			<!--{/if}-->
 		<!--{elseif $value['type'] == 'music'}-->
-			<img src="{IMGDIR}/music.gif" alt="{lang click_play}" onclick="javascript:showFlash('music', '{$value['body_data']['musicvar']}', this, '{$value['sid']}');" class="tn" />
+			<!--{if !empty($value['body_data']['player'])}-->
+			{$value['body_data']['player']}
+			<!--{/if}-->
 		<!--{elseif $value['type'] == 'flash'}-->
 			<!--{if !empty($value['body_data']['player'])}-->
 			{$value['body_data']['player']}

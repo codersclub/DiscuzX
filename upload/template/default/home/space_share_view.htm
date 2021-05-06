@@ -32,9 +32,7 @@
 				<!--{if 'video' == $share['type']}-->
 				{$share['body_data']['player']}
 				<!--{elseif 'music' == $share['type']}-->
-				<div class="tn" id="flash_div_$share[sid]">
-					<script>showFlash('music', '{$share['body_data']['musicvar']}', '', '{$share['sid']}');</script>
-				</div>
+				{$share['body_data']['player']}
 				<!--{elseif 'flash' == $share['type']}-->
 				<div class="tn" id="flash_div_$share[sid]">
 					<script>showFlash('flash', '{$share['body_data']['flashaddr']}', '', '{$share['sid']}');</script>
