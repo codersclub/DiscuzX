@@ -29,6 +29,9 @@ function mkshare($share) {
 		if($share['body_data']['flashvar']){
 			$share['body_data']['player'] = parseflv($share['body_data']['data'], '500', '373');
 		}
+		if($share['body_data']['musicvar']){
+			$share['body_data']['player'] = parseaudio($share['body_data']['data']);
+		}
 	}
 	$share['body_template'] = str_replace($searchs, $replaces, $share['body_template']);
 
