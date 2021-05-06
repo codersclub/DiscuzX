@@ -24,6 +24,10 @@ $navtitle = $_G['lang']['misc_mobile_title'];
 if($_GET['view'] == true) {
 	include libfile('function/forumlist');
 	loadcache('userstats');
+	loadcache('historyposts');
+	$postdata = $_G['cache']['historyposts'] ? explode("\t", $_G['cache']['historyposts']) : array(0,0);
+	$postdata[0] = intval($postdata[0]);
+	$postdata[1] = intval($postdata[1]);
 
 	$query = C::t('forum_forum')->fetch_all_forum(1);
 	foreach($query as $forum) {
@@ -51,8 +55,11 @@ if($_GET['view'] == true) {
 			$catlist[$forum['fid']] = $forum;
 		}
 	}
+	$_GET['forumlist'] = 1;
+	define('IN_MOBILE',2);
+	define('IN_PREVIEW',1);
 	ob_start();
-	include template('mobile/forum/discuz');
+	include template('forum/discuz');
 } else {
 	if($_G['setting']['domain']['app']['mobile']) {
 		$url = $_G['scheme'].'://'.$_G['setting']['domain']['app']['mobile'];
@@ -75,17 +82,14 @@ function output_preview() {
 	$content = ob_get_contents();
 	ob_end_clean();
 	ob_start();
-	$content = preg_replace_callback("/\<a href=\"(.*?)\"[\s]?\>(.*?)\<\/a\>/", 'output_preview_callback_replace_href_21', $content);
+	$content = preg_replace_callback("/(\<a[^\>]+href=\").*?(\"[^\>]*\>)/", 'output_preview_callback_replace_href_21', $content);
+	$content = preg_replace("/\<script.+?\<\/script\>/", '', $content);
 	echo $content;
 	exit;
 }
 
 function output_preview_callback_replace_href_21($matches) {
-	return replace_href($matches[2]);
+	return $matches[1].'#'.$matches[2];;
 }
 
-function replace_href($html_str) {
-	$string = "<span class='lkcss'>".stripslashes($html_str)."</span>";
-	return $string;
-}
 ?>
