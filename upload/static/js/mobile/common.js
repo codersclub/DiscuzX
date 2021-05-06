@@ -816,8 +816,10 @@ var pullrefresh = {
 					return;
 				}
 			}
-			divobj.remove();
-			divobj = null;
+			if(divobj) {
+				divobj.remove();
+				divobj = null;
+			}
 			status = false;
 			pos = {};
 		});
