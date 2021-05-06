@@ -812,14 +812,14 @@ a.thread_mod { background: url({IMGDIR}/bigimg.png) no-repeat 0 -38px; padding-l
 .tl tbody:last-child th, .tl tbody:last-child td { border-bottom: none; }
 .tl tbody:last-child .threadpre .threadpretd { border: 1px solid {CONTENTSEPARATE};}
 /*
-	Name:			showhide
+	Name:			closeprev
 	Level:			Function
 	Explain:		帖子列表页隐藏置顶帖的按钮样式
 	Last Modify:	Jane
 */
-.showhide { width: 12px; height: 12px; background: url({IMGDIR}/close.gif) no-repeat 0 0; text-indent: -999em; cursor: pointer; overflow: hidden; margin: 5px 5px 0px 5px; }
-.showhide:hover { background-position: 0 -12px; }
-.ie6 .showhide { display: none; }
+.closeprev { width: 12px; height: 12px; background: url({IMGDIR}/close.gif) no-repeat 0 0; text-indent: -999em; cursor: pointer; overflow: hidden; margin: 5px 5px 0px 5px; }
+.closeprev:hover { background-position: 0 -12px; }
+.ie6 .closeprev { display: none; }
 .pcb .jammer { font-size: 10px; color: {WRAPBG}; }
 /* 屏蔽提示 */
 #hiddenthread { border-top: 1px solid #C2D5E3; border-bottom: 1px solid #C2D5E3; line-height:40px;padding-left:20px;background: #FFFAF3; font-size: 12px; text-align: center; }
