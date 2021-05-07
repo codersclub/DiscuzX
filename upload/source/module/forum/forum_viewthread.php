@@ -1085,7 +1085,6 @@ function viewthread_procpost($post, $lastvisit, $ordertype, $maxposition = 0) {
 				$post['number'] = ++$_G['forum_numpost'];
 			} else {
 				$post['number'] = $post['first'] == 1 ? 1 : --$_G['forum_numpost'];
-				$post['number'] = $post['number'] - 1;
 			}
 		}
 	}
