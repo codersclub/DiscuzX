@@ -393,16 +393,12 @@ function getblockhtml($blockname,$parameters = array()) {
 			$view = 'me';
 			$from = 'space';
 			if ($_G['setting']['allowviewuserthread'] !== -1) {
-				$fidsql = empty($_G['setting']['allowviewuserthread']) ? '' : " AND fid IN({$_G[setting][allowviewuserthread]}) ";
 				$viewfids = str_replace("'", '', $_G['setting']['allowviewuserthread']);
 				if(!empty($viewfids)) {
 					$viewfids = explode(',', $viewfids);
 				}
 
-				foreach(C::t('forum_thread')->fetch_all_by_authorid_displayorder($uid, 0, '>=', null, '', 0, $shownum) as $thread) {
-					if(!empty($viewfids) && $_G['adminid'] != 1 && !in_array($thread['fid'], $viewfids)) {
-						continue;
-					}
+				foreach(C::t('forum_thread')->fetch_all_by_authorid_displayorder($uid, 0, '>=', null, '', 0, $shownum, null, $viewfids ? $viewfids : null) as $thread) {
 					if($thread['author']) {
 						$html .= "<li><a href=\"forum.php?mod=viewthread&tid={$thread['tid']}\" target=\"_blank\">{$thread['subject']}</a></li>";
 					}
