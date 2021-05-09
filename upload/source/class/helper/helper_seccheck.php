@@ -318,7 +318,7 @@ class helper_seccheck {
 		$seccheckrule = & $_G['setting']['seccodedata']['rule']['password'];
 		return array(
 			$seccheckrule['allow'] && (!$_G['setting']['seccodedata']['minposts'] || getuserprofile('posts') < $_G['setting']['seccodedata']['minposts']),
-			$_G['setting']['secqaa']['status'] & 4 && (!$_G['setting']['seccodedata']['minposts'] || getuserprofile('posts') < $_G['setting']['seccodedata']['minposts'])
+			$_G['setting']['secqaa']['status'] & 4 && (!$_G['setting']['secqaa']['minposts'] || getuserprofile('posts') < $_G['setting']['secqaa']['minposts'])
 		);
 	}
 
