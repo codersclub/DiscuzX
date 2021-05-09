@@ -635,7 +635,7 @@ function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {
 function generate_key() {
 	$random = random(32);
 	$info = md5($_SERVER['SERVER_SOFTWARE'].$_SERVER['SERVER_NAME'].$_SERVER['SERVER_ADDR'].$_SERVER['SERVER_PORT'].$_SERVER['HTTP_USER_AGENT'].time());
-	$return = '';
+	$return = array();
 	for($i=0; $i<64; $i++) {
 		$p = intval($i/2);
 		$return[$i] = $i % 2 ? $random[$p] : $info[$p];
