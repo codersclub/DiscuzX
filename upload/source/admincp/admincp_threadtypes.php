@@ -464,6 +464,22 @@ EOT;
 			'permprompt' => $_GET['permpromptnew'],
 		));
 
+		if($_GET['identifiernew'] != $option['identifier'] && $_GET['typenew'] == $option['type']){
+			if(in_array($_GET['typenew'], array('radio'))) {
+				$type_tableoption_sql = "smallint(6) UNSIGNED NOT NULL DEFAULT '0'";
+			} elseif(in_array($_GET['typenew'], array('number', 'range'))) {
+				$type_tableoption_sql = "int(10) UNSIGNED NOT NULL DEFAULT '0'";
+			} elseif($_GET['typenew'] == 'select') {
+				$type_tableoption_sql = "varchar(50) NOT NULL";
+			} else {
+				$type_tableoption_sql = "mediumtext NOT NULL";
+			}
+			$typevar_list = DB::fetch_all('SELECT sortid FROM %t WHERE optionid=%d', array('forum_typevar', $_GET['optionid']));
+			foreach($typevar_list as $typevar) {
+				C::t('forum_optionvalue')->alter($typevar['sortid'], "change ".$option['identifier']." ".$_GET['identifiernew']." ".$type_tableoption_sql);
+			}
+		}
+		
 		updatecache('threadsorts');
 		cpmsg('threadtype_infotypes_option_succeed', 'action=threadtypes&operation=typeoption&classid='.$option['classid'], 'succeed');
 	}
