@@ -70,7 +70,7 @@ function profile_setting($fieldid, $space=array(), $showstatus=false, $ignoreunc
 			$days = 31;
 		} elseif(in_array($space['birthmonth'], array(4, 6, 9, 11))) {
 			$days = 30;
-		} elseif($space['birthyear'] && (($space['birthyear'] % 400 == 0) || ($space['birthyear'] % 4 == 0 && $space['birthyear'] % 400 != 0))) {
+		} elseif($space['birthyear'] && (($space['birthyear'] % 400 == 0) || ($space['birthyear'] % 4 == 0 && $space['birthyear'] % 100 != 0))) {
 			$days = 29;
 		} else {
 			$days = 28;
