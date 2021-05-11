@@ -428,7 +428,7 @@ if($method == 'show_license') {
 
 	$password = md5(random(10));
 
-	$db->query("REPLACE INTO {$tablepre}common_member (uid, username, password, adminid, groupid, email, regdate) VALUES ('$uid', '$username', '$password', '1', '1', '$email', '".time()."');");
+	$db->query("REPLACE INTO {$tablepre}common_member (uid, username, password, adminid, groupid, email, regdate, timeoffset) VALUES ('$uid', '$username', '$password', '1', '1', '$email', '".time()."', '9999');");
 
 	// UID 是变量, 不做适配会导致积分操作等异常
 	if($uid) {

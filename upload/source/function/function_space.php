@@ -281,10 +281,8 @@ function getblockhtml($blockname,$parameters = array()) {
 						$data_blogfield = C::t('home_blogfield')->fetch_all($bids);
 					}
 					foreach($data_blog as $curblogid => $value) {
+						$value = array_merge($value, (array)$data_blogfield[$curblogid]);
 						if(ckfriend($value['uid'], $value['friend'], $value['target_ids'])) {
-							if($parameters['showmessage'] > 0) {
-								$value = array_merge($value, (array)$data_blogfield[$curblogid]);
-							}
 							if($value['pic']) $value['pic'] = pic_cover_get($value['pic'], $value['picflag']);
 							$value['message'] = $value['friend'] == 4 ? '' : getstr($value['message'], $parameters['showmessage'], 0, 0, 0, -1);
 							$html .= lang('space', 'blog_li', array(
@@ -322,8 +320,8 @@ function getblockhtml($blockname,$parameters = array()) {
 			$blogids = array_keys($data_blog);
 			$data_blogfield = C::t('home_blogfield')->fetch_all($blogids);
 			foreach($data_blog as $curblogid => $value) {
+				$value = array_merge($value, (array)$data_blogfield[$curblogid]);
 				if(ckfriend($value['uid'], $value['friend'], $value['target_ids'])) {
-					$value = array_merge($value, (array)$data_blogfield[$curblogid]);
 					if($value['pic']) $value['pic'] = pic_cover_get($value['pic'], $value['picflag']);
 					$value['message'] = $value['friend'] == 4 ? '' : getstr($value['message'], $parameters['showmessage'], 0, 0, 0, -1);
 					$html .= lang('space', 'blog_li', array(
@@ -411,10 +409,7 @@ function getblockhtml($blockname,$parameters = array()) {
 					$viewfids = explode(',', $viewfids);
 				}
 
-				foreach(C::t('forum_thread')->fetch_all_by_authorid_displayorder($uid, 0, '>=', null, '', 0, $shownum) as $thread) {
-					if(!empty($viewfids) && $_G['adminid'] != 1 && !in_array($thread['fid'], $viewfids)) {
-						continue;
-					}
+				foreach(C::t('forum_thread')->fetch_all_by_authorid_displayorder($uid, 0, '>=', null, '', 0, $shownum, null, $viewfids ? $viewfids : null) as $thread) {
 					if($thread['author']) {
 						$html .= "<li><a href=\"forum.php?mod=viewthread&tid={$thread['tid']}\" target=\"_blank\">{$thread['subject']}</a></li>";
 					}
