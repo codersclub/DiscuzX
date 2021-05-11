@@ -1197,7 +1197,7 @@ EOT;
 					$decline = '_';
 					while(!$findname) {
 						if(C::t('forum_threadtype')->checkname($tmpnewname1)) {
-							$tmpnewname1 = $newname1.$decline;
+							$tmpnewname1 = $newname1.$decline.random(6);
 							$decline .= '_';
 						} else {
 							$findname = 1;
@@ -1229,16 +1229,19 @@ EOT;
 				'rules' => $value['rules'],
 				'permprompt' => $value['permprompt'],
 			);
-			if(strlen($value['identifier']) > 34) {
-				cpmsg('threadtype_infotypes_optionvariable_invalid', 'action=threadtypes', 'error');
-			}
 
 			$findidentifier = 0;
-			$tmpidentifier = $value['identifier'];
+			$tmpidentifier = trim($value['identifier']);
+			if(strlen($tmpidentifier) > 40 || !ispluginkey($tmpidentifier)) {
+				cpmsg('threadtype_infotypes_optionvariable_invalid', 'action=threadtypes', 'error');
+			}
 			$decline = '_';
 			while(!$findidentifier) {
-				if(C::t('forum_typeoption')->fetch_all_by_identifier($tmpidentifier, 0, 1) || !ispluginkey($tmpidentifier) || in_array(strtoupper($tmpidentifier), $mysql_keywords)) {
+				if(C::t('forum_typeoption')->fetch_all_by_identifier($tmpidentifier, 0, 1) || in_array(strtoupper($tmpidentifier), $mysql_keywords)) {
 					$tmpidentifier = $value['identifier'].$decline.$sortid;
+					if(strlen($tmpidentifier) > 40) {
+						cpmsg('threadtype_infotypes_optionvariable_invalid', 'action=threadtypes', 'error');
+					}
 					$decline .= '_';
 				} else {
 					$findidentifier = 1;
