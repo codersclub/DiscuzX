@@ -135,7 +135,7 @@ hr.bk { *margin-bottom: 2px !important; }
 .ie6 .authi .none { display:none; }
 .ie6 .authi .show { display:inline-block; }
 .ie_all #atarget, .ie_all .unchk, .ie_all .chked { display: inline-block; height: 20px; line-height: 20px; }
-.ie6 .showhide { display: none; }
+.ie6 .closeprev { display: none; }
 .ie_all #hiddenthread { border-top: none; }
 .ie6 .pls dd img, .ie7 .pls dd img { margin-top: 2px; width: expression(this.width > 65 ? 65 : true); }
 .ie6 .pcbs table, .ie6 .t_fsz table { width: auto; }

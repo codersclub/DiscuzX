@@ -825,9 +825,10 @@ a.thread_mod { height: 19px; line-height: 19px; display: inline-block; color: #4
 	Explain:		帖子列表页隐藏置顶帖的按钮样式
 	Last Modify:	Jane
 */
-.closeprev { width: 12px; height: 12px; background: url({IMGDIR}/close.gif) no-repeat 0 0; text-indent: -999em; cursor: pointer; overflow: hidden; margin: 5px 5px 0px 5px; }
-.closeprev:hover { background-position: 0 -12px; }
-.ie6 .closeprev { display: none; }
+.closeprev { width: 12px; height: 12px; background: transparent; line-height: 12px; text-align: center; cursor: pointer; overflow: hidden; margin: 5px 5px 0px 5px; }
+.closeprev:hover { background: #09C; }
+.closeprev:before { content: "\d7"; font-weight: 700; color: #CCC; }
+.closeprev:hover:before { color: #FFF;} 
 .pcb .jammer { font-size: 10px; color: {WRAPBG}; }
 /* 屏蔽提示 */
 #hiddenthread { border-top: 1px solid #C2D5E3; border-bottom: 1px solid #C2D5E3; line-height:40px;padding-left:20px;background: #FFFAF3; font-size: 12px; text-align: center; }
