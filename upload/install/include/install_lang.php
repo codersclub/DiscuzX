@@ -116,7 +116,10 @@ $lang = array(
 	'click_to_back' => '点击返回上一步',
 	'adminemail' => '系统信箱 Email',
 	'adminemail_comment' => '用于发送程序错误报告',
-	'dbhost_comment' => '数据库服务器地址, 一般为 localhost',
+	'dbhost_comment' => '一般为 127.0.0.1 或 localhost',
+	'dbname_comment' => '用于安装 Discuz! 的数据库',
+	'dbuser_comment' => '您的数据库用户名',
+	'dbpw_comment' => '您的数据库密码',
 	'tablepre_comment' => '同一数据库运行多个论坛时，请修改前缀',
 	'forceinstall_check_label' => '我要删除数据，强制安装 !!!',
 
@@ -337,7 +340,7 @@ $lang = array(
 	'advice_xml' => '该函数需要 PHP 支持 XML。请联系空间商，确定开启了此项功能',
 	'none' => '无',
 
-	'dbhost' => '数据库服务器',
+	'dbhost' => '数据库服务器地址',
 	'dbuser' => '数据库用户名',
 	'dbpw' => '数据库密码',
 	'dbname' => '数据库名',
