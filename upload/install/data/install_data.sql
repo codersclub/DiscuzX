@@ -142,7 +142,7 @@ INSERT INTO pre_common_nav VALUES ('','0','记录','Doing','home.php?mod=space&d
 INSERT INTO pre_common_nav VALUES ('', '0', '站点统计', '', 'misc.php?mod=stat', 'stat', 0, 0, 1, 1, 0, 0, 0, 0, '', '', '', 1, '');
 INSERT INTO pre_common_nav VALUES ('', '0', '举报', '', '#', 'report', 0, 0, 1, 2, 0, 0, 0, 0, '', '', '', 1, '');
 INSERT INTO pre_common_nav VALUES ('', '0', 'Archiver', '', 'archiver/', 'archiver', 0, 0, 1, 3, 0, 0, 0, 0, '', '', '', 1, '');
-INSERT INTO pre_common_nav VALUES ('', '0', '手机版', '', 'forum.php?mobile=yes', 'mobile', 0, 0, 0, 3, 0, 0, 0, 0, '', '', '', 1, '');
+INSERT INTO pre_common_nav VALUES ('', '0', '手机版', '', 'forum.php?mobile=yes', 'mobile', 0, 0, 1, 3, 0, 0, 0, 0, '', '', '', 1, '');
 INSERT INTO pre_common_nav VALUES ('', '0', '小黑屋', '', 'forum.php?mod=misc&action=showdarkroom', 'darkroom', 0, 0, 1, 3, 0, 0, 0, 0, '', '', '', 1, '');
 
 INSERT INTO pre_common_nav VALUES ('', '0', '日志', '', 'home.php?mod=space&do=blog', 'blog', 0, 0, -1, 2, 0, 0, 0, 0, '{STATICURL}image/feed/blog.gif', '发布', 'home.php?mod=spacecp&ac=blog', 2, '');
@@ -365,7 +365,7 @@ INSERT INTO pre_common_setting VALUES ('memliststatus','1');
 INSERT INTO pre_common_setting VALUES ('memory', 'a:16:{s:13:"common_member";i:0;s:19:"common_member_count";i:0;s:20:"common_member_status";i:0;s:21:"common_member_profile";i:0;s:24:"common_member_field_home";i:0;s:25:"common_member_field_forum";i:0;s:20:"common_member_verify";i:0;s:12:"forum_thread";i:172800;s:25:"forum_thread_forumdisplay";i:300;s:23:"forum_collectionrelated";i:0;s:15:"forum_postcache";i:300;s:16:"forum_collection";i:300;s:11:"home_follow";i:86400;s:10:"forumindex";i:30;s:8:"diyblock";i:300;s:14:"diyblockoutput";i:30;}');
 INSERT INTO pre_common_setting VALUES ('minpostsize','10');
 INSERT INTO pre_common_setting VALUES ('minpostsize_mobile','0');
-INSERT INTO pre_common_setting VALUES ('mobile','a:10:{s:11:\"allowmobile\";i:0;s:13:\"mobileforward\";i:1;s:14:\"mobileregister\";i:0;s:13:\"mobilecharset\";s:5:\"utf-8\";s:16:\"mobilesimpletype\";i:0;s:18:\"mobiletopicperpage\";i:10;s:17:\"mobilepostperpage\";i:5;s:15:\"mobilecachetime\";i:0;s:15:\"mobileforumview\";i:0;s:13:\"mobilepreview\";i:1;}');
+INSERT INTO pre_common_setting VALUES ('mobile','a:16:{s:11:\"allowmobile\";i:1;s:9:\"allowmnew\";i:0;s:13:\"mobileforward\";i:1;s:10:\"otherindex\";i:1;s:14:\"mobileregister\";i:1;s:13:\"mobileseccode\";i:0;s:15:\"mobilehotthread\";i:0;s:19:\"mobiledisplayorder3\";i:0;s:16:\"mobilesimpletype\";i:0;s:18:\"mobiletopicperpage\";i:10;s:17:\"mobilepostperpage\";i:5;s:15:\"mobilecachetime\";i:0;s:15:\"mobileforumview\";i:0;s:14:\"mobilecomefrom\";s:0:\"\";s:13:\"mobilepreview\";i:0;s:3:\"wml\";i:0;}');
 INSERT INTO pre_common_setting VALUES ('moddisplay','flat');
 INSERT INTO pre_common_setting VALUES ('modratelimit','0');
 INSERT INTO pre_common_setting VALUES ('modreasons','广告/SPAM\r\n恶意灌水\r\n违规内容\r\n文不对题\r\n重复发帖\r\n\r\n我很赞同\r\n精品文章\r\n原创内容');
