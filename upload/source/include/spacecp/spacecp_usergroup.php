@@ -174,7 +174,7 @@ if(in_array($do, array('buy', 'exit'))) {
 	if($_G['setting']['verify']['enabled']) {
 		$myverify= array();
 		getuserprofile('verify1');
-		for($i = 1; $i < 6; $i++) {
+		for($i = 1; $i <= 6; $i++) {
 			if($_G['member']['verify'.$i] == 1) {
 				$myverify[] = $i;
 			}
@@ -191,7 +191,7 @@ if(in_array($do, array('buy', 'exit'))) {
 		array('viewperm' => 1, 'postperm' => 1, 'replyperm' => 1, 'getattachperm' => 1, 'postattachperm' => 1, 'postimageperm' => 1),
 	);
 	if($_G['setting']['verify']['enabled']) {
-		for($i = 1; $i < 6; $i++) {
+		for($i = 1; $i <= 6; $i++) {
 			if($_G['setting']['verify'][$i]['available']) {
 				$verifyicon[$i] = !empty($_G['setting']['verify'][$i]['icon']) ? '<img src="'.$_G['setting']['verify'][$i]['icon'].'" alt="'.$_G['setting']['verify'][$i]['title'].'" class="vm" title="'.$_G['setting']['verify'][$i]['title'].'" />' : $_G['setting']['verify'][$i]['title'];
 			}
@@ -203,9 +203,10 @@ if(in_array($do, array('buy', 'exit'))) {
 		foreach($perms as $perm) {
 			if($forum[$perm]) {
 				if($_G['setting']['verify']['enabled']) {
-					for($i = 1; $i < 6; $i++) {
+					for($i = 1; $i <= 6; $i++) {
 						$verifyperm[$forum['fid']][$perm] .= preg_match("/(^|\t)(v".$i.")(\t|$)/", $forum[$perm]) ? $verifyicon[$i] : '';
-						if(in_array($i, $myverify)) {
+						$includePerm = preg_match("/(^|\t)(v".$i.")(\t|$)/", $forum[$perm]) ? $verifyicon[$i] : '';                        
+						if(in_array($i, $myverify) && $includePerm) {
 							$myverifyperm[$forum['fid']][$perm] = 1;
 						}
 					}
