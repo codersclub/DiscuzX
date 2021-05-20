@@ -98,7 +98,7 @@ if(!submitcheck('searchsubmit', 1)) {
 		$modfid = 0;
 		if($keyword) {
 			$modkeyword = str_replace(' ', ',', $keyword);
-			$fids = explode(',', str_replace('\'', '', $searchstring[5]));
+			$fids = explode(',', str_replace('\\\'', '', $searchstring[5]));
 			if(count($fids) == 1 && in_array($_G['adminid'], array(1,2,3))) {
 				$modfid = $fids[0];
 				if($_G['adminid'] == 3 && !C::t('forum_moderator')->fetch_uid_by_fid_uid($modfid, $_G['uid'])) {
