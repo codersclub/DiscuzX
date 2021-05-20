@@ -49,7 +49,7 @@ class control extends pluginbase {
 		$modifylist = @array_diff_assoc($modifylist, $dellist);
 		$showlist = @array_merge($this->md5data, $md5datanew);
 		$doubt = 0;
-		$dirlist = $dirlog = array();
+		$dirlist = array('modify' => array(), 'del' => array(), 'add' => array(), 'doubt' => array());
 		foreach($showlist as $file => $md5) {
 			$dir = dirname($file);
 			if(@array_key_exists($file, $modifylist)) {
