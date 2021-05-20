@@ -143,6 +143,9 @@ if(in_array($do, array('buy', 'exit'))) {
 		showmessage('usergroup_switch_not_allow');
 	}
 	$group = C::t('common_usergroup')->fetch($groupid);
+	if(!$group['allowvisit']) {
+		showmessage("usergroup_switch_not_allowvisit");
+	}	
 	if(submitcheck('groupsubmit')) {
 		$memberfieldforum = C::t('common_member_field_forum')->fetch($_G['uid']);
 		$groupterms = dunserialize($memberfieldforum['groupterms']);
