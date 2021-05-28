@@ -73,6 +73,14 @@ function getgpc($k, $type='GP') {
 
 }
 
+function dget($k) {
+	return isset($_GET[$k]) ? $_GET[$k] : null;
+}
+
+function dpost($k) {
+	return isset($_POST[$k]) ? $_POST[$k] : null;
+}
+
 function getuserbyuid($uid, $fetch_archive = 0) {
 	static $users = array();
 	if(empty($users[$uid])) {
