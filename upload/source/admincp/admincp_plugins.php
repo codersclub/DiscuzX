@@ -54,10 +54,12 @@ if(!$operation) {
 		foreach($plugins as $plugin) {
 			$addonid = $plugin['identifier'].'.plugin';
 			$updateinfo = '';
-			list(, $newver, $sysver) = explode(':', $checkresult[$addonid]);
-			if($sysver && $sysver > $plugin['version']) {
+			if(is_array($checkresult) && isset($checkresult[$addonid])) {
+				list(, $newver, $sysver) = explode(':', $checkresult[$addonid]);
+			}
+			if(!empty($sysver) && $sysver > $plugin['version']) {
 				$updateinfo = '<a href="'.ADMINSCRIPT.'?action=cloudaddons&frame=no&id='.$addonid.'&from=newver" title="'.$lang['plugins_online_update'].'" target="_blank"><font color="red">'.$lang['plugins_find_newversion'].' '.$sysver.'</font></a>';
-			} elseif($newver) {
+			} elseif(!empty($newver)) {
 				$updateinfo = '<a href="'.ADMINSCRIPT.'?action=cloudaddons&frame=no&id='.$addonid.'&from=newver" title="'.$lang['plugins_online_update'].'" target="_blank"><font color="red">'.$lang['plugins_find_newversion'].' '.$newver.'</font></a>';
 			}
 			$plugins[] = $plugin['identifier'];
@@ -582,16 +584,18 @@ if(!$operation) {
 			$addonid = $plugin['identifier'].'.plugin';
 			$checkresult = dunserialize(cloudaddons_upgradecheck(array($addonid)));
 
-			list($return, $newver, $sysver) = explode(':', $checkresult[$addonid]);
+			if(is_array($checkresult) && isset($checkresult[$addonid])) {
+				list($return, $newver, $sysver) = explode(':', $checkresult[$addonid]);
+			}
 
 			cloudaddons_installlog($pluginarray['plugin']['identifier'].'.plugin');
 			dsetcookie('addoncheck_plugin', '', -1);
 
 			cloudaddons_clear('plugin', $dir);
 
-			if($sysver && $sysver > $plugin['version']) {
+			if(!empty($sysver) && $sysver > $plugin['version']) {
 				cpmsg('plugins_config_upgrade_new', '', 'succeed', array('newver' => $sysver, 'addonid' => $addonid));
-			} elseif($newver) {
+			} elseif(!empty($newver)) {
 				cpmsg('plugins_config_upgrade_new', '', 'succeed', array('newver' => $newver, 'addonid' => $addonid));
 			} else {
 				cpmsg('plugins_config_upgrade_missed', 'action=plugins', 'succeed');
@@ -1499,7 +1503,7 @@ if(!$operation) {
 		savecache('addoncheck_plugin', $checkresult);
 		foreach($pluginarray as $row) {
 			$addonid = $row['identifier'].'.plugin';
-			if(isset($checkresult[$addonid])) {
+			if(is_array($checkresult) && isset($checkresult[$addonid])) {
 				list($return, $newver, $sysver) = explode(':', $checkresult[$addonid]);
 				$result[$row['identifier']]['result'] = $return;
 				if($sysver) {
