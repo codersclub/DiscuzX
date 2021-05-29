@@ -16,8 +16,7 @@ if(!defined('IN_DISCUZ')) {
 $lang = array (
   'no_simplemobiletype' => '标准版',
   'nomobiletype' => '电脑版',
-  'simplemobiletype' => '精简版',
-  'extremelysimplemobiletype' => '极简版',
+  'extremelysimplemobiletype' => 'WML版',
   'favorite' => '收藏',
   'my_posts' => '我的帖子',
   'new_pm' => '新短消息',
