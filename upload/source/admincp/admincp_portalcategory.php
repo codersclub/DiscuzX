@@ -136,8 +136,8 @@ SCRIPT;
 			} else {
 				showtablerow('', array('class="td25"'), array(
 					"<input type=\"checkbox\" class=\"checkbox\" name=\"delete[{$value['uid']}]\" value=\"{$value['uid']}\" /><input type=\"hidden\" name=\"perm[{$value['uid']}]\" value=\"{$value['catid']}\" />
-					<input type=\"hidden\" name=\"perm[{$value['uid']}]['allowpublish']\" value=\"{$value['allowpublish']}\" />
-					<input type=\"hidden\" name=\"perm[{$value['uid']}]['allowmanage']\" value=\"{$value['allowmanage']}\" />",
+					<input type=\"hidden\" name=\"perm[{$value['uid']}][allowpublish]\" value=\"{$value['allowpublish']}\" />
+					<input type=\"hidden\" name=\"perm[{$value['uid']}][allowmanage]\" value=\"{$value['allowmanage']}\" />",
 					"{$value['username']}",
 					"<input type=\"checkbox\" class=\"checkbox\" name=\"allowpublish[{$value['uid']}]\" value=\"1\" ".($value['allowpublish'] ? 'checked' : '').' />',
 					"<input type=\"checkbox\" class=\"checkbox\" name=\"allowmanage[{$value['uid']}]\" value=\"1\" ".($value['allowmanage'] ? 'checked' : '').' />',

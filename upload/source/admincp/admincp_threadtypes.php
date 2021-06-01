@@ -1173,8 +1173,8 @@ EOT;
 		$option['type'],
 		"<input class=\"checkbox\" type=\"checkbox\" name=\"required[{$option['optionid']}]\" value=\"1\" ".($option['required'] ? 'checked' : '')." ".($option['model'] ? 'disabled' : '').">",
 		"<input class=\"checkbox\" type=\"checkbox\" name=\"unchangeable[{$option['optionid']}]\" value=\"1\" ".($option['unchangeable'] ? 'checked' : '').">",
-		"<input class=\"checkbox\" type=\"checkbox\" name=\"search[{$option['optionid']}]['form']\" value=\"1\" ".(getstatus($option['search'], 1) == 1 ? 'checked' : '').">",
-		"<input class=\"checkbox\" type=\"checkbox\" name=\"search[{$option['optionid']}]['font']\" value=\"1\" ".(getstatus($option['search'], 2) == 1 ? 'checked' : '').">",
+		"<input class=\"checkbox\" type=\"checkbox\" name=\"search[{$option['optionid']}][form]\" value=\"1\" ".(getstatus($option['search'], 1) == 1 ? 'checked' : '').">",
+		"<input class=\"checkbox\" type=\"checkbox\" name=\"search[{$option['optionid']}][font]\" value=\"1\" ".(getstatus($option['search'], 2) == 1 ? 'checked' : '').">",
 		"<input class=\"checkbox\" type=\"checkbox\" name=\"subjectshow[{$option['optionid']}]\" value=\"1\" ".($option['subjectshow'] ? 'checked' : '').">",
 		"<a href=\"".ADMINSCRIPT."?action=threadtypes&operation=optiondetail&optionid={$option['optionid']}\" class=\"act\">".$lang['edit']."</a>"
 	));

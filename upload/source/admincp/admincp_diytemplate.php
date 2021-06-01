@@ -223,9 +223,9 @@ SEARCH;
 			} else {
 				showtablerow('', array('class="td25"'), array(
 					"<input type=\"checkbox\" class=\"checkbox\" name=\"delete[{$value['uid']}]\" value=\"{$value['uid']}\" />
-					<input type=\"hidden\" name=\"perm[{$value['uid']}]['allowmanage']\" value=\"{$value['allowmanage']}\" />
-					<input type=\"hidden\" name=\"perm[{$value['uid']}]['allowrecommend']\" value=\"{$value['allowrecommend']}\" />
-					<input type=\"hidden\" name=\"perm[{$value['uid']}]['needverify']\" value=\"{$value['needverify']}\" />",
+					<input type=\"hidden\" name=\"perm[{$value['uid']}][allowmanage]\" value=\"{$value['allowmanage']}\" />
+					<input type=\"hidden\" name=\"perm[{$value['uid']}][allowrecommend]\" value=\"{$value['allowrecommend']}\" />
+					<input type=\"hidden\" name=\"perm[{$value['uid']}][needverify]\" value=\"{$value['needverify']}\" />",
 					"$allusername[$uid]",
 					"<input type=\"checkbox\" class=\"checkbox\" name=\"allowmanage[{$value['uid']}]\" value=\"1\" ".($value['allowmanage'] ? 'checked' : '').' />',
 					"<input type=\"checkbox\" class=\"checkbox\" name=\"allowrecommend[{$value['uid']}]\" value=\"1\" ".($value['allowrecommend'] ? 'checked' : '').' />',
