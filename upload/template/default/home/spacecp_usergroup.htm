@@ -118,7 +118,7 @@
 			<!--{loop $_G['cache']['forums'] $fid $forum}-->
 				<!--{if $forum['status']}-->
 				<tr {if $key++%2==0}class="alt"{/if}>
-					<th{if $forum['type'] == 'forum'} style="padding-left:30px"{elseif $forum['type'] == 'sub'} style="padding-left:60px"{/if}><a href="forum.php?mod=forumdisplay&fid=$forum[fid]">$forum[name]</th>
+					<th{if $forum['type'] == 'forum'} style="padding-left:30px"{elseif $forum['type'] == 'sub'} style="padding-left:60px"{/if}><a href="forum.php?mod=forumdisplay&fid=$forum[fid]">$forum[name]</a></th>
 					<!--{loop $perms $perm}-->
 						<td>
 							<!--{if !empty($verifyperm[$fid][$perm])}-->
