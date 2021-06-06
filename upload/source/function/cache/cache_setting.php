@@ -557,7 +557,7 @@ function get_cachedata_setting_plugin($method = '') {
 			unset($plugin['modules']['extra']);
 			foreach($plugin['modules'] as $k => $module) {
 				if($available && isset($module['name'])) {
-					$module['displayorder'] = $plugin['modules']['system'] ? ($module['displayorder'] < 1000 ? $module['displayorder'] : 999) : $module['displayorder'] + 1000;
+					$module['displayorder'] = $plugin['modules']['system'] ? ($module['displayorder'] < 1000 ? (int)$module['displayorder'] : 999) : (int)$module['displayorder'] + 1000;
 					$k = '';
 					switch($module['type']) {
 						case 1:
