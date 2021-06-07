@@ -26,7 +26,7 @@ if($_G['inajax'] && $_GET['showextgroups']) {
 	exit;
 }
 
-$do = in_array($_GET['do'], array('buy', 'exit', 'switch', 'list', 'forum', 'expiry')) ? trim($_GET['do']) : 'usergroup';
+$do = in_array(getgpc('do'), array('buy', 'exit', 'switch', 'list', 'forum', 'expiry')) ? trim($_GET['do']) : 'usergroup'; 
 
 $extgroupids = $_G['member']['extgroupids'] ? explode("\t", $_G['member']['extgroupids']) : array();
 space_merge($space, 'count');
@@ -278,7 +278,7 @@ if(in_array($do, array('buy', 'exit'))) {
 	$permlang = $language;
 	unset($language);
 	$maingroup = $_G['group'];
-	$ptype = in_array($_GET['ptype'], array(0, 1, 2)) ? intval($_GET['ptype']) : 0;
+	$ptype = in_array(getgpc('ptype'), array(0, 1, 2)) ? intval(getgpc('ptype')) : 0;
 	foreach($_G['cache']['usergroups'] as $gid => $value) {
 		$cachekey[] = 'usergroup_'.$gid;
 	}
@@ -307,7 +307,7 @@ if(in_array($do, array('buy', 'exit'))) {
 		if(in_array($gid, $extgroupids)) {
 			$usergroups['my'] .= $g;
 		}
-		$usergroups[$type] .= $g;
+		$usergroups[$type] = (isset($usergroups[$type]) ? $usergroups[$type] : '').$g;
 		if(!empty($_GET['gid']) && $_GET['gid'] == $gid) {
 			$switchtype = $type;
 			if(!empty($_GET['gid'])) {
@@ -322,7 +322,7 @@ if(in_array($do, array('buy', 'exit'))) {
 			$nextupgradeid = 1;
 		}
 	}
-	$usergroups['my'] = '<a href="home.php?mod=spacecp&ac=usergroup">'.$maingroup['grouptitle'].'</a>'.$usergroups['my'];
+	$usergroups['my'] = '<a href="home.php?mod=spacecp&ac=usergroup">'.$maingroup['grouptitle'].'</a>'.(isset($usergroups['my']) ? $usergroups['my'] : '');
 	if($activegs == array()) {
 		$activegs['my'] = ' a';
 	}
@@ -361,7 +361,7 @@ if(in_array($do, array('buy', 'exit'))) {
 		$group['allowsetmain'] = in_array($group['groupid'], $extgroupids);
 		$publicgroup[$group['groupid']] = $group;
 	}
-	$group = $group[count($group)];
+	$group = isset($group[count($group)]) ? $group[count($group)] : NULL;
 	$_GET['perms'] = 'member';
 	if($sidegroup) {
 		$group = $sidegroup;

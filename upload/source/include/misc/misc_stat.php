@@ -22,7 +22,7 @@ if (!checkperm('allowstatdata') && $_GET['hash'] != $stat_hash) {
 
 $cols = array();
 $cols['login'] = array('login', 'mobilelogin', 'connectlogin', 'register', 'invite');
-if (!$_G['setting']['connect']['allow']) {
+if (empty($_G['setting']['connect']['allow'])) {
 	unset($cols['login'][2]);
 }
 $cols['forum'] = array('thread', 'poll', 'activity', 'reward', 'debate', 'trade', 'post');
@@ -109,17 +109,21 @@ if (!empty($_GET['xml'])) {
 
 $actives = array();
 
-foreach ($type as $tmp) {
+if(is_array($type)) {
+	foreach ($type as $tmp) {
         $actives[$tmp] = ' class="a"';
+	}
 }
 
 require_once libfile('function/home');
 $siteurl = getsiteurl();
 $types = '';
 $merge = !empty($_GET['merge']) ? '&merge=1' : '';
-foreach ($_GET['types'] as $value) {
-	$types .= '&types[]=' . $value;
-	$actives[$value] = ' class="a"';
+if (is_array(getgpc('types'))) {
+    foreach (getgpc('types') as $value) {
+        $types .= '&types[]=' . $value;
+        $actives[$value] = ' class="a"';
+    }
 }
 $statuspara = "misc.php?mod=stat&op=trend&xml=1&type=$type&primarybegin=$primarybegin&primaryend=$primaryend{$types}{$merge}&hash=$stat_hash";
 

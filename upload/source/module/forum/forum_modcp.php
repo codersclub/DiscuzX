@@ -33,7 +33,7 @@ if(!$modsession->islogin) {
 	$_GET['action'] = 'login';
 }
 
-if($_GET['action'] == 'logout') {
+if(getgpc('action') == 'logout') {
 	$modsession->dologout();
 	showmessage('modcp_logout_succeed', 'forum.php');
 }

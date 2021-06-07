@@ -525,13 +525,13 @@ function loadforum($fid = null, $tid = null) {
 				}
 			}
 
-			if($forum['threadtypes']['types']) {
+			if(!empty($forum['threadtypes']['types'])) {
 				safefilter($forum['threadtypes']['types']);
 			}
-			if($forum['threadtypes']['options']['name']) {
+			if(!empty($forum['threadtypes']['options']['name'])) {
 				safefilter($forum['threadtypes']['options']['name']);
 			}
-			if($forum['threadsorts']['types']) {
+			if(!empty($forum['threadsorts']['types'])) {
 				safefilter($forum['threadsorts']['types']);
 			}
 
@@ -626,7 +626,7 @@ function get_thread_by_tid($tid, $forcetableid = null) {
 
 	if(!is_array($ret)) {
 		$ret = array();
-	} elseif($_G['setting']['optimizeviews']) {
+	} elseif(getglobal('setting/optimizeviews')) {
 		if(($row = C::t('forum_threadaddviews')->fetch($tid))) {
 			$ret['addviews'] = intval($row['addviews']);
 			$ret['views'] += $ret['addviews'];
@@ -949,7 +949,7 @@ function threadpubsave($tid, $passapproval = false) {
 	return $return;
 }
 
-function getrelatecollection($tid, $all = false, &$num, &$more) {
+function getrelatecollection($tid, $all = false, &$num = null, &$more = null) {
 	global $_G;
 
 	$maxdisplay = $_G['setting']['collectionnum'];
@@ -1105,7 +1105,7 @@ function stringtopic($value, $key = '', $force = false, $rlength = 0) {
 function getreplybg($replybg = '') {
 	global $_G;
 	$style = '';
-	if($_G['setting']['allowreplybg']) {
+	if(getglobal('setting/allowreplybg')) {
 		if($replybg) {
 			$bgurl = $replybg;
 			if(file_exists($_G['setting']['attachurl'].'common/'.$replybg)) {

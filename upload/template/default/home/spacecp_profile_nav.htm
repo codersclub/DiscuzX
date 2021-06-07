@@ -2,7 +2,7 @@
 	<!--{if $operation != 'verify'}-->
 		<!--{loop $profilegroup $key $value}-->
 			<!--{if $value[available]}-->
-			<li $opactives[$key]><a href="home.php?mod=spacecp&ac=profile&op=$key">$value[title]</a></li>
+			<li {$opactives[$key] or ''}><a href="home.php?mod=spacecp&ac=profile&op=$key">$value[title]</a></li>
 			<!--{/if}-->
 		<!--{/loop}-->
 		<!--{if $_G['setting']['allowspacedomain'] && $_G['setting']['domain']['root']['home'] && checkperm('domainlength')}-->

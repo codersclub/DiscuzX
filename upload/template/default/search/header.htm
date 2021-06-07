@@ -40,10 +40,10 @@
 	<!--{if $_G['setting']['navs']}-->
 		<ul class="p_pop h_pop" id="navs_menu" style="display: none">
 		<!--{loop $_G['setting']['navs'] $nav}-->
-			<!--{eval $nav_showmenu = strpos($nav['nav'], 'onmouseover="showMenu(');}-->
-		    <!--{eval $nav_navshow = strpos($nav['nav'], 'onmouseover="navShow(')}-->
-		    <!--{if $nav_hidden !== false || $nav_navshow !== false}-->
-			<!--{eval $nav['nav'] = preg_replace("/onmouseover\=\"(.*?)\"/i", '',$nav['nav'])}-->
+			<!--{eval $nav_showmenu = strpos((isset($nav['nav']) ? $nav['nav'] : ''), 'onmouseover="showMenu(');}-->
+		    <!--{eval $nav_navshow = strpos((isset($nav['nav']) ? $nav['nav'] : ''), 'onmouseover="navShow(')}-->
+		    <!--{if !isset($nav_hidden) || $nav_hidden !== false || !isset($nav_navshow) || $nav_navshow !== false}-->
+			<!--{eval $nav['nav'] = preg_replace("/onmouseover\=\"(.*?)\"/i", '',(isset($nav['nav']) ? $nav['nav'] : ''))}-->
 		    <!--{/if}-->
 			<!--{if is_array($nav) && $nav['available'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1))}--><li $nav[nav]></li><!--{/if}-->
 		<!--{/loop}-->

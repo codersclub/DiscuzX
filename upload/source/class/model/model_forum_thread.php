@@ -82,11 +82,11 @@ class model_forum_thread extends discuz_model
 			$this->param['price'] = $this->group['maxprice'] ? ($this->param['price'] <= $this->group['maxprice'] ? $this->param['price'] : $this->group['maxprice']) : 0;
 		}
 
-		if(!$this->param['typeid'] && $this->forum['threadtypes']['required'] && !$this->param['special']) {
+		if(!$this->param['typeid'] && !empty($this->forum['threadtypes']['required']) && !$this->param['special']) {
 			return $this->showmessage('post_type_isnull');
 		}
 
-		if(!$this->param['sortid'] && $this->forum['threadsorts']['required'] && !$this->param['special']) {
+		if(!$this->param['sortid'] && !empty($this->forum['threadsorts']['required']) && !$this->param['special']) {
 			return $this->showmessage('post_sort_isnull');
 		}
 
@@ -98,7 +98,7 @@ class model_forum_thread extends discuz_model
 		$this->param['sortid'] = $this->param['special'] && $this->forum['threadsorts']['types'][$this->param['sortid']] ? 0 : $this->param['sortid'];
 		$this->param['typeexpiration'] = intval($this->param['typeexpiration']);
 
-		if($this->forum['threadsorts']['expiration'][$this->param['typeid']] && !$this->param['typeexpiration']) {
+		if(!empty($this->forum['threadsorts']['expiration'][$this->param['typeid']]) && !$this->param['typeexpiration']) {
 			return $this->showmessage('threadtype_expiration_invalid');
 		}
 
@@ -323,8 +323,8 @@ class model_forum_thread extends discuz_model
 			'htmlon', 'bbcodeoff', 'smileyoff', 'parseurloff', 'pstatus', 'geoloc',
 		);
 		foreach($varname as $name) {
-			if(!isset($this->param[$name]) && isset($parameters[$name])) {
-				$this->param[$name] = $parameters[$name];
+			if(!isset($this->param[$name])) {
+				$this->param[$name] = isset($parameters[$name]) ? $parameters[$name] : NULL;
 			}
 		}
 

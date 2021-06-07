@@ -267,7 +267,7 @@ if($_GET['action'] == 'checkusername') {
 	$fid = intval($_GET['fid']);
 	$time = intval($_GET['time']);
 
-	if(!$_GET['uncheck']) {
+	if(!getgpc('uncheck')) {
 		$foruminfo = C::t('forum_forum')->fetch($fid);
 		$lastpost_str = $foruminfo['lastpost'];
 		if($lastpost_str) {

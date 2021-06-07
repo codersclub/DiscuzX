@@ -26,10 +26,12 @@ if($_GET['action'] == 'pluginnotice') {
 	$checkresult = dunserialize(cloudaddons_upgradecheck($addonids));
 	savecache('addoncheck_plugin', $checkresult);
 	$newversion = 0;
-	foreach($checkresult as $addonid => $value) {
-		list(, $newver, $sysver) = explode(':', $value);
-		if($sysver && $sysver > $vers[$addonid] || $newver) {
-			$newversion++;
+	if(is_array($checkresult)) {
+		foreach($checkresult as $addonid => $value) {
+			list(, $newver, $sysver) = explode(':', $value);
+			if($sysver && $sysver > $vers[$addonid] || $newver) {
+				$newversion++;
+			}
 		}
 	}
 	include template('common/header_ajax');
@@ -46,7 +48,7 @@ if($_GET['action'] == 'pluginnotice') {
 } elseif($_GET['action'] == 'ipnotice') {
 	require_once libfile('function/misc');
 	include template('common/header_ajax');
-	if($_G['cookie']['lip'] && $_G['cookie']['lip'] != ',' && $_G['uid'] && $_G['setting']['disableipnotice'] != 1) {
+	if($_G['cookie']['lip'] && $_G['cookie']['lip'] != ',' && $_G['uid'] && getglobal('setting/disableipnotice') != 1) {
 		$status = C::t('common_member_status')->fetch($_G['uid']);
 		$lip = explode(',', $_G['cookie']['lip']);
 		$lastipConvert = convertip($lip[0]);

@@ -75,7 +75,7 @@ function friend_check($touids, $isfull = 0) {
 		$fvar = "home_friend_{$touid}_{$_G['uid']}";
 		if(!isset($_G[$var])) {
 			$query = C::t('home_friend')->fetch_all_by_uid_fuid($_G['uid'], $touid);
-			$friend = $query[0];
+			$friend = isset($query[0]) ? $query[0] : '';
 			if($friend) {
 				$_G[$var] = $_G[$fvar] = true;
 				if($isfull) {

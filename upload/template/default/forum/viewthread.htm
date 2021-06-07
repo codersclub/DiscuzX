@@ -33,7 +33,7 @@
 				<button id="newspecial" class="pn pnc" onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]&extra=$extra&sortid=$id'"><strong>{lang i_want}$name</strong></button>
 			<!--{/loop}-->
 		<!--{else}-->
-			<!--{if !$_G['forum_thread']['is_archived']}--><a id="newspecial" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"{if !$_G['forum']['allowspecialonly'] && empty($_G['forum']['picstyle']) && !$_G['forum']['threadsorts']['required']} onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')"{else} onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]';return false;"{/if} href="javascript:;" title="{lang send_posts}" class="pgsbtn showmenu">{lang send_posts}</a><!--{/if}-->
+			<!--{if !$_G['forum_thread']['is_archived']}--><a id="newspecial" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"{if !$_G['forum']['allowspecialonly'] && empty($_G['forum']['picstyle']) && empty($_G['forum']['threadsorts']['required'])} onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')"{else} onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]';return false;"{/if} href="javascript:;" title="{lang send_posts}" class="pgsbtn showmenu">{lang send_posts}</a><!--{/if}-->
 		<!--{/if}-->
 		<!--{if $allowpostreply && !$_G['forum_thread']['archiveid']}-->
 			<a id="post_reply" onclick="showWindow('reply', 'forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]')" href="javascript:;" title="{lang reply}" class="pgsbtn">{lang reply}</a>
@@ -176,7 +176,7 @@
 						<a href="forum.php?mod=redirect&goto=nextnewset&tid=$_G[tid]" title="{lang next_thread}"><i class="fico-right fic4 fc-s vm"></i></a>
 					</div>
 				<!--{/if}-->
-				<!--{if $_G['setting']['close_leftinfo_userctrl']}-->
+				<!--{if !empty($_G['setting']['close_leftinfo_userctrl'])}-->
 					<span class="xg1 side_btn">
 					<!--{if !$close_leftinfo}-->
 						<a onclick="setcookie('close_leftinfo', 1);location.reload();" title="{lang collapse_the_left}" class="btn_s_close" href="javascript:;"><svg viewBox="0 0 7 38"><path fill="#fff" d="M2 18l5-4v9z"/><path d="M5 0v13.5l-5 5 5 5V38H7V22.5l-4-4 4-4V0z"/></svg></a>
@@ -193,7 +193,7 @@
 							[{$_G['forum']['threadtypes']['types'][$_G['forum_thread']['typeid']]}]
 						<!--{/if}-->
 					<!--{/if}-->
-					<!--{if $threadsorts && $_G['forum_thread']['sortid']}-->
+					<!--{if !empty($threadsorts) && $_G['forum_thread']['sortid']}-->
 						<a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=sortid&sortid=$_G[forum_thread][sortid]">[{$_G['forum']['threadsorts']['types'][$_G['forum_thread']['sortid']]}]</a>
 					<!--{/if}-->
 					<span id="thread_subject">$_G[forum_thread][subject]</span>
@@ -361,7 +361,7 @@ $_G['forum_tagscript']
 	$multipage
 	<span class="pgb y"{if $_G['setting']['visitedforums']} id="visitedforumstmp" onmouseover="$('visitedforums').id = 'visitedforumstmp';this.id = 'visitedforums';showMenu({'ctrlid':this.id,'pos':'21'})"{/if}><a href="$upnavlink">{lang return_forumdisplay}</a></span>
 	<!--{if !$_G['forum_thread']['is_archived']}-->
-		<a id="newspecialtmp" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"{if !$_G['forum']['allowspecialonly'] && empty($_G['forum']['picstyle']) && !$_G['forum']['threadsorts']['required']} onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')"{else} onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]';return false;"{/if} href="javascript:;" title="{lang send_posts}" class="pgsbtn showmenu">{lang send_posts}</a>
+		<a id="newspecialtmp" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"{if !$_G['forum']['allowspecialonly'] && empty($_G['forum']['picstyle']) && empty($_G['forum']['threadsorts']['required'])} onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')"{else} onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]';return false;"{/if} href="javascript:;" title="{lang send_posts}" class="pgsbtn showmenu">{lang send_posts}</a>
 	<!--{/if}-->
 	<!--{if $allowpostreply && !$_G['forum_thread']['archiveid']}-->
 		<a id="post_replytmp" onclick="showWindow('reply', 'forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]')" href="javascript:;" title="{lang reply}" class="pgsbtn">{lang reply}</a>
@@ -409,14 +409,14 @@ $_G['forum_tagscript']
 <!--{/if}-->
 
 <!--{if !IS_ROBOT && $_G['setting']['threadmaxpages'] > 1}-->
-	<script type="text/javascript">document.onkeyup = function(e){keyPageScroll(e, <!--{if $page > 1}-->1<!--{else}-->0<!--{/if}-->, <!--{if $page < $_G['setting']['threadmaxpages'] && $page < $_G['page_next']}-->1<!--{else}-->0<!--{/if}-->, 'forum.php?mod=viewthread&tid=$_G[tid]<!--{if $_GET[authorid]}-->&authorid=$_GET[authorid]<!--{/if}-->', $page);}</script>
+	<script type="text/javascript">document.onkeyup = function(e){keyPageScroll(e, <!--{if $page > 1}-->1<!--{else}-->0<!--{/if}-->, <!--{if $page < $_G['setting']['threadmaxpages'] && isset($_G['page_next']) && $page < $_G['page_next']}-->1<!--{else}-->0<!--{/if}-->, 'forum.php?mod=viewthread&tid=$_G[tid]<!--{if $_GET[authorid]}-->&authorid=$_GET[authorid]<!--{/if}-->', $page);}</script>
 <!--{/if}-->
 </div>
 
 <div class="wp mtn">
 	<!--[diy=diy3]--><div id="diy3" class="area"></div><!--[/diy]-->
 </div>
-<!--{if $_G['relatedlinks'] || $_GET['highlight']}-->
+<!--{if $_G['relatedlinks'] || !empty($_GET['highlight'])}-->
 	<script type="text/javascript">
 		var relatedlink = [];
 		<!--{loop $_G['relatedlinks'] $key $link}-->

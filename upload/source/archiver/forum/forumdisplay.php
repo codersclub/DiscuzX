@@ -9,7 +9,7 @@ include loadarchiver('common/header');
 </div>
 
 <div id="content">
-	<?php if(is_array($sublist) && count($sublist)): ?>
+	<?php if(isset($sublist) && is_array($sublist) && count($sublist)): ?>
 	<ul>
 		<?php foreach($sublist as $sub): ?>
 		<li><a href="?fid-<?php echo $sub['fid']; ?>.html"><?php echo dhtmlspecialchars($sub['name']); ?></a></li>

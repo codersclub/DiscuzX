@@ -22,7 +22,7 @@ $id = empty($_GET['id'])?0:intval($_GET['id']);
 $opactives['thread'] = 'class="a"';
 
 $_GET['view'] = in_array($_GET['view'], array('we', 'me', 'all')) ? $_GET['view'] : 'we';
-$_GET['order'] = in_array($_GET['order'], array('hot', 'dateline')) ? $_GET['order'] : 'dateline';
+$_GET['order'] = in_array(getgpc('order'), array('hot', 'dateline')) ? $_GET['order'] : 'dateline';
 
 $allowviewuserthread = $_G['setting']['allowviewuserthread'];
 
@@ -33,19 +33,19 @@ ckstart($start, $perpage);
 $list = array();
 $userlist = array();
 $hiddennum = $count = $pricount = 0;
-$_GET['from'] = dhtmlspecialchars(preg_replace("/[^\[A-Za-z0-9_\]]/", '', $_GET['from']));
+$_GET['from'] = dhtmlspecialchars(preg_replace("/[^\[A-Za-z0-9_\]]/", '', getgpc('from')));
 $gets = array(
 	'mod' => 'space',
 	'uid' => $space['uid'],
 	'do' => 'thread',
-	'fid' => $_GET['fid'],
+	'fid' => getgpc('fid'),
 	'view' => $_GET['view'],
-	'type' => $_GET['type'],
+	'type' => getgpc('type'),
 	'order' => $_GET['order'],
-	'fuid' => $_GET['fuid'],
-	'searchkey' => $_GET['searchkey'],
+	'fuid' => getgpc('fuid'),
+	'searchkey' => getgpc('searchkey'),
 	'from' => $_GET['from'],
-	'filter' => $_GET['filter']
+	'filter' => getgpc('filter')
 );
 $theurl = 'home.php?'.url_implode($gets);
 unset($gets['fid']);
@@ -54,7 +54,7 @@ $multi = '';
 $authorid = 0;
 $replies = $closed = $displayorder = null;
 $dglue = '=';
-$vfid = $_GET['fid'] ? intval($_GET['fid']) : null;
+$vfid = getgpc('fid') ? intval($_GET['fid']) : null;
 
 require_once libfile('function/misc');
 require_once libfile('function/forum');
@@ -74,8 +74,8 @@ if($_GET['view'] == 'me') {
 
 	if($_GET['from'] == 'space') $diymode = 1;
 	$allowview = true;
-	$viewtype = in_array($_GET['type'], array('reply', 'thread', 'postcomment')) ? $_GET['type'] : 'thread';
-	$filter = in_array($_GET['filter'], array('recyclebin', 'ignored', 'save', 'aduit', 'close', 'common')) ? $_GET['filter'] : '';
+	$viewtype = in_array(getgpc('type'), array('reply', 'thread', 'postcomment')) ? $_GET['type'] : 'thread';
+	$filter = in_array(getgpc('filter'), array('recyclebin', 'ignored', 'save', 'aduit', 'close', 'common')) ? $_GET['filter'] : '';
 	if($space['uid'] != $_G['uid'] && in_array($viewtype, array('reply', 'thread'))) {
 		if($allowviewuserthread === -1 && $_G['adminid'] != 1) {
 			$allowview = false;
@@ -301,7 +301,7 @@ $actives = array($_GET['view'] =>' class="a"');
 
 if($need_count) {
 
-	if($searchkey = stripsearchkey($_GET['searchkey'])) {
+	if($searchkey = stripsearchkey(getgpc('searchkey'))) {
 		$searchkey = dhtmlspecialchars($searchkey);
 	}
 
@@ -348,7 +348,7 @@ if($need_count) {
 }
 
 require_once libfile('function/forumlist');
-$forumlist = forumselect(FALSE, 0, intval($_GET['fid']));
+$forumlist = forumselect(FALSE, 0, intval(getgpc('fid')));
 dsetcookie('home_diymode', $diymode);
 
 if($_G['uid']) {
@@ -363,7 +363,7 @@ if($space['username']) {
 }
 $metakeywords = $navtitle;
 $metadescription = $navtitle;
-if(!$_G['follow']) {
+if(!getglobal('follow')) {
 	include_once template("diy:home/space_thread");
 }
 ?>

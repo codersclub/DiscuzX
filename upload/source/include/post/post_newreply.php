@@ -281,7 +281,7 @@ if(!submitcheck('replysubmit', 0, $seccodecheck, $secqaacheck)) {
 
 			$post['dateline'] = dgmdate($post['dateline'], 'u');
 
-			if($_G['setting']['bannedmessages'] && ($post['authorid'] && (!$post['groupid'] || $post['groupid'] == 4 || $post['groupid'] == 5))) {
+			if($_G['setting']['bannedmessages'] && ($post['authorid'] && (empty($post['groupid']) || $post['groupid'] == 4 || $post['groupid'] == 5))) {
 				$post['message'] = $language['post_banned'];
 			} elseif($post['status'] & 1) {
 				$post['message'] = $language['post_single_banned'];
@@ -318,18 +318,18 @@ if(!submitcheck('replysubmit', 0, $seccodecheck, $secqaacheck)) {
 		'subject' => $subject,
 		'message' => $message,
 		'special' => $special,
-		'extramessage' => $extramessage,
-		'bbcodeoff' => $_GET['bbcodeoff'],
-		'smileyoff' => $_GET['smileyoff'],
-		'htmlon' => $_GET['htmlon'],
-		'parseurloff' => $_GET['parseurloff'],
-		'usesig' => $_GET['usesig'],
-		'isanonymous' => $_GET['isanonymous'],
-		'noticetrimstr' => $_GET['noticetrimstr'],
-		'noticeauthor' => $_GET['noticeauthor'],
-		'from' => $_GET['from'],
-		'sechash' => $_GET['sechash'],
-		'geoloc' => diconv($_GET['geoloc'], 'UTF-8'),
+		'extramessage' => isset($extramessage) ? $extramessage : '',
+		'bbcodeoff' => getgpc('bbcodeoff'),
+		'smileyoff' => getgpc('smileyoff'),
+		'htmlon' => getgpc('htmlon'),
+		'parseurloff' => getgpc('parseurloff'),
+		'usesig' => getgpc('usesig'),
+		'isanonymous' => getgpc('isanonymous'),
+		'noticetrimstr' => getgpc('noticetrimstr'),
+		'noticeauthor' => getgpc('noticeauthor'),
+		'from' => getgpc('from'),
+		'sechash' => getgpc('sechash'),
+		'geoloc' => diconv(getgpc('geoloc'), 'UTF-8'),
 	);
 
 
@@ -411,7 +411,7 @@ if(!submitcheck('replysubmit', 0, $seccodecheck, $secqaacheck)) {
 	if(!isset($_GET['addfeed'])) {
 		$space = array();
 		space_merge($space, 'field_home');
-		$_GET['addfeed'] = $space['privacy']['feed']['newreply'];
+		$_GET['addfeed'] = isset($space['privacy']['feed']['newreply']) ? $space['privacy']['feed']['newreply'] : null;
 	}
 
 	$modpost->attach_before_methods('newreply', $bfmethods);

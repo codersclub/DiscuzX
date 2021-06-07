@@ -19,7 +19,7 @@ $defaultop = '';
 		}
 	}
 
-$operation = in_array($_GET['op'], array('base', 'contact', 'edu', 'work', 'info', 'password', 'verify')) ? trim($_GET['op']) : $defaultop;
+$operation = in_array(getgpc('op'), array('base', 'contact', 'edu', 'work', 'info', 'password', 'verify')) ? trim($_GET['op']) : $defaultop;
 $space = getuserbyuid($_G['uid']);
 space_merge($space, 'field_home');
 space_merge($space, 'profile');
@@ -27,7 +27,7 @@ space_merge($space, 'profile');
 list($seccodecheck, $secqaacheck) = seccheck('password');
 @include_once DISCUZ_ROOT.'./data/cache/cache_domain.php';
 $spacedomain = isset($rootdomain['home']) && $rootdomain['home'] ? $rootdomain['home'] : array();
-$_GET['id'] = $_GET['id'] ? preg_replace("/[^A-Za-z0-9_:]/", '', $_GET['id']) : '';
+$_GET['id'] = getgpc('id') ? preg_replace("/[^A-Za-z0-9_:]/", '', $_GET['id']) : '';
 if($operation != 'password') {
 
 	include_once libfile('function/profile');
@@ -61,7 +61,7 @@ if($_G['setting']['regverify'] == 2 && $_G['groupid'] == 8) {
 		$validate = array();
 	}
 }
-if($_G['setting']['connect']['allow']) {
+if(getglobal('setting/connect/allow')) {
 	$connect = C::t('#qqconnect#common_member_connect')->fetch($_G['uid']);
 	$conisregister = $operation == 'password' && $connect['conisregister'];
 }
@@ -484,13 +484,13 @@ if($operation == 'password') {
 		}
 	}
 
-	if($_GET['resend'] && $resend) {
+	if(getgpc('resend') && $resend) {
 		$toemail = $space['newemail'] ? $space['newemail'] : $space['email'];
 		emailcheck_send($space['uid'], $toemail);
 		dsetcookie('newemail', "{$space['uid']}\t$toemail\t{$_G['timestamp']}", 31536000);
 		dsetcookie('resendemail', TIMESTAMP);
 		showmessage('send_activate_mail_succeed', "home.php?mod=spacecp&ac=profile&op=password");
-	} elseif ($_GET['resend']) {
+	} elseif (getgpc('resend')) {
 		showmessage('send_activate_mail_error', "home.php?mod=spacecp&ac=profile&op=password");
 	}
 	if(!empty($space['newemail'])) {
@@ -515,7 +515,7 @@ if($operation == 'password') {
 	require_once libfile('function/editor');
 	$space['sightml'] = html2bbcode($space['sightml']);
 
-	$vid = $_GET['vid'] ? intval($_GET['vid']) : 0;
+	$vid = getgpc('vid') ? intval($_GET['vid']) : 0;
 
 	$privacy = $space['privacy']['profile'] ? $space['privacy']['profile'] : array();
 	$_G['setting']['privacy'] = $_G['setting']['privacy'] ? $_G['setting']['privacy'] : array();

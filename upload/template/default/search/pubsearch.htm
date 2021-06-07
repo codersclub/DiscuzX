@@ -1,5 +1,5 @@
 <!--{eval $keywordenc = $keyword ? rawurlencode($keyword) : '';}-->
-<!--{if $searchid || ($_GET['adv'] && CURMODULE == 'forum')}-->
+<!--{if $searchid || (!empty($_GET['adv']) && CURMODULE == 'forum')}-->
 	<table id="scform" class="mbm" cellspacing="0" cellpadding="0">
 		<tr>
 			<td><h1><a href="search.php" title="$_G['setting']['bbname']"><img src="{IMGDIR}/logo_sc.svg" alt="$_G['setting']['bbname']" /></a></h1></td>

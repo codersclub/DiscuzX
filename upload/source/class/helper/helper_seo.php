@@ -22,7 +22,7 @@ class helper_seo {
 		$seotitle = $seodescription = $seokeywords = '';
 		$titletext = isset($defset['seotitle']) ? $defset['seotitle'] : (!empty($_G['setting']['seotitle'][$page]) ? $_G['setting']['seotitle'][$page] : '');
 		$descriptiontext = isset($defset['seodescription']) ? $defset['seodescription'] : (!empty($_G['setting']['seodescription'][$page]) ? $_G['setting']['seodescription'][$page] : '');
-		$keywordstext = $defset['seokeywords'] ? $defset['seokeywords'] : $_G['setting']['seokeywords'][$page];
+		$keywordstext = !empty($defset['seokeywords']) ? $defset['seokeywords'] : getglobal('setting/seokeywords/'.$page);
 		preg_match_all("/\{([a-z0-9_-]+?)\}/", $titletext.$descriptiontext.$keywordstext, $pageparams);
 		if($pageparams) {
 			foreach($pageparams[1] as $var) {

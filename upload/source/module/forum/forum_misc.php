@@ -381,7 +381,7 @@ if($_GET['action'] == 'paysucceed') {
 	include_once libfile('class/member');
 	if($_G['setting']['darkroom']) {
 		$limit = $_G['tpp'];
-		$cid = $_GET['cid'] ? dintval($_GET['cid']) : 0;
+		$cid = getgpc('cid') ? dintval($_GET['cid']) : 0;
 		$crimelist = array();
 		$i = 0;
 		foreach(C::t('common_member_crime')->fetch_all_by_cid($cid, array(4, 5), $limit) as $crime) {
@@ -407,7 +407,7 @@ if($_GET['action'] == 'paysucceed') {
 				unset($crimelist[$uid]);
 			}
 		}
-		if($_GET['ajaxdata'] === 'json') {
+		if(getgpc('ajaxdata') === 'json') {
 			showmessage(array('dataexist' => $dataexist, 'cid' => $cid), '', $crimelist);
 		} else {
 			include_once template("forum/darkroom");

@@ -276,7 +276,7 @@ EOT;
 				foreach($phpmsg as $k => $msg) {
 					$k++;
 					$explode = explode("/", $msg['file']);
-					if ($explode['1'] == 'plugin') {
+					if (isset($explode['1']) && $explode['1'] == 'plugin') {
 						$guess = $explode['2'];
 						$bg = "bg3";
 					} else {
@@ -311,7 +311,6 @@ EOT;
 </body>
 </html>
 EOT;
-		$exit && exit();
 
 	}
 

@@ -405,7 +405,7 @@ class credit {
 		global $_G;
 
 		for($i = 1; $i <= 8; $i++) {
-			if($_G['setting']['extcredits'][$i]) {
+			if(getglobal('setting/extcredits/'.$i)) {
 				$extcredit = intval($rule['extcredits'.$i]) * $this->coef;
 				if($issql) {
 					$logarr['extcredits'.$i] = 'extcredits'.$i."='$extcredit'";

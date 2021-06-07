@@ -11,7 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-$addonsource = $_G['config']['addonsource'] ? $_G['config']['addonsource'] : ($_G['setting']['addon_source'] ? $_G['setting']['addon_source'] : array());
+$addonsource = !empty($_G['config']['addonsource']) ? $_G['config']['addonsource'] : (!empty($_G['setting']['addon_source']) ? $_G['setting']['addon_source'] : array());
 $addon = $addonsource ?
 	$_G['config']['addon'][$addonsource] :
 	array(
@@ -125,7 +125,9 @@ function cloudaddons_upgradecheck($addonids) {
 	$post = array();
 	foreach($addonids as $addonid) {
 		$array = cloudaddons_getmd5($addonid);
-		$post[] = 'rid['.$addonid.']='.$array['RevisionID'].'&sn['.$addonid.']='.$array['SN'].'&rd['.$addonid.']='.$array['RevisionDateline'];
+		if($array) {
+			$post[] = 'rid['.$addonid.']='.$array['RevisionID'].'&sn['.$addonid.']='.$array['SN'].'&rd['.$addonid.']='.$array['RevisionDateline'];
+		}
 	}
 	return cloudaddons_open('&mod=app&ac=validator&ver=2', implode('&', $post), 15);
 }

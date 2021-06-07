@@ -4,7 +4,7 @@
 		<!--{if $_GET[action] == 'newthread'}-->{lang post_newthread}<!--{elseif $_GET[action] == 'reply'}-->{lang join_thread}<!--{/if}-->
 	</em>
 	<!--{if $_GET[action] == 'newthread' && $modnewthreads}--><span class="needverify">{lang approve}</span><!--{/if}-->
-	<!--{if $_GET[action] == 'reply' && $modnewreplies}--><span class="needverify">{lang approve}</span><!--{/if}-->
+	<!--{if $_GET[action] == 'reply' && !empty($modnewreplies)}--><span class="needverify">{lang approve}</span><!--{/if}-->
 	<span>
 		<a href="javascript:;" class="flbc" onclick="hideWindow('$_GET['handlekey']')" title="{lang close}">{lang close}</a>
 	</span>
@@ -18,14 +18,14 @@
 			<!--{if $_GET[action] == 'reply'}-->
 				<input type="hidden" name="noticeauthor" value="$noticeauthor" />
 				<input type="hidden" name="noticetrimstr" value="$noticetrimstr" />
-				<input type="hidden" name="noticeauthormsg" value="$noticeauthormsg" />
+				<input type="hidden" name="noticeauthormsg" value="{$noticeauthormsg or ''}" />
 				<input type="hidden" name="usesig" value="{if $_G['group']['maxsigsize']}1{else}0{/if}"/>
-				<!--{if $reppid}-->
+				<!--{if !empty($reppid)}-->
 					<input type="hidden" name="reppid" value="$reppid" />
 				<!--{/if}-->
-				<!--{if $_GET[reppost]}-->
+				<!--{if !empty($_GET['reppost'])}-->
 					<input type="hidden" name="reppost" value="$_GET[reppost]" />
-				<!--{elseif $_GET[repquote]}-->
+				<!--{elseif !empty($_GET['repquote'])}-->
 					<input type="hidden" name="reppost" value="$_GET[repquote]" />
 				<!--{/if}-->
 			<!--{/if}-->
@@ -84,7 +84,7 @@
 			<div class="tedt">
 				<div class="bar">
 					<span class="y">
-						<a href="forum.php?mod=post&action=$_GET[action]&fid=$_G[fid]&extra=$extra{if $_GET[action] == 'reply'}&tid=$_G[tid]{if !empty($_GET[reppost])}&reppost=$_GET[reppost]{/if}{if !empty($_GET[repquote])}&repquote=$_GET[repquote]{/if}{if !empty($page)}&page=$page{/if}{/if}{if $stand}&stand=$stand{/if}" onclick="switchAdvanceMode(this.href);doane(event);">{lang post_advancemode}</a>
+						<a href="forum.php?mod=post&action=$_GET[action]&fid=$_G[fid]&extra=$extra{if $_GET[action] == 'reply'}&tid=$_G[tid]{if !empty($_GET[reppost])}&reppost=$_GET[reppost]{/if}{if !empty($_GET[repquote])}&repquote=$_GET[repquote]{/if}{if !empty($page)}&page=$page{/if}{/if}{if !empty($stand)}&stand=$stand{/if}" onclick="switchAdvanceMode(this.href);doane(event);">{lang post_advancemode}</a>
 					</span>
 					<!--{eval $seditor = array('post', array('bold', 'color', 'img', 'link', 'quote', 'code', 'smilies', 'at'));}-->
 					<!--{subtemplate common/seditor}-->
@@ -118,11 +118,11 @@ function succeedhandle_$_GET[action](locationhref, message) {
 			var pid = locationhref.lastIndexOf('#pid');
 			if(pid != -1) {
 				pid = locationhref.substr(pid + 4);
-				ajaxget('forum.php?mod=viewthread&tid=$_G[tid]&viewpid=' + pid<!--{if $_GET['from']}--> + '&from=$_GET[from]'<!--{/if}-->, 'post_new', 'ajaxwaitid', '', null, 'appendreply()');
+				ajaxget('forum.php?mod=viewthread&tid=$_G[tid]&viewpid=' + pid<!--{if !empty($_GET['from'])}--> + '&from=$_GET[from]'<!--{/if}-->, 'post_new', 'ajaxwaitid', '', null, 'appendreply()');
 				if(replyreload) {
 					var reloadpids = replyreload.split(',');
 					for(var i = 1;i < reloadpids.length;i++) {
-						ajaxget('forum.php?mod=viewthread&tid=$_G[tid]&viewpid=' + reloadpids[i]<!--{if $_GET['from']}--> + '&from=$_GET[from]'<!--{/if}-->, 'post_' + reloadpids[i]);
+						ajaxget('forum.php?mod=viewthread&tid=$_G[tid]&viewpid=' + reloadpids[i]<!--{if !empty($_GET['from'])}--> + '&from=$_GET[from]'<!--{/if}-->, 'post_' + reloadpids[i]);
 					}
 				}
 			} else {

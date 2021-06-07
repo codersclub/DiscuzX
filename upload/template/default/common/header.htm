@@ -45,7 +45,7 @@
 			    {lang your_mobile_browser}<a href="{$_G['siteurl']}forum.php?mobile=yes">{lang go_to_mobile}</a> <span class="xg1">|</span> <a href="$_G['setting']['mobile']['nomobileurl']">{lang to_be_continue}</a>
 			</div>
 		<!--{/if}-->
-		<!--{if $_G['setting']['shortcut'] && $_G['member'][credits] >= $_G['setting']['shortcut']}-->
+		<!--{if !empty($_G['setting']['shortcut']) && $_G['member'][credits] >= $_G['setting']['shortcut']}-->
 			<div id="shortcut">
 				<span><a href="javascript:;" id="shortcutcloseid" title="{lang close}">{lang close}</a></span>
 				{lang shortcut_notice}

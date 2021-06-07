@@ -10,7 +10,7 @@
 if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
-if(!$_G['uid'] && $_G['setting']['privacy']['view']['profile']) {
+if(!$_G['uid'] && getglobal('setting/privacy/view/profile')) {
 	showmessage('home_no_privilege', '', array(), array('login' => true));
 }
 
@@ -50,7 +50,7 @@ if($space['lastpost']) $space['lastpost'] = dgmdate($space['lastpost']);
 if($space['lastsendmail']) $space['lastsendmail'] = dgmdate($space['lastsendmail']);
 
 
-if($_G['uid'] == $space['uid'] || $_G['group']['allowviewip']) {
+if($_G['uid'] == $space['uid'] || getglobal('group/allowviewip')) {
 	$space['regip_loc'] = ip::convert($space['regip']);
 	$space['lastip_loc'] = ip::convert($space['lastip']);
 	$space['regip'] = ip::to_display($space['regip']);
@@ -86,10 +86,10 @@ if(strtotime($space['regdate']) + $space['oltime'] * 3600 > TIMESTAMP) {
 require_once libfile('function/friend');
 $isfriend = friend_check($space['uid'], 1);
 if(!$_G['adminid']){
-	if($_G['setting']['privacy']['view']['profile'] == 1 && !$isfriend) {
+	if(getglobal('setting/privacy/view/profile') == 1 && !$isfriend) {
 		showmessage('specified_user_is_not_your_friend', '', array(), array());
 	}
-	if($_G['setting']['privacy']['view']['profile'] == 2 && !$space['self']) {
+	if(getglobal('setting/privacy/view/profile') == 2 && !$space['self']) {
 		showmessage('is_blacklist', '', array(), array());
 	}
 }
@@ -173,7 +173,7 @@ if(in_array($_G['adminid'], array(1, 2, 3))) {
 
 show_view();
 
-if(!$_G['privacy']) {
+if(!getglobal('privacy')) {
 	if(!$_G['inajax']) {
 		include_once template("home/space_profile");
 	} else {

@@ -343,7 +343,7 @@
 
 	var ATTACHNUM = {'imageused':0,'imageunused':0,'attachused':0,'attachunused':0}, ATTACHUNUSEDAID = new Array(), IMGUNUSEDAID = new Array();
 	<!--{if $allowpostimg}-->
-		ATTACHNUM['imageused'] = <!--{echo is_array($imgattachs['used']) ? count($imgattachs['used']) : 0}-->;
+		ATTACHNUM['imageused'] = <!--{echo (isset($imgattachs['used']) && is_array($imgattachs['used'])) ? count($imgattachs['used']) : 0}-->;
 		<!--{if !empty($imgattachs['used']) || !empty($imgattachs['unused'])}-->
 			switchImagebutton('imgattachlist');
 			$(editorid + '_image').evt = false;
@@ -354,7 +354,7 @@
 	<!--{/if}-->
 	<!--{if $_G['group']['allowpostattach'] || $_G['group']['allowpostimage']}-->
 
-		ATTACHNUM['attachused'] = <!--{echo is_array($attachs['used']) ? count($attachs['used']) : 0}-->;
+		ATTACHNUM['attachused'] = <!--{echo (isset($attachs['used']) && is_array($attachs['used'])) ? count($attachs['used']) : 0}-->;
 		<!--{if !empty($attachs['used']) || !empty($attachs['unused'])}-->
 			$(editorid + '_attach').evt = false;
 			updateattachnum('attach');

@@ -238,7 +238,7 @@ if(!$gid && (!defined('FORUM_INDEX_PAGE_MEMORY') || !FORUM_INDEX_PAGE_MEMORY)) {
 		if($forum_fields[$forum['fid']]['fid']) {
 			$forum = (array_key_exists('fid', $forum) && array_key_exists($forum['fid'], $forum_fields)) ? array_merge($forum, $forum_fields[$forum['fid']]) : $forum;
 		}
-		if($forum_access['fid']) {
+		if(!empty($forum_access['fid'])) {
 			$forum = (array_key_exists('fid', $forum) && array_key_exists($forum['fid'], $forum_access)) ? array_merge($forum, $forum_access[$forum['fid']]) : $forum;
 		}
 		$forumname[$forum['fid']] = strip_tags($forum['name']);

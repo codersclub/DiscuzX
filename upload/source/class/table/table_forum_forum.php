@@ -228,6 +228,7 @@ class table_forum_forum extends discuz_table
 		}
 		$typesql = $type ? ' AND f.'.DB::field('type', $type) : ' AND f.type<>\'group\'';
 		$ignoresql = $ignorefids ? ' AND f.fid NOT IN('.dimplode($ignorefids).')' : '';
+		$fields = $jointable = '';
 		if($orderfield == 'membernum') {
 			$fields = ', ff.membernum';
 			$jointable = ' LEFT JOIN '.DB::table('forum_forumfield').' ff ON ff.fid=f.fid';

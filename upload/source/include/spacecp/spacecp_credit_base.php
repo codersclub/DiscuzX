@@ -166,7 +166,7 @@ if($_GET['op'] == 'base') {
 	}
 
 } elseif ($_GET['op'] == 'transfer') {
-	if($_G['setting']['submitlock'] && discuz_process::islocked('transferlock_'.$_G['uid'], 0, 1)){
+	if(!empty($_G['setting']['submitlock']) && discuz_process::islocked('transferlock_'.$_G['uid'], 0, 1)){
 		showmessage('credits_transfer_msg_locked', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
 	}
 

@@ -17,7 +17,7 @@ var fid = parseInt('$_G[fid]');
 			<div id="fastpostreturn" style="margin:-5px 0 5px"></div>
 
 			<div class="pbt cl">
-				<!--{if $_G['forum'][threadtypes][types]}-->
+				<!--{if !empty($_G['forum'][threadtypes][types])}-->
 					<div class="ftid">
 						<select name="typeid" id="typeid_fast" width="80">
 						<option value="0" selected="selected">{lang select_thread_catgory}</option>
@@ -134,10 +134,10 @@ var fid = parseInt('$_G[fid]');
 									progressTarget : "attachlist",
 									uploadSource: 'forum',
 									uploadType: 'attach',
-									<!--{if $swfconfig['maxsizeperday']}-->
+									<!--{if !empty($swfconfig['maxsizeperday'])}-->
 									maxSizePerDay: $swfconfig['maxsizeperday'],
 									<!--{/if}-->
-									<!--{if $swfconfig['maxattachnum']}-->
+									<!--{if !empty($swfconfig['maxattachnum'])}-->
 									maxAttachNum: $swfconfig['maxattachnum'],
 									<!--{/if}-->
 									uploadFrom: 'fastpost'

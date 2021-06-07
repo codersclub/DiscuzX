@@ -367,7 +367,7 @@ class discuz_application extends discuz_base{
 		static $check = array('"', '>', '<', '\'', '(', ')', 'CONTENT-TRANSFER-ENCODING');
 
 		if(isset($_GET['formhash']) && $_GET['formhash'] !== formhash()) {
-			if(constant('CURMODULE') == 'logging' && isset($_GET['action']) && $_GET['action'] == 'logout') {
+			if(defined('CURMODULE') && constant('CURMODULE') == 'logging' && isset($_GET['action']) && $_GET['action'] == 'logout') {
 				header("HTTP/1.1 302 Found");// 修复多次点击退出时偶发“您当前的访问请求当中含有非法字符，已经被系统拒绝”的Bug
 				header("Location: index.php");
 				exit();
@@ -547,7 +547,7 @@ class discuz_application extends discuz_base{
 			$this->var['group'] = array_merge($this->var['group'], $this->var['cache']['admingroup_'.$this->var['member']['adminid']]);
 		}
 
-		if($this->var['group']['allowmakehtml'] && isset($_GET['_makehtml'])) {
+		if(!empty($this->var['group']['allowmakehtml']) && isset($_GET['_makehtml'])) {
 			$this->var['makehtml'] = 1;
 			$this->_init_guest();
 			loadcache(array('usergroup_7'));
@@ -566,7 +566,7 @@ class discuz_application extends discuz_base{
 		setglobal('username', getglobal('username', 'member'));
 		setglobal('adminid', getglobal('adminid', 'member'));
 		setglobal('groupid', getglobal('groupid', 'member'));
-		if($this->var['member']['newprompt']) {
+		if(!empty($this->var['member']['newprompt'])) {
 			$this->var['member']['newprompt_num'] = C::t('common_member_newprompt')->fetch($this->var['member']['uid']);
 			$this->var['member']['newprompt_num'] = unserialize($this->var['member']['newprompt_num']['data']);
 			$this->var['member']['category_num'] = helper_notification::get_categorynum($this->var['member']['newprompt_num']);
@@ -813,7 +813,7 @@ class discuz_application extends discuz_base{
 			$mobile = isset($mobile_) ? $mobile_ : 2;
 		}
 
-		if(!$this->var['mobile'] && !$unallowmobile && $mobileflag) {
+		if(!$this->var['mobile'] && empty($unallowmobile) && $mobileflag) {
 			if(getgpc('showmobile')) {
 				dheader("Location:misc.php?mod=mobile");
 			}

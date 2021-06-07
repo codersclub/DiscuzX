@@ -9,7 +9,7 @@
 			<option value="0">{lang select_thread_catgory}</option>
 			<!--{loop $_G['forum'][threadtypes][types] $typeid $name}-->
 				<!--{if empty($_G['forum']['threadtypes']['moderators'][$typeid]) || $_G['forum']['ismoderator']}-->
-				<option value="$typeid"{if $thread['typeid'] == $typeid || $_GET['typeid'] == $typeid} selected="selected"{/if}><!--{echo strip_tags($name);}--></option>
+				<option value="$typeid"{if (isset($thread['typeid']) && $thread['typeid'] == $typeid) || getgpc('typeid') == $typeid} selected="selected"{/if}><!--{echo strip_tags($name)}--></option>
 				<!--{/if}-->
 			<!--{/loop}-->
 			</select>
@@ -31,8 +31,8 @@
 			<span id="subjectchk"{if $_GET[action] == 'reply'} style="display:none"{/if}>{lang comment_message1} <strong id="checklen">{$_G['setting']['maxsubjectsize']}</strong> {lang comment_message2}</span>
 			<script type="text/javascript">dstrLenCalc($('subject'), 'checklen', $_G['setting']['maxsubjectsize'])</script>
 		<!--{/if}-->
-		<!--{if $_GET[action] == 'newthread' && $modnewthreads}--> <span class="xg1 xw0">({lang approve})</span><!--{/if}-->
-		<!--{if $_GET[action] == 'reply' && $modnewreplies}--> <span class="xg1 xw0">({lang approve})</span><!--{/if}-->
+		<!--{if $_GET[action] == 'newthread' && !empty($modnewthreads)}--> <span class="xg1 xw0">({lang approve})</span><!--{/if}-->
+		<!--{if $_GET[action] == 'reply' && !empty($modnewreplies)}--> <span class="xg1 xw0">({lang approve})</span><!--{/if}-->
 		<!--{if $_GET[action] == 'edit' && $isfirstpost && $thread['displayorder'] == -4}--> <span class="xg1 xw0">({lang draft})</span><!--{/if}-->
 	</div>
 </div>

@@ -13,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 define('CACHE_TIME', 18000);
 
-$op = $_GET['op'];
+$op = getgpc('op');
 if(!in_array($op, array('basic', 'trade', 'team', 'trend', 'modworks', 'memberlist', 'forumstat', 'trend'))) {
 	$op = 'basic';
 }
@@ -89,7 +89,7 @@ function getstatvars($type) {
 		case 'modworks':
 		case 'memberlist':
 		case 'forumstat':
-			$statvars = call_user_func('getstatvars_'.$type, ($type == 'forumstat' ? $_GET['fid'] : ''));//getstatvars_forumstat($_GET['fid']);
+			$statvars = call_user_func('getstatvars_'.$type, ($type == 'forumstat' ? getgpc('fid') : ''));//getstatvars_forumstat($_GET['fid']);
 			break;
 	}
 	return $statvars;
@@ -109,10 +109,10 @@ function getstatvars_basic() {
 	$statvars['mempostpercent'] = number_format((double)$statvars['mempost'] / $statvars['members'] * 100, 2);
 
 	$bestmember = C::t('forum_post')->fetch_all_top_post_author(0, $_G['timestamp']-86400, 1);
-	$bestmember = $bestmember[0];
+	$bestmember = isset($bestmember[0]) ? $bestmember[0] : array('username' => '');
 	$bestmember['author'] = $bestmember['username'];
-	$statvars['bestmem'] = $bestmember['author'];
-	$statvars['bestmemposts'] = $bestmember['posts'];
+	$statvars['bestmem'] = isset($bestmember['author']) ? $bestmember['author'] : null;
+	$statvars['bestmemposts'] = isset($bestmember['posts']) ? $bestmember['posts'] : null;
 	$postsinfo = C::t('forum_post')->fetch_posts(0);
 	$statvars['posts'] = $postsinfo['posts'];
 	$runtime= $postsinfo['runtime'];
@@ -234,7 +234,7 @@ function getstatvars_team() {
 	$query = C::t('forum_forum')->fetch_all_by_status(1, 1);
 	foreach($query as $val) {
 		$forum = array('fid' => $val['fid'], 'fup' => $val['fup'], 'type' => $val['type'], 'name' => $val['name'], 'inheritedmod' => $val['inheritedmod']);
-		$moderators[$forum['fid']] = is_array($moderators[$forum['fid']]) ? $moderators[$forum['fid']] : array();
+		$moderators[$forum['fid']] = (isset($moderators[$forum['fid']]) && is_array($moderators[$forum['fid']])) ? $moderators[$forum['fid']] : array();
 		$forum['moderators'] = count($moderators[$forum['fid']]);
 		switch($forum['type']) {
 			case 'group':
@@ -525,7 +525,7 @@ function getstatvars_forumstat($fid) {
 		}
 		$statvars['monthposts'] = $monthposts;
 	}
-	$statvars['statuspara'] = "misc.php?mod=stat&op=forumstat&fid=$fid&month={$_GET['month']}&xml=1";
+	$statvars['statuspara'] = "misc.php?mod=stat&op=forumstat&fid=$fid&month={getgpc('month')}&xml=1";
 	return $statvars;
 }
 

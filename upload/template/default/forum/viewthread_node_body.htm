@@ -7,7 +7,7 @@
 	<div class="locked">{lang message_ishidden_hiddenreplies}</div>
 <!--{elseif $post['first'] && $_G['forum_threadpay']}-->
 	<!--{template forum/viewthread_pay}-->
-<!--{elseif $_G['forum_discuzcode']['passwordlock'][$post[pid]]}-->
+<!--{elseif !empty($_G['forum_discuzcode']['passwordlock'][$post[pid]])}-->
 	<div class="locked">{lang message_password_exists} {lang pleaseinputpw}<input type="text" id="postpw_$post[pid]" class="vm" />&nbsp;<button class="pn vm" type="button" onclick="submitpostpw($post[pid]{if $_GET['from'] == 'preview'},{$post[tid]}{else}{/if})"><strong>{lang submit}</strong></button></div>
 <!--{else}-->
 	<!--{if !$post['first'] && !empty($post[subject])}-->
@@ -52,11 +52,11 @@
 			<!--{/if}-->
 		<!--{/if}-->
 	<!--{/if}-->
-	<!--{if $_G['forum_discuzcode']['passwordauthor'][$post[pid]]}-->
+	<!--{if !empty($_G['forum_discuzcode']['passwordauthor'][$post[pid]])}-->
 		<div class="locked">{lang message_password_exists}</div>
 	<!--{/if}-->
 	<div class="{if !$_G[forum_thread][special]}t_fsz{else}pcbs{/if}">
-		$_G['forum_posthtml']['header'][$post[pid]]
+		{$_G['forum_posthtml']['header'][$post[pid]] or ''}
 		<!--{if $post['first']}-->
 			<!--{if !$_G[forum_thread][special]}-->
 				<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_$post[pid]">
@@ -104,7 +104,7 @@
 			<!--{/if}-->
 			<!--{if $post['invisible'] != '-2' || $_G['forum']['ismoderator']}-->$post[message]<!--{else}--><span class="xg1">{lang moderate_need}</span><!--{/if}--></td></tr></table>
 		<!--{/if}-->
-		$_G['forum_posthtml']['footer'][$post[pid]]
+		{$_G['forum_posthtml']['footer'][$post[pid]] or ''}
 
 		<!--{if $post['first'] && ($post[tags] || $relatedkeywords) && $_GET['from'] != 'preview'}-->
 			<div class="ptg mbm mtn">

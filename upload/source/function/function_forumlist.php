@@ -47,7 +47,7 @@ function forum(&$forum) {
 
 	list($lastpost['tid'], $lastpost['subject'], $lastpost['dateline'], $lastpost['author']) = $forum['lastpost'];
 	$thisforumlastvisit = array();
-	if($_G['cookie']['forum_lastvisit']) {
+	if(!empty($_G['cookie']['forum_lastvisit'])) {
 		preg_match("/D\_".$forum['fid']."\_(\d+)/", $_G['cookie']['forum_lastvisit'], $thisforumlastvisit);
 	}
 
@@ -85,6 +85,7 @@ function forumselect($groupselectable = FALSE, $arrayformat = 0, $selectedfid = 
 		if(!$forum['status'] && !$showhide) {
 			continue;
 		}
+		$selected = '';
 		if($selectedfid) {
 			if(!is_array($selectedfid)) {
 				$selected = $selectedfid == $forum['fid'] ? ' selected' : '';

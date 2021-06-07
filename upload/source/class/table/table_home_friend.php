@@ -89,6 +89,7 @@ class table_home_friend extends discuz_table
 		}
 
 		if(!$count) {
+			$limitsql = '';
 			if($order) {
 				$limitsql = ' ORDER BY num DESC, dateline DESC';
 			}

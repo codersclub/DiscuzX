@@ -24,7 +24,7 @@ ckstart($start, $perpage);
 
 checkusergroup();
 
-$operation = in_array($_GET['op'], array('base', 'buy', 'transfer', 'exchange', 'log', 'rule')) ? trim($_GET['op']) : 'base';
+$operation = in_array(getgpc('op'), array('base', 'buy', 'transfer', 'exchange', 'log', 'rule')) ? trim($_GET['op']) : 'base';
 $opactives = array($operation =>' class="a"');
 if(in_array($operation, array('base', 'buy', 'transfer', 'exchange', 'rule'))) {
 	$operation = 'base';

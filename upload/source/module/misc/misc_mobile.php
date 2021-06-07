@@ -21,7 +21,7 @@ if($mod == 'mobile' && defined('IN_MOBILE')) {
 include DISCUZ_ROOT.'./source/language/mobile/lang_template.php';
 $_G['lang'] = array_merge($_G['lang'], $lang);
 $navtitle = $_G['lang']['misc_mobile_title'];
-if($_GET['view'] == true) {
+if(getgpc('view') == true) {
 	include libfile('function/forumlist');
 	loadcache('userstats');
 	loadcache('historyposts');
@@ -30,6 +30,7 @@ if($_GET['view'] == true) {
 	$postdata[1] = intval($postdata[1]);
 
 	$query = C::t('forum_forum')->fetch_all_forum(1);
+	$threads = $posts = $todayposts = 0;
 	foreach($query as $forum) {
 		if($forum['type'] != 'group') {
 			$threads += $forum['threads'];
@@ -61,7 +62,7 @@ if($_GET['view'] == true) {
 	ob_start();
 	include template('forum/discuz');
 } else {
-	if($_G['setting']['domain']['app']['mobile']) {
+	if(getglobal('setting/domain/app/mobile')) {
 		$url = $_G['scheme'].'://'.$_G['setting']['domain']['app']['mobile'];
 		$file = 'newmobiledomain.png';
 	} elseif($_G['setting']['mobile']['allowmnew']) {

@@ -37,7 +37,7 @@ function getuploadconfig($uid=0, $fid=0, $limit=true) {
 	loadcache('attachtype');
 	$fid = isset($_G['cache']['attachtype'][$fid]) ? $fid : 0;
 	$filter = array();
-	if(is_array($_G['cache']['attachtype'][$fid])) {
+	if(isset($_G['cache']['attachtype'][$fid]) && is_array($_G['cache']['attachtype'][$fid])) {
 		foreach($_G['cache']['attachtype'][$fid] as $extension => $maxsize) {
 			if($maxsize == 0) {
 				$notallow[] = $extension;

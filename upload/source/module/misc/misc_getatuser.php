@@ -11,11 +11,11 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 $result = '';
-$search_str = $_GET['search_str'];
+$search_str = getgpc('search_str');
 if($_G['uid']) {
 	$atlist = $atlist_cookie = array();
 	$limit = 200;
-	if($_G['cookie']['atlist']) {
+	if(getcookie('atlist')) {
 		$cookies = explode(',', $_G['cookie']['atlist']);
 		foreach(C::t('common_member')->fetch_all($cookies, false) as $row) {
 			if ($row['uid'] != $_G['uid'] && in_array($row['uid'], $cookies)) {

@@ -105,7 +105,7 @@ if($op == 'thread') {
 			$total = C::t('forum_thread')->count_by_fid_typeid_displayorder($_G['fid'], $_GET['typeid'], 0, '>=');
 			$tpage = ceil($total / $_G['tpp']);
 			$page = min($tpage, $page);
-			$multipage = multi($total, $_G['tpp'], $page, "$cpscript?mod=modcp&amp;action={$_GET['action']}&amp;op=$op&amp;fid={$_G['fid']}&amp;do=$do&amp;posttableid=$posttableid");
+			$multipage = multi($total, $_G['tpp'], $page, "$cpscript?mod=modcp&amp;action={$_GET['action']}&amp;op=$op&amp;fid={$_G['fid']}&amp;do=$do&amp;posttableid=".(isset($posttableid) ? $posttableid : ''));
 			if($total) {
 				$start = ($page - 1) * $_G['tpp'];
 				$threads = C::t('forum_thread')->fetch_all_by_fid_typeid_displayorder($_G['fid'], $_GET['typeid'], 0, '>=', $start, $_G['tpp']);
@@ -156,13 +156,13 @@ if($op == 'post') {
 
 	$threadoptionselect = range(1, 3);
 
-	$posttableid = intval($_GET['posttableid']);
+	$posttableid = intval(getgpc('posttableid'));
 	$posttableselect = getposttableselect();
 
 	$cachekey = 'srchresult_p_'.$posttableid.'_'.$_G['fid'];
 	$fidadd = '';
 	$fidaddarr = array();
-	if($_G['fid'] && $modforums['list'][$_G['fid']]) {
+	if($_G['fid'] && !empty($modforums['list'][$_G['fid']])) {
 		$fidaddarr = array($_G['fid']);
 		$fidadd = "AND fid='{$_G['fid']}'";
 	} else {
@@ -361,7 +361,7 @@ if($op == 'post') {
 
 	$postlist = array();
 
-	if($postarray) {
+	if(!empty($postarray)) {
 		require_once libfile('function/post');
 		foreach($postarray as $post) {
 			$post['dateline'] = dgmdate($post['dateline']);

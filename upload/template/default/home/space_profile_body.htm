@@ -3,12 +3,12 @@
 	<div class="pbm mbm bbda cl">
 		<h2 class="mbn">
 			{$space[username]}
-			<!--{if $_G['ols'][$space[uid]]}-->
+			<!--{if !empty($_G['ols'][$space[uid]])}-->
 				<span title="{lang online}" class="olicon vm"></span>&nbsp;
 			<!--{/if}-->
 			<span class="xw0">(UID: {$space[uid]}
 			<!--{eval $isfriendinfo = 'home_friend_info_'.$space['uid'].'_'.$_G['uid'];}-->
-			<!--{if $_G[$isfriendinfo][note]}-->
+			<!--{if !empty($_G[$isfriendinfo][note])}-->
 				, <span class="xg1">$_G[$isfriendinfo][note]</span>
 			<!--{/if}-->
 			)</span>
@@ -132,7 +132,7 @@
 		<!--{/loop}-->
 	</div>
 <!--{/if}-->
-<!--{if $groupcount}-->
+<!--{if !empty($groupcount)}-->
 	<div class="pbm mbm bbda cl">
 		<h2 class="mbn">{lang joined_group}</h2>
 		<!--{loop $usergrouplist $key $value}-->
@@ -151,7 +151,7 @@
 		<!--{if $space[oltime] && !$_G['setting']['sessionclose']}--><li><em>{lang online_time}</em>$space[oltime] {lang hours}</li><!--{/if}-->
 		<li><em>{lang regdate}</em>$space[regdate]</li>
 		<li><em>{lang last_visit}</em>$space[lastvisit]</li>
-		<!--{if $_G[uid] == $space[uid] || $_G[group][allowviewip]}-->
+		<!--{if $_G[uid] == $space[uid] || !empty($_G[group][allowviewip])}-->
 		<li><em>{lang register_ip}</em>$space[regip]:$space[regport] - $space[regip_loc]</li>
 		<li><em>{lang last_visit_ip}</em>$space[lastip]:$space[port] - $space[lastip_loc]</li>
 		<!--{/if}-->

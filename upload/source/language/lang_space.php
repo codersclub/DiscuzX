@@ -104,7 +104,7 @@ $lang = array(
 	'blockdata' => array('personalinfo' => '个人资料', 'profile' => '头像', 'doing' => '记录', 'feed' => '动态',
 				'blog' => '日志', 'stickblog' => '置顶日志', 'album' => '相册', 'friend' => '好友',
 				'visitor' => '最近访客', 'wall' => '留言板', 'share' => '分享',
-				'thread' => '主题', 'group'=>$_G['setting']['navs'][3]['navname'],'music'=>'音乐盒',
+				'thread' => '主题', 'group'=>(isset($_G['setting']['navs'][3]['navname']) ? $_G['setting']['navs'][3]['navname'] : ''),'music'=>'音乐盒',
 				'statistic' => '统计信息',
 				'block1'=>'自由模块1', 'block2'=>'自由模块2', 'block3'=>'自由模块3',
 				'block4'=>'自由模块4','block5'=>'自由模块5'),

@@ -20,13 +20,13 @@ $do = (!empty($_GET['do']) && in_array($_GET['do'], $dos)) ? $_GET['do'] : 'inde
 if(!in_array($do, array('home', 'doing', 'blog', 'album', 'share', 'wall'))) {
 	$_G['mnid'] = 'mn_common';
 }
-if(empty($_G['uid']) && in_array($_GET['do'], array('thread', 'trade', 'poll', 'activity', 'debate', 'reward'))) {
+if(empty($_G['uid']) && in_array(getgpc('do'), array('thread', 'trade', 'poll', 'activity', 'debate', 'reward'))) {
 	showmessage('login_before_enter_home', null, array(), array('showmsg' => true, 'login' => 1));
 }
 $uid = empty($_GET['uid']) ? 0 : intval($_GET['uid']);
 
 $member = array();
-if($_GET['username']) {
+if(getgpc('username')) {
 	$member = C::t('common_member')->fetch_by_username($_GET['username']);
 	if(empty($member) && !($member = C::t('common_member_archive')->fetch_by_username($_GET['username']))) {
 		showmessage('space_does_not_exist');
@@ -35,7 +35,7 @@ if($_GET['username']) {
 	$member['self'] = $uid == $_G['uid'] ? 1 : 0;
 }
 
-if($_GET['view'] == 'admin') {
+if(getgpc('view') == 'admin') {
 	$_GET['do'] = $do;
 }
 if(empty($uid) || in_array($do, array('notice', 'pm'))) $uid = $_G['uid'];
@@ -107,7 +107,7 @@ if(empty($space)) {
 		exit();
 	}
 
-	if(!$space['self'] && $_GET['view'] != 'eccredit' && $_GET['view'] != 'admin') $_GET['view'] = 'me';
+	if(!$space['self'] && getgpc('view') != 'eccredit' && getgpc('view') != 'admin') $_GET['view'] = 'me';
 }
 
 $diymode = 0;

@@ -142,10 +142,10 @@ var disablepostctrl = parseInt('{$_G['group']['disablepostctrl']}');
 							progressTarget : "attachlist",
 							uploadSource: 'forum',
 							uploadType: 'attach',
-							<!--{if $swfconfig['maxsizeperday']}-->
+							<!--{if !empty($swfconfig['maxsizeperday'])}-->
 							maxSizePerDay: $swfconfig['maxsizeperday'],
 							<!--{/if}-->
-							<!--{if $swfconfig['maxattachnum']}-->
+							<!--{if !empty($swfconfig['maxattachnum'])}-->
 							maxAttachNum: $swfconfig['maxattachnum'],
 							<!--{/if}-->
 							uploadFrom: 'fastpost'

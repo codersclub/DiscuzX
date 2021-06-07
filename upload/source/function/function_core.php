@@ -413,7 +413,7 @@ function strexists($string, $find) {
 
 function avatar($uid, $size = 'middle', $returnsrc = FALSE, $real = FALSE, $static = FALSE, $ucenterurl = '') {
 	global $_G;
-	if($_G['setting']['plugins']['func'][HOOKTYPE]['avatar']) {
+	if(!empty($_G['setting']['plugins']['func'][HOOKTYPE]['avatar'])) {
 		$_G['hookavatar'] = '';
 		$param = func_get_args();
 		hookscript('avatar', 'global', 'funcs', array('param' => $param), 'avatar');
@@ -460,7 +460,10 @@ function lang($file, $langvar = null, $vars = array(), $default = null) {
 	if($path != 'plugin') {
 		$key = $path == '' ? $file : $path.'_'.$file;
 		if(!isset($_G['lang'][$key])) {
-			include DISCUZ_ROOT.'./source/language/'.($path == '' ? '' : $path.'/').'lang_'.$file.'.php';
+			$loadfile = DISCUZ_ROOT.'./source/language/'.($path == '' ? '' : $path.'/').'lang_'.$file.'.php';
+			if(file_exists($loadfile)) {
+				include $loadfile;
+			}
 			$_G['lang'][$key] = (array)$lang;
 		}
 		if(defined('IN_MOBILE') && !defined('TPL_DEFAULT')) {
@@ -506,7 +509,9 @@ function lang($file, $langvar = null, $vars = array(), $default = null) {
 			$replaces[] = getglobal($gvar[1][$k]);
 		}
 	}
-	$return = str_replace($searchs, $replaces, $return);
+	if($searchs || $replaces) {
+		$return = str_replace($searchs, $replaces, $return);
+	}
 	return $return;
 }
 
@@ -543,7 +548,13 @@ function checktplrefresh($maintpl, $subtpl, $timecompare, $templateid, $cachefil
 function template($file, $templateid = 0, $tpldir = '', $gettplfile = 0, $primaltpl='') {
 	global $_G;
 
-	if($_G['setting']['plugins']['func'][HOOKTYPE]['template']) {
+	if(!defined('CURMODULE')) {
+		define('CURMODULE', '');
+	}
+	if(!defined('HOOKTYPE')) {
+		define('HOOKTYPE', !defined('IN_MOBILE') ? 'hookscript' : 'hookscriptmobile');
+	}
+	if(!empty($_G['setting']['plugins']['func'][HOOKTYPE]['template'])) {
 		$param = func_get_args();
 		$hookreturn = hookscript('template', 'global', 'funcs', array('param' => $param, 'caller' => 'template'), 'template');
 		if($hookreturn) {
@@ -559,7 +570,7 @@ function template($file, $templateid = 0, $tpldir = '', $gettplfile = 0, $primal
 	$oldfile = $file;
 	if(strpos($file, ':') !== false) {
 		$clonefile = '';
-		list($templateid, $file, $clonefile) = explode(':', $file);
+		list($templateid, $file, $clonefile) = explode(':', $file.'::');
 		$oldfile = $file;
 		$file = empty($clonefile) ? $file : $file.'_'.$clonefile;
 		if($templateid == 'diy') {
@@ -643,7 +654,7 @@ function template($file, $templateid = 0, $tpldir = '', $gettplfile = 0, $primal
 				$mobiletplfile = $tpldir.'/'.$file.'.htm';
 			}
 		}
-		!$mobiletplfile && $mobiletplfile = $file.'.htm';
+		empty($mobiletplfile) && $mobiletplfile = $file.'.htm';
 		if(strpos($tpldir, 'plugin') && (file_exists(DISCUZ_ROOT.$mobiletplfile) || file_exists(substr(DISCUZ_ROOT.$mobiletplfile, 0, -4).'.php'))) {
 			$tplfile = $mobiletplfile;
 		} elseif(!file_exists(DISCUZ_ROOT.TPLDIR.'/'.$mobiletplfile) && !file_exists(substr(DISCUZ_ROOT.TPLDIR.'/'.$mobiletplfile, 0, -4).'.php')) {
@@ -1171,12 +1182,15 @@ function hookscript($script, $hscript, $type = 'funcs', $param = array(), $func 
 	static $pluginclasses = array();
 	if($hscript == 'home') {
 		if($script == 'space') {
-			$scriptextra = !$scriptextra ? $_GET['do'] : $scriptextra;
+			$scriptextra = !$scriptextra ? getgpc('do') : $scriptextra;
 			$script = 'space'.(!empty($scriptextra) ? '_'.$scriptextra : '');
 		} elseif($script == 'spacecp') {
-			$scriptextra = !$scriptextra ? $_GET['ac'] : $scriptextra;
+			$scriptextra = !$scriptextra ? getgpc('ac') : $scriptextra;
 			$script .= !empty($scriptextra) ? '_'.$scriptextra : '';
 		}
+	}
+	if(!defined('HOOKTYPE')) {
+		define('HOOKTYPE', !defined('IN_MOBILE') ? 'hookscript' : 'hookscriptmobile');
 	}
 	if(!isset($_G['setting'][HOOKTYPE][$hscript][$script][$type])) {
 		return;
@@ -1226,7 +1240,10 @@ function hookscript($script, $hscript, $type = 'funcs', $param = array(), $func 
 							}
 						}
 					} else {
-						if(!is_array($_G['setting']['pluginhooks'][$hookkey])) {
+						if(!(isset($_G['setting']['pluginhooks'][$hookkey]) && is_array($_G['setting']['pluginhooks'][$hookkey]))) {
+							if(!isset($_G['setting']['pluginhooks'][$hookkey])) {
+								$_G['setting']['pluginhooks'][$hookkey] = '';
+							}
 							$_G['setting']['pluginhooks'][$hookkey] .= $return;
 						} else {
 							foreach($_G['setting']['pluginhooks'][$hookkey] as $k => $v) {
@@ -1249,7 +1266,7 @@ function hookscriptoutput($tplfile) {
 	hookscript('global', 'global');
 	$_G['hookscriptoutput'] = true;
 	if(defined('CURMODULE')) {
-		$param = array('template' => $tplfile, 'message' => $_G['hookscriptmessage'], 'values' => $_G['hookscriptvalues']);
+		$param = array('template' => $tplfile, 'message' => getglobal('hookscriptmessage'), 'values' => getglobal('hookscriptmessage'));
 		hookscript(CURMODULE, $_G['basescript'], 'outputfuncs', $param);
 	}
 }
@@ -1353,14 +1370,13 @@ function debug($var = null, $vardump = false) {
 function debuginfo() {
 	global $_G;
 	if(getglobal('setting/debug')) {
-		$db = & DB::object();
 		$_G['debuginfo'] = array(
 		    'time' => number_format((microtime(true) - $_G['starttime']), 6),
-		    'queries' => $db->querynum,
+		    'queries' => DB::object()->querynum,
 		    'memory' => ucwords(C::memory()->type)
 		    );
-		if($db->slaveid) {
-			$_G['debuginfo']['queries'] = 'Total '.$db->querynum.', Slave '.$db->slavequery;
+		if(DB::object()->slaveid) {
+			$_G['debuginfo']['queries'] = 'Total '.DB::object()->querynum.', Slave '.DB::object()->slavequery;
 		}
 		return TRUE;
 	} else {
@@ -1404,7 +1420,7 @@ function make_secqaa() {
 
 function adshow($parameter) {
 	global $_G;
-	if($_G['inajax'] || $_G['group']['closead']) {
+	if(getgpc('inajax') || $_G['group']['closead']) {
 		return;
 	}
 	if(isset($_G['config']['plugindeveloper']) && $_G['config']['plugindeveloper'] == 2) {
@@ -1450,7 +1466,7 @@ function adshow($parameter) {
 	$adfunc = 'ad_'.$params[0];
 	$_G['setting']['pluginhooks'][$adfunc] = null;
 	hookscript('ad', 'global', 'funcs', array('params' => $params, 'content' => $adcontent), $adfunc);
-	if(!$_G['setting']['hookscript']['global']['ad']['funcs'][$adfunc]) {
+	if(empty($_G['setting']['hookscript']['global']['ad']['funcs'][$adfunc])) {
 		hookscript('ad', $_G['basescript'], 'funcs', array('params' => $params, 'content' => $adcontent), $adfunc);
 	}
 	return $_G['setting']['pluginhooks'][$adfunc] === null ? $adcontent : $_G['setting']['pluginhooks'][$adfunc];
@@ -1872,7 +1888,7 @@ function checkperm($perm) {
 
 function periodscheck($periods, $showmessage = 1) {
 	global $_G;
-	if(($periods == 'postmodperiods' || $periods == 'postbanperiods') && ($_G['setting']['postignorearea'] || $_G['setting']['postignoreip'])) {
+	if(($periods == 'postmodperiods' || $periods == 'postbanperiods') && (getglobal('setting/postignorearea') || getglobal('setting/postignoreip'))) {
 		if($_G['setting']['postignoreip']) {
 			foreach(explode("\n", $_G['setting']['postignoreip']) as $ctrlip) {
 				if(preg_match("/^(".preg_quote(($ctrlip = trim($ctrlip)), '/').")/", $_G['clientip'])) {
@@ -2097,10 +2113,10 @@ function check_diy_perm($topic = array(), $flag = '') {
 	static $ret = array();
 	if(empty($ret)) {
 		global $_G;
-		$common = !empty($_G['style']['tplfile']) || $_GET['inajax'];
-		$blockallow = getstatus($_G['member']['allowadmincp'], 4) || getstatus($_G['member']['allowadmincp'], 5) || getstatus($_G['member']['allowadmincp'], 6);
+		$common = !empty($_G['style']['tplfile']) || getgpc('inajax');
+		$blockallow = getstatus(getglobal('member/allowadmincp'), 4) || getstatus(getglobal('member/allowadmincp'), 5) || getstatus(getglobal('member/allowadmincp'), 6);
 		$ret['data'] = $common && $blockallow;
-		$ret['layout'] = $common && ($_G['group']['allowdiy'] || (
+		$ret['layout'] = $common && (!empty($_G['group']['allowdiy']) || (
 				CURMODULE === 'topic' && ($_G['group']['allowmanagetopic'] || $_G['group']['allowaddtopic'] && $topic && $topic['uid'] == $_G['uid'])
 				));
 	}

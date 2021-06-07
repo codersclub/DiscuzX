@@ -215,8 +215,10 @@ if(!submitcheck('editsubmit')) {
 	$selectgroupid = 0;
 	if($postinfo['first'] == 1) {
 		preg_match("/(\[groupid=(\d+)\].*\[\/groupid\])/i", $postinfo['message'], $matchs);
-		$postinfo['message'] = str_replace($matchs[1], '', $postinfo['message']);
-		$selectgroupid = $matchs[2];
+		if($matchs) {
+			$postinfo['message'] = str_replace($matchs[1], '', $postinfo['message']);
+			$selectgroupid = $matchs[2];
+		}
 
 		if(helper_access::check_module('group')) {
 			$mygroups = $groupids = array();
@@ -288,7 +290,7 @@ if(!submitcheck('editsubmit')) {
 		}
 	}
 
-	$imgattachs['unused'] = !$sortid ? $imgattachs['unused'] : '';
+	$imgattachs['unused'] = !$sortid ? (isset($imgattachs['unused']) ? $imgattachs['unused'] : '') : '';
 
 	include template('forum/post');
 

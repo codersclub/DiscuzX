@@ -51,7 +51,7 @@ require './source/class/class_core.php';
 
 $discuz = C::app();
 
-if($_GET['mod'] != 'tag'){
+if(isset($_GET['mod']) && $_GET['mod'] != 'tag'){
 	$discuz->reject_robot();
 }
 $modarray = array('seccode', 'secqaa', 'initsys', 'invite', 'faq', 'report',

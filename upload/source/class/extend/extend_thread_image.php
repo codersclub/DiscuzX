@@ -25,7 +25,7 @@ class extend_thread_image extends extend_thread_base {
 			convertunusedattach($_GET['activityaid'], $tid, $pid);
 		}
 		$this->mobile_upload();
-		if(($this->group['allowpostattach'] || $this->group['allowpostimage']) && ($_GET['attachnew'] || $this->param['sortid'] || !empty($_GET['activityaid']))) {
+		if(($this->group['allowpostattach'] || $this->group['allowpostimage']) && (getgpc('attachnew') || $this->param['sortid'] || !empty($_GET['activityaid']))) {
 			updateattach($this->param['displayorder'] == -4 || $this->param['modnewthreads'], $tid, $pid, $_GET['attachnew']);
 			if(!$threadimageaid) {
 				$threadimage = C::t('forum_attachment_n')->fetch_max_image('tid:'.$tid, 'tid', $tid);
@@ -55,7 +55,7 @@ class extend_thread_image extends extend_thread_base {
 		$this->param['param'] = array_merge((array)$this->param['param'], $param);
 	}
 	private function mobile_upload() {
-		if($_GET['mobile'] == 'yes' && !empty($_FILES['Filedata'])) {
+		if(getgpc('mobile') == 'yes' && !empty($_FILES['Filedata'])) {
 			$forumattachextensions = '';
 			if($_G['forum']) {
 				$forum = $_G['forum'];

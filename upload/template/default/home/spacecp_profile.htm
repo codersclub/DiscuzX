@@ -33,7 +33,7 @@
 			<script type="text/javascript" src="{$_G[setting][jspath]}register.js?{VERHASH}"></script>
 			<p class="bbda pbm mbm">
 				<!--{if !$_G['member']['freeze']}-->
-					<!--{if !$_G['setting']['connect']['allow'] || !$conisregister}-->{lang old_password_comment}<!--{elseif $wechatuser}-->{lang wechat_config_newpassword_comment}<!--{else}-->{lang connect_config_newpassword_comment}<!--{/if}-->
+					<!--{if empty($_G['setting']['connect']['allow']) || !$conisregister}-->{lang old_password_comment}<!--{elseif $wechatuser}-->{lang wechat_config_newpassword_comment}<!--{else}-->{lang connect_config_newpassword_comment}<!--{/if}-->
 				<!--{elseif $_G['member']['freeze'] == 1}-->
 					<strong class="xi1">{lang freeze_pw_tips}</strong>
 				<!--{elseif $_G['member']['freeze'] == 2}-->
@@ -45,7 +45,7 @@
 			<form action="home.php?mod=spacecp&ac=profile" method="post" autocomplete="off">
 				<input type="hidden" value="{FORMHASH}" name="formhash" />
 				<table summary="{lang memcp_profile}" cellspacing="0" cellpadding="0" class="tfm">
-					<!--{if !$_G['setting']['connect']['allow'] || !$conisregister}-->
+					<!--{if empty($_G['setting']['connect']['allow']) || !$conisregister}-->
 						<tr>
 							<th><span class="rq" title="{lang required}">*</span>{lang old_password}</th>
 							<td><input type="password" name="oldpassword" id="oldpassword" class="px" /></td>
@@ -65,7 +65,7 @@
 							<p class="d" id="chk_newpassword2">{lang memcp_profile_passwd_comment}</p>
 						</td>
 					</tr>
-					<tr id="contact"{if $_GET[from] == 'contact'} style="background-color: {$_G['style']['specialbg']};"{/if}>
+					<tr id="contact"{if isset($_GET[from]) && $_GET[from] == 'contact'} style="background-color: {$_G['style']['specialbg']};"{/if}>
 						<th>{lang email}</th>
 						<td>
 							<input type="text" name="emailnew" id="emailnew" value="$space[email]" class="px" />
@@ -184,7 +184,7 @@
 			<iframe id="frame_profile" name="frame_profile" style="display: none"></iframe>
 			<form action="{if $operation != 'plugin'}home.php?mod=spacecp&ac=profile&op=$operation{else}home.php?mod=spacecp&ac=plugin&op=profile&id=$_GET[id]{/if}" method="post" enctype="multipart/form-data" autocomplete="off"{if $operation != 'plugin'} target="frame_profile"{/if} onsubmit="clearErrorInfo();">
 				<input type="hidden" value="{FORMHASH}" name="formhash" />
-				<!--{if $_GET[vid]}-->
+				<!--{if !empty($_GET[vid])}-->
 				<input type="hidden" value="$_GET[vid]" name="vid" />
 				<!--{/if}-->
 				<table cellspacing="0" cellpadding="0" class="tfm" id="profilelist">
@@ -205,9 +205,9 @@
 							<input type="hidden" name="privacy[$key]" value="3" />
 							<!--{else}-->
 							<select name="privacy[$key]">
-								<option value="0"{if $privacy[$key] == "0"} selected="selected"{/if}>{lang open_privacy}</option>
-								<option value="1"{if $privacy[$key] == "1"} selected="selected"{/if}>{lang friend_privacy}</option>
-								<option value="3"{if $privacy[$key] == "3"} selected="selected"{/if}>{lang secrecy}</option>
+								<option value="0"{if isset($privacy[$key]) && $privacy[$key] == "0"} selected="selected"{/if}>{lang open_privacy}</option>
+								<option value="1"{if isset($privacy[$key]) && $privacy[$key] == "1"} selected="selected"{/if}>{lang friend_privacy}</option>
+								<option value="3"{if isset($privacy[$key]) && $privacy[$key] == "3"} selected="selected"{/if}>{lang secrecy}</option>
 							</select>
 							<!--{/if}-->
 						</td>

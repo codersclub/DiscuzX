@@ -28,12 +28,12 @@ foreach (array('starttime', 'endtime', 'keywords', 'users') as $key) {
 $postlist = array();
 $total = $multipage = '';
 
-$posttableid = intval($_GET['posttableid']);
+$posttableid = intval(getgpc('posttableid'));
 $posttableselect = getposttableselect();
 
 $cachekey = 'srchresult_recycle_post_'.$posttableid.'_'.$_G['fid'];
 
-if($_G['fid'] && $_G['forum']['ismoderator'] && $modforums['recyclebins'][$_G['fid']]) {
+if($_G['fid'] && $_G['forum']['ismoderator'] && !empty($modforums['recyclebins'][$_G['fid']])) {
 
 	$srchupdate = false;
 

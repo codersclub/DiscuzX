@@ -58,7 +58,7 @@
 				<td>
 					<h2><a href="$forumurl" {if !empty($sub[redirect])}target="_blank"{/if} style="{if !empty($sub[extra][namecolor])}color: {$sub[extra][namecolor]};{/if}">$sub[name]</a><!--{if $sub[todayposts] && !$sub['redirect']}--><em class="xw0 xi1" title="{lang forum_todayposts}"> ($sub[todayposts])</em><!--{/if}--></h2>
 					<!--{if $sub[description]}--><p class="xg2">$sub[description]</p><!--{/if}-->
-					<!--{if $sub['subforums']}--><p>{lang forum_subforums}: $sub['subforums']</p><!--{/if}-->
+					<!--{if !empty($sub['subforums'])}--><p>{lang forum_subforums}: $sub['subforums']</p><!--{/if}-->
 					<!--{if $sub['moderators']}--><p>{lang forum_moderators}: $sub[moderators]</p><!--{/if}-->
 					<!--{hook/forumdisplay_subforum_extra $sub['fid']}-->
 				</td>
@@ -84,7 +84,7 @@
 			<tr class="fl_row">
 			<!--{/if}-->
 			<!--{/loop}-->
-			$_G['forum']['endrows']
+			{$_G['forum']['endrows'] or ''}
 			</tr>
 		</table>
 	</div>

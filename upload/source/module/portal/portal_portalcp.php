@@ -11,7 +11,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-$ac = in_array($_GET['ac'], array('comment', 'article', 'related', 'block', 'portalblock', 'blockdata', 'topic', 'diy', 'upload', 'category', 'plugin', 'logout')) ? $_GET['ac'] : 'index';
+$ac = in_array(getgpc('ac'), array('comment', 'article', 'related', 'block', 'portalblock', 'blockdata', 'topic', 'diy', 'upload', 'category', 'plugin', 'logout')) ? $_GET['ac'] : 'index';
 
 if (!$_G['setting']['portalstatus'] && !in_array($ac, array('index', 'block', 'portalblock', 'blockdata', 'diy', 'logout'))) {
 	showmessage('portal_status_off');

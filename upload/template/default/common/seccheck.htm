@@ -1,5 +1,5 @@
 {eval
-	$sechash = !isset($sechash) ? 'S'.($_G['inajax'] ? 'A'.random(3) : '').$_G['sid'] : $sechash.random(3);
+	$sechash = !isset($sechash) ? 'S'.(empty($_G['inajax']) ? '' : 'A'.random(3)).$_G['sid'] : $sechash.random(3);
 	$sectpl = str_replace("'", "\'", $sectpl);
 }
 <!--{if $secqaacheck}-->

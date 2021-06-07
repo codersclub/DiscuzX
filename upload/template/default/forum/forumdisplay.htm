@@ -177,7 +177,7 @@
 				</div>
 				<!--{/if}-->
 
-				<!--{if $threadmodcount}--><div class="bm"><div class="ntc_l hm xi2"><strong>{lang forum_moderate_unhandled}</strong></div></div><!--{/if}-->
+				<!--{if !empty($threadmodcount)}--><div class="bm"><div class="ntc_l hm xi2"><strong>{lang forum_moderate_unhandled}</strong></div></div><!--{/if}-->
 
 				<!--{if $livethread}-->
 					<div id="livethread" class="tl bm bmw cl" style="padding:10px 15px;">
@@ -404,10 +404,10 @@
 				<div id="pgt" class="bm bw0 pgs cl">
 					<span id="fd_page_top">$multipage</span>
 					<span class="pgb y" {if $_G[setting][visitedforums]}id="visitedforums" onmouseover="$('visitedforums').id = 'visitedforumstmp';this.id = 'visitedforums';showMenu({'ctrlid':this.id,'pos':'34'})"{/if} ><a href="forum.php">{lang return_index}</a></span>
-					<!--{if !$_GET['archiveid']}--><a href="javascript:;" id="newspecial" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"{if !$_G['forum']['allowspecialonly'] && empty($_G['forum']['picstyle']) && !$_G['forum']['threadsorts']['required']} onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')"{else} onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]';return false;"{/if} title="{lang send_posts}" class="pgsbtn showmenu">{lang send_posts}</a><!--{/if}-->
+					<!--{if !$_GET['archiveid']}--><a href="javascript:;" id="newspecial" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"{if !$_G['forum']['allowspecialonly'] && empty($_G['forum']['picstyle']) && empty($_G['forum']['threadsorts']['required'])} onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=$_G[fid]')"{else} onclick="location.href='forum.php?mod=post&action=newthread&fid=$_G[fid]';return false;"{/if} title="{lang send_posts}" class="pgsbtn showmenu">{lang send_posts}</a><!--{/if}-->
 					<!--{hook/forumdisplay_postbutton_top}-->
 				</div>
-				<!--{if ($_G['forum']['threadtypes'] && $_G['forum']['threadtypes']['listable']) || (is_array($_G['forum']['threadsorts']['types']) && count($_G['forum']['threadsorts']['types']) > 0)}-->
+				<!--{if ($_G['forum']['threadtypes'] && $_G['forum']['threadtypes']['listable']) || (isset($_G['forum']['threadsorts']['types']) && is_array($_G['forum']['threadsorts']['types']) && count($_G['forum']['threadsorts']['types']) > 0)}-->
 					<ul id="thread_types" class="ttp bm cl">
 						<!--{hook/forumdisplay_threadtype_inner}-->
 						<li id="ttp_all" {if !$_GET['typeid'] && !$_GET['sortid']}class="xw1 a"{/if}><a href="forum.php?mod=forumdisplay&fid=$_G[fid]{if $_G['forum']['threadsorts']['defaultshow']}&filter=sortall&sortall=1{/if}{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang forum_viewall}</a></li>
@@ -567,7 +567,7 @@
 	</div>
 <!--{/if}-->
 <!--{if $_G['setting']['threadmaxpages'] > 1 && $page && !$subforumonly}-->
-	<script type="text/javascript">document.onkeyup = function(e){keyPageScroll(e, <!--{if $page > 1}-->1<!--{else}-->0<!--{/if}-->, <!--{if $page < $_G['setting']['threadmaxpages'] && $page < $_G['page_next']}-->1<!--{else}-->0<!--{/if}-->, 'forum.php?mod=forumdisplay&fid={$_G[fid]}&filter={$filter}&orderby={$_GET[orderby]}{$forumdisplayadd[page]}&{$multipage_archive}', $page);}</script>
+	<script type="text/javascript">document.onkeyup = function(e){keyPageScroll(e, <!--{if $page > 1}-->1<!--{else}-->0<!--{/if}-->, <!--{if $page < $_G['setting']['threadmaxpages'] && isset($_G['page_next']) && $page < $_G['page_next']}-->1<!--{else}-->0<!--{/if}-->, 'forum.php?mod=forumdisplay&fid={$_G[fid]}&filter={$filter}&orderby={$_GET[orderby]}{$forumdisplayadd[page]}&{$multipage_archive}', $page);}</script>
 <!--{/if}-->
 
 <!--{if empty($_G['forum']['picstyle']) && $_GET['orderby'] == 'lastpost' && empty($_GET['filter']) }-->

@@ -651,23 +651,23 @@ class table_forum_thread extends discuz_table
 		if($prefix) {
 			$prefix = 't.';
 		}
-		if($conditions['sourcetableid'] != '') {
+		if(!empty($conditions['sourcetableid'])) {
 			$this->_urlparam[] = "sourcetableid={$conditions['sourcetableid']}";
 		}
 		if($conditions['inforum'] != '' && $conditions['inforum'] != 'all') {
 			$wherearr[] = $prefix.DB::field('fid', $conditions['inforum']);
 			$this->_urlparam[] = "inforum={$conditions['inforum']}";
 		}
-		if($conditions['intids']) {
+		if(!empty($conditions['intids'])) {
 			$wherearr[] = $prefix.DB::field('tid', $conditions['intids']);
 			$this->_urlparam[] = "intids={$conditions['intids']}";
 		}
-		if($conditions['tidmin'] != '') {
+		if(!empty($conditions['tidmin'])) {
 			$wherearr[] = $prefix.DB::field('tid', $conditions['tidmin'], '>=');
 			$this->_urlparam[] = "tidmin={$conditions['tidmin']}";
 		}
 
-		if($conditions['tidmax'] != '') {
+		if(!empty($conditions['tidmax'])) {
 			$wherearr[] = $prefix.DB::field('tid', $conditions['tidmax'], '<=');
 			$this->_urlparam[] = "tidmax={$conditions['tidmax']}";
 		}
@@ -690,26 +690,26 @@ class table_forum_thread extends discuz_table
 			}
 		}
 
-		if($conditions['noreplydays']) {
+		if(!empty($conditions['noreplydays'])) {
 			$conditions['noreplydays'] = intval($conditions['noreplydays']);
 			$lastpost = getglobal('timestamp') - $conditions['noreplydays'] * 86400;
 			$wherearr[] = $prefix.DB::field('lastpost', $lastpost, '<');
 			$this->_urlparam[] = "noreplydays={$conditions['noreplydays']}";
 		}
-		if($conditions['lastpostless']) {
+		if(!empty($conditions['lastpostless'])) {
 			$wherearr[] = $prefix.DB::field('lastpost', $conditions['lastpostless'], '<=');
 			$this->_urlparam[] = "lastpostless={$conditions['lastpostless']}";
 		}
-		if($conditions['lastpostmore']) {
+		if(!empty($conditions['lastpostmore'])) {
 			$wherearr[] = $prefix.DB::field('lastpost', $conditions['lastpostmore'], '>=');
 			$this->_urlparam[] = "lastpostmore={$conditions['lastpostmore']}";
 		}
 
-		if($conditions['intype'] != '' && $conditions['intype'] != 'all') {
+		if(!empty($conditions['intype']) && $conditions['intype'] != 'all') {
 			$wherearr[] = $prefix.DB::field('typeid', $conditions['intype']);
 			$this->_urlparam[] = "intype={$conditions['intype']}";
 		}
-		if($conditions['insort'] != '' && $conditions['insort'] != 'all') {
+		if(!empty($conditions['insort']) && $conditions['insort'] != 'all') {
 			$wherearr[] = $prefix.DB::field('sortid', $conditions['insort']);
 			$this->_urlparam[] = "insort={$conditions['insort']}";
 		}
@@ -742,29 +742,30 @@ class table_forum_thread extends discuz_table
 			$wherearr[] = $prefix.DB::field('price', $conditions['pricemore'], '>');
 			$this->_urlparam[] = "pricemore={$conditions['pricemore']}";
 		}
-		if($conditions['beforedays'] != '') {
+		if(!empty($conditions['beforedays'])) {
 			$dateline = getglobal('timestamp') - $conditions['beforedays']*86400;
 			$wherearr[] = $prefix.DB::field('dateline', $dateline, '<');
 			$this->_urlparam[] = "beforedays={$conditions['beforedays']}";
 		}
 
-		if($conditions['starttime'] != '') {
+		if(!empty($conditions['starttime'])) {
 			$starttime = strtotime($conditions['starttime']);
 			$wherearr[] = $prefix.DB::field('dateline', $starttime, '>');
 			$this->_urlparam[] = "starttime={$conditions['starttime']}";
 		}
-		if($conditions['endtime'] != '') {
+		if(!empty($conditions['endtime'])) {
 			$endtime = strtotime($conditions['endtime']);
 			$wherearr[] = $prefix.DB::field('dateline', $endtime, '<=');
 			$this->_urlparam[] = "endtime={$conditions['endtime']}";
 		}
-		$conditions['users'] = trim($conditions['users']);
+		$conditions['users'] = trim(isset($conditions['users']) ? $conditions['users'] : '');
 		if(!empty($conditions['users'])) {
 			$wherearr[] = $prefix.DB::field('author', explode(' ', trim($conditions['users'])));
 			$this->_urlparam[] = "users={$conditions['users']}";
 		}
 
-		if($conditions['digest'] == 1) {
+		if(!isset($conditions['digest'])) {
+		} elseif($conditions['digest'] == 1) {
 			$wherearr[] = $prefix.DB::field('digest', 0, '>');
 			$this->_urlparam[] = "digest=1";
 		} elseif($conditions['digest'] == 2) {
@@ -774,36 +775,39 @@ class table_forum_thread extends discuz_table
 			$wherearr[] = $prefix.DB::field('digest', $conditions['digest']);
 			$this->_urlparam[] = "digest=".implode(',', $conditions['digest']);
 		}
-		if($conditions['recommends']) {
+		if(!empty($conditions['recommends'])) {
 			$wherearr[] = $prefix.DB::field('recommends', $conditions['recommends'], '>');
 			$this->_urlparam[] = "recommends=".$conditions['recommends'];
 		}
-		if($conditions['authorid']) {
+		if(!empty($conditions['authorid'])) {
 			$wherearr[] = $prefix.DB::field('authorid', $conditions['authorid']);
 			$this->_urlparam[] = "authorid=".$conditions['authorid'];
 		}
-		if($conditions['attach'] == 1) {
+		if(!isset($conditions['attach'])) {
+		} elseif($conditions['attach'] == 1) {
 			$wherearr[] = $prefix.DB::field('attachment', 0, '>');
 			$this->_urlparam[] = "attach=1";
 		} elseif($conditions['attach'] == 2) {
 			$wherearr[] = $prefix.DB::field('attachment', 0);
 			$this->_urlparam[] = "attach=2";
 		}
-		if($conditions['rate'] == 1) {
+		if(!isset($conditions['rate'])){
+		} elseif($conditions['rate'] == 1) {
 			$wherearr[] = $prefix.DB::field('rate', 0, '>');
 			$this->_urlparam[] = "rate=1";
 		} elseif($conditions['rate'] == 2) {
 			$wherearr[] = $prefix.DB::field('rate', 0);
 			$this->_urlparam[] = "rate=2";
 		}
-		if($conditions['highlight'] == 1) {
+		if(!isset($conditions['highlight'])) {
+		} elseif($conditions['highlight'] == 1) {
 			$wherearr[] = $prefix.DB::field('highlight', 0, '>');
 			$this->_urlparam[] = "highlight=1";
 		} elseif($conditions['highlight'] == 2) {
 			$wherearr[] = $prefix.DB::field('highlight', 0);
 			$this->_urlparam[] = "highlight=2";
 		}
-		if($conditions['hidden'] == 1) {
+		if(isset($conditions['hidden']) && $conditions['hidden'] == 1) {
 			$wherearr[] = $prefix.DB::field('hidden', 0, '>');
 			$this->_urlparam[] = "hidden=1";
 		}
@@ -821,7 +825,7 @@ class table_forum_thread extends discuz_table
 			$wherearr[] = $prefix.DB::field('isgroup', $conditions['isgroup']);
 		}
 
-		if(trim($conditions['keywords'])) {
+		if(!empty($conditions['keywords']) && trim($conditions['keywords'])) {
 			$sqlkeywords = '';
 			$or = '';
 			$keywords = explode(',', str_replace(' ', '', $conditions['keywords']));

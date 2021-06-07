@@ -28,5 +28,5 @@
 		<script type="text/javascript" src="{$_G['setting']['jspath']}at.js?{VERHASH}"></script>
 		<a id="{$seditor[0]}at" href="javascript:;" title="{lang e_at}" class="fat"{if empty($seditor[2])} onclick="seditor_menu('$seditor[0]', 'at');doane(event);"{/if}>{lang at_friend}</a>
 	<!--{/if}-->
-	$seditor[3]
+	{$seditor[3] or ''}
 </div>

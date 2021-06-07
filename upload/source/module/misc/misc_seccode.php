@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 $idhash = isset($_GET['idhash']) && preg_match('/^\w+$/', $_GET['idhash']) ? $_GET['idhash'] : '';
 $modid = isset($_GET['modid']) && preg_match('/^[\w:]+$/', $_GET['modid']) ? $_GET['modid'] : '';
 
-if($_GET['action'] == 'update' && !defined("IN_MOBILE")) {
+if(getgpc('action') == 'update' && !defined("IN_MOBILE")) {
 
 	$message = '';
 	$showid = 'seccode_'.$idhash;
@@ -81,7 +81,7 @@ if($('$showid')) {
 }
 EOF;
 
-} elseif($_GET['action'] == 'update' && defined("IN_MOBILE") && constant("IN_MOBILE") == 2) {
+} elseif(getgpc('action') == 'update' && defined("IN_MOBILE") && constant("IN_MOBILE") == 2) {
 	//移动端和PC端验证码功能拉齐
 	$message = '';
 	$showid = 'seccode_'.$idhash;
@@ -139,7 +139,7 @@ if(document.getElementById('$showid')) {
 }
 EOF;
 
-} elseif($_GET['action'] == 'check') {
+} elseif(getgpc('action') == 'check') {
 
 	include template('common/header_ajax');
 	echo helper_seccheck::check_seccode($_GET['secverify'], $_GET['idhash'], 1, $modid, true) ? 'succeed' : 'invalid';
@@ -147,8 +147,8 @@ EOF;
 
 } else {
 
-	$refererhost = parse_url($_SERVER['HTTP_REFERER']);
-	$refererhost['host'] .= !empty($refererhost['port']) ? (':'.$refererhost['port']) : '';
+	$refererhost = parse_url(isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '');
+	$refererhost['host'] = (isset($refererhost['host']) ? $refererhost['host'] : '').(!empty($refererhost['port']) ? (':'.$refererhost['port']) : '');
 
 	if(($_G['setting']['seccodedata']['type'] < 2 && ($refererhost['host'] != $_SERVER['HTTP_HOST'])) || ((defined("IN_MOBILE") && in_array($_G['setting']['seccodedata']['type'], array(2, 3)) && ($refererhost['host'] != $_SERVER['HTTP_HOST'])) && ($_G['setting']['seccodedata']['type'] == 2 && !extension_loaded('ming') && $_POST['fromFlash'] != 1 || $_G['setting']['seccodedata']['type'] == 3 && $_GET['fromFlash'] != 1))) {
 		//当模式为英文=0、中文=1两种验证码时，校验Referer和Host是否为同一站点，不是就退出

@@ -169,6 +169,7 @@ class discuz_session {
 		static $updated = false;
 		if(!$updated) {
 			global $_G;
+			$ulastactivity = 0;
 			if($_G['uid']) {
 				if($_G['cookie']['ulastactivity']) {
 					$ulastactivity = authcode($_G['cookie']['ulastactivity'], 'DECODE');

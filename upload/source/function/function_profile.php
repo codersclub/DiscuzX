@@ -17,7 +17,7 @@ function profile_setting($fieldid, $space=array(), $showstatus=false, $ignoreunc
 	if(empty($_G['cache']['profilesetting'])) {
 		loadcache('profilesetting');
 	}
-	$field = $_G['cache']['profilesetting'][$fieldid];
+	$field = getglobal('cache/profilesetting/'.$fieldid);
 	if(empty($field) || !$field['available'] || in_array($fieldid, array('uid', 'constellation', 'zodiac', 'birthmonth', 'birthyear', 'birthprovince', 'birthdist', 'birthcommunity', 'resideprovince', 'residedist', 'residecommunity'))) {
 		return '';
 	}
@@ -191,8 +191,8 @@ function profile_setting($fieldid, $space=array(), $showstatus=false, $ignoreunc
 	}
 	$html .= !$ignoreshowerror ? "<div class=\"rq mtn\" id=\"showerror_$fieldid\"></div>" : '';
 	if($showstatus) {
-		$html .= "<p class=\"d\">{$value['description']}";
-		if($space[$fieldid]=='' && $value['unchangeable']) {
+		$html .= "<p class=\"d\">".(isset($value['description']) ? $value['description'] : '');
+		if($space[$fieldid]=='' && !empty($value['unchangeable'])) {
 			$html .= lang('spacecp', 'profile_unchangeable');
 		}
 		if($verifyvalue !== null) {

@@ -37,7 +37,7 @@ $postlist = array();
 $total = $multipage = '';
 
 $cachekey = 'srchresult_recycle_thread'.$_G['fid'];
-if($_G['fid'] && $_G['forum']['ismoderator'] && $modforums['recyclebins'][$_G['fid']]) {
+if($_G['fid'] && $_G['forum']['ismoderator'] && !empty($modforums['recyclebins'][$_G['fid']])) {
 
 	$srchupdate = false;
 

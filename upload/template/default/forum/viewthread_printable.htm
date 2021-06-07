@@ -32,10 +32,10 @@ h1 { font-size: 24px; margin-bottom: 20px; color: #999; }
 	<!--{else}-->
 		<!--{if $post['subject']}--><b>{lang subject}: </b>$post[subject]<br /><!--{/if}-->
 		$post[message]
-		<!--{if $post['imagelist']}-->
+		<!--{if !empty($post['imagelist'])}-->
 			<!--{echo showattach($post, 1)}-->
 		<!--{/if}-->
-		<!--{if $post['attachlist']}-->
+		<!--{if !empty($post['attachlist'])}-->
 			<!--{echo showattach($post)}-->
 		<!--{/if}-->
 	<!--{/if}-->

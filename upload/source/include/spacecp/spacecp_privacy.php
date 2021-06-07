@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 
 space_merge($space, 'field_home');
-$operation = in_array($_GET['op'], array('base', 'feed', 'filter', 'getgroup')) ? trim($_GET['op']) : 'base';
+$operation = in_array(getgpc('op'), array('base', 'feed', 'filter', 'getgroup')) ? trim($_GET['op']) : 'base';
 
 if(submitcheck('privacysubmit')) {
 

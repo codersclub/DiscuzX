@@ -54,11 +54,11 @@
 	<div id="ft" class="wp cl">
 		<div id="flk" class="y">
 			<p>
-				<!--{if $_G['setting']['site_qq']}--><a href="//wpa.qq.com/msgrd?v=3&uin=$_G['setting']['site_qq']&site=$_G['setting']['bbname']&menu=yes&from=discuz" target="_blank" title="QQ"><img src="{IMGDIR}/site_qq.jpg" alt="QQ" /></a><span class="pipe">|</span><!--{/if}-->
+				<!--{if !empty($_G['setting']['site_qq'])}--><a href="//wpa.qq.com/msgrd?v=3&uin=$_G['setting']['site_qq']&site=$_G['setting']['bbname']&menu=yes&from=discuz" target="_blank" title="QQ"><img src="{IMGDIR}/site_qq.jpg" alt="QQ" /></a><span class="pipe">|</span><!--{/if}-->
 				<!--{loop $_G['setting']['footernavs'] $nav}--><!--{if is_array($nav) && $nav['available'] && ($nav['type'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1)) ||
 						!$nav['type'] && ($nav['id'] == 'stat' && $_G['group']['allowstatdata'] || $nav['id'] == 'report' && $_G['uid'] || $nav['id'] == 'archiver' || $nav['id'] == 'mobile' || $nav['id'] == 'darkroom'))}-->$nav[code]<span class="pipe">|</span><!--{/if}--><!--{/loop}-->
 						<strong><a href="$_G['setting']['siteurl']" target="_blank">$_G['setting']['sitename']</a></strong>
-				<!--{if $_G['setting']['icp'] || $_G['setting']['mps']}-->( <!--{if $_G['setting']['icp']}--><a href="https://beian.miit.gov.cn/" target="_blank">$_G['setting']['icp']</a><!--{/if}--><!--{if $_G['setting']['mps']}--><!--{if $_G['setting']['icp']}--><span class="pipe">|</span><!--{/if}--><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=$_G['setting']['mpsid']" target="_blank"><img width="14" height="14" src="{IMGDIR}/ico_mps.png" />$_G['setting']['mps']</a><!--{/if}--> )<!--{/if}-->
+				<!--{if $_G['setting']['icp'] || !empty($_G['setting']['mps'])}-->( <!--{if $_G['setting']['icp']}--><a href="https://beian.miit.gov.cn/" target="_blank">$_G['setting']['icp']</a><!--{/if}--><!--{if !empty($_G['setting']['mps'])}--><!--{if $_G['setting']['icp']}--><span class="pipe">|</span><!--{/if}--><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=$_G['setting']['mpsid']" target="_blank"><img width="14" height="14" src="{IMGDIR}/ico_mps.png" />$_G['setting']['mps']</a><!--{/if}--> )<!--{/if}-->
 				<!--{hook/global_footerlink}-->
 				<!--{if $_G['setting']['statcode']}-->$_G['setting']['statcode']<!--{/if}-->
 			</p>
@@ -86,7 +86,7 @@
 	</div>
 <!--{/if}-->
 
-<!--{if !$_G['setting']['bbclosed'] && !$_G['member']['freeze']}-->
+<!--{if !$_G['setting']['bbclosed'] && empty($_G['member']['freeze'])}-->
 	<!--{if $_G[uid] && !isset($_G['cookie']['checkpm'])}-->
 	<script type="text/javascript" src="home.php?mod=spacecp&ac=pm&op=checknewpm&rand=$_G[timestamp]"></script>
 	<!--{/if}-->
@@ -115,15 +115,15 @@
 	<div class="focus plugin" id="plugin_notice"></div>
 	<script type="text/javascript">pluginNotice();</script>
 <!--{/if}-->
-<!--{if !$_G['setting']['bbclosed'] && !$_G['member']['freeze'] && !$_G['member']['groupexpiry'] && $_G['setting']['disableipnotice'] != 1 && $_G['uid'] && !empty($_G['cookie']['lip'])}-->
+<!--{if !$_G['setting']['bbclosed'] && empty($_G['member']['freeze']) && empty($_G['member']['groupexpiry']) && (empty($_G['setting']['disableipnotice']) || $_G['setting']['disableipnotice'] != 1) && $_G['uid'] && !empty($_G['cookie']['lip'])}-->
 	<div class="focus plugin" id="ip_notice"></div>
 	<script type="text/javascript">ipNotice();</script>
 <!--{/if}-->
-<!--{if $_G['member']['newprompt'] && (empty($_G['cookie']['promptstate_'.$_G[uid]]) || $_G['cookie']['promptstate_'.$_G[uid]] != $_G['member']['newprompt']) && $_GET['do'] != 'notice'}-->
+<!--{if !empty($_G['member']['newprompt']) && (empty($_G['cookie']['promptstate_'.$_G[uid]]) || $_G['cookie']['promptstate_'.$_G[uid]] != $_G['member']['newprompt']) && $_GET['do'] != 'notice'}-->
 	<script type="text/javascript">noticeTitle();</script>
 <!--{/if}-->
 
-<!--{if ($_G[member][newpm] || $_G[member][newprompt]) && empty($_G['cookie']['ignore_notice'])}-->
+<!--{if (!empty($_G[member][newpm]) || !empty($_G[member][newprompt])) && empty($_G['cookie']['ignore_notice'])}-->
 	<script type="text/javascript" src="{$_G[setting][jspath]}html5notification.js?{VERHASH}"></script>
 	<script type="text/javascript">
 	var h5n = new Html5notification();

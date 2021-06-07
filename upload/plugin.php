@@ -21,8 +21,8 @@ $discuz->cachelist = $cachelist;
 $discuz->init();
 
 if(!empty($_GET['id'])) {
-	list($identifier, $module) = explode(':', $_GET['id']);
-	$module = $module !== NULL ? $module : $identifier;
+	list($identifier, $module) = explode(':', $_GET['id'].':');
+	$module = $module !== '' ? $module : $identifier;
 } else {
 	showmessage('plugin_nonexistence');
 }

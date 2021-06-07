@@ -218,7 +218,7 @@ function ismozilla() {
 	$useragent = strtolower($_SERVER['HTTP_USER_AGENT']);
 	if(strpos($useragent, 'gecko') !== FALSE) {
 		preg_match("/gecko\/(\d+)/", $useragent, $regs);
-		return $regs[1];
+		return isset($regs[1]) ? $regs[1] : FALSE;
 	}
 	return FALSE;
 }

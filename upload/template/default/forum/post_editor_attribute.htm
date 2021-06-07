@@ -9,7 +9,7 @@
 				<!--{if $_GET[action] == 'newthread'}-->
 					<!--{eval $extcreditstype = $_G['setting']['creditstransextra'][10];}-->
 				<!--{else}-->
-					<!--{eval $extcreditstype = $replycredit_rule['extcreditstype'] ? $replycredit_rule['extcreditstype'] : $_G['setting']['creditstransextra'][10];}-->
+					<!--{eval $extcreditstype = !empty($replycredit_rule['extcreditstype']) ? $replycredit_rule['extcreditstype'] : $_G['setting']['creditstransextra'][10];}-->
 				<!--{/if}-->
 				<!--{eval $userextcredit = getuserprofile('extcredits'.$extcreditstype);}-->
 				<!--{if ($_GET[action] == 'newthread' && $userextcredit > 0) || ($_GET[action] == 'edit' && $isorigauthor && $isfirstpost)}-->
@@ -36,16 +36,16 @@
 		<!--{if $_GET[action] == 'newthread' || $_GET[action] == 'edit' && $isfirstpost}-->
 			<!--{if !empty($userextcredit)}-->
 				<div id="extra_replycredit_c" class="exfm cl" style="display: none;">
-					<div><label>{lang replycredit_reward} <input type="text" name="replycredit_times" id="replycredit_times" class="px pxs vm" value="{if $replycredit_rule['lasttimes']}{$replycredit_rule['lasttimes']}{else}1{/if}" onkeyup="javascript:getreplycredit();"  onblur="extraCheck(0)" /> {lang replycredit_time}</label>, <label>{lang replycredit_once} <input type="text" name="replycredit_extcredits" id="replycredit_extcredits" class="px pxs vm" value="{if $replycredit_rule['extcredits'] && $thread['replycredit'] > 0}{$replycredit_rule['extcredits']}{else}0{/if}" onkeyup="javascript:getreplycredit();" onblur="extraCheck(0)" /> {$_G['setting']['extcredits'][$extcreditstype][unit]}{$_G['setting']['extcredits'][$extcreditstype][title]}</label><span class="xg1">{lang replycredit_empty}</span> , <label>{lang replycredit_member} <select id="replycredit_membertimes" name="replycredit_membertimes" class="ps vm">
+					<div><label>{lang replycredit_reward} <input type="text" name="replycredit_times" id="replycredit_times" class="px pxs vm" value="{if !empty($replycredit_rule['lasttimes'])}{$replycredit_rule['lasttimes']}{else}1{/if}" onkeyup="javascript:getreplycredit();"  onblur="extraCheck(0)" /> {lang replycredit_time}</label>, <label>{lang replycredit_once} <input type="text" name="replycredit_extcredits" id="replycredit_extcredits" class="px pxs vm" value="{if !empty($replycredit_rule['extcredits']) && $thread['replycredit'] > 0}{$replycredit_rule['extcredits']}{else}0{/if}" onkeyup="javascript:getreplycredit();" onblur="extraCheck(0)" /> {$_G['setting']['extcredits'][$extcreditstype][unit]}{$_G['setting']['extcredits'][$extcreditstype][title]}</label><span class="xg1">{lang replycredit_empty}</span> , <label>{lang replycredit_member} <select id="replycredit_membertimes" name="replycredit_membertimes" class="ps vm">
 					<!--{eval for($i=1;$i<11;$i++) {;}-->
-					<option value="$i"{if $replycredit_rule['membertimes'] == $i} selected="selected"{/if}>$i</option>
+					<option value="$i"{if isset($replycredit_rule['membertimes']) && $replycredit_rule['membertimes'] == $i} selected="selected"{/if}>$i</option>
 					<!--{eval };}-->
 					</select> {lang replycredit_time}</label>, <label>{lang replycredit_rate} <select id="replycredit_random" name="replycredit_random" class="ps vm">
 					 <!--{eval for($i=100;$i>9;$i=$i-10) {;}-->
-					<option value="$i"{if $replycredit_rule['random'] == $i} selected="selected"{/if}>$i</option>
+					<option value="$i"{if isset($replycredit_rule['random']) && $replycredit_rule['random'] == $i} selected="selected"{/if}>$i</option>
 					<!--{eval };}-->
 					</select> %</label></div>
-					<div class="xg1">{lang replycredit_total} <span id="replycredit_sum"><!--{if $thread['replycredit']}-->{$thread['replycredit']}<!--{else}-->0<!--{/if}--></span> {$_G['setting']['extcredits'][$extcreditstype][unit]}{$_G['setting']['extcredits'][$extcreditstype][title]}<!--{if $thread['replycredit']}--><span class="xg1">({lang replycredit_however} {$thread['replycredit']} {$_G['setting']['extcredits'][$extcreditstype][unit]}{$_G['setting']['extcredits'][$extcreditstype][title]})</span><!--{/if}-->, <span id="replycredit">{lang replycredit_revenue} {$_G['setting']['extcredits'][$extcreditstype][title]} 0</span> {$_G['setting']['extcredits'][$extcreditstype][unit]}, {lang you_have} {$_G['setting']['extcredits'][$extcreditstype][title]} $userextcredit {$_G['setting']['extcredits'][$extcreditstype][unit]}</div>
+					<div class="xg1">{lang replycredit_total} <span id="replycredit_sum"><!--{if !empty($thread['replycredit'])}-->{$thread['replycredit']}<!--{else}-->0<!--{/if}--></span> {$_G['setting']['extcredits'][$extcreditstype][unit]}{$_G['setting']['extcredits'][$extcreditstype][title]}<!--{if !empty($thread['replycredit'])}--><span class="xg1">({lang replycredit_however} {$thread['replycredit']} {$_G['setting']['extcredits'][$extcreditstype][unit]}{$_G['setting']['extcredits'][$extcreditstype][title]})</span><!--{/if}-->, <span id="replycredit">{lang replycredit_revenue} {$_G['setting']['extcredits'][$extcreditstype][title]} 0</span> {$_G['setting']['extcredits'][$extcreditstype][unit]}, {lang you_have} {$_G['setting']['extcredits'][$extcreditstype][title]} $userextcredit {$_G['setting']['extcredits'][$extcreditstype][unit]}</div>
 				</div>
 			<!--{/if}-->
 
@@ -87,7 +87,7 @@
 						<tr>
 							<td class="xw1">{lang post_tag}</td>
 							<td>
-								<input type="text" class="px vm" size="60" id="tags" name="tags" value="$postinfo[tag]" onblur="extraCheck(4)" />
+								<input type="text" class="px vm" size="60" id="tags" name="tags" value="{$postinfo[tag] or ''}" onblur="extraCheck(4)" />
 								<a href="javascript:;" id="choosetag" class="xi2" onclick="showWindow(this.id, 'forum.php?mod=tag', 'get', 0)">{lang choosetag}</a>
 							</td>
 						</tr>
@@ -120,12 +120,12 @@
 							<dt><label>{lang rushreply_time}</label></dt>
 							<dd>
 								<div>
-									<input type="text" name="rushreplyfrom" id="rushreplyfrom" class="px" onclick="showcalendar(event, this, true)" autocomplete="off" value="$postinfo[rush][starttimefrom]" onkeyup="$('rushreply').checked = true;" /><span> ~ </span><input type="text" onclick="showcalendar(event, this, true)" autocomplete="off" id="rushreplyto" name="rushreplyto" class="px" value="$postinfo[rush][starttimeto]" onkeyup="$('rushreply').checked = true;" />
+									<input type="text" name="rushreplyfrom" id="rushreplyfrom" class="px" onclick="showcalendar(event, this, true)" autocomplete="off" value="{$postinfo[rush][starttimefrom] or ''}" onkeyup="$('rushreply').checked = true;" /><span> ~ </span><input type="text" onclick="showcalendar(event, this, true)" autocomplete="off" id="rushreplyto" name="rushreplyto" class="px" value="{$postinfo[rush][starttimeto] or ''}" onkeyup="$('rushreply').checked = true;" />
 								</div>
 							</dd>
 							<dt><label>{lang rushreply_rewardfloor}</label></dt>
 							<dd>
-								<input type="text" name="rewardfloor" id="rewardfloor" class="px oinf" value="$postinfo[rush][rewardfloor]" onkeyup="$('rushreply').checked = true;" />
+								<input type="text" name="rewardfloor" id="rewardfloor" class="px oinf" value="{$postinfo[rush][rewardfloor] or ''}" onkeyup="$('rushreply').checked = true;" />
 								<p class="xg1">{lang rushreply_rewardfloor_comment}</p>
 							</dd>
 						</dl>
@@ -136,16 +136,16 @@
 							<dd>&nbsp;</dd>
 							<dt><label for="replylimit">{lang stopfloor}: </label></dt>
 							<dd>
-								<input type="text" name="replylimit" id="replylimit" class="px" autocomplete="off" value="$postinfo[rush][replylimit]" onkeyup="$('rushreply').checked = true;" /> <span class="xg1">{lang replylimit}</span>
+								<input type="text" name="replylimit" id="replylimit" class="px" autocomplete="off" value="{$postinfo[rush][replylimit] or ''}" onkeyup="$('rushreply').checked = true;" /> <span class="xg1">{lang replylimit}</span>
 							</dd>
 							<dt><label for="stopfloor">{lang rushreply_end}</label></dt>
 							<dd>
-								<input type="text" name="stopfloor" id="stopfloor" class="px" autocomplete="off" value="$postinfo[rush][stopfloor]" onkeyup="$('rushreply').checked = true;" />
+								<input type="text" name="stopfloor" id="stopfloor" class="px" autocomplete="off" value="{$postinfo[rush][stopfloor] or ''}" onkeyup="$('rushreply').checked = true;" />
 							</dd>
-							<dt><label for="creditlimit"><!--{if $_G['setting']['creditstransextra'][11]}-->{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][11]][title]}<!--{else}-->{lang credits}<!--{/if}-->{lang min_limit}:</label></dt>
+							<dt><label for="creditlimit"><!--{if !empty($_G['setting']['creditstransextra'][11])}-->{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][11]][title]}<!--{else}-->{lang credits}<!--{/if}-->{lang min_limit}:</label></dt>
 							<dd>
-								<input type="text" name="creditlimit" id="creditlimit" class="px" autocomplete="off" value="$postinfo[rush][creditlimit]" onkeyup="$('rushreply').checked = true;" />
-								<p class="xg1"><!--{if $_G['setting']['creditstransextra'][11]}-->({$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][11]][title]})<!--{else}-->{lang total_credits}<!--{/if}-->{lang post_rushreply_credit}</p>
+								<input type="text" name="creditlimit" id="creditlimit" class="px" autocomplete="off" value="{$postinfo[rush][creditlimit] or ''}" onkeyup="$('rushreply').checked = true;" />
+								<p class="xg1"><!--{if !empty($_G['setting']['creditstransextra'][11])}-->({$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][11]][title]})<!--{else}-->{lang total_credits}<!--{/if}-->{lang post_rushreply_credit}</p>
 							</dd>
 						</dl>
 					</div>
