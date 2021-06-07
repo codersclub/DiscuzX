@@ -33,14 +33,14 @@ class control extends adminbase {
 		$status = 0;
 		$operate = getgpc('o');
 		if($operate == 'list') {
-			if($delete = $_POST['delete']) {
+			if($delete = (isset($_POST['delete']) ? $_POST['delete'] : array())) {
 				if(is_array($delete)) {
 					foreach($delete AS $filename) {
 						@unlink('./data/backup/'.str_replace(array('/', '\\'), '', $filename));
 					}
 				}
 				$status = 2;
-				$this->writelog('db_delete', "delete=".implode(',', $_POST['delete']));
+				$this->writelog('db_delete', "delete=".implode(',', $delete));
 			}
 
 			$baklist = array();

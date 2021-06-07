@@ -310,7 +310,7 @@ class usermodel {
 		}
 
 		if ($ip_check || $user_check) {
-			$time_left = min(($check_times - $ip_check['count']), ($check_times - $user_check['count']));
+			$time_left = min(($check_times - (isset($ip_check['count']) ? $ip_check['count'] : 0)), ($check_times - (isset($user_check['count']) ? $user_check['count'] : 0)));
 			return $time_left;
 
 		}

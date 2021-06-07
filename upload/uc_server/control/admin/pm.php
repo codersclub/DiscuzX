@@ -26,6 +26,8 @@ class control extends adminbase {
 
 	function onls() {
 		$pmlist = array();
+		$count = 0;
+		$multipage = $srchtablename = $srchauthor = $srchstarttime = $srchendtime = $srchmessage = '';
 		if($this->submitcheck() || getgpc('searchpmsubmit', 'G')) {
 			$srchtablename = intval(getgpc('srchtablename', 'R'));
 			$srchauthor = trim(getgpc('srchauthor', 'R'));
@@ -52,7 +54,6 @@ class control extends adminbase {
 				$wheresql[] = "message LIKE '%{$srchmessage}%'";
 			}
 
-			$count = 0;
 			if(!empty($wheresql)) {
 				$count = $this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE."pm_messages_".(string)$srchtablename." WHERE ".implode(' AND ', $wheresql));
 			}
@@ -149,7 +150,7 @@ class control extends adminbase {
 	}
 
 	function onclear() {
-		$delnum = 0;
+		$delnum = $status = 0;
 		if($this->submitcheck() || getgpc('clearpmsubmit', 'G')) {
 			$usernames = trim(getgpc('usernames', 'R'));
 			$pertask = intval(getgpc('pertask', 'R'));

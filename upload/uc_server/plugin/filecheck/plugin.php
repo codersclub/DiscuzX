@@ -31,13 +31,15 @@ class control extends pluginbase {
 		foreach($ucfiles as $line) {
 			$file = trim(substr($line, 34));
 			$md5datanew[$file] = substr($line, 0, 32);
-			if($md5datanew[$file] != $this->md5data[$file]) {
-				$modifylist[$file] = $this->md5data[$file];
+			if(isset($this->md5data[$file])) {
+				if($md5datanew[$file] != $this->md5data[$file]) {
+					$modifylist[$file] = $this->md5data[$file];
+				}
+				$md5datanew[$file] = $this->md5data[$file];
 			}
-			$md5datanew[$file] = $this->md5data[$file];
 		}
 
-		$weekbefore = $timestamp - 604800;
+		$weekbefore = time() - 604800;
 		$md5datanew = is_array($md5datanew) ? $md5datanew : array();
 		$addlist = array_diff_assoc($this->md5data, $md5datanew);
 		$dellist = array_diff_assoc($md5datanew, $this->md5data);

@@ -3,7 +3,7 @@
 <div class="container">
 	<h3 class="marginbot">		
 		<a href="admin.php?m=feed&a=ls" class="sgbtn">{lang feed_list}</a>
-		<!--{if $user['allowadminnote'] || $user['isfounder']}--><a href="admin.php?m=note&a=ls" class="sgbtn">{lang note_list}</a><!--{/if}-->
+		<!--{if $user['isfounder'] || $user['allowadminnote']}--><a href="admin.php?m=note&a=ls" class="sgbtn">{lang note_list}</a><!--{/if}-->
 		{lang menu_log}
 		<a href="admin.php?m=mail&a=ls" class="sgbtn">{lang mail_queue}</a>
 	</h3>

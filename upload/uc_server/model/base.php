@@ -1,10 +1,10 @@
 <?php
 
 /*
-[UCenter] (C)2001-2099 Comsenz Inc.
-This is NOT a freeware, use is subject to license terms
+	[UCenter] (C)2001-2099 Comsenz Inc.
+	This is NOT a freeware, use is subject to license terms
 
-$Id: base.php 1167 2014-11-03 03:06:21Z hypowang $
+	$Id: base.php 1167 2014-11-03 03:06:21Z hypowang $
 */
 
 !defined('IN_UC') && exit('Access Denied');
@@ -16,10 +16,10 @@ class base {
 	var $onlineip;
 	var $db;
 	var $view;
-	var $user = array();
 	var $settings = array();
 	var $cache = array();
 	var $app = array();
+	var $user = array();
 	var $lang = array();
 	var $input = array();
 

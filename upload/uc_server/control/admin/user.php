@@ -201,29 +201,41 @@ class control extends adminbase {
 		if($srchname) {
 			$sqladd .= " AND username LIKE '$srchname%'";
 			$this->view->assign('srchname', $srchname);
+		} else {
+			$this->view->assign('srchname', '');
 		}
 		if($srchuid) {
 			$sqladd .= " AND uid='$srchuid'";
 			$this->view->assign('srchuid', $srchuid);
+		} else {
+			$this->view->assign('srchuid', '');
 		}
 		if($srchemail) {
 			$sqladd .= " AND email='$srchemail'";
 			$this->view->assign('srchemail', $srchemail);
+		} else {
+			$this->view->assign('srchemail', '');
 		}
 		if($srchregdatestart) {
 			$urladd .= '&srchregdatestart='.$srchregdatestart;
 			$sqladd .= " AND regdate>'".strtotime($srchregdatestart)."'";
 			$this->view->assign('srchregdatestart', $srchregdatestart);
+		} else {
+			$this->view->assign('srchregdatestart', '');
 		}
 		if($srchregdateend) {
 			$urladd .= '&srchregdateend='.$srchregdateend;
 			$sqladd .= " AND regdate<'".strtotime($srchregdateend)."'";
 			$this->view->assign('srchregdateend', $srchregdateend);
+		} else {
+			$this->view->assign('srchregdateend', '');
 		}
 		if($srchregip) {
 			$urladd .= '&srchregip='.$srchregip;
 			$sqladd .= " AND regip='$srchregip'";
 			$this->view->assign('srchregip', $srchregip);
+		} else {
+			$this->view->assign('srchregip', '');
 		}
 		$sqladd = $sqladd ? " WHERE 1 $sqladd" : '';
 

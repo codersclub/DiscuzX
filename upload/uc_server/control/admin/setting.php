@@ -100,19 +100,24 @@ class control extends adminbase {
 		$this->view->assign('a', $a);
 
 		$this->view->assign('dateformat', $settings['dateformat']);
-		$timeformatchecked = array($settings['timeformat'] => 'checked="checked"');
+		$timeformatchecked = array('','');
+		$timeformatchecked[$settings['timeformat']] = 'checked="checked"';
 		$this->view->assign('timeformat', $timeformatchecked);
 		$this->view->assign('privatepmthreadlimit', $settings['privatepmthreadlimit']);
 		$this->view->assign('chatpmthreadlimit', $settings['chatpmthreadlimit']);
 		$this->view->assign('chatpmmemberlimit', $settings['chatpmmemberlimit']);
 		$this->view->assign('pmsendregdays', $settings['pmsendregdays']);
 		$this->view->assign('pmfloodctrl', $settings['pmfloodctrl']);
-		$pmcenterchecked = array($settings['pmcenter'] => 'checked="checked"');
+		$pmcenterchecked = array('','');
+		$pmcenterchecked[$settings['pmcenter']] = 'checked="checked"';
 		$pmcenterchecked['display'] = $settings['pmcenter'] ? '' : 'style="display:none"';
-		$addappbyurlchecked = array($settings['addappbyurl'] => 'checked="checked"');
-		$insecureuserdeletechecked = array($settings['insecureuserdelete'] => 'checked="checked"');
+		$addappbyurlchecked = array('','');
+		$addappbyurlchecked[$settings['addappbyurl']] = 'checked="checked"';
+		$insecureuserdeletechecked = array('','');
+		$insecureuserdeletechecked[$settings['insecureuserdelete']] = 'checked="checked"';
 		$this->view->assign('pmcenter', $pmcenterchecked);
-		$sendpmseccodechecked = array($settings['sendpmseccode'] => 'checked="checked"');
+		$sendpmseccodechecked = array('','');
+		$sendpmseccodechecked[$settings['sendpmseccode']] = 'checked="checked"';
 		$this->view->assign('sendpmseccode', $sendpmseccodechecked);
 		$this->view->assign('addappbyurl', $addappbyurlchecked);
 		$this->view->assign('insecureuserdelete', $insecureuserdeletechecked);
@@ -149,7 +154,8 @@ class control extends adminbase {
 		}
 
 		$this->view->assign('a', getgpc('a'));
-		$doubleechecked = array($settings['doublee'] => 'checked="checked"');
+		$doubleechecked = array('','');
+		$doubleechecked[$settings['doublee']] = 'checked="checked"';
 		$this->view->assign('doublee', $doubleechecked);
 		$this->view->assign('accessemail', $settings['accessemail']);
 		$this->view->assign('censoremail', $settings['censoremail']);
@@ -160,6 +166,7 @@ class control extends adminbase {
 
 	function onmail() {
 		$items = array('maildefault', 'mailsend', 'mailserver', 'mailport', 'mailauth', 'mailfrom', 'mailauth_username', 'mailauth_password', 'maildelimiter', 'mailusername', 'mailsilent');
+		$updated = false;
 		if($this->submitcheck()) {
 			foreach($items as $item) {
 				$value = getgpc($item, 'P');
@@ -178,6 +185,7 @@ class control extends adminbase {
 			$this->view->assign($item, dhtmlspecialchars($settings[$item]));
 		}
 
+		$this->view->assign('a', getgpc('a'));
 		$this->view->assign('updated', $updated);
 		$this->view->display('admin_setting');
 	}

@@ -17,17 +17,17 @@
 <div class="container">
 	<h3>{lang home_stats}</h3>
 	<ul class="memlist fixwidth">
-		<li><em><!--{if $user['allowadminapp'] || $user['isfounder']}--><a href="admin.php?m=app&a=ls">{lang home_app_count}</a><!--{else}-->{lang home_app_count}<!--{/if}-->:</em>$apps</li>
-		<li><em><!--{if $user['allowadminuser'] || $user['isfounder']}--><a href="admin.php?m=user&a=ls">{lang home_member_count}</a><!--{else}-->{lang home_member_count}<!--{/if}-->:</em>$members</li>
-		<li><em><!--{if $user['allowadminpm'] || $user['isfounder']}--><a href="admin.php?m=pm&a=ls">{lang home_pm_count}</a><!--{else}-->{lang home_pm_count}<!--{/if}-->:</em>$pms</li>
+		<li><em><!--{if $user['isfounder'] || $user['allowadminapp']}--><a href="admin.php?m=app&a=ls">{lang home_app_count}</a><!--{else}-->{lang home_app_count}<!--{/if}-->:</em>$apps</li>
+		<li><em><!--{if $user['isfounder'] || $user['allowadminuser']}--><a href="admin.php?m=user&a=ls">{lang home_member_count}</a><!--{else}-->{lang home_member_count}<!--{/if}-->:</em>$members</li>
+		<li><em><!--{if $user['isfounder'] || $user['allowadminpm']}--><a href="admin.php?m=pm&a=ls">{lang home_pm_count}</a><!--{else}-->{lang home_pm_count}<!--{/if}-->:</em>$pms</li>
 		<li><em>{lang home_friend_count}:</em>$friends</li>
 	</ul>
 	
 	<h3>{lang note_status}</h3>
 	<ul class="memlist fixwidth">
-		<li><em><!--{if $user['allowadminnote'] || $user['isfounder']}--><a href="admin.php?m=note&a=ls">{lang home_note_count}</a><!--{else}-->{lang home_note_count}<!--{/if}-->:</em>$notes</li>
+		<li><em><!--{if $user['isfounder'] || $user['allowadminnote']}--><a href="admin.php?m=note&a=ls">{lang home_note_count}</a><!--{else}-->{lang home_note_count}<!--{/if}-->:</em>$notes</li>
 		<!--{if $errornotes}-->
-			<li><em><!--{if $user['allowadminnote'] || $user['isfounder']}--><a href="admin.php?m=note&a=ls">{lang note_fail_apps}</a><!--{else}-->{lang note_fail_apps}<!--{/if}-->:</em>		
+			<li><em><!--{if $user['isfounder'] || $user['allowadminnote']}--><a href="admin.php?m=note&a=ls">{lang note_fail_apps}</a><!--{else}-->{lang note_fail_apps}<!--{/if}-->:</em>		
 			<!--{loop $errornotes $appid $error}-->
 				$applist[$appid][name]&nbsp;
 			<!--{/loop}-->
@@ -55,9 +55,9 @@
 		<li><em>{lang home_server_software}:</em>$_SERVER[SERVER_SOFTWARE]</li>
 		<li><em>{lang home_database}:</em>$dbversion</li>
 		<li><em>{lang home_upload_perm}:</em>$fileupload</li>
-		<li><em>{lang home_database_size}:</em>$dbsize</li>		
-		<li><em>{lang home_server_ip}:</em>$_SERVER[SERVER_NAME] ($_SERVER[SERVER_ADDR]:$_SERVER[SERVER_PORT])</li>
-		<li><em>allow_url_fopen:</em>$allow_url_fopen</li>		
+		<li><em>{lang home_database_size}:</em>$dbsize</li>
+		<li><em>{lang home_server_ip}:</em>$servername</li>
+		<li><em>allow_url_fopen:</em>$allow_url_fopen</li>
 	</ul>
 	<h3>{lang home_team}</h3>
 	<ul class="memlist fixwidth">

@@ -4,8 +4,8 @@
 <div class="container">
 	<h3 class="marginbot">
 		<a href="admin.php?m=feed&a=ls" class="sgbtn">{lang feed_list}</a>
-		<!--{if $user['allowadminnote'] || $user['isfounder']}--><a href="admin.php?m=note&a=ls" class="sgbtn">{lang note_list}</a><!--{/if}-->
-		<!--{if $user['allowadminlog'] || $user['isfounder']}--><a href="admin.php?m=log&a=ls" class="sgbtn">{lang menu_log}</a><!--{/if}-->
+		<!--{if $user['isfounder'] || $user['allowadminnote']}--><a href="admin.php?m=note&a=ls" class="sgbtn">{lang note_list}</a><!--{/if}-->
+		<!--{if $user['isfounder'] || $user['allowadminlog']}--><a href="admin.php?m=log&a=ls" class="sgbtn">{lang menu_log}</a><!--{/if}-->
 		{lang mail_queue}
 	</h3>
 	<!--{if $status == 2}-->

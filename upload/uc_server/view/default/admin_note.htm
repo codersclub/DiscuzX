@@ -5,7 +5,7 @@
 	<h3 class="marginbot">
 		<a href="admin.php?m=feed&a=ls" class="sgbtn">{lang feed_list}</a>
 		{lang note_list}
-		<!--{if $user['allowadminlog'] || $user['isfounder']}--><a href="admin.php?m=log&a=ls" class="sgbtn">{lang menu_log}</a><!--{/if}-->
+		<!--{if $user['isfounder'] || $user['allowadminlog']}--><a href="admin.php?m=log&a=ls" class="sgbtn">{lang menu_log}</a><!--{/if}-->
 		<a href="admin.php?m=mail&a=ls" class="sgbtn">{lang mail_queue}</a>
 	</h3>
 	<!--{if $status == 2}-->
