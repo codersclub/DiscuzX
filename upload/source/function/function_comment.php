@@ -70,9 +70,9 @@ function add_comment($message, $id, $idtype, $cid = 0) {
 
 			$album = array();
 			if($pic['albumid']) {
-				$query = C::t('home_album')->fetch($pic['albumid']);
-				if(!$query['albumid']) {
-					C::t('home_pic')->update_for_albumid($albumid, array('albumid' => 0));
+				$album = C::t('home_album')->fetch($pic['albumid']);
+				if(!$album['albumid']) {
+					C::t('home_pic')->update_for_albumid($pic['albumid'], array('albumid' => 0));
 				}
 			}
 
