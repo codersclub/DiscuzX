@@ -453,7 +453,7 @@ if($operation == 'filecheck') {
 
 	$rule = array();
 	$rewritedata = rewritedata();
-	$rule['{apache1}'] = $rule['{apache2}'] = $rule['{iis}'] = $rule['{iis7}'] = $rule['{zeus}'] = $rule['{nginx}'] = '';
+	$rule['{apache1}'] = $rule['{apache2}'] = $rule['{iis}'] = $rule['{iis7}'] = $rule['{nginx}'] = $rule['{lighttpd}'] = $rule['{caddy}'] = '';
 	foreach($rewritedata['rulesearch'] as $k => $v) {
 		if(!in_array($k, $_G['setting']['rewritestatus'])) {
 			continue;
