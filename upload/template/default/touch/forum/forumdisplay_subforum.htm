@@ -1,0 +1,17 @@
+<div class="forumlist cl">
+	<div class="subforumshow cl">
+		<h2><a href="javascript:;"><em></em>{lang forum_subforums}</a></h2>
+	</div>
+	<div id="sub-forum_$_G['forum']['fid']" class="sub-forum mlist4 cl">
+		<ul>
+			<!--{loop $sublist $sub}-->
+			<!--{eval $forumurl = !empty($sub['domain']) && !empty($_G['setting']['domain']['root']['forum']) ? $_G['scheme'].'://'.$sub['domain'].'.'.$_G['setting']['domain']['root']['forum'] : 'forum.php?mod=forumdisplay&fid='.$sub['fid'];}-->
+			<li>
+				<span class="micon"><!--{if $sub['icon']}-->$sub['icon']<!--{else}--><a href="$forumurl"><svg width="48" height="44" alt="$sub['name']"><path fill="#{if $forum['folder']}fdc910{else}c9c9c9{/if}" d="M48 20C48 9 37.3 0 24 0S0 8.9 0 20s10.7 20 24 20c2.4 0 4.7-.3 6.8-.8L42 44l-2.8-8.5C44.6 31.8 48 26.2 48 20z"/></svg></a><!--{/if}--></span>
+				<a href="$forumurl" class="murl"><p class="mtit"><!--{if $forum['permission'] == 1}-->{lang private_forum}<!--{else}-->{$sub['name']}<!--{/if}--></p></a>
+			</li>
+			<!--{hook/forumdisplay_subforum_extra_mobile $sub['fid']}-->
+			<!--{/loop}-->
+		</ul>
+	</div>
+</div>

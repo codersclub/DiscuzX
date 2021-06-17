@@ -1,0 +1,45 @@
+<!--{template common/header}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2><!--{if empty($_G['setting']['sessionclose']) && $a_actives['onlinemember']}-->{lang online_member}<!--{elseif $a_actives['visitor']}-->{lang my_visitor}<!--{elseif $a_actives['trace']}-->{lang my_trace}<!--{else}-->{lang my_friends}<!--{/if}--></h2>
+	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+<div class="dhnv flex-box cl">
+	<a href="home.php?mod=space&do=friend" class="flex<!--{if $a_actives['me']}--> mon<!--{/if}-->">{lang my_friends}</a>
+	<!--{if empty($_G['setting']['sessionclose'])}-->
+	<a href="home.php?mod=space&do=friend&view=online&type=member" class="flex<!--{if $a_actives['onlinemember']}--> mon<!--{/if}-->">{lang online_member}</a>
+	<!--{/if}-->
+	<a href="home.php?mod=space&do=friend&view=visitor" class="flex<!--{if $a_actives['visitor']}--> mon<!--{/if}-->">{lang my_visitor}</a>
+	<a href="home.php?mod=space&do=friend&view=trace" class="flex<!--{if $a_actives['trace']}--> mon<!--{/if}-->">{lang my_trace}</a>
+</div>
+<!--{if $space['self']}-->
+	<!--{if $list}-->
+		<div id="friend_ul" class="imglist mt10 cl">
+			<ul>
+				<!--{loop $list $key $value}-->
+				<!--{if $value['username'] == ''}-->
+				<li>
+					<span class="mimg"><a href="home.php?mod=space&uid=$value['uid']"><img src="{STATICURL}image/magic/hidden.gif"></a></span>
+					<p class="mtit"><a href="javascript:;"><span>{lang anonymity}</span></a></p>
+				</li>
+				<!--{else}-->
+				<li>
+					<span class="mimg"><a href="home.php?mod=space&uid=$value['uid']"><img src="<!--{avatar($value['uid'], 'small', true)}-->"></a></span>
+					<p class="mtit">
+						<!--{if $_GET['view'] == 'me'}-->
+						<a href="home.php?mod=spacecp&ac=friend&op=ignore&uid=$value['uid']&handlekey=delfriendhk_{$value['uid']}" id="a_ignore_$key" class="dialog mico">{lang delete}</a>
+						<!--{/if}-->
+						<a href="home.php?mod=space&do=pm&subop=view&touid=$value['uid']" class="mico">{lang send_pm}</a>
+						<a href="home.php?mod=space&uid=$value['uid']"><span{eval g_color($value['groupid']);}>$value['username']</span></a>
+					</p>
+					<p class="mtxt"><i class="dm-chat-s"></i>$value['recentnote']</p>
+				</li>
+				<!--{/if}-->
+				<!--{/loop}-->
+			</ul>
+		</div>
+		<!--{if $multi}-->$multi<!--{/if}-->
+	<!--{/if}-->
+<!--{/if}-->
+<!--{eval $nofooter = true;}-->
+<!--{template common/footer}-->

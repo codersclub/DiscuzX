@@ -11,12 +11,12 @@
 <!--{/if}-->
 <!--{if $sectpl}-->
 	<!--{if $secqaacheck}-->
-		<p>
+		<li class="sec_txt">
 			{lang secqaa}:
 			<span class="xg2">$secqaa</span>
 			<input name="secqaahash" type="hidden" value="$sechash" />
 			<input name="secanswer" id="secqaaverify_$sechash" type="text" class="txt" />
-		</p>
+		</li>
 	<!--{/if}-->
 	<!--{if $seccodecheck}-->
 		<script type="text/javascript">
@@ -47,10 +47,10 @@
 				document.getElementsByTagName('head')[0].appendChild(scriptNode);
 			}
 		</script>
-		<div class="sec_code vm">
+		<li class="sec_code vm">
 			<input name="seccodehash" type="hidden" value="$sechash" />
-			<span id="seccode_c$sechash"></span>
-			<script type="text/javascript" reload="1">updateseccode('c$sechash', '$sectpl', '{$_G[basescript]}::{CURMODULE}');</script>
-		</div>
+			<span id="seccode_c$sechash" class="flex-box"></span>
+			<script type="text/javascript" reload="1">updateseccode('c$sechash', '$sectpl', '{$_G['basescript']}::{CURMODULE}');</script>
+		</li>
 	<!--{/if}-->
 <!--{/if}-->

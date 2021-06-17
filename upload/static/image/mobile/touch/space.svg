@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="24">
+<symbol id="a">
+<path d="M3.7 22S2 22 2 20.3s1.7-6.7 10-6.7 10 5 10 6.7c0 1.7-1.7 1.7-1.7 1.7H3.7zM12 12c2.8 0 5-2.2 5-5s-2.2-5-5-5-5 2.2-5 5 2.2 5 5 5z"/>
+</symbol>
+<use xlink:href="#a" fill="#bbb"/>
+<use xlink:href="#a" x="24" fill="#2b7acd"/>
+</svg>

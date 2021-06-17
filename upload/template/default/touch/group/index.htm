@@ -1,0 +1,99 @@
+<!--{template common/header}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{$_G['setting']['navs'][3]['navname']}</h2>
+	<div class="my"><a href="forum.php?mod=group&action=create"><i class="dm-plus-c"></i></a></div>
+</div>
+<div class="tabs flex-box cl">
+    <a href="javascript:;" class="flex ttab mon">{lang recommend_group}</a>
+    <a href="javascript:;" class="flex ttab">{lang all}{$_G['setting']['navs'][3]['navname']}</a>
+    <a href="group.php?mod=my" class="flex">{lang my_group}</a>
+</div>
+
+<div id="tabs-box" class="swiper-container cl">
+	<div class="swiper-wrapper">
+	<div class="swiper-slide">
+		<div class="forumlist mt10 cl">
+			<div class="sub-forum mlist1 cl">
+			<ul>
+            <!--{loop dunserialize($_G['setting']['group_recommend']) $val}-->
+            <li>
+				<span class="micon">
+					<a href="forum.php?mod=forumdisplay&action=list&fid={$val['fid']}">
+					<!--{if strstr($val['icon'],'groupicon.gif')}-->
+					<svg width="48" height="44" alt="$val['name']"><path fill="#{if $val['folder']}fdc910{else}c9c9c9{/if}" d="M48 20C48 9 37.3 0 24 0S0 8.9 0 20s10.7 20 24 20c2.4 0 4.7-.3 6.8-.8L42 44l-2.8-8.5C44.6 31.8 48 26.2 48 20z"/></svg>
+					<!--{else}-->
+					<img src="{$val['icon']}" alt="{$val['name']}">
+					<!--{/if}-->
+					</a>
+				</span>
+                <a href="forum.php?mod=forumdisplay&action=list&fid={$val['fid']}" class="murl">
+                <p class="mtit">$val['name']</p>
+                <!--{if $val['description']}-->
+                <p class="mtxt">$val['description']</p>
+                <!--{/if}-->
+                </a>
+            </li>
+            <!--{/loop}-->
+			</ul>
+			</div>
+		</div>
+	</div>
+	<div class="swiper-slide">
+        <!--{loop $first $groupid $group}-->
+        <!--{if $group['groupnum'] > 0}-->
+        <div class="forumlist cl">
+			<div class="subforumshow cl">
+				<!--{if $group['groupnum'] > 0}--><span class="y mnum"><a href="group.php?gid=$groupid">{lang more}</a></span><!--{/if}-->
+				<h2><a href="group.php?gid=$groupid">{$group['name']}</a></h2>
+			</div>
+
+            <ul class="sub-forum mlist4 cl">
+                <!--{if $lastupdategroup[$groupid]}-->
+                <!--{eval $i = 1;}-->
+                <!--{loop $lastupdategroup[$groupid] $val}-->
+                <!--{if $i < 13}-->
+                <li>
+                    <a href="forum.php?mod=forumdisplay&action=list&fid={$val['fid']}">
+						<span class="micon">
+                        <!--{if strstr($val['icon'],'groupicon.gif')}-->
+						<svg width="48" height="44" alt="$val['name']"><path fill="#{if $val['folder']}fdc910{else}c9c9c9{/if}" d="M48 20C48 9 37.3 0 24 0S0 8.9 0 20s10.7 20 24 20c2.4 0 4.7-.3 6.8-.8L42 44l-2.8-8.5C44.6 31.8 48 26.2 48 20z"/></svg>
+                        <!--{else}-->
+						<img src="{$val['icon']}" alt="{$val['name']}">
+                        <!--{/if}-->
+						</span>
+                        <p class="mtit">{$val['name']}</p>
+                    </a>
+                </li>
+                <!--{/if}-->
+                <!--{eval $i++;}-->
+                <!--{/loop}-->
+                <!--{/if}-->
+            </ul>
+        </div>
+        <!--{/if}-->
+        <!--{/loop}-->
+	</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+window.onload = function() {
+var tabsSwiper = new Swiper('#tabs-box', {
+speed: 500,
+on: {
+slideChangeTransitionStart: function() {
+$(".tabs .mon").removeClass('mon');
+$(".tabs a").eq(this.activeIndex).addClass('mon');
+}
+}
+})
+$(".tabs a.ttab").on('click', function(e) {
+e.preventDefault()
+$(".tabs .mon").removeClass('mon')
+$(this).addClass('mon')
+tabsSwiper.slideTo($(this).index())
+})
+}
+</script>
+<!--{template common/footer}-->

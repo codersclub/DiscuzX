@@ -1,126 +1,219 @@
-<!--{if $_G['setting']['mobile']['mobilehotthread'] && $_GET['forumlist'] != 1 && $_G['setting']['guidestatus']}-->
-	<!--{eval dheader('Location:forum.php?mod=guide&view=hot');exit;}-->
-<!--{/if}-->
 <!--{template common/header}-->
-
-<script type="text/javascript">
-	function getvisitclienthref() {
-		var visitclienthref = '';
-		if(ios) {
-			visitclienthref = 'https://itunes.apple.com/cn/app/zhang-shang-lun-tan/id489399408?mt=8';
-		} else if(andriod) {
-			visitclienthref = 'http://www.discuz.net/mobile.php?platform=android';
-		}
-		return visitclienthref;
-	}
-</script>
-
-<!--{if $_GET['visitclient']}-->
-
-<header class="header">
-    <div class="nav">
-		<span>{lang warmtip}</span>
-    </div>
-</header>
-<div class="cl">
-	<div class="clew_con">
-		<h2 class="tit">{lang zsltmobileclient}</h2>
-		<p>{lang visitbbsanytime}<input class="redirect button" id="visitclientid" type="button" value="{lang clicktodownload}" href="" /></p>
-		<h2 class="tit">{lang iphoneandriodmobile}</h2>
-		<p>{lang visitwapmobile}<input class="redirect button" type="button" value="{lang clicktovisitwapmobile}" href="$_GET[visitclient]" /></p>
-	</div>
-</div>
-<script type="text/javascript">
-	var visitclienthref = getvisitclienthref();
-	if(visitclienthref) {
-		$('#visitclientid').attr('href', visitclienthref);
-	} else {
-		window.location.href = '$_GET[visitclient]';
-	}
-</script>
-
+<!--{if $_GET['mod'] == 'find'}-->
+	<!--{template forum/find}-->
 <!--{else}-->
-
-<!-- header start -->
-<!--{if $showvisitclient}-->
-
-<div class="visitclienttip vm" style="display:block;">
-	<a href="javascript:;" id="visitclientid" class="btn_download">{lang downloadnow}</a>	
-	<p>
-		{lang downloadzslttoshareview}
-	</p>
-</div>
-<script type="text/javascript">
-	var visitclienthref = getvisitclienthref();
-	if(visitclienthref) {
-		$('#visitclientid').attr('href', visitclienthref);
-		$('.visitclienttip').css('display', 'block');
-	}
-</script>
-
-<!--{/if}-->
-
-<header class="header">
-	<div class="hdc cl">
-		<!--{if $_G['setting']['domain']['app']['mobile']}-->
-			{eval $nav = $_G['scheme'].'://'.$_G['setting']['domain']['app']['mobile'];}
-		<!--{else}-->
-			{eval $nav = "forum.php";}
-		<!--{/if}-->
-		<h2><a title="$_G[setting][bbname]" href="$nav"><img src="{STATICURL}image/mobile/images/logo.png" /></a></h2>
-		<ul class="user_fun">
-			<li><a href="search.php?mod=forum" class="icon_search">{lang search}</a></li>
-			<li class="on"><a href="forum.php?forumlist=1" class="icon_threadlist">{lang forum_list}</a></li>
-			<li id="usermsg"><a href="<!--{if $_G[uid]}-->home.php?mod=space&uid=$_G[uid]&do=profile&mycenter=1<!--{else}-->member.php?mod=logging&action=login<!--{/if}-->" class="icon_userinfo">{lang user_info}</a><!--{if $_G[member][newpm]}--><span class="icon_msg"></span><!--{/if}--></li>
-			<!--{if $_G['setting']['mobile']['mobilehotthread'] && $_G['setting']['guidestatus']}-->
-			<li><a href="forum.php?mod=guide&view=hot" class="icon_hotthread">{lang hot_thread}</a></li>
-			<!--{/if}-->
-		</ul>
-	</div>
-</header>
-<!-- header end -->
-<!--{hook/index_top_mobile}-->
-<!-- main forumlist start -->
-<div class="wp wm" id="wp">
-	<!--{loop $catlist $key $cat}-->
-	<div class="bm bmw fl">
-		<div class="subforumshow bm_h cl" href="#sub_forum_$cat[fid]">
-			<span class="o"><img src="{STATICURL}image/mobile/images/collapsed_<!--{if !$_G[setting][mobile][mobileforumview]}-->yes<!--{else}-->no<!--{/if}-->.png"></span>
-		<h2><a href="javascript:;">$cat[name]</a></h2>
+	<!--{if $_G['setting']['mobile']['mobilehotthread'] && empty($_G['setting']['grid']['showgrid']) && empty($_G['cache']['heats']['message']) && $_GET['forumlist'] != 1}-->
+		<!--{eval dheader('Location:forum.php?mod=guide&view=newthread');exit;}-->
+	<!--{else}-->	
+	<!--{if ($_G['setting']['mobile']['mobilehotthread'] && $_GET['forumlist'] != 1) || !$_G['setting']['mobile']['mobilehotthread']}-->
+		<div class="header cl">
+			<div class="mzlogo"><a title="$_G['setting']['bbname']" href="javascript:;"><img src="{IMGDIR}/logo_m.svg" /></a></div>
+			<div class="myss"><a href="search.php?mod=forum"><i class="dm-search"></i>{lang mobsearchtxt}</a></div>
 		</div>
-		<div id="sub_forum_$cat[fid]" class="sub_forum bm_c">
-			<ul>
-				<!--{loop $cat[forums] $forumid}-->
-				<!--{eval $forum=$forumlist[$forumid];}-->
-				<li><a href="forum.php?mod=forumdisplay&fid={$forum['fid']}"><!--{if $forum[todayposts] > 0}--><span class="num">$forum[todayposts]</span><!--{/if}-->{$forum[name]}</a></li>
+	<!--{else}-->
+		<div class="header cl">
+			<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+			<h2>
+				<!--{if $_G['setting']['mobile']['mobilehotthread']}-->
+				{$_G['setting']['navs'][2]['navname']}
+				<!--{else}-->
+				<a title="$_G['setting']['bbname']" href="javascript:;"><img src="{IMGDIR}/logo_m.svg" /></a>
+				<!--{/if}-->
+			</h2>
+			<div class="my"><a href="search.php?mod=forum"><i class="dm-search"></i></a></div>
+		</div>
+	<!--{/if}-->
+	<!--{if ($_G['setting']['mobile']['mobilehotthread'] && $_GET['forumlist'] != 1) || !$_G['setting']['mobile']['mobilehotthread']}-->	
+		<!--{if !empty($_G['setting']['grid']['showgrid']) && !$_G['setting']['grid']['gridtype']}-->
+		<div class="dz-swiper_box dz-swiper">
+			<ul class="swiper-wrapper">
+			<!--{loop $grids['slide'] $stid $svalue}-->
+				<li class="swiper-slide"><a href="{$svalue['url']}"><img src="$svalue['image']" width="100%" class="vm"><span>$svalue['subject']</span></a></li>
+			<!--{/loop}-->
+			</ul>
+			<div class="swiper-forum"></div>
+		</div>
+		<script>
+		var swiper = new Swiper('.dz-swiper', {
+		  pagination: {
+			el: '.swiper-forum',
+			type: 'fraction',
+		  },
+		});
+		</script>
+		<!--{/if}-->
+		<!--{hook/index_top}-->	
+	<!--{/if}-->
+	<!--{if $_G['setting']['mobile']['mobilehotthread'] && $_GET['forumlist'] != 1}-->
+		<!--{eval loadcache(array('forums'));$i=0;}-->
+		<!--{if !empty($_G['cache']['heats']['message'])}-->
+		<div class="hotbox cl">
+			<h2><span>{lang mobredian}</span>{lang mobtuijian}</h2>
+			<div class="hotbox-toutiao cl">
+				<ul>
+				<!--{loop $_G['cache']['heats']['message'] $data}-->
+					<li><a href="forum.php?mod=viewthread&tid=$data['tid']"><span>$data['subject']</span>$data['message']</a></li>
 				<!--{/loop}-->
+				</ul>
+			</div>
+			<div class="listbox hotbox-list cl">
+				<ul>				
+				<!--{loop $_G['cache']['heats']['subject'] $data}-->	
+					<li><a href="forum.php?mod=viewthread&tid=$data['tid']"><span class="mbk">$_G['cache']['forums'][$data['fid']]['name']</span><span class="mx">|</span>$data['subject']</a></li>
+				<!--{/loop}-->
+				</ul>
+			</div>
+		</div>
+		<!--{/if}-->
+		<!--{hook/index_catlist_top}-->
+		<!--{if !empty($_G['setting']['grid']['showgrid'])}-->
+		<div class="tabs flex-box mt10 cl">
+			<a href="javascript:;" class="flex mon">{lang collection_lastthread}</a>
+			<a href="javascript:;" class="flex">{lang show_newthreads}</a>
+			<a href="javascript:;" class="flex">{$_G['setting']['navs'][2]['navname']}{lang hot_thread}</a>
+			<a href="javascript:;" class="flex">{lang post_digest_thread}</a>
+		</div>
+		<div id="tabs-box" class="swiper-container listbox cl">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<ul>
+					<!--{loop $grids['newthread'] $thread}-->
+					<!--{if !$thread['forumstick'] && $thread['closed'] > 1 && ($thread['isgroup'] == 1 || $thread['fid'] != $_G['fid'])}-->
+						<!--{eval $thread['tid']=$thread['closed'];}-->
+					<!--{/if}-->
+					<li><a href="forum.php?mod=viewthread&tid=$thread['tid']"{if $thread['highlight']} $thread['highlight']{/if} title="$thread['oldsubject']"><span class="mybk">$thread['dateline']</span><span class="mico"></span>{$thread['oldsubject']}</a></li>
+					<!--{/loop}-->
+					</ul>
+				</div>
+				<div class="swiper-slide">
+					<ul>
+					<!--{loop $grids['newreply'] $thread}-->
+					<!--{if !$thread['forumstick'] && $thread['closed'] > 1 && ($thread['isgroup'] == 1 || $thread['fid'] != $_G['fid'])}-->
+						<!--{eval $thread['tid']=$thread['closed'];}-->
+					<!--{/if}-->				
+					<li><a href="forum.php?mod=viewthread&tid=$thread['tid']"{if $thread['highlight']} $thread['highlight']{/if} title="$thread['oldsubject']"><span class="mybk">$thread['replies'] {lang reply}</span><span class="mico"></span>{$thread['oldsubject']}</a></li>
+					<!--{/loop}-->
+					</ul>
+				</div>
+				<div class="swiper-slide">
+					<ul>
+					<!--{loop $grids['hot'] $thread}-->
+					<!--{if !$thread['forumstick'] && $thread['closed'] > 1 && ($thread['isgroup'] == 1 || $thread['fid'] != $_G['fid'])}-->
+						<!--{eval $thread['tid']=$thread['closed'];}-->
+					<!--{/if}-->
+					<!--{eval $i++;}-->
+					<li><a href="forum.php?mod=viewthread&tid=$thread['tid']"{if $thread['highlight']} $thread['highlight']{/if} title="$thread['oldsubject']"><span class="mybk">$thread['views'] {lang mobrenqi}</span><span class="mnum">$i</span>{$thread['oldsubject']}</a></li>
+					<!--{/loop}-->
+					</ul>
+				</div>
+				<div class="swiper-slide">
+					<ul>
+					<!--{loop $grids['digest'] $thread}-->
+					<!--{if !$thread['forumstick'] && $thread['closed'] > 1 && ($thread['isgroup'] == 1 || $thread['fid'] != $_G['fid'])}-->
+						<!--{eval $thread['tid']=$thread['closed'];}-->
+					<!--{/if}-->
+					<li><a href="forum.php?mod=viewthread&tid=$thread['tid']"{if $thread['highlight']} $thread['highlight']{/if} title="$thread['oldsubject']"><span class="mybk">$thread['author']</span><span class="mico"></span>{$thread['oldsubject']}</a></li>
+					<!--{/loop}-->
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+		window.onload = function() {
+			var tabsSwiper = new Swiper('#tabs-box', {
+				speed: 500,
+				on: {
+					slideChangeTransitionStart: function() {
+						$(".tabs .mon").removeClass('mon');
+						$(".tabs a").eq(this.activeIndex).addClass('mon');
+					}
+				}
+			})
+			$(".tabs a").on('click', function(e) {
+				e.preventDefault()
+				$(".tabs .mon").removeClass('mon')
+				$(this).addClass('mon')
+				tabsSwiper.slideTo($(this).index())
+			})
+		}
+		</script>
+		<!--{/if}-->
+	<!--{else}-->
+		<!--{if $announcements}-->
+			<div class="ann-box">
+				<div class="mtit">{lang announcements}</div>
+				<div id="ann"><ul>$announcements</ul></div>
+			</div>
+			<script type="text/javascript">discuz_loop(24, 30, 3000, 'ann');</script>
+		<!--{/if}-->
+		<div class="stat cl">
+			<ul class="flex-box">
+				<li class="flex"><em>$todayposts</em>{lang index_today}</li>
+				<li class="flex"><em>$postdata[0]</em>{lang index_yesterday}</li>
+				<li class="flex"><em>$posts</em>{lang index_posts}</li>
+				<li class="flex"><em>$_G['cache']['userstats']['totalmembers']</em>{lang index_members}</li>
 			</ul>
 		</div>
+		<!--{hook/index_top_mobile}-->
+		<div class="forumlist cl">
+			<!--{loop $catlist $key $cat}-->	
+			<div class="subforumshow cl" href="#sub-forum_$cat['fid']">
+				<i class="{if !$_G['setting']['mobile']['mobileforumview']}dm-minus-c{else}dm-plus-c{/if}"></i>
+				<h2><a href="javascript:;">$cat['name']</a></h2>
+			</div>
+			<div id="sub-forum_$cat['fid']" class="sub-forum mlist<!--{if $cat['forumcolumns'] == 3}-->3<!--{elseif $cat['forumcolumns'] == 2}-->2<!--{elseif $cat['forumcolumns'] == 1 || $cat['forumcolumns'] == 0}-->1<!--{else}-->4<!--{/if}--> cl">
+				<ul>
+					<!--{loop $cat['forums'] $forumid}-->
+					<!--{eval $forum=$forumlist[$forumid];}-->
+					<!--{eval $forumurl = !empty($forum['domain']) && !empty($_G['setting']['domain']['root']['forum']) ? $_G['scheme'].'://'.$forum['domain'].'.'.$_G['setting']['domain']['root']['forum'] : 'forum.php?mod=forumdisplay&fid='.$forum['fid'];}-->
+					<!--{if $forum['permission'] == 1}-->
+						<li><span class="micon"><a href="forum.php?mod=forumdisplay&fid={$forum['fid']}"><!--{if $forum['icon']}-->$forum['icon']<!--{else}--><svg width="48" height="44" alt="$forum['name']"><path fill="#{if $forum['folder']}fdc910{else}c9c9c9{/if}" d="M48 20C48 9 37.3 0 24 0S0 8.9 0 20s10.7 20 24 20c2.4 0 4.7-.3 6.8-.8L42 44l-2.8-8.5C44.6 31.8 48 26.2 48 20z"/></svg><!--{/if}--></a></span>
+						<a href="forum.php?mod=forumdisplay&fid={$forum['fid']}" class="murl"><p class="mtit">{lang private_forum}<!--{if $forum['todayposts'] > 0 && ($cat['forumcolumns'] == 1 || $cat['forumcolumns'] == 0)}--><span class="mnum">{lang forum_todayposts} $forum['todayposts']</span><!--{/if}--></p></a></li>
+					<!--{else}-->
+						<li><span class="micon"><a href="forum.php?mod=forumdisplay&fid={$forum['fid']}"><!--{if $forum['icon']}-->$forum['icon']<!--{else}--><svg width="48" height="44" alt="$forum['name']"><path fill="#{if $forum['folder']}fdc910{else}c9c9c9{/if}" d="M48 20C48 9 37.3 0 24 0S0 8.9 0 20s10.7 20 24 20c2.4 0 4.7-.3 6.8-.8L42 44l-2.8-8.5C44.6 31.8 48 26.2 48 20z"/></svg><!--{/if}--></a></span>
+						<a href="forum.php?mod=forumdisplay&fid={$forum['fid']}" class="murl"><p class="mtit">{$forum['name']}<!--{if $forum['todayposts'] > 0 && ($cat['forumcolumns'] == 1 || $cat['forumcolumns'] == 0)}--><span class="mnum">{lang forum_todayposts} $forum['todayposts']</span><!--{/if}--></p>
+						<!--{if $cat['forumcolumns'] < 3}--><!--{if $forum['redirect']}--><p class="mtxt">{lang url_link}</p><!--{else}--><p class="mtxt"><!--{if $cat['forumcolumns'] == 2}-->{lang mobposts}: <!--{echo dnumber($forum['posts'])}--><!--{if $forum['todayposts'] > 0}--><span class="mnum">{lang forum_todayposts}: $forum['todayposts']</span><!--{/if}--><!--{else}--><!--{if $forum['description']}-->$forum['description']<!--{else}-->{lang mobnodescription}<!--{/if}--><!--{/if}--></p><!--{/if}--><!--{/if}--></a></li>
+					<!--{/if}-->
+					<!--{/loop}-->
+				</ul>
+			</div>
+			<!--{/loop}-->
+		</div>
+		<!--{hook/index_middle_mobile}-->
+		<script type="text/javascript">
+			(function() {
+				<!--{if !$_G['setting']['mobile']['mobileforumview']}-->
+					$('.sub-forum').css('display', 'block');
+				<!--{else}-->
+					$('.sub-forum').css('display', 'none');
+				<!--{/if}-->
+				$('.subforumshow').on('click', function() {
+					var obj = $(this);
+					var subobj = $(obj.attr('href'));
+					if(subobj.css('display') == 'none') {
+						subobj.css('display', 'block');
+						obj.find('i').removeClass().addClass('dm-minus-c');
+					} else {
+						subobj.css('display', 'none');
+						obj.find('i').removeClass().addClass('dm-plus-c');
+					}
+				});
+			 })();
+		</script>
+	<!--{/if}-->
+	<div class="footer mt10 cl">
+		<div class="footer-nv">
+			<a href="{$_G['setting']['mobile']['simpletypeurl'][0]}">{lang no_simplemobiletype}</a>|<a 
+			href="javascript:;" class="mon">{lang mobile2version}</a>|<a 
+			href="{$_G['setting']['mobile']['nomobileurl']}">{lang nomobiletype}</a><!--{if $clienturl}-->|<a 
+			href="$clienturl">{lang clientversion}</a><!--{/if}-->
+		</div>
+		<div class="footer-copy mt10">
+			<!--{if $_G['setting']['icp'] || $_G['setting']['mps']}--><!--{if $_G['setting']['icp']}--><a href="https://beian.miit.gov.cn/" target="_blank">$_G['setting']['icp']</a><!--{/if}--><!--{if $_G['setting']['mps']}--><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=$_G['setting']['mpsid']" target="_blank"><img width="14" height="14" src="{IMGDIR}/ico_mps.png" />$_G['setting']['mps']</a><!--{/if}--><br><!--{/if}-->
+			Powered by Discuz! <em>$_G['setting']['version']</em><!--{if $_G['setting']['statcode']}-->{$_G['setting']['statcode']}<!--{/if}-->
+			<p class="xs0">{lang copyright}</p>
+		</div>
 	</div>
-	<!--{/loop}-->
-</div>
-<!-- main forumlist end -->
-<!--{hook/index_middle_mobile}-->
-<script type="text/javascript">
-	(function() {
-		<!--{if !$_G[setting][mobile][mobileforumview]}-->
-			$('.sub_forum').css('display', 'block');
-		<!--{else}-->
-			$('.sub_forum').css('display', 'none');
-		<!--{/if}-->
-		$('.subforumshow').on('click', function() {
-			var obj = $(this);
-			var subobj = $(obj.attr('href'));
-			if(subobj.css('display') == 'none') {
-				subobj.css('display', 'block');
-				obj.find('img').attr('src', '{STATICURL}image/mobile/images/collapsed_yes.png');
-			} else {
-				subobj.css('display', 'none');
-				obj.find('img').attr('src', '{STATICURL}image/mobile/images/collapsed_no.png');
-			}
-		});
-	 })();
-</script>
-
+	<!--{/if}-->
 <!--{/if}-->
 <!--{template common/footer}-->

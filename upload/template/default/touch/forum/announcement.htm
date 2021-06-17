@@ -1,0 +1,64 @@
+<!--{template common/header}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang announcement}</h2>
+	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+<div class="dhnav_box">
+	<div id="dhnav">
+		<div id="dhnav_li">
+		<ul class="swiper-wrapper">
+				<li class="swiper-slide{if empty($_GET[m])} mon{/if}"><a href="forum.php?mod=announcement">{lang all}</a>{if empty($_GET[m])}<em></em>{/if}</li>
+			<!--{loop $months $month}-->
+				<li class="swiper-slide{if $_GET[m] == $month[0].$month[1]} mon{/if}"><a href="forum.php?mod=announcement&m=$month[0].$month[1]">$month[0] {lang year} $month[1] {lang month}</a></li>
+			<!--{/loop}-->
+		</ul>
+		</div>
+	</div>
+</div>
+<div class="annlist mt10 cl">
+	<ul>
+		<!--{eval $nn = 0;}-->
+		<!--{loop $announcelist $ann}-->
+		<!--{eval $nn++;}-->
+		<li class="cl">
+			<h2><a href="javascript:;" class="ann_more" id="ann_{$ann['id']}"><i class="dm-c-{if $nn == 1 && !$annid || $ann['id'] == $annid}down{else}right{/if}"></i>$ann['subject']</a></h2>
+			<h3><span class="my">$ann['starttime']</span><span class="mz">{lang author}:</span> <a href="home.php?mod=space&username=$ann['authorenc']&do=profile">$ann['author']</a></h3>
+			<div class="annlist_box" style="display:{if $nn == 1 && !$annid || $ann['id'] == $annid}block{else}none{/if};" id="ann_{$ann['id']}_box">				
+				$ann['message']
+			</div>
+		</li>
+		<!--{/loop}-->
+	</ul>	
+</div>
+<script>
+	if($("#dhnav_li .mon").length > 0) {
+		var discuz_nav = $("#dhnav_li .mon").offset().left + $("#dhnav_li .mon").width() >= $(window).width() ? $("#dhnav_li .mon").index() : 0;
+	}else{
+		var discuz_nav = 0;
+	}	
+	mySwiper = new Swiper('#dhnav_li', {
+		freeMode : true,
+		slidesPerView : 'auto',
+		initialSlide : discuz_nav,
+		onTouchMove: function(swiper){
+			Discuz_Touch_on = 0;
+		},
+		onTouchEnd: function(swiper){
+			Discuz_Touch_on = 1;
+		},
+	});
+$('.ann_more').on('click', function() {
+	var obj = $(this);
+	var sub_obj = $('#' + obj.attr('id') + '_box');
+	if(sub_obj.css('display') == 'none') {
+		sub_obj.css('display', 'block');
+		obj.find('i').removeClass().addClass('dm-c-down');
+	} else {
+		sub_obj.css('display', 'none');
+		obj.find('i').removeClass().addClass('dm-c-right');
+	}
+});
+</script>
+<!--{eval $nofooter = true;}-->
+<!--{template common/footer}-->

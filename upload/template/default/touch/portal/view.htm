@@ -1,0 +1,40 @@
+<!--{template common/header}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang view_content}</h2>
+	<div class="my"></div>
+</div>
+<!--{hook/view_article_top_mobile}-->
+<div class="wzview cl">
+	<div class="wzview_top cl">
+		<h2>$article['title']<!--{if $article['status'] == 1}--><span>({lang moderate_need})</span><!--{elseif $article['status'] == 2}--><span>({lang ignored})</span><!--{/if}--></h2>
+		<p><span>$article['dateline']</span><span>{lang view_views}<!--{if $article['viewnum'] > 0}-->$article['viewnum']<!--{else}-->0<!--{/if}--></span><span>{lang view_comments}<!--{if $article['commentnum'] > 0}-->$article['commentnum']<!--{else}-->0<!--{/if}--></span><!--{if $article['from']}--><span><!--{if $article['fromurl']}--><a href="$article['fromurl']">$article['from']</a><!--{else}-->$article['from']<!--{/if}--></span><!--{/if}--></p>
+	</div>
+	<!--{if $article['summary'] && empty($cat['notshowarticlesummay'])}-->
+		<div class="wzview_desc cl"><span>{lang article_description}:</span>$article['summary']</div>
+		<!--{hook/view_article_summary_mobile}-->
+	<!--{/if}-->
+	<div class="wzview_body cl">
+		<!--{if $content['title']}--><div class="mtit">$content['title']</div><!--{/if}-->
+		$content['content']
+		<!--{hook/view_article_content_mobile}-->
+		<!--{if $multi}--><div class="page">$multi</div><!--{/if}-->
+	</div>
+	<!--{if $article['preaid'] || $article['nextaid']}-->
+	<div class="wzview_sxwz">
+		<!--{if $article['prearticle']}--><a href="{$article['prearticle']['url']}">{lang pre_article}{$article['prearticle']['title']}</a><!--{/if}-->
+		<!--{if $article['nextarticle']}--><a href="{$article['nextarticle']['url']}">{lang next_article}{$article['nextarticle']['title']}</a><!--{/if}-->
+	</div>
+	<!--{/if}-->
+</div>
+<!--{if $article['related']}-->
+<div class="txtlist mt10 cl">
+	<div class="mtit cl">{lang view_related}</div>
+	<ul class="cl">
+	<!--{loop $article['related'] $raid $rvalue}-->		
+		<li><a href="{$rvalue['uri']}"><i class="dm-c-right"></i>{$rvalue['title']}</a></li>
+	<!--{/loop}-->
+	</ul>
+</div>
+<!--{/if}-->
+<!--{template common/footer}-->

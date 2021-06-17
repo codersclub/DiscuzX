@@ -1,0 +1,15 @@
+<!--{template common/header}-->
+<!--{if $op =='ignore'}-->
+	<form method="post" autocomplete="off" id="friendform_{$uid}" name="friendform_{$uid}" action="home.php?mod=spacecp&ac=friend&op=ignore&uid=$uid&confirm=1&loc=1">
+		<input type="hidden" name="referer" value="{echo dreferer()}">
+		<input type="hidden" name="friendsubmit" value="true" />
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<input type="hidden" name="from" value="$_GET['from']" />
+		<!--{if $_G['inajax']}--><input type="hidden" name="handlekey" value="$_GET['handlekey']" /><!--{/if}-->
+		<div class="tip">
+			<dt>{lang determine_lgnore_friend}</dt>
+			<dd><button type="submit" name="friendsubmit_btn" value="true" class="formdialog button z">{lang determine}</button><a href="javascript:;" onclick="popup.close();" class="button y">{lang cancel}</a></dd>
+		</div>
+	</form>
+<!--{/if}-->
+<!--{template common/footer}-->

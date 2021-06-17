@@ -2,9 +2,10 @@
 
 <style type="text/css">
 .postalbum { background-color:#343434; display:none; height:100%; overflow:hidden; padding:0 0 1px 0; position:absolute; top:0; width:100%; z-index:80; }
-.postalbum_h { height:44px; left:0; line-height:44px; position:absolute; top:0px; width:100%; z-index:90; opacity:0.7; background:black; }
+.postalbum_h { height:50px; left:0; line-height:50px; position:absolute; top:0px; width:100%; z-index:90; opacity:0.7; background:black; }
 .postalbum_h a:link, a:visited, a:hover { color:white; }
-.postalbum_h_back { position:absolute; left:10px; top:0px; height:25px; width:30px; z-index:90; color:white; }
+.postalbum_h_back { position:absolute; left:13px; top:0px; height:25px; width:60px; font-size:14px; z-index:90; color:white; }
+.postalbum_h_back i { margin-right:3px; }
 .postalbum_h_picnum { position:absolute; right:10px; top:0px; height:25px; width:105px; z-index:90; color:white; }
 .postalbum_c { height:100%; position:relative; z-index:-1; display:-webkit-box; display:-moz-box; display:-o-box; display:box; -webkit-transition:all 350ms linear; -moz-transition:all 350ms linear; -o-transition:all 350ms linear; transition:all 350ms linear; }
 .postalbum_u { border-radius:3px 3px 3px 3px; text-align:center; }
@@ -22,13 +23,14 @@
 	<!--{/if}-->
 	<div class="postalbum">
 		<div class="postalbum_h">
-			<a href="forum.php?mod=viewthread&tid=$_G[tid]&page=$_G[page]" class="postalbum_h_back">{lang return}</a>
+			<a href="forum.php?mod=viewthread&tid=$_G['tid']&page=$_G['page']" class="postalbum_h_back"><i class="dm-c-left z"></i>{lang return}</a>
 			<span class="postalbum_h_picnum">{lang numheader} <span id="curpic"><!--{eval echo $curaidkey + 1}--></span> {lang unitpaper} / {lang numtotal} $count {lang unitpaper}</span>
 		</div>
 		<ul class="postalbum_c">
-			<!--{loop $imglist[url] $key $imgurl}-->
+			<!--{loop $imglist['url'] $key $imgurl}-->
 			<li class="postalbum_u" id="u_$key">
-				<img class="postalbum_i" load="0" id="img_$key" <!--{if $curaidkey == $key}-->src="$imglist[url][$key]"<!--{/if}--> zsrc="$imglist[url][$key]" orig="$imglist[url][$key]"/>
+				<!--{eval $imgurl = getforumimg($imglist['aid'][$key], 0, 2000, 550, 'fixnone');}-->
+				<img class="postalbum_i" load="0" id="img_$key" <!--{if $curaidkey == $key}-->src="$imgurl"<!--{/if}--> zsrc="$imgurl" orig="$imglist['url'][$key]"/>
 			</li>
 			<!--{/loop}-->
 		</ul>
@@ -40,7 +42,7 @@
 	var curkey = $curaidkey;
 	var count = $count;
 	var imglist = new Array();
-	imglist['url'] = [<!--{echo dimplode($imglist[url]);}-->];
+	imglist['url'] = [<!--{echo dimplode($imglist['url']);}-->];
 
 	var width = window.innerWidth;
 	var height = document.documentElement.clientHeight;
@@ -302,5 +304,5 @@
 
 })();
 </script>
-
+<!--{eval $nofooter = true;}-->
 <!--{template common/footer}-->

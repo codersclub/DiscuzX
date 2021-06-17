@@ -17,6 +17,7 @@ if(!$_G['setting']['guidestatus']) {
 
 $view = $_GET['view'];
 loadcache('forum_guide');
+require_once libfile('function/forumlist');
 if(!in_array($view, array('hot', 'digest', 'new', 'my', 'newthread', 'sofa'))) {
 	$view = 'hot';
 }

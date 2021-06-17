@@ -1,0 +1,65 @@
+<!--{template common/header}-->
+<!--{eval require_once libfile('function/discuzcode');}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div><h2>{lang feed}</h2><div class="my"></div>
+</div>
+<div class="dhnv flex-box cl">
+    <a href="home.php?mod=space&do=home&view=me" class="flex<!--{if $actives['me']}--> mon<!--{/if}-->">{lang my_feed}</a>
+    <a href="home.php?mod=space&do=home&view=we" class="flex<!--{if $actives['we']}--> mon<!--{/if}-->">{lang friend_feed}</a>
+    <a href="home.php?mod=space&do=home&view=all" class="flex<!--{if $actives['all']}--> mon<!--{/if}-->">{lang view_all}</a>
+</div>
+
+<!--{if $list}-->
+	<div class="home_feed cl">
+		<ul class="home_feed_item cl">
+		<!--{loop $list $day $values}-->
+			<!--{if $_GET['view']!='hot'}-->
+				<div class="home_feed_time"><span class="mtime"><!--{if $day=='yesterday'}-->{lang yesterday}<!--{elseif $day=='today'}-->{lang today}<!--{else}-->$day<!--{/if}--></span></div>
+			<!--{/if}-->
+			<div class="home_feed_ecs cl">
+				<a href="home.php?mod=space&uid={$values['uid']}" class="mimg"><!--{avatar($values['uid'], 'small')}--></a>
+				<!--{loop $values $value}-->
+					<!--{subtemplate home/space_feed_li}-->
+				<!--{/loop}-->
+			</div>
+		<!--{/loop}-->    
+		</ul>
+	</div>
+<!--{elseif $feed_users}-->
+	<div class="home_feed cl">
+		<ul class="home_feed_item cl">
+			<!--{loop $feed_users $day $users}-->
+			<div class="home_feed_time"><span><!--{if $day=='yesterday'}-->{lang yesterday}<!--{elseif $day=='today'}-->{lang today}<!--{else}-->$day<!--{/if}--></span></div>
+				<!--{loop $users $user}-->
+				<!--{eval $daylist = $feed_list[$day][$user['uid']];}-->
+				<!--{eval $morelist = $more_list[$day][$user['uid']];}-->
+				<div class="home_feed_ecs cl">
+					<!--{if $user['uid']}-->
+					<a href="home.php?mod=space&uid={$user['uid']}" class="mimg"><!--{avatar($user['uid'], 'small')}--></a>
+					<!--{else}-->
+					<a href="javascript:;" class="mimg"><img src="{IMGDIR}/systempm.png" alt="" /></a>
+					<!--{/if}-->
+					<!--{loop $daylist $value}-->	
+						<!--{subtemplate home/space_feed_li}-->
+					<!--{/loop}-->
+					<!--{if $morelist}-->
+					<div id="home_feed_more_div_{$day}_{$user['uid']}">
+						<!--{loop $morelist $value}-->
+							<!--{subtemplate home/space_feed_li}-->
+						<!--{/loop}-->
+					</div>
+					<!--{/if}-->
+				</div>
+				<!--{/loop}-->
+				<!--{/loop}-->
+		</ul>
+	</div>
+<!--{else}-->
+	<div class="home_feed mt10 cl">
+		<ul class="home_feed_item cl">
+		<h4>{lang no_feed}</h4>
+		</ul>
+	</div>
+<!--{/if}-->
+$multipage
+<!--{template common/footer}-->

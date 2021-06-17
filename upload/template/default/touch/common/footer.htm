@@ -1,31 +1,51 @@
 <!--{hook/global_footer_mobile}-->
-<!--{eval $useragent = strtolower($_SERVER['HTTP_USER_AGENT']);$clienturl = ''}-->
-<!--{if strpos($useragent, 'iphone') !== false || strpos($useragent, 'ios') !== false}-->
-<!--{eval $clienturl = $_G['cache']['mobileoem_data']['iframeUrl'] ? $_G['cache']['mobileoem_data']['iframeUrl'].'&platform=ios' : '';}-->
-<!--{elseif strpos($useragent, 'android') !== false}-->
-<!--{eval $clienturl = $_G['cache']['mobileoem_data']['iframeUrl'] ? $_G['cache']['mobileoem_data']['iframeUrl'].'&platform=android' : '';}-->
-<!--{elseif strpos($useragent, 'windows phone') !== false}-->
-<!--{eval $clienturl = $_G['cache']['mobileoem_data']['iframeUrl'] ? $_G['cache']['mobileoem_data']['iframeUrl'].'&platform=windowsphone' : '';}-->
-<!--{/if}-->
-
 <div id="mask" style="display:none;"></div>
 <!--{if !$nofooter}-->
-<div class="footer">
-	<div>
-		<!--{if !$_G[uid] && !$_G['connectguest']}-->
-		<a href="forum.php">{lang mobilehome}</a> | <a href="member.php?mod=logging&action=login" title="{lang login}">{lang login}</a> | <a href="<!--{if $_G['setting']['regstatus']}-->member.php?mod={$_G[setting][regname]}<!--{else}-->javascript:;" style="color:#D7D7D7;<!--{/if}-->" title="{$_G['setting']['reglinkname']}">{lang register}</a>
+<div class="foot_height"></div>
+<div class="foot flex-box">
+	<!--{if $_G['setting']['mobile']['mobilehotthread']}-->
+		<!--{if !empty($_G['setting']['grid']['showgrid']) || !empty($_G['cache']['heats']['message'])}-->
+		<a href="forum.php" class="flex{if $_G['basescript'] == 'forum' && CURMODULE == 'index' && $_GET['forumlist'] != 1 && $_GET['mod'] != 'find'} mon{/if}">
 		<!--{else}-->
-		<a href="home.php?mod=space&uid={$_G[uid]}&do=profile&mycenter=1">{$_G['member']['username']}</a> , <a href="member.php?mod=logging&action=logout&formhash={FORMHASH}" title="{lang logout}" class="dialog">{lang logout}</a>
-		<!--{/if}-->
-	</div>
-    <div>
-		<!--{if $_G['setting']['mobile']['legacy']}--><a href="{$_G['setting']['mobile']['simpletypeurl'][0]}">{lang no_simplemobiletype}</a> |  <!--{/if}-->
-		<a href="javascript:;" style="color:#D7D7D7;">{lang mobile2version}</a> | 
-		<a href="{$_G['setting']['mobile']['nomobileurl']}">{lang nomobiletype}</a> | 
-		<!--{if $clienturl}--><a href="$clienturl">{lang clientversion}</a><!--{/if}-->
-    </div>
-	<!--{if $_G['setting']['statcode']}--><p>$_G['setting']['statcode']</p><!--{/if}-->
-	<p>&copy; Comsenz Inc.</p>
+		<a href="forum.php?mod=guide&view=newthread" class="flex{if $_G['basescript'] == 'forum' && CURMODULE == 'guide'} mon{/if}">
+		<!--{/if}-->	
+		<span class="foot-ico"><em class="ma"></em></span>
+		<span class="foot-txt"><!--{if !empty($_G['setting']['grid']['showgrid']) || !empty($_G['cache']['heats']['message'])}-->{lang mobhome}<!--{else}-->{lang mobdaodu}<!--{/if}--></span>
+		</a>
+	<!--{/if}-->
+	<!--{if $_G['setting']['mobile']['mobilehotthread']}-->
+		<a href="forum.php?forumlist=1" class="flex{if $_G['basescript'] == 'forum' && (CURMODULE == 'index' && $_GET['forumlist'] == 1 || CURMODULE == 'forumdisplay' || CURMODULE == 'viewthread')} mon{/if}">
+	<!--{else}-->
+		<a href="forum.php?forumlist=1" class="flex{if $_G['basescript'] == 'forum' && $_GET['mod'] != 'find' && (CURMODULE == 'index' || $_GET['forumlist'] == 1 || CURMODULE == 'forumdisplay' || CURMODULE == 'viewthread')} mon{/if}">
+	<!--{/if}-->
+		<span class="foot-ico"><em class="m<!--{if $_G['setting']['mobile']['mobilehotthread']}-->b<!--{else}-->a<!--{/if}-->"></em></span>
+		<span class="foot-txt">{$_G['setting']['navs'][2]['navname']}</span>
+	</a>
+	<!--{if !$_G['setting']['mobile']['mobilehotthread']}-->
+	<a href="forum.php?mod=find" class="flex{if $_G['basescript'] == 'forum' && $_GET['mod'] == 'find'} mon{/if}">
+		<span class="foot-ico"><em class="md"></em></span>
+		<span class="foot-txt">{lang mobfind}</span>
+	</a>
+	<!--{/if}-->
+	<a href="forum.php?mod=misc&action=nav" class="flex foot-post">
+		<span class="foot-ico"><em class="mc"></em></span>
+		<span class="foot-txt">{lang mobpost}</span>
+	</a>
+	<!--{if !$_G['setting']['mobile']['mobilehotthread']}-->
+	<a href="home.php?mod=space&do=pm" class="flex{if $_G['basescript'] == 'home' && CURMODULE == 'space' && $_GET['do'] == 'pm'} mon{/if}">
+		<span class="foot-ico"><em class="mb"><!--{if $_G['uid'] && ($_G['member']['newpm'] || $_G['member']['newprompt'])}--><i class="ico_msg"></i><!--{/if}--></em></span>
+		<span class="foot-txt">{lang pm_center}</span>
+	</a>
+	<!--{else}-->
+	<a href="forum.php?mod=find" class="flex{if $_G['basescript'] == 'forum' && $_GET['mod'] == 'find'} mon{/if}">
+		<span class="foot-ico"><em class="md"></em></span>
+		<span class="foot-txt">{lang mobfind}</span>
+	</a>
+	<!--{/if}-->
+	<a href="{if $_G['uid']}home.php?mod=space&uid={$_G['uid']}&do=profile&mycenter=1{else}member.php?mod=logging&action=login{/if}" class="flex{if $_G['basescript'] == 'home' && CURMODULE == 'space' && $_GET['mycenter'] == 1} mon{/if}">
+		<span class="foot-ico"><em class="me"><!--{if $_G['setting']['mobile']['mobilehotthread'] && $_G['uid'] && ($_G['member']['newpm'] || $_G['member']['newprompt'])}--><i class="ico_msg"></i><!--{/if}--></em></span>
+		<span class="foot-txt">{lang mobmy}</span>
+	</a>
 </div>
 <!--{/if}-->
 </body>

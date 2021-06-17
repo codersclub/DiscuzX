@@ -1,15 +1,25 @@
 <!--{if !empty($srchtype)}--><input type="hidden" name="srchtype" value="$srchtype" /><!--{/if}-->
-<div class="search">
-		<table width="100%" cellspacing="0" cellpadding="0">
-			<tbody>
-				<tr>
-					<td>
-						<input value="$keyword" autocomplete="off" class="input" name="srchtxt" id="scform_srchtxt" value="" placeholder="{lang searchthread}">
-					</td>
-					<td width="66" align="center" class="scbar_btn_td">
-						<div><input type="hidden" name="searchsubmit" value="yes"><input type="submit" value="{lang search}" class="button2" id="scform_submit"></div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+<div class="search flex-box">
+	<input value="$keyword" autocomplete="off" class="mtxt flex" name="srchtxt" id="scform_srchtxt" value="" placeholder="{lang searchthread}">
+	<input type="hidden" name="searchsubmit" value="yes"><input type="submit" value="{lang search}" class="mbtn" id="scform_submit">
 </div>
+<!--{if $_G['setting']['forumstatus'] && $_G['setting']['srchhotkeywords'] && empty($searchid)}-->
+	<div class="search-hot">
+		<h2>{lang hot_search}: </h2>
+		<ul>
+		<!--{loop $_G['setting']['srchhotkeywords'] $val}-->
+			<!--{if $val=trim($val)}-->
+				<!--{eval $valenc=rawurlencode($val);}-->
+				<!--{block srchhotkeywords[]}-->
+					<!--{if !empty($searchparams['url'])}-->
+						<li><a href="$searchparams['url']?q=$valenc&source=hotsearch{$srchotquery}">$val</a></li>
+					<!--{else}-->
+						<li><a href="search.php?mod=forum&srchtxt=$valenc&formhash={FORMHASH}&searchsubmit=true&source=hotsearch">$val</a></li>
+					<!--{/if}-->
+				<!--{/block}-->
+			<!--{/if}-->
+		<!--{/loop}-->
+		<!--{echo implode('', $srchhotkeywords);}-->
+		</ul>
+	</div>
+<!--{/if}-->

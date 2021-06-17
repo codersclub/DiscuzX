@@ -1,0 +1,55 @@
+<div class="dhnav_box">
+	<div id="dhnav">
+		<div id="dhnav_li">
+		<ul class="flex-box">
+			<li class="flex"><a href="forum.php?mod=forumdisplay&action=list&fid=$_G['fid']">{lang forum_viewall}</a></li>
+			<li class="flex mon"><a href="forum.php?mod=group&action=memberlist&fid=$_G['fid']">{lang group_member_list}</a></li>
+			<!--{if $_G['forum']['ismoderator']}--><li class="flex"><a href="forum.php?mod=group&action=manage&fid=$_G['fid']">{lang group_admin}</a></li><!--{/if}-->
+		</ul>
+		</div>
+	</div>
+</div>
+
+<!--{if $op == 'alluser'}-->
+	<div class="imglist cl">
+		<!--{if $adminuserlist}-->
+		<div class="subtit cl">
+			<h2>{lang group_admin_member}</h2>
+		</div>
+		<ul class="mt0 cl">
+            <!--{loop $adminuserlist $user}-->
+			<li>
+				<span class="mimg"><a href="home.php?mod=space&uid={$user['uid']}&do=profile"><img src="{avatar($user['uid'],'middle',true)}" /></a></span>
+				<p class="mtit">{$user['username']}</p>
+			</li>
+			<!--{/loop}-->
+        </ul>
+		<!--{/if}-->
+		<!--{if $staruserlist || $alluserlist}-->
+		<div class="subtit cl">
+			<h2>{$_G['setting']['navs'][3]['navname']}{lang member}</h2>
+		</div>
+		<ul class="mt0 cl">
+			<!--{if $staruserlist}-->
+            <!--{loop $staruserlist $user}-->
+			<li>
+				<span class="mimg"><a href="home.php?mod=space&uid={$user['uid']}&do=profile"><img src="{avatar($user['uid'],'middle',true)}" /></a></span>
+				<p class="mtit"><a href="home.php?mod=space&uid={$user['uid']}&do=profile">{$user['username']}<em class="dm-star-fill group_memberlist_star"></em></a></p>
+				<p class="mtxt">{echo dgmdate($user['joindateline'], 'u')}</p>
+			</li>
+			<!--{/loop}-->
+			<!--{/if}-->
+			<!--{if $alluserlist}-->
+			<!--{loop $alluserlist $user}-->
+			<li>
+				<span class="mimg"><a href="home.php?mod=space&uid={$user['uid']}&do=profile"><img src="{avatar($user['uid'],'middle',true)}" /></a></span>
+				<p class="mtit"><a href="home.php?mod=space&uid={$user['uid']}&do=profile">{$user['username']}</a></p>
+				<p class="mtxt">{echo dgmdate($user['joindateline'], 'u')}</p>
+			</li>
+			<!--{/loop}-->
+			<!--{/if}-->
+        </ul>
+		<!--{/if}-->
+    </div>
+<!--{/if}-->
+	<!--{if $multipage}-->$multipage<!--{/if}-->

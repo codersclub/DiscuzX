@@ -1,0 +1,94 @@
+<!--{template common/header}-->
+<!--{eval $list = array();}-->
+<!--{eval $wheresql = category_get_wheresql($cat);}-->
+<!--{eval $list = category_get_list($cat, $wheresql, $page);}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>$cat['catname']</h2>
+	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+<div class="dhnav_box">
+	<div id="dhnav">
+		<div id="dhnav_li">
+		<ul class="swiper-wrapper">
+		<!--{loop $cat['others'] $value}-->
+			<!--{if $value['closed'] == 0}-->
+			<li class="swiper-slide{if $value['catid'] == $_GET['catid']} mon{/if}"><a href="{$portalcategory[$value['catid']]['caturl']}">$value['catname']</a></li>
+			<!--{/if}-->
+		<!--{/loop}-->
+		</ul>
+		</div>
+	</div>
+</div>
+<script>
+	if($("#dhnav_li .mon").length > 0) {
+		var discuz_nav = $("#dhnav_li .mon").offset().left + $("#dhnav_li .mon").width() >= $(window).width() ? $("#dhnav_li .mon").index() : 0;
+	}else{
+		var discuz_nav = 0;
+	}	
+	mySwiper = new Swiper('#dhnav_li', {
+		freeMode : true,
+		slidesPerView : 'auto',
+		initialSlide : discuz_nav,
+		onTouchMove: function(swiper){
+			Discuz_Touch_on = 0;
+		},
+		onTouchEnd: function(swiper){
+			Discuz_Touch_on = 1;
+		},
+	});
+</script>
+<!--{if $cat['subs']}-->
+<div class="dhnavs_box">
+	<div id="dhnavs">
+		<div id="dhnavs_li">
+			<ul class="swiper-wrapper">
+				<!--{eval $i = 1;}-->
+				<!--{loop $cat['subs'] $value}-->
+				<li class="swiper-slide"><!--{if $i != 1}--><span>|</span><!--{/if}--><a href="{$portalcategory[$value['catid']]['caturl']}">$value['catname']</a></li>
+				<!--{eval $i--;}-->
+				<!--{/loop}-->
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+	new Swiper('#dhnavs_li', {
+		freeMode : true,
+		slidesPerView : 'auto',
+		onTouchMove: function(swiper){
+			Discuz_Touch_on = 0;
+		},
+		onTouchEnd: function(swiper){
+			Discuz_Touch_on = 1;
+		},
+	});
+</script>
+<!--{/if}-->
+<!--{if count($list['list'])}-->
+<div class="wzlist mt10 cl">
+<!--{loop $list['list'] $value}-->
+	<!--{eval $highlight = article_title_style($value);}-->
+	<!--{eval $article_url = fetch_article_url($value);}-->
+	<li>
+		<a href="$article_url" $highlight>
+		<!--{if $value['pic']}--><div class="mimg"><img src="$value['pic']" alt="$value['title']" /></div><!--{/if}-->
+		<div class="minfo">
+			<p class="mtit">$value['title']</p>
+			<p class="mtime"><!--{if $value['status'] == 1}--><span>{lang moderate_need}</span><!--{/if}-->$value['dateline']</p>
+		</div>
+		</a>
+	</li>
+<!--{/loop}-->
+</div>
+<!--{else}-->
+<div class="threadlist_box mt10 cl">
+	<div class="threadlist cl">
+		<ul>
+			<h4>{lang mobnodata}</h4>
+		</ul>
+	</div>
+</div>
+<!--{/if}-->
+<!--{if $list['multi']}-->{$list['multi']}<!--{/if}-->
+<!--{template common/footer}-->

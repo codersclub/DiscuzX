@@ -1,0 +1,27 @@
+<div class="dhnav_box">
+	<div id="dhnav">
+		<div id="dhnav_li">
+		<ul class="flex-box">
+			<li class="flex mon"><a href="forum.php?mod=forumdisplay&action=list&fid=$_G['fid']">{lang forum_viewall}</a></li>
+			<li class="flex"><a href="forum.php?mod=group&action=memberlist&fid=$_G['fid']">{lang group_member_list}</a></li>
+			<!--{if $_G['forum']['ismoderator']}--><li class="flex"><a href="forum.php?mod=group&action=manage&fid=$_G['fid']">{lang group_admin}</a></li><!--{/if}-->
+		</ul>
+		</div>
+	</div>
+</div>
+<!--{if $groupfeedlist}-->
+	<div class="home_feed cl">
+		<ul class="home_feed_item cl">
+		<!--{loop $groupfeedlist $values}-->
+			<div class="home_feed_ecs cl">
+				<a href="home.php?mod=space&uid={$values['uid']}" class="mimg"><!--{avatar($values['uid'], 'small')}--></a>
+				<!--{loop $values $value}-->
+					<!--{subtemplate home/space_feed_li}-->
+				<!--{/loop}-->
+			</div>
+		<!--{/loop}-->    
+		</ul>
+	</div>
+<!--{else}-->
+	<div class="home_feed cl">{lang group_no_latest_feeds}</p></div>
+<!--{/if}-->

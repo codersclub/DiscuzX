@@ -78,7 +78,7 @@ $seodata = array('first' => $nav['first']['name'], 'second' => $nav['second']['n
 list($navtitle, $metadescription, $metakeywords) = get_seosetting('group', $seodata);
 
 $_G['cache']['groupindex'] = array();
-$data = $randgrouplist = $randgroupdata = $grouptop = $newgrouplist = array();
+$data = $randgrouplist = $randgroupdata = $grouptop = $newgrouplist = $fids = array();
 $topgrouplist = $_G['cache']['groupindex']['topgrouplist'];
 $lastupdategroup = $_G['cache']['groupindex']['lastupdategroup'];
 $todayposts = intval($_G['cache']['groupindex']['todayposts']);
@@ -96,9 +96,20 @@ if(empty($_G['cache']['groupindex']) || $cachetimeupdate > 3600 || empty($lastup
 		if(empty($toptype['secondlist'])) $toptype['secondlist'][] = $id;
 		$query = C::t('forum_forum')->fetch_all_sub_group_by_fup($toptype['secondlist']);
 		foreach($query as $row) {
+			if(!in_array($row['fid'], $fids)){
+				$fids[] = $row['fid'];
+			}
+		}
+		foreach($query as $row) {
 			$data['lastupdategroup'][$id][] = $row;
 		}
 		if(empty($data['lastupdategroup'][$id])) $data['lastupdategroup'][$id] = array();
+	}
+	$lastupdategroupdetail = grouplist('activity', array('ff.membernum', 'ff.icon'), count($fids), $fids);
+	foreach($data['lastupdategroup'] as $id => $toptype) {
+		foreach($toptype as $key => $detail) {
+			$data['lastupdategroup'][$id][$key] = array_merge($lastupdategroupdetail[$detail['fid']], $detail);
+		}
 	}
 	$lastupdategroup = $data['lastupdategroup'];
 	savecache('groupindex', $data);

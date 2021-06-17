@@ -1,0 +1,43 @@
+<!--{template common/header}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2><!--{eval echo strip_tags($_G['forum']['name']) ? strip_tags($_G['forum']['name']) : $_G['forum']['name'];}--></h2>
+	<div class="my"><a href="forum.php?mod=post&action=newthread&fid={$_G['fid']}" title="{lang send_threads}"><i class="dm-edit"></i></a></div>
+</div>
+<!--{hook/forumdisplay_top_mobile}-->
+<!--{if $action != 'create'}-->
+	<!--{if $_G['page'] == 1}-->
+	<div class="forumdisplay-top cl">
+		<h2>
+            <!--{if strstr($_G['forum']['icon'],'groupicon.gif')}-->
+            <svg width="48" height="50"><path fill="#{if $val['folder']}fdc910{else}c9c9c9{/if}" d="M48 20C48 9 37.3 0 24 0S0 8.9 0 20s10.7 20 24 20c2.4 0 4.7-.3 6.8-.8L42 44l-2.8-8.5C44.6 31.8 48 26.2 48 20z"/></svg>
+            <!--{else}-->
+            <img src="$_G['forum']['icon']" />
+            <!--{/if}-->
+			<!--{if helper_access::check_module('group') && $status != 'isgroupuser'}-->
+				<!--{if $status != 2 && $status != 3 && $status != 5}--><a href="forum.php?mod=group&action=join&fid=$_G['fid']" id="a_favorite" class="dialog">{lang group_join_group}</a><!--{/if}-->
+			<!--{else}-->
+			<!--{if helper_access::check_module('favorite')}-->
+				<a href="home.php?mod=spacecp&ac=favorite&type=group&id={$_G['forum']['fid']}&handlekey=favoriteforum&formhash={FORMHASH}" id="a_favorite" class="dialog">{lang favorite}<span id="number_favorite" {if !$_G['forum']['favtimes']} style="display:none;"{/if}><span id="number_favorite_num"> +{$_G['forum']['favtimes']}</span></span></a>
+			<!--{/if}-->
+			<!--{/if}-->
+			$_G['forum']['name']
+		</h2>
+		<p><a href="javascript:;">{lang threads}</a><span>{$_G['forum']['threads']}</span><a href="forum.php?mod=group&action=memberlist&fid=$_G['fid']">{lang member}<span>{$_G['forum']['membernum']}</span></a></p>
+		<!--{if $_G['forum']['description']}--><p class="mt5">{$_G['forum']['description']}</p><!--{/if}-->
+	</div>
+	<!--{/if}-->
+<!--{/if}-->
+<!--{if $action == 'index' && $status != 2 && $status != 3}-->
+<!--{eval dheader("location: forum.php?mod=forumdisplay&action=list&fid=$_G[fid]");exit; }-->
+<!--{elseif $action == 'list'}-->
+<!--{template group/group_list}-->
+<!--{elseif $action == 'memberlist'}-->
+<!--{template group/group_memberlist}-->
+<!--{elseif $action == 'create'}-->
+<!--{template group/group_create}-->
+<!--{elseif $action == 'manage'}-->
+<!--{template group/group_manage}-->
+<!--{/if}-->
+
+<!--{subtemplate common/footer}-->

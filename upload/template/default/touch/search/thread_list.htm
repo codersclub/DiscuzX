@@ -1,15 +1,72 @@
-<div class="threadlist">
-	<h2 class="thread_tit"><!--{if $keyword}-->{lang search_result_keyword} <!--{if $modfid}--><a href="forum.php?mod=modcp&action=thread&fid=$modfid&keywords=$modkeyword&submit=true&do=search&page=$page" target="_blank">{lang goto_memcp}</a><!--{/if}--><!--{else}-->{lang search_result}<!--{/if}--></h2>
+<div class="threadlist_box">
+	<h2><!--{if $keyword}-->{lang search_result_keyword} <!--{if $modfid}--><a href="forum.php?mod=modcp&action=thread&fid=$modfid&keywords=$modkeyword&submit=true&do=search&page=$page">{lang goto_memcp}</a><!--{/if}--><!--{else}-->{lang search_result}<!--{/if}--></h2>
 	<!--{if empty($threadlist)}-->
-	<ul><li><a href="javascript:;">{lang search_nomatch}</a></li></ul>
+	<h4>{lang search_nomatch}</h4>
 	<!--{else}-->
-			<ul>
-				<!--{loop $threadlist $thread}-->
-				<li>
-					<a href="forum.php?mod=viewthread&tid=$thread[realtid]&highlight=$index[keywords]" target="_blank" $thread[highlight]>$thread[subject]</a>
-				</li>
-				<!--{/loop}-->
-			</ul>
+	<!--{eval $threadlist_data = get_attach($threadlist);}-->
+	<div class="threadlist cl">
+		<ul>
+			<!--{loop $threadlist $thread}-->
+			<li class="list">
+				<div class="threadlist_top cl">
+					<a href="home.php?mod=space&uid={$thread['authorid']}" class="mimg"><img src="<!--{avatar($thread['authorid'], 'middle', true)}-->"></a>
+					<div class="muser">
+						<h3><a href="home.php?mod=space&uid={$thread['authorid']}" class="mmc">{$thread['author']}</a></h3>
+						<span class="mtime">{$thread['dateline']}</span>
+					</div>
+				</div>
+				<a href="forum.php?mod=viewthread&tid=$thread['tid']&extra=$extra">
+				<div class="threadlist_tit cl">
+					<!--{if $thread['folder'] == 'lock'}-->
+						<span class="micon lock">{lang closed_thread}</span>
+					<!--{elseif $thread['special'] == 1}-->
+						<span class="micon">{lang thread_poll}</span>
+					<!--{elseif $thread['special'] == 2}-->
+						<span class="micon">{lang thread_trade}</span>
+					<!--{elseif $thread['special'] == 3}-->
+						<span class="micon">{lang thread_reward}</span>
+					<!--{elseif $thread['special'] == 4}-->
+						<span class="micon">{lang thread_activity}</span>
+					<!--{elseif $thread['special'] == 5}-->
+						<span class="micon">{lang thread_debate}</span>
+					<!--{/if}-->
+					<!--{if $thread['attachment'] == 2 && $_G['setting']['mobile']['mobilesimpletype'] == 1}-->
+						<span class="micon">{lang mobtu}</span>
+					<!--{/if}-->
+					<!--{if in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
+						<span class="micon top">{lang thread_sticky}</span>
+					<!--{/if}-->
+					<!--{if $thread['digest'] > 0}-->
+						<span class="micon digest">{lang thread_digest}</span>
+					<!--{/if}-->
+					<em $thread['highlight']>{$thread['subject']}</em>					
+				</div>
+				</a>
+				<!--{if $threadlist_data[$thread['tid']]['attachment']}-->
+				<!--{eval $attach_on = 0;}-->
+				<a href="forum.php?mod=viewthread&tid=$thread['tid']&extra=$extra">
+					<div class="{if count($threadlist_data[$thread['tid']]['attachment']) == 1}threadlist_imgs1 {elseif count($threadlist_data[$thread['tid']]['attachment']) == 2} threadlist_imgs threadlist_imgs2{else} threadlist_imgs{/if} cl">
+						<ul>
+							<!--{loop $threadlist_data[$thread['tid']]['attachment'] $value}-->
+							<!--{eval $attach_on++; if($attach_on > 9) break;}-->
+							<li><!--{if count($threadlist_data[$thread['tid']]['attachment']) > 9 && $attach_on == 9}--><em>{echo count($threadlist_data[$thread['tid']]['attachment'])}{lang mobtu}</em><!--{/if}--><img src="$value" class="vm"></li>
+							<!--{/loop}-->
+						</ul>
+					</div>
+				</a>
+				<!--{/if}-->
+				<a href="forum.php?mod=viewthread&tid=$thread['tid']&extra=$extra"><div class="threadlist_mes cl">{$threadlist_data[$thread['tid']]['message']}</div></a>
+				<div class="threadlist_foot cl">
+					<ul>
+						<li class="mr"><a href="forum.php?mod=forumdisplay&fid=$thread['fid']">#{$_G['cache']['forums'][$thread['fid']]['name']}</a></li>
+						<li><i class="dm-eye-fill"></i>{$thread['views']}</li>
+						<li><i class="dm-chat-s-fill"></i>{$thread['replies']}</li>
+					</ul>
+				</div>
+			</li>
+			<!--{/loop}-->
+		</ul>
+	</div>
 	<!--{/if}-->
 	$multipage
 </div>

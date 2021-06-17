@@ -1,0 +1,382 @@
+<div class="dhnav_box">
+	<div id="dhnav">
+		<div id="dhnav_li">
+		<ul class="flex-box">
+			<li class="flex"><a href="forum.php?mod=forumdisplay&action=list&fid=$_G['fid']">{lang forum_viewall}</a></li>
+			<li class="flex"><a href="forum.php?mod=group&action=memberlist&fid=$_G['fid']">{lang group_member_list}</a></li>
+			<!--{if $_G['forum']['ismoderator']}--><li class="flex mon"><a href="forum.php?mod=group&action=manage&fid=$_G['fid']">{lang group_admin}</a></li><!--{/if}-->
+		</ul>
+		</div>
+	</div>
+</div>
+
+<div class="dhnavs_box">
+	<div id="dhnavs">
+		<div id="dhnavs_li">
+			<ul class="swiper-wrapper">
+				<li class="swiper-slide{if $_GET['op'] == 'group'} mon{/if}"><a href="forum.php?mod=group&action=manage&op=group&fid=$_G['fid']">{lang group_setup}</a></li>
+				<!--{if !empty($groupmanagers[$_G[uid]]) || $_G['adminid'] == 1}-->
+				<li class="swiper-slide{if $_GET['op'] == 'checkuser'} mon{/if}"><a href="forum.php?mod=group&action=manage&op=checkuser&fid=$_G['fid']">{lang group_member_moderate}</a></li>
+				<li class="swiper-slide{if $_GET['op'] == 'manageuser'} mon{/if}"><a href="forum.php?mod=group&action=manage&op=manageuser&fid=$_G['fid']">{lang group_member_management}</a></li>
+				<!--{/if}-->
+				<!--{if $_G['forum']['founderuid'] == $_G['uid'] || $_G['adminid'] == 1}-->
+				<li class="swiper-slide{if $_GET['op'] == 'threadtype'} mon{/if}"><a href="forum.php?mod=group&action=manage&op=threadtype&fid=$_G['fid']">{lang group_threadtype}</a></li>
+				<li class="swiper-slide{if $_GET['op'] == 'demise'} mon{/if}"><a href="forum.php?mod=group&action=manage&op=demise&fid=$_G['fid']">{lang group_demise}</a></li>
+				<!--{/if}-->
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+	if($("#dhnavs_li .mon").length > 0) {
+		var discuz_nav = $("#dhnavs_li .mon").offset().left + $("#dhnavs_li .mon").width() >= $(window).width() ? $("#dhnavs_li .mon").index() : 0;
+	}else{
+		var discuz_nav = 0;
+	}	
+	new Swiper('#dhnavs_li', {
+		freeMode : true,
+		slidesPerView : 'auto',
+		initialSlide : discuz_nav,
+		onTouchMove: function(swiper){
+			Discuz_Touch_on = 0;
+		},
+		onTouchEnd: function(swiper){
+			Discuz_Touch_on = 1;
+		},
+	});
+</script>
+
+<!--{if $_GET['op'] == 'group'}-->
+<form enctype="multipart/form-data" action="forum.php?mod=group&action=manage&op=group&fid={$_G['fid']}" name="manage" method="post" autocomplete="off" accept-charset="utf-8" onsubmit="document.charset='utf-8';">
+	<input type="hidden" value="{FORMHASH}" name="formhash" id="formhash" />
+	<input type="hidden" value="group_handle" name="handlekey" />
+	<div class="setbox cl">
+		<ul class="bodybox post_box cl">
+			<!--{if !empty($specialswitch['allowchangename']) && ($_G['uid'] == $_G['forum']['founderuid'] || $_G['adminid'] == 1)}-->
+			<li class="flex-box mli">
+				<div class="tit">{lang group_name} :</div>
+				<div class="flex input"><input type="text" id="name" autocomplete="off" name="name" value="$_G[forum][name]"></div>
+			</li>
+			<!--{/if}-->
+			<!--{if !empty($specialswitch['allowchangetype']) && ($_G['uid'] == $_G['forum']['founderuid'] || $_G['adminid'] == 1)}-->
+			<li class="flex-box mli">
+				<div class="tit">{lang group_category} :</div>
+				<div class="flex">
+					<select name="parentid" id="parentid" onchange="group_ajaxget('forum.php?mod=ajax&action=secondgroup&fupid='+ this.value);" class="sort_sel">
+						$groupselect[first]
+					</select>
+				</div>
+			</li>
+			<li class="flex-box mli" id="secondgroup" {if !$groupselect['second']}style="display:none"{/if}>
+				<div class="tit">{lang group_category} :</div>
+				<div id="linkage" class="flex">
+					<select name="fup" id="fup" class="sort_sel">
+						$groupselect[second]
+					</select>
+				</div>
+			</li>
+			<!--{/if}-->
+			<!--{if !empty($_G['group']['allowupbanner']) || $_G['adminid'] == 1}-->
+			<li class="flex-box">
+				<div class="flex group_upico">
+					<em class="bg_e"><img src="$_G[forum][icon]?{TIMESTAMP}"></em>
+					<span>{lang group_icon}</span>
+				</div>
+				<div class="editpic" style="margin:0;">
+					<ul>
+						<li class="up_btn flex">
+							<a class="" href="javascript:;">{lang upload_pic}<input type="file" id="iconnew" name="iconnew" class="" accept="image/*"></a>
+						</li>				
+					</ul>
+				</div>
+			</li>
+			<li class="flex-box">
+				<div class="flex group_upico">
+					<em class="bg_e"><img src="{if $_G['forum']['banner']}$_G[forum][banner]?{TIMESTAMP}{else}static/image/common/groupicon.gif{/if}"></em>
+					<span>{lang group_image}</span>
+				</div>
+				<div class="editpic" style="margin:0;">
+					<ul>
+						<li class="up_btn flex">
+							<a class="" href="javascript:;">{lang upload_pic}<input type="file" id="bannernew" name="bannernew" class="" accept="image/*"></a>
+						</li>				
+					</ul>
+				</div>
+			</li>
+			<!--{/if}-->
+			<li class="tit">{lang group_description} </li>
+			<li class="cl">
+				<textarea name="descriptionnew" id="descriptionmessage" rows="5" placeholder="" class="pxs">$_G['forum']['descriptionnew']</textarea>
+			</li>
+			<li class="flex-box mli">
+				<div class="tit">{lang group_perm_visit} :</div>
+				<div class="flex">
+					<select name="gviewpermnew" id="gviewperm" class="sort_sel">
+						<option value="1" {if $_G['forum']['gviewperm']=='1'}selected="selected"{/if}>{lang group_perm_all_user}</option>
+						<!--{if in_array($_G[adminid], array(1))}-->
+						<option value="0" {if $_G['forum']['gviewperm']=='0'}selected="selected"{/if}>{lang group_perm_member_only}</option>
+						<!--{/if}-->
+					</select>
+				</div>
+			</li>
+			<li class="flex-box mli">
+				<div class="tit">{lang group_join_type} :</div>
+				<div class="flex">
+					<select name="jointypenew" id="jointype" class="sort_sel">
+						<option value="0" {if $_G['forum']['jointype']=='0'}selected="selected"{/if}>{lang group_join_type_free}</option>
+						<!--{if in_array($_G[adminid], array(1))}-->
+						<option value="2" {if $_G['forum']['jointype']=='2'}selected="selected"{/if}>{lang group_join_type_moderate}</option>
+						<option value="1" {if $_G['forum']['jointype']=='1'}selected="selected"{/if}>{lang group_join_type_invite}</option>
+						<!--{if !empty($specialswitch['allowclosegroup'])}-->
+						<option value="-1" {if $_G['forum']['jointype']=='-1'}selected="selected"{/if}>{lang close}</option>
+						<!--{/if}-->
+						<!--{/if}-->
+					</select>
+				</div>
+			</li>
+	</ul>
+	</div>
+	<div class="mt5 p10">
+		<input type="hidden" name="groupmanage" value="true">
+		<button type="submit" class="formdialog pn" value="1">{lang submit}</button>
+	</div>
+</form>
+<!--{elseif $_GET['op'] == 'checkuser'}-->
+<!--{if $checkusers}-->
+	<div class="forumlist cl">
+		<div class="subnavs_box">
+			<div id="subnavs_btn">
+				<ul class="y cl">
+					<li><a href="forum.php?mod=group&action=manage&op=checkuser&fid={$_G['fid']}&checkall=1" class="mon dialog">{lang pass_all}</a></li>
+					<li><a href="forum.php?mod=group&action=manage&op=checkuser&fid={$_G['fid']}&checkall=2" class="mon dialog">{lang ignore_all}</a></li>
+				</ul>
+			</div>
+		</div>
+		<ul class="sub-forum imglist mt0 cl">
+			<!--{loop $checkusers $uid $user}-->
+			<li>
+				<span class="mimg"><a href="home.php?mod=space&uid={$user['uid']}&do=profile"><!--{echo avatar($user[uid],'middle')}--></a></span>
+				<p class="mtit">
+					<a href="home.php?mod=space&uid={$user['uid']}&do=profile">$user[username]</a>
+				</p>
+				<p class="mtxt">
+					$user['joindateline']
+					<a href="forum.php?mod=group&action=manage&op=checkuser&fid={$_G['fid']}&uid={$user['uid']}&checktype=1" class="mico dialog">{lang pass}</a>
+					<a href="forum.php?mod=group&action=manage&op=checkuser&fid={$_G['fid']}&uid={$user['uid']}&checktype=2" class="mico dialog">{lang ignore}</a>
+				</p>
+			</li>
+			<!--{/loop}-->
+		</ul>
+	</div>
+	<!--{if $multipage}-->$multipage<!--{/if}-->
+<!--{/if}-->
+<!--{elseif $_GET['op'] == 'manageuser'}-->
+<!--{if $_G['forum']['membernum'] > 300}-->
+	<form action="forum.php?mod=group&action=manage&op=manageuser&fid={$_G['fid']}&mobile=2" method="post" accept-charset="utf-8" onsubmit="document.charset='utf-8';">
+		<div class="search flex-box">
+		<input type="text" placeholder="{lang enter_member_user}" value="" id="groupsearch" name="srchuser" class="mtxt flex">
+		<button class="mbtn" type="submit"><i class="dm-search"></i></button>
+		</div>
+	</form>
+<!--{/if}-->
+<form action="forum.php?mod=group&action=manage&op=manageuser&fid={$_G['fid']}&manageuser=true" name="manageuser" id="manageuser" method="post" autocomplete="off" >
+	<input type="hidden" value="{FORMHASH}" name="formhash" />
+	<input type="hidden" value="0" name="targetlevel" id="targetlevel" />
+	<div class="imglist cl">
+		<!--{if $adminuserlist}-->
+		<div class="subtit"><h2>{lang group_admin_member}</h2></div>
+		<ul>
+			<!--{loop $adminuserlist $user}-->
+			<li>
+				<!--{if $_G['adminid'] == 1 || ($_G['uid'] != $user['uid'] && ($_G['uid'] == $_G['forum']['founderuid'] || $user['level'] > $groupuser['level']))}-->
+				<label for="u{$user['uid']}" class="mtime y"><input type="checkbox" name="muid[{$user['uid']}]" value="$user['level']" /></label>
+				<!--{/if}-->
+				<a href="home.php?mod=space&uid=$user['uid']&do=profile">
+					<img src="{avatar($user['uid'],'middle',true)}" class="mimg" />
+					$user['username']
+				</a>
+			</li>
+			<!--{/loop}-->
+		</ul>
+	<!--{/if}-->
+	<!--{if $staruserlist || $userlist}-->
+		<div class="subtit"><h2>{$langplus[groups]}{lang member}</h2></div>
+		<ul id="alist" class="nObqVn9cPpJL">
+			<!--{if $staruserlist}-->
+			<!--{loop $staruserlist $user}-->
+			<li>
+				<!--{if $_G['adminid'] == 1 || $user['level'] > $groupuser['level']}-->
+				<label for="u{$user['uid']}" class="mtime y"><input type="checkbox" name="muid[{$user[uid]}]" value="$user[level]" /></label>
+				<!--{/if}-->
+				<a href="home.php?mod=space&uid=$user['uid']&do=profile">
+					<img src="{avatar($user['uid'],'middle',true)}" class="mimg" />
+					$user['username']
+				</a>
+			</li>
+			<!--{/loop}-->
+			<!--{/if}-->
+			<!--{if $userlist}-->
+			<!--{loop $userlist $user}-->
+			<li>
+				<!--{if $_G['adminid'] == 1 || $user['level'] > $groupuser['level']}-->
+				<label for="u{$user['uid']}" class="mtime y"><input type="checkbox" name="muid[{$user[uid]}]" value="$user[level]" /></label>
+				<!--{/if}-->
+				<a href="home.php?mod=space&uid=$user[uid]&do=profile">
+					<img src="{avatar($user['uid'],'middle',true)}" class="mimg" />
+					$user[username]
+				</a>
+			</li>
+			<!--{/loop}-->
+			<!--{/if}-->
+		</ul>
+	<!--{/if}-->
+	</div>
+	<div class="foot flex-box" id="group_manage_userlist">
+		<ul class="swiper-wrapper">
+		<!--{loop $mtype $key $name}-->
+		<!--{if $_G['forum']['founderuid'] == $_G['uid'] || $key > $groupuser['level'] || $_G['adminid'] == 1}-->
+		<li class="swiper-slide z"><button type="button" name="manageuser" value="true" class="pns" onclick="groupManageUser('{$key}')">$name</button></li>
+		<!--{/if}-->
+		<!--{/loop}-->
+		</ul>
+	</div>
+</form>
+<!--{if $multipage}-->$multipage<!--{/if}-->
+
+<!--{elseif $_GET['op'] == 'threadtype'}-->
+<form id="threadtypeform" action="forum.php?mod=group&action=manage&op=threadtype&fid={$_G['fid']}" autocomplete="off" method="post" name="threadtypeform" accept-charset="utf-8" onsubmit="document.charset='utf-8';">
+	<input type="hidden" value="{FORMHASH}" name="formhash" />
+	<input type="hidden"  name="tab" value="groupmanage"/>
+	<div class="setbox bodybox post_box cl">
+		<ul>
+			<li class="flex-box mli cl">
+				<div class="tit">{lang threadtype_turn_on} :</div>
+				<div class="flex checkbox"><input type="checkbox" name="threadtypesnew[status]" onclick="setstatus()" value="1" id="status" {if $_G['forum']['threadtypes']['status']=='1'}checked="checked"{/if}/></div>
+			</li>
+		</ul>
+		<ul id="threadtypest"{if !$_G['forum']['threadtypes']['status']} style="display:none"{/if}>
+			<li class="flex-box mli cl">
+				<div class="tit">{lang threadtype_required} :</div>
+				<div class="flex checkbox"><input type="checkbox" name="threadtypesnew[required]" value="1" {if $_G['forum']['threadtypes']['required']=='1'}checked="checked"{/if}/></div>
+			</li>
+			<li class="flex-box mli cl">
+				<div class="tit">{lang threadtype_prefix} :</div>
+				<div class="flex checkbox"><input type="checkbox" name="threadtypesnew[prefix]" value="1" {if $_G['forum']['threadtypes']['prefix']=='1'}checked="checked"{/if}/></div>
+			</li>
+		</ul>
+		<div id="threadtypes" {if !$_G['forum']['threadtypes']['status']}style="display:none"{/if}>
+			<ul>
+				<li class="flex-box tit cl">{lang threadtype}</li>
+				<li class="flex-box cl">
+					<div class="tit">{lang delete}</div>
+					<div class="tit">{lang enable}</div>
+					<div class="tit">{lang displayorder}</div>
+					<div class="flex">{lang threadtype_name}</div>
+					<div class="y"><a href="javascript:;" onclick="addrow('threadtype')" class="link">{lang threadtype_add}</a></div>
+				</li>
+			</ul>
+			<ul id="threadtype">
+				<!--{if $threadtypes}-->
+				<!--{loop $threadtypes $val}-->
+				<li class="flex-box cl">
+					<div class="tit"><input type="checkbox" name="threadtypesnew[options][delete][]" value="{$val['typeid']}" /></div>
+					<div class="tit"><input type="checkbox" name="threadtypesnew[options][enable][{$val['typeid']}]" value="1" {$val['enablechecked']} /></div>
+					<div class="tit"><input type="text" name="threadtypesnew[options][displayorder][{$val['typeid']}]" value="{$val['displayorder']}" style="width:40px;" /></div>
+					<div class="flex"><input type="text" name="threadtypesnew[options][name][{$val['typeid']}]" value="{$val['name']}" /></div>
+				</li>
+				<!--{/loop}-->
+				<!--{/if}-->
+			</ul>
+	</div>
+	</div>
+	<div class="mt5 p10">
+		<input type="hidden" name="groupthreadtype" value="true">
+		<button type="submit" class="formdialog flex pn">{lang submit}</button>
+	</div>
+</form>
+<!--{eval $addrowdirect = count($threadtypes);}-->
+<!--{elseif $_GET['op'] == 'demise'}-->
+<form action="forum.php?mod=group&action=manage&op=demise&fid={$_G['fid']}" name="groupdemise" method="post">
+	<input type="hidden" value="{FORMHASH}" name="formhash" />
+	<input type="hidden"  name="tab" value="groupmanage"/>
+		<!--{if $groupmanagers}-->
+		<div class="bodybox setbox p15 cl">
+			{lang group_demise_comment}
+			{lang group_demise_notice}
+		</div>
+		<div class="imglist cl">
+			<div class="subtit"><h2>{lang transfer_group_to} :</h2></div>
+			<ul>
+				<!--{loop $groupmanagers $user}-->
+				<li>
+					<!--{if $user['uid'] != $_G['uid']}-->
+					<label for="u{$user['uid']}" class="y"><input type="radio" name="suid" value="{$user['uid']}" /></label>
+					<!--{else}-->
+					<label for="u{$user['uid']}" class="y"><input type="radio" name="suid" value="{$user['uid']}" /></label>
+					<!--{/if}-->
+					<a href="home.php?mod=space&uid={$user['uid']}&do=profile">
+						<img src="{avatar($user['uid'],'middle',true)}" class="mimg" />
+						$user[username]
+					</a>
+				</li>
+				<!--{/loop}-->
+			</ul>
+		</div>
+		<div class="bodybox setbox mt10 p10 cl"><div class="flex-box input cl"><input type="password" name="grouppwd" placeholder="{lang group_input_password}"  class="mtxt flex" /></div></div>
+		<div class="mt5 p10">
+			<input type="hidden" name="groupdemise" value="true">
+			<button type="submit" class="formdialog flex pn">{lang submit}</button>
+		</div>
+</form>
+<!--{else}-->
+<div class="setbox cl">{lang group_no_admin_member}</div>
+<!--{/if}-->
+<!--{/if}-->
+<!--{if $_GET['op'] == 'group'}-->
+<!--{elseif $_GET['op'] == 'manageuser'}-->
+<script type="text/javascript" id="script_groupManageUser">
+	function groupManageUser(targetlevel_val) {
+		document.getElementById('targetlevel').value = targetlevel_val;
+		document.getElementById('manageuser').submit();
+	}
+	gmu_nav = 0;
+	new Swiper('#group_manage_userlist', {
+		freeMode : true,
+		initialSlide : gmu_nav,
+		slidesPerView : 'auto',
+		onTouchMove: function(swiper){
+			Discuz_Touch_on = 0;
+		},
+		onTouchEnd: function(swiper){
+			Discuz_Touch_on = 1;
+		},
+	});
+</script>
+<!--{elseif $_GET['op'] == 'threadtype'}-->
+<script type="text/JavaScript" id="script_groupthreadtype" reload="1">
+	var addrowdirect = $addrowdirect;
+	var typenumlimit = $typenumlimit;
+	function addrow(id){
+		if(addrowdirect>=typenumlimit){
+			alert('{lang group_threadtype_limit_1}'+typenumlimit+'{lang group_threadtype_limit_2}');
+		}else{
+			var row ='<li class="flex-box cl"><div class="tit"><input type="checkbox" disabled="disabled" /></div><div class="tit"><input type="checkbox" name="newenable[]" checked="checked" value="1" /></div><div class="tit"><input type="text" name="newdisplayorder[]" value="0" style="width:40px;" /></div><div class="flex"><input type="text" name="newname[]" placeholder="{lang threadtype_name}"/></div></li>';
+			$('#'+id).append(row);
+			addrowdirect++;
+		}
+	}
+	function setstatus(){
+		if($("#status").attr("checked") == 'checked'){
+			$("#status").attr("checked",false);
+			$("#threadtypest").css({'display':'none'});
+			$("#threadtypes").css({'display':'none'});
+		}else{
+			$("#status").attr("checked","checked");
+			$("#threadtypest").css({'display':''});
+			$("#threadtypes").css({'display':''});
+		}
+	}
+</script>
+<!--{/if}-->
+
+<!--{eval $nofooter = true;}-->

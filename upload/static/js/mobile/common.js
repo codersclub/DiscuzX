@@ -16,377 +16,15 @@ if(BROWSER.safari || BROWSER.rv) {
 }
 BROWSER.opera = BROWSER.opera ? opera.version() : 0;
 
-(function($, window, document, undefined) {
-	var dataPropertyName = "virtualMouseBindings",
-		touchTargetPropertyName = "virtualTouchID",
-		virtualEventNames = "vmouseover vmousedown vmousemove vmouseup vclick vmouseout vmousecancel".split(" "),
-		touchEventProps = "clientX clientY pageX pageY screenX screenY".split( " " ),
-		mouseHookProps = $.event.mouseHooks ? $.event.mouseHooks.props : [],
-		mouseEventProps = $.event.props.concat( mouseHookProps ),
-		activeDocHandlers = {},
-		resetTimerID = 0,
-		startX = 0,
-		startY = 0,
-		didScroll = false,
-		clickBlockList = [],
-		blockMouseTriggers = false,
-		blockTouchTriggers = false,
-		eventCaptureSupported = "addEventListener" in document,
-		$document = $(document),
-		nextTouchID = 1,
-		lastTouchID = 0, threshold;
-	$.vmouse = {
-		moveDistanceThreshold: 10,
-		clickDistanceThreshold: 10,
-		resetTimerDuration: 1500
-	};
-	function getNativeEvent(event) {
-		while( event && typeof event.originalEvent !== "undefined" ) {
-			event = event.originalEvent;
-		}
-		return event;
-	}
-	function createVirtualEvent(event, eventType) {
-		var t = event.type, oe, props, ne, prop, ct, touch, i, j, len;
-		event = $.Event(event);
-		event.type = eventType;
-		oe = event.originalEvent;
-		props = $.event.props;
-		if(t.search(/^(mouse|click)/) > -1 ) {
-			props = mouseEventProps;
-		}
-		if(oe) {
-			for(i = props.length, prop; i;) {
-				prop = props[ --i ];
-				event[ prop ] = oe[ prop ];
-			}
-		}
-		if(t.search(/mouse(down|up)|click/) > -1 && !event.which) {
-			event.which = 1;
-		}
-		if(t.search(/^touch/) !== -1) {
-			ne = getNativeEvent(oe);
-			t = ne.touches;
-			ct = ne.changedTouches;
-			touch = (t && t.length) ? t[0] : (( ct && ct.length) ? ct[0] : undefined);
-			if(touch) {
-				for(j = 0, len = touchEventProps.length; j < len; j++) {
-					prop = touchEventProps[j];
-					event[prop] = touch[prop];
-				}
-			}
-		}
-		return event;
-	}
-	function getVirtualBindingFlags(element) {
-		var flags = {},
-			b, k;
-		while(element) {
-			b = $.data(element, dataPropertyName);
-			for(k in b) {
-				if(b[k]) {
-					flags[k] = flags.hasVirtualBinding = true;
-				}
-			}
-			element = element.parentNode;
-		}
-		return flags;
-	}
-	function getClosestElementWithVirtualBinding(element, eventType) {
-		var b;
-		while(element) {
-			b = $.data( element, dataPropertyName );
-			if(b && (!eventType || b[eventType])) {
-				return element;
-			}
-			element = element.parentNode;
-		}
-		return null;
-	}
-	function enableTouchBindings() {
-		blockTouchTriggers = false;
-	}
-	function disableTouchBindings() {
-		blockTouchTriggers = true;
-	}
-	function enableMouseBindings() {
-		lastTouchID = 0;
-		clickBlockList.length = 0;
-		blockMouseTriggers = false;
-		disableTouchBindings();
-	}
-	function disableMouseBindings() {
-		enableTouchBindings();
-	}
-	function startResetTimer() {
-		clearResetTimer();
-		resetTimerID = setTimeout(function() {
-			resetTimerID = 0;
-			enableMouseBindings();
-		}, $.vmouse.resetTimerDuration);
-	}
-	function clearResetTimer() {
-		if(resetTimerID ) {
-			clearTimeout(resetTimerID);
-			resetTimerID = 0;
-		}
-	}
-	function triggerVirtualEvent(eventType, event, flags) {
-		var ve;
-		if((flags && flags[eventType]) ||
-					(!flags && getClosestElementWithVirtualBinding(event.target, eventType))) {
-			ve = createVirtualEvent(event, eventType);
-			$(event.target).trigger(ve);
-		}
-		return ve;
-	}
-	function mouseEventCallback(event) {
-		var touchID = $.data(event.target, touchTargetPropertyName);
-		if(!blockMouseTriggers && (!lastTouchID || lastTouchID !== touchID)) {
-			var ve = triggerVirtualEvent("v" + event.type, event);
-			if(ve) {
-				if(ve.isDefaultPrevented()) {
-					event.preventDefault();
-				}
-				if(ve.isPropagationStopped()) {
-					event.stopPropagation();
-				}
-				if(ve.isImmediatePropagationStopped()) {
-					event.stopImmediatePropagation();
-				}
-			}
-		}
-	}
-	function handleTouchStart(event) {
-		var touches = getNativeEvent(event).touches,
-			target, flags;
-		if(touches && touches.length === 1) {
-			target = event.target;
-			flags = getVirtualBindingFlags(target);
-			if(flags.hasVirtualBinding) {
-				lastTouchID = nextTouchID++;
-				$.data(target, touchTargetPropertyName, lastTouchID);
-				clearResetTimer();
-				disableMouseBindings();
-				didScroll = false;
-				var t = getNativeEvent(event).touches[0];
-				startX = t.pageX;
-				startY = t.pageY;
-				triggerVirtualEvent("vmouseover", event, flags);
-				triggerVirtualEvent("vmousedown", event, flags);
-			}
-		}
-	}
-	function handleScroll(event) {
-		if(blockTouchTriggers) {
-			return;
-		}
-		if(!didScroll) {
-			triggerVirtualEvent("vmousecancel", event, getVirtualBindingFlags(event.target));
-		}
-		didScroll = true;
-		startResetTimer();
-	}
-	function handleTouchMove(event) {
-		if(blockTouchTriggers) {
-			return;
-		}
-		var t = getNativeEvent(event).touches[0],
-			didCancel = didScroll,
-			moveThreshold = $.vmouse.moveDistanceThreshold,
-			flags = getVirtualBindingFlags(event.target);
-			didScroll = didScroll ||
-				(Math.abs(t.pageX - startX) > moveThreshold ||
-					Math.abs(t.pageY - startY) > moveThreshold);
-		if(didScroll && !didCancel) {
-			triggerVirtualEvent("vmousecancel", event, flags);
-		}
-		triggerVirtualEvent("vmousemove", event, flags);
-		startResetTimer();
-	}
-	function handleTouchEnd(event) {
-		if(blockTouchTriggers) {
-			return;
-		}
-		disableTouchBindings();
-		var flags = getVirtualBindingFlags(event.target), t;
-		triggerVirtualEvent("vmouseup", event, flags);
-		if(!didScroll) {
-			var ve = triggerVirtualEvent("vclick", event, flags);
-			if(ve && ve.isDefaultPrevented()) {
-				t = getNativeEvent(event).changedTouches[0];
-				clickBlockList.push({
-					touchID: lastTouchID,
-					x: t.clientX,
-					y: t.clientY
-				});
-				blockMouseTriggers = true;
-			}
-		}
-		triggerVirtualEvent("vmouseout", event, flags);
-		didScroll = false;
-		startResetTimer();
-	}
-	function hasVirtualBindings(ele) {
-		var bindings = $.data( ele, dataPropertyName ), k;
-		if(bindings) {
-			for(k in bindings) {
-				if(bindings[k]) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	function dummyMouseHandler() {}
-
-	function getSpecialEventObject(eventType) {
-		var realType = eventType.substr(1);
-		return {
-			setup: function(data, namespace) {
-				if(!hasVirtualBindings(this)) {
-					$.data(this, dataPropertyName, {});
-				}
-				var bindings = $.data(this, dataPropertyName);
-				bindings[eventType] = true;
-				activeDocHandlers[eventType] = (activeDocHandlers[eventType] || 0) + 1;
-				if(activeDocHandlers[eventType] === 1) {
-					$document.bind(realType, mouseEventCallback);
-				}
-				$(this).bind(realType, dummyMouseHandler);
-				if(eventCaptureSupported) {
-					activeDocHandlers["touchstart"] = (activeDocHandlers["touchstart"] || 0) + 1;
-					if(activeDocHandlers["touchstart"] === 1) {
-						$document.bind("touchstart", handleTouchStart)
-							.bind("touchend", handleTouchEnd)
-							.bind("touchmove", handleTouchMove)
-							.bind("scroll", handleScroll);
-					}
-				}
-			},
-			teardown: function(data, namespace) {
-				--activeDocHandlers[eventType];
-				if(!activeDocHandlers[eventType]) {
-					$document.unbind(realType, mouseEventCallback);
-				}
-				if(eventCaptureSupported) {
-					--activeDocHandlers["touchstart"];
-					if(!activeDocHandlers["touchstart"]) {
-						$document.unbind("touchstart", handleTouchStart)
-							.unbind("touchmove", handleTouchMove)
-							.unbind("touchend", handleTouchEnd)
-							.unbind("scroll", handleScroll);
-					}
-				}
-				var $this = $(this),
-					bindings = $.data(this, dataPropertyName);
-				if(bindings) {
-					bindings[eventType] = false;
-				}
-				$this.unbind(realType, dummyMouseHandler);
-				if(!hasVirtualBindings(this)) {
-					$this.removeData(dataPropertyName);
-				}
-			}
-		};
-	}
-	for(var i = 0; i < virtualEventNames.length; i++) {
-		$.event.special[virtualEventNames[i]] = getSpecialEventObject(virtualEventNames[i]);
-	}
-	if(eventCaptureSupported) {
-		document.addEventListener("click", function(e) {
-			var cnt = clickBlockList.length,
-				target = e.target,
-				x, y, ele, i, o, touchID;
-			if(cnt) {
-				x = e.clientX;
-				y = e.clientY;
-				threshold = $.vmouse.clickDistanceThreshold;
-				ele = target;
-				while(ele) {
-					for(i = 0; i < cnt; i++) {
-						o = clickBlockList[i];
-						touchID = 0;
-						if((ele === target && Math.abs(o.x - x) < threshold && Math.abs(o.y - y) < threshold) ||
-									$.data(ele, touchTargetPropertyName) === o.touchID) {
-							e.preventDefault();
-							e.stopPropagation();
-							return;
-						}
-					}
-					ele = ele.parentNode;
-				}
-			}
-		}, true);
-	}
-})(jQuery, window, document);
-
-(function($, window, undefined) {
-	function triggercustomevent(obj, eventtype, event) {
-		var origtype = event.type;
-		event.type = eventtype;
-		$.event.handle.call(obj, event);
-		event.type = origtype;
-	}
-
-	$.event.special.tap = {
-		setup : function() {
-			var thisobj = this;
-			var obj = $(thisobj);
-			obj.on('vmousedown', function(e) {
-				if(e.which && e.which !== 1) {
-					return false;
-				}
-				var origtarget = e.target;
-				var origevent = e.originalEvent;
-				var timer;
-
-				function cleartaptimer() {
-					clearTimeout(timer);
-				}
-				function cleartaphandlers() {
-					cleartaptimer();
-					obj.off('vclick', clickhandler)
-						.off('vmouseup', cleartaptimer);
-					$(document).off('vmousecancel', cleartaphandlers);
-				}
-
-				function clickhandler(e) {
-					cleartaphandlers();
-					if(origtarget === e.target) {
-						triggercustomevent(thisobj, 'tap', e);
-					}
-					return false;
-				}
-
-				obj.on('vmouseup', cleartaptimer)
-					.on('vclick', clickhandler)
-				$(document).on('touchcancel', cleartaphandlers);
-
-				timer = setTimeout(function() {
-					triggercustomevent(thisobj, 'taphold', $.Event('taphold', {target:origtarget}));
-				}, 750);
-				return false;
-			});
-		}
-	};
-	$.each(('tap').split(' '), function(index, name) {
-		$.fn[name] = function(fn) {
-			return this.on(name, fn);
-		};
-	});
-
-})(jQuery, this);
-
 var page = {
 	converthtml : function() {
-		var prevpage = $('div.pg .prev').prop('href');
-		var nextpage = $('div.pg .nxt').prop('href');
-		var lastpage = $('div.pg label span').text().replace(/[^\d]/g, '') || 0;
-		var curpage = $('div.pg input').val() || 1;
+		var prevpage = qSel('div.pg .prev') ? qSel('div.pg .prev').href : undefined;
+		var nextpage = qSel('div.pg .nxt') ? qSel('div.pg .nxt').href : undefined;
+		var lastpage = qSel('div.pg label span') ? (qSel('div.pg label span').innerText.replace(/[^\d]/g, '') || 0) : 0;
+		var curpage = qSel('div.pg input') ? qSel('div.pg input').value : 1;
 
 		if(!lastpage) {
-			prevpage = $('div.pg .pgb a').prop('href');
+			prevpage = qSel('div.pg .pgb a') ? qSel('div.pg .pgb a').href : undefined;
 		}
 
 		var prevpagehref = nextpagehref = '';
@@ -403,8 +41,8 @@ var page = {
 
 		var selector = '';
 		if(lastpage) {
-			selector += '<a id="select_a" style="margin:0 2px;padding:1px 0 0 0;border:0;display:inline-block;position:relative;width:100px;height:31px;line-height:27px;background:url('+STATICURL+'/image/mobile/images/pic_select.png) no-repeat;text-align:left;text-indent:20px;">';
-			selector += '<select id="dumppage" style="position:absolute;left:0;top:0;height:27px;opacity:0;width:100px;">';
+			selector += '<a id="select_a">';
+			selector += '<select id="dumppage">';
 			for(var i=1; i<=lastpage; i++) {
 				selector += '<option value="'+i+'" '+ (i == curpage ? 'selected' : '') +'>第'+i+'页</option>';
 			}
@@ -412,10 +50,13 @@ var page = {
 			selector += '<span>第'+curpage+'页</span>';
 		}
 
-		$('div.pg').removeClass('pg').addClass('page').html('<a href="'+ prevpagehref +'">上一页</a>'+ selector +'<a href="'+ nextpagehref +'">下一页</a>');
-		$('#dumppage').on('change', function() {
+		var pgobj = qSel('div.pg');
+		pgobj.classList.remove('pg');
+		pgobj.classList.add('page');
+		pgobj.innerHTML = '<a href="'+ prevpagehref +'">上一页</a>'+ selector +'<a href="'+ nextpagehref +'">下一页</a>';
+		qSel('#dumppage').addEventListener('change', function() {
 			var href = (prevpage || nextpage);
-			window.location.href = href.replace(/page=\d+/, 'page=' + $(this).val());
+			window.location.href = href.replace(/page=\d+/, 'page=' + this.value);
 		});
 	},
 };
@@ -424,54 +65,41 @@ var scrolltop = {
 	obj : null,
 	init : function(obj) {
 		scrolltop.obj = obj;
-		var fixed = this.isfixed();
-		obj.css('opacity', '.618');
-		if(fixed) {
-			obj.css('bottom', '8px');
+		var pageHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight);
+		var screenHeight = window.innerHeight;
+		var scrollType = 'bottom';
+		var scrollToPos = function() {
+			if(scrollType == 'bottom') {
+				window.scrollTo(0, pageHeight);
+			} else {
+				window.scrollTo(0, 0);
+			}
+			scrollfunc();
+		};
+		var scrollfunc = function() {
+			var newType;
+			if(document.documentElement.scrollTop >= 50) {
+				newType = 'top';
+			} else {
+				newType = 'bottom';
+			}
+			if(newType != scrollType) {
+				scrollType = newType;
+				if(newType == 'top') {
+					obj.classList.remove('bottom');
+				} else {
+					obj.classList.add('bottom');
+				}
+			}
+		};
+		if(pageHeight - screenHeight < 100) {
+			obj.style.display = 'none';
 		} else {
-			obj.css({'visibility':'visible', 'position':'absolute'});
+			obj.addEventListener('click', scrollToPos);
+			document.addEventListener('scroll', scrollfunc);
+			scrollfunc();
 		}
-		$(window).on('resize', function() {
-			if(fixed) {
-				obj.css('bottom', '8px');
-			} else {
-				obj.css('top', ($(document).scrollTop() + $(window).height() - 40) + 'px');
-			}
-		});
-		obj.on('tap', function() {
-			$(document).scrollTop($(document).height());
-		});
-		$(document).on('scroll', function() {
-			if(!fixed) {
-				obj.css('top', ($(document).scrollTop() + $(window).height() - 40) + 'px');
-			}
-			if($(document).scrollTop() >= 400) {
-				obj.removeClass('bottom')
-				.off().on('tap', function() {
-					window.scrollTo('0', '1');
-				});
-			} else {
-				obj.addClass('bottom')
-				.off().on('tap', function() {
-					$(document).scrollTop($(document).height());
-				});
-			}
-		});
-
 	},
-	isfixed : function() {
-		var offset = scrolltop.obj.offset();
-		var scrollTop = $(window).scrollTop();
-		var screenHeight = document.documentElement.clientHeight;
-		if(offset == undefined) {
-			return false;
-		}
-		if(offset.top < scrollTop || (offset.top - scrollTop) > screenHeight) {
-			return false;
-		} else {
-			return true;
-		}
-	}
 };
 
 var img = {
@@ -526,18 +154,6 @@ var img = {
 	}
 };
 
-var atap = {
-	init : function() {
-		$('.atap').on('tap', function() {
-			var obj = $(this);
-			obj.css({'background':'#6FACD5', 'color':'#FFFFFF', 'font-weight':'bold', 'text-decoration':'none', 'text-shadow':'0 1px 1px #3373A5'});
-			return false;
-		});
-		$('.atap a').off('click');
-	}
-};
-
-
 var POPMENU = new Object;
 var popup = {
 	init : function() {
@@ -556,7 +172,7 @@ var popup = {
 	},
 	maskinit : function() {
 		var $this = this;
-		$('#mask').off().on('tap', function() {
+		$('#mask').off().on('click', function() {
 			$this.close();
 		});
 	},
@@ -647,10 +263,11 @@ var formdialog = {
 
 var redirect = {
 	init : function() {
-		$(document).on('click', '.redirect', function() {
-			var obj = $(this);
-			popup.close();
-			window.location.href = obj.attr('href');
+		qSelA('.redirect').forEach(function (rd) {
+			rd.addEventListener('click', function () {
+				popup.close();
+				window.location.href = this.href;
+			});
 		});
 	}
 };
@@ -694,137 +311,17 @@ var display = {
 	}
 };
 
-var geo = {
-	latitude : null,
-	longitude : null,
-	loc : null,
-	errmsg : null,
-	timeout : 5000,
-	getcurrentposition : function() {
-		if(!!navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(this.locationsuccess, this.locationerror, {
-				enableHighAcuracy : true,
-				timeout : this.timeout,
-				maximumAge : 3000
-			});
-		}
-	},
-	locationerror : function(error) {
-		geo.errmsg = 'error';
-		switch(error.code) {
-			case error.TIMEOUT:
-				geo.errmsg = "获取位置超时，请重试";
-				break;
-			case error.POSITION_UNAVAILABLE:
-				geo.errmsg = '无法检测到您的当前位置';
-			    break;
-		    case error.PERMISSION_DENIED:
-		        geo.errmsg = '请允许能够正常访问您的当前位置';
-		        break;
-		    case error.UNKNOWN_ERROR:
-		        geo.errmsg = '发生未知错误';
-		        break;
-		}
-	},
-	locationsuccess : function(position) {
-		geo.latitude = position.coords.latitude;
-		geo.longitude = position.coords.longitude;
-		geo.errmsg = '';
-		$.ajax({
-			type:'POST',
-			url:'http://maps.google.com/maps/api/geocode/json?latlng=' + geo.latitude + ',' + geo.longitude + '&language=zh-CN&sensor=true',
-			dataType:'json'
-		})
-		.success(function(s) {
-			if(s.status == 'OK') {
-				geo.loc = s.results[0].formatted_address;
-			}
-		})
-		.error(function() {
-			geo.loc = null;
-		});
-	}
-};
+function getID(id) {
+	return !id ? null : document.getElementById(id);
+}
 
-var pullrefresh = {
-	init : function() {
-		var pos = {};
-		var status = false;
-		var divobj = null;
-		var contentobj = null;
-		var reloadflag = false;
-		$('body').on('touchstart', function(e) {
-			e = mygetnativeevent(e);
-			pos.startx = e.touches[0].pageX;
-			pos.starty = e.touches[0].pageY;
-		})
-		.on('touchmove', function(e) {
-			e = mygetnativeevent(e);
-			pos.curposx = e.touches[0].pageX;
-			pos.curposy = e.touches[0].pageY;
-			if(pos.curposy - pos.starty < 0 && !status) {
-				return;
-			}
-			if(!status && $(window).scrollTop() <= 0) {
-				status = true;
-				divobj = document.createElement('div');
-				divobj = $(divobj);
-				divobj.css({'position':'relative', 'margin-left':'-85px'});
-				$('body').prepend(divobj);
-				contentobj = document.createElement('div');
-				contentobj = $(contentobj);
-				contentobj.css({'position':'absolute', 'height':'30px', 'top': '-30px', 'left':'50%'});
-				contentobj.html('<img src="'+ STATICURL + 'image/mobile/images/icon_arrow.gif" style="vertical-align:middle;margin-right:5px;-moz-transform:rotate(180deg);-webkit-transform:rotate(180deg);-o-transform:rotate(180deg);transform:rotate(180deg);"><span id="refreshtxt">下拉可以刷新</span>');
-				contentobj.find('img').css({'-webkit-transition':'all 0.5s ease-in-out'});
-				divobj.prepend(contentobj);
-				pos.topx = pos.curposx;
-				pos.topy = pos.curposy;
-			}
-			if(!status) {
-				return;
-			}
-			if(status == true) {
-				var pullheight = pos.curposy - pos.topy;
-				if(pullheight >= 0 && pullheight < 150) {
-					divobj.css({'height': pullheight/2 + 'px'});
-					contentobj.css({'top': (-30 + pullheight/2) + 'px'});
-					if(reloadflag) {
-						contentobj.find('img').css({'-webkit-transform':'rotate(180deg)', '-moz-transform':'rotate(180deg)', '-o-transform':'rotate(180deg)', 'transform':'rotate(180deg)'});
-						contentobj.find('#refreshtxt').html('下拉可以刷新');
-					}
-					reloadflag = false;
-				} else if(pullheight >= 150) {
-					divobj.css({'height':pullheight/2 + 'px'});
-					contentobj.css({'top': (-30 + pullheight/2) + 'px'});
-					if(!reloadflag) {
-						contentobj.find('img').css({'-webkit-transform':'rotate(360deg)', '-moz-transform':'rotate(360deg)', '-o-transform':'rotate(360deg)', 'transform':'rotate(360deg)'});
-						contentobj.find('#refreshtxt').html('松开可以刷新');
-					}
-					reloadflag = true;
-				}
-			}
-			e.preventDefault();
-		})
-		.on('touchend', function(e) {
-			if(status == true) {
-				if(reloadflag) {
-					contentobj.html('<img src="'+ STATICURL + 'image/mobile/images/icon_load.gif" style="vertical-align:middle;margin-right:5px;">正在加载...');
-					contentobj.animate({'top': (-30 + 75) + 'px'}, 618, 'linear');
-					divobj.animate({'height': '75px'}, 618, 'linear', function() {
-						window.location.reload();
-					});
-					return;
-				}
-			}
-			if(divobj) {
-				divobj.remove();
-				divobj = null;
-			}
-			status = false;
-			pos = {};
-		});
-	}
-};
+function qSel(sel) {
+	return document.querySelector(sel);
+}
+
+function qSelA(sel) {
+	return document.querySelectorAll(sel);
+}
 
 function mygetnativeevent(event) {
 
@@ -858,8 +355,8 @@ var safescripts = {}, evalscripts = [];
 function appendscript(src, text, reload, charset) {
 	var id = hash(src + text);
 	if(!reload && in_array(id, evalscripts)) return;
-	if(reload && $('#' + id)[0]) {
-		$('#' + id)[0].parentNode.removeChild($('#' + id)[0]);
+	if(reload && getID(id)) {
+		getID(id).parentNode.removeChild(getID(id));
 	}
 
 	evalscripts.push(id);
@@ -1051,7 +548,7 @@ function detectPlayer(randomid, ext, src, width, height) {
 	} else if (in_array(ext, trad_support)) {
 		tradionalPlayer(randomid, ext, src, width, height);
 	} else {
-		document.getElementById(randomid).style.width = width + 'px';
+		document.getElementById(randomid).style.width = '100%';
 		document.getElementById(randomid).style.height = height + 'px';
 	}
 }
@@ -1091,7 +588,7 @@ function tradionalPlayer(randomid, ext, src, width, height) {
 		default:
 			break;
 	}
-	document.getElementById(randomid).style.width = width + 'px';
+	document.getElementById(randomid).style.width = '100%';
 	document.getElementById(randomid).style.height = height + 'px';
 	document.getElementById(randomid + '_container').innerHTML = html;
 }
@@ -1123,8 +620,7 @@ function html5Player(randomid, ext, src, width, height) {
 		default:
 			break;
 	}
-	document.getElementById(randomid).style.width = width + 'px';
-	document.getElementById(randomid).style.height = height + 'px';
+	document.getElementById(randomid).style.width = '100%';
 }
 
 function html5APlayer(randomid, ext, src, width, height) {
@@ -1176,11 +672,11 @@ function html5DPlayer(randomid, ext, src, width, height) {
 
 $(document).ready(function() {
 
-	if($('div.pg').length > 0) {
+	if(qSel('div.pg')) {
 		page.converthtml();
 	}
-	if($('.scrolltop').length > 0) {
-		scrolltop.init($('.scrolltop'));
+	if(qSel('.scrolltop')) {
+		scrolltop.init(qSel('.scrolltop'));
 	}
 	if($('img').length > 0) {
 		img.init(1);
@@ -1190,12 +686,6 @@ $(document).ready(function() {
 	}
 	if($('.display').length > 0) {
 		display.init();
-	}
-	if($('.atap').length > 0) {
-		atap.init();
-	}
-	if($('.pullrefresh').length > 0) {
-		pullrefresh.init();
 	}
 	dialog.init();
 	formdialog.init();

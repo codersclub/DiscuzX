@@ -1,34 +1,33 @@
 <!--{template common/header}-->
-<!-- header start -->
-<header class="header">
-	<div class="hdc cl">
-		<!--{if $_G['setting']['domain']['app']['mobile']}-->
-			{eval $nav = $_G['scheme'].'://'.$_G['setting']['domain']['app']['mobile'];}
-		<!--{else}-->
-			{eval $nav = "forum.php";}
-		<!--{/if}-->
-		<h2><a title="$_G[setting][bbname]" href="$nav"><img src="{STATICURL}image/mobile/images/logo.png" /></a></h2>
-		<ul class="user_fun">
-			<li><a href="search.php?mod=forum" class="icon_search">{lang search}</a></li>
-			<li><a href="forum.php?forumlist=1" class="icon_threadlist">{lang forum_list}</a></li>
-			<li id="usermsg"><a href="<!--{if $_G[uid]}-->home.php?mod=space&uid=$_G[uid]&do=profile&mycenter=1<!--{else}-->member.php?mod=logging&action=login<!--{/if}-->" class="icon_userinfo">{lang user_info}</a><!--{if $_G[member][newpm]}--><span class="icon_msg"></span><!--{/if}--></li>
-			<li class="on"><a href="forum.php?mod=guide&view=hot" class="icon_hotthread">{lang hot_thread}</a></li>
-		</ul>
+<!--{if $_G['setting']['mobile']['mobilehotthread']}-->
+	<!--{if !empty($_G['setting']['grid']['showgrid'])}-->
+	<div class="header cl">
+		<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div><h2></h2><div class="my"></div>
 	</div>
-</header>
-<!-- header end -->
-<!-- main threadlist start -->
-<div class="threadlist">
-	<h2 class="thread_tit">{lang hotest_thread}</h2>
-
-	<!--{loop $data $key $list}-->
-		<!--{subtemplate forum/guide_list_row}-->
-	<!--{/loop}-->
-
+	<div class="header_toplogo"><img src="{IMGDIR}/logo_m.svg" /><p>{$_G['setting']['navs'][2]['navname']}{lang guide}</p></div>
+	<!--{else}-->
+	<div class="header cl"></div>
+	<div class="header_toplogo guide_index">
+		<img src="{IMGDIR}/logo_m.svg" />
+		<div class="mtop_ss"><a href="search.php?mod=forum"><i class="dm-search"></i>{lang mobsearchtxt}</a></div>
+	</div>
+	<!--{/if}-->
+<!--{else}-->
+	<div class="header cl">
+		<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div><h2></h2><div class="my"></div>
+	</div>
+	<div class="header_toplogo"><img src="{IMGDIR}/logo_m.svg" /><p>{$_G['setting']['navs'][2]['navname']}{lang guide}</p></div>
+<!--{/if}-->
+<div class="dhnv flex-box cl">
+	<a href="forum.php?mod=guide&view=newthread" class="flex<!--{if $currentview['newthread']}--> mon<!--{/if}-->">{lang latest}</a>
+	<a href="forum.php?mod=guide&view=hot" class="flex<!--{if $currentview['hot']}--> mon<!--{/if}-->">{lang order_heats}</a>
+	<a href="forum.php?mod=guide&view=digest" class="flex<!--{if $currentview['digest'] }--> mon<!--{/if}-->">{lang digest}</a>
+	<a href="forum.php?mod=guide&view=new" class="flex<!--{if $currentview['new']}--> mon<!--{/if}-->">{lang join_thread}</a>	
+	<a href="forum.php?mod=guide&view=sofa" class="flex<!--{if $currentview['sofa']}--> mon<!--{/if}-->">{lang guide_sofa}</a>
 </div>
-<!-- main threadlist end -->
-
+<!--{loop $data $key $list}-->
+	<!--{subtemplate forum/guide_list_row}-->
+<!--{/loop}-->
+</div>
 $multipage
-
-<div class="pullrefresh" style="display:none;"></div>
 <!--{template common/footer}-->

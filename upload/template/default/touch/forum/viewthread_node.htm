@@ -7,39 +7,39 @@
 		   <ul class="authi">
 				<li class="grey">
 					<em>
-						<!--{if isset($post[isstick])}-->
-							<img src ="{IMGDIR}/settop.png" title="{lang replystick}" class="vm" /> {lang from} {$post[number]}{$postnostick}
-						<!--{elseif $post[number] == -1}-->
+						<!--{if isset($post['isstick'])}-->
+							<img src ="{IMGDIR}/settop.png" title="{lang replystick}" class="vm" /> {lang from} {$post['number']}{$postnostick}
+						<!--{elseif $post['number'] == -1}-->
 							{lang recommend_post}
 						<!--{else}-->
-							<!--{if !empty($postno[$post[number]])}-->$postno[$post[number]]<!--{else}-->{$post[number]}{$postno[0]}<!--{/if}-->
+							<!--{if !empty($postno[$post['number']])}-->$postno[$post['number']]<!--{else}-->{$post['number']}{$postno[0]}<!--{/if}-->
 						<!--{/if}-->
 					</em><b>
 					<!--{if $post['authorid'] && $post['username'] && !$post['anonymous']}-->
-						<a href="home.php?mod=space&uid=$post[authorid]" class="blue">$post[author]</a></b>
-						<!--{if $post[authorid] != $_G[uid] && $_G[uid]}-->
-						<a href="forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]&repquote=$post[pid]&extra=$_GET[extra]&page=$page" class="xg1" title="{lang reply}">{lang reply}</a>
+						<a href="home.php?mod=space&uid=$post['authorid']" class="blue">$post['author']</a></b>
+						<!--{if $post['authorid'] != $_G['uid'] && $_G['uid']}-->
+						<a href="forum.php?mod=post&action=reply&fid=$_G['fid']&tid=$_G['tid']&repquote=$post['pid']&extra=$_GET['extra']&page=$page" class="xg1" title="{lang reply}">{lang reply}</a>
 						<!--{/if}-->
 					<!--{else}-->
 						<!--{if !$post['authorid']}-->
-						<a href="javascript:;">{lang guest} <em>$post[useip]{if $post[port]}:$post[port]{/if}</em></a>
+						<a href="javascript:;">{lang guest} <em>$post['useip']{if $post['port']}:$post['port']{/if}</em></a>
 						<!--{elseif $post['authorid'] && $post['username'] && $post['anonymous']}-->
-						<!--{if $_G['forum']['ismoderator']}--><a href="home.php?mod=space&uid=$post[authorid]" target="_blank">{lang anonymous}</a><!--{else}-->{lang anonymous}<!--{/if}-->
+						<!--{if $_G['forum']['ismoderator']}--><a href="home.php?mod=space&uid=$post['authorid']" target="_blank">{lang anonymous}</a><!--{else}-->{lang anonymous}<!--{/if}-->
 						<!--{else}-->
-						$post[author] <em>{lang member_deleted}</em>
+						$post['author'] <em>{lang member_deleted}</em>
 						<!--{/if}-->
 					<!--{/if}-->
 				</li>
 				<li class="grey rela">
-					$post[dateline]
+					$post['dateline']
 				</li>
             </ul>      
 			<div class="message">
                 	<!--{if $post['warned']}-->
                         <span class="grey quote">{lang warn_get}</span>
                     <!--{/if}-->
-                    <!--{if !$post['first'] && !empty($post[subject])}-->
-                        <h2><strong>$post[subject]</strong></h2>
+                    <!--{if !$post['first'] && !empty($post['subject'])}-->
+                        <h2><strong>$post['subject']</strong></h2>
                     <!--{/if}-->
                     <!--{if $_G['adminid'] != 1 && $_G['setting']['bannedmessages'] & 1 && (($post['authorid'] && !$post['username']) || ($post['groupid'] == 4 || $post['groupid'] == 5) || $post['status'] == -1 || $post['memberstatus'])}-->
                         <div class="grey quote">{lang message_banned}</div>
@@ -57,7 +57,7 @@
                             <div class="grey quote">{lang admin_message_single_banned}</div>
                         <!--{/if}-->
                         <!--{if $_G['forum_thread']['price'] > 0 && $_G['forum_thread']['special'] == 0}-->
-                            {lang pay_threads}: <strong>$_G[forum_thread][price] {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][unit]}{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][title]} </strong> <a href="forum.php?mod=misc&action=viewpayments&tid=$_G[tid]" >{lang pay_view}</a>
+                            {lang pay_threads}: <strong>$_G['forum_thread']['price'] {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['unit']}{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['title']} </strong> <a href="forum.php?mod=misc&action=viewpayments&tid=$_G['tid']" >{lang pay_view}</a>
                         <!--{/if}-->
 
                         <!--{if $post['first'] && $threadsort && $threadsortshow}-->
@@ -66,10 +66,10 @@
                                     {lang has_expired}
                                 <!--{else}-->
                                     <div class="box_ex2 viewsort">
-                                        <h4>$_G[forum][threadsorts][types][$_G[forum_thread][sortid]]</h4>
+                                        <h4>$_G['forum']['threadsorts']['types'][$_G['forum_thread']['sortid']]</h4>
                                     <!--{loop $threadsortshow['optionlist'] $option}-->
                                         <!--{if $option['type'] != 'info'}-->
-                                            $option[title]: <!--{if $option['value']}-->$option[value] $option[unit]<!--{else}--><span class="xg1">--</span><!--{/if}--><br />
+                                            $option['title']: <!--{if $option['value']}-->$option['value'] $option['unit']<!--{else}--><span class="xg1">--</span><!--{/if}--><br />
                                         <!--{/if}-->
                                     <!--{/loop}-->
                                     </div>
@@ -77,26 +77,26 @@
                             <!--{/if}-->
                         <!--{/if}-->
                         <!--{if $post['first']}-->
-                            <!--{if !$_G[forum_thread][special]}-->
-                                $post[message]
-                            <!--{elseif $_G[forum_thread][special] == 1}-->
+                            <!--{if !$_G['forum_thread']['special']}-->
+                                $post['message']
+                            <!--{elseif $_G['forum_thread']['special'] == 1}-->
                                 <!--{template forum/viewthread_poll}-->
-                            <!--{elseif $_G[forum_thread][special] == 2}-->
+                            <!--{elseif $_G['forum_thread']['special'] == 2}-->
                                 <!--{template forum/viewthread_trade}-->
-                            <!--{elseif $_G[forum_thread][special] == 3}-->
+                            <!--{elseif $_G['forum_thread']['special'] == 3}-->
                                 <!--{template forum/viewthread_reward}-->
-                            <!--{elseif $_G[forum_thread][special] == 4}-->
+                            <!--{elseif $_G['forum_thread']['special'] == 4}-->
                                 <!--{template forum/viewthread_activity}-->
-                            <!--{elseif $_G[forum_thread][special] == 5}-->
+                            <!--{elseif $_G['forum_thread']['special'] == 5}-->
                                 <!--{template forum/viewthread_debate}-->
                             <!--{elseif $threadplughtml}-->
                                 $threadplughtml
-                                $post[message]
+                                $post['message']
                             <!--{else}-->
-                            	$post[message]
+                            	$post['message']
                             <!--{/if}-->
                         <!--{else}-->
-                            $post[message]
+                            $post['message']
                         <!--{/if}-->
                         
 					<!--{/if}-->

@@ -1,66 +1,44 @@
 <!--{template common/header}-->
-<!-- header start -->
-<header class="header">
-    <div class="nav">
-		<a href="home.php?mod=space&uid={$_G[uid]}&do=profile&mycenter=1" class="z"><img src="{STATICURL}image/mobile/images/icon_back.png" /></a>
-		<!--{if helper_access::check_module('favorite')}-->
-		<!--{if $_GET['type'] == 'forum'}-->
-		<span class="category">
-			<span class="display name vm" href="#subname_list">
-				<h2 class="tit">{lang favforum}</h2>
-				<img src="{STATICURL}image/mobile/images/icon_arrow_down.png" />
-			</span>
-	        <div id="subname_list" class="subname_list" display="true">
-				<ul>
-				<li><a href="home.php?mod=space&uid={$_G[uid]}&do=favorite&view=me&type=thread">{lang favthread}</a></li>
-				</ul>
-	        </div>
-		</span>
-		<!--{else}-->
-		<span class="category">
-			<span class="display name vm" href="#subname_list">
-				<h2 class="tit">{lang favthread}</h2>
-				<img src="{STATICURL}image/mobile/images/icon_arrow_down.png" />
-			</span>
-	        <div id="subname_list" class="subname_list" display="true">
-				<ul>
-				<li><a href="home.php?mod=space&uid={$_G[uid]}&do=favorite&view=me&type=forum">{lang favforum}</a></li>
-				</ul>
-	        </div>
-		</span>
-		<!--{/if}-->
-		<!--{/if}-->
-    </div>
-</header>
-
-<!-- main collectlist start -->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang myfavorite}</h2>
+	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+<div class="dhnv flex-box cl">
+	<!--{if helper_access::check_module('favorite')}-->
+		<a href="home.php?mod=space&uid={$_G['uid']}&do=favorite&view=me&type=thread" class="flex<!--{if $_GET['type'] != 'forum'}--> mon<!--{/if}-->">{lang favthread}</a>
+		<a href="home.php?mod=space&uid={$_G['uid']}&do=favorite&view=me&type=forum" class="flex<!--{if $_GET['type'] == 'forum'}--> mon<!--{/if}-->">{lang favforum}</a>
+	<!--{/if}-->
+</div>
 <!--{if $_GET['type'] == 'forum'}-->
-<div class="coll_list b_radius">
-	<ul>
-		<!--{if $list}-->
-			<!--{loop $list $k $value}-->
-			<li><a href="$value[url]">$value[title]</a></li>
-			<!--{/loop}-->
-		<!--{else}-->
-		<li>{lang no_favorite_yet}</li>
-		<!--{/if}-->
-
-	</ul>
-</div>
+	<!--{if $list}-->
+		<div class="findbox mt10 cl">
+			<ul>
+				<!--{loop $list $k $value}-->
+				<li class="sclist"><a href="home.php?mod=spacecp&ac=favorite&op=delete&favid=$k" class="dialog mdel"><i class="dm-error"></i></a><a href="$value['url']">{$value['icon']}{$value['title']}</a></li>
+				<!--{/loop}-->
+			</ul>
+		</div>
+	<!--{else}-->
+		<div class="threadlist_box mt10 cl">
+			<h4>{lang no_favorite_yet}</h4>
+		</div>
+	<!--{/if}-->
 <!--{else}-->
-<div class="threadlist">
-	<ul>
-		<!--{if $list}-->
-			<!--{loop $list $k $value}-->
-			<li><a href="$value[url]">$value[title]</a></li>
-			<!--{/loop}-->
-		<!--{else}-->
-		<li>{lang no_favorite_yet}</li>
-		<!--{/if}-->
-	</ul>
-</div>
+	<!--{if $list}-->
+		<div class="findbox mt10 cl">
+			<ul>
+				<!--{loop $list $k $value}-->
+				<li class="sclist"><a href="home.php?mod=spacecp&ac=favorite&op=delete&favid=$k" class="dialog mdel"><i class="dm-error"></i></a><a href="$value['url']">{$value['icon']}{$value['title']}</a></li>
+				<!--{/loop}-->
+			</ul>
+		</div>
+	<!--{else}-->
+		<div class="threadlist_box mt10 cl">
+			<h4>{lang no_favorite_yet}</h4>
+		</div>
+	<!--{/if}-->
 <!--{/if}-->
-<!-- main collectlist end -->
 $multi
 <!--{eval $nofooter = true;}-->
 <!--{template common/footer}-->

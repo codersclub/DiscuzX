@@ -1,0 +1,70 @@
+<!--{template common/header}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="iconfont">&#xe779;</i></a></div>
+	<h2><a href="group.php?{if $gid}gid{/if}{if $sgid}sgid{/if}={$curtype['fid']}">{$curtype['name']}</a></h2>
+	<div class="my"><a href="forum.php?mod=group&action=create"><i class="iconfont">&#xe664;</i></a></div>
+</div>
+<!--{if $typelist}-->
+<div class="dhnavs_box">
+	<div id="dhnavs">
+		<div id="dhnavs_li">
+			<ul class="swiper-wrapper">
+				<!--{loop $typelist $fid $type}-->
+				<li class="swiper-slide{if $sgid == $fid} mon{/if}"><a href="group.php?sgid={$fid}">{$type['name']}</a></li>
+				<!--{/loop}-->
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+	if($("#dhnavs_li .mon").length > 0) {
+		var discuz_nav = $("#dhnavs_li .mon").offset().left + $("#dhnavs_li .mon").width() >= $(window).width() ? $("#dhnavs_li .mon").index() : 0;
+	}else{
+		var discuz_nav = 0;
+	}	
+	new Swiper('#dhnavs_li', {
+		freeMode : true,
+		slidesPerView : 'auto',
+		initialSlide : discuz_nav,
+		onTouchMove: function(swiper){
+			Discuz_Touch_on = 0;
+		},
+		onTouchEnd: function(swiper){
+			Discuz_Touch_on = 1;
+		},
+	});
+</script>
+<!--{/if}-->
+    <!--{if $list}-->
+		<div class="forumlist mt10 cl">
+			<div class="sub-forum mlist1 cl">
+			<ul>
+            <!--{loop $list $fid $val}-->
+            <li>
+				<span class="micon">
+					<a href="forum.php?mod=forumdisplay&action=list&fid={$val['fid']}">
+					<!--{if strstr($val['icon'],'groupicon.gif')}-->
+					<svg width="48" height="44" alt="$val['name']"><path fill="#{if $val['folder']}fdc910{else}c9c9c9{/if}" d="M48 20C48 9 37.3 0 24 0S0 8.9 0 20s10.7 20 24 20c2.4 0 4.7-.3 6.8-.8L42 44l-2.8-8.5C44.6 31.8 48 26.2 48 20z"/></svg>
+					<!--{else}-->
+					<img src="{$val['icon']}" alt="{$val['name']}">
+					<!--{/if}-->
+					</a>
+				</span>
+                <a href="forum.php?mod=forumdisplay&action=list&fid={$val['fid']}" class="murl">
+                <p class="mtit">$val['name']</p>
+                <!--{if $val['description']}-->
+                <p class="mtxt">$val['description']</p>
+				<!--{else}-->
+				<p class="mtxt">$val['threads'] <span>{lang threads}</span></p>
+                <!--{/if}-->
+                </a>
+            </li>
+            <!--{/loop}-->
+			</ul>
+			</div>
+		</div>
+    <!--{else}-->
+    <div class="forumlist"><div class="sub-forum mlist1 cl"><ul><li>{lang group_category_no_groups}</li></ul></div></div>
+    <!--{/if}--> 
+    <!--{if $multipage}-->$multipage<!--{/if}-->
+<!--{template common/footer}-->

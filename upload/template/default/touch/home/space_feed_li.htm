@@ -1,0 +1,38 @@
+<div class="home_feed_c cl">
+	<div class="home_feed_title">
+		<!--{if $value['uid'] && empty($_G['home']['tpl'][hidden_more])}-->
+		<a href="home.php?mod=spacecp&ac=feed&op=menu&feedid=$value[feedid]" class="o{if $_G['uid'] == $value[uid]} del{/if}" id="a_feed_menu_$value[feedid]" onclick="showWindow(this.id, this.href, 'get', 0);doane(event);" title="{if $_G['uid'] != $value[uid]}{lang shield_feed}{else}{lang delete_feed}{/if}" style="display:none;">{lang menu}</a>
+		<!--{/if}-->
+		<p>
+			$value[title_template]
+			<!--{if $value['new']}--><span style="color:red;">New</span> <!--{/if}-->
+			<span><!--{date($value['dateline'], 'u')}--></span>
+		</p>
+	</div>
+	<!--{if $value['image_1']}-->
+	<img src="$value['image_1']" class="{if $value['body_template']}mbn{else}mbm{/if}" />
+	<!--{/if}-->
+	<!--{if $value['image_2']}-->
+	<img src="$value['image_2']" class="{if $value['body_template']}mbn{else}mbm{/if}" />
+	<!--{/if}-->
+	<!--{if $value['image_3']}-->
+	<img src="$value['image_3']" class="{if $value['body_template']}mbn{else}mbm{/if}" />
+	<!--{/if}-->
+	<!--{if $value['image_4']}-->
+	<img src="$value['image_4']" class="{if $value['body_template']}mbn{else}mbm{/if}" />
+	<!--{/if}-->
+	<!--{if $value['body_template']}-->
+	<div class="home_mess">$value[body_template]</div>
+	<!--{/if}-->
+	<!--{if $value['body_data']['player']}-->
+	{$value['body_data']['player']}
+	<!--{/if}-->
+
+	<!--{if $user_list[$value['hash_data']]}-->
+	<p>{lang other_participants}:<!--{eval echo implode(', ', $user_list[$value['hash_data']]);}--></p>
+	<!--{/if}-->
+
+	<!--{if trim(str_replace('&nbsp;', '', $value['body_general']))}-->
+	<div class="quote{if $value['image_1']} z{/if}"><blockquote>$value['body_general']</blockquote></div>
+	<!--{/if}-->
+</div>

@@ -1,0 +1,30 @@
+<!--{template common/header}-->
+<div class="tip">
+<!--{if $_GET['op'] == 'ignore'}-->
+	<form method="post" autocomplete="off" id="ignoreform_{$formid}" name="ignoreform_{$formid}" action="home.php?mod=spacecp&ac=common&op=ignore&type=$type">
+		<!--{if $_G['inajax']}--><input type="hidden" name="handlekey" value="$_GET['handlekey']" /><!--{/if}-->
+		<input type="hidden" name="ignoresubmit" value="true" />
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<input type="hidden" name="referer" value="{echo dreferer()}">
+		<dt>
+			<p>{lang no_view_notice_next}{lang bid_single_price}</p>
+			<p><label><input type="radio" name="authorid" id="authorid1" value="$_GET['authorid']" checked="checked" class="pr" />{lang shield_this_friend}</label></p>
+			<p><label><input type="radio" name="authorid" id="authorid0" value="0" class="pr" />{lang shield_all_friend}</label></p>
+		</dt>
+		<dd><button type="submit" name="feedignoresubmit" value="true" class="formdialog button z">{lang determine}</button><a href="javascript:;" onclick="popup.close();" class="button y">{lang cancel}</a></dd>
+	</form>
+<!--{elseif $_GET['op']=='modifyunitprice'}-->
+	<form method="post" autocomplete="off" id="ignoreform_{$formid}" name="ignoreform_{$formid}" action="home.php?mod=spacecp&ac=common&op=modifyunitprice">
+		<!--{if $_G['inajax']}--><input type="hidden" name="handlekey" value="$_GET['handlekey']" /><!--{/if}-->
+		<input type="hidden" name="modifysubmit" value="true" />
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<input type="hidden" name="referer" value="{echo dreferer()}">
+		<dt>
+			<p>{lang modify_unitprice_note}</p>
+			<p><input type="text" name="unitprice" value="$showinfo['unitprice']" class="px pxbg" placeholder="{lang bid_single_price}" style="width:80%"></p>
+		</dt>
+		<dd><button type="submit" name="unitpriceysubmit" value="true" class="formdialog button z">{lang determine}</button><a href="javascript:;" onclick="popup.close();" class="button y">{lang cancel}</a></dd>
+	</form>
+<!--{/if}-->
+</div>
+<!--{template common/footer}-->

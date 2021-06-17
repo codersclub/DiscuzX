@@ -1,0 +1,96 @@
+<div class="setbox cl" id="creatgroup">
+	<div class="bodybox p10">
+		<div class="quote">
+			<p>{lang group_you_have}</p>
+			<!--{if $_G['setting']['groupmod']}--><p class="tSnHeZyW0WlB">{lang group_create_mod}</p><!--{/if}-->
+		</div>
+	</div>
+	<form method="post" autocomplete="off" name="groupform" id="groupform"  action="forum.php?mod=group&action=create&inajax=1">
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<input type="hidden" name="referer" value="{echo dreferer()}" />
+		<input type="hidden" name="handlekey" value="creategroup" />
+		<input type="hidden" name="tab" value="groupmanage" />
+		<ul class="bodybox post_box mt15 cl">
+			<li class="flex-box mli">
+				<div class="tit">{lang group_name}<span class="f_g">*</span></div>
+				<div class="flex input"><input type="text" id="name" autocomplete="off" name="name"></div>
+			</li>
+			<li class="flex-box mli">
+				<div class="tit">{lang group_category}<span class="f_g">*</span></div>
+				<div class="flex">
+					<select name="parentid" id="parentid" onchange="group_ajaxget('forum.php?mod=ajax&action=secondgroup&fupid='+ this.value);" class="sort_sel">
+						<option value="">{lang choose_please}</option>
+						$groupselect[first]
+					</select>
+				</div>
+			</li>
+			<li class="flex-box mli" id="secondgroup" style="display:none;">
+				<div class="tit">{lang group_category}<span class="f_g">*</span></div>
+				<div id="linkage" class="flex">
+					<select name="fup" id="fup" class="sort_sel">
+						<option value="">{lang choose_please}</option>
+						{$groupselect['second']}
+					</select>
+				</div>
+			</li>
+			<li class="tit">{lang group_description} </li>
+			<li class="cl">
+				<textarea name="descriptionnew" id="descriptionmessage" rows="5" placeholder="{lang group_description}" class="pxs"></textarea>
+			</li>
+			<li class="flex-box mli">
+				<div class="tit">{lang group_perm_visit} :</div>
+				<div class="flex">
+					<select name="gviewperm" id="gviewperm" class="sort_sel">
+						<option value="1" selected="selected" >{lang group_perm_all_user}</option>
+						<option value="0" >{lang group_perm_member_only}</option>
+					</select>
+				</div>
+			</li>
+			<li class="flex-box mli">
+				<div class="tit">{lang group_join_type} :</div>
+				<div class="flex">
+					<select name="jointype" id="jointype" class="sort_sel">
+						<option value="0" selected="selected" >{lang group_join_type_free}</option>
+						<option value="2" >{lang group_join_type_moderate}</option>
+						<option value="1" >{lang group_join_type_invite}</option>
+					</select>
+				</div>
+			</li>
+		</ul>
+		<div class="mt5 p10">
+			<input type="hidden" name="createsubmit" value="true">
+			<button type="submit" class="formdialog flex pn">{lang create}</button>
+		</div>
+  </form>
+</div>
+
+<script type="text/javascript">
+  function preview(id){
+    var file=$('#'+id).val();
+    var arr=file.split('\\');
+    var name=arr[arr.length-1];
+    $('#'+id+'_name').html(name);
+  }
+  function show(id){
+    if($('#'+id).css('display')=='none'){
+      $('#'+id).css('display', '');
+    }else{
+      $('#'+id).css('display', 'none');
+    }
+  }
+  function group_ajaxget(url) {
+    $.ajax({
+      type:'GET',
+      url: url + '&inajax=1' ,
+      dataType:'xml',
+    }).success(function(s) {
+		var sencondgroup = s.lastChild.firstChild.nodeValue.replace("class=\"ps\"", "class=\"sort_sel\"");
+		$('#linkage').html(sencondgroup);
+		$('#secondgroup').css('display', '');
+		return;
+    });
+  }
+</script>
+
+<!--{eval $nofooter = true;}-->
+<!--{block footerplus}--><div class="O1JmykD4eNwe"></div><!--{/block}-->

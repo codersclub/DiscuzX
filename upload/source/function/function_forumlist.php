@@ -424,4 +424,34 @@ function threadclasscount($fid, $id = 0, $idtype = '', $count = 0) {
 
 }
 
+function get_attach($list){
+	global $_G;
+	require_once libfile('function/post');
+	$tids = $attach_tids = $attachtableid_array = $threadlist_data = $posttableids = array();
+	foreach($list as $value) {
+		$tids[] = $value['tid'];
+		if(!in_array($value['posttableid'], $posttableids)){
+			$posttableids[] = $value['posttableid'];
+		}
+		if($value['attachment'] == 2) {
+			$attach_tids[] = $value['tid'];
+		}
+	}
+	foreach ($posttableids as $id) {
+		$theards = C::t('forum_post')->fetch_all_by_tid($id, $tids, true, '', 0, 0, 1, null, null, null);
+		foreach($theards as $value) {
+			$threadlist_data[$value['tid']]['message'] = messagecutstr($value['message'], 90);
+			if(in_array($value['tid'], $attach_tids)) {
+				$attachtableid_array[getattachtableid($value['tid'])][] = $value['pid'];
+			}
+		}
+	}
+	foreach($attachtableid_array as $tableid => $pids) {
+		$attachs = C::t('forum_attachment_n')->fetch_all_by_pid_width($tableid, $pids, 0);
+		foreach($attachs as $value){
+			$threadlist_data[$value['tid']]['attachment'][] = getforumimg($value['aid'], '0', '300', '250');
+		}
+	}
+	return $threadlist_data;
+}
 ?>

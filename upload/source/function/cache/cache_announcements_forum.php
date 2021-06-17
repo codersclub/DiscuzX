@@ -16,8 +16,8 @@ function build_cache_announcements_forum() {
 
 	$data = C::t('forum_announcement')->fetch_by_displayorder(TIMESTAMP);
 	if($data) {
-		$memberdata = C::t('common_member')->fetch_uid_by_username($data['author']);
-		$data['authorid'] = $memberdata['uid'];
+		$uid = C::t('common_member')->fetch_uid_by_username($data['author']);
+		$data['authorid'] = $uid;
 		$data['authorid'] = intval($data['authorid']);
 		if(empty($data['type'])) {
 			unset($data['message']);
