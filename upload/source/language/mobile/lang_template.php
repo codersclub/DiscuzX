@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 }
 
 $lang = array (
-  'no_simplemobiletype' => '标准版',
+  'no_simplemobiletype' => '简易版',
   'nomobiletype' => '电脑版',
   'extremelysimplemobiletype' => 'WML版',
   'favorite' => '收藏',

@@ -3370,9 +3370,9 @@ $lang = array
 
 	'styles_default' => '默认风格',
 	'styles_default0' => '电脑版',
-	'styles_default1' => '手机标准版',
+	'styles_default1' => '手机简易版',
 	'styles_default2' => '手机触屏版',
-	'styles_default3' => '手机极简版',
+	'styles_default3' => '手机WML版',
 
 	'styles_import' => '导入界面方案',
 	'styles_import_ignore_version' => '允许导入老版本 Discuz! 的界面(易产生错误!!)',
