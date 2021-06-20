@@ -779,6 +779,7 @@ $lang = array (
   'no_privilege_feed_del' => '抱歉，您没有权限删除此动态',
 
   'follow_not_follow_self' => '不能关注自己',
+  'follow_not_follow_others' => '您当前用户组不允许收听他人',
   'follow_other_unfollow' => '对方不允许您关注TA',
   'follow_followed_ta' => '您已经收听了TA',
   'follow_add_succeed' => '成功收听',

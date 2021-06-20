@@ -743,25 +743,25 @@ INSERT INTO pre_common_template VALUES ('1','默认模板套系','./template/def
 
 
 
-INSERT INTO pre_common_usergroup VALUES ('1','1','system','private','管理员','0','0','9','','','1','1','1','1','0','0','10');
-INSERT INTO pre_common_usergroup VALUES ('2','2','system','private','超级版主','0','0','8','','','1','1','1','1','0','0','10');
-INSERT INTO pre_common_usergroup VALUES ('3','3','system','private','版主','0','0','7','','','1','1','1','1','0','0','10');
-INSERT INTO pre_common_usergroup VALUES ('4','0','system','private','禁止发言','0','0','0','','','1','1','0','0','0','0','0');
-INSERT INTO pre_common_usergroup VALUES ('5','0','system','private','禁止访问','0','0','0','','','0','1','0','0','0','0','0');
-INSERT INTO pre_common_usergroup VALUES ('6','0','system','private','禁止 IP','0','0','0','','','0','1','0','0','0','0','0');
-INSERT INTO pre_common_usergroup VALUES ('7','0','system','private','游客','0','0','0','','','1','1','0','0','0','0','10');
-INSERT INTO pre_common_usergroup VALUES ('8','0','system','private','等待验证会员','0','0','0','','','1','1','0','0','0','0','0');
-INSERT INTO pre_common_usergroup VALUES ('9','0','member','private','限制会员','-9999999','0','0','','','1','1','0','0','0','0','0');
-INSERT INTO pre_common_usergroup VALUES ('10','0','member','private','新手上路','0','50','1','','','1','1','0','0','0','0','10');
-INSERT INTO pre_common_usergroup VALUES ('11','0','member','private','注册会员','50','200','2','','','1','1','0','0','0','0','10');
-INSERT INTO pre_common_usergroup VALUES ('12','0','member','private','中级会员','200','500','3','','','1','1','0','0','0','0','10');
-INSERT INTO pre_common_usergroup VALUES ('13','0','member','private','高级会员','500','1000','4','','','1','1','0','0','0','0','10');
-INSERT INTO pre_common_usergroup VALUES ('14','0','member','private','金牌会员','1000','3000','6','','','1','1','0','0','0','0','10');
-INSERT INTO pre_common_usergroup VALUES ('15','0','member','private','论坛元老','3000','9999999','8','','','1','1','0','0','0','0','10');
-INSERT INTO pre_common_usergroup VALUES ('16','3','special','private','实习版主','0','0','7','','','1','1','0','0','0','0','10');
-INSERT INTO pre_common_usergroup VALUES ('17','2','special','private','网站编辑','0','0','8','','','1','1','0','0','0','0','10');
-INSERT INTO pre_common_usergroup VALUES ('18','1','special','private','信息监察员','0','0','9','','','1','1','0','0','0','0','10');
-INSERT INTO pre_common_usergroup VALUES ('19','3','special','private','审核员','0','0','7','','','1','1','0','0','0','0','10');
+INSERT INTO pre_common_usergroup VALUES ('1','1','system','private','管理员','0','0','9','','','1','1','1','1','1','0','0','10');
+INSERT INTO pre_common_usergroup VALUES ('2','2','system','private','超级版主','0','0','8','','','1','1','1','1','1','0','0','10');
+INSERT INTO pre_common_usergroup VALUES ('3','3','system','private','版主','0','0','7','','','1','1','1','1','1','0','0','10');
+INSERT INTO pre_common_usergroup VALUES ('4','0','system','private','禁止发言','0','0','0','','','1','1','0','0','0','0','0','0');
+INSERT INTO pre_common_usergroup VALUES ('5','0','system','private','禁止访问','0','0','0','','','0','1','0','0','0','0','0','0');
+INSERT INTO pre_common_usergroup VALUES ('6','0','system','private','禁止 IP','0','0','0','','','0','1','0','0','0','0','0','0');
+INSERT INTO pre_common_usergroup VALUES ('7','0','system','private','游客','0','0','0','','','1','1','0','0','0','0','0','10');
+INSERT INTO pre_common_usergroup VALUES ('8','0','system','private','等待验证会员','0','0','0','','','1','1','0','0','0','0','0','0');
+INSERT INTO pre_common_usergroup VALUES ('9','0','member','private','限制会员','-9999999','0','0','','','1','1','0','0','0','0','0','0');
+INSERT INTO pre_common_usergroup VALUES ('10','0','member','private','新手上路','0','50','1','','','1','1','0','0','0','0','0','10');
+INSERT INTO pre_common_usergroup VALUES ('11','0','member','private','注册会员','50','200','2','','','1','1','0','0','0','0','0','10');
+INSERT INTO pre_common_usergroup VALUES ('12','0','member','private','中级会员','200','500','3','','','1','1','0','0','0','0','0','10');
+INSERT INTO pre_common_usergroup VALUES ('13','0','member','private','高级会员','500','1000','4','','','1','1','0','0','1','0','0','10');
+INSERT INTO pre_common_usergroup VALUES ('14','0','member','private','金牌会员','1000','3000','6','','','1','1','0','0','1','0','0','10');
+INSERT INTO pre_common_usergroup VALUES ('15','0','member','private','论坛元老','3000','9999999','8','','','1','1','0','0','1','0','0','10');
+INSERT INTO pre_common_usergroup VALUES ('16','3','special','private','实习版主','0','0','7','','','1','1','0','0','1','0','0','10');
+INSERT INTO pre_common_usergroup VALUES ('17','2','special','private','网站编辑','0','0','8','','','1','1','0','0','1','0','0','10');
+INSERT INTO pre_common_usergroup VALUES ('18','1','special','private','信息监察员','0','0','9','','','1','1','0','0','1','0','0','10');
+INSERT INTO pre_common_usergroup VALUES ('19','3','special','private','审核员','0','0','7','','','1','1','0','0','1','0','0','10');
 
 
 INSERT INTO pre_common_usergroup_field SET `groupid`='1',`allowgroupdirectpost`='3',`allowgroupposturl`='3',`readaccess`='200',`allowpost`='1',`allowreply`='1',`allowpostpoll`='1',`allowpostreward`='1',`allowposttrade`='1',`allowpostactivity`='1',`allowdirectpost`='3',`allowgetattach`='1',`allowgetimage`='1',`allowpostattach`='1',`allowpostimage`='1',`allowvote`='1',`allowsearch`='127',`allowcstatus`='1',`allowinvisible`='1',`allowtransfer`='1',`allowsetreadperm`='1',`allowsetattachperm`='1',`allowposttag`='1',`allowhidecode`='1',`allowhtml`='1',`allowanonymous`='1',`allowsigbbcode`='1',`allowsigimgcode`='1',`allowmagics`='2',`disableperiodctrl`='1',`reasonpm`='0',`maxprice`='30',`maxsigsize`='500',`maxattachsize`='2048000',`maxsizeperday`='0',`maxpostsperhour`='0',`attachextensions`='',`raterange`='',`mintradeprice`='1',`maxtradeprice`='0',`minrewardprice`='1',`maxrewardprice`='0',`magicsdiscount`='0',`maxmagicsweight`='200',`allowpostdebate`='1',`tradestick`='5',`exempt`='255',`maxattachnum`='0',`allowposturl`='3',`allowrecommend`='1',`allowpostrushreply`='1',`maxfriendnum`='0',`maxspacesize`='0',`allowcomment`='1',`allowcommentarticle`='1000',`searchinterval`='0',`searchignore`='0',`allowblog`='1',`allowdoing`='1',`allowupload`='1',`allowshare`='1',`allowcss`='0',`allowpoke`='1',`allowfriend`='1',`allowclick`='1',`allowmagic`='0',`allowstat`='1',`magicdiscount`='0',`domainlength`='5',`seccode`='1',`disablepostctrl`='1',`allowbuildgroup`='30',`edittimelimit`='0',`allowpostarticle`='1',`allowdownlocalimg`='1',`allowspacediyhtml`='1',`allowspacediybbcode`='1',`allowspacediyimgcode`='1',`allowcommentpost`='3',`allowcommentitem`='1',`allowreplycredit` = '1',`allowstatdata`='1',`ignorecensor`='1',`allowsendallpm`='1', `allowdownremoteimg`='1', `allowmediacode`='1', `allowbegincode`='1', `allowat`='50', `allowcreatecollection`='5', `allowcommentcollection`='1', `allowfollowcollection`='30';
