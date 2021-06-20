@@ -194,7 +194,7 @@ function checkoption(identifier, required, checktype, checkmaxnum, checkminnum, 
 	if(checktype == 'image') {
 		var checkvalue = $('sortaid_' + identifier).value;
 	} else {
-		var checkvalue = $('typeoption_' + identifier).value;
+		var checkvalue = $('typeoption_' + identifier).value.trim();
 	}
 
 	if(required != '0') {
