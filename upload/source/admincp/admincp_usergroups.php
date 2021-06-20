@@ -862,10 +862,12 @@ EOT;
 		showsetting('usergroups_edit_home_allow_share', 'allowsharenew', $group['allowshare'], 'radio', '', 1);
 		showsetting('usergroups_edit_home_allow_share_mod', 'allowsharemodnew', $group['allowsharemod'], 'radio');
 		showtagfooter('tbody');
+		showsetting('usergroups_edit_home_allow_comment', 'allowcommentnew', $group['allowcomment'], 'radio', '', 1);
+		showsetting('usergroups_edit_home_allow_comment_mod', 'allowcommentmodnew', $group['allowcommentmod'], 'radio');
+		showtagfooter('tbody');
 		showsetting('usergroups_edit_home_allow_poke', 'allowpokenew', $group['allowpoke'], 'radio');
 		showsetting('usergroups_edit_home_allow_friend', 'allowfriendnew', $group['allowfriend'], 'radio');
 		showsetting('usergroups_edit_home_allow_click', 'allowclicknew', $group['allowclick'], 'radio');
-		showsetting('usergroups_edit_home_allow_comment', 'allowcommentnew', $group['allowcomment'], 'radio');
 		showsetting('usergroups_edit_home_allow_space_diy_html', 'allowspacediyhtmlnew', $group['allowspacediyhtml'], 'radio');
 		showsetting('usergroups_edit_home_allow_space_diy_bbcode', 'allowspacediybbcodenew', $group['allowspacediybbcode'], 'radio');
 		showsetting('usergroups_edit_home_allow_space_diy_imgcode', 'allowspacediyimgcodenew', $group['allowspacediyimgcode'], 'radio');
@@ -900,6 +902,8 @@ EOT;
 		showtableheader();
 		showtitle('usergroups_edit_portal');
 		showsetting('usergroups_edit_portal_allow_comment_article', 'allowcommentarticlenew', $group['allowcommentarticle'], 'text');
+		showsetting('usergroups_edit_portal_allow_comment_article_mod', 'allowcommentarticlemodnew', $group['allowcommentarticlemod'], 'radio');
+		showtagfooter('tbody');
 		showsetting('usergroups_edit_portal_allow_post_article', 'allowpostarticlenew', $group['allowpostarticle'], 'radio', '', 1);
 		showsetting('usergroups_edit_portal_allow_down_local_img', 'allowdownlocalimgnew', $group['allowdownlocalimg'], 'radio');
 		showsetting('usergroups_edit_portal_allow_post_article_moderate', 'allowpostarticlemodnew', $group['allowpostarticlemod'], 'radio');
@@ -1138,7 +1142,9 @@ EOT;
 			'allowfriend' => $_GET['allowfriendnew'],
 			'allowclick' => $_GET['allowclicknew'],
 			'allowcomment' => $_GET['allowcommentnew'],
+			'allowcommentmod' => $_GET['allowcommentmodnew'],
 			'allowcommentarticle' => intval($_GET['allowcommentarticlenew']),
+			'allowcommentarticlemod' => $_GET['allowcommentarticlemodnew'],
 			'allowcommentpost' => bindec(intval($_GET['allowcommentpostnew'][2]).intval($_GET['allowcommentpostnew'][1])),
 			'allowspacediyhtml' => $_GET['allowspacediyhtmlnew'],
 			'allowspacediybbcode' => $_GET['allowspacediybbcodenew'],

@@ -1030,7 +1030,7 @@ function addportalarticlecomment($id, $message, $idtype = 'aid') {
 	}
 
 	$message = censor($message);
-	if(censormod($message)) {
+	if(censormod($message) || $_G['group']['allowcommentarticlemod']) {
 		$comment_status = 1;
 	} else {
 		$comment_status = 0;

@@ -188,7 +188,7 @@ function add_comment($message, $id, $idtype, $cid = 0) {
 	}
 
 	$message = censor($message);
-	if(censormod($message)) {
+	if(censormod($message) || $_G['group']['allowcommentmod']) {
 		$comment_status = 1;
 	} else {
 		$comment_status = 0;

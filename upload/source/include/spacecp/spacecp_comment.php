@@ -86,7 +86,7 @@ if($_GET['op'] == 'edit') {
 		$message = getstr($_POST['message'], 0, 0, 0, 2);
 		if(strlen($message) < 2) showmessage('content_is_too_short');
 		$message = censor($message);
-		if(censormod($message)) {
+		if(censormod($message) || $_G['group']['allowcommentmod']) {
 			$comment_status = 1;
 		} else {
 			$comment_status = 0;
