@@ -213,7 +213,7 @@ if($_GET['op'] == 'delete') {
 		foreach(C::t('home_docomment')->fetch_all_by_doid($doid) as $value) {
 			$tree->setNode($value['id'], $value['upid'], $value);
 			$count++;
-			if($value['authorid'] == $space['uid']) $highlight = $value['id'];
+			if($value['uid'] == $space['uid']) $highlight = $value['id'];
 		}
 	}
 
