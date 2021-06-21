@@ -114,7 +114,7 @@ function followcode($message, $tid = 0, $pid = 0, $length = 0, $allowimg = true)
 	}
 
 	if(strpos($msglower, '[/media]') !== FALSE) {
-		$message = preg_replace_callback("/\[media=([\w,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", 'followcode_callback_fparsemedia_12', $message);
+		$message = preg_replace_callback("/\[media=([\w%,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", 'followcode_callback_fparsemedia_12', $message);
 	}
 	if(strpos($msglower, '[/audio]') !== FALSE) {
 		$message = preg_replace_callback("/\[audio(=1)*\]\s*([^\[\<\r\n]+?)\s*\[\/audio\]/is", 'followcode_callback_fparseaudio_2', $message);

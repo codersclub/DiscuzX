@@ -1999,13 +1999,15 @@ function detectHtml5Support() {
 function detectPlayer(randomid, ext, src, width, height) {
 	var h5_support = new Array('aac', 'flac', 'mp3', 'm4a', 'wav', 'flv', 'mp4', 'm4v', '3gp', 'ogv', 'ogg', 'weba', 'webm');
 	var trad_support = new Array('mp3', 'wma', 'mid', 'wav', 'ra', 'ram', 'rm', 'rmvb', 'swf', 'asf', 'asx', 'wmv', 'avi', 'mpg', 'mpeg', 'mov');
+	width = width.indexOf("%") == -1 ? width + 'px' : width;
+	height = height.indexOf("%") == -1 ? height + 'px' : height;
 	if (in_array(ext, h5_support) && detectHtml5Support()) {
 		html5Player(randomid, ext, src, width, height);
 	} else if (in_array(ext, trad_support)) {
 		tradionalPlayer(randomid, ext, src, width, height);
 	} else {
-		$(randomid).style.width = width + 'px';
-		$(randomid).style.height = height + 'px';
+		$(randomid).style.width = width;
+		$(randomid).style.height = height;
 	}
 }
 
@@ -2044,8 +2046,8 @@ function tradionalPlayer(randomid, ext, src, width, height) {
 		default:
 			break;
 	}
-	$(randomid).style.width = width + 'px';
-	$(randomid).style.height = height + 'px';
+	$(randomid).style.width = width;
+	$(randomid).style.height = height;
 	$(randomid + '_container').innerHTML = html;
 }
 
@@ -2076,8 +2078,8 @@ function html5Player(randomid, ext, src, width, height) {
 		default:
 			break;
 	}
-	$(randomid).style.width = width + 'px';
-	$(randomid).style.height = height + 'px';
+	$(randomid).style.width = width;
+	$(randomid).style.height = height;
 }
 
 function html5APlayer(randomid, ext, src, width, height) {

@@ -53,7 +53,7 @@ if ($op == 'new') {
 			$post['message'] = preg_replace('/\[quote\].*\[\/quote\](\r\n|\n|\r){0,}/is', '', $post['message']);
 		}
 		if(strpos($msglower, '[/media]') !== FALSE) {
-			$post['message'] = preg_replace("/\[media=([\w,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", '', $post['message']);
+			$post['message'] = preg_replace("/\[media=([\w%,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", '', $post['message']);
 		}
 		if(strpos($msglower, '[/flash]') !== FALSE) {
 			$post['message'] = preg_replace("/\[flash(=(\d+),(\d+))?\]\s*([^\[\<\r\n]+?)\s*\[\/flash\]/is", '', $post['message']);
@@ -217,7 +217,7 @@ if ($op == 'new') {
 			$post['message'] = preg_replace('/\[quote\].*\[\/quote\](\r\n|\n|\r){0,}/is', '', $post['message']);
 		}
 		if(strpos($msglower, '[/media]') !== FALSE) {
-			$post['message'] = preg_replace("/\[media=([\w,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", '', $post['message']);
+			$post['message'] = preg_replace("/\[media=([\w%,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", '', $post['message']);
 		}
 		if(strpos($msglower, '[/flash]') !== FALSE) {
 			$post['message'] = preg_replace("/\[flash(=(\d+),(\d+))?\]\s*([^\[\<\r\n]+?)\s*\[\/flash\]/is", '', $post['message']);

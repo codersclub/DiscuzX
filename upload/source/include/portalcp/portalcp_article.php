@@ -675,7 +675,7 @@ function portalcp_get_postmessage($post, $getauthorall = '') {
 
 	$msglower = strtolower($post['message']);
 	if(strpos($msglower, '[/media]') !== FALSE) {
-		$post['message'] = preg_replace_callback("/\[media=([\w,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", 'portalcp_get_postmessage_callback_parsearticlemedia_12', $post['message']);
+		$post['message'] = preg_replace_callback("/\[media=([\w%,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", 'portalcp_get_postmessage_callback_parsearticlemedia_12', $post['message']);
 	}
 	if(strpos($msglower, '[/audio]') !== FALSE) {
 		$post['message'] = preg_replace_callback("/\[audio(=1)*\]\s*([^\[\<\r\n]+?)\s*\[\/audio\]/is", 'portalcp_get_postmessage_callback_parsearticlemedia_2', $post['message']);
@@ -728,8 +728,7 @@ function parsearticlemedia($params, $url) {
 	global $_G;
 
 	$params = explode(',', $params);
-	$width = intval($params[1]) > 800 ? 800 : intval($params[1]);
-	$height = intval($params[2]) > 600 ? 600 : intval($params[2]);
+
 	$url = addslashes($url);
 	if($flv = parseflv($url, 0, 0)) {
 		if(!empty($flv) && preg_match("/\.flv$/i", $flv['flv'])) {

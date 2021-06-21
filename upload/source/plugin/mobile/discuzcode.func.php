@@ -120,7 +120,7 @@ function mobile_discuzcode($param) {
 			}
 		}
 		if(strpos($msglower, '[/media]') !== FALSE) {
-			$message = preg_replace_callback("/\[media=([\w,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", 'mobile_discuzcode_callback_bbcodeurl_media2', $message);
+			$message = preg_replace_callback("/\[media=([\w%,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", 'mobile_discuzcode_callback_bbcodeurl_media2', $message);
 		}
 		if(strpos($msglower, '[/audio]') !== FALSE) {
 			$message = preg_replace_callback("/\[audio(=1)*\]\s*([^\[\<\r\n]+?)\s*\[\/audio\]/is", 'mobile_discuzcode_callback_bbcodeurl_href2', $message);
