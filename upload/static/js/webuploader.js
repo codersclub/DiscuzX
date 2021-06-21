@@ -259,6 +259,7 @@ SWFUpload.prototype.initSettings = function (userSettings) {
 		server: this.settings.upload_url,
 		pick: '#' + this.settings.button_placeholder_id,
 		compress: false,
+		threads: 1,
 		accept: {
 			title: this.settings.file_types_description,
 			extensions: exts,
