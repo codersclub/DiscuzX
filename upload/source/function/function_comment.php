@@ -187,7 +187,7 @@ function add_comment($message, $id, $idtype, $cid = 0) {
 			break;
 	}
 
-	$message = censor($message);
+	$message = censor($message, NULL, FALSE, FALSE);
 	if(censormod($message)) {
 		$comment_status = 1;
 	} else {

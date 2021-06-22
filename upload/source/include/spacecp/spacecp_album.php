@@ -180,7 +180,7 @@ if($_GET['op'] == 'edit') {
 					continue;
 				}
 				$title = getstr($value, 150);
-				$title = censor($title);
+				$title = censor($title, NULL, FALSE, FALSE);
 				if(censormod($title) || $_G['group']['allowuploadmod']) {
 					$pic_status = 1;
 					updatemoderate("picid", $picid);

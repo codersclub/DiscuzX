@@ -203,9 +203,9 @@ $notifycheck = empty($emailnotify) ? '' : 'checked="checked"';
 $stickcheck = empty($sticktopic) ? '' : 'checked="checked"';
 $digestcheck = empty($addtodigest) ? '' : 'checked="checked"';
 
-$subject = isset($_GET['subject']) ? dhtmlspecialchars(censor(trim($_GET['subject']))) : '';
+$subject = isset($_GET['subject']) ? dhtmlspecialchars(censor(trim($_GET['subject']), NULL, FALSE, FALSE)) : '';
 $subject = !empty($subject) ? str_replace("\t", ' ', $subject) : $subject;
-$message = isset($_GET['message']) ? censor($_GET['message']) : '';
+$message = isset($_GET['message']) ? censor($_GET['message'], NULL, FALSE, FALSE) : '';
 $polloptions = isset($polloptions) ? censor(trim($polloptions)) : '';
 $readperm = isset($_GET['readperm']) ? intval($_GET['readperm']) : 0;
 $price = isset($_GET['price']) ? intval($_GET['price']) : 0;

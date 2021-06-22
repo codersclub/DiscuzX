@@ -1915,6 +1915,10 @@ $lang = array
 	'setting_permissions_editby_comment' => '在 60 秒后编辑帖子添加“本帖由 xxx 于 xxxx-xx-xx 编辑”字样。管理员编辑不受此限制',
 	'setting_permissions_post_append' => '启用帖子补充功能',
 	'setting_permissions_post_append_comment' => '启用后，当用户无法编辑自己的帖子时，可以补充内容',
+	'setting_permissions_nsprofiles' => '个人空间内不展现个人信息',
+	'setting_permissions_nsprofiles_comment' => '启用后个人空间内将不展现个人信息',
+	'setting_permissions_modasban' => '不忽略审核关键词',
+	'setting_permissions_modasban_comment' => '启用后在不支持审核关键词的模块内发现此类关键词将拒绝提交，关闭则允许提交',
 
 	'setting_credits' => '积分设置',
 	'setting_credits_base' => '基本设置',
@@ -2473,6 +2477,10 @@ $lang = array
 	'setting_search_status_comment' => '勾选您要开启的搜索栏目',
 	'setting_search_onoff' => '开启',
 	'search_item_name' => '搜索项目',
+
+	'setting_search_srchsetting' => '搜索选项设置',
+	'setting_search_srchcensor' => '搜索受词语过滤控制',
+
 	'setting_search_srchhotkeywords' => '热门关键词',
 	'setting_search_srchhotkeywords_comment' => '每行一个',
 	'setting_search_srchhotkeywords_disabled' => '<strong>您已开启纵横搜索服务，搜索相关设置请到 <a href="'.ADMINSCRIPT.'?action=cloud&operation=search">云平台->纵横搜索</a> 设置</strong>',

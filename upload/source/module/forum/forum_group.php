@@ -308,7 +308,7 @@ if($action == 'index') {
 	} else {
 		$parentid = intval($_GET['parentid']);
 		$fup = intval($_GET['fup']);
-		$name = censor(dhtmlspecialchars(cutstr(trim($_GET['name']), 20, '')));
+		$name = censor(dhtmlspecialchars(cutstr(trim($_GET['name']), 20, '')), NULL, FALSE, FALSE);
 		$censormod = censormod($name);
 		if(empty($name)) {
 			showmessage('group_name_empty');
@@ -328,7 +328,7 @@ if($action == 'index') {
 			showmessage('group_name_exist');
 		}
 		require_once libfile('function/discuzcode');
-		$descriptionnew = discuzcode(dhtmlspecialchars(censor(trim($_GET['descriptionnew']))), 0, 0, 0, 0, 1, 1, 0, 0, 1);
+		$descriptionnew = discuzcode(dhtmlspecialchars(censor(trim($_GET['descriptionnew']), NULL, FALSE, FALSE)), 0, 0, 0, 0, 1, 1, 0, 0, 1);
 		$censormod = censormod($descriptionnew);
 		if($censormod) {
 			showmessage('group_description_failed');
@@ -411,7 +411,7 @@ if($action == 'index') {
 				$parentid = intval($_GET['parentid']);
 
 				if(isset($_GET['name'])) {
-					$_GET['name'] = censor(dhtmlspecialchars(cutstr(trim($_GET['name']), 20, '')));
+					$_GET['name'] = censor(dhtmlspecialchars(cutstr(trim($_GET['name']), 20, '')), NULL, FALSE, FALSE);
 					if(empty($_GET['name'])) {
 						showmessage('group_name_empty');
 					}
@@ -466,7 +466,7 @@ if($action == 'index') {
 				@unlink($_G['forum']['banner']);
 			}
 			require_once libfile('function/discuzcode');
-			$_GET['descriptionnew'] = discuzcode(censor(trim($_GET['descriptionnew'])), 0, 0, 0, 0, 1, 1, 0, 0, 1);
+			$_GET['descriptionnew'] = discuzcode(censor(trim($_GET['descriptionnew']), NULL, FALSE, FALSE), 0, 0, 0, 0, 1, 1, 0, 0, 1);
 			$censormod = censormod($_GET['descriptionnew']);
 			if($censormod) {
 				showmessage('group_description_failed');
