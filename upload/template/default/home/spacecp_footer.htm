@@ -1,7 +1,7 @@
 <div class="tbn">
 	<h2 class="mt bbda">{lang setup}</h2>
 	<ul>
-		<li{$actives[avatar] or ''}><a href="home.php?mod=spacecp&ac=avatar">{lang memcp_avatar}</a></li>
+		<!--{if $_G['group']['allowavatarupload']}--><li{$actives[avatar] or ''}><a href="home.php?mod=spacecp&ac=avatar">{lang memcp_avatar}</a></li><!--{/if}-->
 		<li{$actives[profile] or ''}><a href="home.php?mod=spacecp&ac=profile">{lang memcp_profile}</a></li>
 		<!--{if $_G['setting']['verify']['enabled'] && allowverify()}-->
 			<li$actives[verify]><a href="home.php?mod=spacecp&ac=profile&op=verify">{lang memcp_verify}</a></li>

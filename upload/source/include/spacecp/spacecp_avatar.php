@@ -11,6 +11,10 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if(!$_G['group']['allowavatarupload']) {
+	showmessage('no_privilege_upload_avatar');
+}
+
 if(submitcheck('avatarsubmit')) {
 	showmessage('do_success', 'cp.php?ac=avatar&quickforward=1');
 }

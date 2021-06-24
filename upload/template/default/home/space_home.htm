@@ -315,7 +315,7 @@
 						<tr>
 							<th>
 								<div class="avatar mbn cl">
-									<a href="home.php?mod=spacecp&ac=avatar" title="{lang memcp_avatar}" id="edit_avt"><span id="edit_avt_tar">{lang memcp_avatar}</span><!--{avatar($_G['uid'], 'middle')}--></a>
+									<a href="home.php?mod=spacecp&ac=avatar" title="{lang memcp_avatar}" id="edit_avt"><!--{if $_G['group']['allowavatarupload']}--><span id="edit_avt_tar">{lang memcp_avatar}</span><!--{/if}--><!--{avatar($_G['uid'], 'middle')}--></a>
 								</div>
 								<p><a href="home.php?mod=space&uid=$space[uid]" target="_blank" class="o xi2">{lang view_my_space}</a></p>
 							</th>

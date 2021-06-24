@@ -706,6 +706,7 @@ $lang = array (
   'no_privilege_album_edit' => '抱歉，您没有权限编辑此相册',
   'album_name_errors' => '抱歉，您尚未正确设置相册名',
   'spacecp_edit_ok' => '设置保存成功 ',
+  'no_privilege_upload_avatar' => '抱歉，您目前没有权限上传头像',
   'no_privilege_album_del' => '抱歉，您没有权限删除此相册',
   'no_privilege_album_delother' => '抱歉，您没有权限删除其他人的相册',
   'no_privilege_pic_edit' => '抱歉，您没有权限编辑此相册中的图片',

@@ -592,6 +592,7 @@ EOT;
 			array(3, $lang['usergroups_edit_post_url_enable'])
 		)), $group['allowposturl'], 'mradio');
 		showsetting('usergroups_edit_basic_allow_statdata', 'allowstatdatanew', $group['allowstatdata'], 'radio');
+		showsetting('usergroups_edit_basic_allowavatarupload', 'allowavataruploadnew', $group['allowavatarupload'], 'radio');
 		showsetting('usergroups_edit_basic_search_post', 'allowfulltextnew', $group['allowsearch'] & 32, 'radio');
 		$group['allowsearch'] = $group['allowsearch'] > 128 ? $group['allowsearch'] - 128 : $group['allowsearch'];
 		showsetting('usergroups_edit_basic_search', array('allowsearchnew', array(
@@ -1150,6 +1151,7 @@ EOT;
 			'allowspacediybbcode' => $_GET['allowspacediybbcodenew'],
 			'allowspacediyimgcode' => $_GET['allowspacediyimgcodenew'],
 			'allowstatdata' => $_GET['allowstatdatanew'],
+			'allowavatarupload' => $_GET['allowavataruploadnew'],
 			'allowpostarticle' => $_GET['allowpostarticlenew'],
 			'allowpostarticlemod' => $_GET['allowpostarticlemodnew'],
 			'allowbuildgroup' => $_GET['allowbuildgroupnew'],
