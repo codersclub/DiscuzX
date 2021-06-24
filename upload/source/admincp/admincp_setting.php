@@ -1712,6 +1712,7 @@ EOF;
 			array(1, $lang['setting_sec_accountguard_loginpwcheck_prompt']),
 			array(2, $lang['setting_sec_accountguard_loginpwcheck_force']))),  $setting['accountguard']['loginpwcheck'], 'mradio');
 		showsetting('setting_sec_accountguard_loginoutofdate', 'settingnew[accountguard][loginoutofdate]', $setting['accountguard']['loginoutofdate'], 'radio');
+		showsetting('setting_sec_accountguard_loginoutofdatenum', 'settingnew[accountguard][loginoutofdatenum]', $setting['accountguard']['loginoutofdatenum'], 'text');
 		showtablefooter();
 		showtableheader('setting_sec_accountguard_forcelogin', 'nobottom');
 		echo $forcelogin;
