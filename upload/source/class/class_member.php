@@ -890,19 +890,9 @@ class register_ctl {
 			$refreshtime = 3000;
 			switch($this->setting['regverify']) {
 				case 1:
-					$idstring = random(6);
-					$authstr = $this->setting['regverify'] == 1 ? "$_G[timestamp]\t2\t$idstring" : '';
-					C::t('common_member_field_forum')->update($_G['uid'], array('authstr' => $authstr));
-					$verifyurl = $_G['setting']['securesiteurl']."member.php?mod=activate&amp;uid={$_G[uid]}&amp;id=$idstring";
-					$email_verify_message = lang('email', 'email_verify_message', array(
-						'username' => $_G['member']['username'],
-						'bbname' => $this->setting['bbname'],
-						'siteurl' => $_G['setting']['securesiteurl'],
-						'url' => $verifyurl
-					));
-					if(!sendmail("$username <$email>", lang('email', 'email_verify_subject'), $email_verify_message)) {
-						runlog('sendmail', "$email sendmail failed.");
-					}
+					require_once libfile('function/spacecp');
+					emailcheck_send($_G['uid'], $email);
+					dsetcookie('resendemail', TIMESTAMP);
 					$message = 'register_email_verify';
 					$locationmessage = 'register_email_verify_location';
 					$refreshtime = 10000;
