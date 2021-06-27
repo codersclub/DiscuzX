@@ -201,7 +201,11 @@ if($ac == 'bind') {
 	if($result['status'] <= 0) {
 		loginfailed($_GET['username']);
 		failedip();
-		showmessage('login_invalid', '', array('loginperm' => $loginperm - 1));
+		if($loginperm == -1) {
+			showmessage('login_password_invalid');
+		} else {
+			showmessage('login_invalid', '', array('loginperm' => $loginperm - 1));
+		}
 	}
 
 	if(!$_G['wechat']['setting']['wechat_qrtype']) {

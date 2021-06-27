@@ -304,7 +304,7 @@ $languages = array(
 	'setting_addappbyurl_comment' => '是否启用通过 URL 添加应用功能，建议只有必须通过 URL 添加应用时开启',
 
 	'setting_user_failedtime' => '允许用户登录失败次数',
-	'setting_user_failedtime_comment' => '用户登录失败超过设置的数据，将在15分钟内无法登录，0为不限制次数',
+	'setting_user_failedtime_comment' => '用户登录失败超过设置的次数，将在 15 分钟内无法登录，0 为使用默认设置，负数为不限制次数（不安全）',
 
 	'setting_register' => '注册设置',
 	'setting_register_tips' => '允许/禁止的 Email 地址只需填写 Email 的域名部分，每行一个域名，例如 @hotmail.com',

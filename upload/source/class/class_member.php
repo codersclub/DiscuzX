@@ -183,7 +183,7 @@ class logging_ctl {
 					if(!$seccodecheck && $seccheckrule['outofday'] && $_G['member']['lastvisit'] && TIMESTAMP - $_G['member']['lastvisit'] > $seccheckrule['outofday'] * 86400) {
 						$seccodecheck = true;
 					}
-					if(!$seccodecheck && $_G['member_loginperm'] < 4) {
+					if(!$seccodecheck && $_G['member_loginperm'] != -1 && $_G['member_loginperm'] < 4) {
 						$seccodecheck = true;
 					}
 					if(!$seccodecheck && $seccheckrule['numiptry']) {

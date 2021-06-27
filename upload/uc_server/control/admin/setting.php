@@ -62,7 +62,7 @@ class control extends adminbase {
 			$this->set_setting('pmsendregdays', intval($pmsendregdays));
 			$this->set_setting('pmcenter', $pmcenter);
 			$this->set_setting('sendpmseccode', $sendpmseccode ? 1 : 0);
-			$this->set_setting('login_failedtime', intval($login_failedtime) > 0 ? intval($login_failedtime) : 0);
+			$this->set_setting('login_failedtime', intval($login_failedtime));
 			$this->set_setting('addappbyurl', $addappbyurl);
 			$updated = true;
 
