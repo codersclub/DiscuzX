@@ -24,7 +24,7 @@ class optimizer_httphost {
 			$clientip = gethostbyname($_SERVER['HTTP_HOST']);
 			$testurl = str_replace($_SERVER['HTTP_HOST'], $clientip, $_G['siteurl']);
 			$content = dfsockopen($testurl);
-			if(strpos($content, 'Discuz!') === false) {
+			if(strpos($content, 'Discuz!') !== false) {
 				$status = true;
 			}
 		}
