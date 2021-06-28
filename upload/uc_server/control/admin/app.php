@@ -154,7 +154,7 @@ class control extends adminbase {
 			$extraurl = getgpc('extraurl', 'P');
 			if(getgpc('apppath', 'P')) {
 				$app['extra']['apppath'] = $this->_realpath(getgpc('apppath', 'P'));
-				if($app['extra']['apppath']) {
+				if(!empty($app['extra']['apppath'])) {
 					$apifile = $app['extra']['apppath'].'./api/uc.php';
 					if(!file_exists($apifile)) {
 						$this->message('app_apifile_not_exists', 'BACK', 0, array('$apifile' => $apifile));
