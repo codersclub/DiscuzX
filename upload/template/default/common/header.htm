@@ -64,7 +64,7 @@
 					<!--{hook/global_cpnav_extra1}-->
 				</div>
 				<div class="y">
-					<a id="switchblind" href="javascript:;" onclick="toggleBlind(this)" title="{lang switch_blind}" class="switchblind">{lang switch_blind}</a>
+					<a id="switchblind" href="javascript:;" onclick="toggleBlind(this)" title="{lang switch_blind}" class="switchblind"></a>
 					<!--{hook/global_cpnav_extra2}-->
 					<!--{loop $_G['setting']['topnavs'][1] $nav}-->
 						<!--{if $nav['available'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1))}-->$nav[code]<!--{/if}-->
