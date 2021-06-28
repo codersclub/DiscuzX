@@ -46,7 +46,9 @@ if($op == 'add') {
 		C::t('home_follow')->insert($followdata, false, true);
 		C::t('common_member_count')->increase($_G['uid'], array('following' => 1));
 		C::t('common_member_count')->increase($followuid, array('follower' => 1, 'newfollower' => 1));
-		notification_add($followuid, 'follower', 'member_follow_add', array('count' => $count, 'from_id'=>$_G['uid'], 'from_idtype' => 'following'), 1);
+		if($_G['setting']['followaddnotice']) {
+			notification_add($followuid, 'follower', 'member_follow_add', array('count' => $count, 'from_id'=>$_G['uid'], 'from_idtype' => 'following'), 1);
+		}
 	} elseif($special) {
 		$status = $special == 1 ? 1 : 0;
 		C::t('home_follow')->update_by_uid_followuid($_G['uid'], $followuid, array('status'=>$status));

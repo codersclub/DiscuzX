@@ -559,6 +559,7 @@ INSERT INTO pre_common_setting VALUES ('report_receive', 'a:2:{s:9:"adminuser";a
 INSERT INTO pre_common_setting VALUES ('leftsideopen', '0');
 INSERT INTO pre_common_setting VALUES ('showexif', '0');
 INSERT INTO pre_common_setting VALUES ('followretainday', '7');
+INSERT INTO pre_common_setting VALUES ('followaddnotice', '0');
 INSERT INTO pre_common_setting VALUES ('newbie', '20');
 INSERT INTO pre_common_setting VALUES ('collectionteamworkernum', '3');
 INSERT INTO pre_common_setting VALUES ('collectionnum', '10');
