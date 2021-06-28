@@ -309,14 +309,15 @@ if($operation == 'export') {
 
 			$tablesstr = '';
 			foreach($tables as $table) {
-				$tablesstr .= ''.escapeshellarg($table).' ';
+				$tablesstr .= ''.preg_replace("#[^\w]+#is", '', $table).' ';
 			}
+			$tablesstr = trim($tablesstr);
 
 			require DISCUZ_ROOT . './config/config_global.php';
 			$dbhost = $_config['db'][1]['dbhost'];
 			$dbname = $_config['db'][1]['dbname'];
 			$dbpw = $_config['db'][1]['dbpw'];
-			$dbuser = $_config['db'][1]['dbuser'];            
+			$dbuser = $_config['db'][1]['dbuser'];
 			list($dbhost, $dbport) = explode(':', $dbhost);
 
 			$db = DB::object();
@@ -325,6 +326,8 @@ if($operation == 'export') {
 
 			$dumpfile = addslashes(dirname(dirname(dirname(__FILE__)))).'/'.$backupfilename.'.sql';
 			@unlink($dumpfile);
+			$tablesstr = escapeshellarg($tablesstr);
+			$tablesstr = str_replace(' ', '" "', $tablesstr);
 
 			$mysqlbin = $mysql_base == '/' ? '' : addslashes(rtrim($mysql_base, '/\\')).'/bin/';
 			@shell_exec($mysqlbin.'mysqldump --force --quick '.($db->version() > '4.1' ? '--skip-opt --create-options' : '-all').' --add-drop-table'.($_GET['extendins'] == 1 ? ' --extended-insert' : '').''.($db->version() > '4.1' && $_GET['sqlcompat'] == 'MYSQL40' ? ' --compatible=mysql40' : '').' --host="'.$dbhost.'"'.($dbport ? (is_numeric($dbport) ? ' --port='.$dbport : ' --socket="'.$dbport.'"') : '').' --user="'.$dbuser.'" --password="'.$dbpw.'" "'.$dbname.'" '.$tablesstr.' > '.$dumpfile);
@@ -407,7 +410,7 @@ if($operation == 'export') {
 						$exportsize[$key] += $filesize;
 						$exportfiletime[$key] = $filemtime;
 					} elseif(preg_match("/\.zip$/i", $entry)) {
-						$key = preg_replace('/^(.+?)(\-\d+)\.zip$/i', '\\1', basename($entry));                      
+						$key = preg_replace('/^(.+?)(\-\d+)\.zip$/i', '\\1', basename($entry));
 						$filesize = filesize($entry);
 						$filemtime = filemtime($entry);
 						$exportziplog[$key][] = array(
@@ -491,7 +494,7 @@ if($operation == 'export') {
 			echo '</tbody>';
 		}
 
-		foreach($exportziplog as $key => $val) {   
+		foreach($exportziplog as $key => $val) {
 			sort($val);//修改 确保-1.zip排前面,才会自动解压-2.zip
 			$info = $val[0];
 			$info['volume'] = count($val);
@@ -509,7 +512,7 @@ if($operation == 'export') {
 				$info['method'],
 				"<a href=\"javascript:;\" onclick=\"display('exportlog_zip_$key')\">".$info['volume']."</a>",
 				"<a href=\"".$datasiteurl."restore.php?operation=importzip&datafile_server=$datafile_server&importsubmit=yes\"  onclick=\"return confirm('{$lang['db_import_confirm_zip']}');\" class=\"act\" target=\"_blank\">{$lang['db_import_unzip']}</a>"
-			)); 			
+			));
 			echo '<tbody id="exportlog_zip_'.$key.'" style="display:none">';
 			foreach($val as $info) {
 				$info['dateline'] = is_int($info['dateline']) ? dgmdate($info['dateline']) : $lang['unknown'];
@@ -541,7 +544,7 @@ if($operation == 'export') {
 				if(strpos($filename, '-1.zip') !== FALSE) {
 					$type = ".zip";
 					$filename = str_replace('-1.zip', '', $filename);
-				}                
+				}
 				$file_path = './data/'.$backupdir.'/'.str_replace(array('/', '\\'), '', $filename);
 				if(is_file($file_path)) {
 					@unlink($file_path);

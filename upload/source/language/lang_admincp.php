@@ -1178,6 +1178,8 @@ $lang = array
 	'setting_follow_base_default_follow_retain_day_comment' => '广播超过多少天移入存档表(单位：天)',
 	'setting_follow_base_default_view_profile' => '默认查看个人资料',
 	'setting_follow_base_default_view_profile_comment' => '该设置对管理员有效，开启后默认管理员查看将直接查看个人资料页面',
+	'setting_follow_base_default_follow_add_notice' => '被关注时通知被关注者',
+	'setting_follow_base_default_follow_add_notice_comment' => '开启后用户被关注时将会收到通知',
 	'setting_home' => '空间设置',
 	'setting_home_base' => '基本设置',
 	'setting_home_base_feedday' => '动态保留天数',
@@ -1918,6 +1920,10 @@ $lang = array
 	'setting_permissions_editby_comment' => '在 60 秒后编辑帖子添加“本帖由 xxx 于 xxxx-xx-xx 编辑”字样。管理员编辑不受此限制',
 	'setting_permissions_post_append' => '启用帖子补充功能',
 	'setting_permissions_post_append_comment' => '启用后，当用户无法编辑自己的帖子时，可以补充内容',
+	'setting_permissions_nsprofiles' => '个人空间内不展现个人信息',
+	'setting_permissions_nsprofiles_comment' => '启用后个人空间内将不展现个人信息',
+	'setting_permissions_modasban' => '不忽略审核关键词',
+	'setting_permissions_modasban_comment' => '启用后在不支持审核关键词的模块内发现此类关键词将拒绝提交，关闭则允许提交',
 
 	'setting_credits' => '积分设置',
 	'setting_credits_base' => '基本设置',
@@ -2292,7 +2298,9 @@ $lang = array
 	'setting_sec_accountguard_loginpwcheck_prompt' => '开启并提示',
 	'setting_sec_accountguard_loginpwcheck_force' => '开启并强制修改弱密码',
 	'setting_sec_accountguard_loginoutofdate' => '异常登录检测',
-	'setting_sec_accountguard_loginoutofdate_comment' => '当用户异地登录且距离上次登录超过 90 天时，帐号会进入未审核组，用户可以通过验证邮箱或者申诉解冻帐号，QQ登录的用户不受此功能影响 <a href="'.ADMINSCRIPT.'?action=moderate&operation=members">审核用户</a>',
+	'setting_sec_accountguard_loginoutofdate_comment' => '当用户距离上次登录超过一定期限时，帐号会进入未审核组，用户可以通过验证邮箱或者申诉解冻帐号，QQ登录的用户不受此功能影响 <a href="'.ADMINSCRIPT.'?action=moderate&operation=members">审核用户</a>',
+	'setting_sec_accountguard_loginoutofdatenum' => '异常登录检测天数',
+	'setting_sec_accountguard_loginoutofdatenum_comment' => '配置异常登录检测天数，默认值为 90 天',
 
 
 	'setting_attach' => '上传设置',
@@ -2481,6 +2489,10 @@ $lang = array
 	'setting_search_status_comment' => '勾选您要开启的搜索栏目',
 	'setting_search_onoff' => '开启',
 	'search_item_name' => '搜索项目',
+
+	'setting_search_srchsetting' => '搜索选项设置',
+	'setting_search_srchcensor' => '搜索受词语过滤控制',
+
 	'setting_search_srchhotkeywords' => '热门关键词',
 	'setting_search_srchhotkeywords_comment' => '每行一个',
 

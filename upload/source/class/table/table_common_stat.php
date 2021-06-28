@@ -40,8 +40,8 @@ class table_common_stat extends discuz_table
 		if(DB::result_first('SELECT COUNT(*) FROM '.DB::table($this->_table)." WHERE `daytime` = '$nowdaytime'")){
 			DB::query('UPDATE '.DB::table($this->_table)." SET `$type`=`$type`+$num WHERE `daytime` = '$nowdaytime'");
 		} else {
+			DB::query("INSERT INTO ".DB::table($this->_table)." (`daytime`, `$type`) VALUES ('$nowdaytime', '$num') ON DUPLICATE KEY UPDATE `$type` = `$type` + '$num'");
 			C::t('common_statuser')->clear_by_daytime($nowdaytime);
-			DB::insert($this->_table, array('daytime'=>$nowdaytime, $type=>$num));
 		}
 	}
 

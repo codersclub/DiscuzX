@@ -1029,7 +1029,7 @@ function addportalarticlecomment($id, $message, $idtype = 'aid') {
 		return 'comment_comment_notallowed';
 	}
 
-	$message = censor($message);
+	$message = censor($message, NULL, FALSE, FALSE);
 	if(censormod($message) || $_G['group']['allowcommentarticlemod']) {
 		$comment_status = 1;
 	} else {

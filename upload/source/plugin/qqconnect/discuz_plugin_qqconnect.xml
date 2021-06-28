@@ -80,16 +80,16 @@
 				<item id="connect_register_closed"><![CDATA[QQ注册功能已关闭]]></item>
 				<item id="connect_register_bind"><![CDATA[绑定已有帐号]]></item>
 				<item id="connect_register_profile"><![CDATA[完善帐号信息]]></item>
-                <item id="connect_get_access_token_failed"><![CDATA[抱歉，当前存在网络问题或服务器繁忙，请您稍候再试。谢谢。]]></item>
-				<item id="connect_get_access_token_failed_code"><![CDATA[抱歉，当前存在网络问题或服务器繁忙，详细错误：{codeMessage}，错误代码：<a target=_blank href="http://wiki.opensns.qq.com/wiki/%E3%80%90QQ%E7%99%BB%E5%BD%95%E3%80%91%E5%85%AC%E5%85%B1%E8%BF%94%E5%9B%9E%E7%A0%81%E8%AF%B4%E6%98%8E">{code}</a>，请您稍候再试。谢谢。]]></item>
+				<item id="connect_get_access_token_failed"><![CDATA[抱歉，当前存在网络问题或服务器繁忙，请您稍候再试。谢谢。]]></item>
+				<item id="connect_get_access_token_failed_code"><![CDATA[抱歉，当前存在网络问题或服务器繁忙，详细错误：{codeMessage}，错误代码：<a target=_blank href="https://wiki.connect.qq.com/%e5%85%ac%e5%85%b1%e8%bf%94%e5%9b%9e%e7%a0%81%e8%af%b4%e6%98%8e">{code}</a>，请您稍候再试。谢谢。]]></item>
 				<item id="connect_get_request_token_failed"><![CDATA[抱歉，当前存在网络问题或服务器繁忙，请您稍候再试。谢谢。]]></item>
-                <item id="connect_get_request_token_failed_code"><![CDATA[抱歉，当前存在网络问题或服务器繁忙，详细错误：{codeMessage}，错误代码：<a target=_blank href="http://wiki.opensns.qq.com/wiki/%E3%80%90QQ%E7%99%BB%E5%BD%95%E3%80%91%E5%85%AC%E5%85%B1%E8%BF%94%E5%9B%9E%E7%A0%81%E8%AF%B4%E6%98%8E">{code}</a>，请您稍候再试。谢谢。]]></item>
+				<item id="connect_get_request_token_failed_code"><![CDATA[抱歉，当前存在网络问题或服务器繁忙，详细错误：{codeMessage}，错误代码：<a target=_blank href="https://wiki.connect.qq.com/%e5%85%ac%e5%85%b1%e8%bf%94%e5%9b%9e%e7%a0%81%e8%af%b4%e6%98%8e">{code}</a>，请您稍候再试。谢谢。]]></item>
 				<item id="connect_register_bind_uin_already"><![CDATA[抱歉，该QQ用户已绑定了本站的另一个用户，无法再次绑定]]></item>
 				<item id="connect_config_success"><![CDATA[QQ互联设置更新成功]]></item>
 				<item id="connect_login_first"><![CDATA[请先使用QQ互联登录再进行此操作]]></item>
 				<item id="connect_config_unbind_failed"><![CDATA[抱歉，解绑失败，请重试使用QQ登录后再进行解绑操作]]></item>
-                <item id="connect_config_unbind_busy"><![CDATA[抱歉，当前存在网络问题或服务器繁忙，请您稍候再尝试解绑。谢谢。]]></item>
-				<item id="connect_config_unbind_busy_code"><![CDATA[抱歉，当前存在网络问题或服务器繁忙，详细错误：{codeMessage}，错误代码：<a target=_blank href="http://wiki.opensns.qq.com/wiki/%E3%80%90QQ%E7%99%BB%E5%BD%95%E3%80%91%E5%85%AC%E5%85%B1%E8%BF%94%E5%9B%9E%E7%A0%81%E8%AF%B4%E6%98%8E">{code}</a>，请您稍候再尝试解绑。谢谢。]]></item>
+				<item id="connect_config_unbind_busy"><![CDATA[抱歉，当前存在网络问题或服务器繁忙，请您稍候再尝试解绑。谢谢。]]></item>
+				<item id="connect_config_unbind_busy_code"><![CDATA[抱歉，当前存在网络问题或服务器繁忙，详细错误：{codeMessage}，错误代码：<a target=_blank href="https://wiki.connect.qq.com/%e5%85%ac%e5%85%b1%e8%bf%94%e5%9b%9e%e7%a0%81%e8%af%b4%e6%98%8e">{code}</a>，请您稍候再尝试解绑。谢谢。]]></item>
 				<item id="connect_config_unbind_success"><![CDATA[您的论坛帐号和QQ帐号解除绑定成功。]]></item>
 				<item id="connect_uin_in_blacklist"><![CDATA[抱歉，此QQ帐号已被本站屏蔽，您可以<a href="{changeqqurl}">更换其他QQ账号登录</a>]]></item>
 				<item id="connect_reauth_success"><![CDATA[QQ互联授权修改成功]]></item>
@@ -107,7 +107,7 @@
 				<item id="connect_qzone_weibo_same_content"><![CDATA[该帖子您已经转播过，不需要重复转播]]></item>
 				<item id="connect_user_unauthorized"><![CDATA[抱歉，您未授权分享主题到QQ空间和腾讯朋友，点击<a href={login_url}><img src=static/image/common/qq_login.gif class=vm alt=QQ登录 /></a>，马上完善授权]]></item>
 				<item id="connect_errlog_server_no_response"><![CDATA[服务器无响应]]></item>
-                <item id="connect_server_busy"><![CDATA[抱歉，当前存在网络问题或服务器繁忙，请您稍候再试。谢谢。]]></item>
+				<item id="connect_server_busy"><![CDATA[抱歉，当前存在网络问题或服务器繁忙，请您稍候再试。谢谢。]]></item>
 				<item id="connect_server_busy_code"><![CDATA[抱歉，当前存在网络问题或服务器繁忙，详细错误：{codeMessage}，错误代码：{code}，请您稍候再试。谢谢。]]></item>
 				<item id="connectguest_message_complete_or_bind"><![CDATA[抱歉，您尚未 <a href="member.php?mod=connect" class="xi2">完善帐号信息</a> 或 <a href="member.php?mod=connect&ac=bind" class="xi2">绑定已有帐号</a>，无法进行此操作]]></item>
 				<item id="connect_error_code_999"><![CDATA[请求失败]]></item>

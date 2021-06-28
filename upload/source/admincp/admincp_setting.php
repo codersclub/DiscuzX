@@ -222,6 +222,7 @@ if(!submitcheck('settingsubmit')) {
 		/*search={"setting_follow":"action=setting&operation=follow","setting_follow_base":"action=setting&operation=follow&anchor=base"}*/
 		showtableheader('', 'nobottom', 'id="base"'.($_GET['anchor'] != 'base' ? ' style="display: none"' : ''));
 		showsetting('setting_follow_base_default_follow_retain_day', 'settingnew[followretainday]', $setting['followretainday'], 'text');
+		showsetting('setting_follow_base_default_follow_add_notice', 'settingnew[followaddnotice]', $setting['followaddnotice'], 'radio');
 		showsetting('setting_follow_base_default_view_profile', 'settingnew[allowquickviewprofile]', $setting['allowquickviewprofile'], 'radio');
 		showtablefooter();
 		/*search*/
@@ -1392,6 +1393,8 @@ EOF;
 		showsetting('setting_permissions_post_append', 'settingnew[postappend]', $setting['postappend'], 'radio');
 		showsetting('setting_permissions_maxpolloptions', 'settingnew[maxpolloptions]', $setting['maxpolloptions'], 'text');
 		showsetting('setting_permissions_editby', 'settingnew[editedby]', $setting['editedby'], 'radio');
+		showsetting('setting_permissions_nsprofiles', 'settingnew[nsprofiles]', $setting['nsprofiles'], 'radio');
+		showsetting('setting_permissions_modasban', 'settingnew[modasban]', $setting['modasban'], 'radio');
 
 		showtitle('nav_setting_rate');
 		showsetting('setting_permissions_karmaratelimit', 'settingnew[karmaratelimit]', $setting['karmaratelimit'], 'text');
@@ -1703,6 +1706,7 @@ EOF;
 			array(1, $lang['setting_sec_accountguard_loginpwcheck_prompt']),
 			array(2, $lang['setting_sec_accountguard_loginpwcheck_force']))),  $setting['accountguard']['loginpwcheck'], 'mradio');
 		showsetting('setting_sec_accountguard_loginoutofdate', 'settingnew[accountguard][loginoutofdate]', $setting['accountguard']['loginoutofdate'], 'radio');
+		showsetting('setting_sec_accountguard_loginoutofdatenum', 'settingnew[accountguard][loginoutofdatenum]', $setting['accountguard']['loginoutofdatenum'], 'text');
 		showtablefooter();
 		showtableheader('setting_sec_accountguard_forcelogin', 'nobottom');
 		echo $forcelogin;
@@ -2223,6 +2227,10 @@ EOT;
 		showtablerow('', '', $search_collection);
 		showtablefooter();
 		
+		showtableheader('setting_search_srchsetting');
+		showsetting('setting_search_srchcensor', 'settingnew[srchcensor]', $setting['srchcensor'], 'radio');
+		showtablefooter();
+
 		showtableheader('setting_search_srchhotkeywords');
 		showsetting('setting_search_srchhotkeywords', 'settingnew[srchhotkeywords]', $setting['srchhotkeywords'], 'textarea');
 

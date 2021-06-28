@@ -33,7 +33,7 @@ function blog_post($POST, $olds=array()) {
 	}
 
 	$POST['subject'] = empty($_GET['subject']) ? '' : (dstrlen($_GET['subject']) > $_G['setting']['maxsubjectsize'] ? getstr($_GET['subject'], $_G['setting']['maxsubjectsize']) : $_GET['subject']);
-	$POST['subject'] = censor($POST['subject']);
+	$POST['subject'] = censor($POST['subject'], NULL, FALSE, FALSE);
 	if(strlen($POST['subject'])<1) $POST['subject'] = dgmdate($_G['timestamp'], 'Y-m-d');
 	$POST['friend'] = intval($POST['friend']);
 
@@ -67,10 +67,10 @@ function blog_post($POST, $olds=array()) {
 	$POST['message'] = checkhtml($POST['message']);
 	if($_G['mobile']) {
 		$POST['message'] = getstr($POST['message'], 0, 0, 0, 1);
-		$POST['message'] = censor($POST['message']);
+		$POST['message'] = censor($POST['message'], NULL, FALSE, FALSE);
 	} else {
 		$POST['message'] = getstr($POST['message'], 0, 0, 0, 0, 1);
-		$POST['message'] = censor($POST['message']);
+		$POST['message'] = censor($POST['message'], NULL, FALSE, FALSE);
 		$POST['message'] = preg_replace("/\<div\>\<\/div\>/i", '', $POST['message']);
 		$POST['message'] = preg_replace_callback("/<a .*?href=\"(.*?)\".*?>/is", 'blog_post_callback_blog_check_url_1', $POST['message']);
 	}

@@ -221,11 +221,10 @@ if (submitcheck('musicsubmit')) {
 		$mp3name = $_POST['mp3name'];
 		$cdbj = $_POST['cdbj'];
 		$mp3list = empty($blockdata['parameters']['music']['mp3list']) ? array() : $blockdata['parameters']['music']['mp3list'];
-		censor(implode('', $_POST['mp3name']));
 		foreach ($mp3url as $key => $value) {
 			if (!empty($value)) {
 				if(empty($mp3name[$key])) $mp3name[$key] = substr($value,strrpos($value,'/')+1,strlen($value));
-				$mp3list[] = array('mp3url'=>$value, 'mp3name'=>$mp3name[$key], 'cdbj'=>$cdbj[$key]);
+				$mp3list[] = array('mp3url'=>$value, 'mp3name'=>censor($mp3name[$key]), 'cdbj'=>$cdbj[$key]);
 			}
 		}
 		$blockdata['parameters']['music']['mp3list'] = $mp3list;
@@ -235,11 +234,10 @@ if (submitcheck('musicsubmit')) {
 		$mp3name = $_POST['mp3name'];
 		$cdbj = $_POST['cdbj'];
 		$mp3list = array();
-		censor(implode('', $_POST['mp3name']));
 		foreach ($mp3url as $key => $value) {
 			if (!empty($value)) {
 				if(empty($mp3name[$key])) $mp3name[$key] = substr($value,strrpos($value,'/')+1,strlen($value));
-				$mp3list[] = array('mp3url'=>$value, 'mp3name'=>$mp3name[$key], 'cdbj'=>$cdbj[$key]);
+				$mp3list[] = array('mp3url'=>$value, 'mp3name'=>censor($mp3name[$key]), 'cdbj'=>$cdbj[$key]);
 			}
 		}
 

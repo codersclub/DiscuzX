@@ -37,7 +37,7 @@ if(helper_access::check_module('doing')) {
 			showmessage('should_write_that');
 		}
 
-		$message = censor($message, NULL, TRUE);
+		$message = censor($message, NULL, TRUE, TRUE);
 		if(is_array($message) && $message['message']) {
 			showmessage('do_success', dreferer(), array('message'=>$message['message']));
 		}
@@ -220,7 +220,7 @@ if($_GET['op'] == 'delete') {
 			}
 			$tree->setNode($value['id'], $value['upid'], $value);
 			$count++;
-			if($value['authorid'] == $space['uid']) $highlight = $value['id'];
+			if($value['uid'] == $space['uid']) $highlight = $value['id'];
 		}
 	}
 

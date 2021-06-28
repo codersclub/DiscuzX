@@ -211,6 +211,9 @@ INSERT INTO pre_common_setting VALUES ('authoronleft','1');
 INSERT INTO pre_common_setting VALUES ('uidlogin','0');
 INSERT INTO pre_common_setting VALUES ('autoidselect','0');
 INSERT INTO pre_common_setting VALUES ('avatarmethod','0');
+INSERT INTO pre_common_setting VALUES ('nsprofiles','1');
+INSERT INTO pre_common_setting VALUES ('modasban','1');
+INSERT INTO pre_common_setting VALUES ('srchcensor','1');
 INSERT INTO pre_common_setting VALUES ('backupdir','f027b6');
 INSERT INTO pre_common_setting VALUES ('bannedmessages','1');
 INSERT INTO pre_common_setting VALUES ('bbclosed','');
@@ -572,6 +575,7 @@ INSERT INTO pre_common_setting VALUES ('report_receive', 'a:2:{s:9:"adminuser";a
 INSERT INTO pre_common_setting VALUES ('leftsideopen', '0');
 INSERT INTO pre_common_setting VALUES ('showexif', '0');
 INSERT INTO pre_common_setting VALUES ('followretainday', '7');
+INSERT INTO pre_common_setting VALUES ('followaddnotice', '0');
 INSERT INTO pre_common_setting VALUES ('newbie', '20');
 INSERT INTO pre_common_setting VALUES ('collectionteamworkernum', '3');
 INSERT INTO pre_common_setting VALUES ('collectionnum', '10');

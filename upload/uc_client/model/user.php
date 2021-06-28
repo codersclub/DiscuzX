@@ -268,7 +268,13 @@ class usermodel {
 
 	function can_do_login($username, $ip = '') {
 
-		$check_times = $this->base->settings['login_failedtime'] < 1 ? 5 : $this->base->settings['login_failedtime'];
+		// check_times 代表允许用户登录失败次数，该变量的值为 0 为不限制，正数为次数
+		// 由于历史 Bug ，系统配置内原有用于代表无限制的 0 值必须代表正常值 5 ，因此只能在这里进行映射，负数映射为 0 ，正数正常， 0 映射为 5 。
+		$check_times = $this->base->settings['login_failedtime'] > 0 ? $this->base->settings['login_failedtime'] : ($this->base->settings['login_failedtime'] < 0 ? 0 : 5);
+
+		if($check_times == 0) {
+			return -1;
+		}
 
 		$username = substr(md5($username), 8, 15);
 		$expire = 15 * 60;

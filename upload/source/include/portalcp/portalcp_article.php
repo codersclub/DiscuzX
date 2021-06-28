@@ -50,10 +50,10 @@ if(submitcheck("articlesubmit", 0, $seccodecheck, $secqaacheck)) {
 	if(strlen($_POST['title']) < 1 || dstrlen($_POST['title']) < $_G['setting']['minsubjectsize']) {
 		showmessage('title_not_too_little');
 	}
-	$_POST['title'] = censor($_POST['title']);
+	$_POST['title'] = censor($_POST['title'], NULL, FALSE, FALSE);
 
 	$_POST['pagetitle'] = getstr(trim($_POST['pagetitle']), 60);
-	$_POST['pagetitle'] = censor($_POST['pagetitle']);
+	$_POST['pagetitle'] = censor($_POST['pagetitle'], NULL, FALSE, FALSE);
 	$htmlname = basename(trim($_POST['htmlname']));
 
 	$highlight_style = $_GET['highlight_style'];
@@ -61,7 +61,7 @@ if(submitcheck("articlesubmit", 0, $seccodecheck, $secqaacheck)) {
 	$style = implode('|',$highlight_style);
 	if(empty($_POST['summary'])) $_POST['summary'] = preg_replace("/(\s|\<strong\>##########NextPage(\[title=.*?\])?##########\<\/strong\>)+/", ' ', $_POST['content']);
 	$summary = portalcp_get_summary($_POST['summary']);
-	$summary = censor($summary);
+	$summary = censor($summary, NULL, FALSE, FALSE);
 
 	$_GET['author'] = dhtmlspecialchars($_GET['author']);
 	$_GET['url'] = str_replace('&amp;', '&', dhtmlspecialchars($_GET['url']));
@@ -171,7 +171,7 @@ if(submitcheck("articlesubmit", 0, $seccodecheck, $secqaacheck)) {
 	}
 
 	$content = getstr($_POST['content'], 0, 0, 0, 0, 1);
-	$content = censor($content);
+	$content = censor($content, NULL, FALSE, FALSE);
 	if(censormod($content) || $_G['group']['allowpostarticlemod']) {
 		$article_status = 1;
 	} else {
@@ -675,7 +675,7 @@ function portalcp_get_postmessage($post, $getauthorall = '') {
 
 	$msglower = strtolower($post['message']);
 	if(strpos($msglower, '[/media]') !== FALSE) {
-		$post['message'] = preg_replace_callback("/\[media=([\w,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", 'portalcp_get_postmessage_callback_parsearticlemedia_12', $post['message']);
+		$post['message'] = preg_replace_callback("/\[media=([\w%,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", 'portalcp_get_postmessage_callback_parsearticlemedia_12', $post['message']);
 	}
 	if(strpos($msglower, '[/audio]') !== FALSE) {
 		$post['message'] = preg_replace_callback("/\[audio(=1)*\]\s*([^\[\<\r\n]+?)\s*\[\/audio\]/is", 'portalcp_get_postmessage_callback_parsearticlemedia_2', $post['message']);
@@ -729,8 +729,7 @@ function parsearticlemedia($params, $url) {
 	global $_G;
 
 	$params = explode(',', $params);
-	$width = intval($params[1]) > 800 ? 800 : intval($params[1]);
-	$height = intval($params[2]) > 600 ? 600 : intval($params[2]);
+
 	$url = addslashes($url);
 	if($flv = parseflv($url, 0, 0)) {
 		$url = $flv['flv'];

@@ -199,7 +199,7 @@ function discuzcode($message, $smileyoff = false, $bbcodeoff = false, $htmlon = 
 		}
 		if(!defined('IN_MOBILE') || !in_array(constant('IN_MOBILE'), array('1', '3', '4'))) {
 			if(strpos($msglower, '[/media]') !== FALSE) {
-				$message = preg_replace_callback("/\[media=([\w,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", $allowmediacode ? 'discuzcode_callback_parsemedia_12' : 'discuzcode_callback_bbcodeurl_2', $message);
+				$message = preg_replace_callback("/\[media=([\w%,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", $allowmediacode ? 'discuzcode_callback_parsemedia_12' : 'discuzcode_callback_bbcodeurl_2', $message);
 			}
 			if(strpos($msglower, '[/audio]') !== FALSE) {
 				$message = preg_replace_callback("/\[audio(=1)*\]\s*([^\[\<\r\n]+?)\s*\[\/audio\]/is", $allowmediacode ? 'discuzcode_callback_parseaudio_2' : 'discuzcode_callback_bbcodeurl_2', $message);
@@ -209,7 +209,7 @@ function discuzcode($message, $smileyoff = false, $bbcodeoff = false, $htmlon = 
 			}
 		} else {
 			if(strpos($msglower, '[/media]') !== FALSE) {
-				$message = preg_replace("/\[media=([\w,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", "[media]\\2[/media]", $message);
+				$message = preg_replace("/\[media=([\w%,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", "[media]\\2[/media]", $message);
 			}
 			if(strpos($msglower, '[/audio]') !== FALSE) {
 				$message = preg_replace("/\[audio(=1)*\]\s*([^\[\<\r\n]+?)\s*\[\/audio\]/is", "[media]\\2[/media]", $message);
@@ -489,8 +489,18 @@ function parseaudio($url, $width = 400) {
 
 function parsemedia($params, $url) {
 	$params = explode(',', $params);
-	$width = intval($params[1]) > 800 ? 800 : intval($params[1]);
-	$height = intval($params[2]) > 600 ? 600 : intval($params[2]);
+
+	if(preg_match('/^(100|[0-9]{1,2})%$/', $params[1], $matches)) {
+		$width = $matches[1] . '%';
+	} else {
+		$width = ($params[1] > 0 && $params[1] < 8192) ? intval($params[1]) : 800;
+	}
+
+	if(preg_match('/^(100|[0-9]{1,2})%$/', $params[2], $matches)) {
+		$height = $matches[2] . '%';
+	} else {
+		$height = ($params[2] > 0 && $params[2] < 4096) ? intval($params[2]) : 600;
+	}
 
 	$url = addslashes($url);
         if(!in_array(strtolower(substr($url, 0, 6)), array('http:/', 'https:', 'ftp://', 'rtsp:/', 'mms://')) && !preg_match('/^static\//', $url) && !preg_match('/^data\//', $url)) {

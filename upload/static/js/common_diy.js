@@ -179,7 +179,7 @@ var Util = {
 		aParent.insertBefore(b, afterA);
 	},
 	hasClass: function(el, name){
-		return el && el.nodeType == 1 && el.className.split(/\s+/).indexOf(name) != -1;
+		return el && el.nodeType == 1 && typeof el.className === 'string'  && el.className.split(/\s+/).indexOf(name) != -1;
 	},
 	addClass: function(el, name){
 		el.className += this.hasClass(el, name) ? '' : ' ' + name;

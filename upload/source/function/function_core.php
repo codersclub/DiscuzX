@@ -1465,9 +1465,9 @@ function adshow($parameter) {
 	}
 	$adfunc = 'ad_'.$params[0];
 	$_G['setting']['pluginhooks'][$adfunc] = null;
-	hookscript('ad', 'global', 'funcs', array('params' => $params, 'content' => $adcontent), $adfunc);
+	hookscript('ad', 'global', 'funcs', array('params' => $params, 'content' => $adcontent, 'customid' => $customid), $adfunc);
 	if(empty($_G['setting']['hookscript']['global']['ad']['funcs'][$adfunc])) {
-		hookscript('ad', $_G['basescript'], 'funcs', array('params' => $params, 'content' => $adcontent), $adfunc);
+		hookscript('ad', $_G['basescript'], 'funcs', array('params' => $params, 'content' => $adcontent, 'customid' => $customid), $adfunc);
 	}
 	return $_G['setting']['pluginhooks'][$adfunc] === null ? $adcontent : $_G['setting']['pluginhooks'][$adfunc];
 }
@@ -1493,8 +1493,8 @@ function simplepage($num, $perpage, $curpage, $mpurl) {
 	return helper_page::simplepage($num, $perpage, $curpage, $mpurl);
 }
 
-function censor($message, $modword = NULL, $return = FALSE) {
-	return helper_form::censor($message, $modword, $return);
+function censor($message, $modword = NULL, $return = FALSE, $modasban = TRUE) {
+	return helper_form::censor($message, $modword, $return, $modasban);
 }
 
 function censormod($message) {

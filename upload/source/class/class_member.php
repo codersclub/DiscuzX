@@ -154,7 +154,7 @@ class logging_ctl {
 				}
 
 				if($_G['member']['adminid'] != 1) {
-					if($this->setting['accountguard']['loginoutofdate'] && $_G['member']['lastvisit'] && TIMESTAMP - $_G['member']['lastvisit'] > 90 * 86400 && $_G['member']['freeze'] != -1) {
+					if($this->setting['accountguard']['loginoutofdate'] && $_G['member']['lastvisit'] && TIMESTAMP - $_G['member']['lastvisit'] > ($this->setting['accountguard']['loginoutofdatenum'] >= 1 ? (int)$this->setting['accountguard']['loginoutofdatenum'] : 90) * 86400 && $_G['member']['freeze'] != -1) {
 						C::t('common_member')->update($_G['uid'], array('freeze' => 2));
 						showmessage('location_login_outofdate', 'home.php?mod=spacecp&ac=profile&op=password&resend=1', array('type' => 1), array('showdialog' => true, 'striptags' => false, 'locationtime' => true));
 					}
@@ -183,7 +183,7 @@ class logging_ctl {
 					if(!$seccodecheck && $seccheckrule['outofday'] && $_G['member']['lastvisit'] && TIMESTAMP - $_G['member']['lastvisit'] > $seccheckrule['outofday'] * 86400) {
 						$seccodecheck = true;
 					}
-					if(!$seccodecheck && $_G['member_loginperm'] < 4) {
+					if(!$seccodecheck && $_G['member_loginperm'] != -1 && $_G['member_loginperm'] < 4) {
 						$seccodecheck = true;
 					}
 					if(!$seccodecheck && $seccheckrule['numiptry']) {

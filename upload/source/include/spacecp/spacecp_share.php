@@ -448,7 +448,7 @@ if($_GET['op'] == 'delete') {
 		}
 
 		$arr['body_general'] = getstr($_POST['general'], 150, 0, 0, 1);
-		$arr['body_general'] = censor($arr['body_general']);
+		$arr['body_general'] = censor($arr['body_general'], NULL, FALSE, FALSE);
 		if(censormod($arr['body_general']) || $_G['group']['allowsharemod']) {
 			$arr['status'] = 1;
 		} else {

@@ -297,6 +297,10 @@ function attachinpost($attach, $post) {
 				{lang clicktodownload}
 				<!--{if $attach['description']}--><br />$attach[description]<!--{/if}-->
 				<!--{if $attach['readperm']}--><br />{lang readperm}: $attach[readperm]<!--{/if}-->
+		<!--{if IS_ROBOT}-->
+			</div>
+		</div>
+		<!--{/if}-->
 	<!--{/if}-->
 	<!--{if !IS_ROBOT}-->
 		<!--{if !$guestviewthumb}-->

@@ -178,21 +178,24 @@ if($_GET['op'] == 'edit') {
 	}
 	if(submitcheck('editpicsubmit')) {
 		$return = true;
-		foreach ($_POST['title'] as $picid => $value) {
-			if($value == $_GET['oldtitle'][$picid]) {
-				continue;
+		if($_GET['subop'] == 'update') {
+			foreach ($_POST['title'] as $picid => $value) {
+				if($value == $_GET['oldtitle'][$picid]) {
+					continue;
+				}
+				$title = getstr($value, 150);
+				$title = censor($title, NULL, FALSE, FALSE);
+				if(censormod($title) || $_G['group']['allowuploadmod']) {
+					$pic_status = 1;
+					updatemoderate("picid", $picid);
+					manage_addnotify('verifypic');
+				} else {
+					$pic_status = 0;
+				}
+				$wherearr = array('picid'=>$picid);
+				if(!$managealbum) $wherearr['uid']  = $_G['uid'];
+				C::t('home_pic')->update($picid, array('title'=>$title, 'status' => $pic_status));
 			}
-			$title = getstr($value, 150);
-			$title = censor($title);
-			if(censormod($title) || $_G['group']['allowuploadmod']) {
-				$pic_status = 1;
-				manage_addnotify('verifypic');
-			} else {
-				$pic_status = 0;
-			}
-			$wherearr = array('picid'=>$picid);
-			if(!$managealbum) $wherearr['uid']  = $_G['uid'];
-			C::t('home_pic')->update($picid, array('title'=>$title, 'status' => $pic_status));
 		}
 		if($_GET['subop'] == 'delete') {
 			if($_POST['ids']) {
