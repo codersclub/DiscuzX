@@ -47,6 +47,18 @@ if(submitcheck('domainsubmit')) {
 	showmessage('domain_succeed', 'home.php?mod=spacecp&ac=domain');
 }
 
+loadcache('creditrule');
+getuserprofile('extcredits1');
+$rule = $_G['cache']['creditrule']['modifydomain'];
+
+$credits = $consume = $common = '';
+for($i = 1; $i <= 8; $i++) {
+	if($_G['setting']['extcredits'][$i] && $rule['extcredits'.$i]) {
+		$consume .= $common.$_G['setting']['extcredits'][$i]['title'].$rule['extcredits'.$i].$_G['setting']['extcredits'][$i]['unit'];
+		$credits .= $common.$_G['setting']['extcredits'][$i]['title'].$_G['member']['extcredits'.$i].$_G['setting']['extcredits'][$i]['unit'];
+		$common = ',';
+	}
+}
 $defaultop = '';
 $profilegroup = C::t('common_setting')->fetch('profilegroup', true);
 
