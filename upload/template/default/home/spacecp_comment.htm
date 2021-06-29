@@ -63,9 +63,9 @@
 	</h3>
 	<form id="replycommentform_{$comment[cid]}" name="replycommentform_{$comment[cid]}" method="post" autocomplete="off" action="home.php?mod=spacecp&ac=comment" {if $_G[inajax]} onsubmit="ajaxpost('replycommentform_{$comment[cid]}', 'return_$_GET[handlekey]');"{/if}>
 		<input type="hidden" name="referer" value="{echo dreferer()}" />
-		<input type="hidden" name="id" value="$comment[id]" />
-		<input type="hidden" name="idtype" value="$comment[idtype]" />
-		<input type="hidden" name="cid" value="$comment[cid]" />
+		<input type="hidden" name="id" value="$cmt[id]" />
+		<input type="hidden" name="idtype" value="$cmt[idtype]" />
+		<input type="hidden" name="cid" value="$cmt[cid]" />
 		<input type="hidden" name="commentsubmit" value="true" />
 		<!--{if $_G[inajax]}--><input type="hidden" name="handlekey" value="$_GET[handlekey]" /><!--{/if}-->
 		<input type="hidden" name="formhash" value="{FORMHASH}" />
