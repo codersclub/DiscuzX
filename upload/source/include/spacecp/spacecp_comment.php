@@ -77,6 +77,8 @@ if($_GET['op'] == 'edit') {
 			$comment_status = 0;
 		}
 		if($comment_status == 1) {
+			$idtype = $comment['idtype'];
+			updatemoderate($idtype.'_cid', $cid);            
 			manage_addnotify('verifycommontes');
 		}
 		C::t('home_comment')->update($comment['cid'], array('message'=>$message, 'status'=>$comment_status));
