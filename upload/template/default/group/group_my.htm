@@ -63,12 +63,13 @@
 							<td class="icn">
 								<a href="forum.php?mod=viewthread&tid=$tid" title="{lang open_new_window}" target="_blank">
 								<!--{if $thread[folder] == 'lock'}-->
-									<img src="{IMGDIR}/folder_lock.gif" /></a>
+									<img src="{IMGDIR}/folder_lock.gif" />
 								<!--{elseif in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
-									<img src="{IMGDIR}/pin_$thread[displayorder].gif" alt="$_G[setting][threadsticky][3-$thread[displayorder]]" /></a>
+									<img src="{IMGDIR}/pin_$thread[displayorder].gif" alt="$_G[setting][threadsticky][3-$thread[displayorder]]" />
 								<!--{else}-->
-									<img src="{IMGDIR}/folder_$thread[folder].gif" /></a>
+									<img src="{IMGDIR}/folder_$thread[folder].gif" />
 								<!--{/if}-->
+								</a>
 							</td>
 							<td><a href="forum.php?mod=viewthread&tid=$tid" target="_blank">$thread[subject]</a></td>
 							<td class="num">
@@ -109,12 +110,13 @@
 							<td class="icn">
 								<a href="forum.php?mod=viewthread&tid=$tid" title="{lang open_new_window}" target="_blank">
 								<!--{if $thread[folder] == 'lock'}-->
-									<img src="{IMGDIR}/folder_lock.gif" /></a>
+									<img src="{IMGDIR}/folder_lock.gif" />
 								<!--{elseif in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
-									<img src="{IMGDIR}/pin_$thread[displayorder].gif" alt="$_G[setting][threadsticky][3-$thread[displayorder]]" /></a>
+									<img src="{IMGDIR}/pin_$thread[displayorder].gif" alt="$_G[setting][threadsticky][3-$thread[displayorder]]" />
 								<!--{else}-->
-									<img src="{IMGDIR}/folder_$thread[folder].gif" /></a>
+									<img src="{IMGDIR}/folder_$thread[folder].gif" />
 								<!--{/if}-->
+								</a>
 							</td>
 							<td><a href="forum.php?mod=viewthread&tid=$tid" target="_blank">$thread[subject]</a></td>
 							<td class="by"><a href="forum.php?mod=group&fid=$thread[fid]" target="_blank" class="xg1">$thread[groupname]</a></td>
