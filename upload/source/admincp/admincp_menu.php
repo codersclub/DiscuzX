@@ -74,6 +74,7 @@ $menu['style'] = array(
 
 $menu['topic'] = array(
 	array('menu_moderate_posts', 'moderate'),
+	array('menu_remoderate', 'remoderate'),
 	array('menu_posting_censors', 'misc_censor'),
 	array('menu_maint_report', 'report'),
 	array('menu_setting_tag', 'tag'),

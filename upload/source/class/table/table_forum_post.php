@@ -419,6 +419,10 @@ class table_forum_post extends discuz_table
 				array(self::get_tablename($tableid), $tid));
 	}
 
+	public function fetch_all_visiblepost_by_tid($tableid, $tid) {
+		return DB::fetch_all('SELECT * FROM %t WHERE tid=%d AND invisible=0', array(self::get_tablename($tableid), $tid));
+	}
+
 	public function fetch_all_pid_by_invisible_dateline($tableid, $invisible, $dateline, $start, $limit) {
 		return DB::fetch_all('SELECT pid FROM %t WHERE invisible=%d AND dateline<%d %i', array(self::get_tablename($tableid), $invisible, $dateline, DB::limit($start, $limit)));
 	}

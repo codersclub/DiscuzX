@@ -454,6 +454,7 @@ $lang = array
 	'nav_misc_links' => '友情链接',
 	'nav_misc_relatedlink' => '关联链接',
 	'nav_posting_censor' => '词语过滤',
+	'nav_remoderate' => '内容重新审核',
 	'nav_posting_bbcode' => '编辑 Discuz! 代码',
 	'nav_thread_icon' => '主题图标',
 	'nav_thread_stamp' => '主题鉴定',
@@ -6033,6 +6034,22 @@ $lang = array
 	'counter_forumid' => '版块ID',
 	'counter_have_cover' => '包含已有封面主题',
 	'counter_tips' => '<li>当下列数据不正常时，可以使用此功能对数据进行更新校正。请尽量避开会员访问的高峰时间</li>
+				<li>每个循环更新数量：数值请在一个合理范围，不要过大，否则会给服务器带来负载压力</li>
+				',
+
+	'remoderate' => '内容重新审核',
+	'remoderate_thread' => '主题/帖子标题及内容重新审核',
+	'remoderate_blog' => '日志标题及内容重新审核',
+	'remoderate_pic' => '图片标题重新审核',
+	'remoderate_doing' => '记录内容重新审核',
+	'remoderate_share' => '分享内容重新审核',
+	'remoderate_comment' => '家园评论内容重新审核',
+	'remoderate_article' => '文章标题及内容重新审核',
+	'remoderate_articlecomment' => '文章评论内容重新审核',
+	'remoderate_topiccomment' => '专题评论内容重新审核',
+	'remoderate_amount' => '每个循环更新数量',
+	'remoderate_processing' => '正在处理 从 {current} 到 {next}',
+	'remoderate_tips' => '<li>当词语过滤参数有较大变动或邻近敏感时间点时，可以使用此功能对历史数据进行重新审核。请尽量避开会员访问的高峰时间</li>
 				<li>每个循环更新数量：数值请在一个合理范围，不要过大，否则会给服务器带来负载压力</li>
 				',
 

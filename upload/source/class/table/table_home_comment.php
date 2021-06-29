@@ -120,6 +120,10 @@ class table_home_comment extends discuz_table
 		return DB::fetch_first('SELECT * FROM '.DB::table($this->_table).' '.$wheresql);
 	}
 
+	public function fetch_all_by_status($status = 0, $start = 0, $limit = 1000) {
+		return DB::fetch_all('SELECT * FROM %t WHERE `status` = %d ORDER BY ' . $this->_pk . ' ' . DB::limit($start, $limit), array($this->_table, $status));
+	}
+
 	public function fetch_all_search($fetchtype, $ids, $authorid, $uids, $useip, $keywords, $idtype, $starttime, $endtime, $start = 0, $limit = 0, $basickeywords = 0) {
 		$parameter = array($this->_table);
 		$wherearr = array();

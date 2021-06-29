@@ -57,6 +57,9 @@ class table_home_doing extends discuz_table
 		return DB::fetch_all('SELECT '.($allfileds ? '*' : 'doid').' FROM %t '.$wheresql.' '.$orderby.DB::limit($startrow, $items), $parameter);
 	}
 
+	public function fetch_all_by_status($status = 0, $start = 0, $limit = 1000) {
+		return DB::fetch_all('SELECT * FROM %t WHERE `status` = %d ORDER BY ' . $this->_pk . ' ' . DB::limit($start, $limit), array($this->_table, $status));
+	}
 
 	public function fetch_all_search($start, $limit, $fetchtype, $uids, $useip, $keywords, $lengthlimit, $starttime, $endtime, $basickeywords = 0, $doid = '', $findex = '') {
 		$parameter = array($this->_table);

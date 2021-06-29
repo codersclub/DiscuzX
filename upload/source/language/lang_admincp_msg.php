@@ -209,6 +209,16 @@ $lang = array (
   'counter_thread_cover_fidnopicstyle' => '指定版块没有开启图片列表模式',
   'counter_thread_cover_succeed' => '主题封面重建完成',
 
+  'remoderate_thread_succeed' => '主题/帖子标题及内容重新审核完成',
+  'remoderate_blog_succeed' => '日志标题及内容重新审核完成',
+  'remoderate_pic_succeed' => '图片标题重新审核完成',
+  'remoderate_doing_succeed' => '记录内容重新审核完成',
+  'remoderate_share_succeed' => '分享内容重新审核完成',
+  'remoderate_comment_succeed' => '家园评论内容重新审核完成',
+  'remoderate_article_succeed' => '文章标题及内容重新审核完成',
+  'remoderate_articlecomment_succeed' => '文章评论内容重新审核完成',
+  'remoderate_topiccomment_succeed' => '专题评论内容重新审核完成',
+
   'database_export_filename_invalid' => '您没有输入备份文件名或文件名中使用了敏感的扩展名',
   'database_export_custom_invalid' => '您至少需要选择一个数据表进行备份',
   'database_export_file_invalid' => '数据文件无法保存到服务器，请检查目录属性',

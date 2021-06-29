@@ -109,6 +109,7 @@ $lang = array
 	'menu_setting_collection' => '淘帖管理',
 	'menu_posting_tags' => '标签管理',
 	'menu_posting_censors' => '词语过滤',
+	'menu_remoderate' => '内容重新审核',
 	'menu_maint_report' => '用户举报',
 	'menu_threads_forumstick' => '版块/群组置顶',
 	'menu_post_position_index' => '帖子优化',
