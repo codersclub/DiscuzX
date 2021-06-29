@@ -380,6 +380,7 @@ if($_GET['op'] == 'delete') {
 				);
 
 				$modpost->newreply($params);
+				$modnewreplies = $modpost->param('modnewreplies');                
 
 				if($_POST['portal_referer']) {
 					$redirecturl = $_POST['portal_referer'];
