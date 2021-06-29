@@ -125,7 +125,7 @@ function deletepost($ids, $idtype = 'pid', $credit = false, $posttableid = false
 	$idsstr = dimplode($ids);
 
 	if($credit) {
-		$tuidarray = $ruidarray = $_G['deleteauthorids'] = array();
+		$replycredit_list = $tuidarray = $ruidarray = $_G['deleteauthorids'] = array();
 		foreach($posttableids as $id) {
 			$postlist = array();
 			if($idtype == 'pid') {
