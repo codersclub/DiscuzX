@@ -715,6 +715,7 @@ $lang = array
 	'home_sys_info' => '系统信息',
 	'home_discuz_version' => 'Discuz! 程序版本',
 	'home_ucclient_version' => 'UCenter 客户端版本',
+	'home_git_version' => '（非正式版）',
 	'home_check_newversion' => '查看最新版本',
 	'home_environment' => '服务器系统及 PHP',
 	'home_serversoftware' => '服务器软件',
