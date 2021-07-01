@@ -940,6 +940,13 @@ EOF;
 			cpmsg('members_add_invalid', '', 'error');
 		}
 
+		$usernamelen = dstrlen($newusername);
+		if($usernamelen < 3) {
+			cpmsg('members_add_username_tooshort', '', 'error');
+		} elseif($usernamelen > 15) {
+			cpmsg('members_add_username_toolong', '', 'error');
+		}
+
 		if(C::t('common_member')->fetch_uid_by_username($newusername) || C::t('common_member_archive')->fetch_uid_by_username($newusername)) {
 			cpmsg('members_add_username_duplicate', '', 'error');
 		}
