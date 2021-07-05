@@ -2125,7 +2125,9 @@ EOF;
 		if(!empty($fieldarr)) {
 			C::t('common_member_profile'.$tableext)->update($uid, $fieldarr);
 		}
-
+		if($freeze == 0 && C::t('common_member_validate')->fetch($uid)) {
+			C::t('common_member_validate')->delete($uid);
+		}
 
 		manyoulog('user', $uid, 'update');
 		cpmsg('members_edit_succeed', 'action=members&operation=edit&uid='.$uid, 'succeed');
