@@ -344,7 +344,7 @@ if($op == 'add') {
 	if($page<1) $page = 1;
 	$start = ($page-1)*$perpage;
 
-	$list = array();
+	$list = $ols = array();
 
 	$count = C::t('home_friend_request')->count_by_uid($space['uid']);
 	if($count) {
@@ -353,9 +353,16 @@ if($op == 'add') {
 			$fuids[$value['fuid']] = $value['fuid'];
 			$list[$value['fuid']] = $value;
 		}
+		if (!empty($fuids)) {
+			foreach(C::app()->session->fetch_all_by_uid($fuids) as $value) {
+				if(!$value['invisible']) {
+					$ols[$value['uid']] = 1;
+				}
+			}
+		}		
 	} else {
 
-		dsetcookie('promptstate_'.$space['uid'], '', 31536000);
+		dsetcookie('promptstate_'.$space['uid'], $space['newprompt'], 31536000);
 
 	}
 

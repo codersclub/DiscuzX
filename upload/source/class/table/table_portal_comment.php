@@ -62,6 +62,11 @@ class table_portal_comment extends discuz_table
 		return $this->fetch_all_by_search($aid, $authorid, $starttime, $endtime, $idtype, $message, 0, 0, 2);
 	}
 
+	public function fetch_all_by_idtype_status($idtype = 'aid', $status = 0, $start = 0, $limit = 1000) {
+		$idtype = in_array($idtype, array('aid', 'topicid')) ? $idtype : 'aid';
+		return DB::fetch_all('SELECT * FROM %t WHERE `idtype` = %s AND `status` = %d ORDER BY ' . $this->_pk . ' ' . DB::limit($start, $limit), array($this->_table, $idtype, $status));
+	}
+
 	public function fetch_all_by_search($aid, $authorid, $starttime, $endtime, $idtype, $message, $start = 0, $limit = 0, $type = 1) {
 		$idtype = in_array($idtype, array('aid', 'topicid')) ? $idtype : 'aid';
 		$tablename = $idtype == 'aid' ? 'portal_article_title' : 'portal_topic';

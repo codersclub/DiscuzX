@@ -1069,6 +1069,13 @@ EOF;
 			cpmsg('members_add_invalid', '', 'error');
 		}
 
+		$usernamelen = dstrlen($newusername);
+		if($usernamelen < 3) {
+			cpmsg('members_add_username_tooshort', '', 'error');
+		} elseif($usernamelen > 15) {
+			cpmsg('members_add_username_toolong', '', 'error');
+		}
+
 		if(C::t('common_member')->fetch_uid_by_username($newusername) || C::t('common_member_archive')->fetch_uid_by_username($newusername)) {
 			cpmsg('members_add_username_duplicate', '', 'error');
 		}
@@ -2259,6 +2266,9 @@ EOF;
 		if(!empty($fieldarr)) {
 			C::t('common_member_profile'.$tableext)->update($uid, $fieldarr);
 		}
+		if($freeze == 0 && C::t('common_member_validate')->fetch($uid)) {
+			C::t('common_member_validate')->delete($uid);
+		}
 
 		cpmsg('members_edit_succeed', 'action=members&operation=edit&uid='.$uid, 'succeed');
 
@@ -2392,45 +2402,45 @@ EOF;
 					continue;
 				}
 				if(strpos($banipaddr, '/') !== false) {
-					// å¯¹äº CIDR éœ€è¦æ ¡éªŒå…¶åˆæ³•æ€§, å¹¶åˆ¤æ–­æ˜¯å¦æœ‰è®¾ç½® CIDR çš„æƒé™
+					// ¶ÔÓÚ CIDR ĞèÒªĞ£ÑéÆäºÏ·¨ĞÔ, ²¢ÅĞ¶ÏÊÇ·ñÓĞÉèÖÃ CIDR µÄÈ¨ÏŞ
 					if($_G['adminid'] != 1 || !ip::validate_cidr($banipaddr, $banipaddr)) {
 						continue;
 					}
 				} else if(strpos($banipaddr, '*') !== false) {
-					// å¯¹äºå¸¦ * çš„æ—§ç‰ˆè§„åˆ™çš„å¤„ç†, åªæ”¯æŒè½¬æ¢ä¸ºæ ‡å‡†çš„ CIDR ç½‘æ®µ, ä¸æ”¯æŒå‡‘æ®µ
-					// * ä¸ CIDR ä¸€æ ·, éœ€è¦åˆ¤æ–­æƒé™
+					// ¶ÔÓÚ´ø * µÄ¾É°æ¹æÔòµÄ´¦Àí, Ö»Ö§³Ö×ª»»Îª±ê×¼µÄ CIDR Íø¶Î, ²»Ö§³Ö´Õ¶Î
+					// * Óë CIDR Ò»Ñù, ĞèÒªÅĞ¶ÏÈ¨ÏŞ
 					if($_G['adminid'] != 1) {
 						continue;
 					}
-					// è®¾ç½®æ©ç å¹¶åˆ†è§£ IP åœ°å€ä¸ºå››æ®µ, å¦‚æœåˆ†è§£å¤±è´¥æˆ–ä¸æ˜¯å››æ®µåˆ™å¿½ç•¥
+					// ÉèÖÃÑÚÂë²¢·Ö½â IP µØÖ·ÎªËÄ¶Î, Èç¹û·Ö½âÊ§°Ü»ò²»ÊÇËÄ¶ÎÔòºöÂÔ
 					$mask = 0;
 					$ipnew = explode('.', $banipaddr);
 					if(!is_array($ipnew) || count($ipnew) != 4) {
 						continue;
 					}
-					// åªæ”¯æŒèƒ½å¤Ÿè½¬åŒ–ä¸ºæ ‡å‡† ABC ç±»çš„åœ°å€, å¦åˆ™å¿½ç•¥
+					// Ö»Ö§³ÖÄÜ¹»×ª»¯Îª±ê×¼ ABC ÀàµÄµØÖ·, ·ñÔòºöÂÔ
 					for($i = 0; $i < 4; $i++) {
 						if(strcmp($ipnew[$i], '*') === 0) {
 							if($i == 0) {
-								// * å¼€å¤´ä¸æ˜¯åˆæ³• IP , å¿½ç•¥
+								// * ¿ªÍ·²»ÊÇºÏ·¨ IP , ºöÂÔ
 								break;
 							} else if($mask) {
-								// å¦‚æœå­ç½‘æ©ç å­˜åœ¨, åˆ™æ›´æ–°æœ¬æ®µä¸º 0
+								// Èç¹û×ÓÍøÑÚÂë´æÔÚ, Ôò¸üĞÂ±¾¶ÎÎª 0
 								$ipnew[$i] = 0;
 							} else {
-								// å¦‚æœå­ç½‘æ©ç ä¸å­˜åœ¨, åˆ™æ›´æ–°æœ¬æ®µä¸º 0 , å¹¶ç”Ÿæˆå­ç½‘æ©ç 
+								// Èç¹û×ÓÍøÑÚÂë²»´æÔÚ, Ôò¸üĞÂ±¾¶ÎÎª 0 , ²¢Éú³É×ÓÍøÑÚÂë
 								$ipnew[$i] = 0;
 								$mask = $i * 8;
 							}
 						} else {
-							// å¦‚æœ * åé¢è·Ÿæ•°å­—, æˆ–è€…ä¸æ˜¯åˆæ³•çš„ IP, åˆ™æ­¤æ¡ä¸åšè½¬æ¢
+							// Èç¹û * ºóÃæ¸úÊı×Ö, »òÕß²»ÊÇºÏ·¨µÄ IP, Ôò´ËÌõ²»×ö×ª»»
 							if($mask || !is_numeric($ipnew[$i]) || $ipnew[$i] < 0 || $ipnew[$i] > 255) {
 								$mask = 0;
 								break;
 							}
 						}
 					}
-					// å¦‚æœç”Ÿæˆäº†å­ç½‘æ©ç , åˆ™å°è¯•æ‹¼æ¥ CIDR å¹¶é€æ ¡éªŒ, å¿½ç•¥æ— æ³•é€šè¿‡æ ¡éªŒçš„è§„åˆ™
+					// Èç¹ûÉú³ÉÁË×ÓÍøÑÚÂë, Ôò³¢ÊÔÆ´½Ó CIDR ²¢ËÍĞ£Ñé, ºöÂÔÎŞ·¨Í¨¹ıĞ£ÑéµÄ¹æÔò
 					if($mask) {
 						$banipaddr = implode('.', $ipnew);
 						$banipaddr = $banipaddr . '/' . $mask;
@@ -2441,7 +2451,7 @@ EOF;
 						continue;
 					}
 				} else if(!ip::validate_ip($banipaddr)) {
-					// å¿½ç•¥ä¸åˆæ³•çš„ IP åœ°å€
+					// ºöÂÔ²»ºÏ·¨µÄ IP µØÖ·
 					continue;
 				}
 

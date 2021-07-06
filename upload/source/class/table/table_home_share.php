@@ -77,6 +77,10 @@ class table_home_share extends discuz_table
 		return array();
 	}
 
+	public function fetch_all_by_status($status = 0, $start = 0, $limit = 1000) {
+		return DB::fetch_all('SELECT * FROM %t WHERE `status` = %d ORDER BY ' . $this->_pk . ' ' . DB::limit($start, $limit), array($this->_table, $status));
+	}
+
 	public function fetch_all_search($sid = 0, $uids = 0, $type = '', $starttime = 0, $endtime = 0, $starthot = 0, $endhot = 0, $start = 0, $limit = 0) {
 		$parameter = array($this->_table);
 		$wherearr = array();

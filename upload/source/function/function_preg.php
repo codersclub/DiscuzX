@@ -4,15 +4,12 @@ if(!defined('IN_DISCUZ') || (PHP_VERSION < '7.0.0')) {
 	exit('Access Denied');
 }
 
-
-eval('
-
 function dpreg_replace_impl($pattern, $replacement, $subject, $limit, &$count) {
 	$eval = false;
 	$delimiter = $pattern[0];
 
 	if(($position_of_modifier = (int) strrpos($pattern, $delimiter)) > 0) {
-		if(($position_of_eval = strpos($pattern, \'e\', $position_of_modifier)) !== false) {
+		if(($position_of_eval = strpos($pattern, 'e', $position_of_modifier)) !== false) {
 			$eval = true;
 			$pattern = substr($pattern, 0, $position_of_eval).substr($pattern, $position_of_eval + 1);
 		}
@@ -20,18 +17,18 @@ function dpreg_replace_impl($pattern, $replacement, $subject, $limit, &$count) {
 
 	if($eval) {
 		return preg_replace_callback($pattern, function($matches) use ($replacement) {
-			$result = \'\';
+			$result = '';
 			$instance = false;
 
 			for($i = 0, $j = strlen($replacement); $i < $j; $i ++) {
-				if(($replacement[$i] == \'$\') || ($replacement[$i] == \'\\\\\')) {
-					if((($i == 0) || ($replacement[$i - 1] != \'\\\\\')) && isset($replacement[$i + 1])) {
+				if(($replacement[$i] == '$') || ($replacement[$i] == '\\')) {
+					if((($i == 0) || ($replacement[$i - 1] != '\\')) && isset($replacement[$i + 1])) {
 						$get_backref_string = substr($replacement, $i + 1);
 
-						if($get_backref_string[0] == \'{\') {
-							$get_backref_result = preg_match(\'/^\\{([0-9]{1,2})\}/\', $get_backref_string, $get_backref_match);
+						if($get_backref_string[0] == '{') {
+							$get_backref_result = preg_match('/^\{([0-9]{1,2})}/', $get_backref_string, $get_backref_match);
 						} else {
-							$get_backref_result = preg_match(\'/^([0-9]{1,2})/\', $get_backref_string, $get_backref_match);
+							$get_backref_result = preg_match('/^([0-9]{1,2})/', $get_backref_string, $get_backref_match);
 						}
 
 						if($get_backref_result) {
@@ -45,8 +42,8 @@ function dpreg_replace_impl($pattern, $replacement, $subject, $limit, &$count) {
 
 							continue;
 						} else {
-							if(preg_match(\'/^this([^a-z0-9_]+)/i\', $get_backref_string)) {
-								$result .= \'$_\';
+							if(preg_match('/^this([^a-z0-9_]+)/i', $get_backref_string)) {
+								$result .= '$_';
 								$instance = true;
 
 								continue;
@@ -62,9 +59,9 @@ function dpreg_replace_impl($pattern, $replacement, $subject, $limit, &$count) {
 				$_this = null;
 				@$stack = (array) debug_backtrace();
 
-				if(isset($stack[6]) && isset($stack[6][\'object\'])) {
-					if(is_object($stack[6][\'object\'])) {
-						$_this = $stack[6][\'object\'];
+				if(isset($stack[6]) && isset($stack[6]['object'])) {
+					if(is_object($stack[6]['object'])) {
+						$_this = $stack[6]['object'];
 					}
 				}
 			}
@@ -87,7 +84,7 @@ function dpreg_replace_in_subject($pattern, $replacement, $subject, $limit, &$co
 		foreach($pattern as $pattern_value) {
 			if(is_array($replacement)) {
 				if(key($replacement) === null) {
-					$replacement_value = \'\';
+					$replacement_value = '';
 				} else {
 					$replacement_value = current($replacement);
 					next($replacement);
@@ -121,5 +118,3 @@ function _dpreg_replace($pattern, $replacement, $subject, $limit = -1, &$count =
 		return dpreg_replace_in_subject($pattern, $replacement, $subject, $limit, $count);
 	}
 }
-
-');

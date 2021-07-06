@@ -88,7 +88,7 @@ if(!empty($_GET['searchsubmit']) || !empty($_GET['searchmode'])) {
 		$wherearr['profile'] = "sf.uid=s.uid";
 	}
 
-	$list = array();
+	$list = $ols = array();
 	if($wherearr) {
 
 		$space['friends'] = array();
@@ -105,6 +105,13 @@ if(!empty($_GET['searchsubmit']) || !empty($_GET['searchmode'])) {
 		foreach($list as $uid => $value) {
 			$list[$uid]['follow'] = isset($follows[$uid]) ? 1 : 0;
 		}
+		if (!empty($list)) {
+			foreach(C::app()->session->fetch_all_by_uid(array_keys($list)) as $value) {
+				if(!$value['invisible']) {
+					$ols[$value['uid']] = 1;
+				}
+			}
+		}		
 	}
 
 

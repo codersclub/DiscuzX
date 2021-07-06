@@ -4,7 +4,7 @@
 		<!--{subtemplate home/spacecp_profile_nav}-->
 			<form method="post" autocomplete="off" action="home.php?mod=spacecp&ac=domain&op=">
 				<input type="hidden" name="formhash" value="{FORMHASH}" />
-				<!--{if !$space[domain] && $dcredit}--><p>{lang edit_domain_message}</p><!--{/if}-->
+				<!--{if !$space[domain] && $consume}--><p>{lang edit_domain_message}</p><!--{/if}-->
 				<div class="mtw bm bmn hm">
 					<p class="mtw mbn">
 						{$_G['scheme']}://<input type="text" name="domain" value="$space[domain]" size="20" class="px vm" />.{$_G[setting][domain][root][home]}
