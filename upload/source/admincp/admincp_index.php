@@ -302,7 +302,7 @@ if(empty($newversion['newversion']['qqqun'])){
 showtableheader('home_sys_info', 'fixpadding left" style="width : 48%;');
 showtablerow('', array('class="vtop td24 lineheight"', 'class="lineheight smallfont"'), array(
 	cplang('home_discuz_version'),
-	'Discuz! '.DISCUZ_VERSION.' '.$reldisp.' '.strtoupper(CHARSET).''
+	'Discuz! '.DISCUZ_VERSION.' '.$reldisp.' '.strtoupper(CHARSET).((strlen(DISCUZ_RELEASE) == 8 && DISCUZ_RELEASE != '20180101') ? '' : cplang('home_git_version'))
 ));
 
 $newversion['newversion'] = !empty($newversion['newversion']) ? $newversion['newversion'] : array();
