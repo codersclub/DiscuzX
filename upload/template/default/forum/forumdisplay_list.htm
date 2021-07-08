@@ -144,7 +144,7 @@
 									<th class="$thread[folder]">
 										<a href="javascript:;" id="content_$thread[tid]" class="showcontent y" title="{lang content_actions}" onclick="CONTENT_TID='$thread[tid]';CONTENT_ID='$thread[id]';showMenu({'ctrlid':this.id,'menuid':'content_menu'})"></a>
 										<!--{if in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
-											<a href="javascript:void(0);" onclick="hideStickThread('$thread[tid]')" class="closeprev y" title="{lang hidedisplayorder}">{lang hidedisplayorder}</a></em>
+											<a href="javascript:void(0);" onclick="hideStickThread('$thread[tid]')" class="closeprev y" title="{lang hidedisplayorder}">{lang hidedisplayorder}</a>
 										<!--{/if}-->
 										<!--{if !$thread['forumstick'] && $thread['closed'] > 1 && ($thread['isgroup'] == 1 || $thread['fid'] != $_G['fid'])}-->
 												<!--{eval $thread[tid]=$thread[closed];}-->
