@@ -351,7 +351,7 @@ class template {
 	function loadsubtemplate($file) {
 		$tplfile = template($file, 0, '', 1);
 		$filename = DISCUZ_ROOT.$tplfile;
-		if(($content = @implode('', file($filename))) || ($content = $this->getphptemplate(@implode('', file(substr($filename, 0, -4).'.php'))))) {
+		if((file_exists($filename) && is_readable($filename) && ($content = implode('', file($filename)))) || (file_exists(substr($filename, 0, -4).'.php') && is_readable(substr($filename, 0, -4).'.php') && ($content = $this->getphptemplate(implode('', file(substr($filename, 0, -4).'.php')))))) {
 			$this->subtemplates[] = $tplfile;
 			return $this->debug ? $this->insertdebugmsg($content, $tplfile) : $content;
 		} else {

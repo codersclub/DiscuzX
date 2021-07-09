@@ -828,7 +828,7 @@ function dmktime($date) {
 }
 
 function dnumber($number) {
-	return abs($number) > 10000 ? '<span title="'.$number.'">'.intval($number / 10000).lang('core', '10k').'</span>' : $number;
+	return abs((int)$number) > 10000 ? '<span title="'.$number.'">'.intval($number / 10000).lang('core', '10k').'</span>' : $number;
 }
 
 function savecache($cachename, $data) {
