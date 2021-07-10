@@ -301,6 +301,7 @@ class template {
 
 	function adtags($parameter, $varname = '') {
 		$parameter = stripslashes($parameter);
+		$parameter = preg_replace("/(\\\$[a-zA-Z0-9_\-\>\[\]\'\"\$\.\x7f-\xff]+)/s", "{\\1}", $this->addquote($parameter));
 		$i = count($this->replacecode['search']);
 		$this->replacecode['search'][$i] = $search = "<!--AD_TAG_$i-->";
 		$this->replacecode['replace'][$i] = "<?php ".(!$varname ? 'echo ' : '$'.$varname.'=')."adshow(\"$parameter\");?>";
@@ -464,6 +465,7 @@ class template {
 	}
 
 	function stripblock($var, $s) {
+		$var = $this->addquote($var);
 		$s = preg_replace("/<\?=\\\$(.+?)\?>/", "{\$\\1}", $s);
 		preg_match_all("/<\?=(.+?)\?>/", $s, $constary);
 		$constadd = '';
