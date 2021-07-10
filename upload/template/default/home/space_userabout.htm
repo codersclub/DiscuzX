@@ -17,7 +17,7 @@
 				<li class="ul_profile"><a href="home.php?mod=spacecp&ac=profile">{lang update_profile}</a></li>
 			<!--{else}-->
 				<!--{if helper_access::check_module('follow')}-->
-				<li class="ul_broadcast"><a href="home.php?mod=space&uid=$space[uid]">{lang follow_view_feed}</a></li>
+				<li class="ul_broadcast"><a href="home.php?mod=follow&uid=$space[uid]&do=view">{lang follow_view_feed}</a></li>
 				<!--{/if}-->
 				<!--{if helper_access::check_module('follow') && $space[uid] != $_G[uid]}-->
 					<li class="ul_flw">
