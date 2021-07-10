@@ -1692,6 +1692,7 @@ $lang = array
 	'setting_functions_mod_warningexpiration_comment' => '默认为 30 天',
 	'setting_functions_mod_reasons' => '管理操作理由选项',
 	'setting_functions_user_reasons' => '用户评分理由选项',
+	'setting_functions_mod_user_public' => '是否公开管理操作人',
 	'setting_functions_mod_reasons_public' => '是否公开管理操作理由',
 	'setting_functions_mod_reasons_comment' => '本设定将在用户执行部分管理操作时显示，每个理由一行，如果空行则显示一行分隔符“--------”，用户可选择本设定中预置的理由选项或自行输入',
 	'setting_functions_mod_reasons_public_comment' => '开启后点击主题帖下方主题操作记录将同时显示管理操作理由',

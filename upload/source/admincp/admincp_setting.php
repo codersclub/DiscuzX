@@ -1201,6 +1201,7 @@ EOF;
 		showsetting('setting_functions_mod_losslessdel', 'settingnew[losslessdel]', $setting['losslessdel'], 'text');
 		showsetting('setting_functions_mod_reasons', 'settingnew[modreasons]', $setting['modreasons'], 'textarea');
 		showsetting('setting_functions_mod_reasons_public', 'settingnew[modreasons_public]', $setting['modreasons_public'], 'radio');
+		showsetting('setting_functions_mod_user_public', 'settingnew[moduser_public]', $setting['moduser_public'], 'radio');
 		showsetting('setting_functions_user_reasons', 'settingnew[userreasons]', $setting['userreasons'], 'textarea');
 		showsetting('setting_functions_mod_bannedmessages', array('settingnew[bannedmessages]', array(
 			$lang['setting_functions_mod_bannedmessages_thread'],
