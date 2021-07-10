@@ -65,7 +65,7 @@ function blog_post($POST, $olds=array()) {
 	$POST['tag'] = censor($POST['tag']);
 
 	$POST['message'] = checkhtml($POST['message']);
-	if($_G['mobile']) {
+	if(!checkperm('allowhtml')) {
 		$POST['message'] = getstr($POST['message'], 0, 0, 0, 1);
 		$POST['message'] = censor($POST['message'], NULL, FALSE, FALSE);
 	} else {
