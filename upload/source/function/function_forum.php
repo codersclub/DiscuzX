@@ -434,9 +434,9 @@ function loadforum($fid = null, $tid = null) {
 	if($_G['setting']['forumpicstyle']) {
 		$_G['setting']['forumpicstyle'] = dunserialize($_G['setting']['forumpicstyle']);
 		empty($_G['setting']['forumpicstyle']['thumbwidth']) && $_G['setting']['forumpicstyle']['thumbwidth'] = 203;
-		empty($_G['setting']['forumpicstyle']['thumbheight']) && $_G['setting']['forumpicstyle']['thumbheight'] = 999;
+		empty($_G['setting']['forumpicstyle']['thumbheight']) && $_G['setting']['forumpicstyle']['thumbheight'] = 0;
 	} else {
-		$_G['setting']['forumpicstyle'] = array('thumbwidth' => 203, 'thumbheight' => 999);
+		$_G['setting']['forumpicstyle'] = array('thumbwidth' => 203, 'thumbheight' => 0);
 	}
 	if($fid) {
 		$fid = is_numeric($fid) ? intval($fid) : (!empty($_G['setting']['forumfids'][$fid]) ? $_G['setting']['forumfids'][$fid] : 0);

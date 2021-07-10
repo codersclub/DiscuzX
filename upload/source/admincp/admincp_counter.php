@@ -437,10 +437,10 @@ if(submitcheck('forumsubmit', 1)) {
 	}
 	if($_G['setting']['forumpicstyle']) {
 		$_G['setting']['forumpicstyle'] = dunserialize($_G['setting']['forumpicstyle']);
-		empty($_G['setting']['forumpicstyle']['thumbwidth']) && $_G['setting']['forumpicstyle']['thumbwidth'] = 214;
-		empty($_G['setting']['forumpicstyle']['thumbheight']) && $_G['setting']['forumpicstyle']['thumbheight'] = 160;
+		empty($_G['setting']['forumpicstyle']['thumbwidth']) && $_G['setting']['forumpicstyle']['thumbwidth'] = 203;
+		empty($_G['setting']['forumpicstyle']['thumbheight']) && $_G['setting']['forumpicstyle']['thumbheight'] = 0;
 	} else {
-		$_G['setting']['forumpicstyle'] = array('thumbwidth' => 214, 'thumbheight' => 160);
+		$_G['setting']['forumpicstyle'] = array('thumbwidth' => 203, 'thumbheight' => 0);
 	}
 	require_once libfile('function/post');
 	$coversql = empty($allthread) ? 'AND cover=\'0\'' : '';

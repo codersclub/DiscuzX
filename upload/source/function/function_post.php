@@ -619,7 +619,7 @@ function messagecutstr($str, $length = 0, $dot = ' ...') {
 function setthreadcover($pid, $tid = 0, $aid = 0, $countimg = 0, $imgurl = '') {
 	global $_G;
 	$cover = 0;
-	if(empty($_G['uid']) || !intval($_G['setting']['forumpicstyle']['thumbheight']) || !intval($_G['setting']['forumpicstyle']['thumbwidth'])) {
+	if(empty($_G['uid']) || !intval($_G['setting']['forumpicstyle']['thumbwidth'])) {
 		return false;
 	}
 
