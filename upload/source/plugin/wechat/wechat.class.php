@@ -461,7 +461,7 @@ class WeChat {
 		$result = uploadUcAvatar::upload($uid, $tmpFile);
 		unlink($tmpFile);
 
-		C::t('common_member')->update($uid, array('avatarstatus'=>'1'));
+		if($result) C::t('common_member')->update($uid, array('avatarstatus'=>'1'));
 
 		return $result;
 	}
