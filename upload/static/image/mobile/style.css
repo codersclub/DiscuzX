@@ -293,6 +293,39 @@ select {-moz-appearance:none;}
 .imglist li .mbody a {display:inline;color:var(--dz-FC-color)}
 .imglist li .mbody a.lit {color:var(--dz-BG-2)}
 
+/*----- 任务、道具、勋章类列表 -----*/
+.medallist li { overflow: hidden; position: relative; }
+.medallist .medal_top { height: 38px;padding: 12px 0 5px;}
+.medallist .medal_top .mg_img {float: left;margin-right: 10px;}
+.medallist .medal_top .mg_img img {float: left;height: 38px;line-height: 38px;border-radius: 50%;}
+.medallist .tbmu {width: 100%;padding: 10px;margin-top: 15px;font-size: 14px;line-height: 24px;background: #FDFBEC;border: 1px dashed #ECE7D5;color: #F26C4F;}
+.medallist .mg_tit h3 { height: 20px; line-height: 20px; font-size: 15px; overflow: hidden;}
+.medallist .mg_tit span { display: block;height: 18px;line-height: 18px;font-size: 12px;color: var(--dz-FC-999); }
+.medallist .mg_tit span .xi1 { font-size: 14px; color: #F26C4F; }
+.medallist .medal_msg {margin-bottom: 5px;margin-left: 32px;line-height: 22px;font-size: 14px;color: var(--dz-FC-999);}
+.medallist .medal_btn span {position: absolute;top: 20px;right: 13px;padding: 0 12px;height: 30px;line-height: 30px;background-color: var(--dz-BG-color);font-size: 12px;border-radius: 3px;color: #FFF;text-align: center;}
+.medallist .medal_btn span.hui {background: #F3F3F3; color: var(--dz-FC-999);}
+.medallist .medal_btn a {color: #FFF;}
+.last_medal {background: #FFF;}
+.last_medal li { padding: 10px 12px; border-bottom: 1px solid var(--dz-BOR-ed); overflow: hidden; }
+.last_medal li a { display: block; overflow: hidden; position: relative; }
+.last_medal li img { float: left; margin-right: 10px; width: 30px; height: 30px; border-radius: 50%; }
+.last_medal li .name { color: #333; line-height: 30px; font-size: 15px; }
+.last_medal .last_medal_msg { margin-top: 5px; color: var(--dz-FC-999); font-size: 13px; line-height: 20px; width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.last_medal .last_medal_msg strong { color: var(--dz-FC-333); }
+.mgcl {padding: 5px;position: relative;}
+.mgcl li {float: left;width: 25%;}
+.mgcl .mgcl_box {margin:5px; padding: 10px 8px;background: #FFF;border-radius: 3px;text-align: center;}
+.mgcl .mg_img {height: 34px;}
+.mgcl .mg_img img {height: 34px;}
+.mgcl .mgcl_box p { margin-top: 10px; height: 20px;line-height: 20px;font-size: 14px;color: #333;overflow: hidden;}
+.tip_btn { padding: 0 15px 15px;overflow: hidden; }
+.medal_tip_top {padding-top: 15px;}
+.medal_tip_top p {line-height: 22px;font-size: 12px;color: #999;}
+.medal_tip_top .author p {margin-top: 6px;line-height: 24px;font-size: 15px;color: #333;overflow: hidden;}
+.medal_tip_box .ts {margin: 10px 0;height: 22px;line-height: 22px;font-size: 15px;color: #F26C4F;overflow: hidden;}
+
+
 /*----- 通用资讯类列表 -----*/
 .wzlist {background-color:var(--dz-BG-0);border-top:1px solid var(--dz-BOR-ed)}
 .wzlist li {overflow:hidden;border-bottom:1px solid var(--dz-BOR-ed)}
