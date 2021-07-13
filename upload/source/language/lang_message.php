@@ -699,6 +699,7 @@ $lang = array (
   'search_threadtype_invalid' => '抱歉，您尚未输入要搜索的分类信息项目',
 
   'home_no_privilege' => '抱歉，您需要登录后才能查看',
+  'no_privilege_profile' => '抱歉，您没有权限查看个人资料',
 
   'member_nonexistence' => '抱歉，指定的用户不存在或被冻结',
 

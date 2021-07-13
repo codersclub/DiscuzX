@@ -24,6 +24,14 @@ $minhot = $_G['setting']['feedhotmin']<1?3:$_G['setting']['feedhotmin'];
 
 space_merge($space, 'count');
 
+if($_G['uid'] != $space['uid'] && !$_G['group']['allowviewprofile']) {
+	if(!$_G['uid']) {
+		showmessage('home_no_privilege', '', array(), array('login' => true));
+	} else {
+		showmessage('no_privilege_profile');
+	}
+}
+
 if(empty($_GET['view'])) {
 	if($space['self']) {
 		if($_G['setting']['showallfriendnum'] && $space['friends'] < $_G['setting']['showallfriendnum']) {

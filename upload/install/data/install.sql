@@ -1572,6 +1572,7 @@ CREATE TABLE pre_common_usergroup_field (
   buildgroupcredits smallint(6) unsigned NOT NULL DEFAULT '0',
   allowimgcontent tinyint(1) unsigned NOT NULL DEFAULT '0',
   allowavatarupload tinyint(1) unsigned NOT NULL DEFAULT '0',
+  allowviewprofile tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (groupid)
 ) ENGINE=InnoDB;
 
