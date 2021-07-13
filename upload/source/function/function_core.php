@@ -1060,7 +1060,7 @@ function output() {
 	}
 	$_G['setting']['ftp'] = array();
 
-	if(defined('CACHE_FILE') && CACHE_FILE && !defined('CACHE_FORBIDDEN') && !defined('IN_MOBILE') && !defined('IS_ROBOT') && !checkmobile()) {
+	if(defined('CACHE_FILE') && CACHE_FILE && !defined('CACHE_FORBIDDEN') && !defined('IN_MOBILE') && !IS_ROBOT && !checkmobile()) {
 		if(diskfreespace(DISCUZ_ROOT.'./'.$_G['setting']['cachethreaddir']) > 1000000) {
 			if($fp = @fopen(CACHE_FILE, 'w')) {
 				flock($fp, LOCK_EX);
