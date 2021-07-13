@@ -61,7 +61,7 @@ if($operation == 'export' && $id) {
 
 cpheader();
 
-$predefinedvars = array('available' => array(), 'boardimg' => array(), 'imgdir' => array(), 'styleimgdir' => array(), 'stypeid' => array(),
+$predefinedvars = array('available' => array(), 'boardimg' => array(), 'searchimg' => array(), 'imgdir' => array(), 'styleimgdir' => array(), 'stypeid' => array(),
 	'headerbgcolor' => array(0, $lang['styles_edit_type_bg']),
 	'bgcolor' => array(0),
 	'sidebgcolor' => array(0, '', '#FFF sidebg.gif repeat-y 100% 0'),
@@ -537,6 +537,7 @@ function imgpre_switch(id) {
 		showsetting('styles_edit_imgdir', '', '', '<input type="text" class="txt" name="stylevar['.$stylestuff['imgdir']['id'].']" id="imgdir" value="'.$stylestuff['imgdir']['subst'].'" />');
 		showsetting('styles_edit_styleimgdir', '', '', '<input type="text" class="txt" name="stylevar['.$stylestuff['styleimgdir']['id'].']" id="styleimgdir" value="'.$stylestuff['styleimgdir']['subst'].'" />');
 		showsetting('styles_edit_logo', "stylevar[{$stylestuff['boardimg']['id']}]", $stylestuff['boardimg']['subst'], 'text');
+		showsetting('styles_edit_searchlogo', "stylevar[{$stylestuff['searchimg']['id']}]", $stylestuff['searchimg']['subst'], 'text');
 
 		foreach($predefinedvars as $predefinedvar => $v) {
 			if($v !== array()) {
