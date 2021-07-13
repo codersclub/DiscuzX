@@ -1,5 +1,5 @@
 <!--{if $list['threadcount']}-->
-<!--{eval $threadlist_data = get_attach($list['threadlist']);}-->
+<!--{eval $threadlist_data = get_attach($list['threadlist'], true, true);}-->
 	<div class="threadlist cl">
 		<ul>
 			<!--{loop $list['threadlist'] $key $thread}-->
@@ -50,7 +50,9 @@
 						</ul>
 					</div>
 				</a>
-				<!--{/if}-->				
+				<!--{elseif $threadlist_data[$thread['tid']]['media']}-->
+					{$threadlist_data[$thread['tid']]['media']}
+				<!--{/if}-->
 				<a href="forum.php?mod=viewthread&tid=$thread['tid']&extra=$extra"><div class="threadlist_mes cl">{$threadlist_data[$thread['tid']]['message']}</div></a>
 				<div class="threadlist_foot cl">
 					<ul>
