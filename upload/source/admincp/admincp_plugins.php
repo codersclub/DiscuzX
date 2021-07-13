@@ -44,7 +44,7 @@ if(!$operation) {
 			}
 			$checkresult = dunserialize(cloudaddons_upgradecheck($addonids));
 			savecache('addoncheck_plugin', $checkresult);
-			dsetcookie('addoncheck_plugin', 1, 7200);
+			dsetcookie('addoncheck_plugin', 1, 43200);
 		} else {
 			loadcache('addoncheck_plugin');
 			$checkresult = $_G['cache']['addoncheck_plugin'];
@@ -176,7 +176,7 @@ if(!$operation) {
 						$file = $entrydir.'/'.$f;
 						$newlist .= showtablerow('class="hover"', array('style="width:45px"', 'valign="top"', 'align="right" valign="bottom" style="width:160px"'), array(
 							'<img src="'.cloudaddons_pluginlogo_url($entry).'" onerror="this.src=\'static/image/admincp/plugin_logo.png\';this.onerror=null" width="40" height="40" align="left" style="margin-right:5px" />',
-							'<span class="bold light">'.$entrytitle.' '.$entryversion.($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').'</span> <span class="sml light">(<a href="'.ADMINSCRIPT.'?action=cloudaddons&frame=no&id='.$entry.'.plugin" style="color: #555;" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$entry.'</a>)</span>'.
+							'<span class="bold light">'.$entrytitle.' '.$entryversion.($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').'</span> <span class="sml light">(<a href="'.ADMINSCRIPT.'?action=cloudaddons&frame=no&id='.$plugin['identifier'].'.plugin" style="color: #555;" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$entry.'</a>)</span>'.
 							'<p><span class="light">'.($entrycopyright ? cplang('author').': '.$entrycopyright.' | ' : '').
 							'<a href="'.ADMINSCRIPT.'?action=cloudaddons&frame=no&id='.$entry.'.plugin&from=comment" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$lang['plugins_visit'].'</a></p>',
 							'<a href="'.ADMINSCRIPT.'?action=plugins&operation=import&dir='.$entry.'" class="bold">'.$lang['plugins_config_install'].'</a>'
@@ -184,42 +184,6 @@ if(!$operation) {
 					}
 				}
 			}
-
-			$newaddon = (CHARSET == 'utf-8') ? dunserialize($_G['setting']['cloudaddons_newaddon']) : json_decode($_G['setting']['cloudaddons_newaddon'], true);
-			if(empty($newaddon['updatetime']) || abs($_G['timestamp'] - $newaddon['updatetime']) > 7200 || (isset($_GET['checknew']) && $_G['formhash'] == $_GET['formhash'])) {
-				$newaddon = json_decode(cloudaddons_newaddon($addonids), true);
-				if(empty($newaddon) || !is_array($newaddon)){
-					$newaddon = array();
-				}
-				$newaddon['updatetime'] = $_G['timestamp'];
-				C::t('common_setting')->update('cloudaddons_newaddon', ((CHARSET == 'utf-8') ? $newaddon : json_encode($newaddon)));
-				updatecache('setting');
-			}
-			if(!empty($newaddon['plugins']) && is_array($newaddon['plugins'])){
-				$count = 0;
-				foreach ($newaddon['plugins'] as $key => $value) {
-					if (!empty($value['identifier']) && !is_dir($dir.'/'.$value['identifier'])) {
-						$entry = $value['identifier'];
-						$entrytitle = diconv($value['name'], 'utf-8', CHARSET);
-						$entryversion = diconv($value['version'], 'utf-8', CHARSET);
-						$filemtime = $value['updatetime'];
-						$entrycopyright = diconv($value['copyright'], 'utf-8', CHARSET);
-
-						$newlist .= showtablerow('class="hover"', array('style="width:45px"', 'valign="top"', 'align="right" valign="bottom" style="width:160px"'), array(
-							'<img src="'.cloudaddons_pluginlogo_url($entry).'" onerror="this.src=\'static/image/admincp/plugin_logo.png\';this.onerror=null" width="40" height="40" align="left" style="margin-right:5px" />',
-							'<span class="bold light">'.$entrytitle.' '.$entryversion.($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').'</span> <span class="sml light">(<a href="'.ADMINSCRIPT.'?action=cloudaddons&frame=no&id='.$entry.'.plugin" style="color: #555;" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$entry.'</a>)</span>'.
-							'<p><span class="light">'.($entrycopyright ? cplang('author').': '.$entrycopyright.' | ' : '').
-							'<a href="'.ADMINSCRIPT.'?action=cloudaddons&frame=no&id='.$entry.'.plugin&from=comment" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$lang['plugins_visit'].'</a></p>',
-							'<a href="'.ADMINSCRIPT.'?action=plugins&operation=import&dir='.$entry.'" target="_blank" class="bold">'.$lang['plugins_config_install'].'</a>'
-						), true);
-						$count++;
-						if (!empty($newaddon['pluginshownum']) && $count >= $newaddon['pluginshownum']) {
-							break;
-						}
-					}
-				}
-			}
-
 			if($newlist) {
 				showtitle('plugins_list_new');
 				echo $newlist;
@@ -403,12 +367,8 @@ if(!$operation) {
 	exportdata('Discuz! Plugin', $plugin['identifier'], $pluginarray);
 
 } elseif($operation == 'import') {
-	$_GET['dir'] = isset($_GET['dir']) ? preg_replace('#([^\w]+)#is', '', $_GET['dir']) : '';
-	if(submitcheck('importsubmit') || !empty($_GET['dir'])) {
-		if (!is_dir(DISCUZ_ROOT.'./source/plugin/'.$_GET['dir'])) {
-			echo '<script type="text/javascript">top.location.href=\''.ADMINSCRIPT.'?action=cloudaddons&frame=no&id='.$_GET['dir'].'.plugin\';</script>';
-			exit;
-		}
+
+	if(submitcheck('importsubmit') || isset($_GET['dir'])) {
 		if(!isset($_GET['installtype'])) {
 			cloudaddons_validator($_GET['dir'].'.plugin');
 			$pdir = DISCUZ_ROOT.'./source/plugin/'.$_GET['dir'];
