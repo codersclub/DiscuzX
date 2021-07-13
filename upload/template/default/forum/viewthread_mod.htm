@@ -35,7 +35,7 @@
 			<!--{loop $loglist $log}-->
 				<tr>
 				<!--{if $reasons_public}-->
-					<td><!--{if $log['uid']}--><!--{if $_G['setting']['moduser_public']}--><a href="home.php?mod=space&uid={$log['uid']}" target="_blank">$log['username']</a><!--{else}-->{lang thread_moderations_threadoper}<!--{/if}--><!--{else}-->{lang thread_moderations_cron}<!--{/if}--></td>
+					<td><!--{if $log['uid']}--><!--{if $_G['setting']['moduser_public']}--><a href="home.php?mod=space&uid={$log['uid']}" target="_blank">$log['username']</a><!--{else}-->{lang thread_moderations_team}<!--{/if}--><!--{else}-->{lang thread_moderations_cron}<!--{/if}--></td>
 					<td>$log[dateline]<br /><span $log[status]><!--{if $log['expiration']}-->$log[expiration]<!--{elseif in_array($log['action'], array('STK', 'HLT', 'DIG', 'CLS', 'OPN'))}-->{lang expiration_unlimit}<!--{/if}--></span></td>
 					<td $log[status]>{$modactioncode[$log['action']]}<!--{if $log['magicid']}-->($log[magicname])<!--{/if}-->
 					</td>

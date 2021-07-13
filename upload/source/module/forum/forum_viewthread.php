@@ -1344,7 +1344,7 @@ function viewthread_lastmod(&$thread) {
 	if($lastmod) {
 		$modactioncode = lang('forum/modaction');
 		$lastmod['moduid'] = $_G['setting']['moduser_public'] ? $lastmod['moduid'] : 0;
-		$lastmod['modusername'] = $lastmod['modusername'] ? ($_G['setting']['moduser_public'] ? $lastmod['modusername'] : lang('template', 'thread_moderations_threadoper')) : 'System';
+		$lastmod['modusername'] = $lastmod['modusername'] ? ($_G['setting']['moduser_public'] ? $lastmod['modusername'] : lang('forum/template', 'thread_moderations_team')) : lang('forum/template', 'thread_moderations_cron');
 		$lastmod['moddateline'] = dgmdate($lastmod['moddateline'], 'u');
 		$lastmod['modactiontype'] = $lastmod['modaction'];
 		if($modactioncode[$lastmod['modaction']]) {

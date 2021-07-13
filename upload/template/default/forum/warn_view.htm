@@ -26,7 +26,7 @@
 			</thead>
 			<!--{loop $warnings $warning}-->
 				<tr>
-					<td><!--{if $_G['setting']['moduser_public']}--><a href="home.php?mod=space&uid={$warning['operatorid']}" target="_blank">$warning['operator']</a><!--{else}-->{lang thread_moderations_threadoper}<!--{/if}--></td>
+					<td><!--{if $_G['setting']['moduser_public']}--><a href="home.php?mod=space&uid={$warning['operatorid']}" target="_blank">$warning['operator']</a><!--{else}-->{lang thread_moderations_team}<!--{/if}--></td>
 					<td>$warning[dateline]</td>
 					<td>$warning[reason]</td>
 				</tr>
