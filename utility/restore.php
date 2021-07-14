@@ -138,9 +138,9 @@ if($operation == 'import') {
 			list($dbhost, $dbport) = explode(':', $dbhost);
 			$query = $db->query("SHOW VARIABLES LIKE 'basedir'");
 			list(, $mysql_base) = $db->fetch_array($query, $db->drivertype == 'mysqli' ? MYSQLI_NUM : MYSQL_NUM);
-			$datafile = addslashes(dirname(dirname(__FILE__))).str_replace('..', '', $datafile) ;
+			$datafile = addslashes(dirname(dirname(__FILE__))).str_replace('..', '', $datafile);
 			$mysqlbin = $mysql_base == '/' ? '' : addslashes(rtrim($mysql_base, '/\\')).'/bin/';
-			@shell_exec($mysqlbin.'mysql -h"'.$dbhost.'"'.($dbport ? (is_numeric($dbport) ? ' -P'.$dbport : ' -S"'.$dbport.'"') : '').' -u"'.$dbuser.'" -p"'.$dbpw.'" "'.$dbname.'" < '.$datafile);
+			@shell_exec(escapeshellarg($mysqlbin.'mysql').' --host='.escapeshellarg($dbhost).($dbport ? (is_numeric($dbport) ? ' --port='.escapeshellarg($dbport) : ' --socket='.escapeshellarg($dbport).'') : '').' --user='.escapeshellarg($dbuser).' --password='.escapeshellarg($dbpw).' '.escapeshellarg($dbname).' < '.escapeshellarg($datafile));
 			if($delunzip) {
 				@unlink($datafile);
 			}

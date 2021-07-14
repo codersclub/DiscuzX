@@ -65,15 +65,11 @@ function blog_post($POST, $olds=array()) {
 	$POST['tag'] = censor($POST['tag']);
 
 	$POST['message'] = checkhtml($POST['message']);
-	if($_G['mobile']) {
-		$POST['message'] = getstr($POST['message'], 0, 0, 0, 1);
-		$POST['message'] = censor($POST['message'], NULL, FALSE, FALSE);
-	} else {
 		$POST['message'] = getstr($POST['message'], 0, 0, 0, 0, 1);
 		$POST['message'] = censor($POST['message'], NULL, FALSE, FALSE);
 		$POST['message'] = preg_replace("/\<div\>\<\/div\>/i", '', $POST['message']);
 		$POST['message'] = preg_replace_callback("/<a .*?href=\"(.*?)\".*?>/is", 'blog_post_callback_blog_check_url_1', $POST['message']);
-	}
+
 	$message = $POST['message'];
 	if(censormod($message) || censormod($POST['subject']) || $_G['group']['allowblogmod']) {
 		$blog_status = 1;

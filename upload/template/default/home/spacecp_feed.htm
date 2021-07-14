@@ -27,6 +27,10 @@
 		</form>
 	</div>
 	<script type="text/javascript">
+		var elems = selector('dd[class~=magicflicker]');
+		for(var i=0; i<elems.length; i++){
+			magicColor(elems[i]);
+		}    
 		function succeedhandle_$_GET['handlekey'] (url, message, values) {
 			feedcomment_add(values['cid'], $feedid);
 			hideWindow('$_GET['handlekey']');
