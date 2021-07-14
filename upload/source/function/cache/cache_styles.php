@@ -41,7 +41,7 @@ function build_cache_styles() {
 			$data['boardimg'] = preg_match('/^(https?:)?\/\//i', $data['boardimg']) ? $data['boardimg'] : $data['styleimgdir'].'/'.$data['boardimg'];
 			$data['boardlogo'] = "<img src=\"{$data['boardimg']}\" alt=\"".$_G['setting']['bbname']."\" border=\"0\" />";
 		}
-		$data['searchimg'] = empty($data['searchimg']) ? $data['styleimgdir'].'/logo_sc.svg' : (preg_match('/^(https?:)?\/\//i', $data['searchimg']) ? $data['searchimg'] : $data['styleimgdir'].'/'.$data['searchimg']);
+		$data['searchimg'] = empty($data['searchimg']) ? $data['imgdir'].'/logo_sc.svg' : (preg_match('/^(https?:)?\/\//i', $data['searchimg']) ? $data['searchimg'] : $data['styleimgdir'].'/'.$data['searchimg']);
 		$data['searchlogo'] = "<img src=\"{$data['searchimg']}\" alt=\"".$_G['setting']['bbname']."\" border=\"0\" />";
 		$data['bold'] = $data['nobold'] ? 'normal' : 'bold';
 		$contentwidthint = intval($data['contentwidth']);
