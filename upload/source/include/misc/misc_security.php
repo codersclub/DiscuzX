@@ -73,8 +73,15 @@ if($attackevasive & 8) {
 function securitymessage($subject, $message, $reload = TRUE, $form = FALSE) {
 	global $_G;
 
-	$subject = lang('core', $subject) ? lang('core', $subject) : $subject;
-	$message = lang('core', $message) ? lang('core', $message) : $message;
+	include_once DISCUZ_ROOT.'./source/language/lang_security.php';
+
+	if(!is_array($lang)) {
+		$lang = array();
+	}
+
+	$subject = isset($lang[$subject]) ? $lang[$subject] : $subject;
+	$message = isset($lang[$message]) ? $lang[$message] : $message;
+
 	if($_GET['inajax']) {
 		security_ajaxshowheader();
 		echo '<div id="attackevasive_1" class="popupmenu_option"><b style="font-size: 16px">'.$subject.'</b><br /><br />'.$message.'</div>';
