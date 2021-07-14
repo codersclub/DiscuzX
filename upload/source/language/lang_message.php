@@ -169,7 +169,7 @@ $lang = array (
   'failed_to_delete_operation' => '抱歉，删除失败，请检查操作',
   'you_have_friends' => '你们已成为好友',
   'no_privilege_addfriend' => '抱歉，您目前没有权限添加好友，<a href="home.php?mod=spacecp&ac=usergroup" target="_blank">点击这里查看权限</a>',
-  'enough_of_the_number_of_friends_with_magic' => '抱歉，您当前的好友数目达到系统限制，<a id="a_magic_friendnum2" href="magic.php?mid=friendnum" onclick="ajaxmenu(event, this.id, 1)">请使用好友增容卡增容</a>',
+  'enough_of_the_number_of_friends_with_magic' => '抱歉，您当前的好友数目达到系统限制，<a id="a_magic_friendnum2" href="home.php?mod=magic&mid=friendnum" onclick="ajaxmenu(event, this.id, 1)">请使用好友增容卡增容</a>',
   'enough_of_the_number_of_friends' => '抱歉，您当前的好友数目达到系统限制，请先删除部分好友',
   'specified_user_is_not_your_friend' => '抱歉，指定的用户还不是您的好友',
   'change_friend_groupname_error' => '抱歉，指定的好友用户组不能被操作',

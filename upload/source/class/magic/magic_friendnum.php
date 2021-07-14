@@ -56,7 +56,8 @@ class magic_friendnum {
 	}
 
 	function show() {
-		magicshowtips(lang('magic/friendnum', 'friendnum_info', array('num'=>intval($this->parameters['addnum']))));
+		$addnum = !empty($this->parameters['addnum']) ? intval($this->parameters['addnum']) : 10;
+		magicshowtips(lang('magic/friendnum', 'friendnum_info', array('num'=>$addnum)));
 	}
 
 }
