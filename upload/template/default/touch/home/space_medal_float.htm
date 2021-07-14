@@ -2,55 +2,55 @@
 <div class="tip">
 	<form id="medalform" method="post" autocomplete="off" action="home.php?mod=medal&action=apply&medalsubmit=yes">
 		<input type="hidden" name="formhash" value="{FORMHASH}" />
-		<input type="hidden" name="medalid" value="$medal[medalid]" />
+		<input type="hidden" name="medalid" value="$medal['medalid']" />
 		<input type="hidden" name="operation" value="" />
 		<!--{if !empty($_GET['infloat'])}--><input type="hidden" name="handlekey" value="$_GET['handlekey']" /><!--{/if}-->
 
 		<div class="medal_tip_top">
 			<a href="javascript:;" class="author">
-				<img src="{STATICURL}image/common/$medal[image]" class="vm" alt="$medal[name]" />
-				<p>$medal[name]</p>
+				<img src="{STATICURL}image/common/$medal['image']" class="vm" alt="$medal['name']" />
+				<p>$medal['name']</p>
 			</a>
-			<p>$medal[description]</p>
+			<p>$medal['description']</p>
 		</div>
 		<div class="medal_tip_box">
 			<p class="ts">
-				<!--{if $medal[expiration]}-->
-				{lang expire} $medal[expiration] {lang days}<br />
+				<!--{if $medal['expiration']}-->
+					{lang expire} $medal['expiration'] {lang days}<br />
 				<!--{/if}-->
-				<!--{if $medal[permission]}-->
-				$medal[permission]<br />
+				<!--{if $medal['permission']}-->
+					$medal['permission']<br />
 				<!--{/if}-->
-				<!--{if $medal[type] == 0}-->
-				{lang medals_type_0}
-				<!--{elseif $medal[type] == 1}-->
-				<!--{if $medal['price']}-->
-				<!--{if {$_G['setting']['extcredits'][$medal[credit]][unit]}}-->
-				{$_G['setting']['extcredits'][$medal[credit]][title]} <strong class="xi1 xw1 xs2">$medal[price]</strong> {$_G['setting']['extcredits'][$medal[credit]][unit]}
-				<!--{else}-->
-				<strong class="xi1 xw1 xs2">$medal[price]</strong> {$_G['setting']['extcredits'][$medal[credit]][title]}
-				<!--{/if}-->
-				<!--{else}-->
-				{lang medals_type_1}
-				<!--{/if}-->
-				<!--{elseif $medal[type] == 2}-->
-				{lang medals_type_2}
+				<!--{if $medal['type'] == 0}-->
+					{lang medals_type_0}
+				<!--{elseif $medal['type'] == 1}-->
+					<!--{if $medal['price']}-->
+						<!--{if {$_G['setting']['extcredits'][$medal['credit']]['unit']}}-->
+							{$_G['setting']['extcredits'][$medal['credit']]['title']} <strong class="xi1 xw1 xs2">$medal['price']</strong> {$_G['setting']['extcredits'][$medal['credit']]['unit']}
+						<!--{else}-->
+							<strong class="xi1 xw1 xs2">$medal['price']</strong> {$_G['setting']['extcredits'][$medal['credit']]['title']}
+						<!--{/if}-->
+					<!--{else}-->
+						{lang medals_type_1}
+					<!--{/if}-->
+				<!--{elseif $medal['type'] == 2}-->
+					{lang medals_type_2}
 				<!--{/if}-->
 			</p>
 		</div>
 
 		<div class="tip_btn">
-			<!--{if $medal[type] && $_G['uid']}-->
+			<!--{if $medal['type'] && $_G['uid']}-->
 			<button class="button2" type="submit" value="true" name="medalsubmit">
 				<span>
 				<!--{if $medal['price']}-->
 					{lang space_medal_buy}
 					<!--{else}-->
-					<!--{if !$medal[permission]}-->
-						{lang medals_apply}
-					<!--{else}-->
-						{lang medals_draw}
-					<!--{/if}-->
+						<!--{if !$medal['permission']}-->
+							{lang medals_apply}
+						<!--{else}-->
+							{lang medals_draw}
+						<!--{/if}-->
 					<!--{/if}-->
 				</span>
 			</button>
