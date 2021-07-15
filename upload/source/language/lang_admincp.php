@@ -7106,8 +7106,8 @@ $lang = array
 # 将 RewriteEngine 模式打开
 RewriteEngine On
 
-# 修改以下语句中的 /discuz 为您的论坛目录地址，如果程序放在根目录中，请将 /discuz 修改为 /
-RewriteBase /discuz
+# 如 www.discuz.net/bbs/，对应的就是 RewriteBase /bbs/，如果程序放在根目录中，使用 RewriteBase /
+RewriteBase {siteroot}
 
 # Rewrite 系统规则请勿修改
 {apache2}
