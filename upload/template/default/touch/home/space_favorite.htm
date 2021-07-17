@@ -4,12 +4,46 @@
 	<h2>{lang myfavorite}</h2>
 	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
 </div>
-<div class="dhnv flex-box cl">
-	<!--{if helper_access::check_module('favorite')}-->
-		<a href="home.php?mod=space&uid={$_G['uid']}&do=favorite&view=me&type=thread" class="flex<!--{if $_GET['type'] != 'forum'}--> mon<!--{/if}-->">{lang favthread}</a>
-		<a href="home.php?mod=space&uid={$_G['uid']}&do=favorite&view=me&type=forum" class="flex<!--{if $_GET['type'] == 'forum'}--> mon<!--{/if}-->">{lang favforum}</a>
-	<!--{/if}-->
+<div class="dhnv flex-box cl" id="dhnav_li">
+	<ul class="swiper-wrapper">
+		<a href="home.php?mod=space&uid={$_G['uid']}&do=favorite&view=me" class="swiper-slide flex<!--{if !in_array($_GET['type'], array('thread','forum','group','blog','album','article'))}--> mon<!--{/if}-->">{lang favorite_all}</a>
+		<!--{if helper_access::check_module('forum')}-->
+		<a href="home.php?mod=space&uid={$_G['uid']}&do=favorite&view=me&type=thread" class="swiper-slide flex<!--{if $_GET['type'] == 'thread'}--> mon<!--{/if}-->">{lang favorite_thread}</a>
+		<a href="home.php?mod=space&uid={$_G['uid']}&do=favorite&view=me&type=forum" class="swiper-slide flex<!--{if $_GET['type'] == 'forum'}--> mon<!--{/if}-->">{lang favorite_forum}</a>
+		<!--{/if}-->
+		<!--{if helper_access::check_module('group')}-->
+		<a href="home.php?mod=space&uid={$_G['uid']}&do=favorite&view=me&type=group" class="swiper-slide flex<!--{if $_GET['type'] == 'group'}--> mon<!--{/if}-->">{lang favorite_group}</a>
+		<!--{/if}-->
+		<!--{if helper_access::check_module('blog')}-->
+		<a href="home.php?mod=space&uid={$_G['uid']}&do=favorite&view=me&type=blog" class="swiper-slide flex<!--{if $_GET['type'] == 'blog'}--> mon<!--{/if}-->">{lang favorite_blog}</a>
+		<!--{/if}-->
+		<!--{if helper_access::check_module('album')}-->
+		<a href="home.php?mod=space&uid={$_G['uid']}&do=favorite&view=me&type=album" class="swiper-slide flex<!--{if $_GET['type'] == 'album'}--> mon<!--{/if}-->">{lang favorite_album}</a>
+		<!--{/if}-->
+		<!--{if helper_access::check_module('portal')}-->
+		<a href="home.php?mod=space&uid={$_G['uid']}&do=favorite&view=me&type=article" class="swiper-slide flex<!--{if $_GET['type'] == 'article'}--> mon<!--{/if}-->">{lang favorite_article}</a>
+		<!--{/if}-->
+		<!--{hook/space_favorite_nav_extra_mobile}-->
+	</ul>
 </div>
+<script>
+	if($("#dhnav_li .mon").length > 0) {
+		var discuz_nav = $("#dhnav_li .mon").offset().left + $("#dhnav_li .mon").width() >= $(window).width() ? $("#dhnav_li .mon").index() : 0;
+	}else{
+		var discuz_nav = 0;
+	}	
+	new Swiper('#dhnav_li', {
+		freeMode : true,
+		slidesPerView : 'auto',
+		initialSlide : discuz_nav,
+		onTouchMove: function(swiper){
+			Discuz_Touch_on = 0;
+		},
+		onTouchEnd: function(swiper){
+			Discuz_Touch_on = 1;
+		},
+	});
+</script>
 <!--{if $_GET['type'] == 'forum'}-->
 	<!--{if $list}-->
 		<div class="findbox mt10 cl">
@@ -39,6 +73,6 @@
 		</div>
 	<!--{/if}-->
 <!--{/if}-->
-$multi
+{$multi}
 <!--{eval $nofooter = true;}-->
 <!--{template common/footer}-->
