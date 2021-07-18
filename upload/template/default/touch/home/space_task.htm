@@ -1,0 +1,22 @@
+<!--{template common/header}-->
+
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang task}</h2>
+</div>
+
+<div class="dhnv flex-box cl">
+	<a href="home.php?mod=task&item=new" class="flex{if $_GET['item'] == 'new'} mon{/if}">{lang task_new}</a>
+	<a href="home.php?mod=task&item=doing" class="flex{if $_GET['item'] == 'doing'} mon{/if}">{lang task_doing}</a>
+	<a href="home.php?mod=task&item=done" class="flex{if $_GET['item'] == 'done'} mon{/if}">{lang task_done}</a>
+	<a href="home.php?mod=task&item=failed" class="flex{if $_GET['item'] == 'failed'} mon{/if}">{lang task_failed}</a>
+</div>
+
+<div id="medal_ul" class="medallist threadlist cl">
+	<!--{if empty($do)}-->
+		<!--{subtemplate home/space_task_list}-->
+	<!--{elseif $do == 'view'}-->
+		<!--{subtemplate home/space_task_detail}-->
+	<!--{/if}-->
+</div>
+<!--{template common/footer}-->

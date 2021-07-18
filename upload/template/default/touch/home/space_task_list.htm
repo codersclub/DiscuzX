@@ -1,0 +1,65 @@
+
+
+<!--{if $tasklist}-->
+	<ul>
+		<!--{loop $tasklist $task}-->
+			<li class="list task_list">
+				<div class="medal_top task_top cl">
+					<div class="mg_img">
+						<img src="$task['icon']" alt="$task['name']" />
+					</div>
+					<div class="mg_tit">
+						<h3><a href="home.php?mod=task&do=view&id=$task['taskid']">$task['name']</a></h3>
+						<span>
+							<!--{if $task['reward'] == 'credit'}-->
+									{lang credits} $_G['setting']['extcredits'][$task['prize']]['title'] $task['bonus'] $_G['setting']['extcredits'][$task['prize']]['unit']
+							<!--{elseif $task['reward'] == 'magic'}-->
+									{lang magics_title} $listdata[$task['prize']] $task['bonus'] {lang magics_unit}
+							<!--{elseif $task['reward'] == 'medal'}-->
+									{lang medals} $listdata[$task['prize']] <!--{if $task['bonus']}-->{lang expire} $task['bonus'] {lang days} <!--{/if}-->
+							<!--{elseif $task['reward'] == 'invite'}-->
+									{lang invite_code} $task['prize'] {lang expire} $task['bonus'] {lang days}
+							<!--{elseif $task['reward'] == 'group'}-->
+									{lang usergroup} $listdata[$task['prize']] <!--{if $task['bonus']}--> $task['bonus'] {lang days} <!--{/if}-->
+							<!--{/if}-->
+						</span>
+					</div>
+					<div class="medal_btn">
+						<!--{if $_GET['item'] == 'new'}-->
+							<!--{if $task['noperm']}-->
+								<a href="javascript:;" onclick="doane(event);showDialog('{lang task_group_nopermission}')">{lang task_newbie_apply}</a>
+							<!--{elseif $task['appliesfull']}-->
+								<a href="javascript:;" onclick="doane(event);showDialog('{lang task_applies_full}')">{lang task_newbie_apply}</a>
+							<!--{else}-->
+								<a href="home.php?mod=task&do=apply&id=$task['taskid']">{lang task_newbie_apply}</a>
+							<!--{/if}-->
+						<!--{elseif $_GET['item'] == 'doing'}-->
+							<a href="home.php?mod=task&do=draw&id=$task['taskid']">{lang task_reward_get}</a>
+						<!--{elseif $_GET['item'] == 'done'}-->
+							<span>{lang task_complete_on} $task['dateline']
+							<!--{if $task['period'] && $task['t']}--><br /><!--{if $task['allowapply']}--><a href="home.php?mod=task&do=apply&id=$task['taskid']">{lang task_applyagain_now}</a><!--{else}-->{$task['t']}{lang task_applyagain}<!--{/if}--><!--{/if}--></span>
+						<!--{elseif $_GET['item'] == 'failed'}-->
+							<span>{lang task_lose_on} $task['dateline']
+							<!--{if $task['period'] && $task['t']}--><br /><!--{if $task['allowapply']}--><a href="home.php?mod=task&do=apply&id=$task['taskid']">{lang task_applyagain_now}</a><!--{else}-->{$task['t']}{lang task_reapply}<!--{/if}--><!--{/if}--></span>
+						<!--{/if}-->
+					</div>
+				</div>
+				<div class="medal_msg">
+					<p>$task['description']</p>
+				</div>
+				<!--{if $_GET['item'] == 'doing'}-->
+				<div class="list_jd">
+					<div class="task_list_jd">
+						<div class="task_pdr" style="width: {if $task['csc']}$task['csc']%{else}8px{/if};"></div>
+						<div class="task_csc">{lang task_complete} <span id="csc_$task['taskid']">$task['csc']</span>%</div>
+					</div>
+				</div>
+				<!--{/if}-->
+			</li>
+		<!--{/loop}-->
+	</ul>
+<!--{else}-->
+	<div class="threadlist_box mt10 cl">
+		<h4><!--{if $_GET['item'] == 'new'}-->{lang task_nonew}<!--{elseif $_GET['item'] == 'doing'}-->{lang task_nodoing}<!--{else}-->{lang data_nonexistence}<!--{/if}--></h4>
+	</div>
+<!--{/if}-->

@@ -863,6 +863,7 @@ $lang = array (
   'task_applies' => '人气',
   'task_nodoing' => '暂无进行中的任务，请到新任务中申请 ',
   'task_nonew' => '暂无新任务，周期性任务完成后可以再次申请，敬请关注 ',
+  'task_require' => '要求',
   'member_viewpro' => '查看详细资料',
   'author' => '作者',
   'del_select_thread' => '删除选中主题',

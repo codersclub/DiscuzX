@@ -303,9 +303,11 @@ select {-moz-appearance:none;}
 .medallist .mg_tit span { display: block;height: 18px;line-height: 18px;font-size: 12px;color: var(--dz-FC-999); }
 .medallist .mg_tit span .xi1 { font-size: 14px; color: #F26C4F; }
 .medallist .medal_msg {margin-bottom: 5px;margin-left: 32px;line-height: 22px;font-size: 14px;color: var(--dz-FC-999);}
-.medallist .medal_btn span {position: absolute;top: 20px;right: 13px;padding: 0 12px;height: 30px;line-height: 30px;background-color: var(--dz-BG-color);font-size: 12px;border-radius: 3px;color: #FFF;text-align: center;}
+.medallist .medal_btn { position: absolute;top: 20px;right: 13px;height: 30px;line-height: 30px;background-color: var(--dz-BG-color);font-size: 12px;border-radius: 3px;text-align: center;}
+.medallist .medal_btn span {color: #FFF;padding: 0 12px;}
 .medallist .medal_btn span.hui {background: #F3F3F3; color: var(--dz-FC-999);}
-.medallist .medal_btn a {color: #FFF;}
+.medallist .medal_btn a {color: #FFF;padding: 0 12px;}
+.medallist .medal_btn span a {padding: 0 0;}
 .last_medal {background: #FFF;}
 .last_medal li { padding: 10px 12px; border-bottom: 1px solid var(--dz-BOR-ed); overflow: hidden; }
 .last_medal li a { display: block; overflow: hidden; position: relative; }
@@ -324,6 +326,38 @@ select {-moz-appearance:none;}
 .medal_tip_top p {line-height: 22px;font-size: 12px;color: #999;}
 .medal_tip_top .author p {margin-top: 6px;line-height: 24px;font-size: 15px;color: #333;overflow: hidden;}
 .medal_tip_box .ts {margin: 10px 0;height: 22px;line-height: 22px;font-size: 15px;color: #F26C4F;overflow: hidden;}
+.medallist .task_top .mg_tit span { color: #F26C4F; }
+.medallist .medal_top.task_top .mg_img img { width: 50px;height: 50px; }
+.medallist .task_list .medal_msg { margin-left: 60px; }
+.threadlist li.task_list .medal_msg a { display: initial;color: #F26C4F;}
+.task_list .list_jd { margin-left: 60px; margin-top: 5px; }
+.task_list_jd { position: relative; width: 100%; height: 20px; margin-bottom: 12px; background: #E8E8E8; border-radius: 0 10px 10px 0; }
+.task_pdr { display: block; height: 20px; background: #5AAF4A; border-radius: 0 10px 10px 0; }
+.task_csc { position: absolute; left: 0; top: 0; padding: 0 5%; width: 90%; line-height: 20px; font-size: 12px; color: #FFF; }
+.task_view {padding:2px 15px 15px 15px;background-color:var(--dz-BG-0);border-top:1px solid var(--dz-BOR-ed);border-bottom:1px solid var(--dz-BOR-ed);margin-top:10px}
+.task_view_box { padding: 12px 0; border-bottom: 1px solid var(--dz-BOR-ed); overflow: hidden; position: relative; }
+.task_view_box .notice_avt { float: left; margin-right: 10px; width: 50px; height: 50px; border-radius: 50%; }
+.task_view_box .notice_avt img { width: 50px; height: 50px; border-radius: 50%; }
+.task_us { margin-top: 3px; overflow: hidden; }
+.task_us .task_name { width: 100%; line-height: 24px; font-size: 16px; overflow: hidden; }
+.task_js { line-height: 26px; font-size: 14px; color: var(--dz-FC-999); }
+.task_viewnr { margin-bottom: 12px;}
+.task_viewappnr {border-bottom:1px solid var(--dz-BOR-ed);font-size: 14px;padding: 10px 0;}
+.task_viewappnr .task_th {float: left;width:140px;line-height: 22px;color: var(--dz-FC-999);}
+.task_viewappnr p {line-height: 22px;}
+.task_viewappnr p strong {overflow: hidden;display: block;width: 100%;}
+.task_viewappnr ul li a { color: #369; }
+.task_prize { color: #F26C4F; }
+.task_debtn a { float: left; margin-right: 15px; padding: 0 10px; height: 30px; line-height: 30px; background-color: var(--dz-BG-color); font-size: 12px; border-radius: 3px; color: #FFF; text-align: center; }
+.task_debtn a.hui {background: #E8E8E8; color: var(--dz-FC-999);}
+.task_taskid {background-color:var(--dz-BG-0);overflow:hidden}
+.task_taskid .taskid_tit {font-size:15px;height:40px;line-height:40px;font-weight:400;padding:0 15px;border-bottom:1px solid var(--dz-BOR-ed);overflow:hidden}
+.task_parterlist { padding: 0 5px 12px 5px; overflow: hidden; }
+.task_parterlist li { float: left; margin: 0 2%; width: 12.66%; }
+.task_parterlist li a { display: block; margin-top: 12px; text-align: center; }
+.task_parterlist li a img { margin: 0 auto; width: 100%; margin-bottom: 3px; border-radius: 50%; vertical-align: middle; }
+.task_parterlist li a p { display: block; width: 100%; height: 20px; line-height: 20px; color: #666; text-align: center; overflow: hidden; }
+.task_mbn { font-size: 14px; color: #F26C4F; }
 
 
 /*----- 通用资讯类列表 -----*/

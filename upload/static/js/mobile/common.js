@@ -691,3 +691,20 @@ $(document).ready(function() {
 	formdialog.init();
 	redirect.init();
 });
+
+function ajaxget(url, showid, waitid, loading, display, recall) {
+	var url = url + '&inajax=1&ajaxtarget=' + showid;
+	$.ajax({
+		type : 'GET',
+		url : url,
+		dataType : 'xml',
+	}).success(function(s) {
+		$('#'+showid).html(s.lastChild.firstChild.nodeValue);
+		$("[ajaxtarget]").off('click').on('click', function(e) {
+			var id = $(this);
+			ajaxget(id.attr('href'), id.attr('ajaxtarget'));
+			return false;
+		});
+	});
+	return false;
+}

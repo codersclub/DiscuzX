@@ -1,0 +1,133 @@
+
+<div class="task_view cl">
+	<div class="task_view_box">
+		<div class="notice_avt"><img src="$task['icon']" alt="$task['name']" /></div>
+		<div class="task_us">
+			<div class="task_name">$task['name']</div>
+			<!--{if $task['period']}-->
+				<span class="z task_reward">
+					<!--{if $task['periodtype'] == 0}-->
+						( {lang task_period_hour} )
+					<!--{elseif $task['periodtype'] == 1}-->
+						( {lang task_period_day} )
+					<!--{elseif $task['periodtype'] == 2}-->
+						<!--{eval $periodweek = $_G['lang']['core']['weeks'][$task['period']];}-->
+						( {lang task_period_week} )
+					<!--{elseif $task['periodtype'] == 3}-->
+						( {lang task_period_month} )
+					<!--{/if}-->
+				</span>
+			<!--{/if}-->
+			<div class="task_js">$task['description']</div>
+		</div>
+	</div>
+	<div class="task_views">
+		<div class="task_viewnr">
+			<!--{if $task['viewmessage']}-->
+				<div class="task_viewappnr">
+					<span class="task_th">{lang task_require}</span>
+					<p>$task['viewmessage']</p>
+				</div>
+			<!--{else}-->
+				<div class="task_viewappnr">
+					<span>{lang task_complete_condition}</span>
+					<!--{if $taskvars['complete']}-->
+						<ul class="task_viewul">
+							<!--{loop $taskvars['complete'] $taskvar}-->
+								<li>$taskvar['name'] : $taskvar['value']</li>
+							<!--{/loop}-->
+						</ul>
+					<!--{else}-->
+						<p>
+							{lang unlimited}
+						</p>
+					<!--{/if}-->
+				</div>
+			<!--{/if}-->
+			<div class="task_viewappnr">
+				<span class="task_th">{lang task_reward}</span>
+				<p class="task_prize">
+					<!--{if $task['reward'] == 'credit'}-->
+						$_G['setting']['extcredits'][$task['prize']]['title'] $task['bonus'] $_G['setting']['extcredits'][$task['prize']]['unit']
+					<!--{elseif $task['reward'] == 'magic'}-->
+						{lang magics_title} $task['rewardtext'] $task['bonus'] {lang magics_unit}
+					<!--{elseif $task['reward'] == 'medal'}-->
+						{lang medals} $task['rewardtext'] <!--{if $task['bonus']}-->{lang expire} $task['bonus'] {lang days} <!--{/if}-->
+					<!--{elseif $task['reward'] == 'invite'}-->
+						{lang invite_code} $task['prize'] {lang expire} $task['bonus'] {lang days}
+					<!--{elseif $task['reward'] == 'group'}-->
+						{lang usergroup} $task['rewardtext'] <!--{if $task['bonus']}--> $task['bonus'] {lang days} <!--{/if}-->
+					<!--{else}-->
+						{lang nothing}
+					<!--{/if}-->
+				</p>
+			</div>
+			<div class="task_viewappnr">
+				<span class="task_th">{lang task_apply_condition}</span>
+				<!--{if $task['applyperm'] || $task['relatedtaskid'] || $task['tasklimits'] || $taskvars['apply']}-->
+					<ul class="task_viewul">
+						<li><!--{if $task['grouprequired']}-->{lang usergroup}: $task['grouprequired'] <!--{elseif $task['applyperm'] == 'member'}-->{lang task_general_users}<!--{elseif $task['applyperm'] == 'admin'}-->{lang task_admins}<!--{/if}--></li>
+						<!--{if $task['relatedtaskid']}--><li>{lang task_relatedtask}: <a href="home.php?mod=task&do=view&id=$task['relatedtaskid']">$_G['taskrequired']</a></li><!--{/if}-->
+						<!--{if $task['tasklimits']}--><li>{lang task_numlimit}: $task['tasklimits']</li><!--{/if}-->
+						<!--{if $taskvars['apply']}-->
+						<!--{loop $taskvars['apply'] $taskvar}-->
+						<li>$taskvar['name']: $taskvar['value']</li>
+						<!--{/loop}-->
+						<!--{/if}-->
+					</ul>
+				<!--{else}-->
+					<p>
+						{lang unlimited}
+					</p>
+				<!--{/if}-->
+			</div>
+		</div>
+		<div class="task_debtn">
+			<!--{if $allowapply == '-1'}-->
+				<div class="list_jd">
+					<div class="task_list_jd">
+						<div class="task_pdr" style="width: {if $task['csc']}$task['csc']%{else}8px{/if};"></div>
+						<div class="task_csc">{lang task_complete} <span id="csc_$task['taskid']">$task['csc']</span>%</div>
+					</div>
+				</div>
+				<p class="task_btn cl">
+					<a href="home.php?mod=task&do=draw&id=$task['taskid']" class="btn">{lang task_reward_get}</a>
+					<!--{if $task['csc'] < 100}--><a href="home.php?mod=task&do=delete&id=$task['taskid']" class="btn">{lang task_quit}</a><!--{/if}-->
+				</p>
+			<!--{elseif $allowapply == '-2'}-->
+				<p class="task_mbn">{lang task_group_nopermission}</p>
+				<a href="javascript:;" class="hui">{lang task_newbie_apply}</a>
+			<!--{elseif $allowapply == '-3'}-->
+				<p class="task_mbn">{lang task_applies_full}</p>
+				<a href="javascript:;" class="hui">{lang task_newbie_apply}</a>
+			<!--{elseif $allowapply == '-4'}-->
+				<p class="task_mbn">{lang task_lose_on}$task['dateline']</p>
+			<!--{elseif $allowapply == '-5'}-->
+				<p class="task_mbn">{lang task_complete_on}$task['dateline']</p>
+			<!--{elseif $allowapply == '-6'}-->
+				<p class="task_mbn">{lang task_complete_on}$task['dateline'] &nbsp; {$task['t']}{lang task_applyagain}</p>
+				<a href="javascript:;" class="hui">{lang task_newbie_apply}</a>
+			<!--{elseif $allowapply == '-7'}-->
+				<p class="task_mbn">{lang task_lose_on}$task['dateline'] &nbsp; {$task['t']}{lang task_reapply}</p>
+				<a href="javascript:;" class="hui">{lang task_newbie_apply}</a>
+			<!--{elseif $allowapply == '2'}-->
+				<p class="task_mbn">{lang task_complete_on}$task['dateline'] &nbsp; {lang task_applyagain_now}</p>
+			<!--{elseif $allowapply == '3'}-->
+				<p class="task_mbn">{lang task_lose_on}$task['dateline'] &nbsp; {lang task_reapply_now}</p>
+			<!--{/if}-->
+
+			<!--{if $allowapply > '0'}-->
+				<a href="home.php?mod=task&do=apply&id=$task['taskid']" class="btn">{lang task_newbie_apply}</a>
+			<!--{/if}-->
+		</div>
+	</div>
+</div>
+<!--{if $task['applicants']}-->
+	<div class="discuz_x cl"></div>
+	<div class="task_taskid cl">
+		<a name="parter"></a>
+		<div class="taskid_tit cl">{lang task_applicants}</div>
+		<div id="ajaxparter"></div>
+		<script type="text/javascript">ajaxget('home.php?mod=task&do=parter&id=$task['taskid']', 'ajaxparter');</script>
+	</div>
+<!--{/if}-->
