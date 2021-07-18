@@ -1,0 +1,119 @@
+<!--{template common/header}-->
+<!--{if empty($_GET['showratetip'])}-->
+
+<!--{if $_GET[action] == 'rate'}-->
+<div class="tip loginbox loginpop p5" id="floatlayout_topicadmin">
+	<form id="rateform" method="post" autocomplete="off" action="forum.php?mod=misc&action=rate&ratesubmit=yes&infloat=yes&mobile=2">
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<input type="hidden" name="tid" value="{$_G['tid']}" />
+		<input type="hidden" name="pid" value="{$_GET['pid']}" />
+		<input type="hidden" name="referer" value="{$referer}" />
+		<input type="hidden" name="handlekey" value="rate">
+		<h2 class="log_tit" id="return_rate"><a href="javascript:;" onclick="popup.close();"><span class="icon_close y">&nbsp;</span></a>{lang rate}</h2>
+		<ul class="post_box cl">
+			<!--{eval $rateselfflag = 0;}-->
+			<!--{loop $ratelist $id $options}-->
+			<li class="flex-box mli" style="padding-bottom:0;">
+				<div class="flex tit">{$_G['setting']['extcredits'][$id]['img']} {$_G['setting']['extcredits'][$id]['title']}</div>
+				<div class="flex"><input type="text" name="score{$id}" id="score{$id}" value="0" for="rate{$id}_change" class="input show" style="padding:4px 0;" /></div>
+				<div class="flex y">
+					<div class="login_select inner b_ok">
+						<span class="inner">&nbsp;<i class="dm-c-down f_d" style="float:none;"></i>&nbsp;</span>
+						<select class="select_change" id="rate{$id}"><option>0</option>{echo str_replace(array('<li>','</li>'), array('<option>','</option>'), $options)}</select>
+					</div>
+				</div>
+			</li>
+			<!--{/loop}-->			
+			<li class="flex-box mli">
+				<div class="flex tit">{lang reason}</div>
+				<div class="flex"><input type="text" name="reason" id="reason" for="reason_change" placeholder="{lang user_operation_explain}" class="input show" style="padding:4px 0;" /></div>
+				<div class="flex y">
+					<div class="login_select inner b_ok">
+						<span class="inner">&nbsp;<i class="dm-c-down f_d" style="float:none;"></i>&nbsp;</span>
+						<!--{eval $selectreason = modreasonselect(1, 'userreasons')}-->
+						<!--{if $selectreason}-->
+							<select class="select_change" id="reason"><option value=""></option>$selectreason</select>
+						<!--{/if}-->
+					</div>
+				</div>
+			</li>
+			<label for="sendreasonpm">
+			<li class="flex-box">
+				<div class="flex tit">{lang admin_pm}</div>
+				<div class="flex"></div>
+				<div class="flex y">
+					<input type="checkbox" name="sendreasonpm" id="sendreasonpm" {if $_G['group']['reasonpm'] == 2 || $_G['group']['reasonpm'] == 3} checked="checked" disabled="disabled"{/if} class="checkbox_key" />
+					<code class="checkbox checkbox_close"></code>
+				</div>
+			</li>
+			</label>
+		</ul>
+		<script>
+			$(document).on('change', '.select_change', function(){
+				$('[for="' + $(this).attr('id')+'_change"]').val($(this).find('option:selected').val());
+			});
+		</script>
+		<button name="ratesubmit" type="submit" value="true" class="pn pnc"><span>{lang confirms}</span></button>
+	</form>
+</div>
+
+<!--{elseif $_GET['action'] == 'removerate'}-->
+
+<form id="rateform" method="post" autocomplete="off" action="forum.php?mod=misc&action=removerate&ratesubmit=yes&infloat=yes" onsubmit="ajaxpost('rateform', 'return_rate', 'return_rate', 'onerror');return false;">
+	<div class="f_c">
+		<h3 class="flb">
+			<em id="return_rate">{lang thread_removerate}</em>
+		</h3>
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<input type="hidden" name="tid" value="$_G[tid]">
+		<input type="hidden" name="pid" value="$_GET[pid]">
+		<input type="hidden" name="referer" value="$referer" />
+		<input type="hidden" name="handlekey" value="rate">
+		<div class="c floatwrap">
+			<table class="list" cellspacing="0" cellpadding="0">
+				<thead>
+					<tr>
+						<td>&nbsp;</td>
+						<td>{lang username}</td>
+						<td>{lang time}</td>
+						<td>{lang credits}</td>
+						<td>{lang reason}</td>
+					</tr>
+				</thead>
+			<!--{loop $ratelogs $ratelog}-->
+				<tr>
+					<td><input type="checkbox" name="logidarray[]" value="$ratelog[uid] $ratelog[extcredits] $ratelog[dbdateline]" /></td>
+					<td><a href="home.php?mod=space&uid=$ratelog[uid]">$ratelog[username]</a></td>
+					<td>$ratelog[dateline]</td>
+					<td>{$_G['setting']['extcredits'][$ratelog[extcredits]][title]} <span class="xw1">$ratelog[scoreview]</span> {$_G['setting']['extcredits'][$ratelog[extcredits]][unit]}</td>
+					<td>$ratelog[reason]</td>
+				</tr>
+			<!--{/loop}-->
+			</table>
+		</div>
+	</div>
+	<div class="o pns">
+		<label class="z" onclick="checkall(this.form, 'logid')"><input class="pc" type="checkbox" name="chkall" />{lang checkall}</label>
+		<label for="sendreasonpm"><input type="checkbox" name="sendreasonpm" id="sendreasonpm" class="pc"{if $_G['group']['reasonpm'] == 2 || $_G['group']['reasonpm'] == 3} checked="checked" disabled="disabled"{/if} />{lang admin_pm}</label>
+		{lang admin_operation_explain}: <input name="reason" class="px vm" />
+		<button class="pn pnc vm" type="submit" value="true" name="ratesubmit"><span>{lang submit}</span></button>
+	</div>
+</form>
+<!--{/if}-->
+
+<!--{else}-->
+	<h3 class="flb">
+		<em id="return_$_GET[handlekey]">{lang board_message}</em>
+		<div class="c altw">
+		<div class="alert_right">
+			<p>{lang push_succeed}</p>
+			<p class="alert_btnleft">
+				<a href="javascript:;" class="xi1" onclick="hideWindow('$_GET[handlekey]');showWindow('rate', 'forum.php?mod=misc&action=rate&tid=$_GET[tid]&pid=$_GET[pid]', 'get', -1);return false;">{lang click_here}</a> {lang rate_thread}
+			</p>
+		</div>
+		</div>
+		<p class="o pns">
+			<button onclick="hideWindow('rate');" id="closebtn" class="pn pnc" type="button" fwin="rate"><strong>{lang close}</strong></button>
+		</p>
+<!--{/if}-->
+<!--{template common/footer}-->

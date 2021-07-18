@@ -24,7 +24,7 @@
 	<!--{loop $postlist $post}-->
 	<!--{eval $needhiddenreply = ($hiddenreplies && $_G['uid'] != $post['authorid'] && $_G['uid'] != $_G['forum_thread']['authorid'] && !$post['first'] && !$_G['forum']['ismoderator']);}-->
 	<!--{hook/viewthread_posttop_mobile $postcount}-->
-   <div class="plc cl" id="pid$post['pid']">
+	<div class="plc cl" id="pid$post['pid']">
 	   <div class="avatar"><img src="<!--{if !$post['authorid'] || $post['anonymous']}--><!--{avatar(0, 'small', true)}--><!--{else}--><!--{avatar($post['authorid'], 'small', true)}--><!--{/if}-->" /></div>
 		<div class="display pi<!--{if $post['first']}--> pione<!--{/if}-->" href="#replybtn_$post['pid']">
 			<ul class="authi">
@@ -54,8 +54,7 @@
 				</li>
 				<li class="mtime">
 					<!--{if $post['first']}--><span class="y"><i class="dm-eye"></i><em>$_G['forum_thread']['views']</em><i class="dm-chat-s"></i><em>$_G['forum_thread']['allreplies']</em></span><!--{/if}-->
-					<!--{if $_G['forum']['ismoderator']}-->
-						<!--{if $post['first']}-->
+						<!--{if $post['first'] && $modmenu['thread']}-->
 							<em class="mgl"><a href="#moption_$post['pid']" class="popup blue">{lang manage}</a></em>
 							<div id="moption_$post['pid']" popup="true" class="manage" style="display:none;">
 								<!--{if !$_G['forum_thread']['special']}-->
@@ -66,16 +65,23 @@
 								<input type="button" value="{lang admin_banpost}" class="dialog button" href="forum.php?mod=topicadmin&action=banpost&fid={$_G['fid']}&tid={$_G['tid']}&topiclist[]={$_G['forum_firstpid']}">
 								<input type="button" value="{lang topicadmin_warn_add}" class="dialog button" href="forum.php?mod=topicadmin&action=warn&fid={$_G['fid']}&tid={$_G['tid']}&topiclist[]={$_G['forum_firstpid']}">
 							</div>
-						<!--{else}-->
+						<!--{elseif !$post['first'] && $modmenu['post']}-->
 							<em class="mgl"><a href="#moption_$post['pid']" class="popup">{lang manage}</a></em>
 							<div id="moption_$post['pid']" popup="true" class="manage" style="display:none">
 								<input type="button" value="{lang edit}" class="redirect button" href="forum.php?mod=post&action=edit&fid=$_G['fid']&tid=$_G['tid']&pid=$post['pid']{if !empty($_GET['modthreadkey'])}&modthreadkey=$_GET['modthreadkey']{/if}&page=$page">
 								<!--{if $_G['group']['allowdelpost']}--><input type="button" value="{lang modmenu_deletepost}" class="dialog button" href="forum.php?mod=topicadmin&action=delpost&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}"><!--{/if}-->
 								<!--{if $_G['group']['allowbanpost']}--><input type="button" value="{lang modmenu_banpost}" class="dialog button" href="forum.php?mod=topicadmin&action=banpost&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}"><!--{/if}-->
 								<!--{if $_G['group']['allowwarnpost']}--><input type="button" value="{lang modmenu_warn}" class="dialog button" href="forum.php?mod=topicadmin&action=warn&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}"><!--{/if}-->
+								<!--{if $_G['forum']['ismoderator'] && $_G['group']['allowstickreply'] || $_G['forum_thread']['authorid'] == $_G['uid']}--><input type="button" value="{lang modmenu_stickpost}" class="dialog button" href="forum.php?mod=topicadmin&action=stickreply&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}"><!--{/if}-->
+								<!--{if $_G['forum_thread']['pushedaid'] && $allowpostarticle}--><input type="button" value="{lang modmenu_pushplus}" class="dialog button" href="portal.php?mod=portalcp&ac=article&op=pushplus&action=pushplus&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}&aid={$_G['forum_thread']['pushedaid']}"><!--{/if}-->
 							</div>
+						<!--{else}-->
+							<!--{if (($_G['forum']['ismoderator'] && $_G['group']['alloweditpost'] && (!in_array($post['adminid'], array(1, 2, 3)) || $_G['adminid'] <= $post['adminid'])) || ($_G['forum']['alloweditpost'] && $_G['uid'] && ($post['authorid'] == $_G['uid'] && $_G['forum_thread']['closed'] == 0) && !(!$alloweditpost_status && $edittimelimit && TIMESTAMP - $post['dbdateline'] > $edittimelimit)))}-->
+								<em class="mgl"><a href="forum.php?mod=post&action=edit&fid={$_G['fid']}&tid={$_G['tid']}&pid={$post['pid']}{if !empty($_GET['modthreadkey'])}&modthreadkey={$_GET['modthreadkey']}{/if}&page={$page}" class="popup"><!--{if $_G['forum_thread']['special'] == 2 && !$post['message']}-->{lang post_add_aboutcounter}<!--{else}-->{lang edit}<!--{/if}--></a></em>
+							<!--{elseif $_G['uid'] && $post['authorid'] == $_G['uid'] && $_G['setting']['postappend']}-->
+								<em class="mgl"><a href="forum.php?mod=misc&action=postappend&tid={$post['tid']}&pid={$post['pid']}&extra={$_GET['extra']}&page={$page}" class="popup">{lang postappend}</a></em>
+							<!--{/if}-->
 						<!--{/if}-->
-					<!--{/if}-->
 					$post['dateline']
 				</li>
             </ul>
@@ -163,11 +169,36 @@
 			<!--{/if}-->
 			<!--{if $_G['uid'] && $allowpostreply && !$post['first']}-->
 			<div id="replybtn_$post['pid']" class="replybtn" display="true">
-				<input type="button" class="redirect button" href="forum.php?mod=post&action=reply&fid=$_G['fid']&tid=$_G['tid']&repquote=$post['pid']&extra=$_GET['extra']&page=$page" value="{lang reply}">
+				<input type="button" class="redirect button" href="forum.php?mod=post&action=reply&fid={$_G['fid']}&tid={$_G['tid']}&repquote={$post['pid']}&extra={$_GET['extra']}&page={$page}" value="{lang reply}">
 			</div>
 			<!--{/if}-->
 			<!--{if $post['first']}-->
 			<!--{/if}-->
+		</div>
+		<div class="threadlist_foot cl">
+			<ul>
+			<!--{if $_G['group']['raterange'] && $post['authorid']}-->
+				<li><a href="forum.php?mod=misc&action=rate&tid={$_G['tid']}&pid={$post['pid']}" class="dialog"><i class="dm-heart"></i>{lang rate}</a></li>
+			<!--{/if}-->
+			<!--{if $post['invisible'] == 0}-->
+				<!--{if $allowpostreply && $post['allowcomment'] && (!$thread['closed'] || $_G['forum']['ismoderator'])}--><li><a href="forum.php?mod=misc&action=comment&tid={$post['tid']}&pid={$post['pid']}&extra={$_GET['extra']}&page={$page}{if $_G['forum_thread']['special'] == 127}&special={$specialextra}{/if}"><i class="dm-chat-s"></i>{lang comments}</a></li><!--{/if}-->
+			<!--{/if}-->
+			<!--{if !$_G['forum_thread']['special'] && !$rushreply && !$hiddenreplies && $_G['setting']['repliesrank'] && !$post['first'] && !($post['isWater'] && $_G['setting']['filterednovote'])}-->
+				<li><a href="forum.php?mod=misc&action=postreview&do=support&tid={$_G['tid']}&pid={$post['pid']}&hash={FORMHASH}" class="dialog"><i class="dm-c-up"></i>{lang support_reply} <span id="review_support_{$post['pid']}">{$post['postreview']['support']}</span></a></li>
+				<li><a href="forum.php?mod=misc&action=postreview&do=against&tid={$_G['tid']}&pid={$post['pid']}&hash={FORMHASH}" class="dialog"><i class="dm-c-down"></i>{lang against_reply} <span id="review_against_{$post['pid']}">{$post['postreview']['against']}</span></a></li>
+			<!--{/if}-->
+			<!--{if $post['first']}-->
+				<!--{if ($_G['group']['allowrecommend'] || !$_G['uid']) && !empty($_G['setting']['recommendthread']['status'])}-->
+					<!--{if !empty($_G['setting']['recommendthread']['addtext'])}-->
+					<li><a href="forum.php?mod=misc&action=recommend&do=add&tid={$_G['tid']}&hash={FORMHASH}" class="dialog"><i></i><i class="dm-c-up"></i>{$_G['setting']['recommendthread']['addtext']}<span id="recommendv_add"{if !$_G['forum_thread']['recommend_add']} style="display:none"{/if}>{$_G['forum_thread']['recommend_add']}</span></a></li>
+					<!--{/if}-->
+					<!--{if !empty($_G['setting']['recommendthread']['subtracttext'])}-->
+					<li><a href="forum.php?mod=misc&action=recommend&do=subtract&tid={$_G['tid']}&hash={FORMHASH}" class="dialog"><i></i><i class="dm-c-down"></i>{$_G['setting']['recommendthread']['subtracttext']}<span id="recommendv_subtract"{if !$_G['forum_thread']['recommend_sub']} style="display:none"{/if}>{$_G['forum_thread']['recommend_sub']}</span></a></li>
+					<!--{/if}-->
+				<!--{/if}-->
+			<!--{/if}-->
+			<!--{hook/viewthread_postfooter_mobile $postcount}-->
+			</ul>
 		</div>
    </div>
 	<!--{if $post['first']}-->
@@ -176,17 +207,17 @@
 			<div class="mtit cl">
 			<!--{if !$rushreply}-->
 				<!--{if $ordertype != 1}-->
-					<a href="forum.php?mod=viewthread&tid=$_G['tid']&extra=$_GET['extra']&ordertype=1" class="ytxt">{lang post_descview}</a>
+					<a href="forum.php?mod=viewthread&tid={$_G['tid']}&extra={$_GET['extra']}&ordertype=1" class="ytxt">{lang post_descview}</a>
 				<!--{else}-->
-					<a href="forum.php?mod=viewthread&tid=$_G['tid']&extra=$_GET['extra']&ordertype=2" class="ytxt">{lang post_ascview}</a>
+					<a href="forum.php?mod=viewthread&tid={$_G['tid']}&extra={$_GET['extra']}&ordertype=2" class="ytxt">{lang post_ascview}</a>
 				<!--{/if}-->
 			<!--{/if}-->
 			<!--{if !IS_ROBOT && !$_GET['authorid'] && !$_G['forum_thread']['archiveid']}-->
-				<a href="forum.php?mod=viewthread&tid=$_G['tid']&page=$page&authorid=$_G['forum_thread']['authorid']" rel="nofollow" class="ytxt">{lang viewonlyauthorid}</a>
+				<a href="forum.php?mod=viewthread&tid={$_G['tid']}&page={$page}&authorid={$_G['forum_thread']['authorid']}" rel="nofollow" class="ytxt">{lang viewonlyauthorid}</a>
 			<!--{elseif !$_G['forum_thread']['archiveid']}-->
-				<a href="forum.php?mod=viewthread&tid=$_G['tid']&page=$page" rel="nofollow" class="ytxt">{lang thread_show_all}</a>
+				<a href="forum.php?mod=viewthread&tid={$_G['tid']}&page={$page}" rel="nofollow" class="ytxt">{lang thread_show_all}</a>
 			<!--{/if}-->
-			{lang all}{lang reply}<!--{if $_G['forum_thread']['allreplies']}--><em>$_G['forum_thread']['allreplies']</em><!--{/if}-->
+			{lang all}{lang reply}<!--{if $_G['forum_thread']['allreplies']}--><em>{$_G['forum_thread']['allreplies']}</em><!--{/if}-->
 			</div>
 		</div>
 		<!--{if !$_G['forum_thread']['allreplies']}-->
@@ -200,12 +231,12 @@
 $multipage
 <!--{hook/viewthread_bottom_mobile}-->
 <div class="foot foot_reply flex-box cl">
-	<a href="forum.php?mod=post&action=reply&fid=$_G['fid']&tid=$_G['tid']&reppost=$_G['forum_firstpid']&page=$page" class="flex"><i class="dm-chat-s"></i>{lang reply}</a>
+	<a href="forum.php?mod=post&action=reply&fid={$_G['fid']}&tid={$_G['tid']}&reppost={$_G['forum_firstpid']}&page={$page}" class="flex"><i class="dm-chat-s"></i>{lang reply}</a>
 	<!--{if helper_access::check_module('favorite')}-->
-		<a href="home.php?mod=spacecp&ac=favorite&type=thread&id=$_G['tid']" class="dialog flex mx"><i class="dm-star"></i><!--{if $_G['forum_thread']['favtimes']}-->{$_G['forum_thread']['favtimes']}<!--{/if}-->{lang favorite}</a>
+		<a href="home.php?mod=spacecp&ac=favorite&type=thread&id={$_G['tid']}" class="dialog flex mx"><i class="dm-star"></i><!--{if $_G['forum_thread']['favtimes']}-->{$_G['forum_thread']['favtimes']}<!--{/if}-->{lang favorite}</a>
 	<!--{/if}-->
 	<!--{if helper_access::check_module('share')}-->
-		<a href="home.php?mod=spacecp&ac=share&type=thread&id=$_G[tid]" class="dialog flex mx"><i class="dm-star"></i><!--{if $_G['forum_thread']['favtimes']}-->{$_G['forum_thread']['sharetimes']}<!--{/if}-->{lang thread_share}</a>
+		<a href="home.php?mod=spacecp&ac=share&type=thread&id={$_G['tid']}" class="dialog flex mx"><i class="dm-star"></i><!--{if $_G['forum_thread']['favtimes']}-->{$_G['forum_thread']['sharetimes']}<!--{/if}-->{lang thread_share}</a>
 	<!--{/if}-->
 </div>
 <div class="foot_height_view"></div>

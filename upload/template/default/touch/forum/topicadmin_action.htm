@@ -1,6 +1,6 @@
 <!--{template common/header}-->
 <div class="tip">
-<!--{if in_array($_GET['action'], array('delpost', 'banpost', 'warn'))}-->
+<!--{if in_array($_GET['action'], array('delpost', 'banpost', 'warn', 'stickreply'))}-->
 	<form id="topicadminform" method="post" autocomplete="off" action="forum.php?mod=topicadmin&action=$_GET['action']&modsubmit=yes&modclick=yes&mobile=2" >
 		<input type="hidden" name="formhash" value="{FORMHASH}" />
 		<input type="hidden" name="fid" value="$_G['fid']" />
@@ -27,7 +27,14 @@
 			<p><label><input type="radio" name="warned" class="pr" value="0" $checkunwarn />{lang topicadmin_warn_delete}</label></p>
 		</dt>
 		<dd><input type="submit" name="modsubmit" id="modsubmit" value="{lang confirms}" class="formdialog button z"><a href="javascript:;" onclick="popup.close();" class="button y">{lang cancel}</a></dd>
-    <!--{/if}-->
+    <!--{elseif $_GET['action'] == 'stickreply'}-->
+		<dt>
+			$stickpid
+			<p><label><input type="radio" name="stickreply" class="pr" value="1"{if empty($_GET['undo'])} checked="checked"{/if}/>{lang admin_stickreply} </label></p>
+			<p><label><input type="radio" name="stickreply" class="pr" value="0"{if !empty($_GET['undo'])} checked="checked"{/if}/>{lang admin_unstickreply} </label></p>
+		</dt>
+		<dd><input type="submit" name="modsubmit" id="modsubmit" value="{lang confirms}" class="formdialog button z"><a href="javascript:;" onclick="popup.close();" class="button y">{lang cancel}</a></dd>
+	<!--{/if}-->
     </form>
 <!--{else}-->
     	<dt>{lang admin_threadtopicadmin_error}</dt>

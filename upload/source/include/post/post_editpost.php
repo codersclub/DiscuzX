@@ -177,7 +177,7 @@ if(!submitcheck('editsubmit')) {
 		if ($_G['group']['allowsetpublishdate']) {
 			loadcache('cronpublish');
 			$cron_publish_ids = getglobal('cache/cronpublish');
-			if (in_array($_G['tid'], $cron_publish_ids)) {
+			if (in_array($_G['tid'], (array)$cron_publish_ids)) {
 				$cronpublish = 1;
 				$cronpublishdate = dgmdate($thread['dateline'], "dt");
 			}
