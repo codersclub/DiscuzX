@@ -111,7 +111,7 @@
 				<!--{if helper_access::check_module('friend')}-->
 				<a href="misc.php?mod=invite&action=article&id=$article[aid]" id="a_invite" onclick="showWindow('invite', this.href, 'get', 0);" class="oshr oivt">{lang invite}</a>
 				<!--{/if}-->
-				<!--{if $_G['group']['allowmanagearticle'] || ($_G['group']['allowpostarticle'] && $article['uid'] == $_G['uid'] && (empty($_G['group']['allowpostarticlemod']) || $_G['group']['allowpostarticlemod'] && $article['status'] == 1)) || $categoryperm[$value['catid']]['allowmanage']}-->
+				<!--{if $_G['group']['allowmanagearticle'] || ($_G['group']['allowpostarticle'] && $article['uid'] == $_G['uid'] && (empty($_G['group']['allowpostarticlemod']) || $_G['group']['allowpostarticlemod'] && $article['status'] == 1)) || $categoryperm[$article['catid']]['allowmanage']}-->
 					<a href="portal.php?mod=portalcp&ac=article&op=edit&aid=$article[aid]">{lang edit}</a><span class="pipe">|</span>
 					<a  id="related_article" href="portal.php?mod=portalcp&ac=related&aid=$article[aid]&catid=$article[catid]&update=1" onclick="showWindow(this.id, this.href, 'get', 0);return false;">{lang article_related}</a><span class="pipe">|</span>
 					<!--{if $article[status]>0 && ($_G['group']['allowmanagearticle'] || $categoryperm[$article['catid']]['allowmanage'])}-->

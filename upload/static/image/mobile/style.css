@@ -1,15 +1,15 @@
 @charset "utf-8";
 /*----- color -----*/
 body {
---dz-BG-body:#eee;/*È«¾Öbody±³¾°*/
---dz-BG-color:#2B7ACD;/*Ö÷É«µ÷±³¾°*/
+--dz-BG-body:#eee;/*å…¨å±€bodyèƒŒæ™¯*/
+--dz-BG-color:#2B7ACD;/*ä¸»è‰²è°ƒèƒŒæ™¯*/
 --dz-BG-0:#ffffff;
---dz-BG-1:#333;/*ÉîÉ«±³¾°*/
---dz-BG-2:#FF5656;/*¸ßÁÁÉ«*/
---dz-BG-3:#FF9900;/*ÅÅĞĞ°ñ2&ÖÃ¶¥Í¼±ê±³¾°*/
---dz-BG-4:#B3CC0D;/*ÅÅĞĞ°ñ3&¾«»ªÍ¼±ê±³¾°*/
---dz-BG-5:#f3f3f3;/*Ç³É«±³¾°*/
---dz-FC-color:#2B7ACD;/*Ö÷É«µ÷*/
+--dz-BG-1:#333;/*æ·±è‰²èƒŒæ™¯*/
+--dz-BG-2:#FF5656;/*é«˜äº®è‰²*/
+--dz-BG-3:#FF9900;/*æ’è¡Œæ¦œ2&ç½®é¡¶å›¾æ ‡èƒŒæ™¯*/
+--dz-BG-4:#B3CC0D;/*æ’è¡Œæ¦œ3&ç²¾åå›¾æ ‡èƒŒæ™¯*/
+--dz-BG-5:#f3f3f3;/*æµ…è‰²èƒŒæ™¯*/
+--dz-FC-color:#2B7ACD;/*ä¸»è‰²è°ƒ*/
 --dz-FC-fff:#fff;
 --dz-FC-333:#333;
 --dz-FC-666:#666;
@@ -20,7 +20,7 @@ body {
 --dz-FC-bbb:#bbb;
 --dz-FC-ccc:#ccc;
 --dz-FC-ddd:#ddd;
---dz-BOR-ed:#ededed;/*±ß¿òÉ«*/
+--dz-BOR-ed:#ededed;/*è¾¹æ¡†è‰²*/
 }
 
 /*----- common -----*/
@@ -90,10 +90,10 @@ select {-moz-appearance:none;}
 .p15 {padding:15px}
 .f_g, .f_g a {color: var(--dz-BG-2);}
 
-/*----- Í¨ÓÃÖ÷Ìå -----*/
+/*----- é€šç”¨ä¸»ä½“ -----*/
 .bodybox {background-color:var(--dz-BG-0);}
 
-/*----- Í·²¿ -----*/
+/*----- å¤´éƒ¨ -----*/
 .header {background-color:var(--dz-BG-color);color:var(--dz-FC-fff);height:30px;line-height:30px;padding:10px 12px}
 .header .mz, .header .mzlogo {float:left;position:relative}
 .header .mzlogo a {line-height:normal}
@@ -110,14 +110,14 @@ select {-moz-appearance:none;}
 .header h2 img, .header .mzlogo img {max-height:30px;vertical-align:top;max-width:100%}
 .header h2 a {color:var(--dz-FC-fff)}
 
-/*----- µ×²¿Copyright -----*/
+/*----- åº•éƒ¨Copyright -----*/
 .footer {background-color:var(--dz-BG-1);color:var(--dz-FC-fff);padding:15px;text-align:center;overflow:hidden}
 .footer-nv, .footer-copy {color:var(--dz-FC-999);line-height:22px;font-size:13px;text-align:center}
 .footer-nv a {color:var(--dz-FC-fff);margin:0 6px}
 .footer-copy a, .footer-nv a.mon {color:var(--dz-FC-999)}
 .footer-copy img {margin:0 10px}
 
-/*----- ¸¡¶¯µ×²¿µ¼º½ -----*/
+/*----- æµ®åŠ¨åº•éƒ¨å¯¼èˆª -----*/
 .foot {width:100%;position:fixed;bottom:0;z-index:99999;background-color:var(--dz-BG-0);border-top:1px solid var(--dz-BOR-ed);color:var(--dz-FC-999)}
 .foot a {float:left;text-align:center;height:54px;line-height:54px;overflow:hidden;position:relative}
 .foot a span {display:block;overflow:hidden}
@@ -138,7 +138,7 @@ select {-moz-appearance:none;}
 .foot a.foot-post span.foot-txt {display:none}
 .foot_height {height:54px}
 
-/*----- Í¨ÓÃÉèÖÃ -----*/
+/*----- é€šç”¨è®¾ç½® -----*/
 .setbox {padding-bottom:10px;overflow:hidden;}
 .setbox li {padding:7px 12px;line-height:30px;font-size:16px;border-bottom:1px solid var(--dz-BOR-ed);color: var(--dz-FC-999);}
 .setbox li.tit {background-color:var(--dz-BG-5);padding: 12px 12px 5px;line-height: 24px;font-size: 14px;}
@@ -159,7 +159,7 @@ select {-moz-appearance:none;}
 .setbox .sec_code span .txt {-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}
 .setbox .sec_code span img {float:right;height:30px}
 
-/*----- Ê×Ò³»ÃµÆ -----*/
+/*----- é¦–é¡µå¹»ç¯ -----*/
 .swiper-wrapper {position:relative;width:100%;z-index:1;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-transition-property:-webkit-transform;-moz-transition-property:-moz-transform;-o-transition-property:-o-transform;-ms-transition-property:-ms-transform;transition-property:transform;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}
 .swiper-slide {-webkit-flex-shrink:0;-ms-flex:0 0 auto;flex-shrink:0;width:100%;position:relative}
 .dz-swiper_box {width:100%;background-color:var(--dz-BG-1);overflow:hidden;position:relative}
@@ -170,7 +170,7 @@ select {-moz-appearance:none;}
 .swiper-forum .swiper-pagination-current {font-weight:400;font-size:20px}
 .swiper-forum .swiper-pagination-total {font-style:100}
 
-/*----- Ê×Ò³Í·Ìõ -----*/
+/*----- é¦–é¡µå¤´æ¡ -----*/
 .hotbox {background-color:var(--dz-BG-0);line-height:24px;font-size:14px;overflow:hidden}
 .hotbox h2 {margin:15px 15px 0;height:24px;line-height:24px;font-size:16px}
 .hotbox h2 span {float:left;margin-right:5px;padding:0 4px;background-color:var(--dz-BG-2);color:var(--dz-FC-fff);border-radius:4px}
@@ -178,7 +178,7 @@ select {-moz-appearance:none;}
 .hotbox-toutiao a span {display:block;margin-bottom:4px;line-height:24px;font-size:18px;color:var(--dz-FC-color);}
 .hotbox .listbox {margin-bottom:0}
 
-/*----- Ê×Ò³tabÇĞ»»ÁĞ±í -----*/
+/*----- é¦–é¡µtabåˆ‡æ¢åˆ—è¡¨ -----*/
 .tabs {background-color:var(--dz-BG-0);border-top:1px solid var(--dz-BOR-ed);border-bottom:1px solid var(--dz-BOR-ed);height:40px;font-size:15px;text-align:center}
 .tabs a {height:40px;line-height:38px;color:var(--dz-FC-999);position:relative}
 .tabs a em {position:absolute;bottom:0;left:50%;margin-left:-10px;background-color:var(--dz-BG-color);width:20px;height:3px;display:none}
@@ -196,12 +196,12 @@ select {-moz-appearance:none;}
 .listbox li:nth-child(3) span.mnum {background-color:var(--dz-BG-4)}
 .listbox li:first-child {border-top:none}
 
-/*----- ÂÛÌ³Ê×Ò³Í³¼Æ -----*/
+/*----- è®ºå›é¦–é¡µç»Ÿè®¡ -----*/
 .stat {background-color:var(--dz-BG-0);color:var(--dz-FC-aaa);border-bottom:1px solid var(--dz-BOR-ed);height:40px;padding:15px 0 10px;overflow:hidden}
 .stat li {text-align:center;line-height:20px}
 .stat li em {display:block;font-size:20px;color:var(--dz-FC-333)}
 
-/*----- ÂÛÌ³Ê×Ò³¹«¸æ -----*/
+/*----- è®ºå›é¦–é¡µå…¬å‘Š -----*/
 .ann-box {padding:0 15px;height:40px;line-height:40px;background-color:var(--dz-BG-0);border-bottom:1px solid var(--dz-BOR-ed);overflow:hidden}
 .ann-box .mtit {float:left;font-size:12px;height:20px;line-height:20px;padding:0 5px;margin-top:10px;margin-right:8px;background-color:var(--dz-BG-2);color:var(--dz-FC-fff);border-radius:4px}
 #ann {height:24px;line-height:24px;margin-top:8px;overflow:hidden}
@@ -209,7 +209,7 @@ select {-moz-appearance:none;}
 #ann li a {display:block;height:24px;line-height:24px;overflow:hidden}
 #ann li em {display:none}
 
-/*----- ¹«¸æÁĞ±í -----*/
+/*----- å…¬å‘Šåˆ—è¡¨ -----*/
 .annlist {background-color:var(--dz-BG-0);border-top:1px solid var(--dz-BOR-ed);overflow:hidden}
 .annlist li {border-bottom:1px solid var(--dz-BOR-ed);padding:10px 15px;overflow:hidden;position:relative}
 .annlist li h2 {font-size:16px;height:24px;line-height:24px;overflow:hidden}
@@ -221,7 +221,7 @@ select {-moz-appearance:none;}
 .annlist li h3 span.my {float:right}
 .annlist_box {background-color:var(--dz-BG-5);color:var(--dz-FC-666);line-height:22px;font-size:14px;margin:8px 0 5px;padding:8px 10px;border-radius:4px}
 
-/*----- ÂÛÌ³Ê×Ò³°æ¿éÏÔÊ¾ -----*/
+/*----- è®ºå›é¦–é¡µç‰ˆå—æ˜¾ç¤º -----*/
 .forumlist .subforumshow {margin-top:10px;background-color:var(--dz-BG-0);height:44px;line-height:44px;padding:0 15px;border-bottom:1px solid var(--dz-BOR-ed)}
 .forumlist .subforumshow h2 {font-size:15px}
 .forumlist .subforumshow i {float:right;font-size:20px;color:var(--dz-FC-aaa)}
@@ -244,7 +244,7 @@ select {-moz-appearance:none;}
 .forumlist .mlist3 li .mtit {margin-top:6px;text-align:center}
 .forumlist .mlist4 li .mtit {font-size:13px;margin-top:5px;text-align:center}
 
-/*----- ÌáÊ¾×ªÌøÏà¹Ø -----*/
+/*----- æç¤ºè½¬è·³ç›¸å…³ -----*/
 .jump_c {padding:100px 15px;background-color:var(--dz-BG-0);border-top:1px solid var(--dz-BOR-ed);border-bottom:1px solid var(--dz-BOR-ed);margin-top:10px;font-size:15px}
 .jump_c p {line-height:26px}
 .jump_c p .grey {color:var(--dz-FC-999)}
@@ -257,7 +257,7 @@ select {-moz-appearance:none;}
 .tip dd .button {width:48%;padding:0}
 .tip .close {display:block;color:var(--dz-FC-fff)}
 
-/*----- ËÑË÷ -----*/
+/*----- æœç´¢ -----*/
 .search {padding:15px;background-color:var(--dz-BG-0);border-bottom:1px solid var(--dz-BOR-ed);margin-bottom:10px}
 .search .mtxt {height:38xp;line-height:38px;padding:0 8px;border:1px solid var(--dz-BOR-ed);border-right:none;background-color:var(--dz-BG-0);border-radius:4px 0 0 4px}
 .search .mbtn {height:40xp;line-height:40px;padding:0 15px;border:none;background-color:var(--dz-BG-color);color:var(--dz-FC-fff);border-radius:0 4px 4px 0}
@@ -266,7 +266,7 @@ select {-moz-appearance:none;}
 .search-hot li a {display:block;height:40px;line-height:40px;font-size:14px;border-top:1px solid var(--dz-BOR-ed)}
 .search-hot li:first-child a {border-top:none}
 
-/*----- °æ¿éÒ³Ãæ-Í·²¿°æ¿éÃû³ÆÇøÓò -----*/
+/*----- ç‰ˆå—é¡µé¢-å¤´éƒ¨ç‰ˆå—åç§°åŒºåŸŸ -----*/
 .forumdisplay-top {padding:20px 15px;background-color:var(--dz-BG-0);border-bottom:1px solid var(--dz-BOR-ed);overflow:hidden}
 .forumdisplay-top img,.forumdisplay-top svg {float:left;height:50px;margin-right:10px;border-radius:4px}
 .forumdisplay-top h2 {height:30px;line-height:30px;font-size:18px;color:var(--dz-FC-color)}
@@ -274,7 +274,7 @@ select {-moz-appearance:none;}
 .forumdisplay-top p {height:20px;line-height:20px;color:var(--dz-FC-999)}
 .forumdisplay-top p span {color:var(--dz-BG-2);margin-right:8px}
 
-/*----- Í¨ÓÃ»áÔ±ÀàÁĞ±í -----*/
+/*----- é€šç”¨ä¼šå‘˜ç±»åˆ—è¡¨ -----*/
 .imglist {background-color:var(--dz-BG-0);border-top:1px solid var(--dz-BOR-ed);}
 .imglist .subtit {background-color:var(--dz-BG-body);height:44px;line-height:44px;padding:0 15px;border-bottom:1px solid var(--dz-BOR-ed)}
 .imglist .subtit h2 {font-size:15px}
@@ -293,7 +293,7 @@ select {-moz-appearance:none;}
 .imglist li .mbody a {display:inline;color:var(--dz-FC-color)}
 .imglist li .mbody a.lit {color:var(--dz-BG-2)}
 
-/*----- ÈÎÎñ¡¢µÀ¾ß¡¢Ñ«ÕÂÀàÁĞ±í -----*/
+/*----- ä»»åŠ¡ã€é“å…·ã€å‹‹ç« ç±»åˆ—è¡¨ -----*/
 .medallist li { overflow: hidden; position: relative; }
 .medallist .medal_top { height: 38px;padding: 12px 0 5px;}
 .medallist .medal_top .mg_img {float: left;margin-right: 10px;}
@@ -326,7 +326,7 @@ select {-moz-appearance:none;}
 .medal_tip_box .ts {margin: 10px 0;height: 22px;line-height: 22px;font-size: 15px;color: #F26C4F;overflow: hidden;}
 
 
-/*----- Í¨ÓÃ×ÊÑ¶ÀàÁĞ±í -----*/
+/*----- é€šç”¨èµ„è®¯ç±»åˆ—è¡¨ -----*/
 .wzlist {background-color:var(--dz-BG-0);border-top:1px solid var(--dz-BOR-ed)}
 .wzlist li {overflow:hidden;border-bottom:1px solid var(--dz-BOR-ed)}
 .wzlist li a {display:block;padding:15px;overflow:hidden}
@@ -338,7 +338,7 @@ select {-moz-appearance:none;}
 .wzlist li .minfo p.mtime {height:20px;line-height:20px;margin-top:8px;font-size:14px;color:var(--dz-FC-bbb);position:relative}
 .wzlist li .minfo p.mtime span  {float:right;color:var(--dz-BG-2)}
 
-/*----- Í¨ÓÃ×ÊÑ¶ÀàÄÚÈİ -----*/
+/*----- é€šç”¨èµ„è®¯ç±»å†…å®¹ -----*/
 .wzview {background-color:var(--dz-BG-0);border-bottom:1px solid var(--dz-BOR-ed);padding:15px 15px 10px;overflow:hidden}
 .wzview_top h2 {line-height:34px;font-size:22px;text-align:center}
 .wzview_top p {height:24px;line-height:24px;font-size:14px;text-align:center;margin-top:5px;color:var(--dz-FC-aaa);overflow:hidden;position:relative}
@@ -351,7 +351,7 @@ select {-moz-appearance:none;}
 .wzview_sxwz {padding-top:10px;margin-top:15px;border-top:1px solid var(--dz-BOR-ed);color:var(--dz-FC-color);overflow:hidden}
 .wzview_sxwz a {display:block;width:100%;height:28px;line-height:28px;font-size:14px;color:var(--dz-FC-color);overflow:hidden}
 
-/*----- Í¨ÓÃÎÄ×ÖÀàÁĞ±í -----*/
+/*----- é€šç”¨æ–‡å­—ç±»åˆ—è¡¨ -----*/
 .txtlist {background-color:var(--dz-BG-0);overflow:hidden}
 .txtlist .mtit {font-size:16px;height:40px;line-height:40px;font-weight:400;padding:0 15px;border-bottom:1px solid var(--dz-BOR-ed);overflow:hidden}
 .txtlist .mtit em {margin-left:5px;font-size:12px;color:var(--dz-FC-999)}
@@ -361,7 +361,7 @@ select {-moz-appearance:none;}
 .txtlist ul li:first-child {border-top:none}
 .txtlist ul li i {float:left;margin-right:5px;font-size:12px;color:var(--dz-FC-ddd)}
 
-/*----- ·¢ÏÖÒ³ÃæÏà¹Ø -----*/
+/*----- å‘ç°é¡µé¢ç›¸å…³ -----*/
 .findbox {background-color:var(--dz-BG-0);padding:0 15px;border-bottom:1px solid var(--dz-BOR-ed);overflow:hidden}
 .findbox ul li {border-top:1px solid var(--dz-BOR-ed);height:50px;line-height:50px;font-size:16px;overflow:hidden}
 .findbox ul li a {display:block}
@@ -373,12 +373,12 @@ select {-moz-appearance:none;}
 .findbox ul li.sclist .mdel {float:right;padding-left:15px}
 .findbox ul li.sclist .mdel i {font-size:20px;color:var(--dz-BG-2)}
 
-/*----- Í¨ÓÃ¹Ì¶¨¶ş¼¶µ¼º½ -----*/
+/*----- é€šç”¨å›ºå®šäºŒçº§å¯¼èˆª -----*/
 .dhnv {background-color:var(--dz-BG-0);border-top:1px solid var(--dz-BOR-ed);border-bottom:1px solid var(--dz-BOR-ed);font-size:15px;text-align:center}
 .dhnv a {height:40px;line-height:38px;color:var(--dz-FC-999);position:relative}
 .dhnv a.mon {height:38px;color:var(--dz-FC-color);font-weight:400;border-bottom:2px solid var(--dz-BG-color)}
 
-/*----- Í¨ÓÃ»¬¶¯¶ş¼¶µ¼º½ -----*/
+/*----- é€šç”¨æ»‘åŠ¨äºŒçº§å¯¼èˆª -----*/
 .dhnav_box, .dhnav {width:100%;height:40px;overflow:hidden}
 .dhnav_box {background-color:var(--dz-BG-0);border-bottom:1px solid var(--dz-BOR-ed);overflow:hidden}
 #dhnav_li {width:100%;height:40px;text-align:center;white-space:nowrap}
@@ -388,7 +388,7 @@ select {-moz-appearance:none;}
 #dhnav_li li.mon a {color:var(--dz-FC-color);font-weight:400}
 #dhnav_li .swiper-wrappers li {width:25%}
 
-/*----- Í¨ÓÃ»¬¶¯Èı¼¶µ¼º½ -----*/
+/*----- é€šç”¨æ»‘åŠ¨ä¸‰çº§å¯¼èˆª -----*/
 .dhnavs_box, .dhnavs {width:100%;height:40px;overflow:hidden}
 .dhnavs_box {background-color:var(--dz-BG-0);border-bottom:1px solid var(--dz-BOR-ed);overflow:hidden}
 #dhnavs_li {width:100%;height:40px;text-align:center;white-space:nowrap}
@@ -397,7 +397,7 @@ select {-moz-appearance:none;}
 #dhnavs_li li span {color:var(--dz-FC-ddd)}
 #dhnavs_li li.mon a {background-color:var(--dz-BG-color);color:var(--dz-FC-fff)}
 
-/*----- Í¨ÓÃÃæ°üĞ¼µ¼º½ -----*/
+/*----- é€šç”¨é¢åŒ…å±‘å¯¼èˆª -----*/
 .subnavs_box, .subnavs {height:41px;width:100%;overflow:hidden}
 #subnavs_box {height:40px;position:relative}
 #subnavs_box {height:40px;text-align:center;white-space:nowrap;width:100%}
@@ -410,7 +410,7 @@ select {-moz-appearance:none;}
 #subnavs_btn a {display:inline-block;font-size:14px;height:24px;line-height:24px;padding:0 5px;margin:0 5px;}
 #subnavs_btn a.mon {color:var(--dz-FC-color)}
 
-/*----- Í¨ÓÃÌû×ÓÁĞ±í -----*/
+/*----- é€šç”¨å¸–å­åˆ—è¡¨ -----*/
 .threadlist_box {overflow:hidden}
 .threadlist_box h2 {margin-bottom:-10px;padding:0 15px;background-color:var(--dz-BG-0);border-top:1px solid var(--dz-BOR-ed);height:40px;line-height:40px;font-size:14px}
 .threadlist_box h2 .emfont {color:var(--dz-BG-2)}
@@ -450,13 +450,13 @@ select {-moz-appearance:none;}
 .threadlist li.list_top a .micon {float:left;height:18px;line-height:18px;font-size:12px;background-color:var(--dz-BG-color);color:var(--dz-FC-fff);margin-top:9px;margin-right:6px;padding:0 3px;border-radius:2px;overflow:hidden}
 .threadlist li.list_top a .gonggao {background-color:var(--dz-BG-2)}
 
-/*----- ·­Ò³ -----*/
+/*----- ç¿»é¡µ -----*/
 .page {text-align:center;margin:15px auto;font-size:14px}
 .page a {display:inline;position:relative;text-align: left;background:var(--dz-BG-0);border:1px solid var(--dz-BOR-ed);width:auto;text-indent:0;height:30px;line-height:30px;font-size:14px;margin:0 5px;padding:8px 15px;color:var(--dz-FC-666);border-radius:4px} 
 .page select {position:absolute;left:0;top:0;opacity:0;background-color:var(--dz-BG-0);border:var(--dz-BOR-ed);width:auto;height:36px;line-height:36px;padding:4px;font-size:14px}
 .page a.grey {color:var(--dz-FC-aaa) !important}
 
-/*----- ¿ìËÙ·¢Ìû -----*/
+/*----- å¿«é€Ÿå‘å¸– -----*/
 .pblbox {background:var(--dz-BG-0);border-bottom:1px solid var(--dz-BOR-ed);overflow:hidden}
 .pbl {margin:0 auto;overflow:hidden}
 .pbl li {float:left;width:30%;min-height:300px;padding:8px 5px;border-left:1px solid var(--dz-BOR-ed);overflow-x:hidden;overflow-y:auto}
@@ -466,7 +466,7 @@ select {-moz-appearance:none;}
 .pbl li .pbls a {background:var(--dz-BG-3);color:var(--dz-FC-fff)}
 .pbsb::after {float:right;margin-top:11px;margin-right:2px;vertical-align:4px;content:"";border-top:4px solid transparent;border-right:0;border-bottom:4px solid transparent;border-left:4px solid}
 
-/*----- µÇÂ¼/×¢²á/ÑéÖ¤Âë -----*/
+/*----- ç™»å½•/æ³¨å†Œ/éªŒè¯ç  -----*/
 body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .header_toplogo {background-color:var(--dz-BG-color);padding:20px 20px 50px;text-align:center;overflow:hidden}
 .header_toplogo img {width:175px}
@@ -505,7 +505,7 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .login_pop .Password_show, .login_pop .Password_hide {display:none}
 .login_pop .btn_login button {font-size:16px;height:38px;line-height:38px}
 
-/*----- ÓÃ»§¿Õ¼ä -----*/
+/*----- ç”¨æˆ·ç©ºé—´ -----*/
 .userinfo {padding-bottom:10px;overflow:hidden}
 .user_avatar {height:200px;background-color:var(--dz-BG-color);background-repeat:no-repeat;background-position:center;background-size:cover !important;text-align:center;overflow:hidden}
 .user_avatar .avatar_bg {width:100%;height:100%;background:rgb(0,0,0,.7);overflow:hidden}
@@ -539,7 +539,7 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .notice_tip {background-color:var(--dz-BG-0);padding:15px;font-size:14px;color:var(--dz-BG-3);text-align:center}
 .notice_tip a {color:var(--dz-BG-3)}
 
-/*----- ·¢ĞÅÏ¢ -----*/
+/*----- å‘ä¿¡æ¯ -----*/
 .friend_msg, .self_msg {padding:20px 15px 0}
 .friend_msg .avat img, .self_msg .avat img {background-color:var(--dz-BG-5);width:38px;height:38px;border-radius:50%}
 .friend_msg .dialog_c, .self_msg .dialog_c {padding:8px 10px;font-size:14px;line-height:22px;border-radius:4px}
@@ -552,7 +552,7 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .msg_post .px, .msg_post .pns {margin:7px 10px}
 .msgbox .page {margin-top:30px}
 
-/*----- Í¨ÓÃ·¢²¼ÊäÈë¿òÏà¹Ø -----*/
+/*----- é€šç”¨å‘å¸ƒè¾“å…¥æ¡†ç›¸å…³ -----*/
 .post_box {background-color:var(--dz-BG-0);overflow:hidden}
 .post_box li.mli {height:30px;line-height:30px;padding:5px 15px;font-size:16px;border-bottom:1px solid var(--dz-BOR-ed);overflow:hidden;position:relative}
 .post_box li.mtit {height:20px;line-height:20px;font-size:12px;padding-top:10px;color:var(--dz-FC-999)}
@@ -593,7 +593,7 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .post_imglist li .p_img {display:block}
 .post_imglist li .p_img img {padding:2px;border:1px solid var(--dz-BOR-ed);vertical-align:middle}
 
-/*----- Ìû×ÓÄÚÈİÒ³ -----*/
+/*----- å¸–å­å†…å®¹é¡µ -----*/
 .quote {padding:8px 10px;margin:8px 0;background-color:var(--dz-BG-5);font-size:14px;border-radius:4px}
 .quote a {color:var(--dz-BG-3)}
 .viewthread {background-color:var(--dz-BG-0);overflow:hidden}
@@ -634,7 +634,7 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .foot_reply a.mx {border-left:1px solid var(--dz-BOR-ed)}
 .foot_height_view {height:40px}
 
-/*----- ÌØÊâÖ÷Ìâ-Í¶Æ± -----*/
+/*----- ç‰¹æ®Šä¸»é¢˜-æŠ•ç¥¨ -----*/
 .poll {margin:10px auto;padding:10px 15px;background-color:var(--dz-BG-5);font-size:14px;border-radius:6px}
 .poll_txt {line-height:28px;color:var(--dz-FC-666)}
 .poll_box p {margin:5px 0;line-height:30px}
@@ -645,7 +645,7 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .poll_box span {display:block;margin-top:5px;line-height:28px;color:var(--dz-FC-666)}
 .poll_box #pollsubmit {margin:5px 0}
 
-/*----- ÌØÊâÖ÷Ìâ-ĞüÉÍ -----*/
+/*----- ç‰¹æ®Šä¸»é¢˜-æ‚¬èµ -----*/
 .reward, .rwdbst {margin:15px auto 10px;padding:15px;background-color:var(--dz-BG-5);font-size:14px;border-radius:6px}
 .reward_txt {line-height:20px;color:var(--dz-FC-666)}
 .reward_txt strong {margin:0 5px;font-size:18px;color:var(--dz-BG-3)}
@@ -658,7 +658,7 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .rwdbst .muser img {float:left;width:20px;height:20px;margin:0 5px 0 0 !important;border-radius:50% !important}
 .rwdbst .mtxt {color:var(--dz-FC-999)}
 
-/*----- ÌØÊâÖ÷Ìâ-±çÂÛ -----*/
+/*----- ç‰¹æ®Šä¸»é¢˜-è¾©è®º -----*/
 .debate_box {margin:10px auto;padding:10px 15px;background-color:var(--dz-BG-5);font-size:14px;border-radius:6px}
 .debate_box strong em {float:right;color:var(--dz-FC-999);font-weight:400}
 .debate_box p {color:var(--dz-FC-666)}
@@ -667,7 +667,7 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .debate_box #affirmbutton {background-color:var(--dz-BG-3)}
 .debate .endtime {margin-bottom:5px;font-size:14px;text-align:center;color:var(--dz-FC-999)}
 
-/*----- ÌØÊâÖ÷Ìâ-»î¶¯ -----*/
+/*----- ç‰¹æ®Šä¸»é¢˜-æ´»åŠ¨ -----*/
 .activity {margin:10px auto;padding:10px 15px;background-color:var(--dz-BG-5);font-size:14px;border-radius:6px}
 .activity dl {margin-top:5px}
 .activity dt {line-height:26px}
@@ -685,18 +685,18 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .activity .mbox .ma {width:40%}
 .activity .mbox .mb, .activity .mbox .mc {width:30%;text-align:right}
 
-/*----- ÌØÊâÖ÷Ìâ-ÉÌÆ· -----*/
+/*----- ç‰¹æ®Šä¸»é¢˜-å•†å“ -----*/
 .trade_box {margin:10px auto;padding:10px 15px;background-color:var(--dz-BG-5);font-size:14px;border-radius:6px}
 .trade_box .my {float:right;color:var(--dz-BG-3)}
 
-/*----- Ìû×ÓÄÚÈİÒ³-·µ»Ø¶¥²¿ -----*/
+/*----- å¸–å­å†…å®¹é¡µ-è¿”å›é¡¶éƒ¨ -----*/
 .scrolltop {display:block;position:fixed;right:15px;bottom:8px;margin-bottom:50px;height:38px;width:38px;z-index:99999;background:rgba(0, 0, 0, .8);opacity:.618;box-shadow:0 0 2px rgba(0,0,0,.2);border-radius:6px}
 .scrolltop:after {content:"";position:absolute;top:12px;left:11px;width:16px;height:2px;border-radius:1px;background:#fff;border-radius:1px}
 .scrolltop:before {content:"";position:absolute;top:17px;left:11px;display:inline-block;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:8px solid #fff;border-top:0;-webkit-transform:scale(1,1.2222);-webkit-transform:translate(0,1px);transform:scale(1,1.2222);transform:translate(0,1px)}
 .scrolltop.bottom:after {top:24px}
 .scrolltop.bottom:before {border-top:8px solid #fff;border-bottom:0;top:11px}
 
-/*----- ¶¯Ì¬ -----*/
+/*----- åŠ¨æ€ -----*/
 .home_feed{background:#fff}
 .home_feed_time{height:25px;line-height:25px;padding:10px 0px 0px;margin-bottom:5px;position:relative}
 .home_feed_time span{text-align:center;height:24px;line-height:24px;display:inline-block;font-size:16px;font-weight:bold;color:#666;background:#fff;padding:0px 12px;margin-left:47px;position:relative;z-index:1}
@@ -718,7 +718,7 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .home_feed_title p a{font-weight:bold;color:#777}
 .home_feed_title span{margin-left:10px;color:#bbb}
 
-/*----- Èº×é -----*/
+/*----- ç¾¤ç»„ -----*/
 .groupbox {}
 .group_memberlist_star {background-color: var(--dz-BG-3);border-radius: 10px;color:var(--dz-BG-0);margin-left:5px;padding: 0px 2px;font-size: 12px;}
 #group_manage_userlist li { width:auto; margin:0 5px;}
