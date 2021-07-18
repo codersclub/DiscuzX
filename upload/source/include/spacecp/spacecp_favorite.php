@@ -27,9 +27,39 @@ if($_GET['op'] == 'delete') {
 			C::t('home_favorite')->delete($_GET['favorite'], false, $_G['uid']);
 		}
 		showmessage('favorite_delete_succeed', 'home.php?mod=space&uid='.$_G['uid'].'&do=favorite&view=me&type='.$_GET['type'].'&quickforward=1');
-	} else {
-		$favid = intval($_GET['favid']);
-		$thevalue = C::t('home_favorite')->fetch($favid);
+	} else {		
+		$type = empty($_GET['type']) ? '' : $_GET['type'];
+		$id = empty($_GET['id']) ? 0 : intval($_GET['id']);
+		if($type && $id){
+			switch($type) {
+				case 'thread':
+					$idtype = 'tid';
+					break;
+				case 'forum':
+					$idtype = 'fid';
+					break;
+				case 'blog':
+					$idtype = 'blogid';
+					break;
+				case 'group':
+					$idtype = 'gid';
+					break;
+				case 'album':
+					$idtype = 'albumid';
+					break;
+				case 'space':
+					$idtype = 'uid';
+					break;
+				case 'article':
+					$idtype = 'aid';
+					break;
+			}
+			$thevalue = C::t('home_favorite')->fetch_by_id_idtype($id, $idtype, $_G['uid']);
+			$favid = $thevalue['favid'];
+		}else{
+			$favid = intval($_GET['favid']);
+			$thevalue = C::t('home_favorite')->fetch($favid);
+		}		
 		if(empty($thevalue) || $thevalue['uid'] != $_G['uid']) {
 			showmessage('favorite_does_not_exist');
 		}
@@ -164,7 +194,6 @@ function deletefavorite($thevalue = array()){
 		case 'fid':
 			C::t('forum_forum')->update_forum_counter($thevalue['id'], 0, 0, 0, 0, -1);
 			break;
-		default:
 		case 'blogid':
 			C::t('home_blog')->increase($thevalue['id'], 0, array('favtimes' => -1));
 			break;
