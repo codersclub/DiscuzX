@@ -22,11 +22,11 @@ class helper_mobile {
 			$content = preg_replace_callback("/href=\"(\w+\.php)(.*?)\"/", array(__CLASS__, 'mobileoutput_callback_mobilereplace_12'), $content);
 
 			ob_start();
-			$content = '<?xml version="1.0" encoding="utf-8"?>'.$content;
 			if('utf-8' != CHARSET) {
 				$content = diconv($content, CHARSET, 'utf-8');
 			}
 			if(defined('IN_MOBILE') && constant('IN_MOBILE') === '3') {
+				$content = '<?xml version="1.0" encoding="utf-8"?>'.$content;
 				header("Content-type: text/vnd.wap.wml; charset=utf-8");
 			} else {
 				@header('Content-Type: text/html; charset=utf-8');

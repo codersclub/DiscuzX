@@ -37,10 +37,12 @@
 	<div class="myinfo_list_ico cl">
 		<ul>
 		<!--{if !$_GET['mycenter']}-->
+			<!--{if helper_access::check_module('forum')}-->
 			<li><a href="home.php?mod=space&uid={$space['uid']}&do=thread"><i class="dm-chat-s-fill"></i><!--{if $_G['uid'] == $space['uid']}-->{lang mythread}<!--{else}-->{lang mobta}{lang mobthread}<!--{/if}--></a></li>
+			<!--{/if}-->
 			<li><a href="home.php?mod=space&do=pm&subop=view&touid={$space['uid']}"><i class="dm-chat-t-fill"></i>{lang mobfa}{lang pm}</a></li>
-			<!--{eval require_once libfile('function/friend');$isfriend=friend_check($space['uid']);}-->
 			<!--{if helper_access::check_module('friend')}-->
+			<!--{eval require_once libfile('function/friend');$isfriend=friend_check($space['uid']);}-->
 			<!--{if !$isfriend}-->
 			<li><a href="home.php?mod=spacecp&ac=friend&op=add&uid=$space['uid']&handlekey=addfriendhk_{$space['uid']}" id="a_friend_li_{$space['uid']}" class="dialog"><i class="dm-person-fill"></i>{lang add_friend}</a></li>
 			<!--{else}-->
@@ -48,10 +50,16 @@
 			<!--{/if}-->
 			<!--{/if}-->
 		<!--{else}-->
+			<!--{if helper_access::check_module('forum')}-->
 			<li><a href="home.php?mod=space&uid={$_G['uid']}&do=thread&view=me"><i class="dm-chat-s-fill"></i>{lang mythread}</a></li>
-			<li><a href="home.php?mod=space&uid={$_G['uid']}&do=favorite&view=me&type=thread"><i class="dm-star-fill"></i>{lang myfavorite}</a></li>			
+			<!--{/if}-->
+			<!--{if helper_access::check_module('favorite')}-->
+			<li><a href="home.php?mod=space&uid={$_G['uid']}&do=favorite&view=me&type=thread"><i class="dm-star-fill"></i>{lang myfavorite}</a></li>
+			<!--{/if}-->			
 			<li><a href="home.php?mod=space&do=pm"><i class="dm-chat-t-fill"></i>{lang pm_center}{lang remind}<!--{if $_G['member']['newpm'] || $_G['member']['newprompt']}--><em>NEW</em><!--{/if}--></a></li>
+			<!--{if helper_access::check_module('friend')}-->
 			<li><a href="home.php?mod=space&do=friend"><i class="dm-person-fill"></i>{lang my_friends}</a></li>
+			<!--{/if}-->
 		<!--{/if}-->
 		</ul>
 	</div>
