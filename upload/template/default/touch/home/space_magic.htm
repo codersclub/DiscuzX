@@ -1,0 +1,29 @@
+<!--{template common/header}-->
+
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang magic}</h2>
+</div>
+
+<div class="dhnv flex-box cl">
+	<!--{if $_G['group']['allowmagics']}--><a href="home.php?mod=magic&action=shop" class="flex{if $_GET['action'] == 'shop'} mon{/if}">{lang magics_shop}</a><!--{/if}-->
+	<a href="home.php?mod=magic&action=mybox" class="flex{if $_GET['action'] == 'mybox'} mon{/if}">{lang magics_user}</a>
+	<a href="home.php?mod=magic&action=log&operation=uselog" class="flex{if $_GET['action'] == 'log'} mon{/if}">{lang magics_log}</a>
+</div>
+
+<div class="medallist threadlist cl">
+	<!--{if !$_G['setting']['magicstatus'] && $_G['adminid'] == 1}-->
+		<div class="threadlist_box mt10 cl">
+			<h4>{lang magics_tips}</h4>
+		</div>
+	<!--{/if}-->
+
+	<!--{if $action == 'shop'}-->
+		<!--{subtemplate home/space_magic_shop}-->
+	<!--{elseif $action == 'mybox'}-->
+		<!--{subtemplate home/space_magic_mybox}-->
+	<!--{elseif $action == 'log'}-->
+		<!--{subtemplate home/space_magic_log}-->
+	<!--{/if}-->
+</div>
+<!--{template common/footer}-->

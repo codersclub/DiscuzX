@@ -1,0 +1,61 @@
+
+<div class="tbmu">
+	<!--{if $_G['group']['maxmagicsweight']}-->
+		{lang magics_capacity}: <span class="xi1">$totalweight</span>/{$_G['group']['maxmagicsweight']} <br>
+	<!--{/if}-->
+	<!--{if $magiccredits}-->
+		<!--{if $_G['group']['magicsdiscount']}-->{lang magics_discount}<!--{/if}-->
+			{lang you_have_now}
+		<!--{eval $i = 0;}-->
+		<!--{loop $magiccredits $id}-->
+			<!--{if $i != 0}-->, <!--{/if}-->{$_G['setting']['extcredits'][$id]['img']} {$_G['setting']['extcredits'][$id]['title']} <span class="xi1"><!--{echo getuserprofile('extcredits'.$id);}--></span> {$_G['setting']['extcredits'][$id]['unit']}
+			<!--{eval $i++;}-->
+		<!--{/loop}-->
+		<div class="tbmu_btn">
+			<!--{if ($_G['setting']['ec_ratio'] && ($_G['setting']['ec_tenpay_opentrans_chnid'] || $_G['setting'][ec_tenpay_bargainor] || $_G['setting']['ec_account'])) || $_G['setting']['card']['open']}-->
+				<a href="home.php?mod=spacecp&ac=credit&op=buy" class="buy_credits">{lang buy_credits}</a>
+			<!--{/if}-->
+			<!--{if $_G[setting][exchangestatus]}-->
+				<a href="home.php?mod=spacecp&ac=credit&op=exchange">{lang credit_exchange}</a>
+			<!--{/if}-->
+		</div>
+	<!--{/if}-->
+</div>
+<!--{if $magiclist}-->
+	<ul class="mgcl mgcls cl">
+	<!--{loop $magiclist $key $magic}-->
+		<li>
+			<div class="mgcl_box">
+				<div id="magic_$magic['identifier']" class="mg_img">
+					<img src="$magic['pic']" alt="$magic['name']" />
+				</div>
+				<p>$magic['name']</p>
+				<p class="mgcl_p">
+					<!--{if {$_G['setting']['extcredits'][$magic['credit']]['unit']}}-->
+						{$_G['setting']['extcredits'][$magic['credit']]['title']} <strong class="xi1 xw1 xs2">$magic['price']</strong> {$_G['setting']['extcredits'][$magic['credit']]['unit']}/{lang magics_unit}
+					<!--{else}-->
+						<strong class="xi1 xw1 xs2">$magic['price']</strong> {$_G['setting']['extcredits'][$magic['credit']]['title']}/{lang magics_unit}
+					<!--{/if}-->
+					<!--{if $operation == 'hot'}--><em class="xg1">({lang sold} $magic['salevolume'] {lang magics_unit})</em><!--{/if}-->
+				</p>
+
+				<p class="mgcl_btn">
+					<!--{if $magic['num'] > 0}-->
+						<a href="home.php?mod=magic&action=shop&operation=buy&mid=$magic['identifier']" class="mgcl_a1 dialog">{lang magics_operation_buy}</a>
+						<!--{if $_G['group']['allowmagics'] > 1}-->
+							<a href="home.php?mod=magic&action=shop&operation=give&mid=$magic['identifier']" class="mgcl_a2 dialog">{lang magics_operation_present}</a>
+						<!--{/if}-->
+					<!--{else}-->
+						<span class="mgcl_sp">{lang magic_empty}</span>
+					<!--{/if}-->
+				</p>
+			</div>
+		</li>
+	<!--{/loop}-->
+	</ul>
+	<!--{if $multipage}--><div class="pgs cl mtm">$multipage</div><!--{/if}-->
+<!--{else}-->
+	<div class="threadlist_box mt10 cl">
+		<h4>{lang data_nonexistence}</h4>
+	</div>
+<!--{/if}-->

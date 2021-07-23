@@ -298,14 +298,14 @@ select {-moz-appearance:none;}
 .medallist .medal_top { height: 38px;padding: 12px 0 5px;}
 .medallist .medal_top .mg_img {float: left;margin-right: 10px;}
 .medallist .medal_top .mg_img img {float: left;height: 38px;line-height: 38px;border-radius: 50%;}
-.medallist .tbmu {width: 100%;padding: 10px;margin-top: 15px;font-size: 14px;line-height: 24px;background: #FDFBEC;border: 1px dashed #ECE7D5;color: #F26C4F;}
+.medallist .tbmu {padding: 10px;margin-top: 15px;font-size: 14px;line-height: 24px;background: #FDFBEC;border: 1px dashed #ECE7D5;color: #F26C4F;position: relative;}
 .medallist .mg_tit h3 { height: 20px; line-height: 20px; font-size: 15px; overflow: hidden;}
 .medallist .mg_tit span { display: block;height: 18px;line-height: 18px;font-size: 12px;color: var(--dz-FC-999); }
 .medallist .mg_tit span .xi1 { font-size: 14px; color: #F26C4F; }
 .medallist .medal_msg {margin-bottom: 5px;margin-left: 32px;line-height: 22px;font-size: 14px;color: var(--dz-FC-999);}
 .medallist .medal_btn { position: absolute;top: 20px;right: 13px;height: 30px;line-height: 30px;background-color: var(--dz-BG-color);font-size: 12px;border-radius: 3px;text-align: center;}
 .medallist .medal_btn span {color: #FFF;padding: 0 12px;}
-.medallist .medal_btn span.hui {background: #F3F3F3; color: var(--dz-FC-999);}
+.medallist .medal_btn span.hui {display:block;background: #F3F3F3; color: var(--dz-FC-999);}
 .medallist .medal_btn a {color: #FFF;padding: 0 12px;}
 .medallist .medal_btn span a {padding: 0 0;}
 .last_medal {background: #FFF;}
@@ -317,12 +317,24 @@ select {-moz-appearance:none;}
 .last_medal .last_medal_msg strong { color: var(--dz-FC-333); }
 .mgcl {padding: 5px;position: relative;}
 .mgcl li {float: left;width: 25%;}
+.mgcl.mgcls li {float: left;width: 50%;}
 .mgcl .mgcl_box {margin:5px; padding: 10px 8px;background: #FFF;border-radius: 3px;text-align: center;}
 .mgcl .mg_img {height: 34px;}
 .mgcl .mg_img img {height: 34px;}
+.mgcl.mgcls .mg_img {height: 50px;}
+.mgcl.mgcls .mg_img img {height: 50px;}
 .mgcl .mgcl_box p { margin-top: 10px; height: 20px;line-height: 20px;font-size: 14px;color: #333;overflow: hidden;}
+.mgcl.mgcls .mgcl_box p { margin-top: 8px;}
+.mgcl .mgcl_box .mgcl_p strong {color: #F26C4F;font-weight: 500;}
+.mgcl .mgcl_box .mgcl_p {color: var(--dz-FC-999);}
+.mgcl .mgcl_box .mgcl_btn {height: 26px;line-height: 26px;}
+.mgcl .mgcl_box .mgcl_btn a { display: block;float: left; padding: 0 10px; height: 26px;line-height: 26px;background-color: var(--dz-BG-color);font-size: 12px;color: #FFF;border-radius: 3px;text-align: center;}
+.mgcl.mgcls .mgcl_box .mgcl_btn a { display: inline-block; float: initial;}
+.mgcl .mgcl_box .mgcl_btn a.mgcl_a2 { float: right;}
+.mgcl.mgcls .mgcl_box .mgcl_btn a { float: initial;margin: 0 5px;}
+.mgcl .mgcl_box .mgcl_btn .mgcl_sp {color: #F26C4F;font-weight: 500;}
 .tip_btn { padding: 0 15px 15px;overflow: hidden; }
-.medal_tip_top {padding-top: 15px;}
+.medal_tip_top {padding: 15px 15px 0 15px;}
 .medal_tip_top p {line-height: 22px;font-size: 12px;color: #999;}
 .medal_tip_top .author p {margin-top: 6px;line-height: 24px;font-size: 15px;color: #333;overflow: hidden;}
 .medal_tip_box .ts {margin: 10px 0;height: 22px;line-height: 22px;font-size: 15px;color: #F26C4F;overflow: hidden;}
@@ -358,6 +370,21 @@ select {-moz-appearance:none;}
 .task_parterlist li a img { margin: 0 auto; width: 100%; margin-bottom: 3px; border-radius: 50%; vertical-align: middle; }
 .task_parterlist li a p { display: block; width: 100%; height: 20px; line-height: 20px; color: #666; text-align: center; overflow: hidden; }
 .task_mbn { font-size: 14px; color: #F26C4F; }
+
+.medallist .tbmu_btn { position: absolute;top: 20px;right: 13px;}
+.medallist .tbmu_btn a { display: block;float: left; padding: 0 10px; height: 26px;line-height: 26px;background-color: var(--dz-BG-color);font-size: 12px;color: #FFF;border-radius: 3px;text-align: center;}
+.medallist .tbmu_btn .buy_credits { margin-right: 10px;}
+.magic_log_list .dhnv { border-bottom: 0;}
+.magic_log_list .dhnv a.mon { border-bottom: 0;}
+.magic_log_list .dt { background: #FFF; border-top: 1px solid #EEE; }
+.magic_log_list .alt { background: #FAFAFA !important; border-top: 1px solid #EEE; border-bottom: 1px solid #EEE;}
+.magic_log_list .dt th, .magic_log_list .dt td { padding: 11px 10px 9px 10px; height: 24px; line-height: 24px; font-size: 13px; overflow: hidden; }
+.medal_tip_box ul { padding: 12px 15px; }
+.medal_tip_box ul li { display: flex; position: relative; line-height: 22px; padding: 8px 12px; background: #FFF; font-size: 15px; overflow: hidden; }
+.medal_tip_box ul li span {display: flex; flex-shrink: 0; margin-right: 15px; color: #999;}
+.medal_tip_input { display: flex; width: 100%; color: #333; border-bottom: 1px solid #EEE; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.medal_tip_input input { width: 100%; padding: 0 10px; background: #ffF; outline: none; border: none; height: 26px; line-height: 26px; font-size: 15px; color: #555; }
+.medal_tip_p { display: flex; width: 100%; color: #F26C4F; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 
 /*----- 通用资讯类列表 -----*/

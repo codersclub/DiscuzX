@@ -1,0 +1,100 @@
+<!--{template common/header}-->
+
+<div class="tip">
+	<form id="magicform" method="post" action="home.php?mod=magic&action=mybox&infloat=yes" onsubmit="ajaxpost('magicform', 'return_$_GET['handlekey']', 'return_$_GET['handlekey']', 'onerror');return false;">
+		<div class="medal_tip_top">
+			<a href="javascript:;" class="author">
+				<img src="$magic['pic']" class="vm" alt="$magic['name']" />
+				<p>$magic['name']</p>
+			</a>
+			<p>$magic['description']</p>
+		</div>
+		<div class="medal_tip_box" id="hkey_$_GET['handlekey']">
+			<div id="return_$_GET['handlekey']"></div>
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<input type="hidden" name="handlekey" value="$_GET['handlekey']" />
+				<input type="hidden" name="operation" value="$operation" />
+				<input type="hidden" name="magicid" value="$magicid" />
+				<!--{if $operation == 'give'}-->
+					<ul>
+						<!--{if $_G['group']['allowmagics'] > 1 }-->
+						<li>
+							<span>{lang magics_target_present}</span>
+							<div class="medal_tip_input">
+								<input type="text" id="selectedusername" name="tousername" size="12" autocomplete="off" value="" class="px p_fre" />
+							</div>
+						</li>
+						<!--{/if}-->
+						<li>
+							<span>{lang magics_num}</span>
+							<div class="medal_tip_input">
+								<input name="magicnum" type="text" size="12" autocomplete="off" value="1" class="px p_fre" />
+							</div>
+						</li>
+					</ul>
+					<input type="hidden" name="operatesubmit" value="yes" />
+				<!--{elseif $operation == 'use'}-->
+					<ul>
+						<p class="ts">
+							<!--{if $magic['useperoid'] == 1}-->{lang magics_outofperoid_1}<!--{elseif $magic['useperoid'] == 2}-->{lang magics_outofperoid_2}<!--{elseif $magic['useperoid'] == 3}-->{lang magics_outofperoid_3}<!--{elseif $magic['useperoid'] == 4}-->{lang magics_outofperoid_4}<!--{/if}--><!--{if $useperoid > 0}-->{lang magics_outofperoid_value}<!--{else}-->{lang magics_outofperoid_noperm}<!--{/if}-->
+						</p>
+					</ul>
+					<input type="hidden" name="usesubmit" value="yes" />
+					<input type="hidden" name="operation" value="use" />
+					<input type="hidden" name="magicid" value="$magicid" />
+					<!--{if !empty($_GET['idtype']) && !empty($_GET['id'])}-->
+						<input type="hidden" name="idtype" value="$_GET['idtype']" />
+						<input type="hidden" name="id" value="$_GET['id']" />
+					<!--{/if}-->
+				<!--{elseif $operation == 'sell'}-->
+					<ul>
+						<li>
+							<span>{lang magics_operation_sell}</span>
+							<div class="medal_tip_input">
+								<input name="magicnum" type="text" size="2" value="1" class="px" />
+							</div>
+							<span>{lang magics_unit}"$magic['name']"</span>
+						</li>
+						<p class="ts">
+							{lang recycling_prices}:
+							<!--{if {$_G['setting']['extcredits'][$magic['credit']]['unit']}}-->
+							{$_G['setting']['extcredits'][$magic['credit']]['title']} $discountprice {$_G['setting']['extcredits'][$magic['credit']]['unit']}/{lang magics_unit}
+							<!--{else}-->
+							$discountprice {$_G['setting']['extcredits'][$magic['credit']]['title']}/{lang magics_unit}
+							<!--{/if}-->
+						</p>
+					</ul>
+					<input type="hidden" name="operatesubmit" value="yes" />
+				<!--{elseif $operation == 'drop'}-->
+					<ul>
+						<li>
+							<span>{lang magics_operation_drop}</span>
+							<div class="medal_tip_input">
+								<input name="magicnum" type="text" size="2" autocomplete="off" value="1" class="px" />
+							</div>
+							<span>{lang magics_weight}"$magic['name']"</span>
+						</li>
+						<p class="ts">
+							{lang magics_weight}: $magic['weight']
+						</p>
+					</ul>
+					<input type="hidden" name="operatesubmit" value="yes" />
+				<!--{/if}-->
+				</div>
+
+		<div class="tip_btn" id="hbtn_$_GET['handlekey']">
+			<!--{if $operation == 'give'}-->
+				<button class="button2" type="submit" name="operatesubmit" id="operatesubmit" value="true"><span>{lang magics_operation_present}</span></button>
+			<!--{elseif $operation == 'use'}-->
+				<button class="button2" type="submit" name="usesubmit" id="usesubmit" value="true"><span>{lang magics_operation_use}</span></button>
+			<!--{elseif $operation == 'sell'}-->
+				<button class="button2" type="submit" name="operatesubmit" id="operatesubmit" value="true"><span>{lang magics_operation_sell}</span></button>
+			<!--{elseif $operation == 'drop'}-->
+				<button class="button2" type="submit" name="operatesubmit" id="operatesubmit" value="true"><span>{lang magics_operation_drop}</span></button>
+			<!--{/if}-->
+		</div>
+	</form>
+</div>
+
+
+<!--{template common/footer}-->

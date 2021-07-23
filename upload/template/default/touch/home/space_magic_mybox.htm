@@ -1,0 +1,40 @@
+<!--{if $_G['group']['magicsdiscount'] || $_G['group']['maxmagicsweight']}-->
+	<!--{if $_G['group']['maxmagicsweight']}-->
+		<p class="tbmu">{lang magics_capacity}: <span class="xi1">$totalweight</span>/{$_G['group']['maxmagicsweight']}</p>
+	<!--{/if}-->
+<!--{/if}-->
+<!--{if $mymagiclist}-->
+	<ul class="mgcl mgcls cl">
+	<!--{loop $mymagiclist $key $mymagic}-->
+		<li>
+			<div class="mgcl_box">
+
+				<div id="magic_$mymagic['identifier']" class="mg_img" >
+					<img src="$mymagic['pic']" alt="$mymagic['name']" />
+
+				</div>
+				<p><strong>$mymagic['name']</strong></p>
+				<p class="mgcl_p">{lang magics_num}: <font class="xi1 xw1">$mymagic['num']</font>, {lang magics_user_totalnum}: <font class="xi1">$mymagic['weight']</font></p>
+				<p class="mgcl_btn">
+					<!--{if $mymagic['useevent']}-->
+						<a href="home.php?mod=magic&action=mybox&operation=use&magicid=$mymagic['magicid']" class="mgcl_a1 dialog">{lang magics_operation_use}</a>
+					<!--{/if}-->
+					<!--{if $_G['group']['allowmagics'] > 1}-->
+						<a href="home.php?mod=magic&action=mybox&operation=give&magicid=$mymagic['magicid']" class="mgcl_a2 dialog">{lang magics_operation_present}</a>
+					<!--{/if}-->
+					<!--{if $_G['setting']['magicdiscount']}-->
+						<a href="home.php?mod=magic&action=mybox&operation=sell&magicid=$mymagic['magicid']" class="mgcl_a1 dialog">{lang magics_operation_sell}</a>
+					<!--{else}-->
+						<a href="home.php?mod=magic&action=mybox&operation=drop&magicid=$mymagic['magicid']" class="mgcl_a2 dialog">{lang magics_operation_drop}</a>
+					<!--{/if}-->
+				</p>
+			</div>
+		</li>
+	<!--{/loop}-->
+	</ul>
+	<!--{if $multipage}--><div class="pgs cl mtm">$multipage</div><!--{/if}-->
+<!--{else}-->
+	<div class="threadlist_box mt10 cl">
+		<h4>{lang data_nonexistence}</h4>
+	</div>
+<!--{/if}-->

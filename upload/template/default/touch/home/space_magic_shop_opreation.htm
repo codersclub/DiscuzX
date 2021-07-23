@@ -1,0 +1,156 @@
+<!--{eval
+	$_G['home_tpl_titles'] = array('{lang magic}');
+}-->
+<!--{template common/header}-->
+
+<div class="tip">
+	<form id="magicform" method="post" action="home.php?mod=magic&action=shop&infloat=yes"{if $_G[inajax]} onsubmit="ajaxpost('magicform', 'return_$_GET['handlekey']', 'return_$_GET['handlekey']', 'onerror');return false;"{/if}>
+	<div class="medal_tip_top">
+		<a href="javascript:;" class="author">
+			<img src="$magic['pic']" class="vm" alt="$magic['name']" />
+			<p>$magic['name']</p>
+		</a>
+		<p>$magic['description']</p>
+	</div>
+
+	<div class="medal_tip_box" id="hkey_$_GET['handlekey']">
+		<div class="c">
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+			<!--{if !empty($_GET['infloat'])}--><input type="hidden" name="handlekey" value="$_GET['handlekey']" /><!--{/if}-->
+			<input type="hidden" name="operation" value="$operation" />
+			<input type="hidden" name="mid" value="$_GET['mid']" />
+			<!--{if !empty($_GET['idtype']) && !empty($_GET['id'])}-->
+				<input type="hidden" name="idtype" value="$_GET['idtype']" />
+				<input type="hidden" name="id" value="$_GET['id']" />
+			<!--{/if}-->
+			<!--{if $operation == 'buy'}-->
+				<ul>
+					<li>
+						<span>{lang magics_price}</span>
+						<div class="medal_tip_p">
+							$magic[price] {$_G['setting']['extcredits'][$magic['credit']]['unit']} {$_G['setting']['extcredits'][$magic['credit']]['title']}
+						</div>
+					</li>
+					<!--{if $magic[discountprice] && $magic[price] != $magic[discountprice]}-->
+						<li>
+							<span>{lang magics_discountprice}</span>
+							<div class="medal_tip_p">
+								$magic[discountprice] $_G['setting']['extcredits'][$magic['credit']]['unit'] {$_G['setting']['extcredits'][$magic['credit']]['title']}
+							</div>
+						</li>
+					<!--{/if}-->
+					<li>
+						<span>{lang magics_yourcredit}</span>
+						<div class="medal_tip_p">
+							<!--{echo getuserprofile('extcredits'.$magic['credit'])}--> {$_G['setting']['extcredits'][$magic['credit']]['unit']}
+						</div>
+					</li>
+					<li>
+						<span>{lang magics_weight}</span>
+						<div class="medal_tip_p">
+							$magic[weight]
+						</div>
+					</li>
+					<li>
+						<span>{lang my_magic_volume}</span>
+						<div class="medal_tip_p">
+							$allowweight
+						</div>
+					</li>
+					<li>
+						<span>{lang stock}</span>
+						<div class="medal_tip_p">
+							$magic[num] {lang magics_unit}
+						</div>
+					</li>
+					<!--{if $useperoid !== true}-->
+					<p class="ts">
+						<!--{if $magic['useperoid'] == 1}-->{lang magics_outofperoid_1}<!--{elseif $magic['useperoid'] == 2}-->{lang magics_outofperoid_2}<!--{elseif $magic['useperoid'] == 3}-->{lang magics_outofperoid_3}<!--{elseif $magic['useperoid'] == 4}-->{lang magics_outofperoid_4}<!--{/if}--><!--{if $useperoid > 0}-->{lang magics_outofperoid_value}<!--{else}-->{lang magics_outofperoid_noperm}<!--{/if}-->
+					</p>
+					<!--{/if}-->
+					<!--{if !$useperm}-->
+					<p class="ts">
+						{lang magics_permission_no}
+					</p>
+					<!--{/if}-->
+					<li>
+						<span>{lang memcp_usergroups_buy}</span>
+						<div class="medal_tip_input">
+							<input id="magicnum" name="magicnum" type="text" size="2" autocomplete="off" value="1" class="px" />
+						</div>
+						<span>{lang magics_unit}</span>
+					</li>
+				</ul>
+				<input type="hidden" name="operatesubmit" value="yes" />
+			<!--{elseif $operation == 'give'}-->
+				<ul>
+					<li>
+						<span>{lang magics_target_present}</span>
+						<div class="medal_tip_input">
+							<input type="text" id="selectedusername" name="tousername" size="12" autocomplete="off" value="" class="px p_fre" />
+						</div>
+					</li>
+					<li>
+						<span>{lang magics_num}</span>
+						<div class="medal_tip_input">
+							<input name="magicnum" type="text" size="12" autocomplete="off" value="1" class="px p_fre" />
+						</div>
+					</li>
+				</ul>
+				<input type="hidden" name="operatesubmit" value="yes" />
+			<!--{/if}-->
+		</div>
+	</div>
+	<div class="tip_btn">
+		<!--{if $operation == 'buy'}-->
+			<button class="button2" type="submit" name="operatesubmit" id="operatesubmit" value="true"><span>{lang magics_operation_buy}</span></button>
+		<!--{elseif $operation == 'give'}-->
+			<button class="button2" type="submit" name="operatesubmit" id="operatesubmit" value="true"><span>{lang magics_operation_present}</span></button>
+		<!--{/if}-->
+	</div>
+	</form>
+</div>
+
+<script type="text/javascript" reload="1">
+	function succeedhandle_$_GET['handlekey'](url, msg) {
+		hideWindow('$_GET['handlekey']');
+		<!--{if !$location}-->
+			showDialog(msg, 'notice', null, function () { location.href=url; }, 0);
+		<!--{else}-->
+			showWindow('$_GET['handlekey']', 'home.php?$querystring');
+		<!--{/if}-->
+		showCreditPrompt();
+	}
+	function confirmMagicOp(e) {
+		e = e ? e : window.event;
+		showDialog('{lang magics_confirm}', 'confirm', '', 'ajaxpost(\'magicform\', \'return_magics\', \'return_magics\', \'onerror\');');
+		doane(e);
+		return false;
+	}
+	function compute() {
+		var totalcredit = <!--{echo getuserprofile('extcredits'.$magic['credit'])}-->;
+		var totalweight = $allowweight;
+		var magicprice = $('magicprice').innerHTML;
+		if($('discountprice')) {
+			magicprice = $('discountprice').innerHTML;
+		}
+		if(isNaN(parseInt($('magicnum').value))) {
+			$('magicnum').value = 0;
+			return;
+		}
+		if(!$('magicnum').value || totalcredit < 1 || totalweight < 1) {
+			$('magicnum').value = 0;
+			return;
+		}
+		var curprice = $('magicnum').value * magicprice;
+		var curweight = $('magicnum').value * $('magicweight').innerHTML;
+		if(curprice > totalcredit) {
+			$('magicnum').value = parseInt(totalcredit / magicprice);
+		} else if(curweight > totalweight) {
+			$('magicnum').value = parseInt(totalweight / $('magicweight').innerHTML);
+		}
+		$('magicnum').value = parseInt($('magicnum').value);
+	}
+</script>
+
+<!--{template common/footer}-->
