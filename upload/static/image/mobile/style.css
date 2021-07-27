@@ -386,6 +386,34 @@ select {-moz-appearance:none;}
 .medal_tip_input input { width: 100%; padding: 0 10px; background: #ffF; outline: none; border: none; height: 26px; line-height: 26px; font-size: 15px; color: #555; }
 .medal_tip_p { display: flex; width: 100%; color: #F26C4F; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
+/*----- 相册 -----*/
+.album_list { margin-top: 10px;overflow: hidden;}
+.album_list .album_ul { padding: 6px;background: #FFF;}
+.album_list .album_pic { overflow: hidden; padding: 6px; }
+.album_list ul li { float: left; width: 33.33%;  }
+.album_list ul li a { display: block; position: relative; }
+.album_list ul li a img { width: 100%; vertical-align: top; }
+.album_list ul li a p { width: 100%; height: 28px; line-height: 30px; font-size: 12px; color: #FFF; text-align: center; background: rgba(0,0,0,0.4); position: absolute; overflow: hidden; left: 0; bottom: 0; }
+.album_view_top { padding: 0 12px; background: #FFF; overflow: hidden; }
+.album_name { padding: 8px 0; overflow: hidden; }
+.album_name .albumname { height: 30px; line-height: 30px; font-size: 18px; color: #333; }
+.album_name span { float: left; padding-left: 10px; height: 30px; line-height: 30px; font-size: 12px; color: #999; }
+.album_name a { display: inline-block; height: 30px; line-height: 30px; font-size: 12px; color: #F26C4F; }
+.album_depict { padding-bottom: 8px; line-height: 18px; font-size: 14px; color: #999; overflow: hidden; }
+.album_list.album_view_list ul li { width: 50%; }
+.album_tbmu { margin-bottom: 12px; overflow: hidden; }
+.album_tbmu .c { position: relative; }
+.album_tbmu img { width: 100%; display: block; }
+.album_tbmu .tbmu { width: 100%; position: absolute; left: 0; bottom: 50px; }
+.album_tbmu .tbmu a { display: block; width: 60px; height: 36px; line-height: 38px; background: rgba(0,0,0,0.35); font-size: 14px;color: #FFF; text-align: center; overflow: hidden; }
+.album_tbmu .tbmu .z { border-radius: 0 3px 3px 0; }
+.album_tbmu .tbmu .y { border-radius: 3px 0 0 3px; }
+.album_inof { background: #FFF; border-top: 1px solid #F0F0F0; padding: 8px 12px; }
+.album_inof p { line-height: 24px; font-size: 14px; color: #333; }
+.album_inof p span { color: #999; }
+.album_at { margin-top: 5px;}
+.medal_tip_box.album_tip ul li span {margin-right: 8px; font-size:14px;}
+.medal_tip_box.album_tip select { width: 100%; padding: 0 10px; background: #ffF; outline: none; border: none; height: 26px; line-height: 26px; font-size: 14px; color: #555; }
 
 /*----- 通用资讯类列表 -----*/
 .wzlist {background-color:var(--dz-BG-0);border-top:1px solid var(--dz-BOR-ed)}

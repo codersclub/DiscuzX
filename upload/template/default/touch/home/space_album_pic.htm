@@ -1,0 +1,31 @@
+<!--{eval $_G['home_tpl_titles'] = array(getstr($pic['title'], 60, 0, 0, 0, -1), $album['albumname'], '{lang album}');}-->
+<!--{eval $friendsname = array(1 => '{lang friendname_1}',2 => '{lang friendname_2}',3 => '{lang friendname_3}',4 => '{lang friendname_4}');}-->
+
+<!--{template common/header}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>$sequence / $album['picnum']</h2>
+	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+
+<div class="album_tbmu">
+	<div class="album_tbmu_box pic">
+		<div id="photo_pic" class="c{if $pic['magicframe']} magicframe magicframe$pic['magicframe']{/if}">
+			<a href="home.php?mod=space&uid=$pic['uid']&do=$do&picid=$nextid"><img src="$pic['pic']" id="pic" class="vm" /></a>
+			<div class="tbmu" id="pic_block">
+				<a href="home.php?mod=space&uid=$pic['uid']&do=$do&picid=$upid" class="z">{lang previous_pic}</a>
+				<a href="home.php?mod=space&uid=$pic['uid']&do=$do&picid=$nextid" id="nextlink" class="y">{lang next_pic}</a>
+			</div>
+		</div>
+
+		<div class="album_inof">
+			<p id="a_set_title" class="albim_pic_title"><!--{if $pic['title']}-->$pic['title']<!--{else}--><!--{eval echo substr($pic['filename'], 0, strrpos($pic['filename'], '.'));}--><!--{/if}--></p>
+			<p class="album_at">
+				{lang upload_at} <!--{date($pic['dateline'])}--> ($pic['size'])
+			</p>
+		</div>
+	</div>
+</div>
+
+
+<!--{template common/footer}-->

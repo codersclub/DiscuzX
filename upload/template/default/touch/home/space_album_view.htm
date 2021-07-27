@@ -1,0 +1,41 @@
+<!--{template common/header}-->
+<!--{eval $_G['home_tpl_titles'] = array($album['albumname'], '{lang album}');}-->
+<!--{eval $friendsname = array(1 => '{lang friendname_1}',2 => '{lang friendname_2}',3 => '{lang friendname_3}',4 => '{lang friendname_4}');}-->
+
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang album}</h2>
+</div>
+
+<div class="album_view">
+	<div class="album_view_top cl">
+		<div class="album_name">
+			<div class="albumname z">$album['albumname']</div>
+			<span><!--{if $album['picnum']}-->{lang total} $album['picnum'] {lang album_pics}<!--{/if}--></span>
+			<!--{if ($_G['uid'] == $album['uid'] || checkperm('managealbum')) && $album['albumid'] > 0}-->
+			<a href="home.php?mod=spacecp&ac=album&op=delete&albumid=$album['albumid']&uid=$album['uid']&handlekey=delalbumhk_{$album['albumid']}" id="album_delete_$album['albumid']" class="dialog y">{lang delete}</a>
+			<!--{/if}-->
+		</div>
+		<div class="album_depict">$album['depict']</div>
+	</div>
+	<div class="album_view_list album_list">
+		<!--{if $count}-->
+			<ul id="waterfall" class="waterfall album_ul cl">
+				<!--{loop $list $key $value}-->
+				<li>
+					<div class="album_pic c">
+						<a href="home.php?mod=space&uid=$value['uid']&do=$do&picid=$value['picid']"><!--{if $value['pic']}--><img src="$value['pic']" alt="" /><!--{/if}--></a><!--{if $value[status] == 1}--><p>({lang moderate_need})</p><!--{/if}-->
+					</div>
+				</li>
+				<!--{/loop}-->
+			</ul>
+			<!--{if $multi}--><div class="pgs cl mtm">$multi</div><!--{/if}-->
+		<!--{else}-->
+			<div class="threadlist_box cl">
+				<h4>{lang no_album}</h4>
+			</div>
+		<!--{/if}-->
+	</div>
+</div>
+
+<!--{template common/footer}-->
