@@ -21,9 +21,9 @@ class table_forum_medal extends discuz_table
 		parent::__construct();
 	}
 
-	public function fetch_all_data($available = false) {
+	public function fetch_all_data($available = false, $start = 0, $limit = 0) {
 		$available = $available !== false ? ' WHERE available='.intval($available) : '';
-		return DB::fetch_all('SELECT * FROM %t %i ORDER BY displayorder', array($this->_table, $available));
+		return DB::fetch_all('SELECT * FROM %t %i ORDER BY displayorder'.DB::limit($start, $limit), array($this->_table, $available));
 	}
 	public function fetch_all_name_by_available($available = 1) {
 		$data = array();
@@ -33,8 +33,9 @@ class table_forum_medal extends discuz_table
 		return $data;
 	}
 
-	public function count_by_available() {
-		return DB::result_first('SELECT COUNT(*) FROM %t WHERE available=1', array($this->_table));
+	public function count_by_available($available = 1) {
+		$available = $available !== false ? ' WHERE available='.intval($available) : '';
+		return DB::result_first('SELECT COUNT(*) FROM %t %i', array($this->_table, $available));
 	}
 
 
