@@ -1,0 +1,73 @@
+<!--{template common/header}-->
+
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang doing}</h2>
+</div>
+
+<div class="dhnv flex-box cl">
+	<a href="home.php?mod=space&do=$do&view=we" class="flex{if $_GET['view'] == 'we'} mon{/if}">{lang me_friend_doing}</a>
+	<a href="home.php?mod=space&do=$do&view=me" class="flex{if $_GET['view'] == 'me'} mon{/if}">{lang doing_view_me}</a>
+	<a href="home.php?mod=space&do=$do&view=all" class="flex{if $_GET['view'] == 'all'} mon{/if}">{lang view_all}</a>
+</div>
+
+<div class="doing_list threadlist_box cl">
+	<!--{if helper_access::check_module('doing')}-->
+	<!--{template home/space_doing_form}-->
+	<!--{/if}-->
+	<div class="doing_list_box threadlist cl">
+		<!--{if $dolist}-->
+			<ul>
+				<!--{loop $dolist $dv}-->
+				<li class="doing_list_li list cl">
+					<!--{eval $doid = $dv['doid'];}-->
+					<!--{eval $_GET['key'] = $key = random(8);}-->
+					<div class="threadlist_top cl">
+						<!--{if empty($diymode)}-->
+						<a href="home.php?mod=space&uid=$dv['uid']&do=profile" class="avatar mimg z">
+							<!--{avatar($dv['uid'],'small')}-->
+						</a>
+						<!--{/if}-->
+						<div class="muser cl">
+							<h3>
+								<!--{if empty($diymode)}-->
+								<a href="home.php?mod=space&uid=$dv['uid']&do=profile" id="author_$value['cid']" class="mmc">$dv['username']</a>
+								<!--{/if}-->
+							</h3>
+							<div class="mtime">
+								<span><!--{date($dv['dateline'], 'u')}--></span>
+								<div class="doing_listgl y">
+									<!--{if $dv['uid']==$_G['uid']}-->
+									<a href="home.php?mod=spacecp&ac=doing&op=delete&doid=$doid&id=$dv['id']&handlekey=doinghk_{$doid}_$dv['id']" id="{$key}_doing_delete_{$doid}_{$dv['id']}" class="y doing_gl{if $_G['uid']} dialog{/if}">{lang delete}</a>
+									<!--{/if}-->
+									<!--{if helper_access::check_module('doing')}-->
+									<a href="home.php?mod=spacecp&ac=doing&op=docomment&handlekey=msg_0&doid=$doid&id=0&key=$key" class="y doing_gl{if $_G['uid']} dialog{/if}">{lang reply}</a>
+									<!--{/if}-->
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="comment_$value['cid']"class="do_comment{if $value['magicflicker']} magicflicker{/if}">$dv[message]<!--{if $dv['status'] == 1}--> <span style="font-weight: bold;">({lang moderate_need})</span><!--{/if}--></div>
+
+					<div id="{$key}dl{$doid}" class="do_comment">
+						<!--{eval $list = $clist[$doid];}-->
+						<div class="quote" id="{$key}_$doid"{if empty($list) || !$showdoinglist[$doid]} style="display:none;"{/if}>
+						<span id="{$key}_form_{$doid}_0"></span>
+						<!--{template home/space_doing_li}-->
+					</div>
+
+				</li>
+				<!--{/loop}-->
+				<!--{if $multi}-->
+					<div class="pgs cl mtm">$multi</div>
+				<!--{/if}-->
+			</ul>
+		<!--{else}-->
+			<div class="threadlist_box mt10 cl">
+				<h4>{lang doing_no_replay}</h4>
+			</div>
+		<!--{/if}-->
+	</div>
+</div>
+
+<!--{template common/footer}-->

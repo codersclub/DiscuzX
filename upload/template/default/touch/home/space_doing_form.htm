@@ -1,0 +1,27 @@
+
+<div id="moodfm" class="moodfm">
+	<form method="post" autocomplete="off" id="mood_addform" action="home.php?mod=spacecp&ac=doing&view=$_GET['view']">
+		<div class="moodfm_post">
+			<div class="moodfm_text">
+				<textarea name="message" id="message" class="xg1" placeholder="{$defaultstr}" rows="3"></textarea>
+			</div>
+			<div class="moodfm_f">
+				<div class="moodfm_btn">
+					<button type="submit" name="add" id="add" class="pgsbtn button">{lang publish}</button>
+				</div>
+				<!--{if $_G['group']['maxsigsize']}-->
+				<div class="moodfm_signature">
+					<label for="to_sign">
+						<input type="checkbox" name="to_signhtml" id="to_sign" class="pc" value="1" />
+						<span>{lang doing_update_personal_signature}</span>
+					</label>
+				</div>
+				<!--{/if}-->
+			</div>
+		</div>
+		<input type="hidden" name="addsubmit" value="true" />
+		<input type="hidden" name="refer" value="$theurl" />
+		<input type="hidden" name="topicid" value="$topicid" />
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+	</form>
+</div>
