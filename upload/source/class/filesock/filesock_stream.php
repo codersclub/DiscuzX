@@ -98,6 +98,7 @@ class filesock_stream extends filesock_base {
 				'method' => $this->method,
 				'header' => $header,
 				'timeout' => $this->conntimeout,
+				'ignore_errors' => !$this->failonerror,
 			);
 			if(isset($data)) {
 				$context['http']['content'] = $data;
@@ -123,7 +124,7 @@ class filesock_stream extends filesock_base {
 		if(!$fp) {
 			$this->errno = $errno;
 			$this->errstr = $errstr;
-			return '';
+			return;
 		} else {
 			stream_set_blocking($fp, $this->block);
 			stream_set_timeout($fp, $this->timeout);
@@ -139,6 +140,11 @@ class filesock_stream extends filesock_base {
 					while(!feof($fp) && !$fpflag) {
 						$header = @fgets($fp);
 						$headers .= $header;
+						if($this->failonerror && $header && substr($header, 0, 6) == 'HTTP/1' && intval(substr($header, 9, 3)) > 400) {
+							$this->errno = 2;
+							$this->errstr = 'Failed to open stream: HTTP request failed! '.$header;
+							return;
+						}
 						if($header && ($header == "\r\n" ||  $header == "\n")) {
 							break;
 						}
@@ -159,7 +165,12 @@ class filesock_stream extends filesock_base {
 				}
 			}
 			@fclose($fp);
-			return $return;
+			$this->filesockbody = $return;
+			if($this->returnbody) {
+				return $return;
+			} else {
+				return;
+			}
 		}
 	}
 	private function _build_header($param) {

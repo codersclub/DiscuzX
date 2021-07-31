@@ -56,6 +56,7 @@ class filesock_curl extends filesock_base {
 		}
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_HEADER, 1);
+		curl_setopt($ch, CURLOPT_FAILONERROR, $this->failonerror);
 		$usetmpfile = false;
 		if($this->method == 'POST') {
 			curl_setopt($ch, CURLOPT_POST, 1);
@@ -114,12 +115,13 @@ class filesock_curl extends filesock_base {
 			}
 			closedir($dh);
 		}
-		if($this->errno || $this->curlstatus['http_code'] != 200) {
+		$GLOBALS['filesockheader'] = $this->filesockheader = substr($data, 0, $this->curlstatus['header_size']);
+		$data = substr($data, $this->curlstatus['header_size'] + $this->position);
+		$this->filesockbody = !$this->limit ? $data : substr($data, 0, $this->limit);
+		if(!$this->returnbody || $this->errno) {
 			return;
 		} else {
-			$GLOBALS['filesockheader'] = $this->filesockheader = substr($data, 0, $this->curlstatus['header_size']);
-			$data = substr($data, $this->curlstatus['header_size'] + $this->position);
-			return !$this->limit ? $data : substr($data, 0, $this->limit);
+			return $this->filesockbody;
 		}
 	}
 

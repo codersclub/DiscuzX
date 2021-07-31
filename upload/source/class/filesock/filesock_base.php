@@ -26,10 +26,13 @@ class filesock_base {
 	public $useragent = '';
 	public $header = array();
 	public $rawdata = '';
+	public $returnbody = true;
+	public $failonerror = true;
 
 	public $errno = 0;
 	public $errstr = '';
 	public $filesockheader = '';
+	public $filesockbody = '';
 
 	public $scheme;
 	public $host;
