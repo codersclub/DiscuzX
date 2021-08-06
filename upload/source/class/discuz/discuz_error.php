@@ -294,9 +294,11 @@ EOT;
 		$host = $_SERVER['HTTP_HOST'];
 		$phpmsg = trim($phpmsg);
 		$title = 'Mobile '.($type == 'db' ? 'Database' : 'System');
+		$inajax_left = !empty($_G['inajax']) ? '<root><![CDATA[' : '';
+		$inajax_right = !empty($_G['inajax']) ? ']]></root>' : '';
 		echo <<<EOT
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+$inajax_left<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
 <html>
 <head>
 	<title>$host - $title Error</title>
@@ -350,7 +352,7 @@ EOT;
 </tr>
 </table>
 </body>
-</html>
+</html>$inajax_right
 EOT;
 		$exit && exit();
 	}
