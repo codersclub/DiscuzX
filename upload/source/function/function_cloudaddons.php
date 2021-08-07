@@ -29,7 +29,7 @@ define('CLOUDADDONS_CHECK_URL', $addon['check_url']);
 define('CLOUDADDONS_CHECK_IP', $addon['check_ip']);
 
 function cloudaddons_md5($file) {
-	return dfsockopen(CLOUDADDONS_CHECK_URL.$file, 0, '', '', false, CLOUDADDONS_CHECK_IP, 60);
+	return dfsockopen(CLOUDADDONS_CHECK_URL.$file, 0, '', '', false, CLOUDADDONS_CHECK_IP, 999);
 }
 
 function cloudaddons_getuniqueid() {

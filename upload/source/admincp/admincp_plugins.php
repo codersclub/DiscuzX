@@ -44,7 +44,7 @@ if(!$operation) {
 			}
 			$checkresult = dunserialize(cloudaddons_upgradecheck($addonids));
 			savecache('addoncheck_plugin', $checkresult);
-			dsetcookie('addoncheck_plugin', 1, 43200);
+			dsetcookie('addoncheck_plugin', 1, 7200);
 		} else {
 			loadcache('addoncheck_plugin');
 			$checkresult = $_G['cache']['addoncheck_plugin'];
