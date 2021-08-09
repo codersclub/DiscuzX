@@ -3445,7 +3445,7 @@ $lang = array
 	'members_add_email_notify' => '发送通知到上述地址',
 	'members_admin_tips' => '<li>通过用户管理，您可以进行编辑会员资料、用户组、权限、积分，授予会员勋章以及删除会员等操作；</li><li>请先根据条件搜索用户，然后选择相应的操作。</li><li>输入框可使用通配符 *，多个值之间用半角逗号 "," 隔开。</li>',
 	'members_admin_comment' => '用户组名称以黑体字显示的，为系统用户组；以斜体字显示的，为自定义用户组；否则为会员用户组',
-	'members_export_tips' => '<li>用户组名称以黑体字显示的，为系统用户组；以斜体字显示的，为自定义用户组；否则为会员用户组。</li><li>导出用户信息最多支持 10000 条数据。导出的 .xls 文件可用 EXCEL 打开。</li>',
+	'members_export_tips' => '<li>用户组名称以黑体字显示的，为系统用户组；以斜体字显示的，为自定义用户组；否则为会员用户组。</li><li>导出用户信息最多支持 10000 条数据。导出的文件可用 EXCEL、WPS表格、<a href="https://docs.qq.com/" target="_blank">腾讯文档</a>等工具打开。</li>',
 
 	'members_delete_post' => '帖子',
 	'members_delete_blog' => '日志',
@@ -5466,7 +5466,7 @@ $lang = array
 	'card_log_num' => '操作数量',
 	'succeed_num' => '成功数',
 	'fail_num' => '失败数',
-	'card_manage_tips' => '<li>导出充值卡密最多支持 10000 条数据，导出的 .xls 文件可用 EXCEL 等工具打开。</li>',
+	'card_manage_tips' => '<li>导出充值卡密最多支持 10000 条数据，导出的文件可用 EXCEL、WPS表格、<a href="https://docs.qq.com/" target="_blank">腾讯文档</a>等工具打开。</li>',
 	'card_manage_title' => '充值卡密列表',
 	'card_status' => '状态',
 	'card_manage_status_1' => '未使用',
