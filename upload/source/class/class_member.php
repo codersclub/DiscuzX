@@ -108,6 +108,7 @@ class logging_ctl {
 					$groupid = $this->setting['regverify'] ? 8 : $this->setting['newusergroupid'];
 
 					C::t('common_member')->insert($uid, $result['ucresult']['username'], md5(random(10)), $result['ucresult']['email'], $_G['clientip'], $groupid, $init_arr);
+					$_G['member']['lastvisit'] = TIMESTAMP;
 					$result['member'] = getuserbyuid($uid);
 					$result['status'] = 1;
 				}
