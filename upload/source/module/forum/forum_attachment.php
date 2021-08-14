@@ -260,9 +260,18 @@ dheader('Last-Modified: '.gmdate('D, d M Y H:i:s', $attach['dateline']).' GMT');
 dheader('Content-Encoding: none');
 
 if($isimage && !empty($_GET['noupdate']) || !empty($_GET['request'])) {
-	dheader('Content-Disposition: inline; filename="'.(($attach['filename'] == $filenameencode) ? $attach['filename'].'"' : $filenameencode.'"; filename*=utf-8\'\''.$filenameencode));
+	if(defined('IN_MOBILE')){
+		dheader('Content-Disposition: inline; filename="'.diconv($attach['filename'], CHARSET, 'UTF-8').'"');
+	}else{
+		dheader('Content-Disposition: inline; filename="'.(($attach['filename'] == $filenameencode) ? $attach['filename'].'"' : $filenameencode.'"; filename*=utf-8\'\''.$filenameencode));
+	
+	}
 } else {
-	dheader('Content-Disposition: attachment; filename="'.(($attach['filename'] == $filenameencode) ? $attach['filename'].'"' : $filenameencode.'"; filename*=utf-8\'\''.$filenameencode));
+	if(defined('IN_MOBILE')){
+		dheader('Content-Disposition: attachment; filename="'.diconv($attach['filename'], CHARSET, 'UTF-8').'"');
+	}else{
+		dheader('Content-Disposition: attachment; filename="'.(($attach['filename'] == $filenameencode) ? $attach['filename'].'"' : $filenameencode.'"; filename*=utf-8\'\''.$filenameencode));
+	}
 }
 if($isimage) {
 	dheader('Content-Type: image');
