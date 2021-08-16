@@ -953,7 +953,7 @@ a.thread_mod { height: 19px; line-height: 19px; display: inline-block; color: #4
 					#p_btn span { padding-left: 2px; color: {LIGHTTEXT}; }
 			.tshare { padding-bottom: 10px; }
 				.tshare strong { float: left; margin-right: 10px; }
-				#p_btn .tshare a, #p_btn .tshare i { padding: 0; background-image: none; }
+				#p_btn .tshare a, #p_btn .tshare i { padding: 0; background: none; }
 					#p_btn .tshare a { margin-right: 10px; color: {HIGHLIGHTLINK}; }
 					#p_btn .tshare a:hover { text-decoration: underline; }
 		.rate { margin: 20px 0; font-size: 12px; }
