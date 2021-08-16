@@ -25,7 +25,7 @@
 							<th>{lang keywords}</th>
 							<td>
 								<input type="text" name="srchtxt" id="srchtxt_1" class="px" size="25" maxlength="40" value="$keyword" />
-								<!--{if ($_G['group']['allowsearch'] & 32)}--><label><input type="checkbox" name="srchtype" class="pc" value="fulltext" {$fulltextchecked} onclick="if(this.checked){$('seltableid').style.display='';}else{$('seltableid').style.display='none';}"/>{lang search_fulltext}</label><!--{/if}-->
+								<!--{if ($_G['group']['allowsearch'] & 32)}--><label><input type="checkbox" name="srchtype" class="pc" value="fulltext" {$fulltextchecked}{if $posttableselect} onclick="if(this.checked){$('seltableid').style.display='';}else{$('seltableid').style.display='none';}"{/if}/>{lang search_fulltext}</label><!--{/if}-->
 								<!--{if $posttableselect}-->&nbsp; $posttableselect<!--{/if}-->
 								<script type="text/javascript">initSearchmenu('srchtxt_1');$('srchtxt_1').focus();</script>
 							</td>
