@@ -321,6 +321,10 @@ function blog_flash($url, $type='') {
 	$height = '390';
 	preg_match("/((https?|ftp|gopher|news|telnet|rtsp|mms|callto|bctp|thunder|qqdl|synacast){1}:\/\/|www\.)[^\[\"']+/i", $url, $matches);
 	$url = $matches[0];
+	require_once libfile('function/discuzcode');
+	if($flv = parseflv($url, $width, $height)) {
+		return $flv;
+	}
 	$type = fileext($url);
 	$randomid = random(3);
 	return '<div id="'.$type.'_'.$randomid.'" class="media"><div id="'.$type.'_'.$randomid.'_container" class="media_container"></div><div id="'.$type.'_'.$randomid.'_tips" class="media_tips"><a href="'.$url.'" target="_blank">'.lang('template', 'parse_av_tips').'</a></div></div><script type="text/javascript">detectPlayer("'.$type.'_'.$randomid.'", "'.$type.'", "'.$url.'", "'.$width.'", "'.$height.'");</script>';
