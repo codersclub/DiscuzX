@@ -1104,6 +1104,19 @@ $lang = array (
   'author_not_uploadpic' => '楼主暂时没有上传图片',
   'noreply_yourself_error' => '您不能对自己的回帖进行投票',
   'noreply_voted_error' => '您已经对此回帖投过票了',
+
+  'payment_order_no_exist' => '订单不存在或已过期',
+  'payment_type_no_exist' => '请选择支付渠道',
+  'payment_succeed' => '支付成功',
+  'payment_transfer_succeed' => '转账成功',
+  'payment_refund_id_exist' => '退款订单号已存在，必须保证全局唯一',
+  'payment_refund_exist' => '当前退款订单正在退款中，请通过状态接口查询退款状态',
+  'payment_transfer_id_exist' => '转账订单号已存在，必须保证全局唯一',
+  'payment_transfer_exist' => '当前转账订单正在处理中，请通过状态接口查询状态',
+  'payment_transfer_id_no_exist' => '转账订单号不存在',
+  'payment_retry_callback_no_exist' => '订单号不存在',
+  'payment_retry_callback_no_pay' => '订单未支付',
+
 );
 
 ?>

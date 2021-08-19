@@ -961,7 +961,7 @@ function get_cachedata_spacenavs() {
 					$nav['extra'] = ' onclick="showWindow(\'nav\', this.href);return false;"';
 				}
 			} elseif($nav['identifier'] == 'credit') {
-				$nav['allowsubnew'] = $_G['setting']['ec_ratio'] && ($_G['setting']['ec_account'] || $_G['setting']['ec_tenpay_opentrans_chnid'] || $_G['setting']['ec_tenpay_bargainor']);
+				$nav['allowsubnew'] = $_G['setting']['ec_ratio'] && payment::enable();
 			}
 		}
 		$nav['subcode'] = $nav['allowsubnew'] ? '<span><a href="'.$nav['suburl'].'"'.($nav['target'] == 1 ? ' target="_blank"' : '').$nav['extra'].'>'.$nav['subname'].'</a></span>' : '';

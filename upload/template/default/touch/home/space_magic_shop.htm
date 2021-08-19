@@ -12,7 +12,7 @@
 			<!--{eval $i++;}-->
 		<!--{/loop}-->
 		<div class="tbmu_btn">
-			<!--{if ($_G['setting']['ec_ratio'] && ($_G['setting']['ec_tenpay_opentrans_chnid'] || $_G['setting'][ec_tenpay_bargainor] || $_G['setting']['ec_account'])) || $_G['setting']['card']['open']}-->
+			<!--{if ($_G['setting']['ec_ratio'] && payment::enable()) || $_G['setting']['card']['open']}-->
 				<a href="home.php?mod=spacecp&ac=credit&op=buy" class="buy_credits">{lang buy_credits}</a>
 			<!--{/if}-->
 			<!--{if $_G[setting][exchangestatus]}-->

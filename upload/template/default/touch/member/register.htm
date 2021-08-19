@@ -5,7 +5,7 @@
 <div class="header_toplogo"><img src="{IMGDIR}/logo_m.svg" /><p>$_G['setting']['reglinkname']</p></div>
 <!--{hook/register_top_mobile}-->
 <div class="loginbox registerbox">
-	<div class="login_from">
+	<div class="login_from post_box">
 		<form method="post" autocomplete="off" name="register" id="registerform" action="member.php?mod={$_G['setting']['regname']}&mobile=2">
 		<input type="hidden" name="regsubmit" value="yes" />
 		<input type="hidden" name="formhash" value="{FORMHASH}" />
@@ -21,21 +21,26 @@
 				<li class="bl_none"><input type="email" tabindex="1" class="px" autocomplete="off" value="" name="{$_G['setting']['reginput']['email']}" placeholder="{lang registeremail}" fwin="login"></li>
 			<!--{else}-->
 				<!--{if empty($invite) && $_G['setting']['regstatus'] == 2 && !$invitestatus}-->
-					<li><input type="text" tabindex="1" class="px" autocomplete="off" value="{lang invite_code}" name="invitecode" placeholder="{lang invite_code}" fwin="login"></li>
+					<li class="mli">
+						<input type="text" tabindex="1" class="px" autocomplete="off" value="" name="invitecode" placeholder="{lang invite_code}" fwin="login">
+						<!--{if $this->setting['inviteconfig']['buyinvitecode'] && $this->setting['inviteconfig']['invitecodeprice'] && payment::enable()}-->
+						<a href="misc.php?mod=buyinvitecode" class="input-append">{lang register_buyinvitecode}</a>
+						<!--{/if}-->
+					</li>
 				<!--{/if}-->
-				<li><input type="text" tabindex="2" class="px" autocomplete="off" value="" name="{$_G['setting']['reginput']['username']}" placeholder="{lang registerinputtip}" fwin="login"></li>
-				<li><input type="password" tabindex="3" class="px" value="" name="{$_G['setting']['reginput']['password']}" placeholder="{lang login_password}" fwin="login"></li>
-				<li><input type="password" tabindex="4" class="px" value="" name="{$_G['setting']['reginput']['password2']}" placeholder="{lang registerpassword2}" fwin="login"></li>
-				<li><input type="email" tabindex="5" class="px" autocomplete="off" value="$hash[0]" name="{$_G['setting']['reginput']['email']}" placeholder="{lang registeremail}" fwin="login"></li>
+				<li class="mli"><input type="text" tabindex="2" class="px" autocomplete="off" value="" name="{$_G['setting']['reginput']['username']}" placeholder="{lang registerinputtip}" fwin="login"></li>
+				<li class="mli"><input type="password" tabindex="3" class="px" value="" name="{$_G['setting']['reginput']['password']}" placeholder="{lang login_password}" fwin="login"></li>
+				<li class="mli"><input type="password" tabindex="4" class="px" value="" name="{$_G['setting']['reginput']['password2']}" placeholder="{lang registerpassword2}" fwin="login"></li>
+				<li class="mli"><input type="email" tabindex="5" class="px" autocomplete="off" value="$hash[0]" name="{$_G['setting']['reginput']['email']}" placeholder="{lang registeremail}" fwin="login"></li>
 				<!--{if $_G['setting']['regverify'] == 2}-->
-					<li><input type="text" tabindex="6" class="px" autocomplete="off" value="{lang register_message}" name="regmessage" placeholder="{lang register_message}" fwin="login"></li>
+					<li class="mli"><input type="text" tabindex="6" class="px" autocomplete="off" value="{lang register_message}" name="regmessage" placeholder="{lang register_message}" fwin="login"></li>
 				<!--{/if}-->
 				<!--{if empty($invite) && $_G['setting']['regstatus'] == 3}-->
-					<li><input type="text" tabindex="7" class="px" autocomplete="off" value="{lang invite_code}" name="invitecode" placeholder="{lang invite_code}" fwin="login"></li>
+					<li class="mli"><input type="text" tabindex="7" class="px" autocomplete="off" value="{lang invite_code}" name="invitecode" placeholder="{lang invite_code}" fwin="login"></li>
 				<!--{/if}-->
 				<!--{loop $_G['cache']['fields_register'] $field}-->
 					<!--{if $htmls[$field['fieldid']]}-->
-						<li><strong>$field['title']</strong><br />$htmls[$field['fieldid']]</li>	
+						<li class="mli"><strong>$field['title']</strong><br />$htmls[$field['fieldid']]</li>
 					<!--{/if}-->
 				<!--{/loop}-->
 			<!--{/if}-->

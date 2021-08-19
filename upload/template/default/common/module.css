@@ -1775,6 +1775,12 @@ i.pstatus { display: block; margin-bottom: -30px; font-size: 12px; text-align: c
 		.creditl .cl { clear: both; float: none; width: auto; }
 			.creditl li em { font-weight: 700; }
 		.creditl u { text-decoration: none; }
+
+/* 订单状态 */
+	.order-status-0 { color: #444; }
+	.order-status-1 { color: green; }
+	.order-status-2 { color: #ddd; }
+
 /** end **/
 
 

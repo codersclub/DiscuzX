@@ -14,7 +14,7 @@
 				<!--{if $i != 0}-->, <!--{/if}-->{$_G['setting']['extcredits'][$id][img]} {$_G['setting']['extcredits'][$id][title]} <span class="xi1"><!--{echo getuserprofile('extcredits'.$id);}--></span> {$_G['setting']['extcredits'][$id][unit]}
 				<!--{eval $i++;}-->
 			<!--{/loop}-->
-			<!--{if ($_G['setting']['ec_ratio'] && ($_G['setting']['ec_tenpay_opentrans_chnid'] || $_G['setting'][ec_tenpay_bargainor] || $_G['setting']['ec_account'])) || $_G['setting']['card']['open']}-->
+			<!--{if ($_G['setting']['ec_ratio'] && payment::enable()) || $_G['setting']['card']['open']}-->
 				<span class="pipe">|</span><a href="home.php?mod=spacecp&ac=credit&op=buy">{lang buy_credits}</a>
 			<!--{/if}-->
 			<!--{if $_G[setting][exchangestatus]}-->

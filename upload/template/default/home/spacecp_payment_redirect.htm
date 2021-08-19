@@ -1,0 +1,71 @@
+<!--{template common/header}-->
+
+<!--{if $pay_channel == 'wechat'}-->
+<div class="fwinmask" id="paymentwxqrcode_menu" fwin="paymentwxqrcode" style="position: relative; display: none">
+    <table width="100%" cellpadding="0" cellspacing="0" class="fwin">
+        <tbody>
+        <tr><td class="t_l"></td><td class="t_c"></td><td class="t_r"></td></tr>
+        <tr>
+            <td class="m_l">&nbsp;&nbsp;</td>
+            <td class="m_c">
+                <h3 class="flb" id="paymentwxqrcode_ctrl">
+                    <em id="return_message">{lang payment_wx_qrcode_title}</em>
+                    <span>
+                        <a href="javascript:;" class="flbc" onclick="hide_paymentwxqrcode()" title="{lang close}">{lang close}</a>
+                    </span>
+                </h3>
+                <div id="wx-pay-qrcode" style="padding: 10px;"></div>
+            </td>
+            <td class="m_r"></td>
+        </tr>
+        <tr><td class="b_l"></td><td class="b_c"></td><td class="b_r"></td></tr>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    var isShowPaymentQrcodeWin = false, paymentStatusCheckTimer;
+    function wxpay_order_status() {
+        ajaxget('{$_G['siteurl']}home.php?mod=spacecp&ac=payment&op=pay&sop=status&order_id={$order_id}&handlekey=paystatus', 'pay_order_status', '', '', '', function(a) {
+            if(isShowPaymentQrcodeWin) {
+                paymentStatusCheckTimer = setTimeout(wxpay_order_status, 5000);
+            }
+        });
+    }
+
+    function hide_paymentwxqrcode() {
+        $('paymentwxqrcode_menu').style.display = 'none';
+        isShowPaymentQrcodeWin = false;
+        clearTimeout(paymentStatusCheckTimer);
+    }
+
+    function succeedhandle_paystatus(url, message) {
+        hide_paymentwxqrcode();
+        showDialog(message, 'right', '', function() {
+            window.location.href = url;
+        });
+        setTimeout(function() {
+            window.location.href = url;
+        }, 3000);
+    }
+</script>
+<script type="text/javascript" reload="1">
+    new QRCode(document.getElementById('wx-pay-qrcode'), {
+        text: '{$pay_url}',
+        width: 150,
+        height: 150,
+        colorDark: '#000000',
+        colorLight: '#FFFFFF',
+        correctLevel: QRCode.CorrectLevel.H
+    });
+    isShowPaymentQrcodeWin = true;
+    showMenu({'ctrlid':'paymentwxqrcode','mtype':'win','evt':'click','pos':'00','timeout':250,'duration':3,'drag':'paymentwxqrcode' + '_ctrl'});
+    paymentStatusCheckTimer = setTimeout(wxpay_order_status, 5000);
+</script>
+<!--{elseif $pay_channel == 'alipay'}-->
+<script type="text/javascript">
+    window.location.href = '{$pay_url}';
+</script>
+<!--{else}-->
+<!--{hook/spacecp_payment_redirect_extend}-->
+<!--{/if}-->
+<!--{template common/footer}-->

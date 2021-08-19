@@ -79,15 +79,22 @@ select {-moz-appearance:none;}
 .flex {-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}
 .flex-2 {-webkit-box-flex:2;-webkit-flex:2;-ms-flex:2;flex:2}
 .flex-3 {-webkit-box-flex:3;-webkit-flex:3;-ms-flex:3;flex:3}
+.align-items-center {align-items:center}
+.justify-content-between {justify-content:space-between}
+.justify-content-end {justify-content: flex-end}
 .discuz_x {height:10px;background-color:var(--dz-BG-body);border-bottom:1px solid var(--dz-BOR-ed);overflow:hidden}
-.mt0 {margin-top:0px}
-.mt5 {margin-top:5px}
-.mt10 {margin-top:10px}
-.mt15 {margin-top:15px}
-.p0 {padding:0px}
-.p5 {padding:5px}
-.p10 {padding:10px}
-.p15 {padding:15px}
+.m15 {margin: 15px !important;}
+.mt0 {margin-top:0px !important;}
+.mt5 {margin-top:5px !important;}
+.mt10 {margin-top:10px !important;}
+.mt15 {margin-top:15px !important;}
+.mb10 {margin-bottom:10px !important;}
+.p0 {padding:0px !important;}
+.p5 {padding:5px !important;}
+.p10 {padding:10px !important;}
+.p15 {padding:15px !important;}
+.pl5 {padding-left: 5px !important;}
+.b0 {border:0 !important;}
 .f_g, .f_g a {color: var(--dz-BG-2);}
 
 /*----- 通用主体 -----*/
@@ -158,6 +165,16 @@ select {-moz-appearance:none;}
 
 .setbox .sec_code span .txt {-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}
 .setbox .sec_code span img {float:right;height:30px}
+
+/*----- 通用组件Cell单元格 -----*/
+.dzcell-group {background:#FFF;position:relative;}
+.dzcell-group-inset {margin: 0 15px;overflow: hidden;border-radius:8px;}
+.dzcell-item {position: relative;display: flex;box-sizing: border-box;width: 100%;padding: 10px 16px;overflow: hidden;color: #323232;font-size: 14px;line-height: 24px;background-color: #FFF;}
+.dzcell-item .dzcell-title {width:80px;}
+.dzcell-item .dzcell-value {flex:1;position: relative;overflow: hidden;color: #969799;text-align: right;vertical-align: middle;word-wrap: break-word;}
+
+/*------ 通用空记录 ------*/
+.empty-box h4{background-color:var(--dz-BG-0);height:30px;line-height:30px;padding:80px 0;text-align:center;font-size:14px;font-weight:400;color:var(--dz-FC-999);border-top:1px solid var(--dz-BOR-ed);border-bottom:var(--dz-BOR-ed);margin-bottom:10px;}
 
 /*----- 首页幻灯 -----*/
 .swiper-wrapper {position:relative;width:100%;z-index:1;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-transition-property:-webkit-transform;-moz-transition-property:-moz-transform;-o-transition-property:-o-transform;-ms-transition-property:-ms-transform;transition-property:transform;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}
@@ -466,6 +483,7 @@ select {-moz-appearance:none;}
 .txtlist ul li {border-top:1px solid var(--dz-BOR-ed);height:40px;line-height:40px;font-size:14px;overflow:hidden}
 .txtlist ul li:first-child {border-top:none}
 .txtlist ul li i {float:left;margin-right:5px;font-size:12px;color:var(--dz-FC-ddd)}
+.text-muted {padding:10px 15px;color:var(--dz-FC-999)}
 
 /*----- 发现页面相关 -----*/
 .findbox {background-color:var(--dz-BG-0);padding:0 15px;border-bottom:1px solid var(--dz-BOR-ed);overflow:hidden}
@@ -663,6 +681,7 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .post_box li.mli {height:30px;line-height:30px;padding:5px 15px;font-size:16px;border-bottom:1px solid var(--dz-BOR-ed);overflow:hidden;position:relative}
 .post_box li.mtit {height:20px;line-height:20px;font-size:12px;padding-top:10px;color:var(--dz-FC-999)}
 .post_box li.mtext {height:auto;line-height:30px;padding:10px 15px;font-size:16px;border-bottom:1px solid var(--dz-BOR-ed);overflow:hidden}
+.post_box li.mli .input-append {position:absolute;right:15px;color:#495057;font-size:1rem;}
 .post_box li.mli .sort_sel {width:100%;background:url('touch/arrow.svg') no-repeat right center;background-size:16px 16px;padding-right:14px;height:30px;line-height:30px;font-size:16px;border:none;color:graytext;appearance:none;-moz-appearance:none;-webkit-appearance:none;overflow:hidden}
 .post_btn {padding:15px}
 .post_box .sec_code {padding:5px 15px;border-bottom:1px solid var(--dz-BOR-ed)}
@@ -837,6 +856,18 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .home_feed_title p{font-size:14px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
 .home_feed_title p a{font-weight:bold;color:#777}
 .home_feed_title span{margin-left:10px;color:#bbb}
+
+/*----- 设置-积分-记录 -----*/
+.home_credit_log{background:#FFF;border-top:1px solid var(--dz-BOR-ed)}
+.home_credit_log li{padding:10px 15px;border-bottom:1px solid var(--dz-BOR-ed)}
+.home_credit_log li .txt{color:var(--dz-FC-999);overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.home_credit_log li .txt a{color:var(--dz-FC-999)}
+.home_credit_log li .mtime{color:var(--dz-FC-999);text-align: right;min-width:120px;}
+.home_credit_log .xi1{color:var(--dz-BG-2)}
+.home_credit_log .xg1{color:green}
+.home-order-status-0 a {color:blue;}
+.home-order-status-1 {color:green;}
+.home-order-status-2 {color:#aaa;}
 
 /*----- 群组 -----*/
 .groupbox {}

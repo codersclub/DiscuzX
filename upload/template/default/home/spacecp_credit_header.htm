@@ -1,6 +1,6 @@
 <ul class="tb cl">
 	<li {$opactives[base] or ''}><a href="home.php?mod=spacecp&ac=credit&op=base">{lang my_credits}</a></li>
-	<!--{if $_G[setting][ec_ratio] && ($_G[setting][ec_account] || $_G[setting][ec_tenpay_opentrans_chnid] || $_G[setting][ec_tenpay_bargainor]) || $_G['setting']['card']['open']}-->
+	<!--{if ($_G[setting][ec_ratio] && $is_enable_pay) || $_G['setting']['card']['open']}-->
 	<li $opactives[buy]><a href="home.php?mod=spacecp&ac=credit&op=buy">{lang buy_credits}</a></li>
 	<!--{/if}-->
 	<!--{if $_G[setting][transferstatus] && $_G['group']['allowtransfer']}-->

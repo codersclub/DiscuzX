@@ -73,100 +73,92 @@ if($_GET['op'] == 'base') {
 	$navtitle = lang('core', 'title_credit');
 	$creditsformulaexp = str_replace('*', 'X', $_G['setting']['creditsformulaexp']);
 
-} elseif ($_GET['op'] == 'buy') {
-
-	if((!$_G['setting']['ec_ratio'] || (!$_G['setting']['ec_tenpay_opentrans_chnid'] && !$_G['setting']['ec_tenpay_bargainor']  && !$_G['setting']['ec_account'])) && !$_G['setting']['card']['open'] ) {
+} elseif($_GET['op'] == 'buy') {
+	if((!$_G['setting']['ec_ratio'] || !$is_enable_pay) && !$_G['setting']['card']['open']) {
 		showmessage('action_closed', NULL);
 	}
 
-	if(submitcheck('addfundssubmit')) {
-		if(!isset($_GET['bank_type'])) {
-			showmessage('memcp_credits_addfunds_msg_notype', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
+	if(submitcheck('addfundsbuyform')) {
+		$amount = intval($_GET['addfundamount']);
+		if(!$amount) {
+			showmessage('memcp_credits_addfunds_msg_incorrect', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
 		}
-		$apitype = is_numeric($_GET['bank_type']) ? 'tenpay' : $_GET['bank_type'];
-		if($apitype == 'card') {
-			list($seccodecheck) = seccheck('card');
-			if($seccodecheck) {
-				if(!check_seccode($_GET['seccodeverify'], $_GET['seccodehash'])) {
-					showmessage('submit_seccode_invalid', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
-				}
-			}
+		$language = lang('forum/misc');
+		if(($_G['setting']['ec_mincredits'] && $amount < $_G['setting']['ec_mincredits']) || ($_G['setting']['ec_maxcredits'] && $amount > $_G['setting']['ec_maxcredits'])) {
+			showmessage('credits_addfunds_amount_invalid', '', array('ec_maxcredits' => $_G['setting']['ec_maxcredits'], 'ec_mincredits' => $_G['setting']['ec_mincredits']), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
+		}
 
-			if(!$_POST['cardid']) {
-				showmessage('memcp_credits_card_msg_cardid_incorrect', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
+		if($_G['setting']['ec_maxcreditspermonth']) {
+			if(C::t('forum_order')->sum_amount_by_uid_submitdate_status($_G['uid'], $_G['timestamp'] - 2592000, array(2, 3)) + $amount > $_G['setting']['ec_maxcreditspermonth']) {
+				showmessage('credits_addfunds_toomuch', '', array('ec_maxcreditspermonth' => $_G['setting']['ec_maxcreditspermonth']), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
 			}
-			if(!($card = C::t('common_card')->fetch($_POST['cardid']))) {
-				showmessage('memcp_credits_card_msg_card_unfined', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true, 'extrajs' => '<script type="text/javascript">updateseccode("'.$_GET['sechash'].'");</script>'));
-			} else {
-				if($card['status'] == 2) {
-					showmessage('memcp_credits_card_msg_used', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
-				}
-				if($card['cleardateline'] < TIMESTAMP) {
-					showmessage('memcp_credits_card_msg_cleardateline_early', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
-				}
-				if(C::t('common_card')->update_to_used($card['id'])) {
-					updatemembercount($_G['uid'], array($card['extcreditskey'] => $card['extcreditsval']), true, 'CDC', 1);
-					showmessage('memcp_credits_card_msg_succeed', 'home.php?mod=spacecp&ac=credit&op=base', array('extcreditstitle' => $_G['setting']['extcredits'][$card['extcreditskey']]['title'], 'extcreditsval' => $card['extcreditsval']), array('showdialog' => 1, 'alert' => 'right', 'showmsg' => true, 'locationtime' => true));
-				} else {
-					showmessage('memcp_credits_card_msg_used', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
-				}
-			}
-		} else {
-			$amount = intval($_GET['addfundamount']);
-			if(!$amount) {
-				showmessage('memcp_credits_addfunds_msg_incorrect', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
-			}
-			$language = lang('forum/misc');
-			if(($_G['setting']['ec_mincredits'] && $amount < $_G['setting']['ec_mincredits']) || ($_G['setting']['ec_maxcredits'] && $amount > $_G['setting']['ec_maxcredits'])) {
-				showmessage('credits_addfunds_amount_invalid', '', array('ec_maxcredits' => $_G['setting']['ec_maxcredits'], 'ec_mincredits' => $_G['setting']['ec_mincredits']), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
-			}
+		}
 
-			if($apitype == 'card' && C::t('forum_order')->count_by_search($_G['uid'], null, null, null, null, null, null, $_G['timestamp'] - 180)) {
-				showmessage('credits_addfunds_ctrl', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
-			}
+		$price = round(($amount / $_G['setting']['ec_ratio'] * 100) / 100, 2);
 
-			if($_G['setting']['ec_maxcreditspermonth']) {
-				if(C::t('forum_order')->sum_amount_by_uid_submitdate_status($_G['uid'], $_G['timestamp'] - 2592000, array(2, 3)) + $amount > $_G['setting']['ec_maxcreditspermonth']) {
-					showmessage('credits_addfunds_toomuch', '', array('ec_maxcreditspermonth' => $_G['setting']['ec_maxcreditspermonth']), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
-				}
-			}
+		$credits = $_G['setting']['extcredits'][$_G['setting']['creditstrans']];
 
-			$price = round(($amount / $_G['setting']['ec_ratio'] * 100) / 100, 2);
-			$orderid = '';
-
-			require_once libfile('function/trade');
-			$requesturl = credit_payurl($price, $orderid, $_GET['bank_type']);
-
-			if(C::t('forum_order')->fetch($orderid)) {
-				showmessage('credits_addfunds_order_invalid', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
-			}
-
-			C::t('forum_order')->insert(array(
-				'orderid' => $orderid,
-				'status' => '1',
-				'uid' => $_G['uid'],
-				'amount' => $amount,
-				'price' => $price,
-				'submitdate' => $_G['timestamp'],
-				'email' => $_G['member']['email'],
+		$return_url = $_G['siteurl'] . 'home.php?mod=spacecp&ac=credit&op=base';
+		$pay_url = payment::create_order(
+			'payment_credit',
+			$_G['setting']['bbname'].' - '.$_G['member']['username'].' - '.lang('forum/misc', 'credit_payment'),
+			trim(lang('forum/misc', 'credit_forum_payment') . ' ' . $credits['title'] . ' ' . $amount . ' ' . $credits['unit']),
+			$price * 100,
+			$return_url,
+			array(
+				'index' => $_G['setting']['creditstrans'],
+				'value' => $amount,
 				'ip' => $_G['clientip'],
-				'port' => $_G['remoteport'],
-			));
+				'port' => $_G['remoteport']
+			)
+		);
 
-			include isset($_REQUEST['inajax']) ? template('common/header_ajax') : template('common/header');
-			echo '<form id="payform" action="'.$requesturl.'" method="post"></form><script type="text/javascript" reload="1">document.getElementById(\'payform\').submit();</script>';
-			include isset($_REQUEST['inajax']) ? template('common/footer_ajax') : template('common/footer');
-			dexit();
+		include isset($_REQUEST['inajax']) ? template('common/header_ajax') : template('common/header');
+		echo '<script type="text/javascript" reload="1">window.location.href = \''.$pay_url.'\';</script>';
+		include isset($_REQUEST['inajax']) ? template('common/footer_ajax') : template('common/footer');
+		dexit();
+	} elseif(submitcheck('addfundscardsubmit')) {
+		list($seccodecheck) = seccheck('card');
+		if($seccodecheck) {
+			if(!check_seccode($_GET['seccodeverify'], $_GET['seccodehash'])) {
+				showmessage('submit_seccode_invalid', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
+			}
+		}
+
+		if(!$_POST['cardid']) {
+			showmessage('memcp_credits_card_msg_cardid_incorrect', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
+		}
+		if(!($card = C::t('common_card')->fetch($_POST['cardid']))) {
+			showmessage('memcp_credits_card_msg_card_unfined', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true, 'extrajs' => '<script type="text/javascript">updateseccode("'.$_GET['sechash'].'");</script>'));
+		} else {
+			if($card['status'] == 2) {
+				showmessage('memcp_credits_card_msg_used', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
+			}
+			if($card['cleardateline'] < TIMESTAMP) {
+				showmessage('memcp_credits_card_msg_cleardateline_early', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
+			}
+			if(C::t('common_card')->update_to_used($card['id'])) {
+				updatemembercount($_G['uid'], array($card['extcreditskey'] => $card['extcreditsval']), true, 'CDC', 1);
+				showmessage('memcp_credits_card_msg_succeed', 'home.php?mod=spacecp&ac=credit&op=base', array('extcreditstitle' => $_G['setting']['extcredits'][$card['extcreditskey']]['title'], 'extcreditsval' => $card['extcreditsval']), array('showdialog' => 1, 'alert' => 'right', 'showmsg' => true, 'locationtime' => true));
+			} else {
+				showmessage('memcp_credits_card_msg_used', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
+			}
 		}
 	} else {
 		if($_G['setting']['card']['open']) {
 			list($seccodecheck) = seccheck('card');
 			$secqaacheck = 0;
 		}
-	}
 
-} elseif ($_GET['op'] == 'transfer') {
-	if(!empty($_G['setting']['submitlock']) && discuz_process::islocked('transferlock_'.$_G['uid'], 0, 1)){
+		$active = array();
+		if($_G['setting']['ec_ratio'] && $is_enable_pay) {
+			$active['rmb'] = 1;
+		} elseif($_G['setting']['card']['open']) {
+			$active['card'] = 1;
+		}
+	}
+} elseif($_GET['op'] == 'transfer') {
+	if(!empty($_G['setting']['submitlock']) && discuz_process::islocked('transferlock_'.$_G['uid'], 0, 1)) {
 		showmessage('credits_transfer_msg_locked', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
 	}
 
@@ -287,8 +279,7 @@ if($_GET['op'] == 'base') {
 
 		showmessage('credits_transaction_succeed', 'home.php?mod=spacecp&ac=credit&op=exchange', array(), array('showdialog' => 1, 'showmsg' => true, 'locationtime' => true));
 	}
-
-} else  {
+} else {
 	$wheresql = '';
 	$list = array();
 	$rid = intval($_GET['rid']);

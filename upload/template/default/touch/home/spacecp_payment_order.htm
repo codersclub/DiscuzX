@@ -1,0 +1,44 @@
+<!--{template common/header}-->
+
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang payment_order}</h2>
+	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+<!--{if $order_list}-->
+<div class="home_credit_log mt10 mb10 cl">
+	<ul>
+		<!--{loop $order_list $order}-->
+		<li class="cl">
+			<p class="flex-box align-items-center justify-content-between">
+				<span>{$order['type_name']}</span>
+				<span class="home-order-status-{$order['status']}">
+					{$order['amount']}
+					<!--{if $order['status'] == 2}-->
+					<em> ({$order['status_name']})</em>
+					<!--{elseif !$order['status']}-->
+					<a href="{$_G['siteurl']}home.php?mod=spacecp&ac=payment&op=pay&order_id={$order['id']}"> ({$order['status_name']})</a>
+					<!--{/if}-->
+				</span>
+			</p>
+			<p class="flex-box align-items-center justify-content-between mt5">
+				<span class="txt">
+					{$order['subject']}
+					<!--{if $order['description']}-->
+							<br/>{$order['description']}
+					<!--{/if}-->
+				</span>
+				<span class="mtime">{$order['dateline']}</span>
+			</p>
+		</li>
+		<!--{/loop}-->
+	</ul>
+	<!--{if $multi}--><div class="pgs cl mtm">$multi</div><!--{/if}-->
+</div>
+<!--{else}-->
+<div class="empty-box mt10 cl">
+	<h4>{lang doing_no_replay}</h4>
+</div>
+<!--{/if}-->
+
+<!--{template common/footer}-->

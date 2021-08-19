@@ -1,0 +1,69 @@
+<!--{template common/header}-->
+	<!--{subtemplate home/spacecp_header}-->
+		<!--{hook/spacecp_payment_top}-->
+		<!--{subtemplate home/spacecp_payment_header}-->
+
+			<script type="text/javascript" src="{$_G[setting][jspath]}calendar.js?{VERHASH}"></script>
+			<form method="post" action="home.php?mod=spacecp&ac=payment&op=order">
+				<div class="exfm" style="margin-top: 10px;">
+					<table cellspacing="0" cellpadding="0">
+						<tr>
+							<th>{lang starttime_endtime}:</th>
+							<td>
+								<input type="text" name="starttime" class="px" size="11" value="$_GET[starttime]" onclick="showcalendar(event, this)" readonly="readonly" /> {lang credit_to} <input type="text" name="endtime" class="px" size="11" value="$_GET[endtime]" readonly="readonly" onclick="showcalendar(event, this)" />
+							</td>
+							<th>{lang operation}:</th>
+							<td><span class="ftid">$optypehtml</span></td>
+						</tr>
+						<tr>
+							<th>&nbsp;</th>
+							<td colspan="3"><button type="submit" class="pn" name="search" value="true"><strong>{lang srch}</strong></button></td>
+						</tr>
+					</table>
+					<script type="text/javascript">
+						simulateSelect('optype');
+					</script>
+				</div>
+				<table summary="{lang payment_order}" cellspacing="0" cellpadding="0" class="dt">
+					<tr>
+						<th width="80">{lang operation}</th>
+						<th width="80">{lang payment_order_amount}</th>
+						<th>{lang detail}</th>
+						<th width="100">{lang payment_order_status}</th>
+						<th width="100">{lang payment_order_dateline}</th>
+						<th width="50"></th>
+					</tr>
+					<!--{if $order_list}-->
+					<!--{loop $order_list $order}-->
+					<tr>
+						<td>{$order['type_name']}</td>
+						<td>{$order['amount']}</td>
+						<td>
+							{$order['subject']}
+							<!--{if $order['description']}-->
+							<br/>{$order['description']}
+							<!--{/if}-->
+						</td>
+						<td class="order-status-{$order['status']}">{$order['status_name']}</td>
+						<td>{$order['dateline']}</td>
+						<td>
+							<!--{if !$order['status']}-->
+							<a href="{$_G['siteurl']}home.php?mod=spacecp&ac=payment&op=pay&order_id={$order['id']}">{lang payment_pay_btn}</a>
+							<!--{/if}-->
+						</td>
+					</tr>
+					<!--{/loop}-->
+					<!--{else}-->
+					<tr><td colspan="6"><p class="emp">{lang payment_order_no_data}</p></td></tr>
+					<!--{/if}-->
+				</table>
+			</form>
+			<!--{if $multi}--><div class="pgs cl mtm">$multi</div><!--{/if}-->
+			<!--{hook/spacecp_payment_bottom}-->
+		</div>
+	</div>
+	<div class="appl">
+		<!--{subtemplate home/spacecp_footer}-->
+	</div>
+</div>
+<!--{template common/footer}-->

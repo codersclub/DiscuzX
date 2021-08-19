@@ -1,0 +1,51 @@
+<!--{template common/header}-->
+
+<div class="header cl">
+    <div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+    <h2>{lang memcp_credits_log}</h2>
+    <div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+<div class="dhnv flex-box cl">
+    <a href="home.php?mod=spacecp&op=log&ac=credit" class="flex<!--{if !$_GET['income']}--> mon<!--{/if}-->">全部</a>
+    <a href="home.php?mod=spacecp&op=log&ac=credit&income=1" class="flex<!--{if $_GET['income'] == 1}--> mon<!--{/if}-->">收入</a>
+    <a href="home.php?mod=spacecp&op=log&ac=credit&income=-1" class="flex<!--{if $_GET['income'] == -1}--> mon<!--{/if}-->">支出</a>
+</div>
+
+<!--{if $loglist}-->
+<div class="home_credit_log mt10 mb10 cl">
+    <ul>
+        <!--{loop $loglist $value}-->
+        <!--{eval $value = makecreditlog($value, $otherinfo);}-->
+        <li class="cl">
+            <p class="flex-box align-items-center justify-content-between">
+                <span>
+                    <!--{if $value['operation']}-->
+                    <a href="home.php?mod=spacecp&ac=credit&op=log&optype=$value['operation']">$value['optype']</a>
+                    <!--{else}-->
+                    $value['title']
+                    <!--{/if}-->
+                </span>
+                <span>{$value['credit']}</span>
+            </p>
+            <p class="flex-box align-items-center justify-content-between mt5">
+                <span class="txt">
+                    <!--{if $value['operation']}-->
+                    $value['opinfo']
+                    <!--{else}-->
+                    $value['text']
+                    <!--{/if}-->
+                </span>
+                <span class="mtime">$value['dateline']</span>
+            </p>
+        </li>
+        <!--{/loop}-->
+    </ul>
+    <!--{if $multi}--><div class="pgs cl mtm">$multi</div><!--{/if}-->
+</div>
+<!--{else}-->
+<div class="empty-box mt10 cl">
+    <h4>{lang doing_no_replay}</h4>
+</div>
+<!--{/if}-->
+
+<!--{template common/footer}-->

@@ -24,7 +24,7 @@
 		</div>
 	</div>
 <!--{/if}-->
-	<div class="user_box cl">
+	<div class="user_box cl" onclick="window.location.href='home.php?mod=spacecp&ac=credit&op=log'">
 		<ul>
 			<li><span>$space['credits']</span>{lang credits}</li>
 			<!--{loop $_G['setting']['extcredits'] $key $value}-->
@@ -60,6 +60,7 @@
 			<!--{if helper_access::check_module('friend')}-->
 			<li><a href="home.php?mod=space&do=friend"><i class="dm-person-fill"></i>{lang my_friends}</a></li>
 			<!--{/if}-->
+			<li><a href="home.php?mod=spacecp&ac=credit&op=buy"><i class="dm-person-fill"></i>{lang credit_recharge}</a></li>
 		<!--{/if}-->
 		</ul>
 	</div>

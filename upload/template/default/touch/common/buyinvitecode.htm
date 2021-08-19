@@ -1,0 +1,74 @@
+<!--{template common/header}-->
+
+<!--{if $order && $codes}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang invitecode_succeed_title}</h2>
+	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+<form name="confirmform" method="get" autocomplete="off" action="member.php">
+	<input type="hidden" name="mod" value="{$_G[setting][regname]}" />
+	<input type="hidden" name="invitecode" value="{$codes[0]}" />
+	<div class="post_box">
+		<ul>
+			<li class="mtext">
+				<textarea class="pt" readonly>{$codetext}</textarea>
+			</li>
+			<li class="text-muted">{lang invitecode_email}</li>
+		</ul>
+	</div>
+	<div class="post_btn">
+		<button class="pn btn_pn mgrey">
+			{lang reg_continue}
+		</button>
+	</div>
+</form>
+<!--{else}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang invitecode_buycode}</h2>
+	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+
+<form id="confirmform" name="confirmform" method="post" autocomplete="off" action="misc.php?mod=buyinvitecode">
+	<input type="hidden" name="formhash" value="{FORMHASH}" />
+	<input type="hidden" name="buysubmit" value="true" />
+	<input type="hidden" name="handlekey" value="buyinvite" />
+	<div class="post_box p10">
+		<ul>
+			<!--{if $_G['setting']['inviteconfig']['invitecodeprompt']}-->
+			<li class="mtext">
+				{$_G['setting'][inviteconfig][invitecodeprompt]}
+			</li>
+			<!--{/if}-->
+			<li class="mli">
+				<input type="number" value="" tabindex="1" class="px" autocomplete="off" id="amount" name="amount" placeholder="{lang buy_nums}">
+			</li>
+			<li class="mli">
+				<input type="email" value="" tabindex="1" class="px" autocomplete="off" name="email" placeholder="{lang active_email}">
+			</li>
+			<li class="text-muted">{lang active_email_comment}</li>
+			<li class="mli b0">
+				{lang invitecode_expiration}
+				<span class="input-append">$maxinviteday</span>
+			</li>
+		</ul>
+	</div>
+	<div class="post_btn">
+		<button id="buysubmit_btn" class="pn btn_pn mgrey">
+			{lang need_money} <strong id="desamount" class="xi1">0.00</strong> {lang money_unit}
+		</button>
+	</div>
+</form>
+<script type="text/javascript">
+	(function() {
+		$('#amount').on('input',function() {
+			var amount = $('#amount').val().replace(/^0/, '');
+			amount = parseInt(amount);
+			$('#desamount').html(!isNaN(amount) ? amount * $_G['setting']['inviteconfig']['invitecodeprice'] : 0);
+		});
+	})();
+</script>
+<!--{/if}-->
+
+<!--{template common/footer}-->

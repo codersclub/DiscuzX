@@ -1,0 +1,59 @@
+<!--{template common/header}-->
+	<!--{subtemplate home/spacecp_header}-->
+		<!--{hook/spacecp_payment_top}-->
+		<!--{subtemplate home/spacecp_payment_header}-->
+			<script type="text/javascript" src="{STATICURL}js/qrcode/qrcode.min.js?{VERHASH}"></script>
+			<form id="payform" method="post" autocomplete="off" action="home.php?mod=spacecp&ac=payment&op=pay" onsubmit="ajaxpost(this.id, 'return_payform');return false;">
+				<input type="hidden" name="order_id" value="{$order['id']}">
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<input type="hidden" name="handlekey" value="payment" />
+				<input type="hidden" name="paysubmit" value="true" />
+				<ul class="creditl mtm bbda cl">
+					<li style="width: 100%"><em>{lang payment_pay_order_id}: </em>{$order['out_biz_no']}</li>
+				</ul>
+				<table cellspacing="0" cellpadding="0" class="tfm mtn">
+					<tr>
+						<th>{lang payment_pay_subject}: </th>
+						<td>{$order['subject']}</td>
+					</tr>
+					<!--{if $order['description']}-->
+					<tr>
+						<th>{lang payment_pay_description}: </th>
+						<td>{$order['description']}</td>
+					</tr>
+					<!--{/if}-->
+					<tr>
+						<th>{lang payment_pay_amount}: </th>
+						<td>
+							<span style="color: #ff3548;">{lang payment_unit_yang}<em style="font-size: 20px;">{$order['amount']}</em></span>
+							<!--{if $order['total_amount']}-->
+							<span style="color: #ff3548; text-decoration: line-through; margin-left: 5px; font-size: 20px;">({$order['total_amount']})</span>
+							<!--{/if}-->
+						</td>
+					</tr>
+					<tr>
+						<th>{lang payment_pay_type}: </th>
+						<td>
+							<!--{loop $pay_channel_list $index $channel}-->
+							<input id="pay_channel_{$channel['id']}" <!--{if !$index}-->checked<!--{/if}--> name="pay_channel" type="radio" value="{$channel['id']}">
+							<label for="pay_channel_{$channel['id']}"><img height="30" src="$channel['logo']"/></label>
+							<!--{/loop}-->
+						</td>
+					</tr>
+					<tr>
+						<th></th>
+						<td>
+							<button type="submit" name="paysubmit" id="paysubmit" class="pn" value="true"><em>{lang payment_pay_btn}</em></button>
+							<div id="return_payform"></div>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<!--{hook/spacecp_payment_bottom}-->
+		</div>
+	</div>
+	<div class="appl">
+		<!--{subtemplate home/spacecp_footer}-->
+	</div>
+</div>
+<!--{template common/footer}-->

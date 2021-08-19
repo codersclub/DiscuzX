@@ -1,0 +1,46 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset={$_G['charset']}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{$order['type_name']}</title>
+    <script type="text/javascript">
+        function jsApiCall() {
+            WeixinJSBridge.invoke(
+                'getBrandWCPayRequest',
+                $jsapidata,
+                function(res){
+                    if(res.err_msg == 'get_brand_wcpay_request:ok') {
+                        window.location.href = '{$order['return_url']}';
+                    }else if(res.err_msg == 'get_brand_wcpay_request:cancel'){
+                        window.location.href = '{$_G['siteurl']}home.php?mod=spacecp&ac=payment&op=pay&order_id={$order_id}';
+                    }else{
+                        WeixinJSBridge.log(res.err_msg);
+                        alert(res.err_code+res.err_desc+res.err_msg);
+                    }
+                }
+            );
+        }
+
+        window.onload = function(){
+            window.history.pushState({ title: 'title', url: '#'}, "title", "#");
+            window.addEventListener("popstate", function(e) {
+                window.location.href = "{$order['return_url']}";
+            }, false);
+
+            if (typeof WeixinJSBridge == "undefined"){
+                if( document.addEventListener ){
+                    document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                }else if (document.attachEvent){
+                    document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                    document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                }
+            }else{
+                jsApiCall();
+            }
+        };
+
+    </script>
+</head>
+<body>
+</body>
+</html>

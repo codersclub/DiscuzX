@@ -1602,6 +1602,77 @@ CREATE TABLE pre_common_word_type (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
+DROP TABLE IF EXISTS pre_common_payment_order;
+CREATE TABLE pre_common_payment_order  (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `out_biz_no` varchar(64) NOT NULL,
+  `type` varchar(255)  NOT NULL,
+  `type_name` varchar(255) DEFAULT NULL,
+  `uid` int(10) unsigned NOT NULL DEFAULT 0,
+  `amount` int(10) unsigned NOT NULL,
+  `amount_fee` int(10) unsigned NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `expire_time` int(10) unsigned NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `return_url` varchar(255) DEFAULT NULL,
+  `data` text DEFAULT NULL,
+  `clientip` varchar(255) NOT NULL DEFAULT '',
+  `remoteport` smallint(6) unsigned NOT NULL DEFAULT 0,
+  `dateline` int(10) unsigned NOT NULL,
+  `trade_no` varchar(255) DEFAULT NULL,
+  `channel` varchar(255) DEFAULT NULL,
+  `payment_time` int(10) unsigned DEFAULT NULL,
+  `callback_status` tinyint(1) DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`out_biz_no`),
+  KEY (`uid`),
+  KEY (`type`),
+  KEY (`status`)
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS pre_common_payment_refund;
+CREATE TABLE pre_common_payment_refund  (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `order_id` int(10) unsigned NOT NULL,
+  `out_biz_no` varchar(64)  NOT NULL,
+  `amount` int(10) unsigned NOT NULL,
+  `description` varchar(255)  NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `error` varchar(255) DEFAULT NULL,
+  `refund_time` int(10) DEFAULT NULL,
+  `clientip` varchar(255) NOT NULL DEFAULT '',
+  `remoteport` smallint(6) unsigned NOT NULL DEFAULT 0,
+  `dateline` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`out_biz_no`),
+  INDEX (`order_id`)
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS pre_common_payment_transfer;
+CREATE TABLE pre_common_payment_transfer  (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL,
+  `out_biz_no` varchar(64) NOT NULL,
+  `amount` int(10) unsigned NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `realname` varchar(255) NOT NULL,
+  `account` varchar(255) NOT NULL,
+  `channel` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) unsigned NOT NULL,
+  `error` varchar(255) DEFAULT NULL,
+  `trade_no` varchar(255) DEFAULT NULL,
+  `trade_time` int(10) unsigned DEFAULT NULL,
+  `clientip` varchar(255) NOT NULL DEFAULT '',
+  `remoteport` smallint(6) unsigned NOT NULL DEFAULT 0,
+  `dateline` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`out_biz_no`),
+  KEY (`uid`),
+  KEY (`status`)
+) ENGINE=InnoDB;
+
 DROP TABLE IF EXISTS pre_connect_disktask;
 CREATE TABLE pre_connect_disktask (
   taskid int(10) unsigned NOT NULL AUTO_INCREMENT,

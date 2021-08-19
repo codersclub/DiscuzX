@@ -29,6 +29,13 @@ $opactives = array($operation =>' class="a"');
 if(in_array($operation, array('base', 'buy', 'transfer', 'exchange', 'rule'))) {
 	$operation = 'base';
 }
+
+if($_G['setting']['ec_ratio']) {
+	$is_enable_pay = payment::enable();
+} else {
+	$is_enable_pay = false;
+}
+
 include_once libfile('spacecp/credit_'.$operation, 'include');
 
 

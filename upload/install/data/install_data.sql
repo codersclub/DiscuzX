@@ -300,8 +300,6 @@ INSERT INTO pre_common_setting VALUES ('ec_maxcredits','1000');
 INSERT INTO pre_common_setting VALUES ('ec_maxcreditspermonth','0');
 INSERT INTO pre_common_setting VALUES ('ec_mincredits','0');
 INSERT INTO pre_common_setting VALUES ('ec_ratio','0');
-INSERT INTO pre_common_setting VALUES ('ec_tenpay_bargainor','');
-INSERT INTO pre_common_setting VALUES ('ec_tenpay_key','');
 INSERT INTO pre_common_setting VALUES ('editedby','1');
 INSERT INTO pre_common_setting VALUES ('editoroptions','6');
 INSERT INTO pre_common_setting VALUES ('editperdel', '1');

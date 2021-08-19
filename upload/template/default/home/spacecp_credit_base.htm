@@ -10,7 +10,8 @@
 				<!--{eval $creditid=$_G['setting']['creditstrans'];}-->
 				<!--{if $_G['setting']['extcredits'][$creditid]}-->
 				<!--{eval $credit=$_G['setting']['extcredits'][$creditid]; }-->
-				<li class="xi1 cl"><em><!--{if $credit[img]}--> {$credit[img]}<!--{/if}--> {$credit[title]}: </em><!--{echo getuserprofile('extcredits'.$creditid);}--> {$credit[unit]} &nbsp; <!--{if ($_G['setting']['ec_ratio'] && ($_G['setting']['ec_tenpay_opentrans_chnid'] || $_G['setting'][ec_tenpay_bargainor] || $_G['setting']['ec_account'])) || $_G['setting']['card']['open']}--><a href="home.php?mod=spacecp&ac=credit&op=buy" class="xi2">{lang card_use}&raquo;</a><!--{/if}--></li>
+				<li class="xi1 cl">
+					<em><!--{if $credit[img]}--> {$credit[img]}<!--{/if}--> {$credit[title]}: </em><!--{echo getuserprofile('extcredits'.$creditid);}--> {$credit[unit]} &nbsp; <!--{if ($_G['setting']['ec_ratio'] && $is_enable_pay) || $_G['setting']['card']['open']}--><a href="home.php?mod=spacecp&ac=credit&op=buy" class="xi2">{lang card_use}&raquo;</a><!--{/if}--></li>
 				<!--{/if}-->
 			<!--{/if}-->
 			<!--{loop $_G['setting']['extcredits'] $id $credit}-->
@@ -54,43 +55,13 @@
 
 		<!--{elseif $_GET['op'] == 'buy'}-->
 
-			<!--{if ($_G[setting][ec_ratio] && ($_G[setting][ec_account] || $_G[setting][ec_tenpay_opentrans_chnid] || $_G[setting][ec_tenpay_bargainor])) || $_G[setting][card][open]}-->
-			<form id="addfundsform" name="addfundsform" method="post" autocomplete="off" action="home.php?mod=spacecp&ac=credit&op=buy" onsubmit="ajaxpost(this.id, 'return_addfundsform');">
+			<!--{if $_G[setting][ec_ratio] && $is_enable_pay}-->
+			<form id="addfundsbuyform" name="addfundsbuyform" method="post" autocomplete="off" action="home.php?mod=spacecp&ac=credit&op=buy" onsubmit="ajaxpost(this.id, 'return_addfundsbuyform');">
 				<input type="hidden" name="formhash" value="{FORMHASH}" />
-				<input type="hidden" name="addfundssubmit" value="true" />
+				<input type="hidden" name="addfundsbuyform" value="true" />
 				<input type="hidden" name="handlekey" value="buycredit" />
 				<table cellspacing="0" cellpadding="0" class="tfm mtn">
-					<tr>
-						<th>{lang mode_of_payment}</th>
-						<td colspan="2">
-							<!--{if $_G[setting][ec_ratio] && ($_G[setting][ec_tenpay_bargainor] || $_G[setting][ec_tenpay_opentrans_chnid])}-->
-								<div class="mbm pbn bbda cl">
-									<div id="div#tenpayBankList"></div><span id="#bank_type_value"></span>
-									<link rel="stylesheet" type="text/css" href="http://union.tenpay.com/bankList/css_col3.css" />
-									<script type="text/javascript">
-										$('div#tenpayBankList').html = function(){$('div#tenpayBankList').innerHTML = htmlString.replace(/<span.+?\/span>/g, ''); };
-										$("#bank_type_value").val = function(){{if $_G[setting][card][open]}$('cardbox').style.display='none';if($('card_box_sec')){$('card_box_sec').style.display='none';}$('paybox').style.display='';{/if}};
-										appendscript('http://union.tenpay.com/bankList/bank.js', '');
-									</script>
-								</div>
-							<!--{/if}-->
-							<div class="long-logo mbw">
-								<ul>
-								<!--{if $_G[setting][ec_ratio] && $_G[setting][ec_account]}-->
-									<li class="z">
-										<input name="bank_type" type="radio" value="alipay" class="vm" id="apitype_alipay" $ecchecked onclick="checkValue(this)" /><label class="vm" style="margin-right:18px;width:135px;height:32px;background:#FFF url({STATICURL}image/common/alipay_logo.gif) no-repeat;border:1px solid #DDD;display:inline-block;" onclick="{if $_G[setting][card][open]}$('cardbox').style.display='none';if($('card_box_sec')){$('card_box_sec').style.display='none';}$('paybox').style.display='';{/if}" for="apitype_alipay"></label>
-									</li>
-								<!--{/if}-->
-								<!--{if $_G[setting][card][open]}-->
-									<li>
-										<input name="bank_type" type="radio" value="card" id="apitype_card" class="vm" $ecchecked  onclick="activatecardbox();" /><label class="vm" style="padding-left:10px;width:125px;height:32px;line-height:32px;background:#FFF;border:1px solid #DDD;display:inline-block;" onclick="activatecardbox();"><span class="xs2">{lang card_credit}</span></label>
-									</li>
-								<!--{/if}-->
-								</ul>
-							</div>
-						</td>
-					</tr>
-					<tr id="paybox" style="{if ($_G[setting][ec_tenpay_bargainor] || $_G[setting][ec_tenpay_opentrans_chnid] || $_G[setting][ec_account]) && empty($ecchecked) }display:;{else}display:none;{/if}">
+					<tr id="paybox">
 						<th>{lang memcp_credits_addfunds}</th>
 						<td class="pns">
 							<input type="text" size="5" class="px" style="width: auto;" id="addfundamount" name="addfundamount" value="0" onkeyup="addcalcredit()" />
@@ -104,47 +75,51 @@
 							<!--{if $_G[setting][ec_maxcreditspermonth]}--><br />{lang memcp_credits_addfunds_rules_month}  <strong>$_G[setting][ec_maxcreditspermonth]</strong> {$_G[setting][extcredits][$_G[setting][creditstrans]][unit]}{$_G[setting][extcredits][$_G[setting][creditstrans]][title]}<!--{/if}-->
 						</td>
 					</tr>
-					<!--{if $_G[setting][card][open]}-->
-						<tr id="cardbox" style="{if $_G[setting][card][open] && $ecchecked}display:;{else}display:none;{/if}">
-							<th>{lang card}</th>
-							<td colspan="2">
-								<input type="text" class="px" id="cardid" name="cardid" />
-							</td>
-						</tr>
-						<!--{if $seccodecheck}-->
-							</table>
-							<!--{block sectpl}--><table id="card_box_sec" style="{if $_G[setting][card][open] && $ecchecked}display:;{else}display:none;{/if}" cellspacing="0" cellpadding="0" class="tfm mtn"><tr><th><sec></th><td colspan="2"><span id="sec<hash>" onclick="showMenu({'ctrlid':this.id,'win':'{$_GET[handlekey]}'})"><sec></span><div id="sec<hash>_menu" class="p_pop p_opt" style="display:none"><sec></div></td></tr></table><!--{/block}-->
-							<!--{subtemplate common/seccheck}-->
-							<table cellspacing="0" cellpadding="0" class="tfm mtn">
-						<!--{/if}-->
-					<!--{/if}-->
 					<tr>
 						<th>&nbsp;</th>
 						<td colspan="2">
-							<button type="submit" name="addfundssubmit_btn" class="pn" id="addfundssubmit_btn" value="true"><em>{lang memcp_credits_addfunds}</em></button>
+							<button type="submit" name="addfundsbuysubmit_btn" class="pn" id="addfundsbuysubmit_btn" value="true"><em>{lang memcp_credits_addfunds}</em></button>
 						</td>
 					</tr>
-
 				</table>
 			</form>
-			<span style="display: none" id="return_addfundsform"></span>
+			<span style="display: none" id="return_addfundsbuyform"></span>
 			<script type="text/javascript">
 				function addcalcredit() {
 					var addfundamount = $('addfundamount').value.replace(/^0/, '');
 					var addfundamount = parseInt(addfundamount);
 					$('desamount').innerHTML = !isNaN(addfundamount) ? Math.ceil(((addfundamount / $_G[setting][ec_ratio]) * 100)) / 100 : 0;
 				}
-				<!--{if $_G[setting][card][open]}-->
-				function activatecardbox() {
-					$('apitype_card').checked=true;
-					$('cardbox').style.display='';
-					if($('card_box_sec')){
-						$('card_box_sec').style.display='';
-					}
-					$('paybox').style.display='none';
-				}
-				<!--{/if}-->
 			</script>
+			<!--{/if}-->
+			<!--{if $_G[setting][card][open]}-->
+			<form id="addfundscardform" name="addfundscardform" method="post" autocomplete="off" action="home.php?mod=spacecp&ac=credit&op=buy" onsubmit="ajaxpost(this.id, 'return_addfundscardform');">
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<input type="hidden" name="addfundscardsubmit" value="true" />
+				<input type="hidden" name="handlekey" value="buycredit" />
+				<table cellspacing="0" cellpadding="0" class="tfm mtn">
+					<tr id="cardbox">
+						<th>{lang card}</th>
+						<td colspan="2">
+							<input type="text" class="px" id="cardid" name="cardid" />
+						</td>
+					</tr>
+					<!--{if $seccodecheck}-->
+				</table>
+				<!--{block sectpl}--><table id="card_box_sec" cellspacing="0" cellpadding="0" class="tfm mtn"><tr><th><sec></th><td colspan="2"><span id="sec<hash>" onclick="showMenu({'ctrlid':this.id,'win':'{$_GET[handlekey]}'})"><sec></span><div id="sec<hash>_menu" class="p_pop p_opt" style="display:none"><sec></div></td></tr></table><!--{/block}-->
+				<!--{subtemplate common/seccheck}-->
+				<table cellspacing="0" cellpadding="0" class="tfm mtn">
+					<!--{/if}-->
+					<tr>
+						<th>&nbsp;</th>
+						<td colspan="2">
+							<button type="submit" name="addfundscardsubmit_btn" class="pn" id="addfundscardsubmit_btn" value="true"><em>{lang memcp_credits_addfunds}</em></button>
+						</td>
+					</tr>
+
+				</table>
+			</form>
+			<span style="display: none" id="return_addfundscardform"></span>
 			<!--{/if}-->
 		<!--{elseif $_GET['op'] == 'transfer'}-->
 

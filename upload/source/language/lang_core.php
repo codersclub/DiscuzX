@@ -159,6 +159,7 @@ $lang = array
 	'title_memcp_avatar' => '修改头像',
 	'title_memcp_profile' => '个人资料',
 	'title_memcp_credit' => '积分',
+	'title_memcp_payment' => '订单',
 	'title_memcp_friend' => '好友',
 	'title_memcp_usergroup' => '用户组',
 	'title_memcp_album' => '编辑相册',

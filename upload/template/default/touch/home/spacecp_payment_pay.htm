@@ -1,0 +1,67 @@
+<!--{template common/header}-->
+
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang payment_pay}</h2>
+	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+<form id="addfundsbuyform" name="addfundsbuyform" method="post" autocomplete="off" action="home.php?mod=spacecp&ac=payment&op=pay">
+	<input type="hidden" name="order_id" value="{$order['id']}">
+	<input type="hidden" name="formhash" value="{FORMHASH}" />
+	<input type="hidden" name="paysubmit" value="true" />
+	<input type="hidden" name="handlekey" value="payment" />
+	<div class="m15 pl5"><b>{lang payment_pay_order_info}</b></div>
+	<div class="dzcell-group dzcell-group-inset">
+		<div class="dzcell-item">
+			<div class="dzcell-title">{lang payment_pay_order_id}</div>
+			<div class="dzcell-value">{$order['out_biz_no']}</div>
+		</div>
+		<div class="dzcell-item">
+			<div class="dzcell-title">{lang payment_pay_subject}</div>
+			<div class="dzcell-value">{$order['subject']}</div>
+		</div>
+		<!--{if $order['description']}-->
+		<div class="dzcell-item">
+			<div class="dzcell-title">{lang payment_pay_description}</div>
+			<div class="dzcell-value">{$order['description']}</div>
+		</div>
+		<!--{/if}-->
+		<div class="dzcell-item">
+			<div class="dzcell-title">{lang payment_pay_amount}</div>
+			<div class="dzcell-value">
+				<span style="color: #ff3548;">{lang payment_unit_yang}<em style="font-size: 20px;">{$order['amount']}</em></span>
+				<!--{if $order['total_amount']}-->
+				<span style="color: #ff3548; text-decoration: line-through; margin-left: 5px; font-size: 20px;">({$order['total_amount']})</span>
+				<!--{/if}-->
+			</div>
+		</div>
+	</div>
+	<div class="m15 pl5"><b>{lang payment_pay_type}</b></div>
+	<div class="dzcell-group dzcell-group-inset pay-channel-list">
+		<!--{loop $pay_channel_list $index $channel}-->
+		<div class="dzcell-item">
+			<div class="dzcell-title flex-box align-items-center">
+				<img height="30" src="$channel['logo']" />
+			</div>
+			<div class="dzcell-value flex-box align-items-center justify-content-end">
+				<input <!--{if !$index}-->checked<!--{/if}--> name="pay_channel" type="radio" value="{$channel['id']}">
+			</div>
+		</div>
+		<!--{/loop}-->
+	</div>
+
+
+	<div class="post_btn">
+		<button id="pmsubmit_btn" class="pn btn_pn mgrey">{lang payment_pay_btn}</button>
+	</div>
+</form>
+
+<script type="text/javascript">
+	(function() {
+		$('.pay-channel-list .dzcell-item').click(function() {
+			$(this).find('input').prop('checked', true);
+		});
+	})();
+</script>
+
+<!--{template common/footer}-->

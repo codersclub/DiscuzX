@@ -307,6 +307,14 @@ $lang = array(
 	'qq_set_status' => '设置我的QQ在线状态',
 	'qq_dialog' => '发起QQ聊天',
 
+	'payment_alipay' => '支付宝',
+	'payment_wechat' => '微信支付',
+	'payment_qpay' => 'QQ 钱包支付',
+	'payment_status_0' => '未支付',
+	'payment_status_1' => '已支付',
+	'payment_status_2' => '已过期',
+	'payment_credit' => '积分充值',
+
 );
 
 ?>

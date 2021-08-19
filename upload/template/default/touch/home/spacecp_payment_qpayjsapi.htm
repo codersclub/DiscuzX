@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="{$_G['charset']}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{$order['type_name']}</title>
+	<script src="https://open.mobile.qq.com/sdk/qqapi.js?_bid=152"></script>
+	<script type="text/javascript">
+		window.onload = function() {
+			window.history.pushState({ title: 'title', url: '#'}, "title", "#");
+			window.addEventListener("popstate", function(e) {
+				window.location.href = "{$order['return_url']}";
+			}, false);
+
+			if (typeof mqq !== 'undefined' && mqq.isMobileQQ && mqq.support("mqq.tenpay.pay")) {
+				mqq.tenpay.pay({
+					tokenId: "{$prepay_id}",
+				}, function(result, resultCode) {
+					window.location.href = '{$order['return_url']}';
+				});
+			} else {
+				window.location.href = '{$order['return_url']}';
+			}
+		};
+	</script>
+</head>
+<body>
+</body>
+</html>

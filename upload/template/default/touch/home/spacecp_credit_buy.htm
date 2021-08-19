@@ -1,0 +1,80 @@
+<div class="header cl">
+    <div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+    <h2>{lang home_credit_buy}</h2>
+    <div class="my"><a href="home.php?mod=spacecp&ac=payment"><i class="dm-chat-s-fill"></i></a></div>
+</div>
+
+<!--{if ($_G['setting']['ec_ratio'] && $is_enable_pay) && $_G['setting']['card']['open']}-->
+<div id="buy_tabs" class="dhnv flex-box mb10 cl">
+    <a href="javascript:void(0)" class="flex mon" data-id="#addfundsbuyform">{lang home_credit_buy_rmb}</a>
+    <a href="javascript:void(0)" class="flex" data-id="#addfundscardform">{lang home_credit_buy_card}</a>
+</div>
+<!--{/if}-->
+
+<!--{if $_G['setting']['ec_ratio'] && $is_enable_pay}-->
+<form id="addfundsbuyform" name="addfundsbuyform" method="post" autocomplete="off" action="home.php?mod=spacecp&ac=credit&op=buy" <!--{if !$active['rmb']}-->style="display:none"<!--{/if}-->>
+    <input type="hidden" name="formhash" value="{FORMHASH}" />
+    <input type="hidden" name="addfundsbuyform" value="true" />
+    <input type="hidden" name="handlekey" value="buycredit" />
+    <div class="post_box">
+        <ul>
+            <li class="mli">
+                <input type="number" value="" tabindex="1" class="px" autocomplete="off" id="addfundamount" name="addfundamount" placeholder="{lang home_credit_buy_rmb_placeholder}">
+                <span class="input-append">{$_G[setting][extcredits][$_G[setting][creditstrans]][title]}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="text-muted">
+        {lang memcp_credits_addfunds_rules_ratio} =  <strong>$_G[setting][ec_ratio]</strong> {$_G[setting][extcredits][$_G[setting][creditstrans]][unit]}{$_G[setting][extcredits][$_G[setting][creditstrans]][title]}
+        <!--{if $_G[setting][ec_mincredits]}--><br />{lang memcp_credits_addfunds_rules_min}  <strong>$_G[setting][ec_mincredits]</strong> {$_G[setting][extcredits][$_G[setting][creditstrans]][unit]}{$_G[setting][extcredits][$_G[setting][creditstrans]][title]}<!--{/if}-->
+        <!--{if $_G[setting][ec_maxcredits]}--><br />{lang memcp_credits_addfunds_rules_max}  <strong>$_G[setting][ec_maxcredits]</strong> {$_G[setting][extcredits][$_G[setting][creditstrans]][unit]}{$_G[setting][extcredits][$_G[setting][creditstrans]][title]}<!--{/if}-->
+        <!--{if $_G[setting][ec_maxcreditspermonth]}--><br />{lang memcp_credits_addfunds_rules_month}  <strong>$_G[setting][ec_maxcreditspermonth]</strong> {$_G[setting][extcredits][$_G[setting][creditstrans]][unit]}{$_G[setting][extcredits][$_G[setting][creditstrans]][title]}<!--{/if}-->
+    </div>
+    <div class="post_btn">
+        <button id="pmsubmit_btn" class="pn btn_pn mgrey" disable="true">
+            {lang home_credit_buy}
+            {lang memcp_credits_addfunds_caculate_radio}
+        </button>
+    </div>
+</form>
+<!--{/if}-->
+
+<!--{if $_G['setting']['card']['open']}-->
+<form id="addfundscardform" name="addfundscardform" method="post" autocomplete="off" action="home.php?mod=spacecp&ac=credit&op=buy" <!--{if !$active['card']}-->style="display:none"<!--{/if}-->>
+    <input type="hidden" name="formhash" value="{FORMHASH}" />
+    <input type="hidden" name="addfundscardsubmit" value="true" />
+    <input type="hidden" name="handlekey" value="buycredit" />
+    <div class="post_box">
+        <ul class="cl">
+            <li class="mli">
+                <input type="text" value="" tabindex="1" class="px" autocomplete="off" id="cardid" name="cardid" placeholder="{lang card}">
+            </li>
+        </ul>
+        <!--{if $seccodecheck}-->
+        <ul class="cl">
+            <!--{subtemplate common/seccheck}-->
+        </ul>
+        <!--{/if}-->
+    </div>
+    <div class="post_btn">
+        <button id="addfundscardsubmit_btn" name="addfundscardsubmit_btn" class="pn btn_pn mgrey" disable="true">{lang memcp_credits_addfunds}</button>
+    </div>
+</form>
+<!--{/if}-->
+
+<script type="text/javascript">
+    (function() {
+        $('#addfundamount').on('input',function() {
+            var addfundamount = parseInt($(this).val().replace(/^0/,''));
+            $('#desamount').html(!isNaN(addfundamount) ? Math.ceil(((addfundamount / 10) * 100)) / 100 : 0);
+        });
+        $('#buy_tabs a').click(function() {
+            if($(this).hasClass('mon')) return;
+            var current = $(this).siblings('.mon');
+            current.removeClass('mon')
+            $(current.data('id')).hide();
+            $(this).addClass('mon');
+            $($(this).data('id')).show();
+        });
+    })();
+</script>

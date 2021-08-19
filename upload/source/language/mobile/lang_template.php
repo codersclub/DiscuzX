@@ -196,5 +196,11 @@ $lang = array (
   'mobnoreply' => '暂无回复，快来抢沙发',
   'mobdebate_tip' => '请使用电脑版对辩论帖子进行高级管理',
   'mobdaodu' => '导读',
+
+  'home_credit_buy' => '充值',
+  'home_credit_buy_rmb' => '人民币',
+  'home_credit_buy_rmb_placeholder' => '请输入充值的数量',
+  'home_credit_buy_card' => '充值卡',
+
 );
 ?>
