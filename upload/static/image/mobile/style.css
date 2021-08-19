@@ -432,7 +432,7 @@ select {-moz-appearance:none;}
 .medal_tip_box.album_tip ul li span {margin-right: 8px; font-size:14px;}
 .medal_tip_box.album_tip select { width: 100%; padding: 0 10px; background: #ffF; outline: none; border: none; height: 26px; line-height: 26px; font-size: 14px; color: #555; }
 
-/*----- 记录 -----*/
+/*----- 记录、留言 -----*/
 .moodfm { margin-top: 10px;overflow: hidden;border-bottom: 1px solid var(--dz-BOR-ed);}
 .moodfm_post { background: #FFF; }
 .moodfm_text { padding: 10px 12px; border-bottom: 1px solid var(--dz-BOR-ed); }
@@ -442,12 +442,17 @@ select {-moz-appearance:none;}
 .moodfm_btn .button { height: 30px; line-height: 30px; font-size: 14px}
 .moodfm_signature {height: 30px; line-height: 30px;}
 .doing_list_box {margin-top: 10px;}
+.doing_list_box .wall_i {margin-bottom: 10px;padding: 10px;font-size: 14px;line-height: 24px;background: #FDFBEC;color: #F26C4F;position: relative;}
+.doing_list_box .wall_i a {color: var(--dz-FC-color);}
 .threadlist .doing_list_li.list {margin-top: 0px;padding: 2px 12px 12px 12px;border-bottom: 0px solid var(--dz-BOR-ed);}
 .mtime .doing_listgl a {float: right;margin-left: 8px;color: var(--dz-BG-2);}
 .do_comment { line-height: 26px; font-size: 15px; color: #333; }
 .do_comment .quote { padding: 10px 10px 7px 11px; margin: 5px 0; background: #F5F5F5; font-size: 12px; color: #777; }
 .do_comment img { margin: 1px 1px 0; width: 26px; }
 .do_comment .quote li a {display: initial !important;}
+.wall_list .magic_doodle { line-height: 30px;}
+.wall_list .magic_doodle img { margin-right: 5px;margin-bottom: 2px;}
+.wall_magic_list .magic_doodle { margin-left: 10px;}
 
 /*----- 通用资讯类列表 -----*/
 .wzlist {background-color:var(--dz-BG-0);border-top:1px solid var(--dz-BOR-ed)}

@@ -1,0 +1,60 @@
+
+<li id="comment_$value['cid']_li" class="doing_list_li list cl">
+
+	<div class="threadlist_top cl">
+		<!--{if $value['author']}-->
+			<a href="home.php?mod=space&uid=$value['authorid']&do=profile" class="avatar mimg z">
+				<!--{avatar($value['authorid'], 'small')}-->
+			</a>
+		<!--{else}-->
+			<a href="javascript:;" class="avatar mimg z">
+				<img src="{STATICURL}image/magic/hidden.gif" alt="hidden" />
+			</a>
+		<!--{/if}-->
+		<div class="muser cl">
+			<h3>
+				<!--{if $value['author']}-->
+				<a href="home.php?mod=space&uid=$value['authorid']&do=profile" id="author_$value['cid']" class="mmc">{$value['author']}</a>
+				<!--{else}-->
+				$_G['setting']['anonymoustext']
+				<!--{/if}-->
+			</h3>
+			<div class="mtime">
+				<span><!--{date($value['dateline'])}--><!--{if $value['status'] == 1}--><b>({lang moderate_need})</b><!--{/if}--></span>
+				<div class="doing_listgl y">
+					<!--{if $value['authorid']!=$_G['uid'] && ($value['idtype'] != 'uid' || $space['self']) && $value['author']}-->
+						<a href="home.php?mod=spacecp&ac=comment&op=reply&cid=$value['cid']&feedid=$feedid&handlekey=replycommenthk_{$value['cid']}" id="c_$value['cid']_reply" class="y doing_gl dialog">{lang reply}</a>
+					<!--{/if}-->
+					<!--{if $_G['uid']}-->
+						<!--{if $value['authorid']==$_G['uid']}-->
+							<a href="home.php?mod=spacecp&ac=comment&op=edit&cid=$value['cid']&handlekey=editcommenthk_{$value['cid']}" id="c_$value['cid']_edit" class="y doing_gl{if $_G['uid']} dialog{/if}">{lang edit}</a>
+						<!--{/if}-->
+						<!--{if $value['authorid']==$_G['uid'] || $value['uid']==$_G['uid'] || checkperm('managecomment')}-->
+							<a href="home.php?mod=spacecp&ac=comment&op=delete&cid=$value['cid']&handlekey=delcommenthk_{$value['cid']}" id="c_$value['cid']_delete" class="y doing_gl{if $_G['uid']} dialog{/if}">{lang delete}</a>
+						<!--{/if}-->
+					<!--{/if}-->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="comment_$value['cid']" class="do_comment{if $value['magicflicker']} magicflicker{/if}"><!--{if $value['status'] == 0 || $value['authorid'] == $_G['uid'] || $_G[adminid] == 1}-->$value['message']<!--{else}--> {lang moderate_not_validate} <!--{/if}--></div>
+
+	<div class="wall_magic_list cl">
+		<div class="y xw0">
+		<!--{if $value['authorid'] != $_G['uid'] && $value['author'] == "" && $_G['magic']['reveal']}-->
+			<a id="a_magic_reveal_{$value['cid']}" href="home.php?mod=magic&mid=reveal&idtype=cid&id=$value['cid']" class="y magic_doodle dialog"><img src="{STATICURL}image/magic/reveal.small.gif" alt="reveal" />{$_G['magic']['reveal']}</a>
+		<!--{/if}-->
+
+		<!--{if $_G['setting']['magicstatus'] && $do != 'share'}-->
+			<!--{if $value['authorid']==$_G['uid'] && !empty($_G['setting']['magics']['anonymouspost']) && $value['author']}-->
+				<a id="a_magic_anonymouspost_{$value['cid']}" href="home.php?mod=magic&mid=anonymouspost&idtype=cid&id=$value['cid']" class="y magic_doodle dialog"><img src="{STATICURL}image/magic/anonymouspost.small.gif" alt="flicker" class="vm" />{$_G['setting']['magics']['anonymouspost']}</a>
+			<!--{/if}-->
+			<!--{if !empty($_G['setting']['magics']['namepost']) && !$value['author']}-->
+				<a id="a_magic_namepost_{$value['cid']}" href="home.php?mod=magic&mid=namepost&idtype=cid&id=$value['cid']" class="y magic_doodle dialog"><img src="{STATICURL}image/magic/namepost.small.gif" alt="flicker" class="vm" />{$_G['setting']['magics']['namepost']}</a>
+			<!--{/if}-->
+		<!--{/if}-->
+		</div>
+	</div>
+
+</li>

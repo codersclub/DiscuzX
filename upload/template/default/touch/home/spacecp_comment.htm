@@ -1,0 +1,81 @@
+<!--{template common/header}-->
+
+<!--{if $_GET['op'] == 'edit'}-->
+	<div class="tip">
+		<div class="moodfm_post">
+			<form id="editcommentform_{$cid}" name="editcommentform_{$cid}" method="post" autocomplete="off" action="home.php?mod=spacecp&ac=comment&op=edit&cid=$cid{if $_GET['modcommentkey']}&modcommentkey=$_GET['modcommentkey']{/if}">
+				<input type="hidden" name="referer" value="{echo dreferer()}" />
+				<input type="hidden" name="editsubmit" value="true" />
+				<!--{if $_G['inajax']}--><input type="hidden" name="handlekey" value="$_GET['handlekey']" /><!--{/if}-->
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<div class="moodfm_text task_viewnr">
+					<textarea id="message_{$cid}" name="message" cols="70" rows="3" class="pts">$comment['message']</textarea>
+				</div>
+				<dd>
+					<button type="submit" name="editsubmit_btn" id="editsubmit_btn" value="true" class="button z">{lang submit}</button>
+					<a href="javascript:;" onclick="popup.close();" class="button y">{lang cancel}</a>
+				</dd>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function succeedhandle_$_GET['handlekey'] (url, message, values) {
+			comment_edit(values['cid']);
+		}
+	</script>
+
+<!--{elseif $_GET['op'] == 'delete'}-->
+	<div class="tip">
+		<form id="deletecommentform_{$cid}" name="deletecommentform_{$cid}" method="post" autocomplete="off" action="home.php?mod=spacecp&ac=comment&op=delete&cid=$cid">
+			<input type="hidden" name="referer" value="{echo dreferer()}" />
+			<input type="hidden" name="deletesubmit" value="true" />
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+			<!--{if $_G['inajax']}--><input type="hidden" name="handlekey" value="$_GET['handlekey']" /><!--{/if}-->
+			<dt>
+				<p>{lang delete_reply_message}</p>
+			</dt>
+			<dd>
+				<button type="submit" name="deletesubmitbtn" value="true" class="button z">{lang determine}</button>
+				<a href="javascript:;" onclick="popup.close();" class="button y">{lang cancel}</a>
+			</dd>
+		</form>
+	</div>
+	<script type="text/javascript">
+		function succeedhandle_$_GET['handlekey'] (url, message, values) {
+			comment_delete(values['cid']);
+		}
+	</script>
+<!--{elseif $_GET['op'] == 'reply'}-->
+	<div class="tip">
+		<form id="replycommentform_{$comment['cid']}" name="replycommentform_{$comment['cid']}" method="post" autocomplete="off" action="home.php?mod=spacecp&ac=comment">
+			<input type="hidden" name="referer" value="{echo dreferer()}" />
+			<input type="hidden" name="id" value="$cmt[id]" />
+			<input type="hidden" name="idtype" value="$cmt[idtype]" />
+			<input type="hidden" name="cid" value="$cmt['cid']" />
+			<input type="hidden" name="commentsubmit" value="true" />
+			<!--{if $_G['inajax']}--><input type="hidden" name="handlekey" value="$_GET['handlekey']" /><!--{/if}-->
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+			<div class="moodfm_text task_viewnr">
+				<textarea id="message_pop_{$comment['cid']}" name="message" class="pts" rows="3" cols="70"></textarea>
+			</div>
+			<dd>
+				<button type="submit" name="commentsubmit_btn" id="commentsubmit_btn" value="true" class="button z">{lang reply}</button>
+				<a href="javascript:;" onclick="popup.close();" class="button y">{lang cancel}</a>
+			</dd>
+		</form>
+	</div>
+	<script type="text/javascript">
+		function succeedhandle_$_GET['handlekey'] (url, message, values) {
+			<!--{if $comment['idtype']!='uid'}-->
+				<!--{if $_GET['feedid']}-->
+					feedcomment_add(values['cid'], $_GET['feedid']);
+				<!--{else}-->
+					comment_add(values['cid']);
+				<!--{/if}-->
+			<!--{/if}-->
+		}
+	</script>
+
+<!--{/if}-->
+
+<!--{template common/footer}-->
