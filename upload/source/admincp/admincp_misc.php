@@ -34,8 +34,9 @@ if($operation == 'onlinelist') {
 		$query = array_merge(array(0 => array('groupid' => 0, 'grouptitle' => 'Member')), C::t('common_usergroup')->range());
 		foreach($query as $group) {
 			$id = $group['groupid'];
+			$url = preg_match('/^https?:\/\//is', $listarray[$id]['url']) ? $listarray[$id]['url'] : STATICURL.'image/common/' . $listarray[$id]['url'];
 			showtablerow('', array('class="td25"', 'class="td23 td28"', 'class="td24"', 'class="td24"', 'class="td21 td26"'), array(
-				$listarray[$id]['url'] ? " <img src=\"static/image/common/{$listarray[$id]['url']}\">" : '',
+				$listarray[$id]['url'] ? " <img src=\"$url\">" : '',
 				'<input type="text" class="txt" name="displayordernew['.$id.']" value="'.$listarray[$id]['displayorder'].'" size="3" />',
 				$group['groupid'] <= 8 ? cplang('usergroups_system_'.$id) : $group['grouptitle'],
 				'<input type="text" class="txt" name="titlenew['.$id.']" value="'.($listarray[$id]['title'] ? $listarray[$id]['title'] : $group['grouptitle']).'" size="15" />',
@@ -282,13 +283,14 @@ var rowtypedata = [
 		showtableheader('', 'fixpadding');
 		showsubtitle(array('', 'misc_bbcode_tag', 'available', 'display', 'display_order', 'misc_bbcode_icon', 'misc_bbcode_icon_file', ''));
 		foreach(C::t('forum_bbcode')->fetch_all_by_available_icon() as $bbcode) {
+			$bbicon = !empty($bbcode['icon']) ? (preg_match('/^https?:\/\//is', $bbcode['icon']) ? $bbcode['icon'] : STATICURL . 'image/common/' . $bbcode['icon']) : '';
 			showtablerow('', array('class="td25"', 'class="td21"', 'class="td25"', 'class="td25"', 'class="td28 td24"', 'class="td25"', 'class="td21"'), array(
 				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"{$bbcode['id']}\">",
 				"<input type=\"text\" class=\"txt\" size=\"15\" name=\"tagnew[{$bbcode['id']}]\" value=\"{$bbcode['tag']}\">",
 				"<input class=\"checkbox\" type=\"checkbox\" name=\"availablenew[{$bbcode['id']}]\" value=\"1\" ".($bbcode['available'] ? 'checked="checked"' : NULL).">",
 				"<input class=\"checkbox\" type=\"checkbox\" name=\"displaynew[{$bbcode['id']}]\" value=\"1\" ".($bbcode['available'] == '2' ? 'checked="checked"' : NULL).">",
 				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"displayordernew[{$bbcode['id']}]\" value=\"{$bbcode['displayorder']}\">",
-				$bbcode['icon'] ? "<em class=\"editor\"><a class=\"customedit\"><img src=\"static/image/common/{$bbcode['icon']}\" border=\"0\"></a></em>" : ' ',
+				!empty($bbicon) ? "<em class=\"editor\"><a class=\"customedit\"><img src=\"$bbicon\" border=\"0\"></a></em>" : ' ',
 				"<input type=\"text\" class=\"txt\" size=\"25\" name=\"iconnew[{$bbcode['id']}]\" value=\"{$bbcode['icon']}\">",
 				"<a href=\"".ADMINSCRIPT."?action=misc&operation=bbcode&edit={$bbcode['id']}\" class=\"act\">{$lang['detail']}</a>"
 			));

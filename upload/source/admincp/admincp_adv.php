@@ -29,7 +29,7 @@ if(!empty($_GET['preview'])) {
 <meta name="renderer" content="webkit" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <script type="text/javascript">var IMGDIR = '<?php echo $_G['style']['imgdir']; ?>', cookiepre = '<?php echo $_G['config']['cookie']['cookiepre'];?>', cookiedomain = '<?php echo $_G['config']['cookie']['cookiedomain'];?>', cookiepath = '<?php echo $_G['config']['cookie']['cookiepath'];?>';</script>
-<script type="text/javascript" src="static/js/common.js"></script>
+<script type="text/javascript" src="<?php echo STATICURL; ?>js/common.js"></script>
 <link rel="stylesheet" type="text/css" href="data/cache/style_<?php echo $_G['setting']['styleid'];?>_common.css" />
 </head>
 <body>
@@ -284,7 +284,7 @@ if($operation == 'ad') {
 		$adv['starttime'] = $adv['starttime'] ? dgmdate($adv['starttime'], 'Y-n-j') : '';
 		$adv['endtime'] = $adv['endtime'] ? dgmdate($adv['endtime'], 'Y-n-j') : '';
 
-		echo '<script type="text/javascript" src="static/js/calendar.js"></script>'.
+		echo '<script type="text/javascript" src="' . STATICURL . 'js/calendar.js"></script>'.
 			'<div class="colorbox"><h4>'.lang('adv/'.$type, $advclass->name).'</h4>'.
 			'<table cellspacing="0" cellpadding="3"><tr><td>'.
 			(count($etype) > 1 && preg_match('/^[\w\_:]+$/', $type) ? (file_exists(DISCUZ_ROOT.'./source/plugin/'.$etype[0].'/adv/adv_'.$etype[1].'.gif') ? '<img src="source/plugin/'.$etype[0].'/adv/adv_'.$etype[1].'.gif" />' : '')

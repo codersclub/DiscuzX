@@ -40,7 +40,9 @@ function profile_node_customstatus($post, $s, $e) {
 
 function profile_node_medal($post, $s, $e) {
 	if(!$post['medals']) return;
-	foreach($post['medals'] as $medal) $return .= '<img id="md_'.$post['pid'].'_'.$medal['medalid'].'" src="'.STATICURL.'image/common/'.$medal['image'].'" alt="'.$medal['name'].'" title="" onmouseover="showMenu({\'ctrlid\':this.id, \'menuid\':\'md_'.$medal['medalid'].'_menu\', \'pos\':\'12!\'})" />';
+	foreach($post['medals'] as $medal) {
+		$return .= '<img id="md_'.$post['pid'].'_'.$medal['medalid'].'" src="'.$medal['image'].'" alt="'.$medal['name'].'" title="" onmouseover="showMenu({\'ctrlid\':this.id, \'menuid\':\'md_'.$medal['medalid'].'_menu\', \'pos\':\'12!\'})" />';
+	}
 -->
 <!--{/eval}-->
 <!--{block return}-->$s<a href="home.php?mod=medal">$return</a>$e<!--{/block}-->

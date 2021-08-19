@@ -960,8 +960,9 @@ if(!submitcheck('settingsubmit')) {
 				$jscodenames .= "codenames['{$key}_{$code}'] = '{$cname}';\r\n";
 			}
 		}
+		$staticurl = STATICURL;
 		print <<<EOF
-		<div id="codediv" style="display:none; top: 707px;background: url('./static/image/common/mdly.png') no-repeat scroll 0 0 transparent; height: 100px; line-height: 32px; margin-top: -16px; overflow: hidden; padding: 10px 25px; position: absolute; left: 500px; width: 250px;">
+		<div id="codediv" style="display:none; top: 707px;background: url('{$staticurl}image/common/mdly.png') no-repeat scroll 0 0 transparent; height: 100px; line-height: 32px; margin-top: -16px; overflow: hidden; padding: 10px 25px; position: absolute; left: 500px; width: 250px;">
 		<p>
 EOF;
 		echo cplang('setting_seo_insallowcode');
@@ -973,7 +974,7 @@ EOF;
 		<a onclick="insertcode('forum');return false;" href="javascript:;">{forum}</a>
 		</p>
 		</div>
-		<script src="static/js/home.js" type="text/javascript"></script>
+		<script src="{$staticurl}js/home.js" type="text/javascript"></script>
 		<script language="javascript">
 		var codediv = $('codediv');
 		var codetypes = new Array(), codenames = new Array();

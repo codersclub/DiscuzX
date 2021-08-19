@@ -32,6 +32,7 @@ if(empty($_GET['action'])) {
 	$medalcredits = array();
 	foreach(C::t('forum_medal')->fetch_all_data(1) as $medal) {
 		$medal['permission'] = medalformulaperm(serialize(array('medal' => dunserialize($medal['permission']))), 1);
+		$medal['image'] = preg_match('/^https?:\/\//is', $medal['image']) ? $medal['image'] : STATICURL.'image/common/'.$medal['image'];
 		if($medal['price']) {
 			$medal['credit'] = $medal['credit'] ? $medal['credit'] : $_G['setting']['creditstransextra'][3];
 			$medalcredits[$medal['credit']] = $medal['credit'];
@@ -133,6 +134,7 @@ if(empty($_GET['action'])) {
 
 	include libfile('function/forum');
 	foreach(C::t('forum_medal')->fetch_all_data(1) as $medal) {
+		$medal['image'] = preg_match('/^https?:\/\//is', $medal['image']) ? $medal['image'] : STATICURL.'image/common/'.$medal['image'];
 		$medallist[$medal['medalid']] = $medal;
 	}
 

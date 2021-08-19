@@ -74,7 +74,7 @@ if(!$ac) {
 } elseif($ac == 'add') {
 	if(!submitcheck('submit')) {
 
-		echo '<script type="text/javascript" src="static/js/calendar.js"></script>';
+		echo '<script type="text/javascript" src="'.STATICURL.'js/calendar.js"></script>';
 		$forumselect = "<select name=\"fid\">\n<option value=\"\">&nbsp;&nbsp;> ".cplang('select')."</option><option value=\"\">&nbsp;</option>".str_replace('%', '%%', forumselect(FALSE, 0, 0, TRUE)).'</select>';
 
 		showformheader('plugins&operation=config&do='.$pluginid.'&identifier=wechat&pmod=showactivity_setting&ac=add', 'enctype');

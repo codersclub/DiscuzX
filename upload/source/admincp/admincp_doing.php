@@ -53,9 +53,10 @@ if(!submitcheck('doingsubmit')) {
 		$search_tips = 1;
 		showtips('doing_tips');
 	}
+	$staticurl = STATICURL;
 	/*search*/
 	echo <<<EOT
-<script type="text/javascript" src="static/js/calendar.js"></script>
+<script type="text/javascript" src="{$staticurl}js/calendar.js"></script>
 <script type="text/JavaScript">
 function page(number) {
 	$('doingforum').page.value=number;

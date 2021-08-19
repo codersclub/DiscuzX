@@ -14,6 +14,7 @@ if(!defined('IN_DISCUZ')) {
 function build_cache_medals() {
 	$data = array();
 	foreach(C::t('forum_medal')->fetch_all_data(1) as $medal) {
+		$medal['image'] = preg_match('/^https?:\/\//is', $medal['image']) ? $medal['image'] : STATICURL.'image/common/'.$medal['image'];
 		$data[$medal['medalid']] = array('name' => $medal['name'], 'image' => $medal['image'], 'description' => dhtmlspecialchars($medal['description']));
 	}
 

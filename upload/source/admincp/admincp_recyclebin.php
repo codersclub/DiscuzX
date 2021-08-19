@@ -133,8 +133,9 @@ if(!$operation) {
 			array('clean', 'recyclebin&operation=clean', 0)
 		));
 		/*search={"nav_recyclebin":"action=recyclebin","search":"action=recyclebin&operation=search"}*/
+		$staticurl = STATICURL;
 		echo <<<EOT
-<script type="text/javascript" src="static/js/calendar.js"></script>
+<script type="text/javascript" src="{$staticurl}js/calendar.js"></script>
 <script type="text/JavaScript">
 function page(number) {
 	$('rbsearchform').page.value=number;

@@ -536,7 +536,7 @@
 						<!--{if $whosonline}-->
 							<!--{loop $whosonline $key $online}-->
 								<li title="{lang time}: $online[lastactivity]">
-								<img src="{STATICURL}image/common/$online[icon]" alt="icon" />
+								<img src="$online['icon']" alt="icon" />
 								<!--{if $online['uid']}-->
 									<a href="home.php?mod=space&uid=$online[uid]">$online[username]</a>
 								<!--{else}-->

@@ -138,8 +138,10 @@ if($operation == 'manage') {
 	if(isset($_GET['intype'])) {
 		$typeselect = preg_replace("/(\<option value=\"{$_GET['intype']}\")(\>)/", "\\1 selected=\"selected\" \\2", $typeselect);
 	}
-echo <<<EOT
-<script src="static/js/calendar.js"></script>
+
+	$staticurl = STATICURL;
+	echo <<<EOT
+<script type="text/javascript" src="{$staticurl}js/calendar.js"></script>
 <script type="text/JavaScript">
 	function page(number) {
 		$('threadform').page.value=number;

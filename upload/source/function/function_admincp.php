@@ -268,10 +268,10 @@ function cpmsg($message, $url = '', $type = '', $values = array(), $extra = '', 
 			"</script>").
 			"</p></form><br />";
 	} elseif($type == 'loadingform') {
-		$message = "<form method=\"post\" action=\"$url\" id=\"loadingform\"><input type=\"hidden\" name=\"formhash\" value=\"".FORMHASH."\"><br />$message$extra<img src=\"static/image/admincp/ajax_loader.gif\" class=\"marginbot\" /><br />".
+		$message = "<form method=\"post\" action=\"$url\" id=\"loadingform\"><input type=\"hidden\" name=\"formhash\" value=\"".FORMHASH."\"><br />$message$extra<img src=\"".STATICURL."image/admincp/ajax_loader.gif\" class=\"marginbot\" /><br />".
 			'<p class="marginbot"><a href="###" onclick="$(\'loadingform\').submit();" class="lightlink">'.cplang('message_redirect').'</a></p></form><br /><script type="text/JavaScript">setTimeout("$(\'loadingform\').submit();", 2000);</script>';
 	} else {
-		$message .= $extra.($type == 'loading' ? '<img src="static/image/admincp/ajax_loader.gif" class="marginbot" />' : '');
+		$message .= $extra.($type == 'loading' ? '<img src="'.STATICURL.'image/admincp/ajax_loader.gif" class="marginbot" />' : '');
 		if($url) {
 			if($type == 'button') {
 				$message = "<br />$message<br /><p class=\"margintop\"><input type=\"submit\" class=\"btn\" name=\"submit\" value=\"".cplang('start')."\" onclick=\"location.href='$url'\" />";
@@ -310,6 +310,7 @@ function cpheader() {
 	$VERHASH = $_G['style']['verhash'];
 	$frame = getgpc('frame') != 'no' ? 1 : 0;
 	$charset = CHARSET;
+	$staticurl = STATICURL;
 	$basescript = ADMINSCRIPT;
 	echo <<<EOT
 
@@ -318,7 +319,7 @@ function cpheader() {
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=$charset">
 <meta http-equiv="x-ua-compatible" content="ie=7" />
-<link href="static/image/admincp/admincp.css?{$_G['style']['verhash']}" rel="stylesheet" type="text/css" />
+<link href="{$staticurl}image/admincp/admincp.css?{$_G['style']['verhash']}" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <script type="text/JavaScript">

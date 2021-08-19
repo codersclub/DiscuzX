@@ -41,7 +41,7 @@
 						<!--{/if}-->
 						<input type="hidden" name="pollimage[{$poll[polloptionid][$key]}]" id="pollUploadProgress_{$key}_aid" value="$poll[imginfo][$ppid][aid]" />
 						<span id="poll_img_preview_{$key}_menu" style="display: none">
-							<img src="{if $poll[imginfo][$ppid][small]}$poll[imginfo][$ppid][small]{else}static/image/common/nophoto.gif{/if}" />
+							<img src="{if $poll[imginfo][$ppid][small]}$poll[imginfo][$ppid][small]{else}{STATICURL}image/common/nophoto.gif{/if}" />
 						</span>
 					</span>
 				</p>

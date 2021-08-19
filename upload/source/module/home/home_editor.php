@@ -24,9 +24,9 @@ if (empty($_GET['op'])) {
 			<meta name="renderer" content="webkit" />
 			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 			<title>Editor</title>
-			<script type="text/javascript" src="static/js/common.js"></script>
-			<script type="text/javascript" src="static/js/home.js"></script>
-			<script language="javascript" src="static/image/editor/editor_base.js"></script>
+			<script type="text/javascript" src="<?php echo STATICURL; ?>js/common.js"></script>
+			<script type="text/javascript" src="<?php echo STATICURL; ?>js/home.js"></script>
+			<script language="javascript" src="<?php echo STATICURL; ?>image/editor/editor_base.js"></script>
 			<style type="text/css">
 				html, body { height: 100%; }
 				body{margin:0;padding:0;}
@@ -87,7 +87,7 @@ if (empty($_GET['op'])) {
 				.ico4{height:24px;width:8px;vertical-align:middle;text-align:center}
 
 				.edTb { background: #F2F2F2; }
-				.icons a,.sepline,.switch{background-image:url(static/image/editor/editor.gif)}
+				.icons a,.sepline,.switch{background-image:url(<?php echo STATICURL; ?>image/editor/editor.gif)}
 
 				.toobar, .toobarmini{position:relative;height:26px;overflow:hidden}
 				.toobarmini .icoSwitchTxt, .toobarmini .tble{ display: none !important;}
@@ -128,7 +128,7 @@ if (empty($_GET['op'])) {
 				a.icoAttach{background-position:-200px -20px}
 				a.icoSwf{background-position:-240px -20px}
 				a.icoSwitchTxt{background-position:-220px -60px;float:right}
-				a.icoFullTxt{ float: right; width: 35px; height: 20px; line-height: 20px; border: 1px solid #C2D5E3; background: url(static/image/common/card_btn.png) repeat-x 0 100%; text-align: center; color: #333; text-decoration: none; }
+				a.icoFullTxt{ float: right; width: 35px; height: 20px; line-height: 20px; border: 1px solid #C2D5E3; background: url(<?php echo STATICURL; ?>image/common/card_btn.png) repeat-x 0 100%; text-align: center; color: #333; text-decoration: none; }
 				a.icoSwitchMdi{background-position:-239px -60px;float:right}
 
 

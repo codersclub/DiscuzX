@@ -91,7 +91,7 @@ function getblockhtml($blockname,$parameters = array()) {
 				foreach($space['medals'] = explode("\t", $space['medals']) as $key => $medalid) {
 					list($medalid, $medalexpiration) = explode("|", $medalid);
 					if(isset($_G['cache']['medals'][$medalid]) && (!$medalexpiration || $medalexpiration > TIMESTAMP)) {
-						$usermedals .= '<img src="'.STATICURL.'image/common/'.$_G['cache']['medals'][$medalid]['image'].'" id="md_'.$medalid.'" alt="'.$_G['cache']['medals'][$medalid]['name'].'\'" onmouseover="showMenu({\'ctrlid\':this.id, \'menuid\':\'md_'.$medalid.'_menu\', \'pos\':\'12!\'});" />&nbsp;';
+						$usermedals .= '<img src="'.$_G['cache']['medals'][$medalid]['image'].'" id="md_'.$medalid.'" alt="'.$_G['cache']['medals'][$medalid]['name'].'\'" onmouseover="showMenu({\'ctrlid\':this.id, \'menuid\':\'md_'.$medalid.'_menu\', \'pos\':\'12!\'});" />&nbsp;';
 						$usermedalmenus .= '
 						<div id="md_'.$medalid.'_menu" class="tip tip_4" style="display: none;">
 							<div class="tip_horn"></div>
@@ -525,7 +525,7 @@ function getblockhtml($blockname,$parameters = array()) {
 					$author_avatar = '<a href="home.php?mod=space&uid='.$value['authorid'].'" target="_blank">'.avatar($value['authorid'],'small').'</a>';
 					$author = '<a href="home.php?mod=space&uid='.$value['authorid'].'" id="author_'.$value['cid'].'" target="_blank">'.$value['author'].'</a>';
 				}else {
-					$author_avatar = '<img src="static/image/magic/hidden.gif" alt="hidden" />';
+					$author_avatar = '<img src="'.STATICURL.'image/magic/hidden.gif" alt="hidden" />';
 					$author = $_G['setting']['anonymoustext'];
 				}
 				if ($value['authorid']==$_G['uid']) {

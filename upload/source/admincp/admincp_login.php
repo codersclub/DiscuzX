@@ -46,6 +46,7 @@ function html_login_header($form = true) {
 	$charset = CHARSET;
 	$title = lang('admincp_login', 'login_title');
 	$tips = lang('admincp_login', 'login_tips');
+	$staticurl = STATICURL;
 	echo <<<EOT
 <!DOCTYPE html>
 <html>
@@ -54,7 +55,7 @@ function html_login_header($form = true) {
 <meta name="renderer" content="webkit" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>$title</title>
-<link rel="stylesheet" href="static/image/admincp/admincp.css?{$_G['style']['verhash']}" type="text/css" media="all" />
+<link rel="stylesheet" href="{$staticurl}image/admincp/admincp.css?{$_G['style']['verhash']}" type="text/css" media="all" />
 <meta content="Comsenz Inc." name="Copyright" />
 </head>
 <body>

@@ -99,7 +99,7 @@
 					<a id="{$editorid}_beginning" adv="1" title="{lang e_beginning_title}" menupos="43" menuwidth="600">{lang e_beginning}</a>
 				<!--{/if}-->
 				<!--{loop $_G['cache']['bbcodes_display'][$_G['groupid']] $tag $bbcode}-->
-					<a id="{$editorid}_cst{$bbcode[params]}_$tag" class="cst" title="$bbcode[explanation]"><img src="{STATICURL}image/common/$bbcode[icon]" title="$bbcode[explanation]" alt="$tag" /></a>
+					<a id="{$editorid}_cst{$bbcode[params]}_$tag" class="cst" title="$bbcode[explanation]"><img src="$bbcode['icon']" title="$bbcode[explanation]" alt="$tag" /></a>
 				<!--{/loop}-->
 				<!--{hook/post_editorctrl_bottom}-->
 			</div>

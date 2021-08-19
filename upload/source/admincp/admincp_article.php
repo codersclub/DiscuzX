@@ -297,6 +297,7 @@ if($operation == 'tag') {
 		$perpages = array($perpage => ' selected');
 
 		$adminscript = ADMINSCRIPT;
+		$staticurl = STATICURL;
 		echo <<<SEARCH
 		<form method="get" autocomplete="off" action="$adminscript" id="tb_search">
 			<div style="margin-top:8px;">
@@ -340,7 +341,7 @@ if($operation == 'tag') {
 				</table>
 			</div>
 		</form>
-		<script src="static/js/makehtml.js?1" type="text/javascript"></script>
+		<script src="{$staticurl}js/makehtml.js?1" type="text/javascript"></script>
 
 SEARCH;
 

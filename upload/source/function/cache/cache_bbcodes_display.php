@@ -22,6 +22,7 @@ function build_cache_bbcodes_display() {
 		$i++;
 		$tag = $bbcode['tag'];
 		$bbcode['i'] = $i;
+		$bbcode['icon'] = preg_match('/^https?:\/\//is', $bbcode['icon']) ? $bbcode['icon'] : STATICURL.'image/common/'.$bbcode['icon'];
 		$bbcode['explanation'] = dhtmlspecialchars(trim($bbcode['explanation']));
 		$bbcode['prompt'] = addcslashes($bbcode['prompt'], '\\\'');
 		unset($bbcode['tag']);

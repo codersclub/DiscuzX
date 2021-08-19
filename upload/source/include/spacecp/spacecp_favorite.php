@@ -60,7 +60,7 @@ if($_GET['op'] == 'delete') {
 			$idtype = 'tid';
 			$thread = C::t('forum_thread')->fetch_thread($id);
 			$title = $thread['subject'];
-			$icon = '<img src="static/image/feed/thread.gif" alt="thread" class="vm" /> ';
+			$icon = '<img src="'.STATICURL.'image/feed/thread.gif" alt="thread" class="vm" /> ';
 			break;
 		case 'forum':
 			$idtype = 'fid';
@@ -69,39 +69,39 @@ if($_GET['op'] == 'delete') {
 			$forum = $_G['cache']['forums'][$id];
 			if(!$forum['viewperm'] || ($forum['viewperm'] && forumperm($forum['viewperm'])) || strstr($forum['users'], "\t{$_G['uid']}\t")) {
 				$title = $foruminfo['status'] != 3 ? $foruminfo['name'] : '';
-				$icon = '<img src="static/image/feed/discuz.gif" alt="forum" class="vm" /> ';
+				$icon = '<img src="'.STATICURL.'image/feed/discuz.gif" alt="forum" class="vm" /> ';
 			}
 			break;
 		case 'blog':
 			$idtype = 'blogid';
 			$bloginfo = C::t('home_blog')->fetch($id);
 			$title = ($bloginfo['uid'] == $spaceuid) ? $bloginfo['subject'] : '';
-			$icon = '<img src="static/image/feed/blog.gif" alt="blog" class="vm" /> ';
+			$icon = '<img src="'.STATICURL.'image/feed/blog.gif" alt="blog" class="vm" /> ';
 			break;
 		case 'group':
 			$idtype = 'gid';
 			$foruminfo = C::t('forum_forum')->fetch($id);
 			$title = $foruminfo['status'] == 3 ? $foruminfo['name'] : '';
-			$icon = '<img src="static/image/feed/group.gif" alt="group" class="vm" /> ';
+			$icon = '<img src="'.STATICURL.'image/feed/group.gif" alt="group" class="vm" /> ';
 			break;
 		case 'album':
 			$idtype = 'albumid';
 			$result = C::t('home_album')->fetch_album($id, $spaceuid);
 			$title = $result['albumname'];
-			$icon = '<img src="static/image/feed/album.gif" alt="album" class="vm" /> ';
+			$icon = '<img src="'.STATICURL.'image/feed/album.gif" alt="album" class="vm" /> ';
 			break;
 		case 'space':
 			$idtype = 'uid';
 			$_member = getuserbyuid($id);
 			$title = $_member['username'];
 			$unset($_member);
-			$icon = '<img src="static/image/feed/profile.gif" alt="space" class="vm" /> ';
+			$icon = '<img src="'.STATICURL.'image/feed/profile.gif" alt="space" class="vm" /> ';
 			break;
 		case 'article':
 			$idtype = 'aid';
 			$article = C::t('portal_article_title')->fetch($id);
 			$title = $article['title'];
-			$icon = '<img src="static/image/feed/article.gif" alt="article" class="vm" /> ';
+			$icon = '<img src="'.STATICURL.'image/feed/article.gif" alt="article" class="vm" /> ';
 			break;
 	}
 	if(empty($idtype) || empty($title)) {

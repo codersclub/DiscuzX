@@ -56,8 +56,9 @@ if((!$operation && !$optype) || ($operation == 'group' && empty($optype))) {
 		$sortselect = preg_replace("/(\<option value=\"{$_GET['insort']}\")(\>)/", "\\1 selected=\"selected\" \\2", $sortselect);
 	}
 
+	$staticurl = STATICURL;
 	echo <<<EOT
-<script src="static/js/calendar.js"></script>
+<script type="text/javascript" src="{$staticurl}js/calendar.js"></script>
 <script type="text/JavaScript">
 	function page(number) {
 		$('threadforum').page.value=number;

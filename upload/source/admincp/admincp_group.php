@@ -1100,7 +1100,7 @@ function searchgroups($submit) {
 
 	/*search={"nav_group_manage":"action=group&operation=manage"}*/
 	showtagheader('div', 'searchgroups', !$submit);
-	echo '<script src="static/js/calendar.js" type="text/javascript"></script>';
+	echo '<script src="' . STATICURL . 'js/calendar.js" type="text/javascript"></script>';
 	showformheader("group&operation=manage");
 	showtableheader();
 	showsetting('groups_manage_name', 'srchname', $srchname, 'text');

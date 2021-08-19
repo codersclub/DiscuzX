@@ -56,8 +56,9 @@ if(!submitcheck('postcommentsubmit')) {
 		showtips('postcomment_tips');
 	}
 	/*search*/
+	$staticurl = STATICURL;
 	echo <<<EOT
-<script type="text/javascript" src="static/js/calendar.js"></script>
+<script type="text/javascript" src="{$staticurl}js/calendar.js"></script>
 <script type="text/JavaScript">
 function page(number) {
 	$('postcommentforum').page.value=number;

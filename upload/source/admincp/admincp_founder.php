@@ -437,10 +437,11 @@ function getactionarray() {
 }
 
 function showpermstyle() {
+	$staticurl = STATICURL;
 	echo <<<EOF
 	<style>
 .item{ float: left; width: 180px; line-height: 25px; margin-left: 5px; border-right: 1px #deeffb dotted; }
-.vtop .right, .item .right{ padding: 0 10px; line-height: 22px; background: url('static/image/admincp/bg_repno.gif') no-repeat -286px -145px; font-weight: normal;margin-right:10px; }
+.vtop .right, .item .right{ padding: 0 10px; line-height: 22px; background: url('{$staticurl}/image/admincp/bg_repno.gif') no-repeat -286px -145px; font-weight: normal;margin-right:10px; }
 .vtop a:hover.right, .item a:hover.right { text-decoration:none; }
 </style>
 <script type="text/JavaScript">

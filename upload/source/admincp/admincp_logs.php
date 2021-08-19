@@ -274,8 +274,9 @@ if($operation == 'illegal') {
 	foreach(crime('actions') as $key => $value) {
 		$crimeactionselect .= '<option value="'.$key.'"'.($key == $crimeaction ? ' selected' : '').'>'.$lang[$value].'</option>';
 	}
+	$staticurl = STATICURL;
 	print <<<SEARCH
-		<script src="static/js/calendar.js"></script>
+		<script src="{$staticurl}js/calendar.js"></script>
 		<input type="hidden" name="operation" value="$operation">
 		<input type="hidden" name="action" value="$action">
 		<table cellspacing="3" cellpadding="3">
@@ -414,7 +415,7 @@ SEARCH;
 	);
 	showtablerow('', array('colspan="4"'), array('<input type="submit" name="srchlogbtn" class="btn" value="'.$lang['search'].'" />'));
 	showtablefooter();
-	echo '<script src="static/js/calendar.js" type="text/javascript"></script>';
+	echo '<script src="' . STATICURL . 'js/calendar.js" type="text/javascript"></script>';
 	showtableheader('', 'fixpadding');
 	showtablerow('class="header"', array('class="td23"','class="td23"','class="td23"','class="td24"','class="td24"'), array(
 		cplang('username'),
@@ -759,7 +760,7 @@ EOD;
 		);
 		showtablerow('', array('colspan="4"'), array('<input type="submit" name="srchlogbtn" class="btn" value="'.$lang['search'].'" />'));
 		showtablefooter();
-		echo '<script src="static/js/calendar.js" type="text/javascript"></script>';
+		echo '<script src="' . STATICURL . 'js/calendar.js" type="text/javascript"></script>';
 		showtableheader('', 'fixpadding');
 		showtablerow('class="header"', array('width="35"','class="td23"','class="td24"','class="td24"','class="td23"','class="td24"','class="td24"'), array(
 			'',

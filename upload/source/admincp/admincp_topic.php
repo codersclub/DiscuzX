@@ -83,6 +83,7 @@ if(submitcheck('opsubmit')) {
 	}
 
 	$adminscript = ADMINSCRIPT;
+	$staticurl = STATICURL;
 	echo <<<SEARCH
 	<form method="get" autocomplete="off" action="$adminscript" id="tb_search">
 		<div style="margin-top:8px;">
@@ -129,7 +130,7 @@ if(submitcheck('opsubmit')) {
 			</table>
 		</div>
 	</form>
-	<script src="static/js/makehtml.js?1" type="text/javascript"></script>
+	<script src="{$staticurl}js/makehtml.js?1" type="text/javascript"></script>
 SEARCH;
 
 	$start = ($page-1)*$perpage;

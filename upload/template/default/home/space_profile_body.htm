@@ -89,7 +89,7 @@
 		<p class="md_ctrl">
 			<a href="home.php?mod=medal">
 			<!--{loop $space['medals'] $medal}-->
-				<img src="{STATICURL}/image/common/$medal[image]" alt="$medal[name]" id="md_{$medal[medalid]}" onmouseover="showMenu({'ctrlid':this.id, 'menuid':'md_{$medal[medalid]}_menu', 'pos':'12!'});" />
+				<img src="$medal['image']" alt="$medal['name']" id="md_{$medal['medalid']}" onmouseover="showMenu({'ctrlid':this.id, 'menuid':'md_{$medal['medalid']}_menu', 'pos':'12!'});" />
 			<!--{/loop}-->
 			</a>
 		</p>

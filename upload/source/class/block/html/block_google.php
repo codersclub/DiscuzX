@@ -53,7 +53,7 @@ class block_google extends commonblock_html {
 
 	function getdata($style, $parameter) {
 		$parameter = dhtmlspecialchars($this->cookparameter($parameter));
-		$return = '<script type="text/javascript">var google_host="'.$_SERVER['HTTP_HOST'].'",google_charset="'.CHARSET.'",google_client="'.$parameter['client'].'",google_hl="'.$parameter['lang'].'",google_lr="'.($parameter['lang'] ? 'lang_'.$parameter['lang'] : '').'";google_default_0="'.($parameter['default'] == 0 ? ' selected' : '').'";google_default_1="'.($parameter['default'] == 1 ? ' selected' : '').'";</script><script type="text/javascript" src="static/js/google.js"></script>';
+		$return = '<script type="text/javascript">var google_host="'.$_SERVER['HTTP_HOST'].'",google_charset="'.CHARSET.'",google_client="'.$parameter['client'].'",google_hl="'.$parameter['lang'].'",google_lr="'.($parameter['lang'] ? 'lang_'.$parameter['lang'] : '').'";google_default_0="'.($parameter['default'] == 0 ? ' selected' : '').'";google_default_1="'.($parameter['default'] == 1 ? ' selected' : '').'";</script><script type="text/javascript" src="'.STATICURL.'js/google.js"></script>';
 		return array('html' => $return, 'data' => null);
 	}
 

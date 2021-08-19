@@ -48,8 +48,9 @@ if(empty($operation)) {
 		));
 		/*search={"nav_comment":"action=comment","comment_comment":"action=comment"}*/
 		showtips('comment_tips');
+		$staticurl = STATICURL;
 		echo <<<EOT
-	<script type="text/javascript" src="static/js/calendar.js"></script>
+	<script type="text/javascript" src="{$staticurl}js/calendar.js"></script>
 	<script type="text/JavaScript">
 	function page(number) {
 		$('commentforum').page.value=number;
@@ -233,8 +234,9 @@ if($operation == 'article' || $operation == 'topic') {
 		));
 		/*search={"nav_comment":"action=comment","comment_article_comment":"action=comment&operation=article","comment_topic_comment":"action=comment&operation=topic"}*/
 		showtips('comment_'.$operation.'_tips');
+		$staticurl = STATICURL;
 		echo <<<EOT
-	<script type="text/javascript" src="static/js/calendar.js"></script>
+	<script type="text/javascript" src="{$staticurl}js/calendar.js"></script>
 	<script type="text/JavaScript">
 	function page(number) {
 		$('articleforum').page.value=number;

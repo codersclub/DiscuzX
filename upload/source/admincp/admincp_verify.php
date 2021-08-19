@@ -107,6 +107,7 @@ if($operation == 'verify') {
 			$ordersc = array($ordersc => ' selected');
 			$perpages = array($perpages => ' selected');
 			$adminscript = ADMINSCRIPT;
+			$staticurl = STATICURL;
 			$expertsearch = $vid ? '&nbsp;<a href="'.ADMINSCRIPT.'?action=members&operation=search&more=1&vid='.$vid.'" target="_top">'.cplang('search_higher').'</a>' : '';
 echo <<<EOF
 			<form method="get" autocomplete="off" action="$adminscript">
@@ -143,7 +144,7 @@ echo <<<EOF
 				</div>
 			</form>
 			<iframe id="frame_profile" name="frame_profile" style="display: none"></iframe>
-			<script type="text/javascript" src="static/js/calendar.js"></script>
+			<script type="text/javascript" src="{$staticurl}js/calendar.js"></script>
 			<script type="text/javascript">
 				function showreason(vid, flag) {
 					var reasonobj = $('reason_'+vid);

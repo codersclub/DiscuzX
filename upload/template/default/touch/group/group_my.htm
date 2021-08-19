@@ -121,7 +121,7 @@
 	<ul>
 	<!--{loop $grouplist $groupid $group}-->
 	<li>
-		<span class="micon"><a href="forum.php?mod=forumdisplay&action=list&fid={$group['fid']}"><img src="{if strstr($group['icon'],'groupicon.gif')}static/image/mobile/touch/forum.png{else}{$group['icon']}{/if}" alt="{$group['name']}"></a></span>
+		<span class="micon"><a href="forum.php?mod=forumdisplay&action=list&fid={$group['fid']}"><img src="{if strstr($group['icon'],'groupicon.gif')}{STATICURL}image/mobile/touch/forum.png{else}{$group['icon']}{/if}" alt="{$group['name']}"></a></span>
 		<a href="forum.php?mod=forumdisplay&action=list&fid={$group['fid']}" class="murl">
 		<p class="mtit">$group['name']</p>
 		<!--{if $group['description']}-->

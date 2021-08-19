@@ -28,7 +28,8 @@ if($_G['setting']['connect']['like_allow'] && $_G['setting']['connect']['like_ur
 }
 
 if($_G['setting']['connect']['turl_allow'] && $_G['setting']['connect']['turl_code']) {
-	$style .= '#txWB_W1 { background: url("../../static/image/common/weibo.png") no-repeat scroll 0 50% transparent; float: left; line-height: 28px; padding: 0 5px 0 20px; }'.
+	$staticurl = preg_match('/^https?:\/\//is', STATICURL) ? STATICURL : '../../' . STATICURL;
+	$style .= '#txWB_W1 { background: url("'. $staticurl. 'image/common/weibo.png") no-repeat scroll 0 50% transparent; float: left; line-height: 28px; padding: 0 5px 0 20px; }'.
 		'#txWB_W1 img { display: none; }'.
 		'#txWB_W1 b { font-weight: 400; }'.
 		'#txWB_W1 a { color: '.$_G['style']['highlightlink'].'; }';

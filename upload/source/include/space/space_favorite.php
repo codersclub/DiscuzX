@@ -48,13 +48,13 @@ $idtype = isset($idtypes[$_GET['type']]) ? $idtypes[$_GET['type']] : '';
 $count = C::t('home_favorite')->count_by_uid_idtype($_G['uid'], $idtype, $favid);
 if($count) {
 	$icons = array(
-		'tid'=>'<img src="static/image/feed/thread.gif" alt="thread" class="t" /> ',
-		'fid'=>'<img src="static/image/feed/discuz.gif" alt="forum" class="t" /> ',
-		'blogid'=>'<img src="static/image/feed/blog.gif" alt="blog" class="t" /> ',
-		'gid'=>'<img src="static/image/feed/group.gif" alt="group" class="t" /> ',
-		'uid'=>'<img src="static/image/feed/profile.gif" alt="space" class="t" /> ',
-		'albumid'=>'<img src="static/image/feed/album.gif" alt="album" class="t" /> ',
-		'aid'=>'<img src="static/image/feed/article.gif" alt="article" class="t" /> ',
+		'tid'=>'<img src="'.STATICURL.'image/feed/thread.gif" alt="thread" class="t" /> ',
+		'fid'=>'<img src="'.STATICURL.'image/feed/discuz.gif" alt="forum" class="t" /> ',
+		'blogid'=>'<img src="'.STATICURL.'image/feed/blog.gif" alt="blog" class="t" /> ',
+		'gid'=>'<img src='.STATICURL.'image/feed/group.gif" alt="group" class="t" /> ',
+		'uid'=>'<img src="'.STATICURL.'image/feed/profile.gif" alt="space" class="t" /> ',
+		'albumid'=>'<img src="'.STATICURL.'image/feed/album.gif" alt="album" class="t" /> ',
+		'aid'=>'<img src="'.STATICURL.'image/feed/article.gif" alt="article" class="t" /> ',
 	);
 	$articles = array();
 	foreach(C::t('home_favorite')->fetch_all_by_uid_idtype($_G['uid'], $idtype, $favid, $start,$perpage) as $value) {

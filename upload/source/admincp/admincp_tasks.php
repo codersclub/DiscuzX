@@ -153,7 +153,7 @@ if(!($operation)) {
 
 	if(!submitcheck('addsubmit')) {
 
-		echo '<script type="text/javascript" src="static/js/calendar.js"></script>';
+		echo '<script type="text/javascript" src="'.STATICURL.'/js/calendar.js"></script>';
 		shownav('extended', 'nav_tasks');
 		showsubmenu('nav_tasks', array(
 			array('admin', 'tasks', 0),
@@ -168,7 +168,7 @@ if(!($operation)) {
 		if(count($escript) > 1 && file_exists(DISCUZ_ROOT.'./source/plugin/'.$escript[0].'/task/task_'.$escript[1].'.gif')) {
 			$defaulticon = 'source/plugin/'.$escript[0].'/task/task_'.$escript[1].'.gif';
 		} else {
-			$defaulticon = 'static/image/task/task.gif';
+			$defaulticon =  STATICURL . '/image/task/task.gif';
 		}
 		showsetting('tasks_add_icon', 'iconnew', $task_icon, 'text', '', 0, cplang('tasks_add_icon_comment', array('defaulticon' => $defaulticon)));
 		showsetting('tasks_add_starttime', 'starttime', '', 'calendar', '', 0, '', 1);
@@ -347,7 +347,7 @@ if(!($operation)) {
 
 	if(!submitcheck('editsubmit')) {
 
-		echo '<script type="text/javascript" src="static/js/calendar.js"></script>';
+		echo '<script type="text/javascript" src="'.STATICURL.'/js/calendar.js"></script>';
 		shownav('extended', 'nav_tasks');
 		showsubmenu('nav_tasks', array(
 			array('admin', 'tasks', 0),

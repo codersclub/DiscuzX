@@ -92,7 +92,7 @@ if($operation == 'set') {
 	}
 
 	$perpage = max(20, empty($_GET['perpage']) ? 20 : intval($_GET['perpage']));
-	echo '<script type="text/javascript" src="static/js/calendar.js"></script>';
+	echo '<script type="text/javascript" src="' . STATICURL . 'js/calendar.js"></script>';
 
 	/*search={"card_manage_tips":"action=card&operation=manage"}*/
 	showtips('card_manage_tips');
@@ -252,7 +252,7 @@ EOT;
 			$card_type[] = array($result['id'], $result['typename']);
 		}
 
-		echo '<script type="text/javascript" src="static/js/calendar.js"></script>';
+		echo '<script type="text/javascript" src="' . STATICURL . 'js/calendar.js"></script>';
 		showformheader('card&operation=make&');
 		/*search={"card_make_tips":"admin.php?action=card&operation=make"}*/
 		showtips('card_make_tips');

@@ -33,6 +33,7 @@ if(isfounder()) {
 }
 require './source/admincp/admincp_menu.php';
 $basescript = ADMINSCRIPT;
+$staticurl = STATICURL;
 
 echo <<<EOT
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
@@ -40,7 +41,7 @@ echo <<<EOT
 <meta http-equiv="Content-Type" content="text/html; charset=$charset">
 <title>$title</title>
 <meta content="Comsenz Inc." name="Copyright" />
-<link rel="stylesheet" href="static/image/admincp/admincp.css?{$_G['style']['verhash']}" type="text/css" media="all" />
+<link rel="stylesheet" href="{$staticurl}image/admincp/admincp.css?{$_G['style']['verhash']}" type="text/css" media="all" />
 <script src="{$_G['setting']['jspath']}common.js?{$_G['style']['verhash']}" type="text/javascript"></script>
 </head>
 <body style="margin: 0px" scroll="no">
@@ -92,7 +93,7 @@ echo <<<EOT
 <div class="sitemapbtn">
 	<div style="float: left; margin:-7px 10px 0 0"><form name="search" method="post" autocomplete="off" action="$basescript?action=search" target="main"><input type="text" name="keywords" value="" class="txt" x-webkit-speech speech /> <input type="hidden" name="searchsubmit" value="yes" class="btn" /><input type="submit" name="searchsubmit" value="{$lang['search']}" class="btn" style="margin-top: 5px;vertical-align:middle" /></form></div>
 	<span id="add2custom" style="display: none"></span>
-	<a href="###" id="cpmap" onclick="showMap();return false;"><img src="static/image/admincp/btn_map.gif" title="{$lang['admincp_maptext']}" width="46" height="18" /></a>
+	<a href="###" id="cpmap" onclick="showMap();return false;"><img src="{$staticurl}image/admincp/btn_map.gif" title="{$lang['admincp_maptext']}" width="46" height="18" /></a>
 </div>
 </div>
 </div>
@@ -119,7 +120,7 @@ echo <<<EOT
 </tr>
 </table>
 <div id="scrolllink" style="display: none">
-	<span onclick="menuScroll(1)"><img src="static/image/admincp/scrollu.gif" /></span><span onclick="menuScroll(2)"><img src="static/image/admincp/scrolld.gif" /></span>
+	<span onclick="menuScroll(1)"><img src="{$staticurl}image/admincp/scrollu.gif" /></span><span onclick="menuScroll(2)"><img src="{$staticurl}image/admincp/scrolld.gif" /></span>
 </div>
 <div class="copyright">
 	<p>Powered by <a href="http://www.discuz.net/" target="_blank">Discuz!</a> {$_G['setting']['version']}</p>

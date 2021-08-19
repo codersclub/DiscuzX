@@ -273,7 +273,7 @@ foreach(C::t('common_adminnote')->fetch_all_by_access(0) as $note) {
 		$note['expiration'] = ceil(($note['expiration'] - $note['dateline']) / 86400);
 		$note['dateline'] = dgmdate($note['dateline'], 'dt');
 		showtablerow('', array('', '', ''), array(
-			$isfounder || $_G['member']['username'] == $note['admin'] ? '<a href="'.ADMINSCRIPT.'?action=index&notesubmit=yes&noteid='.$note['id'].'"><img src="static/image/admincp/close.gif" width="7" height="8" title="'.cplang('delete').'" /></a>' : '',
+			$isfounder || $_G['member']['username'] == $note['admin'] ? '<a href="'.ADMINSCRIPT.'?action=index&notesubmit=yes&noteid='.$note['id'].'"><img src="' . STATICURL . 'image/admincp/close.gif" width="7" height="8" title="'.cplang('delete').'" /></a>' : '',
 			"<span class=\"bold\"><a href=\"home.php?mod=space&username={$note['adminenc']}\" target=\"_blank\">{$note['admin']}</a></span> {$note['dateline']} (".cplang('validity').": {$note['expiration']} ".cplang('days').")<br />{$note['message']}",
 		));
 	}

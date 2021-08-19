@@ -20,7 +20,7 @@ showsubmenu('collection', array(
 	array('collection_recommend', 'collection&operation=recommend', $current['recommend'])
 ));
 /*search={"collection":"action=collection"}*/
-echo '<script src="static/js/calendar.js"></script>';
+echo '<script src="' . STATICURL . 'js/calendar.js"></script>';
 
 if($operation == 'comment') {
 	$tagarray = array();

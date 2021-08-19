@@ -95,7 +95,7 @@ function get_groupimg($imgname, $imgtype = '') {
 		return $imgpath;
 	} else {
 		if($imgtype == 'icon') {
-			return 'static/image/common/groupicon.gif';
+			return STATICURL.'image/common/groupicon.gif';
 		} else {
 			return '';
 		}
