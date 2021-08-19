@@ -48,7 +48,7 @@
 	<dt class="cl pns">
 		<div class="y">
 			<button type="button" id="uploadmsg_button" onclick="Util.toggleEle('upload');" class="pn pnc z{if empty($list)} hide{/if}"><span>{lang diy_upload_image}</span></button>
-			<div id="upload" class="z{if $list} hide{/if}"><iframe id="uploadframe" name="uploadframe" width="0" height="0" marginwidth="0" frameborder="0" src="about:blank"></iframe>
+			<div id="upload" class="z{if $list} hide{/if}"><iframe id="uploadframe" name="uploadframe" width="0" height="0" marginwidth="0" frameborder="0" src="about:blank" style="display: block;"></iframe>
 				<form method="post" autocomplete="off" name="uploadpic" id="uploadpic" action="portal.php?mod=portalcp&ac=diy" enctype="multipart/form-data" target="uploadframe" onsubmit="return spaceDiy.uploadSubmit();">
 					<input type="file" class="t_input" name="attach" size="15">
 					<input type="hidden" name="formhash" value="{FORMHASH}" />
@@ -146,7 +146,7 @@
 					<tr>
 						<td>{lang link_color}:</td>
 						<td><input type="text" id="linkColorValue" value="" size="6" onchange="spaceDiy.setLinkColor(this.value);" class="px vm" style="font-size: 12px; padding: 2px;" />
-						<input id="clpb" onclick="createPalette('lpb', 'linkColorValue', 'spaceDiy.setLinkColor');" type="button" class="colorwd" value="" style="background: #fff;" />
+						<input id="clpb" onclick="createPalette('lpb', 'linkColorValue', 'spaceDiy.setLinkColor');" type="button" class="pn colorwd" value="" style="background: #fff;" />
 						</td>
 					</tr>
 				</table>
