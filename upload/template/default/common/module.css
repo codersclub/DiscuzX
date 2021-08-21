@@ -1780,6 +1780,10 @@ i.pstatus { display: block; margin-bottom: -30px; font-size: 12px; text-align: c
 	.order-status-0 { color: #444; }
 	.order-status-1 { color: green; }
 	.order-status-2 { color: #ddd; }
+/* 电脑端支付图标样式 */
+	.channel-select { padding-bottom: 10px; }
+	.channel-select input { margin: 5px 8px 0 0; }
+	.channel-select img { vertical-align: top; }
 
 /** end **/
 

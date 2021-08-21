@@ -41,7 +41,7 @@
 		<!--{loop $pay_channel_list $index $channel}-->
 		<div class="dzcell-item">
 			<div class="dzcell-title flex-box align-items-center">
-				<img height="30" src="$channel['logo']" />
+				<img src="$channel['logo']" />
 			</div>
 			<div class="dzcell-value flex-box align-items-center justify-content-end">
 				<input <!--{if !$index}-->checked<!--{/if}--> name="pay_channel" type="radio" value="{$channel['id']}">

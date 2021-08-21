@@ -35,8 +35,8 @@
 						<th>{lang payment_pay_type}: </th>
 						<td>
 							<!--{loop $pay_channel_list $index $channel}-->
-							<input id="pay_channel_{$channel['id']}" <!--{if !$index}-->checked<!--{/if}--> name="pay_channel" type="radio" value="{$channel['id']}">
-							<label for="pay_channel_{$channel['id']}"><img height="30" src="$channel['logo']"/></label>
+							<div class="channel-select"><input id="pay_channel_{$channel['id']}" <!--{if !$index}-->checked<!--{/if}--> name="pay_channel" type="radio" value="{$channel['id']}" title="$channel['title']">
+							<label for="pay_channel_{$channel['id']}"><img src="$channel['logo']" alt="$channel['title']"/></label></div>
 							<!--{/loop}-->
 						</td>
 					</tr>

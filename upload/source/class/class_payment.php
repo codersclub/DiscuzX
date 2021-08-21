@@ -30,22 +30,22 @@ class payment {
 
 	public static function channels() {
 		$result = array();
-		$result['alipay'] = array(
-			'id' => 'alipay',
-			'title' => lang('spacecp', 'payment_alipay'),
-			'logo' => 'static/image/common/alipay.png',
+		$result['qpay'] = array(
+			'id' => 'qpay',
+			'title' => lang('spacecp', 'payment_qpay'),
+			'logo' => 'static/image/common/qpay_logo.svg',
 			'enable' => 0
 		);
 		$result['wechat'] = array(
 			'id' => 'wechat',
 			'title' => lang('spacecp', 'payment_wechat'),
-			'logo' => 'static/image/common/wechat.png',
+			'logo' => 'static/image/common/wechatpay_logo.svg',
 			'enable' => 0
 		);
-		$result['qpay'] = array(
-			'id' => 'qpay',
-			'title' => lang('spacecp', 'payment_qpay'),
-			'logo' => 'static/image/common/qpay.png',
+		$result['alipay'] = array(
+			'id' => 'alipay',
+			'title' => lang('spacecp', 'payment_alipay'),
+			'logo' => 'static/image/common/alipay_logo.svg',
 			'enable' => 0
 		);
 
