@@ -74,7 +74,6 @@
 			<script type="text/javascript" src="{$_G[setting][jspath]}forum.js?{VERHASH}"></script>
 
 			<p class="mtm mbw">
-				<!--{if $member['alipay']}--><a href="https://www.alipay.com/trade/i_credit.do?email=$member[alipay]" target="_blank"><img src="{IMGDIR}/alipaysmall.gif" alt="{lang payto_creditinfo}" class="vm" /></a>&nbsp;&nbsp;<!--{/if}-->
 				<!--{if $member['taobao']}--><script type="text/javascript">document.write('<a target="_blank" href="https://amos1.taobao.com/msg.ww?v=2&uid='+encodeURIComponent('$member[taobaoas]')+'&s=2"><img src="https://amos1.taobao.com/online.ww?v=2&uid='+encodeURIComponent('$member[taobaoas]')+'&s=1" alt="{lang taobao}" class="vm" /></a>&nbsp;');</script>&nbsp;&nbsp;<!--{/if}-->
 				{lang eccredit_buyerpercent}: $sellerpercent%;&nbsp;&nbsp;
 				{lang eccredit_sellerpercent}: $buyerpercent%;&nbsp;&nbsp;
