@@ -16,6 +16,7 @@
 	<h2 class="bdl_h">{lang forum_nav}</h2>
 <!--{/if}-->
 <!--{loop $leftside['forums'] $upfid $gdata}-->
+	<!--{if $gdata['sub']}-->
 	<dl class="{if $fgroupid == $upfid || $_G['setting']['leftsideopen']}a{/if}" id="lf_$upfid">
 		<dt><a href="javascript:;" hidefocus="true" onclick="leftside('lf_$upfid')" title="$gdata['name']">$gdata['name']</a></dt>
 	<!--{loop $gdata['sub'] $subfid $name}-->
@@ -28,4 +29,5 @@
 		</dd>
 	<!--{/loop}-->
 	</dl>
+	<!--{/if}-->
 <!--{/loop}-->
