@@ -52,6 +52,12 @@ function _ajaxpost(formid, showid, waitid, showidclass, submitbtn, recall) {
 	var curform = $(formid);
 	var formtarget = curform.target;
 
+	var showloading = function(display) {
+		if ($(waitid)) {
+			$(waitid).style.display = display || 'block';
+			$(waitid).innerHTML = '<span><div class="loadicon vm"></div>请稍候...</span>';
+		}
+	};
 	var handleResult = function() {
 		var s = '';
 		var evaled = false;
