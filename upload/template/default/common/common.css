@@ -706,7 +706,7 @@ CSS 写作注意事项：
 		.mnh { width: 643px; background: {COMMONBG}; margin-bottom: 0; }
 
 /* 页尾 */
-	#ft { padding: 10px 0 50px; border-top: 1px solid {COMMONBORDER}; line-height: 1.8; color: {FOOTERTEXT}; }
+	#ft { padding: 10px 0 50px; line-height: 1.8; color: {FOOTERTEXT}; }
 		#flk { text-align: right; }
 			#flk img { vertical-align: middle; }
 		#scrolltop { visibility: hidden; position: fixed; bottom: 100px; display: block; margin: -30px 0 0 2px; width: 40px; background: #f4f4f4; border: 1px #cdcdcd solid; border-radius: 3px; border-top: 0; cursor: pointer; }
@@ -721,7 +721,7 @@ CSS 写作注意事项：
 
 		/*	#scrolltop span { visibility: hidden; }*/
 
-		#nv_home #ft, .pg_announcement #ft, .pg_modcp #ft, .pg_portalcp #ft, .pg_ranklist #ft, #ft { border-top: none; }
+		#nv_home #ft, .pg_announcement #ft, .pg_modcp #ft, .pg_portalcp #ft, .pg_ranklist #ft { border-top: none; }
 
 /* 通用的区域块 */
 	/*

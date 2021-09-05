@@ -14,5 +14,5 @@ a { color: #069; }
 .block { border: 1px solid #DDD; background: #FFF; }
 	.block .title { border-bottom: 1px solid #DDD; background: #EAF1F2; }
 .tl .th { background: none; }
-#ft { border-top: 1px solid #CCC; _margin-top: 10px; }
+#ft { _margin-top: 10px; }
 
