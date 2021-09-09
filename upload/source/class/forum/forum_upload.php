@@ -91,7 +91,7 @@ class forum_upload {
 		} elseif($upload->error()) {
 			return $this->uploadmsg(9);
 		}
-		$thumb = $remote = $width = 0;
+		$thumb = $remote = $width = $height = 0;
 		if($_GET['type'] == 'image' && !$upload->attach['isimage']) {
 			return $this->uploadmsg(7);
 		}
@@ -110,14 +110,16 @@ class forum_upload {
 			if($_G['setting']['thumbsource'] && $_G['setting']['sourcewidth'] && $_G['setting']['sourceheight']) {
 				$thumb = $image->Thumb($upload->attach['target'], '', $_G['setting']['sourcewidth'], $_G['setting']['sourceheight'], 1, 1) ? 1 : 0;
 				$width = $image->imginfo['width'];
+				$height = $image->imginfo['height'];
 				$upload->attach['size'] = $image->imginfo['size'];
 			}
 			if($_G['setting']['thumbstatus']) {
 				$thumb = $image->Thumb($upload->attach['target'], '', $_G['setting']['thumbwidth'], $_G['setting']['thumbheight'], $_G['setting']['thumbstatus'], 0) ? 1 : 0;
 				$width = $image->imginfo['width'];
+				$height = $image->imginfo['height'];
 			}
 			if($_G['setting']['thumbsource'] || !$_G['setting']['thumbstatus']) {
-				list($width) = @getimagesize($upload->attach['target']);
+				list($width, $height) = @getimagesize($upload->attach['target']);
 			}
 		}
 		if($_GET['type'] != 'image' && $upload->attach['isimage']) {
@@ -135,6 +137,7 @@ class forum_upload {
 			'thumb' => $thumb,
 			'remote' => $remote,
 			'width' => $width,
+			'height' => $height
 		);
 		C::t('forum_attachment_unused')->insert($insert);
 		if($upload->attach['isimage'] && $_G['setting']['showexif']) {

@@ -75,6 +75,7 @@ if($_GET['operation'] == 'upload') {
 			$imginfo = @getimagesize($attach['target']);
 			if($imginfo !== FALSE) {
 				$attach['width'] = $imginfo[0];
+				$attach['height'] = $imginfo[1];
 			}
 		}
 
@@ -102,7 +103,8 @@ if($_GET['operation'] == 'upload') {
 				'thumb' => $attach['thumb'],
 				'remote' => $attach['remote'],
 				'dateline' => $_G['timestamp'],
-				'width' => $attach['width']
+				'width' => $attach['width'],
+				'height' => $attach['height']
 		);
 		$image = array();
 		if($aid) {
