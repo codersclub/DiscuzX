@@ -12,8 +12,8 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 }
 
 cpheader();
-if($operation != 'setting' && empty($_G['setting']['groupstatus'])) {
-	cpmsg('group_status_off', 'action=group&operation=setting', 'error');
+if(empty($_G['setting']['groupstatus'])) {
+	cpmsg('group_status_off', 'action=setting&operation=functions', 'error');
 }
 
 if($operation == 'setting') {
@@ -39,7 +39,6 @@ if($operation == 'setting') {
 		showformheader('group&operation=setting');
 		showtableheader();
 		showtitle('groups_setting_basic');
-		showsetting('groups_setting_basic_status', 'settingnew[groupstatus]', $setting['groupstatus'], 'radio');
 		showsetting('groups_setting_basic_mod', 'settingnew[groupmod]', $setting['groupmod'], 'radio');
 		showsetting('groups_setting_basic_iconsize', 'settingnew[group_imgsizelimit]', $setting['group_imgsizelimit'], 'text');
 		showsetting('groups_setting_basic_recommend', 'settingnew[group_recommend]', $setting['group_recommend'], 'text');
@@ -62,7 +61,7 @@ if($operation == 'setting') {
 		$settings = array();
 		$settings['group_recommend'] = cacherecommend($_GET['settingnew']['group_recommend']);
 		require_once libfile('function/discuzcode');
-		$skey_array = array('groupstatus','group_imgsizelimit','group_allowfeed', 'groupmod');
+		$skey_array = array('group_imgsizelimit','group_allowfeed', 'groupmod');
 		foreach($_GET['settingnew'] as $skey => $svalue) {
 			if(in_array($skey, $skey_array)){
 				$settings[$skey] = intval($svalue);
