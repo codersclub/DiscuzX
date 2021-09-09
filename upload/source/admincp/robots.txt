@@ -4,14 +4,19 @@
 
 User-agent: *
 Disallow: {path}api/
-Disallow: {path}data/
+Disallow: {path}data/addonmd5/
+Disallow: {path}data/download/
+Disallow: {path}data/ipdata/
+Disallow: {path}data/log/
+Disallow: {path}data/plugindata/
+Disallow: {path}data/template/
+Disallow: {path}data/threadcache/
 Disallow: {path}source/
 Disallow: {path}install/
-Disallow: {path}template/
+Disallow: {path}template/default/
 Disallow: {path}config/
 Disallow: {path}uc_client/
 Disallow: {path}uc_server/
-Disallow: {path}static/
 Disallow: {path}admin.php
 Disallow: {path}search.php
 Disallow: {path}member.php
@@ -21,7 +26,6 @@ Disallow: {path}connect.php
 Disallow: {path}forum.php?mod=redirect*
 Disallow: {path}forum.php?mod=post*
 Disallow: {path}home.php?mod=spacecp*
-Disallow: {path}userapp.php?mod=app&*
 Disallow: {path}*?mod=misc*
 Disallow: {path}*?mod=attachment*
 Disallow: {path}*mobile=yes*
