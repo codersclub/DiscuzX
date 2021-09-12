@@ -45,33 +45,13 @@ function _ajaxget(url, showid, waitid, loading, display, recall) {
 }
 
 function _ajaxpost(formid, showid, waitid, showidclass, submitbtn, recall) {
-	waitid = waitid || 'ajaxwaitid';
-	showidclass = showidclass || '';
+	var waitid = typeof waitid == 'undefined' || waitid === null ? showid : (waitid !== '' ? waitid : '');
+	var showidclass = !showidclass ? '' : showidclass;
 	var ajaxframeid = 'ajaxframe';
 	var ajaxframe = $(ajaxframeid);
 	var curform = $(formid);
 	var formtarget = curform.target;
-	var waitObj = $(waitid);
 
-	var showloading = function(display) {
-		if (!waitObj) return;
-		display = display || 'block';
-		var waiting = '请稍候...';
-		if (waitid == showid) {
-			var waitid2 = waitid+'_wait';
-			var waitObj2 = $(waitid2);
-			if (!waitObj2) {
-				waitObj2 = document.createElement('span');
-				waitObj2.setAttribute('id', waitid2);
-				waitObj.appendChild(waitObj2);
-			}
-			waitObj2.innerHTML = waiting;
-			waitObj2.style.display = display;
-		}else{
-			waitObj.innerHTML = waiting;
-			waitObj.style.display = display;
-		}
-	};
 	var handleResult = function() {
 		var s = '';
 		var evaled = false;
