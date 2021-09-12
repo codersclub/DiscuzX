@@ -1554,6 +1554,18 @@ function hasClass(elem, className) {
 	return elem.className && (" " + elem.className + " ").indexOf(" " + className + " ") != -1;
 }
 
+function addClass(elem, className) {
+	if(!hasClass(elem, className)) elem.className = trim(elem.className += " " + className);
+}
+
+function removeClass(elem, className) {
+	elem.className = trim((" " + elem.className + " ").replace(" " + trim(className) + " ", " "));
+}
+
+function toggleClass(elem, className) {
+	elem.className = hasClass(elem, className) ? removeClass(elem, className) : trim(elem.className += " " + className);
+}
+
 function runslideshow() {
 	$F('_runslideshow', []);
 }
