@@ -40,17 +40,6 @@ global $_G;
 {eval
 }
 
-function tpl_index_status_extra() {
-global $_G;
-}
-<!--{block return}-->
-	<iframe id="connectlike" allowtransparency="true" scrolling="no" border="0" width="280" height="25" frameborder="0"></iframe>
-	<script type="text/javascript">_attachEvent(window, 'load', function () { $('connectlike').src = 'api/connect/like.php';}, document);</script>
-<!--{/block}-->
-<!--{eval return $return;}-->
-{eval
-}
-
 function tpl_viewthread_share_method() {
 global $_G;
 if (!$_G['setting']['connect']['allow']) return;
