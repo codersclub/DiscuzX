@@ -469,7 +469,7 @@ $lang = array (
   'lostpasswd_many_users_use_email' => '抱歉，存在多个使用此 Email 的用户，请填写您需要找回密码的用户名',
   'getpasswd_account_invalid' => '抱歉，创始人、受保护用户、拥有站点设置权限的用户不能使用取回密码功能',
   'getpasswd_send_succeed' => '取回密码的方法已通过 Email 发送到您的信箱中，<br />请在 3 天之内修改您的密码',
-  'getpasswd_has_send' => '您已经申请过取回密码邮件了，如果您没有收到，请稍等15分钟后重试',
+  'getpasswd_has_send' => '您已经发送过取回密码邮件了，如果您没有收到，请稍等 {interval} 秒后重试发送取回密码邮件',
 
   'submit_verify_succeed' => '审核请求提交成功，现在将返回个人中心',
 
@@ -840,7 +840,7 @@ $lang = array (
   'profile_email_verify' => '确认 Email 已发送，请用邮件中提供的方法激活您的帐号。如果您尚未收到我们发送的系统邮件，请点击密码安全中的“重新接收验证邮件”，或尝试更换另外一个地址',
   'profile_succeed' => '个人资料保存成功 ',
   'send_activate_mail_succeed' => '邮件已发送，可能需要几分钟后才能收到邮件',
-  'send_activate_mail_error' => '抱歉，邮件发送失败，请过5分钟后重试发送验证激活邮件',
+  'send_activate_mail_error' => '抱歉，邮件发送失败，请稍等 {interval} 秒后重试发送验证激活邮件',
 
   'no_privilege_sendmailday' => '抱歉，本站尚未开启邮件提醒功能',
   'email_input' => '抱歉，您尚未设置邮箱，请在<a href="home.php?mod=spacecp&ac=profile&op=password">联系方式</a>中准确填写您的邮箱',
