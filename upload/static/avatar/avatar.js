@@ -128,6 +128,7 @@ function refreshAvatarCanvas(uiposition) {
     var iw = jQuery('#avatarimage').width();
     var ih = jQuery('#avatarimage').height();
     var img = $('avatarimage');
+    ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(img, 0,0, iw, ih, ad.left, ad.top, ad.width, ad.height);
     var sd = getSelectorDimention();    
     if (uiposition) {
@@ -189,6 +190,7 @@ function saveAvatar() {
     var ctx = canvas.getContext("2d");
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, tw, th);
+    ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(img, sl, st, sw, sh, 0, 0, tw, th);
     var dataURL = canvas.toDataURL("image/jpeg");
     jQuery('#avatar1').val(dataURL.substr(dataURL.indexOf(",") + 1));
@@ -206,6 +208,7 @@ function saveAvatar() {
     var ctx = canvas.getContext("2d");
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, tw, th);
+    ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(img, sl, st, sw, sh, 0, 0, tw, th);
     var dataURL = canvas.toDataURL("image/jpeg");
     jQuery('#avatar2').val(dataURL.substr(dataURL.indexOf(",") + 1));
@@ -227,6 +230,7 @@ function saveAvatar() {
     var ctx = canvas.getContext("2d");
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, tw, th);
+    ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(img, sl, st, sw, sh, 0, 0, tw, th);
     var dataURL = canvas.toDataURL("image/jpeg");
     jQuery('#avatar3').val(dataURL.substr(dataURL.indexOf(",") + 1));
@@ -261,6 +265,7 @@ function refreshAvatarCanvasForDisplay() {
     }  
     var ctl = 10;
     var ctt = 10;
+    ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(img, sl, st, sw, sh, ctl, ctt, tw, th);
     ctl += 20 + tw;
 
