@@ -85,7 +85,7 @@ while($temp = DB::fetch($query)) {
 		continue;
 	}
 }
-$sql .= !$columnexisted ? "ALTER TABLE ".DB::table('common_member_connect')." ADD COLUMN conisqqshow tinyint(1) unsigned NOT NULL default '0';\n" : '';
+$sql .= !$columnexisted ? "ALTER TABLE ".DB::table('common_member_connect')." ADD COLUMN conisqqshow tinyint(1) NOT NULL default '0';\n" : '';
 $sql .= !$uintokenexisted ? "ALTER TABLE ".DB::table('common_member_connect')." ADD COLUMN conuintoken char(32) NOT NULL DEFAULT '';\n" : '';
 
 $query = DB::query("SHOW COLUMNS FROM ".DB::table('common_connect_guest'));
