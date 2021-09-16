@@ -450,8 +450,38 @@ function show_form(&$form_items, $error_msg) {
 	show_footer();
 }
 
+function dunserialize($data) {
+	if(($ret = unserialize($data)) === false) {
+		$ret = unserialize(stripslashes($data));
+	}
+	return $ret;
+}
+
+function cloudaddons_getversion($instid) {
+	$timestamp = time();
+	$data = 'product=discuzx&sitever='.DISCUZ_VERSION.'/'.DISCUZ_RELEASE.'&sitecharset='.CHARSET.'&addonversion=1&os='.PHP_OS .'&php='.PHP_VERSION.'&web='.$_SERVER['SERVER_SOFTWARE'].'&lang='.INSTALL_LANG.'&type=installer&instid='.$instid;
+	$param = 'data='.rawurlencode(base64_encode($data));
+	$param .= '&md5hash='.substr(md5($data.$timestamp), 8, 8).'&timestamp='.$timestamp;
+	$param .= '&mod=app&ac=installcheck';
+
+	$url = 'https://addon.dismall.com/index.php?'.$param;
+
+	$return = dfopen($url, 0, '', '', FALSE, '', 3);
+
+	if(!empty($return)) {
+		$ret = dunserialize($return);
+		if(is_array($ret) && isset($ret['is_latest']) && !$ret['is_latest']) {
+			return $ret;
+		} else {
+			return array('is_latest' => 1, 'url' => '');
+		}
+	} else {
+		return array('is_latest' => 1, 'url' => '');
+	}
+}
+
 function show_license() {
-	global $self, $uchidden, $step;
+	global $self, $uchidden, $step, $instid;
 	$next = $step + 1;
 	if(VIEW_OFF) {
 
@@ -464,6 +494,27 @@ function show_license() {
 		$license = str_replace('  ', '&nbsp; ', lang('license'));
 		$lang_agreement_yes = lang('agreement_yes');
 		$lang_agreement_no = lang('agreement_no');
+
+		$lang_php8 = lang('php8_tips');
+		$lang_noutf8 = lang('no_utf8_tips').lang('next_tips');
+		$lang_unstable = lang('unstable_tips').lang('next_tips');
+
+		$is_php8 = version_compare(PHP_VERSION, '8.0.0', '>=') ? 1 : 0;
+		$is_utf8 = (strtolower(CHARSET) == 'utf-8') ? 1 : 0;
+		$is_unstable = (strlen(DISCUZ_RELEASE) != 8 || DISCUZ_RELEASE == 20180101) ? 1 : 0;
+
+		$info = cloudaddons_getversion($instid);
+
+		$hrefurl = empty($info['url']) ? 'https://gitee.com/Discuz/DiscuzX/releases' : $info['url'];
+
+		if($info['is_latest']) {
+			$is_latest = 1;
+			$lang_nolatest = lang('no_latest_tips').lang('next_tips');
+		} else {
+			$is_latest = 0;
+			$lang_nolatest = empty($info['tips']) ? (lang('no_latest_tips').lang('next_tips')) : ($info['tips'].lang('next_tips'));
+		}
+
 		echo <<<EOT
 </div>
 <div class="main" style="margin-top:-123px;">
@@ -472,10 +523,31 @@ function show_license() {
 		<form method="get" autocomplete="off" action="index.php">
 		<input type="hidden" name="step" value="$next">
 		<input type="hidden" name="uchidden" value="$uchidden">
-		<input type="submit" name="submit" value="{$lang_agreement_yes}" style="padding: 2px">&nbsp;
+		<input type="submit" name="submit" value="{$lang_agreement_yes}" style="padding: 2px" onclick="return checker();">&nbsp;
 		<input type="button" name="exit" value="{$lang_agreement_no}" style="padding: 2px" onclick="javascript: window.close(); return false;">
 		</form>
 	</div>
+	<script type="text/javascript">
+	function checker() {
+		if(!$is_latest && confirm("$lang_nolatest")) {
+			window.location.href = "$hrefurl";
+			return false;
+		}
+		if($is_php8) {
+			alert("$lang_php8");
+			return false;
+		}
+		if($is_unstable && confirm("$lang_unstable")) {
+			window.location.href = "$hrefurl";
+			return false;
+		}
+		if(!$is_utf8 && confirm("$lang_noutf8")) {
+			window.location.href = "$hrefurl";
+			return false;
+		}
+		return true;
+	}
+	</script>
 EOT;
 
 		show_footer();

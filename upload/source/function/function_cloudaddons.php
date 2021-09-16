@@ -51,7 +51,7 @@ function cloudaddons_url($extra) {
 	global $_G;
 
 	require_once DISCUZ_ROOT.'./source/discuz_version.php';
-	$data = 'siteuniqueid='.rawurlencode(cloudaddons_getuniqueid()).'&siteurl='.rawurlencode($_G['siteurl']).'&sitever='.DISCUZ_VERSION.'/'.DISCUZ_RELEASE.'&sitecharset='.CHARSET.'&mysiteid='.$_G['setting']['my_siteid'].'&addonversion=1&dlip='.CLOUDADDONS_DOWNLOAD_IP;
+	$data = 'siteuniqueid='.rawurlencode(cloudaddons_getuniqueid()).'&siteurl='.rawurlencode($_G['siteurl']).'&sitever='.DISCUZ_VERSION.'/'.DISCUZ_RELEASE.'&sitecharset='.CHARSET.'&mysiteid='.$_G['setting']['my_siteid'].'&addonversion=1&dlip='.CLOUDADDONS_DOWNLOAD_IP.'&os='.PHP_OS .'&php='.PHP_VERSION.'&web='.$_SERVER['SERVER_SOFTWARE'].'&db='.helper_dbtool::dbversion().'&lang='.currentlang();
 	$param = 'data='.rawurlencode(base64_encode($data));
 	$param .= '&md5hash='.substr(md5($data.TIMESTAMP), 8, 8).'&timestamp='.TIMESTAMP;
 	return CLOUDADDONS_DOWNLOAD_URL.'?'.$param.$extra;
