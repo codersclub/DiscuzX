@@ -500,7 +500,7 @@ function show_license() {
 		$lang_noutf8 = lang('no_utf8_tips').lang('next_tips');
 		$lang_unstable = lang('unstable_tips').lang('next_tips');
 
-		$is_php8 = version_compare(PHP_VERSION, '8.0.0', '>=') ? 1 : 0;
+		$is_php8 = version_compare(PHP_VERSION, '9.0.0', '>=') ? 1 : 0;
 		$is_utf8 = (strtolower(CHARSET) == 'utf-8') ? 1 : 0;
 		$is_unstable = (strlen(DISCUZ_RELEASE) != 8 || DISCUZ_RELEASE == 20180101) ? 1 : 0;
 
