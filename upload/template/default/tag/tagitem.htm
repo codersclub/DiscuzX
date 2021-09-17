@@ -4,10 +4,8 @@
 	<div class="z">
 		<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a> <em>&rsaquo;</em>
 		<a href="misc.php?mod=tag">{lang tag}</a>
-		<!--{if $tagname}-->
-			<em>&rsaquo;</em>
-			<a href="misc.php?mod=tag&id=$id">$tagname</a>
-		<!--{/if}-->
+		<em>&rsaquo;</em>
+		<a href="misc.php?mod=tag&id=$id">$tagname</a>
 		<!--{if $showtype == 'thread'}-->
 			<em>&rsaquo;</em> {lang related_thread}
 		<!--{/if}-->
@@ -55,6 +53,7 @@
 									<!--{else}-->
 										<i class="fico-thread fic6 fc-n"></i>
 									<!--{/if}-->
+									</a>
 								</td>
 								<th>
 									<a href="forum.php?mod=viewthread&tid=$thread[tid]" target="_blank" $thread[highlight]>$thread['subject']</a>

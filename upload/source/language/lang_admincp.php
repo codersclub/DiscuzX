@@ -1915,7 +1915,8 @@ $lang = array
 	'setting_permissions_minpostsize_mobile_comment' => '是否单独为手机客户端设置发帖的最小字节数，0 为不单独设置',
 	'setting_permissions_maxpostsize' => '帖子最大字数(字节)',
 	'setting_permissions_maxpostsize_comment' => '管理组成员可通过“发帖不受限制”设置而不受影响',
-	'setting_permissions_minsubjectsize' => '标题最小字数',
+	'setting_permissions_mailinterval' => '邮件发送时间间隔',
+	'setting_permissions_mailinterval_comment' => '设定邮件发送时间间隔，默认为 300 秒',	'setting_permissions_minsubjectsize' => '标题最小字数',
 	'setting_permissions_minsubjectsize_comment' => '论坛、门户、日志均受限制，管理组成员可通过“发帖不受限制”设置而在论坛模块不受影响，0 为不限制',
 	'setting_permissions_maxsubjectsize' => '标题最大字数',
 	'setting_permissions_maxsubjectsize_comment' => '论坛、门户、日志均受限制，管理组成员可通过“发帖不受限制”设置而在论坛模块不受影响, 80 为默认值, 255 为最大值',
@@ -2544,6 +2545,10 @@ $lang = array
 	'setting_ranklist_cache_time' => '缓存时间(单位：小时)',
 	'setting_ranklist_ignorefid' => '不参与排行的版块/群组',
 	'setting_ranklist_ignorefid_comment' => '填入版块ID或群组ID，对应版块及下面的主题将不进入排行榜，多个版块ID间请用半角逗号 "," 隔开',
+	'setting_ranklist_member_show' => '竞价排名功能开启',
+	'setting_ranklist_member_show_comment' => '开启用户模块下竞价排名功能',
+	'setting_ranklist_member_show_announcement' => '竞价排名功能公告信息',
+	'setting_ranklist_member_show_announcement_comment' => '填入竞价排名功能公告信息',
 	'setting_ranklist_show_num' => '显示条数',
 	'setting_ranklist_block_comment' => '请根据服务器的负载情况，设置合理的更新时间间隔，建议最少不能低于 5 小时。显示条数越多负载越高，建议最多不要超过100条，默认为 20 条',
 	'setting_ranklist_show_num_comment' => '更改条数后，缓存更新后才会显示',
@@ -3457,7 +3462,7 @@ $lang = array
 	'members_add_email_notify' => '发送通知到上述地址',
 	'members_admin_tips' => '<li>通过用户管理，您可以进行编辑会员资料、用户组、权限、积分，授予会员勋章以及删除会员等操作；</li><li>请先根据条件搜索用户，然后选择相应的操作。</li><li>输入框可使用通配符 *，多个值之间用半角逗号 "," 隔开。</li>',
 	'members_admin_comment' => '用户组名称以黑体字显示的，为系统用户组；以斜体字显示的，为自定义用户组；否则为会员用户组',
-	'members_export_tips' => '<li>用户组名称以黑体字显示的，为系统用户组；以斜体字显示的，为自定义用户组；否则为会员用户组。</li><li>导出用户信息最多支持 10000 条数据。导出的 .xls 文件可用 EXCEL 打开。</li>',
+	'members_export_tips' => '<li>用户组名称以黑体字显示的，为系统用户组；以斜体字显示的，为自定义用户组；否则为会员用户组。</li><li>导出用户信息最多支持 10000 条数据。导出的文件可用 EXCEL、WPS表格、<a href="https://docs.qq.com/" target="_blank">腾讯文档</a>等工具打开。</li>',
 
 	'members_delete_post' => '帖子',
 	'members_delete_blog' => '日志',
@@ -3597,7 +3602,7 @@ $lang = array
 	'members_ban_validity_comment' => '在有效期过后该用户可以自动解除限制，成为普通用户',
 	'members_ban_delpost' => '帖子',
 	'members_ban_delfollow' => '广播',
-	'members_ban_delfollower' => '广播收听关系',
+	'members_ban_delothers' => '杂项',
 	'members_ban_delblog' => '日志',
 	'members_ban_delalbum' => '相册',
 	'members_ban_deldoing' => '记录',
@@ -5524,7 +5529,7 @@ $lang = array
 	'card_log_num' => '操作数量',
 	'succeed_num' => '成功数',
 	'fail_num' => '失败数',
-	'card_manage_tips' => '<li>导出充值卡密最多支持 10000 条数据，导出的 .xls 文件可用 EXCEL 等工具打开。</li>',
+	'card_manage_tips' => '<li>导出充值卡密最多支持 10000 条数据，导出的文件可用 EXCEL、WPS表格、<a href="https://docs.qq.com/" target="_blank">腾讯文档</a>等工具打开。</li>',
 	'card_manage_title' => '充值卡密列表',
 	'card_status' => '状态',
 	'card_manage_status_1' => '未使用',
@@ -7178,12 +7183,6 @@ $lang = array
 	'connect_setting_t_fids_comment' => '设置在哪些论坛版块发表的主题可以推送到腾讯微博，可以按住 CTRL 多选',
 	'connect_setting_t_group' => '群组是否允许推送',
 	'connect_setting_t_group_comment' => '设置在群组发表的主题是否可以推送到腾讯微博',
-	'connect_setting_like_allow' => '显示QQ空间喜欢的链接',
-	'connect_setting_like_allow_comment' => '设置是否显示QQ认证空间，用户可通过收听认证空间随时收取认证空间的动态',
-	'connect_setting_like_url' => '认证空间QQ号码',
-	'connect_setting_like_url_comment' => '设置认证空间的 QQ 号码，提交认证申请请<a href="http://opensns.qq.com/" target="_blank">点击这里</a>',
-	'connect_setting_turl_allow' => '显示本站官方微博快速收听按钮',
-	'connect_setting_turl_allow_comment' => '用户点击快速收听按钮，就能立即收听您所设置的腾讯微博帐号',
 	'connect_member_info' => '用户信息',
 	'connect_member_bindlog' => 'QQ绑定日志',
 	'connect_member_bindlog_type' => '操作',
@@ -7223,8 +7222,8 @@ $lang = array
 # 将 RewriteEngine 模式打开
 RewriteEngine On
 
-# 修改以下语句中的 /discuz 为您的论坛目录地址，如果程序放在根目录中，请将 /discuz 修改为 /
-RewriteBase /discuz
+# 如 www.discuz.net/bbs/，对应的就是 RewriteBase /bbs/，如果程序放在根目录中，使用 RewriteBase /
+RewriteBase {siteroot}
 
 # Rewrite 系统规则请勿修改
 {apache2}

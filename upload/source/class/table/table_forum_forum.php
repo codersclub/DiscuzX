@@ -288,7 +288,7 @@ class table_forum_forum extends discuz_table
 		}
 		$orderbyarray = array('displayorder' => 'f.displayorder DESC', 'dateline' => 'ff.dateline DESC', 'lastupdate' => 'ff.lastupdate DESC', 'membernum' => 'ff.membernum DESC', 'thread' => 'f.threads DESC', 'activity' => 'f.commoncredits DESC');
 		$useindex = $orderby == 'displayorder' ? 'USE INDEX(fup_type)' : '';
-		$orderby = !empty($orderby) && $orderbyarray[$orderby] ? "ORDER BY ".$orderbyarray[$orderby] : '';
+		$orderby = !empty($orderby) && $orderbyarray[$orderby] ? "ORDER BY ".$orderbyarray[$orderby].', fid DESC' : 'ORDER BY fid DESC';
 		$limitsql = $num ? "LIMIT $start, $snum " : '';
 		$field = $sort ? 'fup' : 'fid';
 		$fids = $fids && is_array($fids) ? 'f.'.$field.' IN ('.dimplode($fids).')' : '';

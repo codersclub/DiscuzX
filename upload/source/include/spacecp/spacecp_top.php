@@ -11,8 +11,8 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-if (!$_G['setting']['friendstatus']) {
-	showmessage('friend_status_off');
+if(!$_G['setting']['ranklist']['membershow']) {
+	exit('Access Denied');
 }
 
 $operation = in_array($_GET['op'], array('modify')) ? trim($_GET['op']) : '';

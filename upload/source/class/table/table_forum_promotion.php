@@ -30,6 +30,9 @@ class table_forum_promotion extends discuz_table
 		}
 		return 0;
 	}
+	public function delete_by_uid($uid) {
+		return $uid ? DB::delete($this->_table, DB::field('uid', $uid)) : false;
+	}
 	public function delete_all() {
 		return DB::query("DELETE FROM %t", array($this->_table));
 	}

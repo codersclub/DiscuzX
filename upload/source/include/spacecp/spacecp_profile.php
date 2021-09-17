@@ -381,9 +381,9 @@ if(submitcheck('profilesubmit')) {
 		include_once libfile('function/member');
 		checkemail($emailnew);
 	}
-	// æ ¡éªŒéªŒè¯ç çŠ¶æ€
+	// Ð£ÑéÑéÖ¤Âë×´Ì¬
 	$secmobileseccodestatus = empty($secmobileseccode) ? null : sms::checkseccode($_G['uid'], 0, $secmobiccnew, $secmobilenew, $secmobileseccode);
-	// å¦‚æžœå¼€å¯çŸ­ä¿¡åŠŸèƒ½, åˆ™å¿…é¡»æœ‰éªŒè¯ç æ‰å…è®¸æ›´æ–° UCenter æ•°æ®
+	// Èç¹û¿ªÆô¶ÌÐÅ¹¦ÄÜ, Ôò±ØÐëÓÐÑéÖ¤Âë²ÅÔÊÐí¸üÐÂ UCenter Êý¾Ý
 	if($_G['setting']['smsstatus'] && !$secmobileseccodestatus) {
 		$ucresult = uc_user_edit(addslashes($_G['username']), $_GET['oldpassword'], $_GET['newpassword'], '', $ignorepassword, $_GET['questionidnew'], $_GET['answernew']);
 	} else {
@@ -414,16 +414,16 @@ if(submitcheck('profilesubmit')) {
 
 	$authstr = false;
 	if($emailnew != $_G['member']['email']) {
-		$authstr = true;
-		emailcheck_send($space['uid'], $emailnew);
-		dsetcookie('newemail', "{$space['uid']}\t$emailnew\t{$_G['timestamp']}", 31536000);
-	}
-	// å¦‚æžœå¼€å¯äº†çŸ­ä¿¡éªŒè¯, è¾“å…¥äº†æ‰‹æœºå·å´æ²¡æœ‰è¾“å…¥éªŒè¯ç , å°±å°è¯•å‘é€éªŒè¯ç 
+		if(emailcheck_send($space['uid'], $emailnew)) {
+			$authstr = true;
+			dsetcookie('newemail', "{$space['uid']}\t$emailnew\t{$_G['timestamp']}", 31536000);
+		}	}
+	// Èç¹û¿ªÆôÁË¶ÌÐÅÑéÖ¤, ÊäÈëÁËÊÖ»úºÅÈ´Ã»ÓÐÊäÈëÑéÖ¤Âë, ¾Í³¢ÊÔ·¢ËÍÑéÖ¤Âë
 	if($_G['setting']['smsstatus'] && (strcmp($secmobiccnew, $_G['member']['secmobicc']) != 0 || strcmp($secmobilenew, $_G['member']['secmobile']) != 0) && empty($secmobileseccode)) {
 		$secmobileseccode = random(8, 1);
 		sms::sendseccode($_G['uid'], 0, $secmobiccnew, $secmobilenew, $secmobileseccode);
 	}
-	// å¦‚æžœæœªå¼€å¯çŸ­ä¿¡éªŒè¯, æˆ–è€…å¼€å¯äº†çŸ­ä¿¡éªŒè¯ä¸”æ­£ç¡®è¾“å…¥éªŒè¯ç , åˆ™æ›´æ–°ç”¨æˆ·åŸºç¡€ä¿¡æ¯
+	// Èç¹ûÎ´¿ªÆô¶ÌÐÅÑéÖ¤, »òÕß¿ªÆôÁË¶ÌÐÅÑéÖ¤ÇÒÕýÈ·ÊäÈëÑéÖ¤Âë, Ôò¸üÐÂÓÃ»§»ù´¡ÐÅÏ¢
 	if(($_G['setting']['smsstatus'] && $secmobileseccodestatus) || !$_G['setting']['smsstatus']) {
 		$setarr['secmobicc'] = $secmobiccnew;
 		$setarr['secmobile'] = $secmobilenew;
@@ -468,8 +468,9 @@ if(submitcheck('profilesubmit')) {
 
 if($operation == 'password') {
 
+	$interval = $_G['setting']['mailinterval'] > 0 ? (int)$_G['setting']['mailinterval'] : 300;
 	$resend = getcookie('resendemail');
-	$resend = empty($resend) ? true : (TIMESTAMP - $resend) > 300;
+	$resend = empty($resend) ? true : (TIMESTAMP - $resend) > $interval;
 	$newemail = getcookie('newemail');
 	$space['newemail'] = !$space['emailstatus'] ? $space['email'] : '';
 	if(!empty($newemail)) {
@@ -484,17 +485,20 @@ if($operation == 'password') {
 		}
 	}
 
-	if(getgpc('resend') && $resend) {
+	if($_GET['resend'] && $resend && $_GET['formhash'] == FORMHASH) {
 		$toemail = $space['newemail'] ? $space['newemail'] : $space['email'];
-		emailcheck_send($space['uid'], $toemail);
-		dsetcookie('newemail', "{$space['uid']}\t$toemail\t{$_G['timestamp']}", 31536000);
-		dsetcookie('resendemail', TIMESTAMP);
-		showmessage('send_activate_mail_succeed', "home.php?mod=spacecp&ac=profile&op=password");
+		if(emailcheck_send($space['uid'], $toemail)) {
+			dsetcookie('newemail', "{$space['uid']}\t$toemail\t{$_G['timestamp']}", 31536000);
+			dsetcookie('resendemail', TIMESTAMP);
+			showmessage('send_activate_mail_succeed', "home.php?mod=spacecp&ac=profile&op=password");
+		} else {
+			showmessage('send_activate_mail_error', 'home.php?mod=spacecp&ac=profile&op=password', array('interval' => $interval));
+		}
 	} elseif (getgpc('resend')) {
-		showmessage('send_activate_mail_error', "home.php?mod=spacecp&ac=profile&op=password");
+		showmessage('send_activate_mail_error', 'home.php?mod=spacecp&ac=profile&op=password', array('interval' => $interval));
 	}
 	if(!empty($space['newemail'])) {
-		$acitvemessage = lang('spacecp', 'email_acitve_message', array('newemail' => $space['newemail'], 'imgdir' => $_G['style']['imgdir']));
+		$acitvemessage = lang('spacecp', 'email_acitve_message', array('newemail' => $space['newemail'], 'imgdir' => $_G['style']['imgdir'], 'formhash' => FORMHASH));
 	}
 	$actives = array('password' =>' class="a"');
 	$navtitle = lang('core', 'title_password_security');

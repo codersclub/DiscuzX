@@ -171,6 +171,10 @@ if ($_GET['view'] == 'credit') {
 	$list = getranklistdata($type, $view, $orderby);
 
 } else {
+	if(!$ranklist_setting['membershow']) {
+		header('Location: misc.php?mod=ranklist&type=member&view=beauty');
+	}
+	$announcement = $ranklist_setting['membershowannouncement'];
 	$gettype = 'bid';
 	$cachetip = FALSE;
 	$_GET['view'] = 'show';

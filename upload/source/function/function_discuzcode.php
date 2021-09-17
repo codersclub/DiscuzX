@@ -490,17 +490,21 @@ function parseaudio($url, $width = 400) {
 function parsemedia($params, $url) {
 	$params = explode(',', $params);
 
-	if(preg_match('/^(100|[0-9]{1,2})%$/', $params[1], $matches)) {
-		$width = $matches[1] . '%';
+	if(preg_match('/^(auto|100%|[0-9]{1,2}%)$/', $params[1], $matches)) {
+		$width = $matches[1];
 	} else {
 		$width = ($params[1] > 0 && $params[1] < 8192) ? intval($params[1]) : 800;
 	}
 
-	if(preg_match('/^(100|[0-9]{1,2})%$/', $params[2], $matches)) {
-		$height = $matches[2] . '%';
+	if(preg_match('/^(auto|100%|[0-9]{1,2}%)$/', $params[2], $matches)) {
+		$height = $matches[1];
 	} else {
 		$height = ($params[2] > 0 && $params[2] < 4096) ? intval($params[2]) : 600;
 	}
+
+	// 兼容手机版（待测试）
+	$width = defined('IN_MOBILE') ? '100%' : $width;
+	$height = defined('IN_MOBILE') ? 'auto' : $height;
 
 	$url = addslashes($url);
         if(!in_array(strtolower(substr($url, 0, 6)), array('http:/', 'https:', 'ftp://', 'rtsp:/', 'mms://')) && !preg_match('/^static\//', $url) && !preg_match('/^data\//', $url)) {

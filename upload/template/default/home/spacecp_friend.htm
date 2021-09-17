@@ -313,7 +313,7 @@
 				<!--{if $maxfriendnum}-->
 				({lang max_friend_num})
 				<p>
-					<!--{if $_G[magic][friendnum]}-->
+					<!--{if $_G['setting']['magics']['friendnum']}-->
 					<img src="{STATICURL}image/magic/friendnum.small.gif" alt="friendnum" class="vm" />
 					<a id="a_magic_friendnum" href="home.php?mod=magic&mid=friendnum" onclick="showWindow(this.id, this.href, 'get', '0')">{lang expansion_friend}</a>
 					({lang expansion_friend_message})

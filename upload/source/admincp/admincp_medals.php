@@ -45,7 +45,11 @@ if(!$operation) {
 	];
 </script>
 <?php
-		foreach(C::t('forum_medal')->fetch_all_data() as $medal) {
+		$perpage = 50;
+		$start = ($_G['page'] - 1) * $perpage;
+		$count = C::t('forum_medal')->count_by_available(false);
+		$multi = multi($count, $perpage, $page, ADMINSCRIPT."?action=medals");
+		foreach(C::t('forum_medal')->fetch_all_data(false, $start, $perpage) as $medal) {
 			$checkavailable = $medal['available'] ? 'checked' : '';
 			switch($medal['type']) {
 				case 0:
@@ -72,7 +76,7 @@ if(!$operation) {
 		}
 
 		echo '<tr><td></td><td colspan="8"><div><a href="###" onclick="addrow(this, 0)" class="addtr">'.$lang['medals_addnew'].'</a></div></td></tr>';
-		showsubmit('medalsubmit', 'submit', 'del');
+		showsubmit('medalsubmit', 'submit', 'del', '', $multi);
 		showtablefooter();
 		showformfooter();
 

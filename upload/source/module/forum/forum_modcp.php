@@ -154,7 +154,7 @@ $modtpl = 'forum/' . $modtpl;
 $op = isset($op) ? trim($op) : '';
 
 if($script != 'log') {
-	include libfile('function/misc');
+	require_once libfile('function/misc');
 	$extra = implodearray(array('GET' => $_GET, 'POST' => $_POST), array('cppwd', 'formhash', 'submit', 'addsubmit'));
 	$modcplog = array(TIMESTAMP, $_G['username'], $_G['adminid'], $_G['clientip'], $_GET['action'], $op, $_G['fid'], $extra);
 	writelog('modcp', implode("\t", clearlogstring($modcplog)));

@@ -124,7 +124,7 @@ function getthreadsbytids($tidarray) {
 		foreach(C::t('forum_thread')->fetch_all_by_tid($tidarray) as $result) {
 			if($result['displayorder'] >= 0){
 				if(!isset($_G['cache']['forums'][$result['fid']]['name'])) {
-					$fids[$result['fid']] = $result['tid'];
+					$fids[$result['fid']][] = $result['tid'];
 				} else {
 					$result['name'] = $_G['cache']['forums'][$result['fid']]['name'];
 				}
@@ -133,8 +133,9 @@ function getthreadsbytids($tidarray) {
 		}
 		if(!empty($fids)) {
 			foreach(C::t('forum_forum')->fetch_all_by_fid(array_keys($fids)) as $fid => $forum) {
-				$_G['cache']['forums'][$fid]['forumname'] = $forum['name'];
-				$threadlist[$fids[$fid]]['forumname'] = $forum['name'];
+				foreach($fids[$fid] as $tid) {
+					$threadlist[$tid]['forumname'] = $forum['name'];
+				}
 			}
 		}
 	}

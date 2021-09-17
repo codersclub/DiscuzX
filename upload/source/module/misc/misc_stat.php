@@ -42,13 +42,17 @@ if($op == 'basic') {
 	extract($statvars);
 	if($_GET['exportexcel']) {
 		$filename = 'stat_modworks_'.($username ? $username.'_' : '').$starttime.'_'.$endtime.'.csv';
+		// 遵循RFC 6266国际标准，按照RFC 5987中的规则对文件名进行编码
 		$filenameencode = strtolower(CHARSET) == 'utf-8' ? rawurlencode($filename) : rawurlencode(diconv($filename, CHARSET, 'UTF-8'));
+		// 连2011年发布的国际标准都没能正确支持的浏览器厂商的黑名单列表
+		// 目前包括：UC，夸克，搜狗，百度
+		$rfc6266blacklist = strexists($_SERVER['HTTP_USER_AGENT'], 'UCBrowser') || strexists($_SERVER['HTTP_USER_AGENT'], 'Quark') || strexists($_SERVER['HTTP_USER_AGENT'], 'SogouM') || strexists($_SERVER['HTTP_USER_AGENT'], 'baidu');
 		include template('forum/stat_misc_export');
 		$csvstr = ob_get_contents();
 		ob_end_clean();
 		header('Content-Encoding: none');
 		header('Content-Type: application/octet-stream');
-		header('Content-Disposition: attachment; filename="'.(($filename == $filenameencode) ? $filename.'"' : $filenameencode.'"; filename*=utf-8\'\''.$filenameencode));
+		header('Content-Disposition: attachment; filename="'.$filenameencode.'"'.(($filename == $filenameencode || $rfc6266blacklist) ? '' : '; filename*=utf-8\'\''.$filenameencode));
 		header('Pragma: no-cache');
 		header('Expires: 0');
 		if($_G['charset'] != 'gbk') {

@@ -636,8 +636,6 @@ $lang = array (
   'members_verify_update_title_error' => '认证启用时认证名称不能为空修改',
   'members_verify_title_invalid' => '您没有为启用的认证设置认证名称',
 
-  'connect_like_url_error' => 'QQ空间喜欢的链接必须是 qq.com 域名',
-  'connect_like_url_miss' => '您没有填写QQ空间喜欢链接 URL',
   'connect_update_succeed' => 'QQ绑定设置更新成功 ',
 
   'moderate_articles_succeed' => '审核操作成功，共 {validates} 个文章被通过，{ignores} 个文章被忽略，{deletes} 个文章被删除',

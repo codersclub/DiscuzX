@@ -21,6 +21,13 @@ class table_home_pokearchive extends discuz_table
 		parent::__construct();
 	}
 
+	public function delete_by_uid_or_fromuid($uids) {
+		$uids = dintval($uids, is_array($uids) ? true : false);
+		if($uids) {
+			return DB::delete($this->_table, DB::field('uid', $uids).' OR '.DB::field('fromuid', $uids));
+		}
+		return 0;
+	}
 	public function fetch_all_by_pokeuid($pokeuid) {
 		return DB::fetch_all('SELECT * FROM %t WHERE pokeuid=%d ORDER BY dateline', array($this->_table, $pokeuid));
 	}

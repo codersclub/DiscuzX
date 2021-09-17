@@ -7,6 +7,10 @@
  *      $Id: index.php 34524 2014-05-15 04:42:23Z nemohou $
  */
 
+if(version_compare(PHP_VERSION, '8.0.0', '>=')) {
+	exit('This version of Discuz! is not compatible with >= PHP 8.0, Please install or update to higher version.');
+}
+
 if(!empty($_SERVER['QUERY_STRING']) && is_numeric($_SERVER['QUERY_STRING'])) {
 	$_ENV['curapp'] = 'home';
 	$_GET = array('mod'=>'space', 'uid'=>$_SERVER['QUERY_STRING']);

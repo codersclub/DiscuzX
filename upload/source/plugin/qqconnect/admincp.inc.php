@@ -79,21 +79,8 @@ if ($_GET['anchor'] == 'setting') {
 
 	} else {
 
-		if($_GET['connectnew']['turl_qq'] && !is_numeric($_GET['connectnew']['turl_qq'])) {
-			cpmsg('connect_setting_turl_qq_failed', '', 'error');
-		}
-
-		if($_GET['connectnew']['like_url']) {
-			$url = parse_url($_GET['connectnew']['like_url']);
-			if(!preg_match('/\.qq\.com$/i', $url['host'])) {
-				cpmsg('connect_like_url_error', '', 'error');
-			}
-		}
-		if($_GET['connectnew']['like_allow'] && $_GET['connectnew']['like_url'] === '') {
-			cpmsg('connect_like_url_miss', '', 'error');
-		}
 		$_GET['connectnew'] = array_merge($setting['connect'], $_GET['connectnew']);
-		$_GET['connectnew']['like_url'] = $_GET['connectnew']['like_qq'] ? 'http://open.qzone.qq.com/like?url=http%3A%2F%2Fuser.qzone.qq.com%2F'.$_GET['connectnew']['like_qq'].'&width=100&height=21&type=button_num' : '';
+		$_GET['connectnew']['like_url'] = '';
 		$_GET['connectnew']['turl_code'] = '';
 		$connectnew = serialize($_GET['connectnew']);
 		$regconnectnew = !$setting['connect']['allow'] && $_GET['connectnew']['allow'] ? 1 : $setting['regconnect'];
@@ -103,15 +90,6 @@ if ($_GET['anchor'] == 'setting') {
 			'connectappid' => $_GET['connectappidnew'],
 			'connectappkey' => $_GET['connectappkeynew'],
 		));
-		
-		if(!is_array($res)) {
-			$res = array('status' => false, 'msg' => 'qqgroup_msg_remote_error');
-		}
-		if($res['mblogCode']) {
-			$_GET['connectnew']['turl_code'] = $res['mblogCode'];
-			$connectnew = serialize($_GET['connectnew']);
-			C::t('common_setting')->update_setting('connect', $connectnew);
-		}
 
 		updatecache(array('setting', 'fields_register', 'fields_connect_register'));
 		cpmsg('connect_update_succeed', 'action=plugins&operation=config&do='.$pluginid.'&identifier=qqconnect&pmod=admincp', 'succeed');

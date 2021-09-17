@@ -92,7 +92,11 @@ if (!empty($_GET['xml'])) {
 	$xml .= "</xaxis><graphs>";
 	$count = 0;
 	foreach ($graph as $key => $value) {
-		$xml .= "<graph gid='$count' title='" . diconv(lang('spacecp', "do_stat_$key"), CHARSET, 'utf-8') . "'>";
+		$title = diconv(lang('spacecp', "do_stat_$key"), CHARSET, 'utf-8');
+		if ($title == '') {
+			continue;
+		}
+		$xml .= "<graph gid='$count' title='" . $title . "'>";
 		$xml .= $value;
 		$xml .= '</graph>';
 		$count++;

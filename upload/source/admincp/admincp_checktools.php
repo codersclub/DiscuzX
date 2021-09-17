@@ -476,6 +476,7 @@ if($operation == 'filecheck') {
 		$rule['{caddy}'] .= '@'.$k.' path_regexp '.$k.' ^(.*)/'.$rulepath.$v."$\n".'rewrite @'.$k.' {re.'.$k.'.1}/'.$rulepath.pvadd($rewritedata['rulereplace'][$k], array('{re.'.$k.'.', '}')).'&{query}'."\n";
 	}
 	$rule['{nginx}'] .= "if (!-e \$request_filename) {\n\treturn 404;\n}";
+	$rule['{siteroot}'] = !empty($_G['siteroot']) ? $_G['siteroot'] : '/';
 	echo str_replace(array_keys($rule), $rule, cplang('rewrite_message'));
 
 } elseif($operation == 'robots') {

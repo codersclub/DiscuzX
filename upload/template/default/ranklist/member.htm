@@ -18,7 +18,9 @@
 		<div class="bm bw0">
 			<h1 class="mt">{lang ranklist_member}</h1>
 			<ul class="tb cl">
-				<li{$a_actives[show]}><a href="misc.php?mod=ranklist&type=member">{lang auction_ranking}</a></li>
+				<!--{if $_G['setting']['ranklist']['membershow']}-->
+					<li{$a_actives[show]}><a href="misc.php?mod=ranklist&type=member">{lang auction_ranking}</a></li>
+				<!--{/if}-->
 				<li{$a_actives[beauty]}><a href="misc.php?mod=ranklist&type=member&view=beauty">{lang ranklist_beauty}</a></li>
 				<li{$a_actives[handsome]}><a href="misc.php?mod=ranklist&type=member&view=handsome">{lang ranklist_handsome}</a></li>
 				<li{$a_actives[credit]}><a href="misc.php?mod=ranklist&type=member&view=credit">{lang credit_ranking}</a></li>
@@ -81,6 +83,9 @@
 				<div class="tbmu">
 					<!--{if $_GET[view]=='show'}-->
 						<h3 class="mbn">{lang friend_top_note}:</h3>
+						<!--{if $announcement}-->
+						{$announcement}<br />
+						<!--{/if}-->
 						<!--{if $space[unitprice]}-->
 						{lang your_current_bid}: $space[unitprice] {$extcredits[$creditid][unit]},{lang current_ranking} <span style="font-size:20px;color:red;">$now_pos</span> ,{lang make_persistent_efforts}!
 						<!--{else}-->

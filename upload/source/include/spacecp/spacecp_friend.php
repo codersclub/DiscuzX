@@ -55,7 +55,7 @@ if($op == 'add') {
 
 	$maxfriendnum = checkperm('maxfriendnum');
 	if($maxfriendnum && $space['friends'] >= $maxfriendnum + $space['addfriend']) {
-		if($_G['magic']['friendnum']) {
+		if($_G['setting']['magics']['friendnum']) {
 			showmessage('enough_of_the_number_of_friends_with_magic');
 		} else {
 			showmessage('enough_of_the_number_of_friends');

@@ -4,14 +4,19 @@
 
 User-agent: *
 Disallow: /api/
-Disallow: /data/
+Disallow: /data/addonmd5/
+Disallow: /data/download/
+Disallow: /data/ipdata/
+Disallow: /data/log/
+Disallow: /data/plugindata/
+Disallow: /data/template/
+Disallow: /data/threadcache/
 Disallow: /source/
 Disallow: /install/
-Disallow: /template/
+Disallow: /template/default/
 Disallow: /config/
 Disallow: /uc_client/
 Disallow: /uc_server/
-Disallow: /static/
 Disallow: /admin.php
 Disallow: /search.php
 Disallow: /member.php

@@ -303,7 +303,7 @@ $lang = array(
 	'card_update_doing' => ' <a class="xi2" href="###">[更新记录]</a>',
 	'email_acitve_message' => '<i class="fico-email vm fc-i" title="未验证"></i><span class="xi1 vm">新邮箱({newemail})等待验证中...</span><br />
 								系统已经向该邮箱发送了一封验证激活邮件，请查收邮件，进行验证激活。<br>
-								如果没有收到验证邮件，您可以更换一个邮箱，或者<a href="home.php?mod=spacecp&ac=profile&op=password&resend=1" class="xi2">重新接收验证邮件</a>',
+								如果没有收到验证邮件，您可以更换一个邮箱，或者<a href="home.php?mod=spacecp&ac=profile&op=password&resend=1&formhash={formhash}" class="xi2">重新接收验证邮件</a>',
 	'qq_set_status' => '设置我的QQ在线状态',
 	'qq_dialog' => '发起QQ聊天',
 

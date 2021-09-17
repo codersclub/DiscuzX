@@ -107,12 +107,8 @@
                {lang attachment}: <em><!--{if $_G['uid']}-->{lang attach_nopermission}<!--{else}-->{lang attach_nopermission_login}<!--{/if}--></em>
                </div>
             <!--{elseif $post['imagelist'] || $post['attachlist']}-->
-               <!--{if $post['imagelist']}-->
-				<!--{if count($post['imagelist']) == 1}-->
+                <!--{if $post['imagelist']}-->
 				<ul class="img_one">{echo showattach($post, 1)}</ul>
-				<!--{else}-->
-				<ul class="img_list cl vm">{echo showattach($post, 1)}</ul>
-				<!--{/if}-->
 				<!--{/if}-->
                 <!--{if $post['attachlist']}-->
 				<ul>{echo showattach($post)}</ul>
