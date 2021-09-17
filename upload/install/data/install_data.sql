@@ -417,8 +417,6 @@ INSERT INTO pre_common_setting VALUES ('minsubjectsize','1');
 INSERT INTO pre_common_setting VALUES ('mobile','a:17:{s:11:\"allowmobile\";i:1;s:9:\"allowmnew\";i:0;s:13:\"mobileforward\";i:1;s:10:\"otherindex\";i:1;s:14:\"mobileregister\";i:1;s:13:\"mobileseccode\";i:0;s:15:\"mobilehotthread\";i:1;s:19:\"mobiledisplayorder3\";i:1;s:16:\"mobilesimpletype\";i:0;s:18:\"mobiletopicperpage\";i:10;s:17:\"mobilepostperpage\";i:5;s:15:\"mobilecachetime\";i:0;s:15:\"mobileforumview\";i:0;s:14:\"mobilecomefrom\";s:0:\"\";s:13:\"mobilepreview\";i:0;s:6:\"legacy\";i:1;s:3:\"wml\";i:0;}');
 INSERT INTO pre_common_setting VALUES ('modasban','1');
 INSERT INTO pre_common_setting VALUES ('moddetail','0');
-INSERT INTO pre_common_setting VALUES ('modasban','1');
-INSERT INTO pre_common_setting VALUES ('moddetail','0');
 INSERT INTO pre_common_setting VALUES ('moddisplay','flat');
 INSERT INTO pre_common_setting VALUES ('modratelimit','0');
 INSERT INTO pre_common_setting VALUES ('modreasons','广告/SPAM\r\n恶意灌水\r\n违规内容\r\n文不对题\r\n重复发帖\r\n\r\n我很赞同\r\n精品文章\r\n原创内容');

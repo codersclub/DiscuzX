@@ -11,6 +11,9 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+if (!$_G['setting']['friendstatus']) {
+	showmessage('friend_status_off');
+}
 if(!$_G['setting']['ranklist']['membershow']) {
 	exit('Access Denied');
 }

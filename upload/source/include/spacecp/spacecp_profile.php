@@ -381,9 +381,9 @@ if(submitcheck('profilesubmit')) {
 		include_once libfile('function/member');
 		checkemail($emailnew);
 	}
-	// Ğ£ÑéÑéÖ¤Âë×´Ì¬
+	// æ ¡éªŒéªŒè¯ç çŠ¶æ€
 	$secmobileseccodestatus = empty($secmobileseccode) ? null : sms::checkseccode($_G['uid'], 0, $secmobiccnew, $secmobilenew, $secmobileseccode);
-	// Èç¹û¿ªÆô¶ÌĞÅ¹¦ÄÜ, Ôò±ØĞëÓĞÑéÖ¤Âë²ÅÔÊĞí¸üĞÂ UCenter Êı¾İ
+	// å¦‚æœå¼€å¯çŸ­ä¿¡åŠŸèƒ½, åˆ™å¿…é¡»æœ‰éªŒè¯ç æ‰å…è®¸æ›´æ–° UCenter æ•°æ®
 	if($_G['setting']['smsstatus'] && !$secmobileseccodestatus) {
 		$ucresult = uc_user_edit(addslashes($_G['username']), $_GET['oldpassword'], $_GET['newpassword'], '', $ignorepassword, $_GET['questionidnew'], $_GET['answernew']);
 	} else {
@@ -417,13 +417,14 @@ if(submitcheck('profilesubmit')) {
 		if(emailcheck_send($space['uid'], $emailnew)) {
 			$authstr = true;
 			dsetcookie('newemail', "{$space['uid']}\t$emailnew\t{$_G['timestamp']}", 31536000);
-		}	}
-	// Èç¹û¿ªÆôÁË¶ÌĞÅÑéÖ¤, ÊäÈëÁËÊÖ»úºÅÈ´Ã»ÓĞÊäÈëÑéÖ¤Âë, ¾Í³¢ÊÔ·¢ËÍÑéÖ¤Âë
+		}
+	}
+	// å¦‚æœå¼€å¯äº†çŸ­ä¿¡éªŒè¯, è¾“å…¥äº†æ‰‹æœºå·å´æ²¡æœ‰è¾“å…¥éªŒè¯ç , å°±å°è¯•å‘é€éªŒè¯ç 
 	if($_G['setting']['smsstatus'] && (strcmp($secmobiccnew, $_G['member']['secmobicc']) != 0 || strcmp($secmobilenew, $_G['member']['secmobile']) != 0) && empty($secmobileseccode)) {
 		$secmobileseccode = random(8, 1);
 		sms::sendseccode($_G['uid'], 0, $secmobiccnew, $secmobilenew, $secmobileseccode);
 	}
-	// Èç¹ûÎ´¿ªÆô¶ÌĞÅÑéÖ¤, »òÕß¿ªÆôÁË¶ÌĞÅÑéÖ¤ÇÒÕıÈ·ÊäÈëÑéÖ¤Âë, Ôò¸üĞÂÓÃ»§»ù´¡ĞÅÏ¢
+	// å¦‚æœæœªå¼€å¯çŸ­ä¿¡éªŒè¯, æˆ–è€…å¼€å¯äº†çŸ­ä¿¡éªŒè¯ä¸”æ­£ç¡®è¾“å…¥éªŒè¯ç , åˆ™æ›´æ–°ç”¨æˆ·åŸºç¡€ä¿¡æ¯
 	if(($_G['setting']['smsstatus'] && $secmobileseccodestatus) || !$_G['setting']['smsstatus']) {
 		$setarr['secmobicc'] = $secmobiccnew;
 		$setarr['secmobile'] = $secmobilenew;
@@ -485,7 +486,7 @@ if($operation == 'password') {
 		}
 	}
 
-	if($_GET['resend'] && $resend && $_GET['formhash'] == FORMHASH) {
+	if(getgpc('resend') && $resend && $_GET['formhash'] == FORMHASH) {
 		$toemail = $space['newemail'] ? $space['newemail'] : $space['email'];
 		if(emailcheck_send($space['uid'], $toemail)) {
 			dsetcookie('newemail', "{$space['uid']}\t$toemail\t{$_G['timestamp']}", 31536000);

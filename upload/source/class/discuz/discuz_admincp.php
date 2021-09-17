@@ -98,9 +98,7 @@ class discuz_admincp
 			} elseif ($session['dateline'] < $this->sessionlimit) {
 				$this->cpaccess = 1;
 
-			} elseif ($this->cpsetting['checkip'] && ($session['ip'] != substr($this->core->var['clientip'], 0, strlen($session['ip'])))) {
-				// 由于目前 CDN 普遍开启了 IPv6 支持, 此处对校验进行修改, 从而实现只校验前 15 位的功能
-				// X3.5 版本或各方自行修改支持 IPv6 的网站可以不同步此修改
+			} elseif ($this->cpsetting['checkip'] && ($session['ip'] != $this->core->var['clientip'])) {
 				$this->cpaccess = 1;
 
 			} elseif ($session['errorcount'] >= 0 && $session['errorcount'] <= 3) {
