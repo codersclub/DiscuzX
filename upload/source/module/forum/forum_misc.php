@@ -1762,7 +1762,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 
 	$post = C::t('forum_post')->fetch('tid:'.$_GET['tid'], $_GET['pid'], false);
 
-	if(!in_array($_GET['do'], $doArray) || empty($post) || $post['first'] == 1 || ($_G['setting']['threadfilternum'] && $_G['setting']['filterednovote'] && getstatus($post['status'], 11))) {
+	if(!in_array($_GET['do'], $doArray) || empty($post) || $post['first'] == 1 || ($_G['setting']['threadfilternum'] && $_G['setting']['filterednovote'] && getstatus($post['status'], 11)) || $post['invisible'] < 0) {
 		showmessage('undefined_action', NULL);
 	}
 
