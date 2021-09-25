@@ -717,10 +717,10 @@ foreach($threadlist as $thread) {
 		$thread['pages'] = ceil($topicposts / $_G['ppp']);
 		$realtid = $_G['forum']['status'] != 3 && $thread['isgroup'] == 1 ? $thread['closed'] : $thread['tid'];
 		for($i = 2; $i <= 6 && $i <= $thread['pages']; $i++) {
-			$pagelinks .= "<a href=\"forum.php?mod=viewthread&tid=$realtid&amp;".(!empty($multipate_archive) ? "$multipate_archive&amp;" : '')."extra=$extra&amp;page=$i\">$i</a>";
+			$pagelinks .= "<a href=\"forum.php?mod=viewthread&tid=$realtid&amp;".(!empty($multipate_archive) ? "$multipate_archive&amp;" : '')."extra=$extra&amp;page=$i\" onclick=\"atarget(this)\">$i</a>";
 		}
 		if($thread['pages'] > 6) {
-			$pagelinks .= "..<a href=\"forum.php?mod=viewthread&tid=$realtid&amp;".(!empty($multipate_archive) ? "$multipate_archive&amp;" : '')."extra=$extra&amp;page=$thread[pages]\">$thread[pages]</a>";
+			$pagelinks .= "..<a href=\"forum.php?mod=viewthread&tid=$realtid&amp;".(!empty($multipate_archive) ? "$multipate_archive&amp;" : '')."extra=$extra&amp;page=$thread[pages]\" onclick=\"atarget(this)\">$thread[pages]</a>";
 		}
 		$thread['multipage'] = '&nbsp;...'.$pagelinks;
 	}
