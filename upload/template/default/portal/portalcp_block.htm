@@ -415,16 +415,16 @@
 				<!--{if in_array($block['blockclass'], array('forum_thread', 'portal_article', 'group_thread'), true)}-->
 				<tr>
 					<td>{lang more_url}</td>
-					<td>{{moreurl}}</td>
+					<td>{{echo 'moreurl'}}</td>
 				</tr>
 				<!--{/if}-->
 				<tr>
 					<td>{lang current_data_order}</td>
-					<td>{{currentorder}}</td>
+					<td>{{echo 'currentorder'}}</td>
 				</tr>
 				<tr>
 					<td>{lang current_data_odd}</td>
-					<td>{{parity}}</td>
+					<td>{{echo 'parity'}}</td>
 				 </tr>
 				 <tr>
 					<td>{lang default_loop_content}</td>
@@ -440,11 +440,11 @@
 				 </tr>
 				 <tr>
 					<td>{lang set_open_link}</td>
-					<td>&lt;a href="{{url}}"{{target}}&gt;{{title}}&lt;/a&gt;</td>
+					<td>&lt;a href="{{echo 'url'}}"{{echo 'target'}}&gt;{{echo 'title'}}&lt;/a&gt;</td>
 				 </tr>
 				 <tr>
 					<td>{lang set_small_pic}</td>
-					<td>&lt;img src="{{pic}}" width="{{picwidth}}" height="{{picheight}}" /&gt;</td>
+					<td>&lt;img src="{{echo 'pic'}}" width="{{echo 'picwidth'}}" height="{{echo 'picheight'}}" /&gt;</td>
 				 </tr>
 				 <tr>
 					<td>{lang more_introduction}</td>
