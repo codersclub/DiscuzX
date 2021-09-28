@@ -89,7 +89,7 @@ class table_forum_collection extends discuz_table
 		return DB::result_first('SELECT COUNT(*) FROM %t WHERE uid=%d', array($this->_table, $uid));
 	}
 
-	public function update_by_ctid($ctid, $incthreadnum = 0, $incfollownum = 0, $inccommentnum = 0, $lastupdate = 0, $incratenum = 0, $totalratenum = 0, $lastpost = '') {
+	public function update_by_ctid($ctid, $incthreadnum = 0, $incfollownum = 0, $inccommentnum = 0, $lastupdate = 0, $incratenum = 0, $totalratenum = 0, $lastpost = array()) {
 		if(!$ctid) {
 			return false;
 		}
@@ -119,7 +119,7 @@ class table_forum_collection extends discuz_table
 			}
 			$para[] = $incratenum;
 		}
-		if(count($lastpost) == 4) {
+		if(is_array($lastpost) && count($lastpost) == 4) {
 			$sql[] = 'lastpost=%d,lastsubject=%s,lastposttime=%d,lastposter=%s';
 			$para = array_merge($para, array($lastpost['lastpost'], $lastpost['lastsubject'], $lastpost['lastposttime'], $lastpost['lastposter']));
 		}
