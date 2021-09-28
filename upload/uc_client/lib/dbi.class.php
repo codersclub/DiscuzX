@@ -34,6 +34,8 @@ class ucclient_db {
 		$this->tablepre = $tablepre;
 		$this->time = $time;
 
+		mysqli_report(MYSQLI_REPORT_OFF);
+
 		if(!$this->link = new mysqli($dbhost, $dbuser, $dbpw, $dbname)) {
 			$this->halt('Can not connect to MySQL server');
 		}
