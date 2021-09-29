@@ -31,12 +31,12 @@ function userlogin($username, $password, $questionid, $answer, $loginfield = 'us
 	}
 	if($isuid == 3) {
 		if(!strcmp(dintval($username), $username) && getglobal('setting/uidlogin')) {
-			$return['ucresult'] = uc_user_login($username, $password, 1, 1, $questionid, $answer, $ip);
+			$return['ucresult'] = uc_user_login($username, $password, 1, 1, $questionid, $answer, $ip, 1);
 		} elseif(isemail($username)) {
-			$return['ucresult'] = uc_user_login($username, $password, 2, 1, $questionid, $answer, $ip);
+			$return['ucresult'] = uc_user_login($username, $password, 2, 1, $questionid, $answer, $ip, 1);
 		} elseif(preg_match('/^(\d{1,12}|\d{1,3}-\d{1,12})$/', $username) && getglobal('setting/secmobilelogin')) {
 			$username = strpos($username, '-') === false ? (getglobal('setting/smsdefaultcc') . '-' . $username) : $username;
-			$return['ucresult'] = uc_user_login($username, $password, 4, 1, $questionid, $answer, $ip);
+			$return['ucresult'] = uc_user_login($username, $password, 4, 1, $questionid, $answer, $ip, 1);
 		}
 		if($return['ucresult'][0] <= 0 && $return['ucresult'][0] != -3) {
 			$return['ucresult'] = uc_user_login(addslashes($username), $password, 0, 1, $questionid, $answer, $ip);

@@ -125,6 +125,7 @@ class usercontrol extends base {
 		$questionid = $this->input('questionid');
 		$answer = $this->input('answer');
 		$ip = $this->input('ip');
+		$nolog = $this->input('nolog');
 
 		// check_times 代表允许用户登录失败次数，该变量的值为 0 为不限制，正数为次数
 		// 由于历史 Bug ，系统配置内原有用于代表无限制的 0 值必须代表正常值 5 ，因此只能在这里进行映射，负数映射为 0 ，正数正常， 0 映射为 5 。
@@ -158,7 +159,7 @@ class usercontrol extends base {
 			$_ENV['user']->upgrade_password($username, $password, $user['password'], $user['salt']);
 			$status = $user['uid'];
 		}
-		if($ip && $check_times && $status <= 0) {
+		if(!$nolog && $ip && $check_times && $status <= 0) {
 			$_ENV['user']->loginfailed($username, $ip);
 		}
 		$merge = $status != -1 && !$isuid && $_ENV['user']->check_mergeuser($username) ? 1 : 0;
