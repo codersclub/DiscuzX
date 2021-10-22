@@ -157,7 +157,7 @@ class logging_ctl {
 				if($_G['member']['adminid'] != 1) {
 					if($this->setting['accountguard']['loginoutofdate'] && $_G['member']['lastvisit'] && TIMESTAMP - $_G['member']['lastvisit'] > ($this->setting['accountguard']['loginoutofdatenum'] >= 1 ? (int)$this->setting['accountguard']['loginoutofdatenum'] : 90) * 86400 && $_G['member']['freeze'] != -1) {
 						C::t('common_member')->update($_G['uid'], array('freeze' => 2));
-						showmessage('location_login_outofdate', 'home.php?mod=spacecp&ac=profile&op=password&resend=1&formhash='.FORMHASH, array('type' => 1), array('showdialog' => true, 'striptags' => false, 'locationtime' => true));
+						showmessage('location_login_outofdate', 'home.php?mod=spacecp&ac=profile&op=password&resend=1&formhash='.formhash(), array('type' => 1), array('showdialog' => true, 'striptags' => false, 'locationtime' => true));
 					}
 
 					if($this->setting['accountguard']['loginpwcheck'] && $pwold && $_G['member']['freeze'] == 0) {
