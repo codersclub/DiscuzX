@@ -23,8 +23,10 @@ if(empty($topiclist)) {
 	showmessage('admin_nopermission', NULL);
 }
 $sticktopiclist = $posts = array();
+$authorids = array();
 foreach($topiclist as $pid) {
 	$post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $pid, false);
+	$authorids[] = array('authorid' => $post['authorid']);
 	$sticktopiclist[$pid] = $post['position'];
 }
 
@@ -70,7 +72,7 @@ if(!submitcheck('modsubmit')) {
 
 	$resultarray = array(
 	'redirect'	=> "forum.php?mod=viewthread&tid=$_G[tid]&page=$page",
-	'reasonpm'	=> ($sendreasonpm ? array('data' => array(array('authorid' => $post['authorid'])), 'var' => 'post', 'notictype' => 'post', 'item' => $_GET['stickreply'] ? 'reason_stickreply': 'reason_stickdeletereply') : array()),
+	'reasonpm'	=> ($sendreasonpm ? array('data' => $authorids, 'var' => 'post', 'notictype' => 'post', 'item' => $_GET['stickreply'] ? 'reason_stickreply': 'reason_stickdeletereply') : array()),
 	'reasonvar'	=> array('tid' => $thread['tid'], 'subject' => $thread['subject'], 'modaction' => $modaction, 'reason' => $reason),
 	'modlog'	=> $thread
 	);
