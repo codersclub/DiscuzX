@@ -39,15 +39,14 @@ class ucserver_db {
 
 		$this->link->options(MYSQLI_OPT_LOCAL_INFILE, false);
 
-		if($this->version() > '4.1') {
-			if($dbcharset) {
-				$this->link->set_charset($dbcharset);
-			}
-
-			if($this->version() > '5.0.1') {
-				$this->link->query("SET sql_mode=''");
-			}
+		if($dbcharset) {
+			$this->link->set_charset($dbcharset);
 		}
+
+		$this->link->query("SET sql_mode=''");
+
+		$this->link->query("SET character_set_client=binary");
+
 	}
 
 	function fetch_array($query, $result_type = MYSQLI_ASSOC) {

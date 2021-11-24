@@ -54,6 +54,7 @@ class discuz_application extends discuz_base{
 	}
 
 	public function __construct() {
+		$this->_init_cnf();
 		$this->_init_env();
 		$this->_init_config();
 		$this->_init_input();
@@ -135,7 +136,7 @@ class discuz_application extends discuz_base{
 
 			'pluginrunlist' => !defined('PLUGINRUNLIST') ? array() : explode(',', PLUGINRUNLIST),
 
-			'config' => array(),
+			'config' => & $this->config,
 			'setting' => array(),
 			'member' => array(),
 			'group' => array(),
@@ -275,7 +276,7 @@ class discuz_application extends discuz_base{
 
 	}
 
-	private function _init_config() {
+	private function _init_cnf() {// 新增本方法用于预先加载配置文件，便于在初始化环境时通过$this->config使用配置文件内选项控制初始化流程
 
 		$_config = array();
 		@include DISCUZ_ROOT.'./config/config_global.php';
@@ -288,30 +289,33 @@ class discuz_application extends discuz_base{
 			}
 		}
 
-		if(empty($_config['security']['authkey'])) {
-			$_config['security']['authkey'] = md5($_config['cookie']['cookiepre'].$_config['db'][1]['dbname']);
+		$this->config = & $_config;
+
+	}
+
+	private function _init_config() {// 原有的基于配置文件设置站点的方法保留原方法名，改为使用$this->var['config']对config进行读写
+
+		if(empty($this->var['config']['security']['authkey'])) {
+			$this->var['config']['security']['authkey'] = md5($this->var['config']['cookie']['cookiepre'].$this->var['config']['db'][1]['dbname']);
 		}
 
-		if(empty($_config['debug']) || !file_exists(libfile('function/debug'))) {
+		if(empty($this->var['config']['debug']) || !file_exists(libfile('function/debug'))) {
 			define('DISCUZ_DEBUG', false);
 			error_reporting(0);
-		} elseif($_config['debug'] === 1 || $_config['debug'] === 2 || !empty($_REQUEST['debug']) && $_REQUEST['debug'] === $_config['debug']) {
+		} elseif($this->var['config']['debug'] === 1 || $this->var['config']['debug'] === 2 || !empty($_REQUEST['debug']) && $_REQUEST['debug'] === $this->var['config']['debug']) {
 			define('DISCUZ_DEBUG', true);
 			error_reporting(E_ERROR);
-			if($_config['debug'] === 2) {
+			if($this->var['config']['debug'] === 2) {
 				error_reporting(E_ALL);
 			}
 		} else {
 			define('DISCUZ_DEBUG', false);
 			error_reporting(0);
 		}
-		define('STATICURL', !empty($_config['output']['staticurl']) ? $_config['output']['staticurl'] : 'static/');
+		define('STATICURL', !empty($this->var['config']['output']['staticurl']) ? $this->var['config']['output']['staticurl'] : 'static/');
 		$this->var['staticurl'] = STATICURL;
 
-		$this->config = & $_config;
-		$this->var['config'] = & $_config;
-
-		if(substr($_config['cookie']['cookiepath'], 0, 1) != '/') {
+		if(substr($this->var['config']['cookie']['cookiepath'], 0, 1) != '/') {
 			$this->var['config']['cookie']['cookiepath'] = '/'.$this->var['config']['cookie']['cookiepath'];
 		}
 		$this->var['config']['cookie']['cookiepre'] = $this->var['config']['cookie']['cookiepre'].substr(md5($this->var['config']['cookie']['cookiepath'].'|'.$this->var['config']['cookie']['cookiedomain']), 0, 4).'_';
