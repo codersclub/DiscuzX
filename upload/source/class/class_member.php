@@ -126,7 +126,7 @@ class logging_ctl {
 					if($_G['group']['forcelogin'] == 1) {
 						clearcookies();
 						showmessage('location_login_force_qq');
-					} elseif($_G['group']['forcelogin'] == 2 && $_GET['loginfield'] != 'email') {
+					} elseif($_G['group']['forcelogin'] == 2 && $_GET['loginfield'] != 'email' && $_GET['username'] !== $result['ucresult']['email']) {
 						clearcookies();
 						showmessage('location_login_force_mail');
 					}
