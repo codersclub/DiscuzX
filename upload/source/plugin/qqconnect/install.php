@@ -162,8 +162,7 @@ if ($connect['feed']) {
 }
 
 if ($needCreateGroup) {
-	include DISCUZ_ROOT . 'source/language/lang_admincp_cloud.php';
-	$name = $extend_lang['connect_guest_group_name'];
+	$name = $installlang['connect_guest_group_name'];
 	$userGroupData = array(
 		'type' => 'special',
 		'grouptitle' => $name,

@@ -635,7 +635,7 @@ class discuz_application extends discuz_base{
 			if($this->var['group'] && isset($this->var['group']['allowvisit']) && !$this->var['group']['allowvisit']) {
 				if($this->var['uid'] && !$allowvisitflag) {
 					if(!defined('IN_MOBILE_API')) {
-						($this->var['member']['groupexpiry'] > 0) ? showmessage('user_banned_has_expiry', '', array('expiry' => dgmdate($_G['member']['groupexpiry'], 'Y-m-d H:i:s'))) : showmessage('user_banned');
+						($this->var['member']['groupexpiry'] > 0) ? showmessage('user_banned_has_expiry', '', array('expiry' => dgmdate($this->var['member']['groupexpiry'], 'Y-m-d H:i:s'))) : showmessage('user_banned');
 					} else {
 						($this->var['member']['groupexpiry'] > 0) ? mobile_core::result(array('error' => 'user_banned_has_expiry')) : mobile_core::result(array('error' => 'user_banned'));
 					}

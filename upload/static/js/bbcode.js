@@ -499,6 +499,7 @@ function litag(listoptions, text) {
 
 function parsecode(text) {
 	DISCUZCODE['num']++;
+	text = text.replace(/\$/ig, '$$$$');
 	DISCUZCODE['html'][DISCUZCODE['num']] = '<div class="blockcode"><blockquote>' + htmlspecialchars(text) + '</blockquote></div>';
 	return "[\tDISCUZ_CODE_" + DISCUZCODE['num'] + "\t]";
 }

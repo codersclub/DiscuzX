@@ -2657,6 +2657,10 @@ EOT;
 			cpmsg('uc_config_appid_error', '', 'error');
 		}
 
+		if(!empty($settingnew['uc']['ip']) && !filter_var($settingnew['uc']['ip'], FILTER_VALIDATE_IP)) {
+			cpmsg('uc_config_ip_error', '', 'error');
+		}
+
 		if($settingnew['uc']['connect']) {
 			$uc_dblink = new mysqli($settingnew['uc']['dbhost'], $settingnew['uc']['dbuser'], $ucdbpassnew);
 			if(!$uc_dblink) {
@@ -2665,6 +2669,8 @@ EOT;
 				$uc_dblink->close();
 			}
 		}
+
+		$settingnew['uc']['api'] = str_replace(array('\'', '"', '\\', "\0", "\n", "\r"), '', $settingnew['uc']['api']);
 
 		$fp = fopen('./config/config_ucenter.php', 'r');
 		$configfile = fread($fp, filesize('./config/config_ucenter.php'));

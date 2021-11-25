@@ -126,7 +126,7 @@ class logging_ctl {
 					if($_G['group']['forcelogin'] == 1) {
 						clearcookies();
 						showmessage('location_login_force_qq');
-					} elseif($_G['group']['forcelogin'] == 2 && $_GET['loginfield'] != 'email') {
+					} elseif($_G['group']['forcelogin'] == 2 && $_GET['loginfield'] != 'email' && $_GET['username'] !== $result['ucresult']['email']) {
 						clearcookies();
 						showmessage('location_login_force_mail');
 					}
@@ -157,7 +157,7 @@ class logging_ctl {
 				if($_G['member']['adminid'] != 1) {
 					if($this->setting['accountguard']['loginoutofdate'] && $_G['member']['lastvisit'] && TIMESTAMP - $_G['member']['lastvisit'] > ($this->setting['accountguard']['loginoutofdatenum'] >= 1 ? (int)$this->setting['accountguard']['loginoutofdatenum'] : 90) * 86400 && $_G['member']['freeze'] != -1) {
 						C::t('common_member')->update($_G['uid'], array('freeze' => 2));
-						showmessage('location_login_outofdate', 'home.php?mod=spacecp&ac=profile&op=password&resend=1&formhash='.FORMHASH, array('type' => 1), array('showdialog' => true, 'striptags' => false, 'locationtime' => true));
+						showmessage('location_login_outofdate', 'home.php?mod=spacecp&ac=profile&op=password&resend=1&formhash='.formhash(), array('type' => 1), array('showdialog' => true, 'striptags' => false, 'locationtime' => true));
 					}
 
 					if($this->setting['accountguard']['loginpwcheck'] && $pwold && $_G['member']['freeze'] == 0) {
@@ -536,7 +536,7 @@ class register_ctl {
 			}
 			if($sendurl) {
 				$mobile = $this->setting['mobile']['mobileregister'] ? '' : ($this->setting['mobile']['allowmobile'] ? '&amp;mobile=no' : '');
-				$hashstr = urlencode(authcode("{$_GET['email']}\t{$_G['timestamp']}", 'ENCODE', $_G['config']['security']['authkey']));
+				$hashstr = urlencode(authcode("{$email}\t{$_G['timestamp']}", 'ENCODE', $_G['config']['security']['authkey']));
 				$registerurl = $_G['setting']['securesiteurl']."member.php?mod=".$this->setting['regname']."&amp;hash={$hashstr}&amp;email={$email}{$mobile}";
 				$email_register_message = array(
 					'tpl' => 'email_register',

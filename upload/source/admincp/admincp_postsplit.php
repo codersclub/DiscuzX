@@ -221,7 +221,11 @@ if($operation == 'manage') {
 			} else {
 				$count = C::t('forum_post')->count_by_first($fromtableid, 1);
 				if($count) {
-					$tids = C::t('forum_post')->fetch_all_tid_by_first($fromtableid, 1, 0, 1000);
+					$threads = C::t('forum_post')->fetch_all_tid_by_first($fromtableid, 1, 0, 1000);
+					$tids = array();
+					foreach($threads as $thread) {
+						$tids[$thread['tid']] = $thread['tid'];
+					}
 					movedate($tids);
 				} else {
 					cpmsg('postsplit_done', 'action=postsplit&operation=optimize&tableid='.$fromtableid, 'form');

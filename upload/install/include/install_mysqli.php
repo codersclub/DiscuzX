@@ -32,6 +32,15 @@ class dbstuff {
 		if ($this->version() < '5.5.3') {
 			$this->halt('MySQL version must be 5.5.3 or greater');
 		}
+
+		if($dbcharset) {
+			$this->link->set_charset($dbcharset);
+		}
+
+		$this->link->query("SET sql_mode=''");
+
+		$this->link->query("SET character_set_client=binary");
+
 		if($dbcharset) {
 			$this->link->set_charset($dbcharset);
 		}
