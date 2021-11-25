@@ -41,10 +41,6 @@ class dbstuff {
 
 		$this->link->query("SET character_set_client=binary");
 
-		if($dbcharset) {
-			$this->link->set_charset($dbcharset);
-		}
-		$this->query("SET sql_mode=''");
 	}
 
 	function fetch_array($query, $result_type = MYSQLI_ASSOC) {
