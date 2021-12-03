@@ -63,6 +63,9 @@ function check_db($dbhost, $dbuser, $dbpw, $dbname, $tablepre) {
 		show_msg('undefine_func', 'mysqli_connect', 0);
 	}
 	if (strpos($dbhost, ":") === FALSE) $dbhost .= ":3306";
+
+	mysqli_report(MYSQLI_REPORT_OFF);
+
 	$link = new mysqli($dbhost, $dbuser, $dbpw);
 	if($link->connect_errno) {
 		$errno = $link->connect_errno;
@@ -1411,6 +1414,8 @@ function save_uc_config($config, $file) {
 	$success = false;
 
 	list($appauthkey, $appid, $ucdbhost, $ucdbname, $ucdbuser, $ucdbpw, $ucdbcharset, $uctablepre, $uccharset, $ucapi, $ucip) = $config;
+
+	mysqli_report(MYSQLI_REPORT_OFF);
 
 	$link = new mysqli($ucdbhost, $ucdbuser, $ucdbpw, $ucdbname);
 	$uc_connnect = $link ? 'mysql' : '';

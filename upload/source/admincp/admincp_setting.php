@@ -2662,6 +2662,9 @@ EOT;
 		}
 
 		if($settingnew['uc']['connect']) {
+
+			mysqli_report(MYSQLI_REPORT_OFF);
+
 			$uc_dblink = new mysqli($settingnew['uc']['dbhost'], $settingnew['uc']['dbuser'], $ucdbpassnew);
 			if(!$uc_dblink) {
 				cpmsg('uc_database_connect_error', '', 'error');

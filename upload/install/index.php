@@ -283,6 +283,9 @@ if($method == 'show_license') {
 			show_msg('dbname_invalid', $dbname, 0);
 		} else {
 			if (strpos($dbhost, ":") === FALSE) $dbhost .= ":3306";
+
+			mysqli_report(MYSQLI_REPORT_OFF);
+
 			$link = new mysqli($dbhost, $dbuser, $dbpw);
 			if($link->connect_errno) {
 				$errno = $link->connect_errno;
