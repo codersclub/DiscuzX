@@ -15,6 +15,12 @@ require_once DISCUZ_ROOT.'./source/plugin/wechat/wsq.class.php';
 require_once DISCUZ_ROOT . './source/plugin/wechat/setting.class.php';
 WeChatSetting::menu();
 
+$setting = C::t('common_setting')->fetch_all(array('mobilewechat'));
+$setting = (array)unserialize($setting['mobilewechat']);
+if(!$setting['wsq_sitetoken']) {
+    cpmsg(lang('plugin/wechat', 'wsq_api_register_close'), '', 'error');
+}
+
 showtips(lang('plugin/wechat', 'discuzqr_tips'));
 
 $data = wsq::stat();

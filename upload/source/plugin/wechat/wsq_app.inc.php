@@ -14,6 +14,10 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 $setting = C::t('common_setting')->fetch_all(array('mobilewechat'));
 $setting = (array)unserialize($setting['mobilewechat']);
 
+if(!$setting['wsq_sitetoken']) {
+	cpmsg(lang('plugin/wechat', 'wsq_api_register_close'), '', 'error');
+}
+
 require_once DISCUZ_ROOT.'./source/plugin/wechat/wechat.lib.class.php';
 require_once DISCUZ_ROOT.'./source/plugin/wechat/wsq.class.php';
 require_once DISCUZ_ROOT.'./source/plugin/wechat/setting.class.php';

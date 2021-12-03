@@ -21,9 +21,16 @@ loadcache('forums');
 require_once DISCUZ_ROOT.'./source/plugin/wechat/setting.class.php';
 WeChatSetting::menu();
 
+if(!$setting['wsq_sitetoken']) {
+	cpmsg(lang('plugin/wechat', 'wsq_api_register_close'), '', 'error');
+}
+
 if(!$ac) {
 
 	$ppp = 20;
+	if(!is_array($setting['showactivity']['tids'])) {
+		$setting['showactivity']['tids'] = array();
+	}
 	arsort($setting['showactivity']['tids']);
 	$page = max(1, $_GET['page']);
 	$tids = array_slice($setting['showactivity']['tids'], ($page - 1) * $ppp, $ppp);
