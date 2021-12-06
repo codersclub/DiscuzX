@@ -468,7 +468,7 @@ function lang($file, $langvar = null, $vars = array(), $default = null) {
 		$key = &$file;
 	}
 	$return = $langvar !== null ? (isset($returnvalue[$key][$langvar]) ? $returnvalue[$key][$langvar] : null) : $returnvalue[$key];
-	$return = $return === null ? ($default !== null ? $default : $langvar) : $return;
+	$return = $return === null ? ($default !== null ? $default : ($path != 'plugin' ? '' : $file . ':') . $langvar) : $return;
 	$searchs = $replaces = array();
 	if($vars && is_array($vars)) {
 		foreach($vars as $k => $v) {
