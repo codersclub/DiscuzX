@@ -70,7 +70,7 @@ function getuploadconfig($uid=0, $fid=0, $limit=true) {
 	if(!empty($_G['group']['maxattachsize'])) {
 		$config['max'] = intval($_G['group']['maxattachsize']);
 	} else {
-		$config['max'] = @ini_get(upload_max_filesize);
+		$config['max'] = min(min(ini_get('upload_max_filesize'), ini_get('post_max_size')), ini_get('memory_limit'));
 		$unit = strtolower(substr($config['max'], -1, 1));
 		$config['max'] = intval($config['max']);
 		if($unit == 'k') {

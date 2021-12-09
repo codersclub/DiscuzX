@@ -224,7 +224,10 @@ function pic_save($FILE, $albumid, $title, $iswatermark = true, $catid = 0) {
 	}
 
 	$title = getstr($title, 200);
-	$title = censor($title, NULL, FALSE, FALSE);
+	$title = censor($title, NULL, TRUE, FALSE);
+	if(is_array($title)) {
+		return lang('message', 'word_banned');
+	}
 	if(censormod($title) || $_G['group']['allowuploadmod']) {
 		$pic_status = 1;
 	} else {
@@ -339,7 +342,10 @@ function stream_save($strdata, $albumid = 0, $fileext = 'jpg', $name='', $title=
 
 			$filename = $name ? $name : substr(strrchr($filepath, '/'), 1);
 			$title = getstr($title, 200);
-			$title = censor($title, NULL, FALSE, FALSE);
+			$title = censor($title, NULL, TRUE, FALSE);
+			if(is_array($title)) {
+				return lang('message', 'word_banned');
+			}
 			if(censormod($title) || $_G['group']['allowuploadmod']) {
 				$pic_status = 1;
 			} else {

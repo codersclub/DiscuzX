@@ -61,7 +61,7 @@ class control extends adminbase {
 		$serverinfo = PHP_OS.' / PHP v'.PHP_VERSION;
 		$serverinfo .= @ini_get('safe_mode') ? ' Safe Mode' : NULL;
 		$dbversion = $this->db->result_first("SELECT VERSION()");
-		$fileupload = @ini_get('file_uploads') ? ini_get('upload_max_filesize') : '<font color="red">'.$lang['no'].'</font>';
+		$fileupload = @ini_get('file_uploads') ? (min(min(ini_get('upload_max_filesize'), ini_get('post_max_size')), ini_get('memory_limit'))) : '<font color="red">'.$lang['no'].'</font>';
 		$dbsize = 0;
 		$tablepre = UC_DBTABLEPRE;
 		$query = $tables = $this->db->fetch_all("SHOW TABLE STATUS LIKE '$tablepre%'");
