@@ -3,14 +3,11 @@
 #
 
 User-agent: *
+Allow: /data/attachment/
+Allow: /data/cache/
+Allow: /uc_server/data/avatar/
 Disallow: /api/
-Disallow: /data/addonmd5/
-Disallow: /data/download/
-Disallow: /data/ipdata/
-Disallow: /data/log/
-Disallow: /data/plugindata/
-Disallow: /data/template/
-Disallow: /data/threadcache/
+Disallow: /data/
 Disallow: /source/
 Disallow: /install/
 Disallow: /template/default/
