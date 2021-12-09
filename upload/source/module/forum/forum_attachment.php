@@ -358,7 +358,7 @@ function send_file_by_chunk($fp, $limit = PHP_INT_MAX) {
 		echo $buf;
 		flush();
 		ob_flush();
-		$count += sizeof($buf);
+		$count += strlen($buf);
 		if ($count >= $limit) break;
 	}
 }
