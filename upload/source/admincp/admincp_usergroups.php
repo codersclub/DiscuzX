@@ -579,7 +579,7 @@ EOT;
 		showsetting('usergroups_edit_basic_domain_length', 'domainlengthnew', $group['domainlength'], 'text');
 		showsetting('usergroups_edit_basic_invisible', 'allowinvisiblenew', $group['allowinvisible'], 'radio');
 		showsetting('usergroups_edit_basic_allowtransfer', 'allowtransfernew', $group['allowtransfer'], 'radio');
-		showsetting('usergroups_edit_basic_allowfollow', 'allowfollownew', $group['allowfollow'], 'radio', 0, 1);
+		showsetting('usergroups_edit_basic_allowfollow', 'allowfollownew', $group['allowfollow'], 'radio');
 		showsetting('usergroups_edit_basic_allowsendpm', 'allowsendpmnew', $group['allowsendpm'], 'radio', 0, 1);
 		showsetting('usergroups_edit_pm_sendpmmaxnum', 'allowsendpmmaxnumnew', $group['allowsendpmmaxnum'], 'text');
 		showsetting('usergroups_edit_pm_sendallpm', 'allowsendallpmnew', $group['allowsendallpm'], 'radio');

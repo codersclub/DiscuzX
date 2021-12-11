@@ -804,6 +804,8 @@ CREATE TABLE pre_common_member_field_home (
   domain char(15) NOT NULL DEFAULT '',
   addsize int(10) unsigned NOT NULL DEFAULT '0',
   addfriend smallint(6) unsigned NOT NULL DEFAULT '0',
+  allowasfriend tinyint(1) NOT NULL DEFAULT '1',
+  allowasfollow tinyint(1) NOT NULL DEFAULT '1',
   menunum smallint(6) unsigned NOT NULL DEFAULT '0',
   theme varchar(20) NOT NULL DEFAULT '',
   spacecss text NOT NULL,

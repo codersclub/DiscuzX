@@ -44,6 +44,12 @@ if($op == 'add') {
 		showmessage('space_does_not_exist');
 	}
 
+	// 允许单个用户屏蔽所有人加 Ta 为好友
+	$fields = C::t('common_member_field_home')->fetch($uid);
+	if(!$fields['allowasfriend']) {
+		showmessage('is_blacklist');
+	}
+
 	if(isblacklist($tospace['uid'])) {
 		showmessage('is_blacklist');
 	}

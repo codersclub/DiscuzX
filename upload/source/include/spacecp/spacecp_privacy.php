@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 
 space_merge($space, 'field_home');
-$operation = in_array(getgpc('op'), array('base', 'feed', 'filter', 'getgroup')) ? trim($_GET['op']) : 'base';
+$operation = in_array(getgpc('op'), array('base', 'feed', 'filter', 'other', 'getgroup')) ? trim($_GET['op']) : 'base';
 
 if(submitcheck('privacysubmit')) {
 
@@ -64,6 +64,22 @@ if(submitcheck('privacysubmit')) {
 	friend_cache($_G['uid']);
 
 	showmessage('do_success', 'home.php?mod=spacecp&ac=privacy&op='.$operation);
+
+} elseif(submitcheck('privacy3submit')) {
+
+	$arr = array();
+
+	if(isset($_POST['allowasfriend'])) {
+		$arr['allowasfriend'] = (int)$_POST['allowasfriend'];
+	}
+
+	if(isset($_POST['allowasfollow'])) {
+		$arr['allowasfollow'] = (int)$_POST['allowasfollow'];
+	}
+
+	C::t('common_member_field_home')->update($_G['uid'], $arr);
+
+	showmessage('do_success', 'home.php?mod=spacecp&ac=privacy&op='.$operation);
 }
 
 if($operation == 'filter') {
@@ -88,6 +104,15 @@ if($operation == 'filter') {
 			$users[$uid] = $value['username'];
 		}
 	}
+
+} elseif ($operation == 'other') {
+
+	$arr = array();
+
+	$fields = C::t('common_member_field_home')->fetch($_G['uid']);
+
+	$arr['allowasfriend'][$fields['allowasfriend']] = ' selected="selected"';
+	$arr['allowasfollow'][$fields['allowasfollow']] = ' selected="selected"';
 
 } elseif ($operation == 'getgroup') {
 

@@ -7,6 +7,9 @@
 				<li$opactives[feed]><a href="home.php?mod=spacecp&ac=privacy&op=feed">{lang personal_feed_settings}</a></li>
 				<li$opactives[filter]><a href="home.php?mod=spacecp&ac=privacy&op=filter">{lang feed_filter}</a></li>
 				<!--{/if}-->
+				<!--{if helper_access::check_module('friend') || helper_access::check_module('follow')}-->
+				<li$opactives[other]><a href="home.php?mod=spacecp&ac=privacy&op=other">{lang personal_other_settings}</a></li>
+				<!--{/if}-->
 			</ul>
 			<form method="post" autocomplete="off" action="home.php?mod=spacecp&ac=privacy&op=$operation">
 				<input type="hidden" name="formhash" value="{FORMHASH}" />
@@ -137,6 +140,38 @@
 					<tr>
 						<th>&nbsp;</th>
 						<td><button type="submit" name="privacysubmit" value="true" class="pn pnc" /><strong>{lang save}</strong></button></td>
+					</tr>
+				</table>
+
+			<!--{elseif $operation == 'other'}-->
+				<p class="tbmu mbm">{lang you_control_other_operation}</p>
+				<table cellspacing="0" cellpadding="0" class="tfm">
+					<!--{if helper_access::check_module('friend')}-->
+					<tr>
+						<th>{lang add_friends}</th>
+						<td>
+							<select name="allowasfriend">
+								<option value="0"$arr['allowasfriend'][0]>{lang no}</option>
+								<option value="1"$arr['allowasfriend'][1]>{lang yes}</option>
+							</select>
+						</td>
+					</tr>
+					<!--{/if}-->
+					<!--{if helper_access::check_module('follow')}-->
+					<tr>
+						<th>{lang add_follow}</th>
+						<td>
+							<select name="allowasfollow">
+								<option value="0"$arr['allowasfollow'][0]>{lang no}</option>
+								<option value="1"$arr['allowasfollow'][1]>{lang yes}</option>
+							</select>
+						</td>
+					</tr>
+					<!--{/if}-->
+					<!--{hook/spacecp_privacy_other_extra}-->
+					<tr>
+						<th>&nbsp;</th>
+						<td><button type="submit" name="privacy3submit" value="true" class="pn pnc" /><strong>{lang save}</strong></button></td>
 					</tr>
 				</table>
 
