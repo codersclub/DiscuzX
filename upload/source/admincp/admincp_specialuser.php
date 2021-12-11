@@ -46,9 +46,8 @@ if($suboperation !== 'adduser') {
 	} elseif(!submitcheck('usersubmit')) {
 		shownav('user', 'nav_'.$op);
 		showsubmenu('nav_'.$op, array(
-		array('nav_defaultuser', 'specialuser&operation=defaultuser', $operation == 'defaultuser' ? 1 : 0),
-		array('nav_follow', 'specialuser&operation=follow', $operation == 'follow' ? 1 : 0),
-		array('nav_add_'.$op, 'specialuser&operation='.$op.'&suboperation=adduser', $suboperation == 'adduser' ? 1 : 0),));
+		array('nav_'.$operation, 'specialuser&operation='.$operation, 1),
+		array('nav_add_'.$op, 'specialuser&operation='.$op.'&suboperation=adduser', 0)));
 		showtips('specialuser_'.$op.'_tips');
 		showformheader($url, '', 'userforum');
 		showtableheader();
@@ -103,11 +102,8 @@ if($suboperation !== 'adduser') {
 
 			shownav('user', 'nav_'.$op);
 			showsubmenu('nav_'.$op, array(
-						array('nav_defaultuser', 'specialuser&operation=defaultuser', 0),
-						array('nav_follow', 'specialuser&operation=follow', 0),
-						array('nav_add_'.$op, 'specialuser&operation='.$op.'&suboperation=adduser', 1))
-					);
-
+			array('nav_'.$operation, 'specialuser&operation='.$operation, 0),
+			array('nav_add_'.$op, 'specialuser&operation='.$op.'&suboperation=adduser', 1)));
 			showtips('specialuser_defaultuser_add_tips');
 			showformheader('specialuser&operation='.$op.'&suboperation=adduser', '', 'userforum');
 			showtableheader();
