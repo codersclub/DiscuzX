@@ -708,7 +708,7 @@ CSS 写作注意事项：
 /* 页尾 */
 	#ft { padding: 10px 0 50px; line-height: 1.8; color: {FOOTERTEXT}; }
 		#flk { text-align: right; }
-			#flk img { vertical-align: sub; }
+			#flk img { vertical-align: middle; }
 		#scrolltop { visibility: hidden; position: fixed; bottom: 100px; display: block; margin: -30px 0 0 2px; width: 40px; background: #f4f4f4; border: 1px #cdcdcd solid; border-radius: 3px; border-top: 0; cursor: pointer; }
 			#scrolltop:hover { text-decoration: none; }
 			#scrolltop a { display: block; width: 30px; height: 24px; padding: 3px 5px; line-height: 12px; text-align: center; color: #BBB; text-decoration: none; border-top: 1px #cdcdcd solid; }
