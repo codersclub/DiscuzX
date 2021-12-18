@@ -11,7 +11,7 @@ function media_sina($url, $width, $height) {
 		$flv = 'http://vhead.blog.sina.com.cn/player/outer_player.swf?vid='.$matches[1];
 		if(!$width && !$height) {
 			$api = 'http://interface.video.sina.com.cn/interface/common/getVideoImage.php?vid='.$matches[1];
-			$str = file_get_contents($api, false, $ctx);
+			$str = dfsockopen($api);
 			if(!empty($str)) {
 				$imgurl = str_replace('imgurl=', '', trim($str));
 			}
@@ -20,7 +20,7 @@ function media_sina($url, $width, $height) {
 		$flv = 'http://vhead.blog.sina.com.cn/player/outer_player.swf?vid='.$matches[1];
 		if(!$width && !$height) {
 			$api = 'http://interface.video.sina.com.cn/interface/common/getVideoImage.php?vid='.$matches[1];
-			$str = file_get_contents($api, false, $ctx);
+			$str = dfsockopen($api);
 			if(!empty($str)) {
 				$imgurl = str_replace('imgurl=', '', trim($str));
 			}

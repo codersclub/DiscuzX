@@ -11,7 +11,7 @@ function media_ku6($url, $width, $height) {
 		$flv = 'http://player.ku6.com/refer/'.$matches[1].'/v.swf';
 		if(!$width && !$height) {
 			$api = 'http://vo.ku6.com/fetchVideo4Player/1/'.$matches[1].'.html';
-			$str = file_get_contents($api, false, $ctx);
+			$str = dfsockopen($api);
 			if(!empty($str) && preg_match("/\"picpath\":\"(.+?)\"/i", $str, $image)) {
 				$imgurl = str_replace(array('\u003a', '\u002e'), array(':', '.'), $image[1]);
 			}
@@ -20,7 +20,7 @@ function media_ku6($url, $width, $height) {
 		$flv = 'http://player.ku6.com/refer/'.$matches[1].'/v.swf';
 		if(!$width && !$height) {
 			$api = 'http://vo.ku6.com/fetchVideo4Player/1/'.$matches[1].'.html';
-			$str = file_get_contents($api, false, $ctx);
+			$str = dfsockopen($api);
 			if(!empty($str) && preg_match("/\"picpath\":\"(.+?)\"/i", $str, $image)) {
 				$imgurl = str_replace(array('\u003a', '\u002e'), array(':', '.'), $image[1]);
 			}

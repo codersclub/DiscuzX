@@ -15,7 +15,7 @@ function media_56($url, $width, $height) {
 	}
 	if(!$width && !$height && !empty($matches[1])) {
 		$api = 'http://vxml.56.com/json/'.str_replace('v_', '', $matches[1]).'/?src=out';
-		$str = file_get_contents($api, false, $ctx);
+		$str = dfsockopen($api);
 		if(!empty($str) && preg_match("/\"img\":\"(.+?)\"/i", $str, $image)) {
 			$imgurl = trim($image[1]);
 		}

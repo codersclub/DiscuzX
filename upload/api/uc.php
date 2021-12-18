@@ -111,7 +111,10 @@ class uc_note {
 			return API_RETURN_FORBIDDEN;
 		}
 
-
+		$len = strlen($get['newusername']);
+		if($len > 22 || $len < 3 || preg_match("/\s+|^c:\\con\\con|[%,\*\"\s\<\>\&\(\)']/is", $get['newusername'])) {
+			return API_RETURN_FAILED;
+		}
 
 		$tables = array(
 			'common_block' => array('id' => 'uid', 'name' => 'username'),
@@ -292,9 +295,10 @@ class uc_note {
 
 		if($UC_API && is_writeable(DISCUZ_ROOT.'./config/config_ucenter.php')) {
 			if(preg_match('/^https?:\/\//is', $UC_API)) {
+				require DISCUZ_ROOT.'./config/config_ucenter.php';
 				$configfile = trim(file_get_contents(DISCUZ_ROOT.'./config/config_ucenter.php'));
 				$configfile = substr($configfile, -2) == '?>' ? substr($configfile, 0, -2) : $configfile;
-				$configfile = preg_replace("/define\('UC_API',\s*'.*?'\);/i", "define('UC_API', '".addslashes($UC_API)."');", $configfile);
+				$configfile = str_replace("define('UC_API', '".addslashes(UC_API)."')", "define('UC_API', '".addslashes($UC_API)."')", $configfile);
 				if($fp = @fopen(DISCUZ_ROOT.'./config/config_ucenter.php', 'w')) {
 					@fwrite($fp, trim($configfile));
 					@fclose($fp);
