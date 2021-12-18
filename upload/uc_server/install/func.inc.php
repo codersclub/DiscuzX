@@ -65,7 +65,7 @@ function check_db($dbhost, $dbuser, $dbpw, $dbname, $tablepre) {
 
 	mysqli_report(MYSQLI_REPORT_OFF);
 
-	$link = new mysqli($dbhost, $dbuser, $dbpw);
+	$link = @new mysqli($dbhost, $dbuser, $dbpw);
 	if(!$link) {
 		$errno = mysqli_errno($link);
 		$error = mysqli_error($link);
