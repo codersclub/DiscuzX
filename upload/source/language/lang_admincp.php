@@ -1930,6 +1930,8 @@ $lang = array
 	'setting_permissions_editby_comment' => '在 60 秒后编辑帖子添加“本帖由 xxx 于 xxxx-xx-xx 编辑”字样。管理员编辑不受此限制',
 	'setting_permissions_post_append' => '启用帖子补充功能',
 	'setting_permissions_post_append_comment' => '启用后，当用户无法编辑自己的帖子时，可以补充内容',
+	'setting_permissions_profilehistory' => '启用个人信息历史记录功能',
+	'setting_permissions_profilehistory' => '启用后，个人信息历史记录将被保存，可以在后台下载。历史邮箱、手机号数据不受此功能限制',
 	'setting_permissions_nsprofiles' => '个人空间内不展现个人信息',
 	'setting_permissions_nsprofiles_comment' => '启用后个人空间内将不展现个人信息',
 	'setting_permissions_modasban' => '不忽略审核关键词',
@@ -3554,6 +3556,8 @@ $lang = array
 	'members_edit_timeoffset_comment' => '用户本地时间与 GMT 标准的时间差，设置 9999 即为默认时差，和站点设置保持一致',
 	'members_edit_pmsound' => '短消息提示音',
 	'members_edit_ignorepm' => '忽略短消息',
+	'members_edit_exphistory' => '用户历史资料下载',
+	'members_edit_exphistory_comment' => '历史邮箱、手机号数据请到 UCenter 后台查询',
 
 	'members_group' => '编辑会员用户组',
 	'members_group_member' => '编辑会员 {username} 的用户组',

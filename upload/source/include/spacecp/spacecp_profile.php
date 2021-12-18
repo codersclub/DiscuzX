@@ -273,6 +273,10 @@ if(submitcheck('profilesubmit')) {
 	}
 	if($setarr) {
 		C::t('common_member_profile')->update($_G['uid'], $setarr);
+		// 用户信息变更记录
+		if($_G['setting']['profilehistory']) {
+			C::t('common_member_profile_history')->insert(array_merge($setarr, array('uid' => $_G['uid'], 'dateline' => time())));
+		}
 	}
 
 	if($verifyarr) {

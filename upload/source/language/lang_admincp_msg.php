@@ -46,6 +46,7 @@ $lang = array (
   'medals_please_input' => '请选择需要操作的勋章',
   'forums_formulaperm_error' => '权限表达式无效',
   'medals_succeed' => '编辑勋章成功 ',
+  'members_no_find_user' => '抱歉，没有搜索到用户',
   'members_no_find_deluser' => '抱歉，没有搜索到需要删除的用户',
   'members_delete_succeed' => '符合条件的 {numdeleted} 个用户被成功删除',
   'members_no_find_unarchiveuser' => '抱歉，没有搜索到需要移出存档表的用户',

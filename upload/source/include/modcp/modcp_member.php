@@ -47,6 +47,10 @@ if($op == 'edit') {
 
 			C::t('common_member_profile')->update($member['uid'], array('bio' => $biohtmlnew));
 			C::t('common_member_field_forum')->update($member['uid'], array('sightml' => $sightmlnew));
+			// 用户信息变更记录
+			if($_G['setting']['profilehistory']) {
+				C::t('common_member_profile_history')->insert(array('uid' => intval($member['uid']), 'dateline' => time(), 'bio' => $biohtmlnew));
+			}
 		}
 		acpmsg('members_edit_succeed', "$cpscript?mod=modcp&action={$_GET['action']}&op=$op");
 
