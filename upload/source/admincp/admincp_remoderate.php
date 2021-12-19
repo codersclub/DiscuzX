@@ -29,13 +29,36 @@ if(submitcheck('threadsubmit', 1)) {
 	foreach(C::t('forum_thread')->fetch_all_by_displayorder(0, '>=', $current, $pertask) as $thread) {
 		$processed = 1;
 		foreach(C::t('forum_post')->fetch_all_visiblepost_by_tid($thread['posttableid'], $thread['tid']) as $post) {
-			if((!empty($post['subject']) && $censor->check($post['subject'])) || (!empty($post['message']) && $censor->check($post['message']))) {
-				C::t('forum_post')->update($thread['posttableid'], $post['pid'], array('status' => 4), false, false, null, -2, null, 0);
-				if($post['first'] == 1) {
-					C::t('forum_thread')->update($thread['tid'], array('displayorder' => -2));
-					updatemoderate('tid', $thread['tid']);
+			$subject = $post['subject'];
+			$message = $post['message'];
+			$subject_result = empty($subject) ? 0 : $censor->check($subject);
+			$message_result = (in_array($subject_result, array(1, 2)) || empty($message)) ? 0 : $censor->check($message);
+			if($subject_result) {
+				if($subject_result == 3) {
+					if(strcmp($post['subject'], $subject)) {
+						C::t('forum_post')->update($thread['posttableid'], $post['pid'], array('subject' => $subject), false, false, null, -2, null, 0);
+					}
 				} else {
-					updatemoderate('pid', $post['pid']);
+					if($post['first'] == 1) {
+						C::t('forum_thread')->update($thread['tid'], array('displayorder' => -2));
+						updatemoderate('tid', $thread['tid']);
+					} else {
+						updatemoderate('pid', $post['pid']);
+					}
+				}
+			}
+			if($message_result) {
+				if($message_result == 3) {
+					if(strcmp($post['message'], $message)) {
+						C::t('forum_post')->update($thread['posttableid'], $post['pid'], array('message' => $message), false, false, null, -2, null, 0);
+					}
+				} else {
+					if($post['first'] == 1) {
+						C::t('forum_thread')->update($thread['tid'], array('displayorder' => -2));
+						updatemoderate('tid', $thread['tid']);
+					} else {
+						updatemoderate('pid', $post['pid']);
+					}
 				}
 			}
 		}
@@ -59,9 +82,29 @@ if(submitcheck('threadsubmit', 1)) {
 	foreach(C::t('home_blog')->range($current, $pertask, 'ASC', 'dateline', null, 0) as $blog) {
 		$processed = 1;
 		$post = C::t('home_blogfield')->fetch($blog['blogid']);
-		if((!empty($blog['subject']) && $censor->check($blog['subject'])) || (!empty($post['message']) && $censor->check($post['message']))) {
-			C::t('home_blog')->update($blog['blogid'], array('status' => 1));
-			updatemoderate('blogid', $blog['blogid']);
+		$subject = $blog['subject'];
+		$message = $post['message'];
+		$subject_result = empty($subject) ? 0 : $censor->check($subject);
+		$message_result = (in_array($subject_result, array(1, 2)) || empty($message)) ? 0 : $censor->check($message);
+		if($subject_result) {
+			if($subject_result == 3) {
+				if(strcmp($blog['subject'], $subject)) {
+					C::t('home_blog')->update($blog['blogid'], array('subject' => $subject));
+				}
+			} else {
+				C::t('home_blog')->update($blog['blogid'], array('status' => 1));
+				updatemoderate('blogid', $blog['blogid']);
+			}
+		}
+		if($message_result) {
+			if($message_result == 3) {
+				if(strcmp($post['message'], $message)) {
+					C::t('home_blogfield')->update($blog['blogid'], array('message' => $message));
+				}
+			} else {
+				C::t('home_blog')->update($blog['blogid'], array('status' => 1));
+				updatemoderate('blogid', $blog['blogid']);
+			}
 		}
 	}
 
@@ -82,9 +125,17 @@ if(submitcheck('threadsubmit', 1)) {
 
 	foreach(C::t('home_pic')->fetch_all_by_sql('`status` = 0', 'picid', $current, $pertask, 0, 0) as $pic) {
 		$processed = 1;
-		if(!empty($pic['title']) && $censor->check($pic['title'])) {
-			C::t('home_pic')->update($pic['picid'], array('status' => 1));
-			updatemoderate('picid', $pic['picid']);
+		$title = $pic['title'];
+		$title_result = empty($title) ? 0 : $censor->check($title);
+		if($title_result) {
+			if($title_result == 3) {
+				if(strcmp($pic['title'], $title)) {
+					C::t('home_pic')->update($pic['picid'], array('title' => $title));
+				}
+			} else {
+				C::t('home_pic')->update($pic['picid'], array('status' => 1));
+				updatemoderate('picid', $pic['picid']);
+			}
 		}
 	}
 
@@ -105,9 +156,17 @@ if(submitcheck('threadsubmit', 1)) {
 
 	foreach(C::t('home_doing')->fetch_all_by_status(0, $current, $pertask) as $doing) {
 		$processed = 1;
-		if(!empty($doing['message']) && $censor->check($doing['message'])) {
-			C::t('home_doing')->update($doing['doid'], array('status' => 1));
-			updatemoderate('doid', $doing['doid']);
+		$message = $doing['message'];
+		$message_result = empty($message) ? 0 : $censor->check($message);
+		if($message_result) {
+			if($message_result == 3) {
+				if(strcmp($doing['message'], $message)) {
+					C::t('home_doing')->update($doing['doid'], array('message' => $message));
+				}
+			} else {
+				C::t('home_doing')->update($doing['doid'], array('status' => 1));
+				updatemoderate('doid', $doing['doid']);
+			}
 		}
 	}
 
@@ -128,9 +187,17 @@ if(submitcheck('threadsubmit', 1)) {
 
 	foreach(C::t('home_share')->fetch_all_by_status(0, $current, $pertask) as $share) {
 		$processed = 1;
-		if(!empty($share['body_general']) && $censor->check($share['body_general'])) {
-			C::t('home_share')->update($share['sid'], array('status' => 1));
-			updatemoderate('sid', $share['sid']);
+		$sharebody = $share['body_general'];
+		$sharebody_result = empty($sharebody) ? 0 : $censor->check($sharebody);
+		if($sharebody_result) {
+			if($sharebody_result == 3) {
+				if(strcmp($share['body_general'], $sharebody)) {
+					C::t('home_share')->update($share['sid'], array('body_general' => $sharebody));
+				}
+			} else {
+				C::t('home_share')->update($share['sid'], array('status' => 1));
+				updatemoderate('sid', $share['sid']);
+			}
 		}
 	}
 
@@ -151,9 +218,17 @@ if(submitcheck('threadsubmit', 1)) {
 
 	foreach(C::t('home_comment')->fetch_all_by_status(0, $current, $pertask) as $comment) {
 		$processed = 1;
-		if(!empty($comment['message']) && $censor->check($comment['message'])) {
-			C::t('home_comment')->update($comment['cid'], array('status' => 1));
-			updatemoderate($comment['idtype'].'_cid', $comment['cid']);
+		$comment = $comment['message'];
+		$comment_result = empty($comment) ? 0 : $censor->check($comment);
+		if($comment_result) {
+			if($comment_result == 3) {
+				if(strcmp($comment['message'], $comment)) {
+					C::t('home_comment')->update($comment['cid'], array('message' => $comment));
+				}
+			} else {
+				C::t('home_comment')->update($comment['cid'], array('status' => 1));
+				updatemoderate($comment['idtype'].'_cid', $comment['cid']);
+			}
 		}
 	}
 
@@ -174,17 +249,34 @@ if(submitcheck('threadsubmit', 1)) {
 
 	foreach(C::t('portal_article_title')->fetch_all_by_sql('`status` = 0', '', $current, $pertask) as $article) {
 		$processed = 1;
-		if(empty($post['subject']) || !$censor->check($post['subject'])) {
+		$subject = $article['subject'];
+		$subject_result = empty($subject) ? 0 : $censor->check($subject);
+		if($subject_result) {
+			if($subject_result == 3) {
+				if(strcmp($article['subject'], $subject)) {
+					C::t('portal_article_title')->update($article['aid'], array('message' => $subject));
+				}
+			} else {
+				C::t('portal_article_title')->update($article['aid'], array('status' => 1));
+				updatemoderate('aid', $article['aid']);
+			}
+		}
+		if(in_array($subject_result, array(0, 3))) {
 			foreach(C::t('portal_article_content')->fetch_all($article['aid']) as $post) {
-				if(!empty($post['content']) && $censor->check($post['content'])) {
-					C::t('portal_article_title')->update($article['aid'], array('status' => 1));
-					updatemoderate('aid', $article['aid']);
-					break;
+				$content = $post['content'];
+				$content_result = empty($content) ? 0 : $censor->check($content);
+				if($content_result) {
+					if($content_result == 3) {
+						if(strcmp($post['content'], $content)) {
+							C::t('portal_article_content')->update($post['cid'], array('content' => $content));
+						}
+					} else {
+						C::t('portal_article_title')->update($article['aid'], array('status' => 1));
+						updatemoderate('aid', $article['aid']);
+						break;
+					}
 				}
 			}
-		} else {
-			C::t('portal_article_title')->update($article['aid'], array('status' => 1));
-			updatemoderate('aid', $article['aid']);
 		}
 	}
 
@@ -205,9 +297,17 @@ if(submitcheck('threadsubmit', 1)) {
 
 	foreach(C::t('portal_comment')->fetch_all_by_idtype_status('aid', 0, $current, $pertask) as $comment) {
 		$processed = 1;
-		if(!empty($comment['message']) && $censor->check($comment['message'])) {
-			C::t('portal_comment')->update($comment['cid'], array('status' => 1));
-			updatemoderate($comment['idtype'].'_cid', $comment['cid']);
+		$comment = $comment['message'];
+		$comment_result = empty($comment) ? 0 : $censor->check($comment);
+		if($comment_result) {
+			if($comment_result == 3) {
+				if(strcmp($comment['message'], $comment)) {
+					C::t('portal_comment')->update($comment['cid'], array('message' => $comment));
+				}
+			} else {
+				C::t('portal_comment')->update($comment['cid'], array('status' => 1));
+				updatemoderate($comment['idtype'].'_cid', $comment['cid']);
+			}
 		}
 	}
 
@@ -228,9 +328,17 @@ if(submitcheck('threadsubmit', 1)) {
 
 	foreach(C::t('portal_comment')->fetch_all_by_idtype_status('topicid', 0, $current, $pertask) as $comment) {
 		$processed = 1;
-		if(!empty($comment['message']) && $censor->check($comment['message'])) {
-			C::t('portal_comment')->update($comment['cid'], array('status' => 1));
-			updatemoderate($comment['idtype'].'_cid', $comment['cid']);
+		$comment = $comment['message'];
+		$comment_result = empty($comment) ? 0 : $censor->check($comment);
+		if($comment_result) {
+			if($comment_result == 3) {
+				if(strcmp($comment['message'], $comment)) {
+					C::t('portal_comment')->update($comment['cid'], array('message' => $comment));
+				}
+			} else {
+				C::t('portal_comment')->update($comment['cid'], array('status' => 1));
+				updatemoderate($comment['idtype'].'_cid', $comment['cid']);
+			}
 		}
 	}
 
