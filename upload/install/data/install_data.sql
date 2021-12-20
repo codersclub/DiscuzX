@@ -13,15 +13,15 @@ INSERT INTO pre_common_credit_rule VALUES ('4','上传附件','postattach','4','
 INSERT INTO pre_common_credit_rule VALUES ('5','下载附件','getattach','4','0','0','0','0','0','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('6','发短消息','sendpm','4','0','0','0','0','0','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('7','搜索','search','4','0','0','0','0','0','0','0','0','0','0','0','');
-INSERT INTO pre_common_credit_rule VALUES ('8','访问推广','promotion_visit','4','0','0','0','0','1','0','0','0','0','0','0','');
+INSERT INTO pre_common_credit_rule VALUES ('8','访问推广','promotion_visit','4','0','0','0','0','0','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('9','注册推广','promotion_register','4','0','0','0','0','2','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('10','成功交易','tradefinished','4','0','0','0','0','0','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('11','邮箱认证','realemail','0','0','1','0','0','10','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('12','设置头像','setavatar','0','0','1','0','0','5','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('14','热点信息','hotinfo','4','0','0','0','0','0','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('15','每天登录','daylogin','1','0','1','0','0','2','0','0','0','0','0','0','');
-INSERT INTO pre_common_credit_rule VALUES ('16','访问别人空间','visit','1','0','10','2','0','2','0','0','0','0','0','0','');
-INSERT INTO pre_common_credit_rule VALUES ('17','打招呼','poke','1','0','10','2','0','1','0','0','0','0','0','0','');
+INSERT INTO pre_common_credit_rule VALUES ('16','访问别人空间','visit','1','0','10','2','0','0','0','0','0','0','0','0','');
+INSERT INTO pre_common_credit_rule VALUES ('17','打招呼','poke','1','0','10','2','0','0','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('18','留言','guestbook','1','0','20','2','0','1','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('19','被留言','getguestbook','1','0','5','2','0','1','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('20','发表记录','doing','1','0','5','0','0','1','0','0','0','0','0','0','');
@@ -30,8 +30,6 @@ INSERT INTO pre_common_credit_rule VALUES ('22','参与投票','joinpoll','1','0
 INSERT INTO pre_common_credit_rule VALUES ('23','发起分享','createshare','1','0','3','0','0','1','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('24','评论','comment','1','0','40','1','0','1','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('25','被评论','getcomment','1','0','20','1','0','2','0','0','0','0','0','0','');
-INSERT INTO pre_common_credit_rule VALUES ('26','安装应用','installapp','4','0','0','3','0','0','0','0','0','0','0','0','');
-INSERT INTO pre_common_credit_rule VALUES ('27','使用应用','useapp','1','0','10','3','0','0','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('28','信息表态','click','1','0','10','1','0','0','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('29','修改域名','modifydomain','0','0','1','0','0','0','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('30','文章评论','portalcomment','1','0','40','1','0','1','0','0','0','0','0','0','');
