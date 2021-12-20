@@ -44,8 +44,9 @@ array_splice($menu['extended'], 4, 0, array(
 ));
 
 array_splice($menu['extended'], 7, 0, array(
-	array('founder_perm_ec_alipay', 'ec_alipay'),
 	array('founder_perm_ec_qpay', 'ec_qpay'),
+	array('founder_perm_ec_wechat', 'ec_wechat'),
+	array('founder_perm_ec_alipay', 'ec_alipay'),
 	array('founder_perm_ec_credit', 'ec_credit'),
 	array('founder_perm_ec_orders', 'ec_orders'),
 	array('founder_perm_tradelog', 'tradelog'),
