@@ -37,6 +37,7 @@ function sendmail($toemail, $subject, $message = '', $from = '') {
 			$smtp = $_G['setting']['mail']['smtp'][$rid];
 			$_G['setting']['mail']['server'] = $smtp['server'];
 			$_G['setting']['mail']['port'] = $smtp['port'];
+			$_G['setting']['mail']['timeout'] = isset($smtp['timeout']) ? intval($smtp['timeout']) : 30;
 			$_G['setting']['mail']['auth'] = $smtp['auth'] ? 1 : 0;
 			$_G['setting']['mail']['from'] = $smtp['from'];
 			$_G['setting']['mail']['auth_username'] = $smtp['auth_username'];
@@ -84,11 +85,13 @@ function sendmail($toemail, $subject, $message = '', $from = '') {
 
 	} elseif($_G['setting']['mail']['mailsend'] == 2) {
 
-		if(!$fp = fsocketopen($_G['setting']['mail']['server'], $_G['setting']['mail']['port'], $errno, $errstr, 30)) {
+		if(!$fp = fsocketopen($_G['setting']['mail']['server'], $_G['setting']['mail']['port'], $errno, $errstr, $_G['setting']['mail']['timeout'])) {
 			runlog('SMTP', "({$_G['setting']['mail']['server']}:{$_G['setting']['mail']['port']}) CONNECT - Unable to connect to the SMTP server", 0);
 			return false;
 		}
 		stream_set_blocking($fp, true);
+		// 新增发送超时设置, 避免连接后无响应导致吊死
+		stream_set_timeout($fp, $_G['setting']['mail']['timeout']);
 
 		$lastmessage = fgets($fp, 512);
 		if(substr($lastmessage, 0, 3) != '220') {

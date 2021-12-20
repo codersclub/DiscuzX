@@ -2057,6 +2057,7 @@ $lang = array
 	'setting_mail_setting_send_4' => '通过插件发送(插件控制发送流程)',
 	'setting_mail_setting_server' => 'SMTP 服务器',
 	'setting_mail_setting_port' => '端口',
+	'setting_mail_setting_timeout' => '超时(秒)',
 	'setting_mail_setting_validate' => '验证',
 	'setting_mail_setting_auth' => 'SMTP 服务器要求身份验证',
 	'setting_mail_setting_from' => '发信人邮件地址',
