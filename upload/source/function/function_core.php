@@ -465,9 +465,10 @@ function lang($file, $langvar = null, $vars = array(), $default = null) {
 			}
 		}
 		$returnvalue = & $_G['cache']['pluginlanguage_script'];
+		!is_array($returnvalue) && $returnvalue = array();
 		$key = &$file;
 	}
-	$return = $langvar !== null ? (isset($returnvalue[$key][$langvar]) ? $returnvalue[$key][$langvar] : null) : $returnvalue[$key];
+	$return = $langvar !== null ? (isset($returnvalue[$key][$langvar]) ? $returnvalue[$key][$langvar] : null) : (is_array($returnvalue[$key]) ? $returnvalue[$key] : array());
 	$return = $return === null ? ($default !== null ? $default : ($path != 'plugin' ? '' : $file . ':') . $langvar) : $return;
 	$searchs = $replaces = array();
 	if($vars && is_array($vars)) {
