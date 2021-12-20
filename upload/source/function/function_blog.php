@@ -327,6 +327,6 @@ function blog_flash($url, $type='') {
 	}
 	$type = fileext($url);
 	$randomid = random(3);
-	return '<div id="'.$type.'_'.$randomid.'" class="media"><div id="'.$type.'_'.$randomid.'_container" class="media_container"></div><div id="'.$type.'_'.$randomid.'_tips" class="media_tips"><a href="'.$url.'" target="_blank">'.lang('template', 'parse_av_tips').'</a></div></div><script type="text/javascript">detectPlayer("'.$type.'_'.$randomid.'", "'.$type.'", "'.$url.'", "'.$width.'", "'.$height.'");</script>';
+	return '<ignore_js_op><div id="'.$type.'_'.$randomid.'" class="media"><div id="'.$type.'_'.$randomid.'_container" class="media_container"></div><div id="'.$type.'_'.$randomid.'_tips" class="media_tips"><a href="'.$url.'" target="_blank">'.lang('template', 'parse_av_tips').'</a></div></div><script type="text/javascript">detectPlayer("'.$type.'_'.$randomid.'", "'.$type.'", "'.$url.'", "'.$width.'", "'.$height.'");</script></ignore_js_op>';
 }
 ?>

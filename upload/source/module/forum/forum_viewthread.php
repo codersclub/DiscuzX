@@ -1002,6 +1002,7 @@ if(empty($_GET['viewpid'])) {
 		$_G['widthauto'] = 0;
 		$sufix = '_album';
 		$post = &$postlist[$_G['forum_firstpid']];
+		// 暂不确认对于 JS 类内容是否都需要添加 ignore_js_op 标签供 _relatedlinks 和只看大图模式正文摘要过滤用
 		$post['message'] = cutstr(strip_tags(preg_replace('/(<ignore_js_op>.*<\/ignore_js_op>)/is', '', $post['message'])), 200);
 		require_once libfile('thread/album', 'include');
 	}
