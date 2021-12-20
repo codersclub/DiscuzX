@@ -5,7 +5,7 @@ Powered by Discuz! X
 
 body { background: #F8F8F8; }
 a { color: #069; }
-#hd { margin-top: 30px; width: 948px; height: 133px; border: 1px solid #D3DFDF; background: #FAFAFA url(images/header.jpg) no-repeat 100% 0; color: #069; }
+#hd { margin-top: 30px; width: 1188px; height: 133px; border: 1px solid #D3DFDF; background: #FAFAFA url(images/header.jpg) no-repeat 100% 0; color: #069; }
 	#hd h2 { padding: 20px 0 0 30px; line-height: 115%; }
 	#nv { bottom: 10px; }
 		#nv li { background: none; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr = #00FFFFFF, endColorstr = #00FFFFFF); font-size: 14px; }

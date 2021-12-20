@@ -57,10 +57,15 @@
 						<td valign="top" class="category_l1">
 							<div class="newimgbox">
 								<h4><span class="tit_newimg"></span>{lang latest_images}</h4>
-								<div class="module cl slidebox_grid" style="width:218px">
+								<!--{if $_G['setting']['forumallowside']}-->
+								    <!--{eval $slide_width = 220;}-->
+								<!--{else}-->
+								    <!--{eval $slide_width = 278;}-->
+								<!--{/if}-->
+								<div class="module cl slidebox_grid" style="width:{$slide_width}px">
 									<script type="text/javascript">
 									var slideSpeed = 5000;
-									var slideImgsize = [218,200];
+									var slideImgsize = [{$slide_width},200];
 									var slideBorderColor = '{$_G['style']['specialborder']}';
 									var slideBgColor = '{$_G['style']['commonbg']}';
 									var slideImgs = new Array();

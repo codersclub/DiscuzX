@@ -26,7 +26,7 @@ loadcache('magics');
 
 $_G['mnid'] = 'mn_common';
 $magiclist = array();
-$_G['tpp'] = 12;
+$_G['tpp'] = 16;
 $page = max(1, intval($_GET['page']));
 $action = $_GET['action'];
 $operation = $_GET['operation'];

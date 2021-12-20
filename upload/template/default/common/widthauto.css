@@ -6,7 +6,7 @@ Created & Modified by Pony.
 ---------------------------------- */
 
 .wp { width: 98%; }
-	#hd .wp, #wp { min-width: 960px; }
+	#hd .wp, #wp { min-width: 1200px; }
 
 .ct2 { margin-right: 235px; }
 	.ct2 .sd { margin-right: -235px; }

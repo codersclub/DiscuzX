@@ -88,7 +88,7 @@ CSS 写作注意事项：
 	Last Modify:	Pony
 */
 	* { word-wrap: break-word; }
-	body { {BGCODE}; min-width: 960px; }
+	body { {BGCODE}; min-width: 1200px; }
 	body, input, button, select, textarea { font: {FONTSIZE} {FONT}; color: {TABLETEXT}; }
 		textarea { resize: none; }
 	body, ul, ol, li, dl, dd, p, h1, h2, h3, h4, h5, h6, form, fieldset, .pr, .pc { margin: 0; padding: 0; }
@@ -599,10 +599,10 @@ CSS 写作注意事项：
 		.pmfl			PM friend list (Window)
 		*/
 
-/* 通用容器，定义页面宽度 */ .wp { margin: 0 auto; width: 960px; } #wp .wp { width: auto; }
+/* 通用容器，定义页面宽度 */ .wp { margin: 0 auto; width: 1200px; } #wp .wp { width: auto; }
 
 /* 页头 */
-	#toptb { min-width: 960px; border-bottom: 1px solid {COMMONBORDER}; background: {COMMONBG}; line-height: 28px; }
+	#toptb { min-width: 1200px; border-bottom: 1px solid {COMMONBORDER}; background: {COMMONBG}; line-height: 28px; }
 		#toptb a { float: left; padding: 0 4px; height: 28px; }
 		#toptb a.showmenu { padding-right: 15px; }
 		#toptb a.hover { background-color: #FFF; }
@@ -684,19 +684,18 @@ CSS 写作注意事项：
 	#ct { min-height: 300px; }
 		.mn { overflow: hidden; }
 		.ct1 { border: 1px solid {WRAPBORDERCOLOR}; border-top: none; }
-		.ct2 .mn { float: left; width: 730px; margin-bottom: 1em; }
+		.ct2 .mn { float: left; width: 970px; margin-bottom: 1em; }
 		.ct2 .sd { float: right; width: 220px; overflow: hidden; }
 
-		.appl { float: left; overflow: hidden; margin-bottom: 10px; padding: 6px 10px; width: 117px; }
+		.appl { float: left; overflow: hidden; margin-bottom: 10px; padding: 6px 10px; width: 147px; }
 
-		.ct2_a, .ct3_a { border: 1px solid {WRAPBORDERCOLOR}; background: repeat-y 0 0; background-image: linear-gradient(0deg, {SIDEBGCOLOR}, {SIDEBGCOLOR}); background-size: 137px; }
+		.ct2_a, .ct3_a { border: 1px solid {WRAPBORDERCOLOR}; background: repeat-y 0 0; background-image: linear-gradient(0deg, {SIDEBGCOLOR}, {SIDEBGCOLOR}); background-size: 167px; }
 			.ct2_a_r { border: none; background-image: none; }
 			 .ct2_a h1.mt { display: none; }
 			 .ct2_a .tb { margin-top: 3px; }
-		.ct2_a .mn { float: right; width: 810px; }
-			.ct2_a .mn { display: inline; margin-right: 10px; padding-top: 10px; width: 800px; }
+		.ct2_a .mn { float: right; display: inline; margin-right: 10px; padding-top: 10px; width: 1010px; }
 
-		.ct3_a .mn { float: left; margin-left: 20px; width: 565px; }
+		.ct3_a .mn { float: left; margin-left: 20px; width: 775px; }
 		.ct3_a .sd { float: right; width: 220px; }
 			#nv_home .ct3_a .sd .bm { margin-right: 10px; border: none; }
 				#nv_home .ct3_a .sd .bm_c { padding: 10px 0; }

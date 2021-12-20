@@ -750,7 +750,7 @@
 				<item id="name"><![CDATA[专题_第二屏左视频]]></item>
 				<item id="title"><![CDATA[]]></item>
 				<item id="classname"><![CDATA[t_video]]></item>
-				<item id="summary"><![CDATA[<span id="flv_0U1"></span><script type="text/javascript" reload="1">$('flv_0U1').innerHTML=AC_FL_RunContent('width', '280', 'height', '223', 'allowNetworking', 'internal', 'allowScriptAccess', 'never', 'src', 'http://player.youku.com/player.php/sid/XMjM1NDM0NDA0.html/v.swf', 'quality', 'high', 'bgcolor', '#ffffff', 'wmode', 'transparent', 'allowfullscreen', 'true');</script>]]></item>
+				<item id="summary"><![CDATA[<span id="flv_0U1"></span><script type="text/javascript" reload="1">$('flv_0U1').innerHTML=AC_FL_RunContent('width', '370', 'height', '223', 'allowNetworking', 'internal', 'allowScriptAccess', 'never', 'src', 'http://player.youku.com/player.php/sid/XMjM1NDM0NDA0.html/v.swf', 'quality', 'high', 'bgcolor', '#ffffff', 'wmode', 'transparent', 'allowfullscreen', 'true');</script>]]></item>
 				<item id="uid"><![CDATA[1]]></item>
 				<item id="username"><![CDATA[admin]]></item>
 				<item id="styleid"><![CDATA[0]]></item>
@@ -760,7 +760,7 @@
 				<item id="script"><![CDATA[vedio]]></item>
 				<item id="param">
 					<item id="url"><![CDATA[http://v.youku.com/v_show/id_XMjM1NDM0NDA0.html]]></item>
-					<item id="width"><![CDATA[280]]></item>
+					<item id="width"><![CDATA[370]]></item>
 					<item id="height"><![CDATA[223]]></item>
 					<item id="items"><![CDATA[10]]></item>
 				</item>
@@ -1324,7 +1324,7 @@
 				<item id="name"><![CDATA[专题_横幅广告]]></item>
 				<item id="title"><![CDATA[]]></item>
 				<item id="classname"><![CDATA[t_ad]]></item>
-				<item id="summary"><![CDATA[<img src="static/topic/t1/images/blue/banner.jpg" width="960" height="200" alt="" />]]></item>
+				<item id="summary"><![CDATA[<img src="static/topic/t1/images/blue/banner.jpg" width="1200" height="200" alt="" />]]></item>
 				<item id="uid"><![CDATA[1]]></item>
 				<item id="username"><![CDATA[admin]]></item>
 				<item id="styleid"><![CDATA[0]]></item>
@@ -1333,7 +1333,7 @@
 				<item id="target"><![CDATA[blank]]></item>
 				<item id="script"><![CDATA[blank]]></item>
 				<item id="param">
-					<item id="content"><![CDATA[<img src=\"static/topic/t1/images/blue/banner.jpg\" width=\"960\" height=\"200\" alt=\"\" />]]></item>
+					<item id="content"><![CDATA[<img src=\"static/topic/t1/images/blue/banner.jpg\" width=\"1200\" height=\"200\" alt=\"\" />]]></item>
 					<item id="items"><![CDATA[10]]></item>
 				</item>
 				<item id="shownum"><![CDATA[10]]></item>

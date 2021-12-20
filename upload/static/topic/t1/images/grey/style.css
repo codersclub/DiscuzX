@@ -7,10 +7,10 @@ Powered by Discuz! X
 body { color: #333; background-image: none; background-color: #FFF; }
 .block, .temp { margin: 0; }
 .frame, .frame-tab, #comment { border: 1px solid #AEAEAE; }
-.frame-1-1-l { width: 310px; }
-.frame-1-1-r { width: 380px; margin: 0 10px; display: inline; }
-.frame-3-1-l { width: 710px; }
-.frame-3-1-r { width: 250px; }
+.frame-1-1-l { width: 400px; }
+.frame-1-1-r { width: 470px; margin: 0 10px; display: inline; }
+.frame-3-1-l { width: 890px; }
+.frame-3-1-r { width: 310px; }
 .slidebox { margin-bottom: 10px; padding: 3px; border: 1px solid #B7B7B7; }
 	.slideshow span.title { padding: 0; height: 26px; line-height: 26px; font-size: 12px; }
 .block .xl1 ul li { background: url(dot_2.png) no-repeat 3px 50%; }

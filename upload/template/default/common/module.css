@@ -97,7 +97,7 @@ Created & Modified by Alice, Monkey, Lushnis, Pony, Dfox & DragonLee.
 			#category_grid td:first-child { border-left: 0; }
 		.category_l1, .category_l2, .category_l3, .category_l4 { line-height: 25px; background: #fff; overflow: hidden; }
 			.category_l1 { line-height: normal; }
-			.slidebox_grid { position: relative; margin: 10px; border: 1px #ccc solid; }
+			.slidebox_grid { position: relative; margin: 10px auto; border: 1px #ccc solid; }
 			#category_grid h4 { width:100%; height: 30px; line-height: 30px; text-indent:10px; font-size: 12px; cursor: pointer; {TITLEBGCODE}; position:relative; }
 		.category_newlist { padding: 10px; }
 			.category_newlist li { height: 21px; line-height:21px; overflow: hidden; }
@@ -1547,7 +1547,7 @@ i.pstatus { display: block; margin-bottom: -30px; font-size: 12px; text-align: c
 	#moodfm {}
 		#moodfm textarea { width: 600px; height: 56px; border: 1px solid; border-color: {INPUTBORDERDARKCOLOR} {INPUTBORDER} {INPUTBORDER} {INPUTBORDERDARKCOLOR}; overflow-y: auto; }
 		.mi .moodfm_input { width: 350px; height: 58px; }
-			.mi #moodfm textarea { float: left; margin: 0; padding: 3px; width: 342px; height: 50px; outline: none; border: 1px solid {COMMONBORDER}; background: #FFF; border-radius: 4px; }
+			.mi #moodfm textarea { float: left; margin: 0; padding: 3px; width: 552px; height: 50px; outline: none; border: 1px solid {COMMONBORDER}; background: #FFF; border-radius: 4px; }
 			.mi #moodfm.hover textarea { border-color: {SPECIALBORDER}; }
 		.moodfm_btn { padding-left: 5px; }
 			.moodfm_btn button { cursor: pointer; padding: 22px 11px; }
@@ -1799,9 +1799,9 @@ i.pstatus { display: block; margin-bottom: -30px; font-size: 12px; text-align: c
 		.tdats th, .tdats td { overflow: hidden; padding: 0 5px; height: 26px; border-width: 0 1px 0 0; border-color: {WRAPBG}; white-space: nowrap; }
 		.tdats th { height: 40px; font-weight: 700; }
 			.tdats .h th { height: 24px; border-top: 1px solid {COMMONBORDER}; border-bottom: 1px solid #E5E5E5; background: linear-gradient(0deg, #efefef, #fcfcfc); color: {MIDTEXT}; zoom: 1; }
-		.tdats .tdat { float: left; width: 150px; border: none; table-layout: fixed; }
+		.tdats .tdat { float: left; width: 240px; border: none; table-layout: fixed; }
 		.tdats .tfx { width: 300px; }
-			.tdats .tfxf { width: 650px; }
+			.tdats .tfxf { width: 800px; }
 			.tfx th, .tfx td { border-width: 0 3px !important; background: #FFF2DF; }
 			.tfx .alt, .tfx .alt th, .tfx .alt td { background: #FAEDDA; }
 			.tfx .h th { padding: 1px 5px; }
@@ -1913,7 +1913,7 @@ i.pstatus { display: block; margin-bottom: -30px; font-size: 12px; text-align: c
 
 /** home::magic,home::medal **/
 /* .mgcl -> Magic list by lushnis */
-	.mgcl li { float: left; width: 132px; height: 180px; text-align: center; }
+	.mgcl li { float: left; width: 126px; height: 180px; text-align: center; }
 		.mgcl .mg_img { margin: 0 auto 5px; }
 			.pg_medal .mgcl img { margin-top: 20px; width: auto; height: auto; }
 
@@ -1982,7 +1982,7 @@ body { background: none !important; }
 
 /* 竞价排名 by Pony */
 .bid { margin: 2px -4px -2px 2px; zoom: 1; }
-.biduser { width: 780px; background: url({IMGDIR}/avatar_blank.gif); }
+.biduser { width: 988px; background: url({IMGDIR}/avatar_blank.gif); }
 	.biduser li { float: left; margin: 0 4px 4px 0; }
 	.biduser a { display: block; }
 		.biduser img { width: 48px; height: 48px; }
@@ -1992,7 +1992,7 @@ body { background: none !important; }
 
 /* 重定义 */
 .xl2 { background: url({IMGDIR}/vline.png) repeat-y 50% 0; }
-	.xl2 li { margin-right: 20px; width: 378px; }
+	.xl2 li { margin-right: 20px; width: 482px; }
 		.xl2 li.xl2_r { margin-right: 0; }
 
 .hasrank dl { padding-left: 110px; }
