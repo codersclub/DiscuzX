@@ -875,7 +875,7 @@ define('SUB_DIR', '$sub_dir');
 \$_GET['catid'] = '$catid';
 require_once './portal.php';
 ?>";
-	$r = file_put_contents($dir.'/index.php', $code);
+	$r = file_put_contents($dir.'/index.php', $code, LOCK_EX);
 	return $r;
 }
 function getportalcategoryfulldir($catid) {
@@ -1054,7 +1054,7 @@ function remakediytemplate($primaltplname, $targettplname, $diytplname, $olddire
 		$content = @file_get_contents(DISCUZ_ROOT.$file);
 		if(!$content) $content = '';
 		$content = preg_replace("/\<\!\-\-\[name\](.+?)\[\/name\]\-\-\>/i", '', $content);
-		file_put_contents(DISCUZ_ROOT.'./data/diy/'.$tpldirectory.'/'.$targettplname.'.htm', $content);
+		file_put_contents(DISCUZ_ROOT.'./data/diy/'.$tpldirectory.'/'.$targettplname.'.htm', $content, LOCK_EX);
 	} else {
 		updatediytemplate($targettplname, $tpldirectory);
 	}

@@ -2459,6 +2459,7 @@ $lang = array
 	'setting_attach_remote_-105' => '尝试创建目录失败，请检查远程附件目录设置是否正确，并检查 FTP 帐号是否具有创建目录的权限',
 	'setting_attach_remote_-106' => '尝试上传文件失败，请检查站点附件目录是否具有上传文件的权限',
 	'setting_attach_remote_-107' => '尝试上传文件失败，请检查 FTP 帐号是否具有上传文件的权限，如果确认权限正常，请尝试使用被动模式(pasv)连接',
+	'setting_attach_remote_wtferr' => '尝试写入临时文件失败，请检查本地是否有写入文件权限',
 	'setting_attach_remote_geterr' => '尝试下载文件失败，请检查远程访问 URL 设置是否正确',
 	'setting_attach_remote_delerr' => '尝试删除文件失败，请检查 FTP 帐号是否具有删除文件的权限',
 	'setting_attach_remote_ok' => '远程附件设置一切正常',

@@ -572,15 +572,6 @@ function transfer_ucinfo(&$post) {
 	}
 }
 
-if(!function_exists('file_put_contents')) {
-	function file_put_contents($filename, $s) {
-		$fp = @fopen($filename, 'w');
-		@fwrite($fp, $s);
-		@fclose($fp);
-		return TRUE;
-	}
-}
-
 function createtable($sql, $dbver) {
 	$type = strtoupper(preg_replace("/^\s*CREATE TABLE\s+.+\s+\(.+?\).*(ENGINE|TYPE)\s*=\s*([a-z]+?).*$/isU", "\\2", $sql));
 	$type = in_array($type, array('INNODB', 'MYISAM', 'HEAP', 'MEMORY')) ? $type : 'INNODB';
@@ -682,10 +673,7 @@ EOT;
 function loginit($logfile) {
 	global $lang;
 	showjsmessage($lang['init_log'].' '.$logfile . "\n");
-	if($fp = @fopen('./forumdata/logs/'.$logfile.'.php', 'w')) {
-		fwrite($fp, '<'.'?PHP exit(); ?'.">\n");
-		fclose($fp);
-	}
+	file_put_contents('./forumdata/logs/'.$logfile.'.php', '<'.'?PHP exit(); ?'.">\n", LOCK_EX);
 }
 
 function showjsmessage($message) {
@@ -815,7 +803,7 @@ function save_config_file($filename, $config, $default) {
 EOT;
 	$content .= getvars(array('_config' => $config));
 	$content .= "\r\n// ".str_pad('  THE END  ', 50, '-', STR_PAD_BOTH)." //\r\n\r\n?>";
-	file_put_contents($filename, $content);
+	file_put_contents($filename, $content, LOCK_EX);
 }
 
 function setdefault($var, $default) {
@@ -1519,8 +1507,6 @@ function check_adminuser($username, $password, $email) {
 
 function save_uc_config($config, $file) {
 
-	$success = false;
-
 	list($appauthkey, $appid, $ucdbhost, $ucdbname, $ucdbuser, $ucdbpw, $ucdbcharset, $uctablepre, $uccharset, $ucapi, $ucip) = $config;
 
 	mysqli_report(MYSQLI_REPORT_OFF);
@@ -1553,12 +1539,11 @@ define('UC_PPP', 20);
 ?>
 EOT;
 
-	if($fp = fopen($file, 'w')) {
-		fwrite($fp, $config);
-		fclose($fp);
-		$success = true;
+	if(file_put_contents($file, $config, LOCK_EX) !== false) {
+		return true;
 	}
-	return $success;
+
+	return false;
 }
 
 function _generate_key() {
@@ -1595,10 +1580,8 @@ function uc_write_config($config, $file, $password) {
 	$config .= "define('UC_MYKEY', '$ucmykey');\r\n";
 	$config .= "define('UC_DEBUG', false);\r\n";
 	$config .= "define('UC_PPP', 20);\r\n";
-	$fp = fopen($file, 'w');
-	fwrite($fp, $config);
-	fclose($fp);
 
+	file_put_contents($file, $config, LOCK_EX);
 }
 
 function install_uc_server() {
@@ -1769,7 +1752,7 @@ function save_diy_data($primaltplname, $targettplname, $data, $database = false)
 
 	$tplpath = dirname($tplfile);
 	if (!is_dir($tplpath)) dmkdir($tplpath);
-	$r = file_put_contents($tplfile, $content);
+	$r = file_put_contents($tplfile, $content, LOCK_EX);
 
 	if ($r && $database) {
 		$_G['db']->query('DELETE FROM '.$_G['tablepre'].'common_template_block WHERE targettplname="'.$targettplname.'"');
@@ -2119,10 +2102,13 @@ function append_to_install_log_file($message, $close = false) {
 	static $fh = false;
 	if (!$fh) {
 		$fh = fopen($file, "a+");
+		flock($fh, LOCK_EX);
 	} 
 	if ($fh) {
 		fwrite($fh, $message);
+		fflush($fh);
 		if ($close) {
+			flock($fh, LOCK_UN);
 			fclose($fh);
 		}
 	}

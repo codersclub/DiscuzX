@@ -199,7 +199,7 @@ function save_diy_data($tpldirectory, $primaltplname, $targettplname, $data, $da
 	} else {
 		if (file_exists($tplfile) && !$flag) copy($tplfile, $tplfile.'.bak');
 	}
-	$r = file_put_contents($tplfile, $content);
+	$r = file_put_contents($tplfile, $content, LOCK_EX);
 	if ($r && $database && !$flag) {
 		$diytplname = getdiytplname($targettplname, $tpldirectory);
 		C::t('common_diy_data')->insert(array(
@@ -911,7 +911,7 @@ function updatetopic($topic = ''){
 		if (!is_dir($tplpath)) {
 			dmkdir($tplpath);
 		}
-		file_put_contents($tplfile, $content);
+		file_put_contents($tplfile, $content, LOCK_EX);
 	}
 
 	include_once libfile('function/cache');

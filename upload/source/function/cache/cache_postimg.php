@@ -32,10 +32,7 @@ function build_cache_postimg() {
 	}
 	savecache('postimg', $postimg);
 	$cachedir = DISCUZ_ROOT.'./data/cache/';
-	if(@$fp = fopen($cachedir.'common_postimg.js', 'w')) {
-		fwrite($fp, $postimgjs);
-		fclose($fp);
-	} else {
+	if(file_put_contents($cachedir.'common_postimg.js', $postimgjs, LOCK_EX) === false) {
 		exit('Can not write to cache files, please check directory ./data/ and ./data/cache/ .');
 	}
 }

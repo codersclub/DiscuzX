@@ -423,17 +423,27 @@ class usercontrol extends base {
 		}
 
 		$success = 1;
-		$fp = @fopen($bigavatarfile, 'wb');
-		@fwrite($fp, $bigavatar);
-		@fclose($fp);
 
-		$fp = @fopen($middleavatarfile, 'wb');
-		@fwrite($fp, $middleavatar);
-		@fclose($fp);
+		$fp = fopen($bigavatarfile, 'cb');
+		if(!($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $bigavatar) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
+			flock($fp, LOCK_UN);
+			fclose($fp);
+			$success = 0;
+		}
 
-		$fp = @fopen($smallavatarfile, 'wb');
-		@fwrite($fp, $smallavatar);
-		@fclose($fp);
+		$fp = fopen($middleavatarfile, 'cb');
+		if(!($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $middleavatar) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
+			flock($fp, LOCK_UN);
+			fclose($fp);
+			$success = 0;
+		}
+
+		$fp = fopen($smallavatarfile, 'cb');
+		if(!($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $smallavatar) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
+			flock($fp, LOCK_UN);
+			fclose($fp);
+			$success = 0;
+		}
 
 		$biginfo = @getimagesize($bigavatarfile);
 		$middleinfo = @getimagesize($middleavatarfile);

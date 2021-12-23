@@ -45,14 +45,19 @@ class helper_log {
 			$logfilebak = $logdir.$yearmonth.'_'.$file.'_'.($maxid + 1).'.php';
 			@rename($logfile, $logfilebak);
 		}
-		if($fp = @fopen($logfile, 'a')) {
-			@flock($fp, 2);
+		$fp = fopen($logfile, 'a');
+		if(flock($fp, LOCK_EX)) {
 			if(!is_array($log)) {
 				$log = array($log);
 			}
 			foreach($log as $tmp) {
 				fwrite($fp, "<?PHP exit;?>\t".str_replace(array('<?', '?>'), '', $tmp)."\n");
 			}
+			fflush($fp);
+			flock($fp, LOCK_UN);
+			fclose($fp);
+		} else {
+			flock($fp, LOCK_UN);
 			fclose($fp);
 		}
 	}

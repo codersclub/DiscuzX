@@ -1517,9 +1517,12 @@ if($_GET['step'] == 'start') {
 				while($row = DB::fetch($query)) {
 					$data[] = $row['tid'];
 				}
-				if($data && @$fp = fopen($cachefile, 'w')) {
-					fwrite($fp, implode('|', $data));
-					fclose($fp);
+				if($data && $fp = fopen($cachefile, 'c')) {
+					if(!($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, implode('|', $data)) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
+						flock($fp, LOCK_UN);
+						fclose($fp);
+						show_msg("主题图片表无法处理，跳过", "$theurl?step=data&op=$nextop");
+					}
 				} else {
 					show_msg("主题图片表无法处理，跳过", "$theurl?step=data&op=$nextop");
 				}
@@ -2162,8 +2165,8 @@ function save_config_file($filename, $config, $default, $deletevar) {
 EOT;
 	$content .= getvars(array('_config' => $config));
 	$content .= "\r\n// ".str_pad('  THE END  ', 50, '-', STR_PAD_BOTH)." //\r\n\r\n?>";
-	if(!is_writable($filename) || !($len = file_put_contents($filename, $content))) {
-		file_put_contents(DISCUZ_ROOT.'./data/config_global.php', $content);
+	if(!is_writable($filename) || !($len = file_put_contents($filename, $content, LOCK_EX))) {
+		file_put_contents(DISCUZ_ROOT.'./data/config_global.php', $content, LOCK_EX);
 		return 0;
 	}
 	return 1;

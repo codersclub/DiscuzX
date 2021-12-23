@@ -132,7 +132,7 @@ class image {
 			if(!$data || $source === FALSE) {
 				return -2;
 			}
-			file_put_contents($source, $data);
+			file_put_contents($source, $data, LOCK_EX);
 		}
 		if($method == 'thumb') {
 			$target = empty($target) ? (!$nosuffix ? getimgthumbname($source) : $source) : $_G['setting']['attachdir'].'./'.$target;

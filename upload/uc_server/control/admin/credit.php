@@ -156,9 +156,7 @@ class control extends adminbase {
 					$s = "<?php\r\n";
 					$s .= '$_CACHE[\'credits\'] = '.var_export($_CACHE['credits'], TRUE).";\r\n";
 					$s .= "\r\n?>";
-					$fp = @fopen(UC_DATADIR.'cache/credits.php', 'w');
-					@fwrite($fp, $s);
-					@fclose($fp);
+					file_put_contents(UC_DATADIR.'cache/credits.php', $s, LOCK_EX);
 				}
 				header('location: '.UC_API.'/admin.php?m=credit&a=sync&step=0&stepapp='.$stepapp.'&sid='.$this->view->sid);
 			} else {

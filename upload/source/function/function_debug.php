@@ -87,10 +87,10 @@ function debugmessage($ajax = 0) {
 	if($ajax) {
 		$idk = substr(md5($_SERVER['SCRIPT_NAME'].'?'.$_SERVER['QUERY_STRING']), 0, 4);
 		$sqldebug = '<b style="cursor:pointer" onclick="document.getElementById(\''.$idk.'\').style.display=document.getElementById(\''.$idk.'\').style.display == \'\' ? \'none\' : \'\'">Queries: </b> '.$queries.' ('.$_SERVER['SCRIPT_NAME'].'?'.$_SERVER['QUERY_STRING'].')<ol id="'.$idk.'" style="display:none">'.$sqldebug.'</ol><br>';
-		file_put_contents(DISCUZ_ROOT.'./'.$ajaxhtml, $sqldebug, FILE_APPEND);
+		file_put_contents(DISCUZ_ROOT.'./'.$ajaxhtml, $sqldebug, FILE_APPEND | LOCK_EX);
 		return;
 	}
-	file_put_contents(DISCUZ_ROOT.'./'.$ajaxhtml, '<?php ' . _get_addslashes() . ' if(empty($_GET[\'k\']) || $_GET[\'k\'] != \''.$akey.'\') { exit; } ?><style>body,table { font-size:12px; }table { width:90%;border:1px solid gray; }</style><a href="javascript:;" onclick="location.href=location.href">Refresh</a><br />');
+	file_put_contents(DISCUZ_ROOT.'./'.$ajaxhtml, '<?php ' . _get_addslashes() . ' if(empty($_GET[\'k\']) || $_GET[\'k\'] != \''.$akey.'\') { exit; } ?><style>body,table { font-size:12px; }table { width:90%;border:1px solid gray; }</style><a href="javascript:;" onclick="location.href=location.href">Refresh</a><br />', LOCK_EX);
 	foreach($sqlw as $k => $v) {
 		$sqlw[$k] = $k.': '.$v;
 	}
@@ -326,7 +326,7 @@ EOF;
 			</div>'.
 		'<ol><a name="top"></a>'.$_GS.$_GA.'</ol></div>'.$mco.'</body></html>';
 	$fn = 'data/'.$debugfile;
-	file_put_contents(DISCUZ_ROOT.'./'.$fn, $debug);
+	file_put_contents(DISCUZ_ROOT.'./'.$fn, $debug, LOCK_EX);
 	echo '<iframe src="'.$fn.'?k='.$akey.'" name="_debug_iframe" id="_debug_iframe" style="border-top:1px solid gray;overflow-x:hidden;overflow-y:auto" width="100%" height="200" frameborder="0"></iframe><div id="_debug_div"></div><iframe name="_debug_initframe" id="_debug_initframe" style="display:none"></iframe>';
 }
 

@@ -407,15 +407,6 @@ EOT;
 	}
 }
 
-if(!function_exists('file_put_contents')) {
-	function file_put_contents($filename, $s) {
-		$fp = @fopen($filename, 'w');
-		@fwrite($fp, $s);
-		@fclose($fp);
-		return TRUE;
-	}
-}
-
 function createtable($sql) {
 	$type = strtoupper(preg_replace("/^\s*CREATE TABLE\s+.+\s+\(.+?\).*(ENGINE|TYPE)\s*=\s*([a-z]+?).*$/isU", "\\2", $sql));
 	$type = in_array($type, array('INNODB', 'MYISAM', 'HEAP', 'MEMORY')) ? $type : 'INNODB';
@@ -508,10 +499,7 @@ EOT;
 function loginit($logfile) {
 	global $lang;
 	showjsmessage($lang['init_log'].' '.$logfile);
-	if($fp = @fopen('./forumdata/logs/'.$logfile.'.php', 'w')) {
-		fwrite($fp, '<'.'?PHP exit(); ?'.">\n");
-		fclose($fp);
-	}
+	file_put_contents('./forumdata/logs/'.$logfile.'.php', '<'.'?PHP exit(); ?'.">\n", LOCK_EX);
 }
 
 function showjsmessage($message) {
@@ -648,9 +636,8 @@ function config_edit() {
 	$config .= "define('UC_MYKEY', '$ucmykey');\r\n";
 	$config .= "define('UC_DEBUG', false);\r\n";
 	$config .= "define('UC_PPP', 20);\r\n";
-	$fp = fopen(CONFIG, 'w');
-	fwrite($fp, $config);
-	fclose($fp);
+
+	file_put_contents(CONFIG, $config, LOCK_EX);
 }
 
 function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {

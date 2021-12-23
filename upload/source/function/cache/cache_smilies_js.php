@@ -52,10 +52,8 @@ function build_cache_smilies_js() {
 		$return_array .= $return_datakey.implode('', $return_data);
 	}
 	$cachedir = DISCUZ_ROOT.'./data/cache/';
-	if(@$fp = fopen($cachedir.'common_smilies_var.js', 'w')) {
-		fwrite($fp, 'var smthumb = \''.$_G['setting']['smthumb'].'\';'.$return_type.$return_array.'var smilies_fast=['.$return_fast.'];');
-		fclose($fp);
-	} else {
+	$common_smilies_var_js = 'var smthumb = \''.$_G['setting']['smthumb'].'\';'.$return_type.$return_array.'var smilies_fast=['.$return_fast.'];';
+	if(file_put_contents($cachedir.'common_smilies_var.js', $common_smilies_var_js, LOCK_EX) === false) {
 		exit('Can not write to cache files, please check directory ./data/ and ./data/cache/ .');
 	}
 

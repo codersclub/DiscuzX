@@ -227,24 +227,25 @@ if($operation == 'export') {
 					"$setnames".
 					$sqldump;
 				$dumpfilename = sprintf($dumpfile, $volume);
-				@$fp = fopen($dumpfilename, 'wb');
-				@flock($fp, 2);
-				if(@!fwrite($fp, $sqldump)) {
-					@fclose($fp);
+
+				$fp = fopen($dumpfilename, 'cb');
+				if(!($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $sqldump) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
+					flock($fp, LOCK_UN);
+					fclose($fp);
 					cpmsg('database_export_file_invalid', '', 'error');
 				} else {
-					fclose($fp);
 					if($_GET['usezip'] == 2) {
 						$fp = fopen($dumpfilename, "r");
 						$content = @fread($fp, filesize($dumpfilename));
 						fclose($fp);
 						$zip = new zipfile();
 						$zip->addFile($content, basename($dumpfilename));
-						$fp = fopen(sprintf($backupfilename."-%s".'.zip', $volume), 'w');
-						if(@fwrite($fp, $zip->file()) !== FALSE) {
-							@unlink($dumpfilename);
+						$fp = fopen(sprintf($backupfilename."-%s".'.zip', $volume), 'c');
+						if(!($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $zip->file()) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
+							flock($fp, LOCK_UN);
+							fclose($fp);
+							cpmsg('database_export_zip_invalid', '', 'error');
 						}
-						fclose($fp);
 					}
 					unset($sqldump, $zip, $content);
 					cpmsg('database_export_multivol_redirect', "action=db&operation=export&formhash=".formhash()."&type=".rawurlencode($_GET['type'])."&saveto=server&filename=".rawurlencode($_GET['filename'])."&method=multivol&sizelimit=".rawurlencode($_GET['sizelimit'])."&volume=".rawurlencode($volume)."&tableid=".rawurlencode($tableid)."&startfrom=".rawurlencode($startrow)."&extendins=".rawurlencode($_GET['extendins'])."&sqlcharset=".rawurlencode($_GET['sqlcharset'])."&sqlcompat=".rawurlencode($_GET['sqlcompat'])."&exportsubmit=yes&usehex={$_GET['usehex']}&usezip={$_GET['usezip']}", 'loading', array('volume' => $volume));
@@ -267,11 +268,13 @@ if($operation == 'export') {
 						$unlinks[] = $filename;
 						$filelist .= "<li><a href=\"$filename\">$filename</a></li>\n";
 					}
-					$fp = fopen($zipfilename, 'w');
-					if(@fwrite($fp, $zip->file()) !== FALSE) {
+					$fp = fopen($zipfilename, 'c');
+					if(!($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $zip->file()) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
 						foreach($unlinks as $link) {
 							@unlink($link);
 						}
+						flock($fp, LOCK_UN);
+						fclose($fp);
 					} else {
 						C::t('common_cache')->insert(array(
 							'cachekey' => 'db_export',
@@ -281,7 +284,6 @@ if($operation == 'export') {
 						cpmsg('database_export_multivol_succeed', '', 'succeed', array('volume' => $volume, 'filelist' => $filelist));
 					}
 					unset($sqldump, $zip, $content);
-					fclose($fp);
 					@touch('./data/'.$backupdir.'/index.htm');
 					$filename = $zipfilename;
 					C::t('common_cache')->insert(array(
@@ -341,9 +343,12 @@ if($operation == 'export') {
 					$content = @fread($fp, filesize($dumpfile));
 					fclose($fp);
 					$zip->addFile($idstring."# <?php exit();?>\n ".$setnames."\n #".$content, basename($dumpfile));
-					$fp = fopen($zipfilename, 'w');
-					@fwrite($fp, $zip->file());
-					fclose($fp);
+					$fp = fopen($zipfilename, 'c');
+					if(!($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $zip->file()) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
+						flock($fp, LOCK_UN);
+						fclose($fp);
+						cpmsg('database_export_zip_invalid', '', 'error');
+					}
 					@unlink($dumpfile);
 					@touch('./data/'.$backupdir.'/index.htm');
 					$filename = $backupfilename.'.zip';

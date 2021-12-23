@@ -1112,10 +1112,7 @@ function writetojscache() {
 			$jsdata = @fread($fp, filesize($jsfile));
 			fclose($fp);
 			$jsdata = preg_replace($remove[0], $remove[1], $jsdata);
-			if(@$fp = fopen(DISCUZ_ROOT.'./data/cache/'.$entry, 'w')) {
-				fwrite($fp, $jsdata);
-				fclose($fp);
-			} else {
+			if(file_put_contents(DISCUZ_ROOT.'./data/cache/'.$entry, $jsdata, LOCK_EX) === false) {
 				exit('Can not write to cache files, please check directory ./data/ and ./data/cache/ .');
 			}
 		}

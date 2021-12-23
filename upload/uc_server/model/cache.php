@@ -9,14 +9,6 @@
 
 !defined('IN_UC') && exit('Access Denied');
 
-if(!function_exists('file_put_contents')) {
-	function file_put_contents($filename, $s) {
-		$fp = @fopen($filename, 'w');
-		@fwrite($fp, $s);
-		@fclose($fp);
-	}
-}
-
 class cachemodel {
 
 	var $db;
@@ -47,7 +39,7 @@ class cachemodel {
 					$s .= '$_CACHE[\''.$m.'\'] = '.var_export($this->$method(), TRUE).";\r\n";
 				}
 				$s .= "\r\n?>";
-				@file_put_contents(UC_DATADIR."./cache/$cachefile.php", $s);
+				file_put_contents(UC_DATADIR."./cache/$cachefile.php", $s, LOCK_EX);
 			}
 		} else {
 			foreach((array)$this->map as $file => $modules) {
@@ -57,7 +49,7 @@ class cachemodel {
 					$s .= '$_CACHE[\''.$m.'\'] = '.var_export($this->$method(), TRUE).";\r\n";
 				}
 				$s .= "\r\n?>";
-				@file_put_contents(UC_DATADIR."./cache/$file.php", $s);
+				file_put_contents(UC_DATADIR."./cache/$file.php", $s, LOCK_EX);
 			}
 		}
 	}

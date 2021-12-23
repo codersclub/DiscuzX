@@ -188,14 +188,10 @@ function cloudaddons_savemd5($md5file, $end, $md5) {
 	$array['Data'] = $array['Data'] ? array_merge($array['Data'], $md5) : $md5;
 	if(!isset($_G['siteftp'])) {
 		dmkdir(DISCUZ_ROOT.'./data/addonmd5/', 0777, false);
-		$fp = fopen(DISCUZ_ROOT.'./data/addonmd5/'.$md5file.'.xml', 'w');
-		fwrite($fp, array2xml($array));
-		fclose($fp);
+		file_put_contents(DISCUZ_ROOT.'./data/addonmd5/'.$md5file.'.xml', array2xml($array), LOCK_EX);
 	} else {
 		$localfile = DISCUZ_ROOT.'./data/'.random(5);
-		$fp = fopen($localfile, 'w');
-		fwrite($fp, array2xml($array));
-		fclose($fp);
+		file_put_contents($localfile, array2xml($array), LOCK_EX);
 		dmkdir(DISCUZ_ROOT.'./data/addonmd5/', 0777, false);
 		siteftp_upload($localfile, 'data/addonmd5/'.$md5file.'.xml');
 		@unlink($localfile);

@@ -244,11 +244,12 @@ class uc_note {
 			}
 		}
 		$cachefile = DISCUZ_ROOT.'./uc_client/data/cache/badwords.php';
-		$fp = fopen($cachefile, 'w');
 		$s = "<?php\r\n";
 		$s .= '$_CACHE[\'badwords\'] = '.var_export($data, TRUE).";\r\n";
-		fwrite($fp, $s);
-		fclose($fp);
+
+		if(file_put_contents($cachefile, $s, LOCK_EX) === false) {
+			return API_RETURN_FAILED;
+		}
 
 		return API_RETURN_SUCCEED;
 	}
@@ -261,11 +262,12 @@ class uc_note {
 		}
 
 		$cachefile = DISCUZ_ROOT.'./uc_client/data/cache/hosts.php';
-		$fp = fopen($cachefile, 'w');
 		$s = "<?php\r\n";
 		$s .= '$_CACHE[\'hosts\'] = '.var_export($post, TRUE).";\r\n";
-		fwrite($fp, $s);
-		fclose($fp);
+
+		if(file_put_contents($cachefile, $s, LOCK_EX) === false) {
+			return API_RETURN_FAILED;
+		}
 
 		return API_RETURN_SUCCEED;
 	}
@@ -284,20 +286,21 @@ class uc_note {
 		}
 
 		$cachefile = DISCUZ_ROOT.'./uc_client/data/cache/apps.php';
-		$fp = fopen($cachefile, 'w');
 		$s = "<?php\r\n";
 		$s .= '$_CACHE[\'apps\'] = '.var_export($post, TRUE).";\r\n";
-		fwrite($fp, $s);
-		fclose($fp);
+
+		if(file_put_contents($cachefile, $s, LOCK_EX) === false) {
+			return API_RETURN_FAILED;
+		}
 
 		if($UC_API && is_writeable(DISCUZ_ROOT.'./config/config_ucenter.php')) {
 			if(preg_match('/^https?:\/\//is', $UC_API)) {
 				$configfile = trim(file_get_contents(DISCUZ_ROOT.'./config/config_ucenter.php'));
 				$configfile = substr($configfile, -2) == '?>' ? substr($configfile, 0, -2) : $configfile;
 				$configfile = preg_replace("/define\('UC_API',\s*'.*?'\);/i", "define('UC_API', '".addslashes($UC_API)."');", $configfile);
-				if($fp = @fopen(DISCUZ_ROOT.'./config/config_ucenter.php', 'w')) {
-					@fwrite($fp, trim($configfile));
-					@fclose($fp);
+
+				if(file_put_contents(DISCUZ_ROOT.'./config/config_ucenter.php', trim($configfile), LOCK_EX) === false) {
+					return API_RETURN_FAILED;
 				}
 			}
 		}
@@ -312,11 +315,12 @@ class uc_note {
 		}
 
 		$cachefile = DISCUZ_ROOT.'./uc_client/data/cache/settings.php';
-		$fp = fopen($cachefile, 'w');
 		$s = "<?php\r\n";
 		$s .= '$_CACHE[\'settings\'] = '.var_export($post, TRUE).";\r\n";
-		fwrite($fp, $s);
-		fclose($fp);
+
+		if(file_put_contents($cachefile, $s, LOCK_EX) === false) {
+			return API_RETURN_FAILED;
+		}
 
 		return API_RETURN_SUCCEED;
 	}
@@ -405,11 +409,12 @@ class uc_note {
 		$outextcredits = $tmp;
 
 		$cachefile = DISCUZ_ROOT.'./uc_client/data/cache/creditsettings.php';
-		$fp = fopen($cachefile, 'w');
 		$s = "<?php\r\n";
 		$s .= '$_CACHE[\'creditsettings\'] = '.var_export($outextcredits, TRUE).";\r\n";
-		fwrite($fp, $s);
-		fclose($fp);
+
+		if(file_put_contents($cachefile, $s, LOCK_EX) === false) {
+			return API_RETURN_FAILED;
+		}
 
 		return API_RETURN_SUCCEED;
 	}

@@ -190,10 +190,14 @@ if($operation == 'import') {
 	$sqlfilecount = 0;
 	foreach($unzip->Entries as $entry) {
 		if(preg_match("/\.sql$/i", $entry->Name)) {
-			$fp = fopen('../data/'.$backupdir.'/'.$entry->Name, 'w');
-			fwrite($fp, $entry->Data);
-			fclose($fp);
-			$sqlfilecount++;
+			$fp = fopen('../data/'.$backupdir.'/'.$entry->Name, 'c');
+			if($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $entry->Data) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp)) {
+				$sqlfilecount++;
+			} else {
+				flock($fp, LOCK_UN);
+				fclose($fp);
+				show_msg('database_import_file_write_error');
+			}
 		}
 	}
 
@@ -604,6 +608,7 @@ function lang($lang_key, $force = true, $replace = array()) {
 		'tableprediff' => ' 表前缀('.$_config['db']['1']['tablepre'].')',
 		'database_import_multivol_succeed' => '分卷数据成功导入站点数据库<br />请在后台更新缓存<br /><span class="red">请尽快删除restore.php文件，以免对数据造成影响</span>',
 		'database_import_file_illegal' => '数据文件不存在：可能服务器不允许上传文件或文件大小超过限制',
+		'database_import_file_write_error' => '数据文件解压写入失败，请检查服务器是否有可写入权限',
 		'database_import_multivol_prompt' => '分卷数据第一卷成功导入数据库，您需要自动导入本次备份的其他分卷吗？',
 		'database_import_succeed' => '数据已成功导入站点数据库<br />请在后台更新缓存<br /><span class="red">请尽快删除restore.php文件，以免对数据造成影响</span>',
 		'database_import_format_illegal' => '数据文件非 Discuz! 格式，无法导入',

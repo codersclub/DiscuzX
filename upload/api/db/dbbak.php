@@ -362,13 +362,12 @@ if($get['method'] == 'export') {
 			"# Please visit our website for newest infomation about $apptype\n".
 			"# --------------------------------------------------------\n\n\n".
 			$sqldump;
-		@$fp = fopen($dumpfile, 'wb');
-		@flock($fp, 2);
-		if(@!fwrite($fp, $sqldump)) {
-			@fclose($fp);
+		$fp = fopen($dumpfile, 'cb');
+		if(!($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $sqldump) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
+			flock($fp, LOCK_UN);
+			fclose($fp);
 			api_msg('database_export_file_invalid', $dumpfile);
 		} else {
-			fclose($fp);
 			auto_next($get, $dumpfile);
 		}
 	} else {

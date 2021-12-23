@@ -75,11 +75,7 @@ class adminbase extends base {
 			}
 			@rename($logfile, UC_ROOT.'./data/logs/'.gmdate('Ym', $this->time).'_'.$hash.'.php');
 		}
-		if($fp = @fopen($logfile, 'a')) {
-			@flock($fp, 2);
-			@fwrite($fp, "<?PHP exit;?>\t".str_replace(array('<?', '?>', '<?php'), '', $log)."\n");
-			@fclose($fp);
-		}
+		file_put_contents($logfile, "<?PHP exit;?>\t".str_replace(array('<?', '?>', '<?php'), '', $log)."\n", FILE_APPEND | LOCK_EX);
 	}
 
 	function fetch_plugins() {

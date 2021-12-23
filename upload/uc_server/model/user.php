@@ -416,9 +416,9 @@ class usermodel {
 			$config = preg_replace("/define\('UC_FOUNDERSALT',\s*'.*?'\);/i", "define('UC_FOUNDERSALT', '$salt');", $config);
 			$config = preg_replace("/define\('UC_FOUNDERPW',\s*'.*?'\);/i", "define('UC_FOUNDERPW', '$hashnewpw');", $config);
 			$config = str_replace('#', '$', $config);
-			$fp = @fopen($configfile, 'w');
-			@fwrite($fp, $config);
-			@fclose($fp);
+			if(file_put_contents($configfile, $config, LOCK_EX) === false) {
+				return -4;
+			}
 			return 2;
 		}
 	}

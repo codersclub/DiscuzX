@@ -227,11 +227,11 @@ if(!$requestmode && !$has_range_header && empty($_GET['noupdate'])) {
 			attachment_updateviews($_G['forum_logfile']);
 		}
 
-		if(@$fp = fopen(DISCUZ_ROOT.$_G['forum_logfile'], 'a')) {
-			fwrite($fp, "$aid\n");
-			fclose($fp);
-		} elseif($_G['adminid'] == 1) {
-			showmessage('view_log_invalid', '', array('logfile' => $_G['forum_logfile']));
+		if(file_put_contents(DISCUZ_ROOT.$_G['forum_logfile'], "$aid\n", FILE_APPEND | LOCK_EX) === false) {
+			if($_G['adminid'] == 1) {
+				showmessage('view_log_invalid', '', array('logfile' => $_G['forum_logfile']));
+			}
+			C::t('forum_attachment')->update_download($aid);
 		}
 	} else {
 		C::t('forum_attachment')->update_download($aid);

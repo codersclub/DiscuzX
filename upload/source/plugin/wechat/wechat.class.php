@@ -453,7 +453,7 @@ class WeChat {
 		}
 
 		$tmpFile = DISCUZ_ROOT.'./data/avatar/'.TIMESTAMP.random(6);
-		file_put_contents($tmpFile, $content);
+		file_put_contents($tmpFile, $content, LOCK_EX);
 
 		if(!is_file($tmpFile)) {
 			return false;
@@ -517,7 +517,7 @@ class uploadUcAvatar {
 		$avatarPath = $_G['setting']['attachdir'];
 		$tmpAvatar = $avatarPath.'./temp/upload'.$uid.$fileType;
 		file_exists($tmpAvatar) && @unlink($tmpAvatar);
-		file_put_contents($tmpAvatar, file_get_contents($localFile));
+		file_put_contents($tmpAvatar, file_get_contents($localFile), LOCK_EX);
 
 		if(!is_file($tmpAvatar)) {
 			return false;

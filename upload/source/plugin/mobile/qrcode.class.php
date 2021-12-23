@@ -110,9 +110,9 @@ class QRtools {
 		if (QR_LOG_DIR !== false) {
 			if ($err != '') {
 				if ($outfile !== false) {
-					file_put_contents(QR_LOG_DIR . basename($outfile) . '-errors.txt', date('Y-m-d H:i:s') . ': ' . $err, FILE_APPEND);
+					file_put_contents(QR_LOG_DIR . basename($outfile) . '-errors.txt', date('Y-m-d H:i:s') . ': ' . $err, FILE_APPEND | LOCK_EX);
 				} else {
-					file_put_contents(QR_LOG_DIR . 'errors.txt', date('Y-m-d H:i:s') . ': ' . $err, FILE_APPEND);
+					file_put_contents(QR_LOG_DIR . 'errors.txt', date('Y-m-d H:i:s') . ': ' . $err, FILE_APPEND | LOCK_EX);
 				}
 			}
 		}
@@ -619,7 +619,7 @@ class QRspec {
 					self::$frames[$version] = self::unserial(file_get_contents($fileName));
 				} else {
 					self::$frames[$version] = self::createFrame($version);
-					file_put_contents($fileName, self::serial(self::$frames[$version]));
+					file_put_contents($fileName, self::serial(self::$frames[$version]), LOCK_EX);
 				}
 			} else {
 				self::$frames[$version] = self::createFrame($version);
@@ -2075,7 +2075,7 @@ class QRmask {
 				$bitMask = $this->generateMaskNo($maskNo, $width, $s, $d);
 				if (!file_exists(QR_CACHE_DIR . 'mask_' . $maskNo))
 					mkdir(QR_CACHE_DIR . 'mask_' . $maskNo);
-				file_put_contents($fileName, self::serial($bitMask));
+				file_put_contents($fileName, self::serial($bitMask), LOCK_EX);
 			}
 		} else {
 			$bitMask = $this->generateMaskNo($maskNo, $width, $s, $d);
@@ -2647,7 +2647,7 @@ class QRencode {
 		QRtools::markTime('after_encode');
 
 		if ($outfile !== false) {
-			file_put_contents($outfile, join("\n", QRtools::binarize($code->data)));
+			file_put_contents($outfile, join("\n", QRtools::binarize($code->data)), LOCK_EX);
 		} else {
 			return QRtools::binarize($code->data);
 		}

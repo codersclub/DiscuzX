@@ -110,9 +110,7 @@ class template {
 		$template = preg_replace("/\<\?(\s{1})/is", "<?php\\1", $template);
 		$template = preg_replace("/\<\?\=(.+?)\?\>/is", "<?php echo \\1;?>", $template);
 
-		$fp = fopen($this->objfile, 'w');
-		fwrite($fp, $template);
-		fclose($fp);
+		file_put_contents($this->objfile, $template, LOCK_EX);
 	}
 
 	function complie_callback_lang_1($matches) {

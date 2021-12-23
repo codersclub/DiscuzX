@@ -415,13 +415,13 @@ if($_GET['action'] == 'checkusername') {
 					$attach['attachment'] = $attach['attachdir'] . $upload->get_target_filename('forum').'.'.$attach['extension'];
 					$attach['target'] = getglobal('setting/attachdir').'./forum/'.$attach['attachment'];
 
-					if(!@$fp = fopen($attach['target'], 'wb')) {
-						continue;
-					} else {
-						flock($fp, 2);
-						fwrite($fp, $content);
+					$fp = fopen($attach['target'], 'cb');
+					if(!($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $content) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
+						flock($fp, LOCK_UN);
 						fclose($fp);
+						continue;
 					}
+
 					if(!$upload->get_image_info($attach['target'])) {
 						@unlink($attach['target']);
 						continue;

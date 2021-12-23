@@ -294,9 +294,8 @@ if($operation == 'filecheck') {
 	$testfile = 'test/discuztest.txt';
 	$attach_dir = $_G['setting']['attachdir'];
 	@mkdir($attach_dir.'test', 0777);
-	if($fp = @fopen($attach_dir.'/'.$testfile, 'w')) {
-		fwrite($fp, $testcontent);
-		fclose($fp);
+	if(file_put_contents($attach_dir.'/'.$testfile, $testcontent, LOCK_EX) === false) {
+		$alertmsg = cplang('setting_attach_remote_wtferr');
 	}
 
 	if(!$alertmsg) {

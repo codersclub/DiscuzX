@@ -111,7 +111,7 @@ class template {
 		}
 		$template = preg_replace("/ \?\>[\n\r]*\<\? /s", " ", $template);
 
-		if($cachefile && !@$fp = fopen(DISCUZ_ROOT.$cachefile, 'w')) {
+		if($cachefile && !@$fp = fopen(DISCUZ_ROOT.$cachefile, 'c')) {
 			$this->error('directory_notfound', dirname(DISCUZ_ROOT.$cachefile));
 		}
 
@@ -127,11 +127,7 @@ class template {
 			$template = $postparse($template);
 		}
 
-		if($cachefile) {
-			flock($fp, 2);
-			fwrite($fp, $template);
-			fclose($fp);
-		} else {
+		if(!($cachefile && $fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $template) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
 			return $template;
 		}
 	}
@@ -374,10 +370,7 @@ class template {
 		$content = preg_replace_callback("/\[(.+?)\](.*?)\[end\]/is", array($this, 'loadcsstemplate_callback_cssvtags_12'), $content);
 		if($this->csscurmodules) {
 			$this->csscurmodules = preg_replace(array('/\s*([,;:\{\}])\s*/', '/[\t\n\r]/', '/\/\*.+?\*\//'), array('\\1', '',''), $this->csscurmodules);
-			if(@$fp = fopen(DISCUZ_ROOT.'./data/cache/style_'.STYLEID.'_'.$_G['basescript'].'_'.CURMODULE.'.css', 'w')) {
-				fwrite($fp, $this->csscurmodules);
-				fclose($fp);
-			} else {
+			if(file_put_contents(DISCUZ_ROOT.'./data/cache/style_'.STYLEID.'_'.$_G['basescript'].'_'.CURMODULE.'.css', $this->csscurmodules, LOCK_EX) === false) {
 				exit('Can not write to cache files, please check directory ./data/ and ./data/cache/ .');
 			}
 			$scripts[] = STYLEID.'_'.$_G['basescript'].'_'.CURMODULE;

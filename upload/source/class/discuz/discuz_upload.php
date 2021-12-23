@@ -195,13 +195,18 @@ Class discuz_upload{
 			$succeed = true;
 		}elseif(function_exists('move_uploaded_file') && @move_uploaded_file($source, $target)) {
 			$succeed = true;
-		}elseif (@is_readable($source) && (@$fp_s = fopen($source, 'rb')) && (@$fp_t = fopen($target, 'wb'))) {
-			while (!feof($fp_s)) {
-				$s = @fread($fp_s, 1024 * 512);
-				@fwrite($fp_t, $s);
+		}elseif (@is_readable($source) && (@$fp_s = fopen($source, 'rb')) && (@$fp_t = fopen($target, 'cb'))) {
+			if($fp_t && flock($fp_t, LOCK_EX) && ftruncate($fp_t, 0)) {
+				while (!feof($fp_s)) {
+					$s = @fread($fp_s, 1024 * 512);
+					@fwrite($fp_t, $s);
+				}
+				fflush($fp_t);
+				$succeed = true;
 			}
-			fclose($fp_s); fclose($fp_t);
-			$succeed = true;
+			flock($fp_t, LOCK_UN);
+			fclose($fp_s);
+			fclose($fp_t);
 		}
 		if($succeed)  {
 			$this->errorcode = 0;

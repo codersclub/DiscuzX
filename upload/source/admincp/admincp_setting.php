@@ -2709,12 +2709,9 @@ EOT;
 		$configfile = str_replace("define('UC_IP', '".addslashes(UC_IP)."')", "define('UC_IP', '".$settingnew['uc']['ip']."')", $configfile);
 		$configfile = str_replace("define('UC_APPID', '".addslashes(UC_APPID)."')", "define('UC_APPID', '".$settingnew['uc']['appid']."')", $configfile);
 
-		$fp = fopen('./config/config_ucenter.php', 'w');
-		if(!($fp = @fopen('./config/config_ucenter.php', 'w'))) {
+		if(file_put_contents('./config/config_ucenter.php', trim($configfile), LOCK_EX) === false) {
 			cpmsg('uc_config_write_error', '', 'error');
 		}
-		@fwrite($fp, trim($configfile));
-		@fclose($fp);
 	}
 
 	isset($settingnew['regname']) && empty($settingnew['regname']) && $settingnew['regname'] = 'register';

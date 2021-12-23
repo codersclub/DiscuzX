@@ -67,7 +67,7 @@ class filesock_curl extends filesock_base {
 					if(isset($this->files[$k])) {
 						$usetmpfile = true;
 						$tmpnam = tempnam(DISCUZ_ROOT.'./data/attachment/temp', 'cU');
-						file_put_contents($tmpnam, $v);
+						file_put_contents($tmpnam, $v, LOCK_EX);
 						$this->post[$k] = curl_file_create($tmpnam, 'application/octet-stream', $this->files[$k]);
 					}
 				}

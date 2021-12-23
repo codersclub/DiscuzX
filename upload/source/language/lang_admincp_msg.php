@@ -201,6 +201,7 @@ $lang = array (
 
   'cloudaddons_validator_error' => '校验失败，您无法下载此应用',
   'cloudaddons_download_write_error' => '文件无法下载，请确认 "data/download/" 目录是否可写',
+  'cloudaddons_download_write_md5_error' => '校验文件无法写入，请确认 "data/download/" 目录是否可写',
   'cloudaddons_install_error' => '您不能安装此应用({ErrorCode})',
   'cloudaddons_installing' => '应用 {addonid} 安装中，请稍候......',
   'cloudaddons_install_files_changed' => '以下文件被修改过，是否继续覆盖？<br /><br />{files}',
@@ -235,6 +236,7 @@ $lang = array (
   'database_export_filename_invalid' => '您没有输入备份文件名或文件名中使用了敏感的扩展名',
   'database_export_custom_invalid' => '您至少需要选择一个数据表进行备份',
   'database_export_file_invalid' => '数据文件无法保存到服务器，请检查目录属性',
+  'database_export_zip_invalid' => '压缩包文件无法保存到服务器，请检查目录属性',
   'database_export_multivol_redirect' => '分卷备份：数据文件 #{volume} 创建成功，程序将自动继续',
   'database_export_succeed' => '数据成功备份至服务器 <a href="{filename}">{filename}</a> 中',
   'database_shell_fail' => 'Shell 权限被禁止或服务器不支持，无法使用 MySQL Dump 方式备份或恢复数据',

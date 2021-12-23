@@ -131,10 +131,7 @@ function writetocsscache($data) {
 				$cssdata = preg_replace('/\/\*\*\s*(.+?)\s*\*\*\//', '[\\1]', $cssdata);
 			}
 			$cssdata = preg_replace(array('/\s*([,;:\{\}])\s*/', '/[\t\n\r]/', '/\/\*.+?\*\//'), array('\\1', '',''), $cssdata);
-			if(@$fp = fopen(DISCUZ_ROOT.'./data/cache/style_'.$data['styleid'].'_'.$entry, 'w')) {
-				fwrite($fp, $cssdata);
-				fclose($fp);
-			} else {
+			if(file_put_contents(DISCUZ_ROOT.'./data/cache/style_'.$data['styleid'].'_'.$entry, $cssdata, LOCK_EX) === false) {
 				exit('Can not write to cache files, please check directory ./data/ and ./data/cache/ .');
 			}
 		}
