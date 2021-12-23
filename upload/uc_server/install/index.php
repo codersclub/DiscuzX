@@ -72,7 +72,7 @@ if($method == 'show_license') {
 			}
 			foreach($items as $k => $v) {
 				$tmp = $$key;
-				$$k = $tmp[$k];
+				$$k = addslashes($tmp[$k]);
 				if(empty($$k) || !preg_match($v['reg'], $$k)) {
 					if(empty($$k) && !$v['required']) {
 						continue;

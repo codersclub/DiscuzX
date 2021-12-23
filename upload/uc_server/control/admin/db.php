@@ -195,16 +195,17 @@ class control extends adminbase {
 	}
 
 	function random($length, $numeric = 0) {
-		PHP_VERSION < '4.2.0' && mt_srand((double)microtime() * 1000000);
+		$seed = base_convert(md5(microtime().$_SERVER['DOCUMENT_ROOT']), 16, $numeric ? 10 : 35);
+		$seed = $numeric ? (str_replace('0', '', $seed).'012340567890') : ($seed.'zZ'.strtoupper($seed));
 		if($numeric) {
-			$hash = sprintf('%0'.$length.'d', mt_rand(0, pow(10, $length) - 1));
-		} else {
 			$hash = '';
-			$chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
-			$max = strlen($chars) - 1;
-			for($i = 0; $i < $length; $i++) {
-				$hash .= $chars[mt_rand(0, $max)];
-			}
+		} else {
+			$hash = chr(rand(1, 26) + rand(0, 1) * 32 + 64);
+			$length--;
+		}
+		$max = strlen($seed) - 1;
+		for($i = 0; $i < $length; $i++) {
+			$hash .= $seed[mt_rand(0, $max)];
 		}
 		return $hash;
 	}

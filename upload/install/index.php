@@ -330,7 +330,7 @@ if($method == 'show_license') {
 
 
 		$uid = DZUCFULL ? 1 : $adminuser['uid'];
-		$authkey = md5((isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '').$_SERVER['HTTP_USER_AGENT'].$dbhost.$dbuser.$dbpw.$dbname.$username.$password.substr(time(), 0, 8)).random(32);
+		$authkey = md5((isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '').$_SERVER['HTTP_USER_AGENT'].$dbhost.$dbuser.$dbpw.$dbname.$username.$password.substr(time(), 0, 8)).secrandom(32);
 		$_config['db'][1]['dbhost'] = $dbhost;
 		$_config['db'][1]['dbname'] = $dbname;
 		$_config['db'][1]['dbpw'] = $dbpw;
@@ -338,8 +338,8 @@ if($method == 'show_license') {
 		$_config['db'][1]['tablepre'] = $tablepre;
 		$_config['admincp']['founder'] = (string)$uid;
 		$_config['security']['authkey'] = $authkey;
-		$_config['cookie']['cookiepre'] = random(4).'_';
-		$_config['memory']['prefix'] = random(6).'_';
+		$_config['cookie']['cookiepre'] = secrandom(4).'_';
+		$_config['memory']['prefix'] = secrandom(6).'_';
 
 		save_config_file(ROOT_PATH.CONFIG, $_config, $default_config);
 
