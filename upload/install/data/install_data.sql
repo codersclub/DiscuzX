@@ -203,7 +203,7 @@ INSERT INTO pre_common_setting VALUES ('allowspacedomain', '0');
 INSERT INTO pre_common_setting VALUES ('allowswitcheditor','1');
 INSERT INTO pre_common_setting VALUES ('allowthreadplugin','');
 INSERT INTO pre_common_setting VALUES ('allowviewuserthread','a:2:{s:5:\"allow\";s:1:\"1\";s:4:\"fids\";a:1:{i:0;s:0:\"\";}}');
-INSERT INTO pre_common_setting VALUES ('allowwidthauto', '1');
+INSERT INTO pre_common_setting VALUES ('allowwidthauto', '0');
 INSERT INTO pre_common_setting VALUES ('anonymoustext','匿名');
 INSERT INTO pre_common_setting VALUES ('antitheft','a:2:{s:5:"allow";i:0;s:3:"max";i:200;}');
 INSERT INTO pre_common_setting VALUES ('archiver','1');
