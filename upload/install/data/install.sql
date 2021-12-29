@@ -37,8 +37,8 @@ CREATE TABLE pre_common_admincp_member (
 DROP TABLE IF EXISTS pre_common_admincp_perm;
 CREATE TABLE pre_common_admincp_perm (
   cpgroupid smallint(6) unsigned NOT NULL,
-  perm varchar(255) NOT NULL,
-  UNIQUE KEY cpgroupperm (cpgroupid,perm(40))
+  perm varchar(100) NOT NULL,
+  UNIQUE KEY cpgroupperm (cpgroupid,perm)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_common_admincp_session;
@@ -318,15 +318,15 @@ CREATE TABLE pre_common_block_xml (
 
 DROP TABLE IF EXISTS pre_common_cache;
 CREATE TABLE pre_common_cache (
-  cachekey varchar(255) NOT NULL DEFAULT '',
+  cachekey varchar(190) NOT NULL DEFAULT '',
   cachevalue mediumblob NOT NULL,
   dateline int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (cachekey(50))
+  PRIMARY KEY (cachekey)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_common_card;
 CREATE TABLE pre_common_card (
-  id char(255) NOT NULL DEFAULT '',
+  id varchar(190) NOT NULL DEFAULT '',
   typeid smallint(6) unsigned NOT NULL DEFAULT '1',
   maketype tinyint(1) NOT NULL DEFAULT '0',
   makeruid mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -338,7 +338,7 @@ CREATE TABLE pre_common_card (
   cleardateline int(10) unsigned NOT NULL DEFAULT '0',
   useddateline int(10) unsigned NOT NULL DEFAULT '0',
   uid mediumint(8) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (id(50)),
+  PRIMARY KEY (id),
   KEY dateline (dateline)
 ) ENGINE=InnoDB;
 
@@ -701,7 +701,7 @@ CREATE TABLE pre_common_member (
   freeze tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (uid),
   UNIQUE KEY username (username),
-  KEY email (email),
+  KEY email (email(40)),
   KEY groupid (groupid),
   KEY conisbind (conisbind),
   KEY regdate (regdate)
@@ -980,7 +980,7 @@ CREATE TABLE pre_common_member_profile_history (
 
 DROP TABLE IF EXISTS pre_common_member_profile_setting;
 CREATE TABLE pre_common_member_profile_setting (
-  fieldid varchar(255) NOT NULL DEFAULT '',
+  fieldid varchar(190) NOT NULL DEFAULT '',
   available tinyint(1) NOT NULL DEFAULT '0',
   invisible tinyint(1) NOT NULL DEFAULT '0',
   needverify tinyint(1) NOT NULL DEFAULT '0',
@@ -997,7 +997,7 @@ CREATE TABLE pre_common_member_profile_setting (
   size smallint(6) unsigned NOT NULL DEFAULT '0',
   choices text NOT NULL,
   validate text NOT NULL,
-  PRIMARY KEY (fieldid(30))
+  PRIMARY KEY (fieldid)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_common_member_security;
@@ -1299,9 +1299,9 @@ CREATE TABLE pre_common_session (
 
 DROP TABLE IF EXISTS pre_common_setting;
 CREATE TABLE pre_common_setting (
-  skey varchar(255) NOT NULL DEFAULT '',
+  skey varchar(190) NOT NULL DEFAULT '',
   svalue text NOT NULL,
-  PRIMARY KEY (skey(40))
+  PRIMARY KEY (skey)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_common_smiley;
@@ -2508,11 +2508,11 @@ CREATE TABLE pre_forum_groupfield (
   fid mediumint(8) unsigned NOT NULL DEFAULT '0',
   privacy tinyint(1) NOT NULL DEFAULT '0',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
-  `type` varchar(255) NOT NULL,
+  `type` varchar(100) NOT NULL,
   `data` text NOT NULL,
-  UNIQUE KEY `types` (fid,`type`(40)),
+  UNIQUE KEY `types` (fid,`type`),
   KEY fid (fid),
-  KEY `type` (`type`(40))
+  KEY `type` (`type`)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_forum_groupinvite;
@@ -3827,9 +3827,9 @@ CREATE TABLE pre_home_visitor (
 
 DROP TABLE IF EXISTS pre_mobile_setting;
 CREATE TABLE pre_mobile_setting (
-  skey varchar(255) NOT NULL DEFAULT '',
+  skey varchar(190) NOT NULL DEFAULT '',
   svalue text NOT NULL,
-  PRIMARY KEY (skey(40))
+  PRIMARY KEY (skey)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_portal_article_content;

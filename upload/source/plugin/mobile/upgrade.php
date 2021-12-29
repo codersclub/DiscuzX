@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS pre_common_devicetoken (
 ) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS pre_mobile_setting (
-  `skey` varchar(255) NOT NULL DEFAULT '',
+  `skey` varchar(190) NOT NULL DEFAULT '',
   `svalue` text NOT NULL,
   PRIMARY KEY (`skey`)
 ) ENGINE=INNODB;

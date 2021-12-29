@@ -36,7 +36,7 @@ CREATE TABLE uc_members (
   secques char(8) NOT NULL default '',
   PRIMARY KEY(uid),
   UNIQUE KEY username(username),
-  KEY email(email)
+  KEY email(email(40))
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS uc_memberfields;
@@ -136,8 +136,7 @@ CREATE TABLE uc_badwords (
   find varchar(255) NOT NULL default '',
   replacement varchar(255) NOT NULL default '',
   findpattern varchar(255) NOT NULL default '',
-  PRIMARY KEY  (id),
-  UNIQUE KEY `find` (`find`(100))
+  PRIMARY KEY  (id)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS uc_notelist;

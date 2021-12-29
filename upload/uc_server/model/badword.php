@@ -29,7 +29,12 @@ class badwordmodel {
 			$replacement = trim($replacement);
 			$findpattern = $this->pattern_find($find);
 			if($type == 1) {
-				$this->db->query("REPLACE INTO ".UC_DBTABLEPRE."badwords SET find='$find', replacement='$replacement', admin='$admin', findpattern='$findpattern'");
+				$id = $this->db->result_first_stmt("SELECT id FROM ".UC_DBTABLEPRE."badwords WHERE find=?", array('s'), array($find));
+				if($id) {
+					$this->db->query("UPDATE ".UC_DBTABLEPRE."badwords SET find='$find', replacement='$replacement', admin='$admin', findpattern='$findpattern' WHERE id='$id'");
+				} else {
+					$this->db->query("INSERT INTO ".UC_DBTABLEPRE."badwords SET find='$find', replacement='$replacement', admin='$admin', findpattern='$findpattern'", 'SILENT');
+				}
 			} elseif($type == 2) {
 				$this->db->query("INSERT INTO ".UC_DBTABLEPRE."badwords SET find='$find', replacement='$replacement', admin='$admin', findpattern='$findpattern'", 'SILENT');
 			}
