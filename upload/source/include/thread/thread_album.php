@@ -11,8 +11,17 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 require_once libfile('function/attachment');
-$imglist = $albumpayaids = $attachmentlist = array();
+$imglist = $albumpayaids = $attachmentlist = $freeattachids = array();
+if($_G['forum_threadpay'] && $_G['thread']['freemessage']) {
+	preg_match_all('/id="aimg_(\d+)"/i', $_G['thread']['freemessage'], $matches);
+	if(!empty($matches[1]) && is_array($matches[1])) {
+		$freeattachids = $matches[1];
+	}
+}
 foreach(C::t('forum_attachment_n')->fetch_all_by_id('tid:'.$_G['tid'], 'tid', $_G['tid'], 'aid') as $attach) {
+	if($_G['forum_threadpay'] && !in_array($attach['aid'], $freeattachids)) {
+		continue;
+	}
 	if($attach['uid'] != $_G['forum_thread']['authorid'] && IN_MOBILE != 2) {
 		continue;
 	}
