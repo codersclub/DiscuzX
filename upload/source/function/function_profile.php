@@ -191,21 +191,21 @@ function profile_setting($fieldid, $space=array(), $showstatus=false, $ignoreunc
 	}
 	$html .= !$ignoreshowerror ? "<div class=\"rq mtn\" id=\"showerror_$fieldid\"></div>" : '';
 	if($showstatus) {
-		$html .= "<p class=\"d\">".(isset($value['description']) ? $value['description'] : '');
-		if($space[$fieldid]=='' && !empty($value['unchangeable'])) {
-			$html .= lang('spacecp', 'profile_unchangeable');
+		$tips = isset($field['description']) ? $field['description'] : '';
+		if($space[$fieldid] == '' && !empty($field['unchangeable'])) {
+			$tips .= (empty($tips) ? '' : ' ').lang('spacecp', 'profile_unchangeable');
 		}
 		if($verifyvalue !== null) {
 			if($field['formtype'] == 'file') {
 				$imgurl = getglobal('setting/attachurl').'./profile/'.$verifyvalue;
 				$verifyvalue = "<img src='$imgurl' alt='$imgurl' style='max-width: 500px;'/>";
 			}
-			$html .= "<strong>".lang('spacecp', 'profile_is_verifying')." (<a href=\"#\" onclick=\"display('newvalue_$fieldid');return false;\">".lang('spacecp', 'profile_mypost')."</a>)</strong>"
+			$tips .= (empty($tips) ? '' : ' ')."<strong>".lang('spacecp', 'profile_is_verifying')." (<a href=\"#\" onclick=\"display('newvalue_$fieldid');return false;\">".lang('spacecp', 'profile_mypost')."</a>)</strong>"
 				."<p id=\"newvalue_$fieldid\" style=\"display:none\">".$verifyvalue."</p>";
 		} elseif($field['needverify']) {
-			$html .= lang('spacecp', 'profile_need_verifying');
+			$tips .= (empty($tips) ? '' : ' ').lang('spacecp', 'profile_need_verifying');
 		}
-		$html .= '</p>';
+		$html .= '<p class="d">' . $tips . '</p>';
 	}
 
 	return $html;
