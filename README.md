@@ -164,7 +164,7 @@ Discuz! X 官方 Git (https://gitee.com/Discuz/DiscuzX) ，简体中文 UTF8 版
 您可以 Fork 本站代码，但未经许可 **禁止** 在本产品的整体或任何部分基础上以发展任何派生版本、修改版本或第三方版本用于 **重新分发** 
 
 ### **DxGit Forker 交流群**
-参与本项目PR的小伙伴，可以私信 [@zoewho](https://gitee.com/zoewho) 、[@DiscuzX](https://gitee.com/3dming)，提供QQ，加入DxGit Forker QQ群交流。
+参与本项目 PR 的小伙伴，可以私信 [@zoewho](https://gitee.com/zoewho) 、[@DiscuzX](https://gitee.com/3dming) 并提供 QQ 号码进行审核，在审核通过后加入 DxGit Forker QQ 群与开发者团队共同交流。
 
 [点击查看如何提交代码到本项目](https://gitee.com/Discuz/DiscuzX/wikis/%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E5%88%B0%E6%9C%AC%E9%A1%B9%E7%9B%AE?sort_id=3466289)
 

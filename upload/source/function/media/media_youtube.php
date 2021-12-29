@@ -11,7 +11,7 @@ function media_youtube($url, $width, $height) {
 		$flv = 'https://www.youtube.com/v/'.$matches[2].'&fs=1';
 		$iframe = 'https://www.youtube.com/embed/'.$matches[2];
 		if(!$width && !$height) {
-			$str = file_get_contents($url, false);
+			$str = dfsockopen($url);
 			if(!empty($str) && preg_match("/'VIDEO_HQ_THUMB':\s'(.+?)'/i", $str, $image)) {
 				$url = substr($image[1], 0, strrpos($image[1], '/')+1);
 				$filename = substr($image[1], strrpos($image[1], '/')+3);

@@ -203,7 +203,9 @@ _attachEvent($('submit_portal_html'), 'click', function(){
 		var selectedids = [];
 		for(var i = 0; i < category.options.length; i++) {
 			var option = category.options[i];
-			allcatids.push(option.value);
+			if(option.value > 0) {
+				allcatids.push(option.value);
+			}
 			if(option.selected) {
 				selectedids.push(option.value);
 			}

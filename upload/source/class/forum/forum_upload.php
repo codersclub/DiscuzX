@@ -91,11 +91,27 @@ class forum_upload {
 		} elseif($upload->error()) {
 			return $this->uploadmsg(9);
 		}
-		$thumb = $remote = $width = $height = 0;
+
+		// 修复敏感词拦截无明确提示的问题
+		$filename = censor($upload->attach['name'], NULL, TRUE);
+		if(is_array($filename)) {
+			return $this->uploadmsg(12);
+		} else {
+			$filename = dhtmlspecialchars($filename);
+		}
+
+		$thumb = $remote = $width = 0;
 		if($_GET['type'] == 'image' && !$upload->attach['isimage']) {
 			return $this->uploadmsg(7);
 		}
 		if($upload->attach['isimage']) {
+			// 新增 GD 图片像素点上限服务器侧拦截
+			$imginfo = @getimagesize($upload->attach['target']);
+			list($imgw, $imgh) = !empty($imginfo) ? $imginfo : array(0, 0);
+			$imgs = $imgw * $imgh;
+			if((!getglobal('setting/imagelib') && $imgs > (getglobal('setting/gdlimit') ? getglobal('setting/gdlimit') : 16777216)) || $imgs < 16 ) {
+				return $this->uploadmsg(13);
+			}
 			if(!in_array($upload->attach['imageinfo']['2'], array(1,2,3,6))) {
 				return $this->uploadmsg(7);
 			}
@@ -129,7 +145,7 @@ class forum_upload {
 		$insert = array(
 			'aid' => $aid,
 			'dateline' => $_G['timestamp'],
-			'filename' => dhtmlspecialchars(censor($upload->attach['name'])),
+			'filename' => $filename,
 			'filesize' => $upload->attach['size'],
 			'attachment' => $upload->attach['attachment'],
 			'isimage' => $upload->attach['isimage'],

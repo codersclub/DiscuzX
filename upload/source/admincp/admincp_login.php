@@ -112,6 +112,7 @@ function html_login_form() {
 	$lang = lang('admincp_login');
 	$loginuser = $isguest ? '<input name="admin_username" tabindex="1" type="text" class="txt" autocomplete="off" />' : getglobal('member/username');
 	$sid = getglobal('sid');
+	$formhash = getglobal('formhash');
 	$_SERVER['QUERY_STRING'] = str_replace('&amp;', '&', dhtmlspecialchars($_SERVER['QUERY_STRING']));
 	$extra = ADMINSCRIPT.'?'.(getgpc('action') && getgpc('frames') ? 'frames=yes&' : '').$_SERVER['QUERY_STRING'];
 	$forcesecques = '<option value="0">'.($_G['config']['admincp']['forcesecques'] || $_G['group']['forcesecques'] ? $lang['forcesecques'] : $lang['security_question_0']).'</option>';
@@ -119,6 +120,7 @@ function html_login_form() {
 		<form method="post" autocomplete="off" name="login" id="loginform" action="$extra">
 		<input type="hidden" name="sid" value="$sid">
 		<input type="hidden" name="frames" value="yes">
+		<input type="hidden" name="formhash" value="$formhash">
 		<p class="logintitle">{$lang['login_username']}: </p>
 		<p class="loginform">$loginuser</p>
 		<p class="logintitle">{$lang['login_password']}:</p>

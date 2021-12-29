@@ -360,6 +360,7 @@ $lang = array (
   'members_edit_credits_failure' => '已分表的用户将不能编辑积分 ',
   'members_edit_credits_succeed' => '用户积分编辑成功 ',
   'members_edit_medals_succeed' => '用户勋章编辑成功 ',
+  'members_edit_lock' => '您不能直接锁定该用户，请<a href="{ADMINSCRIPT}?action=members&operation=search&uid={uid}&submit=yes&frames=yes" target="_blank">编辑</a>去掉其“{grouptitle}”身份',
   'members_edit_illegal' => '您不能直接禁止该用户，请<a href="{ADMINSCRIPT}?action=members&operation=search&uid={uid}&submit=yes&frames=yes" target="_blank">编辑</a>去掉其“{grouptitle}”身份',
   'members_edit_illegal_portal' => '您不能直接禁止该用户，请<a href="{ADMINSCRIPT}?action=portalpermission&uid={uid}" target="_blank">查询其门户相关权限</a>并清除',
   'members_edit_reason_invalid' => '您没有输入执行此变更的理由',

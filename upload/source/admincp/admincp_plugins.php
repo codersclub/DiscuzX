@@ -642,7 +642,7 @@ if(!$operation) {
 		pluginupgrade($pluginarray, $installtype);
 
 		if(!empty($plugin['directory']) && !empty($pluginarray['upgradefile']) && preg_match('/^[\w\.]+$/', $pluginarray['upgradefile'])) {
-			dheader('location: '.ADMINSCRIPT.'?action=plugins&operation=pluginupgrade&dir='.$dir.'&installtype='.$modules['extra']['installtype'].'&fromversion='.$plugin['version']);
+			dheader('location: '.ADMINSCRIPT.'?action=plugins&operation=pluginupgrade&dir='.$dir.'&installtype='.$installtype.'&fromversion='.$plugin['version']);
 		}
 		$toversion = $pluginarray['plugin']['version'];
 

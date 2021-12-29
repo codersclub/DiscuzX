@@ -11,7 +11,7 @@
 			<item id="datatables"><![CDATA[]]></item>
 			<item id="directory"><![CDATA[wechat/]]></item>
 			<item id="copyright"><![CDATA[Comsenz Inc.]]></item>
-			<item id="version"><![CDATA[1.1.7]]></item>
+			<item id="version"><![CDATA[1.1.8]]></item>
 			<item id="__modules">
 				<item id="1">
 					<item id="name"><![CDATA[wechat]]></item>
@@ -293,6 +293,7 @@
 				<item id="wsq_domain_comment"><![CDATA[您可以设置一个二级域名直接访问本站的微社区(仅限拥有“高级接口”服务的公众号)。根域名设置完后，此处域名绑定才能生效</a>]]></item>
 				<item id="wechat_forumdisplay_reply"><![CDATA[帖子列表页是否显示最新回复]]></item>
 				<item id="wsq_api_register_error"><![CDATA[微社区注册失败，请稍后再试]]></item>
+				<item id="wsq_api_register_close"><![CDATA[微社区已不再对新用户提供服务，请使用公众号模式向站长提供服务]]></item>
 				<item id="wsq_api_servertime_error"><![CDATA[服务器时间错误，请修改后再试]]></item>
 				<item id="wsq_api_edit_error"><![CDATA[微社区资料修改失败，请稍后再试]]></item>
 				<item id="wsq_menu_at_error"><![CDATA[您需要填写微信开发者 ID 后才能使用此功能]]></item>

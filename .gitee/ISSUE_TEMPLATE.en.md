@@ -14,5 +14,7 @@
 * PHP Version:
 * MySQL / MariaDB Version:
 * Memory Cache Type and Version:
+* Browser Type and Version:
+* Self-modified:
 
 ### **Others**

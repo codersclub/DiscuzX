@@ -2312,6 +2312,9 @@ EOF;
 		$addsize = intval($_GET['addsizenew']);
 		$addfriend = intval($_GET['addfriendnew']);
 		$status = intval($_GET['statusnew']) ? -1 : 0;
+		if($status == -1 && $member['groupid'] == 1) {
+			cpmsg('members_edit_lock', '', 'error', array('grouptitle' => $member['grouptitle'], 'uid' => $member['uid']));
+		}
 		$freeze = in_array($_GET['freezenew'], array(-1, 0, 1, 2)) ? $_GET['freezenew'] : 0;
 		$emailstatusnew = intval($_GET['emailstatusnew']);
 		$secmobilestatusnew = intval($_GET['secmobilestatusnew']);

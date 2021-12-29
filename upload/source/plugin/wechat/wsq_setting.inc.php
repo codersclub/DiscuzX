@@ -29,6 +29,10 @@ require_once DISCUZ_ROOT.'./source/plugin/wechat/wsq.class.php';
 require_once DISCUZ_ROOT.'./source/plugin/wechat/setting.class.php';
 WeChatSetting::menu();
 
+if(!$setting['wsq_sitetoken']) {
+	cpmsg(lang('plugin/wechat', 'wsq_api_register_close'), '', 'error');
+}
+
 if(!empty($_GET['recheck'])) {
 	wsq::recheck();
 	$siteinfo = wsq::info();

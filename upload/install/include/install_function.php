@@ -136,7 +136,7 @@ function env_check(&$env_items) {
 		if($key == 'php') {
 			$env_items[$key]['current'] = PHP_VERSION;
 		} elseif($key == 'attachmentupload') {
-			$env_items[$key]['current'] = @ini_get('file_uploads') ? ini_get('upload_max_filesize') : 'unknow';
+			$env_items[$key]['current'] = @ini_get('file_uploads') ? (min(min(ini_get('upload_max_filesize'), ini_get('post_max_size')), ini_get('memory_limit'))) : 'unknow';
 		} elseif($key == 'gdversion') {
 			$tmp = function_exists('gd_info') ? gd_info() : array();
 			$env_items[$key]['current'] = empty($tmp['GD Version']) ? 'noext' : $tmp['GD Version'];
@@ -1702,6 +1702,10 @@ function buildarray($array, $level = 0, $pre = '$_config') {
 	}
 
 	foreach ($array as $key => $val) {
+		if(!preg_match("/^[a-zA-Z0-9_\x7f-\xff]+$/", $key)) {
+			continue;
+		}
+
 		if($level == 0) {
 			$newline = str_pad('  CONFIG '.strtoupper($key).'  ', 70, '-', STR_PAD_BOTH);
 			$return .= "\r\n// $newline //\r\n";

@@ -205,11 +205,11 @@ $languages = array(
 	'badword_add' => '添加词语过滤',
 	'badword_add_succeed' => '词语过滤添加成功。',
 	'badword_delete' => '删除',
-	'badword_keyword' => '不良词语',
+	'badword_keyword' => '敏感词',
 	'badword_replace' => '替换为',
 	'badword_admin' => '操作人',
 	'badword_multi_add' => '批量添加',
-	'badword_multi_add_comment' => '<li>每行一组，不良词语和替换词语之间使用“=”进行分割。</li>
+	'badword_multi_add_comment' => '<li>每行一组，敏感词和替换词之间使用“=”进行分割。</li>
 					<li>如果想将某个词语直接替换成 **，只输入词语即可。</li>
 					<li><strong>例如：</strong></li>
 					<li>toobad</li>

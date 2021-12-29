@@ -28,7 +28,7 @@
 
 <div id="pt" class="bm cl">
 	<div class="z">
-		<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a><em>&raquo;</em><a href="forum.php">{$_G[setting][navs][2][navname]}</a>$navigation <em>&rsaquo;</em> <a href="forum.php?mod=viewthread&tid=$_G[tid]">$_G[forum_thread][short_subject]</a>
+		<a href="./" class="nvhm" title="{lang homepage}">$_G['setting']['bbname']</a><em>&raquo;</em><a href="forum.php">{$_G['setting']['navs'][2]['navname']}</a>$navigation <em>&rsaquo;</em> <a href="forum.php?mod=viewthread&tid=$_G['tid']">$_G['forum_thread']['short_subject']</a>
 	</div>
 </div>
 
@@ -43,9 +43,9 @@
 		<div class="pic_h bm vw pl">
 			<div class="h hm cl">
 				<div class="img_tit_t cl">				
-					<h1 class="ph z">$_G[forum_thread][subject]</h1>
-					<div class="ph_r_con xg1 y">{lang home_view_num}:<span class="xi1"> $_G[forum_thread][views]</span> <span class="pipe">|</span> {lang comment_num}: <span class="xi1">$_G[forum_thread][replies]</span> <!--{if helper_access::check_module('favorite')}--><span class="pipe">|</span> <a href="home.php?mod=spacecp&ac=favorite&type=thread&id=$_G[tid]" id="k_favorite" onclick="showWindow(this.id, this.href, 'get', 0);" onmouseover="this.title = $('favoritenumber').innerHTML + ' {lang activity_member_unit}{lang thread_favorite}'">{lang thread_favorite} <span id="favoritenumber" class="xi1">{$_G['forum_thread']['favtimes']}</span></a><!--{/if}--><!--{if (($_G['forum']['ismoderator'] && $_G['group']['alloweditpost'] && (!in_array($post['adminid'], array(1, 2, 3)) || $_G['adminid'] <= $post['adminid'])) || ($_G['forum']['alloweditpost'] && $_G['uid'] && ($post['authorid'] == $_G['uid'] && $_G['forum_thread']['closed'] == 0) && !(!$alloweditpost_status && $edittimelimit && TIMESTAMP - $post['dbdateline'] > $edittimelimit)))}-->
-					<span class="pipe">|</span><a href="forum.php?mod=post&action=edit&fid=$_G[fid]&tid=$_G[tid]&pid=$post[pid]{if !empty($_GET[modthreadkey])}&modthreadkey=$_GET[modthreadkey]{/if}&page=$page{if $_GET[from]}&from=$_GET[from]{/if}"><!--{if $_G['forum_thread']['special'] == 2 && !$post['message']}-->{lang post_add_aboutcounter}<!--{else}--><span class="xi2">{lang edit}</span><!--{/if}--></a>
+					<h1 class="ph z">$_G['forum_thread']['subject']</h1>
+					<div class="ph_r_con xg1 y">{lang home_view_num}:<span class="xi1"> $_G['forum_thread']['views']</span> <span class="pipe">|</span> {lang comment_num}: <span class="xi1">$_G['forum_thread']['replies']</span> <!--{if helper_access::check_module('favorite')}--><span class="pipe">|</span> <a href="home.php?mod=spacecp&ac=favorite&type=thread&id=$_G['tid']" id="k_favorite" onclick="showWindow(this.id, this.href, 'get', 0);" onmouseover="this.title = $('favoritenumber').innerHTML + ' {lang activity_member_unit}{lang thread_favorite}'">{lang thread_favorite} <span id="favoritenumber" class="xi1">{$_G['forum_thread']['favtimes']}</span></a><!--{/if}--><!--{if (($_G['forum']['ismoderator'] && $_G['group']['alloweditpost'] && (!in_array($post['adminid'], array(1, 2, 3)) || $_G['adminid'] <= $post['adminid'])) || ($_G['forum']['alloweditpost'] && $_G['uid'] && ($post['authorid'] == $_G['uid'] && $_G['forum_thread']['closed'] == 0) && !(!$alloweditpost_status && $edittimelimit && TIMESTAMP - $post['dbdateline'] > $edittimelimit)))}-->
+					<span class="pipe">|</span><a href="forum.php?mod=post&action=edit&fid=$_G['fid']&tid=$_G['tid']&pid=$post['pid']{if !empty($_GET['modthreadkey'])}&modthreadkey=$_GET['modthreadkey']{/if}&page=$page{if $_GET['from']}&from=$_GET['from']{/if}"><!--{if $_G['forum_thread']['special'] == 2 && !$post['message']}-->{lang post_add_aboutcounter}<!--{else}--><span class="xi2">{lang edit}</span><!--{/if}--></a>
 					<!--{/if}--></div>
 				</div>
 				<div class="xg1 z">
@@ -53,7 +53,7 @@
 					<span class="pipe">|</span>
 					<span class="keyboard-tip">{lang keyboard_tip}</span>
 				</div>
-				<div class="xg1 y"><a href="forum.php?mod=viewthread&tid=$_G[tid]" class="thread_mod xg1"><span>{lang thread_mod}</span></a></div>
+				<div class="xg1 y"><a href="forum.php?mod=viewthread&tid=$_G['tid']" class="thread_mod xg1"><span>{lang thread_mod}</span></a></div>
 			</div>
 			<div class="d">
 				<table cellpadding="0" cellspacing="0" width="100%">
@@ -251,7 +251,9 @@
 						<td valign="top" class="album_side_r">
 							<div class="album_side">
 								<div class="hm mtn mbn">
-									<a href="home.php?mod=space&uid=$post[authorid]" target="_blank" class="xi2 avt"><img src="$_G[setting][ucenterurl]/avatar.php?uid=$post[authorid]&size=small" /></a>
+									<!--{if ($_G['forum_thread']['author'] && $_G['forum_thread']['authorid']) || $_G['forum']['ismoderator']}-->
+									<a href="home.php?mod=space&uid=$post['authorid']" target="_blank" class="xi2 avt"><img src="$_G['setting']['ucenterurl']/avatar.php?uid=$post['authorid']&size=small" /></a>
+									<!--{/if}-->
 									<span class="tit_author">
 								<!--{if $_G[forum_thread][author] && $_G[forum_thread][authorid]}-->
 									<a href="home.php?mod=space&uid=$_G[forum_thread][authorid]">$_G[forum_thread][author]</a>

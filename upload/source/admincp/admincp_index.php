@@ -62,7 +62,7 @@ $serversoft = $_SERVER['SERVER_SOFTWARE'];
 $dbversion = helper_dbtool::dbversion();
 
 if(@ini_get('file_uploads')) {
-	$fileupload = ini_get('upload_max_filesize');
+	$fileupload = min(min(ini_get('upload_max_filesize'), ini_get('post_max_size')), ini_get('memory_limit'));
 } else {
 	$fileupload = '<font color="red">'.$lang['no'].'</font>';
 }

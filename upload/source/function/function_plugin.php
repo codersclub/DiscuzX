@@ -163,7 +163,17 @@ function pluginupgrade($pluginarray, $installtype) {
 	}
 	$pluginarray['plugin']['modules'] = serialize($pluginarray['plugin']['modules']);
 
-	C::t('common_plugin')->update($plugin['pluginid'], array('version' => $pluginarray['plugin']['version'], 'modules' => $pluginarray['plugin']['modules']));
+	$data = array();
+	foreach($pluginarray['plugin'] as $key => $val) {
+		if($key == 'directory') {
+			$val .= (!empty($val) && substr($val, -1) != '/') ? '/' : '';
+		} elseif($key == 'available') {
+			continue;
+		}
+		$data[$key] = $val;
+	}
+
+	C::t('common_plugin')->update($plugin['pluginid'], $data);
 
 	cloudaddons_installlog($pluginarray['plugin']['identifier'].'.plugin');
 	cron_create($pluginarray['plugin']['identifier']);

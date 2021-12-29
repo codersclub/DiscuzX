@@ -14,7 +14,7 @@ function media_youku($url, $width, $height) {
 		$iframe = 'https://player.youku.com/embed/'.$params[0];
 		if(!$width && !$height) {
 			$api = 'http://v.youku.com/player/getPlayList/VideoIDS/'.$params[0];
-			$str = stripslashes(file_get_contents($api, false, $ctx));
+			$str = stripslashes(dfsockopen($api));
 			if(!empty($str) && preg_match("/\"logo\":\"(.+?)\"/i", $str, $image)) {
 				$url = substr($image[1], 0, strrpos($image[1], '/')+1);
 				$filename = substr($image[1], strrpos($image[1], '/')+2);
