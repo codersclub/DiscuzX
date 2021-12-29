@@ -618,7 +618,7 @@ if(!empty($isdel_post)) {
 	}
 	if($updatedisablepos && !$rushreply) {
 		C::t('forum_threaddisablepos')->insert(array('tid' => $_G['tid']), false, true);
-		dheader('Location:'.$_G['siteurl'].'forum.php?mod=viewthread&tid='.$_G['tid']);
+		dheader('Location:'.$_G['siteurl'].'forum.php?mod=viewthread&tid='.$_G['tid'].($_G['forum_auditstatuson'] ? '&modthreadkey='.$_GET['modthreadkey'] : ''));
 	}
 	$ordertype != 1 ? ksort($postarr) : krsort($postarr);
 }
