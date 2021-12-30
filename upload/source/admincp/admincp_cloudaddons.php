@@ -70,7 +70,7 @@ if(!$operation || in_array($operation, array('plugins', 'templates'))) {
 			$md5total = '';
 			$md5s = array();
 		}
-		$data = cloudaddons_open('&mod=app&ac=download&rid='.$_GET['rid'].'&packnum='.$packnum, '', 999);
+		$data = cloudaddons_open('&mod=app&ac=download&rid='.$_GET['rid'].'&packnum='.$packnum.'&downloadts='.$_GET['timestamp'], '', 999);
 		if(empty($data)){
 			cpmsg('cloudaddons_downloading', "action=cloudaddons&operation=download&addonids=$_GET[addonids]&i=$addoni&step=1&md5hash=".$_GET['md5hash'].'&timestamp='.$_GET['timestamp'].'&num='.$packnum, 'loading', array('addonid' => $_GET['key'].'.'.$_GET['type']), '<div></div>', FALSE);
 			exit;
@@ -128,7 +128,7 @@ if(!$operation || in_array($operation, array('plugins', 'templates'))) {
 			$packnum++;
 			cpmsg('cloudaddons_downloading', "action=cloudaddons&operation=download&addonids=$_GET[addonids]&i=$addoni&step=1&md5hash=".$_GET['md5hash'].'&timestamp='.$_GET['timestamp'].'&num='.$packnum, 'loading', array('addonid' => $_GET['key'].'.'.$_GET['type']), '<div>'.$percent.'%</div>', FALSE);
 		} else {
-			if($md5total !== '' && md5($md5total) !== cloudaddons_md5($_GET['key'].'_'.$_GET['rid'])) {
+			if($md5total !== '' && md5($md5total) !== cloudaddons_md5($_GET['key'].'_'.$_GET['rid'].(!empty($array['MD5Key']) ? '_'.$array['MD5Key'] : ''))) {
 				dir_clear($tmpdir);
 				@unlink($md5tmp);
 				cloudaddons_faillog($_GET['rid'], 105);
