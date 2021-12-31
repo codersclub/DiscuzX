@@ -2749,11 +2749,15 @@ CREATE TABLE pre_forum_post (
   pid int(10) unsigned NOT NULL,
   fid mediumint(8) unsigned NOT NULL DEFAULT '0',
   tid int(10) unsigned NOT NULL DEFAULT '0',
+  repid int(10) unsigned NOT NULL DEFAULT '0',
   `first` tinyint(1) NOT NULL DEFAULT '0',
   author varchar(15) NOT NULL DEFAULT '',
   authorid mediumint(8) unsigned NOT NULL DEFAULT '0',
   `subject` varchar(255) NOT NULL DEFAULT '',
   dateline int(10) unsigned NOT NULL DEFAULT '0',
+  lastupdate int(10) unsigned NOT NULL DEFAULT '0',
+  updateuid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  premsg text NOT NULL,
   message mediumtext NOT NULL,
   useip varchar(45) NOT NULL DEFAULT '',
   `port` smallint(6) unsigned NOT NULL DEFAULT '0',
@@ -2838,6 +2842,17 @@ CREATE TABLE pre_forum_postcomment (
   KEY authorid (authorid),
   KEY score (score),
   KEY rpid (rpid),
+  KEY pid (pid,dateline)
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS pre_forum_post_history;
+CREATE TABLE pre_forum_post_history (
+  id int(10) unsigned NOT NULL,
+  pid int(10) unsigned NOT NULL,
+  dateline int(10) unsigned NOT NULL,
+  `subject` varchar(255) NOT NULL DEFAULT '',
+  message mediumtext NOT NULL,
+  PRIMARY KEY (id),
   KEY pid (pid,dateline)
 ) ENGINE=InnoDB;
 
