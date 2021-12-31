@@ -396,13 +396,13 @@ class Cloud_Service_Client_ConnectOAuth extends Cloud_Service_Client_OAuth {
 				);
 				return $result;
 			} else {
-				$result->error = $result->error ? $result->error : self::RESPONSE_ERROR;
-				throw new Exception($result->error, __LINE__);
+				$result['error'] = $result['error'] ? $result['error'] : self::RESPONSE_ERROR;
+				throw new Exception($result['error'], __LINE__);
 			}
 		} else {
 			$result = $this->callback($response);
-			$result->error = $result->error ? $result->error : self::RESPONSE_ERROR;
-			throw new Exception($result->error, __LINE__);
+			$result['error'] = $result['error'] ? $result['error'] : self::RESPONSE_ERROR;
+			throw new Exception($result['error'], __LINE__);
 		}
 	}
 

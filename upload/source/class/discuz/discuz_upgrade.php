@@ -111,7 +111,8 @@ class discuz_upgrade {
 
 		$return = false;
 		$upgradefile = $this->upgradeurl.$this->versionpath().'/'.DISCUZ_RELEASE.'/upgrade.xml';
-		$response = xml2array(dfsockopen($upgradefile));
+		$response_xml = dfsockopen($upgradefile);
+		$response = xml2array($response_xml);
 		if(isset($response['cross']) || isset($response['patch'])) {
 			C::t('common_setting')->update_setting('upgrade', $response);
 			$return = true;

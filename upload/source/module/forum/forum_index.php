@@ -129,7 +129,8 @@ if(!$gid && $_G['setting']['collectionstatus'] && ($_G['setting']['collectionrec
 }
 
 if(empty($gid) && empty($_G['member']['accessmasks']) && empty($showoldetails) && !IS_ROBOT) {
-	extract(get_index_memory_by_groupid($_G['member']['groupid']));
+	$memindex = get_index_memory_by_groupid($_G['member']['groupid']);
+	extract($memindex);
 	if(defined('FORUM_INDEX_PAGE_MEMORY') && FORUM_INDEX_PAGE_MEMORY) {
 		categorycollapse();
 		if(!defined('IN_ARCHIVER')) {

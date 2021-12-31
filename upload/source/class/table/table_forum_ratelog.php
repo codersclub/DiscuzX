@@ -70,7 +70,7 @@ class table_forum_ratelog extends discuz_table
 		$query = DB::query("SELECT * FROM ".DB::table('forum_ratelog')." WHERE pid IN (".dimplode($pids).") ORDER BY dateline DESC");
 		$ratelogs = array();
 		while($ratelog = DB::fetch($query)) {
-			if(count($postlist[$ratelog['pid']]['ratelog']) < $ratelogrecord) {
+			if(!is_array($postlist[$ratelog['pid']]['ratelog']) || count($postlist[$ratelog['pid']]['ratelog']) < $ratelogrecord) {
 				$ratelogs[$ratelog['pid']][$ratelog['uid']]['username'] = $ratelog['username'];
 				$ratelogs[$ratelog['pid']][$ratelog['uid']]['score'][$ratelog['extcredits']] += $ratelog['score'];
 				empty($ratelogs[$ratelog['pid']][$ratelog['uid']]['reason']) && $ratelogs[$ratelog['pid']][$ratelog['uid']]['reason'] = dhtmlspecialchars($ratelog['reason']);

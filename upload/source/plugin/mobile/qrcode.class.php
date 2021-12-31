@@ -41,6 +41,8 @@ define('QR_PNG_MAXIMUM_SIZE', 1024);
 
 class QRtools {
 
+	public static $frames = array();
+
 	public static function binarize($frame) {
 		$len = count($frame);
 		foreach ($frame as &$frameLine) {

@@ -611,7 +611,7 @@ class WeChatClient {
 
 	public function sendMusic($to, $url, $thumb_mid, $title, $desc = '', $hq_url = '') {
 		return $this->_send($to, 'music', array(
-			    'media_id' => $mid,
+			    'media_id' => null,
 			    'title' => $title,
 			    'description' => $desc || $title,
 			    'musicurl' => $url,
@@ -622,21 +622,17 @@ class WeChatClient {
 
 	static private function _filterForRichMsg($articles) {
 		$i = 0;
-		$ii = len($articles);
+		$ii = is_array($articles) ? count($articles) : 0;
 		$list = array('title', 'desc', 'url', 'thumb_url');
 		$result = array();
 		while ($i < $ii) {
 			$currentArticle = $articles[$i++];
-			try {
-				array_push($result, array(
-				    'title' => $currentArticle['title'],
-				    'description' => $currentArticle['desc'],
-				    'url' => $currentArticle['url'],
-				    'picurl' => $currentArticle['thumb_url']
-				));
-			} catch (Exception $e) {
-
-			}
+			array_push($result, array(
+				'title' => $currentArticle['title'],
+				'description' => $currentArticle['desc'],
+				'url' => $currentArticle['url'],
+				'picurl' => $currentArticle['thumb_url']
+			));
 		}
 		return $result;
 	}

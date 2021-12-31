@@ -452,7 +452,8 @@ function updateattachcredits($operator, $uidarray) {
 
 function updateforumcount($fid) {
 
-	extract(C::t('forum_thread')->count_posts_by_fid($fid));
+	$fidposts = C::t('forum_thread')->count_posts_by_fid($fid);
+	extract($fidposts);
 
 	$thread = C::t('forum_thread')->fetch_by_fid_displayorder($fid, 0, '=');
 

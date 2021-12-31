@@ -391,7 +391,8 @@ if($method == 'show_license') {
 	}
 } elseif($method == 'do_db_init') {
 	$allinfo = getgpc('allinfo');
-	extract(unserialize(base64_decode($allinfo)));
+	$allinfo_arr = unserialize(base64_decode($allinfo));
+	extract($allinfo_arr);
 
 	$db = new dbstuff;
 	$db->connect($dbhost, $dbuser, $dbpw, $dbname, DBCHARSET);

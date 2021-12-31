@@ -264,7 +264,8 @@ function getdiytplname($targettplname, $tpldirectory) {
 	$diydata = C::t('common_diy_data')->fetch_diy($targettplname, $tpldirectory);
 	$diytplname = $diydata ? $diydata['name'] : '';
 	if(empty($diytplname) && ($data = getdiytplnames(array($targettplname)))) {
-		$diytplname = array_shift(array_shift($data));
+		$diytplname = array_shift($data);
+		$diytplname = array_shift($diytplname);
 	}
 	return $diytplname;
 }

@@ -457,15 +457,6 @@ class payment_alipay extends payment_base {
 		return implode(',', $str);
 	}
 
-	private function alipay_hex_to_dec($hex) {
-		$dec = 0;
-		$size = strlen($hex);
-		for($i = 1; $i <= $size; $i++) {
-			$dec = bcadd($dec, bcmul(strval(hexdec($hex[$i - 1]), bcpow('16', strval($size - $i)))));
-		}
-		return $dec;
-	}
-
 	private function alipay_cert_sn($appcert) {
 		$ssl = openssl_x509_parse($appcert);
 		$sn = md5($this->alipay_array_to_string(array_reverse($ssl['issuer'])) . $ssl['serialNumber']);
