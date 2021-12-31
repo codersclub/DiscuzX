@@ -25,7 +25,7 @@ class pm_clientcontrol extends base {
 
 	function _auth() {
 		$input = getgpc('input');
-		if (!$this->user['uid'] || isset($input)) {
+		if (empty($this->user['uid']) || isset($input)) {
 			$this->init_input();
 			header('P3P: CP="CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR"');
 			if ($this->input['uid']) {
@@ -52,12 +52,13 @@ class pm_clientcontrol extends base {
 		$unreadpmnum = $_ENV['pm']->getpmnum($uid, 0, 1);
 		$this->view->assign('user', $this->user);
 		$this->view->assign('pmnum_private', $pmnum_private);
-		$this->view->assign('pmnum_chatpm', $pmnum_chatpm);
+		// $this->view->assign('pmnum_chatpm', $pmnum_chatpm);
 		$this->view->assign('unreadpmnum', $unreadpmnum);
+		$this->view->assign('folder', $folder);
 		if ($folder == 'blackls') {
 			$blackls = dhtmlspecialchars($_ENV['pm']->get_blackls($uid));
-			$this->view->assign('folder', $folder);
 			$this->view->assign('blackls', $blackls);
+			$this->view->assign('filter', '');
 			$this->view->display('pm_blackls');
 		} else {
 			$start = ($page - 1) * 10;
@@ -70,7 +71,7 @@ class pm_clientcontrol extends base {
 			}
 
 			$extra = 'extra=' . rawurlencode('page=' . $page);
-			$multipage = $this->page($pmnum, 10, $page, 'index.php?m=pm_client&a=ls&folder=' . $folder . '&filter=' . $filter);
+			$multipage = $this->page($pmnum_private, 10, $page, 'index.php?m=pm_client&a=ls&folder=' . $folder . '&filter=' . $filter);
 			$this->view->assign('extra', $extra);
 			$this->view->assign('filter', $filter);
 			$this->view->assign('pmlist', $pmlist);
@@ -99,12 +100,12 @@ class pm_clientcontrol extends base {
 		$totalnum = $_ENV['friend']->get_totalnum_by_uid($this->user['uid'], 3);
 		$friends = $totalnum ? $_ENV['friend']->get_list($this->user['uid'], 1, $totalnum, $totalnum, 3) : array();
 		if (!$this->submitcheck()) {
-			$extra = 'extra=' . rawurlencode($_GET['extra']);
+			$extra = 'extra=' . rawurlencode(isset($_GET['extra']) ? $_GET['extra'] : '');
 			$type = !empty($_GET['type']) ? $_GET['type'] : '';
 			$pmid = @is_numeric($_GET['pmid']) ? $_GET['pmid'] : 0;
-			$daterange = $_GET['daterange'] ? intval($_GET['daterange']) : 1;
-			$touid = intval($_GET['touid']);
-			$plid = intval($_GET['plid']);
+			$daterange = !empty($_GET['daterange']) ? intval($_GET['daterange']) : 1;
+			$touid = isset($_GET['touid']) ? intval($_GET['touid']) : 0;
+			$plid = isset($_GET['plid']) ? intval($_GET['plid']) : 0;
 			$folder = getgpc('folder');
 
 			$pmnum_private = $_ENV['pm']->getpmnum($uid, 0, 0);
@@ -129,7 +130,7 @@ class pm_clientcontrol extends base {
 			} else {
 				!empty($_GET['msgto']) && $touser = dhtmlspecialchars($_GET['msgto']);
 				!empty($_GET['subject']) && $tmp['subject'] = $_GET['subject'];
-				!empty($_GET['message']) && $tmp['message'] = $_GET['message'];
+				$tmp['message'] = !empty($_GET['message']) ? $_GET['message'] : '';
 			}
 
 			if ($this->settings['sendpmseccode']) {
@@ -143,7 +144,7 @@ class pm_clientcontrol extends base {
 			$this->view->assign('touser', $touser);
 			$this->view->assign('user', $this->user);
 			$this->view->assign('pmnum_private', $pmnum_private);
-			$this->view->assign('pmnum_chatpm', $pmnum_chatpm);
+			// $this->view->assign('pmnum_chatpm', $pmnum_chatpm);
 			$this->view->assign('unreadpmnum', $unreadpmnum);
 			$this->view->assign('friends', $friends);
 			$this->view->assign('extra', $extra);
@@ -157,6 +158,7 @@ class pm_clientcontrol extends base {
 			$tmp['message'] = dhtmlspecialchars($tmp['message']);
 			$this->view->assign('message', $tmp['message']);
 			$this->view->assign('type', $type);
+			$this->view->assign('filter', '');
 			$this->view->display('pm_send');
 		} else {
 
@@ -354,7 +356,7 @@ class pm_clientcontrol extends base {
 		$this->view->assign('touser', $touser);
 		$this->view->assign('subject', $subject);
 		$this->view->assign('pmnum_private', $pmnum_private);
-		$this->view->assign('pmnum_chatpm', $pmnum_chatpm);
+		// $this->view->assign('pmnum_chatpm', $pmnum_chatpm);
 		$this->view->assign('unreadpmnum', $unreadpmnum);
 		$this->view->assign('daterange', $daterange);
 		$this->view->assign('replypmid', $replypmid);
@@ -406,7 +408,7 @@ class pm_clientcontrol extends base {
 		$this->view->assign('scroll', $scroll);
 		$this->view->assign('user', $this->user);
 		$this->view->assign('pmnum_private', $pmnum_private);
-		$this->view->assign('pmnum_chatpm', $pmnum_chatpm);
+		// $this->view->assign('pmnum_chatpm', $pmnum_chatpm);
 		$this->view->assign('unreadpmnum', $unreadpmnum);
 		$this->view->assign('replypmid', $replypmid);
 		$this->view->assign('subject', $subject);

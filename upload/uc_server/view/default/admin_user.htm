@@ -86,8 +86,8 @@
 					</tr>
 					<!--{loop $userlist $user}-->
 						<tr>
-							<td class="option"><input type="checkbox" name="delete[]" value="$user[uid]" class="checkbox" /></td>
-							<td>$user[smallavatar] <strong>$user[username]</strong></td>
+							<td class="option"><input type="checkbox" name="delete[]" value="$user[uid]" class="checkbox" /> $user[smallavatar]</td>
+							<td><strong>$user[username]</strong></td>
 							<td>$user[email]</td>
 							<td>$user[regdate]</td>
 							<td>$user[regip]</td>

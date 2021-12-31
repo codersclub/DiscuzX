@@ -118,8 +118,8 @@ class notemodel {
 		}
 		$this->base->load('misc');
 		$apifilename = isset($app['apifilename']) && $app['apifilename'] ? $app['apifilename'] : 'uc.php';
-		if(!empty($app['extra']['apppath']) && $this->detectescape($app['extra']['apppath'].'./api/', $apifilename) && substr(strrchr($apifilename, '.'), 1, 10) == 'php' && @include $app['extra']['apppath'].'./api/'.$apifilename) {
-			$uc_note = new uc_note();
+		if(UC_STANDALONE && @include UC_ROOT.'./extend_client.php') {
+			$uc_note = new uc_note_handler();
 			$method = $note['operation'];
 			if(is_string($method) && !empty($method)) {
 				parse_str($note['getdata'], $note['getdata']);

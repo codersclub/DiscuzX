@@ -164,6 +164,7 @@ h3{ font-size:14px; }
 
 /* widget */
 .statimg{ vertical-align:middle; margin:0 5px 2px 0 !important; *margin:0 5px 0 0 !important; *margin:0 5px 2px 0; }
+.avt {vertical-align: middle; width: 48px; height: 48px;}
 .line{ clear:both; position:relative; margin:10px 0; border-top:1px solid #CCC; }
 	.line p{ position:absolute; top:14px; right:50px; font-weight:700; }
 .margintop{ margin-top:10px; }

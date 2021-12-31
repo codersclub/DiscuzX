@@ -242,7 +242,7 @@ class control extends adminbase {
 		$num = $_ENV['user']->get_total_num($sqladd);
 		$userlist = $_ENV['user']->get_list($_GET['page'], UC_PPP, $num, $sqladd);
 		foreach($userlist as $key => $user) {
-			$user['smallavatar'] = '<img src="avatar.php?uid='.$user['uid'].'&size=small">';
+			$user['smallavatar'] = '<img src="avatar.php?uid='.$user['uid'].'&size=small" class="avt">';
 			$userlist[$key] = $user;
 		}
 		$multipage = $this->page($num, UC_PPP, $_GET['page'], 'admin.php?m=user&a=ls&srchname='.$srchname.$urladd);

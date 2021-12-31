@@ -9,9 +9,6 @@
 
 error_reporting(0);
 
-define('UC_CLIENT_VERSION', '1.7.0');
-define('UC_CLIENT_RELEASE', 'Development');
-
 define('API_DELETEUSER', 1);
 define('API_RENAMEUSER', 1);
 define('API_GETTAG', 1);
@@ -42,6 +39,7 @@ if(!defined('IN_UC')) {
 	$discuz->init();
 
 	require DISCUZ_ROOT.'./config/config_ucenter.php';
+	require DISCUZ_ROOT.'./uc_client/release/release.php';
 
 	$get = $post = array();
 
@@ -49,14 +47,15 @@ if(!defined('IN_UC')) {
 	parse_str(authcode($code, 'DECODE', UC_KEY), $get);
 
 	if(time() - $get['time'] > 3600) {
-		exit('Authracation has expiried');
+		exit('Authorization has expired');
 	}
 	if(empty($get)) {
 		exit('Invalid Request');
 	}
 
 	include_once DISCUZ_ROOT.'./uc_client/lib/xml.class.php';
-	$post = xml_unserialize(file_get_contents('php://input'));
+	$phpinput = file_get_contents('php://input');
+	$post = xml_unserialize($phpinput);
 
 	if(in_array($get['action'], array('test', 'deleteuser', 'renameuser', 'gettag', 'synlogin', 'synlogout', 'updatepw', 'updatebadwords', 'updatehosts', 'updateapps', 'updateclient', 'updatecredit', 'getcredit', 'getcreditsettings', 'updatecreditsettings', 'addfeed'))) {
 		$uc_note = new uc_note();
@@ -83,7 +82,7 @@ class uc_note {
 		return xml_serialize($arr, $htmlon);
 	}
 
-	function _construct() {
+	function __construct() {
 	}
 
 	function test($get, $post) {
@@ -95,13 +94,8 @@ class uc_note {
 		if(!API_DELETEUSER) {
 			return API_RETURN_FORBIDDEN;
 		}
-		$uids = str_replace("'", '', stripslashes($get['ids']));
-		$ids = array();
-		$ids = array_keys(C::t('common_member')->fetch_all($uids));
-		require_once DISCUZ_ROOT.'./source/function/function_delete.php';
-		$ids && deletemember($ids);
 
-		return API_RETURN_SUCCEED;
+		return uc_note_handler::deleteuser($get, $post);
 	}
 
 	function renameuser($get, $post) {
@@ -110,65 +104,7 @@ class uc_note {
 		if(!API_RENAMEUSER) {
 			return API_RETURN_FORBIDDEN;
 		}
-
-		$len = strlen($get['newusername']);
-		if($len > 22 || $len < 3 || preg_match("/\s+|^c:\\con\\con|[%,\*\"\s\<\>\&\(\)']/is", $get['newusername'])) {
-			return API_RETURN_FAILED;
-		}
-
-		$tables = array(
-			'common_block' => array('id' => 'uid', 'name' => 'username'),
-			'common_invite' => array('id' => 'fuid', 'name' => 'fusername'),
-			'common_member_verify_info' => array('id' => 'uid', 'name' => 'username'),
-			'common_mytask' => array('id' => 'uid', 'name' => 'username'),
-			'common_report' => array('id' => 'uid', 'name' => 'username'),
-
-			'forum_thread' => array('id' => 'authorid', 'name' => 'author'),
-			'forum_activityapply' => array('id' => 'uid', 'name' => 'username'),
-			'forum_groupuser' => array('id' => 'uid', 'name' => 'username'),
-			'forum_pollvoter' => array('id' => 'uid', 'name' => 'username'),
-			'forum_post' => array('id' => 'authorid', 'name' => 'author'),
-			'forum_postcomment' => array('id' => 'authorid', 'name' => 'author'),
-			'forum_ratelog' => array('id' => 'uid', 'name' => 'username'),
-
-			'home_album' => array('id' => 'uid', 'name' => 'username'),
-			'home_blog' => array('id' => 'uid', 'name' => 'username'),
-			'home_clickuser' => array('id' => 'uid', 'name' => 'username'),
-			'home_docomment' => array('id' => 'uid', 'name' => 'username'),
-			'home_doing' => array('id' => 'uid', 'name' => 'username'),
-			'home_feed' => array('id' => 'uid', 'name' => 'username'),
-			'home_friend' => array('id' => 'fuid', 'name' => 'fusername'),
-			'home_friend_request' => array('id' => 'fuid', 'name' => 'fusername'),
-			'home_notification' => array('id' => 'authorid', 'name' => 'author'),
-			'home_pic' => array('id' => 'uid', 'name' => 'username'),
-			'home_poke' => array('id' => 'fromuid', 'name' => 'fromusername'),
-			'home_share' => array('id' => 'uid', 'name' => 'username'),
-			'home_show' => array('id' => 'uid', 'name' => 'username'),
-			'home_specialuser' => array('id' => 'uid', 'name' => 'username'),
-			'home_visitor' => array('id' => 'vuid', 'name' => 'vusername'),
-
-			'portal_article_title' => array('id' => 'uid', 'name' => 'username'),
-			'portal_comment' => array('id' => 'uid', 'name' => 'username'),
-			'portal_topic' => array('id' => 'uid', 'name' => 'username'),
-			'portal_topic_pic' => array('id' => 'uid', 'name' => 'username'),
-		);
-
-		if(!C::t('common_member')->update($get['uid'], array('username' => $get['newusername'])) && isset($_G['setting']['membersplit'])){
-			C::t('common_member_archive')->update($get['uid'], array('username' => $get['newusername']));
-		}
-
-		loadcache("posttableids");
-		if($_G['cache']['posttableids']) {
-			$posttableids = is_array($_G['cache']['posttableids']) ? $_G['cache']['posttableids'] : array(0);
-			foreach($posttableids AS $tableid) {
-				$tables[getposttable($tableid)] = array('id' => 'authorid', 'name' => 'author');
-			}
-		}
-
-		foreach($tables as $table => $conf) {
-			DB::query("UPDATE ".DB::table($table)." SET `{$conf['name']}`='{$get['newusername']}' WHERE `{$conf['id']}`='{$get['uid']}'");
-		}
-		return API_RETURN_SUCCEED;
+		return uc_note_handler::renameuser($get, $post);
 	}
 
 	function gettag($get, $post) {
@@ -213,20 +149,7 @@ class uc_note {
 		if(!API_UPDATEPW) {
 			return API_RETURN_FORBIDDEN;
 		}
-
-		$username = $get['username'];
-		$newpw = md5(time().rand(100000, 999999));
-		$uid = 0;
-		if(($uid = C::t('common_member')->fetch_uid_by_username($username))) {
-			$ext = '';
-		} elseif(($uid = C::t('common_member_archive')->fetch_uid_by_username($username))) {
-			$ext = '_archive';
-		}
-		if($uid) {
-			C::t('common_member'.$ext)->update($uid, array('password' => $newpw));
-		}
-
-		return API_RETURN_SUCCEED;
+		return uc_note_handler::updatepw($get, $post);
 	}
 
 	function updatebadwords($get, $post) {

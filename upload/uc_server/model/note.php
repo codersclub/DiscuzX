@@ -139,16 +139,7 @@ class notemodel {
 		}
 		$this->base->load('misc');
 		$apifilename = isset($app['apifilename']) && $app['apifilename'] ? $app['apifilename'] : 'uc.php';
-		if(!empty($app['extra']['apppath']) && $this->detectescape($app['extra']['apppath'].'./api/', $apifilename) && substr(strrchr($apifilename, '.'), 1, 10) == 'php' && @include_once $app['extra']['apppath'].'./api/'.$apifilename) {
-			$uc_note = new uc_note();
-			$method = $note['operation'];
-			if(is_string($method) && !empty($method)) {
-				parse_str($note['getdata'], $note['getdata']);
-				$note['postdata'] = xml_unserialize($note['postdata']);
-				$response = $uc_note->$method($note['getdata'], $note['postdata']);
-			}
-			unset($uc_note);
-		} else {
+		if(!isset($app['extra']['standalone'])) {
 			$url = $this->get_url_code($note['operation'], $note['getdata'], $appid);
 			$note['postdata'] = str_replace(array("\n", "\r"), '', $note['postdata']);
 			$response = trim($_ENV['misc']->dfopen2($url, 0, $note['postdata'], '', 1, $app['ip'], UC_NOTE_TIMEOUT, TRUE));

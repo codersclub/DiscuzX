@@ -186,8 +186,8 @@ window.onload = testlink;
 						</tr>
 						<tr>
 							<td>
-								<input type="radio" class="radio" id="yes" name="synlogin" value="1" /><label for="yes">{lang yes}</label>
-								<input type="radio" class="radio" id="no" name="synlogin" value="0" checked="checked" /><label for="no">{lang no}</label>
+								<input type="radio" class="radio" id="synlogin_yes" name="synlogin" value="1" /><label for="synlogin_yes">{lang yes}</label>
+								<input type="radio" class="radio" id="synlogin_no" name="synlogin" value="0" checked="checked" /><label for="synlogin_no">{lang no}</label>
 							</td>
 							<td>{lang app_login_comment}</td>
 						</tr>
@@ -196,8 +196,8 @@ window.onload = testlink;
 						</tr>
 						<tr>
 							<td>
-								<input type="radio" class="radio" id="yes" name="recvnote" value="1"/><label for="yes">{lang yes}</label>
-								<input type="radio" class="radio" id="no" name="recvnote" value="0" checked="checked" /><label for="no">{lang no}</label>
+								<input type="radio" class="radio" id="recvnote_yes" name="recvnote" value="1"/><label for="recvnote_yes">{lang yes}</label>
+								<input type="radio" class="radio" id="recvnote_no" name="recvnote" value="0" checked="checked" /><label for="recvnote_no">{lang no}</label>
 							</td>
 							<td></td>
 						</tr>
@@ -317,8 +317,8 @@ window.onload = testlink;
 					</tr>
 					<tr>
 						<td>
-							<input type="radio" class="radio" id="yes" name="synlogin" value="1" $synlogin[1] /><label for="yes">{lang yes}</label>
-							<input type="radio" class="radio" id="no" name="synlogin" value="0" $synlogin[0] /><label for="no">{lang no}</label>
+							<input type="radio" class="radio" id="synlogin_yes" name="synlogin" value="1" $synlogin[1] /><label for="synlogin_yes">{lang yes}</label>
+							<input type="radio" class="radio" id="synlogin_no" name="synlogin" value="0" $synlogin[0] /><label for="synlogin_no">{lang no}</label>
 						</td>
 						<td>{lang app_login_comment}</td>
 					</tr>
@@ -327,8 +327,148 @@ window.onload = testlink;
 					</tr>
 					<tr>
 						<td>
-							<input type="radio" class="radio" id="yes" name="recvnote" value="1" $recvnotechecked[1] /><label for="yes">{lang yes}</label>
-							<input type="radio" class="radio" id="no" name="recvnote" value="0" $recvnotechecked[0] /><label for="no">{lang no}</label>
+							<input type="radio" class="radio" id="recvnote_yes" name="recvnote" value="1" $recvnotechecked[1] /><label for="recvnote_yes">{lang yes}</label>
+							<input type="radio" class="radio" id="recvnote_no" name="recvnote" value="0" $recvnotechecked[0] /><label for="recvnote_no">{lang no}</label>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th colspan="2">是否需要自定义通知类别:</th>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" class="radio" id="recvnotediy_yes" name="recvnotediy" value="1" /><label for="recvnotediy_yes">{lang yes}</label>
+							<input type="radio" class="radio" id="recvnotediy_no" name="recvnotediy" value="0" /><label for="recvnotediy_no">{lang no}</label>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th colspan="2">是否接受用户删除通知:</th>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" class="radio" id="disablenote_deleteuser_yes" name="disablenote_deleteuser" value="1" /><label for="disablenote_deleteuser_yes">{lang yes}</label>
+							<input type="radio" class="radio" id="disablenote_deleteuser_no" name="disablenote_deleteuser" value="0" /><label for="disablenote_deleteuser_no">{lang no}</label>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th colspan="2">是否接受用户改名通知:</th>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" class="radio" id="disablenote_renameuser_yes" name="disablenote_renameuser" value="1" /><label for="disablenote_renameuser_yes">{lang yes}</label>
+							<input type="radio" class="radio" id="disablenote_renameuser_no" name="disablenote_renameuser" value="0" /><label for="disablenote_renameuser_no">{lang no}</label>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th colspan="2">是否接受获取标签通知:</th>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" class="radio" id="disablenote_gettag_yes" name="disablenote_gettag" value="1" /><label for="disablenote_gettag_yes">{lang yes}</label>
+							<input type="radio" class="radio" id="disablenote_gettag_no" name="disablenote_gettag" value="0" /><label for="disablenote_gettag_no">{lang no}</label>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th colspan="2">是否接受更改用户密码通知:</th>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" class="radio" id="disablenote_updatepw_yes" name="disablenote_updatepw" value="1" /><label for="disablenote_updatepw_yes">{lang yes}</label>
+							<input type="radio" class="radio" id="disablenote_updatepw_no" name="disablenote_updatepw" value="0" /><label for="disablenote_updatepw_no">{lang no}</label>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th colspan="2">是否接受更新关键字列表通知:</th>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" class="radio" id="disablenote_updatebadwords_yes" name="disablenote_updatebadwords" value="1" /><label for="disablenote_updatebadwords_yes">{lang yes}</label>
+							<input type="radio" class="radio" id="disablenote_updatebadwords_no" name="disablenote_updatebadwords" value="0" /><label for="disablenote_updatebadwords_no">{lang no}</label>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th colspan="2">是否接受更新域名解析缓存通知:</th>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" class="radio" id="disablenote_updatehosts_yes" name="disablenote_updatehosts" value="1" /><label for="disablenote_updatehosts_yes">{lang yes}</label>
+							<input type="radio" class="radio" id="disablenote_updatehosts_no" name="disablenote_updatehosts" value="0" /><label for="disablenote_updatehosts_no">{lang no}</label>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th colspan="2">是否接受更新应用列表通知:</th>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" class="radio" id="disablenote_updateapps_yes" name="disablenote_updateapps" value="1" /><label for="disablenote_updateapps_yes">{lang yes}</label>
+							<input type="radio" class="radio" id="disablenote_updateapps_no" name="disablenote_updateapps" value="0" /><label for="disablenote_updateapps_no">{lang no}</label>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th colspan="2">是否接受更新客户端缓存通知:</th>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" class="radio" id="disablenote_updateclient_yes" name="disablenote_updateclient" value="1" /><label for="disablenote_updateclient_yes">{lang yes}</label>
+							<input type="radio" class="radio" id="disablenote_updateclient_no" name="disablenote_updateclient" value="0" /><label for="disablenote_updateclient_no">{lang no}</label>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th colspan="2">是否接受更新用户积分通知:</th>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" class="radio" id="disablenote_updatecredit_yes" name="disablenote_updatecredit" value="1" /><label for="disablenote_updatecredit_yes">{lang yes}</label>
+							<input type="radio" class="radio" id="disablenote_updatecredit_no" name="disablenote_updatecredit" value="0" /><label for="disablenote_updatecredit_no">{lang no}</label>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th colspan="2">是否接受获取用户的某项积分通知:</th>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" class="radio" id="disablenote_getcredit_yes" name="disablenote_getcredit" value="1" /><label for="disablenote_getcredit_yes">{lang yes}</label>
+							<input type="radio" class="radio" id="disablenote_getcredit_no" name="disablenote_getcredit" value="0" /><label for="disablenote_getcredit_no">{lang no}</label>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th colspan="2">是否接受向 UCenter 提供积分设置通知:</th>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" class="radio" id="disablenote_getcreditsettings_yes" name="disablenote_getcreditsettings" value="1" /><label for="disablenote_getcreditsettings_yes">{lang yes}</label>
+							<input type="radio" class="radio" id="disablenote_getcreditsettings_no" name="disablenote_getcreditsettings" value="0" /><label for="disablenote_getcreditsettings_no">{lang no}</label>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th colspan="2">是否接受更新应用积分设置通知:</th>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" class="radio" id="disablenote_updatecreditsettings_yes" name="disablenote_updatecreditsettings" value="1" /><label for="disablenote_updatecreditsettings_yes">{lang yes}</label>
+							<input type="radio" class="radio" id="disablenote_updatecreditsettings_no" name="disablenote_updatecreditsettings" value="0" /><label for="disablenote_updatecreditsettings_no">{lang no}</label>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th colspan="2">是否接受添加事件通知:</th>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" class="radio" id="disablenote_addfeed_yes" name="disablenote_addfeed" value="1" /><label for="disablenote_addfeed_yes">{lang yes}</label>
+							<input type="radio" class="radio" id="disablenote_addfeed_no" name="disablenote_addfeed" value="0" /><label for="disablenote_addfeed_no">{lang no}</label>
 						</td>
 						<td></td>
 					</tr>

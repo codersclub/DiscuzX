@@ -28,9 +28,10 @@ class base {
 	var $onlineip;
 	var $db;
 	var $key;
-	var $settings = array();
-	var $cache = array();
-	var $app = array();
+	var $settings;
+	var $cache;
+	var $_CACHE;
+	var $app;
 	var $user = array();
 	var $input = array();
 	function __construct() {
@@ -38,11 +39,15 @@ class base {
 	}
 
 	function base() {
-		$this->init_var();
-		$this->init_db();
-		$this->init_cache();
-		$this->init_note();
-		$this->init_mail();
+		require_once UC_ROOT.'./model/var.php';
+		base_var::bind($this);
+		if(empty($this->time)) {
+			$this->init_var();
+			$this->init_db();
+			$this->init_cache();
+			$this->init_note();
+			$this->init_mail();
+		}
 	}
 
 	function init_var() {
@@ -72,7 +77,7 @@ class base {
 		$this->app['appid'] = UC_APPID;
 	}
 
-	function init_input() {
+	function init_input($getagent = '') {
 
 	}
 
@@ -82,11 +87,12 @@ class base {
 		$this->db->connect(UC_DBHOST, UC_DBUSER, UC_DBPW, '', UC_DBCHARSET, UC_DBCONNECT, UC_DBTABLEPRE);
 	}
 
-	function load($model, $base = NULL) {
+	function load($model, $base = NULL, $release = '') {
 		$base = $base ? $base : $this;
 		if(empty($_ENV[$model])) {
 			require_once UC_ROOT."./model/$model.php";
-			eval('$_ENV[$model] = new '.$model.'model($base);');
+			$modelname = $model.'model';
+			$_ENV[$model] = new $modelname($base);
 		}
 		return $_ENV[$model];
 	}
@@ -111,17 +117,17 @@ class base {
 	}
 
 	function &cache($cachefile) {
-		static $_CACHE = array();
-		if(!isset($_CACHE[$cachefile])) {
+		if(!isset($this->_CACHE[$cachefile])) {
 			$cachepath = UC_DATADIR.'./cache/'.$cachefile.'.php';
 			if(!file_exists($cachepath)) {
 				$this->load('cache');
 				$_ENV['cache']->updatedata($cachefile);
 			} else {
 				include_once $cachepath;
+				$this->_CACHE[$cachefile] = $_CACHE[$cachefile];
 			}
 		}
-		return $_CACHE[$cachefile];
+		return $this->_CACHE[$cachefile];
 	}
 
 	function get_setting($k = array(), $decode = FALSE) {

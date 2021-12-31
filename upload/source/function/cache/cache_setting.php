@@ -313,7 +313,8 @@ function build_cache_setting() {
 	$data['imagemaxwidth'] = intval($data['imagemaxwidth']);
 
 	require_once DISCUZ_ROOT.'./config/config_ucenter.php';
-	$data['ucenterurl'] = UC_API;
+	$data['ucenterurl'] = UC_STANDALONE ? '.' : UC_API;
+	$data['avatarurl'] = UC_AVTURL;
 
 	foreach(C::t('common_magic')->fetch_all_data(1) as $magic) {
 		$magic['identifier'] = str_replace(':', '_', $magic['identifier']);

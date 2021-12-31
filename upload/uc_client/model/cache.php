@@ -25,7 +25,7 @@ class cachemodel {
 		$this->map = array(
 			'settings' => array('settings'),
 			'badwords' => array('badwords'),
-			'apps' => array('apps')
+			'apps' => array('apps'),
 		);
 	}
 

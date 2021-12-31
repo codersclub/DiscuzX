@@ -16,6 +16,7 @@ define('UC_USER_EMAIL_FORMAT_ILLEGAL', -4);
 define('UC_USER_EMAIL_ACCESS_ILLEGAL', -5);
 define('UC_USER_EMAIL_EXISTS', -6);
 define('UC_USER_USERNAME_CHANGE_FAILED', -7);
+define('UC_USER_SECMOBILE_EXISTS', -8);
 
 class usercontrol extends base {
 
@@ -40,7 +41,7 @@ class usercontrol extends base {
 						if($app['appid'] != $this->app['appid']) {
 							$synstr .= '<script type="text/javascript" src="'.$app['url'].'/api/'.$app['apifilename'].'?time='.$this->time.'&code='.urlencode($this->authcode('action=synlogin&username='.$this->user['username'].'&uid='.$this->user['uid'].'&password='.$this->user['password']."&time=".$this->time, 'ENCODE', $app['authkey'])).'" reload="1"></script>';
 						}
-						if(is_array($app['extra']['extraurl'])) foreach($app['extra']['extraurl'] as $extraurl) {
+						if(isset($app['extra']['extraurl']) && is_array($app['extra']['extraurl'])) foreach($app['extra']['extraurl'] as $extraurl) {
 							$synstr .= '<script type="text/javascript" src="'.$extraurl.'/api/'.$app['apifilename'].'?time='.$this->time.'&code='.urlencode($this->authcode('action=synlogin&username='.$this->user['username'].'&uid='.$this->user['uid'].'&password='.$this->user['password']."&time=".$this->time, 'ENCODE', $app['authkey'])).'" reload="1"></script>';
 						}
 					}
@@ -60,7 +61,7 @@ class usercontrol extends base {
 					if($app['appid'] != $this->app['appid']) {
 						$synstr .= '<script type="text/javascript" src="'.$app['url'].'/api/'.$app['apifilename'].'?time='.$this->time.'&code='.urlencode($this->authcode('action=synlogout&time='.$this->time, 'ENCODE', $app['authkey'])).'" reload="1"></script>';
 					}
-					if(is_array($app['extra']['extraurl'])) foreach($app['extra']['extraurl'] as $extraurl) {
+					if(isset($app['extra']['extraurl']) && is_array($app['extra']['extraurl'])) foreach($app['extra']['extraurl'] as $extraurl) {
 						$synstr .= '<script type="text/javascript" src="'.$extraurl.'/api/'.$app['apifilename'].'?time='.$this->time.'&code='.urlencode($this->authcode('action=synlogout&time='.$this->time, 'ENCODE', $app['authkey'])).'" reload="1"></script>';
 					}
 				}
@@ -344,14 +345,8 @@ class usercontrol extends base {
 		$this->load('note');
 		$this->load('misc');
 		$app = $this->cache['apps'][$appid];
-		$apifilename = isset($app['apifilename']) && $app['apifilename'] ? $app['apifilename'] : 'uc.php';
-		if(!empty($app['extra']['apppath']) && $this->detectescape($app['extra']['apppath'].'./api/', $apifilename) && substr(strrchr($apifilename, '.'), 1, 10) == 'php' && @include $app['extra']['apppath'].'./api/'.$apifilename) {
-			$uc_note = new uc_note();
-			return $uc_note->getcredit(array('uid' => $uid, 'credit' => $credit), '');
-		} else {
-			$url = $_ENV['note']->get_url_code('getcredit', "uid=$uid&credit=$credit", $appid);
-			return $_ENV['misc']->dfopen($url, 0, '', '', 1, $app['ip'], UC_NOTE_TIMEOUT);
-		}
+		$url = $_ENV['note']->get_url_code('getcredit', "uid=$uid&credit=$credit", $appid);
+		return $_ENV['misc']->dfopen($url, 0, '', '', 1, $app['ip'], UC_NOTE_TIMEOUT);
 	}
 
 	function oncamera() {

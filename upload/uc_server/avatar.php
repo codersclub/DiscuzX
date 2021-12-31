@@ -36,7 +36,7 @@ if(file_exists($avatar_file)) {
 		exit;
 	}
 	$size = in_array($size, array('big', 'middle', 'small')) ? $size : 'middle';
-	$avatar_url = 'images/noavatar.svg';
+	$avatar_url = 'data/avatar/noavatar.svg';
 	$avatar_file = dirname(__FILE__).'/'.$avatar_url;
 }
 

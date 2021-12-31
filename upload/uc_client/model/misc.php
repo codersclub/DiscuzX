@@ -46,7 +46,7 @@ class miscmodel {
 	function check_url($url) {
 	}
 
-	function check_ip($url) {
+	function check_ip($ip) {
 	}
 
 	function test_api($url, $ip = '') {

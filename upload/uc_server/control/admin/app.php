@@ -67,7 +67,6 @@ class control extends adminbase {
 			$ip = getgpc('ip', 'P');
 			$viewprourl = getgpc('viewprourl', 'P');
 			$authkey = getgpc('authkey', 'P');
-			$authkey = $this->authcode($authkey, 'ENCODE', UC_MYKEY);
 			$synlogin = getgpc('synlogin', 'P');
 			$recvnote = getgpc('recvnote', 'P');
 			$apifilename = trim(getgpc('apifilename', 'P'));
@@ -148,7 +147,6 @@ class control extends adminbase {
 			$viewprourl = getgpc('viewprourl', 'P');
 			$apifilename = trim(getgpc('apifilename', 'P'));
 			$authkey = getgpc('authkey', 'P');
-			$authkey = $this->authcode($authkey, 'ENCODE', UC_MYKEY);
 			$synlogin = getgpc('synlogin', 'P');
 			$recvnote = getgpc('recvnote', 'P');
 			$extraurl = getgpc('extraurl', 'P');

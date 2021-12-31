@@ -61,7 +61,7 @@ if(empty($get)) {
 
 $timestamp = time();
 if($timestamp - $get['time'] > 3600) {
-	exit('Authracation has expiried');
+	exit('Authorization has expired');
 }
 $get['time'] = $timestamp;
 

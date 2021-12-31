@@ -1521,6 +1521,7 @@ function save_uc_config($config, $file) {
 
 
 define('UC_CONNECT', '$uc_connnect');
+define('UC_STANDALONE', 0);
 
 define('UC_DBHOST', '$ucdbhost');
 define('UC_DBUSER', '$ucdbuser');
@@ -1529,6 +1530,9 @@ define('UC_DBNAME', '$ucdbname');
 define('UC_DBCHARSET', '$ucdbcharset');
 define('UC_DBTABLEPRE', '`$ucdbname`.$uctablepre');
 define('UC_DBCONNECT', 0);
+
+define('UC_AVTURL', '');
+define('UC_AVTPATH', '');
 
 define('UC_CHARSET', '$uccharset');
 define('UC_KEY', '$appauthkey');
