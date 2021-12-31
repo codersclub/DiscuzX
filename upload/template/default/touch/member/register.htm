@@ -12,7 +12,6 @@
 		<!--{eval $dreferer = str_replace('&amp;', '&', dreferer());}-->
 		<input type="hidden" name="referer" value="$dreferer" />
 		<input type="hidden" name="activationauth" value="{if $_GET['action'] == 'activation'}$activationauth{/if}" />
-		<input type="hidden" name="agreebbrule" value="$bbrulehash" id="agreebbrule" checked="checked" />
 		<!--{if $_G['setting']['sendregisterurl']}-->
 			<input type="hidden" name="hash" value="$_GET['hash']" />
 		<!--{/if}-->
@@ -49,11 +48,32 @@
 		<!--{if $secqaacheck || $seccodecheck}-->
 			<!--{subtemplate common/seccheck}-->
 		<!--{/if}-->
+		<!--{if $bbrules}-->
+			<label for="agreebbrule"><li class="mli"><input type="checkbox" class="pc" name="agreebbrule" value="{$bbrulehash}" id="agreebbrule" checked="checked" />{lang agree}<a href="javascript:;" onclick="showBBRule()">{lang rulemessage}</a></li></label>
+			<div id="layer_bbruletxt" popup="true" class="tip login_pop" style="display:none;">
+				<div style="height:200px;display:block;overflow-y:scroll;">
+					<div class="log_tit"><!--{echo addslashes($this->setting['bbname']);}--> {lang rulemessage}</div>
+					<div class="p15">{$bbrulestxt}</div>
+				</div>
+			</div>
+		<!--{/if}-->
 	</div>
 	<div class="btn_register"><button tabindex="7" value="true" name="regsubmit" type="submit" class="formdialog pn">{lang quickregister}</button></div>
 	<div class="reg_link"><a href="member.php?mod=logging&action=login&referer={echo rawurlencode($dreferer)}" class="login_now">{lang login_now}</a></div>
 	</form>
 </div>
+<div id="mask" style="display:none;"></div>
 <!--{hook/register_bottom_mobile}-->
+<script type="text/javascript">
+<!--{if $bbrules && $bbrulesforce}-->
+	showBBRule();
+<!--{/if}-->
+<!--{if $this->showregisterform}-->
+	function showBBRule() {
+		var bbruletxt = $("#layer_bbruletxt").html();
+		popup.open(bbruletxt,'alert');
+	}
+<!--{/if}-->
+</script>
 <!--{eval updatesession();}-->
 <!--{template common/footer}-->
