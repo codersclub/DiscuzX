@@ -410,8 +410,7 @@ EOT;
 function createtable($sql) {
 	$type = strtoupper(preg_replace("/^\s*CREATE TABLE\s+.+\s+\(.+?\).*(ENGINE|TYPE)\s*=\s*([a-z]+?).*$/isU", "\\2", $sql));
 	$type = in_array($type, array('INNODB', 'MYISAM', 'HEAP', 'MEMORY')) ? $type : 'INNODB';
-	return preg_replace("/^\s*(CREATE TABLE\s+.+\s+\(.+?\)).*$/isU", "\\1", $sql).
-	(" ENGINE=$type DEFAULT CHARSET=".DBCHARSET);// 不考虑低版本MySQL, Git新增
+	return preg_replace("/^\s*(CREATE TABLE\s+.+\s+\(.+?\)).*$/isU", "\\1", $sql) . " ENGINE=$type DEFAULT CHARSET=" . DBCHARSET . (DBCHARSET === 'utf8mb4' ? " COLLATE=utf8mb4_unicode_ci" : "");
 }
 
 function dir_writeable($dir) {
