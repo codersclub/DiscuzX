@@ -493,16 +493,38 @@ DROP TABLE IF EXISTS pre_common_smslog;
 CREATE TABLE pre_common_smslog (
   `smslogid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `uid` mediumint(8) unsigned NOT NULL,
-  `type` int(10) NOT NULL DEFAULT '0',
+  `smstype` int(10) NOT NULL DEFAULT '0',
+  `svctype` int(10) NOT NULL DEFAULT '0',
   `smsgw` int(10) NOT NULL DEFAULT '0',
   `status` int(10) NOT NULL DEFAULT '0',
   `verify` int(10) NOT NULL DEFAULT '0',
   `secmobicc` varchar(3) NOT NULL DEFAULT '',
   `secmobile` varchar(12) NOT NULL DEFAULT '',
-  `sendtime` int(10) unsigned NOT NULL DEFAULT '0',
+  `ip` varchar(45) NOT NULL DEFAULT '',
+  `port` smallint(6) unsigned NOT NULL DEFAULT '0',
   `content` text NOT NULL DEFAULT '',
-  PRIMARY KEY (smslogid),
-  KEY lastsent (secmobicc,secmobile,sendtime)
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`smslogid`),
+  KEY dateline (`secmobicc`, `secmobile`, `dateline`),
+  KEY uid (uid)
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS pre_common_smslog_archive;
+CREATE TABLE pre_common_smslog_archive (
+  `smslogid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` mediumint(8) unsigned NOT NULL,
+  `smstype` int(10) NOT NULL DEFAULT '0',
+  `svctype` int(10) NOT NULL DEFAULT '0',
+  `smsgw` int(10) NOT NULL DEFAULT '0',
+  `status` int(10) NOT NULL DEFAULT '0',
+  `verify` int(10) NOT NULL DEFAULT '0',
+  `secmobicc` varchar(3) NOT NULL DEFAULT '',
+  `secmobile` varchar(12) NOT NULL DEFAULT '',
+  `ip` varchar(45) NOT NULL DEFAULT '',
+  `port` smallint(6) unsigned NOT NULL DEFAULT '0',
+  `content` text NOT NULL DEFAULT '',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`smslogid`)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_common_devicetoken;
@@ -704,7 +726,8 @@ CREATE TABLE pre_common_member (
   KEY email (email(40)),
   KEY groupid (groupid),
   KEY conisbind (conisbind),
-  KEY regdate (regdate)
+  KEY regdate (regdate),
+  KEY secmobile (`secmobile`, `secmobicc`)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_common_member_action_log;

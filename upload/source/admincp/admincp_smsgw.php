@@ -224,6 +224,9 @@ if($operation == 'list') {
 		// 默认国际区号, 默认 86
 		$smsdefaultcc = (int)$_GET['smsdefaultccnew'];
 		$smsdefaultcc = $smsdefaultcc > 0 ? $smsdefaultcc : 86;
+		// 默认短信验证码长度, 默认 4
+		$smsdefaultlength = (int)$_GET['smsdefaultlength'];
+		$smsdefaultlength = $smsdefaultlength > 0 ? $smsdefaultlength : 4;
 		// 限制时间区间, 默认 86400 秒
 		$smstimelimit = (int)$_GET['smstimelimitnew'];
 		$smstimelimit = $smstimelimit > 0 ? $smstimelimit : 86400;
@@ -242,6 +245,7 @@ if($operation == 'list') {
 
 		C::t('common_setting')->update_setting('smsstatus', $smsstatus);
 		C::t('common_setting')->update_setting('smsdefaultcc', $smsdefaultcc);
+		C::t('common_setting')->update_setting('smsdefaultlength', $smsdefaultlength);
 		C::t('common_setting')->update_setting('smstimelimit', $smstimelimit);
 		C::t('common_setting')->update_setting('smsnumlimit', $smsnumlimit);
 		C::t('common_setting')->update_setting('smsinterval', $smsinterval);
@@ -261,6 +265,8 @@ if($operation == 'list') {
 		$smsstatus = C::t('common_setting')->fetch_setting('smsstatus');
 		// 默认国际区号, 默认 86
 		$smsdefaultcc = C::t('common_setting')->fetch_setting('smsdefaultcc');
+		// 默认短信验证码长度, 默认 4
+		$smsdefaultlength = C::t('common_setting')->fetch_setting('smsdefaultlength');
 		// 限制时间区间, 默认 86400 秒
 		$smstimelimit = C::t('common_setting')->fetch_setting('smstimelimit');
 		// 单用户/单号码短信限制时间区间内总量, 默认 5 条
@@ -276,6 +282,7 @@ if($operation == 'list') {
 		showtableheader();
 		showsetting('smsgw_setting_smsstatus', 'smsstatusnew', $smsstatus, 'radio', 0, 1);
 		showsetting('smsgw_setting_smsdefaultcc', 'smsdefaultccnew', $smsdefaultcc, 'text');
+		showsetting('smsgw_setting_smsdefaultlength', 'smsdefaultlengthnew', $smsdefaultlength, 'text');
 		showsetting('smsgw_setting_smstimelimit', 'smstimelimitnew', $smstimelimit, 'text');
 		showsetting('smsgw_setting_smsnumlimit', 'smsnumlimitnew', $smsnumlimit, 'text');
 		showsetting('smsgw_setting_smsinterval', 'smsintervalnew', $smsinterval, 'text');

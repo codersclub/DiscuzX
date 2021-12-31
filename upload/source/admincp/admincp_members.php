@@ -3499,7 +3499,9 @@ function notifymembers($operation, $variable) {
 					runlog('sendmail', "{$member['email']} sendmail failed.");
 				}
 			} elseif($_GET['notifymembers'] == 'sms') {
-				sms::sendmessage($member['uid'], 1, $member['secmobicc'], $member['secmobile'], "[$subject]$message$addmsg", 1);
+				// 用户 UID : $member['uid'], 短信类型: 通知类短信, 服务类型: 系统级短消息通知业务
+				// 国家代码: $member['secmobicc'], 手机号: $member['secmobile'], 内容: "[$subject]$message$addmsg", 强制发送: true
+				sms::send($member['uid'], 1, 2, $member['secmobicc'], $member['secmobile'], "[$subject]$message$addmsg", 1);
 			}
 
 			$log = array();

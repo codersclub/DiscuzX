@@ -36,7 +36,8 @@ CREATE TABLE uc_members (
   secques char(8) NOT NULL default '',
   PRIMARY KEY(uid),
   UNIQUE KEY username(username),
-  KEY email(email(40))
+  KEY email(email(40)),
+  KEY secmobile (`secmobile`, `secmobicc`)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS uc_memberfields;

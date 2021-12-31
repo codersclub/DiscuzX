@@ -5483,11 +5483,12 @@ $lang = array
 	'smsgw_edit_order' => '接口顺序',
 	'smsgw_edit_sendrule' => '支持的国际电话区号',
 
-	'smsgw_type_message' => '消息类网关',
+	'smsgw_type_message' => '文字类网关',
 	'smsgw_type_template' => '模板类网关',
 
 	'smsgw_setting_smsstatus' => '短信功能开关',
 	'smsgw_setting_smsdefaultcc' => '默认国际区号',
+	'smsgw_setting_smsdefaultlength' => '默认短信验证码长度',
 	'smsgw_setting_smstimelimit' => '风控限制时间区间',
 	'smsgw_setting_smsnumlimit' => '单用户/单号码短信限制时间区间内总量',
 	'smsgw_setting_smsinterval' => '单用户/单号码短信时间间隔',

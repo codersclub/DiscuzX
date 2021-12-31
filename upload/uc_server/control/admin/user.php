@@ -279,6 +279,9 @@ class control extends adminbase {
 			$delavatar = getgpc('delavatar', 'P');
 			$rmrecques = getgpc('rmrecques', 'P');
 			$sqladd = '';
+			if(!empty($secmobile) && ($status = $_ENV['user']->check_secmobileexists($secmobicc, $secmobile, $username)) > 0) {
+				$this->message('admin_mobile_exists');
+			}
 			if($username != $newusername) {
 				if($_ENV['user']->get_user_by_username($newusername)) {
 					$this->message('admin_user_exists');
@@ -304,6 +307,9 @@ class control extends adminbase {
 
 			$this->db->query("UPDATE ".UC_DBTABLEPRE."members SET $sqladd email='$email', secmobicc='$secmobicc', secmobile='$secmobile' WHERE uid='$uid'");
 			$status = $this->db->errno() ? -1 : 1;
+			if($status > 0) {
+				$_ENV['user']->user_log($uid, 'edituser', 'uid='.$uid.'&email='.urlencode($email).'&secmobicc='.urlencode($secmobicc).'&secmobile='.urlencode($secmobile));
+			}
 		}
 		$user = $this->db->fetch_first("SELECT * FROM ".UC_DBTABLEPRE."members WHERE uid='$uid'");
 		$user['bigavatar'] = '<img src="avatar.php?uid='.$uid.'&size=big">';

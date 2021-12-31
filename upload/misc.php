@@ -57,7 +57,7 @@ if(isset($_GET['mod']) && $_GET['mod'] != 'tag'){
 $modarray = array('seccode', 'secqaa', 'initsys', 'invite', 'faq', 'report',
 				'swfupload', 'stat', 'ranklist', 'buyinvitecode',
 				'tag', 'diyhelp', 'mobile', 'patch', 'getatuser', 'imgcropper',
-				'userstatus', 'secmobileseccode');
+				'userstatus', 'secmobseccode');
 
 $modcachelist = array(
 	'ranklist' => array('forums', 'diytemplatename'),

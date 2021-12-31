@@ -1762,8 +1762,8 @@ function searchFocus(obj) {
 	}
 }
 
-function sendsecmobileseccode(type, secmobicc, secmobile) {
-	url = "misc.php?mod=secmobileseccode&action=send&type=" + type + "&secmobicc=" + secmobicc + "&secmobile=" + secmobile;
+function sendsecmobseccode(svctype, secmobicc, secmobile) {
+	url = "misc.php?mod=secmobseccode&action=send&svctype=" + svctype + "&secmobicc=" + secmobicc + "&secmobile=" + secmobile;
 	var x = new Ajax('JSON');
 	x.getJSON(url, function(s) {
 		if(s.result > 0) {

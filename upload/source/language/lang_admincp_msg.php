@@ -58,6 +58,7 @@ $lang = array (
   'members_email_illegal' => 'Email 地址无效',
   'members_email_domain_illegal' => 'Email 包含不可使用的邮箱域名',
   'members_email_duplicate' => '该 Email 地址已经被注册',
+  'members_mobile_duplicate' => '该手机号码已经被注册',
   'members_edit_succeed' => '用户资料更新成功 ',
   'members_profile_edit_succeed' => '用户栏目更新成功 ',
   'members_stat_update_data_succeed' => '统计数据更新成功 ',

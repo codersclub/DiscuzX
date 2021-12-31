@@ -89,14 +89,16 @@
 							<p class="d">{lang memcp_profile_secmobile_comment}</p>
 						</td>
 					</tr>
+					<!--{if $_G['setting']['smsstatus']}-->
 					<tr>
-						<th>{lang secmobileseccode}</th>
+						<th>{lang secmobseccode}</th>
 						<td>
-							<input type="text" name="secmobileseccodenew" id="secmobileseccodenew" value="" class="px" />
-							<button type="button" name="secmobileseccodesendnew" id="secmobileseccodesendnew" value="true" class="pn pnc" onclick="memcp_sendsecmobileseccode();" /><strong>{lang send}</strong></button>
-							<p class="d">{lang memcp_profile_secmobileseccode_comment}</p>
+							<input type="text" name="secmobseccodenew" id="secmobseccodenew" value="" class="px" />
+							<button type="button" name="secmobseccodesendnew" id="secmobseccodesendnew" value="true" class="pn pnc" onclick="memcp_sendsecmobseccode();" /><strong>{lang send}</strong></button>
+							<p class="d">{lang memcp_profile_secmobseccode_comment}</p>
 						</td>
 					</tr>
+					<!--{/if}-->
 
 					<!--{if $_G['member']['freeze'] == 2 || $_G['member']['freeze'] == -1}-->
 					<tr>
@@ -167,14 +169,16 @@
 				var pwlength = <!--{if $_G['setting']['pwlength']}-->$_G['setting']['pwlength']<!--{else}-->0<!--{/if}-->;
 				checkPwdComplexity($('newpassword'), $('newpassword2'), true);
 			</script>
+			<!--{if $_G['setting']['smsstatus']}-->
 			<script type="text/javascript">
-			function memcp_sendsecmobileseccode() {
-				memcp_type = 0;
+			function memcp_sendsecmobseccode() {
+				memcp_svctype = 1;
 				memcp_secmobicc = document.getElementById("secmobiccnew").value;
 				memcp_secmobile = document.getElementById("secmobilenew").value;
-				return sendsecmobileseccode(memcp_type, memcp_secmobicc, memcp_secmobile);
+				return sendsecmobseccode(memcp_svctype, memcp_secmobicc, memcp_secmobile);
 			}
 			</script>
+			<!--{/if}-->
 		<!--{else}-->
 			<!--{hook/spacecp_profile_top}-->
 			<!--{subtemplate home/spacecp_profile_nav}-->
