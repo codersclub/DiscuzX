@@ -103,6 +103,7 @@ if($operation == 'filecheck') {
 		}
 
 		$weekbefore = TIMESTAMP - 604800;
+		$md5data = is_array($md5data) ? $md5data : array();
 		$md5datanew = is_array($md5datanew) ? $md5datanew : array();
 		$addlist = array_merge(array_diff_assoc($md5data, $md5datanew), is_array($cachelist[2]) ? $cachelist[2] : array());
 		$dellist = array_diff_assoc($md5datanew, $md5data);
