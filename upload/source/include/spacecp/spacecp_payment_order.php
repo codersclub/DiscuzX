@@ -57,7 +57,7 @@ if($count) {
 		$order['amount'] = number_format($order['amount'] / 100, 2, '.', ',');
 		$order['subject'] = dhtmlspecialchars($order['subject']);
 		$order['description'] = dhtmlspecialchars($order['description']);
-		$order['dateline'] = dgmdate($order['dateline'], 'Y-m-d H:j');
+		$order['dateline'] = dgmdate($order['dateline'], 'Y-m-d H:i:s');
 		$status = $order['status'];
 		if(!$order['status'] && $order['expire_time'] < time()) {
 			$status = 2;

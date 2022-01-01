@@ -66,7 +66,7 @@
     (function() {
         $('#addfundamount').on('input',function() {
             var addfundamount = parseInt($(this).val().replace(/^0/,''));
-            $('#desamount').html(!isNaN(addfundamount) ? Math.ceil(((addfundamount / 10) * 100)) / 100 : 0);
+            $('#desamount').html(!isNaN(addfundamount) ? Math.ceil(((addfundamount / $_G['setting']['ec_ratio']) * 100)) / 100 : 0);
         });
         $('#buy_tabs a').click(function() {
             if($(this).hasClass('mon')) return;
