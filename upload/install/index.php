@@ -394,6 +394,11 @@ if($method == 'show_license') {
 	$allinfo_arr = unserialize(base64_decode($allinfo));
 	extract($allinfo_arr);
 
+	@set_time_limit(0);
+	@ignore_user_abort(TRUE);
+	ini_set('max_execution_time', 0);
+	ini_set('mysql.connect_timeout', 0);
+
 	$db = new dbstuff;
 	$db->connect($dbhost, $dbuser, $dbpw, $dbname, DBCHARSET);
 

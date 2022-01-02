@@ -7,6 +7,9 @@
  *      $Id: misc_initsys.php 36334 2017-01-03 01:32:35Z nemohou $
  */
 
+@set_time_limit(0);
+@ignore_user_abort(TRUE);
+
 if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
