@@ -475,13 +475,6 @@ if($method == 'show_license') {
 	if(!$homestatus) {
 		$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('homestatus', '0')");
 	}
-	$yearmonth = date('Ym_', time());
-	loginit($yearmonth.'ratelog');
-	loginit($yearmonth.'illegallog');
-	loginit($yearmonth.'modslog');
-	loginit($yearmonth.'cplog');
-	loginit($yearmonth.'errorlog');
-	loginit($yearmonth.'banlog');
 
 	dir_clear(ROOT_PATH.'./data/template');
 	dir_clear(ROOT_PATH.'./data/cache');

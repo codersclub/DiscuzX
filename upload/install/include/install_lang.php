@@ -349,7 +349,6 @@ $lang = array(
 	'ucfounderpw' => '创始人密码',
 	'ucfounderpw2' => '重复创始人密码',
 
-	'init_log' => '初始化记录',
 	'clear_dir' => '清空目录',
 	'select_db' => '选择数据库',
 	'create_table' => '建立数据表',

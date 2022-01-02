@@ -670,12 +670,6 @@ EOT;
 	$quit && exit();
 }
 
-function loginit($logfile) {
-	global $lang;
-	showjsmessage($lang['init_log'].' '.$logfile . "\n");
-	file_put_contents('./forumdata/logs/'.$logfile.'.php', '<'.'?PHP exit(); ?'.">\n", LOCK_EX);
-}
-
 function showjsmessage($message) {
 	if(VIEW_OFF) return;
 	append_to_install_log_file($message);

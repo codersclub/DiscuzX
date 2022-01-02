@@ -495,12 +495,6 @@ EOT;
 	$quit && exit();
 }
 
-function loginit($logfile) {
-	global $lang;
-	showjsmessage($lang['init_log'].' '.$logfile);
-	file_put_contents('./forumdata/logs/'.$logfile.'.php', '<'.'?PHP exit(); ?'.">\n", LOCK_EX);
-}
-
 function showjsmessage($message) {
 	if(VIEW_OFF) return;
 	echo '<script type="text/javascript">showmessage(\''.addslashes($message).' \');</script>'."\r\n";
