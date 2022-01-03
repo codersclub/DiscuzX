@@ -4632,6 +4632,7 @@ $lang = array
 	'prune_search_lengthlimit' => '内容最小长度',
 	'prune_search_lengthlimit_comment' => '本功能会加重服务器负担',
 	'prune_result' => '符合条件的帖子数',
+	'prune_nosubject' => '(无标题)',
 	'prune_no_update_member' => '删帖不减用户发帖数和积分',
 	'prune_succeed' => '符合条件的 {deletedthreads} 篇主题和 {deletedposts} 篇帖子被删除',
 	'prune_condition_invalid' => '您没有同时选择时间范围和指定相关的搜索条件，请返回',

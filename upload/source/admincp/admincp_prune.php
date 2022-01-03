@@ -226,7 +226,7 @@ if(submitcheck('searchsubmit', 1)) {
 			foreach($postlist as $key => $post) {
 					$postfids[$post['fid']] = $post['fid'];
 				$post['dateline'] = dgmdate($post['dateline']);
-				$post['subject'] = cutstr($post['subject'], 30);
+				$post['subject'] = empty($post['subject']) ? cplang('prune_nosubject') : cutstr($post['subject'], 30);
 				$post['message'] = dhtmlspecialchars(cutstr($post['message'], 50));
 				$postlist[$key] = $post;
 			}
