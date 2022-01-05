@@ -220,7 +220,7 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 			if($thread['authorid'] && $thread['authorid'] != $_G['uid']) {
 				$pmlist[] = array(
 					'action' =>  $_GET[$pm] ? 'modthreads_delete_reason' : 'modthreads_delete',
-					'notevar' => array('threadsubject' => $thread['subject'], 'reason' => $_GET[$pm]),
+					'notevar' => array('threadsubject' => $thread['subject'], 'reason' => $_GET[$pm], 'modusername' => ($_G['setting']['moduser_public'] ? $_G['username'] : '')),
 					'authorid' => $thread['authorid'],
 				);
 			}
@@ -287,7 +287,7 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 			if($thread['authorid'] && $thread['authorid'] != $_G['uid']) {
 				$pmlist[] = array(
 					'action' => 'modthreads_validate',
-					'notevar' => array('tid' => $thread['tid'], 'threadsubject' => $thread['subject'], 'reason' => dhtmlspecialchars($_GET[''.$pm]), 'from_id' => 0, 'from_idtype' => 'modthreads'),
+					'notevar' => array('tid' => $thread['tid'], 'threadsubject' => $thread['subject'], 'reason' => dhtmlspecialchars($_GET[''.$pm]), 'modusername' => ($_G['setting']['moduser_public'] ? $_G['username'] : ''), 'from_id' => 0, 'from_idtype' => 'modthreads'),
 					'authorid' => $thread['authorid'],
 				);
 			}

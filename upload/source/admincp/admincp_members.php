@@ -1269,7 +1269,8 @@ EOF;
 		showtablefooter();
 
 		showtableheader('members_edit_reason', 'notop');
-		showsetting('members_group_ban_reason', 'reason', '', 'textarea');
+		showsetting('members_group_reason', 'reason', '', 'textarea');
+		showsetting('members_group_reason_notify', 'reasonnotify', '', 'radio');
 		showsubmit('editsubmit');
 		showtablefooter();
 
@@ -1353,6 +1354,14 @@ EOF;
 			}
 		}
 
+		$exarr = is_array($_GET['extgroupidsnew']) ? $_GET['extgroupidsnew'] : array();
+		$exinfo = '';
+
+		foreach($exarr as $extgroupid) {
+			$extfetch = C::t('common_usergroup')->fetch($extgroupid);
+			$extgroupinfo .= (empty($extgroupinfo) ? '' : ', ') . $extfetch['grouptitle'] . ' => ' . (empty($groupterms['ext'][$extgroupid]) ? 0 : dgmdate($groupterms['ext'][$extgroupid], 'Y-m-d H:i:s'));
+		}
+
 		$grouptermsnew = serialize($groupterms);
 		$groupexpirynew = groupexpiry($groupterms);
 		$extgroupidsnew = $_GET['extgroupidsnew'] && is_array($_GET['extgroupidsnew']) ? implode("\t", $_GET['extgroupidsnew']) : '';
@@ -1367,6 +1376,20 @@ EOF;
 		if($_GET['groupidnew'] != $member['groupid'] && (in_array($_GET['groupidnew'], array(4, 5)) || in_array($member['groupid'], array(4, 5)))) {
 			$my_opt = in_array($_GET['groupidnew'], array(4, 5)) ? 'banuser' : 'unbanuser';			
 			banlog($member['username'], $member['groupid'], $_GET['groupidnew'], $groupexpirynew, $_GET['reason']);
+		}
+
+		if(isset($_GET['reason']) && isset($_GET['reasonnotify']) && !empty($_GET['reason']) && $_GET['reasonnotify']) {
+			$mainfetch = C::t('common_usergroup')->fetch($_GET['groupidnew']);
+			$notearr = array(
+				'user' => "<a href=\"home.php?mod=space&uid={$_G['uid']}\">{$_G['username']}</a>",
+				'day' => !empty($_GET['expirydatenew']) ? addslashes($_GET['expirydatenew']) : 0,
+				'groupname' => $mainfetch['grouptitle'],
+				'extgroupinfo' => empty($exinfo) ? cplang('members_group_extended_none') : $exinfo,
+				'reason' => addslashes($_GET['reason']),
+				'from_id' => 0,
+				'from_idtype' => 'changeusergroup'
+			);
+			notification_add($member['uid'], 'system', 'member_change_usergroup', $notearr, 1);
 		}
 
 		cpmsg('members_edit_groups_succeed', "action=members&operation=group&uid={$member['uid']}", 'succeed');
@@ -1427,6 +1450,7 @@ EOT;
 		showtableheader('', 'notop');
 		showtitle('members_edit_reason');
 		showsetting('members_credit_reason', 'reason', '', 'textarea');
+		showsetting('members_credit_reason_notify', 'reasonnotify', '', 'radio');
 		showsubmit('creditsubmit');
 		showtablefooter();
 		showformfooter();
@@ -1435,13 +1459,14 @@ EOT;
 	} else {
 
 		$diffarray = array();
-		$sql = $comma = '';
+		$sql = $comma = $notify = '';
 		if(is_array($_GET['extcreditsnew'])) {
 			foreach($_GET['extcreditsnew'] as $id => $value) {
 				if($member['extcredits'.$id] != ($value = intval($value))) {
 					$diffarray[$id] = $value - $member['extcredits'.$id];
 					$sql .= $comma."extcredits$id='$value'";
 					$comma = ', ';
+					$notify .= (empty($notify) ? '' : ', ') . $_G['setting']['extcredits'][$id]['title'] . ' => ' . $value;
 				}
 			}
 		}
@@ -1452,6 +1477,17 @@ EOT;
 			}
 			updatemembercount($_GET['uid'], $diffarray);
 			writelog('ratelog', $logs);
+			if(isset($_GET['reasonnotify']) && $_GET['reasonnotify']) {
+				$notearr = array(
+					'user' => "<a href=\"home.php?mod=space&uid={$_G['uid']}\">{$_G['username']}</a>",
+					'day' => isset($_GET['expirydatenew']) ? addslashes($_GET['expirydatenew']) : 0,
+					'extcredits' => $notify,
+					'reason' => addslashes($_GET['reason']),
+					'from_id' => 0,
+					'from_idtype' => 'changecredits'
+				);
+				notification_add($member['uid'], 'system', 'member_change_credits', $notearr, 1);
+			}
 		}
 
 		cpmsg('members_edit_credits_succeed', "action=members&operation=credit&uid={$_GET['uid']}", 'succeed');
