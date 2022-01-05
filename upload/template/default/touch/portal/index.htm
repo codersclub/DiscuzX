@@ -1,6 +1,74 @@
 <!--{template common/header}-->
+{eval}
+$perpage = 30;
+$page = intval($_GET['page']);
+$page = empty($page) ? 1 : min($page, 1000);
+$start = ($page-1) * $perpage;
+if($start < 0) {
+	$start = 0;
+}
+$list = array();
+$pricount = 0;
+$multi = '';
+$count = C::t('portal_article_title')->fetch_all_by_sql('at.status=0', '', 0, 0, 1, 'at');
+if($count) {
+	$query = C::t('portal_article_title')->fetch_all_by_sql('at.status=0', 'ORDER BY at.dateline DESC', $start, $perpage, 0, 'at');
+	foreach($query as $value) {
+		$value['catname'] = $_G['cache']['portalcategory'][$value['catid']]['catname'];
+		$value['onerror'] = '';
+		if($value['pic']) {
+			$value['pic'] = pic_get($value['pic'], '', $value['thumb'], $value['remote'], 1, 1);
+		}
+		$value['dateline'] = dgmdate($value['dateline']);
+		if($value['status'] == 0) {
+			$list[] = $value;
+		} else {
+			$pricount++;
+		}
+	}
+	$multi = multi($count, $perpage, $page, 'portal.php', 1000);
+}
+$list = array('list'=>$list,'count'=>$count,'multi'=>$multi,'pricount'=>$pricount);
+{/eval}
 <div class="header cl">
 	<div class="mzlogo"><a title="$_G['setting']['bbname']" href="javascript:;"><img src="{IMGDIR}/logo_m.svg" /></a></div>
 	<div class="myss"><a href="search.php?mod=portal"><i class="dm-search"></i>{lang mobsearchtxt}</a></div>
 </div>
+<!--{if count($list['list'])}-->
+<div class="wzlist mt10 cl">
+<!--{loop $list['list'] $value}-->
+{eval}
+$highlight = '';
+if($value['highlight']) {
+	$style = explode('|', $value['highlight']);
+	$highlight = ' style="';
+	$highlight .= $style[0] ? 'color: '.$style[0].';' : '';
+	$highlight .= $style[1] ? 'font-weight: bold;' : '';
+	$highlight .= $style[2] ? 'font-style: italic;' : '';
+	$highlight .= $style[3] ? 'text-decoration: underline;' : '';
+	$highlight .= '"';
+}
+{/eval}
+	<!--{eval $article_url = fetch_article_url($value);}-->
+	<li>
+		<a href="$article_url" $highlight>
+		<!--{if $value['pic']}--><div class="mimg"><img src="$value['pic']" alt="$value['title']" /></div><!--{/if}-->
+		<div class="minfo">
+			<p class="mtit">$value['title']</p>
+			<p class="mtime">$value['catname'] $value['dateline']</p>
+		</div>
+		</a>
+	</li>
+<!--{/loop}-->
+</div>
+<!--{else}-->
+<div class="threadlist_box mt10 cl">
+	<div class="threadlist cl">
+		<ul>
+			<h4>{lang mobnodata}</h4>
+		</ul>
+	</div>
+</div>
+<!--{/if}-->
+<!--{if $list['multi']}-->{$list['multi']}<!--{/if}-->
 <!--{template common/footer}-->
