@@ -1,5 +1,11 @@
 <!--{template common/header}-->
 {eval}
+$cates = C::t('portal_category')->range_category(0, 999);
+foreach($cates as $cate){
+	if(!$cate['closed'] && !$cate['upid']){
+		$catelist[] = $cate;
+	}
+}
 $perpage = 30;
 $page = intval($_GET['page']);
 $page = empty($page) ? 1 : min($page, 1000);
@@ -34,6 +40,33 @@ $list = array('list'=>$list,'count'=>$count,'multi'=>$multi,'pricount'=>$pricoun
 	<div class="mzlogo"><a title="$_G['setting']['bbname']" href="javascript:;"><img src="{IMGDIR}/logo_m.svg" /></a></div>
 	<div class="myss"><a href="search.php?mod=portal"><i class="dm-search"></i>{lang mobsearchtxt}</a></div>
 </div>
+<!--{if $catelist}-->
+<div class="dhnavs_box">
+	<div id="dhnavs">
+		<div id="dhnavs_li">
+			<ul class="swiper-wrapper">
+				<!--{eval $i = 1;}-->
+				<!--{loop $catelist $value}-->
+				<li class="swiper-slide"><!--{if $i != 1}--><span>|</span><!--{/if}--><a href="{$_G['cache']['portalcategory'][$value['catid']]['caturl']}">$value['catname']</a></li>
+				<!--{eval $i--;}-->
+				<!--{/loop}-->
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+	new Swiper('#dhnavs_li', {
+		freeMode : true,
+		slidesPerView : 'auto',
+		onTouchMove: function(swiper){
+			Discuz_Touch_on = 0;
+		},
+		onTouchEnd: function(swiper){
+			Discuz_Touch_on = 1;
+		},
+	});
+</script>
+<!--{/if}-->
 <!--{if count($list['list'])}-->
 <div class="wzlist mt10 cl">
 <!--{loop $list['list'] $value}-->
