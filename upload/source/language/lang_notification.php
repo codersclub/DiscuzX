@@ -104,9 +104,9 @@ $lang = array
 	'modthreads_delete_reason' => '您发表的主题 {threadsubject} 已由管理团队 {modusername} 审核拒绝，现已被删除！<div class="quote"><blockquote>{reason}</blockquote></div>',
 	'modthreads_validate' => '您发表的主题 <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{threadsubject}</a> 已由管理团队 {modusername} 审核通过！ &nbsp; <a href="forum.php?mod=viewthread&tid={tid}" target="_blank" class="lit">查看 &rsaquo;</a>',
 
-	'modreplies_delete' => '您发表回复已由管理团队 {modusername} 审核拒绝，现已被删除！ <p class="summary">回复内容：<span>{post}</span></p>',
+	'modreplies_delete' => '您发表的回复已由管理团队 {modusername} 审核拒绝，现已被删除！ <p class="summary">回复内容：<span>{post}</span></p>',
 
-	'modreplies_delete_reason' => '您发表回复已由管理团队 {modusername} 审核拒绝，现已被删除！ <p class="summary">回复内容：<span>{post}</span></p><div class="quote"><blockquote>{reason}</blockquote></div>',
+	'modreplies_delete_reason' => '您发表的回复已由管理团队 {modusername} 审核拒绝，现已被删除！ <p class="summary">回复内容：<span>{post}</span></p><div class="quote"><blockquote>{reason}</blockquote></div>',
 
 	'modreplies_validate' => '您发表的回复已由管理团队 {modusername} 审核通过！ &nbsp; <a href="forum.php?mod=redirect&goto=findpost&pid={pid}&ptid={tid}" target="_blank" class="lit">查看 &rsaquo;</a> <p class="summary">回复内容：<span>{post}</span></p>',
 
@@ -186,7 +186,7 @@ $lang = array
 	'profile_verify_pass_refusal' => '很遗憾，您填写的{verify}资料审核已被拒绝',
 	'member_ban_speak' => '您已被 {user} 禁止发言，期限：{day}天(0：代表永久禁言)，禁言理由：{reason}',
 	'member_ban_visit' => '您已被 {user} 禁止访问，期限：{day}天(0：代表永久禁止访问)，禁止访问理由：{reason}',
-	'member_ban_status' => '您已被 {user} 锁定，禁止访问理由：{reason}',
+	'member_ban_status' => '您已被 {user} 锁定，锁定理由：{reason}',
 	'member_change_usergroup' => '您已被 {user} 修改为 {groupname} 用户组，期限：{day} (0：代表永久生效)，扩展组信息为 {extgroupinfo}，并应操作者要求告知您相关变动，操作理由：{reason}',
 	'member_change_credits' => '您已被 {user} 调整积分，积分类型与调整值为 {extcredits} ，并应操作者要求告知您相关变动，操作理由：{reason}',
 
