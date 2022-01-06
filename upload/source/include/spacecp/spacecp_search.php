@@ -15,7 +15,7 @@ if (!$_G['setting']['friendstatus']) {
 	showmessage('friend_status_off');
 }
 
-$myfields = array('uid','gender','birthyear','birthmonth','birthday','birthprovince','birthcity','resideprovince','residecity', 'residedist', 'residecommunity');
+$myfields = array('uid','gender','birthyear','birthmonth','birthday','birthcountry','birthprovince','birthcity','residecountry','resideprovince','residecity', 'residedist', 'residecommunity');
 
 loadcache('profilesetting');
 $fields = array();
@@ -150,8 +150,8 @@ if(!empty($_GET['searchsubmit']) || !empty($_GET['searchmode'])) {
 	$marryarr = array($space['marry'] => ' selected');
 
 	include_once libfile('function/profile');
-	$birthcityhtml = showdistrict(array(0,0), array('birthprovince', 'birthcity'), 'birthcitybox', null, 'birth');
-	$residecityhtml = showdistrict(array(0,0, 0, 0), array('resideprovince', 'residecity', 'residedist', 'residecommunity'), 'residecitybox', null, 'reside');
+	$birthcityhtml = showdistrict(array(0,0,0), array('birthcountry', 'birthprovince', 'birthcity'), 'birthcitybox', null, 'birth');
+	$residecityhtml = showdistrict(array(0,0, 0, 0, 0), array('residecountry', 'resideprovince', 'residecity', 'residedist', 'residecommunity'), 'residecitybox', null, 'reside');
 
 	foreach ($fields as $fkey => $fvalue) {
 		if(empty($fvalue['choices'])) {

@@ -80,7 +80,7 @@ if($_GET['op'] == 'delete') {
 			$arr['body_template'] = '<b>{username}</b><br>{reside}<br>{spacenote}';
 			$arr['body_data'] = array(
 			'username' => "<a href=\"home.php?mod=space&uid=$id\">".$tospace['username']."</a>",
-			'reside' => $tospace['resideprovince'].$tospace['residecity'],
+			'reside' => $tospace['residecountry'].$tospace['resideprovince'].$tospace['residecity'],
 			'spacenote' => $tospace['spacenote']
 			);
 

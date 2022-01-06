@@ -43,7 +43,7 @@ function getblockhtml($blockname,$parameters = array()) {
 				if($_G['setting']['nsprofiles']) {
 					break;
 				}
-				if(!$field['available'] || in_array($fieldid, array('birthprovince', 'birthdist', 'birthcommunity', 'resideprovince', 'residedist', 'residecommunity'))) {
+				if(!$field['available'] || in_array($fieldid, array('birthcountry', 'birthprovince', 'birthdist', 'birthcommunity', 'residecountry',  'resideprovince', 'residedist', 'residecommunity'))) {
 					continue;
 				}
 				if(

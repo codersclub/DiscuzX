@@ -14,18 +14,18 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 cpheader();
 
 shownav('global', 'district');
-$values = array(intval($_GET['pid']), intval($_GET['cid']), intval($_GET['did']));
-$elems = array($_GET['province'], $_GET['city'], $_GET['district']);
-$level = 1;
+$values = array(intval($_GET['countryid']), intval($_GET['pid']), intval($_GET['cid']), intval($_GET['did']));
+$elems = array($_GET['country'], $_GET['province'], $_GET['city'], $_GET['district']);
+$level = 0;
 $upids = array(0);
 $theid = 0;
-for($i=0;$i<3;$i++) {
+for($i=0;$i<4;$i++) {
 	if(!empty($values[$i])) {
 		$theid = intval($values[$i]);
 		$upids[] = $theid;
 		$level++;
 	} else {
-		for($j=$i; $j<3; $j++) {
+		for($j=$i; $j<4; $j++) {
 			$values[$j] = '';
 		}
 		break;
@@ -76,7 +76,7 @@ if(submitcheck('editsubmit')) {
 			}
 		}
 	}
-	cpmsg('setting_district_edit_success', 'action=district&pid='.$values[0].'&cid='.$values[1].'&did='.$values[2], 'succeed');
+	cpmsg('setting_district_edit_success', 'action=district&countryid='.$values[0].'&pid='.$values[1].'&cid='.$values[2].'&did='.$values[3], 'succeed');
 
 } else {
 	showsubmenu('district');
@@ -84,10 +84,10 @@ if(submitcheck('editsubmit')) {
 	showtips('district_tips');
 	/*search*/
 
-	showformheader('district&pid='.$values[0].'&cid='.$values[1].'&did='.$values[2]);
+	showformheader('district&countryid='.$values[0].'&pid='.$values[1].'&cid='.$values[2].'&did='.$values[3]);
 	showtableheader();
 
-	$options = array(1=>array(), 2=>array(), 3=>array());
+	$options = array(0=>array(), 1=>array(), 2=>array(), 3=>array());
 	$thevalues = array();
 	foreach(C::t('common_district')->fetch_all_by_upid($upids) as $value) {
 		$options[$value['level']][] = array($value['id'], $value['name']);
@@ -96,17 +96,16 @@ if(submitcheck('editsubmit')) {
 		}
 	}
 
-	$names = array('province', 'city', 'district');
-	for($i=0; $i<3;$i++) {
+	$names = array('country', 'province', 'city', 'district');
+	for($i=0; $i<4;$i++) {
 		$elems[$i] = !empty($elems[$i]) ? $elems[$i] : $names[$i];
 	}
 	$html = '';
-	for($i=0;$i<3;$i++) {
-		$l = $i+1;
-		$jscall = ($i == 0 ? 'this.form.city.value=\'\';this.form.district.value=\'\';' : '')."refreshdistrict('$elems[0]', '$elems[1]', '$elems[2]')";
+	for($i=0;$i<4;$i++) {
+		$jscall = ($i == 0 ? 'this.form.province.value=\'\';this.form.city.value=\'\';this.form.district.value=\'\';' : '')."refreshdistrict('$elems[0]', '$elems[1]', '$elems[2]', '$elems[3]')";
 		$html .= '<select name="'.$elems[$i].'" id="'.$elems[$i].'" onchange="'.$jscall.'">';
-		$html .= '<option value="">'.lang('spacecp', 'district_level_'.$l).'</option>';
-		foreach($options[$l] as $option) {
+		$html .= '<option value="">'.lang('spacecp', 'district_level_'.$i).'</option>';
+		foreach($options[$i] as $option) {
 			$selected = $option[0] == $values[$i] ? ' selected="selected"' : '';
 			$html .= '<option value="'.$option[0].'"'.$selected.'>'.$option[1].'</option>';
 		}
@@ -137,10 +136,10 @@ var rowtypedata = [
 	[[1,'', ''],[1,'<input type="text" class="txt" name="districtnew_order[]" value="0" />', 'td25'],[2,'<input type="text" class="txt" name="districtnew[]" value="" />', '']],
 ];
 
-function refreshdistrict(province, city, district) {
+function refreshdistrict(country, province, city, district) {
 	location.href = "$adminurl"
-		+ "&province="+province+"&city="+city+"&district="+district
-		+"&pid="+$(province).value + "&cid="+$(city).value+"&did="+$(district).value;
+		+"&country="+country+"&province="+province+"&city="+city+"&district="+district
+		+"&countryid="+$(country).value+"&pid="+$(province).value + "&cid="+$(city).value+"&did="+$(district).value;
 }
 
 function editdistrict(did) {

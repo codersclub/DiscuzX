@@ -266,6 +266,7 @@ $lang = array(
 	'profile_verify_modify_error' => '{verify}已经认证通过不允许修改',
 	'profile_verify_verifying' => '您的{verify}信息已提交，请耐心等待核查。',
 
+	'district_level_0' => '-国家或地区-',
 	'district_level_1' => '-省份-',
 	'district_level_2' => '-城市-',
 	'district_level_3' => '-州县-',

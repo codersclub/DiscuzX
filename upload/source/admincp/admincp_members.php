@@ -292,7 +292,8 @@ EOF;
 	}
 	$title = array('realname' => '', 'gender' => '', 'birthyear' => '', 'birthmonth' => '', 'birthday' => '', 'constellation' => '',
 		'zodiac' => '', 'telephone' => '', 'mobile' => '', 'idcardtype' => '', 'idcard' => '', 'address' => '', 'zipcode' => '','nationality' => '',
-		'birthprovince' => '', 'birthcity' => '', 'birthdist' => '', 'birthcommunity' => '', 'resideprovince' => '', 'residecity' => '', 'residedist' => '',
+		'birthcountry' => '', 'birthprovince' => '', 'birthcity' => '', 'birthdist' => '', 'birthcommunity' => '',
+		'residecountry' => '', 'resideprovince' => '', 'residecity' => '', 'residedist' => '',
 		'residecommunity' => '', 'residesuite' => '', 'graduateschool' => '', 'education' => '', 'company' => '', 'occupation' => '',
 		'position' => '', 'revenue' => '', 'affectivestatus' => '', 'lookingfor' => '', 'bloodtype' => '', 'height' => '', 'weight' => '',
 		'alipay' => '', 'icq' => '', 'qq' => '', 'yahoo' => '', 'msn' => '', 'taobao' => '', 'site' => '', 'bio' => '', 'interest' => '',
@@ -343,7 +344,8 @@ EOF;
 	}
 	$title = array('realname' => '', 'gender' => '', 'birthyear' => '', 'birthmonth' => '', 'birthday' => '', 'constellation' => '',
 		'zodiac' => '', 'telephone' => '', 'mobile' => '', 'idcardtype' => '', 'idcard' => '', 'address' => '', 'zipcode' => '','nationality' => '',
-		'birthprovince' => '', 'birthcity' => '', 'birthdist' => '', 'birthcommunity' => '', 'resideprovince' => '', 'residecity' => '', 'residedist' => '',
+		'birthcountry' => '', 'birthprovince' => '', 'birthcity' => '', 'birthdist' => '', 'birthcommunity' => '',
+		'residecountry' => '', 'resideprovince' => '', 'residecity' => '', 'residedist' => '',
 		'residecommunity' => '', 'residesuite' => '', 'graduateschool' => '', 'education' => '', 'company' => '', 'occupation' => '',
 		'position' => '', 'revenue' => '', 'affectivestatus' => '', 'lookingfor' => '', 'bloodtype' => '', 'height' => '', 'weight' => '',
 		'alipay' => '', 'icq' => '', 'qq' => '', 'yahoo' => '', 'msn' => '', 'taobao' => '', 'site' => '', 'bio' => '', 'interest' => '',
@@ -2758,11 +2760,13 @@ EOF;
 				C::t('common_member_profile_setting')->update('birthmonth', $setarr);
 				C::t('common_member_profile_setting')->update('birthyear', $setarr);
 			} elseif($_GET['fieldid'] == 'birthcity') {
+				C::t('common_member_profile_setting')->update('birthcountry', $setarr);
 				C::t('common_member_profile_setting')->update('birthprovince', $setarr);
 				$setarr['required'] = 0;
 				C::t('common_member_profile_setting')->update('birthdist', $setarr);
 				C::t('common_member_profile_setting')->update('birthcommunity', $setarr);
 			} elseif($_GET['fieldid'] == 'residecity') {
+				C::t('common_member_profile_setting')->update('residecountry', $setarr);
 				C::t('common_member_profile_setting')->update('resideprovince', $setarr);
 				$setarr['required'] = 0;
 				C::t('common_member_profile_setting')->update('residedist', $setarr);
@@ -2805,9 +2809,11 @@ EOF;
 
 		unset($list['birthyear']);
 		unset($list['birthmonth']);
+		unset($list['birthcountry']);
 		unset($list['birthprovince']);
 		unset($list['birthdist']);
 		unset($list['birthcommunity']);
+		unset($list['residecountry']);
 		unset($list['resideprovince']);
 		unset($list['residedist']);
 		unset($list['residecommunity']);
@@ -2857,11 +2863,13 @@ EOF;
 					C::t('common_member_profile_setting')->update('birthmonth', $setarr);
 					C::t('common_member_profile_setting')->update('birthyear', $setarr);
 				} elseif($fieldid == 'birthcity') {
+					C::t('common_member_profile_setting')->update('birthcountry', $setarr);
 					C::t('common_member_profile_setting')->update('birthprovince', $setarr);
 					$setarr['required'] = 0;
 					C::t('common_member_profile_setting')->update('birthdist', $setarr);
 					C::t('common_member_profile_setting')->update('birthcommunity', $setarr);
 				} elseif($fieldid == 'residecity') {
+					C::t('common_member_profile_setting')->update('residecountry', $setarr);
 					C::t('common_member_profile_setting')->update('resideprovince', $setarr);
 					$setarr['required'] = 0;
 					C::t('common_member_profile_setting')->update('residedist', $setarr);
@@ -2904,7 +2912,7 @@ EOF;
 	}
 
 	$options = array('groupid'=>cplang('usergroup'));
-	$fieldids = array('gender', 'birthyear', 'birthmonth', 'constellation', 'zodiac','birthprovince', 'resideprovince');
+	$fieldids = array('gender', 'birthyear', 'birthmonth', 'constellation', 'zodiac', 'birthcountry', 'residecountry');
 	loadcache('profilesetting');
 	foreach($_G['cache']['profilesetting'] as $fieldid=>$value) {
 		if($value['formtype']=='select'||$value['formtype']=='radio'||in_array($fieldid,$fieldids)) {
@@ -3176,7 +3184,7 @@ function showsearchform($operation = '') {
 	unset($_G['cache']['profilesetting']['birthday']);
 	require_once libfile('function/profile');
 	foreach($_G['cache']['profilesetting'] as $fieldid=>$value) {
-		if(!$value['available'] || in_array($fieldid, array('birthprovince', 'birthdist', 'birthcommunity', 'resideprovince', 'residedist', 'residecommunity'))) {
+		if(!$value['available'] || in_array($fieldid, array('birthcountry', 'birthprovince', 'birthdist', 'birthcommunity', 'residecountry', 'resideprovince', 'residedist', 'residecommunity'))) {
 			continue;
 		}
 		if($fieldid == 'gender') {
@@ -3186,11 +3194,11 @@ function showsearchform($operation = '') {
 			$select .= "<option value=\"2\">".cplang('members_edit_gender_female')."</option>\n";
 			showsetting($value['title'], '', '', '<select class="txt" name="gender">'.$select.'</select>');
 		} elseif($fieldid == 'birthcity') {
-			$elems = array('birthprovince', 'birthcity', 'birthdist', 'birthcommunity');
-			showsetting($value['title'], '', '', '<div id="birthdistrictbox">'.showdistrict(array(0,0,0,0), $elems, 'birthdistrictbox', 1, 'birth').'</div>');
+			$elems = array('birthcountry', 'birthprovince', 'birthcity', 'birthdist', 'birthcommunity');
+			showsetting($value['title'], '', '', '<div id="birthdistrictbox">'.showdistrict(array(0,0,0,0,0), $elems, 'birthdistrictbox', 1, 'birth').'</div>');
 		} elseif($fieldid == 'residecity') {
-			$elems = array('resideprovince', 'residecity', 'residedist', 'residecommunity');
-			showsetting($value['title'], '', '', '<div id="residedistrictbox">'.showdistrict(array(0,0,0,0), $elems, 'residedistrictbox', 1, 'reside').'</div>');
+			$elems = array('residecountry', 'resideprovince', 'residecity', 'residedist', 'residecommunity');
+			showsetting($value['title'], '', '', '<div id="residedistrictbox">'.showdistrict(array(0,0,0,0,0), $elems, 'residedistrictbox', 1, 'reside').'</div>');
 		} elseif($fieldid == 'constellation') {
 			$select = "<option value=\"\">".cplang('nolimit')."</option>\n";
 			for($i=1; $i<=12; $i++) {

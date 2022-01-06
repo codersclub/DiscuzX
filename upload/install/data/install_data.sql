@@ -74,10 +74,12 @@ INSERT INTO pre_common_member_profile_setting VALUES('idcard', 1, 1, 0, '证件�
 INSERT INTO pre_common_member_profile_setting VALUES('address', 1, 1, 0, '邮寄地址', '', 0, 0, 0, 0, 0, 0, 0, 'text', 0, '', '');
 INSERT INTO pre_common_member_profile_setting VALUES('zipcode', 1, 1, 0, '邮编', '', 0, 0, 0, 0, 0, 0, 0, 'text', 0, '', '');
 INSERT INTO pre_common_member_profile_setting VALUES('nationality', 0, 0, 0, '国籍', '', 0, 0, 0, 0, 0, 0, 0, 'text', 0, '', '');
+INSERT INTO pre_common_member_profile_setting VALUES('birthcountry', 1, 0, 0, '出生国家', '', 0, 0, 0, 0, 0, 0, 0, 'select', 0, '', '');
 INSERT INTO pre_common_member_profile_setting VALUES('birthprovince', 1, 0, 0, '出生省份', '', 0, 0, 0, 0, 0, 0, 0, 'select', 0, '', '');
 INSERT INTO pre_common_member_profile_setting VALUES('birthcity', 1, 0, 0, '出生地', '', 0, 0, 0, 0, 0, 0, 0, 'select', 0, '', '');
 INSERT INTO pre_common_member_profile_setting VALUES('birthdist', 1, 0, 0, '出生县', '出生行政区/县', 0, 0, 0, 0, 0, 0, 0, 'select', 0, '', '');
 INSERT INTO pre_common_member_profile_setting VALUES('birthcommunity', 1, 0, 0, '出生小区', '', 0, 0, 0, 0, 0, 0, 0, 'select', 0, '', '');
+INSERT INTO pre_common_member_profile_setting VALUES('residecountry', 1, 0, 0, '居住国家', '', 0, 0, 0, 0, 0, 0, 0, 'select', 0, '', '');
 INSERT INTO pre_common_member_profile_setting VALUES('resideprovince', 1, 0, 0, '居住省份', '', 0, 0, 0, 0, 0, 0, 0, 'select', 0, '', '');
 INSERT INTO pre_common_member_profile_setting VALUES('residecity', 1, 0, 0, '居住地', '', 0, 0, 0, 0, 0, 0, 0, 'select', 0, '', '');
 INSERT INTO pre_common_member_profile_setting VALUES('residedist', 1, 0, 0, '居住县', '居住行政区/县', 0, 0, 0, 0, 0, 0, 0, 'select', 0, '', '');

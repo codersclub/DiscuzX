@@ -46,12 +46,12 @@ class block_member extends discuz_block {
 			'birthcity' => array(
 				'title' => 'memberlist_birthcity',
 				'type' => 'district',
-				'value' => array('xbirthprovince', 'xbirthcity', 'xbirthdist', 'xbirthcommunity'),
+				'value' => array('xbirthcountry', 'xbirthprovince', 'xbirthcity', 'xbirthdist', 'xbirthcommunity'),
 			),
 			'residecity' => array(
 				'title' => 'memberlist_residecity',
 				'type' => 'district',
-				'value' => array('xresideprovince', 'xresidecity', 'xresidedist', 'xresidecommunity')
+				'value' => array('xresidecountry', 'xresideprovince', 'xresidecity', 'xresidedist', 'xresidecommunity')
 			),
 			'avatarstatus' => array(
 				'title' => 'memberlist_avatarstatus',
@@ -202,10 +202,12 @@ class block_member extends discuz_block {
 		$verifystatus = !empty($parameter['verifystatus']) ? $parameter['verifystatus'] : array();
 		$profiles = array();
 		$profiles['gender']		= !empty($parameter['gender']) ? intval($parameter['gender']) : 0;
+		$profiles['residecountry']	= !empty($parameter['xresidecountry']) ? $parameter['xresidecountry'] : '';
 		$profiles['resideprovince']	= !empty($parameter['xresideprovince']) ? $parameter['xresideprovince'] : '';
 		$profiles['residecity']	= !empty($parameter['xresidecity']) ? $parameter['xresidecity'] : '';
 		$profiles['residedist']	= !empty($parameter['xresidedist']) ? $parameter['xresidedist'] : '';
 		$profiles['residecommunity']	= !empty($parameter['xresidecommunity']) ? $parameter['xresidecommunity'] : '';
+		$profiles['birthcountry']	= !empty($parameter['xbirthcountry']) ? $parameter['xbirthcountry'] : '';
 		$profiles['birthprovince']	= !empty($parameter['xbirthprovince']) ? $parameter['xbirthprovince'] : '';
 		$profiles['birthcity']	= !empty($parameter['xbirthcity']) ? $parameter['xbirthcity'] : '';
 

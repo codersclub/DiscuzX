@@ -30,7 +30,7 @@ class membersearch {
 			'birthyear'=>'profile', 'birthmonth'=>'profile', 'birthday'=>'profile', 'gender'=>'profile',
 			'constellation'=>'profile', 'zodiac'=>'profile', 'telephone'=>'profile', 'mobile'=>'profile',
 			'idcardtype'=>'profile', 'idcard'=>'profile', 'address'=>'profile', 'zipcode'=>'profile', 'nationality'=>'profile',
-			'birthprovince'=>'profile', 'birthcity'=>'profile', 'resideprovince'=>'profile',
+			'birthcountry'=>'profile', 'birthprovince'=>'profile', 'birthcity'=>'profile', 'residecountry'=>'profile', 'resideprovince'=>'profile',
 			'residecity'=>'profile', 'residedist'=>'profile', 'residecommunity'=>'profile',
 			'residesuite'=>'profile', 'graduateschool'=>'profile', 'education'=>'profile',
 			'occupation'=>'profile', 'company'=>'profile', 'position'=>'profile', 'revenue'=>'profile',

@@ -18,7 +18,7 @@ function profile_setting($fieldid, $space=array(), $showstatus=false, $ignoreunc
 		loadcache('profilesetting');
 	}
 	$field = getglobal('cache/profilesetting/'.$fieldid);
-	if(empty($field) || !$field['available'] || in_array($fieldid, array('uid', 'constellation', 'zodiac', 'birthmonth', 'birthyear', 'birthprovince', 'birthdist', 'birthcommunity', 'resideprovince', 'residedist', 'residecommunity'))) {
+	if(empty($field) || !$field['available'] || in_array($fieldid, array('uid', 'constellation', 'zodiac', 'birthmonth', 'birthyear', 'birthcountry', 'birthprovince', 'birthdist', 'birthcommunity', 'residecountry', 'resideprovince', 'residedist', 'residecommunity'))) {
 		return '';
 	}
 
@@ -111,13 +111,13 @@ function profile_setting($fieldid, $space=array(), $showstatus=false, $ignoreunc
 
 	} elseif($fieldid=='birthcity') {
 		if($field['unchangeable'] && !empty($space[$fieldid])) {
-			return '<span>'.$space['birthprovince'].'-'.$space['birthcity'].'</span>';
+			return '<span>'.$space['birthcountry'].'-'.$space['birthprovince'].'-'.$space['birthcity'].'</span>';
 		}
-		$values = array(0,0,0,0);
-		$elems = array('birthprovince', 'birthcity', 'birthdist', 'birthcommunity');
-		if(!empty($space['birthprovince'])) {
+		$values = array(0,0,0,0,0);
+		$elems = array('birthcountry', 'birthprovince', 'birthcity', 'birthdist', 'birthcommunity');
+		if(!empty($space['birthcountry'])) {
 			$html = profile_show('birthcity', $space);
-			$html .= '&nbsp;(<a href="javascript:;" onclick="showdistrict(\'birthdistrictbox\', [\'birthprovince\', \'birthcity\', \'birthdist\', \'birthcommunity\'], 4, \'\', \'birth\'); return false;">'.lang('spacecp', 'profile_edit').'</a>)';
+			$html .= '&nbsp;(<a href="javascript:;" onclick="showdistrict(\'birthdistrictbox\', [\'birthcountry\', \'birthprovince\', \'birthcity\', \'birthdist\', \'birthcommunity\'], 4, \'\', \'birth\'); return false;">'.lang('spacecp', 'profile_edit').'</a>)';
 			$html .= '<p id="birthdistrictbox"></p>';
 		} else {
 			$html = '<p id="birthdistrictbox">'.showdistrict($values, $elems, 'birthdistrictbox', 1, 'birth').'</p>';
@@ -127,11 +127,11 @@ function profile_setting($fieldid, $space=array(), $showstatus=false, $ignoreunc
 		if($field['unchangeable'] && !empty($space[$fieldid])) {
 			return '<span>'.$space['resideprovince'].'-'.$space['residecity'].'</span>';
 		}
-		$values = array(0,0,0,0);
-		$elems = array('resideprovince', 'residecity', 'residedist', 'residecommunity');
-		if(!empty($space['resideprovince'])) {
+		$values = array(0,0,0,0,0);
+		$elems = array('residecountry', 'resideprovince', 'residecity', 'residedist', 'residecommunity');
+		if(!empty($space['residecountry'])) {
 			$html = profile_show('residecity', $space);
-			$html .= '&nbsp;(<a href="javascript:;" onclick="showdistrict(\'residedistrictbox\', [\'resideprovince\', \'residecity\', \'residedist\', \'residecommunity\'], 4, \'\', \'reside\'); return false;">'.lang('spacecp', 'profile_edit').'</a>)';
+			$html .= '&nbsp;(<a href="javascript:;" onclick="showdistrict(\'residedistrictbox\', [\'residecountry\', \'resideprovince\', \'residecity\', \'residedist\', \'residecommunity\'], 4, \'\', \'reside\'); return false;">'.lang('spacecp', 'profile_edit').'</a>)';
 			$html .= '<p id="residedistrictbox"></p>';
 		} else {
 			$html = '<p id="residedistrictbox">'.showdistrict($values, $elems, 'residedistrictbox', 1, 'reside').'</p>';
@@ -229,12 +229,12 @@ function profile_check($fieldid, &$value, $space=array()) {
 
 	if($value=='') {
 		if($field['required']) {
-			if(in_array($fieldid, array('birthprovince', 'birthcity', 'birthdist', 'birthcommunity', 'resideprovince', 'residecity', 'residedist', 'residecommunity'))) {
+			if(in_array($fieldid, array('birthcountry', 'birthprovince', 'birthcity', 'birthdist', 'birthcommunity', 'residecountry', 'resideprovince', 'residecity', 'residedist', 'residecommunity'))) {
 				if(substr($fieldid, 0, 5) == 'birth') {
-					if(!empty($_GET['birthprovince']) || !empty($_GET['birthcity']) || !empty($_GET['birthdist']) || !empty($_GET['birthcommunity'])) {
+					if(!empty($_GET['birthcountry']) || !empty($_GET['birthprovince']) || !empty($_GET['birthcity']) || !empty($_GET['birthdist']) || !empty($_GET['birthcommunity'])) {
 						return true;
 					}
-				} elseif(!empty($_GET['resideprovince']) || !empty($_GET['residecity']) || !empty($_GET['residedist']) || !empty($_GET['residecommunity'])) {
+				} elseif(!empty($_GET['residecountry']) || !empty($_GET['resideprovince']) || !empty($_GET['residecity']) || !empty($_GET['residedist']) || !empty($_GET['residecommunity'])) {
 					return true;
 				}
 			}
@@ -251,7 +251,7 @@ function profile_check($fieldid, &$value, $space=array()) {
 	if(in_array($fieldid, array('birthday', 'birthmonth', 'birthyear', 'gender'))) {
 		$value = intval($value);
 		return true;
-	} elseif(in_array($fieldid, array('birthprovince', 'birthcity', 'birthdist', 'birthcommunity', 'resideprovince', 'residecity', 'residedist', 'residecommunity'))) {
+	} elseif(in_array($fieldid, array('birthcountry', 'birthprovince', 'birthcity', 'birthdist', 'birthcommunity', 'residecountry', 'resideprovince', 'residecity', 'residedist', 'residecommunity'))) {
 		$value = getstr($value);
 		return true;
 	}
@@ -298,7 +298,7 @@ function profile_show($fieldid, $space=array(), $getalone = false) {
 		$_G['cache']['profilesetting'][$fieldid] = $_G['cache']['profilesetting']['qq'];
 	}
 	$field = $_G['cache']['profilesetting'][$fieldid];
-	if(empty($field) || !$field['available'] || (!$getalone && in_array($fieldid, array('uid', 'birthmonth', 'birthyear', 'birthprovince', 'resideprovince')))) {
+	if(empty($field) || !$field['available'] || (!$getalone && in_array($fieldid, array('uid', 'birthmonth', 'birthyear', 'birthcountry', 'residecountry')))) {
 		return false;
 	}
 
@@ -311,12 +311,14 @@ function profile_show($fieldid, $space=array(), $getalone = false) {
 		}
 		return $return;
 	} elseif($fieldid=='birthcity' && !$getalone) {
-		return $space['birthprovince']
+		return $space['birthcountry']
+				.(!empty($space['birthprovince']) ? ' '.$space['birthprovince'] : '')
 				.(!empty($space['birthcity']) ? ' '.$space['birthcity'] : '')
 				.(!empty($space['birthdist']) ? ' '.$space['birthdist'] : '')
 				.(!empty($space['birthcommunity']) ? ' '.$space['birthcommunity'] : '');
 	} elseif($fieldid=='residecity' && !$getalone) {
-		return $space['resideprovince']
+		return $space['residecountry']
+				.(!empty($space['resideprovince']) ? ' '.$space['resideprovince'] : '')
 				.(!empty($space['residecity']) ? ' '.$space['residecity'] : '')
 				.(!empty($space['residedist']) ? ' '.$space['residedist'] : '')
 				.(!empty($space['residecommunity']) ? ' '.$space['residecommunity'] : '');
@@ -341,7 +343,7 @@ function showdistrict($values, $elems=array(), $container='districtbox', $showle
 		return $html;
 	}
 	$showlevel = !empty($showlevel) ? intval($showlevel) : count($values);
-	$showlevel = $showlevel <= 4 ? $showlevel : 4;
+	$showlevel = $showlevel <= 5 ? $showlevel : 5;
 	$upids = array(0);
 	for($i=0;$i<$showlevel;$i++) {
 		if(!empty($values[$i])) {
@@ -353,16 +355,16 @@ function showdistrict($values, $elems=array(), $container='districtbox', $showle
 			break;
 		}
 	}
-	$options = array(1=>array(), 2=>array(), 3=>array(), 4=>array());
+	$options = array(0=>array(), 1=>array(), 2=>array(), 3=>array(), 4=>array());
 	if($upids && is_array($upids)) {
 		foreach(C::t('common_district')->fetch_all_by_upid($upids, 'displayorder', 'ASC') as $value) {
-			if($value['level'] == 1 && ($value['id'] != $values[0] && ($value['usetype'] == 0 || !(($containertype == 'birth' && in_array($value['usetype'], array(1, 3))) || ($containertype != 'birth' && in_array($value['usetype'], array(2, 3))))))) {
+			if($value['level'] == 0 && ($value['id'] != $values[0] && ($value['usetype'] == 0 || !(($containertype == 'birth' && in_array($value['usetype'], array(1, 3))) || ($containertype != 'birth' && in_array($value['usetype'], array(2, 3))))))) {
 				continue;
 			}
 			$options[$value['level']][] = array($value['id'], $value['name']);
 		}
 	}
-	$names = array('province', 'city', 'district', 'community');
+	$names = array('country', 'province', 'city', 'district', 'community');
 	for($i=0; $i<4;$i++) {
 		if(!empty($elems[$i])) {
 			$elems[$i] = dhtmlspecialchars(preg_replace("/[^\[A-Za-z0-9_\]]/", '', $elems[$i]));
@@ -372,9 +374,9 @@ function showdistrict($values, $elems=array(), $container='districtbox', $showle
 	}
 
 	for($i=0;$i<$showlevel;$i++) {
-		$level = $i+1;
+		$level = $i;
 		if(!empty($options[$level])) {
-			$jscall = "showdistrict('$container', ['$elems[0]', '$elems[1]', '$elems[2]', '$elems[3]'], $showlevel, $level, '$containertype')";
+			$jscall = "showdistrict('$container', ['$elems[0]', '$elems[1]', '$elems[2]', '$elems[3]', '$elems[4]'], $showlevel, $level, '$containertype')";
 			$html .= '<select name="'.$elems[$i].'" id="'.$elems[$i].'" class="ps" onchange="'.$jscall.'" tabindex="1">';
 			$html .= '<option value="">'.lang('spacecp', 'district_level_'.$level).'</option>';
 			foreach($options[$level] as $option) {
@@ -414,23 +416,25 @@ function countprofileprogress($uid = 0) {
 				unset($fields[$key]);
 				continue;
 			}
-			if(in_array($key, array('birthday', 'birthyear', 'birthprovince', 'birthcity', 'birthdist', 'birthcommunity', 'resideprovince', 'residecity', 'residedist', 'residecommunity'))) {
+			if(in_array($key, array('birthday', 'birthyear', 'birthcountry', 'birthprovince', 'birthcity', 'birthdist', 'birthcommunity', 'residecountry', 'resideprovince', 'residecity', 'residedist', 'residecommunity'))) {
 				if($key=='birthday') {
 					if(!empty($profile['birthyear']) || !empty($profile[$key])) {
 						$complete++;
 					}
 					unset($fields['birthyear']);
 				} elseif($key=='birthcity') {
-					if(!empty($profile['birthprovince']) || !empty($profile[$key]) || !empty($profile['birthdist']) || !empty($profile['birthcommunity'])) {
+					if(!empty($profile['birthcountry']) || !empty($profile['birthprovince']) || !empty($profile[$key]) || !empty($profile['birthdist']) || !empty($profile['birthcommunity'])) {
 						$complete++;
 					}
+					unset($fields['birthcountry']);
 					unset($fields['birthprovince']);
 					unset($fields['birthdist']);
 					unset($fields['birthcommunity']);
 				} elseif($key=='residecity') {
-					if(!empty($profile['resideprovince']) || !empty($profile[$key]) || !empty($profile['residedist']) || !empty($profile['residecommunity'])) {
+					if(!empty($profile['residecountry']) || !empty($profile['resideprovince']) || !empty($profile[$key]) || !empty($profile['residedist']) || !empty($profile['residecommunity'])) {
 						$complete++;
 					}
+					unset($fields['residecountry']);
 					unset($fields['resideprovince']);
 					unset($fields['residedist']);
 					unset($fields['residecommunity']);

@@ -114,11 +114,11 @@ foreach($_G['cache']['profilesetting'] as $fieldid => $field) {
 	if($_G['setting']['nsprofiles']) {
 		break;
 	}
-	if(!$field['available'] || in_array($fieldid, array('birthprovince', 'birthdist', 'birthcommunity', 'resideprovince', 'residedist', 'residecommunity'))) {
+	if(!$field['available'] || in_array($fieldid, array('birthcountry', 'birthprovince', 'birthdist', 'birthcommunity', 'residecountry', 'resideprovince', 'residedist', 'residecommunity'))) {
 			continue;
 	}
 	if(
-		$field['available'] && (strlen($space[$fieldid]) > 0 || ($fieldid == 'birthcity' && strlen($space['birthprovince']) || $fieldid == 'residecity' && strlen($space['resideprovince']))) &&
+		$field['available'] && (strlen($space[$fieldid]) > 0 || ($fieldid == 'birthcity' && strlen($space['birthcountry']) && strlen($space['birthprovince']) || $fieldid == 'residecity' && strlen($space['residecountry']) && strlen($space['resideprovince']))) &&
 		($space['self'] || empty($privacy[$fieldid]) || ($isfriend && $privacy[$fieldid] == 1)) &&
 		(!$_G['inajax'] && !$field['invisible'] || $_G['inajax'] && $field['showincard'])
 	) {

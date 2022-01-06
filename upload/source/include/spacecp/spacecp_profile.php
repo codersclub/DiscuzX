@@ -109,14 +109,14 @@ if(submitcheck('profilesubmit')) {
 			$verifyconfig = array();
 		}
 	}
-	if(isset($_POST['birthprovince'])) {
-		$initcity = array('birthprovince', 'birthcity', 'birthdist', 'birthcommunity');
+	if(isset($_POST['birthcountry'])) {
+		$initcity = array('birthcountry', 'birthprovince', 'birthcity', 'birthdist', 'birthcommunity');
 		foreach($initcity as $key) {
 			$_GET[''.$key] = $_POST[$key] = !empty($_POST[$key]) ? $_POST[$key] : '';
 		}
 	}
-	if(isset($_POST['resideprovince'])) {
-		$initcity = array('resideprovince', 'residecity', 'residedist', 'residecommunity');
+	if(isset($_POST['residecountry'])) {
+		$initcity = array('residecountry', 'resideprovince', 'residecity', 'residedist', 'residecommunity');
 		foreach($initcity as $key) {
 			$_GET[''.$key] = $_POST[$key] = !empty($_POST[$key]) ? $_POST[$key] : '';
 		}
@@ -165,9 +165,9 @@ if(submitcheck('profilesubmit')) {
 		} elseif(profile_check($key, $value, $space)) {
 			$setarr[$key] = dhtmlspecialchars(trim($value));
 		} else {
-			if($key=='birthprovince') {
+			if($key=='birthcountry' || $key=='birthprovince') {
 				$key = 'birthcity';
-			} elseif($key=='resideprovince' || $key=='residecommunity'||$key=='residedist') {
+			} elseif($key=='residecountry' || $key=='resideprovince' || $key=='residecommunity'||$key=='residedist') {
 				$key = 'residecity';
 			} elseif($key=='birthyear' || $key=='birthmonth') {
 				$key = 'birthday';

@@ -40,8 +40,7 @@ class task_profile {
 	function checkfield() {
 		global $_G;
 
-		$fields = array('realname', 'gender', 'birthyear', 'birthmonth', 'birthday', 'bloodtype', 'affectivestatus',
-				'birthprovince','birthcity', 'resideprovince', 'residecity');
+		$fields = array('realname', 'gender', 'birthyear', 'birthmonth', 'birthday', 'bloodtype', 'affectivestatus', 'birthcountry', 'birthprovince', 'birthcity', 'residecountry', 'resideprovince', 'residecity');
 		loadcache('profilesetting');
 		$fieldsnew = array();
 		foreach($fields as $v) {

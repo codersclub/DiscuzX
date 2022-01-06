@@ -288,7 +288,7 @@ EOF;
 						$fieldstr .= '<tr>'.($anchor == 'authstr' ? '<td width="26">'.$lang['members_verify_refusal'].'</td>' : '').'<td width="100">'.$lang['members_verify_fieldid'].'</td><td>'.$lang['members_verify_newvalue'].'</td></tr><tbody id="verifyitem_'.$value['vid'].'">';
 						$i++;
 						foreach($fields as $key => $field) {
-							if(in_array($key, array('constellation', 'zodiac', 'birthyear', 'birthmonth', 'birthprovince', 'birthdist', 'birthcommunity', 'resideprovince', 'residedist', 'residecommunity'))) {
+							if(in_array($key, array('constellation', 'zodiac', 'birthyear', 'birthmonth', 'birthcountry', 'birthprovince', 'birthdist', 'birthcommunity', 'residecountry', 'resideprovince', 'residedist', 'residecommunity'))) {
 								continue;
 							}
 							if($_G['cache']['profilesetting'][$key]['formtype'] == 'file') {
@@ -322,7 +322,7 @@ EOF;
 						$fieldstr = '<table width="96%">';
 						$fieldstr .= '<tr><td width="100">'.$lang['members_verify_fieldid'].'</td><td>'.$lang['members_verify_newvalue'].'</td></tr>';
 						foreach($fields as $key => $field) {
-							if(!in_array($key, array('constellation', 'zodiac', 'birthyear', 'birthmonth', 'birthprovince', 'birthdist', 'birthcommunity', 'resideprovince', 'residedist', 'residecommunity'))) {
+							if(!in_array($key, array('constellation', 'zodiac', 'birthyear', 'birthmonth', 'birthcountry', 'birthprovince', 'birthdist', 'birthcommunity', 'residecountry', 'resideprovince', 'residedist', 'residecommunity'))) {
 								if(in_array($key, array('gender', 'birthday', 'birthcity', 'residecity'))) {
 									$value[$field] = profile_show($key, $value);
 								}
@@ -392,7 +392,7 @@ EOF;
 						$value = array_merge($value, $members[$uid], $profiles[$uid]);
 						$str = $common = '';
 						foreach($fields as $key => $field) {
-							if(in_array($key, array('constellation', 'zodiac', 'birthyear', 'birthmonth', 'birthprovince', 'birthdist', 'birthcommunity', 'resideprovince', 'residedist', 'residecommunity'))) {
+							if(in_array($key, array('constellation', 'zodiac', 'birthyear', 'birthmonth', 'birthcountry', 'birthprovince', 'birthdist', 'birthcommunity', 'residecountry', 'resideprovince', 'residedist', 'residecommunity'))) {
 								continue;
 							}
 							if($showtitle) {
@@ -549,7 +549,7 @@ EOF;
 		if($vid) {
 			$varname = array('verify[field]', array(), 'isfloat');
 			foreach(C::t('common_member_profile_setting')->fetch_all_by_available(1) as $value) {
-				if(!in_array($value['fieldid'], array('constellation', 'zodiac', 'birthyear', 'birthmonth', 'birthprovince', 'birthdist', 'birthcommunity', 'resideprovince', 'residedist', 'residecommunity'))) {
+				if(!in_array($value['fieldid'], array('constellation', 'zodiac', 'birthyear', 'birthmonth', 'birthcountry', 'birthprovince', 'birthdist', 'birthcommunity', 'residecountry', 'resideprovince', 'residedist', 'residecommunity'))) {
 					$varname[1][] = array($value['fieldid'], $value['title'], $value['fieldid']);
 				}
 			}
@@ -592,6 +592,7 @@ EOF;
 			$verifynew['unverifyicon'] = delverifyicon($verifyarr['unverifyicon']);
 		}
 		if(!empty($verifynew['field']['residecity'])) {
+			$verifynew['field']['residecountry'] = 'residecountry';
 			$verifynew['field']['resideprovince'] = 'resideprovince';
 			$verifynew['field']['residedist'] = 'residedist';
 			$verifynew['field']['residecommunity'] = 'residecommunity';
@@ -601,6 +602,7 @@ EOF;
 			$verifynew['field']['birthmonth'] = 'birthmonth';
 		}
 		if(!empty($verifynew['field']['birthcity'])) {
+			$verifynew['field']['birthcountry'] = 'birthcountry';
 			$verifynew['field']['birthprovince'] = 'birthprovince';
 			$verifynew['field']['birthdist'] = 'birthdist';
 			$verifynew['field']['birthcommunity'] = 'birthcommunity';

@@ -21,8 +21,8 @@ class table_common_member_profile extends discuz_table_archive
 		$this->_pk    = 'uid';
 		$this->_pre_cache_key = 'common_member_profile_';
 		$this->_fields = array('uid', 'realname', 'gender', 'birthyear', 'birthmonth', 'birthday', 'constellation',
-				'zodiac', 'telephone', 'mobile', 'idcardtype', 'idcard', 'address', 'zipcode', 'nationality', 'birthprovince', 'birthcity', 'birthdist',
-				'birthcommunity', 'resideprovince', 'residecity', 'residedist', 'residecommunity', 'residesuite', 'graduateschool', 'education', 'company',
+				'zodiac', 'telephone', 'mobile', 'idcardtype', 'idcard', 'address', 'zipcode', 'nationality', 'birthcountry', 'birthprovince', 'birthcity', 'birthdist',
+				'birthcommunity', 'residecountry', 'resideprovince', 'residecity', 'residedist', 'residecommunity', 'residesuite', 'graduateschool', 'education', 'company',
 				'occupation', 'position', 'revenue', 'affectivestatus', 'lookingfor', 'bloodtype', 'height', 'weight', 'alipay', 'icq', 'qq',
 				'yahoo', 'msn', 'taobao', 'site', 'bio', 'interest', 'field1', 'field2', 'field3', 'field4', 'field5', 'field6', 'field7', 'field8');
 

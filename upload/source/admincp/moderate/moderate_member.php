@@ -46,7 +46,7 @@ if($do == 'mod') {
 				$fields = !empty($member['field']) ? dunserialize($member['field']) : array();
 				$str = '';
 				foreach($_G['cache']['fields_register'] as $field) {
-					if(!$field['available'] || in_array($field['fieldid'], array('uid', 'constellation', 'zodiac', 'birthmonth', 'birthyear', 'birthprovince', 'birthdist', 'birthcommunity', 'resideprovince', 'residedist', 'residecommunity'))) {
+					if(!$field['available'] || in_array($field['fieldid'], array('uid', 'constellation', 'zodiac', 'birthmonth', 'birthyear', 'birthcountry', 'birthprovince', 'birthdist', 'birthcommunity', 'residecountry', 'resideprovince', 'residedist', 'residecommunity'))) {
 						continue;
 					}
 					$member[$field['fieldid']] = !empty($member[$field['fieldid']]) ? $member[$field['fieldid']] : $fields[$field['fieldid']];

@@ -29,12 +29,12 @@ class block_membernew extends block_member {
 			'birthcity' => array(
 				'title' => 'memberlist_birthcity',
 				'type' => 'district',
-				'value' => array('xbirthprovince', 'xbirthcity', 'xbirthdist', 'xbirthcommunity'),
+				'value' => array('xbirthcountry', 'xbirthprovince', 'xbirthcity', 'xbirthdist', 'xbirthcommunity'),
 			),
 			'residecity' => array(
 				'title' => 'memberlist_residecity',
 				'type' => 'district',
-				'value' => array('xresideprovince', 'xresidecity', 'xresidedist', 'xresidecommunity')
+				'value' => array('xresidecountry', 'xresideprovince', 'xresidecity', 'xresidedist', 'xresidecommunity')
 			),
 			'avatarstatus' => array(
 				'title' => 'memberlist_avatarstatus',

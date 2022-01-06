@@ -367,7 +367,7 @@ if(!submitcheck('settingsubmit')) {
 
 			$varname = array('settingnew[profile][field]', array(), 'isfloat');
 			foreach(C::t('common_member_profile_setting')->fetch_all_by_available(1) as $value) {
-				if(!in_array($value['fieldid'], array('constellation', 'zodiac', 'birthyear', 'birthmonth', 'resideprovince', 'birthprovince', 'residedist', 'residecommunity'))) {
+				if(!in_array($value['fieldid'], array('constellation', 'zodiac', 'birthyear', 'birthmonth', 'residecountry', 'resideprovince', 'birthcountry', 'birthprovince', 'residedist', 'residecommunity'))) {
 					$varname[1][] = array($value['fieldid'], $value['title'], $value['fieldid']);
 				}
 			}
@@ -1337,7 +1337,7 @@ EOF;
 		showtableheader('', 'nobottom', 'id="activity"'.($_GET['anchor'] != 'activity' ? ' style="display: none"' : ''));
 		showsetting('setting_functions_activity_type', 'settingnew[activitytype]', $setting['activitytype'], 'textarea');
 		$varname = array('settingnew[activityfield]', array(), 'isfloat');
-		$ignorearray = array('birthyear', 'birthmonth', 'resideprovince', 'birthprovince', 'residedist', 'residecommunity', 'constellation', 'zodiac');
+		$ignorearray = array('birthyear', 'birthmonth', 'residecountry', 'resideprovince', 'birthcountry', 'birthprovince', 'residedist', 'residecommunity', 'constellation', 'zodiac');
 		foreach(C::t('common_member_profile_setting')->fetch_all_by_available(1) as $row) {
 			if(in_array($row['fieldid'], $ignorearray)) continue;
 			$varname[1][] = array($row['fieldid'], $row['title'], $row['title']);
