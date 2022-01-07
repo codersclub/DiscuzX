@@ -94,7 +94,7 @@ $lang = array(
 
 	'ucurl' => 'UCenter 的 URL',
 	'ucpw' => 'UCenter 创始人密码',
-	'ucip' => 'UCenter 的IP地址',
+	'ucip' => 'UCenter 的 IP 地址',
 	'ucenter_ucip_invalid' => '格式错误，请填写正确的 IP 地址',
 	'ucip_comment' => '绝大多数情况下您可以不填',
 
@@ -142,8 +142,8 @@ $lang = array(
 	'admininfo_password_invalid' => '管理员密码为空，请填写',
 	'admininfo_password2_invalid' => '两次密码不一致，请检查',
 
-	'install_dzfull' => '<br><label><input type="radio"'.(getgpc('install_ucenter') != 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="yes" onclick="if(this.checked)$(\'form_items_2\').style.display=\'none\';" /> 全新安装 Discuz! X (含 UCenter Server)</label>',
-	'install_dzonly' => '<br><label><input type="radio"'.(getgpc('install_ucenter') == 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="no" onclick="if(this.checked)$(\'form_items_2\').style.display=\'\';" /> 仅安装 Discuz! X (手工指定已经安装的 UCenter Server)</label>',
+	'install_dzfull' => '<div class="selradio"><input type="radio" id="install_ucenter_yes"'.(getgpc('install_ucenter') != 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="yes" onclick="if(this.checked)$(\'form_items_2\').style.display=\'none\';" /><label for="install_ucenter_yes">全新安装 Discuz! X (含 UCenter Server)</label></div>',
+	'install_dzonly' => '<div class="selradio"><input type="radio" id="install_ucenter_no"'.(getgpc('install_ucenter') == 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="no" onclick="if(this.checked)$(\'form_items_2\').style.display=\'\';" /><label for="install_ucenter_no">仅安装 Discuz! X (手工指定已经安装的 UCenter Server)</label></div>',
 
 	'username' => '管理员账号',
 	'email' => '管理员 Email',
@@ -363,7 +363,11 @@ $lang = array(
 	'database_nonexistence' => '数据库操作对象不存在',
 	'skip_current' => '跳过本步',
 	'topic' => '专题',
-	'install_finish' => '您的论坛已完成安装，点此访问',
+	'install_finish' => '站点安装完成，感谢您的支持！',
+	'install_finish_next' => '接下来您可以：',
+	'finish_btn_admin' => '进入管理后台',
+	'finish_btn_cloudaddon' => '安装插件模板',
+	'finish_btn_direct' => '直接访问站点',
 
 );
 

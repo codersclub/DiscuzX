@@ -41,16 +41,16 @@ function show_msg($error_no, $error_msg = 'ok', $success = 1, $quit = TRUE) {
 		}
 
 		if($step > 0) {
-			echo "<div class=\"desc\"><b>$title</b><ul>$comment</ul>";
+			echo "<div class=\"box warnbox\"><h3>$title</h3><ul>$comment</ul>";
 		} else {
-			echo "</div><div class=\"main\" style=\"margin-top: -123px;\"><b>$title</b><ul style=\"line-height: 200%; margin-left: 30px;\">$comment</ul>";
+			echo "</div><div class=\"main\"><div class=\"box warnbox\"><h3>$title</h3><ul>$comment</ul>";
 		}
 
 		if($quit) {
 			echo '<br /><span class="red">'.lang('error_quit_msg').'</span><br /><br /><br />';
 		}
 
-		echo '<input type="button" onclick="history.back()" value="'.lang('click_to_back').'" /><br /><br /><br />';
+		echo '<input type="button" class="btn oldbtn" onclick="history.back()" value="'.lang('click_to_back').'" />';
 
 		echo '</div>';
 
@@ -223,7 +223,7 @@ function show_env_result(&$env_items, &$dirfile_items, &$func_items, &$filesock_
 		if(VIEW_OFF) {
 			$env_str .= "\t\t<runCondition name=\"$key\" status=\"$status\" Require=\"{$item['r']}\" Best=\"{$item['b']}\" Current=\"{$item['current']}\"/>\n";
 		} else {
-			$env_str .= "<tr>\n";
+			$env_str .= '<tr'.($status ? '' : ' class="nwbg"').">\n";
 			$env_str .= "<td>".lang($key)."</td>\n";
 			$env_str .= "<td class=\"padleft\">".lang($item['r'])."</td>\n";
 			$env_str .= "<td class=\"padleft\">".lang($item['b'])."</td>\n";
@@ -242,7 +242,7 @@ function show_env_result(&$env_items, &$dirfile_items, &$func_items, &$filesock_
 			}
 			$$variable .= "\t\t\t<File name=\"{$item['path']}\" status=\"{$item['status']}\" requirePermisson=\"+r+w\" currentPermisson=\"{$item['current']}\" />\n";
 		} else {
-			$$variable .= "<tr>\n";
+			$$variable .= '<tr'.($item['status'] == 1 ? '' : ' class="nwbg"').">\n";
 			$$variable .= "<td>{$item['path']}</td><td class=\"w pdleft1\">".lang('writeable')."</td>\n";
 			if($item['status'] == 1) {
 				$$variable .= "<td class=\"w pdleft1\">".lang('writeable')."</td>\n";
@@ -281,8 +281,8 @@ function show_env_result(&$env_items, &$dirfile_items, &$func_items, &$filesock_
 
 		show_header();
 
-		echo "<h2 class=\"title\">".lang('env_check')."</h2>\n";
-		echo "<table class=\"tb\" style=\"margin:20px 0 20px 55px;\">\n";
+		echo "<div class=\"box\"><h2 class=\"title\">".lang('env_check')."</h2>\n";
+		echo "<table class=\"tb\">\n";
 		echo "<tr>\n";
 		echo "\t<th>".lang('project')."</th>\n";
 		echo "\t<th class=\"padleft\">".lang('ucenter_required')."</th>\n";
@@ -290,10 +290,10 @@ function show_env_result(&$env_items, &$dirfile_items, &$func_items, &$filesock_
 		echo "\t<th class=\"padleft\">".lang('curr_server')."</th>\n";
 		echo "</tr>\n";
 		echo $env_str;
-		echo "</table>\n";
+		echo "</table></div>\n";
 
-		echo "<h2 class=\"title\">".lang('priv_check')."</h2>\n";
-		echo "<table class=\"tb\" style=\"margin:20px 0 20px 55px;width:90%;\">\n";
+		echo "<div class=\"box\"><h2 class=\"title\">".lang('priv_check')."</h2>\n";
+		echo "<table class=\"tb\">\n";
 		echo "\t<tr>\n";
 		echo "\t<th>".lang('step1_file')."</th>\n";
 		echo "\t<th class=\"padleft\">".lang('step1_need_status')."</th>\n";
@@ -301,11 +301,11 @@ function show_env_result(&$env_items, &$dirfile_items, &$func_items, &$filesock_
 		echo "</tr>\n";
 		echo $file_str;
 		echo $dir_str;
-		echo "</table>\n";
+		echo "</table></div>\n";
 
 		foreach($func_items as $item) {
 			$status = function_exists($item);
-			$func_str .= "<tr>\n";
+			$func_str .= '<tr'.($status ? '' : ' class="nwbg"').">\n";
 			$func_str .= "<td>$item()</td>\n";
 			if($status) {
 				$func_str .= "<td class=\"w pdleft1\">".lang('supportted')."</td>\n";
@@ -320,7 +320,7 @@ function show_env_result(&$env_items, &$dirfile_items, &$func_items, &$filesock_
 		$filesock_disabled = 0;
 		foreach($filesock_items as $item) {
 			$status = function_exists($item);
-			$func_strextra .= "<tr>\n";
+			$func_strextra .= '<tr'.($status ? '' : ' class="nwbg"').">\n";
 			$func_strextra .= "<td>$item()</td>\n";
 			if($status) {
 				$func_strextra .= "<td class=\"w pdleft1\">".lang('supportted')."</td>\n";
@@ -335,15 +335,28 @@ function show_env_result(&$env_items, &$dirfile_items, &$func_items, &$filesock_
 		if($filesock_disabled == count($filesock_items)) {
 			$error_code = ENV_CHECK_ERROR;
 		}
-		echo "<h2 class=\"title\">".lang('func_depend')."</h2>\n";
-		echo "<table class=\"tb\" style=\"margin:20px 0 20px 55px;width:90%;\">\n";
+		echo "<div class=\"box\"><h2 class=\"title\">".lang('func_depend')."</h2>\n";
+		echo "<table class=\"tb\">\n";
 		echo "<tr>\n";
 		echo "\t<th>".lang('func_name')."</th>\n";
 		echo "\t<th class=\"padleft\">".lang('check_result')."</th>\n";
 		echo "\t<th class=\"padleft\">".lang('suggestion')."</th>\n";
 		echo "</tr>\n";
 		echo $func_str.$func_strextra;
-		echo "</table>\n";
+		echo "</table></div>\n";
+
+		echo <<<EOT
+<script>
+	document.querySelectorAll('.box').forEach(function(elem){
+		if(!elem.querySelector('.nw')) {
+			elem.classList.add('valid','collapse');
+			elem.addEventListener('click',function(){
+				this.classList.contains('collapse') ? this.classList.remove('collapse') : this.classList.add('collapse');
+			});
+		}
+	});
+</script>
+EOT;
 
 		show_next_step(2, $error_code);
 
@@ -372,11 +385,11 @@ function show_next_step($step, $error_code) {
 	}
 	echo "<input type=\"hidden\" name=\"uchidden\" value=\"$uchidden\" />";
 	if($error_code == 0) {
-		$nextstep = "<input type=\"button\" onclick=\"history.back();\" value=\"".lang('old_step')."\"><input type=\"submit\" value=\"".lang('new_step')."\">\n";
+		$nextstep = "<input type=\"button\" class=\"btn oldbtn\" onclick=\"history.back();\" value=\"".lang('old_step')."\"><input type=\"submit\" class=\"btn\" value=\"".lang('new_step')."\">\n";
 	} else {
-		$nextstep = "<input type=\"button\" disabled=\"disabled\" value=\"".lang('not_continue')."\">\n";
+		$nextstep = "<input type=\"button\" class=\"btn\" disabled=\"disabled\" value=\"".lang('not_continue')."\">\n";
 	}
-	echo "<div class=\"btnbox marginbot\">".$nextstep."</div>\n";
+	echo "<div class=\"btnbox\"><div class=\"inputbox\">".$nextstep."</div></div>\n";
 	echo "</form>\n";
 }
 
@@ -393,18 +406,20 @@ function show_form(&$form_items, $error_msg) {
 	show_setting('hidden', 'step', $step);
 	show_setting('hidden', 'install_ucenter', getgpc('install_ucenter'));
 	if($step == 2) {
+		echo '<div class="box">';
 		show_tips('install_dzfull');
 		show_tips('install_dzonly');
+		echo '</div>';
 	}
 	$is_first = 1;
 	if(!empty($uchidden)) {
 		$uc_info_transfer = unserialize(urldecode($uchidden));
 	}
-	echo '<div id="form_items_'.$step.'" '.($step == 2 && !getgpc('install_ucenter') ? 'style="display:none"' : '').'><br />';
+	echo '<div id="form_items_'.$step.'" '.($step == 2 && !getgpc('install_ucenter') ? 'style="display:none"' : '').'>';
 	foreach($form_items as $key => $items) {
 		global ${'error_'.$key};
 		if($is_first == 0) {
-			echo '</table>';
+			echo '</div>';
 		}
 
 		if(!${'error_'.$key}) {
@@ -413,7 +428,7 @@ function show_form(&$form_items, $error_msg) {
 			show_error('tips_admin_config', ${'error_'.$key});
 		}
 
-		echo '<table class="tb2">';
+		echo '<div class="box">';
 		foreach($items as $k => $v) {
 			$value = '';
 			if(!empty($error_msg)) {
@@ -446,10 +461,11 @@ function show_form(&$form_items, $error_msg) {
 			$is_first = 0;
 		}
 	}
-	echo '</table>';
 	echo '</div>';
-	echo '<table class="tb2">';
+	echo '</div>';
+	echo '<div class="btnbox">';
 	show_setting('', 'submitname', 'new_step', ($step == 2 ? 'submit|oldbtn' : 'submit' ));
+	echo '</div>';
 	show_setting('end');
 	show_footer();
 }
@@ -521,14 +537,14 @@ function show_license() {
 
 		echo <<<EOT
 </div>
-<div class="main" style="margin-top:-123px;">
+<div class="main">
 	<div class="licenseblock">$license</div>
-	<div class="btnbox marginbot">
+	<div class="btnbox">
 		<form method="get" autocomplete="off" action="index.php">
 		<input type="hidden" name="step" value="$next">
 		<input type="hidden" name="uchidden" value="$uchidden">
-		<input type="submit" name="submit" value="{$lang_agreement_yes}" style="padding: 2px" onclick="return checker();">&nbsp;
-		<input type="button" name="exit" value="{$lang_agreement_no}" style="padding: 2px" onclick="javascript: window.close(); return false;">
+		<input type="submit" class="btn oldbtn" name="submit" value="{$lang_agreement_yes}" onclick="return checker();">
+		<input type="button" class="btn oldbtn" name="exit" value="{$lang_agreement_no}"  onclick="javascript: window.close(); return false;">
 		</form>
 	</div>
 	<script type="text/javascript">
@@ -620,6 +636,8 @@ function show_header() {
 	$release = DISCUZ_RELEASE;
 	$install_lang = lang(INSTALL_LANG);
 	$title = lang('title_install');
+	$titlehtml = '<span>'.SOFT_NAME.'</span>'.lang('install_wizard');
+	$nostep = $step > 0 ? '' : ' nostep';
 	$charset = CHARSET;
 	$reldisp = is_numeric(DISCUZ_RELEASE) ? ('Release ' . DISCUZ_RELEASE) : DISCUZ_RELEASE;
 	echo <<<EOT
@@ -630,7 +648,7 @@ function show_header() {
 <meta name="renderer" content="webkit" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>$title</title>
-<link rel="stylesheet" href="images/style.css" type="text/css" media="all" />
+<link rel="stylesheet" href="static/style.css" type="text/css" media="all" />
 <script type="text/javascript">
 	function $(id) {
 		return document.getElementById(id);
@@ -642,9 +660,9 @@ function show_header() {
 </script>
 <meta content="Comsenz Inc." name="Copyright" />
 </head>
-<div class="container">
+<div class="container{$nostep}">
 	<div class="header">
-		<h1>$title</h1>
+		<h1>$titlehtml</h1>
 		<span>Discuz! $version $install_lang $reldisp</span>
 EOT;
 
@@ -942,11 +960,36 @@ function show_db_install() {
 				document.getElementById('notice').scrollTop = 100000000;
 			}
 
+			function refresh_lastmsg() {
+				document.getElementById('lastmsg').innerHTML = document.querySelector('#notice>p:last-child').outerHTML;
+			}
+
+			function add_instfail() {
+				document.querySelector('.box').classList.add('instfail');
+				document.getElementById('notice').scrollTop = 100000000;
+			}
+
+			function refresh_progress() {
+				// 进度条的总数，需要跟进实际安装情况修改
+				var total = 333;
+				var percent = document.querySelectorAll('#notice>p').length * 95 / total;
+				percent = (percent > 95) ? 95 : percent;
+				document.getElementById('pgb').style.width = percent + '%';
+			}
+
+			function init_bind() {
+				document.querySelector(".progress").addEventListener("click", function () {
+					var a = document.getElementById("notice");
+					a.style.display = "block" == a.style.display ? "" : "block";
+				});
+			}
+
 			function initinput() {
 				window.location='<?php echo 'index.php?step='.($GLOBALS['step']);?>';
 			}
 
 			var old_log_data = '';
+			var log_offset = 0;
 
 			function request_do_db_init() {
 				// 发起数据库初始化请求
@@ -957,23 +1000,30 @@ function show_db_install() {
 			}
 
 			function request_log() {
-				ajax.get('index.php?method=check_db_init_progress', function (data) {
+				ajax.get('index.php?method=check_db_init_progress&offset=' + log_offset, function (data) {
+					log_offset = parseInt(data.substring(0,5));
+					data = data.substring(5);
 					if(data === old_log_data) {
 						setTimeout(request_log, 1000);
 						return;
 					}
 					old_log_data = data;
-					set_notice(
-						data.split("\n").map(function(l) {
+					append_notice(
+						data.trim().split("\n").map(function(l) {
 							if(l.indexOf('<?= lang('failed') ?>') !== -1) {
-								return '<font color="red">' + l + '</font><br/>';
+								return '<p class="red">' + l + '</p>';
+							} else if(!l) {
+								return '';
 							} else {
-								return l + '<br/>';
+								return '<p>' + l + '</p>';
 							}
 						}).join('')
 					);
+					refresh_lastmsg();
+					refresh_progress();
 					if(data.indexOf('<?= lang('failed') ?>') !== -1) {
-						append_notice('<font color="red"><?= lang('error_quit_msg') ?></font><br/>');
+						append_notice('<p class="red"><?= lang('error_quit_msg') ?></p>');
+						add_instfail();
 						return;
 					}
 					if(data.indexOf('<?= lang('initdbresult_succ') ?>') === -1) {
@@ -991,15 +1041,20 @@ function show_db_install() {
 				}
 				if(resultDiv.innerHTML.indexOf('<?= lang('initdbresult_succ') ?>') !== -1) {
 					// 数据库初始化成功就进行系统初始化
-					append_notice("<?= lang('initsys') ?> ... ");
+					append_notice("<p><?= lang('initsys') ?> ... </p>");
+					refresh_lastmsg();
 					ajax.get('../misc.php?mod=initsys', function(callback) {
 						if(callback.indexOf('Access Denied') !== -1 || callback.indexOf('Discuz! Database Error') !== -1 || callback.indexOf('Discuz! System Error') !== -1) {
-							append_notice('<font color="red"><?= lang('failed') ?></font><br/>');
-							append_notice('<font color="red"><?= lang('error_quit_msg') ?></font><br/>');
+							append_notice('<p class="red"><?= lang('failed') ?></p>');
+							append_notice('<p class="red"><?= lang('error_quit_msg') ?></p>');
 							document.getElementById('laststep').value = '<?= lang('error_quit_msg') ?>';
+							add_instfail();
 							return;
 						}
-						append_notice('<?= lang('succeed') ?><br/>');
+						append_notice('<p><?= lang('initsys').lang('succeed') ?></p>');
+						refresh_lastmsg();
+						document.getElementById('pgb').style.width = '100%';
+						document.getElementById('pgb').className = '';
 						document.getElementById('laststep').value = '<?= lang('succeed') ?>';
 						document.getElementById('laststep').disabled = false;
 						window.setTimeout(function() {
@@ -1014,12 +1069,13 @@ function show_db_install() {
 
 			window.onload = function() {
 				request_do_db_init();
+				init_bind();
 				setTimeout(request_log, 500);
 			}
 		</script>
-		<div id="notice"></div>
-		<div class="btnbox margintop marginbot">
-			<input type="button" name="submit" value="<?php echo lang('install_in_processed');?>" disabled="disabled" id="laststep" onclick="initinput()">
+		<div class="box"><div class="desc" id="lastmsg"><?= lang('install_in_processed') ?></div><div class="progress"><div class="move" id="pgb"></div></div><div id="notice"></div></div>
+		<div class="btnbox">
+			<input type="button" class="btn" name="submit" value="<?php echo lang('install_in_processed');?>" disabled="disabled" id="laststep" onclick="initinput()">
 		</div>
 <?php
 }
@@ -1102,9 +1158,8 @@ function runucquery($sql, $tablepre) {
 
 			if(substr($query, 0, 12) == 'CREATE TABLE') {
 				$name = preg_replace("/CREATE TABLE ([a-z0-9_]+) .*/is", "\\1", $query);
-				showjsmessage(lang('create_table').' '.$name.' ... ');
 				$db->query(createtable($query, $db->version()));
-				showjsmessage(lang('succeed') . "\n");
+				showjsmessage(lang('create_table').' '.$name.' ... '.lang('succeed') . "\n");
 			} else {
 				$db->query($query);
 			}
@@ -1358,7 +1413,7 @@ function show_error($type, $errors = '', $quit = false) {
 	if($step > 0) {
 		echo "<div class=\"desc\"><b>$title</b><ul>$comment</ul>";
 	} else {
-		echo "</div><div class=\"main\" style=\"margin-top: -123px;\"><b>$title</b><ul style=\"line-height: 200%; margin-left: 30px;\">$comment</ul>";
+		echo "</div><div class=\"main\"><b>$title</b><ul style=\"line-height: 200%; margin-left: 30px;\">$comment</ul>";
 	}
 
 	if($quit) {
@@ -1375,11 +1430,11 @@ function show_tips($tip, $title = '', $comment = '', $style = 1) {
 	$title = empty($title) ? lang($tip) : $title;
 	$comment = empty($comment) ? lang($tip.'_comment', FALSE) : $comment;
 	if($style) {
-		echo "<div class=\"desc\"><b>$title</b>";
+		echo "<div class=\"desc\">$title";
 	} else {
-		echo "</div><div class=\"main\" style=\"margin-top: -123px;\">$title<div class=\"desc1 marginbot\"><ul>";
+		echo "</div><div class=\"main\">$title<div class=\"desc1 marginbot\"><ul>";
 	}
-	$comment && print('<br>'.$comment);
+	$comment && print('<div class="comm">'.$comment.'</div>');
 	echo "</div>";
 }
 
@@ -1388,38 +1443,41 @@ function show_setting($setname, $varname = '', $value = '', $type = 'text|passwo
 		echo "<form method=\"post\" action=\"index.php\">\n";
 		return;
 	} elseif($setname == 'end') {
-		echo "\n</table>\n</form>\n";
+		echo "\n</form>\n";
 		return;
 	} elseif($setname == 'hidden') {
 		echo "<input type=\"hidden\" name=\"$varname\" value=\"$value\">\n";
 		return;
 	}
 
-	echo "\n".'<tr><th class="tbopt'.($error ? ' red' : '').'" align="left">&nbsp;'.(empty($setname) ? '' : lang($setname).':')."</th>\n<td>";
+	echo "\n".'<div class="inputbox'.($error ? ' red' : '').'">';
 	if($type == 'text' || $type == 'password') {
+		echo "\n".'<label class="tbopt" for="inst_'.$varname.'">'.(empty($setname) ? '' : lang($setname).':')."</label>\n";
 		$value = dhtmlspecialchars($value);
-		echo "<input type=\"$type\" name=\"$varname\" value=\"$value\" size=\"35\" class=\"txt\">";
+		echo "<input type=\"$type\" id=\"inst_{$varname}\" name=\"$varname\" value=\"$value\" class=\"txt\">";
 	} elseif(strpos($type, 'submit') !== FALSE) {
 		if(strpos($type, 'oldbtn') !== FALSE) {
-			echo "<input type=\"button\" name=\"oldbtn\" value=\"".lang('old_step')."\" class=\"btn\" onclick=\"history.back();\">\n";
+			echo "<input type=\"button\" name=\"oldbtn\" value=\"".lang('old_step')."\" class=\"btn oldbtn\" onclick=\"history.back();\">\n";
 		}
 		$value = empty($value) ? 'next_step' : $value;
 		echo "<input type=\"submit\" name=\"$varname\" value=\"".lang($value)."\" class=\"btn\">\n";
 	} elseif($type == 'checkbox') {
 		if(!is_array($varname) && !is_array($value)) {
-			echo "<label><input type=\"checkbox\" name=\"$varname\" value=\"1\"".($value ? 'checked="checked"' : '')."style=\"border: 0\">".lang($setname.'_check_label')."</label>\n";
+			echo "<input type=\"checkbox\" class=\"ckb\" id=\"$varname\" name=\"$varname\" value=\"1\"".($value ? 'checked="checked"' : '')."><label for=\"$varname\">".lang($setname.'_check_label')."</label>\n";
 		}
 	} else {
 		echo $value;
 	}
 
-	echo "</td>\n<td>";
 	if($error) {
-		$comment = '<span class="red">'.(is_string($error) ? lang($error) : lang($setname.'_error')).'</span>';
+		$comment = '<div class="comm red">'.(is_string($error) ? lang($error) : lang($setname.'_error')).'</div>';
 	} else {
 		$comment = lang($setname.'_comment', false);
+		if($comment) {
+			$comment = '<div class="comm">'.$comment.'</div>';
+		}
 	}
-	echo "$comment</td>\n</tr>\n";
+	echo "$comment\n</div>\n";
 	return true;
 }
 
@@ -1442,18 +1500,25 @@ function show_step($step) {
 	$stepclass[$laststep] .= ' last';
 
 	echo <<<EOT
-	<div class="setup step{$step}">
-		<h2>$title</h2>
-		<p>$comment</p>
-	</div>
-	<div class="stepstat">
-		<ul>
-			<li class="$stepclass[1]">$step_title_1</li>
-			<li class="$stepclass[2]">$step_title_2</li>
-			<li class="$stepclass[3]">$step_title_3</li>
-			<li class="$stepclass[4]">$step_title_4</li>
-		</ul>
-		<div class="stepstatbg stepstat1"></div>
+</div>
+<div class="setup">
+	<div>
+		<div class="step step{$step}">
+			<div class="stepnum">{$step}</div>
+			<div>
+				<h2>$title</h2>
+				<p>$comment</p>
+			</div>
+		</div>
+		<div class="stepstat">
+			<div class="stepstattxt">
+				<div class="$stepclass[1]">$step_title_1</div>
+				<div class="$stepclass[2]">$step_title_2</div>
+				<div class="$stepclass[3]">$step_title_3</div>
+				<div class="$stepclass[4]">$step_title_4</div>
+			</div>
+			<div class="stepstatbg stepstat{$step}"></div>
+		</div>
 	</div>
 </div>
 <div class="main">
@@ -1646,7 +1711,7 @@ function install_uc_server() {
 
 function install_data($username, $uid) {
 	global $_G, $db, $tablepre;
-	showjsmessage(lang('install_data')." ... ");
+	showjsmessage(lang('install_data')." ... " . "\n");
 
 	$_G = array('db'=>$db,'tablepre'=>$tablepre, 'uid'=>$uid, 'username'=>$username);
 
@@ -1657,7 +1722,7 @@ function install_data($username, $uid) {
 		import_diy($v['importfile'], $v['primaltplname'], $v['targettplname']);
 	}
 
-	showjsmessage(lang('succeed') . "\n");
+	showjsmessage(lang('install_data').lang('succeed') . "\n");
 }
 
 function install_testdata($username, $uid) {
@@ -2092,18 +2157,16 @@ function format_space($space) {
 }
 
 function init_install_log_file() {
-	static $file = __DIR__ . '/install.log';
-	if (file_exists($file)) {
+	if (file_exists(INST_LOG_PATH)) {
 		append_to_install_log_file("", true);
-		unlink($file);
+		unlink(INST_LOG_PATH);
 	}
 }
 
 function append_to_install_log_file($message, $close = false) {
-	static $file = __DIR__ . '/install.log';
 	static $fh = false;
 	if (!$fh) {
-		$fh = fopen($file, "a+");
+		$fh = fopen(INST_LOG_PATH, "a+");
 		flock($fh, LOCK_EX);
 	} 
 	if ($fh) {
@@ -2117,9 +2180,18 @@ function append_to_install_log_file($message, $close = false) {
 }
 
 function read_install_log_file() {
-	$file = __DIR__ . '/install.log';
-	if (file_exists($file)) {
-		readfile($file);
+	if (file_exists(INST_LOG_PATH)) {
+		$offset = intval(getgpc('offset'));
+		echo sprintf('%05d',filesize(INST_LOG_PATH));
+		if($offset) {
+			$fp = fopen(INST_LOG_PATH, 'rb');
+			fseek($fp, $offset);
+			fpassthru($fp);
+		} else {
+			readfile(INST_LOG_PATH);
+		}
+	} else {
+		echo '00000';
 	}
 }
 
