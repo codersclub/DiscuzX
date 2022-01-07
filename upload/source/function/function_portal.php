@@ -75,4 +75,51 @@ function fetch_topic_url($topic) {
 		return 'portal.php?mod=topic&topicid='.$topic['topicid'];
 	}
 }
-?>
+
+function portal_get_list($page = 1, $perpage = 15, $wheresql = '') {
+	global $_G;
+	$page = min($page, 1000);
+	$start = ($page-1) * $perpage;
+	if($start < 0) {
+		$start = 0;
+	}
+	$list = array();
+	$pricount = 0;
+	$multi = '';
+	$count = C::t('portal_article_title')->fetch_all_by_sql($wheresql, '', 0, 0, 1, 'at');
+	if($count) {
+		$query = C::t('portal_article_title')->fetch_all_by_sql($wheresql, 'ORDER BY at.dateline DESC', $start, $perpage, 0, 'at');
+		foreach($query as $value) {
+			$value['catname'] = $_G['cache']['portalcategory'][$value['catid']]['catname'];
+			$value['onerror'] = '';
+			if($value['pic']) {
+				$value['pic'] = pic_get($value['pic'], '', $value['thumb'], $value['remote'], 1, 1);
+			}
+			$value['dateline'] = dgmdate($value['dateline']);
+			if($value['status'] == 0 || $value['uid'] == $_G['uid'] || $_G['adminid'] == 1) {
+				$list[] = $value;
+			} else {
+				$pricount++;
+			}
+		}
+		$multi = multi($count, $perpage, $page, 'portal.php', 1000);
+	}
+	return $return = array('list'=>$list, 'count'=>$count, 'multi'=>$multi, 'pricount'=>$pricount);
+}
+
+function article_title_style($value = array()) {
+
+	$style = array();
+	$highlight = '';
+	if($value['highlight']) {
+		$style = explode('|', $value['highlight']);
+		$highlight = ' style="';
+		$highlight .= $style[0] ? 'color: '.$style[0].';' : '';
+		$highlight .= $style[1] ? 'font-weight: bold;' : '';
+		$highlight .= $style[2] ? 'font-style: italic;' : '';
+		$highlight .= $style[3] ? 'text-decoration: underline;' : '';
+		$highlight .= '"';
+	}
+	return $highlight;
+
+}

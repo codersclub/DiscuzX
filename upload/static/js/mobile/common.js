@@ -722,3 +722,187 @@ function ajaxget(url, showid, waitid, loading, display, recall) {
 	});
 	return false;
 }
+
+function getHost(url) {
+	var host = "null";
+	if(typeof url == "undefined"|| null == url) {
+		url = window.location.href;
+	}
+	var regex = /^\w+\:\/\/([^\/]*).*/;
+	var match = url.match(regex);
+	if(typeof match != "undefined" && null != match) {
+		host = match[1];
+	}
+	return host;
+}
+
+function hostconvert(url) {
+	if(!url.match(/^https?:\/\//)) url = SITEURL + url;
+	var url_host = getHost(url);
+	var cur_host = getHost().toLowerCase();
+	if(url_host && cur_host != url_host) {
+		url = url.replace(url_host, cur_host);
+	}
+	return url;
+}
+
+function Ajax(recvType, waitId) {
+	var aj = new Object();
+	aj.loading = '请稍候...';
+	aj.recvType = recvType ? recvType : 'XML';
+	aj.waitId = waitId ? $(waitId) : null;
+	aj.resultHandle = null;
+	aj.sendString = '';
+	aj.targetUrl = '';
+	aj.setLoading = function(loading) {
+		if(typeof loading !== 'undefined' && loading !== null) aj.loading = loading;
+	};
+	aj.setRecvType = function(recvtype) {
+		aj.recvType = recvtype;
+	};
+	aj.setWaitId = function(waitid) {
+		aj.waitId = typeof waitid == 'object' ? waitid : $(waitid);
+	};
+	aj.createXMLHttpRequest = function() {
+		var request = false;
+		if(window.XMLHttpRequest) {
+			request = new XMLHttpRequest();
+			if(request.overrideMimeType) {
+				request.overrideMimeType('text/xml');
+			}
+		} else if(window.ActiveXObject) {
+			var versions = ['Microsoft.XMLHTTP', 'MSXML.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.7.0', 'Msxml2.XMLHTTP.6.0', 'Msxml2.XMLHTTP.5.0', 'Msxml2.XMLHTTP.4.0', 'MSXML2.XMLHTTP.3.0', 'MSXML2.XMLHTTP'];
+			for(var i=0; i<versions.length; i++) {
+				try {
+					request = new ActiveXObject(versions[i]);
+					if(request) {
+						return request;
+					}
+				} catch(e) {}
+			}
+		}
+		return request;
+	};
+	aj.XMLHttpRequest = aj.createXMLHttpRequest();
+	aj.showLoading = function() {
+		if(aj.waitId && (aj.XMLHttpRequest.readyState != 4 || aj.XMLHttpRequest.status != 200)) {
+			aj.waitId.style.display = '';
+			aj.waitId.innerHTML = '<span><div class="loadicon vm"></div> ' + aj.loading + '</span>';
+		}
+	};
+	aj.processHandle = function() {
+		if(aj.XMLHttpRequest.readyState == 4 && aj.XMLHttpRequest.status == 200) {
+			if(aj.waitId) {
+				aj.waitId.style.display = 'none';
+			}
+			if(aj.recvType == 'HTML') {
+				aj.resultHandle(aj.XMLHttpRequest.responseText, aj);
+			} else if(aj.recvType == 'XML') {
+				if(!aj.XMLHttpRequest.responseXML || !aj.XMLHttpRequest.responseXML.lastChild || aj.XMLHttpRequest.responseXML.lastChild.localName == 'parsererror') {
+					aj.resultHandle('' , aj);
+				} else {
+					aj.resultHandle(aj.XMLHttpRequest.responseXML.lastChild.firstChild.nodeValue, aj);
+				}
+			} else if(aj.recvType == 'JSON') {
+				var s = null;
+				try {
+					s = (new Function("return ("+aj.XMLHttpRequest.responseText+")"))();
+				} catch (e) {
+					s = null;
+				}
+				aj.resultHandle(s, aj);
+			}
+		}
+	};
+	aj.get = function(targetUrl, resultHandle) {
+		targetUrl = hostconvert(targetUrl);
+		setTimeout(function(){aj.showLoading()}, 250);
+		aj.targetUrl = targetUrl;
+		aj.XMLHttpRequest.onreadystatechange = aj.processHandle;
+		aj.resultHandle = resultHandle;
+		var attackevasive = isUndefined(attackevasive) ? 0 : attackevasive;
+		if(window.XMLHttpRequest) {
+			aj.XMLHttpRequest.open('GET', aj.targetUrl);
+			aj.XMLHttpRequest.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+			aj.XMLHttpRequest.send(null);
+		} else {
+			aj.XMLHttpRequest.open("GET", targetUrl, true);
+			aj.XMLHttpRequest.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+			aj.XMLHttpRequest.send();
+		}
+	};
+	aj.post = function(targetUrl, sendString, resultHandle) {
+		targetUrl = hostconvert(targetUrl);
+		setTimeout(function(){aj.showLoading()}, 250);
+		aj.targetUrl = targetUrl;
+		aj.sendString = sendString;
+		aj.XMLHttpRequest.onreadystatechange = aj.processHandle;
+		aj.resultHandle = resultHandle;
+		aj.XMLHttpRequest.open('POST', targetUrl);
+		aj.XMLHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		aj.XMLHttpRequest.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		aj.XMLHttpRequest.send(aj.sendString);
+	};
+	aj.getJSON = function(targetUrl, resultHandle) {
+		aj.setRecvType('JSON');
+		aj.get(targetUrl+'&ajaxdata=json', resultHandle);
+	};
+	aj.getHTML = function(targetUrl, resultHandle) {
+		aj.setRecvType('HTML');
+		aj.get(targetUrl+'&ajaxdata=html', resultHandle);
+	};
+	return aj;
+}
+
+function portal_flowlazyload() {
+	var obj = this;
+	var times = 0;
+	var processing = false;
+	this.getOffset = function (el, isLeft) {
+		var retValue = 0 ;
+		while (el != null) {
+			retValue += el["offset" + (isLeft ? "Left" : "Top" )];
+			el = el.offsetParent;
+		}
+		return retValue;
+	};
+	this.attachEvent = function (obj, evt, func, eventobj) {
+		eventobj = !eventobj ? obj : eventobj;
+		if(obj.addEventListener) {
+			obj.addEventListener(evt, func, false);
+		} else if(eventobj.attachEvent) {
+			obj.attachEvent('on' + evt, func);
+		}
+	};
+	this.removeElement = function (_element) {
+		var _parentElement = _element.parentNode;
+		if(_parentElement) {
+			_parentElement.removeChild(_element);
+		}
+	};
+	this.showNextPage = function() {
+		var scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
+		var offsetTop = this.getOffset(document.getElementsByClassName('page')[0]);
+		// 没有在进行的 Ajax 翻页或者 Ajax 翻页少于 10 次才翻页, 为了避免重复请求以及无限下拉导致的 DOM 问题
+		// Todo: 大数据量站点测试下拉刷新合理范围, 适度放宽限制
+		if (!processing && times <= 9 && offsetTop > document.documentElement.clientHeight && (offsetTop - scrollTop < document.documentElement.clientHeight)) {
+			processing = true;
+			times++;
+			var x = new Ajax();
+			x.get('portal.php?mod=index&page=' + ++flowpage + '&inajax=1', function(s) {
+				if(s.indexOf(mobnodata) !== -1) {
+					var infoli = s.match(/<li>([\w\W]+)<\/li>/g);
+					var pgdiv = s.match(/<div class="pg">([\w\W]+)<\/div>/g);
+					if (infoli !== null && pgdiv !== null) {
+						document.getElementsByClassName('wzlist')[0].insertAdjacentHTML('beforeend', infoli);
+						document.getElementsByClassName('page')[0].insertAdjacentHTML('afterend', pgdiv);
+						obj.removeElement(document.getElementsByClassName('page')[0]);
+						page.converthtml();
+						processing = false;
+					}
+				}
+			});
+		}
+	};
+	this.attachEvent(window, 'scroll', function(){obj.showNextPage();});
+}
