@@ -1000,7 +1000,8 @@ function show_db_install() {
 			}
 
 			function request_log() {
-				ajax.get('index.php?method=check_db_init_progress&offset=' + log_offset, function (data) {
+				var timest = new Date().getTime().toString().substring(5);
+				ajax.get('index.php?method=check_db_init_progress&timestamp=' + timest + '&offset=' + log_offset, function (data) {
 					log_offset = parseInt(data.substring(0,5));
 					data = data.substring(5);
 					if(data === old_log_data) {

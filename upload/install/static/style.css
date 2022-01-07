@@ -104,7 +104,7 @@ h2.title { padding-bottom: 10px; border-bottom: 1px solid #c6d1e3; margin-bottom
 #lastmsg .red, #notice .red { color: #d31f0d; }
 #lastmsg .red::before, #notice .red::before { content: "\d7"; margin-right: 10px; }
 .progress { flex-grow: 0; height: 40px; margin: 0 20px; background: #e6e9e9; border-radius: 15px; position: relative; overflow: hidden; cursor: pointer; }
-#pgb { width: 0%; height: 100%; background: #32cb92; border-radius: 0 12px 12px 0; position: absolute; bottom: 0; left: 0; transition: 0.2s ease; background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.25) 40%, rgba(255, 255, 255, 0.25) 60%, rgba(255, 255, 255, 0) 100%); background-size: 200px 100%; background-repeat: no-repeat; background-position: -200px 0; }
+#pgb { width: 0%; height: 100%; background: #32cb92; border-radius: 0 12px 12px 0; position: absolute; bottom: 0; left: 0; transition: 0.2s ease; background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.25) 40%, rgba(255, 255, 255, 0.25) 60%, rgba(255, 255, 255, 0) 100%); background-size: 240px 100%; background-repeat: no-repeat; background-position: -240px 0; }
 #pgb.move { animation: bar-move 2s linear infinite; }
 #lastmsg { padding: 0 40px; }
 .instfail #notice { display: block; }
@@ -122,8 +122,8 @@ h2.title { padding-bottom: 10px; border-bottom: 1px solid #c6d1e3; margin-bottom
 .inst_success a.btn.finish { background: #1ca3a6; }
 
 /* keyframes */
-@keyframes bar-move { from { background-position: -200px 0; }
-to { background-position: 1400px 0; } }
+@keyframes bar-move { 0% { background-position: -240px 0; }
+100% { background-position: calc(100% + 480px) 0; } }
 @keyframes sipop { 0% { opacity: 0;
 transform: rotate(45deg) scale(0.5); }
 75% { opacity: 1;
