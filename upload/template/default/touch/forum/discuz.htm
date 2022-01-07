@@ -2,10 +2,10 @@
 <!--{if $_GET['mod'] == 'find'}-->
 	<!--{template forum/find}-->
 <!--{else}-->
-	<!--{if $_G['setting']['mobile']['mobilehotthread'] && empty($_G['setting']['grid']['showgrid']) && empty($_G['cache']['heats']['message']) && $_GET['forumlist'] != 1}-->
+	<!--{if $_G['setting']['mobile']['forum']['index'] == 1 && empty($_G['cache']['heats']['message']) && $_GET['forumlist'] != 1}-->
 		<!--{eval dheader('Location:forum.php?mod=guide&view=newthread');exit;}-->
 	<!--{else}-->	
-	<!--{if ($_G['setting']['mobile']['mobilehotthread'] && $_GET['forumlist'] != 1) || !$_G['setting']['mobile']['mobilehotthread']}-->
+	<!--{if ($_G['setting']['mobile']['forum']['index'] && $_GET['forumlist'] != 1) || !$_G['setting']['mobile']['forum']['index']}-->
 		<div class="header cl">
 			<div class="mzlogo"><a title="$_G['setting']['bbname']" href="javascript:;"><img src="{IMGDIR}/logo_m.svg" /></a></div>
 			<div class="myss"><a href="search.php?mod=forum"><i class="dm-search"></i>{lang mobsearchtxt}</a></div>
@@ -13,17 +13,11 @@
 	<!--{else}-->
 		<div class="header cl">
 			<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
-			<h2>
-				<!--{if $_G['setting']['mobile']['mobilehotthread']}-->
-				{$_G['setting']['navs'][2]['navname']}
-				<!--{else}-->
-				<a title="$_G['setting']['bbname']" href="javascript:;"><img src="{IMGDIR}/logo_m.svg" /></a>
-				<!--{/if}-->
-			</h2>
+			<h2>{$_G['setting']['navs'][2]['navname']}</h2>
 			<div class="my"><a href="search.php?mod=forum"><i class="dm-search"></i></a></div>
 		</div>
 	<!--{/if}-->
-	<!--{if ($_G['setting']['mobile']['mobilehotthread'] && $_GET['forumlist'] != 1) || !$_G['setting']['mobile']['mobilehotthread']}-->	
+	<!--{if ($_G['setting']['mobile']['forum']['index'] > 1 && $_GET['forumlist'] != 1)}-->	
 		<!--{if !empty($_G['setting']['grid']['showgrid']) && !$_G['setting']['grid']['gridtype']}-->
 		<div class="dz-swiper_box dz-swiper">
 			<ul class="swiper-wrapper">
@@ -44,7 +38,7 @@
 		<!--{/if}-->
 		<!--{hook/index_top}-->	
 	<!--{/if}-->
-	<!--{if $_G['setting']['mobile']['mobilehotthread'] && $_GET['forumlist'] != 1}-->
+	<!--{if $_G['setting']['mobile']['forum']['index'] > 1 && $_GET['forumlist'] != 1}-->
 		<!--{eval loadcache(array('forums'));$i=0;}-->
 		<!--{if !empty($_G['cache']['heats']['message'])}-->
 		<div class="hotbox cl">
@@ -138,7 +132,8 @@
 		}
 		</script>
 		<!--{/if}-->
-	<!--{else}-->
+	<!--{/if}-->
+	<!--{if in_array($_G['setting']['mobile']['forum']['index'], array(0,3)) || $_GET['forumlist'] == 1}-->
 		<!--{if $announcements}-->
 			<div class="ann-box">
 				<div class="mtit">{lang announcements}</div>
@@ -146,6 +141,7 @@
 			</div>
 			<script type="text/javascript">discuz_loop(24, 30, 3000, 'ann');</script>
 		<!--{/if}-->
+		<!--{if $_G['setting']['mobile']['forum']['statshow']}-->
 		<div class="stat cl">
 			<ul class="flex-box">
 				<li class="flex"><em>$todayposts</em>{lang index_today}</li>
@@ -154,11 +150,12 @@
 				<li class="flex"><em>$_G['cache']['userstats']['totalmembers']</em>{lang index_members}</li>
 			</ul>
 		</div>
+		<!--{/if}-->
 		<!--{hook/index_top_mobile}-->
 		<div class="forumlist cl">
 			<!--{loop $catlist $key $cat}-->	
 			<div class="subforumshow cl" href="#sub-forum_$cat['fid']">
-				<i class="{if !$_G['setting']['mobile']['mobileforumview']}dm-minus-c{else}dm-plus-c{/if}"></i>
+				<i class="{if !$_G['setting']['mobile']['forum']['forumview']}dm-minus-c{else}dm-plus-c{/if}"></i>
 				<h2><a href="javascript:;">$cat['name']</a></h2>
 			</div>
 			<div id="sub-forum_$cat['fid']" class="sub-forum mlist<!--{if $cat['forumcolumns'] == 3}-->3<!--{elseif $cat['forumcolumns'] == 2}-->2<!--{elseif $cat['forumcolumns'] == 1 || $cat['forumcolumns'] == 0}-->1<!--{else}-->4<!--{/if}--> cl">
@@ -182,7 +179,7 @@
 		<!--{hook/index_middle_mobile}-->
 		<script type="text/javascript">
 			(function() {
-				<!--{if !$_G['setting']['mobile']['mobileforumview']}-->
+				<!--{if !$_G['setting']['mobile']['forum']['forumview']}-->
 					$('.sub-forum').css('display', 'block');
 				<!--{else}-->
 					$('.sub-forum').css('display', 'none');

@@ -1,4 +1,12 @@
 <!--{template common/header}-->
+{eval}
+$cates = C::t('portal_category')->range_category(0, 999);
+foreach($cates as $cate){
+	if(!$cate['closed'] && !$cate['upid']){
+		$catelist[] = $cate;
+	}
+}
+{/eval}
 <!--{eval $list = array();}-->
 <!--{eval $page = isset($_GET['page']) ? intval($_GET['page']) : 1;}-->
 <!--{eval $list = portal_get_list($page);}-->
@@ -6,6 +14,33 @@
 	<div class="mzlogo"><a title="$_G['setting']['bbname']" href="javascript:;"><img src="{IMGDIR}/logo_m.svg" /></a></div>
 	<div class="myss"><a href="search.php?mod=portal"><i class="dm-search"></i>{lang mobsearchtxt}</a></div>
 </div>
+<!--{if $catelist && $_G['setting']['mobile']['portal']['catnav']}-->
+<div class="dhnavs_box">
+	<div id="dhnavs">
+		<div id="dhnavs_li">
+			<ul class="swiper-wrapper">
+				<!--{eval $i = 1;}-->
+				<!--{loop $catelist $value}-->
+				<li class="swiper-slide"><!--{if $i != 1}--><span>|</span><!--{/if}--><a href="{$_G['cache']['portalcategory'][$value['catid']]['caturl']}">$value['catname']</a></li>
+				<!--{eval $i--;}-->
+				<!--{/loop}-->
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+	new Swiper('#dhnavs_li', {
+		freeMode : true,
+		slidesPerView : 'auto',
+		onTouchMove: function(swiper){
+			Discuz_Touch_on = 0;
+		},
+		onTouchEnd: function(swiper){
+			Discuz_Touch_on = 1;
+		},
+	});
+</script>
+<!--{/if}-->
 <!--{if $page == 1}-->
 <!--{eval $imglist = portal_get_list(1, 5, "at.pic != ''");}-->
 <!--{if count($imglist['list'])}-->
@@ -16,12 +51,12 @@
 			<li class="swiper-slide"><a href="$article_url"><img src="$value['pic']" width="100%" class="vm"><span>$value['title']</span></a></li>
 		<!--{/loop}-->
 	</ul>
-	<div class="swiper-portal"></div>
+	<div class="swiper-forum"></div>
 </div>
 <script>
 var swiper = new Swiper('.dz-swiper', {
 	pagination: {
-		el: '.swiper-portal',
+		el: '.swiper-forum',
 		type: 'fraction',
 	},
 });

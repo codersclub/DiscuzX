@@ -685,8 +685,8 @@ class discuz_application extends discuz_base{
 		}
 
 		if(defined('IN_MOBILE')) {
-			$this->var['tpp'] = $this->var['setting']['mobile']['mobiletopicperpage'] ? intval($this->var['setting']['mobile']['mobiletopicperpage']) : 20;
-			$this->var['ppp'] = $this->var['setting']['mobile']['mobilepostperpage'] ? intval($this->var['setting']['mobile']['mobilepostperpage']) : 5;
+			$this->var['tpp'] = $this->var['setting']['mobile']['forum']['topicperpage'] ? intval($this->var['setting']['mobile']['forum']['topicperpage']) : 20;
+			$this->var['ppp'] = $this->var['setting']['mobile']['forum']['postperpage'] ? intval($this->var['setting']['mobile']['forum']['postperpage']) : 5;
 		} else {
 			$this->var['tpp'] = $this->var['setting']['topicperpage'] ? intval($this->var['setting']['topicperpage']) : 20;
 			$this->var['ppp'] = $this->var['setting']['postperpage'] ? intval($this->var['setting']['postperpage']) : 10;
@@ -841,20 +841,6 @@ class discuz_application extends discuz_base{
 			}
 		}
 
-		if(strpos($this->var['setting']['domain']['defaultindex'], CURSCRIPT) !== false && CURSCRIPT != 'forum' && !$_GET['mod']) {
-			if($this->var['setting']['domain']['app']['mobile']) {
-				$mobileurl = $this->var['scheme'].'://'.$this->var['setting']['domain']['app']['mobile'];
-			} else {
-				if($this->var['setting']['domain']['app']['forum']) {
-					$mobileurl = $this->var['scheme'].'://'.$this->var['setting']['domain']['app']['forum'].'?mobile=yes';
-				} else {
-					$mobileurl = $this->var['siteurl'].'forum.php?mobile=yes';
-				}
-			}
-			if(!$this->var['setting']['mobile']['otherindex']){
-				dheader("location:$mobileurl");
-			}
-		}
 		if($this->var['setting']['mobile']['allowmnew'] && !defined('IN_MOBILE_API') && !defined('NOT_IN_MOBILE_API') && !defined("IS_ROBOT")) {
 			$modid = $this->var['basescript'].'::'.CURMODULE;
 			if(($modid == 'forum::viewthread' || $modid == 'group::viewthread') && !empty($_GET['tid'])) {

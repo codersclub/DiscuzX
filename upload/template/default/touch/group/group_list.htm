@@ -60,7 +60,7 @@
 		<!--{if $_G['forum_threadcount']}-->
 			<!--{eval $threadlist_data = get_attach($_G['forum_threadlist']);}-->
 			<!--{loop $_G['forum_threadlist'] $key $thread}-->
-			<!--{if !$_G['setting']['mobile']['mobiledisplayorder3'] && $thread['displayorder'] > 0}-->
+			<!--{if !$_G['setting']['mobile']['forum']['displayorder3'] && $thread['displayorder'] > 0}-->
 				{eval continue;}
 			<!--{/if}-->
 			<!--{if $thread['displayorder'] > 0 && !$displayorder_thread}-->
