@@ -902,6 +902,7 @@ function threadpubsave($tid, $passapproval = false) {
 		$displayorder = -2;
 		$modworksql = 1;
 		$return = -1;
+		C::t('forum_post')->update_by_tid('tid:'.$tid, $tid, array('dateline' => $dateline), false, false, 1);
 	} else {
 		C::t('forum_post')->update_by_tid('tid:'.$tid, $tid, array('dateline' => $dateline, 'invisible' => '0'), false, false, 1);
 	}
