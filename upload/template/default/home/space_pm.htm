@@ -384,8 +384,8 @@
 								<!--{loop $grouppms $grouppm}-->
 									<dl id="gpmlist_$grouppm[id]" class="bbda cur1 cl{if !$gpmstatus[$grouppm[id]]} newpm{/if}">
 										<dd class="y mtm pm_o">
-											<a href="javascript:;" id="pm_o_$grouppm[id]" class="o" onmouseover="showMenu({'ctrlid':this.id, 'pos':'34'})">{lang menu}</a>
-											<div id="pm_o_$grouppm[id]_menu" class="p_pop" style="display: none;">
+											<a href="javascript:;" id="pm_g_$grouppm[id]" class="o" onmouseover="showMenu({'ctrlid':this.id, 'pos':'34'})">{lang menu}</a>
+											<div id="pm_g_$grouppm[id]_menu" class="p_pop" style="display: none;">
 												<ul>
 													<li><a href="javascript:;" onclick="ajaxget('home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_gpmid[]=$grouppm[id]', '', 'ajaxwaitid', '', 'none', '$(\'gpmlist_$grouppm[id]\').style.display=\'none\';');">{lang delete}</a></li>
 												</ul>
