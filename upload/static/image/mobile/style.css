@@ -254,8 +254,8 @@ select {-moz-appearance:none;}
 .forumlist .mlist1 li {overflow:hidden;padding:10px 15px;border-bottom:1px solid var(--dz-BOR-ed)}
 .forumlist .mlist2 li {float:left;width:50%;box-sizing:border-box;padding:10px 15px;overflow:hidden;border-bottom:1px solid var(--dz-BOR-ed);border-right:1px solid var(--dz-BOR-ed)}
 .forumlist .mlist2 li:nth-child(2n) {border-right:none}
-.forumlist .mlist3 li {float:left;min-width:33.333%;box-sizing:border-box;padding:13px 5px 10px;overflow:hidden;border-right:1px solid var(--dz-BOR-ed);flex-shrink: 0}
-.forumlist .mlist4 li {float:left;min-width:25%;box-sizing:border-box;padding:13px 5px 10px;overflow:hidden;border-right:1px solid var(--dz-BOR-ed);flex-shrink: 0}
+.forumlist .mlist3 li {float:left;min-width:33.333%;box-sizing:border-box;padding:13px 5px 10px;overflow:hidden;border-bottom:1px solid var(--dz-BOR-ed);border-right:1px solid var(--dz-BOR-ed);flex-shrink: 0}
+.forumlist .mlist4 li {float:left;min-width:25%;box-sizing:border-box;padding:13px 5px 10px;overflow:hidden;border-bottom:1px solid var(--dz-BOR-ed);border-right:1px solid var(--dz-BOR-ed);flex-shrink: 0}
 .forumlist .mlist3 li a.murl, .forumlist .mlist4 li a.murl {height:auto}
 .forumlist .mlist3 li .micon, .forumlist .mlist4 li .micon {float:none;display:block;margin:0 auto;text-align: center;}
 .forumlist .mlist3 li .mtit {margin-top:6px;text-align:center}

@@ -171,10 +171,12 @@ $lang = array (
   'downloadnow' => '立即下载',
   'downloadzslttoshareview' => '下载新版掌上论坛客户端，尊享多项看帖特权!',
   'mobhome' => '首页',
+  'mobportal' => '门户',
   'mobforum' => '社区',
   'mobpost' => '发布',
   'mobfind' => '发现',
   'mobmy' => '我的',
+  'mobfeed' => '动态',
   'mobsearchtxt' => '搜索关键字',
   'mobredian' => '热点',
   'mobtuijian' => '推荐',
@@ -198,6 +200,8 @@ $lang = array (
   'mobnoreply' => '暂无回复，快来抢沙发',
   'mobdebate_tip' => '请使用电脑版对辩论帖子进行高级管理',
   'mobdaodu' => '导读',
+  
+  'guide_forumlist' => '看版块',
 
   'home_credit_buy' => '充值',
   'home_credit_buy_rmb' => '人民币',

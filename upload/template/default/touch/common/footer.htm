@@ -7,16 +7,35 @@
 		<span class="foot-ico"><em class="ma"></em></span>
 		<span class="foot-txt">{lang mobhome}</span>
 	</a>
-	<!--{if $_G['setting']['mobile']['forum']['index'] == 1}-->
-		<a href="forum.php?mod=guide&view=newthread" class="flex{if $_G['basescript'] == 'forum' && $_GET['mod'] != 'find' && (CURMODULE == 'index' || $_GET['forumlist'] == 1 || CURMODULE == 'forumdisplay' || CURMODULE == 'viewthread' || CURMODULE == 'guide')} mon{/if}">
-	<!--{elseif $_G['setting']['mobile']['forum']['index'] > 1}-->
-		<a href="forum.php" class="flex{if $_G['basescript'] == 'forum' && $_GET['mod'] != 'find' && (CURMODULE == 'index' || $_GET['forumlist'] == 1 || CURMODULE == 'forumdisplay' || CURMODULE == 'viewthread' || CURMODULE == 'guide')} mon{/if}">
-	<!--{else}-->
-		<a href="forum.php?forumlist=1" class="flex{if $_G['basescript'] == 'forum' && $_GET['mod'] != 'find' && (CURMODULE == 'index' || $_GET['forumlist'] == 1 || CURMODULE == 'forumdisplay' || CURMODULE == 'viewthread' || CURMODULE == 'guide')} mon{/if}">
-	<!--{/if}-->
+	<!--{if strpos('forum.php', $_G['setting']['defaultindex']) === false}-->
+	<a href="<!--{if $_G['setting']['mobile']['forum']['index'] > 1}-->forum.php<!--{elseif $_G['setting']['mobile']['forum']['index'] == 1}-->forum.php?mod=guide&view=newthread<!--{else}-->forum.php?forumlist=1<!--{/if}-->" class="flex{if $_G['basescript'] == 'forum' && $_GET['mod'] != 'find' && (CURMODULE == 'index' || $_GET['forumlist'] == 1 || CURMODULE == 'forumdisplay' || CURMODULE == 'viewthread' || CURMODULE == 'guide')} mon{/if}">
 		<span class="foot-ico"><em class="mb"></em></span>
 		<span class="foot-txt">{$_G['setting']['navs'][2]['navname']}</span>
 	</a>
+	<!--{/if}-->
+	<!--{if strpos('forum.php', $_G['setting']['defaultindex']) === 0}-->
+		<!--{if helper_access::check_module('portal')}-->
+		<a href="portal.php" class="flex{if $_G['basescript'] == 'portal'} mon{/if}">
+			<span class="foot-ico"><em class="mb"></em></span>
+			<span class="foot-txt">{lang mobnews}</span>
+		</a>
+		<!--{elseif helper_access::check_module('group')}-->
+		<a href="group.php" class="flex{if $_G['basescript'] == 'group'} mon{/if}">
+			<span class="foot-ico"><em class="mb"></em></span>
+			<span class="foot-txt">{$_G['setting']['navs'][3]['navname']}</span>
+		</a>
+		<!--{elseif helper_access::check_module('feed')}-->
+		<a href="home.php" class="flex{if $_G['basescript'] == 'home' && CURMODULE == 'space' && $_GET['do'] == 'home'} mon{/if}">
+			<span class="foot-ico"><em class="mb"></em></span>
+			<span class="foot-txt">{lang mobfeed}</span>
+		</a>
+		<!--{else}-->
+		<a href="home.php?mod=space&do=pm" class="flex{if $_G['basescript'] == 'home' && CURMODULE == 'space' && $_GET['do'] == 'pm'} mon{/if}">
+			<span class="foot-ico"><em class="mb"><!--{if $_G['uid'] && ($_G['member']['newpm'] || $_G['member']['newprompt'])}--><i class="ico_msg"></i><!--{/if}--></em></span>
+			<span class="foot-txt">{lang pm_center}</span>
+		</a>
+		<!--{/if}-->
+	<!--{/if}-->
 	<a href="forum.php?mod=misc&action=nav" class="flex foot-post">
 		<span class="foot-ico"><em class="mc"></em></span>
 		<span class="foot-txt">{lang mobpost}</span>
@@ -26,7 +45,11 @@
 		<span class="foot-txt">{lang mobfind}</span>
 	</a>
 	<a href="{if $_G['uid']}home.php?mod=space&uid={$_G['uid']}&do=profile&mycenter=1{else}member.php?mod=logging&action=login{/if}" class="flex{if $_G['basescript'] == 'home' && CURMODULE == 'space' && $_GET['mycenter'] == 1} mon{/if}">
-		<span class="foot-ico"><em class="me"><!--{if $_G['uid'] && ($_G['member']['newpm'] || $_G['member']['newprompt'])}--><i class="ico_msg"></i><!--{/if}--></em></span>
+		<span class="foot-ico"><em class="me">
+			<!--{if strpos('forum.php', $_G['setting']['defaultindex']) === false || helper_access::check_module('portal') || helper_access::check_module('group') || helper_access::check_module('feed')}-->
+			<!--{if $_G['uid'] && ($_G['member']['newpm'] || $_G['member']['newprompt'])}--><i class="ico_msg"></i><!--{/if}-->
+			<!--{/if}-->
+		</em></span>
 		<span class="foot-txt">{lang mobmy}</span>
 	</a>
 </div>

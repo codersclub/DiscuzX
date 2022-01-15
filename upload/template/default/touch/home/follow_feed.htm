@@ -115,24 +115,27 @@
 				</div>
 			<!--{else}-->
 				<div class="emp">
-					<h2 class="mbw xg1 xs2 hm"><!--{if $viewself}-->{lang follow_following_null}<!--{else}-->{lang follow_no_content}<!--{/if}--></h2>
-					<!--{if $do == 'feed' && $view == 'special'}-->
-					<div class="mtw hm xg1">
-						{lang follow_add_special_tip}<a href="home.php?mod=follow&do=following&uid=$uid" class="xi2">{lang follow_add_special_following}</a>
-					</div>
-					<!--{/if}-->
-
+					<h4>
+						<!--{if $viewself}-->{lang follow_following_null}<!--{else}-->{lang follow_no_content}<!--{/if}-->
+						<!--{if $do == 'feed' && $view == 'special'}-->
+						<div class="mtw hm xg1">
+							{lang follow_add_special_tip}<a href="home.php?mod=follow&do=following&uid=$uid" class="xi2">{lang follow_add_special_following}</a>
+						</div>
+						<!--{/if}-->
+					</h4>
 					<!--{if !empty($recommend) && $showrecommend && $view != 'special'}-->
 					<!--{eval $showrecommend = false;}-->
-					<div class="flw_user_list mbm">
-						<h3 class="xi2 xs2 mbw ptm pbm bbda">{lang follow_recommend}</h3>
-						<ul class="ml mls cl">
+					<div class="imglist cl">
+						<div class="subtit p0 cl">
+							<h2>{lang follow_recommend}</h2>
+						</div>
+						<ul class="cl">
 						<!--{loop $recommend $ruid $rusername}-->
 							<li>
-								<a href="home.php?mod=space&uid=$ruid" class="avt" c="1" shref="home.php?mod=space&uid=$ruid"><!--{avatar($ruid, 'small')}--></a>
-								<p><a href="home.php?mod=space&uid=$ruid" style="text-decoration: none !important;">$rusername</a></p>
+								<span class="mimg"><a href="home.php?mod=space&uid=$ruid" class="avt" c="1" shref="home.php?mod=space&uid=$ruid"><!--{avatar($ruid, 'small')}--></a></span>
+								<p class="mtit">{$rusername}</p>
 								<!--{if helper_access::check_module('follow')}-->
-								<span><a id="a_followmod_{$ruid}" href="home.php?mod=spacecp&ac=follow&op=add&hash={FORMHASH}&fuid=$ruid&from=block" onclick="ajaxget(this.href);doane(event);" style="text-decoration: none !important;">{lang follow_add}</a></span>
+								<a class="mico z" id="a_followmod_{$ruid}" href="home.php?mod=spacecp&ac=follow&op=add&hash={FORMHASH}&fuid=$ruid&from=block" onclick="ajaxget(this.href);doane(event);" style="text-decoration: none !important;">{lang follow_add}</a>
 								<!--{/if}-->
 							</li>
 						<!--{/loop}-->
@@ -203,7 +206,7 @@
 					<ul>
 						<li class="flw_article">
 							<div class="emp">
-								<h2 class="xg1 xs2 hm">
+								<h4>
 									<!--{if $viewself}-->
 										<!--{if $do=='following'}-->
 											{lang follow_you_following_none}<a href="home.php?mod=follow&view=other" class="xi2">{lang follow_hall}</a>{lang follow_fetch_interested_user}

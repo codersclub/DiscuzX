@@ -24,6 +24,7 @@
 	<a href="forum.php?mod=guide&view=digest" class="flex<!--{if $currentview['digest'] }--> mon<!--{/if}-->">{lang digest}</a>
 	<a href="forum.php?mod=guide&view=new" class="flex<!--{if $currentview['new']}--> mon<!--{/if}-->">{lang join_thread}</a>	
 	<a href="forum.php?mod=guide&view=sofa" class="flex<!--{if $currentview['sofa']}--> mon<!--{/if}-->">{lang guide_sofa}</a>
+	<a href="forum.php?forumlist=1" class="flex">{lang guide_forumlist}</a>
 </div>
 <!--{loop $data $key $list}-->
 	<!--{subtemplate forum/guide_list_row}-->
