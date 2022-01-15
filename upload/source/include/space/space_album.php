@@ -262,7 +262,7 @@ if($id) {
 		$navtitle = $pic['title'].' - '.$navtitle;
 	}
 	$metakeywords = $pic['title'] ? $pic['title'] : $album['albumname'];
-	$metadescription = $pic['title'] ? $pic['title'] : $albumname['albumname'];
+	$metadescription = $pic['title'] ? $pic['title'] : $album['albumname'];
 
 	include_once template("diy:home/space_album_pic");
 
