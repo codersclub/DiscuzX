@@ -1,0 +1,23 @@
+<!--{template common/header}-->
+<div class="setbox cl" id="recommend">
+	<form action="forum.php?mod=collection&action=comment&op=recommend&ctid={$ctid}" onsubmit="ajaxpost(this.id, 'form_collectionrecommend');" id="form_collectionrecommend" name="form_collectionrecommend" method="POST">
+		<input type="hidden" value="{FORMHASH}" name="formhash" />
+		<input type="hidden" name="inajax" value="1">
+		<input type="hidden" name="handlekey" value="$_GET['handlekey']">
+		<ul class="bodybox post_box mt15 cl">
+			<li class="flex-box mli">
+				<div class="tit">{lang collection_recommend_thread_url}<span class="f_g">*</span></div>
+				<div class="flex input"><input type="text" id="formtitle" autocomplete="off" name="threadurl"></div>
+			</li>
+		</ul>
+		<div class="mt5 p10">
+			<button type="submit" class="formdialog flex pn">{lang collection_recommend_submit}</button>
+		</div>
+  </form>
+</div>
+<style>
+	#recommend {
+		background-color: #fff;
+	}
+</style>
+<!--{template common/footer}-->

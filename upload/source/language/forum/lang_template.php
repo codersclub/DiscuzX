@@ -156,6 +156,7 @@ $lang = array (
   'collection_mysubscribe' => '我订阅的',
   'anonymous' => '匿名',
   'attach_img' => '图片附件',
+  'somebody_collection' => '的{$_G[\'setting\'][\'navs\'][11][\'navname\']}',
   'collection_allcomment' => '所有评论',
   'collection_allfollowers' => '所有订阅者',
   'collection_cloud_link' => '搜索相关主题',

@@ -1,0 +1,20 @@
+<!--{template common/header}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>
+		{lang collection}
+	</h2>
+	<div class="my">
+	<!--{if helper_access::check_module('collection')}-->
+	<a href="forum.php?mod=collection&amp;action=edit"><i class="dm-plus-c"></i></a>
+	<!--{else}-->
+	<a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a>
+	<!--{/if}-->
+	</div>
+</div>
+<!--{subtemplate forum/collection_nav}-->
+<!--{hook/collection_index_top}-->
+<!--{subtemplate forum/collection_list}-->
+<!--{hook/collection_index_bottom}-->
+$multipage
+<!--{template common/footer}-->

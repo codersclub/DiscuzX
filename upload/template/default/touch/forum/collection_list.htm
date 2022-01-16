@@ -1,0 +1,54 @@
+<!--{if is_array($collectiondata) && count($collectiondata) > 0}-->
+<div class="threadlist cl">
+	<ul>
+	<!--{loop $collectiondata $collectionvalues}-->
+	<li class="list{if $op == 'my'} {if $collectionvalues['uid'] == $_G['uid']}mycreate{elseif is_array($twctid) && in_array($collectionvalues['ctid'], $twctid)}myteam{else}mysubscribe{/if}{/if}">
+		<div class="threadlist_top cl">
+			<a href="home.php?mod=space&uid={$collectionvalues['uid']}" class="mimg"><img src="<!--{avatar($collectionvalues['uid'], 'middle', true)}-->"></a>
+			<div class="muser">
+				<h3><a href="home.php?mod=space&uid={$collectionvalues['uid']}" class="mmc">{$collectionvalues['username']}</a></h3>
+				<span class="mtime">
+					{$collectionvalues['dateline']}
+					<span class="y">
+						<!--{if $collectionvalues['ratenum'] > 0}-->
+						<i class="dm-star-fill" style="color: {if (1<=$collectionvalues['star'])}var(--dz-BG-color){else}#ccc{/if};"></i>
+						<i class="dm-star-fill" style="color: {if (2<=$collectionvalues['star'])}var(--dz-BG-color){else}#ccc{/if};"></i>
+						<i class="dm-star-fill" style="color: {if (3<=$collectionvalues['star'])}var(--dz-BG-color){else}#ccc{/if};"></i>
+						<i class="dm-star-fill" style="color: {if (4<=$collectionvalues['star'])}var(--dz-BG-color){else}#ccc{/if};"></i>
+						<i class="dm-star-fill" style="color: {if (5<=$collectionvalues['star'])}var(--dz-BG-color){else}#ccc{/if};"></i>
+						<!--{else}-->
+						{lang collection_norate}
+						<!--{/if}-->
+					</span>
+				</span>
+			</div>
+		</div>
+		<a href="forum.php?mod=collection&action=view&ctid={$collectionvalues['ctid']}{if $op}&fromop={$op}{/if}{if $tid}&fromtid={$tid}{/if}">
+			<div class="threadlist_tit cl">
+				<em>{$collectionvalues['name']}</em>
+			</div>
+			<div class="threadlist_mes cl">{$collectionvalues['shortdesc']}</div>
+			<div class="threadlist_foot cl">
+				<ul>
+				<!--{if $collectionvalues['arraykeyword']}-->
+				<!--{eval $keycount=0;}-->
+				<!--{loop $collectionvalues['arraykeyword'] $unique_keyword}-->
+					<li class="mr"><a href="search.php?mod={if $_G['setting']['search']['collection']['status']}collection{else}forum{/if}&srchtxt={echo rawurlencode($unique_keyword)}&formhash={FORMHASH}&searchsubmit=true&source=collectionsearch">#$unique_keyword</a></li>
+				<!--{eval $keycount++;}-->
+				<!--{/loop}-->
+				<!--{/if}-->
+					<li><i class="dm-star-fill"></i>{$collectionvalues['follownum']}</li>
+					<li><i class="dm-explore"></i>{$collectionvalues['follownum']}</li>
+					<li><i class="dm-chat-s-fill"></i>{$collectionvalues['commentnum']}</li>
+				</ul>
+			</div>
+		</a>
+	</li>
+	<!--{/loop}-->
+	</ul>
+</div>
+<!--{else}-->
+<div class="threadlist_box mt10 cl">
+	<h4>{lang collection_nocollection}</h4>
+</div>
+<!--{/if}-->

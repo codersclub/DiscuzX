@@ -1,0 +1,86 @@
+<!--{template common/header}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>
+		{lang collection_followlist}
+    </h2>
+	<div class="my">
+        <a href="#moption" class="popup"><i class="dm-edit"></i></a>
+    </div>
+    <div class="mtime">
+        <div class="dialogbox" id="moption" popup="true" class="manage" style="display:none">
+            <!--{hook/collection_viewoptions}-->
+            <!--{if $permission}-->
+                <input type="button" value="{lang edit}" class="redirect button" href="forum.php?mod=collection&action=edit&op=edit&ctid={$_G['collection']['ctid']}&formhash={FORMHASH}">
+                <input type="button" value="{lang delete}" class="dialog button" href="forum.php?mod=collection&action=edit&op=remove&ctid={$_G['collection']['ctid']}&formhash={FORMHASH}">
+                <input type="button" value="{lang collection_invite_team}" class="dialog button" href="forum.php?mod=collection&action=edit&op=invite&ctid=$ctid">
+            <!--{/if}-->
+            <!--{if $_G['uid']!=$_G['collection']['uid']}-->
+                <input type="button" value="{lang collection_recommend}" class="dialog button" href="forum.php?mod=collection&action=comment&op=recommend&ctid=$ctid">
+            <!--{/if}-->
+            <!--{if $isteamworkers}-->
+                <input type="button" value="{lang collection_exit_team}" class="dialog button" href="forum.php?mod=collection&action=edit&op=removeworker&ctid={$_G['collection']['ctid']}&uid={$_G['uid']}&formhash={FORMHASH}">
+            <!--{/if}-->
+        </div>
+    </div>
+</div>
+<!--{hook/collection_view_top}-->
+<!--{if $_G['page'] == 1}-->
+	<div class="forumdisplay-top cl">
+		<h2>
+        <!--{if $_G['group']['allowfollowcollection'] && $_G['collection']['uid'] != $_G['uid']}-->
+            <!--{if !$collectionfollowdata['ctid']}-->
+				<input type="button" id="a_favorite" value="{lang collection_follow}" class="dialog button" href="forum.php?mod=collection&action=follow&op=follow&ctid={$ctid}&formhash={FORMHASH}">
+            <!--{else}-->
+				<input type="button" id="a_favorite" value="{lang collection_unfollow}" class="dialog button" href="forum.php?mod=collection&action=follow&op=unfo&ctid={$ctid}&formhash={FORMHASH}">
+            <!--{/if}-->
+        <!--{/if}-->
+        {$_G['collection']['name']}
+        </h2>
+        <p><a href="javascript:;">{lang collection_threadnum}</a><span> {$_G['collection']['threadnum']}</span><a href="javascript:;">{lang collection_commentnum}</a><span> {$_G['collection']['commentnum']}</span><a href="javascript:;">{lang collection_follow}</a><span> {$_G['collection']['follownum']}</span></p>
+		<p class="mt5">
+            <!--{if $_G['collection']['desc']}-->
+            {$_G['collection']['desc']}
+            <!--{/if}-->
+            <span class="y">
+                <!--{if $_G['collection']['ratenum'] > 0}-->
+                <i class="dm-star-fill" style="color: {if (1<=$star)}var(--dz-BG-color){else}#ccc{/if};"></i>
+                <i class="dm-star-fill" style="color: {if (2<=$star)}var(--dz-BG-color){else}#ccc{/if};"></i>
+                <i class="dm-star-fill" style="color: {if (3<=$star)}var(--dz-BG-color){else}#ccc{/if};"></i>
+                <i class="dm-star-fill" style="color: {if (4<=$star)}var(--dz-BG-color){else}#ccc{/if};"></i>
+                <i class="dm-star-fill" style="color: {if (5<=$star)}var(--dz-BG-color){else}#ccc{/if};"></i>
+                <!--{else}-->
+                {lang collection_norate}
+                <!--{/if}-->
+            </span>
+        </p>
+	</div>
+<!--{/if}-->
+<div class="dhnav_box">
+	<div id="dhnav">
+		<div id="dhnav_li">
+		<ul class="flex-box">
+			<li class="flex"><a href="forum.php?mod=collection&action=view&ctid={$_G['collection']['ctid']}">{lang all}</a></li>
+			<li class="flex"><a href="forum.php?mod=collection&action=view&op=comment&ctid={$_G['collection']['ctid']}">{lang collection_commentlist}</a></li>
+			<li class="flex mon"><a href="forum.php?mod=collection&action=view&op=followers&ctid={$_G['collection']['ctid']}">{lang collection_followlist}</a></li>
+		</ul>
+		</div>
+	</div>
+</div>
+<!--{if $followers}-->
+<div class="imglist cl">
+	<ul>
+		<!--{loop $followers $follower}-->
+		<li>
+			<a href="home.php?mod=space&uid=$follower[uid]">
+				<img src="{avatar($follower['uid'],'middle',true)}" class="mimg" />
+				$follower[username]
+			</a>
+		</li>
+		<!--{/loop}-->
+	</ul>
+</div>
+<!--{/if}-->
+<!--{if $multipage}-->$multipage<!--{/if}-->
+<!--{hook/collection_side_bottom}-->
+<!--{subtemplate common/footer}-->

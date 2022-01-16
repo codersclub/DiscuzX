@@ -1,0 +1,49 @@
+<!--{template common/header}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>
+		{$_G[username]}{lang somebody_collection}
+	</h2>
+	<div class="my">
+	<!--{if helper_access::check_module('collection')}-->
+	<a href="forum.php?mod=collection&amp;action=edit"><i class="dm-plus-c"></i></a>
+	<!--{else}-->
+	<a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a>
+	<!--{/if}-->
+	</div>
+</div>
+<div class="dhnav_box">
+	<div id="dhnav">
+		<div id="dhnav_li">
+		<ul class="flex-box">
+			<li id="mycreate"><a href="javascript:;">{lang collection_mycreate}</a></li>
+			<li id="myteam"><a href="javascript:;">{lang collection_myteam}</a></li>
+			<li id="mysubscribe"><a href="javascript:;">{lang collection_mysubscribe}</a></li>
+		</ul>
+		</div>
+	</div>
+</div>
+<script>
+	var mycreate = document.getElementById('mycreate');
+	var myteam = document.getElementById('myteam');
+	var mysubscribe = document.getElementById('mysubscribe');
+	mycreate.onclick = myteam.onclick = mysubscribe.onclick = function() {
+		mycreate.classList = "flex";
+		myteam.classList = "flex";
+		mysubscribe.classList = "flex";
+		this.classList += " mon";
+		var lists = document.getElementsByClassName('list');
+		var mons = document.getElementsByClassName(this.id);
+		for(var i = 0; i < lists.length; i++) {
+			lists[i].style.display = "none";
+		}
+		for(var i = 0; i < mons.length; i++) {
+			mons[i].style = "";
+		}
+	}
+	mycreate.onclick();
+</script>
+<!--{hook/collection_index_top}-->
+<!--{subtemplate forum/collection_list}-->
+<!--{hook/collection_index_bottom}-->
+<!--{template common/footer}-->

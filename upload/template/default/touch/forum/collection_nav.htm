@@ -1,0 +1,9 @@
+<div class="dhnv flex-box cl">
+	<a class="flex{if !$op && !$tid} mon{/if}" href="forum.php?mod=collection">{lang collection_recommended}</a>
+	<a class="flex{if $op == 'all'} mon{/if}" href="forum.php?mod=collection&amp;op=all">{lang collection_all}</a>
+	<a class="flex{if $op == 'my'} mon{/if}" href="forum.php?mod=collection&amp;op=my">{lang collection_my}</a>
+	<!--{if !$op && $tid}-->
+	<a class="flex mon" href="forum.php?mod=collection&amp;tid=$tid">{lang collection_nav_related}</a>
+	<!--{/if}-->
+	<!--{hook/collection_nav_extra}-->
+</div>

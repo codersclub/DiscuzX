@@ -1,0 +1,69 @@
+<!--{template common/header}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>
+		<!--{if $op == 'edit'}-->
+		{lang collection_edit}
+		<!--{else}-->
+		{lang collection_create}
+		<!--{/if}-->
+	</h2>
+</div>
+<div class="setbox cl">
+	<!--{if $op != 'edit'}-->
+	<div class="bodybox p10">
+		<div class="quote">
+			<p>{lang collection_remain_tips}</p>
+		</div>
+	</div>
+	<!--{/if}-->
+	<form method="post" autocomplete="off" action="forum.php?mod=collection&action=edit" onsubmit="return checklen();">
+		<input type="hidden" value="1" name="submitcollection" />
+		<input type="hidden" value="{$op}" name="op" />
+		<input type="hidden" value="{$ctid}" name="ctid" />
+		<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}" />
+		<input type="hidden" name="collectionsubmit" id="collectionsubmit" value="submit" />
+		<ul class="bodybox post_box mt15 cl">
+			<li class="flex-box mli">
+				<div class="tit">{lang collection_title}<span class="f_g">*</span></div>
+				<div class="flex input"><input type="text" id="formtitle"{if $_G['collection']['name']} value="{$_G['collection']['name']}"{/if} autocomplete="off" name="title"></div>
+			</li>
+			<li class="tit">{lang collection_desc} </li>
+			<li class="cl">
+				<textarea name="desc" id="formdesc" rows="5" class="pxs">
+					{$_G['collection']['desc']}
+				</textarea>
+			</li>
+			<div class="bodybox p10">
+				<div class="quote">
+					<p>{lang collection_keywords_desc}</p>
+				</div>
+			</div>
+			<li class="flex-box mli">
+				<div class="tit">{lang collection_keywords}</div>
+				<div class="flex input"><input type="text" id="formkeyword"{if $_G['collection']['keyword']} value="{$_G['collection']['keyword']}"{/if} autocomplete="off" name="keyword"></div>
+			</li>
+		</ul>
+		<div class="mt5 p10">
+			<button type="submit" class="formdialog flex pn"><!--{if $op == 'edit'}-->{lang collection_edit}<!--{else}-->{lang collection_create}<!--{/if}--></button>
+		</div>
+  </form>
+</div>
+<script type="text/javascript">
+var titlelimit = '$titlelimit';
+var desclimit = '$desclimit';
+  function checklen() {
+    if(mb_strlen($("formtitle").value) > titlelimit) {
+      showError({lang collection_title_exceed});
+      return false;
+    }
+    if(mb_strlen($("formdesc").value) > desclimit) {
+      showError({lang collection_desc_exceed});
+      return false;
+    }
+    return true;
+  }
+</script>
+
+<!--{eval $nofooter = true;}-->
+<!--{block footerplus}--><div class="O1JmykD4eNwe"></div><!--{/block}-->

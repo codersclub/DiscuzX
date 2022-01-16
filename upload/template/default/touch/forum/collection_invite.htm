@@ -1,0 +1,27 @@
+<!--{template common/header}-->
+<div class="setbox cl" id="invite">
+	<form action="forum.php?mod=collection&action=edit&op=invite&ctid={$ctid}" method="POST">
+		<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}" />
+		<input type="hidden" name="submitaddthread" value="submit" />
+		<ul class="bodybox post_box mt15 cl">
+			<div class="bodybox p10">
+				<div class="quote">
+					<p>{lang collection_max_invite}</p>
+				</div>
+			</div>
+			<li class="flex-box mli">
+				<div class="tit">{lang collection_username}<span class="f_g">*</span></div>
+				<div class="flex input"><input type="text" id="username" autocomplete="off" name="username"></div>
+			</li>
+		</ul>
+		<div class="mt5 p10">
+			<button type="submit" class="formdialog flex pn">{lang invite}</button>
+		</div>
+  </form>
+</div>
+<style>
+	#invite {
+		background-color: #fff;
+	}
+</style>
+<!--{template common/footer}-->
