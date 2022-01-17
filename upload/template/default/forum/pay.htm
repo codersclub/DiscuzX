@@ -24,7 +24,7 @@
 			<table class="list" cellspacing="0" cellpadding="0" style="width:200px">
 				<tr>
 					<th>{lang author}</th>
-					<td><a href="home.php?mod=space&uid=$thread[authorid]" target="_blank">$thread[author]</a></td>
+					<td><!--{if empty($thread['authorid'])}-->$thread['author']<!--{else}--><a href="home.php?mod=space&uid=$thread['authorid']">$thread['author']</a><!--{/if}--></td>
 				</tr>
 				<tr>
 					<th valign="top">{lang price}({$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][title]})</th>

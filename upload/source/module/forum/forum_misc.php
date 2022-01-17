@@ -105,6 +105,11 @@ if($_GET['action'] == 'paysucceed') {
 	$attach['netprice'] = $status != 2 ? round($attach['price'] * (1 - $_G['setting']['creditstax'])) : 0;
 	$lockid = 'attachpay_'.$_G['uid'];
 	if(!submitcheck('paysubmit')) {
+		$post = C::t('forum_post')->fetch('tid:'.$attach['tid'], $attach['pid']);
+		if($post['anonymous'] && !$_G['forum']['ismoderator']) {
+			$attach['uid'] = 0;
+			$attach['author'] = $_G['setting']['anonymoustext'];
+		}
 		include template('forum/attachpay');
 	} elseif(!discuz_process::islocked($lockid)) {
 		if(!empty($_GET['buyall'])) {
@@ -950,6 +955,15 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 
 	if(!submitcheck('paysubmit')) {
 
+		if(empty($thread['author'])) {
+			if($_G['forum']['ismoderator']) {
+				$authorinfo = getuserbyuid($thread['authorid']);
+				$thread['author'] = $authorinfo['username'];
+			} else {
+				$thread['authorid'] = 0;
+				$thread['author'] = $_G['setting']['anonymoustext'];
+			}
+		}
 		include template('forum/pay');
 
 	} else {

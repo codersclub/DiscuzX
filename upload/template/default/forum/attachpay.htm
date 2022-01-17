@@ -24,7 +24,7 @@
 			<table class="list" cellspacing="0" cellpadding="0" style="width: 400px">
 				<tr>
 					<td>{lang author}</td>
-					<td><a href="home.php?mod=space&uid=$attach[uid]">$attach[author]</a></td>
+					<td><!--{if empty($attach['uid'])}-->$attach['author']<!--{else}--><a href="home.php?mod=space&uid=$attach['uid']">$attach['author']</a><!--{/if}--></td>
 				</tr>
 				<tr>
 					<td>{lang attachment}</td>
