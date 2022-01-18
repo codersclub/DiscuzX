@@ -61,23 +61,21 @@ $aidencode = packaids($attach);
 $is_archive = $_G['forum_thread']['is_archived'] ? "&fid=".$_G['fid']."&archiveid=".$_G['forum_thread']['archiveid'] : '';
 }
 <!--{block return}-->
-<div class="box box_ex2 attach">
-	<dd>
-		<p class="attnm">
-			<!--{if $_G['setting']['mobile']['mobilesimpletype'] == 0}-->
-				$attach['attachicon']
-			<!--{/if}-->
-			<!--{if !$attach['price'] || $attach['payed']}-->
-				<a href="forum.php?mod=attachment{$is_archive}&aid=$aidencode" id="aid$attach['aid']" target="_blank">$attach['filename']</a>
-			<!--{else}-->
-				<a href="forum.php?mod=misc&action=attachpay&aid=$attach['aid']&tid=$attach['tid']">$attach['filename']</a>
-			<!--{/if}-->
-			<span class="xg1">($attach['dateline'] {lang upload})</span>
-		</p>
-		<p class="xg1">$attach['attachsize']<!--{if $attach['readperm']}-->, {lang readperm}: <strong>$attach['readperm']</strong><!--{/if}-->, {lang downloads}: $attach['downloads']<!--{if !$attach['attachimg'] && $_G['getattachcredits']}-->, {lang attachcredits}: $_G['getattachcredits']<!--{/if}--></p>
-		<!--{if $attach['description']}--><p class="xg2">{$attach['description']}</p><!--{/if}-->
-	</dd>
-</div>
+<li class="b_t p5">
+	<!--{if !$attach['price'] || $attach['payed']}--><a href="forum.php?mod=attachment{$is_archive}&aid=$aidencode" id="aid$attach['aid']" target="_blank"><!--{else}--><a href="forum.php?mod=misc&action=attachpay&aid=$attach['aid']&tid=$attach['tid']"><!--{/if}-->
+		<div class="tit">
+			<!--{if $_G['setting']['mobile']['mobilesimpletype'] == 0}-->$attach['attachicon']<!--{/if}-->
+			<span class="link f_b">
+				$attach['filename']
+			</span>
+			<p class="pl5 f_9">$attach['dateline'] {lang upload}</p>
+			<p class="pl5 f_9">$attach['attachsize']<!--{if $attach['readperm']}-->, {lang readperm}: <strong>$attach['readperm']</strong><!--{/if}-->, {lang downloads}: $attach['downloads']<!--{if !$attach['attachimg'] && $_G['getattachcredits']}-->, {lang attachcredits}: $_G['getattachcredits']<!--{/if}--></p>
+		</div>
+	</a>
+	<div>
+		<!--{if $attach['description']}--><p class="f_9">{$attach['description']}</p><!--{/if}-->
+	</div>
+</li>
 <!--{/block}-->
 <!--{eval return $return;}-->
 {eval

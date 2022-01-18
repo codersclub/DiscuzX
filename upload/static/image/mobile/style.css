@@ -96,6 +96,11 @@ select {-moz-appearance:none;}
 .pl5 {padding-left: 5px !important;}
 .b0 {border:0 !important;}
 .f_g, .f_g a {color: var(--dz-BG-2);}
+.f_f, .f_f a {color: var(--dz-FC-fff);}
+.f_b, .f_b a {color: var(--dz-FC-color);}
+.f_c, .f_c a {color: var(--dz-FC-ccc);}
+.f_d, .f_d a {color: var(--dz-FC-ddd);}
+.f_9, .f_9 a {color: var(--dz-FC-999);}
 .b_t {border-top:1px solid var(--dz-BOR-ed) !important;}
 .b_b {border-bottom:1px solid var(--dz-BOR-ed) !important}
 
@@ -749,12 +754,13 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .post_imglist li .p_img img {padding:2px;border:1px solid var(--dz-BOR-ed);vertical-align:middle}
 
 .post_attlist li {padding:12px 0;overflow:hidden}
-.post_attlist li .tit {height:22px;line-height:22px;font-size:13px;text-overflow:ellipsis;white-space:nowrap}
+.post_attlist li .tit {line-height:22px;font-size:13px;text-overflow:ellipsis;white-space:nowrap}
+.post_attlist li .tit img {float:left;margin:16px 6px 16px 0px;}
 .post_attlist li .tit span {font-weight:400;}
 .post_attlist li .tit span.btn {color:var(--dz-FC-fff);background-color:var(--dz-BG-3)}
 .post_attlist li .tit span.btn i.dm-trash {color:var(--dz-FC-fff);}
 .post_attlist li .tit span.del{background-color:var(--dz-BG-2)}
-.post_attlist li .tit span.link{display: flex;overflow: hidden;}
+.post_attlist li .tit span.link{text-overflow: ellipsis;display: block;overflow: hidden;}
 .post_attlist li .btn {float:right;padding:0 10px;margin-left:8px;font-size:12px;border-radius:30px}
 .post_attlist li .mimg {float:left;height:22px;width:22px;margin-right:6px}
 .post_attlist li .minput {margin-top:8px;height:24px;line-height:24px;font-size:13px}
