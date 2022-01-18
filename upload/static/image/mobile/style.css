@@ -96,6 +96,8 @@ select {-moz-appearance:none;}
 .pl5 {padding-left: 5px !important;}
 .b0 {border:0 !important;}
 .f_g, .f_g a {color: var(--dz-BG-2);}
+.b_t {border-top:1px solid var(--dz-BOR-ed) !important;}
+.b_b {border-bottom:1px solid var(--dz-BOR-ed) !important}
 
 /*----- 通用主体 -----*/
 .bodybox {background-color:var(--dz-BG-0);}
@@ -712,9 +714,10 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .post_box li.mli .sort_sel {width:100%;background:url('touch/arrow.svg') no-repeat right center;background-size:16px 16px;padding-right:14px;height:30px;line-height:30px;font-size:16px;border:none;color:graytext;appearance:none;-moz-appearance:none;-webkit-appearance:none;overflow:hidden}
 .post_btn {padding:15px}
 .post_box .sec_code {padding:5px 15px;border-bottom:1px solid var(--dz-BOR-ed)}
-.post_box li .post_imgbtn {float:left;padding:0 10px;font-size:13px;color:var(--dz-FC-color);background-color:var(--dz-BG-5);border:1px solid var(--dz-BOR-ed);border-radius:4px;position:relative}
-.post_box li .post_imgbtn i {float:left;margin-right:5px}
-.post_box li .post_imgbtn input {position:absolute;left:0;top:0;width:100%;height:100%;opacity:0}
+.post_box li .post_attbtn { margin-left:5px;}
+.post_box li .post_imgbtn, .post_box li .post_attbtn {float:left;padding:0 10px;font-size:13px;color:var(--dz-FC-color);background-color:var(--dz-BG-5);border:1px solid var(--dz-BOR-ed);border-radius:4px;position:relative}
+.post_box li .post_imgbtn i, .post_box li .post_attbtn i {float:left;margin-right:5px}
+.post_box li .post_imgbtn input, .post_box li .post_attbtn input {position:absolute;left:0;top:0;width:100%;height:100%;opacity:0}
 .post_box li .group_upico em {float: left;width: 40px;height: 40px;margin-right: 8px;border-radius: 2px;overflow: hidden;}
 .post_box li .group_upico em img {width: 40px;height: 40px;border-radius: 2px;}
 .post_box li .group_upico span {float: left;height: 40px;line-height: 40px;}
@@ -738,12 +741,30 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .post_box li .editpic_foot .kmleft {width:60px;margin-right:8px}
 .post_box li .editpic_foot .newalbumid {margin-left:10px;padding:0 5px;border-radius:2px}
 
-.post_imglist {margin-bottom:8px}
+.post_imglist, .post_attlist {margin-bottom:8px}
 .post_imglist li {position:relative;float:left;margin-top:20px;padding:0px 10px 0 0}
 .post_imglist li .del {position:absolute;left:-5px;top:-12px}
 .post_imglist li .del i {background-color:var(--dz-BG-0);color:var(--dz-BG-2);font-size:24px;border-radius:50%}
 .post_imglist li .p_img {display:block}
 .post_imglist li .p_img img {padding:2px;border:1px solid var(--dz-BOR-ed);vertical-align:middle}
+
+.post_attlist li {padding:12px 0;overflow:hidden}
+.post_attlist li .tit {height:22px;line-height:22px;font-size:13px;text-overflow:ellipsis;white-space:nowrap}
+.post_attlist li .tit span {font-weight:400;}
+.post_attlist li .tit span.btn {color:var(--dz-FC-fff);background-color:var(--dz-BG-3)}
+.post_attlist li .tit span.btn i.dm-trash {color:var(--dz-FC-fff);}
+.post_attlist li .tit span.del{background-color:var(--dz-BG-2)}
+.post_attlist li .tit span.link{display: flex;overflow: hidden;}
+.post_attlist li .btn {float:right;padding:0 10px;margin-left:8px;font-size:12px;border-radius:30px}
+.post_attlist li .mimg {float:left;height:22px;width:22px;margin-right:6px}
+.post_attlist li .minput {margin-top:8px;height:24px;line-height:24px;font-size:13px}
+.post_attlist li .minput .attms {width:100%;overflow:hidden}
+.post_attlist li .minput .attqx {float:left;width:49%;overflow:hidden}
+.post_attlist li .minput .attjg {float:right;width:49%;overflow:hidden}
+.post_attlist li .minput span {padding-right:5px}
+.post_attlist li .minput em {padding-left:5px}
+.post_attlist li .minput .input {padding:0 6px;height:24px;line-height:24px;font-size:13px;border-radius:4px;display:block;}
+.post_attlist li .minput .price {width: inherit;}
 
 /*----- 帖子内容页 -----*/
 .quote {padding:8px 10px;margin:8px 0;background-color:var(--dz-BG-5);font-size:14px;border-radius:4px}

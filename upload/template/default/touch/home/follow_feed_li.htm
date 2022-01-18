@@ -43,14 +43,12 @@
 				<!--{/if}-->
 			</div>
 			<div class="txtlist flw_foot cl">
+				<!--{if $feed['note']}--><a href="home.php?mod=space&uid=$feed['uid']" class="flw_zbus">$thread['author']</a> {lang follow_post_by_time} <!--{date($thread['dateline'])}-->&nbsp;<!--{/if}-->
 				<div class="mtit cl">
-				<!--{if helper_access::check_module('follow')}-->
-					<a href="javascript:;" id="relay_$feed['feedid']" onclick="quickrelay($feed['feedid'], $thread['tid']);" class="ytxt">{lang follow_reply}($content['relay'])</a>&nbsp;
-				<!--{/if}-->
+					<!--{if $thread['fid'] != $_G['setting']['followforumid'] && $_G['cache']['forums'][$thread['fid']]['name']}--><a href="forum.php?mod=forumdisplay&fid=$thread['fid']" class="ztxt">#{$_G['cache']['forums'][$thread['fid']]['name']}</a><!--{/if}-->
+					<!--{if helper_access::check_module('follow')}--><a href="javascript:;" id="relay_$feed['feedid']" onclick="quickrelay($feed['feedid'], $thread['tid']);" class="ytxt">{lang follow_reply}($content['relay'])</a>&nbsp;<!--{/if}-->
 					<a href="javascript:;" onclick="quickreply($thread['fid'], $thread['tid'], $feed['feedid'])" class="ytxt">{lang reply}($thread['replies'])</a>
 				</div>
-				<!--{if $feed['note']}--><a href="home.php?mod=space&uid=$feed['uid']" class="flw_zbus">$thread['author']</a> {lang follow_post_by_time} <!--{date($thread['dateline'])}-->&nbsp;<!--{/if}-->
-				<!--{if $thread['fid'] != $_G['setting']['followforumid'] && $_G['cache']['forums'][$thread['fid']]['name']}-->#<a href="forum.php?mod=forumdisplay&fid=$thread['fid']">$_G['cache']['forums'][$thread['fid']]['name']</a><!--{/if}-->
 			</div>
 			<!--{else}-->
 			<div class="pbm c cl" id="original_content_$feed['feedid']" {if isset($carray[$feed['cid']])} style="display: none"{/if}>
