@@ -1,0 +1,36 @@
+<div class="threadlist_box">
+	<h2><!--{if $keyword}-->{lang search_result_keyword}<!--{else}-->{lang search_result}<!--{/if}--></h2>
+	<!--{ad/search/y mtw}-->
+	<!--{if empty($articlelist)}-->
+	<h4>{lang search_nomatch}</h4>
+	<!--{else}-->
+	<div class="threadlist cl">
+		<ul>
+			<!--{loop $articlelist $article}-->
+			<li class="list">
+				<div class="threadlist_top cl">
+					<a href="home.php?mod=space&uid={$article['uid']}" class="mimg"><img src="<!--{avatar($article['uid'], 'middle', true)}-->"></a>
+					<div class="muser">
+						<h3><a href="home.php?mod=space&uid={$blog['uid']}" class="mmc">{$article['username']}</a></h3>
+						<span class="mtime">{$article['dateline']}</span>
+					</div>
+				</div>
+				<a href="{echo fetch_article_url($article);}">
+				<div class="threadlist_tit cl">
+					<em>{$article['title']}</em>					
+				</div>
+				</a>
+				<a href="{echo fetch_article_url($article);}"><div class="threadlist_mes cl">{$article['summary']}</div></a>
+				<div class="threadlist_foot cl">
+					<ul>
+						<li><i class="dm-eye-fill"></i>{$article['viewnum']}</li>
+						<li><i class="dm-chat-s-fill"></i>{$article['commentnum']}</li>
+					</ul>
+				</div>
+			</li>
+			<!--{/loop}-->
+		</ul>
+	</div>
+	<!--{/if}-->
+	<!--{if !empty($multipage)}--><div class="pgs cl mbm">$multipage</div><!--{/if}-->
+</div>

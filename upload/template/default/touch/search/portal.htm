@@ -1,0 +1,22 @@
+<!--{template common/header}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang search}</h2>
+	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+<form class="searchform" method="post" autocomplete="off" action="search.php?mod=portal">
+	<input type="hidden" name="formhash" value="{FORMHASH}" />
+	<!--{subtemplate search/pubsearch}-->
+	<!--{hook/portal_top}-->
+	<!--{eval $policymsgs = $p = '';}-->
+	<!--{loop $_G['setting']['creditspolicy']['search'] $id $policy}-->
+	<!--{block policymsg}--><!--{if $_G['setting']['extcredits'][$id]['img']}-->$_G['setting']['extcredits'][$id]['img'] <!--{/if}-->$_G['setting']['extcredits'][$id]['title'] $policy $_G['setting']['extcredits'][$id]['unit']<!--{/block}-->
+	<!--{eval $policymsgs .= $p.$policymsg;$p = ', ';}-->
+	<!--{/loop}-->
+	<!--{if $policymsgs}--><p>{lang search_credit_msg}</p><!--{/if}-->
+</form>
+<!--{if !empty($searchid) && submitcheck('searchsubmit', 1)}-->
+	<!--{subtemplate search/portal_list}-->
+<!--{/if}-->
+<!--{hook/portal_bottom}-->
+<!--{template common/footer}-->

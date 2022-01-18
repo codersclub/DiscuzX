@@ -1,0 +1,29 @@
+<div class="threadlist_box">
+	<h2><!--{if $keyword}-->{lang search_result_keyword}<!--{else}-->{lang search_result}<!--{/if}--></h2>
+	<!--{if empty($collectionlist)}-->
+	<h4>{lang search_nomatch}</h4>
+	<!--{else}-->
+	<div class="threadlist cl">
+		<ul>
+			<!--{loop $collectionlist $key $value}-->
+			<li class="list">
+				<a href="forum.php?mod=collection&action=view&ctid={$value['ctid']}">
+				<div class="threadlist_tit cl">
+					<em>{$value['name']}</em>					
+				</div>
+				</a>
+				<a href="forum.php?mod=collection&action=view&ctid={$value['ctid']}"><div class="threadlist_mes cl">{$value['desc']}</div></a>
+				<div class="threadlist_foot cl">
+					<ul>
+						<li><i class="dm-heart"></i>{$value['threadnum']}</li>
+						<li><i class="dm-eye-fill"></i>{$value['follownum']}</li>
+						<li><i class="dm-chat-s-fill"></i>{$value['commentnum']}</li>
+					</ul>
+				</div>
+			</li>
+			<!--{/loop}-->
+		</ul>
+	</div>
+	<!--{/if}-->
+	<!--{if !empty($multipage)}--><div class="pgs cl mbm">$multipage</div><!--{/if}-->
+</div>

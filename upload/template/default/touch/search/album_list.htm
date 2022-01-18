@@ -1,0 +1,33 @@
+<div class="threadlist_box">
+	<h2><!--{if $keyword}-->{lang search_result_keyword}<!--{else}-->{lang search_result}<!--{/if}--></h2>
+	<!--{if empty($albumlist)}-->
+	<h4>{lang search_nomatch}</h4>
+	<!--{else}-->
+	<div class="threadlist cl">
+		<ul>
+			<!--{loop $albumlist $thread}-->
+			<li class="list">
+				<div class="threadlist_top cl">
+					<a href="home.php?mod=space&uid={$value['uid']}" class="mimg"><img src="<!--{avatar($value['uid'], 'middle', true)}-->"></a>
+				</div>
+				<a href="home.php?mod=space&uid={$value['uid']}&do=album&id={$value['albumid']}">
+				<div class="threadlist_tit cl">
+					<em>{$value['albumname']}</em>
+				</div>
+				</a>
+				<!--{if $value['pic']}-->
+				<a href="home.php?mod=space&uid={$value['uid']}&do=album&id={$value['albumid']}">
+					<div class="threadlist_imgs1 cl">
+						<ul>
+							<li><img src="{$value['pic']}" class="vm"></li>
+						</ul>
+					</div>
+				</a>
+				<!--{/if}-->
+			</li>
+			<!--{/loop}-->
+		</ul>
+	</div>
+	<!--{/if}-->
+	<!--{if !empty($multipage)}-->$multipage<!--{/if}-->
+</div>

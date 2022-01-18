@@ -1,0 +1,36 @@
+<div class="threadlist_box">
+	<h2><!--{if $keyword}-->{lang search_result_keyword}<!--{else}-->{lang search_result}<!--{/if}--></h2>
+	<!--{if empty($bloglist)}-->
+	<h4>{lang search_nomatch}</h4>
+	<!--{else}-->
+	<div class="threadlist cl">
+		<ul>
+			<!--{loop $bloglist $blog}-->
+			<li class="list">
+				<div class="threadlist_top cl">
+					<a href="home.php?mod=space&uid={$blog['uid']}" class="mimg"><img src="<!--{avatar($blog['uid'], 'middle', true)}-->"></a>
+					<div class="muser">
+						<h3><a href="home.php?mod=space&uid={$blog['uid']}" class="mmc">{$blog['username']}</a></h3>
+						<span class="mtime">{$blog['dateline']}</span>
+					</div>
+				</div>
+				<a href="home.php?mod=space&uid={$blog['uid']}&do=blog&id={$blog['blogid']}">
+				<div class="threadlist_tit cl">
+					<em{if $blog[magiccolor]} class="magiccolor{$blog['magiccolor']}"{/if}>{$blog['subject']}</em>					
+				</div>
+				</a>
+				<a href="home.php?mod=space&uid={$blog['uid']}&do=blog&id={$blog['blogid']}"><div class="threadlist_mes cl">{$blog['message']}</div></a>
+				<div class="threadlist_foot cl">
+					<ul>
+						<li><i class="dm-heart"></i>{$blog['hot']}</li>
+						<li><i class="dm-eye-fill"></i>{$blog['viewnum']}</li>
+						<li><i class="dm-chat-s-fill"></i>{$blog['replynum']}</li>
+					</ul>
+				</div>
+			</li>
+			<!--{/loop}-->
+		</ul>
+	</div>
+	<!--{/if}-->
+	<!--{if !empty($multipage)}--><div class="pgs cl mbm">$multipage</div><!--{/if}-->
+</div>
