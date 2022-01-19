@@ -9,6 +9,11 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
 
+if(!defined('DISCUZ_DEBUG') || !DISCUZ_DEBUG) {
+	cpheader();
+	cpmsg('action_noaccess', '', 'error');
+}
+
 if(!isfounder()) cpmsg('noaccess_isfounder', '', 'error');
 
 $test_main_file = __DIR__ . "/../../tests/runtests.php";
