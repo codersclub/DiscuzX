@@ -60,6 +60,7 @@ if(!submitcheck('searchsubmit', 1)) {
 		$keyword = $keyword != '' ? str_replace('+', ' ', $keyword) : '';
 
 		$index['keywords'] = rawurlencode($index['keywords']);
+		$result = array();
 		$bloglist = array();
 		$pricount = 0;
 		$blogidarray = explode(',', $index['ids']);

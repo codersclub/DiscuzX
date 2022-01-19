@@ -7,9 +7,6 @@
 		<ul>
 			<!--{loop $albumlist $thread}-->
 			<li class="list">
-				<div class="threadlist_top cl">
-					<a href="home.php?mod=space&uid={$value['uid']}" class="mimg"><img src="<!--{avatar($value['uid'], 'middle', true)}-->"></a>
-				</div>
 				<a href="home.php?mod=space&uid={$value['uid']}&do=album&id={$value['albumid']}">
 				<div class="threadlist_tit cl">
 					<em>{$value['albumname']}</em>

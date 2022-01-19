@@ -12,13 +12,13 @@
 				<div class="threadlist_top cl">
 					<a href="forum.php?mod=group&fid={$group['fid']}" class="mimg"><img src="{$group['icon']}"></a>
 					<div class="muser">
-						<h3><a href="forum.php?mod=group&fid={$group['fid']}" class="mmc">{$group['name']}</a><!--{if $group['gviewperm'] == 1}-->({lang public})<!--{/if}--></h3>
+						<h3><a href="forum.php?mod=group&fid={$group['fid']}" class="mmc">{$group['name']}<!--{if $group['gviewperm'] == 1}--> ({lang public})<!--{/if}--></a></h3>
 						<span class="mtime">{$group['dateline']}</span>
 					</div>
 				</div>
 				<div class="threadlist_foot cl">
 					<ul>
-						<li><i class="dm-heart"></i>{$group['threads']}</li>
+						<li><i class="dm-heart-fill"></i>{$group['threads']}</li>
 						<li><i class="dm-eye-fill"></i>{$group['membernum']}</li>
 						<li><i class="dm-chat-s-fill"></i>{$group['commoncredits']}</li>
 					</ul>
@@ -38,13 +38,13 @@
 				<div class="threadlist_top cl">
 					<a href="forum.php?mod=group&fid={$group['fid']}" class="mimg"><img src="{$group['icon']}"></a>
 					<div class="muser">
-						<h3><a href="forum.php?mod=group&fid={$group['fid']}" class="mmc">{$group['name']}</a><!--{if $group['gviewperm'] == 1}-->({lang public})<!--{/if}--></h3>
+						<h3><a href="forum.php?mod=group&fid={$group['fid']}" class="mmc">{$group['name']}<!--{if $group['gviewperm'] == 1}--> ({lang public})<!--{/if}--></a></h3>
 						<span class="mtime">{$group['dateline']}</span>
 					</div>
 				</div>
 				<div class="threadlist_foot cl">
 					<ul>
-						<li><i class="dm-heart"></i>{$group['threads']}</li>
+						<li><i class="dm-heart-fill"></i>{$group['threads']}</li>
 						<li><i class="dm-eye-fill"></i>{$group['membernum']}</li>
 						<li><i class="dm-chat-s-fill"></i>{$group['commoncredits']}</li>
 					</ul>
@@ -54,7 +54,7 @@
 		</ul>
 	</div>
 	<!--{/if}-->
-	<!--{if empty($threadlist)}-->
+	<!--{if empty($threadlist) && empty($grouplist)}-->
 	<h4>{lang search_nomatch}</h4>
 	<!--{else}-->
 	<div class="threadlist cl">
@@ -98,7 +98,7 @@
 				<a href="forum.php?mod=viewthread&tid=$thread['tid']&extra=$extra&highlight=$index['keywords']"><div class="threadlist_mes cl">{$thread['message']}</div></a>
 				<div class="threadlist_foot cl">
 					<ul>
-						<li class="mr"><a href="forum.php?mod=forumdisplay&fid=$thread['fid']">#{$_G['cache']['forums'][$thread['fid']]['name']}</a></li>
+						<li class="mr"><a href="forum.php?mod=forumdisplay&fid={$thread['fid']}">#{$thread['forumname']}</a></li>
 						<li><i class="dm-eye-fill"></i>{$thread['views']}</li>
 						<li><i class="dm-chat-s-fill"></i>{$thread['replies']}</li>
 					</ul>
@@ -110,3 +110,4 @@
 	<!--{/if}-->
 	<!--{if !empty($multipage)}--><div class="pgs cl mbm">$multipage</div><!--{/if}-->
 </div>
+<!--{/if}-->
