@@ -18,7 +18,7 @@ define('UC_ROOT', substr(__FILE__, 0, -10));
 require UC_ROOT.'./release/release.php';
 define('UC_DATADIR', UC_ROOT.'./data/');
 define('UC_DATAURL', UC_API.'/data');
-define('UC_API_FUNC', UC_CONNECT == 'mysql' ? 'uc_api_mysql' : 'uc_api_post');
+define('UC_API_FUNC', (defined('UC_CONNECT') && UC_CONNECT == 'mysql') ? 'uc_api_mysql' : 'uc_api_post');
 $uc_controls = array();
 
 function uc_addslashes($string, $force = 0, $strip = FALSE) {

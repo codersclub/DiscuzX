@@ -11,7 +11,7 @@
  *      This is NOT a freeware, use is subject to license terms
  */
 
-defined('IN_UC') or exit('Access denied');
+(defined('IN_UC') || defined('IN_API')) or exit('Access denied');
 
 if(!defined('API_RETURN_SUCCEED')) {
 	define('API_RETURN_SUCCEED', '1');
