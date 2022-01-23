@@ -19,6 +19,7 @@ class helper_mobile {
 		if(!defined('TPL_DEFAULT')) {
 			$content = ob_get_contents();
 			ob_end_clean();
+			$content = self::mobilereplace_rewrite($content);
 			$content = preg_replace_callback("/href=\"(\w+\.php)(.*?)\"/", array(__CLASS__, 'mobileoutput_callback_mobilereplace_12'), $content);
 
 			ob_start();
@@ -68,6 +69,29 @@ class helper_mobile {
 			return 'href="'.$file.$replace.'"';
 		}
 	}
+
+	private static function mobilereplace_rewrite($content) {
+		global $_G;
+
+		if(defined('IN_MODCP') || defined('IN_ADMINCP') || !defined('IN_MOBILE') || constant('IN_MOBILE') !== '2') {
+			return $content;
+		}
+
+		if(!empty($_G['setting']['output']['preg']['search']) && (empty($_G['setting']['rewriteguest']) || empty($_G['uid'])) && !empty($_G['setting']['rewritemobile'])) {
+			foreach($_G['setting']['output']['preg']['search'] as $key => $value) {
+				$content = preg_replace_callback(
+					$value,
+					function ($matches) use ($_G, $key) {
+						return eval('return ' . $_G['setting']['output']['preg']['replace'][$key] . ';');
+					},
+					$content
+				);
+			}
+		}
+
+		return $content;
+	}
+
 }
 
 ?>

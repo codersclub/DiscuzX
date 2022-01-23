@@ -500,6 +500,7 @@ INSERT INTO pre_common_setting VALUES ('rewardexpiration','30');
 INSERT INTO pre_common_setting VALUES ('rewardforumid','0');
 INSERT INTO pre_common_setting VALUES ('rewritecompatible','');
 INSERT INTO pre_common_setting VALUES ('rewriteguest','0');
+INSERT INTO pre_common_setting VALUES ('rewritemobile','0');
 INSERT INTO pre_common_setting VALUES ('rewriterule','');
 INSERT INTO pre_common_setting VALUES ('rewritestatus','0');
 INSERT INTO pre_common_setting VALUES ('robotarchiver','0');

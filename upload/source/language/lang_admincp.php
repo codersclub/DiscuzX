@@ -1516,7 +1516,9 @@ $lang = array
 	'setting_seo_rewritecompatible' => 'Rewrite 兼容性',
 	'setting_seo_rewritecompatible_comment' => '如果您的服务器不支持 Rewrite 规则中的中文字符，请选择“是”。对于没有此问题的服务器，可以选择“否”',
 	'setting_seo_rewriteguest' => '仅对游客有效',
-	'setting_seo_rewriteguest_comment' => '开启此项，则 Rewrite功能只对游客和搜索引擎有效，可减轻服务器负担',
+	'setting_seo_rewriteguest_comment' => '开启此项，则 Rewrite 功能只对游客和搜索引擎有效，可减轻服务器负担',
+	'setting_seo_rewritemobile' => '触屏版模式 Rewrite',
+	'setting_seo_rewritemobile_comment' => '开启此项，则 Rewrite 功能将同时对触屏版有效，可能会影响极少数手机正常工作',
 
 	'setting_cachethread' => '论坛页面缓存设置',
 	'setting_cachethread_comment' => '开启后，缓存页面内容到静态文件，游客访问时速度将大大提升，建议独立服务器使用，虚拟空间请根据实际情况调节缓存的有效期',

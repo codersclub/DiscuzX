@@ -923,6 +923,7 @@ if(!submitcheck('settingsubmit')) {
 			showtableheader();
 			showsetting('setting_seo_rewritecompatible', 'settingnew[rewritecompatible]', $setting['rewritecompatible'], 'radio');
 			showsetting('setting_seo_rewriteguest', 'settingnew[rewriteguest]', $setting['rewriteguest'], 'radio');
+			showsetting('setting_seo_rewritemobile', 'settingnew[rewritemobile]', $setting['rewritemobile'], 'radio');
 			showtablefooter();
 		echo '</div>';
 
