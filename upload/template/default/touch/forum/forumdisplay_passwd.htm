@@ -1,0 +1,19 @@
+<!--{template common/header}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2><!--{eval echo strip_tags($_G['forum']['name']) ? strip_tags($_G['forum']['name']) : $_G['forum']['name'];}--></h2>
+	<div class="my"><a href="forum.php?mod=post&action=newthread&fid={$_G['fid']}" title="{lang send_threads}"><i class="dm-edit"></i></a></div>
+</div>
+<div class="loginbox">
+	<form method="post" autocomplete="off" action="forum.php?mod=forumdisplay&fid={$_G['fid']}&action=pwverify">
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<div class="login_from">
+			<div class="message">{lang forum_password_require}</div>
+			<ul>
+				<li><input type="password" class="px" value="" name="pw"></li>
+			</ul>
+		</div>
+		<div class="btn_login"><button value="true" name="loginsubmit" type="submit" class="formdialog pn">{lang submit}</button></div>
+	</form>
+</div>
+<!--{template common/footer}-->

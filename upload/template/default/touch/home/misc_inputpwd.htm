@@ -1,0 +1,31 @@
+<!--{template common/header}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>
+		{lang password_authentication}
+	</h2>
+	<div class="my">
+		<a href="index.php"><i class="dm-house"></i></a>
+	</div>
+</div>
+<div class="loginbox">
+	<form method="post" autocomplete="off" id="invalueform" name="invalueform" action="home.php?mod=misc&ac=inputpwd">
+		<input type="hidden" name="refer" value="{$_SERVER['REQUEST_URI']}" />
+		<!--{if isset($invalue['blogid'])}-->
+		<input type="hidden" name="blogid" value="{$invalue['blogid']}" />
+		<!--{/if}-->
+		<!--{if isset($invalue['albumid'])}-->
+		<input type="hidden" name="albumid" value="{$invalue['albumid']}" />
+		<!--{/if}-->
+		<input type="hidden" name="pwdsubmit" value="true" />
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<div class="login_from">
+			<ul>
+				<li>{lang enter_password}</li>
+				<li><input type="password" class="px" value="" name="viewpwd"></li>
+			</ul>
+		</div>
+		<div class="btn_login"><button value="true" name="submit" type="submit" class="formdialog pn">{lang submit}</button></div>
+	</form>
+</div>
+<!--{template common/footer}-->
