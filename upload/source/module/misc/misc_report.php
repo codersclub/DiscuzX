@@ -53,7 +53,7 @@ if(submitcheck('reportsubmit')) {
 		$moderators = array();
 		if($report_receive['adminuser']) {
 			foreach($report_receive['adminuser'] as $touid) {
-				notification_add($touid, 'report', 'new_report', array('from_id' => 1, 'from_idtype' => 'newreport'), 1);
+				notification_add($touid, 'report', 'new_report', array('from_id' => 1, 'from_idtype' => 'newreport', 'username' => $_G['username']), 1);
 			}
 		}
 		if($fid && $rtype == 'post') {
@@ -64,7 +64,7 @@ if(submitcheck('reportsubmit')) {
 				$moderators = array_unique(array_merge($moderators, $report_receive['supmoderator']));
 			}
 			foreach($moderators as $touid) {
-				$touid != $_G['uid'] && !in_array($touid, $report_receive) && notification_add($touid, 'report', 'new_post_report', array('fid' => $fid, 'from_id' => 1, 'from_idtype' => 'newreport'), 1);
+				$touid != $_G['uid'] && !in_array($touid, $report_receive) && notification_add($touid, 'report', 'new_post_report', array('fid' => $fid, 'from_id' => 1, 'from_idtype' => 'newreport', 'username' => $_G['username']), 1);
 			}
 		}
 	}

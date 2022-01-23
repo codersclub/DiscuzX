@@ -77,9 +77,11 @@ if($operation == 'newreport') {
 	$reportcount = C::t('common_report')->fetch_count();
 	$query = C::t('common_report')->fetch_all_report($start, $lpp);
 	foreach($query as $row) {
+		$tmp = itemview_parse($row['url']);
+		$itemview = ($tmp == false) ? '' : ('<br><b>'.cplang('report_newreport_view').'</b><br>'.$tmp);
 		showtablerow('', array('class="td25"', 'class="td28"', '', ''), array(
 			'<input type="checkbox" class="checkbox" name="reportids[]" value="'.$row['id'].'" />',
-			'<b>'.cplang('report_newreport_url').'</b><a href="'.$row['url'].'" target="_blank">'.$row['url'].'</a><br \><b>'.cplang('report_newreport_time').'</b>'.dgmdate($row['dateline']).'<br><b>'.cplang('report_newreport_message').'</b><br>'.$row['message'],
+			'<b>'.cplang('report_newreport_url').'</b><a href="'.$row['url'].'" target="_blank">'.$row['url'].'</a><br \><b>'.cplang('report_newreport_time').'</b>'.dgmdate($row['dateline']).$itemview.'<br><b>'.cplang('report_newreport_message').'</b><br>'.$row['message'],
 			'<a href="home.php?mod=space&uid='.$row['uid'].'">'.$row['username'].'</a><input type="hidden" name="reportuids['.$row['id'].']" value="'.$row['uid'].'">',
 			($report_reward['max'] != $report_reward['min'] ? $_G['setting']['extcredits'][$curcredits]['title'].':&nbsp;<select name="creditsvalue['.$row['id'].']">'.$rewardlist.'</select><br /><br />'.cplang('report_note').':&nbsp;<input type="text" name="msg['.$row['id'].']" value="">' : '')
 		));
@@ -192,4 +194,34 @@ if($operation == 'newreport') {
 	showsubmit('', '', '', '<input type="submit" class="btn" name="receivesubmit" value="'.$lang['submit'].'" />');
 	showtablefooter();
 	showformfooter();
+}
+
+function itemview_parse($url) {
+	$default_url = array(
+		'post' => 'forum.php?mod=redirect&goto=findpost&ptid=',
+		'thread' => 'forum.php?mod=viewthread&tid=',
+		'blog' => 'home.php?mod=space&do=blog&uid='
+	);
+	foreach($default_url as $key => $value) {
+		if(strpos($url, $value) === 0) {
+			$tmp = explode('?', $url);
+			parse_str($tmp[1], $kvarr);
+			if($key == 'post' && isset($kvarr['pid'])) {
+				require_once libfile('function/forum');
+				$pid = intval($kvarr['pid']);
+				$post = get_post_by_pid($pid);
+				return empty($post['message']) ? false : cutstr(strip_tags($post['message']), 60);
+			} else if ($key == 'thread' && isset($kvarr['tid'])) {
+				require_once libfile('function/forum');
+				$tid = intval($kvarr['tid']);
+				$post = C::t('forum_post')->fetch_visiblepost_by_tid('tid:'.$tid, $tid);
+				return empty($post['message']) ? false : cutstr(strip_tags($post['message']), 60);
+			} else if ($key == 'blog' && isset($kvarr['id'])) {
+				$id = intval($kvarr['id']);
+				$post = C::t('home_blogfield')->fetch($id);
+				return empty($post['message']) ? false : cutstr(strip_tags($post['message']), 60);
+			}
+		}
+	}
+	return false;
 }
