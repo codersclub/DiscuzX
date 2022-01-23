@@ -471,11 +471,11 @@ EOF;
 									);
 								$note_lang = 'profile_verify_error';
 							} else {
-								C::t('common_member_profile')->update(intval($value['uid']), $fields);
 								// 用户信息变更记录
 								if($_G['setting']['profilehistory']) {
-									C::t('common_member_profile_history')->insert(array_merge($fields, array('uid' => intval($value['uid']), 'dateline' => time())));
+									C::t('common_member_profile_history')->insert(array_merge(C::t('common_member_profile')->fetch(intval($value['uid'])), array('dateline' => time())));
 								}
+								C::t('common_member_profile')->update(intval($value['uid']), $fields);
 								$verify['delete'][] = $value['vid'];
 								if($value['verifytype']) {
 									$verify["verify"]['1'][] = $value['uid'];

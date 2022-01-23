@@ -272,11 +272,11 @@ if(submitcheck('profilesubmit')) {
 		$setarr['zodiac'] = get_zodiac($_POST['birthyear']);
 	}
 	if($setarr) {
-		C::t('common_member_profile')->update($_G['uid'], $setarr);
 		// 用户信息变更记录
 		if($_G['setting']['profilehistory']) {
-			C::t('common_member_profile_history')->insert(array_merge($setarr, array('uid' => $_G['uid'], 'dateline' => time())));
+			C::t('common_member_profile_history')->insert(array_merge(C::t('common_member_profile')->fetch($_G['uid']), array('dateline' => time())));
 		}
+		C::t('common_member_profile')->update($_G['uid'], $setarr);
 	}
 
 	if($verifyarr) {
