@@ -54,13 +54,22 @@
 				function errorhandle_pokeignore(msg, values) {
 					deleteQueryNotice(values['uid'], 'pokeQuery');
 				}
+				function succeedhandle_noticeignore(url,msg, values) {
+					if(values['type'] == "poke") {
+						deleteQueryNotice(values['uid'], 'pokeQuery');
+					} else if(values['type'] == "friend" ) {
+						deleteQueryNotice(values['uid'], 'pendingFriend');  
+					} else {
+						deleteQueryNotice(values['id'], 'notice');
+					}
+				}				
 			</script>
 
 			<!--{if $list}-->
 				<div class="xld xlda">
 					<div class="nts">
 						<!--{loop $list $key $value}-->
-							<dl class="cl {if $key==1}bw0{/if}" $value[rowid] notice="$value[id]">
+							<dl class="cl {if $key==1}bw0{/if}" $value[rowid] notice="$value[id]" id="notice_$value[id]">
 								<dd class="m avt mbn">
 									<!--{if $value[authorid]}-->
 									<a href="home.php?mod=space&uid=$value[authorid]"><!--{avatar($value[authorid],small)}--></a>
@@ -69,7 +78,7 @@
 									<!--{/if}-->
 								</dd>
 								<dt>
-									<a class="d b" href="home.php?mod=spacecp&ac=common&op=ignore&authorid=$value[authorid]&type=$value[type]&handlekey=addfriendhk_{$value[authorid]}" id="a_note_$value[id]" onclick="showWindow(this.id, this.href, 'get', 0);" title="{lang shield}">{lang shield}</a>
+									<a class="d b" href="home.php?mod=spacecp&ac=common&op=ignore&authorid=$value[authorid]&type=$value[type]&handlekey=noticeignore" id="a_note_$value[id]" onclick="showWindow('noticeignore', this.href, 'get', 0);" title="{lang shield}">{lang shield}</a>
 									<span class="xg1 xw0"><!--{date($value[dateline], 'u')}--></span>
 								</dt>
 								<dd class="ntc_body" style="$value[style]">

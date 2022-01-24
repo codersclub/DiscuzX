@@ -143,7 +143,7 @@ if($op == 'comment') {
 	}
 	$id = intval($_GET['id']);
 	if($id) {
-		C::t('home_notification')->delete_by_id_uid($id, $uid);
+		C::t('home_notification')->delete_by_id_uid($id, $_G['uid']);
 	}
 	showmessage('do_success');
 
