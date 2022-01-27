@@ -132,7 +132,7 @@ class mobile_api {
 			$variable['postlist'][$k]['dateline'] = strip_tags($post['dateline']);
 			$variable['postlist'][$k]['groupiconid'] = mobile_core::usergroupIconId($post['groupid']);
 			if($firstpost['first'] && strpos($firstpost['message'],'[/hide]') !== FALSE ){
-            	$authorreplyexist = false;
+				$authorreplyexist = false;
 				if(!$_G['forum']['ismoderator']) {
 				if($_G['uid']) {
 					$_post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $pid);
