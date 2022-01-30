@@ -167,7 +167,7 @@ class table_common_syscache extends discuz_table
 	}
 
 	public function update_syscache($cachename, $data) {
-		$this->insert_cache($cachename, $data);
+		$this->insert_syscache($cachename, $data);
 	}
 
 	public function delete_syscache($cachenames) {
