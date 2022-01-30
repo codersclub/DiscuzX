@@ -239,7 +239,7 @@
 							<!--{loop $tids[$stid] $pid}-->
 							<!--{eval $post = $posts[$pid];}-->
 							<tr>
-								<td colspan="5" class="xg1">&nbsp;<img src="{IMGDIR}/icon_quote_m_s.gif" style="vertical-align:middle;" /> <a href="forum.php?mod=redirect&goto=findpost&ptid=$thread[tid]&pid=$pid" target="_blank"><!--{if $post[message]}-->{$post[message]}<!--{else}-->......<!--{/if}--></a> <img src="{IMGDIR}/icon_quote_m_e.gif" style="vertical-align:middle;" /></td>
+								<td colspan="5" class="xg1">&nbsp;<img src="{IMGDIR}/icon_quote_m_s.gif" style="vertical-align:middle;" /> <a href="forum.php?mod=redirect&goto=findpost&ptid=$thread[tid]&pid=$pid" target="_blank"><!--{if $post['message'] || is_numeric($post['message'])}-->{$post[message]}<!--{else}-->......<!--{/if}--></a> <img src="{IMGDIR}/icon_quote_m_e.gif" style="vertical-align:middle;" /></td>
 							</tr>
 							<!--{/loop}-->
 						<!--{/if}-->
