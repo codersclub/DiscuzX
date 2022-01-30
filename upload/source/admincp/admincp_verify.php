@@ -311,7 +311,7 @@ EOF;
 							$opstr .= "<label><input class=\"radio\" type=\"radio\" name=\"verify[{$value['vid']}]\" value=\"validate\" onclick=\"mod_setbg({$value['vid']}, 'validate');\">{$lang['validate']}</label>";
 						}
 
-						$fieldstr .= "</tbody><tr><td colspan=\"5\">$opstr &nbsp;<span id=\"reason_{$value['vid']}\" style=\"display: none;\">{$lang['moderate_reasonpm']}&nbsp; <input type=\"text\" class=\"txt\" name=\"reason[{$value['vid']}]\" style=\"margin: 0px;\"></span>&nbsp;<input type=\"button\" value=\"{$lang['moderate']}\" name=\"singleverifysubmit\" class=\"btn\" onclick=\"singleverify({$value['vid']}});\"></td></tr></table>";
+						$fieldstr .= "</tbody><tr><td colspan=\"5\">$opstr &nbsp;<span id=\"reason_{$value['vid']}\" style=\"display: none;\">{$lang['moderate_reasonpm']}&nbsp; <input type=\"text\" class=\"txt\" name=\"reason[{$value['vid']}]\" style=\"margin: 0px;\"></span>&nbsp;<input type=\"button\" value=\"{$lang['moderate']}\" name=\"singleverifysubmit\" class=\"btn\" onclick=\"singleverify({$value['vid']});\"></td></tr></table>";
 
 						$valuearr = array($value['username'], $verifytype, dgmdate($value['dateline'], 'dt'), $fieldstr);
 						showtablerow("id=\"mod_{$value['vid']}_row\" verifyid=\"{$value['vid']}}\"", $cssarr, $valuearr);
@@ -572,6 +572,9 @@ EOF;
 		showformfooter();
 	} else {
 		foreach( $_G['setting']['verify'] AS $key => $value) {
+			if(!is_array($value)) {
+				continue;
+			}
 			$_G['setting']['verify'][$key]['icon'] = str_replace($_G['setting']['attachurl'].'common/', '', $value['icon']);
 			$_G['setting']['verify'][$key]['unverifyicon'] = str_replace($_G['setting']['attachurl'].'common/', '', $value['unverifyicon']);
 		}
