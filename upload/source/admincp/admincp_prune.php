@@ -223,11 +223,12 @@ if(submitcheck('searchsubmit', 1)) {
 			$posts = '';
 			$groupsname = $groupsfid = $postlist = array();
 			$postlist = C::t('forum_post')->fetch_all_prune_by_search($posttable, $isgroup, $keywords, $len_message, $fid, $authorid, $starttime, $endtime, $useip, true, ($page - 1) * $perpage, $perpage);
+			require_once libfile('function/post');
 			foreach($postlist as $key => $post) {
 					$postfids[$post['fid']] = $post['fid'];
 				$post['dateline'] = dgmdate($post['dateline']);
 				$post['subject'] = empty($post['subject']) ? cplang('prune_nosubject') : cutstr($post['subject'], 30);
-				$post['message'] = dhtmlspecialchars(cutstr($post['message'], 50));
+				$post['message'] = dhtmlspecialchars(messagecutstr($post['message'], 50));
 				$postlist[$key] = $post;
 			}
 			if($postfids) {

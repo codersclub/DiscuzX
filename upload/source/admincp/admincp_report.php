@@ -11,6 +11,8 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
 
+require_once libfile('function/post');
+
 cpheader();
 
 $operation = $operation ? $operation : 'newreport';
@@ -210,16 +212,16 @@ function itemview_parse($url) {
 				require_once libfile('function/forum');
 				$pid = intval($kvarr['pid']);
 				$post = get_post_by_pid($pid);
-				return empty($post['message']) ? false : cutstr(strip_tags($post['message']), 60);
+				return empty($post['message']) ? false : dhtmlspecialchars(messagecutstr($post['message'], 60));
 			} else if ($key == 'thread' && isset($kvarr['tid'])) {
 				require_once libfile('function/forum');
 				$tid = intval($kvarr['tid']);
 				$post = C::t('forum_post')->fetch_visiblepost_by_tid('tid:'.$tid, $tid);
-				return empty($post['message']) ? false : cutstr(strip_tags($post['message']), 60);
+				return empty($post['message']) ? false : dhtmlspecialchars(messagecutstr($post['message'], 60));
 			} else if ($key == 'blog' && isset($kvarr['id'])) {
 				$id = intval($kvarr['id']);
 				$post = C::t('home_blogfield')->fetch($id);
-				return empty($post['message']) ? false : cutstr(strip_tags($post['message']), 60);
+				return empty($post['message']) ? false : dhtmlspecialchars(messagecutstr($post['message'], 60));
 			}
 		}
 	}
