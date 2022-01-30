@@ -47,6 +47,7 @@ $connect_thread_subject = addslashes(strip_tags($_G['thread']['subject']));
 }
 <!--{block return}-->
 	<a href="{$_G[connect][qq_share_url]}" id="k_share_to_qq" title="{lang qqconnect:connect_viewthread_share_to_qq}" target="_blank"><i><img src="{IMGDIR}/qq_share.png" alt="{lang qqconnect:connect_viewthread_share_to_qq}" />{lang qqconnect:connect_viewthread_share_to_qq}</i></a>
+	<a href="#" id="k_qqshare" onclick="postToQzone();return false;" title="{lang qqconnect:connect_viewthread_share_to_qzone}"><i><img src="{IMGDIR}/qzone.gif" alt="{lang qqconnect:connect_viewthread_share_to_qzone}" />{lang qqconnect:connect_viewthread_share_to_qzone}</i></a>
 <!--{/block}-->
 <!--{eval return $return;}-->
 {eval
@@ -57,23 +58,14 @@ global $_G;
 }
 <!--{block return}-->
 	<script type="text/javascript">
-		var connect_qzone_share_url = '{$_G[connect][qzone_share_url]}';
-		var connect_weibo_share_url = '{$_G[connect][weibo_share_url]}';
-		var connect_thread_info = {
-			thread_url: '{$_G['siteurl']}{$GLOBALS['canonical']}',
-			thread_id: '{$_G[tid]}',
-			post_id: '{$_G[connect][first_post][pid]}',
-			forum_id: '{$_G[fid]}',
-			author_id: '{$_G[connect][first_post][authorid]}',
-			author: '{$_G[connect][first_post][author]}'
-		};
-
-		connect_autoshare = '{$_GET[connect_autoshare]}';
-		connect_isbind = '{$_G[member][conisbind]}';
-		if(connect_autoshare == 1 && connect_isbind) {
-			_attachEvent(window, 'load', function(){
-				connect_share(connect_weibo_share_url, connect_openid);
-			});
+		function postToQzone(){
+			var _url = encodeURIComponent(document.location.href);
+			var _site = encodeURIComponent("{$_G['setting']['bbname']}");
+			var _title = encodeURIComponent("{$connect_thread_subject}");
+			var _pics = "{$_G['connect']['share_images']}";
+			var _from = 'discuz';
+			var _u = '{$_G['connect']['qzone_public_share_url']}?url='+_url+'&site='+_site+'&title='+_title+'&pics='+_pics+'&from='+_from;
+			window.open(_u);
 		}
 	</script>
 	<!--{if $_G['member']['conisbind']}-->

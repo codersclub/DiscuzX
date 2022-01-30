@@ -404,48 +404,6 @@ function replyNotice() {
 	}
 }
 
-var connect_share_loaded = 0;
-function connect_share(connect_share_url, connect_uin) {
-	if(parseInt(discuz_uid) <= 0) {
-		return true;
-	} else {
-		if(connect_uin) {
-			setTimeout(function () {
-				if(!connect_share_loaded) {
-					showDialog('分享服务连接失败，请稍后再试。', 'notice');
-					$('append_parent').removeChild($('connect_load_js'));
-				}
-			}, 5000);
-			connect_load(connect_share_url);
-		} else {
-			showDialog($('connect_share_unbind').innerHTML, 'info', '请先绑定QQ账号');
-		}
-		return false;
-	}
-}
-
-function connect_load(src) {
-	var e = document.createElement('script');
-	e.type = "text/javascript";
-	e.id = 'connect_load_js';
-	e.src = src + '&_r=' + Math.random();
-	e.async = true;
-	$('append_parent').appendChild(e);
-}
-
-function connect_show_dialog(title, html, type) {
-	var type = type ? type : 'info';
-	showDialog(html, type, title, null, 0);
-}
-
-function connect_get_thread() {
-	connect_thread_info.subject = $('connect_thread_title').value;
-	if ($('postmessage_' + connect_thread_info.post_id)) {
-		connect_thread_info.html_content = preg_replace(["'"], ['%27'], encodeURIComponent(preg_replace(['本帖最后由 .*? 于 .*? 编辑','&nbsp;','<em onclick="copycode\\(\\$\\(\'code0\'\\)\\);">复制代码</em>'], ['',' ', ''], $('postmessage_' + connect_thread_info.post_id).innerHTML)));
-	}
-	return connect_thread_info;
-}
-
 function lazyload(className) {
 	var obj = this;
 	lazyload.className = className;
