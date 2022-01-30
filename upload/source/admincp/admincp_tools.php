@@ -62,7 +62,8 @@ if($operation == 'updatecache') {
 			updatecache(array('setting', 'styles'));
 			loadcache('style_default', true);
 			updatecache('updatediytemplate');
-		}		if(in_array('searchindex', $type)) {
+		}
+		if(in_array('searchindex', $type)) {
 			require_once libfile('function/searchindex');
 			searchindex_cache();
 		}
