@@ -324,7 +324,7 @@ function profile_show($fieldid, $space=array(), $getalone = false) {
 		$url = str_replace('"', '\\"', $space[$fieldid]);
 		return "<a href=\"$url\" target=\"_blank\">$url</a>";
 	} elseif($fieldid == 'position') {
-		return nl2br($space['office'] ? $space['office'] : $space['position']);
+		return nl2br($space['office'] ? : ($space['field_position']?:$space['position']));
 	} elseif($fieldid == 'qq') {
 		return '<a href="//wpa.qq.com/msgrd?v=3&uin='.$space[$fieldid].'&site='.$_G['setting']['bbname'].'&menu=yes&from=discuz" target="_blank" title="'.lang('spacecp', 'qq_dialog').'"><img src="'.STATICURL.'/image/common/qq.gif" alt="QQ" style="margin:0px;"/></a>';
 	} elseif($fieldid == 'qqnumber') {

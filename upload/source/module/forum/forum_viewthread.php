@@ -787,6 +787,7 @@ if($postusers) {
 		if(getstatus($post['status'], 6)) {
 			$locationpids[] = $pid;
 		}
+		$postusers[$post['authorid']]['field_position'] = $postusers[$post['authorid']]['position'];
 		$post = array_merge($postlist[$pid], (array)$postusers[$post['authorid']]);
 		$postlist[$pid] = viewthread_procpost($post, $_G['member']['lastvisit'], $ordertype, $maxposition);
 	}
