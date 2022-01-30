@@ -13,9 +13,12 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 
 cpheader();
 
-lang('admincp_searchindex');
+if(!file_exists('./data/sysdata/cache_searchindex.php')) {
+	require_once libfile('function/searchindex');
+	searchindex_cache();
+}
 
-$searchindex = & $_G['lang']['admincp_searchindex'];
+require './data/sysdata/cache_searchindex.php';
 
 if(!$searchindex) {
 	cpmsg('searchindex_not_found', '', 'error');
