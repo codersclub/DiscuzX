@@ -178,7 +178,7 @@ if(empty($_G['forum']['allowview'])) {
 	if(!$_G['forum']['viewperm'] && !$_G['group']['readaccess']) {
 		showmessage('group_nopermission', NULL, array('grouptitle' => $_G['group']['grouptitle']), array('login' => 1));
 	} elseif($_G['forum']['viewperm'] && !forumperm($_G['forum']['viewperm'])) {
-		showmessagenoperm('viewperm', $_G['fid']);
+		showmessagenoperm('viewperm', $_G['fid'], $_G['forum']['formulaperm']);
 	}
 
 } elseif($_G['forum']['allowview'] == -1) {
@@ -784,6 +784,7 @@ if($postusers) {
 		if(getstatus($post['status'], 6)) {
 			$locationpids[] = $pid;
 		}
+		$postusers[$post['authorid']]['field_position'] = $postusers[$post['authorid']]['position'];
 		$post = array_merge($postlist[$pid], (array)$postusers[$post['authorid']]);
 		$postlist[$pid] = viewthread_procpost($post, $_G['member']['lastvisit'], $ordertype, $maxposition);
 	}

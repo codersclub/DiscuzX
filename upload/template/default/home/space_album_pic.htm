@@ -47,7 +47,7 @@
 									<a href="home.php?mod=space&uid=$space[uid]&do=album&id=$pic[albumid]">&laquo; {lang return_pic_list}</a>
 									<!--{if $album[picnum]}--><span class="pipe">|</span>{lang current_pic}<!--{/if}-->&nbsp;
 									<!--{if $album['friend']}-->
-									<span class="xg1"> &nbsp; {$friendsname[$value[friend]]}</span>
+									<span class="xg1"> &nbsp; {$friendsname[$album[friend]]}</span>
 									<!--{/if}-->
 									<!--{hook/space_album_pic_top}-->
 								</div>

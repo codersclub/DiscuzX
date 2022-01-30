@@ -19,14 +19,11 @@ class helper_pm {
 		if($fromid === '') {
 			$fromid = $_G['uid'];
 		}
-		$author = '';
 		if($fromid) {
 			if($fromid == $_G['uid']) {
 				$sendpmmaxnum = $_G['group']['allowsendpmmaxnum'];
-				$author = $_G['username'];
 			} else {
 				$user = getuserbyuid($fromid);
-				$author = $user['username'];
 				loadcache('usergroup_'.$user['groupid']);
 				$sendpmmaxnum = $_G['cache']['usergroup_'.$user['groupid']]['allowsendpmmaxnum'];
 			}
@@ -40,7 +37,7 @@ class helper_pm {
 		$return = uc_pm_send($fromid, $toid, addslashes($subject), addslashes($message), 1, $replypmid, $isusername, $type);
 		if($return > 0 && $fromid) {
 			foreach(explode(',', $fromid) as $v) {
-				useractionlog($fromid, 'pmid');
+				useractionlog($v, 'pmid');
 			}
 		}
 

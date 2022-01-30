@@ -51,6 +51,7 @@
 	<!--{if $_G[inajax]}-->
 	<script type="text/javascript">
 		function succeedhandle_$_GET[handlekey](url, msg, values) {
+			favorite_delete(values['favid']);            
 			hideWindow('$_GET[handlekey]');
 		}
 	</script>

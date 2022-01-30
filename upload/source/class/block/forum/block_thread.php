@@ -290,6 +290,7 @@ class block_thread extends discuz_block {
 
 		require_once libfile('function/post');
 		require_once libfile('function/search');
+		require_once libfile('function/discuzcode');
 
 		$datalist = $list = $listtids = $pictids = $pics = $threadtids = $threadtypeids = $tagids = array();
 		$keyword = $keyword ? searchkey($keyword, "t.subject LIKE '%{text}%'") : '';
@@ -400,10 +401,10 @@ class block_thread extends discuz_block {
 					'replies' => $data['replies'],
 					'forumurl' => 'forum.php?mod=forumdisplay&fid='.$data['fid'],
 					'forumname' => $_G['cache']['forums'][$data['fid']]['name'],
-					'typename' => $threadtypes[$data['typeid']]['name'],
+					'typename' => discuzcode($threadtypes[$data['typeid']]['name'], 0, 0, 0, 1, 1, 0, 0, 0, 0, 0),
 					'typeicon' => $threadtypes[$data['typeid']]['icon'],
 					'typeurl' => 'forum.php?mod=forumdisplay&fid='.$data['fid'].'&filter=typeid&typeid='.$data['typeid'],
-					'sortname' => $threadsorts[$data['sortid']]['name'],
+					'sortname' => discuzcode($threadsorts[$data['sortid']]['name'], 0, 0, 0, 1, 1, 0, 0, 0, 0, 0),
 					'sorturl' => 'forum.php?mod=forumdisplay&fid='.$data['fid'].'&filter=sortid&sortid='.$data['sortid'],
 					'views' => $data['views'],
 					'heats' => $data['heats'],

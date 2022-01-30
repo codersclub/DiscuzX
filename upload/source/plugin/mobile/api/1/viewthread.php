@@ -88,6 +88,31 @@ class mobile_api {
 				preg_match('/\[tthread=(.+?),(.+?)\](.*?)\[\/tthread\]/', $variable['postlist'][$k]['message'], $matches);
 				$variable['postlist'][$k]['message'] = preg_replace('/\[tthread=(.+?)\](.*?)\[\/tthread\]/', lang('plugin/qqconnect', 'connect_tthread_message', array('username' => $matches[1], 'nick' => $matches[2])), $variable['postlist'][$k]['message']);
 			}
+			$firstpost = current($GLOBALS['postarr']);
+			if($firstpost['first'] && strpos($firstpost['message'],'[/hide]') !== FALSE ){
+				$authorreplyexist = false;
+				if(!$_G['forum']['ismoderator']) {
+					if($_G['uid']) {
+						$_post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $pid);
+						$authorreplyexist = $_post['tid'] == $_G['tid'] ? C::t('forum_post')->fetch_pid_by_tid_authorid($_G['tid'], $_G['uid']) : false;
+					}
+				} else {
+					$authorreplyexist = true;
+				}
+				if(!$authorreplyexist){
+					$aids = array();
+					preg_match_all("/\[hide(.*?)?\]\s*(.*?)\s*\[\/hide\]/is",$firstpost['message'],$matches);
+					foreach ($matches[2] as $match){
+						preg_match_all("/\[attach\](\d+)\[\/attach\]/i",$match,$matchaids);
+						$aids = array_merge($aids,$matchaids[1]);
+					}
+					foreach($aids as $aid){
+						unset($variable['postlist'][$k]['attachments'][$aid]);
+					}
+					$variable['postlist'][$k]['attachlist'] = array_diff($variable['postlist'][$k]['attachlist'],$aids);
+					$variable['postlist'][$k]['imagelist'] = array_diff($variable['postlist'][$k]['imagelist'],$aids);
+				}
+			}
 		}
 
 		foreach($GLOBALS['aimgs'] as $pid => $aids) {

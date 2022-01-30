@@ -28,7 +28,7 @@ if($operation == 'updatecache') {
 	/*search*/
 
 	if($step == 1) {
-		cpmsg("<input type=\"checkbox\" name=\"type[]\" value=\"data\" id=\"datacache\" class=\"checkbox\" checked /><label for=\"datacache\">".$lang['tools_updatecache_data']."</label><input type=\"checkbox\" name=\"type[]\" value=\"tpl\" id=\"tplcache\" class=\"checkbox\" checked /><label for=\"tplcache\">".$lang['tools_updatecache_tpl']."</label><input type=\"checkbox\" name=\"type[]\" value=\"blockclass\" id=\"blockclasscache\" class=\"checkbox\" /><label for=\"blockclasscache\">".$lang['tools_updatecache_blockclass']."</label><input type=\"checkbox\" name=\"type[]\" value=\"searchindex\" id=\"searchindex\" class=\"checkbox\" /><label for=\"searchindex\">".$lang['tools_updatecache_searchindex'].'</label>', 'action=tools&operation=updatecache&step=2', 'form', '', FALSE);
+		cpmsg("<input type=\"checkbox\" name=\"type[]\" value=\"data\" id=\"datacache\" class=\"checkbox\" checked /><label for=\"datacache\">".$lang['tools_updatecache_data']."</label><input type=\"checkbox\" name=\"type[]\" value=\"tpl\" id=\"tplcache\" class=\"checkbox\" checked /><label for=\"tplcache\">".$lang['tools_updatecache_tpl']."</label><input type=\"checkbox\" name=\"type[]\" value=\"blockclass\" id=\"blockclasscache\" class=\"checkbox\" /><label for=\"blockclasscache\">".$lang['tools_updatecache_blockclass']."</label><input type=\"checkbox\" name=\"type[]\" value=\"csscache\" id=\"csscache\" class=\"checkbox\" /><label for=\"csscache\">".$lang['styles_csscache_update']."</label><input type=\"checkbox\" name=\"type[]\" value=\"searchindex\" id=\"searchindex\" class=\"checkbox\" /><label for=\"searchindex\">".$lang['tools_updatecache_searchindex'].'</label>', 'action=tools&operation=updatecache&step=2', 'form', '', FALSE);
 	} elseif($step == 2) {
 		$type = implode('_', (array)$_GET['type']);
 		cpmsg(cplang('tools_updatecache_waiting'), "action=tools&operation=updatecache&step=3&type=$type", 'loading', '', FALSE);
@@ -51,14 +51,18 @@ if($operation == 'updatecache') {
 				savecache('grids', array());
 			}
 		}
-		if(in_array('tpl', $type) && $_G['config']['output']['tplrefresh']) {
+		if((in_array('tpl', $type) && $_G['config']['output']['tplrefresh']) || in_array('csscache', $type)) {
 			cleartemplatecache();
 		}
 		if(in_array('blockclass', $type)) {
 			include_once libfile('function/block');
 			blockclass_cache();
 		}
-		if(in_array('searchindex', $type)) {
+		if(in_array('csscache', $type)) {
+			updatecache(array('setting', 'styles'));
+			loadcache('style_default', true);
+			updatecache('updatediytemplate');
+		}		if(in_array('searchindex', $type)) {
 			require_once libfile('function/searchindex');
 			searchindex_cache();
 		}

@@ -131,6 +131,29 @@ class mobile_api {
 			$variable['postlist'][$k]['message'] = preg_replace('/(&nbsp;){2,}/', '', $variable['postlist'][$k]['message']);
 			$variable['postlist'][$k]['dateline'] = strip_tags($post['dateline']);
 			$variable['postlist'][$k]['groupiconid'] = mobile_core::usergroupIconId($post['groupid']);
+			if($firstpost['first'] && strpos($firstpost['message'],'[/hide]') !== FALSE ){
+				$authorreplyexist = false;
+				if(!$_G['forum']['ismoderator']) {
+				if($_G['uid']) {
+					$_post = C::t('forum_post')->fetch('tid:'.$_G['tid'], $pid);
+						$authorreplyexist = $_post['tid'] == $_G['tid'] ? C::t('forum_post')->fetch_pid_by_tid_authorid($_G['tid'], $_G['uid']) : false;
+					}
+				} else {
+					$authorreplyexist = true;
+				}
+				if(!$authorreplyexist){
+					$aids = array();
+					preg_match_all("/\[hide(.*?)?\]\s*(.*?)\s*\[\/hide\]/is",$firstpost['message'],$matches);
+					foreach ($matches[2] as $match){
+						preg_match_all("/\[attach\](\d+)\[\/attach\]/i",$match,$matchaids);
+						$aids = array_merge($aids,$matchaids[1]);
+					}
+					foreach($aids as $aid){
+						unset($variable['postlist'][$k]['attachments'][$aid]);
+					}
+					$variable['postlist'][$k]['attachlist'] = array_diff($variable['postlist'][$k]['attachlist'],$aids);
+				}
+			}
 		}
 
 		if (!empty($GLOBALS['polloptions'])) {

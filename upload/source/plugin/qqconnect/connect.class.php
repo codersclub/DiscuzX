@@ -29,11 +29,7 @@ class plugin_qqconnect_base {
 		global $_G;
 
 		if(!isset($_G['connect'])) {
-			$_G['connect']['url'] = 'http://connect.discuz.qq.com';
-			$_G['connect']['api_url'] = 'http://api.discuz.qq.com';
-			$_G['connect']['avatar_url'] = 'http://avatar.connect.discuz.qq.com';
-
-			$_G['connect']['qzone_public_share_url'] = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey';
+			$_G['connect']['qzone_public_share_url'] = 'https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey';
 			$_G['connect']['referer'] = !$_G['inajax'] && CURSCRIPT != 'member' ? $_G['basefilename'].($_SERVER['QUERY_STRING'] ? '?'.$_SERVER['QUERY_STRING'] : '') : dreferer();
 
 			$_G['connect']['login_url'] = $_G['siteurl'].'connect.php?mod=login&op=init&referer='.urlencode($_G['connect']['referer'] ? $_G['connect']['referer'] : 'index.php');
@@ -90,7 +86,7 @@ class plugin_qqconnect extends plugin_qqconnect_base {
 	function discuzcode($param) {
 		global $_G;
 		if($param['caller'] == 'discuzcode') {
-			$_G['discuzcodemessage'] = preg_replace('/\[wb=(.+?)\](.+?)\[\/wb\]/', '<a href="http://t.qq.com/\\1" target="_blank"><img src="\\2" /></a>', $_G['discuzcodemessage']);
+			$_G['discuzcodemessage'] = preg_replace('/\[wb=(.+?)\](.+?)\[\/wb\]/', '', $_G['discuzcodemessage']);
 		}
 		if($param['caller'] == 'messagecutstr') {
 			$_G['discuzcodemessage'] = preg_replace('/\[tthread=(.+?)\](.*?)\[\/tthread\]/', '', $_G['discuzcodemessage']);
@@ -137,6 +133,33 @@ class plugin_qqconnect extends plugin_qqconnect_base {
 	function _viewthread_share_method_output() {
 		global $_G;
 		$_G['connect']['qq_share_url'] = $_G['siteurl'] . 'home.php?mod=spacecp&ac=plugin&id=qqconnect:spacecp&pluginop=share&sh_type=4&thread_id=' . $_G['tid'];
+		$_G['connect']['first_post'] = $postlist[$_G['forum_firstpid']];
+		if ($_G['connect']['first_post']['anonymous']) {
+			$_G['connect']['first_post']['authorid'] = 0;
+			$_G['connect']['first_post']['author'] = '';
+		}
+		if ($_G['group']['allowgetimage'] && $_G['thread']['price'] == 0) {
+			if (trim($_G['forum']['viewperm'])) {
+				$allowViewPermGroupIds = explode("\t", trim($_G['forum']['viewperm']));
+			}
+			if (trim($_G['forum']['getattachperm'])) {
+				$allowViewAttachGroupIds = explode("\t", trim($_G['forum']['getattachperm']));
+			}
+			$bigWidth = '400';
+			$bigHeight = '400';
+			$share_images = array();
+			foreach ($_G['connect']['first_post']['attachments'] as $attachment) {
+				if ($attachment['isimage'] == 0 || $attachment['price'] > 0
+					|| $attachment['readperm'] > $_G['group']['readaccess']
+					|| ($allowViewPermGroupIds && !in_array($_G['groupid'], $allowViewPermGroupIds))
+					|| ($allowViewAttachGroupIds && !in_array($_G['groupid'], $allowViewAttachGroupIds))) {
+						continue;
+					}
+				$bigImageURL = $_G['siteurl'] . getforumimg($attachment['aid'], 1, $bigWidth, $bigHeight, 'fixnone');
+				$share_images[] = urlencode($bigImageURL);
+			}
+			$_G['connect']['share_images'] = implode('|', $share_images);
+		}
 		return tpl_viewthread_share_method($jsurl);		
 	}
 

@@ -84,13 +84,6 @@ class forum_upload {
 				return $this->uploadmsg(11);
 			}
 		}
-		updatemembercount($_G['uid'], array('todayattachs' => 1, 'todayattachsize' => $upload->attach['size']));
-		$upload->save();
-		if($upload->error() == -103) {
-			return $this->uploadmsg(8);
-		} elseif($upload->error()) {
-			return $this->uploadmsg(9);
-		}
 
 		// 修复敏感词拦截无明确提示的问题
 		$filename = censor($upload->attach['name'], NULL, TRUE);
@@ -100,21 +93,34 @@ class forum_upload {
 			$filename = dhtmlspecialchars($filename);
 		}
 
-		$thumb = $remote = $width = 0;
-		if($_GET['type'] == 'image' && !$upload->attach['isimage']) {
+		if(isset($_GET['type']) && $_GET['type'] == 'image' && !$upload->attach['isimage']) {
 			return $this->uploadmsg(7);
 		}
+
 		if($upload->attach['isimage']) {
+			$imageinfo = @getimagesize($upload->attach['tmp_name']);
+			list($width, $height, $type) = !empty($imageinfo) ? $imageinfo : array(0, 0, 0);
+			$size = $width * $height;
 			// 新增 GD 图片像素点上限服务器侧拦截
-			$imginfo = @getimagesize($upload->attach['target']);
-			list($imgw, $imgh) = !empty($imginfo) ? $imginfo : array(0, 0);
-			$imgs = $imgw * $imgh;
-			if((!getglobal('setting/imagelib') && $imgs > (getglobal('setting/gdlimit') ? getglobal('setting/gdlimit') : 16777216)) || $imgs < 16 ) {
+			if((!getglobal('setting/imagelib') && $size > (getglobal('setting/gdlimit') ? getglobal('setting/gdlimit') : 16777216)) || $size < 16 ) {
 				return $this->uploadmsg(13);
 			}
-			if(!in_array($upload->attach['imageinfo']['2'], array(1,2,3,6))) {
+			if(!in_array($type, array(1, 2, 3, 6, 13)) || ($upload->attach['ext'] == 'swf' && $type != 4 && $type != 13)) {
 				return $this->uploadmsg(7);
 			}
+		}
+
+		$upload->save();
+		if($upload->error() == -103) {
+			return $this->uploadmsg(8);
+		} elseif($upload->error()) {
+			return $this->uploadmsg(9);
+		}
+
+		updatemembercount($_G['uid'], array('todayattachs' => 1, 'todayattachsize' => $upload->attach['size']));
+
+		$thumb = $remote = $width = 0;
+		if($upload->attach['isimage']) {
 			if($_G['setting']['showexif']) {
 				require_once libfile('function/attachment');
 				$exif = getattachexif(0, $upload->attach['target']);

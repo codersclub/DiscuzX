@@ -90,10 +90,10 @@ class extend_thread_reward extends extend_thread_base {
 					} elseif($addprice > getuserprofile('extcredits'.$this->setting['creditstransextra'][2])) {
 						showmessage('reward_credits_shortage');
 					}
-					$realprice = ceil($this->thread['price'] + $this->thread['price'] * $this->setting['creditstax']);
+					$realprice = ceil($rewardprice + $rewardprice * $this->setting['creditstax']);
 
 					updatemembercount($this->thread['authorid'], array($this->setting['creditstransextra'][2] => -$addprice));
-					C::t('common_credit_log')->update_by_uid_operation_relatedid($this->thread['authorid'], 'RTC', $this->thread['tid'], array('extcredits'.$this->setting['creditstransextra'][2] => $realprice));
+					C::t('common_credit_log')->update_by_uid_operation_relatedid($this->thread['authorid'], 'RTC', $this->thread['tid'], array('extcredits'.$this->setting['creditstransextra'][2] => -$realprice));
 				}
 
 				if(!$this->forum['ismoderator']) {
