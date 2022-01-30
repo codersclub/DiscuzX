@@ -405,7 +405,7 @@ class usermodel {
 		return true;
 	}
 
-	function reset_founderpw($newpw) {
+	function reset_founderpw($newpw, $reconfkey = 1) {
 		$configfile = UC_ROOT.'./data/config.inc.php';
 		if(!is_writable($configfile)) {
 			return -4;
@@ -415,6 +415,10 @@ class usermodel {
 			$hashnewpw = str_replace('$', '#', $this->generate_password($newpw));
 			$config = preg_replace("/define\('UC_FOUNDERSALT',\s*'.*?'\);/i", "define('UC_FOUNDERSALT', '$salt');", $config);
 			$config = preg_replace("/define\('UC_FOUNDERPW',\s*'.*?'\);/i", "define('UC_FOUNDERPW', '$hashnewpw');", $config);
+			if($reconfkey) {
+				$uckey = $this->base->generate_key(64);
+				$config = preg_replace("/define\('UC_KEY',\s*'.*?'\);/i", "define('UC_KEY', '$uckey');", $config);
+			}
 			$config = str_replace('#', '$', $config);
 			if(file_put_contents($configfile, $config, LOCK_EX) === false) {
 				return -4;

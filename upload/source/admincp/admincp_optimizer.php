@@ -42,6 +42,9 @@ $security_option = array(
 	'optimizer_plugin',
 	'optimizer_loginpwcheck',
 	'optimizer_loginoutofdate',
+	'optimizer_dbbackup_visit',
+	'optimizer_filesafe',
+	'optimizer_remote',
 );
 
 $serversec_option = array(

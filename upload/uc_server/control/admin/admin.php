@@ -80,11 +80,12 @@ class control extends adminbase {
 			$oldpw = getgpc('oldpw', 'P');
 			$newpw = getgpc('newpw', 'P');
 			$newpw2 = getgpc('newpw2', 'P');
+			$reconfkey = getgpc('reconfkey', 'P');
 			if($_ENV['user']->verify_password($oldpw, UC_FOUNDERPW, UC_FOUNDERSALT) || hash_equals(UC_FOUNDERPW, md5(md5($oldpw).UC_FOUNDERSALT))) {
 				if($newpw != $newpw2) {
 					$status = -6;
 				} else {
-					$status = $_ENV['user']->reset_founderpw($newpw);
+					$status = $_ENV['user']->reset_founderpw($newpw, $reconfkey);
 					if($status === 2) {
 						$this->writelog('admin_pw_edit');
 					}

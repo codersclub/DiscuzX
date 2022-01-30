@@ -37,12 +37,6 @@ class appcontrol extends base {
 	function onucinfo() {
 	}
 
-	function _random($length, $numeric = 0) {
-	}
-
-	function _generate_key() {
-	}
-
 	function _format_notedata($notedata) {
 	}
 }
