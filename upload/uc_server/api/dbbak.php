@@ -511,6 +511,10 @@ if($get['method'] == 'export') {
 		$get['volume'] = 0;
 	}
 
+	if(!preg_match('/^backup_(\d+)_\w+$/', $get['sqlpath']) || !preg_match('/^\d+_\w+\-(\d+).sql$/', $get['dumpfile'])) {
+		api_msg('bak_file_lose', $get['dumpfile']);
+	}
+
 	$get['volume']++;
 	$next_dumpfile = preg_replace('/^(\d+)\_(\w+)\-(\d+)\.sql$/', '\\1_\\2-'.$get['volume'].'.sql', $get['dumpfile']);
 	if(!is_file(BACKUP_DIR.$get['sqlpath'].'/'.$get['dumpfile'])) {
@@ -554,7 +558,7 @@ if($get['method'] == 'export') {
 	$directory = dir(BACKUP_DIR);
 	while($entry = $directory->read()) {
 		$filename = BACKUP_DIR.$entry;
-		if(is_dir($filename) && preg_match('/backup_(\d+)_\w+$/', $filename, $match)) {
+		if(is_dir($filename) && preg_match('/^backup_(\d+)_\w+$/', $filename, $match)) {
 			$str .= "\t<dir>\n";
 			$str .= "\t\t<dirname>$filename</dirname>\n";
 			$str .= "\t\t<dirdate>$match[1]</dirdate>\n";

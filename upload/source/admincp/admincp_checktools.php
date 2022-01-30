@@ -286,6 +286,50 @@ if($operation == 'filecheck') {
 		}
 	}
 
+} elseif($operation == 'replacekey') {
+
+	$step = max(1, intval($_GET['step']));
+	shownav('tools', 'nav_replacekey');
+	showtips('replacekey_tips');
+	showsubmenusteps('nav_replacekey', array(
+		array('nav_replacekey_confirm', $step == 1),
+		array('nav_replacekey_verify', $step == 2),
+		array('nav_replacekey_completed', $step == 3)
+	));
+	if($step == 1) {
+		cpmsg(cplang('replacekey_tips_step1'), 'action=checktools&operation=replacekey&step=2', 'form', '', FALSE);
+	} elseif($step == 2) {
+		cpmsg(cplang('replacekey_tips_step2'), "action=checktools&operation=replacekey&step=3", 'loading', '', FALSE);
+	} elseif($step == 3) {
+		if(!is_writeable('./config/config_global.php')) {
+			cpmsg('replacekey_must_write_config', '', 'error');
+		}
+
+		$oldauthkey = $_G['config']['security']['authkey'];
+		$newauthkey = generate_key(64);
+
+		$configfile = trim(file_get_contents(DISCUZ_ROOT.'./config/config_global.php'));
+		$configfile = substr($configfile, -2) == '?>' ? substr($configfile, 0, -2) : $configfile;
+		$configfile = str_replace($oldauthkey, $newauthkey, $configfile);
+
+		if(file_put_contents(DISCUZ_ROOT.'./config/config_global.php', trim($configfile), LOCK_EX) === false) {
+			cpmsg('replacekey_must_write_config', '', 'error');
+		}
+
+		$ecdata = authcode($_G['setting']['ec_contract'], 'DECODE', $oldauthkey);
+		$ecdata = authcode($ecdata, 'ENCODE', $newauthkey);
+		C::t('common_setting')->update('ec_contract', $ecdata);
+
+		$ftpdata = $_G['setting']['ftp'];
+		$ftppasswd = authcode($ftpdata['password'], 'DECODE', md5($oldauthkey));
+		$ftpdata['password'] = authcode($ftppasswd, 'ENCODE', md5($newauthkey));
+		C::t('common_setting')->update('ftp', $ftpdata);
+
+		updatecache('setting');
+
+		cpmsg('replacekey_succeed', '', 'succeed', '', FALSE);
+	}
+
 } elseif($operation == 'ftpcheck') {
 
 	$alertmsg = '';
@@ -631,4 +675,13 @@ function findhook($hookid, $key) {
 	}
 	$hooks[] = '<!--{hook/'.$hookid.$key.'}-->';
 }
-?>
+
+function generate_key($length = 32) {
+	$random = random($length);
+	$info = md5($_SERVER['SERVER_SOFTWARE'].$_SERVER['SERVER_NAME'].$_SERVER['SERVER_ADDR'].$_SERVER['SERVER_PORT'].$_SERVER['HTTP_USER_AGENT'].time());
+	$return = '';
+	for($i=0; $i<$length; $i++) {
+		$return .= $random[$i].$info[$i];
+	}
+	return $return;
+}

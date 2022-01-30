@@ -80,6 +80,7 @@ class control extends adminbase {
 			$oldpw = getgpc('oldpw', 'P');
 			$newpw = getgpc('newpw', 'P');
 			$newpw2 = getgpc('newpw2', 'P');
+			$reconfkey = getgpc('reconfkey', 'P');
 			if(UC_FOUNDERPW == md5(md5($oldpw).UC_FOUNDERSALT)) {
 				$configfile = UC_ROOT.'./data/config.inc.php';
 				if(!is_writable($configfile)) {
@@ -93,6 +94,10 @@ class control extends adminbase {
 						$md5newpw = md5(md5($newpw).$salt);
 						$config = preg_replace("/define\('UC_FOUNDERSALT',\s*'.*?'\);/i", "define('UC_FOUNDERSALT', '$salt');", $config);
 						$config = preg_replace("/define\('UC_FOUNDERPW',\s*'.*?'\);/i", "define('UC_FOUNDERPW', '$md5newpw');", $config);
+						if($reconfkey) {
+							$uckey = $this->generate_key(64);
+							$config = preg_replace("/define\('UC_KEY',\s*'.*?'\);/i", "define('UC_KEY', '$uckey');", $config);
+						}
 						$fp = @fopen($configfile, 'w');
 						@fwrite($fp, $config);
 						@fclose($fp);

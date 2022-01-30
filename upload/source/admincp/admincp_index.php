@@ -36,6 +36,25 @@ if(empty($siteuniqueid) || strlen($siteuniqueid) < 16) {
 	updatecache('setting');
 }
 
+if(!empty($_GET['closesitereleasetips'])) {
+	C::t('common_setting')->update('sitereleasetips', 0);
+	$sitereleasetips = 0;
+	require_once libfile('function/cache');
+	updatecache('setting');
+} else {
+	$sitereleasetips = C::t('common_setting')->fetch('sitereleasetips');
+}
+
+$siterelease = C::t('common_setting')->fetch('siterelease');
+$releasehash = substr(hash('sha512', $_G['config']['security']['authkey'].DISCUZ_VERSION.DISCUZ_RELEASE.$siteuniqueid), 0, 32);
+if(empty($siterelease) || strcmp($siterelease, $releasehash) !== 0) {
+	C::t('common_setting')->update('siteversion', DISCUZ_VERSION);
+	C::t('common_setting')->update('siterelease', $releasehash);
+	C::t('common_setting')->update('sitereleasetips', 1);
+	$sitereleasetips = 1;
+	require_once libfile('function/cache');
+	updatecache('setting');
+}
 
 if(submitcheck('notesubmit', 1)) {
 	if(!empty($_GET['noteid']) && is_numeric($_GET['noteid'])) {
@@ -258,6 +277,14 @@ if ($env_ok) {
 	);
 }
 showtablefooter();
+
+if($sitereleasetips) {
+	showtableheader('version_tips', 'fixpadding');
+	showtablerow('', array('', 'class="td21" style="text-align:right;"'),
+		'<em class="unknown">'.lang("admincp", "version_tips_msg", array('ADMINSCRIPT' => ADMINSCRIPT, 'version' => constant("DISCUZ_VERSION").' R'.constant("DISCUZ_RELEASE"))).'</em>'
+	);
+	showtablefooter();
+}
 
 showtableheader('home_onlines', 'nobottom fixpadding');
 echo '<tr><td>'.$onlines.'</td></tr>';

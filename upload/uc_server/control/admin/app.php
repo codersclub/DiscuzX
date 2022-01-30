@@ -136,6 +136,12 @@ class control extends adminbase {
 
 	}
 
+	function ongeneratekey() {
+		$newkey = $this->generate_key(64);
+		header("Content-Type: application/javascript");
+		echo 'document.getElementsByName("authkey")[0].value = "'.$newkey.'";';
+	}
+
 	function ondetail() {
 		$appid = getgpc('appid');
 		$updated = false;
