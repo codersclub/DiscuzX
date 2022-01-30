@@ -395,14 +395,14 @@ function forumleftside() {
 	return $leftside;
 }
 
-function threadclasscount($fid, $id = 0, $idtype = '', $count = 0) {
+function threadclasscount($fid, $id = 0, $idtype = '', $count = null) {
 	if(!$fid) {
 		return false;
 	}
 	$typeflag = ($id && $idtype && in_array($idtype, array('typeid', 'sortid')));
 	$threadclasscount = C::t('common_cache')->fetch('threadclasscount_'.$fid);
 	$threadclasscount = dunserialize($threadclasscount['cachevalue']);
-	if($count) {
+	if($count !== null) {
 		if($typeflag) {
 			$threadclasscount[$idtype][$id] = $count;
 			C::t('common_cache')->insert(array(
