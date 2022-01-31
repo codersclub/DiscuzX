@@ -12,13 +12,19 @@ if(!defined('IN_DISCUZ')) {
 }
 
 function searchindex_cache() {
+	include_once DISCUZ_ROOT.'./source/discuz_version.php';
+	if(is_numeric(DISCUZ_RELEASE)) {
+		$cachedata = "lang('admincp_searchindex');\n\$searchindex = & \$_G['lang']['admincp_searchindex'];";
+		require_once libfile('function/cache');
+		writetocache('searchindex', $cachedata);
+		return null;
+	}
+
 	require DISCUZ_ROOT.'./source/language/lang_admincp_menu.php';
 	$menulang = $lang;
 	require DISCUZ_ROOT.'./source/language/lang_admincp.php';
 	$genlang = $lang + $menulang;
 	$indexdata = array();
-
-	$isfullindex = false;
 
 	require DISCUZ_ROOT.'./source/admincp/admincp_menu.php';
 	foreach($menu as $topmenu => $leftmenu) {
@@ -52,9 +58,8 @@ function searchindex_cache() {
 				},
 				$data
 			);
-			preg_match_all('#/\*search=\s*(\{.+?\})\s*\*/(.+?)/\*search\*/#is', $data, $search);
-			if($search) {
-				$isfullindex = true;
+			$isfullindex = preg_match_all('#/\*search=\s*(\{.+?\})\s*\*/(.+?)/\*search\*/#is', $data, $search);
+			if($isfullindex) {
 				foreach($search[0] as $k => $item) {
 					$search[1][$k] = stripslashes($search[1][$k]);
 					$titles = json_decode($search[1][$k], 1);
