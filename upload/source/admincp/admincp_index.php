@@ -282,7 +282,7 @@ showtablefooter();
 if($sitereleasetips) {
 	showtableheader('version_tips', 'fixpadding');
 	showtablerow('', array('', 'class="td21" style="text-align:right;"'),
-		'<em class="unknown">'.lang("admincp", "version_tips_msg", array('ADMINSCRIPT' => ADMINSCRIPT, 'version' => constant("DISCUZ_VERSION").' R'.constant("DISCUZ_RELEASE"))).'</em>'
+		'<em class="unknown">'.lang("admincp", "version_tips_msg", array('ADMINSCRIPT' => ADMINSCRIPT, 'version' => constant("DISCUZ_VERSION").' '.$reldisp)).'</em>'
 	);
 	showtablefooter();
 }
