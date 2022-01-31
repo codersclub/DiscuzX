@@ -429,7 +429,7 @@ if($get['method'] == 'export') {
 	$directory = dir(BACKUP_DIR);
 	while($entry = $directory->read()) {
 		$filename = BACKUP_DIR.$entry;
-		if(is_dir($filename) && preg_match('/^backup_(\d+)_\w+$/', $filename, $match)) {
+		if(is_dir($filename) && preg_match('/^backup_(\d+)_\w+$/', $entry, $match)) {
 			$str .= "\t<dir>\n";
 			$str .= "\t\t<dirname>$filename</dirname>\n";
 			$str .= "\t\t<dirdate>$match[1]</dirdate>\n";
