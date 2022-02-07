@@ -101,6 +101,12 @@ class control extends adminbase {
 		if($nexturl) {
 			$url = $nexturl;
 		} else {
+			if($type == 'export' && strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+				$content = $_ENV['misc']->dfopen2(UC_API.'/CROSSD~1.XML');
+				if(strpos($content, 'cross-domain-policy') !== false) {
+					$this->message($this->_parent_js($appid, 'db_back_dos8p3_failed'));
+				}
+			}
 			if($appid) {
 				if(!isset($this->cache['apps'][$appid])) {
 					$this->message($this->_parent_js($appid, 'appid_invalid'));
@@ -192,21 +198,6 @@ class control extends adminbase {
 		preg_match('/<error errorCode="(\d+)" errorMessage="([^\/]+)" \/>/', $xml, $match);
 		$arr['error'] = array('errorcode' => $match[1], 'errormessage' => $match[2]);
 		return $arr;
-	}
-
-	function random($length, $numeric = 0) {
-		PHP_VERSION < '4.2.0' && mt_srand((double)microtime() * 1000000);
-		if($numeric) {
-			$hash = sprintf('%0'.$length.'d', mt_rand(0, pow(10, $length) - 1));
-		} else {
-			$hash = '';
-			$chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
-			$max = strlen($chars) - 1;
-			for($i = 0; $i < $length; $i++) {
-				$hash .= $chars[mt_rand(0, $max)];
-			}
-		}
-		return $hash;
 	}
 
 	function sqldumptable($table, $startfrom = 0, $currsize = 0) {

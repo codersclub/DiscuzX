@@ -5998,7 +5998,7 @@ $lang = array
 	'hookcheck_delhook' => '丢失的嵌入点',
 
 	'replacekey_tips' => '<li>当站点沦陷时您应该考虑在此处密钥更新，以避免黑客通过已知的 AUTHKEY 获取站点控制权限。</li><li><font color="blue">少数插件会使用站点密钥保存数据，当重置密钥时相关数据会丢失且无法恢复，敬请注意并在更新前做好数据库与站点文件的备份工作。</font></li>',
-	'replacekey_tips_step1' => '在操作之前建议您选择低峰期操作或临时关闭下挂网站，并做好数据、文件备份工作，点击下面按钮开始更换',
+	'replacekey_tips_step1' => '在操作之前建议您选择低峰期操作或在操作前关闭站点，并做好数据、文件备份工作，点击下面按钮开始更换',
 	'replacekey_tips_step2' => '正在进行密钥更新，请稍候......',
 
 	'imagepreview_imagesize_source' => '原图片大小',
@@ -6076,9 +6076,10 @@ $lang = array
 	'db_multivol' => '多卷',
 	'db_zip' => 'ZIP',
 	'db_volume' => '卷数',
+	'db_delete_tips' => '<br /><br /><a href="'.ADMINSCRIPT.'?action=db&operation=import&deletesubmit=1&delete[]={filename}&formhash={FORMHASH}" onclick="return confirm(\'您确定要把服务器上的备份数据删除么？\');"><font color="#fe7e01"><strong>删除服务器上的备份数据</strong></font></a>',
 	'db_export_tips_nouc' => '<li><font color="blue"><b>您当前的数据备份不包含 UCenter，会影响到您的会员数据，请点击<a href="{uc_backup_url}">这里</a>单独备份 UCenter 数据</b></font></li><li>数据备份功能根据您的选择备份全部Discuz!数据，导出的数据文件可用“数据恢复”功能或 phpMyAdmin 导入。</li>',
 	'db_export_tips_uc' => '<li>数据备份功能根据您的选择备份全部Discuz! 和 UCenter数据，导出的数据文件可用“数据恢复”功能或 phpMyAdmin 导入。</li>',
-	'db_export_tips' => '<li><font color="blue"><b>出于安全考虑，我们强烈建议您下载数据库备份文件后在恢复页面删除数据库数据库备份文件或设置数据库备份文件不可通过 URL 访问，以保证网站安全。</b></font></li><li>全部备份均不包含模板文件和附件文件。模板、附件的备份只需通过 FTP 等下载 template/、data/attachment/ 目录即可，Discuz! 不提供单独备份。</li><li>MySQL Dump 的速度比 Discuz! 分卷备份快很多，但需要服务器支持相关的 Shell 权限，同时由于 MySQL 本身的兼容性问题，通常进行备份和恢复的服务器应当具有相同或相近的版本号才能顺利进行。因此 MySQL Dump 是有风险的：一旦进行备份或恢复操作的服务器其中之一禁止了 Shell，或由于版本兼容性问题导致导入失败，您将无法使用 MySQL Dump 备份或由备份数据恢复；Discuz! 分卷备份没有此限制。</li><li>数据备份选项中的设置，仅供高级用户的特殊用途使用，当您尚未对数据库做全面细致的了解之前，请使用默认参数备份，否则将导致备份数据错误等严重问题。</li><li>十六进制方式可以保证备份数据的完整性，但是备份文件会占用更多的空间。</li><li>压缩备份文件可以让您的备份文件占用更小的空间。</li>',
+	'db_export_tips' => '<li><font color="blue"><b>出于安全考虑，我们强烈建议您下载数据库备份文件后删除文件或设置文件不可通过 URL 访问。</b></font></li><li>全部备份均不包含模板文件和附件文件。模板、附件的备份只需通过 FTP 等下载 template/、data/attachment/ 目录即可，Discuz! 不提供单独备份。</li><li>MySQL Dump 的速度比 Discuz! 分卷备份快很多，但需要服务器支持相关的 Shell 权限，同时由于 MySQL 本身的兼容性问题，通常进行备份和恢复的服务器应当具有相同或相近的版本号才能顺利进行。因此 MySQL Dump 是有风险的：一旦进行备份或恢复操作的服务器其中之一禁止了 Shell，或由于版本兼容性问题导致导入失败，您将无法使用 MySQL Dump 备份或由备份数据恢复；Discuz! 分卷备份没有此限制。</li><li>数据备份选项中的设置，仅供高级用户的特殊用途使用，当您尚未对数据库做全面细致的了解之前，请使用默认参数备份，否则将导致备份数据错误等严重问题。</li><li>十六进制方式可以保证备份数据的完整性，但是备份文件会占用更多的空间。</li><li>压缩备份文件可以让您的备份文件占用更小的空间。</li>',
 	'db_export_type' => '数据备份类型',
 	'db_export_discuz' => 'Discuz! 数据(不含UCenter)',
 	'db_export_discuz_uc' => 'Discuz! 和 UCenter 数据',
@@ -6107,7 +6108,7 @@ $lang = array
 	'db_import_confirm' => '导入和当前 Discuz! 版本不一致的数据极有可能产生无法解决的故障，您确定继续吗？',
 	'db_import_confirm_sql' => '您确定导入该备份吗？',
 	'db_import_confirm_zip' => '您确定解压该备份吗？',
-	'db_import_tips' => '<li>本功能在恢复备份数据的同时，将全部覆盖原有数据，请确定恢复前已将论坛关闭，恢复全部完成后可以将论坛重新开放。</li><li><font color="blue"><b>出于安全考虑，我们强烈建议您下载数据库备份文件后在恢复页面删除数据库数据库备份文件或设置数据库备份文件不可通过 URL 访问，以保证网站安全。</b></font></li><li>恢复数据前请在 Discuz! 安装文件目录下 utility 文件夹内找到 restore.php 文件，然后将 restore.php 文件上传到程序文件夹data目录下。<b>为了您站点的安全，成功恢复数据后请务必及时删除 restore.php 文件。</b></li><li>您可以在数据备份记录处查看站点的备份文件的详细信息，删除过期的备份,并导入需要的备份。</li>',
+	'db_import_tips' => '<li>本功能在恢复备份数据的同时，将全部覆盖原有数据，请确定恢复前已将站点关闭，恢复全部完成后可以将站点重新开放。</li><li><font color="blue"><b>出于安全考虑，我们强烈建议您恢复数据库备份文件后删除文件或设置文件不可通过 URL 访问。</b></font></li><li>恢复数据前请在 Discuz! 安装文件目录下 utility 文件夹内找到 restore.php 文件，然后将 restore.php 文件上传到程序文件夹data目录下。<b>为了您站点的安全，成功恢复数据后请务必及时删除 restore.php 文件。</b></li><li>您可以在数据备份记录处查看站点的备份文件的详细信息，删除过期的备份,并导入需要的备份。</li>',
 	'do_import_option' => '<ul><li>您可以在本页面数据备份记录处导入备份恢复数据，也可以通过在浏览器中执行 <a href="{restore_url}" target="_blank">{restore_url}</a> 恢复数据',
 	'db_import_from_server' => '从服务器(填写文件名或 URL)',
 	'db_import_from_local' => '从本地文件',
@@ -7150,7 +7151,7 @@ url.rewrite-once = (
 
 	'detect_environment' => '运行环境检测',
 	'version_tips' => '关于本版本的温馨提示',
-	'version_tips_msg' => '感谢您选择 Discuz! {version} ，您可以查看 <a href="https://gitee.com/Discuz/DiscuzX/releases" target="_blank">发行注记</a> 以了解本版本更新内容。我们建议您尽快进行一次 <a href="{ADMINSCRIPT}?action=optimizer&operation=security">安全检测</a> 以及 <a href="{ADMINSCRIPT}?action=optimizer&operation=serversec">底层安全检测</a> 以尽可能保证系统安全。<a href="{ADMINSCRIPT}?action=index&closesitereleasetips=1">我已知晓</a>',
+	'version_tips_msg' => '感谢您选择 Discuz! {version} ，您可以查看 <a href="https://gitee.com/Discuz/DiscuzX/releases" target="_blank"><strong>发行注记</strong></a> 以了解本版本更新内容。我们建议您尽快进行一次 <a href="{ADMINSCRIPT}?action=optimizer&operation=security"><strong>安全检测</strong></a> 以及 <a href="{ADMINSCRIPT}?action=optimizer&operation=serversec"><strong>底层安全检测</strong></a> 以尽可能保证站点安全。<a href="{ADMINSCRIPT}?action=index&closesitereleasetips=1"><strong>我已知晓</strong></a>',
 	'contributors' => 'Discuz! 开源贡献者',
 	'contributors_see' => 'Click Here To See Them',
 	'detect_environment_error' => '你的服务器无法检测新版，请点击查看新版',
