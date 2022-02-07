@@ -29,7 +29,6 @@
 		<ul class="postalbum_c">
 			<!--{loop $imglist['url'] $key $imgurl}-->
 			<li class="postalbum_u" id="u_$key">
-				<!--{eval $imgurl = getforumimg($imglist['aid'][$key], 0, 2000, 550, 'fixnone');}-->
 				<img class="postalbum_i" load="0" id="img_$key" <!--{if $curaidkey == $key}-->src="$imgurl"<!--{/if}--> zsrc="$imgurl" orig="$imglist['url'][$key]"/>
 			</li>
 			<!--{/loop}-->
