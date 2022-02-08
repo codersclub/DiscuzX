@@ -134,6 +134,7 @@ function get_guide_list($view, $start = 0, $num = 50, $again = 0) {
 	loadcache('forums');
 	$cachetimelimit = ($view != 'sofa') ? 900 : 60;
 	$cache = $_G['cache']['forum_guide'][$view.($view=='sofa' && $_G['fid'] ? $_G['fid'] : '')];
+	$notsofatids = array();
 	if($cache && (TIMESTAMP - $cache['cachetime']) < $cachetimelimit) {
 		$tids = $cache['data'];
 		$threadcount = count($tids);
@@ -189,6 +190,11 @@ function get_guide_list($view, $start = 0, $num = 50, $again = 0) {
 		if($thread['displayorder'] < 0) {
 			continue;
 		}
+		// 可能由于插件直接插入 post 等原因导致缓存表不符合实际情况, 这里对于不符合实际情况的数据做清理
+		if($view == 'sofa' && $thread['replies'] > 0) {
+			$notsofatids[] = $thread['tid'];
+			continue;
+		}
 		$thread = guide_procthread($thread);
 		$threadids[] = $thread['tid'];
 		if($tids || ($n >= $start && $n < ($start + $num))) {
@@ -222,6 +228,9 @@ function get_guide_list($view, $start = 0, $num = 50, $again = 0) {
 		$data = array('cachetime' => TIMESTAMP, 'data' => $threadids);
 		$_G['cache']['forum_guide'][$view.($view=='sofa' && $_G['fid'] ? $_G['fid'] : '')] = $data;
 		savecache('forum_guide', $_G['cache']['forum_guide']);
+		if(!empty($notsofatids)) {
+			C::t('forum_sofa')->delete($notsofatids);
+		}
 	}
 	return array('forumnames' => $forumnames, 'threadcount' => $threadcount, 'threadlist' => $threadlist);
 }

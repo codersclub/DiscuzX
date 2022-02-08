@@ -142,6 +142,7 @@ class model_forum_thread extends discuz_model
 		    'fid' => $this->forum['fid'],
 		    'dateline' => $this->param['publishdate'],
 		));
+		C::t('forum_sofa')->insert(array('tid' => $this->tid,'fid' => $this->forum['fid']));
 		useractionlog($this->member['uid'], 'tid');
 
 		if(!getuserprofile('threads') && $this->setting['newbie']) {
@@ -254,8 +255,6 @@ class model_forum_thread extends discuz_model
 				require_once libfile('function/grouplog');
 				updategroupcreditlog($this->forum['fid'], $this->member['uid']);
 			}
-
-			C::t('forum_sofa')->insert(array('tid' => $this->tid,'fid' => $this->forum['fid']));
 
 			return 'post_newthread_succeed';
 

@@ -217,10 +217,6 @@ class model_forum_post extends discuz_model {
 
 		dsetcookie('clearUserdata', 'forum');
 
-		if($this->thread['replies'] <= 0) {
-			C::t('forum_sofa')->delete($this->thread['tid']);
-		}
-
 		if($this->param['modnewreplies']) {
 			updatemoderate('pid', $this->pid);
 			unset($this->param['showmsgparam']['pid']);
