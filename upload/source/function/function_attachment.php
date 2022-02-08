@@ -52,7 +52,7 @@ function attachtype($type, $returnval = 'html') {
 			$typeid = 5;
 		} elseif(preg_match("/^rar\t/", $type)) {
 			$typeid = 4;
-		} elseif(preg_match("/compressed|^(zip|arj|arc|cab|lzh|lha|tar|gz)\t/", $type)) {
+		} elseif(preg_match("/compressed|^(zip|arj|arc|cab|lzh|lha|tar|gz|7z|xz|bz2)\t/", $type)) {
 			$typeid = 3;
 		} elseif(preg_match("/octet-stream|^(exe|com|bat|dll)\t/", $type)) {
 			$typeid = 2;
