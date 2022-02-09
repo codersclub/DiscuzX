@@ -69,7 +69,7 @@ $is_archive = $_G['forum_thread']['is_archived'] ? "&fid=".$_G['fid']."&archivei
 				$attach['filename']
 			</span>
 			<p class="pl5 f_9">$attach['dateline'] {lang upload}</p>
-			<p class="pl5 f_9">$attach['attachsize']<!--{if $attach['readperm']}-->, {lang readperm}: <strong>$attach['readperm']</strong><!--{/if}-->, {lang downloads}: $attach['downloads']<!--{if !$attach['attachimg'] && $_G['getattachcredits']}-->, {lang attachcredits}: $_G['getattachcredits']<!--{/if}--></p>
+			<p class="pl5 f_9">$attach['attachsize']<!--{if $attach['readperm']}-->, {lang readperm}: <strong>$attach['readperm']</strong><!--{/if}--><!--{if !$_G['setting']['hideattachdown']}-->, {lang downloads}: $attach['downloads']<!--{/if}--><!--{if !$attach['attachimg'] && $_G['getattachcredits']}-->, {lang attachcredits}: $_G['getattachcredits']<!--{/if}--></p>
 		</div>
 	</a>
 	<div>
@@ -129,7 +129,7 @@ $mobileguestviewthumburl = $guestviewthumb ? ($attach['attachimg'] && $_G['setti
 				<a href="forum.php?mod=misc&action=attachpay&aid=$attach['aid']&tid=$attach['tid']" target="_blank">$attach['filename']</a>
 			<!--{/if}-->
 			<em class="xg1">($attach['attachsize'])</em>
-			<em class="xg1"><br />({lang downloads}: $attach['downloads'], $attach['dateline'] {lang upload})
+			<em class="xg1"><br />(<!--{if !$_G['setting']['hideattachdown']}-->{lang downloads}: $attach['downloads']<!--{/if}-->, $attach['dateline'] {lang upload})
 			</em>
 			<!--{if !$attach['attachimg'] && $_G['getattachcredits']}--><p>{lang attachcredits}: $_G['getattachcredits']</p><!--{/if}-->
 		</div>

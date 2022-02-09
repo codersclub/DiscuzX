@@ -88,7 +88,7 @@ function attachlist($attach) {
 		<dd>
 			<p class="attnm">
 				<!--{if !$attach['price'] || $attach['payed']}-->
-					<a href="forum.php?mod=attachment{$is_archive}&aid=$aidencode" {if $_GET['from'] != 'preview'}onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})"{/if} id="aid$attach[aid]" target="_blank">$attach[filename]</a>
+					<a href="forum.php?mod=attachment{$is_archive}&aid=$aidencode" {if !$_G['setting']['hideattachtips'] && $_GET['from'] != 'preview'}onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})"{/if} id="aid$attach[aid]" target="_blank">$attach[filename]</a>
 				<!--{else}-->
 					<a href="forum.php?mod=misc&action=attachpay&aid=$attach[aid]&tid=$attach[tid]" onclick="showWindow('attachpay', this.href)">$attach[filename]</a>
 				<!--{/if}-->
@@ -101,7 +101,7 @@ function attachlist($attach) {
 					<div class="tip_horn"></div>
 				</div>
 			</p>
-			<p>$attach[attachsize]<!--{if $attach['readperm']}-->, {lang readperm}: <strong>$attach[readperm]</strong><!--{/if}-->, {lang downloads}: $attach[downloads]<!--{if !$attach['attachimg'] && $_G['getattachcredits']}-->, {lang attachcredits}: $_G[getattachcredits]<!--{/if}--></p>
+			<p>$attach[attachsize]<!--{if $attach['readperm']}-->, {lang readperm}: <strong>$attach[readperm]</strong><!--{/if}--><!--{if !$_G['setting']['hideattachdown']}-->, {lang downloads}: $attach['downloads']<!--{/if}--><!--{if !$attach['attachimg'] && $_G['getattachcredits']}-->, {lang attachcredits}: $_G[getattachcredits]<!--{/if}--></p>
 			<p>
 				<!--{if $attach['price']}-->
 					{lang price}: <strong>$attach[price] {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][unit]}{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][title]}</strong> &nbsp;[<a href="forum.php?mod=misc&action=viewattachpayments&aid=$attach[aid]" onclick="showWindow('attachpay', this.href)" target="_blank">{lang pay_view}</a>]
@@ -144,8 +144,8 @@ function imagelist($attach, $firstpost = 0) {
 				<dd>
 					<!--{if !$guestviewthumb}-->
 						<p class="mbn">
-							<a href="forum.php?mod=attachment{$is_archive}&aid=$aidencode&nothumb=yes" {if $_GET['from'] != 'preview'}onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" id="aid$attach[aid]"{/if} class="xw1" target="_blank">$attach[filename]</a>
-							<em class="xg1">($attach[attachsize], {lang downloads}: $attach[downloads])</em>
+							<a href="forum.php?mod=attachment{$is_archive}&aid=$aidencode&nothumb=yes" {if (!$_G['setting']['hideattachtips'] || ($firstpost && $_G['fid'] && $_G['forum']['picstyle'] && ($_G['forum']['ismoderator'] || $_G['uid'] == $attach['uid']))) && $_GET['from'] != 'preview'}onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" id="aid$attach[aid]"{/if} class="xw1" target="_blank">$attach[filename]</a>
+							<em class="xg1">($attach[attachsize]<!--{if !$_G['setting']['hideattachdown']}-->, {lang downloads}: $attach['downloads']<!--{/if}-->)</em>
 						</p>
 						<div class="tip tip_4" id="aid$attach[aid]_menu" style="display: none" disautofocus="true">
 							<div>
@@ -255,14 +255,14 @@ function attachinpost($attach, $post) {
 					</div>
 				<!--{else}-->
 					<!--{if $_G['setting']['thumbstatus'] && $attach['thumb']}-->
-						<img{if $attach['price'] && $_G['forum_attachmentdown'] && $_G['uid'] != $attach['uid']} class="attprice"{/if} style="cursor:pointer" id="aimg_$attach[aid]" aid="$attach[aid]" src="{STATICURL}image/common/none.gif" onclick="zoom(this, this.getAttribute('zoomfile'), 0, 0, '{$_G[setting][showexif]}')" zoomfile="{if $attach[refcheck]}forum.php?mod=attachment{$is_archive}&aid=$aidencode&noupdate=yes&nothumb=yes{else}{$attach[url]}$attach[attachment]{/if}" file="{if $attach[refcheck]}forum.php?mod=attachment{$is_archive}&aid=$aidencode{else}{$attach[url]}$attachthumb{/if}" inpost="1"{if $_GET['from'] != 'preview'} onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})"{/if} />
+						<img{if $attach['price'] && $_G['forum_attachmentdown'] && $_G['uid'] != $attach['uid']} class="attprice"{/if} style="cursor:pointer" id="aimg_$attach[aid]" aid="$attach[aid]" src="{STATICURL}image/common/none.gif" onclick="zoom(this, this.getAttribute('zoomfile'), 0, 0, '{$_G[setting][showexif]}')" zoomfile="{if $attach[refcheck]}forum.php?mod=attachment{$is_archive}&aid=$aidencode&noupdate=yes&nothumb=yes{else}{$attach[url]}$attach[attachment]{/if}" file="{if $attach[refcheck]}forum.php?mod=attachment{$is_archive}&aid=$aidencode{else}{$attach[url]}$attachthumb{/if}" inpost="1"{if (!$_G['setting']['hideattachtips'] || ($firstpost && $_G['fid'] && $_G['forum']['picstyle'] && ($_G['forum']['ismoderator'] || $_G['uid'] == $attach['uid']))) && $_GET['from'] != 'preview'} onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})"{/if} />
 					<!--{else}-->
-						<img{if $attach['price'] && $_G['forum_attachmentdown'] && $_G['uid'] != $attach['uid']} class="attprice"{/if} aid="$attach[aid]" src="{STATICURL}image/common/none.gif" zoomfile="{if $attach[refcheck]}forum.php?mod=attachment{$is_archive}&aid=$aidencode&noupdate=yes&nothumb=yes{else}{$attach[url]}$attach[attachment]{/if}" file="{if $attach[refcheck]}forum.php?mod=attachment{$is_archive}&aid=$aidencode&noupdate=yes{else}{$attach[url]}$attach[attachment]{/if}" $widthcode id="aimg_$attach[aid]" inpost="1"{if $_GET['from'] != 'preview'} onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})"{/if} />
+						<img{if $attach['price'] && $_G['forum_attachmentdown'] && $_G['uid'] != $attach['uid']} class="attprice"{/if} aid="$attach[aid]" src="{STATICURL}image/common/none.gif" zoomfile="{if $attach[refcheck]}forum.php?mod=attachment{$is_archive}&aid=$aidencode&noupdate=yes&nothumb=yes{else}{$attach[url]}$attach[attachment]{/if}" file="{if $attach[refcheck]}forum.php?mod=attachment{$is_archive}&aid=$aidencode&noupdate=yes{else}{$attach[url]}$attach[attachment]{/if}" $widthcode id="aimg_$attach[aid]" inpost="1"{if (!$_G['setting']['hideattachtips'] || ($firstpost && $_G['fid'] && $_G['forum']['picstyle'] && ($_G['forum']['ismoderator'] || $_G['uid'] == $attach['uid']))) && $_GET['from'] != 'preview'} onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})"{/if} />
 					<!--{/if}-->
 				<!--{/if}-->
 			<div class="tip tip_4 aimg_tip" id="aimg_$attach[aid]_menu" style="position: absolute; display: none" disautofocus="true">
 				<div class="xs0">
-					<p><strong>$attach[filename]</strong> <em class="xg1">($attach[attachsize], {lang downloads}: $attach[downloads])</em></p>
+					<p><strong>$attach[filename]</strong> <em class="xg1">($attach[attachsize]<!--{if !$_G['setting']['hideattachdown']}-->, {lang downloads}: $attach['downloads']<!--{/if}-->)</em></p>
 					<p>
 						<a href="forum.php?mod=attachment{$is_archive}&aid=$aidencode&nothumb=yes" target="_blank">{lang download}</a>
 						<!--{if helper_access::check_module('album')}-->
@@ -283,13 +283,13 @@ function attachinpost($attach, $post) {
 			<div>$musiccode</div>
 		<!--{/if}-->
 		$attach[attachicon]
-		<span style="white-space: nowrap" id="attach_$attach[aid]" {if $_GET['from'] != 'preview'}onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})"{/if}>
+		<span style="white-space: nowrap" id="attach_$attach[aid]" {if !$_G['setting']['hideattachtips'] && $_GET['from'] != 'preview'}onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})"{/if}>
 			<!--{if !$attach['price'] || $attach['payed']}-->
 				<a href="forum.php?mod=attachment{$is_archive}&aid=$aidencode" target="_blank">$attach[filename]</a>
 			<!--{else}-->
 				<a href="forum.php?mod=misc&action=attachpay&aid=$attach[aid]&tid=$attach[tid]" onclick="showWindow('attachpay', this.href)">$attach[filename]</a>
 			<!--{/if}-->
-			<em class="xg1">($attach[attachsize], {lang downloads}: $attach[downloads]<!--{if $attach['price']}-->, {lang price}: $attach[price] {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][unit]}{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][title]}<!--{/if}-->)</em>
+			<em class="xg1">($attach[attachsize]<!--{if !$_G['setting']['hideattachdown']}-->, {lang downloads}: $attach['downloads']<!--{/if}--><!--{if $attach['price']}-->, {lang price}: $attach[price] {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][unit]}{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][title]}<!--{/if}-->)</em>
 		</span>
 		<div class="tip tip_4" id="attach_$attach[aid]_menu" style="position: absolute; display: none" disautofocus="true">
 			<div class="tip_c xs0">

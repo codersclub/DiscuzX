@@ -354,6 +354,8 @@ INSERT INTO pre_common_setting VALUES ('guestviewthumb','a:3:{s:4:\"flag\";i:0;s
 INSERT INTO pre_common_setting VALUES ('guide','a:2:{s:5:\"hotdt\";i:604800;s:8:\"digestdt\";i:604800;}');
 INSERT INTO pre_common_setting VALUES ('guidestatus','0');
 INSERT INTO pre_common_setting VALUES ('heatthread','a:5:{s:4:\"type\";s:1:\"2\";s:5:\"reply\";i:5;s:9:\"recommend\";i:3;s:6:\"period\";s:2:\"15\";s:10:\"iconlevels\";s:10:\"50,100,200\";}');
+INSERT INTO pre_common_setting VALUES ('hideattachdown','0');
+INSERT INTO pre_common_setting VALUES ('hideattachtips','0');
 INSERT INTO pre_common_setting VALUES ('hidefilteredpost','0');
 INSERT INTO pre_common_setting VALUES ('hideprivate','1');
 INSERT INTO pre_common_setting VALUES ('historyposts','0	7');
