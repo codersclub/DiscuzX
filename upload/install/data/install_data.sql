@@ -415,7 +415,7 @@ INSERT INTO pre_common_setting VALUES ('memory', 'a:16:{s:13:"common_member";i:0
 INSERT INTO pre_common_setting VALUES ('minpostsize','10');
 INSERT INTO pre_common_setting VALUES ('minpostsize_mobile','0');
 INSERT INTO pre_common_setting VALUES ('minsubjectsize','1');
-INSERT INTO pre_common_setting VALUES ('mobile','a:17:{s:11:\"allowmobile\";i:1;s:9:\"allowmnew\";i:0;s:13:\"mobileforward\";i:1;s:10:\"otherindex\";i:1;s:14:\"mobileregister\";i:1;s:13:\"mobileseccode\";i:0;s:15:\"mobilehotthread\";i:1;s:19:\"mobiledisplayorder3\";i:1;s:16:\"mobilesimpletype\";i:0;s:18:\"mobiletopicperpage\";i:10;s:17:\"mobilepostperpage\";i:5;s:15:\"mobilecachetime\";i:0;s:15:\"mobileforumview\";i:0;s:14:\"mobilecomefrom\";s:0:\"\";s:13:\"mobilepreview\";i:0;s:6:\"legacy\";i:1;s:3:\"wml\";i:0;}');
+INSERT INTO pre_common_setting VALUES ('mobile','a:13:{s:11:\"allowmobile\";i:1;s:9:\"allowmnew\";i:0;s:13:\"mobileforward\";i:1;s:14:\"mobileregister\";i:1;s:13:\"mobileseccode\";i:0;s:16:\"mobilesimpletype\";i:0;s:15:\"mobilecachetime\";i:0;s:14:\"mobilecomefrom\";s:0:\"\";s:13:\"mobilepreview\";i:0;s:6:\"legacy\";i:1;s:3:\"wml\";i:0;s:6:\"portal\";a:1:{s:6:\"catnav\";i:0;}s:5:\"forum\";a:6:{s:5:\"index\";i:0;s:8:\"statshow\";i:0;s:13:\"displayorder3\";i:1;s:12:\"topicperpage\";i:20;s:11:\"postperpage\";i:10;s:9:\"forumview\";i:0;}}');
 INSERT INTO pre_common_setting VALUES ('modasban','1');
 INSERT INTO pre_common_setting VALUES ('moddetail','0');
 INSERT INTO pre_common_setting VALUES ('moddisplay','flat');

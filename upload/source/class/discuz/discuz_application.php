@@ -685,8 +685,8 @@ class discuz_application extends discuz_base{
 		}
 
 		if(defined('IN_MOBILE')) {
-			$this->var['tpp'] = $this->var['setting']['mobile']['forum']['topicperpage'] ? intval($this->var['setting']['mobile']['forum']['topicperpage']) : 20;
-			$this->var['ppp'] = $this->var['setting']['mobile']['forum']['postperpage'] ? intval($this->var['setting']['mobile']['forum']['postperpage']) : 5;
+			$this->var['tpp'] = $this->var['setting']['mobile']['forum']['topicperpage'] ? intval($this->var['setting']['mobile']['forum']['topicperpage']) : ($this->var['setting']['topicperpage'] ? intval($this->var['setting']['topicperpage']) : 20);
+			$this->var['ppp'] = $this->var['setting']['mobile']['forum']['postperpage'] ? intval($this->var['setting']['mobile']['forum']['postperpage']) : ($this->var['setting']['postperpage'] ? intval($this->var['setting']['postperpage']) : 10);
 		} else {
 			$this->var['tpp'] = $this->var['setting']['topicperpage'] ? intval($this->var['setting']['topicperpage']) : 20;
 			$this->var['ppp'] = $this->var['setting']['postperpage'] ? intval($this->var['setting']['postperpage']) : 10;
