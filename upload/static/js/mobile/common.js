@@ -271,7 +271,7 @@ var redirect = {
 		qSelA('.redirect').forEach(function (rd) {
 			rd.addEventListener('click', function () {
 				popup.close();
-				window.location.href = this.href;
+				window.location.href = this.getAttribute('href');
 			});
 		});
 	}
