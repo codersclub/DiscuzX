@@ -167,10 +167,10 @@
 	<ul class="pf_l">
 		<li><em>{lang used_space}</em>$space[attachsize]</li>
 		<!--{if $space[buyercredit]}-->
-		<li><em>{lang eccredit_sellerinfo}</em><a href="home.php?mod=space&uid=$space[uid]&do=trade&view=eccredit<!--{if $_G[setting][homepagestyle]}-->&sns=1<!--{/if}-->#sellcredit" target="_blank">$space[buyercredit] <img src="{STATICURL}image/traderank/buyer/$space[buyerrank].gif" border="0" class="vm" /></a></li>
+		<li><em>{lang eccredit_buyerinfo}</em><a href="home.php?mod=space&uid=$space[uid]&do=trade&view=eccredit<!--{if $_G[setting][homepagestyle]}-->&sns=1<!--{/if}-->#sellcredit" target="_blank">$space[buyercredit] <img src="{STATICURL}image/traderank/buyer/$space[buyerrank].gif" border="0" class="vm" /></a></li>
 		<!--{/if}-->
 		<!--{if $space[sellercredit]}-->
-		<li><em>{lang eccredit_buyerinfo}</em><a href="home.php?mod=space&uid=$space[uid]&do=trade&view=eccredit<!--{if $_G[setting][homepagestyle]}-->&sns=1<!--{/if}-->#buyercredit" target="_blank">$space[sellercredit] <img src="{STATICURL}image/traderank/seller/$space[sellerrank].gif" border="0" class="vm" /></a></li>
+		<li><em>{lang eccredit_sellerinfo}</em><a href="home.php?mod=space&uid=$space[uid]&do=trade&view=eccredit<!--{if $_G[setting][homepagestyle]}-->&sns=1<!--{/if}-->#buyercredit" target="_blank">$space[sellercredit] <img src="{STATICURL}image/traderank/seller/$space[sellerrank].gif" border="0" class="vm" /></a></li>
 		<!--{/if}-->
 		<li><em>{lang credits}</em>$space[credits]</li>
 		<!--{loop $_G[setting][extcredits] $key $value}-->

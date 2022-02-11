@@ -120,7 +120,7 @@
 								<a href="forum.php?mod=viewthread&tid=$tradelog[tid]&do=tradeinfo&pid=$tradelog[pid]" class="xg1">$tradelog[threadsubject]</a>
 							</td>
 							<td>
-								<!--{if $item == 'selltrades'}-->
+								<!--{if $item == 'buytrades'}-->
 									<!--{if $tradelog['buyerid']}--><a target="_blank" href="home.php?mod=space&uid=$tradelog[buyerid]">$tradelog[buyer]</a><!--{else}-->$tradelog[buyer]<!--{/if}-->
 								<!--{else}-->
 									<a target="_blank" href="home.php?mod=space&uid=$tradelog[sellerid]">$tradelog[seller]</a>
