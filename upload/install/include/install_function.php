@@ -926,7 +926,7 @@ function show_db_install() {
 				x.open(method, url, async);
 				x.onreadystatechange = function () {
 					if((x.readyState == 4) && (typeof callback == 'function')) {
-						callback(x.responseText);
+						callback(x.responseText, x.status);
 					}
 				};
 				if(method == 'POST') {
@@ -979,6 +979,7 @@ function show_db_install() {
 
 			var old_log_data = '';
 			var log_offset = 0;
+			var stuck_times = 0;
 
 			function request_do_db_init() {
 				// 发起数据库初始化请求
@@ -990,13 +991,29 @@ function show_db_install() {
 
 			function request_log() {
 				var timest = new Date().getTime().toString().substring(5);
-				ajax.get('index.php?method=check_db_init_progress&timestamp=' + timest + '&offset=' + log_offset, function (data) {
+				ajax.get('index.php?method=check_db_init_progress&timestamp=' + timest + '&offset=' + log_offset, function (data, status) {
+					// 新增对于 >= 400 状态的判断, 避免被服务器自带安全软件或者 CDN 拉黑地址之后不报错
+					if(status >= 400) {
+						append_notice('<p class="red">HTTP '+status+' <?= lang('failed') ?></p>');
+						append_notice('<p class="red"><?= lang('error_quit_msg') ?></p>');
+						add_instfail();
+						return;
+					}
 					log_offset = parseInt(data.substring(0,5));
 					data = data.substring(5);
-					if(data === old_log_data) {
+					if(stuck_times >= 120) {
+						// 如果安装程序两分钟没有响应, 则提示安装可能卡死
+						stuck_times = 0;
+						append_notice('<p class="red"><?= lang('error_stuck_msg') ?></p>');
 						setTimeout(request_log, 1000);
 						return;
 					}
+					if(data === old_log_data && stuck_times < 120) {
+						stuck_times++;
+						setTimeout(request_log, 1000);
+						return;
+					}
+					stuck_times = 0;
 					old_log_data = data;
 					append_notice(
 						data.trim().split("\n").map(function(l) {
@@ -1033,9 +1050,13 @@ function show_db_install() {
 					// 数据库初始化成功就进行系统初始化
 					append_notice("<p><?= lang('initsys') ?> ... </p>");
 					refresh_lastmsg();
-					ajax.get('../misc.php?mod=initsys', function(callback) {
-						if(callback.indexOf('Access Denied') !== -1 || callback.indexOf('Discuz! Database Error') !== -1 || callback.indexOf('Discuz! System Error') !== -1) {
-							append_notice('<p class="red"><?= lang('failed') ?></p>');
+					ajax.get('../misc.php?mod=initsys', function(callback, status) {
+						if(status >= 400 || callback.indexOf('Access Denied') !== -1 || callback.indexOf('Discuz! Database Error') !== -1 || callback.indexOf('Discuz! System Error') !== -1) {
+							if(status >= 400) {
+								append_notice('<p class="red">HTTP '+status+' <?= lang('failed') ?></p>');
+							} else {
+								append_notice('<p class="red"><?= lang('failed') ?></p>');
+							}
 							append_notice('<p class="red"><?= lang('error_quit_msg') ?></p>');
 							document.getElementById('laststep').value = '<?= lang('error_quit_msg') ?>';
 							add_instfail();

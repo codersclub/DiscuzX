@@ -77,6 +77,7 @@ $lang = array(
 	'ext_info_succ' => '安装成功。',
 	'install_submit' => '提交',
 	'install_locked' => '安装锁定，已经安装过了，如果您确定要重新安装，请到服务器上删除<br /> '.str_replace(ROOT_PATH, '', $lockfile),
+	'error_stuck_msg' => '安装进程已经很久没有进展了，可能相关请求已经因网络超时或服务器严重错误而异常退出',
 	'error_quit_msg' => '您必须解决以上问题，安装才可以继续',
 
 	'step_app_reg_title' => '设置运行环境',
