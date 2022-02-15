@@ -51,7 +51,7 @@ class magic_friendnum {
 		$addnum = !empty($this->parameters['addnum']) ? intval($this->parameters['addnum']) : 10;
 		C::t('common_member_field_home')->increase($_G['uid'], array('addfriend' => $addnum));
 		usemagic($this->magic['magicid'], $this->magic['num']);
-		updatemagiclog($magic['magicid'], '2', '1', '0', '0', 'uid', $_G['uid']);
+		updatemagiclog($this->magic['magicid'], '2', '1', '0', '0', 'uid', $_G['uid']);
 		showmessage('magics_friendadd_message', '', array('num'=>intval($this->parameters['addnum'])), array('alert' => 'right', 'showdialog' => 1));
 	}
 
