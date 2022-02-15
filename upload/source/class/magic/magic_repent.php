@@ -63,7 +63,7 @@ class magic_repent {
 			if($have_replycredit = C::t('forum_replycredit')->fetch($post['tid'])) {
 				$thread = C::t('forum_thread')->fetch($post['tid']);
 				if($thread['replycredit']) {
-					updatemembercount($post['authorid'], array($_G['setting']['creditstransextra'][10] => $replycredit));
+					updatemembercount($post['authorid'], array($_G['setting']['creditstransextra'][10] => -$thread['replycredit']));
 				}
 				C::t('forum_replycredit')->delete($post['tid']);
 				C::t('common_credit_log')->delete_by_operation_relatedid(array('RCT', 'RCA', 'RCB'), $post['tid']);
@@ -117,7 +117,7 @@ class magic_repent {
 		if($post['authorid'] != $_G['uid']) {
 			showmessage(lang('magic/repent', 'repent_info_user_noperm'));
 		}
-		if(getstatus($post['thread_status'], 3)) {
+		if(getstatus($post['status'], 3)) {
 			showmessage(lang('magic/repent', 'repent_do_not_rushreply'));
 		}
 	}
