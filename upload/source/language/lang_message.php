@@ -311,6 +311,7 @@ $lang = array (
   'attachment_buyall' => '本帖所有附件购买成功 ',
   'attachment_buy' => '附件购买成功，开始下载“{filename}”',
   'attachment_mobile_buy' => '附件购买成功',
+  'attachment_locked' => '抱歉，由于您所发起的其他附件购买操作正在进行，因此您无法购买当前附件，请稍后再试',
   'no_privilege_postimage' => '抱歉，您目前没有权限上传图片，<a href="home.php?mod=spacecp&ac=usergroup" target="_blank">点击这里查看权限</a>',
   'no_privilege_postattach' => '抱歉，您目前没有权限上传附件，<a href="home.php?mod=spacecp&ac=usergroup" target="_blank">点击这里查看权限</a>',
   'thread_closed' => '该帖子已被关闭，不能评论！',

@@ -134,6 +134,7 @@ if($_GET['action'] == 'paysucceed') {
 		}
 
 		if($status == 1) {
+			discuz_process::unlock($lockid);
 			showmessage('credits_balance_insufficient', '', array('title' => $_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['title'], 'minbalance' => $attach['price']));
 		}
 		foreach($aids as $aid) {
@@ -166,6 +167,8 @@ if($_GET['action'] == 'paysucceed') {
 				showmessage('attachment_buy', "forum.php?mod=attachment&aid=$aidencode", array('filename' => $_G['forum_attach_filename']), array('redirectmsg' => 1));
 			}
 		}
+	} else {
+		showmessage('attachment_locked');
 	}
 
 } elseif($_GET['action'] == 'viewattachpayments') {
