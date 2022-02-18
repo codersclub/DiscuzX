@@ -169,7 +169,7 @@ if(!$operation) {
 				$medalstatus = empty($modmedal['expiration']) ? 0 : 1;
 				$modmedal['expiration'] = $modmedal['expiration'] ? (TIMESTAMP + $modmedal['expiration'] - $modmedal['dateline']) : '';
 				$medalsnew[$modmedal['uid']][] = $modmedal['medalid'].(empty($modmedal['expiration']) ? '' : '|'.$modmedal['expiration']);
-				C::t('forum_medallog')->update($modmedal['id'], array('type' => 1, 'status' => $medalstatus, 'expiration' => $modmedal['expiration']));
+				C::t('forum_medallog')->update($modmedal['id'], array('type' => 1, 'status' => $medalstatus, 'expiration' => $modmedal['expiration'], 'dateline' => TIMESTAMP));
 				C::t('common_member_medal')->insert(array('uid' => $modmedal['uid'], 'medalid' => $modmedal['medalid']), 0, 1);
 			}
 

@@ -63,7 +63,7 @@
 								<div id="medal_$medal[medalid]" class="mg_img" onmouseover="showMenu({'ctrlid':this.id, 'menuid':'medal_$medal[medalid]_menu', 'pos':'12!'});"><img src="{STATICURL}image/common/$medal[image]" alt="$medal[name]" style="margin-top: 20px;width:auto; height: auto;" /></div>
 								<p class="xw1">$medal[name]</p>
 								<p>
-									<!--{if in_array($medal[medalid], $membermedal)}-->
+									<!--{if in_array($medal[medalid], $membermedal) && $medal[type] != 1}-->
 										{lang space_medal_have}
 									<!--{else}-->
 										<!--{if $medal[type] && $_G['uid']}-->
@@ -71,7 +71,7 @@
 												<!--{if $medal['price']}-->
 													{lang space_medal_purchased}
 												<!--{else}-->
-													<!--{if !$medal[permission]}-->
+													<!--{if $medal[type] == 2}-->
 														{lang space_medal_applied}
 													<!--{else}-->
 														{lang space_medal_receive}
@@ -82,7 +82,7 @@
 													<!--{if $medal['price']}-->
 														{lang space_medal_buy}
 													<!--{else}-->
-														<!--{if !$medal[permission]}-->
+														<!--{if $medal[type] == 2}-->
 															{lang medals_apply}
 														<!--{else}-->
 															{lang medals_draw}
