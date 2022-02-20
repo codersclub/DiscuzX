@@ -124,14 +124,15 @@ function getranklist_activity($num = 20, $view = 'heats', $orderby = 'all') {
 }
 
 function getranklist_picture($num = 20, $view = 'hot', $orderby = 'all') {
-	$timestamp = TIMESTAMP - 86400;
-	$dateline = 'p.'.DB::field('dateline', $timestamp, '>=');
-
+	
 	if($orderby == 'thisweek') {
 		$timestamp = TIMESTAMP - 604800;
 		$dateline = 'p.'.DB::field('dateline', $timestamp, '>=');
 	} elseif($orderby == 'thismonth') {
 		$timestamp = TIMESTAMP - 2592000;
+		$dateline = 'p.'.DB::field('dateline', $timestamp, '>=');
+	} elseif($orderby == 'today') {
+		$timestamp = TIMESTAMP - 86400;
 		$dateline = 'p.'.DB::field('dateline', $timestamp, '>=');
 	}
 
