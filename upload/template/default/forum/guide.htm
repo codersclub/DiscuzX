@@ -82,7 +82,7 @@
 				<!--{/loop}-->
 			<!--{else}-->
 				<!--{loop $data $key $list}-->
-				<div id="threadlist" class="tl bm bmw"{if $_G['uid']} style="position: relative;"{/if}>
+				<div id="threadlist" class="tl bm bmw tbmu"{if $_G['uid']} style="position: relative;"{/if}>
 					<div class="th">
 						<table cellspacing="0" cellpadding="0">
 							<tr>
@@ -145,7 +145,7 @@
 				<!--{/loop}-->
 				<div class="bm bw0 pgs cl">
 					$multipage
-					<span class="pgb y"><a href="forum.php?mod=guide">{lang guide_index}</a></span>
+					<span class="pgb y"><a href="forum.php?mod=guide&view=index">{lang guide_index}</a></span>
 				</div>
 			<!--{/if}-->
 			<!--{hook/guide_bottom}-->
