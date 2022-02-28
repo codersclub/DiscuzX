@@ -694,7 +694,16 @@ function showsetting($setname, $varname, $value, $type = 'radio', $disabled = ''
 			if(empty($option[2])) {
 				$s .= "<option value=\"$option[0]\" $selected>".$option[1]."</option>\n";
 			} else {
-				$s .= "<optgroup label=\"".$option[1]."\"></optgroup>\n";
+				if(is_array($option[2])) {
+					$s .= "<optgroup label=\"".$option[1]."\">\n";
+					foreach($option[2] as $groupoption) {
+						$selected = is_array($value) && in_array($groupoption[0], $value) ? 'selected="selected"' : '';
+						$s .= "<option value=\"$groupoption[0]\" $selected>".$groupoption[1]."</option>\n";
+					}
+					$s .= "</optgroup>\n";
+				} else {
+					$s .= "<optgroup label=\"".$option[1]."\"></optgroup>\n";
+				}
 			}
 		}
 		$s .= '</select>';
