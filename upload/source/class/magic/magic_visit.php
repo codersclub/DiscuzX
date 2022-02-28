@@ -91,7 +91,7 @@ class magic_visit {
 				C::t('home_poke')->insert($insertdata, false, true);
 			}
 			$repokeids = array();
-			foreach(C::t('home_poke')->fetch_all_by_uid_fromuid($fids, $_G['uid']) as $value) {
+			foreach(C::t('home_poke')->fetch_all_by_uid_fromuid($_G['uid'], $fids) as $value) {
 				$repokeids[] = $value['uid'];
 			}
 			$ids = array_diff($fids, $repokeids);
