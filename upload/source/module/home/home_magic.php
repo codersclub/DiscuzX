@@ -450,9 +450,7 @@ if($action == 'shop') {
 			foreach($luids as $log) {
 				$luids[$log['uid']] = $log['uid'];
 			}
-			$members = C::t('common_magiclog')->fetch_all($luids);
 			foreach($logs as $log) {
-				$log['username'] = $members[$log['uid']]['username'];
 				$log['dateline'] = dgmdate($log['dateline'], 'u');
 				$log['name'] = $magicarray[$log['magicid']]['name'];
 				$loglist[] = $log;

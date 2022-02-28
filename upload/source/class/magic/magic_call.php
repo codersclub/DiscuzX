@@ -47,11 +47,12 @@ class magic_call {
 				$list[] = $value;
 				$note_inserts[] = array(
 					'uid' => $value['fuid'],
-					'type' => $name,
+					'type' => "magic",
 					'new' => 1,
 					'authorid' => $_G['uid'],
 					'author' => $_G['username'],
 					'note' => $note,
+					'category' => 3,					
 					'dateline' => $_G['timestamp']
 				);
 			}
