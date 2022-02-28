@@ -165,16 +165,15 @@ class sms {
 	protected static function output($smsgw, $uid, $smstype, $svctype, $secmobicc, $secmobile, $content) {
 		global $_G;
 		$efile = explode(':', $smsgw['class']);
-		$efilename = 'smsgw_' . $smsgw['class'] . '.php';
 		if(is_array($efile) && count($efile) > 1) {
-			$smsgwfile = in_array($efile[0], $_G['setting']['plugins']['available']) ? DISCUZ_ROOT.'./source/plugin/'.$efile[0].'/smsgw/'.$efile[1] : '';
+			$smsgwfile = in_array($efile[0], $_G['setting']['plugins']['available']) ? DISCUZ_ROOT.'./source/plugin/'.$efile[0].'/smsgw/smsgw_'. $efile[1] . '.php' : '';
 		} else {
-			$smsgwfile = DISCUZ_ROOT.'./source/class/smsgw/'.$efilename;
+			$smsgwfile = DISCUZ_ROOT.'./source/class/smsgw/smsgw_' . $smsgw['class'] . '.php';
 		}
 
 		if($smsgwfile) {
 			include($smsgwfile);
-			$classname = 'smsgw_' . $smsgw['class'];
+			$classname = 'smsgw_' . ((is_array($efile) && count($efile) > 1) ? $efile[1] : $smsgw['class']);
 			if(class_exists($classname)) {
 				$class = new $classname();
 				$result = $class->send($uid, $smstype, $svctype, $secmobicc, $secmobile, array('content' => $content));
