@@ -192,7 +192,7 @@ function saveAvatar() {
     ctx.fillRect(0, 0, tw, th);
     ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(img, sl, st, sw, sh, 0, 0, tw, th);
-    var dataURL = canvas.toDataURL("image/jpeg");
+    var dataURL = canvas.toDataURL("image/jpeg", 1.0);
     jQuery('#avatar1').val(dataURL.substr(dataURL.indexOf(",") + 1));
 
     var tw = sw;
@@ -210,7 +210,7 @@ function saveAvatar() {
     ctx.fillRect(0, 0, tw, th);
     ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(img, sl, st, sw, sh, 0, 0, tw, th);
-    var dataURL = canvas.toDataURL("image/jpeg");
+    var dataURL = canvas.toDataURL("image/jpeg", 1.0);
     jQuery('#avatar2').val(dataURL.substr(dataURL.indexOf(",") + 1));
 
     var mwh = Math.min(sw, sh);
@@ -232,7 +232,7 @@ function saveAvatar() {
     ctx.fillRect(0, 0, tw, th);
     ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(img, sl, st, sw, sh, 0, 0, tw, th);
-    var dataURL = canvas.toDataURL("image/jpeg");
+    var dataURL = canvas.toDataURL("image/jpeg", 1.0);
     jQuery('#avatar3').val(dataURL.substr(dataURL.indexOf(",") + 1));
 
     var src = $('avatarform').action;
