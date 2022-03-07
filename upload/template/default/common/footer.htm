@@ -86,7 +86,7 @@
 	</div>
 <!--{/if}-->
 
-<!--{if !$_G['setting']['bbclosed'] && !$_G['member']['freeze']}-->
+<!--{if !$_G['setting']['bbclosed'] && !$_G['member']['freeze'] && $_G['member']['groupid'] != 5}-->
 	<!--{if $_G[uid] && !isset($_G['cookie']['checkpm'])}-->
 	<script type="text/javascript" src="home.php?mod=spacecp&ac=pm&op=checknewpm&rand=$_G[timestamp]"></script>
 	<!--{/if}-->
@@ -115,15 +115,15 @@
 	<div class="focus plugin" id="plugin_notice"></div>
 	<script type="text/javascript">pluginNotice();</script>
 <!--{/if}-->
-<!--{if !$_G['setting']['bbclosed'] && !$_G['member']['freeze'] && !$_G['member']['groupexpiry'] && $_G['setting']['disableipnotice'] != 1 && $_G['uid'] && !empty($_G['cookie']['lip'])}-->
+<!--{if !$_G['setting']['bbclosed'] && !$_G['member']['freeze'] && $_G['member']['groupid'] != 5 && !$_G['member']['groupexpiry'] && $_G['setting']['disableipnotice'] != 1 && $_G['uid'] && !empty($_G['cookie']['lip'])}-->
 	<div class="focus plugin" id="ip_notice"></div>
 	<script type="text/javascript">ipNotice();</script>
 <!--{/if}-->
-<!--{if $_G['member']['newprompt'] && (empty($_G['cookie']['promptstate_'.$_G[uid]]) || $_G['cookie']['promptstate_'.$_G[uid]] != $_G['member']['newprompt']) && $_GET['do'] != 'notice'}-->
+<!--{if $_G['member']['newprompt'] && (empty($_G['cookie']['promptstate_'.$_G[uid]]) || $_G['cookie']['promptstate_'.$_G[uid]] != $_G['member']['newprompt']) && $_GET['do'] != 'notice' && !$_G['member']['freeze'] && $_G['member']['groupid'] != 5}-->
 	<script type="text/javascript">noticeTitle();</script>
 <!--{/if}-->
 
-<!--{if ($_G[member][newpm] || $_G[member][newprompt]) && empty($_G['cookie']['ignore_notice'])}-->
+<!--{if ($_G[member][newpm] || $_G[member][newprompt]) && empty($_G['cookie']['ignore_notice'] && !$_G['member']['freeze'] && $_G['member']['groupid'] != 5)}-->
 	<script type="text/javascript" src="{$_G[setting][jspath]}html5notification.js?{VERHASH}"></script>
 	<script type="text/javascript">
 	var h5n = new Html5notification();
