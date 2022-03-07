@@ -14,14 +14,14 @@ function testlink() {
 function generatekey() {
 	var scriptNode = document.createElement('script');
 	scriptNode.type = 'text/javascript';
-	scriptNode.src = 'admin.php?m=app&a=generatekey&inajax=1&sid=$sid';
+	scriptNode.src = '{UC_ADMINSCRIPT}?m=app&a=generatekey&inajax=1&sid=$sid';
 	document.getElementsByTagName('head')[0].appendChild(scriptNode);
 }
 window.onload = testlink;
 </script>
 <div class="container">
 	<!--{if $a == 'ls'}-->
-		<h3 class="marginbot">{lang app_list}<a href="admin.php?m=app&a=add" class="sgbtn">{lang app_add}</a></h3>
+		<h3 class="marginbot">{lang app_list}<a href="{UC_ADMINSCRIPT}?m=app&a=add" class="sgbtn">{lang app_add}</a></h3>
 		<!--{if !$status}-->
 			<div class="note fixwidthdec">
 				<p class="i">{lang app_list_tips}</p>
@@ -31,7 +31,7 @@ window.onload = testlink;
 		<!--{/if}-->
 		<div class="mainbox">
 			<!--{if $applist}-->
-				<form action="admin.php?m=app&a=ls" method="post">
+				<form action="{UC_ADMINSCRIPT}?m=app&a=ls" method="post">
 					<input type="hidden" name="formhash" value="{FORMHASH}">
 					<table class="datalist fixwidth" onmouseover="addMouseEvent(this);">
 						<tr>
@@ -47,10 +47,10 @@ window.onload = testlink;
 							<tr>
 								<td width="50"><input type="checkbox" name="delete[]" value="$app[appid]" class="checkbox" /></td>
 								<td width="35">$app[appid]</td>
-								<td><a href="admin.php?m=app&a=detail&appid=$app[appid]"><strong>$app[name]</strong></a></td>
+								<td><a href="{UC_ADMINSCRIPT}?m=app&a=detail&appid=$app[appid]"><strong>$app[name]</strong></a></td>
 								<td><a href="$app[url]" target="_blank">$app[url]</a></td>
-								<td width="90"><div id="status_$app[appid]"></div><script id="link_$app[appid]" testlink="admin.php?m=app&a=ping&inajax=1&url={eval echo urlencode($app['url']);}&ip={eval echo urlencode($app['ip']);}&appid=$app[appid]&random={eval echo rand()}"></script><script>apps[$i] = '$app[appid]';</script></td>
-								<td width="40"><a href="admin.php?m=app&a=detail&appid=$app[appid]">{lang app_edit}</a></td>
+								<td width="90"><div id="status_$app[appid]"></div><script id="link_$app[appid]" testlink="{UC_ADMINSCRIPT}?m=app&a=ping&inajax=1&url={eval echo urlencode($app['url']);}&ip={eval echo urlencode($app['ip']);}&appid=$app[appid]&random={eval echo rand()}"></script><script>apps[$i] = '$app[appid]';</script></td>
+								<td width="40"><a href="{UC_ADMINSCRIPT}?m=app&a=detail&appid=$app[appid]">{lang app_edit}</a></td>
 							</tr>
 							<!--{eval $i++}-->
 						<!--{/loop}-->
@@ -67,7 +67,7 @@ window.onload = testlink;
 			<!--{/if}-->
 		</div>
 	<!--{elseif $a == 'add'}-->
-		<h3 class="marginbot">{lang app_add}<a href="admin.php?m=app&a=ls" class="sgbtn">{lang app_list_return}</a></h3>
+		<h3 class="marginbot">{lang app_add}<a href="{UC_ADMINSCRIPT}?m=app&a=ls" class="sgbtn">{lang app_list_return}</a></h3>
 		<div class="note"><p>{lang app_not_add_tips}</p></div>
 		<div class="mainbox">
 			<table class="opt">
@@ -99,7 +99,7 @@ window.onload = testlink;
 				</form>
 			</div>
 			<div id="custom">
-				<form action="admin.php?m=app&a=add" method="post">
+				<form action="{UC_ADMINSCRIPT}?m=app&a=add" method="post">
 				<input type="hidden" name="formhash" value="{FORMHASH}">
 					<table class="opt">
 						<tr>
@@ -213,14 +213,14 @@ window.onload = testlink;
 			</div>
 		</div>
 	<!--{else}-->
-		<h3 class="marginbot">{lang app_setting}<a href="admin.php?m=app&a=ls" class="sgbtn">{lang app_list_return}</a></h3>
+		<h3 class="marginbot">{lang app_setting}<a href="{UC_ADMINSCRIPT}?m=app&a=ls" class="sgbtn">{lang app_list_return}</a></h3>
 		<!--{if $updated}-->
 			<div class="correctmsg"><p>{lang update_succeed}</p></div>
 		<!--{elseif $addapp}-->
 			<div class="correctmsg"><p>{lang app_add_succeed}</p></div>
 		<!--{/if}-->
 		<div class="mainbox">
-			<form action="admin.php?m=app&a=detail&appid=$appid" method="post">
+			<form action="{UC_ADMINSCRIPT}?m=app&a=detail&appid=$appid" method="post">
 			<input type="hidden" name="formhash" value="{FORMHASH}">
 				<table class="opt">
 					<tr>

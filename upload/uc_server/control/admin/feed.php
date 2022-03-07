@@ -34,7 +34,7 @@ class control extends adminbase {
 		$delete = getgpc('delete', 'P');
 		$num = $_ENV['feed']->get_total_num();
 		$feedlist = $_ENV['feed']->get_list($page, UC_PPP, $num);
-		$multipage = $this->page($num, UC_PPP, $page, 'admin.php?m=feed&a=ls');
+		$multipage = $this->page($num, UC_PPP, $page, UC_ADMINSCRIPT.'?m=feed&a=ls');
 
 		$this->view->assign('feedlist', $feedlist);
 		$this->view->assign('multipage', $multipage);

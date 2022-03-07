@@ -15,7 +15,7 @@
 			<li class="tabcurrent"><a href="#" class="tabcurrent">{lang creditexchange_update}</a></li>
 		</ul>
 		<div class="tabcontentcur">
-			<form id="creditform" action="admin.php?m=credit&a=ls&addexchange=yes" method="post">
+			<form id="creditform" action="{UC_ADMINSCRIPT}?m=credit&a=ls&addexchange=yes" method="post">
 			<input type="hidden" name="formhash" value="{FORMHASH}">
 			<table class="dbtb">
 				<tr>
@@ -42,7 +42,7 @@
 					<td></td>
 					<td>
 						<input type="submit" value="{lang submit}" class="btn" /> &nbsp;
-						<input type="button" value="{lang creditexchange_syncappcredits}" class="btn" onclick="location.href='admin.php?m=credit&a=sync&sid=$sid'" />
+						<input type="button" value="{lang creditexchange_syncappcredits}" class="btn" onclick="location.href='{UC_ADMINSCRIPT}?m=credit&a=sync&sid=$sid'" />
 					</td>
 				</tr>
 			</table>
@@ -73,7 +73,7 @@
 	<h3>{lang creditexchange}</h3>
 	<div class="mainbox">
 		<!--{if $creditexchange}-->
-			<form action="admin.php?m=credit&a=ls&delexchange=yes" method="post">
+			<form action="{UC_ADMINSCRIPT}?m=credit&a=ls&delexchange=yes" method="post">
 			<input type="hidden" name="formhash" value="{FORMHASH}">
 			<table class="datalist fixwidth" onmouseover="addMouseEvent(this);">
 				<tr>

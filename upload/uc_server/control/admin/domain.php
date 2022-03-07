@@ -58,7 +58,7 @@ class control extends adminbase {
 		}
 		$num = $_ENV['domain']->get_total_num();
 		$domainlist = $_ENV['domain']->get_list($_GET['page'], UC_PPP, $num);
-		$multipage = $this->page($num, UC_PPP, $_GET['page'], 'admin.php?m=domain&a=ls');
+		$multipage = $this->page($num, UC_PPP, $_GET['page'], UC_ADMINSCRIPT.'?m=domain&a=ls');
 
 		$this->view->assign('status', $status);
 		$this->view->assign('domainlist', $domainlist);

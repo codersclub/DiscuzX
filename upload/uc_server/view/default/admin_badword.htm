@@ -22,7 +22,7 @@
 			<li id="adduserbtn"><a href="#" onclick="switchbtn('add');">{lang badword_multi_add}</a></li>
 		</ul>
 		<div id="adduserdiv" class="tabcontent" style="display:none;">
-			<form action="admin.php?m=badword&a=ls" method="post">
+			<form action="{UC_ADMINSCRIPT}?m=badword&a=ls" method="post">
 				<ul class="tiplist">
 					{lang badword_multi_add_comment}
 				</ul>
@@ -37,7 +37,7 @@
 
 		</div>
 		<div id="srchuserdiv" class="tabcontentcur">
-			<form action="admin.php?m=badword&a=ls" method="post">
+			<form action="{UC_ADMINSCRIPT}?m=badword&a=ls" method="post">
 			<input type="hidden" name="formhash" value="{FORMHASH}">
 			<table>
 				<tr>
@@ -55,7 +55,7 @@
 	<h3>{lang badword_list}</h3>
 	<div class="mainbox">
 		<!--{if $badwordlist}-->
-			<form action="admin.php?m=badword&a=ls" method="post">
+			<form action="{UC_ADMINSCRIPT}?m=badword&a=ls" method="post">
 				<table class="datalist fixwidth">
 					<tr>
 						<th><input type="checkbox" name="chkall" id="chkall" onclick="checkall('delete[]')" class="checkbox" /><label for="chkall">{lang badword_delete}</label></th>

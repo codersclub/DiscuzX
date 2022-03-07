@@ -26,7 +26,7 @@ class control extends adminbase {
 	function onindex() {
 		$this->view->assign('sid', $this->view->sid);
 		$mainurl = getgpc('mainurl');
-		$mainurl = !empty($mainurl) && preg_match("/^admin\.php\?(&*\w+=\w+)*$/i", $mainurl) ? $mainurl : 'admin.php?m=frame&a=main&sid='.$this->view->sid;
+		$mainurl = !empty($mainurl) && preg_match("/^".UC_ADMINSCRIPT."\.php\?(&*\w+=\w+)*$/i", $mainurl) ? $mainurl : UC_ADMINSCRIPT.'?m=frame&a=main&sid='.$this->view->sid;
 		$this->view->assign('mainurl', $mainurl);
 		$this->view->display('admin_frame_index');
 	}

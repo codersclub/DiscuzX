@@ -10,7 +10,7 @@
 			<li class="tabcurrent"><a href="#" class="tabcurrent">{lang domain_add}</a></li>
 		</ul>
 		<div class="tabcontentcur">
-			<form action="admin.php?m=domain&a=ls" method="post">
+			<form action="{UC_ADMINSCRIPT}?m=domain&a=ls" method="post">
 			<input type="hidden" name="formhash" value="{FORMHASH}">
 			<table>
 				<tr>
@@ -27,7 +27,7 @@
 	<h3>{lang domain_list}</h3>
 	<div class="mainbox">
 		<!--{if $domainlist}-->
-			<form action="admin.php?m=domain&a=ls" method="post">
+			<form action="{UC_ADMINSCRIPT}?m=domain&a=ls" method="post">
 				<input type="hidden" name="formhash" value="{FORMHASH}">
 				<table class="datalist fixwidth">
 					<tr>

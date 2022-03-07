@@ -217,7 +217,7 @@ $languages = array(
 					<li>badword=good</li>',
 	'badword_skip' => '当冲突时，跳过原来的词表',
 	'badword_overwrite' => '当冲突时，覆盖原来的词表',
-	'badword_truncate' => '清空当前词表，后导入新词语（此操作不可恢复，建议首先<a href="admin.php?m=badword&a=export" target="_blanks">导出词表</a>，做好备份）',
+	'badword_truncate' => '清空当前词表，后导入新词语（此操作不可恢复，建议首先 <a href="{$adminscript}?m=badword&a=export" target="_blank">导出词表</a>，做好备份）',
 
 	'announcepm' => '公共消息管理',
 	'announcepm_deleted' => '成功删除公共消息',

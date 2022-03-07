@@ -4,13 +4,13 @@
 <div class="container">
 	<h3 class="marginbot">
 		{lang feed_list}
-		<!--{if $user['isfounder'] || $user['allowadminnote']}--><a href="admin.php?m=note&a=ls" class="sgbtn">{lang note_list}</a><!--{/if}-->
-		<!--{if $user['isfounder'] || $user['allowadminlog']}--><a href="admin.php?m=log&a=ls" class="sgbtn">{lang menu_log}</a><!--{/if}-->
-		<a href="admin.php?m=mail&a=ls" class="sgbtn">{lang mail_queue}</a>
+		<!--{if $user['isfounder'] || $user['allowadminnote']}--><a href="{UC_ADMINSCRIPT}?m=note&a=ls" class="sgbtn">{lang note_list}</a><!--{/if}-->
+		<!--{if $user['isfounder'] || $user['allowadminlog']}--><a href="{UC_ADMINSCRIPT}?m=log&a=ls" class="sgbtn">{lang menu_log}</a><!--{/if}-->
+		<a href="{UC_ADMINSCRIPT}?m=mail&a=ls" class="sgbtn">{lang mail_queue}</a>
 	</h3>
 	<div class="mainbox">
 		<!--{if $feedlist}-->
-			<form action="admin.php?m=note&a=ls" method="post">
+			<form action="{UC_ADMINSCRIPT}?m=note&a=ls" method="post">
 			<input type="hidden" name="formhash" value="{FORMHASH}">
 			<table class="datalist" style="table-layout:fixed">
 				<tr>

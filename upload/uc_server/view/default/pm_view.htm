@@ -68,7 +68,7 @@
 		{template pm_editorbar}
 		<textarea class="listarea" id="pm_textarea" rows="6" cols="10" name="message" onKeyDown="ctlent(event)"></textarea>
 		<!--{if $sendpmseccode}-->
-			<p><label><input type="text" name="seccode" value="" size="5" /> <img width="70" height="21" src="admin.php?m=seccode&seccodeauth=$seccodeinit&{eval echo rand();}" /></label></p>
+			<p><label><input type="text" name="seccode" value="" size="5" /> <img width="70" height="21" src="index.php?m=seccode&seccodeauth=$seccodeinit&{eval echo rand();}" /></label></p>
 		<!--{/if}-->
 		<p class="pages_btns"><button name="pmsubmit" class="pmsubmit" type="submit">{lang pm_sendpm}</button></p>
 		</form>

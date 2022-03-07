@@ -7,10 +7,10 @@
 	<div class="hastabmenu" style="height: 200px;">
 		<ul class="tabmenu">
 			<li class="tabcurrent"><a href="javascript:;" class="tabcurrent">{lang pm_search}</a></li>
-			<li><a href="admin.php?m=pm&a=clear">{lang pm_clear}</a></li>
+			<li><a href="{UC_ADMINSCRIPT}?m=pm&a=clear">{lang pm_clear}</a></li>
 		</ul>
 		<div id="searchpmdiv" class="tabcontentcur">
-			<form action="admin.php?m=pm&a=ls" method="post">
+			<form action="{UC_ADMINSCRIPT}?m=pm&a=ls" method="post">
 				<input type="hidden" name="formhash" value="{FORMHASH}">
 				<table class="dbtb">
 					<tr>
@@ -55,7 +55,7 @@
 	<h3>{lang pm_list}</h3>
 	<div class="mainbox">
 		<!--{if $pmlist}-->
-			<form action="admin.php?m=pm&a=delete" onsubmit="return confirm('{lang pm_delete_confirm}');" method="post">
+			<form action="{UC_ADMINSCRIPT}?m=pm&a=delete" onsubmit="return confirm('{lang pm_delete_confirm}');" method="post">
 			<input type="hidden" name="formhash" value="{FORMHASH}">
 			<input type="hidden" name="srchtablename" value="$srchtablename">
 			<input type="hidden" name="srchauthor" value="$srchauthor">

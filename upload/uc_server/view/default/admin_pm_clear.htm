@@ -6,11 +6,11 @@
 	<!--{/if}-->
 	<div class="hastabmenu" style="height: 180px;">
 		<ul class="tabmenu">
-			<li><a href="admin.php?m=pm&a=ls">{lang pm_search}</a></li>
+			<li><a href="{UC_ADMINSCRIPT}?m=pm&a=ls">{lang pm_search}</a></li>
 			<li class="tabcurrent"><a href="javascript:;" class="tabcurrent">{lang pm_clear}</a></li>
 		</ul>
 		<div class="tabcontentcur">
-			<form action="admin.php?m=pm&a=clear" method="post">
+			<form action="{UC_ADMINSCRIPT}?m=pm&a=clear" method="post">
 				<input type="hidden" name="formhash" value="{FORMHASH}">
 				<table class="opt">
 					<tr>

@@ -37,7 +37,7 @@ class control extends adminbase {
 
 		$num = $_ENV['mail']->get_total_num();
 		$maillist = $_ENV['mail']->get_list($page, UC_PPP, $num);
-		$multipage = $this->page($num, UC_PPP, $page, 'admin.php?m=mail&a=ls');
+		$multipage = $this->page($num, UC_PPP, $page, UC_ADMINSCRIPT.'?m=mail&a=ls');
 
 		$this->view->assign('status', $status);
 		$this->view->assign('maillist', $maillist);
@@ -63,10 +63,10 @@ class control extends adminbase {
 		if($status > 0) {
 			return '<font color="green">'.$this->lang['note_succeed'].'</font>';
 		} elseif($status == 0) {
-			$url = 'admin.php?m=note&a=send&appid='.$appid.'&noteid='.$noteid;
+			$url = UC_ADMINSCRIPT.'?m=note&a=send&appid='.$appid.'&noteid='.$noteid;
 			return '<a href="'.$url.'" class="red">'.$this->lang['note_na'].'</a>';
 		} elseif($status < 0) {
-			$url = 'admin.php?m=note&a=send&appid='.$appid.'&noteid='.$noteid;
+			$url = UC_ADMINSCRIPT.'?m=note&a=send&appid='.$appid.'&noteid='.$noteid;
 			return '<a href="'.$url.'"><font color="red">'.$this->lang['note_false'].(-$status).$this->lang['note_times'].'</font></a>';
 		}
 	}

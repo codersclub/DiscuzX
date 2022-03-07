@@ -15,7 +15,7 @@
 					<!--{loop $applist $app}-->
 						<tr>
 							<td width="35">$app[appid]</td>
-							<td><a href="admin.php?m=tag&a=detail&appid=$app[appid]"><strong>$app[name]</strong></a></td>
+							<td><a href="{UC_ADMINSCRIPT}?m=tag&a=detail&appid=$app[appid]"><strong>$app[name]</strong></a></td>
 						</tr>
 					<!--{/loop}-->
 				</table>
@@ -27,12 +27,12 @@
 			<!--{/if}-->
 		</div>
 	<!--{elseif $a == 'detail'}-->
-		<h3 class="marginbot">{lang menu_tag_templates}<a href="admin.php?m=tag&a=ls" class="sgbtn">{lang app_list_return}</a></h3>
+		<h3 class="marginbot">{lang menu_tag_templates}<a href="{UC_ADMINSCRIPT}?m=tag&a=ls" class="sgbtn">{lang app_list_return}</a></h3>
 		<div class="note fixwidthdec">
 		<p>{lang tag_tips}</p></div>
 
 		<div class="mainbox">
-		<form action="admin.php?m=tag&a=detail&appid=$appid" method="post">
+		<form action="{UC_ADMINSCRIPT}?m=tag&a=detail&appid=$appid" method="post">
 		<input type="hidden" name="formhash" value="{FORMHASH}">
 		<table class="opt">
 		<tr>

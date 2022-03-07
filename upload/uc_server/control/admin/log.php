@@ -48,7 +48,7 @@ class control extends adminbase {
 		$start = ($page - 1) * UC_PPP;
 
 		$num = count($loglist);
-		$multipage = $this->page($num, UC_PPP, $page, 'admin.php?m=log&a=ls');
+		$multipage = $this->page($num, UC_PPP, $page, UC_ADMINSCRIPT.'?m=log&a=ls');
 		$loglist = array_slice($loglist, $start, UC_PPP);
 
 		$this->view->assign('loglist', $loglist);

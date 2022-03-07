@@ -6,7 +6,7 @@ function $(id) {
 </script>
 
 <div class="container">
-	<form action="admin.php?m=user&a=login" method="post" id="loginform" {if $iframe}target="_self"{else}target="_top"{/if}>
+	<form action="{UC_ADMINSCRIPT}?m=user&a=login" method="post" id="loginform" {if $iframe}target="_self"{else}target="_top"{/if}>
 		<input type="hidden" name="formhash" value="{FORMHASH}" />
 		<input type="hidden" name="seccodehidden" value="$seccodeinit" />
 		<input type="hidden" name="iframe" value="{$iframe}" />
@@ -29,7 +29,7 @@ function $(id) {
 					</p>
 					<p id="usernamediv">{lang login_username}: <input type="text" name="username" class="txt" tabindex="1" id="username" value="$username" /></p>
 					<p>{lang login_password}: <input type="password" name="password" class="txt" tabindex="2" id="password" value="$password" /></p>
-					<p>{lang login_seccode}: <input type="text" name="seccode" class="txt seccode" tabindex="2" id="seccode" value="" /><img width="70" height="21" src="admin.php?m=seccode&seccodeauth=$seccodeinit&{eval echo rand();}" class="checkcode" /></p>
+					<p>{lang login_seccode}: <input type="text" name="seccode" class="txt seccode" tabindex="2" id="seccode" value="" /><img width="70" height="21" src="{UC_ADMINSCRIPT}?m=seccode&seccodeauth=$seccodeinit&{eval echo rand();}" class="checkcode" /></p>
 					<p class="loginbtn"><input type="submit" name="submit" value="{lang login_submit}" class="btn" tabindex="3" /></p>
 				</td>
 			</tr>

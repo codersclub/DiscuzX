@@ -26,7 +26,7 @@
 				<li id="adduserbtn"><a href="#" onclick="switchbtn('add')">{lang user_add}</a></li>
 			</ul>
 			<div id="adduserdiv" class="tabcontent" style="display:none;">
-				<form action="admin.php?m=user&a=ls&adduser=yes" method="post">
+				<form action="{UC_ADMINSCRIPT}?m=user&a=ls&adduser=yes" method="post">
 				<input type="hidden" name="formhash" value="{FORMHASH}">
 				<table width="100%">
 					<tr>
@@ -42,7 +42,7 @@
 				</form>
 			</div>
 			<div id="srchuserdiv" class="tabcontentcur">
-				<form action="admin.php?m=user&a=ls" method="post">
+				<form action="{UC_ADMINSCRIPT}?m=user&a=ls" method="post">
 				<input type="hidden" name="formhash" value="{FORMHASH}">
 				<table width="100%">
 					<tr>
@@ -69,11 +69,11 @@
 <br />
 		<h3 class="marginbot">
 			{lang user_list}
-			<a class="sgbtn" href="admin.php?m=user&a=logls">{lang menu_log}</a>
+			<a class="sgbtn" href="{UC_ADMINSCRIPT}?m=user&a=logls">{lang menu_log}</a>
 		</h3>
 		<div class="mainbox">
 			<!--{if $userlist}-->
-				<form action="admin.php?m=user&a=ls&srchname=$srchname" onsubmit="return confirm('{lang user_delete_confirm}');" method="post">
+				<form action="{UC_ADMINSCRIPT}?m=user&a=ls&srchname=$srchname" onsubmit="return confirm('{lang user_delete_confirm}');" method="post">
 				<input type="hidden" name="formhash" value="{FORMHASH}">
 				<table class="datalist fixwidth" onmouseover="addMouseEvent(this);">
 					<tr>
@@ -91,7 +91,7 @@
 							<td>$user[email]</td>
 							<td>$user[regdate]</td>
 							<td>$user[regip]</td>
-							<td><a href="admin.php?m=user&a=edit&uid=$user[uid]">{lang edit}</a></td>
+							<td><a href="{UC_ADMINSCRIPT}?m=user&a=edit&uid=$user[uid]">{lang edit}</a></td>
 						</tr>
 					<!--{/loop}-->
 					<tr class="nobg">
@@ -113,9 +113,9 @@
 	<div class="container">
 		<h3 class="marginbot">{lang user_edit_profile}
 			{if getgpc('fromadmin')}
-				<a href="admin.php?m=admin&a=ls" class="sgbtn">{lang admin_return_admin_ls}</a>
+				<a href="{UC_ADMINSCRIPT}?m=admin&a=ls" class="sgbtn">{lang admin_return_admin_ls}</a>
 			{else}
-				<a href="admin.php?m=user&a=ls" class="sgbtn">{lang admin_return_user_ls}</a>
+				<a href="{UC_ADMINSCRIPT}?m=user&a=ls" class="sgbtn">{lang admin_return_user_ls}</a>
 			{/if}
 		</h3>
 		<!--{if $status == 1}-->
@@ -126,7 +126,7 @@
 			<div class="note"><p class="i">{lang user_keep_blank}</p></div>
 		<!--{/if}-->
 		<div class="mainbox">
-			<form action="admin.php?m=user&a=edit&uid=$uid" method="post">
+			<form action="{UC_ADMINSCRIPT}?m=user&a=edit&uid=$uid" method="post">
 			<input type="hidden" name="formhash" value="{FORMHASH}">
 				<table class="opt">
 					<tr>

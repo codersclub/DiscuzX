@@ -10,7 +10,7 @@
 	<!--{/if}-->
 	<!--{if $a == 'ls'}-->
 		<div class="mainbox nomargin">
-			<form action="admin.php?m=setting&a=ls" method="post">
+			<form action="{UC_ADMINSCRIPT}?m=setting&a=ls" method="post">
 				<input type="hidden" name="formhash" value="{FORMHASH}">
 				<table class="opt">
 					<tr>
@@ -176,7 +176,7 @@
 		</div>
 	<!--{elseif $a == 'register'}-->
 		<div class="mainbox nomargin">
-			<form action="admin.php?m=setting&a=register" method="post">
+			<form action="{UC_ADMINSCRIPT}?m=setting&a=register" method="post">
 				<input type="hidden" name="formhash" value="{FORMHASH}">
 				<table class="opt">
 					<tr>
@@ -215,7 +215,7 @@
 		</div>
 	<!--{else}-->
 		<div class="mainbox nomargin">
-			<form action="admin.php?m=setting&a=mail" method="post">
+			<form action="{UC_ADMINSCRIPT}?m=setting&a=mail" method="post">
 				<input type="hidden" name="formhash" value="{FORMHASH}">
 				<table class="opt">
 					<tr>

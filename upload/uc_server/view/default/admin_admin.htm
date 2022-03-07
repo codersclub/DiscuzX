@@ -66,7 +66,7 @@
 				<!--{if $user['isfounder']}--><li id="editpw"><a href="#" onclick="switchbtn('editpw');">{lang admin_modify_founder_pw}</a></li><!--{/if}-->
 			</ul>
 			<div id="addadmindiv" class="tabcontentcur">
-				<form action="admin.php?m=admin&a=ls" method="post">
+				<form action="{UC_ADMINSCRIPT}?m=admin&a=ls" method="post">
 				<input type="hidden" name="formhash" value="{FORMHASH}">
 				<table class="dbtb">
 					<tr>
@@ -104,7 +104,7 @@
 			<!--{if $user['isfounder']}-->
 			<div id="editpwdiv" class="tabcontent" style="display:none;">
 				<p class="i">{lang admin_editfoundertips}</p>
-				<form action="admin.php?m=admin&a=ls" onsubmit="return chkeditpw(this)" method="post">
+				<form action="{UC_ADMINSCRIPT}?m=admin&a=ls" onsubmit="return chkeditpw(this)" method="post">
 				<input type="hidden" name="formhash" value="{FORMHASH}">
 				<table class="dbtb" style="height:123px;">
 					<tr>
@@ -137,7 +137,7 @@
 		<h3>{lang admin_list}</h3>
 		<div class="mainbox">
 			<!--{if $userlist}-->
-				<form action="admin.php?m=admin&a=ls" onsubmit="return confirm('{lang confirm_delete}');" method="post">
+				<form action="{UC_ADMINSCRIPT}?m=admin&a=ls" onsubmit="return confirm('{lang confirm_delete}');" method="post">
 				<input type="hidden" name="formhash" value="{FORMHASH}">
 				<table class="datalist fixwidth" onmouseover="addMouseEvent(this);">
 					<tr>
@@ -156,8 +156,8 @@
 							<td>$user[email]</td>
 							<td class="date">$user[regdate]</td>
 							<td class="ip">$user[regip]</td>
-							<td class="ip"><a href="admin.php?m=user&a=edit&uid=$user[uid]&fromadmin=yes">{lang profile}</a></td>
-							<td class="ip"><a href="admin.php?m=admin&a=edit&uid=$user[uid]">{lang privilege}</a></td>
+							<td class="ip"><a href="{UC_ADMINSCRIPT}?m=user&a=edit&uid=$user[uid]&fromadmin=yes">{lang profile}</a></td>
+							<td class="ip"><a href="{UC_ADMINSCRIPT}?m=admin&a=edit&uid=$user[uid]">{lang privilege}</a></td>
 						</tr>
 					<!--{/loop}-->
 					<tr class="nobg">
@@ -185,7 +185,7 @@
 
 <!--{else}-->
 	<div class="container">
-		<h3 class="marginbot">{lang admin_edit_priv}<a href="admin.php?m=admin&a=ls" class="sgbtn">{lang admin_return_admin_ls}</a></h3>
+		<h3 class="marginbot">{lang admin_edit_priv}<a href="{UC_ADMINSCRIPT}?m=admin&a=ls" class="sgbtn">{lang admin_return_admin_ls}</a></h3>
 		<!--{if $status == 1}-->
 			<div class="correctmsg"><p>{lang admin_priv_modified_successfully}</p></div>
 		<!--{elseif $status == -1}-->
@@ -194,7 +194,7 @@
 			<div class="note">{lang admin_modification_notice}</div>
 		<!--{/if}-->
 		<div class="mainbox">
-			<form action="admin.php?m=admin&a=edit&uid=$uid" method="post">
+			<form action="{UC_ADMINSCRIPT}?m=admin&a=edit&uid=$uid" method="post">
 			<input type="hidden" name="formhash" value="{FORMHASH}">
 				<table class="opt">
 					<tr>

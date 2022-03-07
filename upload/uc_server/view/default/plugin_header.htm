@@ -14,7 +14,7 @@
 <!--{/if}-->
 	<ul class="tabhead">
 		<!--{loop $plugins $v}-->
-			<li id="nav_action_$v[dir]"><a href="admin.php?m=plugin&a=$v[dir]">$v[name]</a></li>
+			<li id="nav_action_$v[dir]"><a href="{UC_ADMINSCRIPT}?m=plugin&a=$v[dir]">$v[name]</a></li>
 		<!--{/loop}-->
 		<script type="text/javascript">document.getElementById('nav_action_$_GET[a]').className = 'checked';</script>
 	</ul>

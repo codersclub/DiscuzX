@@ -17,17 +17,17 @@
 <div class="container">
 	<h3>{lang home_stats}</h3>
 	<ul class="memlist fixwidth">
-		<li><em><!--{if $user['isfounder'] || $user['allowadminapp']}--><a href="admin.php?m=app&a=ls">{lang home_app_count}</a><!--{else}-->{lang home_app_count}<!--{/if}-->:</em>$apps</li>
-		<li><em><!--{if $user['isfounder'] || $user['allowadminuser']}--><a href="admin.php?m=user&a=ls">{lang home_member_count}</a><!--{else}-->{lang home_member_count}<!--{/if}-->:</em>$members</li>
-		<li><em><!--{if $user['isfounder'] || $user['allowadminpm']}--><a href="admin.php?m=pm&a=ls">{lang home_pm_count}</a><!--{else}-->{lang home_pm_count}<!--{/if}-->:</em>$pms</li>
+		<li><em><!--{if $user['isfounder'] || $user['allowadminapp']}--><a href="{UC_ADMINSCRIPT}?m=app&a=ls">{lang home_app_count}</a><!--{else}-->{lang home_app_count}<!--{/if}-->:</em>$apps</li>
+		<li><em><!--{if $user['isfounder'] || $user['allowadminuser']}--><a href="{UC_ADMINSCRIPT}?m=user&a=ls">{lang home_member_count}</a><!--{else}-->{lang home_member_count}<!--{/if}-->:</em>$members</li>
+		<li><em><!--{if $user['isfounder'] || $user['allowadminpm']}--><a href="{UC_ADMINSCRIPT}?m=pm&a=ls">{lang home_pm_count}</a><!--{else}-->{lang home_pm_count}<!--{/if}-->:</em>$pms</li>
 		<li><em>{lang home_friend_count}:</em>$friends</li>
 	</ul>
 	
 	<h3>{lang note_status}</h3>
 	<ul class="memlist fixwidth">
-		<li><em><!--{if $user['isfounder'] || $user['allowadminnote']}--><a href="admin.php?m=note&a=ls">{lang home_note_count}</a><!--{else}-->{lang home_note_count}<!--{/if}-->:</em>$notes</li>
+		<li><em><!--{if $user['isfounder'] || $user['allowadminnote']}--><a href="{UC_ADMINSCRIPT}?m=note&a=ls">{lang home_note_count}</a><!--{else}-->{lang home_note_count}<!--{/if}-->:</em>$notes</li>
 		<!--{if $errornotes}-->
-			<li><em><!--{if $user['isfounder'] || $user['allowadminnote']}--><a href="admin.php?m=note&a=ls">{lang note_fail_apps}</a><!--{else}-->{lang note_fail_apps}<!--{/if}-->:</em>		
+			<li><em><!--{if $user['isfounder'] || $user['allowadminnote']}--><a href="{UC_ADMINSCRIPT}?m=note&a=ls">{lang note_fail_apps}</a><!--{else}-->{lang note_fail_apps}<!--{/if}-->:</em>		
 			<!--{loop $errornotes $appid $error}-->
 				$applist[$appid][name]&nbsp;
 			<!--{/loop}-->
