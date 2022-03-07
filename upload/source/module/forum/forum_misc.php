@@ -135,7 +135,7 @@ if($_GET['action'] == 'paysucceed') {
 
 		if($status == 1) {
 			discuz_process::unlock($lockid);
-			showmessage('credits_balance_insufficient', '', array('title' => $_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['title'], 'minbalance' => $attach['price']));
+			showmessage('credits_balance_insufficient', '', array('title' => $_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['title'], 'minbalance' => (empty($_GET['buyall']) ? $attach['price'] : $tprice)));
 		}
 		foreach($aids as $aid) {
 			$updateauthor = 1;
