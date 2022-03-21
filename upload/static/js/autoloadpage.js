@@ -92,6 +92,8 @@
 			nextpageurl = nextpageurl.replace(/&page=\d+/, '&page=' + (curpage + 1));
 
 			$('fd_page_bottom').innerHTML = pageinfo[1];
+			var pageinfo = s.match(/\<span id="fd_page_top"\>(.+?)\<\/span\>/);
+			$('fd_page_top').innerHTML = pageinfo[1];			
 			autopbn.style.display = 'none';
 			if (curpage + 1 <= totalpage) {
 				autopbn.innerHTML = '下一页 &raquo;';
