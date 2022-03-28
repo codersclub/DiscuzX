@@ -66,7 +66,7 @@ if($id) {
 	$otherlist = array();
 	$query = C::t('home_blog')->fetch_all_by_uid($space['uid'], 'dateline', 0, 6);
 	foreach($query as $value) {
-		if($value['blogid'] != $blog['blogid'] && empty($value['friend']) && $blog['status'] == 0) {
+		if($value['blogid'] != $blog['blogid'] && empty($value['friend']) && $value['status'] == 0) {
 			$otherlist[] = $value;
 		}
 	}
@@ -74,7 +74,7 @@ if($id) {
 	$newlist = array();
 	$query = C::t('home_blog')->fetch_all_by_hot($minhot, 'dateline', 0, 6);
 	foreach($query as $value) {
-		if($value['blogid'] != $blog['blogid'] && empty($value['friend']) && $blog['status'] == 0) {
+		if($value['blogid'] != $blog['blogid'] && empty($value['friend']) && $value['status'] == 0) {
 			$newlist[] = $value;
 		}
 	}

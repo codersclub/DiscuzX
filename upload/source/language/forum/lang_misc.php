@@ -294,9 +294,9 @@ $lang = array
 	'crime_reason' => '{reason}',
 
 	'connectguest_message_search' => array('尚未登录', '先登录'),
-	'connectguest_message_replace' => array('尚未 <a href="member.php?mod=connect" class="xi2">完善帐号信息</a> 或 <a href="member.php?mod=connect&ac=bind" class="xi2">绑定已有帐号</a> ', '先 <a href="member.php?mod=connect" class="xi2">完善帐号信息</a> 或 <a href="member.php?mod=connect&ac=bind" class="xi2">绑定已有帐号</a> '),
+	'connectguest_message_replace' => array('尚未 <a href="member.php?mod=connect" class="xi2">完善账号信息</a> 或 <a href="member.php?mod=connect&ac=bind" class="xi2">绑定已有账号</a> ', '先 <a href="member.php?mod=connect" class="xi2">完善账号信息</a> 或 <a href="member.php?mod=connect&ac=bind" class="xi2">绑定已有账号</a> '),
 	'connectguest_message_mobile_search' => array('尚未登录', '先登录'),
-	'connectguest_message_mobile_replace' => '在电脑版完善资料或绑定已有帐号，',
+	'connectguest_message_mobile_replace' => '在电脑版完善资料或绑定已有账号，',
 
 	'avatar' => '头像',
 	'signature' => '签名',

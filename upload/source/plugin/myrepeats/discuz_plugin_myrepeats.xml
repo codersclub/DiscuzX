@@ -56,11 +56,11 @@
 		<item id="language">
 			<item id="scriptlang">
 				<item id="login_strike"><![CDATA[密码错误次数过多，请重新设置马甲账号信息并在 15 分钟后再尝试切换。]]></item>
-				<item id="login_succeed"><![CDATA[您已切换到 {user} {comment}帐号，现在将转入切换前页面。]]></item>
-				<item id="login_succeed_rsnonexistence"><![CDATA[您已切换到 {user} {comment}帐号，但是此账号尚未设置 {olduser} 为马甲。<br /><a href="home.php?mod=spacecp&ac=plugin&id=myrepeats:memcp&username={olduserenc}" target="_blank">[ 设置 {olduser} 为本账号的马甲 ]</a><br /><a href="{referer}">[ 转入切换前页面 ]</a>]]></item>
-				<item id="login_activation"><![CDATA[{user} 账号未在本论坛激活，现在将转入帐号激活页面。]]></item>
-				<item id="login_invalid"><![CDATA[账号切换失败，请重新设置帐号信息，您还可以尝试 {loginperm} 次。]]></item>
-				<item id="login_password_invalid"><![CDATA[账号切换失败，请重新设置帐号信息。]]></item>
+				<item id="login_succeed"><![CDATA[您已切换到 {user} {comment}账号，现在将转入切换前页面。]]></item>
+				<item id="login_succeed_rsnonexistence"><![CDATA[您已切换到 {user} {comment}账号，但是此账号尚未设置 {olduser} 为马甲。<br /><a href="home.php?mod=spacecp&ac=plugin&id=myrepeats:memcp&username={olduserenc}" target="_blank">[ 设置 {olduser} 为本账号的马甲 ]</a><br /><a href="{referer}">[ 转入切换前页面 ]</a>]]></item>
+				<item id="login_activation"><![CDATA[{user} 账号未在本论坛激活，现在将转入账号激活页面。]]></item>
+				<item id="login_invalid"><![CDATA[账号切换失败，请重新设置账号信息，您还可以尝试 {loginperm} 次。]]></item>
+				<item id="login_password_invalid"><![CDATA[账号切换失败，请重新设置账号信息。]]></item>
 				<item id="login_question_empty"><![CDATA[请重新设置账号的安全提问以及正确的答案。]]></item>
 				<item id="login_question_invalid"><![CDATA[安全提问选择错误，请重新设置。]]></item>
 				<item id="user_nonexistence"><![CDATA[无效的马甲账号信息，请重新设置。]]></item>
@@ -81,7 +81,7 @@
 				<item id="viewall"><![CDATA[查看全部]]></item>
 				<item id="deleted"><![CDATA[- 已删除 -]]></item>
 				<item id="adduser_succeed"><![CDATA[马甲账号 {usernamenew} 已成功添加。]]></item>
-				<item id="updateuser_succeed"><![CDATA[马甲帐号信息已成功更新。]]></item>
+				<item id="updateuser_succeed"><![CDATA[马甲账号信息已成功更新。]]></item>
 			</item>
 			<item id="templatelang">
 				<item id="myrepeats"><![CDATA[我的马甲]]></item>
@@ -105,7 +105,7 @@
 				<item id="security_answer"><![CDATA[回答]]></item>
 				<item id="delete_check"><![CDATA[删?]]></item>
 				<item id="switch_title"><![CDATA[请输入密码]]></item>
-				<item id="switch_tips"><![CDATA[你是首次切换到此帐号，请输入密码]]></item>
+				<item id="switch_tips"><![CDATA[你是首次切换到此账号，请输入密码]]></item>
 				<item id="confirm"><![CDATA[确定]]></item>
 				<item id="select_rrepeats"><![CDATA[选择马甲]]></item>				
 			</item>

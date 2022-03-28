@@ -204,7 +204,7 @@ $lang = array
 	'menu_safe_setting' => '基本设置',
 	'menu_safe_security' => '防水墙',
 	'menu_safe_seccheck' => '验证设置',
-	'menu_safe_accountguard' => '帐号保镖',
+	'menu_safe_accountguard' => '账号保镖',
 
 	'menu_setting_manyou' => 'Manyou 设置',
 	'menu_setting_qqconnect' => 'QQ 绑定设置',

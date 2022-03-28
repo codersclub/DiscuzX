@@ -188,7 +188,7 @@
 		<item id="language">
 			<item id="scriptlang">
 				<item id="wechat_undefined"><![CDATA[此链接已过期，请重新在微信中生成此链接]]></item>
-				<item id="wechat_openid_exists"><![CDATA[此微信帐号已绑定其他用户，请更换]]></item>
+				<item id="wechat_openid_exists"><![CDATA[此微信账号已绑定其他用户，请更换]]></item>
 				<item id="wechat_tips"><![CDATA[
 					<li>选择“认证服务号”服务的站长请在“开发者中心”的 OAuth2.0 网页授权设置处设置授权回调页面域名为本网站域名</li>
 					]]></item>
@@ -247,7 +247,7 @@
 				<item id="wechat_responseexts"><![CDATA[扩展嵌入点]]></item>
 				<item id="wechat_devids"><![CDATA[扩展开发者 ID]]></item>
 				<item id="wechat_qrcode"><![CDATA[二维码]]></item>
-				<item id="wechat_qrcode_comment"><![CDATA[请把微信公众平台“帐号信息”中的二维码下载后上传到这里，服务号可忽略此设置<br />{qrcode}]]></item>
+				<item id="wechat_qrcode_comment"><![CDATA[请把微信公众平台“账号信息”中的二维码下载后上传到这里，服务号可忽略此设置<br />{qrcode}]]></item>
 				<item id="wechat_at_need"><![CDATA[服务号必须填写开发者 ID]]></item>
 				<item id="wechat_at_geterror"><![CDATA[开发者 ID 填写错误或者您的服务器不支持 cURL 的 SSL 模式访问]]></item>
 				<item id="wechat_at_qrgeterror"><![CDATA[获取二维码失败，请确认您的公众号是否拥有“高级接口”服务及其“生成带参数二维码”的内容]]></item>
@@ -272,8 +272,8 @@
 
 此信息包含个人资料，请不要随意分享]]></item>
 				<item id="wechat_message_codefull"><![CDATA[目前无法通过微信登录，请稍后再试]]></item>
-				<item id="wechat_message_unbinded"><![CDATA[您的论坛帐号和微信帐号解除绑定成功。]]></item>
-				<item id="wechat_message_unbind_fail"><![CDATA[帐号解绑失败，请稍后再试]]></item>
+				<item id="wechat_message_unbinded"><![CDATA[您的论坛账号和微信账号解除绑定成功。]]></item>
+				<item id="wechat_message_unbind_fail"><![CDATA[账号解绑失败，请稍后再试]]></item>
 				<item id="wechat_login_closed"><![CDATA[微信登录功能还未启用，请联系管理员]]></item>
 				<item id="wsq_password_reset"><![CDATA[您论坛的独立密码已设置成功。]]></item>
 				<item id="wsq_sitename"><![CDATA[微社区名称]]></item>
@@ -366,9 +366,9 @@
 				<item id="response_subscribe_plugin"><![CDATA[公众号关注的消息已恢复为插件模式]]></item>
 				<item id="response_message_custom"><![CDATA[普通消息已切换为自定义模式]]></item>
 				<item id="response_message_plugin"><![CDATA[普通消息已恢复为插件模式]]></item>
-				<item id="wechat_member_bind_succeed"><![CDATA[帐号已成功绑定]]></item>
-				<item id="wechat_member_bind_qrauth_lost"><![CDATA[请求超时，请重新点击“微信帐号绑定”按钮]]></item>
-				<item id="wechat_member_register_succeed"><![CDATA[帐号已成功注册]]></item>
+				<item id="wechat_member_bind_succeed"><![CDATA[账号已成功绑定]]></item>
+				<item id="wechat_member_bind_qrauth_lost"><![CDATA[请求超时，请重新点击“微信账号绑定”按钮]]></item>
+				<item id="wechat_member_register_succeed"><![CDATA[账号已成功注册]]></item>
 				<item id="wechat_member_register_faild"><![CDATA[用户注册失败，请稍后再试，当前用户暂时无法访问]]></item>
 				<item id="wechat_member_auth_fail"><![CDATA[安全校验失败，请重新扫描登录]]></item>
 				<item id="wechatapi_redirect"><![CDATA[微信跳转 URL]]></item>
@@ -391,7 +391,7 @@
 				<item id="api_method"><![CDATA[方法]]></item>
 				<item id="lang_wechat_logintip"><![CDATA[扫一扫，访问微社区]]></item>
 				<item id="lang_wechat_login"><![CDATA[关注本站微信公众号登录]]></item>
-				<item id="lang_wechat_bind"><![CDATA[微信扫一扫以绑定帐号]]></item>
+				<item id="lang_wechat_bind"><![CDATA[微信扫一扫以绑定账号]]></item>
 				<item id="lang_wechat_threadmessage"><![CDATA[<br /><a onclick="return false" href="plugin.php?id=wechat:qrcode&threadqr={tid}&access=yes&inajax=yes#post_{pid}" onmouseover="ajaxmenu(this, 500, 1, 2, '43', null, 'p_pop', '');return false;" style="font-size:12px;color:#708090;">来自: 微社区</a>]]></item>
 			    <item id="mass_not_exist"><![CDATA[群发消息不存在]]></item>
 				<item id="mass_sent_succ"><![CDATA[群发消息提交成功]]></item>
@@ -485,16 +485,16 @@
 				<item id="wechat_qrcode_input_cancel"><![CDATA[您已取消本次登录请求，数字码已失效<br />请点击左上角返回微信聊天]]></item>
 				<item id="wechat_qrcode_input_confirm"><![CDATA[即将在 PC 浏览器上登录用户 $member[username]<br />请确认是否本人操作]]></item>
 				<item id="wechat_qrcode_input_confirm_yes"><![CDATA[我确认登录此用户]]></item>
-				<item id="wechat_spacecp_bind_title"><![CDATA[您已将本站帐号 <strong>{$_G[member][username]}</strong> 与微信绑定]]></item>
+				<item id="wechat_spacecp_bind_title"><![CDATA[您已将本站账号 <strong>{$_G[member][username]}</strong> 与微信绑定]]></item>
 				<item id="wechat_spacecp_setpw"><![CDATA[设置独立密码]]></item>
 				<item id="wechat_spacecp_pw"><![CDATA[新密码]]></item>
 				<item id="wechat_spacecp_repw"><![CDATA[确认密码]]></item>
-				<item id="wechat_spacecp_unbind"><![CDATA[解除已绑定帐号？]]></item>
+				<item id="wechat_spacecp_unbind"><![CDATA[解除已绑定账号？]]></item>
 				<item id="wechat_spacecp_setpw_first"><![CDATA[请设置独立密码后再解除绑定关系]]></item>
-				<item id="wechat_spacecp_unbind_confirm"><![CDATA[您确认要解除与本站帐号的绑定关系？]]></item>
+				<item id="wechat_spacecp_unbind_confirm"><![CDATA[您确认要解除与本站账号的绑定关系？]]></item>
 				<item id="wechat_spacecp_unbind_button"><![CDATA[确认解除]]></item>
-				<item id="wechat_bind"><![CDATA[绑定微信帐号]]></item>
-				<item id="wechat_login"><![CDATA[微信帐号登录]]></item>
+				<item id="wechat_bind"><![CDATA[绑定微信账号]]></item>
+				<item id="wechat_login"><![CDATA[微信账号登录]]></item>
 				<item id="wechat_bind_comfirm_prompt"><![CDATA[请输入您的论坛登录密码以确认身份]]></item>
 				<item id="quickregister"><![CDATA[立即注册]]></item>
 				<item id="inputyourname"><![CDATA[请输入用户名]]></item>
@@ -502,7 +502,7 @@
 				<item id="wsq_threadqr"><![CDATA[用微信扫一扫，互动赢积分]]></item>
 				<item id="wechat_share"><![CDATA[微信]]></item>
 				<item id="wechat_sharetitle"><![CDATA[分享到微信]]></item>
-				<item id="wechat_register"><![CDATA[填写以下信息完成微信帐号注册]]></item>
+				<item id="wechat_register"><![CDATA[填写以下信息完成微信账号注册]]></item>
 				<item id="show_recommend_number"><![CDATA[已有 <strong class="xi1">{$post[voters]}</strong> 人点赞]]></item>
 				<item id="show_scanqr"><![CDATA[通过微信扫描二维码为我拉票]]></item>
 				<item id="resource_push"><![CDATA[推送到微信素材]]></item>

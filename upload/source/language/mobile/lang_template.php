@@ -69,7 +69,7 @@ $lang = array (
   'admin_banpost_confirm' => '您要进行屏蔽操作',
   'admin_delpost_confirm' => '您确定要删除此回复？',
   'admin_warn_confirm' => '您要进行警告操作',
-  'attach_nopermission_login' => '您需要<a href="member.php?mod=logging&action=login">登录</a>才可以下载或查看附件。没有帐号？<a href="member.php?mod={$_G[setting][regname]}" title="注册帐号">{$_G[setting][reglinkname]}</a>',
+  'attach_nopermission_login' => '您需要<a href="member.php?mod=logging&action=login">登录</a>才可以下载或查看附件。没有账号？<a href="member.php?mod={$_G[setting][regname]}" title="注册账号">{$_G[setting][reglinkname]}</a>',
   'attachlist' => '附件列表',
   'ban_member' => '禁止',
   'digest' => '<span class="xi1">精华</span>',

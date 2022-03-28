@@ -83,8 +83,8 @@
 				<item id="qr_desc"><![CDATA[下载客户端后，拍摄二维码快速访问本站:]]></item>
 				<item id="qr"><![CDATA[二维码]]></item>
 				<item id="wapmode"><![CDATA[或者通过以下地址访问:]]></item>
-				<item id="qqregmode1"><![CDATA[完善帐号信息]]></item>
-				<item id="qqregmode2"><![CDATA[绑定已有帐号]]></item>
+				<item id="qqregmode1"><![CDATA[完善账号信息]]></item>
+				<item id="qqregmode2"><![CDATA[绑定已有账号]]></item>
 				<item id="register_validate_email_tips"><![CDATA[注册需要验证邮箱，请务必填写正确的邮箱，提交后请及时查收邮件。]]></item>
 				<item id="post_hide_reply_hidden"><![CDATA[如果您要查看本帖隐藏内容请回复]]></item>
 			</item>
