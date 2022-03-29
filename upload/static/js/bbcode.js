@@ -314,6 +314,12 @@ function html2bbcode(str) {
 		return str;
 	}
 
+	if(navigator.userAgent.indexOf('Chrome') > -1){
+		str = str.replace(/<div><br><\/div>/ig, '<br>');
+		str = str.replace(/<div>/ig, '<br><div>');
+		str = str.replace(/<\/div>((<br[^>]*>){1,})<div>/ig, '$1');
+	}
+
 	str = str.replace(/<div\sclass=["']?blockcode["']?>[\s\S]*?<blockquote>([\s\S]+?)<\/blockquote>[\s\S]*?<\/div>/ig, function($1, $2) {return codetag($2);});
 
 	if(!fetchCheckbox('bbcodeoff') && allowbbcode) {
