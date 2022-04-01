@@ -397,7 +397,7 @@ if($get['method'] == 'export') {
 	unset($sqldump);
 
 	foreach($sqlquery as $sql) {
-		$sql = syntablestruct(trim($sql), $db->version() > '4.1', $dbcharset);
+		$sql = syntablestruct(trim($sql), true, $dbcharset);
 
 		if($sql != '') {
 			$db->query($sql, 'SILENT');

@@ -285,10 +285,10 @@ function updatetable($sql) {
 
 			$maths[3] = strtoupper($maths[3]);
 			if($maths[3] == 'MEMORY' || $maths[3] == 'HEAP') {
-				$type = helper_dbtool::dbversion() > '4.1' ? " ENGINE=MEMORY".(empty($config['dbcharset'])?'':" DEFAULT CHARSET={$config['dbcharset']}" ): " TYPE=HEAP";
+				$type = " ENGINE=MEMORY".(empty($config['dbcharset'])?'':" DEFAULT CHARSET={$config['dbcharset']}" );
 			} else {
 				$engine = $config['engine'] !== 'innodb' ? 'MyISAM' : 'InnoDB';
-				$type = helper_dbtool::dbversion() > '4.1' ? " ENGINE=". $engine . (empty($config['dbcharset']) ? '' :" DEFAULT CHARSET={$config['dbcharset']}") : " TYPE=" . $engine;
+				$type = " ENGINE=". $engine . (empty($config['dbcharset']) ? '' :" DEFAULT CHARSET={$config['dbcharset']}");
 			}
 			$usql = $maths[1].$type;
 

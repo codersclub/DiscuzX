@@ -104,7 +104,7 @@ if($operation == 'import') {
 
 			foreach($sqlquery as $sql) {
 
-				$sql = syntablestruct(trim($sql), $db->version() > '4.1', DBCHARSET);
+				$sql = syntablestruct(trim($sql), true, DBCHARSET);
 
 				if($sql != '') {
 					$db->query($sql, 'SILENT');

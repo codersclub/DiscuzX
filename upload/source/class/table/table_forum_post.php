@@ -977,11 +977,7 @@ class table_forum_post extends discuz_table
 	public function show_table_columns($table) {
 		$data = array();
 		$db = &DB::object();
-		if($db->version() > '4.1') {
-			$query = $db->query("SHOW FULL COLUMNS FROM ".DB::table($table), 'SILENT');
-		} else {
-			$query = $db->query("SHOW COLUMNS FROM ".DB::table($table), 'SILENT');
-		}
+		$query = $db->query("SHOW FULL COLUMNS FROM ".DB::table($table), 'SILENT');
 		while($field = @DB::fetch($query)) {
 			$data[$field['Field']] = $field;
 		}

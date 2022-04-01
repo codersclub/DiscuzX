@@ -122,11 +122,7 @@ if($method == 'show_license') {
 					show_msg('database_connect_error', $error, 0);
 				}
 			}
-			if(mysqli_get_server_info($link) > '4.1') {
-				mysqli_query($link, "CREATE DATABASE IF NOT EXISTS `$dbname` DEFAULT CHARACTER SET ".DBCHARSET);
-			} else {
-				mysqli_query($link, "CREATE DATABASE IF NOT EXISTS `$dbname`");
-			}
+			mysqli_query($link, "CREATE DATABASE IF NOT EXISTS `$dbname` DEFAULT CHARACTER SET ".DBCHARSET);
 
 			if(mysqli_errno($link)) {
 				show_msg('database_errno_1044', mysqli_error($link), 0);
