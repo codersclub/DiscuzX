@@ -115,7 +115,7 @@ if($op == 'members') {
 		$_G['setting']['memberperpage'] = 20;
 		$start_limit = ($page - 1) * $_G['setting']['memberperpage'];
 
-		$multipage = multi(C::t('common_member_validate')->count_by_status(0), $_G['setting']['memberperpage'], $page, "{$cpscript}?mod=modcp&action=$_GET[action]&op=$op&fid=$_G[fid]&filter=$filter");
+		$multipage = multi($count[$filter], $_G['setting']['memberperpage'], $page, "{$cpscript}?mod=modcp&action=$_GET[action]&op=$op&fid=$_G[fid]&filter=$filter");
 
 		$vuids = array();
 		$memberlist = $member_validate = $common_member = $member_status = array();
