@@ -115,7 +115,7 @@
 	<div class="focus plugin" id="plugin_notice"></div>
 	<script type="text/javascript">pluginNotice();</script>
 <!--{/if}-->
-<!--{if !$_G['setting']['bbclosed'] && !$_G['member']['freeze'] && $_G['member']['groupid'] != 5 && !$_G['member']['groupexpiry'] && $_G['setting']['disableipnotice'] != 1 && $_G['uid'] && !empty($_G['cookie']['lip'])}-->
+<!--{if !$_G['setting']['bbclosed'] && !$_G['member']['freeze'] && $_G['member']['groupid'] != 5 && $_G['setting']['disableipnotice'] != 1 && $_G['uid'] && !empty($_G['cookie']['lip'])}-->
 	<div class="focus plugin" id="ip_notice"></div>
 	<script type="text/javascript">ipNotice();</script>
 <!--{/if}-->
