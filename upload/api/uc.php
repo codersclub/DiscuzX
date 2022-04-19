@@ -229,7 +229,7 @@ class uc_note {
 				$configfile = substr($configfile, -2) == '?>' ? substr($configfile, 0, -2) : $configfile;
 				$configfile = str_replace("define('UC_API', '".addslashes(UC_API)."')", "define('UC_API', '".addslashes($UC_API)."')", $configfile);
 
-				if(file_put_contents(DISCUZ_ROOT.'./config/config_ucenter.php', trim($configfile), LOCK_EX) === false) {
+				if(file_put_contents(DISCUZ_ROOT.'./config/config_ucenter.php', trim($configfile)) === false) {
 					return API_RETURN_FAILED;
 				}
 			}

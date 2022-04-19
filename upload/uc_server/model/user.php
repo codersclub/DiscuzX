@@ -420,7 +420,7 @@ class usermodel {
 				$config = preg_replace("/define\('UC_KEY',\s*'.*?'\);/i", "define('UC_KEY', '$uckey');", $config);
 			}
 			$config = str_replace('#', '$', $config);
-			if(file_put_contents($configfile, $config, LOCK_EX) === false) {
+			if(file_put_contents($configfile, $config) === false) {
 				return -4;
 			}
 			return 2;

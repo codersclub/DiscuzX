@@ -85,11 +85,9 @@ if($ticket) {
 	if(!file_exists($file) || !filesize($file)) {
 		dmkdir($dir);
 		$qrcode = dfsockopen($wechat_client->getQrcodeImgUrlByTicket($ticket));
-		$fp = fopen($file, 'cb');
-		if(!($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $qrcode) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
-			flock($fp, LOCK_UN);
-			fclose($fp);
-		}
+		$fp = @fopen($file, 'wb');
+		@fwrite($fp, $qrcode);
+		@fclose($fp);
 	}
 	dheader('Content-Disposition: inline; filename=qrcode.jpg');
 	dheader('Content-Type: image/pjpeg');

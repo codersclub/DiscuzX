@@ -32,7 +32,7 @@ class helper_makehtml {
 			$code = ob_get_clean().$cend;
 			$code = preg_replace('/language\s*=[\s|\'|\"]*php/is', '_', $code);
 			$code = str_replace(array('<?', '?>'), array('&lt;?', '?&gt;'), $code);
-			if(file_put_contents($filepath, $code, LOCK_EX) !== false) {
+			if(file_put_contents($filepath, $code) !== false) {
 				$_G['gzipcompress'] ? ob_start('ob_gzhandler') : ob_start();
 				if(self::$callback && is_callable(self::$callback)) {
 					call_user_func(self::$callback);

@@ -815,7 +815,7 @@ function save_config_file($filename, $config, $default) {
 EOT;
 	$content .= getvars(array('_config' => $config));
 	$content .= "\r\n// ".str_pad('  THE END  ', 50, '-', STR_PAD_BOTH)." //\r\n\r\n?>";
-	file_put_contents($filename, $content, LOCK_EX);
+	file_put_contents($filename, $content);
 }
 
 function setdefault($var, $default) {
@@ -1613,7 +1613,7 @@ define('UC_PPP', 20);
 ?>
 EOT;
 
-	if(file_put_contents($file, $config, LOCK_EX) !== false) {
+	if(file_put_contents($file, $config) !== false) {
 		return true;
 	}
 
@@ -1655,7 +1655,7 @@ function uc_write_config($config, $file, $password) {
 	$config .= "define('UC_DEBUG', false);\r\n";
 	$config .= "define('UC_PPP', 20);\r\n";
 
-	file_put_contents($file, $config, LOCK_EX);
+	file_put_contents($file, $config);
 }
 
 function install_uc_server() {
@@ -1830,7 +1830,7 @@ function save_diy_data($primaltplname, $targettplname, $data, $database = false)
 
 	$tplpath = dirname($tplfile);
 	if (!is_dir($tplpath)) dmkdir($tplpath);
-	$r = file_put_contents($tplfile, $content, LOCK_EX);
+	$r = file_put_contents($tplfile, $content);
 
 	if ($r && $database) {
 		$_G['db']->query('DELETE FROM '.$_G['tablepre'].'common_template_block WHERE targettplname="'.$targettplname.'"');
@@ -2178,13 +2178,11 @@ function append_to_install_log_file($message, $close = false) {
 	static $fh = false;
 	if (!$fh) {
 		$fh = fopen(INST_LOG_PATH, "a+");
-		flock($fh, LOCK_EX);
 	} 
 	if ($fh) {
 		fwrite($fh, $message);
 		fflush($fh);
 		if ($close) {
-			flock($fh, LOCK_UN);
 			fclose($fh);
 		}
 	}

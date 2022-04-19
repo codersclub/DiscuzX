@@ -34,7 +34,7 @@ class control extends pluginbase {
 		}
 		$config = file_get_contents($configfile);
 		$config = preg_replace("/define\('UC_MYKEY',\s*'.*?'\);/i", "define('UC_MYKEY', '$newmykey');", $config);
-		if(file_put_contents($configfile, $config, LOCK_EX) === false) {
+		if(file_put_contents($configfile, $config) === false) {
 			return false;
 		}
 		$apps = $this->db->fetch_all("SELECT appid, authkey FROM ".UC_DBTABLEPRE."applications", 'appid');

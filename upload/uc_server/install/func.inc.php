@@ -630,7 +630,7 @@ function config_edit() {
 	$config .= "define('UC_DEBUG', false);\r\n";
 	$config .= "define('UC_PPP', 20);\r\n";
 
-	file_put_contents(CONFIG, $config, LOCK_EX);
+	file_put_contents(CONFIG, $config);
 }
 
 function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {

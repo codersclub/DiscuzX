@@ -90,19 +90,21 @@ if(!$operation || in_array($operation, array('plugins', 'templates'))) {
 				$filename = $tmpdir.'/'.$file.'._addons_';
 				$dirname = dirname($filename);
 				dmkdir($dirname, 0777, false);
-				$flag = $data['Part'] ? FILE_APPEND | LOCK_EX : LOCK_EX;
-				if(file_put_contents($filename, gzuncompress(base64_decode($data['Data'])), $flag) === false) {
+				$fp = fopen($filename, !$data['Part'] ? 'w' : 'a');
+				if(!$fp) {
 					dir_clear($tmpdir);
 					@unlink($md5tmp);
 					cloudaddons_faillog($_GET['rid'], 101);
 					cpmsg('cloudaddons_download_write_error', '', 'error');
 				}
+				fwrite($fp, gzuncompress(base64_decode($data['Data'])));
+				fclose($fp);
 				if($data['MD5']) {
 					$md5total .= $data['MD5'];
 					$md5s[$filename] = $data['MD5'];
 				}
 			}
-			if(file_put_contents($md5tmp, serialize(array($md5total, $md5s)), LOCK_EX) === false) {
+			if(file_put_contents($md5tmp, serialize(array($md5total, $md5s))) === false) {
 				dir_clear($tmpdir);
 				@unlink($md5tmp);
 				cloudaddons_faillog($_GET['rid'], 101);

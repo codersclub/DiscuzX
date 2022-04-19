@@ -43,7 +43,7 @@ class discuz_upgrade {
 		}
 		if(!$upgradedataflag) {
 			$this->mkdirs(dirname($file));
-			if(file_put_contents($file, $upgradedata, LOCK_EX) === false) {
+			if(file_put_contents($file, $upgradedata) === false) {
 				return array();
 			}
 		}
@@ -82,7 +82,7 @@ class discuz_upgrade {
 			$file = DISCUZ_ROOT.'./data/update/Discuz! X'.$upgradeinfo['latestversion'].' Release['.$upgradeinfo['latestrelease'].']/updatelist.tmp';
 			$upgradedata = file_get_contents($file);
 			$upgradedata = str_replace($searchlist, '', $upgradedata);
-			if(file_put_contents($file, $upgradedata, LOCK_EX) === false) {
+			if(file_put_contents($file, $upgradedata) === false) {
 				return array();
 			}
 		}
@@ -154,13 +154,14 @@ class discuz_upgrade {
 		return $writeable;
 	}
 
+
 	public function download_file($upgradeinfo, $file, $folder = 'upload', $md5 = '', $position = 0, $offset = 0) {
 		$dir = DISCUZ_ROOT.'./data/update/Discuz! X'.$upgradeinfo['latestversion'].' Release['.$upgradeinfo['latestrelease'].']/';
 		$this->mkdirs(dirname($dir.$file));
 		$downloadfileflag = true;
 
 		if(!$position) {
-			$mode = 'cb';
+			$mode = 'wb';
 		} else {
 			$mode = 'ab';
 		}
@@ -173,13 +174,9 @@ class discuz_upgrade {
 			if($offset && strlen($response) == $offset) {
 				$downloadfileflag = false;
 			}
-
-			if(!($fp && flock($fp, LOCK_EX) && ($mode == 'cb' ? ftruncate($fp, 0) : true) && fwrite($fp, $response) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
-				flock($fp, LOCK_UN);
-				fclose($fp);
-				return 0;
-			}
+			fwrite($fp, $response);
 		}
+		fclose($fp);
 
 		if($downloadfileflag) {
 			if(md5_file($dir.$file) == $md5) {

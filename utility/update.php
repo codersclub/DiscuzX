@@ -2165,8 +2165,8 @@ function save_config_file($filename, $config, $default, $deletevar) {
 EOT;
 	$content .= getvars(array('_config' => $config));
 	$content .= "\r\n// ".str_pad('  THE END  ', 50, '-', STR_PAD_BOTH)." //\r\n\r\n?>";
-	if(!is_writable($filename) || !($len = file_put_contents($filename, $content, LOCK_EX))) {
-		file_put_contents(DISCUZ_ROOT.'./data/config_global.php', $content, LOCK_EX);
+	if(!is_writable($filename) || !($len = file_put_contents($filename, $content))) {
+		file_put_contents(DISCUZ_ROOT.'./data/config_global.php', $content);
 		return 0;
 	}
 	return 1;

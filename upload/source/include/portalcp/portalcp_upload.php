@@ -73,11 +73,12 @@ if($operation == 'downremotefile') {
 				$attach['attachment'] = $attach['attachdir'] . $upload->get_target_filename('portal').'.'.$attach['extension'];
 				$attach['target'] = getglobal('setting/attachdir').'./portal/'.$attach['attachment'];
 
-				$fp = fopen($attach['target'], 'cb');
-				if(!($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $content) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
-					flock($fp, LOCK_UN);
-					fclose($fp);
+				if(!@$fp = fopen($attach['target'], 'wb')) {
 					continue;
+				} else {
+					flock($fp, 2);
+					fwrite($fp, $content);
+					fclose($fp);
 				}
 
 				if(!$upload->get_image_info($attach['target'])) {

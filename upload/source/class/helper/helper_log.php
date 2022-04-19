@@ -46,7 +46,7 @@ class helper_log {
 			@rename($logfile, $logfilebak);
 		}
 		$fp = fopen($logfile, 'a');
-		if(flock($fp, LOCK_EX)) {
+		if($fp) {
 			if(!is_array($log)) {
 				$log = array($log);
 			}
@@ -54,10 +54,8 @@ class helper_log {
 				fwrite($fp, "<?PHP exit;?>\t".str_replace(array('<?', '?>'), '', $tmp)."\n");
 			}
 			fflush($fp);
-			flock($fp, LOCK_UN);
 			fclose($fp);
 		} else {
-			flock($fp, LOCK_UN);
 			fclose($fp);
 		}
 	}
