@@ -74,6 +74,7 @@ function uploadAvatarDone() {
 
 function showAvatarFileSelector() {
     $('avatarimage').src = null;
+    $('avatarfile').value = null;
     clearAvatar();
     $('avataradjuster').style.display = 'none'; 
     $('avatarfileselector').style.display = 'block';
