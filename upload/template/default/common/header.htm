@@ -149,7 +149,7 @@
 				<!--{if $_G['setting']['subnavs']}-->
 					<!--{loop $_G[setting][subnavs] $navid $subnav}-->
 						<!--{if $_G['setting']['navsubhover'] || $mnid == $navid}-->
-						<ul class="cl {if $mnid == $navid}current{/if}" id="snav_$navid" style="display:{if $mnid != $navid}none{/if}">
+						<ul class="cl {if $mnid == $navid}current{/if}" id="snav_$navid"{if $mnid != $navid} style="display:none"{/if}>
 						$subnav
 						</ul>
 						<!--{/if}-->
