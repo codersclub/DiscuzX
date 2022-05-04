@@ -483,7 +483,7 @@ if($action == 'index') {
 			showmessage('group_setup_succeed', $url);
 		} else {
 			$firstgid = $_G['cache']['grouptype']['second'][$_G['forum']['fup']]['fup'];
-			$groupselect = get_groupselect($firstgid, $_G['forum']['fup']);
+			$groupselect = get_groupselect($firstgid ? $firstgid : $_G['forum']['fup'], $_G['forum']['fup']);
 			$gviewpermselect = $jointypeselect = array('','','');
 			require_once libfile('function/editor');
 			$_G['forum']['descriptionnew'] = html2bbcode($_G['forum']['description']);
