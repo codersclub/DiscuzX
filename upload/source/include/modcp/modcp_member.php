@@ -177,7 +177,7 @@ if($op == 'edit') {
 
 		if(!empty($_GET['expirationnew']) && is_array($_GET['expirationnew'])) {
 			foreach($_GET['expirationnew'] as $id => $expiration) {
-				if($expiration == intval($expiration)) {
+				if($expiration === intval($expiration)) {
 					$expiration = $expiration > 1 ? (TIMESTAMP + $expiration * 86400) : TIMESTAMP + 86400;
 					$updatecheck = C::t('common_banned')->update_expiration_by_id($id, $expiration, $_G['adminid'], $_G['username']);
 				}
