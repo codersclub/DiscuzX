@@ -64,7 +64,7 @@ if(submitcheck('reportsubmit')) {
 				$moderators = array_unique(array_merge($moderators, $report_receive['supmoderator']));
 			}
 			foreach($moderators as $touid) {
-				$touid != $_G['uid'] && !in_array($touid, $report_receive) && notification_add($touid, 'report', 'new_post_report', array('fid' => $fid, 'from_id' => 1, 'from_idtype' => 'newreport'), 1);
+				$touid != $_G['uid'] && !in_array($touid, $report_receive['adminuser']) && notification_add($touid, 'report', 'new_post_report', array('fid' => $fid, 'from_id' => 1, 'from_idtype' => 'newreport'), 1);
 			}
 		}
 	}
