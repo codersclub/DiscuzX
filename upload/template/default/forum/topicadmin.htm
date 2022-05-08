@@ -445,6 +445,9 @@ function showHighLightColor(hlid) {
 	}
 	showMenu({'ctrlid':hlid + '_ctrl','evt':'click','showid':showid});
 }
+if($('moveto')) {
+	ajaxget('forum.php?mod=ajax&action=getthreadtypes&fid=' + $('moveto').value, 'threadtypes');if($('moveto').value) {$('moveext').style.display='';} else {$('moveext').style.display='none';}
+}
 </script>
 
 <!--{if empty($_GET['infloat'])}-->

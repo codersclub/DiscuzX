@@ -228,6 +228,9 @@ function succeedhandle_mods(locationhref) {
 		location.href = locationhref;
 	<!--{/if}-->
 }
+if($('copyto')) {
+	ajaxget('forum.php?mod=ajax&action=getthreadtypes&fid=' + $('copyto').value, 'threadtypes');
+}
 </script>
 
 <!--{if empty($_GET['infloat'])}-->
