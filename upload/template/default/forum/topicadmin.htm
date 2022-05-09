@@ -162,7 +162,7 @@
 									<p class="hasd">
 										<label class="labeltxt">{lang backgroundcolor}:</label>
 										<input type="hidden" id="highlight_bgcolor" name="highlight_bgcolor" value="$highlight_bgcolor" />
-										<input type="button" style="background-color: $highlight_bgcolor" value="" class="pn colorwd" onclick="createPalette('highlight_bgcolor_ctrl', 'highlight_bgcolor');" id="chighlight_bgcolor_ctrl">
+										<input type="button"{if $highlight_bgcolor} style="background-color: $highlight_bgcolor"{/if} value="" class="pn colorwd" onclick="createPalette('highlight_bgcolor_ctrl', 'highlight_bgcolor');" id="chighlight_bgcolor_ctrl">
 									</p>
 								</td>
 							</tr>
