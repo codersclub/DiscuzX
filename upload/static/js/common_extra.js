@@ -295,7 +295,7 @@ function _zoom(obj, zimg, nocover, pn, showexif) {
 				clearTimeout($(menuid).getAttribute('timer'));
 			}
 			showimage(zimg, w, h, imgw, imgh);
-			if(showexif && faid) {
+			if(showexif && faid && $(zoomid + '_exif')) {
 				var x = new Ajax();
 				x.get('forum.php?mod=ajax&action=exif&aid=' + faid + '&inajax=1', function(s, x) {
 					if(s) {
