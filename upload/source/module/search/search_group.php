@@ -162,7 +162,7 @@ if(!submitcheck('searchsubmit', 1)) {
 			}
 			$forums = C::t('forum_forum')->fetch_all_by_fid($fids);
 			foreach($threads as $thread) {
-				if($forums[$value['fid']]['status'] == 3) {
+				if($forums[$thread['fid']]['status'] == 3) {
 					$tids .= ','.$thread['tid'];
 					$tnum++;
 				}

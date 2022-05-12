@@ -94,7 +94,7 @@ if(!submitcheck('searchsubmit', 1)) {
 		$searchstring = explode('|', $index['searchstring']);
 		$index['searchtype'] = $searchstring[0];//preg_replace("/^([a-z]+)\|.*/", "\\1", $index['searchstring']);
 		$searchstring[2] = base64_decode($searchstring[2]);
-		$srchuname = $searchstring[3];
+		$srchuname = $searchstring[4];
 		$modfid = 0;
 		if($keyword) {
 			$modkeyword = str_replace(' ', ',', $keyword);
