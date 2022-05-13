@@ -528,7 +528,7 @@ if(!$operation) {
 	$dir = substr($plugin['directory'], 0, -1);
 
 	if(!$_GET['confirmed']) {
-
+		cloudaddons_validator($dir.'.plugin');
 		$file = DISCUZ_ROOT.'./source/plugin/'.$dir.'/discuz_plugin_'.$dir.($modules['extra']['installtype'] ? '_'.$modules['extra']['installtype'] : '').'.xml';
 		$upgrade = false;
 		if(file_exists($file)) {
