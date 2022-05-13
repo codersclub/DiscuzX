@@ -639,7 +639,7 @@ CSS 写作注意事项：
 						#nv li a:hover { background: {MENUHOVERBGCOLOR}; }
 						#nv li.hover a:hover, #nv li.hover a { background: {MENUHOVERBGCOLOR} url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='4'%3e%3cpath fill='%23fff' d='M0 4h8L4 0z'/%3e%3c/svg%3e") no-repeat bottom center; }
 			#mu { position: relative; z-index: 1; }
-				#mu ul { line-height: 22px; z-index: 2; font-size: 12px; }
+				#mu ul { background: #f8f8f8; line-height: 22px; z-index: 2; font-size: 12px; }
 					#mu li { float: left; height: 32px }
 						#mu a { float: left; display: inline; margin: 5px 6px; padding: 0 10px; white-space: nowrap; }
 							#mu a:hover { margin: 4px 5px; border: 1px solid {SPECIALBORDER}; background: {SPECIALBG}; color: {HIGHLIGHTLINK}; text-decoration: none; }

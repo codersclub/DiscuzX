@@ -25,7 +25,7 @@ Created & Modified by Pony.
 
 #nv { background-repeat: repeat-x; background-position: 0 -33px; }
 
-#mu ul { border-bottom: 1px solid {COMMONBORDER}; background-image: none; background-color: {COMMONBG}; }
+#mu ul { border-bottom: 1px solid {COMMONBORDER}; background-image: none; }
 
 .pg_post .ct2_a { margin-left: 0; padding-left: 0; }
 	.pg_post .ct2_a .appl { margin-left: 0; background: none; }
