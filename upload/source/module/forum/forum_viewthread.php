@@ -432,6 +432,7 @@ if(empty($_GET['viewpid'])) {
 			}
 			$temp_reply = $_G['forum_thread']['replies'];
 			$_G['forum_thread']['replies'] = $countrushpost = max(0, count($rushids) - 1);
+			$countrushpost = max(0, count($rushids));            
 			$rushids = array_slice($rushids, ($page - 1) * $_G['ppp'], $_G['ppp']);
 			foreach(C::t('forum_post')->fetch_all_by_tid_position($posttableid, $_G['tid'], $rushids) as $post) {
 				$postarr[$post['position']] = $post;
