@@ -123,7 +123,7 @@
 	<script type="text/javascript">noticeTitle();</script>
 <!--{/if}-->
 
-<!--{if ($_G[member][newpm] || $_G[member][newprompt]) && empty($_G['cookie']['ignore_notice'] && !$_G['member']['freeze'] && $_G['member']['groupid'] != 5)}-->
+<!--{if ($_G[member][newpm] || $_G[member][newprompt]) && empty($_G['cookie']['ignore_notice']) && !$_G['member']['freeze'] && $_G['member']['groupid'] != 5}-->
 	<script type="text/javascript" src="{$_G[setting][jspath]}html5notification.js?{VERHASH}"></script>
 	<script type="text/javascript">
 	var h5n = new Html5notification();
