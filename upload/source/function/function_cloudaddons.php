@@ -160,11 +160,12 @@ function cloudaddons_savemd5($md5file, $end, $md5) {
 	global $_G;
 	parse_str($end, $r);
 	require_once libfile('class/xml');
-	$xml = implode('', @file(DISCUZ_ROOT.'./data/addonmd5/'.$md5file.'.xml'));
-	$array = xml2array($xml);
-	$ridexists = false;
-	$data = array();
-	if($array['RevisionID']) {
+	$data = $array = array();
+	if(file_exists(DISCUZ_ROOT.'./data/addonmd5/'.$md5file.'.xml')) {
+		$xml = implode('', @file(DISCUZ_ROOT.'./data/addonmd5/'.$md5file.'.xml'));
+		$array = xml2array($xml);
+	}
+	if(!empty($array['RevisionID'])) {
 		foreach(explode(',', $array['RevisionID']) as $i => $rid) {
 			$sns = explode(',', $array['SN']);
 			$datalines = explode(',', $array['RevisionDateline']);
