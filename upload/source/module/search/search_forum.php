@@ -74,6 +74,8 @@ if(!submitcheck('searchsubmit', 1)) {
 } else {
 	$orderby = in_array($_GET['orderby'], array('dateline', 'replies', 'views')) ? $_GET['orderby'] : 'lastpost';
 	$ascdesc = isset($_GET['ascdesc']) && $_GET['ascdesc'] == 'asc' ? 'asc' : 'desc';
+	$orderbyselected = array($orderby => 'selected="selected"');
+	$ascchecked = array($ascdesc => 'checked="checked""');	
 
 	if(!empty($searchid)) {
 
@@ -99,6 +101,11 @@ if(!submitcheck('searchsubmit', 1)) {
 		if($keyword) {
 			$modkeyword = str_replace(' ', ',', $keyword);
 			$fids = explode(',', str_replace('\\\'', '', $searchstring[5]));
+			foreach ($fids as $srchfid) {
+				if(!empty($srchfid) ) {
+					$forumselect = str_replace('<option value="'.$srchfid.'">', '<option value="'.$srchfid.'" selected="selected">', $forumselect);
+				}
+			}			
 			if(count($fids) == 1 && in_array($_G['adminid'], array(1,2,3))) {
 				$modfid = $fids[0];
 				if($_G['adminid'] == 3 && !C::t('forum_moderator')->fetch_uid_by_fid_uid($modfid, $_G['uid'])) {
@@ -127,7 +134,22 @@ if(!submitcheck('searchsubmit', 1)) {
 
 		$fulltextchecked = $searchstring[1] == 'fulltext' ? 'checked="checked"' : '';
 
-		include template('search/forum');
+		$specials = explode(',', $searchstring[9]);
+		$srchfilter = $searchstring[8];
+		$before = $searchstring[7];
+		$srchfrom = $searchstring[6];
+		foreach($specials as $key) {
+			$specialchecked[$key] = 'checked="checked""';
+		}
+		$srchfilterchecked[$srchfilter] = 'checked="checked""';
+		$beforechecked = array($before => 'checked="checked""');
+		$srchfromselected = array($srchfrom => 'selected="selected"');
+		$advextra = '&orderby='.$orderby.'&ascdesc='.$ascdesc.'&searchid='.$searchid.'&searchsubmit=yes';
+		if($_GET['adv']) {
+			include template('search/forum_adv');
+		} else {
+			include template('search/forum');
+		}
 
 	} else {
 
