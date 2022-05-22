@@ -140,7 +140,7 @@
 							inputObj.value = '{lang input_album_name}';
 						} else {
 							var x = new Ajax();
-							x.get('home.php?mod=misc&ac=ajax&op=createalbum&inajax=1&name=' + inputObj.value, function(s){
+							x.get('home.php?mod=misc&ac=ajax&op=createalbum&inajax=1&name=' + inputObj.value+'&catid='+$('albumcatid').value, function(s){
 								var aid = parseInt(s);
 								var albumList = $('uploadalbum');
 								var haveoption = false;
