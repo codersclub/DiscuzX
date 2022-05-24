@@ -89,7 +89,7 @@ class model_forum_thread extends discuz_model
 		}
 
 
-		$this->param['sortid'] = $this->param['special'] && $this->forum['threadsorts']['types'][$this->param['sortid']] ? 0 : $this->param['sortid'];
+		$this->param['sortid'] = $this->param['special'] || !$this->forum['threadsorts']['types'][$this->param['sortid']] ? 0 : $this->param['sortid'];
 		$this->param['typeexpiration'] = intval($this->param['typeexpiration']);
 
 		if($this->forum['threadsorts']['expiration'][$this->param['typeid']] && !$this->param['typeexpiration']) {
