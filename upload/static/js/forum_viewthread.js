@@ -27,6 +27,10 @@ function attachimgshow(pid, onlyinpost) {
 			aimgcomplete++;
 			continue;
 		}
+		if(onlyinpost && !obj.getAttribute('inpost')) {
+			aimgcomplete++; 
+			continue;
+		}        
 		if(onlyinpost && obj.getAttribute('inpost') || !onlyinpost) {
 			if(!obj.status) {
 				obj.status = 1;
