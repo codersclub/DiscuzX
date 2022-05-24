@@ -100,7 +100,7 @@ Class discuz_upload{
 	}
 
 	public static function is_image_ext($ext) {
-		static $imgext  = array('jpg', 'jpeg', 'gif', 'png', 'bmp');
+		static $imgext  = array('jpg', 'jpeg', 'gif', 'png', 'bmp', 'webp');
 		return in_array($ext, $imgext) ? 1 : 0;
 	}
 
@@ -119,7 +119,7 @@ Class discuz_upload{
 				return false;
 			} elseif($ext == 'swf' && $type != 4 && $type != 13) {
 				return false;
-			} elseif($isimage && !in_array($type, array(1,2,3,6,13))) {
+			} elseif($isimage && !in_array($type, array(1,2,3,6,13,18))) {
 				return false;
 			} elseif(!$allowswf && ($ext == 'swf' || $type == 4 || $type == 13)) {
 				return false;
@@ -144,7 +144,7 @@ Class discuz_upload{
 	}
 
 	public static function get_target_extension($ext) {
-		static $safeext  = array('attach', 'jpg', 'jpeg', 'gif', 'png', 'swf', 'bmp', 'txt', 'zip', 'rar', 'mp3');
+		static $safeext  = array('attach', 'jpg', 'jpeg', 'gif', 'png', 'webp', 'swf', 'bmp', 'txt', 'zip', 'rar', 'mp3');
 		return strtolower(!in_array(strtolower($ext), $safeext) ? 'attach' : $ext);
 	}
 

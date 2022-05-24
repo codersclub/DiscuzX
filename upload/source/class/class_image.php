@@ -181,6 +181,10 @@ class image {
 					$this->imagecreatefromfunc = function_exists('imagecreatefrompng') ? 'imagecreatefrompng' : '';
 					$this->imagefunc = function_exists('imagepng') ? 'imagepng' : '';
 					break;
+				case 'image/webp':
+					$this->imagecreatefromfunc = function_exists('imagecreatefromwebp') ? 'imagecreatefromwebp' : '';
+					$this->imagefunc = function_exists('imagewebp') ? 'imagewebp' : '';
+					break;
 			}
 		} else {
 			$this->imagecreatefromfunc = $this->imagefunc = TRUE;
@@ -196,7 +200,21 @@ class image {
 			$content = fread($fp, $this->imginfo['size']);
 			fclose($fp);
 			$this->imginfo['animated'] = strpos($content, 'NETSCAPE2.0') === FALSE ? 0 : 1;
-		} else {
+		} elseif(!$this->libmethod && $this->imginfo['mime'] == 'image/webp') {
+			if(!$this->imagecreatefromfunc) {
+				return -4;
+			}
+			if(!($fp = @fopen($source, 'rb'))) {
+				return -2;
+			}
+		   	$content = fread($fp, 40);
+			fclose($fp);
+			if (stripos($content, 'WEBPVP8X') !== FALSE || stripos($content, 'ANIM') !== FALSE) {
+				$this->imginfo['animated'] = 1;
+			}else{
+				$this->imginfo['animated'] = 0;
+			}
+		}else {
 			$this->imginfo['animated'] = 0;
 		}
 

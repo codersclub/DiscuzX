@@ -65,7 +65,7 @@ if($op == "finish") {
 			foreach($directory as $key => $value) {
 				$dirstr = DISCUZ_ROOT.'./static/image/foreground/'.$value;
 				if(is_dir($dirstr)) {
-					$filearr = dreaddir($dirstr, array('jpg','jpeg','gif','png'));
+					$filearr = dreaddir($dirstr, array('jpg','jpeg','gif','png','webp'));
 					if(!empty($filearr)) {
 						if(is_file($dirstr.'/categories.txt')) {
 							$catfile = @file($dirstr.'/categories.txt');
@@ -79,7 +79,7 @@ if($op == "finish") {
 				}
 			}
 		} elseif($isdoodle) {
-			$filearr = dreaddir(DISCUZ_ROOT.'./static/image/doodle/big', array('jpg','jpeg','gif','png'));
+			$filearr = dreaddir(DISCUZ_ROOT.'./static/image/doodle/big', array('jpg','jpeg','gif','png','webp'));
 		}
 	}
 	$feedurl = urlencode(getsiteurl().'home.php?mod=misc&ac=swfupload&op=finish&random='.random(8).'&albumid=');

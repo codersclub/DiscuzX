@@ -24,7 +24,7 @@ function getimageinfoval($ImageInfo,$val_arr) {
 
 function getexif($img) {
 
-	$imgtype			=	array("", "GIF", "JPG", "PNG", "SWF", "PSD", "BMP", "TIFF(intel byte order)", "TIFF(motorola byte order)", "JPC", "JP2", "JPX", "JB2", "SWC", "IFF", "WBMP", "XBM");
+	$imgtype			=	array("", "GIF", "JPG", "PNG", "SWF", "PSD", "BMP", "WEBP", "TIFF(intel byte order)", "TIFF(motorola byte order)", "JPC", "JP2", "JPX", "JB2", "SWC", "IFF", "WBMP", "XBM");
 	$Orientation		=	array("", "top left side", "top right side", "bottom right side", "bottom left side", "left side top", "right side top", "right side bottom", "left side bottom");
 	$ResolutionUnit		=	exif_lang('resolutionunit');
 	$YCbCrPositioning	=	array("", "the center of pixel array", "the datum point");

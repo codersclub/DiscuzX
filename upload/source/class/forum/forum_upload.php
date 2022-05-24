@@ -105,7 +105,7 @@ class forum_upload {
 			if((!getglobal('setting/imagelib') && $size > (getglobal('setting/gdlimit') ? getglobal('setting/gdlimit') : 16777216)) || $size < 16 ) {
 				return $this->uploadmsg(13);
 			}
-			if(!in_array($type, array(1, 2, 3, 6, 13)) || ($upload->attach['ext'] == 'swf' && $type != 4 && $type != 13)) {
+			if(!in_array($type, array(1, 2, 3, 6, 13, 18)) || ($upload->attach['ext'] == 'swf' && $type != 4 && $type != 13)) {
 				return $this->uploadmsg(7);
 			}
 		}
