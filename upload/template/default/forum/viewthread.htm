@@ -193,7 +193,7 @@
 							[{$_G['forum']['threadtypes']['types'][$_G['forum_thread']['typeid']]}]
 						<!--{/if}-->
 					<!--{/if}-->
-					<!--{if $threadsorts && $_G['forum_thread']['sortid']}-->
+					<!--{if $threadsorts && $_G['forum_thread']['sortid'] && $_G['forum']['threadsorts']['types']['sortid']}-->
 						<a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=sortid&sortid=$_G[forum_thread][sortid]">[{$_G['forum']['threadsorts']['types'][$_G['forum_thread']['sortid']]}]</a>
 					<!--{/if}-->
 					<span id="thread_subject">$_G[forum_thread][subject]</span>

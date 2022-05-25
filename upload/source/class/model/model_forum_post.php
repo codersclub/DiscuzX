@@ -387,7 +387,7 @@ class model_forum_post extends discuz_model {
 
 
 
-			$this->param['readperm'] = $this->group['allowsetreadperm'] ? intval($this->param['readperm']) : ($isorigauthor ? 0 : 'ignore');
+			$this->param['readperm'] = $this->group['allowsetreadperm'] ? intval($this->param['readperm']) : ($isorigauthor ? $this->thread['readperm'] : 'ignore');
 			if($this->thread['special'] != 3) {
 				$this->param['price'] = intval($this->param['price']);
 				$this->param['price'] = $this->thread['price'] < 0 && !$this->thread['special']
@@ -410,6 +410,8 @@ class model_forum_post extends discuz_model {
 			$this->thread['status'] = setstatus(6, $this->param['allownoticeauthor'] ? 1 : 0, $this->thread['status']);
 
 			$displayorder = (empty($this->param['save']) || $this->thread['displayorder'] != -4 ) ? ($this->thread['displayorder'] == -4 ? -4 : $this->thread['displayorder']) : -4;
+			$this->param['typeid'] = isset($this->param['typeid']) && isset($this->forum['threadtypes']['types'][$this->param['typeid']]) && (!$this->forum['threadtypes']['moderators'][$this->param['typeid']] || $this->forum['ismoderator']) ? $this->param['typeid'] : 0;
+			$this->param['sortid'] = $this->param['special'] || !$this->forum['threadsorts']['types'][$this->param['sortid']] ? 0 : $this->param['sortid'];			
 
 
 			$this->param['threadupdatearr']['typeid'] = $this->param['typeid'];
