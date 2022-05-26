@@ -160,8 +160,14 @@ class model_forum_thread extends discuz_model
 		}
 
 		if($this->param['moderated']) {
-			updatemodlog($this->tid, ($this->param['displayorder'] > 0 ? 'STK' : 'DIG'));
-			updatemodworks(($this->param['displayorder'] > 0 ? 'STK' : 'DIG'), 1);
+			if($this->param['displayorder'] > 0) {
+				updatemodlog($this->tid, 'STK');
+				updatemodworks('STK', 1);
+			}
+			if($this->param['digest']) {
+				updatemodlog($this->tid, 'DIG');
+				updatemodworks('DIG', 1);
+			}
 		}
 
 		$this->param['bbcodeoff'] = checkbbcodes($this->param['message'], !empty($this->param['bbcodeoff']));
