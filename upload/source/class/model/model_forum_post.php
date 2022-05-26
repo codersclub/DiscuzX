@@ -434,7 +434,7 @@ class model_forum_post extends discuz_model {
 				if($this->thread['closed'] > 1) {
 					C::t('forum_thread')->update($this->thread['closed'], array('subject' => $this->param['subject']), true);
 				} elseif(empty($this->thread['isgroup'])) {
-					$threadclosed = C::t('forum_threadclosed')->fetch($thread['tid']);
+					$threadclosed = C::t('forum_threadclosed')->fetch($this->thread['tid']);
 					if($threadclosed['redirect']) {
 						C::t('forum_thread')->update($threadclosed['redirect'], array('subject' => $this->param['subject']), true);
 					}
@@ -465,8 +465,13 @@ class model_forum_post extends discuz_model {
 
 
 		if(getglobal('forum_auditstatuson') && $this->param['audit'] == 1) {
-			C::t('forum_post')->update($this->thread['posttableid'], $this->post['pid'], array('status' => 4), false, false, null, -2, null, 0);
-			updatepostcredits('+', $this->post['authorid'], ($isfirstpost ? 'post' : 'reply'), $this->forum['fid']);
+			if(getstatus($this->post['status'], 3) == 0) {
+				C::t('forum_post')->update($this->thread['posttableid'], $this->post['pid'], array('status' => 4), false, false, null, -2, null, 0);
+				updatepostcredits('+', $this->post['authorid'], ($isfirstpost ? 'post' : 'reply'), $this->forum['fid']);
+			}
+			if(!$isfirstpost) {
+				C::t('forum_thread')->increase($this->thread['tid'], array('replies' => 1));
+			} 
 			updatemodworks('MOD', 1);
 			updatemodlog($this->thread['tid'], 'MOD');
 		}
