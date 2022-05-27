@@ -84,7 +84,7 @@ class extend_thread_allowat extends extend_thread_base {
 					if(count($this->atlist) < $maxselect) {
 						$query = C::t('home_friend')->fetch_all_by_uid_username($this->member['uid'], $atlist_tmp);
 						foreach($query as $row) {
-							if(!in_array($row['followuid'], $ateduids)) {
+							if(!in_array($row['fuid'], $ateduids)) {
 								$this->atlist[$row[fuid]] = $row['fusername'];
 							}
 						}
@@ -144,7 +144,7 @@ class extend_thread_allowat extends extend_thread_base {
 					if(count($this->atlist) < $maxselect) {
 						$query = C::t('home_friend')->fetch_all_by_uid_username($this->member['uid'], $atlist_tmp);
 						foreach($query as $row) {
-							if(!in_array($row['followuid'], $ateduids)) {
+							if(!in_array($row['fuid'], $ateduids)) {
 								$this->atlist[$row[fuid]] = $row['fusername'];
 							}
 						}
@@ -164,8 +164,8 @@ class extend_thread_allowat extends extend_thread_base {
 						$atsearch[] = "/@$atusername /i";
 						$atreplace[] = "[url=home.php?mod=space&uid=$atuid]@{$atusername}[/url] ";
 					}
-					$parameters['message'] = preg_replace($atsearch, $atreplace, $parameters['message'].' ', 1);
-					$parameters['message'] = substr($parameters['message'], 0, strlen($parameters['message']) - 1);
+					$this->param['message'] = preg_replace($atsearch, $atreplace, $parameters['message'].' ', 1);
+					$this->param['message'] = substr($this->param['message'], 0, strlen($this->param['message']) - 1);
 				}
 			}
 		}
