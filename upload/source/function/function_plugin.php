@@ -434,7 +434,7 @@ function cron_create($pluginid, $filename = null, $name = null, $weekday = null,
 			$filename = $pluginid.':'.$filename;
 			$cronid = C::t('common_cron')->get_cronid_by_filename($filename);
 			if(!$cronid) {
-				return C::t('common_cron')->insert(array(
+				C::t('common_cron')->insert(array(
 					'available' => 1,
 					'type' => 'plugin',
 					'name' => $name,
@@ -452,10 +452,10 @@ function cron_create($pluginid, $filename = null, $name = null, $weekday = null,
 					'hour' => $hour,
 					'minute' => $minutenew,
 				));
-				return $cronid;
 			}
 		}
 	}
+	return true;
 }
 
 function cron_delete($pluginid) {
