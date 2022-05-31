@@ -316,9 +316,23 @@ showtablefooter();
 showformfooter();
 
 showtableheader('contributors', 'fixpadding');
-showtablerow('', array('', 'class="td21" style="text-align:right;"'),
+showtablerow('', array('class="vtop td24 lineheight"', 'class="lineheight team"'), array(
+	cplang('home_git_thanks'),
+	'
+	<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=laozhoubuluo" class="lightlink2 smallfont" target="_blank">&#x8001;&#x5468;&#x90E8;&#x843D;</a>
+	<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=popcorner" class="lightlink2 smallfont" target="_blank">popcorner</a>
+	<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=oldhuhu" class="lightlink2 smallfont" target="_blank">oldhuhu</a>
+	<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=zoewho" class="lightlink2 smallfont" target="_blank">&#x6E56;&#x4E2D;&#x6C89;</a>
+	<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=3dming" class="lightlink2 smallfont" target="_blank">&#x8BF8;&#x845B;&#x6653;&#x660E;</a>
+	<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=brotherand2" class="lightlink2 smallfont" target="_blank">brotherand2</a>
+	<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=contributions" class="lightlink2 smallfont" target="_blank">git</a>
+	<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=nftstudio" class="lightlink2 smallfont" target="_blank">&#x9006;&#x98CE;&#x5929;</a>
+	<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=ONEXIN" class="lightlink2 smallfont" target="_blank">ONEXIN</a>'
+));
+showtablerow('', array('class="vtop td24 lineheight"', 'class="lineheight team"'), array(
+	'',
 	'<a href="https://gitee.com/Discuz/DiscuzX/contributors?ref=master" class="lightlink2 smallfont" target="_blank">' . cplang('contributors_see') . '</a>'
-);
+));
 showtablefooter();
 
 
@@ -436,7 +450,8 @@ showtablerow('', array('class="vtop td24 lineheight"', 'class="lineheight team"'
 ));
 showtablerow('', array('class="vtop td24 lineheight"', 'class="lineheight team"'), array(
 	cplang('home_dev_thanks'),
-	'<a href="https://gitee.com/Discuz/DiscuzX/contributors?ref=master" class="lightlink2 smallfont" target="_blank">Discuz! X Git Contributors</a>
+	'
+	<a href="https://gitee.com/Discuz/DiscuzX/contributors?ref=master" class="lightlink2 smallfont" target="_blank">Discuz! X Git Contributors</a>
 	<a href="http://www.discuzfans.com" class="lightlink2 smallfont" target="_blank">Discuz! Fans</a>
 	<a href="http://www.discuz.net/home.php?mod=space&uid=122246" class="lightlink2 smallfont" target="_blank">Heyond</a>
 	<a href="http://www.discuz.net/home.php?mod=space&uid=632268" class="lightlink2 smallfont" target="_blank">JinboWang</a>

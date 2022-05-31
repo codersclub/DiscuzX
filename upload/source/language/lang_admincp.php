@@ -747,6 +747,7 @@ $lang = array
 	'home_dev_thanks' => '感谢贡献者',
 	'home_dev_supportwebs' => '第三方支持网站',
 	'home_dev_links' => '相关链接',
+	'home_git_thanks' => '特别感谢',
 
 	'setting' => '全局设置',
 	'setting_tips' => '<li>以红色虚线标示的选项，表示该选项和系统效率、负载能力与资源消耗有关(提高效率、或降低效率)，建议依据自身服务器情况进行调整。</li>',
@@ -7303,7 +7304,7 @@ url.rewrite-once = (
 	'version_tips' => '关于本版本的温馨提示',
 	'version_tips_msg' => '感谢您选择 Discuz! {version} ，您可以查看 <a href="https://gitee.com/Discuz/DiscuzX/releases" target="_blank">发行注记</a> 以了解本版本更新内容。我们建议您尽快进行一次 <a href="{ADMINSCRIPT}?action=optimizer&operation=security">安全检测</a> 以及 <a href="{ADMINSCRIPT}?action=optimizer&operation=serversec">底层安全检测</a> 以尽可能保证系统安全。<a href="{ADMINSCRIPT}?action=index&closesitereleasetips=1">我已知晓</a>',
 	'contributors' => 'Discuz! 开源贡献者',
-	'contributors_see' => 'Click Here To See Them',
+	'contributors_see' => '查看全部贡献者',
 	'detect_environment_error' => '你的服务器无法检测新版，请点击查看新版',
 	'refresh' => '刷新',
 	'qq_group' => 'QQ群：',
