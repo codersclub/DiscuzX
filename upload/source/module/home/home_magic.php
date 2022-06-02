@@ -114,6 +114,10 @@ if($action == 'shop') {
 			showmessage('magics_nonexistence');
 		}
 		$magicperm = dunserialize($magic['magicperm']);
+		$useperm = (strstr($magicperm['usergroups'], "\t$_G[groupid]\t") || empty($magicperm['usergroups'])) ? '1' : '0';
+		if(!$useperm) {
+			showmessage('magics_use_nopermission');
+		}        
 		$querystring = array();
 		foreach($_GET as $k => $v) {
 			$querystring[] = rawurlencode($k).'='.rawurlencode($v);
@@ -149,8 +153,6 @@ if($action == 'shop') {
 		$useperoid = magic_peroid($magic, $_G['uid']);
 
 		if(!submitcheck('operatesubmit')) {
-
-			$useperm = (strstr($magicperm['usergroups'], "\t$_G[groupid]\t") || !$magicperm['usergroups']) ? '1' : '0';
 
 			if($magicperm['targetgroups']) {
 				loadcache('usergroups');
