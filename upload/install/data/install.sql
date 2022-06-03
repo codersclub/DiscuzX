@@ -1713,10 +1713,10 @@ CREATE TABLE pre_common_payment_order  (
   `payment_time` int(10) unsigned DEFAULT NULL,
   `callback_status` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`),
-  UNIQUE KEY (`out_biz_no`),
-  KEY (`uid`),
-  KEY (`type`),
-  KEY (`status`)
+  UNIQUE KEY `out_biz_no` (`out_biz_no`),
+  KEY `uid` (`uid`),
+  KEY `type` (`type`),
+  KEY `status` (`status`)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_common_payment_refund;
@@ -1733,8 +1733,8 @@ CREATE TABLE pre_common_payment_refund  (
   `remoteport` smallint(6) unsigned NOT NULL DEFAULT 0,
   `dateline` int(10) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY (`out_biz_no`),
-  INDEX (`order_id`)
+  UNIQUE KEY `out_biz_no` (`out_biz_no`),
+  KEY `order_id` (`order_id`)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_common_payment_transfer;
@@ -1756,9 +1756,9 @@ CREATE TABLE pre_common_payment_transfer  (
   `remoteport` smallint(6) unsigned NOT NULL DEFAULT 0,
   `dateline` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY (`out_biz_no`),
-  KEY (`uid`),
-  KEY (`status`)
+  UNIQUE KEY `out_biz_no` (`out_biz_no`),
+  KEY `uid` (`uid`),
+  KEY `status` (`status`)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS pre_connect_disktask;
