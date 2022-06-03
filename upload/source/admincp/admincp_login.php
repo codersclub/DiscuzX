@@ -22,13 +22,11 @@ if($this->cpaccess == -3) {
 	html_login_header();
 }
 
-
-if(!getglobal('uid') && getglobal('config/admincp/mustlogin')) {
+if($this->cpaccess == -5) {
 	echo  '<p class="logintips">'.lang('admincp_login', 'login_cp_guest').'</p>';
 
-} elseif(!getstatus(getglobal('member/allowadmincp'), 1) || $this->cpaccess == -3) {
+}elseif($this->cpaccess == -2 || $this->cpaccess == -3) {
 	echo  '<p class="logintips">'.lang('admincp_login', 'login_cp_noaccess').'</p>';
-
 
 }elseif($this->cpaccess == -1) {
 	$ltime = $this->sessionlife - (TIMESTAMP - $this->adminsession['dateline']);

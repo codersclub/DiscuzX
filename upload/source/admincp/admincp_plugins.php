@@ -207,7 +207,11 @@ if(!$operation) {
 				$plugin['modules'] = dunserialize($plugin['modules']);
 				$k = array_keys($_GET['displayordernew'][$plugin['pluginid']]);
 				$v = array_values($_GET['displayordernew'][$plugin['pluginid']]);
-				$plugin['modules'][$k[0]]['displayorder'] = $v[0];
+				foreach($plugin['modules'] as $key => $value) {
+					if(in_array($value['type'], array(11, 28))) {
+						$plugin['modules'][$key]['displayorder'] = $v[0];
+					}
+				}
 				C::t('common_plugin')->update($plugin['pluginid'], array('modules' => serialize($plugin['modules'])));
 			}
 		}
@@ -526,7 +530,7 @@ if(!$operation) {
 	$dir = substr($plugin['directory'], 0, -1);
 
 	if(!$_GET['confirmed']) {
-
+		cloudaddons_validator($dir.'.plugin');
 		$file = DISCUZ_ROOT.'./source/plugin/'.$dir.'/discuz_plugin_'.$dir.($modules['extra']['installtype'] ? '_'.$modules['extra']['installtype'] : '').'.xml';
 		$upgrade = false;
 		if(file_exists($file)) {

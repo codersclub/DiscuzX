@@ -143,7 +143,7 @@ function getthreadsbytids($tidarray) {
 }
 
 function getblogbyid($blogidarray) {
-	global $_G;
+	global $_G, $summarylen;
 
 	$bloglist = array();
 	if(!empty($blogidarray)) {

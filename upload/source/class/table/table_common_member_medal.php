@@ -22,7 +22,7 @@ class table_common_member_medal extends discuz_table
 	}
 
 	public function fetch_all_by_uid($uid) {
-		return !empty($uid) ? DB::fetch_all('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field('uid', $uid), 'medalid') : array();
+		return !empty($uid) ? DB::fetch_all('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field('uid', $uid), '', 'medalid') : array();
 	}
 
 	public function delete_by_uid_medalid($uid, $medalid) {

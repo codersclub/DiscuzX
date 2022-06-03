@@ -54,7 +54,7 @@ class optimizer_dbbackup_visit {
 		foreach($backupdirs as $backupdir) {
 			$dir = dir(DISCUZ_ROOT.'./data/'.$backupdir);
 			while($entry = $dir->read()) {
-				$entry = './data/'.$backupdir.'/'.$entry;
+				$entry = DISCUZ_ROOT.'./data/'.$backupdir.'/'.$entry;
 				if(is_file($entry)) {
 					if(preg_match("/\.sql$/i", $entry)) {
 						$filesize = filesize($entry);
@@ -69,11 +69,11 @@ class optimizer_dbbackup_visit {
 							'volume' => $identify[4],
 							'tablepre' => $identify[5],
 							'dbcharset' => $identify[6],
-							'filename' => $entry,
+							'filename' => str_replace(DISCUZ_ROOT, '', $entry),
 							'dateline' => filemtime($entry),
 							'size' => $filesize
 						);
-						$testurl = str_replace('./data/', getglobal('siteurl').'data/', $entry);
+						$testurl = str_replace(DISCUZ_ROOT.'./data/', getglobal('siteurl').'data/', $entry);
 						$content = dfsockopen($testurl);
 						if(!empty($content)) {
 							$filecount++;
@@ -84,11 +84,11 @@ class optimizer_dbbackup_visit {
 						$filesize = filesize($entry);
 						$exportziplog[$key][] = array(
 							'type' => 'zip',
-							'filename' => $entry,
-							'size' => filesize($entry),
+							'filename' => str_replace(DISCUZ_ROOT, '', $entry),
+							'size' => $filesize,
 							'dateline' => filemtime($entry)
 						);
-						$testurl = str_replace('./data/', getglobal('siteurl').'data/', $entry);
+						$testurl = str_replace(DISCUZ_ROOT.'./data/', getglobal('siteurl').'data/', $entry);
 						$content = dfsockopen($testurl);
 						if(!empty($content)) {
 							$filecount++;

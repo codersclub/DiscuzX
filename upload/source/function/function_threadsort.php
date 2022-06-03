@@ -472,7 +472,7 @@ function threadsortshow($sortid, $tid) {
 		}
 	}
 
-	$threadsortshow['optionlist'] = !$optionexpiration ? $_G['forum_option'] : 'expire';
+	$threadsortshow['optionlist'] = !$sortdataexpiration ? $_G['forum_option'] : 'expire';
 	$threadsortshow['typetemplate'] = $typetemplate;
 	$threadsortshow['expiration'] = dgmdate($sortdataexpiration, 'd');
 

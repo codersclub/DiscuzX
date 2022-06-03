@@ -31,7 +31,7 @@ if(empty($_GET['action'])) {
 	include libfile('function/forum');
 	$medalcredits = array();
 	foreach(C::t('forum_medal')->fetch_all_data(1) as $medal) {
-		$medal['permission'] = medalformulaperm(serialize(array('medal' => dunserialize($medal['permission']))), 1);
+		$medal['permission'] = medalformulaperm(serialize(array('medal' => dunserialize($medal['permission']))), $medal['type']);
 		$medal['image'] = preg_match('/^https?:\/\//is', $medal['image']) ? $medal['image'] : STATICURL.'image/common/'.$medal['image'];
 		if($medal['price']) {
 			$medal['credit'] = $medal['credit'] ? $medal['credit'] : $_G['setting']['creditstransextra'][3];
@@ -52,12 +52,17 @@ if(empty($_GET['action'])) {
 	}
 	$lastmedalusers = C::t('common_member')->fetch_all($uids);
 	$mymedals = C::t('common_member_medal')->fetch_all_by_uid($_G['uid']);
+	$mymedals = array_keys($mymedals);
+	$applylogs = C::t('forum_medallog')->fetch_all_by_type(2);
+	foreach ($applylogs as $id => $log) {
+		$mymedals[$log['medalid']] = $log['medalid'];
+	}
 
 } elseif($_GET['action'] == 'confirm') {
 
 	include libfile('function/forum');
 	$medal = C::t('forum_medal')->fetch($_GET['medalid']);
-	$medal['permission'] = medalformulaperm(serialize(array('medal' => dunserialize($medal['permission']))), 1);
+	$medal['permission'] = medalformulaperm(serialize(array('medal' => dunserialize($medal['permission']))), $medal['type']);
 	$medal['image'] = preg_match('/^https?:\/\//is', $medal['image']) ? $medal['image'] : STATICURL.'image/common/'.$medal['image'];
 	if($medal['price']) {
 		$medal['credit'] = $medal['credit'] ? $medal['credit'] : $_G['setting']['creditstransextra'][3];
@@ -82,7 +87,7 @@ if(empty($_GET['action'])) {
 	$medalpermission = $medal['permission'] ? dunserialize($medal['permission']) : array();
 	if($medalpermission[0] || $medalpermission['usergroupallow']) {
 		include libfile('function/forum');
-		medalformulaperm(serialize(array('medal' => $medalpermission)), 1);
+		medalformulaperm(serialize(array('medal' => $medalpermission)), $medal['type']);
 
 		if($_G['forum_formulamessage']) {
 			showmessage('medal_permforum_nopermission', 'home.php?mod=medal', array('formulamessage' => $_G['forum_formulamessage'], 'usermsg' => $_G['forum_usermsg']));

@@ -30,7 +30,7 @@ function is_ranklistcache_available($name) {
 
 function getranklistcache($name, $dateline = '') {
 	global $_G;
-	if(is_ranklistcache_available($name) || $_G['ranklist_cacheupdated']) {
+	if(is_ranklistcache_available($name)) {
 		$ranklist = $_G['cache']['ranklist_index'][$name];
 		unset($ranklist['lastupdated']);
 		return $ranklist;

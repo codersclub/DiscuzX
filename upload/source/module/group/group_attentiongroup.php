@@ -18,7 +18,7 @@ $attentiongroup = !empty($_G['member']['attentiongroup']) ? explode(',', $_G['me
 $counttype = count($attentiongroup);
 if(submitcheck('attentionsubmit')) {
 	if(is_array($_GET['attentiongroupid'])) {
-		$_GET['attentiontypeid'] = array_slice($_GET['attentiontypeid'], 0, 5);
+		$_GET['attentiongroupid'] = array_slice($_GET['attentiongroupid'], 0, 5);
 		C::t('common_member_field_forum')->update($_G['uid'], array('attentiongroup' => implode(',', $_GET['attentiongroupid'])));
 	} else {
 		C::t('common_member_field_forum')->update($_G['uid'], array('attentiongroup' => ''));

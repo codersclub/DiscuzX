@@ -15,7 +15,7 @@ $apitype = empty($apitype) || !preg_match('/^[a-z0-9]+$/i', $apitype) ? 'alipay'
 
 require_once DISCUZ_ROOT.'./api/trade/api_'.$apitype.'.php';
 
-function trade_offline($tradelog, $returndlang = 1, $trade_message = '') {
+function trade_offline($tradelog, $returndlang = 1, &$trade_message = '') {
 	global $_G;
 	$tmp = $return = array();
 	if($_G['uid'] == $tradelog['buyerid']) {
@@ -36,7 +36,8 @@ function trade_offline($tradelog, $returndlang = 1, $trade_message = '') {
 		$tmp = $data[$tradelog['status']];
 	}
 	if($returndlang) {
-		if(!is_array($tmp)) {
+
+		$language = lang('forum/misc'); 		if(!is_array($tmp)) {
 			return array();
 		}
 		for($i = 0, $count = count($tmp);$i < $count;$i++) {

@@ -164,6 +164,7 @@ dl.diy dt { margin-top: -10px; margin-bottom: 10px; padding-bottom: 5px; border-
 .diywin .px { vertical-align: middle; }
 .diywin td { padding: 2px 0; }
 .diywin .tfm caption, .diywin .tfm th, .diywin .tfm td { padding: 5px 2px; }
+.diywin .tfm select { max-width: 320px; }
 /* 个人导航小样式 */
 .mininv { width: 450px; height: 30px; border: 1px dotted #09F; }
 

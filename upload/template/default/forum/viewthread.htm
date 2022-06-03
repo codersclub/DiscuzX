@@ -193,7 +193,7 @@
 							[{$_G['forum']['threadtypes']['types'][$_G['forum_thread']['typeid']]}]
 						<!--{/if}-->
 					<!--{/if}-->
-					<!--{if !empty($threadsorts) && $_G['forum_thread']['sortid']}-->
+					<!--{if $threadsorts && $_G['forum_thread']['sortid'] && $_G['forum']['threadsorts']['types']['sortid']}-->
 						<a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=sortid&sortid=$_G[forum_thread][sortid]">[{$_G['forum']['threadsorts']['types'][$_G['forum_thread']['sortid']]}]</a>
 					<!--{/if}-->
 					<span id="thread_subject">$_G[forum_thread][subject]</span>
@@ -354,7 +354,7 @@ $_G['forum_tagscript']
 
 <!--{if $multipage && $page < $_G['setting']['threadmaxpages'] && $page < $_G['page_next']}-->
 <!--{eval $nxtpage = $page + 1;}-->
-	<div class="pgbtn"><a href="forum.php?mod=viewthread&tid=$_G[tid]{if $_GET[authorid]}&authorid=$_GET[authorid]{/if}&page=$nxtpage" hidefocus="true" class="bm_h">{lang next_page_extra}</a></div>
+	<div class="pgbtn"><a href="forum.php?mod=viewthread&tid=$_G[tid]{$multipageparam}&page=$nxtpage" hidefocus="true" class="bm_h">{lang next_page_extra}</a></div>
 <!--{/if}-->
 
 <div class="pgs mtm mbm cl">
@@ -409,7 +409,7 @@ $_G['forum_tagscript']
 <!--{/if}-->
 
 <!--{if !IS_ROBOT && $_G['setting']['threadmaxpages'] > 1}-->
-	<script type="text/javascript">document.onkeyup = function(e){keyPageScroll(e, <!--{if $page > 1}-->1<!--{else}-->0<!--{/if}-->, <!--{if $page < $_G['setting']['threadmaxpages'] && isset($_G['page_next']) && $page < $_G['page_next']}-->1<!--{else}-->0<!--{/if}-->, 'forum.php?mod=viewthread&tid=$_G[tid]<!--{if $_GET[authorid]}-->&authorid=$_GET[authorid]<!--{/if}-->', $page);}</script>
+	<script type="text/javascript">document.onkeyup = function(e){keyPageScroll(e, <!--{if $page > 1}-->1<!--{else}-->0<!--{/if}-->, <!--{if $page < $_G['setting']['threadmaxpages'] && $page < $_G['page_next']}-->1<!--{else}-->0<!--{/if}-->, 'forum.php?mod=viewthread&tid=$_G[tid]{$multipageparam}', $page);}</script>
 <!--{/if}-->
 </div>
 

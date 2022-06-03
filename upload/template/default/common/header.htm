@@ -81,7 +81,7 @@
 		</div>
 
 		<!--{if !IS_ROBOT}-->
-			<!--{if $_G['uid']}-->
+			<!--{if $_G['uid'] && !$_G['setting']['bbclosed'] && !$_G['member']['freeze'] && $_G['member']['groupid'] != 5}-->
 			<ul id="myprompt_menu" class="p_pop" style="display: none;">
 				<li><a href="home.php?mod=space&do=pm" id="pm_ntc" style="background-repeat: no-repeat; background-position: 0 50%;"><em class="prompt_news{if empty($_G[member][newpm])}_0{/if}"></em>{lang pm_center}</a></li>
 				<!--{if $_G['setting']['followstatus']}-->
@@ -151,7 +151,7 @@
 				<!--{if $_G['setting']['subnavs']}-->
 					<!--{loop $_G[setting][subnavs] $navid $subnav}-->
 						<!--{if $_G['setting']['navsubhover'] || $mnid == $navid}-->
-						<ul class="cl {if $mnid == $navid}current{/if}" id="snav_$navid" style="display:{if $mnid != $navid}none{/if}">
+						<ul class="cl {if $mnid == $navid}current{/if}" id="snav_$navid"{if $mnid != $navid} style="display:none"{/if}>
 						$subnav
 						</ul>
 						<!--{/if}-->

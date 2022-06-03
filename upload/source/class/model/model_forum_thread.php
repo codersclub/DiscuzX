@@ -95,7 +95,7 @@ class model_forum_thread extends discuz_model
 		}
 
 
-		$this->param['sortid'] = $this->param['special'] && $this->forum['threadsorts']['types'][$this->param['sortid']] ? 0 : $this->param['sortid'];
+		$this->param['sortid'] = $this->param['special'] || !$this->forum['threadsorts']['types'][$this->param['sortid']] ? 0 : $this->param['sortid'];
 		$this->param['typeexpiration'] = intval($this->param['typeexpiration']);
 
 		if(!empty($this->forum['threadsorts']['expiration'][$this->param['typeid']]) && !$this->param['typeexpiration']) {
@@ -148,6 +148,7 @@ class model_forum_thread extends discuz_model
 		    'fid' => $this->forum['fid'],
 		    'dateline' => $this->param['publishdate'],
 		));
+		C::t('forum_sofa')->insert(array('tid' => $this->tid,'fid' => $this->forum['fid']));
 		useractionlog($this->member['uid'], 'tid');
 
 		if(!getuserprofile('threads') && $this->setting['newbie']) {
@@ -164,8 +165,14 @@ class model_forum_thread extends discuz_model
 		}
 
 		if($this->param['moderated']) {
-			updatemodlog($this->tid, ($this->param['displayorder'] > 0 ? 'STK' : 'DIG'));
-			updatemodworks(($this->param['displayorder'] > 0 ? 'STK' : 'DIG'), 1);
+			if($this->param['displayorder'] > 0) {
+				updatemodlog($this->tid, 'STK');
+				updatemodworks('STK', 1);
+			}
+			if($this->param['digest']) {
+				updatemodlog($this->tid, 'DIG');
+				updatemodworks('DIG', 1);
+			}
 		}
 
 		$this->param['bbcodeoff'] = checkbbcodes($this->param['message'], !empty($this->param['bbcodeoff']));
@@ -259,8 +266,6 @@ class model_forum_thread extends discuz_model
 				require_once libfile('function/grouplog');
 				updategroupcreditlog($this->forum['fid'], $this->member['uid']);
 			}
-
-			C::t('forum_sofa')->insert(array('tid' => $this->tid,'fid' => $this->forum['fid']));
 
 			return 'post_newthread_succeed';
 

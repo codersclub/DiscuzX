@@ -341,6 +341,10 @@
 											window.onscroll = null;
 										}
 
+										var pageinfo = s.match(/\<span id="fd_page_bottom"\>(.+?)\<\/span\>/);
+										$('fd_page_bottom').innerHTML = pageinfo[1];
+										var pageinfo = s.match(/\<span id="fd_page_top"\>(.+?)\<\/span\>/);
+										$('fd_page_top').innerHTML = pageinfo[1];
 										s = s.substring(s.indexOf("<ul id=\"waterfall\""), s.indexOf("<div id=\"tmppic\""));
 										s = s.replace("id=\"waterfall\"", "");
 										$("tmppic").innerHTML = s;

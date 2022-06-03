@@ -51,6 +51,8 @@ if(!$op || $op == 'related') {
 	$isteamworkers = in_array($_G['uid'], array_keys($collectionteamworker));
 
 	$search_status = FALSE;
+	require_once libfile('function/friend');
+	$friendgrouplist = friend_group_list();
 
 	if(!$op && $op != 'related') {
 		if($_G['collection']['uid'] == $_G['uid']) {

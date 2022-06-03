@@ -74,7 +74,7 @@ class extend_thread_poll extends extend_thread_base {
 
 		$this->polloptionpreview = daddslashes($this->polloptionpreview);
 
-		$data = array('tid' => $this->tid, 'multiple' => $this->pollarray['multiple'], 'visible' => $this->pollarray['visible'], 'maxchoices' => $this->pollarray['maxchoices'], 'expiration' => $this->pollarray['expiration'], 'overt' => $this->pollarray['overt'], 'pollpreview' => $polloptionpreview, 'isimage' => $this->pollarray['isimage']);
+		$data = array('tid' => $this->tid, 'multiple' => $this->pollarray['multiple'], 'visible' => $this->pollarray['visible'], 'maxchoices' => $this->pollarray['maxchoices'], 'expiration' => $this->pollarray['expiration'], 'overt' => $this->pollarray['overt'], 'pollpreview' => $this->polloptionpreview, 'isimage' => $this->pollarray['isimage']);
 		C::t('forum_poll')->insert($data);
 	}
 
@@ -137,7 +137,7 @@ class extend_thread_poll extends extend_thread_base {
 						}
 					}
 					$expiration = intval($_GET['expiration']);
-					if($close) {
+					if($this->thread['close']) {
 						$pollarray['expiration'] = TIMESTAMP;
 					} elseif($expiration) {
 						if(empty($pollarray['expiration'])) {

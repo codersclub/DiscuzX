@@ -65,7 +65,7 @@
 				<!--{if $medal['price']}-->
 					{lang space_medal_buy}
 				<!--{else}-->
-					<!--{if !$medal[permission]}-->
+					<!--{if $medal[type] == 2}-->
 						{lang medals_apply}
 					<!--{else}-->
 						{lang medals_draw}

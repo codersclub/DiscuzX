@@ -137,7 +137,7 @@ if($num = C::t('forum_access')->fetch_all_by_fid_uid($_G['fid'], $suid, 1)) {
 
 	$users = array();
 	if($uids = dimplode($uidarray)) {
-		$users = C::t('common_member')->fetch_all_username_by_uid($uids);
+		$users = C::t('common_member')->fetch_all_username_by_uid($uidarray);
 	}
 }
 

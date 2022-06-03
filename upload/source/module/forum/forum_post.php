@@ -338,6 +338,7 @@ if(helper_access::check_module('album') && $_G['group']['allowupload'] && $_G['s
 	require_once libfile('function/portalcp');
 }
 $navtitle = lang('core', 'title_'.$_GET['action'].'_post');
+list($modnewthreads, $modnewreplies) = threadmodstatus('');
 
 if($_GET['action'] == 'newthread' || $_GET['action'] == 'newtrade') {
 	loadcache('groupreadaccess');

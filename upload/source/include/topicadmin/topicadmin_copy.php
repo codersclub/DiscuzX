@@ -57,11 +57,17 @@ if(!submitcheck('modsubmit')) {
 
 	$thread['posttableid'] = 0;
 	$threadid = C::t('forum_thread')->insert($thread, true);
+	C::t('forum_newthread')->insert(array(
+		'tid' => $threadid,
+		'fid' => $thread['fid'],
+		'dateline' => $thread['dateline'],
+	));
+	C::t('forum_sofa')->insert(array('tid' => $threadid,'fid' => $thread['fid']));
 	if($post = C::t('forum_post')->fetch_threadpost_by_tid_invisible($_G['tid'])) {
 		$post['pid'] = '';
 		$post['tid'] = $threadid;
 		$post['fid'] = $copyto;
-		$post['dateline'] = TIMESTAMP;
+		$post['dateline'] = $thread['dateline'];
 		$post['attachment'] = 0;
 		$post['invisible'] = $post['rate'] = $post['ratetimes'] = 0;
 		$post['message'] .= "\n".lang('forum/thread', 'source').": [url=forum.php?mod=viewthread&tid={$sourcetid}]{$thread['subject']}[/url]";

@@ -138,7 +138,7 @@
 											<input type="hidden" id="highlight_style_1" name="highlight_style[1]" value="$stylecheck[1]" />
 											<input type="hidden" id="highlight_style_2" name="highlight_style[2]" value="$stylecheck[2]" />
 											<input type="hidden" id="highlight_style_3" name="highlight_style[3]" value="$stylecheck[3]" />
-											<a href="javascript:;" id="highlight_color_ctrl" onclick="showHighLightColor('highlight_color')" class="pn colorwd"{if $colorcheck} style="background-: $_G[forum_colorarray][$colorcheck]"{/if} /></a>
+											<a href="javascript:;" id="highlight_color_ctrl" onclick="showHighLightColor('highlight_color')" class="pn colorwd"{if $colorcheck} style="background-color: $_G[forum_colorarray][$colorcheck]"{/if} /></a>
 										</span>
 										<a href="javascript:;" id="highlight_op_1" onclick="switchhl(this, 1)" class="dopt_b{if $stylecheck[1]} cnt{/if}" style="text-indent:0;text-decoration:none;font-weight:700;" title="{lang e_bold}">B</a>
 										<a href="javascript:;" id="highlight_op_2" onclick="switchhl(this, 2)" class="dopt_i{if $stylecheck[2]} cnt{/if}" style="text-indent:0;text-decoration:none;font-style:italic;" title="{lang e_italic}">I</a>
@@ -162,7 +162,7 @@
 									<p class="hasd">
 										<label class="labeltxt">{lang backgroundcolor}:</label>
 										<input type="hidden" id="highlight_bgcolor" name="highlight_bgcolor" value="$highlight_bgcolor" />
-										<input type="button" style="background-color: $highlight_bgcolor" value="" class="pn colorwd" onclick="createPalette('highlight_bgcolor_ctrl', 'highlight_bgcolor');" id="chighlight_bgcolor_ctrl">
+										<input type="button"{if $highlight_bgcolor} style="background-color: $highlight_bgcolor"{/if} value="" class="pn colorwd" onclick="createPalette('highlight_bgcolor_ctrl', 'highlight_bgcolor');" id="chighlight_bgcolor_ctrl">
 									</p>
 								</td>
 							</tr>
@@ -444,6 +444,9 @@ function showHighLightColor(hlid) {
 		$('append_parent').appendChild(menu);
 	}
 	showMenu({'ctrlid':hlid + '_ctrl','evt':'click','showid':showid});
+}
+if($('moveto')) {
+	ajaxget('forum.php?mod=ajax&action=getthreadtypes&fid=' + $('moveto').value, 'threadtypes');if($('moveto').value) {$('moveext').style.display='';} else {$('moveext').style.display='none';}
 }
 </script>
 

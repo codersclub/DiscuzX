@@ -94,7 +94,7 @@ if(strtotime($space['regdate']) + $space['oltime'] * 3600 > TIMESTAMP) {
 require_once libfile('function/friend');
 $isfriend = friend_check($space['uid'], 1);
 if(!$_G['adminid']){
-	if(getglobal('setting/privacy/view/profile') == 1 && !$isfriend) {
+	if($_G['setting']['privacy']['view']['profile'] == 1 && !$isfriend && !$space['self']) {
 		showmessage('specified_user_is_not_your_friend', '', array(), array());
 	}
 	if(getglobal('setting/privacy/view/profile') == 2 && !$space['self']) {
@@ -190,6 +190,9 @@ if(!getglobal('privacy')) {
 		include_once template("home/space_profile");
 	} else {
 		$_GET['do'] = 'card';
+		if(helper_access::check_module('follow')) {
+			$follow = C::t('home_follow')->fetch_by_uid_followuid($_G['uid'], $space['uid']);//是否收听对方
+		}        
 		include_once template("home/space_card");
 	}
 }

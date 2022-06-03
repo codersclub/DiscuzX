@@ -278,7 +278,7 @@ function grouponline($fid, $getlist = '') {
 		$onlinemember['count'] = $onlinemember ? intval($onlinemember) : 0;
 	} else {
 		$onlinemember = array('count' => 0, 'list' => array());
-		$onlinemember['list'] = C::app()->session->fetch_all_by_fid($_G['fid']);
+		$onlinemember['list'] = C::app()->session->fetch_all_by_fid($fid);
 		$onlinemember['count'] = count($onlinemember['list']);
 	}
 	return $onlinemember;

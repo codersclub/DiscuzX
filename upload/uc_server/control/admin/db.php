@@ -101,6 +101,12 @@ class control extends adminbase {
 		if($nexturl) {
 			$url = $nexturl;
 		} else {
+			if($type == 'export' && strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+				$content = $_ENV['misc']->dfopen2(UC_API.'/CROSSD~1.XML');
+				if(strpos($content, 'cross-domain-policy') !== false) {
+					$this->message($this->_parent_js($appid, 'db_back_dos8p3_failed'));
+				}
+			}
 			if($appid) {
 				if(!isset($this->cache['apps'][$appid])) {
 					$this->message($this->_parent_js($appid, 'appid_invalid'));

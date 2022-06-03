@@ -236,7 +236,7 @@ function medalformulaperm($formula, $type) {
 		}
 	}
 	@eval("\$formulaperm = ($formula) ? TRUE : FALSE;");
-	if(!$formulaperm || $type == 2) {
+	if(!$formulaperm || $type == 1) {
 		if(!$permmessage) {
 			$language = lang('forum/misc');
 			$search = array('regdate', 'regday', 'regip', 'lastip', 'buyercredit', 'sellercredit', 'digestposts', 'posts', 'threads', 'oltime');
@@ -263,13 +263,14 @@ function medalformulaperm($formula, $type) {
 			}
 			$search = array_merge($search, array('and', 'or', '>=', '<=', '=='));
 			$replace = array_merge($replace, array('&nbsp;&nbsp;<b>'.$language['formulaperm_and'].'</b>&nbsp;&nbsp;', '&nbsp;&nbsp;<b>'.$language['formulaperm_or'].'</b>&nbsp;&nbsp;', '&ge;', '&le;', '='));
-			$_G['forum_formulamessage'] = str_replace($search, $replace, $formulatext);
-		} else {
+			$permmessage = str_replace($search, $replace, $formulatext);
+		}
+		if(!$formulaperm) {
 			$_G['forum_formulamessage'] = $permmessage;
 		}
 
-		return $_G['forum_formulamessage'];
-	} elseif($formulaperm && $type == 1) {
+		return $permmessage;
+	} elseif($formulaperm && $type == 2) {
 		return FALSE;
 	}
 	return TRUE;
@@ -832,6 +833,10 @@ function insertpost($data) {
 	if(isset($data['tid'])) {
 		$thread = C::t('forum_thread')->fetch_thread($data['tid']);
 		$tableid = $thread['posttableid'];
+		// 第三方插件和系统内普遍直接用 insertpost 插入回复, 因此改为在这里处理
+		if($thread['replies'] <= 0 && C::t('forum_sofa')->fetch($thread['tid'])) {
+			C::t('forum_sofa')->delete($thread['tid']);
+		}
 	} else {
 		$tableid = $data['tid'] = 0;
 	}

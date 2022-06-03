@@ -140,7 +140,7 @@ class discuz_session {
 				$online['username'] = $onlinelist['guest'];
 			}
 			$online['lastactivity'] = dgmdate($online['lastactivity'], 't');
-			$data[] = $online;
+			$data[$online['uid']] = $online;
 		}
 		return $data;
 	}
