@@ -77,7 +77,6 @@ if(empty($curtype)) {
 $seodata = array('first' => $nav['first']['name'], 'second' => $nav['second']['name']);
 list($navtitle, $metadescription, $metakeywords) = get_seosetting('group', $seodata);
 
-$_G['cache']['groupindex'] = array();
 $data = $randgrouplist = $randgroupdata = $grouptop = $newgrouplist = $fids = array();
 $topgrouplist = $_G['cache']['groupindex']['topgrouplist'];
 $lastupdategroup = $_G['cache']['groupindex']['lastupdategroup'];

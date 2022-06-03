@@ -467,7 +467,7 @@ class model_forum_post extends discuz_model {
 
 		if(getglobal('forum_auditstatuson') && $this->param['audit'] == 1) {
 			if(getstatus($this->post['status'], 3) == 0) {
-				C::t('forum_post')->update($this->thread['posttableid'], $this->post['pid'], array('status' => 4), false, false, null, -2, null, 0);
+				C::t('forum_post')->update_post($this->thread['posttableid'], $this->post['pid'], array('status' => 4), false, false, null, -2, null, 0);
 				updatepostcredits('+', $this->post['authorid'], ($isfirstpost ? 'post' : 'reply'), $this->forum['fid']);
 			}
 			if(!$isfirstpost) {

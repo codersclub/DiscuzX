@@ -15,7 +15,7 @@ if(!defined('IN_DISCUZ')) {
 
 $lang = array (
   'getpassword' => '找回密码',
-  'login_guest' => '没有账号？<a href="member.php?mod={$_G[setting][regname]}">{$_G[setting][reglinkname]}</a>',
+  'login_guest' => '没有账号？<a href="member.php?mod={$_G[\'setting\'][\'regname\']}">{$_G[\'setting\'][\'reglinkname\']}</a>',
   'new_password' => '新密码',
   'new_password_confirm' => '确认密码',
   'password_weak' => '密码太弱，密码中必须包含',

@@ -350,113 +350,6 @@ if($method == 'show_license') {
 		}
 
 
-		$sql = file_get_contents($sqlfile);
-		$sql = str_replace("\r\n", "\n", $sql);
-
-		runquery($sql);
-		runquery($extrasql);
-
-		$sql = file_get_contents(ROOT_PATH.'./install/data/install_data.sql');
-		if (file_exists(ROOT_PATH.'./install/data/install_data_appendage.sql')) {
-			$sql .= "\n".file_get_contents(ROOT_PATH.'./install/data/install_data_appendage.sql');
-		}
-		$sql = str_replace("\r\n", "\n", $sql);
-		runquery($sql);
-
-		$onlineip = $_SERVER['REMOTE_ADDR'];
-		$timestamp = time();
-		$backupdir = substr(md5($_SERVER['SERVER_ADDR'].$_SERVER['HTTP_USER_AGENT'].substr($timestamp, 0, 4)), 8, 6);
-		$ret = false;
-		if(is_dir(ROOT_PATH.'data/backup')) {
-			$ret = @rename(ROOT_PATH.'data/backup', ROOT_PATH.'data/backup_'.$backupdir);
-		}
-		if(!$ret) {
-			@mkdir(ROOT_PATH.'data/backup_'.$backupdir, 0777);
-		}
-		if(is_dir(ROOT_PATH.'data/backup_'.$backupdir)) {
-			$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('backupdir', '$backupdir')");
-		}
-		$chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
-		$siteuniqueid = 'DX'.$chars[date('y')%60].$chars[date('n')].$chars[date('j')].$chars[date('G')].$chars[date('i')].$chars[date('s')].substr(md5($onlineip.$timestamp), 0, 4).random(4);
-
-		$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('authkey', '$authkey')");
-		$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('siteuniqueid', '$siteuniqueid')");
-		$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('adminemail', '$email')");
-
-		install_extra_setting();
-
-		$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('backupdir', '".$backupdir."')");
-
-		$password = md5(random(10));
-
-		$db->query("REPLACE INTO {$tablepre}common_member (uid, username, password, adminid, groupid, email, regdate, timeoffset) VALUES ('$uid', '$username', '$password', '1', '1', '$email', '".time()."', '9999');");
-
-		// UID 是变量, 不做适配会导致积分操作等异常
-		if($uid) {
-			$db->query("REPLACE INTO {$tablepre}common_member_count SET uid='$uid';");
-			$db->query("REPLACE INTO {$tablepre}common_member_status SET uid='$uid';");
-			$db->query("REPLACE INTO {$tablepre}common_member_field_forum SET uid='$uid';");
-			$db->query("REPLACE INTO {$tablepre}common_member_field_home SET uid='$uid';");
-			$db->query("REPLACE INTO {$tablepre}common_member_profile SET uid='$uid';");
-		}
-
-		$notifyusers = addslashes('a:1:{i:1;a:2:{s:8:"username";s:'.strlen($username).':"'.$username.'";s:5:"types";s:20:"11111111111111111111";}}');
-		$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('notifyusers', '$notifyusers')");
-
-		$db->query("UPDATE {$tablepre}common_cron SET lastrun='0', nextrun='".($timestamp + 3600)."'");
-
-		install_data($username, $uid);
-
-		$testdata = $portalstatus = 1;
-		$groupstatus = $homestatus = 0;
-
-		if($testdata) {
-			install_testdata($username, $uid);
-		}
-
-		if(!$portalstatus) {
-			$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('portalstatus', '0')");
-		}
-
-		if(!$groupstatus) {
-			$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('groupstatus', '0')");
-		}
-
-		if(!$homestatus) {
-			$db->query("REPLACE INTO {$tablepre}common_setting (skey, svalue) VALUES ('homestatus', '0')");
-		}
-		$yearmonth = date('Ym_', time());
-		loginit($yearmonth.'ratelog');
-		loginit($yearmonth.'illegallog');
-		loginit($yearmonth.'modslog');
-		loginit($yearmonth.'cplog');
-		loginit($yearmonth.'errorlog');
-		loginit($yearmonth.'banlog');
-
-		dir_clear(ROOT_PATH.'./data/template');
-		dir_clear(ROOT_PATH.'./data/cache');
-		dir_clear(ROOT_PATH.'./data/threadcache');
-		dir_clear(ROOT_PATH.'./uc_client/data');
-		dir_clear(ROOT_PATH.'./uc_client/data/cache');
-
-		foreach($serialize_sql_setting as $k => $v) {
-			$v = addslashes(serialize($v));
-			$db->query("REPLACE INTO {$tablepre}common_setting VALUES ('$k', '$v')");
-		}
-
-		$query = $db->query("SELECT COUNT(*) FROM {$tablepre}common_member");
-		$totalmembers = $db->result($query, 0);
-		$userstats = array('totalmembers' => $totalmembers, 'newsetuser' => $username);
-		$ctype = 1;
-		$data = addslashes(serialize($userstats));
-		$db->query("REPLACE INTO {$tablepre}common_syscache (cname, ctype, dateline, data) VALUES ('userstats', '$ctype', '".time()."', '$data')");
-
-		if (file_exists(ROOT_PATH.'./install/data/install_data_appendage.sql')) {
-			@unlink(ROOT_PATH.'./install/data/install_data_appendage.sql');
-		}
-
-		VIEW_OFF && show_msg('initdbresult_succ');
-
 		if(!VIEW_OFF) {
 			show_footer();
 		}
@@ -521,6 +414,9 @@ if($method == 'show_license') {
 	}
 
 	$sql = file_get_contents(ROOT_PATH.'./install/data/install_data.sql');
+	if (file_exists(ROOT_PATH.'./install/data/install_data_appendage.sql')) {
+		$sql .= "\n".file_get_contents(ROOT_PATH.'./install/data/install_data_appendage.sql');
+	}
 	$sql = str_replace("\r\n", "\n", $sql);
 	if (!runquery($sql)) {
 		exit();
@@ -606,6 +502,10 @@ if($method == 'show_license') {
 	$ctype = 1;
 	$data = addslashes(serialize($userstats));
 	$db->query("REPLACE INTO {$tablepre}common_syscache (cname, ctype, dateline, data) VALUES ('userstats', '$ctype', '".time()."', '$data')");
+
+	if (file_exists(ROOT_PATH.'./install/data/install_data_appendage.sql')) {
+		@unlink(ROOT_PATH.'./install/data/install_data_appendage.sql');
+	}
 
 	!VIEW_OFF && showjsmessage(lang('initdbresult_succ'));
 } elseif($method == 'check_db_init_progress') {

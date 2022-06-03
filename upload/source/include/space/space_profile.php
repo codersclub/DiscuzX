@@ -94,7 +94,7 @@ if(strtotime($space['regdate']) + $space['oltime'] * 3600 > TIMESTAMP) {
 require_once libfile('function/friend');
 $isfriend = friend_check($space['uid'], 1);
 if(!$_G['adminid']){
-	if($_G['setting']['privacy']['view']['profile'] == 1 && !$isfriend && !$space['self']) {
+	if(getglobal('setting/privacy/view/profile') == 1 && !$isfriend && !$space['self']) {
 		showmessage('specified_user_is_not_your_friend', '', array(), array());
 	}
 	if(getglobal('setting/privacy/view/profile') == 2 && !$space['self']) {
