@@ -429,21 +429,23 @@ if($_GET['action'] == 'checkusername') {
 					}
 					$attach['size'] = filesize($attach['target']);
 					$upload->attach = $attach;
-					$thumb = $width = 0;
+					$thumb = $width = $height = 0;
 					if($upload->attach['isimage']) {
 						if($_G['setting']['thumbsource'] && $_G['setting']['sourcewidth'] && $_G['setting']['sourceheight']) {
 							$image = new image();
 							$thumb = $image->Thumb($upload->attach['target'], '', $_G['setting']['sourcewidth'], $_G['setting']['sourceheight'], 1, 1) ? 1 : 0;
 							$width = $image->imginfo['width'];
+							$height = $image->imginfo['height'];
 							$upload->attach['size'] = $image->imginfo['size'];
 						}
 						if($_G['setting']['thumbstatus']) {
 							$image = new image();
 							$thumb = $image->Thumb($upload->attach['target'], '', $_G['setting']['thumbwidth'], $_G['setting']['thumbheight'], $_G['setting']['thumbstatus'], 0) ? 1 : 0;
 							$width = $image->imginfo['width'];
+							$height = $image->imginfo['height'];
 						}
 						if($_G['setting']['thumbsource'] || !$_G['setting']['thumbstatus']) {
-							list($width) = @getimagesize($upload->attach['target']);
+							list($width, $height) = @getimagesize($upload->attach['target']);
 						}
 						if($_G['setting']['watermarkstatus'] && empty($_G['forum']['disablewatermark'])) {
 							$image = new image();
@@ -462,7 +464,8 @@ if($_GET['action'] == 'checkusername') {
 						'uid' => $_G['uid'],
 						'thumb' => $thumb,
 						'remote' => '0',
-						'width' => $width
+						'width' => $width,
+						'height' => $height
 					);
 					C::t("forum_attachment_unused")->insert($setarr);
 					$attachaids[$hash] = $imagereplace['newimageurl'][] = '[attachimg]'.$aid.'[/attachimg]';
