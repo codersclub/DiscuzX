@@ -110,6 +110,7 @@ class extend_thread_trade extends extend_thread_base {
 			'item_credit' => $_GET['item_credit'],
 			'item_costcredit' => $_GET['item_costcredit']
 		));
+		$this->param['tradepid'] = $pid;		
 
 
 	}
@@ -127,6 +128,7 @@ class extend_thread_trade extends extend_thread_base {
 			} else {
 				$this->feed['body_template'] = 'feed_thread_goods_message_3';
 			}
+			$pid = $this->param['tradepid'];			
 			$this->feed['body_data'] = array(
 				'itemname'=> "<a href=\"forum.php?mod=viewthread&do=tradeinfo&tid=".$this->tid."&pid=$pid\">$_GET[item_name]</a>",
 				'itemprice'=> $_GET['item_price'],

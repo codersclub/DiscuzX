@@ -199,9 +199,6 @@ if(!submitcheck('topicsubmit', 0, $seccodecheck, $secqaacheck)) {
 
 		if(!empty($_GET['addfeed'])) {
 			$modthread->attach_before_method('feed', array('class' => $specials[$special], 'method' => 'before_feed'));
-			if($special == 2) {
-				$modthread->attach_before_method('feed', array('class' => $specials[$special], 'method' => 'before_replyfeed'));
-			}
 		}
 	}
 
