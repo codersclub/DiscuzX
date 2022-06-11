@@ -915,7 +915,7 @@ class table_forum_thread extends discuz_table
 		$tids = dintval((array)$tids, true);
 		$sql = array();
 		$num = 0;
-		$allowkey = array('views', 'replies', 'recommends', 'recommend_add', 'recommend_sub', 'favtimes', 'sharetimes', 'moderated', 'heats', 'lastposter', 'lastpost');
+		$allowkey = array('views', 'replies', 'recommends', 'recommend_add', 'recommend_sub', 'favtimes', 'sharetimes', 'moderated', 'heats', 'lastposter', 'lastpost', 'attachment');
 		foreach($fieldarr as $key => $value) {
 			if(in_array($key, $allowkey)) {
 				if(is_array($value)) {

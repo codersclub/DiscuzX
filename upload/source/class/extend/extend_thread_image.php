@@ -55,6 +55,7 @@ class extend_thread_image extends extend_thread_base {
 		$this->param['param'] = array_merge((array)$this->param['param'], $param);
 	}
 	private function mobile_upload() {
+		global $_G;		
 		if($_GET['mobile'] == 'yes' && !empty($_FILES['Filedata'])) {
 			$forumattachextensions = '';
 			if($_G['forum']) {
@@ -130,7 +131,12 @@ class extend_thread_image extends extend_thread_base {
 				}
 				dunlink($attach);
 			} else {
-				$thread_attachment = 1;
+				if($attach['isimage']) {
+					$thread_attachment = 2;
+				}
+				if($thread_attachment == 0) {
+					$thread_attachment = 1;
+				}
 			}
 		}
 
