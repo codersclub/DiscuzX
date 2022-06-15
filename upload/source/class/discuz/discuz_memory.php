@@ -104,7 +104,7 @@ class discuz_memory extends discuz_base
 		}
 		return $ret;
 	}
-	
+
 	public function add($key, $value, $ttl = 0, $prefix = '') {
 		$ret = false;
 		if($value === false) $value = '';
@@ -117,7 +117,7 @@ class discuz_memory extends discuz_base
 
 	public function exists($key, $prefix = '') {
 		$ret = false;
-		if ($this->enable) {
+		if ($this->enable && method_exists($this->memory, 'exists')) {
 			$this->userprefix = $prefix;
 			$ret = $this->memory->exists($this->_key($key));
 		}
@@ -288,9 +288,9 @@ class discuz_memory extends discuz_base
 				$sha = $this->memory->loadscript($script);
 				$this->memory->set($this->_key($sha_key), $sha);
 			}
-			return $this->memory->evalSha($sha, array_merge(array($this->_key('')), $argv));				
+			return $this->memory->evalSha($sha, array_merge(array($this->_key('')), $argv));
 		} else {
-			return $this->memory->evalscript($script, array_merge(array($this->_key('')), $argv));				
+			return $this->memory->evalscript($script, array_merge(array($this->_key('')), $argv));
 		}
 	}
 
