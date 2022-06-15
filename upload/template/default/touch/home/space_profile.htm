@@ -34,6 +34,7 @@
 			<!--{/loop}-->
 		</ul>
 	</div>
+	<!--{hook/space_profile_top_mobile}-->
 	<div class="myinfo_list_ico cl">
 		<ul>
 		<!--{if !$_GET['mycenter']}-->
@@ -62,6 +63,7 @@
 			<!--{/if}-->
 			<li><a href="home.php?mod=spacecp&ac=credit&op=buy"><i class="dm-person-fill"></i>{lang credit_recharge}</a></li>
 		<!--{/if}-->
+		<!--{hook/space_profile_nav_extra_mobile}-->
 		</ul>
 	</div>
 	<!--{if $space['group']['maxsigsize'] && $space['sightml']}-->
@@ -74,6 +76,7 @@
 	<!--{/if}-->
 	<div class="myinfo_list cl">
 		<ul>
+			<!--{hook/space_profile_baseinfo_top_mobile}-->
 			<li><b>{lang memcp_profile}</b><!--{if $_G['ols'][$space['uid']]}--><span class="mtxt">{lang users}{lang online}</span><!--{/if}--></li>
 			<li>UID<span>{$space['uid']}</span></li>
 			<li>{lang usergroup}<!--{if !empty($space['groupexpiry'])}--><em>{lang group_useful_life}<!--{date($space['groupexpiry'], 'Y-m-d H:i')}--></em><!--{/if}--><span style="color:{$space['group']['color']}">{$space['group']['grouptitle']}</span></li>
@@ -88,8 +91,10 @@
 			<!--{if $space['oltime'] && !$_G['setting']['sessionclose']}--><li>{lang online_time}<span>$space['oltime'] {lang hours}</span></li><!--{/if}-->
 			<li>{lang regdate}<span>$space['regdate']</span></li>
 			<li>{lang last_visit}<span>$space['lastvisit']</span></li>
+			<!--{hook/space_profile_baseinfo_bottom_mobile}-->
 		</ul>
 	</div>
+	<!--{hook/space_profile_extrainfo_mobile}-->
 	<!--{if $space['uid'] == $_G['uid']}-->
 	<div class="btn_exit"><a href="member.php?mod=logging&action=logout&formhash={FORMHASH}" class="pn">{lang logout_mobile}</a></div>
 	<!--{/if}-->

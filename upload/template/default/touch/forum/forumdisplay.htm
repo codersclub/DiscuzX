@@ -14,6 +14,7 @@
 	$_G['forum']['name']
 	</h2>
 	<p>{lang index_today}: <span>$_G['forum']['todayposts']</span>{lang index_threads}: <span>$_G['forum']['threads']</span><!--{if $_G['forum']['rank']}-->{lang rank}: <span>$_G['forum']['rank']</span><!--{/if}--></p>
+	<!--{hook/forumdisplay_nav_mobile}-->
 </div>
 <div class="dhnav_box">
 	<div id="dhnav">
@@ -28,6 +29,7 @@
 		</div>
 	</div>
 </div>
+<!--{hook/forumdisplay_middle}-->
 <!--{if $_G['forum']['threadsorts'] || ($_G['forum']['threadtypes'] && $_G['forum']['threadtypes']['listable'])}-->
 <div class="dhnavs_box">
 	<div id="dhnavs">
@@ -135,7 +137,7 @@
 					<!--{if $thread['digest'] > 0}-->
 						<span class="micon digest">{lang thread_digest}</span>
 					<!--{/if}-->
-					<em $thread['highlight']>{$thread['subject']}</em>					
+					<em $thread['highlight']>{$thread['subject']}</em>
 				</div>
 				</a>
 				<a href="forum.php?mod=viewthread&tid=$thread['tid']&extra=$extra"><div class="threadlist_mes cl">{$threadlist_data[$thread['tid']]['message']}</div></a>
@@ -151,7 +153,8 @@
 						</ul>
 					</div>
 				</a>
-				<!--{/if}-->				
+				<!--{/if}-->
+				<!--{hook/forumdisplay_thread_content_mobile $key}-->
 				
 				<div class="threadlist_foot cl">
 					<ul>
@@ -160,6 +163,7 @@
 						<!--{/if}-->
 						<li><i class="dm-eye-fill"></i>{$thread['views']}</li>
 						<li><i class="dm-chat-s-fill"></i>{$thread['replies']}</li>
+						<!--{hook/forumdisplay_thread_foot_mobile $key}-->
 					</ul>
 				</div>
 			</li>

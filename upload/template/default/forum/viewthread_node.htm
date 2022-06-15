@@ -67,6 +67,7 @@ $postshowavatars = !($_G['setting']['bannedmessages'] & 2 && ($post['memberstatu
 			<!--{/if}-->
 			<!--{if $post['authorid'] && $post['username'] && !$post['anonymous']}-->
 				<div>
+				<!--{hook/viewthread_avatartop $postcount}-->
 				<!--{if !$postshowavatars}-->
 					<div class="avatar">{lang member_avatar_banned}</div>
 				<!--{elseif $post['avatar'] && $showavatars}-->
