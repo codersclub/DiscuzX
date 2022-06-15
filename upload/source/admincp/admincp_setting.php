@@ -1594,6 +1594,7 @@ EOF;
 							[1,'<input type="text" class="txt" name="newsmtp[from][]" style="width: 90%;">'],
 							[1,'<input type="text" class="txt" name="newsmtp[auth_username][]" style="width: 90%;">'],
 							[1,'<input type="text" class="txt" name="newsmtp[auth_password][]" style="width: 90%;">'],
+							[1,'<input type="text" class="txt" name="newsmtp[precedence][]" style="width: 90%;">'],
 						]
 					];
 				} else {
@@ -1648,6 +1649,7 @@ EOF;
 				<th id="from_0">{$lang['setting_mail_setting_from']}</th>
 				<th id="username_0">{$lang['setting_mail_setting_username']}</th>
 				<th id="password_0">{$lang['setting_mail_setting_password']}</th>
+				<th id="precedence_0">{$lang['setting_mail_setting_precedence']}</th>
 			</tr>
 EOF;
 		foreach($setting['mail']['smtp'] as $id => $smtp) {
@@ -1663,6 +1665,7 @@ EOF;
 			"<input type=\"text\" class=\"txt\" name=\"settingnew[mail][esmtp][$id][from]\" value=\"{$smtp['from']}\" style=\"width: 90%;\">",
 			"<input type=\"text\" class=\"txt\" name=\"settingnew[mail][esmtp][$id][auth_username]\" value=\"{$smtp['auth_username']}\" style=\"width: 90%;\">",
 			"<input type=\"text\" class=\"txt\" name=\"settingnew[mail][esmtp][$id][auth_password]\" value=\"{$smtp['auth_password']}\" style=\"width: 90%;\">",
+			"<input type=\"text\" class=\"txt\" name=\"settingnew[mail][esmtp][$id][precedence]\" value=\"{$smtp['precedence']}\" style=\"width: 90%;\">",
 			));
 		}
 		echo '<tr><td colspan="7"><div><a href="###" onclick="setrowtypedata(1);addrow(this, 0);" class="addtr">'.$lang['setting_mail_setting_edit_addnew'].'</a></div></td></tr>';
@@ -3221,11 +3224,12 @@ EOT;
 					$settingnew['mail']['smtp'][] = array(
 							'server' => $server,
 							'port' => $_GET['newsmtp']['port'][$id] ? intval($_GET['newsmtp']['port'][$id]) : 25,
-							'timeout' => isset($_GET['newsmtp']['timeout'][$id]) ? intval($_GET['newsmtp']['port'][$id]) : 30,
+							'timeout' => isset($_GET['newsmtp']['timeout'][$id]) ? intval($_GET['newsmtp']['timeout'][$id]) : 30,
 							'auth' => $_GET['newsmtp']['auth'][$id] ? 1 : 0,
 							'from' => $_GET['newsmtp']['from'][$id],
 							'auth_username' => $_GET['newsmtp']['auth_username'][$id],
-							'auth_password' => $_GET['newsmtp']['auth_password'][$id]
+							'auth_password' => $_GET['newsmtp']['auth_password'][$id],
+							'precedence' => $_GET['newsmtp']['precedence'][$id]
 						);
 				}
 

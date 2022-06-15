@@ -407,7 +407,8 @@ if($operation == 'filecheck') {
 						'auth' => $_GET['newsmtp']['auth'][$id] ? 1 : 0,
 						'from' => $_GET['newsmtp']['from'][$id],
 						'auth_username' => $_GET['newsmtp']['auth_username'][$id],
-						'auth_password' => $_GET['newsmtp']['auth_password'][$id]
+						'auth_password' => $_GET['newsmtp']['auth_password'][$id],
+						'precedence' => $_GET['newsmtp']['precedence'][$id]
 					);
 			}
 		}

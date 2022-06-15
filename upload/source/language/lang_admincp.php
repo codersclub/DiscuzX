@@ -2076,6 +2076,7 @@ $lang = array
 	'setting_mail_setting_from' => '发信人邮件地址',
 	'setting_mail_setting_username' => 'SMTP 身份验证用户名',
 	'setting_mail_setting_password' => 'SMTP 身份验证密码',
+	'setting_mail_setting_precedence' => '优先发送邮件后缀(多个以,分隔)',
 	'setting_mail_setting_delimiter' => '邮件头的分隔符(仅针对PHP sendmail方式有效)',
 	'setting_mail_setting_delimiter_comment' => '请根据您邮件服务器的设置调整此参数',
 	'setting_mail_setting_delimiter_crlf' => '使用 CRLF 作为分隔符(通常为 Windows 主机)',

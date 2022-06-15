@@ -34,6 +34,14 @@ function sendmail($toemail, $subject, $message = '', $from = '') {
 		$smtpnum = count($_G['setting']['mail']['smtp']);
 		if($smtpnum) {
 			$rid = rand(0, $smtpnum-1);
+			$maildomain = explode('@', $toemail);
+			foreach(array_column($_G['setting']['mail']['smtp'], 'precedence') as $smtpkey => $smtpval) {
+				$ismail = in_array($maildomain[1], explode(',', $smtpval));
+				if($ismail !== false) {
+					$rid = $smtpkey;
+					break;
+				}
+			}
 			$smtp = $_G['setting']['mail']['smtp'][$rid];
 			$_G['setting']['mail']['server'] = $smtp['server'];
 			$_G['setting']['mail']['port'] = $smtp['port'];
