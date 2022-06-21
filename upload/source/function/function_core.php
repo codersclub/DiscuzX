@@ -1377,9 +1377,7 @@ function adshow($parameter) {
 	if($_G['inajax'] || $_G['group']['closead']) {
 		return;
 	}
-	if(isset($_G['config']['plugindeveloper']) && $_G['config']['plugindeveloper'] == 2) {
-		return '<hook>[ad '.$parameter.']</hook>';
-	}
+	$return = (isset($_G['config']['plugindeveloper']) && $_G['config']['plugindeveloper'] == 2) ? '<hook>[ad '.$parameter.']</hook>' : '';
 	$params = explode('/', $parameter);
 	$customid = 0;
 	$customc = explode('_', $params[0]);
@@ -1423,7 +1421,7 @@ function adshow($parameter) {
 	if(!$_G['setting']['hookscript']['global']['ad']['funcs'][$adfunc]) {
 		hookscript('ad', $_G['basescript'], 'funcs', array('params' => $params, 'content' => $adcontent, 'customid' => $customid), $adfunc);
 	}
-	return $_G['setting']['pluginhooks'][$adfunc] === null ? $adcontent : $_G['setting']['pluginhooks'][$adfunc];
+	return $return.($_G['setting']['pluginhooks'][$adfunc] === null ? $adcontent : $_G['setting']['pluginhooks'][$adfunc]);
 }
 
 function showmessage($message, $url_forward = '', $values = array(), $extraparam = array(), $custom = 0) {
