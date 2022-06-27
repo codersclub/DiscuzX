@@ -194,6 +194,7 @@ $lang = array (
   'cloudaddons_installing' => '应用 {addonid} 安装中，请稍候......',
   'cloudaddons_install_files_changed' => '以下文件被修改过，是否继续覆盖？<br /><br />{files}',
   'cloudaddons_pack_installed' => '扩展安装完毕',
+  'cloudaddons_batch_succeed' => '请分别点击下面的链接进行安装及升级操作',
 
   'counter_forum_succeed' => '论坛帖数重建完成',
   'counter_digest_succeed' => '精华帖数重建完成',
