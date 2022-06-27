@@ -39,6 +39,14 @@ class table_common_style extends discuz_table
 		return DB::result_first("SELECT COUNT(*) FROM %t WHERE name=%s", array($this->_table, $stylename));
 	}
 
+	public function fetch_by_stylename_templateid($stylename, $templateid = 0) {
+		if($templateid) {
+			return DB::fetch_first("SELECT * FROM %t WHERE name=%s AND templateid=%d ORDER BY styleid ASC LIMIT 1", array($this->_table, $stylename, $templateid));
+		}else{
+			return DB::fetch_first("SELECT * FROM %t WHERE name=%s ORDER BY styleid ASC LIMIT 1", array($this->_table, $stylename));
+		}
+	}
+
 }
 
 ?>
