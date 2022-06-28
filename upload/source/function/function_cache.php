@@ -61,10 +61,14 @@ function writetocache($script, $cachedata, $prefix = 'cache_') {
 	if(!is_dir($dir)) {
 		dmkdir($dir, 0777);
 	}
-	if($fp = @fopen("$dir$prefix$script.php", 'wb')) {
-		fwrite($fp, "<?php\n//Discuz! cache file, DO NOT modify me!\n//Identify: ".md5($prefix.$script.'.php'.$cachedata.$_G['config']['security']['authkey'])."\n\n$cachedata?>");
+
+	$s = "<?php\n//Discuz! cache file, DO NOT modify me!\n//Identify: ".md5($prefix.$script.'.php'.$cachedata.$_G['config']['security']['authkey'])."\n\n$cachedata?>";
+
+	$fp = fopen("$dir$prefix$script.php", 'cb');
+	if(!($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $s) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
+		flock($fp, LOCK_UN);
 		fclose($fp);
-	} else {
+		unlink("$dir$prefix$script.php");
 		exit('Can not write to cache files, please check directory ./data/ and ./data/sysdata/ .');
 	}
 }

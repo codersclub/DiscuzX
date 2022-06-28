@@ -62,8 +62,7 @@ class memory_driver_file {
 		    'exp' => $ttl ? TIMESTAMP + $ttl : 0,
 		    'data' => $value,
 		);
-		file_put_contents($file, "<?php\n\$data = ".var_export($data, 1).";\n");
-		return true;
+		return file_put_contents($file, "<?php\n\$data = ".var_export($data, 1).";\n", LOCK_EX) !== false;
 	}
 
 	public function rm($key) {

@@ -66,9 +66,12 @@ class table_common_syscache extends discuz_table
 			$this->_allowmem && (memory('set', $syscache['cname'], $data[$syscache['cname']]));
 			if($this->_isfilecache) {
 				$cachedata = '$data[\''.$syscache['cname'].'\'] = '.var_export($data[$syscache['cname']], true).";\n\n";
-				if(($fp = @fopen(DISCUZ_ROOT.'./data/cache/cache_'.$syscache['cname'].'.php', 'wb'))) {
-					fwrite($fp, "<?php\n//Discuz! cache file, DO NOT modify me!\n//Identify: ".md5($syscache['cname'].$cachedata.getglobal('config/security/authkey'))."\n\n$cachedata?>");
+				$cachedata_save = "<?php\n//Discuz! cache file, DO NOT modify me!\n//Identify: ".md5($syscache['cname'].$cachedata.getglobal('config/security/authkey'))."\n\n$cachedata?>";
+				$fp = fopen(DISCUZ_ROOT.'./data/cache/cache_'.$syscache['cname'].'.php', 'cb');
+				if(!($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $cachedata_save) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
+					flock($fp, LOCK_UN);
 					fclose($fp);
+					unlink(DISCUZ_ROOT.'./data/cache/cache_'.$syscache['cname'].'.php');
 				}
 			}
 		}
