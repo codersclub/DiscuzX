@@ -731,7 +731,7 @@ function upload_icon_banner(&$data, $file, $type) {
 	if($data['status'] == 3 && $type == 'icon') {
 		require_once libfile('class/image');
 		$img = new image;
-		$img->Thumb($upload->attach['target'], './'.$uploadtype.'/'.$upload->attach['attachment'], 48, 48, 'fixwr');
+		$img->Thumb($upload->attach['target'], './'.$uploadtype.'/'.$upload->attach['attachment'], 200, 200, 'fixwr');
 	}
 	return $upload->attach['attachment'];
 }
