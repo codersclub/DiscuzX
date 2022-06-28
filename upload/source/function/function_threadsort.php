@@ -244,7 +244,7 @@ function showsorttemplate($sortid, $fid, $sortoptionarray, $templatearray, $thre
 				} else {
 					$sortthread['value'] = '';
 					if($imgoptiondata['aid']) {
-						$sortthread['value'] = getforumimg($imgoptiondata['aid'], 0, 120, 120);
+						$sortthread['value'] = getforumimg($imgoptiondata['aid'], 0, 300, 300);
 					} elseif($imgoptiondata['url']) {
 						$sortthread['value'] = $imgoptiondata['url'];
 					}
