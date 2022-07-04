@@ -104,6 +104,7 @@ if(!submitcheck('modsubmit')) {
 			$stylecheck[$i] = $stylestr[$i - 1] ? 1 : 0;
 		}
 		$colorcheck = $string[1];
+		$highlight_bgcolor = $threadlist[$_G['tid']]['bgcolor'];		
 		$_G['forum']['modrecommend'] = is_array($_G['forum']['modrecommend']) ? $_G['forum']['modrecommend'] : array();
 		$expirationstick = get_expiration($_G['tid'], 'EST');
 		$expirationdigest = get_expiration($_G['tid'], 'EDI');
@@ -134,9 +135,10 @@ if(!submitcheck('modsubmit')) {
 			$selectposition[$oldthread['position']] = ' selected="selected"';
 			$selectattach = $oldthread['aid'];
 		} else {
-			$selectattach = $imgattach[0]['aid'];
+			$selectattach = $imgattach[array_keys($imgattach)[0]]['aid'];
 			$selectposition[0] = ' selected="selected"';
 		}
+		$expirationrecommend = get_expiration($_G['tid'], 'REC');		
 	}
 	include template('forum/topicadmin');
 
@@ -271,6 +273,7 @@ if(!submitcheck('modsubmit')) {
 				$modaction = $isrecommend ? 'REC' : 'URE';
 				$thread = daddslashes($thread, 1);
 				$selectattach = $_GET['selectattach'];
+				$position = $_GET['position'];				
 
 				C::t('forum_threadmod')->update_by_tid_action($tidsarr, array('REC'), array('status' => 0));
 				if($isrecommend) {
@@ -356,7 +359,7 @@ if(!submitcheck('modsubmit')) {
 				C::t('forum_thread')->update($tidsarr, array('lastpost'=>$expiration, 'moderated'=>1), true);
 				C::t('forum_forum')->update($_G['fid'], array('lastpost' => "$thread[tid]\t$thread[subject]\t$expiration\t$thread[lastposter]"));
 
-				$_G['forum']['threadcaches'] && deletethreadcaches($thread['tid']);
+				$_G['forum']['threadcaches'] && deletethreadcaches($moderatetids);
 			} elseif($operation == 'down') {
 				if(!$_G['group']['allowbumpthread']) {
 					showmessage('no_privilege_downthread');
@@ -365,7 +368,7 @@ if(!submitcheck('modsubmit')) {
 				$downtime = TIMESTAMP - 86400 * 730;
 				C::t('forum_thread')->update($tidsarr, array('lastpost'=>$downtime, 'moderated'=>1), true);
 
-				$_G['forum']['threadcaches'] && deletethreadcaches($thread['tid']);
+				$_G['forum']['threadcaches'] && deletethreadcaches($moderatetids);
 			} elseif($operation == 'delete') {
 				if(!$_G['group']['allowdelpost']) {
 					showmessage('no_privilege_delpost');
