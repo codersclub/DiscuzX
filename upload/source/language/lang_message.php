@@ -1118,6 +1118,18 @@ $lang = array (
   'payment_retry_callback_no_exist' => '订单号不存在',
   'payment_retry_callback_no_pay' => '订单未支付',
 
+  'secmobseccode_send_success' => '短信发送成功，请在页面上输入短信验证码。',
+  'secmobseccode_send_failure' => '未知异常，请稍候再试。',
+  'secmobseccode_send_err_1' => '发送短信间隔过短，请稍候再试。',
+  'secmobseccode_send_err_2' => '您一段时间内发送的短信过多，请稍候再试。',
+  'secmobseccode_send_err_3' => '号码组一段时间内发送的短信过多，请稍候再试。',
+  'secmobseccode_send_err_4' => '本站点一段时间内发送的短信过多，请稍候再试。',
+  'secmobseccode_send_err_5' => '当前没有可用的短信网关接口，请稍候再试。',
+  'secmobseccode_send_err_6' => '网关接口文件不存在，请稍候再试。',
+  'secmobseccode_send_err_7' => '网关接口类不存在，请稍候再试。',
+  'secmobseccode_send_err_8' => '短信功能已被关闭，请稍候再试。',
+  'secmobseccode_send_err_9' => '短信网关异常，请稍候再试。',
+
 );
 
 ?>

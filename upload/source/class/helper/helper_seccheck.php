@@ -249,7 +249,7 @@ class helper_seccheck {
 		} else {
 			$seccode = false;
 		}
-		return array($seccode);
+		return array($seccode, $_G['setting']['secqaa']['status'] & 8);
 	}
 
 	public static function rule_post($action) {
@@ -331,7 +331,7 @@ class helper_seccheck {
 	public static function rule_card() {
 		global $_G;
 		$seccheckrule = & $_G['setting']['seccodedata']['rule']['card'];
-		return array($seccheckrule['allow']);
+		return array($seccheckrule['allow'], $_G['setting']['secqaa']['status'] & 16);
 	}
 
 	public static function seccheck($rule, $param = array()) {

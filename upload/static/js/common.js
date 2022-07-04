@@ -1763,49 +1763,7 @@ function searchFocus(obj) {
 }
 
 function sendsecmobseccode(svctype, secmobicc, secmobile) {
-	url = "misc.php?mod=secmobseccode&action=send&svctype=" + svctype + "&secmobicc=" + secmobicc + "&secmobile=" + secmobile;
-	var x = new Ajax('JSON');
-	x.getJSON(url, function(s) {
-		if(s.result > 0) {
-			showDialog("发送成功", 'notice');
-		} else {
-			// 发送时间短于设置返回 -1, 单号码发送次数风控规则不通过返回 -2, 万号段风控规则不通过返回 -3, 全局风控规则不通过返回 -4, 无可用网关返回 -5, 网关接口文件不存在返回 -6,
-			// 网关接口类不存在返回 -7, 短信功能已被关闭返回 -8, 短信网关私有异常返回 -9
-			switch(s.result) {
-				case -1:
-					message = "发送短信间隔过短，请稍候再试。";
-					break;
-				case -2:
-					message = "您一段时间内发送的短信过多，请稍候再试。";
-					break;
-				case -3:
-					message = "号码组一段时间内发送的短信过多，请稍候再试。";
-					break;
-				case -4:
-					message = "本站点一段时间内发送的短信过多，请稍候再试。";
-					break;
-				case -5:
-					message = "当前没有可用的短信网关接口，请稍候再试。";
-					break;
-				case -6:
-					message = "网关接口文件不存在，请稍候再试。";
-					break;
-				case -7:
-					message = "网关接口类不存在，请稍候再试。";
-					break;
-				case -8:
-					message = "短信功能已被关闭，请稍候再试。";
-					break;
-				case -9:
-					message = "短信网关异常，请稍候再试。";
-					break;
-				default:
-					message = "未知异常，请稍候再试。";
-					break;
-			}
-			showDialog("发送失败，错误代码 " + s.result + " ，" + message, 'notice');
-		}
-	});
+	showWindow('sendsecmobseccode', 'misc.php?mod=secmobseccode&action=send&svctype=' + svctype + '&secmobicc=' + secmobicc + '&secmobile=' + secmobile);
 }
 
 function extstyle(css) {

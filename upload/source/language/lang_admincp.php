@@ -2144,7 +2144,7 @@ $lang = array
 	'setting_sec_seccode_status_post' => '发表信息',
 	'setting_sec_seccode_status_sendpm' => '发送短消息',
 	'setting_sec_seccode_status_password' => '修改密码',
-	'setting_sec_seccode_status_card' => '充值卡密',
+	'setting_sec_seccode_status_card' => '充值卡密及短信验证',
 	'setting_sec_seccode_status_connect_register' => 'QQ注册',
 	'setting_sec_seccode_status_comment' => '验证码可以避免恶意注册及恶意灌水，请选择需要打开验证码的操作。注意: 启用验证码会使得部分操作变得繁琐，建议仅在必需时打开。<br /><strong>充值卡密验证码建议一直开启</strong>',
 	'setting_sec_seccode_minposts' => '发帖数限制',
@@ -2228,8 +2228,8 @@ $lang = array
 	'setting_sec_seccode_rule_password' => '修改密码时启用验证码',
 	'setting_sec_seccode_rule_password_comment' => '设置修改密码时是否启用验证码',
 
-	'setting_sec_seccode_rule_card' => '充值卡密时启用验证码',
-	'setting_sec_seccode_rule_card_comment' => '设置充值卡密时是否启用验证码 (推荐开启)',
+	'setting_sec_seccode_rule_card' => '充值卡密及短信验证时启用验证码',
+	'setting_sec_seccode_rule_card_comment' => '设置充值卡密及短信验证时是否启用验证码 (推荐开启)',
 
 	'setting_sec_secqaa' => '验证问答设置',
 	'setting_sec_secqaa_add' => '添加新问题',

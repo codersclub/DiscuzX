@@ -104,7 +104,7 @@
 							<input type="text" class="px" id="cardid" name="cardid" />
 						</td>
 					</tr>
-					<!--{if $seccodecheck}-->
+					<!--{if $seccodecheck || $secqaacheck}-->
 				</table>
 				<!--{block sectpl}--><table id="card_box_sec" cellspacing="0" cellpadding="0" class="tfm mtn"><tr><th><sec></th><td colspan="2"><span id="sec<hash>" onclick="showMenu({'ctrlid':this.id,'win':'{$_GET[handlekey]}'})"><sec></span><div id="sec<hash>_menu" class="p_pop p_opt" style="display:none"><sec></div></td></tr></table><!--{/block}-->
 				<!--{subtemplate common/seccheck}-->

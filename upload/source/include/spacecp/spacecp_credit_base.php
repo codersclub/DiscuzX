@@ -118,10 +118,15 @@ if($_GET['op'] == 'base') {
 		include isset($_REQUEST['inajax']) ? template('common/footer_ajax') : template('common/footer');
 		dexit();
 	} elseif(submitcheck('addfundscardsubmit')) {
-		list($seccodecheck) = seccheck('card');
+		list($seccodecheck, $secqaacheck) = seccheck('card');
 		if($seccodecheck) {
 			if(!check_seccode($_GET['seccodeverify'], $_GET['seccodehash'])) {
 				showmessage('submit_seccode_invalid', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
+			}
+		}
+		if($secqaacheck) {
+			if(!check_secqaa($_GET['secanswer'], $_GET['secqaahash'])) {
+				showmessage('submit_secqaa_invalid', '', array(), array('showdialog' => 1, 'showmsg' => true, 'closetime' => true));
 			}
 		}
 
@@ -146,8 +151,7 @@ if($_GET['op'] == 'base') {
 		}
 	} else {
 		if($_G['setting']['card']['open']) {
-			list($seccodecheck) = seccheck('card');
-			$secqaacheck = 0;
+			list($seccodecheck, $secqaacheck) = seccheck('card');
 		}
 
 		$active = array();

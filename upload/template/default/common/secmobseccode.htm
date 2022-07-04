@@ -1,0 +1,20 @@
+<!--{template common/header}-->
+<div class="tm_c">
+	<h3 class="flb">
+		<em id="return_$handlekey">{lang secmobseccode}</em>
+		<span>
+			<a href="javascript:;" class="flbc" onclick="hideWindow('$handlekey')" title="{lang close}">{lang close}</a>
+		</span>
+	</h3>
+	<form id="confirmform" method="post" autocomplete="off" action="misc.php?mod=secmobseccode&action=send&svctype=$svctype&secmobicc=$secmobicc&secmobile=$secmobile" onsubmit="ajaxpost('confirmform', 'return_$handlekey', 'return_$handlekey');return false;">
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<input type="hidden" name="seccodesubmit" value="true" />
+		<input type="hidden" name="handlekey" value="$handlekey" />
+		<!--{block sectpl}--><div class="rfm"><table><tr><th><sec>: </th><td><sec><br /><sec></td></tr></table></div><!--{/block}-->
+		<!--{subtemplate common/seccheck}-->
+		<p class="o pns">
+			<input type="submit" name="funcsubmit_btn" class="btn" value="{lang confirms}">
+		</p>
+	</form>
+</div>
+<!--{template common/footer}-->

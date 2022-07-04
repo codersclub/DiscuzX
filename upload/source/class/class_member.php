@@ -37,7 +37,7 @@ class logging_ctl {
 			showmessage('login_succeed', $referer ? $referer : './', $param, array('showdialog' => 1, 'locationtime' => true, 'extrajs' => $ucsynlogin));
 		}
 
-		list($seccodecheck) = seccheck('login');
+		list($seccodecheck, $secqaacheck) = seccheck('login');
 		if(!empty($_GET['auth'])) {
 			$dauth = authcode($_GET['auth'], 'DECODE', $_G['config']['security']['authkey']);
 			list(,,,$secchecklogin2) = explode("\t", $dauth);
@@ -46,9 +46,10 @@ class logging_ctl {
 			}
 		}
 		$seccodestatus = !empty($_GET['lssubmit']) ? false : $seccodecheck;
+		$secqaastatus = !empty($_GET['lssubmit']) ? false : $secqaacheck;
 		$invite = getinvite();
 
-		if(!submitcheck('loginsubmit', 1, $seccodestatus)) {
+		if(!submitcheck('loginsubmit', 1, $seccodestatus, $secqaastatus)) {
 
 			$auth = '';
 			$username = !empty($_G['cookie']['loginuser']) ? dhtmlspecialchars($_G['cookie']['loginuser']) : '';
@@ -94,7 +95,7 @@ class logging_ctl {
 			$result = userlogin($_GET['username'], $_GET['password'], $_GET['questionid'], $_GET['answer'], $this->setting['autoidselect'] ? 'auto' : $_GET['loginfield'], $_G['clientip']);
 			$uid = $result['ucresult']['uid'];
 
-			if(!empty($_GET['lssubmit']) && ($result['ucresult']['uid'] == -3 || $seccodecheck)) {
+			if(!empty($_GET['lssubmit']) && ($result['ucresult']['uid'] == -3 || $seccodecheck || $secqaacheck)) {
 				$_GET['username'] = $result['ucresult']['username'];
 				$this->logging_more($result['ucresult']['uid'] == -3);
 			}
