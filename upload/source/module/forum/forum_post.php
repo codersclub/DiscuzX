@@ -302,6 +302,21 @@ if($_GET['action'] == 'newthread') {
 } else {
 	$policykey = '';
 }
+$policykeys = array('postattach', $policykey);
+loadcache('creditrule');
+foreach ($policykeys as $key) {
+	if($key && is_array($_G['cache']['creditrule'][$key])) {
+		$data = [];
+		$creditrule = $_G['cache']['creditrule'][$key];
+		for($i = 1; $i <= 8; $i++) {
+			if($creditrule['extcredits'.$i]) {
+				$data[$i] = $creditrule['extcredits'.$i];
+			}
+		}
+		$_G['setting']['creditspolicy'][$key] = $data;
+	}
+}
+$postattachcredits = !empty($_G['forum']['postattachcredits']) ? $_G['forum']['postattachcredits'] : $_G['setting']['creditspolicy']['postattach'];
 if($policykey) {
 	$postcredits = $_G['forum'][$policykey.'credits'] ? $_G['forum'][$policykey.'credits'] : $_G['setting']['creditspolicy'][$policykey];
 }
@@ -322,8 +337,8 @@ $posturl = "action=$_GET[action]&fid=$_G[fid]".
 	(!empty($special) ? "&special=$special" : '').
 	(!empty($sortid) ? "&sortid=$sortid" : '').
 	(!empty($typeid) ? "&typeid=$typeid" : '').
-	(!empty($_GET['firstpid']) ? "&firstpid=$firstpid" : '').
-	(!empty($_GET['addtrade']) ? "&addtrade=$addtrade" : '');
+	(!empty($_GET['firstpid']) ? "&firstpid=".$_GET['firstpid'] : '').
+	(!empty($_GET['addtrade']) ? "&addtrade=".$_GET['addtrade'] : '');
 
 if($_GET['action'] == 'reply') {
 	check_allow_action('allowreply');
