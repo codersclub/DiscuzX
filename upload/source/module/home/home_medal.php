@@ -50,7 +50,7 @@ if(empty($_GET['action'])) {
 	$mymedals = array_keys($mymedals);
 	$applylogs = C::t('forum_medallog')->fetch_all_by_type(2);
 	foreach ($applylogs as $id => $log) {
-		$mymedals[$log['medalid']] = $log['medalid'];
+		$log['uid'] == $_G['uid'] && $mymedals[$log['medalid']] = $log['medalid'];
 	}
 
 } elseif($_GET['action'] == 'confirm') {
