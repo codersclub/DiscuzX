@@ -66,6 +66,14 @@ class block_member extends discuz_block {
 				),
 				'default' => ''
 			),
+			'secmobilestatus' => array(
+				'title' => 'memberlist_secmobilestatus',
+				'type' => 'mcheckbox',
+				'value' => array(
+					array(1, 'memberlist_yes'),
+				),
+				'default' => ''
+			),
 			'verifystatus' => array(
 				'title' => 'memberlist_verifystatus',
 				'type' => 'mcheckbox',
@@ -199,6 +207,7 @@ class block_member extends discuz_block {
 		$lastpost	= !empty($parameter['lastpost']) ? intval($parameter['lastpost']) : '';
 		$avatarstatus = !empty($parameter['avatarstatus']) ? 1 : 0;
 		$emailstatus = !empty($parameter['emailstatus']) ? 1 : 0;
+		$secmobilestatus = !empty($parameter['secmobilestatus']) ? 1 : 0;
 		$verifystatus = !empty($parameter['verifystatus']) ? $parameter['verifystatus'] : array();
 		$profiles = array();
 		$profiles['gender']		= !empty($parameter['gender']) ? intval($parameter['gender']) : 0;
@@ -229,6 +238,9 @@ class block_member extends discuz_block {
 		}
 		if($emailstatus) {
 			$wheres[] = "m.emailstatus='1'";
+		}
+		if($secmobilestatus) {
+			$wheres[] = "m.secmobilestatus='1'";
 		}
 		if(!empty($verifystatus)) {
 			$flag = false;

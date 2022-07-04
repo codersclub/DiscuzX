@@ -159,9 +159,9 @@ if($operation == 'list') {
 					}
 				}
 				$varname = in_array($setting['type'], array('mradio', 'mcheckbox', 'select', 'mselect')) ?
-					($setting['type'] == 'mselect' ? array('parameters[extra]['.$settingvar.'][]', $setting['value']) : array('parameters[extra]['.$settingvar.']', $setting['value']))
+					($setting['type'] == 'mselect' ? array('parameters['.$settingvar.'][]', $setting['value']) : array('parameters['.$settingvar.']', $setting['value']))
 					: 'parameters['.$settingvar.']';
-				$value = $smsgw['parameters']['extra'][$settingvar] != '' ? $smsgw['parameters']['extra'][$settingvar] : $setting['default'];
+				$value = $smsgw['parameters'][$settingvar] != '' ? $smsgw['parameters'][$settingvar] : $setting['default'];
 				$comment = lang('smsgw/'.$class, $setting['title'].'_comment');
 				$comment = $comment != $setting['title'].'_comment' ? $comment : '';
 				showsetting(lang('smsgw/'.$class, $setting['title']).':', $varname, $value, $setting['type'], '', 0, $comment);
@@ -207,7 +207,8 @@ if($operation == 'list') {
 		C::t('common_smsgw')->update($smsgwid, array(
 			'name' => $smsgwnew['name'],
 			'order' => (int)$smsgwnew['order'],
-			'sendrule' => $smsgwnew['sendrule']
+			'sendrule' => $smsgwnew['sendrule'],
+			'parameters' => serialize($parameters),
 		));
 
 		updatecache('setting');

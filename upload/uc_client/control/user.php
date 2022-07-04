@@ -114,7 +114,7 @@ class usercontrol extends base {
 			$_ENV['note']->send();
 		}
 		if($status > 0) {
-			$tmp = $_ENV['user']->get_user_by_uid($username);
+			$tmp = $_ENV['user']->get_user_by_username($username);
 			$_ENV['user']->user_log($tmp['uid'], 'edituser', 'uid='.$tmp['uid'].'&email='.urlencode($email).'&secmobicc='.urlencode($secmobicc).'&secmobile='.urlencode($secmobile));
 		}
 		return $status;

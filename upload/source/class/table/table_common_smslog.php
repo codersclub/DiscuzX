@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 class table_common_smslog extends discuz_table
 {
 
-	private $_archiver_table = 'table_common_smslog_archive';
+	private $_archiver_table = 'common_smslog_archive';
 
 	public function __construct() {
 
