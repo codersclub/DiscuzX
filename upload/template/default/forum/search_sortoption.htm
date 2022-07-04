@@ -61,7 +61,7 @@
 			<tr>
 				<th width="8%">$option[title]:</th>
 	            <td>
-	                <ul class="cl">
+	                <ul class="cl tbmu">
 	                    <li{if $_GET[''.$option[identifier]] == 'all'} class="a"{/if}><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=sortid&sortid=$_GET['sortid']&searchsort=1$filterurladd&$option[identifier]=all$sorturladdarray[$option[identifier]]" class="xi2">{lang unlimited}</a></li>
 						<!--{if $option[type] == 'select'}-->
 							<!--{loop $option['choices'] $id $value}-->
@@ -77,7 +77,7 @@
 								<!--{if ksort($showoption)}--><!--{/if}-->
 								<!--{loop $showoption $optioncount $values}-->
 									<!--{if $tmpcount != $optioncount && ($tmpcount = $optioncount)}-->
-									</ul><ul class="subtsm cl">
+									</ul><ul class="subtsm cl tbmu">
 										<!--{loop $values $id $value}-->
 											<li{if preg_match('/^'.$value[optionid].'\./i', $_GET[''.$option[identifier]]) || preg_match('/^'.$value[optionid].'$/i', $_GET[''.$option[identifier]])} class="a"{/if}><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=sortid&sortid=$_GET[sortid]&searchsort=1&$option[identifier]=$id$sorturladdarray[$option[identifier]]" class="xi2">$value[content]</a></li>
 										<!--{/loop}-->
