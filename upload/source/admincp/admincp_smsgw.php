@@ -226,7 +226,7 @@ if($operation == 'list') {
 		$smsdefaultcc = (int)$_GET['smsdefaultccnew'];
 		$smsdefaultcc = $smsdefaultcc > 0 ? $smsdefaultcc : 86;
 		// 默认短信验证码长度, 默认 4
-		$smsdefaultlength = (int)$_GET['smsdefaultlength'];
+		$smsdefaultlength = (int)$_GET['smsdefaultlengthnew'];
 		$smsdefaultlength = $smsdefaultlength > 0 ? $smsdefaultlength : 4;
 		// 限制时间区间, 默认 86400 秒
 		$smstimelimit = (int)$_GET['smstimelimitnew'];
