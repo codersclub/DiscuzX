@@ -237,7 +237,6 @@ INSERT INTO pre_common_setting VALUES ('blogcategoryrequired','0');
 INSERT INTO pre_common_setting VALUES ('blogcategorystat','0');
 INSERT INTO pre_common_setting VALUES ('blogrecyclebin','0');
 INSERT INTO pre_common_setting VALUES ('blogstatus','0');
-INSERT INTO pre_common_setting VALUES ('boardlicensed','0');
 INSERT INTO pre_common_setting VALUES ('cacheindexlife','0');
 INSERT INTO pre_common_setting VALUES ('cachethreaddir','data/threadcache');
 INSERT INTO pre_common_setting VALUES ('cachethreadlife','0');
