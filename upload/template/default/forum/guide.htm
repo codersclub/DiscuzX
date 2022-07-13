@@ -82,11 +82,11 @@
 				<!--{/loop}-->
 			<!--{else}-->
 				<!--{loop $data $key $list}-->
-				<div id="threadlist" class="tl bm bmw tbmu"{if $_G['uid']} style="position: relative;"{/if}>
+				<div id="threadlist" class="tl bm bmw"{if $_G['uid']} style="position: relative;"{/if}>
 					<div class="th">
 						<table cellspacing="0" cellpadding="0">
 							<tr>
-								<th colspan="2">
+								<th colspan="2"{if $view == 'my'} class="tbmu"{/if}>
 									{lang title}
 									<!--{if $view == 'my'}-->
 									&nbsp;&nbsp;&nbsp;
