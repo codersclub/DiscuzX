@@ -186,6 +186,7 @@ function import_block($xmlurl, $clientid, $xmlkey = '', $signtype = '', $ignorev
 	if(empty($blockarrays['name']) || empty($blockarrays['fields']) || empty($blockarrays['getsetting'])) {
 		cpmsg(cplang('import_data_typeinvalid').cplang($importtxt), '', 'error');
 	}
+	require_once libfile('function/cloudaddons');
 	if(empty($ignoreversion) && !versioncompatible($blockarrays['version'])) {
 		cpmsg(cplang('blockxml_import_version_invalid'), '', 'error', array('cur_version' => $blockarrays['version'], 'set_version' => $_G['setting']['version']));
 	}
