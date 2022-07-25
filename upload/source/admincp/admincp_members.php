@@ -1518,7 +1518,18 @@ EOF;
 			$_GET['banexpirynew'] = !empty($_GET['banexpirynew']) ? TIMESTAMP + $_GET['banexpirynew'] * 86400 : 0;
 			$_GET['banexpirynew'] = $_GET['banexpirynew'] > TIMESTAMP ? $_GET['banexpirynew'] : 0;
 			if($_GET['banexpirynew']) {
-				$member['groupterms']['main'] = array('time' => $_GET['banexpirynew'], 'adminid' => $member['adminid'], 'groupid' => $member['groupid']);
+				if($member['groupid'] == 4 || $member['groupid'] == 5) {
+					$member['groupterms']['main']['time'] = $_GET['banexpirynew'];
+					if (empty($member['groupterms']['main']['groupid'])) {
+						$groupnew = C::t('common_usergroup')->fetch_by_credits($member['credits']);
+						$member['groupterms']['main']['groupid'] = $groupnew['groupid'];
+					}
+					if (!isset($member['groupterms']['main']['adminid'])) {
+						$member['groupterms']['main']['adminid'] = $member['adminid'];
+					}
+				}else{
+					$member['groupterms']['main'] = array('time' => $_GET['banexpirynew'], 'adminid' => $member['adminid'], 'groupid' => $member['groupid']);
+				}
 				$member['groupterms']['ext'][$groupidnew] = $_GET['banexpirynew'];
 				$setarr['groupexpiry'] = groupexpiry($member['groupterms']);
 			} else {
