@@ -70,7 +70,7 @@ function import_styles($ignoreversion = 1, $dir = '', $restoreid = 0, $updatecac
 		if(empty($ignoreversion) && !versioncompatible($stylearray['version'])) {
 			cpmsg('styles_import_version_invalid', 'action=styles', 'error', array('cur_version' => $stylearray['version'], 'set_version' => $_G['setting']['version']));
 		}
-
+		$styleidnew = 0;
 		if(!$restoreid) {
 			$renamed = 0;
 			if($stylearray['templateid'] != 1) {
@@ -81,8 +81,11 @@ function import_styles($ignoreversion = 1, $dir = '', $restoreid = 0, $updatecac
 						cpmsg('styles_import_directory_invalid', 'action=styles', 'error', array('basedir' => $basedir, 'directory' => $stylearray['directory']));
 					}
 				}
-
-				if(!($templateid = C::t('common_template')->get_templateid($stylearray['tplname']))) {
+				$templateid = C::t('common_template')->get_templateid_by_directory($stylearray['directory']);
+				if (!$templateid) {
+					$templateid = C::t('common_template')->get_templateid($stylearray['tplname']);
+				}
+				if(!$templateid) {
 					$templateid = C::t('common_template')->insert(array(
 						'name' => $stylearray['tplname'],
 						'directory' => $stylearray['directory'],
@@ -95,6 +98,25 @@ function import_styles($ignoreversion = 1, $dir = '', $restoreid = 0, $updatecac
 
 			if(C::t('common_style')->check_stylename($stylearray['name'])) {
 				$renamed = 1;
+				$styleinfo = C::t('common_style')->fetch_by_stylename_templateid($stylearray['name']);
+				if(!empty($styleinfo['styleid'])) {
+					if($styleinfo['templateid'] != $templateid) {
+						$template = C::t('common_template')->fetch_by_templateid($styleinfo['templateid']);
+						if (empty($template)) {
+							C::t('common_style')->update($styleinfo['styleid'], array('templateid' => $templateid), true);
+							$styleidnew = $styleinfo['styleid'];
+						}else{
+							$styleinfo = C::t('common_style')->fetch_by_stylename_templateid($stylearray['name'], $templateid);
+							if(!empty($styleinfo['styleid'])) {
+								$styleidnew = $styleinfo['styleid'];
+							}else{
+								$styleidnew = C::t('common_style')->insert(array('name' => $stylearray['name'], 'templateid' => $templateid), true);
+							}
+						}
+					}else{
+						$styleidnew = $styleinfo['styleid'];
+					}
+				}
 			} else {
 				$styleidnew = C::t('common_style')->insert(array('name' => $stylearray['name'], 'templateid' => $templateid), true);
 			}
@@ -103,9 +125,20 @@ function import_styles($ignoreversion = 1, $dir = '', $restoreid = 0, $updatecac
 			C::t('common_stylevar')->delete_by_styleid($styleidnew);
 		}
 
-		foreach($stylearray['style'] as $variable => $substitute) {
-			$substitute = @dhtmlspecialchars($substitute);
-			C::t('common_stylevar')->insert(array('styleid' => $styleidnew, 'variable' => $variable, 'substitute' => $substitute));
+		if($styleidnew) {
+			$stylevars = array();
+			$result = C::t('common_stylevar')->fetch_all_by_styleid($styleidnew);
+			if(is_array($result) && !empty($result)) {
+				foreach($result as $style) {
+					$stylevars[$style['variable']] = $style['substitute'];
+				}
+			}
+			foreach($stylearray['style'] as $variable => $substitute) {
+				if(!isset($stylevars[$variable])) {
+					$substitute = @dhtmlspecialchars($substitute);
+					C::t('common_stylevar')->insert(array('styleid' => $styleidnew, 'variable' => $variable, 'substitute' => $substitute));
+				}
+			}
 		}
 	}
 
@@ -153,6 +186,7 @@ function import_block($xmlurl, $clientid, $xmlkey = '', $signtype = '', $ignorev
 	if(empty($blockarrays['name']) || empty($blockarrays['fields']) || empty($blockarrays['getsetting'])) {
 		cpmsg(cplang('import_data_typeinvalid').cplang($importtxt), '', 'error');
 	}
+	require_once libfile('function/cloudaddons');
 	if(empty($ignoreversion) && !versioncompatible($blockarrays['version'])) {
 		cpmsg(cplang('blockxml_import_version_invalid'), '', 'error', array('cur_version' => $blockarrays['version'], 'set_version' => $_G['setting']['version']));
 	}

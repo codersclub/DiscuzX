@@ -288,12 +288,16 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 			$postlist[] = $post;
 		}
 		$threadlist = C::t('forum_thread')->fetch_all($tids);
-
+		$firsttime_validatepost = [];//首次审核通过帖子
+		$uids = [];
 		foreach($postlist as $post) {
 			$post['lastpost'] = $threadlist[$post['tid']]['lastpost'];
 
 			$pidarray[] = $post['pid'];
 			if(getstatus($post['status'], 3) == 0) {
+				$post['subject'] = $threadlist[$post['tid']]['subject'];
+				$firsttime_validatepost[] = $post;
+				$uids[] = $post['authorid'];				
 				updatepostcredits('+', $post['authorid'], 'reply', $post['fid']);
 				$attachcount = C::t('forum_attachment_n')->count_by_id('tid:'.$post['tid'], 'pid', $post['pid']);
 				updatecreditbyaction('postattach', $post['authorid'], array(), '', $attachcount, 1, $post['fid']);
@@ -321,6 +325,36 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 			}
 		}
 		unset($postlist, $tids, $threadlist);
+		if($firsttime_validatepost) {//首次审核通过,发布动态
+			require_once libfile('function/post');
+			require_once libfile('function/feed');
+			$forumsinfo = C::t('forum_forum')->fetch_all_info_by_fids($forums);//需要allowfeed信息, 允许推送动态,默认推送广播
+			$users = [];
+			foreach ($uids as $uid) {
+				$space = array('uid'=>$uid);
+				space_merge($space, 'field_home');//需要['privacy']['feed']['newreply']信息
+				$users[$uid] = $space;
+			}
+			foreach ($firsttime_validatepost as $post) {
+				if($forumsinfo[$post['fid']] && $forumsinfo[$post['fid']]['allowfeed'] && $users[$post['authorid']]['privacy']['feed']['newreply'] && !$post['anonymous']) {
+					$feed = array(
+						'icon' => 'post',
+						'title_template' => 'feed_reply_title',
+						'title_data' => array(),
+						'images' => array()
+					);
+					$post_url = "forum.php?mod=redirect&goto=findpost&pid=".$post['pid']."&ptid=".$post['tid'];
+					$feed['title_data'] = array(
+						'subject' => "<a href=\"$post_url\">".$post['subject']."</a>",
+						'author' => "<a href=\"home.php?mod=space&uid=".$post['authorid']."\">".$post['author']."</a>"
+					);
+					$feed['title_data']['hash_data'] = 'tid'.$post['tid'];
+					$feed['id'] = $post['pid'];
+					$feed['idtype'] = 'pid';
+					feed_add($feed['icon'], $feed['title_template'], $feed['title_data'], $feed['body_template'], $feed['body_data'], '', $feed['images'], $feed['image_links'], '', '', '', 0, $feed['id'], $feed['idtype'],$post['authorid'], $post['author']);
+				}
+			}
+		}		
 
 		foreach($threads as $tid => $thread) {
 			C::t('forum_thread')->increase($tid, $thread);

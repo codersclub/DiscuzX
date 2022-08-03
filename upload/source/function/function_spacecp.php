@@ -75,7 +75,7 @@ function album_update_pic($albumid, $picid=0) {
 	}
 	require_once libfile('class/image');
 	$image = new image();
-	if($image->Thumb($picsource, 'album/'.$picdir.$albumid.'.jpg', 120, 120, 2)) {
+	if($image->Thumb($picsource, 'album/'.$picdir.$albumid.'.jpg', 300, 300, 2)) {
 		$setarr['pic'] = $picdir.$albumid.'.jpg';
 		$setarr['picflag'] = 1;
 		if(getglobal('setting/ftp/on')) {

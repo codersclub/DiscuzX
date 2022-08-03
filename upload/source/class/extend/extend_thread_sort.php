@@ -52,7 +52,7 @@ class extend_thread_sort extends extend_thread_base {
 					'tid' => $tid,
 					'fid' => $fid,
 					'optionid' => $optionid,
-					'value' => censor($value),
+					'value' => $value,
 					'expiration' => ($typeexpiration ? $this->param['publishdate'] + $typeexpiration : 0),
 				));
 			}

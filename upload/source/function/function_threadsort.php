@@ -244,7 +244,7 @@ function showsorttemplate($sortid, $fid, $sortoptionarray, $templatearray, $thre
 				} else {
 					$sortthread['value'] = '';
 					if($imgoptiondata['aid']) {
-						$sortthread['value'] = getforumimg($imgoptiondata['aid'], 0, 120, 120);
+						$sortthread['value'] = getforumimg($imgoptiondata['aid'], 0, 300, 300);
 					} elseif($imgoptiondata['url']) {
 						$sortthread['value'] = $imgoptiondata['url'];
 					}
@@ -472,7 +472,7 @@ function threadsortshow($sortid, $tid) {
 		}
 	}
 
-	$threadsortshow['optionlist'] = !$sortdataexpiration ? $_G['forum_option'] : 'expire';
+	$threadsortshow['optionlist'] = !$sortdataexpiration || $sortdataexpiration >= $_G['timestamp'] ? $_G['forum_option'] : 'expire';
 	$threadsortshow['typetemplate'] = $typetemplate;
 	$threadsortshow['expiration'] = dgmdate($sortdataexpiration, 'd');
 
@@ -702,7 +702,7 @@ function threadsort_validator($sortoption, $pid) {
 			showmessage('threadtype_toolong_invalid', "forum.php?mod=post&action=$postaction&fid={$_G['fid']}&sortid=".$_G['forum_selectsortid'], array('typetitle' => $_G['forum_checkoption'][$var]['title']));
 		} elseif($sortoption[$var] && (($_G['forum_checkoption'][$var]['maxnum'] && $sortoption[$var] > $_G['forum_checkoption'][$var]['maxnum']) || ($_G['forum_checkoption'][$var]['minnum'] && $sortoption[$var] < $_G['forum_checkoption'][$var]['minnum']))) {
 			showmessage('threadtype_num_invalid', "forum.php?mod=post&action=$postaction&fid={$_G['fid']}&sortid=".$_G['forum_selectsortid'], array('typetitle' => $_G['forum_checkoption'][$var]['title']));
-		} elseif($sortoption[$var] && $_G['forum_checkoption'][$var]['unchangeable'] && !($_G['tid'] && $pid)) {
+		} elseif($sortoption[$var] && $_G['forum_checkoption'][$var]['unchangeable'] && ($_G['tid'] && $pid)) {
 			showmessage('threadtype_unchangeable_invalid', "forum.php?mod=post&action=$postaction&fid={$_G['fid']}&sortid=".$_G['forum_selectsortid'], array('typetitle' => $_G['forum_checkoption'][$var]['title']));
 		} elseif($sortoption[$var] && ($_G['forum_checkoption'][$var]['type'] == 'select')) {
 			if($_G['forum_optionlist'][$_G['forum_checkoption'][$var]['optionid']]['choices'][$sortoption[$var]]['level'] != 1) {

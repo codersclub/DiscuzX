@@ -44,7 +44,7 @@ class table_forum_announcement extends discuz_table
 	}
 
 	public function fetch_by_id_username($id, $username, $adminid = 1) {
-		return DB::fetch_first('SELECT * FROM %t WHERE id=%d AND (%d=1 AND author=%s)', array($this->_table, $id, $adminid, $username));
+		return DB::fetch_first('SELECT * FROM %t WHERE id=%d AND (%d=1 OR author=%s)', array($this->_table, $id, $adminid, $username));
 	}
 
 	public function delete_by_id_username($ids, $username, $adminid = 1) {

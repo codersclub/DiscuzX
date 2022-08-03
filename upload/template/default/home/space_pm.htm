@@ -42,7 +42,7 @@
 							<a href="javascript:;" id="pm_operation" class="o" onmouseover="showMenu({'ctrlid':this.id, 'pos':'34'})">{lang menu}</a>
 							<div id="pm_operation_menu" class="p_pop" style="display: none;">
 								<ul>
-									<li><a href="home.php?mod=spacecp&ac=pm&op=delete&deletepm_delplid[]=$plid&plid=$plid&handlekey=pmdeletehk_{$plid}" id="a_pmdelete_$plid" onclick="showWindow(this.id, this.href, 'get', 0);" title="{lang delete_privatepm_user}">{lang pm_delete_all}</a></li>
+									<li><a href="home.php?mod=spacecp&ac=pm&op=delete&deletepm_delplid[]=$plid&plid=$plid&handlekey=pmdeletehk_{$plid}&formhash={FORMHASH}" id="a_pmdelete_$plid" onclick="showWindow(this.id, this.href, 'get', 0);" title="{lang delete_privatepm_user}">{lang pm_delete_all}</a></li>
 								</ul>
 							</div>
 						</div>
@@ -54,7 +54,7 @@
 							<a href="javascript:;" id="pm_operation" class="o" onmouseover="showMenu({'ctrlid':this.id, 'pos':'34'})">{lang menu}</a>
 							<div id="pm_operation_menu" class="p_pop" style="display: none;">
 								<ul>
-									<li><a href="home.php?mod=spacecp&ac=pm&op=delete&deletepm_deluid[]=$touid&uid=$touid&handlekey=pmdeletehk_{$plid}" id="a_pmdelete_$plid" onclick="showWindow(this.id, this.href, 'get', 0);" title="{lang delete_privatepm_user}">{lang pm_delete_all}</a></li>
+									<li><a href="home.php?mod=spacecp&ac=pm&op=delete&deletepm_deluid[]=$touid&uid=$touid&handlekey=pmdeletehk_{$plid}&formhash={FORMHASH}" id="a_pmdelete_$plid" onclick="showWindow(this.id, this.href, 'get', 0);" title="{lang delete_privatepm_user}">{lang pm_delete_all}</a></li>
 								</ul>
 							</div>
 						</div>
@@ -70,9 +70,9 @@
 							<div id="pm_operation_menu" class="p_pop" style="display: none;">
 								<ul>
 									<!--{if $founderuid == $_G[uid]}-->
-									<li><a href="home.php?mod=spacecp&ac=pm&op=delete&deletepm_delplid[]=$plid&plid=$plid&handlekey=pmdeletehk_{$plid}" id="a_pmdelete_$plid" onclick="showWindow(this.id, this.href, 'get', 0);" title="{lang delete_chatpm_comment}">{lang delete_chatpm}</a></li>
+									<li><a href="home.php?mod=spacecp&ac=pm&op=delete&deletepm_delplid[]=$plid&plid=$plid&handlekey=pmdeletehk_{$plid}&formhash={FORMHASH}" id="a_pmdelete_$plid" onclick="showWindow(this.id, this.href, 'get', 0);" title="{lang delete_chatpm_comment}">{lang delete_chatpm}</a></li>
 									<!--{else}-->
-									<li><a href="home.php?mod=spacecp&ac=pm&op=delete&deletepm_quitplid[]=$plid&plid=$plid&handlekey=pmdeletehk_{$plid}" id="a_pmdelete_$plid" onclick="showWindow(this.id, this.href, 'get', 0);" title="{lang quit_chatpm_comment}">{lang quit_chatpm}</a></li>
+									<li><a href="home.php?mod=spacecp&ac=pm&op=delete&deletepm_quitplid[]=$plid&plid=$plid&handlekey=pmdeletehk_{$plid}&formhash={FORMHASH}" id="a_pmdelete_$plid" onclick="showWindow(this.id, this.href, 'get', 0);" title="{lang quit_chatpm_comment}">{lang quit_chatpm}</a></li>
 									<!--{/if}-->
 								</ul>
 							</div>
@@ -317,7 +317,7 @@
 								<a href="javascript:;" id="pm_o_$grouppm[id]" class="o" onmouseover="showMenu({'ctrlid':this.id, 'pos':'34'})">{lang menu}</a>
 								<div id="pm_o_$grouppm[id]_menu" class="p_pop" style="display: none;">
 									<ul>
-										<li><a href="home.php?mod=spacecp&ac=pm&op=delete&deletepm_gpmid[]=$grouppm[id]&pmid=$grouppm[id]&handlekey=gpmdeletehk_{$grouppm[id]}" id="a_gpmdelete_$grouppm[id]" onclick="showWindow(this.id, this.href, 'get', 0);" title="{lang delete}">{lang delete}</a></li>
+										<li><a href="home.php?mod=spacecp&ac=pm&op=delete&deletepm_gpmid[]=$grouppm[id]&pmid=$grouppm[id]&handlekey=gpmdeletehk_{$grouppm[id]}&formhash={FORMHASH}" id="a_gpmdelete_$grouppm[id]" onclick="showWindow(this.id, this.href, 'get', 0);" title="{lang delete}">{lang delete}</a></li>
 									</ul>
 								</div>
 							</dd>
@@ -387,7 +387,7 @@
 											<a href="javascript:;" id="pm_g_$grouppm[id]" class="o" onmouseover="showMenu({'ctrlid':this.id, 'pos':'34'})">{lang menu}</a>
 											<div id="pm_g_$grouppm[id]_menu" class="p_pop" style="display: none;">
 												<ul>
-													<li><a href="javascript:;" onclick="ajaxget('home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_gpmid[]=$grouppm[id]', '', 'ajaxwaitid', '', 'none', '$(\'gpmlist_$grouppm[id]\').style.display=\'none\';');">{lang delete}</a></li>
+													<li><a href="javascript:;" onclick="ajaxget('home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_gpmid[]=$grouppm[id]&formhash={FORMHASH}', '', 'ajaxwaitid', '', 'none', '$(\'gpmlist_$grouppm[id]\').style.display=\'none\';');">{lang delete}</a></li>
 												</ul>
 											</div>
 										</dd>
@@ -449,13 +449,13 @@
 												<div id="pm_o_$value[plid]_menu" class="p_pop" style="display: none;">
 													<ul>
 														<!--{if $value['pmtype'] == 1}-->
-														<li><a href="javascript:;" onclick="ajaxget('home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_deluid[]=$value[touid]', '', 'ajaxwaitid', '', 'none', '$(\'pmlist_$value[plid]\').style.display=\'none\';');">{lang delete}</a></li>
+														<li><a href="javascript:;" onclick="ajaxget('home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_deluid[]=$value[touid]&formhash={FORMHASH}', '', 'ajaxwaitid', '', 'none', '$(\'pmlist_$value[plid]\').style.display=\'none\';');">{lang delete}</a></li>
 														<li><a href="home.php?mod=spacecp&ac=pm&op=pm_ignore&username=$value[tousername]&plid=$value[plid]&handlekey=pmignorehk_{$value[plid]}" id="a_feed_menu_$value[plid]" onclick="showWindow(this.id, this.href, 'get', 0);doane(event);" title="{lang pmignore}">{lang pmignore}</a></li>
 														<!--{elseif $value['pmtype'] == 2}-->
 															<!--{if $value['authorid'] == $_G['uid']}-->
-														<li><a href="javascript:;" onclick="ajaxget('home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_delplid[]=$value[plid]', '', 'ajaxwaitid', '', 'none', '$(\'pmlist_$value[plid]\').style.display=\'none\';');">{lang delete}</a></li>
+														<li><a href="javascript:;" onclick="ajaxget('home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_delplid[]=$value[plid]&formhash={FORMHASH}', '', 'ajaxwaitid', '', 'none', '$(\'pmlist_$value[plid]\').style.display=\'none\';');">{lang delete}</a></li>
 															<!--{else}-->
-														<li><a href="javascript:;" onclick="ajaxget('home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_quitplid[]=$value[plid]', '', 'ajaxwaitid', '', 'none', '$(\'pmlist_$value[plid]\').style.display=\'none\';');">{lang delete}</a></li>
+														<li><a href="javascript:;" onclick="ajaxget('home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_quitplid[]=$value[plid]&formhash={FORMHASH}', '', 'ajaxwaitid', '', 'none', '$(\'pmlist_$value[plid]\').style.display=\'none\';');">{lang delete}</a></li>
 															<!--{/if}-->
 														<!--{/if}-->
 													</ul>
@@ -490,13 +490,13 @@
 												<div id="pm_o_$value[plid]_menu" class="p_pop" style="display: none;">
 													<ul>
 														<!--{if $value['pmtype'] == 1}-->
-														<li><a href="javascript:;" onclick="ajaxget('home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_deluid[]=$value[touid]', '', 'ajaxwaitid', '', 'none', '$(\'pmlist_$value[plid]\').style.display=\'none\';');">{lang delete}</a></li>
+														<li><a href="javascript:;" onclick="ajaxget('home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_deluid[]=$value[touid]&formhash={FORMHASH}', '', 'ajaxwaitid', '', 'none', '$(\'pmlist_$value[plid]\').style.display=\'none\';');">{lang delete}</a></li>
 														<li><a href="home.php?mod=spacecp&ac=pm&op=pm_ignore&username=$value[tousername]&plid=$value[plid]&handlekey=pmignorehk_{$value[plid]}" id="a_feed_menu_$value[plid]" onclick="showWindow(this.id, this.href, 'get', 0);doane(event);" title="{lang pmignore}">{lang pmignore}</a></li>
 														<!--{elseif $value['pmtype'] == 2}-->
 															<!--{if $value['authorid'] == $_G['uid']}-->
-														<li><a href="javascript:;" onclick="ajaxget('home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_delplid[]=$value[plid]', '', 'ajaxwaitid', '', 'none', '$(\'pmlist_$value[plid]\').style.display=\'none\';');">{lang delete}</a></li>
+														<li><a href="javascript:;" onclick="ajaxget('home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_delplid[]=$value[plid]&formhash={FORMHASH}', '', 'ajaxwaitid', '', 'none', '$(\'pmlist_$value[plid]\').style.display=\'none\';');">{lang delete}</a></li>
 															<!--{else}-->
-														<li><a href="javascript:;" onclick="ajaxget('home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_quitplid[]=$value[plid]', '', 'ajaxwaitid', '', 'none', '$(\'pmlist_$value[plid]\').style.display=\'none\';');">{lang delete}</a></li>
+														<li><a href="javascript:;" onclick="ajaxget('home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_quitplid[]=$value[plid]&formhash={FORMHASH}', '', 'ajaxwaitid', '', 'none', '$(\'pmlist_$value[plid]\').style.display=\'none\';');">{lang delete}</a></li>
 															<!--{/if}-->
 														<!--{/if}-->
 													</ul>

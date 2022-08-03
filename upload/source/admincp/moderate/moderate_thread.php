@@ -265,16 +265,22 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		require_once libfile('function/forum');
 		$forums = array();
 
-		$tids = $authoridarray = $moderatedthread = array();		
+		$tids = $authoridarray = $moderatedthread = array();
+		$firsttime_validatethread = [];//首次审核通过帖子
+		$uids = [];				
 		foreach(C::t('forum_thread')->fetch_all_by_tid_fid($moderation['validate'], $fidadd['fids']) as $thread) {
 			if($thread['displayorder'] != -2 && $thread['displayorder']!= -3) {
 				continue;
 			}
 			$poststatus = C::t('forum_post')->fetch_threadpost_by_tid_invisible($thread['tid']);
+			$thread['anonymous'] = $poststatus['anonymous'];
+			$thread['message'] = $poststatus['message'];			
 			$poststatus = $poststatus['status'];
 			$tids[] = $thread['tid'];
 
 			if(getstatus($poststatus, 3) == 0) {
+				$firsttime_validatethread[] = $thread;
+				$uids[] = $thread['authorid'];				
 				updatepostcredits('+', $thread['authorid'], 'post', $thread['fid']);
 				$attachcount = C::t('forum_attachment_n')->count_by_id('tid:'.$thread['tid'], 'tid', $thread['tid']);
 				updatecreditbyaction('postattach', $thread['authorid'], array(), '', $attachcount, 1, $thread['fid']);
@@ -292,7 +298,41 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 				);
 			}
 		}
+		if($firsttime_validatethread) {//首次审核通过,发布动态
+			require_once libfile('function/post');
+			require_once libfile('function/feed');
+			$forumsinfo = C::t('forum_forum')->fetch_all_info_by_fids($forums);//需要allowfeed信息,允许推送动态,默认推送广播
+			$users = [];
+			foreach ($uids as $uid) {
+				$space = array('uid'=>$uid);
+				space_merge($space, 'field_home');//需要['privacy']['feed']['newthread']信息
+				$users[$uid] = $space;
+			}
+			foreach ($firsttime_validatethread as $thread) {
+				if($forumsinfo[$thread['fid']] && $forumsinfo[$thread['fid']]['allowfeed'] && $users[$thread['authorid']]['privacy']['feed']['newthread'] && !$thread['anonymous']) {
+					$feed = array(
+						'icon' => 'thread',
+						'title_template' => 'feed_thread_title',
+						'title_data' => array(),
+						'body_template' => 'feed_thread_message',
+						'body_data' => array(),
+						'title_data' => array(),
+						'images' => array()
+					);
 
+					$message = !$thread['price'] && !$thread['readperm'] ? $thread['message'] : '';
+					$message = messagesafeclear($message);
+					$feed['body_data'] = array(
+						'subject' => "<a href=\"forum.php?mod=viewthread&tid={$thread['tid']}\">{$thread['subject']}</a>",
+						'message' => messagecutstr($message, 150)
+					);
+					$feed['title_data']['hash_data'] = 'tid'.$thread['tid'];
+					$feed['id'] = $thread['tid'];
+					$feed['idtype'] = 'tid';
+					feed_add($feed['icon'], $feed['title_template'], $feed['title_data'], $feed['body_template'], $feed['body_data'], '', $feed['images'], $feed['image_links'], '', '', '', 0, $feed['id'], $feed['idtype'],$thread['authorid'], $thread['author']);
+				}
+			}
+		}
 		if($tids) {
 
 			$tidstr = dimplode($tids);
