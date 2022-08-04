@@ -176,7 +176,7 @@ class discuz_application extends discuz_base{
 				'manage' => array('mod_member','report','pmreport'),
 				'app' => array(),
 			),
-			'mobiletpl' => array('1' => 'mobile', '2' => 'touch', '3' => 'wml', 'yes' => 'mobile'),
+			'mobiletpl' => array('1' => 'touch', '2' => 'touch', '3' => 'touch', 'yes' => 'touch'),
 		);
 		$_G['PHP_SELF'] = dhtmlspecialchars($this->_get_script_url());
 		$_G['basescript'] = CURSCRIPT;
@@ -854,9 +854,6 @@ class discuz_application extends discuz_base{
 		if($mobile !== '2' && $mobile !== '3' && empty($this->var['setting']['mobile']['legacy'])) {
 			$mobile = '2';
 		}
-		if($mobile === '3' && empty($this->var['setting']['mobile']['wml'])) {
-			return false;
-		}
 		define('IN_MOBILE', isset($this->var['mobiletpl'][$mobile]) ? $mobile : '2');
 		setglobal('gzipcompress', 0);
 
@@ -893,18 +890,7 @@ class discuz_application extends discuz_base{
 		}
 
 		$this->var['setting']['regstatus'] = $this->var['setting']['mobile']['mobileregister'] ? $this->var['setting']['regstatus'] : 0 ;
-
-		if(in_array(constant('IN_MOBILE'), array('1', '3'))) {
-			$this->var['setting']['thumbquality'] = 50;
-		}
-
 		$this->var['setting']['avatarmethod'] = 0;
-
-		$this->var['setting']['mobile']['simpletypeurl'] = array();
-		$this->var['setting']['mobile']['simpletypeurl'][0] = $this->var['siteurl'].$this->var['basefilename'].($query_sting_tmp ? '?'.$query_sting_tmp.'&' : '?').'mobile=1&simpletype=no';
-		$this->var['setting']['mobile']['simpletypeurl'][1] =  $this->var['siteurl'].$this->var['basefilename'].($query_sting_tmp ? '?'.$query_sting_tmp.'&' : '?').'mobile=1&simpletype=yes';
-		$this->var['setting']['mobile']['simpletypeurl'][2] =  $this->var['siteurl'].$this->var['basefilename'].($query_sting_tmp ? '?'.$query_sting_tmp.'&' : '?').'mobile=2';
-		unset($query_sting_tmp);
 		ob_start();
 	}
 

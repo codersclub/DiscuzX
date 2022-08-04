@@ -64,7 +64,6 @@ if($operation == 'filecheck') {
 		checkfiles('data/threadcache/', '\.htm', 0);
 		checkfiles('template/', '');
 		checkfiles('api/', '');
-		checkfiles('m/', '\.php');
 		checkfiles('source/', '', 1, 'discuzfiles.md5,plugin');
 		checkfiles('static/', '');
 		checkfiles('archiver/', '');

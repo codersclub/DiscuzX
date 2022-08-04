@@ -2509,9 +2509,6 @@ EOT;
 		showsetting('setting_mobile_simpletype', 'settingnew[mobile][mobilesimpletype]', $setting['mobile']['mobilesimpletype'], 'radio');
 		showsetting('setting_mobile_cachetime', 'settingnew[mobile][mobilecachetime]', $setting['mobile']['mobilecachetime'] ? $setting['mobile']['mobilecachetime'] : 0, 'text');
 		showsetting('setting_mobile_come_from', 'settingnew[mobile][mobilecomefrom]', $setting['mobile']['mobilecomefrom'], 'textarea');
-		showsetting('setting_mobile_legacy', 'settingnew[mobile][legacy]', $setting['mobile']['legacy'], 'radio');
-		showsetting('setting_mobile_wml', 'settingnew[mobile][wml]', $setting['mobile']['wml'], 'radio');
-		showsetting('setting_mobile_allowmnew', 'settingnew[mobile][allowmnew]', $setting['mobile']['allowmnew'], 'radio');
 		showtagfooter('tbody');
 		showsubmit('settingsubmit');
 		showformfooter();
@@ -3406,7 +3403,7 @@ EOT;
 		} else {
 			C::t('common_nav')->update_by_navtype_type_identifier(1, 0, 'mobile', array('available' => 1));
 		}
-		$settingnew['mobile_arr']['allowmnew'] = intval($settingnew['mobile']['allowmnew']);
+		$settingnew['mobile_arr']['allowmnew'] = 0;
 		$settingnew['mobile_arr']['mobileforward'] = intval($settingnew['mobile']['mobileforward']);
 		$settingnew['mobile_arr']['mobileregister'] = intval($settingnew['mobile']['mobileregister']);
 		$settingnew['mobile_arr']['mobileseccode'] = intval($settingnew['mobile']['mobileseccode']);
@@ -3414,8 +3411,8 @@ EOT;
 		$settingnew['mobile_arr']['mobilecachetime'] = intval($settingnew['mobile']['mobilecachetime']);
 		$settingnew['mobile_arr']['mobilecomefrom'] = preg_replace(array("/\son(.*)=[\'\"](.*?)[\'\"]/i"), '', strip_tags($settingnew['mobile']['mobilecomefrom'], '<a><font><img><span><strong><b>'));
 		$settingnew['mobile_arr']['mobilepreview'] = intval($settingnew['mobile']['mobilepreview']);
-		$settingnew['mobile_arr']['legacy'] = intval($settingnew['mobile']['legacy']);
-		$settingnew['mobile_arr']['wml'] = intval($settingnew['mobile']['wml']);
+		$settingnew['mobile_arr']['legacy'] = 0;
+		$settingnew['mobile_arr']['wml'] = 0;
 		
 		$settingnew['mobile_arr']['portal']['catnav'] = intval($settingnew['mobile']['portal']['catnav']);
 		

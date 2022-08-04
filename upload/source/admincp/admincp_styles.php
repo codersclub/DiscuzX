@@ -172,9 +172,7 @@ if($operation == 'admin') {
 			$isdefault1 = $id == $defaultid1 ? 'checked' : '';
 			$isdefault2 = $id == $defaultid2 ? 'checked' : '';
 			$isdefault3 = $id == $defaultid3 ? 'checked' : '';
-			$d1exists = file_exists($style['directory'].'/mobile');
-			$d2exists = file_exists($style['directory'].'/touch') || file_exists($style['directory'].'/m');
-			$d3exists = file_exists($style['directory'].'/wml');
+			$d2exists = file_exists($style['directory'].'/touch');
 			$available = $style['available'] ? 'checked' : NULL;
 			$preview = file_exists($style['directory'].'/preview.jpg') ? $style['directory'].'/preview.jpg' : STATICURL.'image/admincp/stylepreview.gif';
 			$previewlarge = file_exists($style['directory'].'/preview_large.jpg') ? $style['directory'].'/preview_large.jpg' : '';
@@ -192,9 +190,7 @@ if($operation == 'admin') {
 				<p style=\"margin: 2px 0\"><input type=\"text\" class=\"txt\" name=\"namenew[$id]\" value=\"{$style['name']}\" style=\"margin:0; width: 104px;\"></p></td><td valign=\"top\">
 				<p> {$lang['styles_default']}</p>
 				<p style=\"margin: 1px 0\"><label><input type=\"radio\" class=\"radio\" name=\"defaultnew\" value=\"$id\" $isdefault /> {$lang['styles_default0']}</label></p>
-				".($d1exists ? "<p style=\"margin: 1px 0\"><label><input type=\"radio\" class=\"radio\" name=\"defaultnew1\" value=\"$id\" $isdefault1 /> {$lang['styles_default1']}</label></p>" : "<p style=\"margin: 1px 0\" class=\"lightfont\"><label><input type=\"radio\" class=\"radio\" disabled readonly /> {$lang['styles_default1']}</label></p>")."
 				".($d2exists ? "<p style=\"margin: 1px 0\"><label><input type=\"radio\" class=\"radio\" name=\"defaultnew2\" value=\"$id\" $isdefault2 /> {$lang['styles_default2']}</label></p>" : "<p style=\"margin: 1px 0\" class=\"lightfont\"><label><input type=\"radio\" class=\"radio\" disabled readonly /> {$lang['styles_default2']}</label></p>")."
-				".($d3exists ? "<p style=\"margin: 1px 0\"><label><input type=\"radio\" class=\"radio\" name=\"defaultnew3\" value=\"$id\" $isdefault3 /> {$lang['styles_default3']}</label></p>" : "<p style=\"margin: 1px 0\" class=\"lightfont\"><label><input type=\"radio\" class=\"radio\" disabled readonly /> {$lang['styles_default3']}</label></p>")."
 				<p style=\"margin: 8px 0 0 0\"><label>".($isdefault || $isdefault1 || $isdefault2 || $isdefault3 ? '<input class="checkbox" type="checkbox" disabled="disabled" />' : '<input class="checkbox" type="checkbox" name="delete[]" value="'.$id.'" />')." {$lang['styles_uninstall']}</label></p>
 				<p style=\"margin: 8px 0 2px 0\"><a href=\"".ADMINSCRIPT."?action=styles&operation=edit&id=$id\">{$lang['edit']}</a> &nbsp;".
 					(($isplugindeveloper && $isfounder) || !$addonids[$style['styleid']] || !cloudaddons_getmd5($addonids[$style['styleid']]) ? " <a href=\"".ADMINSCRIPT."?action=styles&operation=export&id=$id\">{$lang['export']}</a><br />" : '<br />').
