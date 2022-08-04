@@ -67,6 +67,9 @@ if($do == 'mod') {
 					"<td>$lang[moderate_members_submit_times]: $member[submittimes]<br />$lang[moderate_members_submit_time]: $member[submitdate]<br />$lang[moderate_members_admin]: $member[admin]<br />\n".
 					"$lang[moderate_members_mod_time]: $member[moddate]</td><td><textarea rows=\"4\" id=\"remark[$member[uid]]\" name=\"remark[$member[uid]]\" style=\"width: 95%; word-break: break-all\">$member[remark]</textarea></td></tr>\n";
 			}
+			if(!empty($vuids)) {
+				C::t('common_member_validate')->delete($vuids);
+			}
 		}
 		shownav('user', 'nav_modmembers');
 		showsubmenu('nav_moderate_users', array(
