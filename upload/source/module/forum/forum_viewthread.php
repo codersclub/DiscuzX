@@ -624,7 +624,7 @@ if(!empty($isdel_post)) {
 	$ordertype != 1 ? ksort($postarr) : krsort($postarr);
 }
 $summary = '';
-$curpagepids = [];
+$curpagepids = array();
 foreach($postarr as $post) {
 	$curpagepids[] = $post['pid'];
 }
