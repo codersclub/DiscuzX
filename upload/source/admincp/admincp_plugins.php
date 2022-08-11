@@ -1078,7 +1078,7 @@ if(!$operation) {
 				'<option h="1001" e="inc" value="15">'.cplang('plugins_edit_modules_type_15').'</option>'.
 				'<option h="1001" e="inc" value="16">'.cplang('plugins_edit_modules_type_16').'</option>'.
 				'<option h="1101" e="inc" value="3">'.cplang('plugins_edit_modules_type_3').'</option>'.
-				'<option h="1100" e="inc" value="3">'.cplang('plugins_edit_modules_type_29').'</option>'.
+				'<option h="1100" e="inc" value="29">'.cplang('plugins_edit_modules_type_29').'</option>'.
 				'</optgroup>'.
 				'<optgroup label="'.cplang('plugins_edit_modules_type_g2').'">'.
 				'<option h="0011" e="class" value="11">'.cplang('plugins_edit_modules_type_11').'</option>'.
