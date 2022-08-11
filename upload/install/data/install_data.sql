@@ -175,6 +175,11 @@ INSERT INTO pre_common_nav VALUES ('', '0', '排行榜', '', 'misc.php?mod=rankl
 INSERT INTO pre_common_nav VALUES ('', '0', '设为首页', '', '#', 'sethomepage', 0, 0, 1, 1, 0, 0, 0, 0, '', '', '', 4, '');
 INSERT INTO pre_common_nav VALUES ('', '0', '收藏本站', '', '#', 'setfavorite', 0, 0, 1, 2, 0, 0, 0, 0, '', '', '', 4, '');
 
+INSERT INTO pre_common_nav VALUES ('', '0', '搜索', '', 'search.php?mod=forum', 'search', 0, 0, 1, 1, 0, 0, 0, 0, '', '', '', 5, '');
+INSERT INTO pre_common_nav VALUES ('', '0', '公告', '', 'forum.php?mod=announcement', 'announcement', 0, 0, 1, 1, 0, 0, 0, 0, '', '', '', 5, '');
+INSERT INTO pre_common_nav VALUES ('', '0', '导读', '', 'forum.php?mod=guide&view=newthread', 'guide', 0, 0, 0, 1, 0, 0, 0, 0, '', '', '', 5, '');
+INSERT INTO pre_common_nav VALUES ('', '0', '资讯', '', 'portal.php?mod=list&catid=1', 'portal', 0, 0, 0, 1, 0, 0, 0, 0, '', '', '', 5, '');
+
 -- [/update_nav]
 
 INSERT INTO pre_common_setting VALUES ('accessemail','');

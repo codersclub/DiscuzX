@@ -345,6 +345,7 @@ function build_cache_setting() {
 	$data['mynavs'] = get_cachedata_mynavs();
 	$data['topnavs'] = get_cachedata_topnav();
 	$data['profilenode'] = get_cachedata_threadprofile();
+	$data['mfindnavs'] = get_cachedata_mfindnav();
 
 	require_once DISCUZ_ROOT.'./uc_client/client.php';
 	$ucapparray = uc_app_ls();
@@ -506,7 +507,7 @@ function build_cache_setting() {
 	}
 	$data['output'] = $output;
 	$data['connect'] = in_array('qqconnect', $data['plugins']['available']) ? $data['connect'] : array();
-	
+
 	$data['parseflv'] = get_cachedata_discuzcode_parseflv();
 
 	$data['mpsid'] = preg_replace('/[^0-9]+/', '', $data['mps']);
@@ -575,6 +576,8 @@ function get_cachedata_setting_plugin($method = '') {
 							if($module['type'] == 24) $navtype = 2;
 						case 25:
 							if($module['type'] == 25) $navtype = 3;
+						case 30:
+							if($module['type'] == 30) $navtype = 5;
 						case 27:
 							if($module['type'] == 27) $navtype = 4;
 							$module['url'] = $module['url'] ? $module['url'] : 'plugin.php?id='.$plugin['identifier'].':'.$module['name'];
@@ -901,6 +904,18 @@ function get_cachedata_footernav() {
 	return $data['footernavs'];
 }
 
+function get_cachedata_mfindnav() {
+	global $_G;
+
+	$data['mfindnavs'] = array();
+	foreach(C::t('common_nav')->fetch_all_by_navtype(5) as $nav) {
+		$nav['extra'] = '';
+		$id = $nav['type'] == 0 ? $nav['identifier'] : 100 + $nav['id'];
+		$data['mfindnavs'][$id] = array('available' => $nav['available'], 'navname' => $nav['name'], 'url' => $nav['url'], 'name' => $nav['name'], 'type' => $nav['type'], 'level' => $nav['level'], 'id' => $nav['identifier']);
+	}
+    return $data['mfindnavs'];
+}
+
 function get_cachedata_spacenavs() {
 	global $_G;
 	$data['spacenavs'] = array();
@@ -1075,7 +1090,7 @@ function get_cachedata_discuzcode_parseflv() {
 	$mediadir = DISCUZ_ROOT.'./source/function/media';
 	$parseflv = array();
 	if(file_exists($mediadir)) {
-		$mediadirhandle = dir($mediadir);	
+		$mediadirhandle = dir($mediadir);
 		while($entry = $mediadirhandle->read()) {
 			if(!in_array($entry, array('.', '..')) && preg_match("/^media\_([\_\w]+)\.php$/", $entry, $entryr) && substr($entry, -4) == '.php' && is_file($mediadir.'/'.$entry)) {
 				$checkurl = array();
@@ -1083,7 +1098,7 @@ function get_cachedata_discuzcode_parseflv() {
 				$parseflv[$entryr[1]] = $checkurl;
 			}
 		}
-	}	
+	}
 	return $parseflv;
 }
 
