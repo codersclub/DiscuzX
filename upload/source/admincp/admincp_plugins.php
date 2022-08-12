@@ -1008,7 +1008,7 @@ if(!$operation) {
 					'<option h="1100100" e="inc" value="23"'.($module['type'] == 23 ? ' selected="selected"' : '').'>'.cplang('plugins_edit_modules_type_23').'</option>'.
 					'<option h="1100110" e="inc" value="25"'.($module['type'] == 25 ? ' selected="selected"' : '').'>'.cplang('plugins_edit_modules_type_25').'</option>'.
 					'<option h="1100111" e="inc" value="24"'.($module['type'] == 24 ? ' selected="selected"' : '').'>'.cplang('plugins_edit_modules_type_24').'</option>'.
-				    	'<option h="1100000" e="inc" value="30"'.($module['type'] == 30 ? ' selected="selected"' : '').'>'.cplang('plugins_edit_modules_type_30').'</option>'.
+					'<option h="1100000" e="inc" value="30"'.($module['type'] == 30 ? ' selected="selected"' : '').'>'.cplang('plugins_edit_modules_type_30').'</option>'.
 					'</optgroup>'.
 					'<optgroup label="'.cplang('plugins_edit_modules_type_g3').'">'.
 					'<option h="1111" e="inc" value="7"'.($module['type'] == 7 ? ' selected="selected"' : '').'>'.cplang('plugins_edit_modules_type_7').'</option>'.
