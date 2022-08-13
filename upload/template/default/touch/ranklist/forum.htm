@@ -19,7 +19,7 @@
 		</div>
 	</div>
 </div>
-<script>new Swiper('#dhnavs_li',{freeMode:true,slidesPerView:'auto',onTouchMove:function(swiper){Discuz_Touch_on=0},onTouchEnd:function(swiper){Discuz_Touch_on=1}});</script>
+<script>if($("#dhnavs_li .mon").length>0){var discuz_nav=$("#dhnavs_li .mon").offset().left+$("#dhnavs_li .mon").width()>=$(window).width()?$("#dhnavs_li .mon").index():0}else{var discuz_nav=0}new Swiper('#dhnavs_li',{freeMode:true,slidesPerView:'auto',initialSlide:discuz_nav,onTouchMove:function(swiper){Discuz_Touch_on=0},onTouchEnd:function(swiper){Discuz_Touch_on=1},});</script>
 
 <div id="ct" class="bodybox p10 cl" style="padding-top: 0 !important;">
 	<!--{if $forumsrank}-->
