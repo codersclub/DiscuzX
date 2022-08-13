@@ -1,0 +1,78 @@
+<!--{template common/header}-->
+
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang blog_ranklist}</h2>
+	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+
+<!--{subtemplate ranklist/side_top}-->
+
+<div class="dhnavs_box">
+	<div id="dhnavs">
+		<div id="dhnavs_li">
+			<ul class="swiper-wrapper">
+				<li class="swiper-slide{if $_GET[view] == 'heats'} mon{/if}"><a href="misc.php?mod=ranklist&type=blog&view=heats&orderby=$orderby">{lang hot_ranklist}</a></li>
+				<li class="swiper-slide{if $_GET[view] == 'replies'} mon{/if}"><a href="misc.php?mod=ranklist&type=blog&view=replies&orderby=$orderby">{lang comment_ranklist}</a></li>
+				<li class="swiper-slide{if $_GET[view] == 'views'} mon{/if}"><a href="misc.php?mod=ranklist&type=blog&view=views&orderby=$orderby">{lang visit_ranklist}</a></li>
+				<li class="swiper-slide{if $_GET[view] == 'sharetimes'} mon{/if}"><a href="misc.php?mod=ranklist&type=blog&view=sharetimes&orderby=$orderby">{lang ranklist_share}</a></li>
+				<li class="swiper-slide{if $_GET[view] == 'favtimes'} mon{/if}"><a href="misc.php?mod=ranklist&type=blog&view=favtimes&orderby=$orderby">{lang ranklist_favorite}</a></li>
+				<!--{if $clicks}-->
+				<!--{loop $clicks $key $value}-->
+				<li class="swiper-slide {if $_GET[view] == $key} mon{/if}"><a href="misc.php?mod=ranklist&type=blog&view=$key&orderby=$orderby">$value[name]{lang ranklist}</a></li>
+				<!--{/loop}-->
+				<!--{/if}-->
+			</ul>
+		</div>
+	</div>
+</div>
+<script>new Swiper('#dhnavs_li',{freeMode:true,slidesPerView:'auto',onTouchMove:function(swiper){Discuz_Touch_on=0},onTouchEnd:function(swiper){Discuz_Touch_on=1}});</script>
+
+<div id="ct" class="bodybox p10 cl" style="padding-top: 0 !important;">
+	<p id="before" class="tbmu">
+		<a href="misc.php?mod=ranklist&type=blog&view=$_GET[view]&orderby=thisweek" id="604800" {if $orderby == 'thisweek'}class="a"{/if} />{lang ranklist_week}</a><span class="pipe">|</span>
+		<a href="misc.php?mod=ranklist&type=blog&view=$_GET[view]&orderby=thismonth" id="2592000" {if $orderby == 'thismonth'}class="a"{/if} />{lang ranklist_month}</a><span class="pipe">|</span>
+		<a href="misc.php?mod=ranklist&type=blog&view=$_GET[view]&orderby=today" id="86400" {if $orderby == 'today'}class="a"{/if} />{lang ranklist_today}</a><span class="pipe">|</span>
+		<a href="misc.php?mod=ranklist&type=blog&view=$_GET[view]&orderby=all" id="all" {if $orderby == 'all'}class="a"{/if} />{lang all}</a>
+	</p>
+	<!--{if $bloglist}-->
+		<div class="xld xlda hasrank">
+		<!--{loop $bloglist $blog}-->
+			<dl class="bbda">
+				<dd class="ranknum"><span class="ranks{if $blog['rank'] <= 3} ranks_$blog['rank']{/if}">$blog['rank']</span></dd>
+				<dd class="m">
+					<div class="avt">
+						<a href="home.php?mod=space&uid=$blog[uid]" target="_blank"><!--{avatar($blog[uid], 'middle')}--></a>
+					</div>
+				</dd>
+				<dt class="xs2">
+					<!--{if helper_access::check_module('share')}-->
+					<a href="home.php?mod=spacecp&ac=share&type=blog&id=$blog[blogid]&handlekey=lsbloghk_{$blog[blogid]}" id="a_share_$blog[blogid]" onclick="showWindow(this.id, this.href, 'get', 0);" class="oshr xs1 xw0">{lang share}</a>
+					<!--{/if}-->
+					<a href="home.php?mod=space&uid=$blog[uid]&do=blog&id=$blog[blogid]" target="_blank">$blog[subject]</a>
+				</dt>
+				<dd>
+					<a href="home.php?mod=space&uid=$blog[uid]" target="_blank">$blog[username]</a> <span class="xg1">$blog[dateline]</span>
+				</dd>
+				<dd class="cl">
+					$blog[message]
+				</dd>
+				<dd class="xg1">
+					<!--{if $_GET[view] == 'heats'}-->{lang views} $blog[hot]
+					<!--{elseif $_GET[view] == 'replies'}--><a href="home.php?mod=space&uid=$blog[uid]&do=blog&id=$blog[blogid]#comment" target="_blank">{lang comment} $blog[replynum]</a>
+					<!--{elseif $_GET[view] == 'views'}-->{lang ranklist_thread_view} $blog[viewnum]
+					<!--{elseif $_GET[view] == 'sharetimes'}-->{lang ranklist_thread_share} $blog[sharetimes]
+					<!--{elseif $_GET[view] == 'favtimes'}-->{lang ranklist_thread_favorite} $blog[favtimes]
+					<!--{else}-->$clicks[$_GET[view]][name] $blog['click'.$_GET[view]]<!--{/if}-->
+				</dd>
+			</dl>
+		<!--{/loop}-->
+		</div>
+	<!--{else}-->
+		<div class="emp">{lang none_data}</div>
+	<!--{/if}-->
+	<div class="notice">{lang ranklist_update}</div>
+</div>
+
+
+<!--{template common/footer}-->

@@ -1,0 +1,56 @@
+<!--{template common/header}-->
+
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang ranklist_picture}</h2>
+	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+
+<!--{subtemplate ranklist/side_top}-->
+
+<div class="dhnavs_box">
+	<div id="dhnavs">
+		<div id="dhnavs_li">
+			<ul class="swiper-wrapper">
+				<li class="swiper-slide{if $_GET[view] == 'hot'} mon{/if}"><a href="misc.php?mod=ranklist&type=picture&view=hot&orderby=$orderby">{lang hot_pic_ranklist}</a></li>
+				<!--{if $clicks}-->
+				<!--{loop $clicks $key $value}-->
+				<li class="swiper-slide{if $_GET[view] == $key} mon{/if}"><a href="misc.php?mod=ranklist&type=picture&view=$key&orderby=$orderby">$value[name]{lang ranklist}</a></li>
+				<!--{/loop}-->
+				<!--{/if}-->
+				<li class="swiper-slide{if $_GET[view] == 'sharetimes'} mon{/if}"><a href="misc.php?mod=ranklist&type=picture&view=sharetimes&orderby=$orderby">{lang ranklist_share}</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script>new Swiper('#dhnavs_li',{freeMode:true,slidesPerView:'auto',onTouchMove:function(swiper){Discuz_Touch_on=0},onTouchEnd:function(swiper){Discuz_Touch_on=1}});</script>
+
+<div id="ct" class="bodybox p10 cl" style="padding-top: 0 !important;">
+	<p id="before" class="tbmu">
+		<a href="misc.php?mod=ranklist&type=picture&view=$_GET[view]&orderby=thismonth" id="2592000" {if $orderby == 'thismonth'}class="a"{/if} />{lang ranklist_month}</a><span class="pipe">|</span>
+		<a href="misc.php?mod=ranklist&type=picture&view=$_GET[view]&orderby=thisweek" id="604800" {if $orderby == 'thisweek'}class="a"{/if} />{lang ranklist_week}</a><span class="pipe">|</span>
+		<a href="misc.php?mod=ranklist&type=picture&view=$_GET[view]&orderby=today" id="86400" {if $orderby == 'today'}class="a"{/if} />{lang ranklist_today}</a><span class="pipe">|</span>
+		<a href="misc.php?mod=ranklist&type=picture&view=$_GET[view]&orderby=all" id="all" {if $orderby == 'all'}class="a"{/if} />{lang all}</a>
+	</p>
+	<!--{if $picturelist}-->
+		<ul class="ptw ml mla cl">
+		<!--{loop $picturelist $picture}-->
+			<li class="d">
+				<div class="c">
+					<em class="ranks{if $picture['rank'] <= 3} ranks_$picture['rank']{/if} picrank">$picture['rank']</em>
+					<a href="home.php?mod=space&uid=$picture['uid']&do=album&picid=$picture['picid']" title="$picture['albumname']" target="_blank"><img src="{$picture['url']}" alt="" /></a>
+				</div>
+				<!--{if $_GET[view] == 'hot'}--><p class="ptm">{lang views} $picture[hot]</p>
+				<!--{elseif $_GET[view] == 'sharetimes'}--><p class="ptm">{lang ranklist_thread_share} $picture[sharetimes]</p>
+				<!--{else}--><p class="ptm">$clicks[$_GET[view]][name] $picture['click'.$_GET[view]]</p><!--{/if}-->
+				<span><a href="home.php?mod=space&uid=$picture['uid']" target="_blank">$picture[username]</a></span>
+			</li>
+		<!--{/loop}-->
+		</ul>
+	<!--{else}-->
+		<div class="emp">{lang none_data}</div>
+	<!--{/if}-->
+	<div class="notice">{lang ranklist_update}</div>
+</div>
+
+<!--{template common/footer}-->

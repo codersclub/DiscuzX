@@ -1,0 +1,5 @@
+<div class="dhnv flex-box cl" style="border-top: 0;">
+	<a href="home.php?mod=spacecp&ac=usergroup" class="flex{if $activeus[usergroup] or ''} mon{/if}">{lang my_usergroups}</a>
+	<a href="home.php?mod=spacecp&ac=usergroup&do=list" class="flex{if $activeus[list] or '' || $activeus[expiry] or ''} mon{/if}">{lang usergroups_joinbuy}</a>
+	<a href="home.php?mod=spacecp&ac=usergroup&do=forum" class="flex{if $activeus[forum] or ''} mon{/if}">{lang my}{$_G['setting']['navs'][2]['navname']}{lang rights}</a>
+</div>

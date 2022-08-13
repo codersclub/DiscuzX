@@ -906,3 +906,48 @@ function portal_flowlazyload() {
 	};
 	this.attachEvent(window, 'scroll', function(){obj.showNextPage();});
 }
+
+function explode(sep, string) {
+	return string.split(sep);
+}
+
+function setCopy(text, msg) {
+	var cp = document.createElement('textarea');
+	cp.style.fontSize = '12pt';
+	cp.style.border = '0';
+	cp.style.padding = '0';
+	cp.style.margin = '0';
+	cp.style.position = 'absolute';
+	cp.style.left = '-9999px';
+	var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+	cp.style.top = yPosition + 'px';
+	cp.setAttribute('readonly', '');
+	text = text.replace(/[\xA0]/g, ' ');
+	cp.value = text;
+	document.getElementById('append_parent').appendChild(cp);
+	cp.select();
+	cp.setSelectionRange(0, cp.value.length);
+	try {
+		var success = document.execCommand('copy', false, null);
+	} catch(e) {
+		var success = false;
+	}
+	document.getElementById('append_parent').removeChild(cp);
+
+	if (success) {
+		if (msg) {
+			popup.open(msg, 'alert');
+		}
+	} else if (BROWSER.ie) {
+		var r = clipboardData.setData('Text', text);
+		if (r) {
+			if (msg) {
+				popup.open(msg, 'alert');
+			}
+		} else {
+			popup.open('复制失败', 'alerts');
+		}
+	} else {
+		popup.open('复制失败', 'alerts');
+	}
+}

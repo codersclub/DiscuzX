@@ -1,0 +1,15 @@
+<li class="swiper-slide{if $actives[profile] or ''} mon{/if}"><a href="home.php?mod=spacecp&ac=profile">{lang memcp_profile}</a></li>
+<!--{if $_G['setting']['verify']['enabled'] && allowverify()}-->
+	<li class="swiper-slide{if $actives[verify]} mon{/if}"><a href="home.php?mod=spacecp&ac=profile&op=verify">{lang memcp_verify}</a></li>
+<!--{/if}-->
+<li class="swiper-slide{if $actives[credit] or ''} mon{/if}"><a href="home.php?mod=spacecp&ac=credit">{lang memcp_credit}</a></li>
+<!--{if $_G['setting']['ec_ratio']}-->
+	<li class="swiper-slide{if $actives[payment] or ''} mon{/if}"><li><a href="home.php?mod=spacecp&ac=payment">{lang memcp_payment}</a></li><!--{/if}-->
+	<li class="swiper-slide{if $actives[usergroup] or ''} mon{/if}"><a href="home.php?mod=spacecp&ac=usergroup">{lang memcp_usergroup}</a></li>
+	<li class="swiper-slide{if $actives[privacy] or ''} mon{/if}"><a href="home.php?mod=spacecp&ac=privacy">{lang memcp_privacy}</a></li>
+<!--{if $_G['setting']['sendmailday']}-->
+	<li class="swiper-slide{if $actives[sendmail]} mon{/if}"><a href="home.php?mod=spacecp&ac=sendmail">{lang memcp_sendmail}</a></li><!--{/if}-->
+	<li class="swiper-slide{if $actives[password] or ''} mon{/if}"><a href="home.php?mod=spacecp&ac=profile&op=password">{lang password_security}</a></li>
+<!--{if $_G['setting']['creditspolicy']['promotion_visit'] || $_G['setting']['creditspolicy']['promotion_register']}-->
+	<li class="swiper-slide{if $actives[promotion] or ''} mon{/if}"><a href="home.php?mod=spacecp&ac=promotion">{lang memcp_promotion}</a></li>
+<!--{/if}-->

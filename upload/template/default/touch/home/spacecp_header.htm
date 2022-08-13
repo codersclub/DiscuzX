@@ -1,0 +1,19 @@
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2><!--{template home/spacecp_header_name}--></h2>
+	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+
+<div class="dhnav_box">
+	<div id="dhnav">
+		<div id="dhnav_li">
+		<ul class="swiper-wrapper">
+			<!--{template home/spacecp_footer}-->
+		</ul>
+		</div>
+	</div>
+</div>
+
+<script>new Swiper('#dhnav_li',{freeMode:true,slidesPerView:'auto',onTouchMove:function(swiper){Discuz_Touch_on=0},onTouchEnd:function(swiper){Discuz_Touch_on=1}});</script>
+
+<div class="bodybox p10 cl" style="padding-top: 0 !important;">

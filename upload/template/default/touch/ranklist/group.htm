@@ -1,0 +1,61 @@
+<!--{template common/header}-->
+
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang ranklist_group}</h2>
+	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+
+<!--{subtemplate ranklist/side_top}-->
+
+<div class="dhnavs_box">
+	<div id="dhnavs">
+		<div id="dhnavs_li">
+			<ul class="swiper-wrapper">
+				<li class="swiper-slide{if $_GET[view] == 'credit'} mon{/if}"><a href="misc.php?mod=ranklist&type=group&view=credit">{lang credit_ranking}</a></li>
+				<li class="swiper-slide{if $_GET[view] == 'member'} mon{/if}"><a href="misc.php?mod=ranklist&type=group&view=member">{lang ranklist_member_num}</a></li>
+				<li class="swiper-slide{if $_GET[view] == 'threads'} mon{/if}"><a href="misc.php?mod=ranklist&type=group&view=threads">{lang ranklist_post}</a></li>
+				<li class="swiper-slide{if $_GET[view] == 'posts'} mon{/if}"><a href="misc.php?mod=ranklist&type=group&view=posts">{lang ranklist_reply}</a></li>
+				<li class="swiper-slide{if $_GET[view] == 'today'} mon{/if}"><a href="misc.php?mod=ranklist&type=group&view=today">{lang ranklist_post_day}</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script>new Swiper('#dhnavs_li',{freeMode:true,slidesPerView:'auto',onTouchMove:function(swiper){Discuz_Touch_on=0},onTouchEnd:function(swiper){Discuz_Touch_on=1}});</script>
+
+<div id="ct" class="bodybox p10 cl" style="padding-top: 0 !important;">
+	<!--{if $groupsrank}-->
+		<div class="tl">
+			<table cellspacing="0" cellpadding="0">
+				<tr>
+					<td class="icn" height="36">&nbsp;</td>
+					<th>{lang group}<!--{if $_GET[view] == 'credit'}-->({lang ranklist_group_credit})<!--{/if}--></th>
+					<td width="100">
+						<!--{if $_GET[view] == 'today'}-->{lang ranklist_forum_day_post}
+						<!--{elseif $_GET[view] == 'posts'}-->{lang reply}
+						<!--{elseif $_GET[view] == 'thismonth'}-->{lang ranklist_forum_month_post}
+						<!--{elseif $_GET[view] == 'credit'}-->{lang credit_num}
+						<!--{elseif $_GET[view] == 'member'}-->{lang member_num}
+						<!--{else}-->{lang ranklist_forum_post}<!--{/if}-->
+					</td>
+				</tr>
+				<!--{loop $groupsrank $forum}-->
+					<tr>
+						<td class="icn" height="36"><span class="ranks{if $forum['rank'] <= 3} ranks_$forum['rank']{/if}">$forum['rank']</span></td>
+						<th><a href="forum.php?mod=forumdisplay&fid=$forum['fid']" target="_blank">$forum['name']</a></th>
+						<td>
+							<!--{if $_GET[view] == 'credit'}-->$forum['commoncredits']
+							<!--{elseif $_GET[view] == 'member'}-->$forum['membernum']
+							<!--{else}-->$forum['posts']<!--{/if}-->
+						</td>
+					</tr>
+				<!--{/loop}-->
+			</table>
+		</div>
+	<!--{else}-->
+		<div class="emp">{lang none_data}</div>
+	<!--{/if}-->
+	<div class="notice">{lang ranklist_update}</div>
+</div>
+
+<!--{template common/footer}-->

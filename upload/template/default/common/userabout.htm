@@ -1,7 +1,7 @@
 <!--{hook/global_userabout_top $_G['basescript'].'::'.CURMODULE}-->
 <ul>
 	<!--{loop $_G['setting']['spacenavs'] $nav}-->
-		<!--{if is_array($nav) && $nav['available'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1))}-->			
+		<!--{if is_array($nav) && $nav['available'] && (!$nav['level'] || ($nav['level'] == 1 && $_G['uid']) || ($nav['level'] == 2 && $_G['adminid'] > 0) || ($nav['level'] == 3 && $_G['adminid'] == 1))}-->
 			$nav[code]
 		<!--{/if}-->
 	<!--{/loop}-->

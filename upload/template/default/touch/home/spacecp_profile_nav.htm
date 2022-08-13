@@ -1,0 +1,36 @@
+<div class="dhnavs_box">
+	<div id="dhnavs">
+		<div id="dhnavs_li">
+			<ul class="swiper-wrapper">
+			<!--{if $operation != 'verify'}-->
+				<!--{loop $profilegroup $key $value}-->
+					<!--{if $value[available]}-->
+						<li class="swiper-slide{if $opactives[$key] or ''} mon{/if}"><a href="home.php?mod=spacecp&ac=profile&op=$key">$value[title]</a></li>
+					<!--{/if}-->
+				<!--{/loop}-->
+				<!--{if $_G['setting']['allowspacedomain'] && $_G['setting']['domain']['root']['home'] && checkperm('domainlength')}-->
+					<li class="swiper-slide{if $opactives[domain]} mon{/if}"><a href="home.php?mod=spacecp&ac=domain">{lang space_domain}</a></li>
+				<!--{/if}-->
+			<!--{else}-->
+				<!--{if $_G[setting][verify]}-->
+					<!--{loop $_G['setting']['verify'] $vid $verify}-->
+						<!--{if $verify['available'] && (empty($verify['groupid']) || (is_array($verify['groupid']) && in_array($_G['groupid'], $verify['groupid'])))}-->
+							<!--{if $vid != 7}-->
+								<li class="swiper-slide{if $opactives['verify'.$vid]} mon{/if}"><a href="home.php?mod=spacecp&ac=profile&op=verify&vid=$vid">$verify['title']</a></li>
+							<!--{/if}-->
+						<!--{/if}-->
+					<!--{/loop}-->
+				<!--{/if}-->
+			<!--{/if}-->
+			<!--{if $op != 'verify' && !empty($_G['setting']['plugins']['spacecp_profile'])}-->
+				<!--{loop $_G['setting']['plugins']['spacecp_profile'] $id $module}-->
+					<!--{if in_array($module['adminid'], array(0, -1)) || ($module['adminid'] && $_G['adminid'] > 0 && $module['adminid'] >= $_G['adminid'])}-->
+						<li class="swiper-slide{if $_GET[id] == $id} mon{/if}"><a href="home.php?mod=spacecp&ac=plugin&op=profile&id=$id">$module[name]</a></li>
+					<!--{/if}-->
+				<!--{/loop}-->
+			<!--{/if}-->
+			</ul>
+		</div>
+	</div>
+</div>
+<script>new Swiper('#dhnavs_li',{freeMode:true,slidesPerView:'auto',onTouchMove:function(swiper){Discuz_Touch_on=0},onTouchEnd:function(swiper){Discuz_Touch_on=1}});</script>

@@ -1,0 +1,21 @@
+<!--{if !empty($actives[profile])}-->
+	{lang memcp_profile}
+<!--{elseif !empty($actives[verify])}-->
+	{lang memcp_verify}
+<!--{elseif !empty($actives[avatar])}-->
+	{lang memcp_avatar}
+<!--{elseif !empty($actives[credit])}-->
+	{lang memcp_credit}
+<!--{elseif !empty($actives[usergroup])}-->
+	{lang memcp_usergroup}
+<!--{elseif !empty($actives[privacy])}-->
+	{lang memcp_privacy}
+<!--{elseif !empty($actives[sendmail])}-->
+	{lang memcp_sendmail}
+<!--{elseif !empty($actives[password])}-->
+	{lang password_security}
+<!--{elseif !empty($actives[promotion])}-->
+	{lang memcp_promotion}
+<!--{elseif !empty($actives[plugin])}-->
+	{$_G['setting']['plugins'][$pluginkey][$_GET['id']]['name']}
+<!--{/if}-->

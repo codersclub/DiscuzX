@@ -1,0 +1,64 @@
+<!--{template common/header}-->
+
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang ranklist_activity}</h2>
+	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+
+<!--{subtemplate ranklist/side_top}-->
+
+<div class="dhnv flex-box cl" style="border-top: 0;">
+	<a href="misc.php?mod=ranklist&type=activity&view=heats&orderby=$orderby" class="flex{if $_GET[view] == 'heats'} mon{/if}">{lang ranklist_hot}</a>
+	<a href="misc.php?mod=ranklist&type=activity&view=favtimes&orderby=$orderby" class="flex{if $_GET[view] == 'favtimes'} mon{/if}">{lang ranklist_favorite}</a>
+	<a href="misc.php?mod=ranklist&type=activity&view=sharetimes&orderby=$orderby" class="flex{if $_GET[view] == 'sharetimes'} mon{/if}">{lang ranklist_share}</a>
+</div>
+
+<div id="ct" class="bodybox p10 cl" style="padding-top: 0 !important;">
+	<p id="before" class="tbmu">
+		<a href="misc.php?mod=ranklist&type=activity&view=$_GET[view]&orderby=thismonth" id="2592000" {if $orderby == 'thismonth'}class="a"{/if} />{lang ranklist_month}</a><span class="pipe">|</span>
+		<a href="misc.php?mod=ranklist&type=activity&view=$_GET[view]&orderby=thisweek" id="604800" {if $orderby == 'thisweek'}class="a"{/if} />{lang ranklist_week}</a><span class="pipe">|</span>
+		<a href="misc.php?mod=ranklist&type=activity&view=$_GET[view]&orderby=today" id="86400" {if $orderby == 'today'}class="a"{/if} />{lang ranklist_today}</a><span class="pipe">|</span>
+		<a href="misc.php?mod=ranklist&type=activity&view=$_GET[view]&orderby=all" id="all" {if $orderby == 'all'}class="a"{/if} />{lang all}</a>
+	</p>
+	<!--{if $activitylist}-->
+		<table cellpadding="0" cellspacing="0" class="acl">
+		<!--{loop $activitylist $activity}-->
+			<tr>
+				<td width="35" style="padding-left: 10px;"><span class="ranks{if $activity['rank'] <= 3} ranks_$activity['rank']{/if}">$activity['rank']</span></td>
+				<td class="type"><!--{if $activity['aid']}--><img src="$activity['attachurl']" width="80" alt="" /><!--{else}--><div class="nophoto" alt="nophoto"></div><!--{/if}--></td>
+				<td>
+					<h4><a href="forum.php?mod=viewthread&tid=$activity['tid']" target="_blank">$activity['subject']</a></h4>
+					<p class="mbn">{lang ranklist_activity_start} $activity['starttimefrom']<!--{if $activity['starttimeto']}--> - $activity['starttimeto']<!--{/if}--> <!--{if $activity['has_expiration']}--><span class="xg1">{lang ranklist_activity_end}</span><!--{/if}--></p>
+					<p>$activity['message']</p>
+					<p class="xg1">
+						<!--{if $_GET[view] == 'favtimes'}-->{lang ranklist_thread_favorite} $activity['favtimes']
+						<!--{elseif $_GET[view] == 'sharetimes'}-->{lang ranklist_thread_share} $activity['sharetimes']
+						<!--{else}-->{lang hot} $activity['heats']<!--{/if}-->
+					</p>
+				</td>
+				<td class="addr">
+					<strong>$activity['class']</strong><br />
+					$activity['place']<br />
+					<strong>{lang have} <em class="xi1">$activity['applynumber']</em> {lang join}</strong><br />
+					$activity['replies'] {lang message}
+				</td>
+				<td class="orgr">
+					<ul class="ml mls cl">
+						<li>
+							<a href="home.php?mod=space&uid=$activity['authorid']" class="avt" target="_blank"><!--{avatar($activity['authorid'], 'middle')}--></a>
+							<p><a title="$thread[author]" href="home.php?mod=space&uid=$activity['authorid']" target="_blank">$activity['author']</a></p>
+						</li>
+					</ul>
+				</td>
+			</tr>
+		<!--{/loop}-->
+		</table>
+		<div class="pgs cl mt10">$multi</div>
+	<!--{else}-->
+		<div class="emp">{lang none_data}</div>
+	<!--{/if}-->
+	<div class="notice">{lang ranklist_update}</div>
+</div>
+
+<!--{template common/footer}-->
