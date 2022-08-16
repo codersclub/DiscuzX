@@ -159,11 +159,21 @@ function cpurl($type = 'parameter', $filters = array('sid', 'frames')) {
 }
 
 
-function showheader($key, $url) {
+function showheader($key, $url, $isbtn = 0) {
 	list($action, $operation, $do) = explode('_', $url.'___');
 	$url = $action.($operation ? '&operation='.$operation.($do ? '&do='.$do : '') : '');
 	$menuname = cplang('header_'.$key) != 'header_'.$key ? cplang('header_'.$key) : $key;
-	echo '<li><em><a href="'.ADMINSCRIPT.'?action='.$url.'" id="header_'.$key.'" hidefocus="true" onmouseover="previewheader(\''.$key.'\')" onmouseout="previewheader()" '.(isfounder() && $key == 'cloudaddons' ? 'target="_blank"' : 'onclick="toggleMenu(\''.$key.'\', \''.$url.'\');doane(event);"').'>'.$menuname.'</a></em></li>';
+	if($isbtn) {
+		echo '<li><button id="header_'.$key.'" class=" ">'.$menuname.'</button></li>';
+	} else {
+		echo '<li><em><a href="'.ADMINSCRIPT.'?action='.$url.'" id="header_'.$key.'" hidefocus="true" onmouseover="previewheader(\''.$key.'\')" onmouseout="previewheader()" '.(isfounder() && $key == 'cloudaddons' ? 'target="_blank"' : 'onclick="toggleMenu(\''.$key.'\', \''.$url.'\');doane(event);"').'>'.$menuname.'</a></em></li>';
+	}
+}
+
+
+function showleftheader($key) {
+	$menuname = cplang('header_'.$key) != 'header_'.$key ? cplang('header_'.$key) : $key;
+	echo '<a id="leftmn_'.$key.'"><span>'.$menuname.'</span></a>';
 }
 
 function shownav($header = '', $menu = '', $nav = '') {
@@ -198,11 +208,11 @@ function showmenu($key, $menus, $return = 0) {
 	if(is_array($menus)) {
 		foreach($menus as $menu) {
 			if($menu[0] && $menu[1]) {
-				if(strpos($menu[1], 'plugins&operation=config') === false){
+				if(strpos($menu[1], 'plugins&operation=config') === false && substr($menu[1], 0, 4) != 'http'){
 					list($action, $operation, $do) = explode('_', $menu[1]);
 					$menu[1] = $action.($operation ? '&operation='.$operation.($do ? '&do='.$do : '') : '');
 				}
-				$body .= '<li><a href="'.(substr($menu[1], 0, 4) == 'http' ? $menu[1] : ADMINSCRIPT.'?action='.$menu[1]).'" hidefocus="true" target="'.($menu[2] ? $menu[2] : 'main').'"'.($menu[3] ? $menu[3] : '').'><em onclick="menuNewwin(this)" title="'.cplang('nav_newwin').'"></em>'.cplang($menu[0]).'</a></li>';
+				$body .= '<li><a href="'.(substr($menu[1], 0, 4) == 'http' ? $menu[1] : ADMINSCRIPT.'?action='.$menu[1]).'" target="'.($menu[2] ? $menu[2] : 'main').'"'.($menu[3] ? $menu[3] : '').'><em title="'.cplang('nav_newwin').'"></em>'.cplang($menu[0]).'</a></li>';
 			} elseif($menu[0] && $menu[2]) {
 				if($menu[2] == 1) {
 					$id = 'M'.substr(md5($menu[0]), 0, 8);
@@ -210,16 +220,16 @@ function showmenu($key, $menus, $return = 0) {
 					if(!empty($_G['cookie']['cpmenu_'.$id])) {
 						$hide = true;
 					}
-					$body .= '<li class="s"><div class="lsub'.($hide ? '' : ' desc').'" subid="'.$id.'"><div onclick="lsub(\''.$id.'\', this.parentNode)">'.$menu[0].'</div><ol style="display:'.($hide ? 'none' : '').'" id="'.$id.'">';
+					$body .= '<li class="s"><a>'.$menu[0].'</a><ol style="display:'.($hide ? 'none' : '').'" id="'.$id.'">';
 				}
 				if($menu[2] == 2) {
-					$body .= '<li class="sp"></li></ol></div></li>';
+					$body .= '<li class="sp"></li></ol></li>';
 				}
 			}
 		}
 	}
 	if(!$return) {
-		echo '<ul id="menu_'.$key.'" onclick="switchheader(\''.$key.'\');" style="display: none">'.$body.'</ul>';
+		echo '<ul id="menu_'.$key.'">'.$body.'</ul>';
 	} else {
 		return $body;
 	}
@@ -290,7 +300,7 @@ function cpmsg($message, $url = '', $type = '', $values = array(), $extra = '', 
 	}
 
 	if($halt) {
-		echo '<h3>'.cplang('discuz_message').'</h3><div class="infobox">'.$message.'</div>';
+		echo '<div class="infobox"><h3>'.cplang('discuz_message').'</h3>'.$message.'</div>';
 		exit();
 	} else {
 		echo '<div class="infobox">'.$message.'</div>';
@@ -314,12 +324,16 @@ function cpheader() {
 	$basescript = ADMINSCRIPT;
 	echo <<<EOT
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=$charset">
-<meta http-equiv="x-ua-compatible" content="ie=7" />
-<link href="{$staticurl}image/admincp/admincp.css?{$_G['style']['verhash']}" rel="stylesheet" type="text/css" />
+<meta charset="$charset">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="color-scheme" content="light dark">
+<link href="{$staticurl}image/admincp/minireset.css?{$_G['style']['verhash']}" rel="stylesheet" />
+<link href="{$staticurl}image/admincp/admincppage.css?{$_G['style']['verhash']}" rel="stylesheet" />
 </head>
 <body>
 <script type="text/JavaScript">
@@ -362,6 +376,7 @@ function showsubmenu($title, $menus = array(), $right = '', $replace = array()) 
 		$s .= '</ul></div>';
 	}
 	echo !empty($menus) ? '<div class="floattop">'.$s.'</div><div class="floattopempty"></div>' : $s;
+	echo '</div><div class="cpcontainer">';
 }
 
 function showsubmenusteps($title, $menus = array(), $mleft = array(), $mright = array()) {
@@ -376,9 +391,11 @@ function showsubmenusteps($title, $menus = array(), $mleft = array(), $mright = 
 	if(is_array($menus)) {
 		$s .= '<ul class="stepstat">';
 			$i = 0;
+			$ic = 1;
 		foreach($menus as $menu) {
 			$i++;
-			$s .= '<li'.($menu[1] ? ' class="current"' : '').' id="step'.$i.'">'.$i.'.'.cplang($menu[0]).'</li>';
+			$s .= '<li'.($ic ? ' class="current"' : '').' id="step'.$i.'"><span>'.$i.'</span>'.cplang($menu[0]).'</li>';
+			if($menu[1]) $ic = 0;
 		}
 		$s .= '</ul>';
 	}
@@ -391,6 +408,7 @@ function showsubmenusteps($title, $menus = array(), $mleft = array(), $mright = 
 	}
 	$s .= '</div>';
 	echo $s;
+	echo '</div><div class="cpcontainer">';
 }
 
 function showsubmenuanchors($title, $menus = array(), $right = '') {
@@ -420,6 +438,7 @@ EOT;
 	$s .= '</ul>';
 	$s .= '</div>';
 	echo !empty($menus) ? '<div class="floattop">'.$s.'</div><div class="floattopempty"></div>' : $s;
+	echo '</div><div class="cpcontainer">';
 }
 
 function showtips($tips, $id = 'tips', $display = TRUE, $title = '') {
@@ -477,6 +496,16 @@ function showtableheader($title = '', $classname = '', $extra = '', $titlespan =
 	}
 }
 
+function showboxheader($title = '', $classname = '', $extra = '', $titlespan = 15) {
+	global $_G;
+	$classname = str_replace(array('nobottom', 'notop'), array('nobdb', 'nobdt'), $classname);
+	echo "\n".'<div class="dbox '.$classname.'"'.($extra ? " $extra" : '').'>';
+	if($title) {
+		echo "\n".'<div class="boxheader">'.cplang($title).'</div>';
+		showmultititle(1);
+	}
+}
+
 function showmultititle($nofloat = 0) {
 	global $_G;
 	if(isset($_G['showtableheader_multi']) && $_G['showsetting_multi'] == 0) {
@@ -512,6 +541,14 @@ function showtitle($title, $extra = '', $multi = 1) {
 	if($multi) {
 		showmultititle(1);
 	}
+}
+
+function showboxtitle($title, $extra = '', $multi = 1) {
+	global $_G;
+	if(!empty($_G['showsetting_multi'])) {
+		return;
+	}
+	echo "\n".'<div class="boxheader"'.($extra ? " $extra" : '').'>'.cplang($title).'</div>';
 }
 
 function showsubtitle($title = array(), $rowclass='header', $tdstyle=array()) {
@@ -552,6 +589,36 @@ function showtablerow($trstyle = '', $tdstyle = array(), $tdtext = array(), $ret
 		return $cells;
 	}
 	echo $cells;
+}
+
+function showboxrow($trstyle = '', $tdstyle = array(), $tdtext = array(), $return = FALSE) {
+	$rowswapclass = '';
+	if(!preg_match('/class\s*=\s*[\'"]([^\'"<>]+)[\'"]/i', $trstyle, $matches)) {
+		$rowswapclass = is_array($tdtext) && count($tdtext) > 2 ? ' class="hover"' : '';
+	} else {
+		if(is_array($tdtext) && count($tdtext) > 2) {
+			$rowswapclass = " class=\"{$matches[1]} hover\"";
+			$trstyle = preg_replace('/class\s*=\s*[\'"]([^\'"<>]+)[\'"]/i', '', $trstyle);
+		}
+	}
+	$cells = "\n".'<div'.($trstyle ? ' '.$trstyle : '').$rowswapclass.'>';
+	if(isset($tdtext)) {
+		if(is_array($tdtext)) {
+			foreach($tdtext as $key => $td) {
+					$cells .= '<div'.(is_array($tdstyle) && !empty($tdstyle[$key]) ? ' '.$tdstyle[$key] : '').'>'.$td.'</div>';
+			}
+		} else {
+			$cells .= '<div'.(!empty($tdstyle) && is_string($tdstyle) ? ' '.$tdstyle : '').'>'.$tdtext.'</div>';
+		}
+	}
+	$cells .= '</div>';
+	if($return) {
+		return $cells;
+	}
+	echo $cells;
+}
+function showboxbody($class = '', $text = '', $extra = '') {
+	echo '<div class="boxbody'.($style ? (' '.$style) : '').'" '.$extra.'>'.$text.'</div>';
 }
 
 function showsetting($setname, $varname, $value, $type = 'radio', $disabled = '', $hidden = 0, $comment = '', $extra = '', $setid = '', $nofaq = false) {
@@ -862,6 +929,14 @@ function showtablefooter() {
 		return;
 	}
 	echo '</table>'."\n";
+}
+
+function showboxfooter() {
+	global $_G;
+	if(!empty($_G['showsetting_multi'])) {
+		return;
+	}
+	echo '</div>'."\n";
 }
 
 function showformfooter() {

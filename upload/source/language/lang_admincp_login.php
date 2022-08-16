@@ -13,14 +13,15 @@ if(!defined('IN_DISCUZ')) {
 
 $lang = array
 (
+	'admincp_title' => '<span>Discuz!</span>管理中心',
 	'login_title' => '登录管理中心',
 	'login_username' => '用户名',
-	'login_password' => '密　码',
+	'login_password' => '密码',
 
 	'submit' => '提交',
 	'forcesecques' => '必填项',
-	'security_question' => '提　问',
-	'security_answer' => '回　答',
+	'security_question' => '安全提问',
+	'security_answer' => '回答',
 	'security_question_0' => '无安全提问',
 	'security_question_1' => '母亲的名字',
 	'security_question_2' => '爷爷的名字',
@@ -34,7 +35,7 @@ $lang = array
 	'login_nosecques' => '您还没有使用安全登录，请在个人中心设置您的安全提问后，再访问管理中心。您可以 <a href="forum.php?mod=memcp&action=profile&typeid=1" target="_blank">点击这里</a> 进入安全提问的设置。',
 	'copyright' => 'Copyright &copy; 2001-'.date('Y').' Tencent Cloud.',
 
-	'login_cp_guest' => '<b>由于您尚未登录，本次请求已经被拒绝。</b><br><br>请 <a href="member.php?mod=logging&action=login">登录</a> 后再试。<br><br>站长需要强制登录时，修改 config/config_global.php 可关闭此功能。',
+	'login_cp_guest' => '<h1>您尚未登录网站</h1><a href="member.php?mod=logging&action=login" class="btn">登录</a><p>站长需要强制登录时，修改 config/config_global.php 可关闭此功能。</p>',
 	'login_cplock' => '您的管理面板已经锁定！<br>请在<b> {ltime} </b>秒以后重新访问管理中心。',
 	'login_user_lock' => '由于您的登录密码错误次数过多，本次登录请求已经被拒绝。请 15 分钟后重新尝试。',
 	'login_cp_noaccess' => '<b>管理中心(或此项操作)尚未对您开放</b><br><br>您的此次操作已经记录，请勿非法尝试',
