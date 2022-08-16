@@ -1,0 +1,147 @@
+<!--{template common/header}-->
+
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang blog}</h2>
+	<!--{if helper_access::check_module('blog') && $space[self]}-->
+	<div class="my"><a href="home.php?mod=spacecp&ac=blog" title="{lang post_new_blog}"><i class="dm-edit"></i></a></div>
+	<!--{/if}-->
+</div>
+
+<div class="dhnv flex-box cl">
+	<a href="home.php?mod=space&do=$do&view=we" class="flex{if $_GET['view'] == 'we'} mon{/if}">{lang friend_blog}</a>
+	<!--{if $space['self']}-->
+	<a href="home.php?mod=space&do=$do&view=me" class="flex{if $_GET['view'] == 'me'} mon{/if}">{lang my_blog}</a>
+	<!--{else}-->
+	<a href="home.php?mod=space&do=$do&view=me&uid={$uid}" class="flex{if $_GET['view'] == 'me' && !$space['self']} mon{/if}">{$navtitle}</a>
+	<!--{/if}-->
+	<a href="home.php?mod=space&do=$do&view=all" class="flex{if $_GET['view'] == 'all'} mon{/if}">{lang view_all}</a>
+</div>
+
+<!--{if $_GET['view'] == 'all'}-->
+<div class="dhnavs_box">
+	<div id="dhnavs">
+		<div id="dhnavs_li">
+			<ul class="swiper-wrapper">
+				<li class="swiper-slide{if $orderactives['dateline']} mon{/if}"><a href="home.php?mod=space&do=blog&view=all">{lang newest_blog}</a></li>
+				<li class="swiper-slide{if $orderactives['hot']} mon{/if}"><a href="home.php?mod=space&do=blog&view=all&order=hot">{lang recommend_blog}</a></li>
+				<!--{if $category}-->
+					<!--{loop $category $value}-->
+						<li class="swiper-slide{if $_GET['catid'] == $value['catid']} mon{/if}">
+							<a href="home.php?mod=space&do=blog&catid={$value['catid']}&view=all&order={$_GET['order']}">{$value['catname']}</a>
+						</li>
+					<!--{/loop}-->
+				<!--{/if}-->
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+	if($("#dhnavs_li .mon").length > 0) {
+		var discuz_nav = $("#dhnavs_li .mon").offset().left + $("#dhnavs_li .mon").width() >= $(window).width() ? $("#dhnavs_li .mon").index() : 0;
+	}else{
+		var discuz_nav = 0;
+	}	
+	new Swiper('#dhnavs_li', {
+		freeMode : true,
+		slidesPerView : 'auto',
+		initialSlide : discuz_nav,
+		onTouchMove: function(swiper){
+			Discuz_Touch_on = 0;
+		},
+		onTouchEnd: function(swiper){
+			Discuz_Touch_on = 1;
+		},
+	});
+</script>
+<!--{/if}-->
+<!--{if $_GET['view'] == 'me' && $classarr}-->
+<div class="dhnavs_box">
+	<div id="dhnavs">
+		<div id="dhnavs_li">
+			<ul class="swiper-wrapper">
+			<!--{loop $classarr $classid $classname}-->
+				<li class="swiper-slide{if $_GET['classid'] == $classid} mon{/if}"><a href="home.php?mod=space&uid={$space['uid']}&do=blog&classid={$classid}&view=me">{$classname}</a></li>
+			<!--{/loop}-->
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+	if($("#dhnavs_li .mon").length > 0) {
+		var discuz_nav = $("#dhnavs_li .mon").offset().left + $("#dhnavs_li .mon").width() >= $(window).width() ? $("#dhnavs_li .mon").index() : 0;
+	}else{
+		var discuz_nav = 0;
+	}	
+	new Swiper('#dhnavs_li', {
+		freeMode : true,
+		slidesPerView : 'auto',
+		initialSlide : discuz_nav,
+		onTouchMove: function(swiper){
+			Discuz_Touch_on = 0;
+		},
+		onTouchEnd: function(swiper){
+			Discuz_Touch_on = 1;
+		},
+	});
+</script>
+<!--{/if}-->
+
+<div class="threadlist_box cl">
+	<div class="threadlist cl">
+		<!--{if $list}-->
+			<ul>
+				<!--{loop $list $k $blog}-->
+				<li class="list cl">
+					
+					<div class="threadlist_top cl">
+						<a href="home.php?mod=space&uid={$blog['uid']}&do=profile" class="avatar mimg z">
+							<!--{avatar($blog['uid'],'small')}-->
+						</a>
+						<div class="muser cl">
+							<h3>
+								<a href="home.php?mod=space&uid={$blog['uid']}&do=profile" id="author_{$blog['blogid']}" class="mmc">$blog['username']</a>
+							</h3>
+							<div class="mtime">
+								<span>{$blog['dateline']}</span>
+								<div class="doing_listgl y">
+									<!--{if $_GET['view'] == 'me'}-->
+									<!--{if $blog['uid'] == $_G['uid']}-->
+									<a href="home.php?mod=spacecp&ac=blog&blogid={$blog['blogid']}&op=delete&handlekey=delbloghk_{$blog['blogid']}" id="blog_delete_{$blog['blogid']}" class="y dialog">{lang delete}</a>
+									<a href="home.php?mod=spacecp&ac=blog&blogid={$blog['blogid']}&op=stick&stickflag=1&handlekey=stickbloghk_{$blog['blogid']}" id="blog_stick_{$blog['blogid']}"  class="y dialog">{lang stick}</a>
+									<a href="home.php?mod=spacecp&ac=blog&blogid={$blog['blogid']}&op=edit" class="y">{lang edit}</a>
+									<!--{/if}-->
+									<!--{/if}-->
+								</div>
+							</div>
+						</div>
+					</div>
+					<a href="home.php?mod=space&uid={$blog['uid']}&do=blog&id={$blog['blogid']}">
+						<div class="threadlist_tit cl">
+						<!--{if $blog['catid']}-->
+							<span>[{$category[$blog['catid']]['catname']}]</span>
+						<!--{/if}-->
+						<!--{if $_GET['view'] == 'me' && $blog['classid']}-->
+							<span>[{$classarr[$blog['classid']]}]</span>
+						<!--{/if}-->
+							{$blog['subject']}
+						</div>
+						<div class="threadlist_mes cl">
+							{$blog['message']}
+						</div>
+					</a>
+				</li>
+				<!--{/loop}-->
+				<!--{if $multi}-->
+					<div class="pgs cl mtm">$multi</div>
+				<!--{/if}-->
+			</ul>
+		<!--{else}-->
+			<div class="threadlist_box mt10 cl">
+				<h4>{lang no_related_blog}</h4>
+			</div>
+		<!--{/if}-->
+	</div>
+</div>
+
+<!--{template common/footer}-->

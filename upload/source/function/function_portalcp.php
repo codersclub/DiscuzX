@@ -725,7 +725,7 @@ function category_showselect($type, $name='catid', $shownull=true, $current='') 
 	loadcache($type.'category');
 	$category = $_G['cache'][$type.'category'];
 
-	$select = "<select id=\"$name\" name=\"$name\" class=\"ps vm\">";
+	$select = defined('IN_MOBILE') ? "<select id=\"$name\" name=\"$name\" class=\"sort_sel\">" : "<select id=\"$name\" name=\"$name\" class=\"ps vm\">";
 	if($shownull) {
 		$select .= '<option value="">'.lang('portalcp', 'select_category').'</option>';
 	}

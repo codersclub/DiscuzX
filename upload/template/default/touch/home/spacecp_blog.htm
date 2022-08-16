@@ -1,0 +1,185 @@
+<!--{template common/header}-->
+
+<!--{if $_GET[op] == 'delete'}-->
+<div class="tip">
+	<dt>{lang delete_blog}</dt>
+	<dt>{lang sure_delete_blog}?</dt>
+	<form method="post" autocomplete="off" action="home.php?mod=spacecp&ac=blog&op=delete&blogid=$blogid">
+		<input type="hidden" name="referer" value="{echo dreferer()}" />
+		<input type="hidden" name="deletesubmit" value="true" />
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<dd>
+			<button type="submit" name="btnsubmit" value="true" class="formdialog button z"><strong>{lang determine}</strong></button>
+			<a href="javascript:;" onclick="popup.close();return false;" class="button y" title="{lang close}">{lang close}</a>
+		</dd>
+	</form>
+</div>
+<!--{elseif $_GET[op] == 'stick'}-->
+<div class="tip">
+	<dt><!--{if $stickflag}-->{lang stick_blog}<!--{else}-->{lang cancel_stick_blog}<!--{/if}--></dt>
+	<dt><!--{if $stickflag}-->{lang sure_stick_blog}<!--{else}-->{lang sure_cancel_stick_blog}<!--{/if}-->?</dt>
+	<form method="post" autocomplete="off" action="home.php?mod=spacecp&ac=blog&op=stick&blogid=$blogid">
+		<input type="hidden" name="referer" value="{echo dreferer()}" />
+		<input type="hidden" name="sticksubmit" value="true" />
+		<input type="hidden" name="stickflag" value="$stickflag" />
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<dd>
+			<button type="submit" name="btnsubmit" value="true" class="formdialog button z"><strong>{lang determine}</strong></button>
+			<a href="javascript:;" onclick="popup.close();return false;" class="button y" title="{lang close}">{lang close}</a>
+		</dd>
+	</form>
+</div>
+<!--{elseif $_GET[op] == 'addoption'}-->
+	<h3 class="flb">
+		<em>{lang create_category}</em>
+		<!--{if $_G[inajax]}--><span><a href="javascript:;" onclick="blogCancelAddOption('$_GET[oid]');hideWindow('$_GET[handlekey]');return false;" class="flbc" title="{lang close}">{lang close}</a></span><!--{/if}-->
+	</h3>
+	<div class="c">
+		<p class="mtm mbm"><label for="newsort">{lang name}: <input type="text" name="newsort" id="newsort" class="px" size="30" /></label></p>
+	</div>
+	<p class="o pns">
+		<button type="button" name="btnsubmit" value="true" class="pn pnc" onclick="if(blogAddOption('newsort', '$_GET[oid]'))hideWindow('$_GET[handlekey]');"><strong>{lang create}</strong></button>
+	</p>
+	<script type="text/javascript">
+		$('newsort').focus();
+	</script>
+
+<!--{elseif $_GET[op] == 'edithot'}-->
+<h3 class="flb">
+	<em>{lang adjust_hot}</em>
+	<!--{if $_G[inajax]}--><span><a href="javascript:;" onclick="hideWindow('$_GET[handlekey]');return false;" class="flbc" title="{lang close}">{lang close}</a></span><!--{/if}-->
+</h3>
+<form method="post" autocomplete="off" action="home.php?mod=spacecp&ac=blog&op=edithot&blogid=$blogid">
+	<input type="hidden" name="referer" value="{echo dreferer()}" />
+	<input type="hidden" name="hotsubmit" value="true" />
+	<input type="hidden" name="formhash" value="{FORMHASH}" />
+	<div class="c">
+		{lang new_hot}:<input type="text" name="hot" value="$blog[hot]" size="10" class="px" />
+	</div>
+	<p class="o pns">
+		<button type="submit" name="btnsubmit" value="true" class="pn pnc"><strong>{lang determine}</strong></button>
+	</p>
+</form>
+<!--{else}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2><!--{if $blog[blogid]}-->{lang edit_blog}<!--{else}-->{lang memcp_blog}<!--{/if}--></h2>
+</div>
+
+<form method="post" id="postform" autocomplete="off" action="home.php?mod=spacecp&ac=blog&blogid=$blog[blogid]{if $_GET[modblogkey]}&modblogkey=$_GET[modblogkey]{/if}" onsubmit="validate(this);" enctype="multipart/form-data">
+	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}" />
+	<input type="hidden" name="blogsubmit" value="true" />
+	<div class="post_from post_box">
+		<!--{hook/spacecp_blog_top}-->
+		<ul class="cl">
+			<li class="mli">
+				<input type="text" tabindex="1" class="px" id="subject" autocomplete="off" value="$blog[subject]" name="subject" placeholder="{lang memcp_blog}" fwin="login">
+			</li>
+			<li class="mtext">
+				<textarea class="pt" id="message" name="message" tabindex="3" autocomplete="off" name="$editor['textarea']" placeholder="{lang thread_content}" fwin="reply">$blog['message']</textarea>
+			</li>
+			<!--{hook/spacecp_blog_middle}-->
+			<div class="discuz_x cl"></div>
+			<!--{if $_G['setting']['blogcategorystat'] && $categoryselect}-->
+			<li class="mtit p10 cl">
+				{lang select_site_blog_categories}
+			</li>
+			<li class="mli">
+				$categoryselect
+			</li>
+			<!--{/if}-->
+			<li class="mli">
+				<select name="classid" id="classid" onchange="addSort(this)" class="sort_sel" >
+					<option value="0">{lang personal_category}</option>
+					<!--{loop $classarr $value}-->
+					<!--{if $value['classid'] == $blog['classid']}-->
+					<option value="$value[classid]" selected>$value[classname]</option>
+					<!--{else}-->
+					<option value="$value[classid]">$value[classname]</option>
+					<!--{/if}-->
+					<!--{/loop}-->
+					<!--{if !$blog['uid'] || $blog['uid']==$_G['uid']}--><option value="addoption" style="color:red;">+{lang create_new_categories}</option><!--{/if}-->
+				</select>
+			</li>
+			<li class="mli">
+				<input type="text" class="px vm" size="40" id="tag" name="tag" value="$blog[tag]" placeholder="{lang label}" />
+			</li>
+			<!--{if checkperm('manageblog')}-->
+			<li class="mli">
+				<input type="text" class="px" name="hot" id="hot" value="$blog[hot]" size="5" placeholder="{lang hot}" />
+			</li>
+			<!--{/if}-->
+			<!--{if helper_access::check_module('feed')}-->
+			<li class="mli">
+				<label for="makefeed"><input type="checkbox" name="makefeed" id="makefeed" value="1" class="pc"{if ckprivacy('blog', 'feed')} checked="checked"{/if}>{lang make_feed} (<a href="home.php?mod=spacecp&ac=privacy&op=feed" target="_blank">{lang change_default_settings}</a>)</label>
+			</li>
+			<!--{/if}-->
+			<!--{if $secqaacheck || $seccodecheck}-->
+				<!--{eval $sectpl = '<table cellspacing="0" cellpadding="0" width="100%" class="tfm"><tr><th><sec></th><td class="pns"><sec><div class="d"><sec></div></td></tr></table>';}-->
+				<!--{template common/seccheck}-->
+			<!--{/if}-->
+		</ul>
+		<div class="post_btn">
+			<button type="submit" id="issuance" class="pn"><strong>{lang save_publish}</strong></button>
+		</div>
+	</div>
+</form>
+
+<div id="ct" class="wp cl">
+	<div class="mn">
+		<div class="bm cl">
+			<div class="bm_c">
+			<script type="text/javascript">
+				function validate(obj) {
+					<!--{if $_G['setting']['blogcategorystat'] && $_G['setting']['blogcategoryrequired']}-->
+					var catObj = $("catid");
+					if(catObj) {
+						if (catObj.value < 1) {
+							alert("{lang select_system_cat}");
+							catObj.focus();
+							return false;
+						}
+					}
+					<!--{/if}-->
+					var makefeed = $('makefeed');
+					if(makefeed) {
+						if(makefeed.checked == false) {
+							if(!confirm("{lang no_feed_notice}")) {
+								return false;
+							}
+						}
+					}
+					if($('seccode')) {
+						var code = $('seccode').value;
+						var x = new Ajax();
+						x.get('home.php?mod=spacecp&ac=common&op=seccode&inajax=1&code=' + code, function(s){
+							s = trim(s);
+							if(s.indexOf('succeed') == -1) {
+								alert(s);
+								$('seccode').focus();
+						   		return false;
+							} else {
+								edit_save();
+								return true;
+							}
+						});
+					} else {
+						edit_save();
+						return true;
+					}
+				}
+			</script>
+
+			<!--{hook/spacecp_blog_bottom}-->
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+if($('subject')) {
+	$('subject').focus();
+}
+</script>
+<!--{/if}-->
+
+<!--{template common/footer}-->

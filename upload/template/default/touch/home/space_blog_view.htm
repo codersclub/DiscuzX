@@ -1,0 +1,105 @@
+<!--{template common/header}-->
+
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang blog}</h2>
+	<!--{if helper_access::check_module('blog') && $space['self']}-->
+	<div class="my"><a href="home.php?mod=spacecp&ac=blog" title="{lang post_new_blog}"><i class="dm-edit"></i></a></div>
+	<!--{/if}-->
+</div>
+
+<div class="viewthread">
+	<div class="view_tit">
+		<!--{if $classarr['classname']}-->
+			<em>[<a href="home.php?mod=space&uid=$blog['uid']&do=blog&classid=$blog['classid']&view=me">{$classarr['classname']}</a>]</em>
+		<!--{/if}-->
+		<!--{if $blog[catname]}-->
+			<em>[<a href="home.php?mod=space&do=blog&view=all&catid=$blog['catid']">$blog['catname']</a>]</em>
+		<!--{/if}-->
+		$blog['subject']
+		<!--{if $blog['status'] == 1}--><span>({lang pending})</span><!--{/if}-->
+	</div>
+	<div class="plc cl">
+		<div class="avatar"><img src="<!--{if !$blog['uid']}--><!--{avatar(0, 'small', true)}--><!--{else}--><!--{avatar($blog['uid'], 'small', true)}--><!--{/if}-->" /></div>
+		<div class="display pi pione">
+			<ul class="authi">
+				<li class="mtit">
+					<span class="y">
+						<!--{if $blog['friend']}-->
+							{$friendsname[$blog[friend]]}
+						<!--{/if}-->
+					</span>
+					<span class="z">
+					<!--{if $space['uid']}-->
+						<a href="home.php?mod=space&uid=$space['uid']">$space['username']</a>
+					<!--{/if}-->
+					</span>
+				</li>
+				<li class="mtime">
+					<span class="y"><i class="dm-eye"></i><em>$blog['viewnum']</em><i class="dm-chat-s"></i><em>$blog['replynum']</em></span>
+					<!--{date($blog['dateline'])}-->
+				</li>
+			</ul>
+			<div class="message">
+				$blog[message]
+			</div>
+		</div>
+		<div class="threadlist_foot cl">
+			<ul>
+			<!--{if helper_access::check_module('favorite')}-->
+				<li><a href="home.php?mod=spacecp&ac=favorite&type=blog&id=$blog[blogid]&spaceuid=$blog[uid]&handlekey=favoritebloghk_{$blog[blogid]}" id="a_favorite" class="dialog">{lang favorite}</a></li>
+			<!--{/if}-->
+			<!--{if helper_access::check_module('share')}--><li><a href="home.php?mod=spacecp&ac=share&type=blog&id=$blog[blogid]&handlekey=sharebloghk_{$blog[blogid]}" id="a_share" class="dialog">{lang share}</a></li><!--{/if}-->
+			<!--{if helper_access::check_module('friend')}--><li><a href="misc.php?mod=invite&action=blog&id=$blog[blogid]" id="a_invite" class="dialog">{lang invite}</a></li><!--{/if}-->
+			<!--{if $_G[uid] == $blog[uid] || checkperm('manageblog')}-->
+				<li><a href="home.php?mod=spacecp&ac=blog&blogid=$blog[blogid]&op=edit">{lang edit}</a></li>
+				<li><a href="home.php?mod=spacecp&ac=blog&blogid=$blog[blogid]&op=delete&handlekey=delbloghk_{$blog[blogid]}" id="blog_delete_$blog[blogid]" class="dialog">{lang delete}</a></li>
+			<!--{/if}-->
+			</ul>
+		</div>
+	</div>
+	<div class="discuz_x cl"></div>
+	<div class="doing_list_box threadlist cl">
+		<div class="txtlist">
+		<div class="mtit cl">
+			{lang blog_comment}
+		</div>
+		</div>
+		<ul>
+		<!--{loop $list $k $value}-->
+			<!--{template home/space_comment_li}-->
+		<!--{/loop}-->
+		</ul>
+	</div>
+	
+	<!--{if !$blog[noreply] && helper_access::check_module('blog')}-->
+	<div class="discuz_x cl"></div>
+	<form id="quickcommentform_{$id}" action="home.php?mod=spacecp&ac=comment" method="post" autocomplete="off" onsubmit="ajaxpost('quickcommentform_{$id}', 'return_qcblog_$id');doane(event);">
+	<div class="post_from post_box">
+		<ul class="cl">
+			<li class="mtext">
+				<!--{if $_G['uid'] || $_G['group']['allowcomment']}-->
+					<textarea id="comment_message" onkeydown="ctrlEnter(event, 'commentsubmit_btn');" name="message" placeholder="{lang content_area}" rows="3" class="pt" fwin="reply"></textarea>
+				<!--{/if}-->
+			</li>
+			<li class="mtext">
+			<!--{template common/seccheck}-->
+			</li>
+		</ul>
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+			<input type="hidden" name="referer" value="home.php?mod=space&uid=$blog[uid]&do=$do&id=$id" />
+			<input type="hidden" name="id" value="$id" />
+			<input type="hidden" name="idtype" value="blogid" />
+			<input type="hidden" name="handlekey" value="qcblog_{$id}" />
+			<input type="hidden" name="commentsubmit" value="true" />
+			<input type="hidden" name="quickcomment" value="true" />
+			<span id="return_qcblog_{$id}"></span>
+	</div>
+	<div class="post_btn"><button type="submit" name="commentsubmit_btn"value="true" id="commentsubmit_btn" class="pn"{if !$_G[uid]&&!$_G['group']['allowcomment']} onclick="showWindow(this.id, this.form.action);return false;"{/if}><strong>{lang comment}</strong></button></div>
+	</form>
+	<!--{/if}-->
+	
+	<!--{if $multi}--><div class="pgs cl mbm">$multi</div><!--{/if}-->
+</div>
+
+<!--{template common/footer}-->
