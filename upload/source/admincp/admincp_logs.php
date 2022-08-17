@@ -312,7 +312,7 @@ SEARCH;
 	}
 
 } elseif($operation == 'credit') {
-
+	include_once libfile('function/credit');
 	$operationlist = array('TRC', 'RTC', 'RAC', 'MRC', 'TFR', 'RCV', 'CEC', 'ECU', 'SAC', 'BAC', 'PRC', 'RSC', 'STC', 'BTC', 'AFD', 'UGP', 'RPC', 'ACC', 'RCT', 'RCA', 'RCB', 'CDC', 'RKC', 'BME', 'RPR', 'RPZ');
 
 	$rdata = array(
@@ -415,11 +415,12 @@ SEARCH;
 	showtablefooter();
 	echo '<script src="static/js/calendar.js" type="text/javascript"></script>';
 	showtableheader('', 'fixpadding');
-	showtablerow('class="header"', array('class="td23"','class="td23"','class="td23"','class="td24"','class="td24"'), array(
+	showtablerow('class="header"', array('class="td23"','class="td23"','class="td23"','class="td24"','class="td24"','class="td24"'), array(
 		cplang('username'),
 		cplang('time'),
 		cplang('type'),
 		cplang('logs_credits_log_update'),
+		cplang('detail'),
 		cplang('logs_credit_relatedid'),
 	));
 
@@ -430,13 +431,53 @@ SEARCH;
 
 	$logs = C::t('common_credit_log')->fetch_all_by_search($uid, $optype, $begintime, $endtime, 0, 0, array(), $start_limit, $perpage, $srch_rid);
 	$luid = array();
+	$aids = $pids = $tids = $taskids = $uids = $loglist = array();
+	loadcache(array('magics'));
 	foreach($logs as $log) {
 		$luid[$log['uid']] = $log['uid'];
+
+		$credits = array();
+		$havecredit = false;
+		$maxid = $minid = 0;
+		foreach($_G['setting']['extcredits'] as $id => $credit) {
+			if($log['extcredits'.$id]) {
+				$havecredit = true;
+				if($log['operation'] == 'RPZ') {
+					$credits[] = $credit['title'].lang('spacecp', 'credit_update_reward_clean');
+				} else {
+					$credits[] = $credit['title'].' <span class="'.($log['extcredits'.$id] > 0 ? 'xi1' : 'xg1').'">'.($log['extcredits'.$id] > 0 ? '+' : '').$log['extcredits'.$id].'</span>';
+				}
+				if($log['operation'] == 'CEC' && !empty($log['extcredits'.$id])) {
+					if($log['extcredits'.$id] > 0) {
+						$log['maxid'] = $id;
+					} elseif($log['extcredits'.$id] < 0) {
+						$log['minid'] = $id;
+					}
+				}
+
+			}
+		}
+		if(!$havecredit) {
+			continue;
+		}
+		$log['credit'] = implode('<br/>', $credits);
+		if(in_array($log['operation'], array('RTC', 'RAC', 'STC', 'BTC', 'ACC', 'RCT', 'RCA', 'RCB'))) {
+			$tids[$log['relatedid']] = $log['relatedid'];
+		} elseif(in_array($log['operation'], array('SAC', 'BAC'))) {
+			$aids[$log['relatedid']] = $log['relatedid'];
+		} elseif(in_array($log['operation'], array('PRC', 'RSC'))) {
+			$pids[$log['relatedid']] = $log['relatedid'];
+		} elseif(in_array($log['operation'], array('TFR', 'RCV'))) {
+			$uids[$log['relatedid']] = $log['relatedid'];
+		} elseif($log['operation'] == 'TRC') {
+			$taskids[$log['relatedid']] = $log['relatedid'];
+		}
+		$loglist[] = $log;
 	}
+	$otherinfo = getotherinfo($aids, $pids, $tids, $taskids, $uids);
 	$members = C::t('common_member')->fetch_all($luid);
 	foreach($logs as $log) {
 		$log['username'] = $members[$log['uid']]['username'];
-		$log['dateline'] = dgmdate($log['dateline'], 'y-n-j H:i');
 		$log['update'] = '';
 		foreach($_G['setting']['extcredits'] as $id => $credit) {
 			if($log['extcredits'.$id]) {
@@ -477,11 +518,13 @@ SEARCH;
 			$rtype = 'report';
 			$related = cplang('logs_report_id').':'.$log['relatedid'];
 		}
+		$log = makecreditlog($log, $otherinfo);
 		showtablerow('', array('class="bold"'), array(
 			"<a href=\"home.php?mod=space&uid=$log[uid]\" target=\"_blank\">$log[username]",
 			$log['dateline'],
-			cplang('logs_credit_update_'.$log['operation']),
+			$log['operation'] ? $log['optype'] : $log['title'],
 			$log['update'],
+			$log['operation'] ? $log['opinfo'] : $log['text'],
 			$related.'&nbsp;&nbsp;<a href="'.ADMINSCRIPT.'?action=logs&operation=credit&srch_rtype='.$rtype.'&srch_rid='.$log['relatedid'].'" target="_blank">'.cplang('sameinfo').'</a>',
 		));
 	}
