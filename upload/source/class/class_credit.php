@@ -345,6 +345,9 @@ class credit {
 			if(!empty($newgroup)) {
 				if($member['groupid'] != $newgroup['groupid']) {
 					$updatearray['groupid'] = $groupid = $newgroup['groupid'];
+					if($uid == $_G['uid']) {
+						$_G['member']['groupid'] = $newgroup['groupid'];
+					}
 					$sendnotify = true;
 				}
 			}
