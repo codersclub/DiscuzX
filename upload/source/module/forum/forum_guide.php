@@ -168,16 +168,8 @@ function get_guide_list($view, $start = 0, $num = 50, $again = 0) {
 			return array();
 		}
 		if($view == 'sofa') {
-			if($_GET['fid']) {
-				$sofa = C::t('forum_sofa')->fetch_all_by_fid($_GET['fid'], $start, $num);
-			} else {
-				$sofa = C::t('forum_sofa')->range($start, $num);
-				foreach($sofa as $sofatid => $sofathread) {
-					if(!in_array($sofathread, $fids)) {
-						unset($sofathread[$sofatid]);
-					}
-				}
-			}
+			// 只从没有设置权限的板块获取数据，不在接收前端发来的板块 fid
+ 			$sofa = C::t('forum_sofa')->fetch_all_by_fid($fids, $start, $num);
 			$tids = array_keys($sofa);
 		}
 		$updatecache = true;

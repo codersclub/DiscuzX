@@ -26,8 +26,7 @@ class table_forum_sofa extends discuz_table
 	}
 
 	public function fetch_all_by_fid($fid, $start = 0, $limit = 20) {
-		$fid = dintval($fid, true);
-		return DB::fetch_all('SELECT * FROM %t WHERE fid=%d ORDER BY tid DESC %i', array($this->_table, $fid, DB::limit($start, $limit)), $this->_pk);
+		return DB::fetch_all('SELECT * FROM %t WHERE fid IN(%n) ORDER BY tid DESC %i', array($this->_table, $fid, DB::limit($start, $limit)), $this->_pk);
 	}
 
 }
