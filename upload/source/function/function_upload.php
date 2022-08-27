@@ -70,7 +70,7 @@ function getuploadconfig($uid=0, $fid=0, $limit=true) {
 	if(!empty($_G['group']['maxattachsize'])) {
 		$config['max'] = intval($_G['group']['maxattachsize']);
 	} else {
-		$config['max'] = min(min(ini_get('upload_max_filesize'), ini_get('post_max_size')), ini_get('memory_limit'));
+		$config['max'] = getmaxupload();
 		$unit = strtolower(substr($config['max'], -1, 1));
 		$config['max'] = intval($config['max']);
 		if($unit == 'k') {
@@ -106,5 +106,32 @@ function filterexts($needle, $haystack) {
 		}
 	}
 	return $needle;
+}
+function getmaxupload() {
+	$sizeconv = array('B' => 1, 'KB' => 1024, 'MB' => 1048576, 'GB' => 1073741824);
+	$sizes = array();
+	$sizes[] = ini_get('upload_max_filesize');
+	$sizes[] = ini_get('post_max_size');
+	$sizes[] = ini_get('memory_limit');
+	if(intval($sizes[1]) === 0) {
+		unset($sizes[1]);
+	}
+	if(intval($sizes[2]) === -1) {
+		unset($sizes[2]);
+	}
+	$sizes = preg_replace_callback(
+		'/^(\-?\d+)([KMG]?)$/i',
+		function($arg) use ($sizeconv) {
+			return (intval($arg[1]) * $sizeconv[strtoupper($arg[2]).'B']).'|'.strtoupper($arg[0]);
+		},
+		$sizes
+	);
+	natsort($sizes);
+	$output = explode('|', current($sizes));
+	if(!empty($output[1])) {
+		return $output[1];
+	} else {
+		return ini_get('upload_max_filesize');
+	}
 }
 ?>

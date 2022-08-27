@@ -306,7 +306,7 @@ $policykeys = array('postattach', $policykey);
 loadcache('creditrule');
 foreach ($policykeys as $key) {
 	if($key && is_array($_G['cache']['creditrule'][$key])) {
-		$data = [];
+		$data = array();
 		$creditrule = $_G['cache']['creditrule'][$key];
 		for($i = 1; $i <= 8; $i++) {
 			if($creditrule['extcredits'.$i]) {
