@@ -6,9 +6,9 @@
 		<input type="hidden" name="deletesubmit" value="true" />
 		<input type="hidden" name="formhash" value="{FORMHASH}" />
 		<dt>{lang delete_share_message}</dt>
-		<p class="o pns">
+		<dd>
 			<button type="submit" name="deletesubmitbtn" value="true" class="pn pnc"><strong>{lang determine}</strong></button>
-		</p>
+		</dd>
 	</form>
 <!--{elseif $_GET['op'] == 'edithot'}-->
 	<form method="post" autocomplete="off" action="home.php?mod=spacecp&ac=share&op=edithot&sid=$sid&mobile=2">
@@ -59,24 +59,22 @@
 		<input type="hidden" name="referer" value="{eval echo dreferer();}">
 		<input type="hidden" name="formhash" value="{FORMHASH}" />
 		<dt>
-			<p class="cl">
-				<span class="y xg1">{lang share_count}&nbsp;&nbsp;</span>
-				{lang share_description}:
-			</p>
-			<textarea id="general_{$id}" name="general" cols="50" rows="5" class="pt mtn" style="width: 400px;" onkeydown="ctrlEnter(event, 'sharesubmit_btn')" onkeyup="showPreview(this.value, 'quote_{$id}')"></textarea>
+			<span class="y xg1">{lang share_count}&nbsp;&nbsp;</span>
+			<span class="z">{lang share_description}:</span>
+		</dt>
+		<dt>
+			<textarea id="general_{$id}" name="general" cols="50" rows="5" class="pt mtn" style="width: 400px;" onkeydown="ctrlEnter(event, 'sharesubmit_btn')" onkeyup="showPreview(this.value, 'quote_{$id}')" placeholder="{lang share_description}"></textarea>
 			<!--{if $secqaacheck || $seccodecheck}-->
 			<!--{block sectpl}--><sec> <span id="sec<hash>" onclick="showMenu({'ctrlid':this.id,'win':'{$_GET[handlekey]}'})"><sec></span><div id="sec<hash>_menu" class="p_pop p_opt" style="display:none"><sec></div><!--{/block}-->
 			<div class="mtm sec"><!--{subtemplate common/seccheck}--></div>
 			<!--{/if}-->
-			<ul id="share_preview" class="el mtm cl 1">
-			<!--{eval $value = $arr;}-->
-			<!--{subtemplate home/space_share_li}-->
-			</ul>
 		</dt>
-		<dd>
+		<dt>
 			<!--{if $commentcable[$type]}-->
 			<label><input type="checkbox" class="pc" name="iscomment" value="1"/><!--{if $type == 'thread'}-->{lang post_add_inonetime}<!--{else}-->{lang comment_add_inonetime}<!--{/if}--></label>
 			<!--{/if}-->
+		</dt>
+		<dd>
 			<button type="submit" name="sharesubmit_btn" id="sharesubmit_btn" class="pn pnc" value="true"><strong>{lang determine}</strong></button>
 		</dd>
 	</form>

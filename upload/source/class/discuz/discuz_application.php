@@ -788,6 +788,9 @@ class discuz_application extends discuz_base{
 
 	private function _init_mobile() {
 		if(!$this->init_mobile) {
+			if(!defined('HOOKTYPE')) {
+				define('HOOKTYPE', 'hookscript');
+			}
 			return false;
 		}
 
@@ -833,6 +836,9 @@ class discuz_application extends discuz_base{
 		}
 
 		if($nomobile || (!$this->var['setting']['mobile']['mobileforward'] && !$mobileflag)) {
+			if(!defined('HOOKTYPE')) {
+				define('HOOKTYPE', 'hookscript');
+			}
 			if(!empty($this->var['setting']['domain']['app']['mobile']) && $_SERVER['HTTP_HOST'] == $this->var['setting']['domain']['app']['mobile'] && !empty($this->var['setting']['domain']['app']['default'])) {
 				dheader('Location:'.$this->var['scheme'].'://'.$this->var['setting']['domain']['app']['default'].$_SERVER['REQUEST_URI']);
 				return false;
@@ -855,6 +861,9 @@ class discuz_application extends discuz_base{
 			$mobile = '2';
 		}
 		define('IN_MOBILE', isset($this->var['mobiletpl'][$mobile]) ? $mobile : '2');
+		if(!defined('HOOKTYPE')) {
+			define('HOOKTYPE', 'hookscriptmobile');
+		}
 		setglobal('gzipcompress', 0);
 
 		$arr = array();
