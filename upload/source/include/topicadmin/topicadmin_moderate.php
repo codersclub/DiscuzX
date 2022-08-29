@@ -135,7 +135,8 @@ if(!submitcheck('modsubmit')) {
 			$selectposition[$oldthread['position']] = ' selected="selected"';
 			$selectattach = $oldthread['aid'];
 		} else {
-			$selectattach = $imgattach[array_keys($imgattach)[0]]['aid'];
+			$keys = array_keys($imgattach);
+			$selectattach = $imgattach[$keys[0]]['aid'];
 			$selectposition[0] = ' selected="selected"';
 		}
 		$expirationrecommend = get_expiration($_G['tid'], 'REC');		
