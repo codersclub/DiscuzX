@@ -1694,7 +1694,7 @@ DROP TABLE IF EXISTS pre_common_payment_order;
 CREATE TABLE pre_common_payment_order  (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `out_biz_no` varchar(64) NOT NULL,
-  `type` varchar(255)  NOT NULL,
+  `type` varchar(190)  NOT NULL,
   `type_name` varchar(255) DEFAULT NULL,
   `uid` int(10) unsigned NOT NULL DEFAULT 0,
   `amount` int(10) unsigned NOT NULL,
