@@ -47,7 +47,7 @@ if($operation == 'filecheck') {
 			}
 		}
 
-		$md5data = array();
+		$md5data = $md5datanew = $addlist = $dellist = $modifylist = $showlist = array();
 		$cachelist = checkcachefiles('data/sysdata/');
 		checkfiles('./', '', 0);
 		checkfiles('config/', '', 1, 'config_global.php,config_ucenter.php');
