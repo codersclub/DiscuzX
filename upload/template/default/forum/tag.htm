@@ -5,7 +5,7 @@
 			<a href="javascript:;" onclick="if(this.className == 'xi2') { window.onbeforeunload = null; parent.document.getElementById('tags').value += parent.document.getElementById('tags').value == '' ? '$var[tagname]' : ',$var[tagname]'; doane(); this.className += ' marked'; }" class="xi2">$var[tagname]</a>
 		<!--{/loop}-->
 	<!--{else}-->
-		<p class="emp">{lang none_tag}<p>
+		<p class="emp">{lang none_tag}</p>
 	<!--{/if}-->
 <!--{elseif ($op == 'set')}-->
 <!--{elseif ($op == 'manage')}-->
