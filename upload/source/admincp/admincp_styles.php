@@ -475,7 +475,7 @@ if($operation == 'admin') {
 			array('admin', 'styles', 0),
 			array('edit' , 'styles&operation=edit&id='.$id, 1),
 			$isfounder ? array('export', 'styles&operation=export&id='.$id, 0) : array(),
-			$isfounder ? array('templates_add', 'templates&operation=add', 0) : array(),
+			$isplugindeveloper ? array('templates_add', 'templates&operation=add', 0) : array(),
 			array('cloudaddons_style_link', 'cloudaddons&frame=no&operation=templates&from=more', 0, 1),
 		));
 
