@@ -62,8 +62,8 @@
 				<h1 class="mt">{lang stats_forums_stat}</h1>
 				<table summary="{lang stats_forum_stat}" class="dt bm">
 					<tr>
-						<th class="xw1">{lang stats_forums_forumname}</td>
-						<th class="xw1">{lang stats_main_posts_count}</td>
+						<th class="xw1">{lang stats_forums_forumname}</th>
+						<th class="xw1">{lang stats_main_posts_count}</th>
 					</tr>
 					<!--{loop $forums $forum}-->
 						<tr class="{echo swapclass('alt')}">
@@ -122,7 +122,7 @@
 						<form action="misc.php?mod=stat&op=modworks&uid=$uid" method="post">
 							<input type="hidden" name="formhash" value="{FORMHASH}" />
 							{lang stats_modworks_timerange}: <input type="text" name="modworks_starttime" class="px vm" size="10" onclick="showcalendar(event, this, false)" autocomplete="off" /> {lang stats_modworks_to} <input type="text" name="modworks_endtime" class="px vm" size="10" onclick="showcalendar(event, this, false)" autocomplete="off" />
-							<button type="submit" class="pn vm" name="modworkssubmit" value="true"><em>{lang focus_show}</em></button></td>
+							<button type="submit" class="pn vm" name="modworkssubmit" value="true"><em>{lang focus_show}</em></button>
 						</form>
 					</li>
 				</ul>
@@ -181,7 +181,7 @@
 						<form action="misc.php?mod=stat&op=modworks" method="post">
 							<input type="hidden" name="formhash" value="{FORMHASH}" />
 							{lang stats_modworks_timerange}: <input type="text" name="modworks_starttime" class="px vm" size="10" onclick="showcalendar(event, this, false)" autocomplete="off" /> {lang stats_modworks_to} <input type="text" name="modworks_endtime" class="px vm" size="10" onclick="showcalendar(event, this, false)" autocomplete="off" />
-							<button type="submit" class="pn vm" name="modworkssubmit" value="true"><em>{lang focus_show}</em></button></td>
+							<button type="submit" class="pn vm" name="modworkssubmit" value="true"><em>{lang focus_show}</em></button>
 						</form>
 					</li>
 				</ul>
