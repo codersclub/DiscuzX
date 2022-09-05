@@ -24,7 +24,7 @@ $attachment = $attachcount ? (C::t('forum_attachment_n')->count_image_by_id('tid
 
 $firstpost = C::t('forum_post')->fetch_visiblepost_by_tid('tid:'.$_G['tid'], $_G['tid'], 0);
 $firstpost['subject'] = addslashes(cutstr($firstpost['subject'], 79));
-@$firstpost['rate'] = $firstpost['rate'] / abs($firstpost['rate']);
+$firstpost['rate'] = intval(abs($firstpost['rate']) ? ($firstpost['rate'] / abs($firstpost['rate'])) : 0);
 
 $lastpost = C::t('forum_post')->fetch_visiblepost_by_tid('tid:'.$_G['tid'], $_G['tid'], 0, 1);
 
