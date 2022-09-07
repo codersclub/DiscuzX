@@ -847,16 +847,6 @@ class discuz_application extends discuz_base{
 			}
 		}
 
-		if($this->var['setting']['mobile']['allowmnew'] && !defined('IN_MOBILE_API') && !defined('NOT_IN_MOBILE_API') && !defined("IS_ROBOT")) {
-			$modid = $this->var['basescript'].'::'.CURMODULE;
-			if(($modid == 'forum::viewthread' || $modid == 'group::viewthread') && !empty($_GET['tid'])) {
-				dheader('location: '.$this->var['siteurl'].'m/?a=viewthread&tid='.$_GET['tid']);
-			} elseif(($modid == 'forum::forumdisplay' || $modid == 'group::forumdisplay') && !empty($_GET['fid'])) {
-				dheader('location: '.$this->var['siteurl'].'m/?a=index&fid='.$_GET['fid']);
-			} elseif($modid != 'forum::attachment') {
-				dheader("location:".$this->var['siteurl'].'m/');
-			}
-		}
 		if($mobile !== '2' && $mobile !== '3' && empty($this->var['setting']['mobile']['legacy'])) {
 			$mobile = '2';
 		}

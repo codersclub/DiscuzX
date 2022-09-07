@@ -18,7 +18,7 @@ if($mod == 'mobile' && defined('IN_MOBILE')) {
 } elseif(!$_G['setting']['mobile']['allowmobile']) {
 	dheader("Location:".($_G['setting']['domain']['app']['default'] ? $_G['scheme'].'://'.$_G['setting']['domain']['app']['default'] : $_G['siteurl']));
 }
-include DISCUZ_ROOT.'./source/language/mobile/lang_template.php';
+include DISCUZ_ROOT.'./source/language/touch/lang_template.php';
 $_G['lang'] = array_merge($_G['lang'], $lang);
 $navtitle = $_G['lang']['misc_mobile_title'];
 if(getgpc('view') == true) {
@@ -65,9 +65,6 @@ if(getgpc('view') == true) {
 	if(getglobal('setting/domain/app/mobile')) {
 		$url = $_G['scheme'].'://'.$_G['setting']['domain']['app']['mobile'];
 		$file = 'newmobiledomain.png';
-	} elseif($_G['setting']['mobile']['allowmnew']) {
-		$url = $_G['siteurl'].'m/';
-		$file = 'newmobileurl.png';
 	} else {
 		$url = $_G['siteurl'];
 		$file = 'newmobile.png';
@@ -77,7 +74,7 @@ if(getgpc('view') == true) {
 		require_once DISCUZ_ROOT.'source/plugin/mobile/qrcode.class.php';
 		QRcode::png($url, $qrimg, QR_ECLEVEL_Q, 4);
 	}
-	include template('mobile/common/preview');
+	include template('touch/common/preview');
 }
 function output_preview() {
 	$content = ob_get_contents();
@@ -85,12 +82,13 @@ function output_preview() {
 	ob_start();
 	$content = preg_replace_callback("/(\<a[^\>]+href=\").*?(\"[^\>]*\>)/", 'output_preview_callback_replace_href_21', $content);
 	$content = preg_replace("/\<script.+?\<\/script\>/", '', $content);
+	$content = str_replace('</body>' , '<script>document.querySelectorAll(\'a\').forEach(function (a) {a.addEventListener(\'click\', function (e) {e.preventDefault();return false;});})</script></body>', $content);
 	echo $content;
 	exit;
 }
 
 function output_preview_callback_replace_href_21($matches) {
-	return $matches[1].'#'.$matches[2];;
+	return $matches[1].'misc.php?mod=mobile&view=true'.$matches[2];;
 }
 
 ?>

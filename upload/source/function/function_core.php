@@ -524,7 +524,7 @@ function lang($file, $langvar = null, $vars = array(), $default = null) {
 			$_G['lang'][$key] = (array)$lang;
 		}
 		if(defined('IN_MOBILE') && !defined('TPL_DEFAULT')) {
-			include DISCUZ_ROOT.'./source/language/mobile/lang_template.php';
+			include DISCUZ_ROOT.'./source/language/touch/lang_template.php';
 			$_G['lang'][$key] = array_merge((array)$_G['lang'][$key], (array)$lang);
 		}
 		if($file != 'error' && !isset($_G['cache']['pluginlanguage_system'])) {
