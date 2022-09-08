@@ -605,6 +605,7 @@ class task {
 		if(empty($medals) || !in_array($medalid, explode("\t", $medals))) {
 			$medalsnew = $medals ? $medals."\t".$medalid : $medalid;
 			C::t('common_member_field_forum')->update($_G['uid'], array('medals' => $medalsnew), 'UNBUFFERED');
+			C::t('common_member_medal')->insert(array('uid' => $_G['uid'], 'medalid' => $medalid), 0, 1);
 			$data = array(
 				'uid' => $_G['uid'],
 				'medalid' => $medalid,
