@@ -1223,11 +1223,11 @@ function showEditorMenu(tag, params) {
 				}
 				str = $(ctrlid + '_param_1') && $(ctrlid + '_param_1').value ? $(ctrlid + '_param_1').value : (selection ? selection : '');
 				if(wysiwyg) {
-					str = preg_replace(['<', '>'], ['&lt;', '&gt;'], str);
-					str = str.replace(/\r?\n/g, '<br />');
 					if(typeof isCodeTag != 'undefined') {
 						str = str.replace(/&/g, '&amp;');
 					}
+					str = preg_replace(['<', '>'], ['&lt;', '&gt;'], str);
+					str = str.replace(/\r?\n/g, '<br />');
 				}
 				str = opentag + str + closetag;
 				insertText(str, strlen(opentag), strlen(closetag), false, sel);
