@@ -432,7 +432,7 @@ if($operation == 'admin') {
 		}
 
 		$stylecustom = '';
-		$stylestuff = $existvars = array();
+		$stylestuff = $existvars = $stylecustomvars = array();
 		foreach(C::t('common_stylevar')->fetch_all_by_styleid($id) as $stylevar) {
 			if(array_key_exists($stylevar['variable'], $predefinedvars)) {
 				$stylestuff[$stylevar['variable']] = array('id' => $stylevar['stylevarid'], 'subst' => $stylevar['substitute']);
@@ -443,6 +443,7 @@ if($operation == 'admin') {
 					'{'.strtoupper($stylevar['variable']).'}',
 					"<textarea name=\"stylevar[{$stylevar['stylevarid']}]\" style=\"height: 45px\" cols=\"50\" rows=\"2\">{$stylevar['substitute']}</textarea>",
 				), TRUE);
+				$stylecustomvars[$stylevar['stylevarid']] = $stylevar;
 			}
 		}
 		if($diffvars = array_diff(array_keys($predefinedvars), $existvars)) {
@@ -472,7 +473,7 @@ if($operation == 'admin') {
 			array('admin', 'styles', 0),
 			array('edit' , 'styles&operation=edit&id='.$id, 1),
 			$isfounder ? array('export', 'styles&operation=export&id='.$id, 0) : array(),
-			$isfounder ? array('templates_add', 'templates&operation=add', 0) : array(),
+			$isplugindeveloper ? array('templates_add', 'templates&operation=add', 0) : array(),
 			array('cloudaddons_style_link', 'cloudaddons&frame=no&operation=templates&from=more', 0, 1),
 		));
 
@@ -514,76 +515,91 @@ function imgpre_switch(id) {
 	}
 }
 </script>
-<br />
-<iframe class="preview" frameborder="0" src="<?php echo ADMINSCRIPT;?>?action=styles&preview=yes&styleid=<?php echo $id;?>"></iframe>
 <?php
 
-		showtips('styles_tips');
-
-		showformheader("styles&operation=edit&id=$id");
-		showtableheader($lang['styles_edit'], 'nobottom');
-		showsetting('styles_edit_name', 'namenew', $style['name'], 'text');
-		showsetting('styles_edit_tpl', array('templateidnew', $tplselect), $style['templateid'], 'select');
-		showsetting('styles_edit_extstyle', array('extstylenew', $extstyle), $style['extstyle'], 'mcheckbox');
-		if($extstyle) {
-			showsetting('styles_edit_defaultextstyle', array('defaultextstylenew', $defaultextstyle), $style['defaultextstyle'], 'select');
-		}
-		showsetting('styles_edit_smileytype', array("stylevar[{$stylestuff['stypeid']['id']}]", $smileytypes), $stylestuff['stypeid']['subst'], 'select');
-		showsetting('styles_edit_imgdir', '', '', '<input type="text" class="txt" name="stylevar['.$stylestuff['imgdir']['id'].']" id="imgdir" value="'.$stylestuff['imgdir']['subst'].'" />');
-		showsetting('styles_edit_styleimgdir', '', '', '<input type="text" class="txt" name="stylevar['.$stylestuff['styleimgdir']['id'].']" id="styleimgdir" value="'.$stylestuff['styleimgdir']['subst'].'" />');
-		showsetting('styles_edit_logo', "stylevar[{$stylestuff['boardimg']['id']}]", $stylestuff['boardimg']['subst'], 'text');
-		showsetting('styles_edit_searchlogo', "stylevar[{$stylestuff['searchimg']['id']}]", $stylestuff['searchimg']['subst'], 'text');
-
-		foreach($predefinedvars as $predefinedvar => $v) {
-			if($v !== array()) {
-				if(!empty($v[1])) {
-					showtitle($v[1]);
-				}
-				$type = $v[0] == 1 ? 'text' : 'color';
-				$extra = '';
-				$comment = ($type == 'text' ? $lang['styles_edit_'.$predefinedvar.'_comment'] : $lang['styles_edit_hexcolor']).$lang['styles_edit_'.$predefinedvar.'_comment'];
-				if(substr($predefinedvar, -7, 7) == 'bgcolor') {
-					$stylestuff[$predefinedvar]['subst'] = explode(' ', $stylestuff[$predefinedvar]['subst']);
-					$bgimg = $stylestuff[$predefinedvar]['subst'][1];
-					$bgextra = implode(' ', array_slice($stylestuff[$predefinedvar]['subst'], 2));
-					$stylestuff[$predefinedvar]['subst'] = $stylestuff[$predefinedvar]['subst'][0];
-					$bgimgpre = $bgimg ? (preg_match('/^(https?:)?\/\//i', $bgimg) ? $bgimg : ($stylestuff['styleimgdir']['subst'] ? $stylestuff['styleimgdir']['subst'] : ($stylestuff['imgdir']['subst'] ? $stylestuff['imgdir']['subst'] : (STATICURL.'image/common'))).'/'.$bgimg) : (STATICURL.'image/common/none.gif');
-					$comment .= '<div id="bgpre_'.$stylestuff[$predefinedvar]['id'].'" onclick="imgpre_switch('.$stylestuff[$predefinedvar]['id'].')" style="background-image:url('.$bgimgpre.');cursor:pointer;float:right;width:350px;height:40px;overflow:hidden;border: 1px solid #ccc"></div>'.$lang['styles_edit_'.$predefinedvar.'_comment'].$lang['styles_edit_bg'];
-					$extra = '<br /><input name="stylevarbgimg['.$stylestuff[$predefinedvar]['id'].']" value="'.$bgimg.'" onchange="imgpre_update('.$stylestuff[$predefinedvar]['id'].', this)" type="text" class="txt" style="margin:5px 0;" />'.
-						'<br /><input name="stylevarbgextra['.$stylestuff[$predefinedvar]['id'].']" value="'.$bgextra.'" type="text" class="txt" />';
-					$varcomment = ' {'.strtoupper($predefinedvar).'},{'.strtoupper(substr($predefinedvar, 0, -7)).'BGCODE}:';
-				} else {
-					$varcomment = ' {'.strtoupper($predefinedvar).'}:';
-				}
-				showsetting(cplang('styles_edit_'.$predefinedvar).$varcomment, 'stylevar['.$stylestuff[$predefinedvar]['id'].']', $stylestuff[$predefinedvar]['subst'], $type, '', 0, $comment, $extra);
+		//是否有自定义配置文件
+		$configflag = false;
+		if(preg_match('/^.?\/template\/([a-z]+[a-z0-9_]*)$/', $style['directory'], $a)) {
+			$configfile = DISCUZ_ROOT . './template/' . $a[1] . '/config.inc.php';
+			if(file_exists($configfile)) {
+				$configflag = true;
+				include $configfile;
 			}
 		}
-		showtablefooter();
 
-		showtableheader('styles_edit_customvariable', 'notop');
-		showsubtitle(array('', 'styles_edit_variable', 'styles_edit_subst'));
-		echo $stylecustom;
-		showtablerow('', array('class="td25"', 'class="td24 bold"', 'class="td26"'), array(
-			cplang('add_new'),
-			'<input type="text" class="txt" name="newcvar">',
-			'<textarea name="newcsubst" class="tarea" style="height: 45px" cols="50" rows="2"></textarea>'
+		if(!$configflag) {
+			echo '<br /><iframe class="preview" frameborder="0" src="' . ADMINSCRIPT . '?action=styles&preview=yes&styleid=' . $id . '"></iframe>';
+			showtips('styles_tips');
 
-		));
+			showformheader("styles&operation=edit&id=$id");
+			showtableheader($lang['styles_edit'], 'nobottom');
+			showsetting('styles_edit_name', 'namenew', $style['name'], 'text');
+			showsetting('styles_edit_tpl', array('templateidnew', $tplselect), $style['templateid'], 'select');
+			showsetting('styles_edit_extstyle', array('extstylenew', $extstyle), $style['extstyle'], 'mcheckbox');
+			if($extstyle) {
+				showsetting('styles_edit_defaultextstyle', array('defaultextstylenew', $defaultextstyle), $style['defaultextstyle'], 'select');
+			}
+			showsetting('styles_edit_smileytype', array("stylevar[{$stylestuff['stypeid']['id']}]", $smileytypes), $stylestuff['stypeid']['subst'], 'select');
+			showsetting('styles_edit_imgdir', '', '', '<input type="text" class="txt" name="stylevar['.$stylestuff['imgdir']['id'].']" id="imgdir" value="'.$stylestuff['imgdir']['subst'].'" />');
+			showsetting('styles_edit_styleimgdir', '', '', '<input type="text" class="txt" name="stylevar['.$stylestuff['styleimgdir']['id'].']" id="styleimgdir" value="'.$stylestuff['styleimgdir']['subst'].'" />');
+			showsetting('styles_edit_logo', "stylevar[{$stylestuff['boardimg']['id']}]", $stylestuff['boardimg']['subst'], 'text');
+			showsetting('styles_edit_searchlogo', "stylevar[{$stylestuff['searchimg']['id']}]", $stylestuff['searchimg']['subst'], 'text');
 
-		showsubmit('editsubmit', 'submit', 'del');
-		showtablefooter();
-		showformfooter();
+			foreach($predefinedvars as $predefinedvar => $v) {
+				if($v !== array()) {
+					if(!empty($v[1])) {
+						showtitle($v[1]);
+					}
+					$type = $v[0] == 1 ? 'text' : 'color';
+					$extra = '';
+					$comment = ($type == 'text' ? $lang['styles_edit_'.$predefinedvar.'_comment'] : $lang['styles_edit_hexcolor']).$lang['styles_edit_'.$predefinedvar.'_comment'];
+					if(substr($predefinedvar, -7, 7) == 'bgcolor') {
+						$stylestuff[$predefinedvar]['subst'] = explode(' ', $stylestuff[$predefinedvar]['subst']);
+						$bgimg = $stylestuff[$predefinedvar]['subst'][1];
+						$bgextra = implode(' ', array_slice($stylestuff[$predefinedvar]['subst'], 2));
+						$stylestuff[$predefinedvar]['subst'] = $stylestuff[$predefinedvar]['subst'][0];
+						$bgimgpre = $bgimg ? (preg_match('/^(https?:)?\/\//i', $bgimg) ? $bgimg : ($stylestuff['styleimgdir']['subst'] ? $stylestuff['styleimgdir']['subst'] : ($stylestuff['imgdir']['subst'] ? $stylestuff['imgdir']['subst'] : (STATICURL.'image/common'))).'/'.$bgimg) : (STATICURL.'image/common/none.gif');
+						$comment .= '<div id="bgpre_'.$stylestuff[$predefinedvar]['id'].'" onclick="imgpre_switch('.$stylestuff[$predefinedvar]['id'].')" style="background-image:url('.$bgimgpre.');cursor:pointer;float:right;width:350px;height:40px;overflow:hidden;border: 1px solid #ccc"></div>'.$lang['styles_edit_'.$predefinedvar.'_comment'].$lang['styles_edit_bg'];
+						$extra = '<br /><input name="stylevarbgimg['.$stylestuff[$predefinedvar]['id'].']" value="'.$bgimg.'" onchange="imgpre_update('.$stylestuff[$predefinedvar]['id'].', this)" type="text" class="txt" style="margin:5px 0;" />'.
+							'<br /><input name="stylevarbgextra['.$stylestuff[$predefinedvar]['id'].']" value="'.$bgextra.'" type="text" class="txt" />';
+						$varcomment = ' {'.strtoupper($predefinedvar).'},{'.strtoupper(substr($predefinedvar, 0, -7)).'BGCODE}:';
+					} else {
+						$varcomment = ' {'.strtoupper($predefinedvar).'}:';
+					}
+					showsetting(cplang('styles_edit_'.$predefinedvar).$varcomment, 'stylevar['.$stylestuff[$predefinedvar]['id'].']', $stylestuff[$predefinedvar]['subst'], $type, '', 0, $comment, $extra);
+				}
+			}
+			showtablefooter();
 
-	} else {
+			showtableheader('styles_edit_customvariable', 'notop');
+			showsubtitle(array('', 'styles_edit_variable', 'styles_edit_subst'));
+			echo $stylecustom;
+			showtablerow('', array('class="td25"', 'class="td24 bold"', 'class="td26"'), array(
+				cplang('add_new'),
+				'<input type="text" class="txt" name="newcvar">',
+				'<textarea name="newcsubst" class="tarea" style="height: 45px" cols="50" rows="2"></textarea>'
 
-		$templateidnew = $_GET['templateidnew'];
-		$stylevar = $_GET['stylevar'];
-		$stylevarbgimg = $_GET['stylevarbgimg'];
-		$stylevarbgextra = $_GET['stylevarbgextra'];
-		if(!in_array($_GET['defaultextstylenew'], is_array($_GET['extstylenew']) ? $_GET['extstylenew'] : array())) {
-			$_GET['extstylenew'][] = $_GET['defaultextstylenew'];
+			));
+
+			showsubmit('editsubmit', 'submit', 'del');
+			showtablefooter();
+			showformfooter();
 		}
-		$extstylenew = implode("\t", $_GET['extstylenew']).'|'.$_GET['defaultextstylenew'];
+	} else {
+		$style = C::t('common_style')->fetch_by_styleid($id);
+		if(!$style) {
+			cpmsg('style_not_found', '', 'error');
+		}
+
+		//是否有自定义配置文件
+		$configflag = false;
+		if(preg_match('/^.?\/template\/([a-z]+[a-z0-9_]*)$/', $style['directory'], $a)) {
+			$configfile = DISCUZ_ROOT . './template/' . $a[1] . '/config.inc.php';
+			if(file_exists($configfile)) {
+				$configflag = true;
+				include $configfile;
+			}
+		}
 
 		if($_GET['newcvar'] && $_GET['newcsubst']) {
 			if(C::t('common_stylevar')->check_duplicate($id, $_GET['newcvar'])) {
@@ -595,17 +611,40 @@ function imgpre_switch(id) {
 			C::t('common_stylevar')->insert(array('styleid' => $id, 'variable' => $newcvar, 'substitute' => $_GET['newcsubst']));
 		}
 
-		C::t('common_style')->update($id, array('name' => $namenew, 'templateid' => $templateidnew, 'extstyle' => $extstylenew));
-		foreach($stylevar as $varid => $substitute) {
-			if(!empty($stylevarbgimg[$varid])) {
-				$substitute .= ' '.$stylevarbgimg[$varid];
-				if(!empty($stylevarbgextra[$varid])) {
-					$substitute .= ' '.$stylevarbgextra[$varid];
+		if(!$configflag) {
+
+			$data = array();
+			if(isset($_GET['namenew'])) {
+				$data['name'] = $_GET['namenew'];
+			}
+			if(isset($_GET['templateidnew'])) {
+				$data['templateid'] = $_GET['templateidnew'];
+			}
+			if(isset($_GET['defaultextstylenew']) && isset($_GET['extstylenew'])) {
+				if (!in_array($_GET['defaultextstylenew'], is_array($_GET['extstylenew']) ? $_GET['extstylenew'] : array())) {
+					$_GET['extstylenew'][] = $_GET['defaultextstylenew'];
+				}
+				$data['extstyle'] = implode("\t", $_GET['extstylenew']) . '|' . $_GET['defaultextstylenew'];
+			}
+			if(!empty($data)) {
+				C::t('common_style')->update($id, $data);
+			}
+			if(isset($_GET['stylevar'])) {
+				$stylevar = $_GET['stylevar'];
+				$stylevarbgimg = $_GET['stylevarbgimg'];
+				$stylevarbgextra = $_GET['stylevarbgextra'];
+				foreach($stylevar as $varid => $substitute) {
+					if(!empty($stylevarbgimg[$varid])) {
+						$substitute .= ' '.$stylevarbgimg[$varid];
+						if(!empty($stylevarbgextra[$varid])) {
+							$substitute .= ' '.$stylevarbgextra[$varid];
+						}
+					}
+					$substitute = @dhtmlspecialchars($substitute);
+					$stylevarids = array($varid);
+					C::t('common_stylevar')->update_substitute_by_styleid($substitute, $id, $stylevarids);
 				}
 			}
-			$substitute = @dhtmlspecialchars($substitute);
-			$stylevarids = array($varid);
-			C::t('common_stylevar')->update_substitute_by_styleid($substitute, $id, $stylevarids);
 		}
 
 		if($_GET['delete']) {
@@ -621,7 +660,7 @@ function imgpre_switch(id) {
 			}
 		}
 		$tpl->close();
-		cpmsg('styles_edit_succeed', 'action=styles'.($newcvar && $newcsubst ? '&operation=edit&id='.$id : ''), 'succeed');
+		cpmsg('styles_edit_succeed', 'action=styles&operation=edit&id=' . $id, 'succeed');
 
 	}
 
