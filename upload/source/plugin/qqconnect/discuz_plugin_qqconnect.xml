@@ -67,7 +67,7 @@
 				</item>
 			</item>
 		</item>
-		<item id="version"><![CDATA[X3.2,X3.3,X3.4]]></item>
+		<item id="version"><![CDATA[X3.2,X3.3,X3.4,X3.5]]></item>
 		<item id="installfile"><![CDATA[install.php]]></item>
 		<item id="upgradefile"><![CDATA[upgrade.php]]></item>		
 		<item id="language">
