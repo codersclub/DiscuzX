@@ -364,7 +364,7 @@ $filteradd = $sortoptionurl = $sp = '';
 $sorturladdarray = $selectadd = array();
 $forumdisplayadd = array('orderby' => '');
 $specialtype = array('poll' => 1, 'trade' => 2, 'reward' => 3, 'activity' => 4, 'debate' => 5);
-$filterfield = array('digest', 'recommend', 'sortall', 'typeid', 'sortid', 'dateline', 'page', 'orderby', 'specialtype', 'author', 'view', 'reply', 'lastpost', 'hot');
+$filterfield = array('digest', 'recommend', 'sortall', 'typeid', 'sortid', 'dateline', 'page', 'orderby', 'specialtype', 'author', 'view', 'reply', 'lastpost', 'heat', 'hot');
 
 foreach($filterfield as $v) {
 	$forumdisplayadd[$v] = '';
