@@ -201,14 +201,24 @@ function shownav($header = '', $menu = '', $nav = '') {
 function showmenu($key, $menus, $return = 0) {
 	global $_G;
 	$body = '';
+	$topMenu_now = false;
+	$action_now = isset($_GET['action']) ? $_GET['action'] : '';
+	$operation_now = isset($_GET['operation']) ? $_GET['operation'] : '';
+	$do_now = isset($_GET['do']) ? $_GET['do'] : '';
+	$menu_now = $action_now.($operation_now ? '_'.$operation_now : '').($do_now ? '_'.$do_now : '');
 	if(is_array($menus)) {
 		foreach($menus as $menu) {
 			if($menu[0] && $menu[1]) {
 				if(strpos($menu[1], 'plugins&operation=config') === false && substr($menu[1], 0, 4) != 'http'){
 					list($action, $operation, $do) = explode('_', $menu[1]);
+					$active = '';
+					if($menu[1] == $menu_now) {
+						$topMenu_now = true;
+						$active = 'class="active" ';
+					}
 					$menu[1] = $action.($operation ? '&operation='.$operation.($do ? '&do='.$do : '') : '');
 				}
-				$body .= '<li><a href="'.(substr($menu[1], 0, 4) == 'http' ? $menu[1] : ADMINSCRIPT.'?action='.$menu[1]).'" target="'.($menu[2] ? $menu[2] : 'main').'"'.($menu[3] ? $menu[3] : '').'><em title="'.cplang('nav_newwin').'"></em>'.cplang($menu[0]).'</a></li>';
+				$body .= '<li><a '.$active.'href="'.(substr($menu[1], 0, 4) == 'http' ? $menu[1] : ADMINSCRIPT.'?action='.$menu[1]).'" target="'.($menu[2] ? $menu[2] : 'main').'"'.($menu[3] ? $menu[3] : '').'><em title="'.cplang('nav_newwin').'"></em>'.cplang($menu[0]).'</a></li>';
 			} elseif($menu[0] && $menu[2]) {
 				if($menu[2] == 1) {
 					$id = 'M'.substr(md5($menu[0]), 0, 8);
@@ -225,7 +235,11 @@ function showmenu($key, $menus, $return = 0) {
 		}
 	}
 	if(!$return) {
-		echo '<ul id="menu_'.$key.'">'.$body.'</ul>';
+		echo '<ul id="menu_'.$key.'">'.$body;
+		if($topMenu_now) {
+			echo '<script>defaultNav = \''.$key.'\';</script>';
+		}
+		echo '</ul>';
 	} else {
 		return $body;
 	}

@@ -245,7 +245,7 @@ if($membersmod || $threadsmod || $postsmod || $medalsmod || $blogsmod || $pictur
 // 首页DIY功能核心
 // Todo: DIY设置页
 
-$showlist = array(array(13),array(1,'d-23'),array(14),array(15),array(2,'d-13'),array(11),array(12),array(3),array(16),array(1,'d-12'),array(17),array(2,'d-12'),array(18),array(3),array(19));
+$showlist = array(array(13),array(1,'d-23'),array(14),array(15),array(2,'d-13'),array(11),array(12),array(3),array(1,'d-12'),array(17),array(2,'d-12'),array(18),array(3),array(16),array(19));
 if(!empty($_G['setting']['cpindexdiy'])) {
 	$showlist = unserialize($_G['setting']['cpindexdiy']);
 }

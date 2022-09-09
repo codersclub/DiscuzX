@@ -1,4 +1,4 @@
-body { background: #f0f0f0; font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+body { background: #f0f0f0; font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;min-width: 1000px; }
 a{ color:#2366A8; text-decoration:none; }
 	a:hover { text-decoration:underline; }
 	a img{ border:none; }
@@ -51,7 +51,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 	.popupmenu_dropmenu { cursor: pointer; }
 		.popupmenu_dropmenu em { margin-left:3px; background:url(bg_repno.gif) no-repeat 0 -145px; }
 
-.infobox { background: #fff; padding: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.infobox { background: #fff; padding: 40px; display: flex; flex-direction: column; align-items: center; text-align: center; }
 .infotitle1 { margin-bottom: 10px; color: #09C; font-size: 14px; font-weight: 700; }
 .infotitle2 { margin-bottom: 10px; color: #090; font-size: 14px; font-weight: 700; }
 .infotitle3 { margin-bottom: 10px; color: #C00; font-size: 14px; font-weight: 700; }
@@ -163,8 +163,8 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 	.tb2 tr.hl td, .drow.hl { border-top:1px #F4E4B4 solid; border-bottom:1px #F4E4B4 solid }
 	.tb2.tdhover tr:hover td { background: none; }
 	.tb2.tdhover tr td:hover { background: #F2F9FD; }
-	.tb2 td{ padding:5px 5px 10px 0; border-top: 1px dotted #DEEFFB; }
-	.tb2 th{ padding:5px 5px 3px 0; line-height:1.5; }
+	.tb2 td{ padding:5px 5px 10px 20px; border-top: 1px dotted #DEEFFB; }
+	.tb2 th{ padding:5px 5px 3px 20px; line-height:1.5; }
 	.tb2 .txt, .tb2 .txtnobd{ width:100px; margin-right:10px; }
 	.tb2 .smtxt { margin-right: 5px; width: 25px; }
 	.nowrap { white-space: nowrap; }
@@ -234,8 +234,8 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 		.cmen a { overflow: hidden; float:left; width: 20px; height: 20px; }
 
 .tb3{ margin-top:-15px; border:none; }
-	.tb3 th{ padding:10px 0 5px; }
-	.tb3 td{ padding:0; line-height:180%; }
+	.tb3 th{ padding:10px 0 5px 20px; }
+	.tb3 td{ padding:0 0 0 20px; line-height:180%; }
 
 .mod_validate td, .mod_export td { background: #CFC !important; }
 .mod_invalidate td, .mod_refusal td { background: #FFEBE7 !important; }
@@ -366,6 +366,10 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .dbox.hometop .hinfo { flex-grow: 1; }
 .dbox.hometop .hinfo h4 { font-size: 18px; margin-top: 14px; margin-bottom: 10px; }
 .dbox.hometop .hinfo p { font-size: 14px; color: #666; }
+.dbox .tb2 td{ padding:5px 5px 10px 0px;}
+.dbox .tb2 th{ padding:5px 5px 3px 0px;}
+.dbox .tb3 th{ padding:10px 0 5px; }
+.dbox .tb3 td{ padding:0;}
 .tipsbody { padding: 10px 20px; background: #b9edd5; color: #1f7244; }
 .tipsbody .difflink a { color: #1f7244; }
 .tipsbody .tipicon { background: #fff; width: 32px; height: 32px; border-radius: 27px; margin-top: 3px; margin-right: 14px; padding: 6px; }
