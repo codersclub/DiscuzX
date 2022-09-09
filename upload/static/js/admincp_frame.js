@@ -1,16 +1,22 @@
 (function () {
 	var prevnav = prevtab = menunav = null;
 	function switchnav(key) {
-		if (!key || !$('header_' + key) || (prevnav == key)) {
+		if (!key || !$('header_' + key)) {
 			return;
 		}
 		if (prevnav && $('header_' + prevnav)) {
 			$('header_' + prevnav).className = '';
 			$('lm_' + prevnav).className = '';
 		}
-		$('header_' + key).className = 'active';
-		$('lm_' + key).className = 'active';
-		prevnav = key;
+		if (prevnav == key) {
+			$('header_' + prevnav).className = '';
+			$('lm_' + prevnav).className = '';
+			prevnav = null;
+		} else {
+			$('header_' + key).className = 'active';
+			$('lm_' + key).className = 'active';
+			prevnav = key;
+		}
 	}
 	function switchtab(key) {
 		if (!key || !key.href) {
