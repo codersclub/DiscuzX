@@ -1,7 +1,13 @@
 (function () {
 	var prevnav = prevtab = menunav = null;
 	function switchnav(key) {
-		if (!key || !$('header_' + key) || (prevnav == key)) {
+		if (!key || !$('header_' + key)) {
+			return;
+		}
+		if (prevnav == key) {
+			$('header_' + prevnav).className = '';
+			$('lm_' + prevnav).className = '';
+			prevnav = '';
 			return;
 		}
 		if (prevnav && $('header_' + prevnav)) {
@@ -10,6 +16,10 @@
 		}
 		$('header_' + key).className = 'active';
 		$('lm_' + key).className = 'active';
+		if (key != 'cloudaddons' && key != 'uc') {
+			href = $('lm_' + key).childNodes[1].childNodes[0].childNodes[0].href;
+			parent.main.location = href;
+		}
 		prevnav = key;
 	}
 	function switchtab(key) {

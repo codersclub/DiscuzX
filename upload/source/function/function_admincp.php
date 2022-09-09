@@ -159,15 +159,11 @@ function cpurl($type = 'parameter', $filters = array('sid', 'frames')) {
 }
 
 
-function showheader($key, $url, $isbtn = 0) {
+function showheader($key, $url) {
 	list($action, $operation, $do) = explode('_', $url.'___');
 	$url = $action.($operation ? '&operation='.$operation.($do ? '&do='.$do : '') : '');
 	$menuname = cplang('header_'.$key) != 'header_'.$key ? cplang('header_'.$key) : $key;
-	if($isbtn) {
-		echo '<li><button id="header_'.$key.'" class=" ">'.$menuname.'</button></li>';
-	} else {
-		echo '<li><em><a href="'.ADMINSCRIPT.'?action='.$url.'" id="header_'.$key.'" hidefocus="true" onmouseover="previewheader(\''.$key.'\')" onmouseout="previewheader()" '.(isfounder() && $key == 'cloudaddons' ? 'target="_blank"' : 'onclick="toggleMenu(\''.$key.'\', \''.$url.'\');doane(event);"').'>'.$menuname.'</a></em></li>';
-	}
+	echo '<li><button id="header_'.$key.'" class=" ">'.$menuname.'</button></li>';
 }
 
 

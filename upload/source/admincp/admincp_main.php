@@ -105,7 +105,7 @@ foreach($topmenu as $k => $v) {
 		$v = is_array($menu[$k]) ? array_keys($menu[$k]) : array();
 		$v = $menu[$k][$v[0]][1];
 	}
-	showheader($k, $v, 1);
+	showheader($k, $v);
 }
 unset($menu);
 
