@@ -122,6 +122,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .dbox .boxbody:last-child { border-bottom: 0; }
 .boxbody .txt { margin-right: 4px; }
 .listbox .boxbody>div { border-bottom: 1px solid #eee; padding: 8px 0; }
+#cpsetting {cursor: pointer;}
 
 /* table */
 .tb{ clear:both; width:100%; margin-bottom: 12px;background: #fff;}
