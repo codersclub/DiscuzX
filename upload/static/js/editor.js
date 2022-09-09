@@ -1188,6 +1188,7 @@ function showEditorMenu(tag, params) {
 				break;
 			case 'code':
 				if(wysiwyg) {
+					var isCodeTag = 1 ;
 					opentag = '<div class="blockcode"><blockquote>';
 					closetag = '</blockquote></div><br />';
 					if(!BROWSER.ie) {
@@ -1222,6 +1223,9 @@ function showEditorMenu(tag, params) {
 				}
 				str = $(ctrlid + '_param_1') && $(ctrlid + '_param_1').value ? $(ctrlid + '_param_1').value : (selection ? selection : '');
 				if(wysiwyg) {
+					if(typeof isCodeTag != 'undefined') {
+						str = str.replace(/&/g, '&amp;');
+					}
 					str = preg_replace(['<', '>'], ['&lt;', '&gt;'], str);
 					str = str.replace(/\r?\n/g, '<br />');
 				}
