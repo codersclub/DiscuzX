@@ -45,7 +45,6 @@ echo <<<EOF
 <style>
 .floattop { display: none; }
 .floattopempty { display: none; }
-.mymenu { height:35px; }
 .mymenu .floattop { display: inline; }
 .mymenu .floattopempty { display: inline; }
 </style>
