@@ -237,13 +237,13 @@ if($operation == 'admin') {
 			array('styles_import', 'styles&operation=import', 0),
 			$isfounder ? array('plugins_validator'.($updatecount ? '_new' : ''), 'styles&operation=upgradecheck', 0) : array(),
 			$isfounder ? array('cloudaddons_style_link', 'cloudaddons&frame=no&operation=templates&from=more', 0, 1) : array(),
-		), '<a href="https://www.dismall.com/?from=templates_question" target="_blank" class="bold" style="float:right;padding-right:40px;">'.$lang['templates_question'].'</a>', array('updatecount' => $updatecount));
+		), '<a href="https://www.dismall.com/?from=templates_question" target="_blank" class="rlink">'.$lang['templates_question'].'</a>', array('updatecount' => $updatecount));
 		showtips('styles_home_tips');
 		showformheader('styles');
 		showhiddenfields(array('updatecsscache' => 0));
-		showtableheader();
+		showboxheader();
 		echo $stylelist;
-		showtablefooter();
+		showboxfooter();
 		showtableheader();
 		showsubmit('stylesubmit', 'submit', 'del', '<input onclick="this.form.updatecsscache.value=1" type="submit" class="btn" name="stylesubmit" value="'.cplang('styles_csscache_update').'">'.($isfounder ? '&nbsp;&nbsp;<a href="'.ADMINSCRIPT.'?action=cloudaddons&frame=no&operation=templates&from=more" target="_blank">'.cplang('cloudaddons_style_link').'</a>' : ''));
 		showtablefooter();
@@ -352,7 +352,7 @@ if($operation == 'admin') {
 			array('styles_list', 'styles', 0),
 			array('styles_import', 'styles&operation=import', 1),
 			$isfounder ? array('cloudaddons_style_link', 'cloudaddons&frame=no&operation=templates&from=more', 0, 1) : array(),
-		), '<a href="https://www.dismall.com/?from=templates_question" target="_blank" class="bold" style="float:right;padding-right:40px;">'.$lang['templates_question'].'</a>');
+		), '<a href="https://www.dismall.com/?from=templates_question" target="_blank" class="rlink">'.$lang['templates_question'].'</a>');
 		showformheader('styles&operation=import', 'enctype');
 		showtableheader('styles_import');
 		showimportdata();
@@ -707,7 +707,7 @@ function imgpre_switch(id) {
 			array('styles_import', 'styles&operation=import', 0),
 			array('plugins_validator', 'styles&operation=upgradecheck', 1),
 			array('cloudaddons_style_link', 'cloudaddons&frame=no&operation=templates&from=more', 0, 1),
-		), '<a href="https://www.dismall.com/?from=templates_question" target="_blank" class="bold" style="float:right;padding-right:40px;">'.$lang['templates_question'].'</a>');
+		), '<a href="https://www.dismall.com/?from=templates_question" target="_blank" class="rlink">'.$lang['templates_question'].'</a>');
 		showtableheader();
 		if($newarray) {
 			showtitle('styles_validator_newversion');

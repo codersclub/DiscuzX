@@ -20,7 +20,6 @@ $title = cplang('admincp_title');
 $header_welcome = cplang('header_welcome');
 $header_logout = cplang('header_logout');
 $header_bbs = cplang('header_bbs');
-$now = date('Y');
 if(isfounder()) {
 	cplang('founder_admin');
 } else {

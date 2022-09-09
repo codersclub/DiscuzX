@@ -356,10 +356,11 @@ EOT;
 }
 
 function showsubmenu($title, $menus = array(), $right = '', $replace = array()) {
+	$s = '<div class="itemtitle"><div class="titlerow"><h3>'.cplang($title, $replace).'</h3>'.$right.'</div>';
 	if(empty($menus)) {
-		$s = '<div class="itemtitle">'.$right.'<h3>'.cplang($title, $replace).'</h3></div>';
+		$s .= '</div>';
 	} elseif(is_array($menus)) {
-		$s = '<div class="itemtitle">'.$right.'<h3>'.cplang($title, $replace).'</h3><ul class="tab1">';
+		$s .= '<ul class="tab1">';
 		foreach($menus as $k => $menu) {
 			if(is_array($menu[0])) {
 				$s .= '<li id="addjs'.$k.'" class="'.($menu[1] ? 'current' : 'hasdropmenu').'" onmouseover="dropmenu(this);"><a href="#"><span>'.cplang($menu[0]['menu'], $replace).'<em>&nbsp;&nbsp;</em></span></a><div id="addjs'.$k.'child" class="dropmenu" style="display:none;">';
@@ -369,7 +370,7 @@ function showsubmenu($title, $menus = array(), $right = '', $replace = array()) 
 					}
 				}
 				$s .= '</div></li>';
-			} else {
+			} elseif(!empty($menu)) {
 				$s .= '<li'.($menu[2] ? ' class="current"' : '').'><a href="'.(!$menu[4] ? ADMINSCRIPT.'?action='.$menu[1] : $menu[1]).'"'.(!empty($menu[3]) ? ' target="_blank"' : '').'><span>'.cplang($menu[0], $replace).'</span></a></li>';
 			}
 		}
@@ -418,7 +419,7 @@ function showsubmenuanchors($title, $menus = array(), $right = '') {
 	echo <<<EOT
 <script type="text/JavaScript">var currentAnchor = '{$GLOBALS['anchor']}';</script>
 EOT;
-	$s = '<div class="itemtitle">'.$right.'<h3>'.cplang($title).'</h3>';
+	$s = '<div class="itemtitle"><div class="titlerow"><h3>'.cplang($title).'</h3>'.$right.'</div>';
 	$s .= '<ul class="tab1" id="submenu">';
 	foreach($menus as $k => $menu) {
 		if($menu && is_array($menu)) {
@@ -483,7 +484,7 @@ function showtableheader($title = '', $classname = '', $extra = '', $titlespan =
 	$classname = str_replace(array('nobottom', 'notop'), array('nobdb', 'nobdt'), $classname);
 	if(isset($_G['showsetting_multi'])) {
 		if($_G['showsetting_multi'] == 0) {
-			$extra .= ' style="width:'.($_G['showsetting_multicount'] * 270 + 20).'px"';
+			$extra .= ' style="width:'.($_G['showsetting_multicount'] * 270 + 60).'px"';
 		} else {
 			return;
 		}
@@ -496,13 +497,16 @@ function showtableheader($title = '', $classname = '', $extra = '', $titlespan =
 	}
 }
 
-function showboxheader($title = '', $classname = '', $extra = '', $titlespan = 15) {
+function showboxheader($title = '', $classname = '', $extra = '', $nobody = 0) {
 	global $_G;
 	$classname = str_replace(array('nobottom', 'notop'), array('nobdb', 'nobdt'), $classname);
-	echo "\n".'<div class="dbox '.$classname.'"'.($extra ? " $extra" : '').'>';
+	echo "\n".'<div class="dbox'.($classname ? ' '.$classname : '').'"'.($extra ? " $extra" : '').'>';
 	if($title) {
 		echo "\n".'<div class="boxheader">'.cplang($title).'</div>';
 		showmultititle(1);
+	}
+	if(!$nobody) {
+		echo "\n".'<div class="boxbody">';
 	}
 }
 
@@ -518,7 +522,7 @@ function showmultititle($nofloat = 0) {
 		if($nofloat) {
 			echo '<tr><td class="tbm"><div>'.$rows.'</div></td></tr>';
 		} else {
-			echo '<div id="multititle" class="tbm" style="width:'.($i * 270).'px;display:none">'.$rows.'</div>';
+			echo '<div id="multititle" class="tbm" style="width:'.($i * 270 + 30).'px;display:none">'.$rows.'</div>';
 			echo '<script type="text/javascript">floatbottom(\'multititle\');</script>';
 		}
 	}
@@ -593,14 +597,14 @@ function showtablerow($trstyle = '', $tdstyle = array(), $tdtext = array(), $ret
 
 function showboxrow($trstyle = '', $tdstyle = array(), $tdtext = array(), $return = FALSE) {
 	$rowswapclass = '';
-	if(!preg_match('/class\s*=\s*[\'"]([^\'"<>]+)[\'"]/i', $trstyle, $matches)) {
-		$rowswapclass = is_array($tdtext) && count($tdtext) > 2 ? ' class="hover"' : '';
-	} else {
-		if(is_array($tdtext) && count($tdtext) > 2) {
-			$rowswapclass = " class=\"{$matches[1]} hover\"";
-			$trstyle = preg_replace('/class\s*=\s*[\'"]([^\'"<>]+)[\'"]/i', '', $trstyle);
-		}
+	if(preg_match('/class\s*=\s*[\'"]([^\'"<>]+)[\'"]/i', $trstyle, $matches)) {
+		$rowswapclass = $matches[1];
+		$trstyle = preg_replace('/class\s*=\s*[\'"]([^\'"<>]+)[\'"]/i', '', $trstyle);
 	}
+	if(is_array($tdtext) && count($tdtext) > 2) {
+		$rowswapclass .= ' hover';
+	}
+	$rowswapclass = ' class="drow'.($rowswapclass?(' '.$rowswapclass):'').'"';
 	$cells = "\n".'<div'.($trstyle ? ' '.$trstyle : '').$rowswapclass.'>';
 	if(isset($tdtext)) {
 		if(is_array($tdtext)) {
@@ -621,12 +625,21 @@ function showboxbody($class = '', $text = '', $extra = '') {
 	echo '<div class="boxbody'.($style ? (' '.$style) : '').'" '.$extra.'>'.$text.'</div>';
 }
 
-function showsetting($setname, $varname, $value, $type = 'radio', $disabled = '', $hidden = 0, $comment = '', $extra = '', $setid = '', $nofaq = false) {
+function showsetting($setname, $varname, $value, $type = 'radio', $disabled = '', $hidden = 0, $comment = '', $extra = '', $setid = '', $nofaq = false, $inbox = 0) {
 
 	global $_G;
 	$s = "\n";
 	$check = array();
 	$noborder = false;
+	if(is_array($disabled)) {
+		$hidden = $disabled['hidden'];
+		$comment = $disabled['comment'];
+		$extra = $disabled['extra'];
+		$setid = $disabled['setid'];
+		$nofaq = $disabled['nofaq'];
+		$inbox = $disabled['inbox'];
+		$disabled = $disabled['disabled'];
+	}
 	if(substr($disabled, 0, 8) == 'noborder') {
 		$disabled = trim(substr($disabled, 8));
 		$noborder = 'class="noborder" ';
@@ -825,7 +838,11 @@ function showsetting($setname, $varname, $value, $type = 'radio', $disabled = ''
 		return;
 	}
 	if(!isset($_G['showsetting_multi'])) {
-		showtablerow('', 'colspan="2" class="td27" s="1"', $name);
+		if($inbox) {
+			echo '<div>'.$name.'</div>';
+		} else {
+			showtablerow('', 'colspan="2" class="td27" s="1"', $name);
+		}
 	} else {
 		if(empty($_G['showsetting_multijs'])) {
 			$_G['setting_JS'] .= 'var ss = new Array();';
@@ -840,11 +857,16 @@ function showsetting($setname, $varname, $value, $type = 'radio', $disabled = ''
 	}
 	if(!$nocomment && ($type != 'omcheckbox' || $varname[2] != 'isfloat')) {
 		if(!isset($_G['showsetting_multi'])) {
-			showtablerow('class="noborder" onmouseover="setfaq(this, \'faq'.$setid.'\')"', array('class="vtop rowform"', 'class="vtop tips2" s="1"'), array(
-				$s,
-				($comment ? $comment : cplang($setname.'_comment', false)).($type == 'textarea' ? '<br />'.cplang('tips_textarea') : '').
-				($disabled ? '<br /><span class="smalltxt" style="color:#F00">'.cplang($setname.'_disabled', false).'</span>' : NULL)
-			));
+			if($inbox) {
+				echo '<div>'.$s.'</div><div>'.($comment ? $comment : cplang($setname.'_comment', false)).($type == 'textarea' ? '<br />'.cplang('tips_textarea') : '').
+				($disabled ? '<br /><span class="smalltxt" style="color:#F00">'.cplang($setname.'_disabled', false).'</span>' : NULL).'</div>';
+			} else {
+				showtablerow('class="noborder" onmouseover="setfaq(this, \'faq'.$setid.'\')"', array('class="vtop rowform"', 'class="vtop tips2" s="1"'), array(
+					$s,
+					($comment ? $comment : cplang($setname.'_comment', false)).($type == 'textarea' ? '<br />'.cplang('tips_textarea') : '').
+					($disabled ? '<br /><span class="smalltxt" style="color:#F00">'.cplang($setname.'_disabled', false).'</span>' : NULL)
+				));
+			}
 		} else {
 			if($_G['showsetting_multi'] == 0) {
 				showtablerow('class="noborder"', array('class="vtop rowform" style="width:auto"'), array(
@@ -902,7 +924,7 @@ function showsubmit($name = '', $value = 'submit', $before = '', $after = '', $f
 		return;
 	}
 	$str = '<tr>';
-	$str .= $name && in_array($before, array('del', 'select_all', 'td')) ? '<td class="td25">'.($before != 'td' ? '<input type="checkbox" name="chkall" id="chkall'.($chkkallid = random(4)).'" class="checkbox" onclick="checkAll(\'prefix\', this.form, \'delete\')" /><label for="chkall'.$chkkallid.'">'.cplang($before) : '').'</label></td>' : '';
+	$str .= $name && in_array($before, array('del', 'select_all', 'td')) ? '<td class="td25">'.($before != 'td' ? '<input type="checkbox" name="chkall" id="chkall'.($chkkallid = random(4)).'" class="checkbox" onclick="checkAll(\'prefix\', this.form, \'delete\')" /><label for="chkall'.$chkkallid.'">'.cplang($before).'</label>' : '').'</td>' : '';
 	$str .= '<td colspan="15">';
 	$str .= $floatright ? '<div class="cuspages right">'.$floatright.'</div>' : '';
 	$str .= '<div class="fixsel">';
@@ -931,12 +953,12 @@ function showtablefooter() {
 	echo '</table>'."\n";
 }
 
-function showboxfooter() {
+function showboxfooter($nobody = 0) {
 	global $_G;
 	if(!empty($_G['showsetting_multi'])) {
 		return;
 	}
-	echo '</div>'."\n";
+	echo $nobody ? '</div>'."\n" : '</div></div>'."\n";
 }
 
 function showformfooter() {

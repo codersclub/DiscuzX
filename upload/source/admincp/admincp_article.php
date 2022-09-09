@@ -47,13 +47,15 @@ if($operation == 'tag') {
 	require_once libfile('function/portalcp');
 	$tag_names = article_tagnames();
 	showformheader('article&operation=tag');
-	showtableheader('article_tag_setting');
+	showboxheader('article_tag_setting');
+	showtableheader();
 	for($i=1; $i<=8; $i++) {
 		showtablerow('', array('width=80', ''),
 			array(lang('portalcp', 'article_tag').$i, "<input type=\"text\" class=\"txt\" name=\"tag[$i]\" value=\"$tag_names[$i]\" />"));
 	}
 	showsubmit('articletagsubmit', 'submit');
 	showtablefooter();
+	showboxfooter();
 	showformfooter();
 
 } elseif($operation == 'trash') {
@@ -300,8 +302,8 @@ if($operation == 'tag') {
 		$staticurl = STATICURL;
 		echo <<<SEARCH
 		<form method="get" autocomplete="off" action="$adminscript" id="tb_search">
-			<div style="margin-top:8px;">
-				<table cellspacing="3" cellpadding="3">
+			<div class="dbox"><div class="boxbody">
+				<table cellspacing="3" cellpadding="3" class="tb tb2">
 					<tr>
 						<th>{$searchlang['article_id']}</th><td><input type="text" class="txt" name="aid" value="{$_GET['aid']}"></td>
 						<th>{$searchlang['article_title']}*</th><td><input type="text" class="txt" name="title" value="{$_GET['title']}">*{$searchlang['likesupport']}</td>
@@ -339,7 +341,7 @@ if($operation == 'tag') {
 						</td>
 					</tr>
 				</table>
-			</div>
+			</div></div>
 		</form>
 		<script src="{$staticurl}js/makehtml.js?1" type="text/javascript"></script>
 

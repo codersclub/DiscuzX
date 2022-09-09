@@ -33,9 +33,10 @@ if($operation == 'list') {
 			array('list', 'portalcategory', 1)
 		));
 
-		$tdstyle = array('width="25"', 'width="60"', '', 'width="45"', 'width="55"', 'width="30"', 'width="30"', 'width="30"', 'width="185"', 'width="100"');
+		$tdstyle = array('width="25"', 'width="60"', '', 'width="50"', 'width="65"', 'width="35"', 'width="35"', 'width="35"', 'width="185"', 'width="100"');
 		showformheader('portalcategory');
-		echo '<div style="height:30px;line-height:30px;"><a href="javascript:;" onclick="show_all()">'.cplang('show_all').'</a> | <a href="javascript:;" onclick="hide_all()">'.cplang('hide_all').'</a> <input type="text" id="srchforumipt" class="txt" /> <input type="submit" class="btn" value="'.cplang('search').'" onclick="return srchforum()" /></div>';
+		showboxheader();
+		echo '<div style="height:60px;line-height:60px;"><a href="javascript:;" onclick="show_all()">'.cplang('show_all').'</a> | <a href="javascript:;" onclick="hide_all()">'.cplang('hide_all').'</a> <input type="text" id="srchforumipt" class="txt" /> <input type="submit" class="btn" value="'.cplang('search').'" onclick="return srchforum()" /></div>';
 		showtableheader('', '', 'id="portalcategory_header" style="min-width:900px;*width:900px;"');
 		showsubtitle(array('', '', 'portalcategory_name', 'portalcategory_articles', 'portalcategory_allowpublish', 'portalcategory_allowcomment', 'portalcategory_is_closed', 'setindex', 'operation', 'portalcategory_article_op'), 'header tbm', $tdstyle);
 		showtablefooter();
@@ -50,6 +51,7 @@ if($operation == 'list') {
 		echo '<tbody><tr><td>&nbsp;</td><td colspan="6"><div><a class="addtr" href="'.ADMINSCRIPT.'?action=portalcategory&operation=add&upid=0">'.cplang('portalcategory_addcategory').'</a></div></td><td colspan="3">&nbsp;</td></tr></tbody>';
 		showsubmit('editsubmit');
 		showtablefooter();
+		showboxfooter();
 		showformfooter();
 
 		$langs = array();

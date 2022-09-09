@@ -38,9 +38,10 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 	showsubmenu('nav_moderate_posts', $submenu);
 
 	showformheader("moderate&operation=replies");
-	showtableheader('search');
+	showboxheader('search');
+	showtableheader();
 
-	showtablerow('', array('width="60"', 'width="160"', 'width="60"', $posttableselect ? 'width="160"' : '', $posttableselect ? 'width="60"' : ''),
+	showtablerow('', array('width="100"', 'width="200"', 'width="100"', $posttableselect ? 'width="160"' : '', $posttableselect ? 'width="60"' : ''),
 		array(
 			cplang('username'), "<input size=\"15\" name=\"username\" type=\"text\" value=\"{$_GET['username']}\" />",
 			cplang('moderate_content_keyword'), "<input size=\"15\" name=\"title\" type=\"text\" value=\"{$_GET['title']}\" />",
@@ -48,7 +49,7 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 			$posttableselect
 		)
 	);
-	showtablerow('', array('width="60"', 'width="160"', 'width="60"', 'colspan="3"'),
+	showtablerow('', array('width="100"', 'width="200"', 'width="100"', 'colspan="3"'),
                 array(
                         "{$lang['perpage']}",
                         "<select name=\"ppp\">$ppp_options</select><label><input name=\"showcensor\" type=\"checkbox\" class=\"checkbox\" value=\"yes\" ".($showcensor ? ' checked="checked"' : '')."/> {$lang['moderate_showcensor']}</label>",
@@ -61,6 +62,7 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
         );
 
 	showtablefooter();
+	showboxfooter();
 	showtableheader();
 	$fidadd = array();
 	$sqlwhere = '';

@@ -92,7 +92,8 @@ var rowtypedata = [
 </script>
 <?php
 		showformheader('group&operation=type');
-		showtableheader('');
+		showboxheader();
+		showtableheader();
 		showsubtitle(array('display_order', 'groups_type_name', 'groups_type_count', 'groups_type_operation'));
 
 		$forums = $showedforums = array();
@@ -137,6 +138,7 @@ var rowtypedata = [
 
 		showsubmit('editsubmit');
 		showtablefooter();
+		showboxheader('', 'tb1');
 		showformfooter();
 
 	} else {

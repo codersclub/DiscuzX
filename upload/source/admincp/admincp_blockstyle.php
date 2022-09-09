@@ -263,8 +263,8 @@ BLOCKCLASSSEL;
 	$adminscript = ADMINSCRIPT;
 	echo <<<SEARCH
 <form method="post" autocomplete="off" action="$adminscript" id="tb_search">
-	<div style="margin-top:8px;">
-		<table cellspacing="3" cellpadding="3">
+	<div class="dbox"><div class="boxbody">
+		<table cellspacing="3" cellpadding="3" class="tb tb2">
 			<tr>
 				<th>{$searchlang['blockstyle_id']}</th><td><input type="text" class="txt" name="styleid" value="{$_GET['styleid']}"></td>
 				<th>{$searchlang['blockstyle_name']}*</th><td><input type="text" class="txt" name="name" value="{$_GET['name']}">*{$searchlang['likesupport']}</td>
@@ -295,14 +295,15 @@ BLOCKCLASSSEL;
 				</td>
 			</tr>
 		</table>
-	</div>
+	</div></div>
 </form>
 SEARCH;
 
 	$start = ($page-1)*$perpage;
 
 	showformheader('blockstyle');
-	showtableheader('blockstyle_list');
+	showboxheader('blockstyle_list');
+	showtableheader();
 	showsubtitle(array('blockstyle_name', 'blockstyle_blockclass', 'operation'));
 
 	$multipage = '';
@@ -323,6 +324,7 @@ SEARCH;
 
 	showsubmit('', '', '', '', $multipage);
 	showtablefooter();
+	showboxfooter();
 	showformfooter();
 
 }

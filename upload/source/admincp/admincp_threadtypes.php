@@ -80,13 +80,15 @@ var rowtypedata = [
 		));
 
 		showformheader("threadtypes&", 'enctype', 'threadtypeform');
+		showboxheader();
 		showtableheader('');
-		showsubtitle(array('', 'display_order', cplang('name').' '.cplang('tiny_bbcode_support'), 'description', 'forums_relation', '', ''), 'header', array('', 'width="60"', 'width="110"', 'width="210"', '', 'width="90"', 'width="60"'));
+		showsubtitle(array('', 'display_order', cplang('name').' '.cplang('tiny_bbcode_support'), 'description', 'forums_relation', '', ''), 'header', array('', 'width="100"', 'width="200"', 'width="300"', '', 'width="90"', 'width="60"'));
 		echo $threadtypes;
 		echo '<tr><td class="td25"></td><td colspan="5"><div>'.'<span class="filebtn"><input type="hidden" name="importtype" value="file" /><input type="file" name="importfile" class="pf" size="1" onchange="uploadthreadtypexml($(\'threadtypeform\'), \''.ADMINSCRIPT.'?action=threadtypes&operation=import\');" /><a class="addtr" href="JavaScript:;">'.$lang['import'].'</a></span>'.'<a href="###" onclick="addrow(this, 0)" class="addtr">'.$lang['threadtype_infotypes_add'].'</a></div></td>';
 
 		showsubmit('typesubmit', 'submit', 'del');
 		showtablefooter();
+		showboxfooter();
 		showformfooter();
 
 	} else {
@@ -246,6 +248,7 @@ EOT;
 		));
 		showformheader("threadtypes&operation=typeoption&typeid={$_GET['typeid']}");
 		showhiddenfields(array('classid' => $_GET['classid']));
+		showboxheader();
 		showtableheader();
 
 		showsubtitle(array('', 'display_order', 'name', 'threadtype_variable', 'threadtype_type', ''));
@@ -254,6 +257,7 @@ EOT;
 		showsubmit('typeoptionsubmit', 'submit', 'del');
 
 		showtablefooter();
+		showboxfooter();
 		showformfooter();
 
 	} else {

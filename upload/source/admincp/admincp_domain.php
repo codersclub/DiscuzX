@@ -36,6 +36,7 @@ if($operation == 'app') {
 		/*search*/
 
 		showformheader('domain&operation=app');
+		showboxheader();
 		showtableheader();
 		showsubtitle(array('name', 'setting_domain_app_domain'));
 		$app = array();
@@ -52,6 +53,7 @@ if($operation == 'app') {
 		}
 		showsubmit('submit');
 		showtablefooter();
+		showboxfooter();
 		showhiddenfields($hiddenarr);
 		showformfooter();
 	} else {
@@ -98,6 +100,7 @@ if($operation == 'app') {
 		showtips('setting_domain_root_tips');
 		/*search*/
 		showformheader('domain&operation=root');
+		showboxheader();
 		showtableheader();
 		showsubtitle(array('name', 'setting_domain_app_domain'));
 		$hiddenarr = array();
@@ -114,6 +117,7 @@ if($operation == 'app') {
 		}
 		showsubmit('submit');
 		showtablefooter();
+		showboxfooter();
 		showhiddenfields($hiddenarr);
 		showformfooter();
 	} else {

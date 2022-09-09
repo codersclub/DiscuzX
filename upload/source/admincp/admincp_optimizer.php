@@ -88,12 +88,6 @@ if($operation) {
 }
 
 $_GET['anchor'] = in_array($_GET['anchor'], array('security', 'serversec', 'performance')) ? $_GET['anchor'] : 'security';
-$current = array($_GET['anchor'] => 1);
-showmenu('nav_founder_optimizer', array(
-	array('founder_optimizer_security', 'optimizer&anchor=security', $current['security']),
-	array('founder_optimizer_serversec', 'optimizer&anchor=serversec', $current['serversec']),
-	array('founder_optimizer_performance', 'optimizer&anchor=performance', $current['performance']),
-));
 
 if($operation == 'optimize_unit') {
 
@@ -157,18 +151,18 @@ if($operation == 'optimize_unit') {
 		showtips('optimizer_'.$_GET['anchor'].'_tips');
 	}
 
-	showtableheader();
+	showboxheader();
 
-	echo '<div class="optblock cl">';
-	echo $_GET['checking'] ? '<a href="javascript:;" id="checking" class="btn_big">'.$lang['founder_optimizer_checking'].'</a>' :
-		'<a href="'.ADMINSCRIPT.'?action=optimizer&checking=1&anchor='.$_GET['anchor'].'" id="checking" class="btn_big">'.$lang['founder_optimizer_start_check'].'</a>';
+	echo '<div class="drow"><div class="dcol">';
+	echo $_GET['checking'] ? '<a href="javascript:;" id="checking" class="btn_big">'.$lang['founder_optimizer_checking'].'</a></div>' :
+		'<a href="'.ADMINSCRIPT.'?action=optimizer&checking=1&anchor='.$_GET['anchor'].'" id="checking" class="btn_big">'.$lang['founder_optimizer_start_check'].'</a></div>';
 	if($_GET['checking']) {
-		echo '<div class="pbg" id="processid">';
+		echo '<div class="dcol"><div class="pbg" id="processid">';
 		echo '<div class="pbr" style="width: 0;" id="percentprocess"></div>';
 		echo '<div class="xs0" id="percent">0%</div>';
-		echo '</div>';
+		echo '</div></div>';
 	}
-	echo '<div id="checkstatus">';
+	echo '<div id="checkstatus" class="dcol">';
 	if(!$checkrecordtime) {
 		echo $lang['founder_optimizer_first_use'];
 	} else {
@@ -329,7 +323,7 @@ END;
 		echo '</table>';
 	}
 
-	showtablefooter();
+	showboxfooter();
 }
 
 ?>

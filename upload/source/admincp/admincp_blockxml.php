@@ -38,7 +38,7 @@ if($operation == 'add') {
 		showsetting('blockxml_clientid', 'clientid', $blockxml['clientid'], 'text');
 		showsetting('blockxml_signtype', array('signtype', $signtypearr), $blockxml['signtype'], 'select');
 		showsetting('blockxml_xmlkey', 'key', $blockxml['key'], 'text');
-		echo '<tr><td colspan="2"><input class="checkbox" type="checkbox" name="ignoreversion" id="ignoreversion" value="1" /><label for="ignoreversion"> '.cplang('blockxml_import_ignore_version').'</label></td></tr>';
+		echo '<tr><td colspan="2" class="rowform"><input class="checkbox" type="checkbox" name="ignoreversion" id="ignoreversion" value="1" /><label for="ignoreversion"> '.cplang('blockxml_import_ignore_version').'</label></td></tr>';
 		showsubmit('addsubmit');
 		showtablefooter();
 		showformfooter();

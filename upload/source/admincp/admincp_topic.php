@@ -86,8 +86,8 @@ if(submitcheck('opsubmit')) {
 	$staticurl = STATICURL;
 	echo <<<SEARCH
 	<form method="get" autocomplete="off" action="$adminscript" id="tb_search">
-		<div style="margin-top:8px;">
-			<table cellspacing="3" cellpadding="3">
+		<div class="dbox"><div class="boxbody">
+			<table cellspacing="3" cellpadding="3" class="tb tb2">
 				<tr>
 					<th>{$searchlang['topic_id']}</th><td><input type="text" class="txt" name="topicid" value="{$_GET['topicid']}"></td>
 					<th>{$searchlang['topic_title']}*</th><td><input type="text" class="txt" name="title" value="{$_GET['title']}">*{$searchlang['likesupport']}</td>
@@ -128,7 +128,7 @@ if(submitcheck('opsubmit')) {
 					</td>
 				</tr>
 			</table>
-		</div>
+		</div></div>
 	</form>
 	<script src="{$staticurl}js/makehtml.js?1" type="text/javascript"></script>
 SEARCH;

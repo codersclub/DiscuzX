@@ -36,6 +36,7 @@ if($operation == 'perm') {
 					array('nav_founder_perm_notifyusers', 'founder&operation=perm&do=notifyusers', 0),
 				));
 				showformheader('founder&operation=perm&do=group');
+				showboxheader();
 				showtableheader();
 				showsubtitle(array('', 'founder_cpgroupname', ''));
 				foreach($groups as $id => $group) {
@@ -48,6 +49,7 @@ if($operation == 'perm') {
 				showtablerow('style="height:20px"', array(), array(cplang('add_new'), '<input class="txt" type="text" name="newcpgroupname" value="" />', ''));
 				showsubmit('submit', 'submit', 'del');
 				showtablefooter();
+				showboxfooter();
 				showformfooter();
 			} else {
 				if(!empty($_GET['newcpgroupname'])) {
@@ -94,13 +96,13 @@ if($operation == 'perm') {
 
 				showsubmenu('menu_founder_groupperm', array(array()), $grouplist, array('group' => $cpgroupname));
 				showformheader('founder&operation=perm&do=group&id='.$id);
-				showtableheader();
+				showboxheader('', '', '', 1);
 				foreach($data['cats'] as $topkey) {
 					if(!$data['actions'][$topkey]) {
 						continue;
 					}
 					$checkedall = true;
-					$row = '<tr><td class="vtop" id="perms_'.$topkey.'">';
+					$row = '<div class="boxbody drow clp" id="perms_'.$topkey.'">';
 					foreach($data['actions'][$topkey] as $k => $item) {
 						if(!$item) {
 							continue;
@@ -111,16 +113,16 @@ if($operation == 'perm') {
 						}
 						$row .= $item[1] ? '<div class="item'.($checked ? ' checked' : '').'"><a class="right" title="'.cplang('config').'" href="'.ADMINSCRIPT.'?frames=yes&action=founder&operation=perm&do=gperm&gset='.$topkey.'_'.$k.'" target="_blank">&nbsp;</a><label class="txt"><input name="permnew[]" value="'.$item[1].'" class="checkbox" type="checkbox" '.($checked ? 'checked="checked" ' : '').' onclick="checkclk(this)" />'.cplang($item[0]).'</label></div>' : '';
 					}
-					$row .= '</td></tr>';
+					$row .= '</div>';
 					if($topkey != 'setting') {
-						showtitle('<label><input class="checkbox" type="checkbox" onclick="permcheckall(this, \'perms_'.$topkey.'\')" '.($checkedall ? 'checked="checked" ' : '').'/> '.cplang('header_'.$topkey).'</label>');
+						showboxtitle('<label><input class="checkbox" type="checkbox" onclick="permcheckall(this, \'perms_'.$topkey.'\')" '.($checkedall ? 'checked="checked" ' : '').'/> '.cplang('header_'.$topkey).'</label>');
 					} else {
-						showtitle('founder_perm_setting');
+						showboxtitle('founder_perm_setting');
 					}
 					echo $row;
 				}
 				showsubmit('submit');
-				showtablefooter();
+				showboxfooter(1);
 				showformfooter();
 				if(!empty($_GET['switch'])) {
 					echo '<script type="text/javascript">showMenu({\'ctrlid\':\'cpgselect\',\'pos\':\'34\'});</script>';
@@ -207,6 +209,7 @@ if($operation == 'perm') {
 				}
 				/*search*/
 				showformheader('founder&operation=perm&do=member');
+				showboxheader();
 				showtableheader();
 				showsubtitle(array('', 'founder_username', 'founder_usergname', ''));
 				foreach($members as $id => $member) {
@@ -221,6 +224,7 @@ if($operation == 'perm') {
 				showtablerow('style="height:20px"', array('class="td25"', 'class="td24"', 'class="td24"'), array(cplang('add_new'), '<input class="txt" type="text" name="newcpusername" value="" />', $groupselect, ''));
 				showsubmit('submit', 'submit', 'del');
 				showtablefooter();
+				showboxfooter();
 				showformfooter();
 			} else {
 				if(!empty($_GET['newcpusername'])) {
@@ -327,6 +331,7 @@ if($operation == 'perm') {
 			showsubmenu('menu_founder_permgrouplist', array(array()), '', array('perm' => cplang($gset[0])));
 
 			showformheader('founder&operation=perm&do=gperm&gset='.$_GET['gset']);
+			showboxheader();
 			showtableheader();
 			showsubtitle(array('', 'founder_usergname'));
 			foreach($groups as $id => $group) {
@@ -337,6 +342,7 @@ if($operation == 'perm') {
 			}
 			showsubmit('submit');
 			showtablefooter();
+			showboxfooter();
 			showformfooter();
 		} else {
 			foreach(C::t('common_admincp_group')->range() as $group) {
@@ -361,6 +367,7 @@ if($operation == 'perm') {
 			));
 			showtips('founder_notifyusers_tips');
 			showformheader('founder&operation=perm&do=notifyusers');
+			showboxheader();
 			showtableheader();
 			showsubtitle(array('', 'username', '', 'founder_notifyusers_types'));
 			foreach($notifyusers as $uid => $user) {
@@ -389,6 +396,7 @@ if($operation == 'perm') {
 			showtablerow('style="height:20px"', array('', 'colspan="3"'), array(cplang('add_new'), '<input class="txt" type="text" name="newusername" value="" />'));
 			showsubmit('submit', 'submit', 'del');
 			showtablefooter();
+			showboxfooter();
 			showformfooter();
 		} else {
 			$newnotifyusers = array();

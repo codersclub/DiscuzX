@@ -109,20 +109,26 @@ if(!$operation) {
 			} else {
 				if($plugin['available']) {
 					if(empty($splitavailable[0])) {
-						$title = '<tr><th colspan="15" class="partition">'.cplang('plugins_list_available').'</th></tr>';
+						if(!empty($splitavailable)) {
+							$title = '</div><div class="dbox psetting">';
+						}
+						$title .= '<div class="boxheader">'.cplang('plugins_list_available').'</div>';
 						$splitavailable[0] = 1;
 					}
 				} else {
 					if(empty($splitavailable[1])) {
-						$title = '<tr><th colspan="15" class="partition">'.cplang('plugins_list_unavailable').'</th></tr>';
+						if(!empty($splitavailable)) {
+							$title = '</div><div class="dbox psetting">';
+						}
+						$title .= '<div class="boxheader">'.cplang('plugins_list_unavailable').'</div>';
 						$splitavailable[1] = 1;
 					}
 				}
 			}
-			$pluginlist[$order][$plugin['pluginid']] = $title.showtablerow('class="hover'.($hl ? ' hl' : '').'"', array('valign="top" style="width:45px"', 'valign="top"', 'align="right" valign="bottom" style="width:160px"'), array(
-				'<img src="'.cloudaddons_pluginlogo_url($plugin['identifier']).'" onerror="this.src=\''.STATICURL.'image/admincp/plugin_logo.png\';this.onerror=null" width="40" height="40" align="left" />',
-					'<span '.($plugin['available'] ? 'class="bold"' : 'class="bold light"').'>'.dhtmlspecialchars($plugin['name']).' '.dhtmlspecialchars($plugin['version']).'</span> <span class="sml">(<a href="'.ADMINSCRIPT.'?action=cloudaddons&frame=no&id='.$plugin['identifier'].'.plugin" style="color: #555;" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$plugin['identifier'].'</a>)</span>'.($updateinfo ? ' <b>'.$updateinfo.'</b>' : '').
-					($plugin['description'] || $plugin['modules']['extra']['intro'] ? '<a href="javascript:;" onclick="display(\'intro_'.$plugin['pluginid'].'\')" class="memo">'.cplang('plugins_home').'</a><div id="intro_'.$plugin['pluginid'].'" class="memo" style="display:none">'.$plugin['description'].'<br />'.$plugin['modules']['extra']['intro'].'</div>' : '').
+			$pluginlist[$order][$plugin['pluginid']] = $title.'<div class="boxbody hover'.($hl ? ' hl' : '').'">'.showboxrow('', array('class="dcol"', 'class="dcol d-1"', 'align="right" valign="bottom" style="width:160px"'), array(
+				'<img src="'.cloudaddons_pluginlogo_url($plugin['identifier']).'" onerror="this.src=\''.STATICURL.'image/admincp/plugin_logo.png\';this.onerror=null" width="80" height="80" align="left" />',
+					'<h3 '.($plugin['available'] ? 'class=""' : 'class="light"').' style="font-size:16px">'.dhtmlspecialchars($plugin['name']).' '.dhtmlspecialchars($plugin['version']).' <span class="smallfont">(<a href="'.ADMINSCRIPT.'?action=cloudaddons&frame=no&id='.$plugin['identifier'].'.plugin" style="color: #555;" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$plugin['identifier'].'</a>)</span>'.($updateinfo ? ' <b>'.$updateinfo.'</b>' : '').
+					($plugin['description'] || $plugin['modules']['extra']['intro'] ? '<a href="javascript:;" onclick="display(\'intro_'.$plugin['pluginid'].'\')" class="memo">'.cplang('plugins_home').'</a></h3><div id="intro_'.$plugin['pluginid'].'" class="memo" style="display:none">'.$plugin['description'].'<br />'.$plugin['modules']['extra']['intro'].'</div>' : '</h3>').
 				'<p><span class="light">'.($plugin['copyright'] ? cplang('author').': '.dhtmlspecialchars($plugin['copyright']).' | ' : '').
 					'<a href="'.ADMINSCRIPT.'?action=cloudaddons&frame=no&id='.$plugin['identifier'].'.plugin&from=comment" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$lang['plugins_visit'].'</a></span></p>'.
 				'<p>'.implode(' | ', $submenuitem).'</p>',
@@ -131,7 +137,7 @@ if(!$operation) {
 					"<a href=\"".ADMINSCRIPT."?action=plugins&operation=upgrade&pluginid={$plugin['pluginid']}\">{$lang['plugins_config_upgrade']}</a>&nbsp;&nbsp;".
 					(!$plugin['modules']['system'] ? "<a href=\"".ADMINSCRIPT."?action=plugins&operation=delete&pluginid={$plugin['pluginid']}\" onclick=\"return confirm('".lang('admincp', 'plugins_config_uninstall_tips', array('pluginname' => dhtmlspecialchars($plugin['name'])))."');\">{$lang['plugins_config_uninstall']}</a>&nbsp;&nbsp;" : '').
 					($isplugindeveloper && !$plugin['modules']['system'] ? "<a href=\"".ADMINSCRIPT."?action=plugins&operation=edit&pluginid={$plugin['pluginid']}\">{$lang['plugins_editlink']}</a>&nbsp;&nbsp;" : ''),
-			), true);
+			), true).'</div>';
 		}
 
 		shownav('plugin', 'plugins_list');
@@ -140,19 +146,20 @@ if(!$operation) {
 			$isplugindeveloper ? array('plugins_add', 'plugins&operation=add', 0) : array(),
 			array('plugins_validator'.($updatecount ? '_new' : ''), 'plugins&operation=upgradecheck', 0),
 			array('cloudaddons_plugin_link', 'cloudaddons&frame=no&operation=plugins&from=more', 0, 1),
-		), '<a href="https://www.dismall.com/?from=plugins_question" target="_blank" class="bold" style="float:right;padding-right:40px;">'.$lang['plugins_question'].'</a>', array('updatecount' => $updatecount));
+		), '<a href="https://www.dismall.com/?from=plugins_question" target="_blank" class="rlink">'.$lang['plugins_question'].'</a>', array('updatecount' => $updatecount));
 		showformheader('plugins');
-		showtableheader('', 'psetting');
+		showboxheader('', 'psetting', '', 1);
 
 		ksort($pluginlist);
 		$pluginlist = (array)$pluginlist['hightlight'] + (array)$pluginlist['open'] + (array)$pluginlist['close'];
 		echo implode('', $pluginlist);
+		showboxfooter(1);
 
 		if(empty($_GET['system'])) {
 			$plugindir = DISCUZ_ROOT.'./source/plugin';
 			$pluginsdir = dir($plugindir);
 			$newplugins = array();
-			showtableheader('', 'psetting');
+			showboxheader('', 'psetting', '', 1);
 			$newlist = '';
 			while($entry = $pluginsdir->read()) {
 				if(!in_array($entry, array('.', '..')) && is_dir($plugindir.'/'.$entry) && !in_array($entry, $plugins)) {
@@ -176,20 +183,21 @@ if(!$operation) {
 							$entrycopyright = dhtmlspecialchars($pluginarray['plugin']['copyright']);
 						}
 						$file = $entrydir.'/'.$f;
-						$newlist .= showtablerow('class="hover"', array('style="width:45px"', 'valign="top"', 'align="right" valign="bottom" style="width:160px"'), array(
-							'<img src="'.cloudaddons_pluginlogo_url($entry).'" onerror="this.src=\''.STATICURL.'image/admincp/plugin_logo.png\';this.onerror=null" width="40" height="40" align="left" style="margin-right:5px" />',
-							'<span class="bold light">'.$entrytitle.' '.$entryversion.($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').'</span> <span class="sml light">(<a href="'.ADMINSCRIPT.'?action=cloudaddons&frame=no&id='.$entry.'.plugin" style="color: #555;" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$entry.'</a>)</span>'.
+						$newlist .= '<div class="boxbody hover">'.showboxrow('', array('class="dcol"', 'class="dcol d-1"', ' class="dcol" align="right" valign="bottom" style="width:160px"'), array(
+							'<img src="'.cloudaddons_pluginlogo_url($entry).'" onerror="this.src=\''.STATICURL.'image/admincp/plugin_logo.png\';this.onerror=null" width="80" height="80" align="left" style="margin-right:5px" />',
+							'<h3 class="light" style="font-size:16px">'.$entrytitle.' '.$entryversion.($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').' <span class="smallfont light">(<a href="'.ADMINSCRIPT.'?action=cloudaddons&frame=no&id='.$entry.'.plugin" style="color: #555;" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$entry.'</a>)</span></h3>'.
 							'<p><span class="light">'.($entrycopyright ? cplang('author').': '.$entrycopyright.' | ' : '').
 							'<a href="'.ADMINSCRIPT.'?action=cloudaddons&frame=no&id='.$entry.'.plugin&from=comment" target="_blank" title="'.$lang['cloudaddons_linkto'].'">'.$lang['plugins_visit'].'</a></p>',
 							'<a href="'.ADMINSCRIPT.'?action=plugins&operation=import&dir='.$entry.'" class="bold">'.$lang['plugins_config_install'].'</a>'
-						), true);
+						), true).'</div>';
 					}
 				}
 			}
 			if($newlist) {
-				showtitle('plugins_list_new');
+				showboxtitle('plugins_list_new');
 				echo $newlist;
 			}
+			showboxfooter(1);
 		}
 
 		if($outputsubmit) {
@@ -197,7 +205,6 @@ if(!$operation) {
 		} else {
 			showsubmit('', '', '', '<a href="'.ADMINSCRIPT.'?action=cloudaddons&frame=no&operation=plugins&from=more" target="_blank">'.cplang('cloudaddons_plugin_link').'</a>');
 		}
-		showtablefooter();
 		showformfooter();
 
 	} else {
@@ -1592,27 +1599,27 @@ if(!$operation) {
 			$isplugindeveloper ? array('plugins_add', 'plugins&operation=add', 0) : array(),
 			array('plugins_validator', 'plugins&operation=upgradecheck', 1),
 			array('cloudaddons_plugin_link', 'cloudaddons&frame=no&operation=plugins&from=more', 0, 1),
-		), '<a href="https://www.dismall.com/?from=plugins_question" target="_blank" class="bold" style="float:right;padding-right:40px;">'.$lang['plugins_question'].'</a>');
-		showtableheader();
+		), '<a href="https://www.dismall.com/?from=plugins_question" target="_blank" class="rlink">'.$lang['plugins_question'].'</a>');
+		showboxheader('', '', '', 1);
 		if($nowarray) {
-			showtitle('plugins_validator_nowupgrade');
+			showboxtitle('plugins_validator_nowupgrade');
 			foreach($nowarray as $row) {
-				showtablerow('class="hover"', array(), array($row));
+				showboxbody('hover', $row);
 			}
 		}
 		if($newarray) {
-			showtitle('plugins_validator_newversion');
+			showboxtitle('plugins_validator_newversion');
 			foreach($newarray as $row) {
-				showtablerow('class="hover"', array(), array($row));
+				showboxbody('hover', $row);
 			}
 		}
 		if($errarray) {
-			showtitle('plugins_validator_error');
+			showboxtitle('plugins_validator_error');
 			foreach($errarray as $row) {
-				showtablerow('class="hover"', array(), array($row));
+				showboxbody('hover', $row);
 			}
 		}
-		showtablefooter();
+		showboxfooter(1);
 	}
 } elseif($operation == 'sample') {
 	$plugin = C::t('common_plugin')->fetch($pluginid);

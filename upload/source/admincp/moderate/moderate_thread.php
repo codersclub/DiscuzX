@@ -33,14 +33,15 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 	showsubmenu('nav_moderate_threads', $submenu);
 
 	showformheader("moderate&operation=threads");
-	showtableheader('search');
-	showtablerow('', array('width="60"', 'width="160"', 'width="60"'),
+	showboxheader('search');
+	showtableheader();
+	showtablerow('', array('width="100"', 'width="200"', 'width="100"'),
 		array(
 			cplang('username'), "<input size=\"15\" name=\"username\" type=\"text\" value=\"{$_GET['username']}\" />",
 			cplang('moderate_title_keyword'), "<input size=\"15\" name=\"title\" type=\"text\" value=\"{$_GET['title']}\" />",
 		)
 	);
-        showtablerow('', array('width="60"', 'width="160"', 'width="60"'),
+        showtablerow('', array('width="100"', 'width="200"', 'width="100"'),
                 array(
                         "{$lang['perpage']}",
                         "<select name=\"tpp\">$tpp_options</select><label><input name=\"showcensor\" type=\"checkbox\" class=\"checkbox\" value=\"yes\" ".($showcensor ? ' checked="checked"' : '')."/> {$lang['moderate_showcensor']}</label>",
@@ -52,6 +53,7 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
                 )
         );
 	showtablefooter();
+	showboxfooter();
 	showtableheader();
 
 	$title = '';

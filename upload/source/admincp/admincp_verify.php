@@ -111,8 +111,8 @@ if($operation == 'verify') {
 			$expertsearch = $vid ? '&nbsp;<a href="'.ADMINSCRIPT.'?action=members&operation=search&more=1&vid='.$vid.'" target="_top">'.cplang('search_higher').'</a>' : '';
 echo <<<EOF
 			<form method="get" autocomplete="off" action="$adminscript">
-				<div class="block style4">
-					<table cellspacing="3" cellpadding="3">
+				<div class="dbox"><div class="boxbody">
+					<table cellspacing="3" cellpadding="3" class="tb tb2">
 					<tr>
 						<th>{$searchlang['members_verify_username']}* </th><td><input type="text" name="username" value="{$_GET['username']}"></td>
 						<th>{$searchlang['members_verify_uid']}</th><td><input type="text" name="uid" value="{$_GET['uid']}"> *{$searchlang['likesupport']}</td>
@@ -141,7 +141,7 @@ echo <<<EOF
 						</td>
 					</tr>
 					</table>
-				</div>
+				</div></div>
 			</form>
 			<iframe id="frame_profile" name="frame_profile" style="display: none"></iframe>
 			<script type="text/javascript" src="{$staticurl}js/calendar.js"></script>

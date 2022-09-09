@@ -29,7 +29,8 @@ if($operation == 'list') {
 		));
 
 		showformheader("credits&operation=list");
-		showtableheader('setting_credits_policy', 'nobottom', 'id="policytable"'.($anchor != 'policytable' ? ' style="display: none"' : ''));
+		showboxheader('setting_credits_policy', 'nobottom', 'id="policytable"'.($anchor != 'policytable' ? ' style="display: none"' : ''));
+		showtableheader();
 		echo '<tr class="header"><th class="td28 nowrap">'.$lang['setting_credits_policy_name'].'</th><th class="td28 nowrap">'.$lang['setting_credits_policy_cycletype'].'</th><th class="td28 nowrap">'.$lang['setting_credits_policy_rewardnum'].'</th>';
 		for($i = 1; $i <= 8; $i++) {
 			if($_G['setting']['extcredits'][$i]) {
@@ -51,6 +52,7 @@ if($operation == 'list') {
 		}
 		showtablerow('', 'class="lineheight" colspan="9"', $lang['setting_credits_policy_comment']);
 		showtablefooter();
+		showboxfooter();
 		showtableheader('', 'nobottom', '');
 		showsetting('setting_credits_policy_mobile', 'settingnew[creditspolicymobile]', $_G['setting']['creditspolicymobile'], 'text');
 		showsubmit('rulesubmit');

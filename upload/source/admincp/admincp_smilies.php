@@ -44,6 +44,7 @@ if(!$operation) {
 		showtips('smilies_tips_smileytypes');
 		/*search*/
 		showformheader('smilies');
+		showboxheader();
 		showtableheader();
 		showsubtitle(array('', 'display_order', 'enable', 'smilies_type', 'dir', 'smilies_nums', ''));
 
@@ -105,6 +106,7 @@ if(!$operation) {
 
 		showsubmit('smiliessubmit', 'submit', 'del');
 		showtablefooter();
+		showboxfooter();
 		showformfooter();
 
 	} else {

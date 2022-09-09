@@ -238,8 +238,8 @@ if($operation=='perm') {
 			<script type="text/javascript" src="{$_G['setting']['jspath']}portal.js?{VERHASH}"></script>
 			<div id="ajaxwaitid"></div>
 			<form method="get" autocomplete="off" action="$adminscript" id="tb_search">
-				<div style="margin-top:8px;">
-					<table cellspacing="3" cellpadding="3">
+				<div class="dbox"><div class="boxbody">
+					<table cellspacing="3" cellpadding="3" class="tb tb2">
 						<tr>
 							$firstrow
 						</tr>
@@ -271,7 +271,7 @@ if($operation=='perm') {
 								<input type="submit" name="searchsubmit" value="{$searchlang['search']}" class="btn"></td>
 						</tr>
 					</table>
-				</div>
+				</div></div>
 			</form>
 			<script type="text/javascript">
 			function addjscall() {
@@ -288,7 +288,8 @@ SEARCH;
 		$start = ($page-1)*$perpage;
 
 		showformheader('block&operation='.$operation);
-		showtableheader('block_list');
+		showboxheader('block_list');
+		showtableheader();
 
 		$list = $diypage = array();
 		include_once libfile('function/block');
@@ -329,6 +330,7 @@ SEARCH;
 
 			showsubmit('', '', '', '<input type="checkbox" name="chkall" id="chkall" class="checkbox" onclick="checkAll(\'prefix\', this.form, \'ids\')" /><label for="chkall">'.cplang('select_all').'</label>&nbsp;&nbsp;<input type="submit" class="btn" name="deletesubmit" value="'.cplang('block_delete').'" />', $multipage);
 			showtablefooter();
+			showboxfooter();
 			showformfooter();
 
 		} else {
@@ -367,6 +369,7 @@ SEARCH;
 
 			showsubmit('', '', '', '<input type="submit" class="btn" name="clearsubmit" value="'.cplang('block_clear_unused').'" />', $multipage);
 			showtablefooter();
+			showboxfooter();
 			showformfooter();
 		}
 	}

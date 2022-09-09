@@ -76,8 +76,8 @@ if($operation == 'list') {
 	$adminscript = ADMINSCRIPT;
 	echo <<<SEARCH
 	<form method="get" autocomplete="off" action="$adminscript" id="tb_search">
-		<div style="margin-top:8px;">
-			<table cellspacing="3" cellpadding="3">
+		<div class="dbox"><div class="boxbody">
+			<table cellspacing="3" cellpadding="3" class="tb tb2">
 				<tr>
 					<th>{$searchlang['diytemplate_name']}*</th><td><input type="text" class="txt" name="name" value="{$_GET['name']}"></td>
 					<th>{$searchlang['diytemplate_targettplname']}*</th><td><input type="text" class="txt" name="targettplname" value="{$_GET['targettplname']}"></td>
@@ -112,7 +112,7 @@ if($operation == 'list') {
 						<input type="submit" name="searchsubmit" value="{$searchlang['search']}" class="btn"></td>
 				</tr>
 			</table>
-		</div>
+		</div></div>
 	</form>
 SEARCH;
 
@@ -122,7 +122,8 @@ SEARCH;
 	$perpages = array($perpage => ' selected');
 
 	showformheader('diytemplate');
-	showtableheader('diytemplate_list');
+	showboxheader('diytemplate_list');
+	showtableheader();
 	showsubtitle(array('diytemplate_name', 'diytemplate_targettplname', 'diytemplate_primaltplname', 'username', 'diytemplate_dateline', 'operation'));
 
 	$multipage = '';
@@ -149,6 +150,7 @@ SEARCH;
 
 	showsubmit('', '', '', '', $multipage);
 	showtablefooter();
+	showboxfooter();
 	showformfooter();
 } elseif($operation == 'edit') {
 	loadcache('diytemplatename');

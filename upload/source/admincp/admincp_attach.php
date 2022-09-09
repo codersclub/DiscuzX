@@ -130,11 +130,13 @@ EOT;
 		showformfooter();
 
 		showformheader('attach&frame=no'.($operation ? '&operation='.$operation : ''), 'target="attachmentframe"');
+		showboxheader();
 		showtableheader();
 		showsubtitle(array('', 'filename', 'author', 'attach_thread', 'size', 'attach_downloadnums', ''));
 		echo $attachments;
 		showsubmit('deletesubmit', 'submit', 'del', '<a href="###" onclick="$(\'admin\').style.display=\'none\';$(\'search\').style.display=\'\';$(\'attachmentforum\').pp.value=\'\';$(\'attachmentforum\').page.value=\'\';" class="act lightlink normal">'.cplang('research').'</a>', $multipage);
 		showtablefooter();
+		showboxfooter();
 		showformfooter();
 		echo '<iframe name="attachmentframe" style="display:none"></iframe>';
 		showtagfooter('div');

@@ -85,6 +85,7 @@ if(submitcheck('editsubmit')) {
 	/*search*/
 
 	showformheader('district&countryid='.$values[0].'&pid='.$values[1].'&cid='.$values[2].'&did='.$values[3]);
+	showboxheader();
 	showtableheader();
 
 	$options = array(0=>array(), 1=>array(), 2=>array(), 3=>array());
@@ -156,6 +157,7 @@ function deletedistrict(did) {
 </script>
 SCRIPT;
 	showtablefooter();
+	showboxfooter();
 	showformfooter();
 }
 

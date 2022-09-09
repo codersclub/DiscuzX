@@ -144,7 +144,8 @@ EOF;
 			}
 		}
 		showformheader("members&operation=clean".$condition_str);
-		showtableheader(cplang('members_search_result', array('membernum' => $membernum)).'<a href="'.ADMINSCRIPT.'?action=members&operation=search" class="act lightlink normal">'.cplang('research').'</a>&nbsp;&nbsp;&nbsp;<a href='.ADMINSCRIPT.'?action=members&operation=export'.$condition_str.'>'.$lang['members_search_export'].'</a>');
+		showboxheader(cplang('members_search_result', array('membernum' => $membernum)).'<a href="'.ADMINSCRIPT.'?action=members&operation=search" class="act lightlink normal">'.cplang('research').'</a>&nbsp;&nbsp;&nbsp;<a href='.ADMINSCRIPT.'?action=members&operation=export'.$condition_str.'>'.$lang['members_search_export'].'</a>');
+		showtableheader();
 
 		if($membernum) {
 			showsubtitle(array('', 'username', 'credits', 'posts', 'admingroup', 'usergroup', ''));
@@ -154,6 +155,7 @@ EOF;
 			showsubmit('deletesubmit', cplang('delete'), ($tmpsearch_condition ? '<input type="checkbox" name="chkall" onclick="checkAll(\'prefix\', this.form, \'uidarray\');if(this.checked){$(\'deleteallinput\').style.display=\'\';}else{$(\'deleteall\').checked = false;$(\'deleteallinput\').style.display=\'none\';}" class="checkbox">'.cplang('select_all') : ''), $unarchive.' &nbsp;&nbsp;&nbsp;<span id="deleteallinput" style="display:none"><input id="deleteall" type="checkbox" name="deleteall" class="checkbox">'.cplang('members_search_deleteall', array('membernum' => $membernum)).'</span>', $multipage);
 		}
 		showtablefooter();
+		showboxfooter();
 		showformfooter();
 
 	}
@@ -762,16 +764,17 @@ EOF;
 			showtagheader('div', 'newsletter', TRUE);
 			showformheader('members&operation=newsletter'.$urladd.$dostr);
 			showhiddenfields(array('notifymember' => 1));
-			echo '<table class="tb tb1">';
+			showboxheader('', 'tb1');
 
 			if(!$membernum) {
-				showtablerow('', 'class="lineheight"', $lang['members_search_nonexistence']);
+				echo '<div class="lineheight">'.$lang['members_search_nonexistence'].'</div>';
+				showboxfooter();
 			} else {
-				showtablerow('class="first"', array('class="th11"'), array(
+				showboxrow('', array('class="dcol"', 'class="dcol"'), array(
 					cplang('members_newsletter_members'),
 					cplang('members_search_result', array('membernum' => $membernum))."<a href=\"###\" onclick=\"$('searchmembers').style.display='';$('newsletter').style.display='none';$('step1').className='current';$('step2').className='';\" class=\"act\">{$lang['research']}</a>"
 				));
-				showtablefooter();
+				showboxfooter();
 
 				shownewsletter();
 
@@ -780,7 +783,6 @@ EOF;
 
 			}
 
-			showtablefooter();
 			showformfooter();
 			showtagfooter('div');
 
@@ -880,11 +882,11 @@ EOF;
 			$membernum = countmembers($search_condition, $urladd);
 			showtagheader('div', 'reward', TRUE);
 			showformheader('members&operation=reward'.$urladd);
-			echo '<table class="tb tb1">';
+			showboxheader('', 'tb1');
 
 			if(!$membernum) {
-				showtablerow('', 'class="lineheight"', $lang['members_search_nonexistence']);
-				showtablefooter();
+				echo '<div class="lineheight">'.$lang['members_search_nonexistence'].'</div>';
+				showboxfooter();
 			} else {
 
 				$creditscols = array('credits_title');
@@ -899,18 +901,19 @@ EOF;
 				$creditsvalue = array_merge(array('<input type="radio" name="updatecredittype" id="updatecredittype0" value="0" class="radio" onclick="var extcredits = new Array('.$js_extcreditids.'); for(k in extcredits) {$(\'resetextcredits[\'+extcredits[k]+\']\').disabled = true; $(\'addextcredits[\'+extcredits[k]+\']\').disabled = false;}" checked="checked" /><label for="updatecredittype0">'.$lang['members_reward_value'].'</label>'), $creditsvalue);
 				$resetcredits = array_merge(array('<input type="radio" name="updatecredittype" id="updatecredittype1" value="1" class="radio" onclick="var extcredits = new Array('.$js_extcreditids.'); for(k in extcredits) {$(\'addextcredits[\'+extcredits[k]+\']\').disabled = true; $(\'resetextcredits[\'+extcredits[k]+\']\').disabled = false;}" /><label for="updatecredittype1">'.$lang['members_reward_clean'].'</label>'), $resetcredits);
 
-				showtablerow('class="first"', array('class="th11"'), array(
+				showboxrow('', array('class="dcol"', 'class="dcol"'), array(
 					cplang('members_reward_members'),
 					cplang('members_search_result', array('membernum' => $membernum))."<a href=\"###\" onclick=\"$('searchmembers').style.display='';$('reward').style.display='none';$('step1').className='current';$('step2').className='';\" class=\"act\">{$lang['research']}</a>"
 				));
+				showboxfooter();
 
-				echo '<tr><td class="th12">'.cplang('nav_members_reward').'</td><td>';
+				showboxheader('nav_members_reward');
 				showtableheader('', 'noborder');
 				showsubtitle($creditscols);
 				showtablerow('', array('class="td23"', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"'), $creditsvalue);
 				showtablerow('', array('class="td23"', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"'), $resetcredits);
 				showtablefooter();
-				showtablefooter();
+				showboxfooter();
 
 				showtagheader('div', 'messagebody');
 				shownewsletter();
@@ -919,7 +922,6 @@ EOF;
 
 			}
 
-			showtablefooter();
 			showformfooter();
 			showtagfooter('div');
 
@@ -968,24 +970,25 @@ EOF;
 
 			showtagheader('div', 'confermedal', TRUE);
 			showformheader('members&operation=confermedal'.$urladd);
-			echo '<table class="tb tb1">';
+			showboxheader('', 'tb1');
 
 			if(!$membernum) {
-				showtablerow('', 'class="lineheight"', $lang['members_search_nonexistence']);
-				showtablefooter();
+				echo '<div class="lineheight">'.$lang['members_search_nonexistence'].'</div>';
+				showboxfooter();
 			} else {
 
-				showtablerow('class="first"', array('class="th11"'), array(
+				showboxrow('', array('class="dcol"', 'class="dcol"'), array(
 					cplang('members_confermedal_members'),
 					cplang('members_search_result', array('membernum' => $membernum))."<a href=\"###\" onclick=\"$('searchmembers').style.display='';$('confermedal').style.display='none';$('step1').className='current';$('step2').className='';\" class=\"act\">{$lang['research']}</a>"
 				));
+				showboxfooter();
 
-				echo '<tr><td class="th12">'.cplang('members_confermedal').'</td><td>';
+				showboxheader('members_confermedal');
 				showtableheader('', 'noborder');
 				showsubtitle(array('medals_grant', 'medals_image', 'name'));
 				echo $medals;
 				showtablefooter();
-				showtablefooter();
+				showboxfooter();
 
 				showtagheader('div', 'messagebody');
 				shownewsletter();
@@ -994,7 +997,6 @@ EOF;
 
 			}
 
-			showtablefooter();
 			showformfooter();
 			showtagfooter('div');
 
@@ -1041,24 +1043,25 @@ EOF;
 
 			showtagheader('div', 'confermedal', TRUE);
 			showformheader('members&operation=confermagic'.$urladd);
-			echo '<table class="tb tb1">';
+			showboxheader('', 'tb1');
 
 			if(!$membernum) {
 				showtablerow('', 'class="lineheight"', $lang['members_search_nonexistence']);
-				showtablefooter();
+				showboxfooter();
 			} else {
 
-				showtablerow('class="first"', array('class="th11"'), array(
+				showboxrow('', array('class="dcol"', 'class="dcol"'), array(
 					cplang('members_confermagic_members'),
 					cplang('members_search_result', array('membernum' => $membernum))."<a href=\"###\" onclick=\"$('searchmembers').style.display='';$('confermedal').style.display='none';$('step1').className='current';$('step2').className='';\" class=\"act\">{$lang['research']}</a>"
 				));
+				showboxfooter();
 
-				echo '<tr><td class="th12">'.cplang('members_confermagic').'</td><td>';
+				showboxheader('members_confermagic');
 				showtableheader('', 'noborder');
 				showsubtitle(array('nav_magics_confer', 'nav_magics_image', 'nav_magics_name', 'nav_magics_num'));
 				echo $magics;
 				showtablefooter();
-				showtablefooter();
+				showboxfooter();
 
 				showtagheader('div', 'messagebody');
 				shownewsletter();
@@ -1067,7 +1070,6 @@ EOF;
 
 			}
 
-			showtablefooter();
 			showformfooter();
 			showtagfooter('div');
 
@@ -1445,10 +1447,12 @@ EOT;
 		/*search={"members_credit":"action=members&operation=credit"}*/
 		showtips('members_credit_tips');
 		showformheader("members&operation=credit&uid={$_GET['uid']}");
-		showtableheader('<em class="right"><a href="'.ADMINSCRIPT.'?action=logs&operation=credit&srch_uid='.$_GET['uid'].'&frame=yes" target="_blank">'.cplang('members_credit_logs').'</a></em>'.cplang('members_credit').' - '.$member['username'].'('.$member['grouptitle'].')', 'nobottom');
+		showboxheader('<em class="right"><a href="'.ADMINSCRIPT.'?action=logs&operation=credit&srch_uid='.$_GET['uid'].'&frame=yes" target="_blank">'.cplang('members_credit_logs').'</a></em>'.cplang('members_credit').' - '.$member['username'].'('.$member['grouptitle'].')', 'nobottom');
+		showtableheader();
 		showsubtitle($creditscols);
 		showtablerow('', array('', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"', 'class="td28"'), $creditsvalue);
 		showtablefooter();
+		showboxfooter();
 		showtableheader('', 'notop');
 		showtitle('members_edit_reason');
 		showsetting('members_credit_reason', 'reason', '', 'textarea');
@@ -2840,12 +2844,13 @@ EOF;
 			showsubmenu($lang['members_profile'], $profilenav);
 			showtips('members_profile_tips');
 			showformheader('members&operation=profile');
+			showboxheader('members_profile', 'nobottom', 'id="porfiletable"');
 			showtableheader('', '', 'id="profiletable_header"');
 			$tdstyle = array('class="td22"', 'class="td28" width="100"', 'class="td28" width="100"', 'class="td28" width="100"', 'class="td28" width="100"', 'class="td28"', 'class="td28"');
 			showsubtitle(array('members_profile_edit_name', 'members_profile_edit_display_order', 'members_profile_edit_available', 'members_profile_edit_profile_view', 'members_profile_edit_card_view', 'members_profile_edit_reg_view', ''), 'header tbm', $tdstyle);
 			showtablefooter();
 			echo '<script type="text/javascript">floatbottom(\'profiletable_header\');</script>';
-			showtableheader('members_profile', 'nobottom', 'id="porfiletable"');
+			showtableheader();
 			showsubtitle(array('members_profile_edit_name', 'members_profile_edit_display_order', 'members_profile_edit_available', 'members_profile_edit_profile_view', 'members_profile_edit_card_view', 'members_profile_edit_reg_view', ''), 'header', $tdstyle);
 			foreach($list as $fieldid => $value) {
 				$value['available'] = '<input type="checkbox" class="checkbox" name="available['.$fieldid.']" '.($value['available'] ? 'checked="checked" ' : '').'value="1">';
@@ -2858,6 +2863,7 @@ EOF;
 			}
 			showsubmit('ordersubmit');
 			showtablefooter();
+			showboxfooter();
 			showformfooter();
 		} else {
 			foreach($_GET['displayorder'] as $fieldid => $value) {
@@ -2949,7 +2955,8 @@ EOF;
 		showtips('members_stat_tips');
 
 		showformheader('members&operation=stat&fieldid='.$_GET['fieldid']);
-		showtableheader('members_stat_options');
+		showboxheader('members_stat_options');
+		showtableheader();
 		$option_html = '<ul>';
 		foreach($options as $key=>$value) {
 			$extra_style = $_GET['fieldid'] == $key ? ' font-weight: 900;' : '';
@@ -3001,6 +3008,7 @@ EOF;
 			}
 
 			showtablefooter();
+			showboxfooter();
 			$optype_html = '<input type="radio" class="radio" name="optype" id="optype_option" value="option" /><label for="optype_option">'.cplang('members_stat_update_option').'</label>&nbsp;&nbsp;'
 					.'<input type="radio" class="radio" name="optype" id="optype_data" value="data" /><label for="optype_data">'.cplang('members_stat_update_data').'</label>';
 			showsubmit('statsubmit', 'submit', $optype_html);

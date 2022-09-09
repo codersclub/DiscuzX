@@ -101,6 +101,7 @@ var rowtypedata = [
 		showtips('misc_link_tips');
 		/*search*/
 		showformheader('misc&operation=link');
+		showboxheader();
 		showtableheader();
 		showsubtitle(array('', 'display_order', 'misc_link_edit_name', 'misc_link_edit_url', 'misc_link_edit_description', 'misc_link_edit_logo', 'misc_link_group1', 'misc_link_group2', 'misc_link_group3','misc_link_group4'));
 		showsubtitle(array('', '', '', '', '', '', '<input class="checkbox" type="checkbox" name="portalall" onclick="checkAll(\'prefix\', this.form, \'portal\', \'portalall\')">',
@@ -128,6 +129,7 @@ var rowtypedata = [
 		echo '<tr><td></td><td colspan="3"><div><a href="###" onclick="addrow(this, 0)" class="addtr">'.$lang['misc_link_add'].'</a></div></td></tr>';
 		showsubmit('linksubmit', 'submit', 'del');
 		showtablefooter();
+		showboxfooter();
 		showformfooter();
 
 	} else {
@@ -789,6 +791,7 @@ EOT;
 		/*search*/
 		showformheader('misc&operation=stamp');
 		showhiddenfields(array('anchor' => 'list'));
+		showboxheader();
 		showtableheader();
 		showsubtitle(array('', 'misc_stamp_id', 'misc_stamp_name', 'smilies_edit_image', 'smilies_edit_filename', 'misc_stamp_icon', 'misc_stamp_option'));
 
@@ -829,6 +832,7 @@ EOT;
 
 		showsubmit('stampsubmit', 'submit', 'del');
 		showtablefooter();
+		showboxfooter();
 		showformfooter();
 		showtagfooter('div');
 
@@ -838,6 +842,7 @@ EOT;
 		/*search*/
 		showformheader('misc&operation=stamp&type=list');
 		showhiddenfields(array('anchor' => 'llist'));
+		showboxheader();
 		showtableheader();
 		showsubtitle(array('', 'misc_stamp_id', 'misc_stamp_listname', 'smilies_edit_image', 'smilies_edit_filename'));
 
@@ -854,6 +859,7 @@ EOT;
 
 		showsubmit('stampsubmit', 'submit', 'del');
 		showtablefooter();
+		showboxfooter();
 		showformfooter();
 		showtagfooter('div');
 
@@ -862,6 +868,7 @@ EOT;
 		/*search={"nav_thread_stamp":"action=misc&operation=stamp","add":"action=misc&operation=stamp&anchor=add"}*/
 		showtips('misc_stamp_addtips');
 		/*search*/
+		showboxheader();
 		showtableheader();
 		showsubtitle(array('add', 'misc_stamp_type', 'misc_stamp_id', 'misc_stamp_imagename', 'smilies_edit_image', 'smilies_edit_filename'));
 
@@ -892,6 +899,7 @@ EOT;
 		}
 
 		showtablefooter();
+		showboxfooter();
 		showformfooter();
 		showtagfooter('div');
 
@@ -992,12 +1000,14 @@ var rowtypedata = [
 		showtips('misc_attachtype_tips');
 		/*search*/
 		showformheader('misc&operation=attachtype');
-		showtableheader();
+		showboxheader();
+		showtableheader('', 'nomargin');
 		showtablerow('class="partition"', array('class="td25"', 'class="td24"'), array('', cplang('misc_attachtype_ext'), cplang('misc_attachtype_maxsize')));
 		echo $attachtypes;
 		echo '<tr><td></td><td colspan="2"><div><a href="###" onclick="addrow(this, 0)" class="addtr">'.$lang['misc_attachtype_add'].'</a></div></tr>';
 		showsubmit('typesubmit', 'submit', 'del');
 		showtablefooter();
+		showboxfooter();
 		showformfooter();
 
 	} else {
@@ -1555,12 +1565,14 @@ EOT;
 			shownav('tools', 'nav_custommenu');
 			showsubmenu('nav_custommenu');
 			showformheader('misc&operation=custommenu');
+			showboxheader();
 			showtableheader();
 			showsubtitle(array('', 'display_order', 'name', 'URL'));
 			echo $optionlist;
 			echo '<tr><td></td><td colspan="3"><div><a href="###" onclick="addrow(this, 0)" class="addtr">'.$lang['custommenu_add'].'</a></div></td></tr>';
 			showsubmit('optionsubmit', 'submit', 'del', '', $multipage);
 			showtablefooter();
+			showboxfooter();
 			showformfooter();
 
 		} else {

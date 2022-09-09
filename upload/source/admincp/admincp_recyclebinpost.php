@@ -62,9 +62,10 @@ if(!$operation) {
 	showhiddenfields(array('posttableid' => $posttableid));
 	$checklpp = array();
 	$checklpp[$lpp] = 'selected="selected"';
-	showtableheader($lang['recyclebinpost_list'].
+	showboxheader($lang['recyclebinpost_list'].
 				'&nbsp<select onchange="if(this.options[this.selectedIndex].value != \'\') {window.location=\''.ADMINSCRIPT.'?action=recyclebinpost&lpp=\'+this.options[this.selectedIndex].value }">
 				<option value="20" '.$checklpp[20].'> '.$lang['perpage_20'].' </option><option value="50" '.$checklpp[50].'>'.$lang['perpage_50'].'</option><option value="100" '.$checklpp[100].'>'.$lang['perpage_100'].'</option></select>');
+	showtableheader();
 
 	$postlistcount = C::t('forum_post')->count_by_invisible($posttableid, '-5');
 
@@ -73,6 +74,7 @@ if(!$operation) {
 	}
 	showsubmit('rbsubmit', 'submit', '', '<a href="#rb" onclick="checkAll(\'option\', $(\'rbform\'), \'delete\')">'.cplang('recyclebin_all_delete').'</a> &nbsp;<a href="#rb" onclick="checkAll(\'option\', $(\'rbform\'), \'undelete\')">'.cplang('recyclebin_all_undelete').'</a> &nbsp;<a href="#rb" onclick="checkAll(\'option\', $(\'rbform\'), \'ignore\')">'.cplang('recyclebin_all_ignore').'</a> &nbsp;', $multi);
 	showtablefooter();
+	showboxfooter();
 	showformfooter();
 	echo '<iframe name="rbframe" style="display:none"></iframe>';
 	showtagfooter('div');
