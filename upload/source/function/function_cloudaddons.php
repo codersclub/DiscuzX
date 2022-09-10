@@ -61,11 +61,11 @@ function cloudaddons_check() {
 	if(!function_exists('gzuncompress')) {
 		cpmsg('cloudaddons_check_gzuncompress_error', '', 'error');
 	}
-	
+
 	if(!function_exists('curl_init') || !function_exists('curl_exec')) {
 		cpmsg('cloudaddons_check_curl_error', '', 'error');
 	}
-	
+
 	foreach(array('download', 'addonmd5') as $path) {
 		$tmpdir = DISCUZ_ROOT.'./data/'.$path.'/'.random(5);
 		$tmpfile = $tmpdir.'/index.html';
@@ -240,11 +240,11 @@ function cloudaddons_copytree($from, $to) {
 			$readfile = $from.'/'.$file;
 			$writefile = $to.'/'.$file;
 			if(is_file($readfile)) {
-				if(!in_array($readfile, $_G['treeop']['copy'])) {
+				if(!is_array($_G['treeop']['copy']) || !in_array($readfile, $_G['treeop']['copy'])) {
 					continue;
 				}
 				if(!isset($_G['siteftp'])) {
-					$content = -1;
+					$content = false;
 					if($fp = @fopen($readfile, 'r')) {
 						$startTime = microtime();
 						do {
@@ -257,11 +257,15 @@ function cloudaddons_copytree($from, $to) {
 						if(!$canRead) {
 							cpmsg('cloudaddons_file_read_error', '', 'error');
 						}
-						$content = fread($fp, filesize($readfile));
-						flock($fp, LOCK_UN);
-						fclose($fp);
+						if(filesize($readfile) == 0) {
+							$content = '';
+						} else {
+							$content = fread($fp, filesize($readfile));
+							flock($fp, LOCK_UN);
+							fclose($fp);
+						}
 					}
-					if($content < 0) {
+					if($content === false) {
 						cpmsg('cloudaddons_file_read_error', '', 'error');
 					}
 					dmkdir(dirname($writefile), 0777, false);
