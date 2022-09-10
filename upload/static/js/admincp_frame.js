@@ -1,6 +1,6 @@
 (function () {
 	var prevnav = prevtab = menunav = null;
-	function switchnav(key) {
+	function switchnav(key, nolocation) {
 		if (!key || !$('header_' + key)) {
 			return;
 		}
@@ -20,7 +20,9 @@
 			} else {
 				$('header_' + key).className = 'active';
 				$('lm_' + key).className = 'active';
-				parent.main.location = href;
+				if (!nolocation) {
+					parent.main.location = href;
+				}
 				prevnav = key;
 			}
 		}
@@ -64,7 +66,7 @@
 			openinnewwindow(this);
 		});
 	});
-	switchnav(typeof defaultNav != 'undefined' ? defaultNav : 'index');
+	switchnav(typeof defaultNav != 'undefined' ? defaultNav : 'index', 1);
 	switchtab(document.querySelector('nav ul ul a'));
 	$('cpsetting').addEventListener('click', function(){
 		$('bdcontainer').classList.toggle('oldlayout');
