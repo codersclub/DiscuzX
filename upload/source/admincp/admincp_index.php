@@ -63,29 +63,24 @@ $reldisp = is_numeric(DISCUZ_RELEASE) ? ('Release '.DISCUZ_RELEASE) : DISCUZ_REL
 
 cpheader();
 shownav();
+
 show_user_bar();
 show_todo();
 show_security_advise();
 show_releasetips();
 show_envcheck();
-show_onlines();
 
 echo '<div class="drow">';
-echo '<div class="dcol d-12">';
-show_note();
-echo '</div>';
-echo '<div class="dcol d-12">';
-show_filecheck();
-echo '</div>';
-echo '</div>';
 
-echo '<div class="drow">';
-echo '<div class="dcol d-12">';
+echo '<div class="dcol d-23">';
 show_sysinfo();
-echo '</div>';
-echo '<div class="dcol d-12">';
 show_news();
 echo '</div>';
+
+echo '<div class="dcol d-13">';
+show_widgets();
+echo '</div>';
+
 echo '</div>';
 
 show_git_thanks();
@@ -245,7 +240,7 @@ function show_releasetips() {
 function show_onlines() {
 	$admincp_session = C::t('common_admincp_session')->fetch_all_by_panel(1);
 	if(count($admincp_session) == 1) {
-		return '';
+		return;
 	}
 	$onlines = '';
 	$members = C::t('common_member')->fetch_all(array_keys($admincp_session), false, 0);
@@ -441,6 +436,33 @@ function show_news() {
 	showboxfooter();
 }
 
+function show_widgets() {
+	$widgets = array(
+		array('.', 'show_onlines'),
+		array('.', 'show_note'),
+		array('.', 'show_filecheck'),
+	);
+	$plugins = C::t('common_plugin')->fetch_all_data();
+	foreach ($plugins as $plugin) {
+		$cpindexfile = DISCUZ_ROOT.'./source/plugin/'.$plugin['identifier'].'/admin/admin_widget.php';
+		if(!file_exists($cpindexfile)) {
+			continue;
+		}
+		$widgets[] = array($cpindexfile, 'widget_'.$plugin['identifier']);
+	}
+
+	foreach ($widgets as $widget) {
+		list($file, $func) = $widget;
+		if($file != '.') {
+			require_once $file;
+		}
+		if(!function_exists($func)) {
+			continue;
+		}
+		$func();
+	}
+}
+
 function show_git_thanks() {
 	showboxheader('contributors', 'fixpadding', 'id="contributors"');
 	showboxrow('', array('class="dcol d-1 lineheight"', 'class="dcol lineheight team"'), array(
@@ -481,7 +503,7 @@ function show_forever_thanks() {
 	<a href="http://www.discuz.net/home.php?mod=space&uid=859" class="lightlink2 smallfont" target="_blank">Hypo \'Cnteacher\' Wang</a>
 	<a href="http://www.discuz.net/home.php?mod=space&uid=263098" class="lightlink2 smallfont" target="_blank">Liming \'huangliming\' Huang</a>
 	<a href="http://www.discuz.net/home.php?mod=space&uid=706770" class="lightlink2 smallfont" target="_blank">Jun \'Yujunhao\' Du</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=80629" class="lightlink2 smallfont" target="_blank">Ning \'Monkey\' Hou</a>
+	<a href="http://www.discuz.net/home.php?mod=space&uid=80629" class="lightlink2 smallfont" target="_blank">Ning \'Monkeye\' Hou</a>
 	<a href="http://www.discuz.net/home.php?mod=space&uid=246213" class="lightlink2 smallfont" target="_blank">Lanbo Liu</a>
 	<a href="http://www.discuz.net/home.php?mod=space&uid=322293" class="lightlink2 smallfont" target="_blank">Qingpeng \'andy888\' Zheng</a>
 	<a href="http://www.discuz.net/home.php?mod=space&uid=401635" class="lightlink2 smallfont" target="_blank">Guosheng \'bilicen\' Zhang</a>
