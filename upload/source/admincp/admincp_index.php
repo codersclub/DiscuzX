@@ -86,6 +86,8 @@ echo '</div>';
 show_git_thanks();
 show_forever_thanks();
 
+echo '</div>';
+
 $now = date('Y');
 echo <<<EOT
 <div class="copyright">
