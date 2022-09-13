@@ -52,6 +52,7 @@ class discuz_admincp
 
 		$this->cpsetting = $this->core->config['admincp'];
 		$this->adminuser = & $this->core->var['member'];
+		$this->core->var['setting']['jspath'] = 'static/js/';
 
 		$this->isfounder = $this->checkfounder($this->adminuser);
 
