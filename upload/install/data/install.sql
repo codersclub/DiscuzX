@@ -484,8 +484,8 @@ CREATE TABLE pre_common_smsgw (
   `order` int(10) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL DEFAULT '',
   `class` varchar(255) NOT NULL DEFAULT '0',
-  `sendrule` text NOT NULL DEFAULT '',
-  `parameters` text NOT NULL DEFAULT '',
+  `sendrule` text NOT NULL,
+  `parameters` text NOT NULL,
   PRIMARY KEY (smsgwid)
 ) ENGINE=InnoDB;
 
@@ -502,7 +502,7 @@ CREATE TABLE pre_common_smslog (
   `secmobile` varchar(12) NOT NULL DEFAULT '',
   `ip` varchar(45) NOT NULL DEFAULT '',
   `port` smallint(6) unsigned NOT NULL DEFAULT '0',
-  `content` text NOT NULL DEFAULT '',
+  `content` text NOT NULL,
   `dateline` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`smslogid`),
   KEY dateline (`secmobicc`, `secmobile`, `dateline`),
@@ -522,7 +522,7 @@ CREATE TABLE pre_common_smslog_archive (
   `secmobile` varchar(12) NOT NULL DEFAULT '',
   `ip` varchar(45) NOT NULL DEFAULT '',
   `port` smallint(6) unsigned NOT NULL DEFAULT '0',
-  `content` text NOT NULL DEFAULT '',
+  `content` text NOT NULL,
   `dateline` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`smslogid`)
 ) ENGINE=InnoDB;
