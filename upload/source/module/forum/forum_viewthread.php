@@ -930,6 +930,14 @@ if($_G['forum_attachpids'] && !defined('IN_ARCHIVER')) {
 }
 
 if(empty($postlist)) {
+	if($thread['closed'] > 1 && $thread['isgroup'] != 1) {
+		if(is_array($_G['setting']['rewritestatus']) && in_array('forum_viewthread', $_G['setting']['rewritestatus'])) {
+			$canonical = rewriteoutput('forum_viewthread', 1, '', $thread['closed'], 1, '', '');
+		} else {
+			$canonical = 'forum.php?mod=viewthread&tid='.$thread['closed'];
+		}
+		dheader('Location:'.$_G['siteurl'].$canonical);
+	}
 	showmessage('post_not_found');
 } elseif(!defined('IN_MOBILE_API')) {
 	foreach($postlist as $pid => $post) {
