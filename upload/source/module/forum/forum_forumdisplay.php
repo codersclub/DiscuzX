@@ -385,19 +385,19 @@ if($filter && $filter != 'hot') {
 			$selectadd = $issort ? $geturl : array();
 			foreach($filterfield as $option) {
 				foreach($geturl as $field => $value) {
-					if(in_array($field, $filterfield) && $option != $field && $field != 'page' && ($field != 'orderby' || !in_array($option, array('author', 'reply', 'view', 'lastpost', 'heat')))) {
+					if(in_array($field, $filterfield) && $option != $field && $field != 'page' && $option != 'page' && ($field != 'orderby' || !in_array($option, array('author', 'reply', 'view', 'lastpost', 'heat')))) {
 						if(!(in_array($option, array('digest', 'recommend')) && in_array($field, array('digest', 'recommend')))) {
 							$forumdisplayadd[$option] .= '&'.rawurlencode($field).'='.rawurlencode($value);
 						}
 					}
 				}
-				if($issort) {
-					$sfilterfield = array_merge(array('filter', 'sortid', 'orderby', 'fid'), $filterfield);
-					foreach($geturl as $soption => $value) {
-						$forumdisplayadd[$soption] .= !in_array($soption, $sfilterfield) ? '&'.rawurlencode($soption).'='.rawurlencode($value) : '';
-					}
-					unset($sfilterfield);
+			}
+			if($issort) {
+				$sfilterfield = array_merge(array('filter', 'sortid', 'orderby', 'fid'), $filterfield);
+				foreach($geturl as $soption => $value) {
+					$forumdisplayadd[$soption] .= !in_array($soption, $sfilterfield) ? '&'.rawurlencode($soption).'='.rawurlencode($value) : '';
 				}
+				unset($sfilterfield);
 			}
 			if($issort && is_array($quicksearchlist)) {
 				foreach($quicksearchlist as $option) {
