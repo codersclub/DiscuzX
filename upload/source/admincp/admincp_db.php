@@ -891,7 +891,7 @@ if($operation == 'export') {
 					$discuzdbnew[$cuttable][$fields['Field']]['Type'] = $fields['Type'];
 					$discuzdbnew[$cuttable][$fields['Field']]['Null'] = $fields['Null'] == '' ? 'NO' : $fields['Null'];
 					$discuzdbnew[$cuttable][$fields['Field']]['Extra'] = $fields['Extra'];
-					$discuzdbnew[$cuttable][$fields['Field']]['Default'] = $fields['Default'] == '' || $fields['Default'] == '0' ? '' : $fields['Default'];
+					$discuzdbnew[$cuttable][$fields['Field']]['Default'] = $fields['Default'] == '' || $fields['Default'] == '0' || substr($fields['Type'], 0, 9) == 'varbinary' ? '' : $fields['Default'];
 				}
 				ksort($discuzdbnew[$cuttable]);
 			} else {
@@ -919,29 +919,33 @@ if($operation == 'export') {
 		unset($allsetting);
 		$settingsdellist = is_array($settingsdata) ? array_diff($settingsdata, $settingsdatanew) : array();
 
-		if($dbmd5 == $dbmd5new && empty($charseterror) && empty($settingsdellist)) {
+		if((substr($dbmd5, 0, 16) == substr($dbmd5new, 0, 16) || substr($dbmd5, 16, 16) == substr($dbmd5new, 16, 16)) && empty($charseterror) && empty($settingsdellist)) {
 			cpmsg('dbcheck_ok', '', 'succeed');
 		}
 
 		$showlist = $addlists = '';
 		foreach($discuzdb as $dbtable => $fields) {
 			$addlist = $modifylist = $dellist = array();
+			if(is_array($excepttables) && in_array($dbtable, $excepttables)) {
+				continue;
+			}
 			if($fields != $discuzdbnew[$dbtable]) {
 				foreach($discuzdb[$dbtable] as $key => $value) {
-					$tempvalue = str_replace('mediumtext', 'text', $value);
-					$discuzdbnew[$dbtable][$key] = str_replace('mediumtext', 'text', $discuzdbnew[$dbtable][$key]);
-					if(is_array($missingtables) && in_array($tablepre.$dbtable, $missingtables)) {
-					} elseif(!isset($discuzdbnew[$dbtable][$key])) {
+					if(empty($discuzdbnew[$dbtable][$key])) {
 						$dellist[] = $value;
-					} elseif($tempvalue != $discuzdbnew[$dbtable][$key]) {
-						// MySQL 8.0.17 开始不再支持除tinyint(1)以外的任何int类数据类型的显示宽度，检测到此行为则移除数值。
-						if((strpos($tempvalue['Type'], 'int(') !== false) && (strpos($discuzdbnew[$dbtable][$key]['Type'], '(') === false)) {
-							$tempvalue['Type'] = preg_replace('/\(\d+\)/', '', $tempvalue['Type']);
-							if($tempvalue != $discuzdbnew[$dbtable][$key]) {
+					} else {
+						$tempvalue = str_replace('mediumtext', 'text', $value);
+						$discuzdbnew[$dbtable][$key] = str_replace('mediumtext', 'text', $discuzdbnew[$dbtable][$key]);
+						if($tempvalue != $discuzdbnew[$dbtable][$key]) {
+							// MySQL 8.0.17 开始不再支持除tinyint(1)以外的任何int类数据类型的显示宽度，检测到此行为则移除数值。
+							if((strpos($tempvalue['Type'], 'int(') !== false) && !empty($discuzdbnew[$dbtable][$key]['Type']) && (strpos($discuzdbnew[$dbtable][$key]['Type'], '(') === false)) {
+								$tempvalue['Type'] = preg_replace('/\(\d+\)/', '', $tempvalue['Type']);
+								if($tempvalue != $discuzdbnew[$dbtable][$key]) {
+									$modifylist[] = $value;
+								}
+							} else {
 								$modifylist[] = $value;
 							}
-						} else {
-							$modifylist[] = $value;
 						}
 					}
 				}
@@ -959,13 +963,14 @@ if($operation == 'export') {
 				$showlist .= showtablerow('', '', array("<span class=\"diffcolor3\">$tablepre$dbtable</span> {$lang['dbcheck_field']}", $lang['dbcheck_org_field'], $lang['dbcheck_status']), TRUE);
 
 				foreach($modifylist as $value) {
-					$slowstatus = slowcheck($discuzdbnew[$dbtable][$value['Field']]['Type'], $value['Type']);
+					$dbvfield = empty($discuzdbnew[$dbtable][$value['Field']]) ? array('Type' => '', 'Null' => '', 'Extra' => '', 'Default' => '') : $discuzdbnew[$dbtable][$value['Field']];
+					$slowstatus = slowcheck($dbvfield['Type'], $value['Type']);
 
 					$showlist .= "<tr><td><input name=\"repair[]\" class=\"checkbox\" type=\"checkbox\" value=\"$dbtable|{$value['Field']}|modify\"> <b>".$value['Field']."</b> ".
-						$discuzdbnew[$dbtable][$value['Field']]['Type'].
-						($discuzdbnew[$dbtable][$value['Field']]['Null'] == 'NO' ? ' NOT NULL' : '').
-						(!preg_match('/auto_increment/i', $discuzdbnew[$dbtable][$value['Field']]['Extra']) && !preg_match('/text/i', $discuzdbnew[$dbtable][$value['Field']]['Type']) ? ' default \''.$discuzdbnew[$dbtable][$value['Field']]['Default'].'\'' : '').
-						' '.$discuzdbnew[$dbtable][$value['Field']]['Extra'].
+						$dbvfield['Type'].
+						($dbvfield['Null'] == 'NO' ? ' NOT NULL' : '').
+						(!preg_match('/auto_increment/i', $dbvfield['Extra']) && !preg_match('/text/i', $dbvfield['Type']) ? ' default \''.$dbvfield['Default'].'\'' : '').
+						' '.$dbvfield['Extra'].
 						"</td><td><b>".$value['Field']."</b> ".$value['Type'].
 						($value['Null'] == 'NO' ? ' NOT NULL' : '').
 						(!preg_match('/auto_increment/i', $value['Extra']) && !preg_match('/text/i', $value['Type']) ? ' default \''.$value['Default'].'\'' : '').
@@ -1079,6 +1084,7 @@ EOT;
 		showformheader('db&operation=dbcheck&step=3', 'fixpadding');
 		showtableheader();
 		echo $showlist;
+		!$showlist && cpmsg('dbcheck_ok', '', 'succeed');
 		showtablefooter();
 		showformfooter();
 
@@ -1297,8 +1303,8 @@ function splitsql($sql) {
 }
 
 function slowcheck($type1, $type2) {
-	$t1 = explode(' ', $type1);$t1 = $t1[0];
-	$t2 = explode(' ', $type2);$t2 = $t2[0];
+	$t1 = explode(' ', $type1.' ');$t1 = $t1[0];
+	$t2 = explode(' ', $type2.' ');$t2 = $t2[0];
 	$arr = array($t1, $t2);
 	sort($arr);
 	if($arr == array('mediumtext', 'text')) {
