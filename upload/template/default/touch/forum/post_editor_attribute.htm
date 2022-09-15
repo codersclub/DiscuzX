@@ -46,12 +46,12 @@
 				<ul class="cl">
 					<li class="flex-box mli">
 						<div class="tit">{lang replycredit_reward}</div>
-						<div class="flex input"><input type="text" name="replycredit_times" id="replycredit_times" class="px pxs vm" value="{if !empty($replycredit_rule['lasttimes'])}{$replycredit_rule['lasttimes']}{else}1{/if}" onkeyup="javascript:getreplycredit();"  onblur="extraCheck(0)" /></div>
+						<div class="flex input"><input type="text" name="replycredit_times" id="replycredit_times" class="px pxs vm" value="{if !empty($replycredit_rule['lasttimes'])}{$replycredit_rule['lasttimes']}{else}1{/if}" onkeyup="javascript:getreplycredit();" /></div>
 						<div class="tit">{lang replycredit_time}</div>
 					</li>
 					<li class="flex-box mli">
 						<div class="tit">{lang replycredit_once}</div>
-						<div class="flex input"><input type="text" name="replycredit_extcredits" id="replycredit_extcredits" class="px pxs vm" value="{if !empty($replycredit_rule['extcredits']) && $thread['replycredit'] > 0}{$replycredit_rule['extcredits']}{else}0{/if}" onkeyup="javascript:getreplycredit();" onblur="extraCheck(0)" /></div>
+						<div class="flex input"><input type="text" name="replycredit_extcredits" id="replycredit_extcredits" class="px pxs vm" value="{if !empty($replycredit_rule['extcredits']) && $thread['replycredit'] > 0}{$replycredit_rule['extcredits']}{else}0{/if}" onkeyup="javascript:getreplycredit();" /></div>
 						<div class="tit">{$_G['setting']['extcredits'][$extcreditstype][unit]}{$_G['setting']['extcredits'][$extcreditstype][title]}<span class="xg1">{lang replycredit_empty}</span> </div>
 					</li>
 					<li class="flex-box mli">
@@ -107,7 +107,7 @@
 					<li class="flex-box mli">
 						<div class="tit">{lang price}:</div>
 						<div class="flex input">
-							<input type="text" id="price" name="price" class="px pxs" value="$thread[pricedisplay]" onblur="extraCheck(2)" />
+							<input type="text" id="price" name="price" class="px pxs" value="$thread[pricedisplay]" />
 						</div>
 						<div class="pipe">
 							{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][unit]}{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][title]}
@@ -127,7 +127,7 @@
 				<ul class="cl">
 					<li class="flex-box mli">
 						<div class="tit">{lang post_tag}:</div>
-						<div class="flex input"><input type="text" class="px vm" size="60" id="tags" name="tags" value="{$postinfo[tag] or ''}" onblur="extraCheck(4)" /></div>
+						<div class="flex input"><input type="text" class="px vm" size="60" id="tags" name="tags" value="{$postinfo[tag] or ''}" /></div>
 					</li>
 					<li class="mtit p10">
 						<p class="xg1">{lang posttag_comment}</p>
