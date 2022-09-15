@@ -121,9 +121,9 @@
 							</td>
 							<td>
 								<!--{if $item == 'buytrades'}-->
-									<!--{if $tradelog['buyerid']}--><a target="_blank" href="home.php?mod=space&uid=$tradelog[buyerid]">$tradelog[buyer]</a><!--{else}-->$tradelog[buyer]<!--{/if}-->
-								<!--{else}-->
 									<a target="_blank" href="home.php?mod=space&uid=$tradelog[sellerid]">$tradelog[seller]</a>
+								<!--{else}-->
+									<!--{if $tradelog['buyerid']}--><a target="_blank" href="home.php?mod=space&uid=$tradelog[buyerid]">$tradelog[buyer]</a><!--{else}-->$tradelog[buyer]<!--{/if}-->
 								<!--{/if}-->
 							</td>
 							<td>
