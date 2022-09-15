@@ -835,10 +835,10 @@ function updatetopic($topic = ''){
 		'domain' => $_POST['domain'],
 		'summary' => getstr($_POST['summary']),
 		'keyword' => getstr($_POST['keyword']),
-		'useheader' => $_POST['useheader'] ? '1' : '0',
-		'usefooter' => $_POST['usefooter'] ? '1' : '0',
-		'allowcomment' => $_POST['allowcomment'] ? 1 : 0,
-		'closed' => $_POST['closed'] ? 0 : 1,
+		'useheader' => !empty($_POST['useheader']) ? '1' : '0',
+		'usefooter' => !empty($_POST['usefooter']) ? '1' : '0',
+		'allowcomment' => !empty($_POST['allowcomment']) ? 1 : 0,
+		'closed' => !empty($_POST['closed']) ? 0 : 1,
 	);
 
 	if($_POST['deletecover'] && $topic['cover']) {
@@ -895,12 +895,12 @@ function updatetopic($topic = ''){
 	}
 
 	$tpldirectory = '';
-	if($primaltplname && $topic['primaltplname'] != $primaltplname) {
+	if($primaltplname && (empty($topic['primaltplname']) || $topic['primaltplname'] != $primaltplname)) {
 		$targettplname = 'portal/portal_topic_content_'.$topicid;
 		if(strpos($primaltplname, ':') !== false) {
 			list($tpldirectory, $primaltplname) = explode(':', $primaltplname);
 		}
-		C::t('common_diy_data')->update_diy($targettplname, getdiydirectory($topic['primaltplname']), array('primaltplname'=>$primaltplname, 'tpldirectory'=>$tpldirectory));
+		C::t('common_diy_data')->update_diy($targettplname, getdiydirectory(isset($topic['primaltplname']) ? $topic['primaltplname'] : ''), array('primaltplname'=>$primaltplname, 'tpldirectory'=>$tpldirectory));
 		updatediytemplate($targettplname);
 	}
 
