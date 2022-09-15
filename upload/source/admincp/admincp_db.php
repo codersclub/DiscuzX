@@ -23,7 +23,7 @@ cpheader();
 if(!isfounder()) cpmsg('noaccess_isfounder', '', 'error');
 
 
-$excepttables = array($tablepre.'common_admincp_session', $tablepre.'common_syscache', $tablepre.'common_failedlogin', $tablepre.'forum_rsscache', $tablepre.'common_searchindex', $tablepre.'forum_spacecache', $tablepre.'common_session');
+$excepttables = array($tablepre.'common_admincp_session', $tablepre.'common_failedlogin', $tablepre.'forum_rsscache', $tablepre.'common_searchindex', $tablepre.'forum_spacecache', $tablepre.'common_session');
 
 $backupdir = C::t('common_setting')->fetch('backupdir');
 
