@@ -795,9 +795,9 @@ if($operation == 'export') {
 			}
 
 			foreach($repair as $value) {
-				if(!in_array($r_table, $repairtable)) {
-					list($r_table, $r_field, $option) = explode('|', $value);
-					if(!isset($repairrtable[$r_table]) && $fieldsquery = DB::query("SHOW FIELDS FROM ".DB::table($r_table), 'SILENT')) {
+				list($r_table, $r_field, $option) = explode('|', $value);
+				if(!in_array($r_table, $repairtable) || $option != 'modify') {
+					if($fieldsquery = DB::query("SHOW FIELDS FROM ".DB::table($r_table), 'SILENT')) {
 						while($fields = DB::fetch($fieldsquery)) {
 							$fielddefault[$r_table][$fields['Field']] = $fields['Default'];
 						}
