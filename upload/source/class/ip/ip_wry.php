@@ -14,20 +14,20 @@ if(!defined('IN_DISCUZ')) {
 class ip_wry_init_exception extends Exception {}
 
 class ip_wry {
-	
-	
+
+
 	private static $instance = null;
-	private $fd = null;
+	private $fp = null;
 	private $ipbegin = null;
 	private $ipAllNum = null;
 
 	private function __construct() {
 		$ipdatafile = constant("DISCUZ_ROOT").'./data/ipdata/wry.dat';
-		$this->fd = fopen($ipdatafile, 'rb');
-		if (!$this->fd) {
+		$this->fp = fopen($ipdatafile, 'rb');
+		if (!$this->fp) {
 			throw new ip_wry_init_exception();
 		}
-		if(!($DataBegin = fread($this->fd, 4)) || !($DataEnd = fread($this->fd, 4)) ) throw new ip_wry_init_exception();
+		if(!($DataBegin = fread($this->fp, 4)) || !($DataEnd = fread($this->fp, 4)) ) throw new ip_wry_init_exception();
 		$this->ipbegin = implode('', unpack('L', $DataBegin));
 		if($this->ipbegin < 0) $this->ipbegin += pow(2, 32);
 		$ipend = implode('', unpack('L', $DataEnd));
@@ -36,8 +36,8 @@ class ip_wry {
 	}
 
 	function __destruct() {
-		if ($this->fd) {
-			@fclose($this->fd);
+		if ($this->fp) {
+			@fclose($this->fp);
 		}
 	}
 
@@ -63,8 +63,8 @@ class ip_wry {
 		while($ip1num > $ipNum || $ip2num < $ipNum) {
 			$Middle= intval(($EndNum + $BeginNum) / 2);
 
-			fseek($this->fd, $this->ipbegin + 7 * $Middle);
-			$ipData1 = fread($this->fd, 4);
+			fseek($this->fp, $this->ipbegin + 7 * $Middle);
+			$ipData1 = fread($this->fp, 4);
 			if(strlen($ipData1) < 4) {
 				return '- System Error';
 			}
@@ -76,13 +76,13 @@ class ip_wry {
 				continue;
 			}
 
-			$DataSeek = fread($this->fd, 3);
+			$DataSeek = fread($this->fp, 3);
 			if(strlen($DataSeek) < 3) {
 				return '- System Error';
 			}
 			$DataSeek = implode('', unpack('L', $DataSeek.chr(0)));
-			fseek($this->fd, $DataSeek);
-			$ipData2 = fread($this->fd, 4);
+			fseek($this->fp, $DataSeek);
+			$ipData2 = fread($this->fp, 4);
 			if(strlen($ipData2) < 4) {
 				return '- System Error';
 			}
@@ -97,59 +97,59 @@ class ip_wry {
 			}
 		}
 
-		$ipFlag = fread($this->fd, 1);
+		$ipFlag = fread($this->fp, 1);
 		if($ipFlag == chr(1)) {
-			$ipSeek = fread($this->fd, 3);
+			$ipSeek = fread($this->fp, 3);
 			if(strlen($ipSeek) < 3) {
 				return '- System Error';
 			}
 			$ipSeek = implode('', unpack('L', $ipSeek.chr(0)));
-			fseek($this->fd, $ipSeek);
-			$ipFlag = fread($this->fd, 1);
+			fseek($this->fp, $ipSeek);
+			$ipFlag = fread($this->fp, 1);
 		}
 
 		if($ipFlag == chr(2)) {
-			$AddrSeek = fread($this->fd, 3);
+			$AddrSeek = fread($this->fp, 3);
 			if(strlen($AddrSeek) < 3) {
 				return '- System Error';
 			}
-			$ipFlag = fread($this->fd, 1);
+			$ipFlag = fread($this->fp, 1);
 			if($ipFlag == chr(2)) {
-				$AddrSeek2 = fread($this->fd, 3);
+				$AddrSeek2 = fread($this->fp, 3);
 				if(strlen($AddrSeek2) < 3) {
 					return '- System Error';
 				}
 				$AddrSeek2 = implode('', unpack('L', $AddrSeek2.chr(0)));
-				fseek($this->fd, $AddrSeek2);
+				fseek($this->fp, $AddrSeek2);
 			} else {
-				fseek($this->fd, -1, SEEK_CUR);
+				fseek($this->fp, -1, SEEK_CUR);
 			}
 
-			while(($char = fread($this->fd, 1)) != chr(0))
+			while(($char = fread($this->fp, 1)) != chr(0))
 			$ipAddr2 .= $char;
 
 			$AddrSeek = implode('', unpack('L', $AddrSeek.chr(0)));
-			fseek($this->fd, $AddrSeek);
+			fseek($this->fp, $AddrSeek);
 
-			while(($char = fread($this->fd, 1)) != chr(0))
+			while(($char = fread($this->fp, 1)) != chr(0))
 			$ipAddr1 .= $char;
 		} else {
-			fseek($this->fd, -1, SEEK_CUR);
-			while(($char = fread($this->fd, 1)) != chr(0))
+			fseek($this->fp, -1, SEEK_CUR);
+			while(($char = fread($this->fp, 1)) != chr(0))
 			$ipAddr1 .= $char;
 
-			$ipFlag = fread($this->fd, 1);
+			$ipFlag = fread($this->fp, 1);
 			if($ipFlag == chr(2)) {
-				$AddrSeek2 = fread($this->fd, 3);
+				$AddrSeek2 = fread($this->fp, 3);
 				if(strlen($AddrSeek2) < 3) {
 					return '- System Error';
 				}
 				$AddrSeek2 = implode('', unpack('L', $AddrSeek2.chr(0)));
-				fseek($this->fd, $AddrSeek2);
+				fseek($this->fp, $AddrSeek2);
 			} else {
-				fseek($this->fd, -1, SEEK_CUR);
+				fseek($this->fp, -1, SEEK_CUR);
 			}
-			while(($char = fread($this->fd, 1)) != chr(0))
+			while(($char = fread($this->fp, 1)) != chr(0))
 			$ipAddr2 .= $char;
 		}
 

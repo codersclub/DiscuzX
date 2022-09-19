@@ -253,7 +253,8 @@ class ip {
 		} else {
 			$c = 'ip_tiny';
 		}
-		return $c::getInstance()->convert($ip);
+		$ipobject = $c::getInstance();
+		return $ipobject === NULL ? '- Error' : $ipobject->convert($ip);
 	}
 
 	public static function checkaccess($ip, $accesslist) {

@@ -16,7 +16,7 @@ class ip_tiny_init_exception extends Exception {}
 class ip_tiny {
 	
 	private static $instance = NULL;
-	private $fd = NULL;
+	private $fp = NULL;
 	private $offset = array();
 	private $index = NULL;
 	private $length = 0;
@@ -35,8 +35,8 @@ class ip_tiny {
 	}
 
 	function __destruct() {
-		if ($this->fd) {
-			@fclose($this->fd);
+		if ($this->fp) {
+			@fclose($this->fp);
 		}
 	}
 
