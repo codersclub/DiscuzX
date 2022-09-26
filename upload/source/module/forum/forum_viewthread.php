@@ -722,6 +722,7 @@ if($_G['forum']['status'] != 3) {
 	$seotype = 'viewthread_group';
 	$seodata['first'] = $nav['first']['name'];
 	$seodata['second'] = $nav['second']['name'];
+	$seodata['gdes'] = $_G['forum']['description'];
 }
 
 list($navtitle, $metadescription, $metakeywords) = get_seosetting($seotype, $seodata);
