@@ -133,7 +133,7 @@
 								<span id="k_worker_uid_{$collectionworker['uid']}">
 								<a href="home.php?mod=space&uid={$collectionworker['uid']}" c="1" class="xi2">{$collectionworker['username']}</a>&nbsp;
 								<!--{if $permission}-->
-									<a href="forum.php?mod=collection&action=edit&op=removeworker&ctid={$_G['collection']['ctid']}&uid={$collectionworker['uid']}&formhash={FORMHASH}"  onclick="showDialog('{lang collection_delete_confirm}','confirm','','ajaxget(\''+this.href+'\',\'k_worker_uid_{$collectionworker['uid']}\')');return false;" class="xi2">[{lang delete}]</a>&nbsp;
+									<a href="forum.php?mod=collection&action=edit&op=removeworker&ctid={$_G['collection']['ctid']}&uid={$collectionworker['uid']}&formhash={FORMHASH}"  onclick="showDialog('{lang collection_delete_worker}','confirm','','ajaxget(\''+this.href+'\',\'k_worker_uid_{$collectionworker['uid']}\')');return false;" class="xi2">[{lang delete}]</a>&nbsp;
 								<!--{/if}-->
 								</span>
 							<!--{/loop}-->
