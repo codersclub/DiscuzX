@@ -433,7 +433,7 @@ if($op == 'replies') {
 
 				if($thread['authorid'] && $thread['authorid'] != $_G['uid']) {
 					$pmlist[] = array(
-						'act' => 'modthreads_delete',
+						'act' => $_GET['reason'] ? 'modthreads_delete_reason' : 'modthreads_delete',
 						'notevar' => array('reason' => dhtmlspecialchars($_GET['reason']), 'threadsubject' => $thread['subject']),
 						'authorid' => $thread['authorid'],
 					);
