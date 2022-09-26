@@ -53,7 +53,7 @@ if(!$operation) {
 		$splitavailable = array();
 		foreach($plugins as $plugin) {
 			$addonid = $plugin['identifier'].'.plugin';
-			$updateinfo = '';
+			$updateinfo = $newver = $sysver = '';
 			if(is_array($checkresult) && isset($checkresult[$addonid])) {
 				list(, $newver, $sysver) = explode(':', $checkresult[$addonid]);
 			}
