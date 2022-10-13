@@ -412,7 +412,7 @@ if($_GET['action'] == 'paysucceed') {
 			}
 		}
 		if($_GET['ajaxdata'] === 'json') {
-			showmessage(array('dataexist' => $dataexist, 'cid' => $cid), '', $crimelist);
+			showmessage($dataexist.'|'.$cid, '', $crimelist);
 		} else {
 			include_once template("forum/darkroom");
 		}
