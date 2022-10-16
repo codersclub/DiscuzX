@@ -126,7 +126,8 @@ Created & Modified by Alice, Monkey, Lushnis, Pony, Dfox & DragonLee.
 			.usl li { overflow: hidden; float: left; margin: 3px; width: 134px; height: 64px; }
 			.usl a { display: block; padding: 4px; border: 1px solid {WRAPBG}; }
 				.usl a:hover { text-decoration: none; border: 1px solid; border-color: #DDD #999 #999 #DDD; background: {COMMONBG}; }
-			.usl .avt { float: left; margin-right: 5px; width: 52px; height: 52px; border: 1px solid {COMMONBORDER}; background-color: {WRAPBG}; background-position: 2px 2px; background-repeat: no-repeat; background-size: 48px; zoom: 1; }
+			.usl .avt { float: left; margin-right: 5px; width: 52px; height: 52px; border: 1px solid {COMMONBORDER}; background-color: {WRAPBG}; background-position: 2px 2px; background-repeat: no-repeat; background-size: 48px; background-image: url('../avatar/noavatar.svg'); zoom: 1; }
+			.usl .avt.brs > span { display: block; margin: 2px; width: 48px; height: 48px; background-size: 100%; }
 			.usl .d { float: left; width: 65px; height: 54px; overflow: hidden; word-wrap: break-word; }
 			.usl li.a a, .usl li.a a:hover { border-color: #F90; background-color: #FFF1E1; }
 			.usl li.a .avt { position: relative; }

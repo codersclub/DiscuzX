@@ -258,7 +258,7 @@
 				username = username.replace(reg , "<strong>$1</strong>");
 			}
 			if(this.showType == 1) {
-				liObj.innerHTML = '<a href="javascript:;" id="' + liObj.userid + '" onclick="' + this.handleKey + '.select(this.id)" class="cl"><span class="avt brs" style="background-image: url(' + appendUserData['avatar'] + ');"><span></span></span><span class="d">' + username + '</span></a>';
+				liObj.innerHTML = '<a href="javascript:;" id="' + liObj.userid + '" onclick="' + this.handleKey + '.select(this.id)" class="cl"><span class="avt brs"><span style="background-image: url(' + appendUserData['avatar'] + ');"></span></span><span class="d">' + username + '</span></a>';
 			} else if(this.showType == 2) {
 				if(appendUserData['new'] && typeof this.newPMUser[uid] == 'undefined') {
 					this.newPMUser[uid] = uid;
