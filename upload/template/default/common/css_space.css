@@ -54,7 +54,7 @@ body { background-color: transparent; }
 		.ul_contect:before { content: "\f10e"; }
 		.ul_poke:before { content: "\f146"; }
 		.ul_pm:before { content: "\f119"; }
-		.ul_magicgift { height: 30px !important; margin: 0 auto; line-height: 30px; }
+		.ul_list .ul_magicgift a { padding-left: 20px; }
 		.ul_broadcast:before { content: "\f131"; }
 		.ul_flw:before { content: "\f11e"; }
 
