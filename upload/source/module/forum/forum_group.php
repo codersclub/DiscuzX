@@ -222,6 +222,9 @@ if($action == 'index') {
 	include template('diy:group/group:'.$_G['fid']);
 
 } elseif($action == 'join') {
+	if(!submitcheck('groupjoin')) {
+		dheader('location: '.$_G['siteurl']."forum.php?mod=forumdisplay&fid={$_G['fid']}&extra=join");
+	}
 	$inviteuid = 0;
 	$membermaximum = $_G['current_grouplevel']['specialswitch']['membermaximum'];
 	if(!empty($membermaximum)) {

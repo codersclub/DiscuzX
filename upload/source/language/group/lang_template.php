@@ -22,6 +22,7 @@ $lang = array (
   'group_join_type_free' => '自由加入',
   'group_join_type_invite' => '邀请加入',
   'group_join_type_moderate' => '审核加入',
+  'group_join_confirm' => '您确定要加入该{$_G[\'setting\'][\'navs\'][3][\'navname\']}吗？',
   'group_level' => '{$_G[\'setting\'][\'navs\'][3][\'navname\']}等级',
   'group_member_list' => '成员列表',
   'group_moderator_title' => '群主',

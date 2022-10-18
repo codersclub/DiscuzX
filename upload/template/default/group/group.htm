@@ -32,7 +32,11 @@
 								<!--{if $status != 2 && $status != 3 && $status != 5}-->
 									<!--{if helper_access::check_module('group') && $status != 'isgroupuser'}-->
 									<div class="ptm pbn">
-										<button type="button" class="pn" onclick="location.href='forum.php?mod=group&action=join&fid=$_G[fid]'"><em>{lang group_join_group}</em></button>
+										<form action="forum.php?mod=group&action=join&fid=$_G[fid]" id="groupjoinform_{$_G['fid']}" method="post" autocomplete="off">
+											<input type="hidden" name="formhash" value="{FORMHASH}">
+											<input type="hidden" name="groupjoin" value="1">
+											<button type="submit" class="pn"><em>{lang group_join_group}</em></button>
+										</form>
 									</div>
 									<!--{/if}-->
 									<!--{if CURMODULE == 'group'}--><!--{hook/group_navlink}--><!--{else}--><!--{hook/forumdisplay_navlink}--><!--{/if}-->
@@ -54,7 +58,11 @@
 									<!--{if $status == 3 || $status == 5}-->
 										{lang group_has_joined}
 									<!--{elseif helper_access::check_module('group')}-->
-										<button type="button" class="pn" onclick="location.href='forum.php?mod=group&action=join&fid=$_G[fid]'"><em>{lang group_join_group}</em></button>
+										<form action="forum.php?mod=group&action=join&fid=$_G[fid]" id="groupjoinform_{$_G['fid']}" method="post" autocomplete="off">
+											<input type="hidden" name="formhash" value="{FORMHASH}">
+											<input type="hidden" name="groupjoin" value="1">
+											<button type="submit" class="pn"><em>{lang group_join_group}</em></button>
+										</form>
 									<!--{/if}-->
 									</p>
 								<!--{/if}-->
@@ -88,7 +96,11 @@
 									<!--{if $status == 3 || $status == 5}-->
 										{lang group_has_joined}
 									<!--{elseif helper_access::check_module('group')}-->
-										<button type="button" class="pn" onclick="location.href='forum.php?mod=group&action=join&fid=$_G[fid]'"><em>{lang group_join_group}</em></button>
+										<form action="forum.php?mod=group&action=join&fid=$_G[fid]" id="groupjoinform_{$_G['fid']}" method="post" autocomplete="off">
+											<input type="hidden" name="formhash" value="{FORMHASH}">
+											<input type="hidden" name="groupjoin" value="1">
+											<button type="submit" class="pn"><em>{lang group_join_group}</em></button>
+										</form>
 									<!--{/if}-->
 								</dd>
 								<!--{/if}-->
@@ -96,13 +108,20 @@
 							<!--{if $status != 2 && $status != 3 && $status != 5}-->
 								<!--{if helper_access::check_module('group') && $status != 'isgroupuser'}-->
 								<div class="ptm pbm">
-									<button type="button" class="pn" onclick="location.href='forum.php?mod=group&action=join&fid=$_G[fid]'"><em>{lang group_join_group}</em></button>
+									<form action="forum.php?mod=group&action=join&fid=$_G[fid]" id="groupjoinform_{$_G['fid']}" method="post" autocomplete="off">
+										<input type="hidden" name="formhash" value="{FORMHASH}">
+										<input type="hidden" name="groupjoin" value="1">
+										<button type="submit" class="pn"><em>{lang group_join_group}</em></button>
+									</form>
 								</div>
 								<!--{/if}-->
 								<!--{if CURMODULE == 'group'}--><!--{hook/group_navlink}--><!--{else}--><!--{hook/forumdisplay_navlink}--><!--{/if}-->
 							<!--{/if}-->
 						</div>
 					</div>
+				<!--{/if}-->
+				<!--{if getgpc('extra') == 'join'}-->
+				<script>showDialog('{lang group_join_confirm}', 'confirm', '', function(){$('groupjoinform_{$_G['fid']}').submit();});</script>
 				<!--{/if}-->
 				<!--[diy=diycontentmiddle]--><div id="diycontentmiddle" class="area"></div><!--[/diy]-->
 				<!--{if CURMODULE == 'group'}--><!--{hook/group_top}--><!--{else}--><!--{hook/forumdisplay_top}--><!--{/if}-->
