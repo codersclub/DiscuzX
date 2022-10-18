@@ -225,7 +225,7 @@ $lang = array(
 
 	'viewthread_userinfo_hour' => '小时',
 	'viewthread_userinfo_uid' => 'UID',
-	'viewthread_userinfo_posts' => '帖子',
+	'viewthread_userinfo_posts' => '回帖',
 	'viewthread_userinfo_threads' => '主题',
 	'viewthread_userinfo_doings' => '记录',
 	'viewthread_userinfo_blogs' => '日志',
