@@ -170,6 +170,7 @@ var popup = {
 				pop.css({'display':'none'});
 				obj.on('click', function(e) {
 					$this.open(pop);
+					return false;
 				});
 			}
 		});
