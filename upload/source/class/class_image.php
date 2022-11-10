@@ -278,9 +278,11 @@ class image {
 		if($attach_photo < 0) {
 			return $attach_photo;
 		}
-		$copy_photo = imagecreatetruecolor($this->imginfo['width'], $this->imginfo['height']);
-		imagecopy($copy_photo, $attach_photo ,0, 0, 0, 0, $this->imginfo['width'], $this->imginfo['height']);
-		$attach_photo = $copy_photo;
+		if($this->imginfo['mime'] != 'image/png') {
+			$copy_photo = imagecreatetruecolor($this->imginfo['width'], $this->imginfo['height']);
+			imagecopy($copy_photo, $attach_photo , 0, 0, 0, 0, $this->imginfo['width'], $this->imginfo['height']);
+			$attach_photo = $copy_photo;
+		}
 
 		$thumb_photo = null;
 		switch($this->param['thumbtype']) {
@@ -292,6 +294,10 @@ class image {
 					$cx = $this->imginfo['width'];
 					$cy = $this->imginfo['height'];
 					$thumb_photo = imagecreatetruecolor($thumb['width'], $thumb['height']);
+					if($this->imginfo['mime'] == 'image/png') {
+						imagealphablending($thumb_photo, false);
+						imagesavealpha($thumb_photo, true);
+					}
 					imagecopyresampled($thumb_photo, $attach_photo ,0, 0, 0, 0, $thumb['width'], $thumb['height'], $cx, $cy);
 				}
 				break;
@@ -302,9 +308,17 @@ class image {
 					$dst_photo = imagecreatetruecolor($cutw, $cuth);
 					imagecopymerge($dst_photo, $attach_photo, 0, 0, $startx, $starty, $cutw, $cuth, 100);
 					$thumb_photo = imagecreatetruecolor($this->param['thumbwidth'], $this->param['thumbheight']);
+					if($this->imginfo['mime'] == 'image/png') {
+						imagealphablending($thumb_photo, false);
+						imagesavealpha($thumb_photo, true);
+					}
 					imagecopyresampled($thumb_photo, $dst_photo ,0, 0, 0, 0, $this->param['thumbwidth'], $this->param['thumbheight'], $cutw, $cuth);
 				} else {
 					$thumb_photo = imagecreatetruecolor($this->param['thumbwidth'], $this->param['thumbheight']);
+					if($this->imginfo['mime'] == 'image/png') {
+						imagealphablending($thumb_photo, false);
+						imagesavealpha($thumb_photo, true);
+					}
 					$bgcolor = imagecolorallocate($thumb_photo, 255, 255, 255);
 					imagefill($thumb_photo, 0, 0, $bgcolor);
 					$startx = ($this->param['thumbwidth'] - $this->imginfo['width']) / 2;

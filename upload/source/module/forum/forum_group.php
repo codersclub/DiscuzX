@@ -267,6 +267,9 @@ if($action == 'index') {
 
 } elseif($action == 'out') {
 
+	if(!submitcheck('groupexit')) {
+		showmessage('undefined_action');
+	}
 	if($_G['uid'] == $_G['forum']['founderuid']) {
 		showmessage('group_exit_founder');
 	}
