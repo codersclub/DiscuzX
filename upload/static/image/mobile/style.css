@@ -71,7 +71,7 @@ input[type="radio"] {-webkit-appearance:radio;border-radius:50%;}
 input[type="checkbox"] {-webkit-appearance:checkbox;}
 input[type="button"], button {border:none;box-shadow:none;}
 input[type="button"], input[type="submit"] {-webkit-appearance:none;}
-textarea {resize:none;overflow:hidden;}
+textarea {resize:none;overflow:auto;}
 select {-moz-appearance:none;}
 
 @font-face { font-family: "dzicon"; src: url('../common/dzicon.eot'); src: url('../common/dzicon.eot?#iefix') format('eot'), url('../common/dzicon.woff2') format('woff2'), url('../common/dzicon.woff') format('woff'); font-weight: normal; font-style: normal; }
