@@ -428,7 +428,7 @@ function get_attach($list, $video = false, $audio = false){
 	global $_G;
 	require_once libfile('function/post');
 	require_once libfile('function/discuzcode');
-	$tids = $attach_tids = $attachtableid_array = $threadlist_data = $posttableids = array();
+	$tids = $attach_tids = $price_tids = $attachtableid_array = $threadlist_data = $posttableids = array();
 	foreach($list as $value) {
 		$tids[] = $value['tid'];
 		if(!in_array($value['posttableid'], $posttableids)){
@@ -436,6 +436,9 @@ function get_attach($list, $video = false, $audio = false){
 		}
 		if($value['attachment'] == 2) {
 			$attach_tids[] = $value['tid'];
+		}
+		if($value['price'] > 0) {
+			$price_tids[] = $value['tid'];
 		}
 	}
 	foreach ($posttableids as $id) {
@@ -451,6 +454,15 @@ function get_attach($list, $video = false, $audio = false){
 				}elseif(strpos($value['msglower'], '[/audio]') !== FALSE && $audio) {
 					preg_match("/\[audio(=1)*\]\s*([^\[\<\r\n]+?)\s*\[\/audio\]/is", $value['message'], $value['audio']);
 					$threadlist_data[$value['tid']]['media'] = parseaudio($value['audio'][2], 400);
+				}
+			}
+			if(in_array($value['tid'], $price_tids)) {
+				preg_match_all("/\[free\](.+?)\[\/free\]/is", $value['message'], $matches);
+				$value['message'] = '';
+				if(!empty($matches[1])) {
+					foreach($matches[1] as $match) {
+						$value['message'] .= $match.' ';
+					}
 				}
 			}
 			$threadlist_data[$value['tid']]['message'] = messagecutstr($value['message'], 90);
