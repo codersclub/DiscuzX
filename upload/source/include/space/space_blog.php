@@ -347,18 +347,25 @@ if($id) {
 }
 
 function blog_get_stick($uid, $stickblogs, $summarylen) {
-	$list = array_flip($stickblogs);
+	$list = array();
 	if($stickblogs) {
+		$stickids = array();
 		$data_blog = C::t('home_blog')->fetch_all($stickblogs);
 		$data_blogfield = C::t('home_blogfield')->fetch_all($stickblogs);
-		foreach($data_blog as $curblogid=>$value) {
-			$value = array_merge($value, (array)$data_blogfield[$curblogid]);
-			$value['message'] = getstr($value['message'], $summarylen, 0, 0, 0, -1);
-			$value['message'] = preg_replace("/&[a-z]+\;/i", '', $value['message']);
-			if($value['pic']) $value['pic'] = pic_cover_get($value['pic'], $value['picflag']);
-			$value['dateline'] = dgmdate($value['dateline']);
-			$value['stickflag'] = true;
-			$list[$value['blogid']] = $value;
+		foreach ($stickblogs as $blogid) {
+			if(!empty($data_blog[$blogid]) && !empty($data_blogfield[$blogid])) {
+				$value = array_merge($data_blog[$blogid], $data_blogfield[$blogid]);
+				$value['message'] = getstr($value['message'], $summarylen, 0, 0, 0, -1);
+				$value['message'] = preg_replace("/&[a-z]+\;/i", '', $value['message']);
+				if($value['pic']) $value['pic'] = pic_cover_get($value['pic'], $value['picflag']);
+				$value['dateline'] = dgmdate($value['dateline']);
+				$value['stickflag'] = true;
+				$list[$value['blogid']] = $value;
+				$stickids[] = $value['blogid'];
+			}
+		}
+		if(count($stickids) != count($stickblogs)) {
+			C::t('common_member_field_home')->update($uid, array('stickblogs' => implode(',', $stickids)));
 		}
 	}
 	return $list;
