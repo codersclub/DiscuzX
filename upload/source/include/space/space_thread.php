@@ -310,7 +310,8 @@ if($need_count) {
 				$hiddennum++;
 				continue;
 			}
-		} elseif(!isset($_G['cache']['forums'][$value['fid']])) {
+		}
+		if(!isset($_G['cache']['forums'][$value['fid']])) {
 			if(!$_G['setting']['groupstatus']) {
 				$hiddennum++;
 				continue;
