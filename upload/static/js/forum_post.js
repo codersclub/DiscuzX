@@ -131,7 +131,12 @@ function validate(theform) {
 					setTimeout(function () { validate(theform); }, 100);
 					chk = 0;
 				} else if(chkv.indexOf('check_right') == -1) {
-					showError('验证问答错误，请重新填写');
+					if($('secqaaverify_' + theform.secqaahash.value) == document.activeElement) {
+						$('postsubmit').focus();
+						setTimeout(function () { validate(theform); }, 100);
+					} else {
+						showError('验证问答错误，请重新填写');
+					}
 					chk = 0;
 				}
 			}
@@ -141,7 +146,12 @@ function validate(theform) {
 					setTimeout(function () { validate(theform); }, 100);
 					chk = 0;
 				} else if(chkv.indexOf('check_right') === -1) {
-					showError('验证码错误，请重新填写');
+					if($('seccodeverify_' + theform.seccodehash.value) == document.activeElement) {
+						$('postsubmit').focus();
+						setTimeout(function () { validate(theform); }, 100);
+					} else {
+						showError('验证码错误，请重新填写');
+					}
 					chk = 0;
 				}
 			}
