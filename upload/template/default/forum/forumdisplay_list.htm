@@ -77,6 +77,7 @@
 				<!--{/if}-->
 				<!--{if !$separatepos || !$_G['setting']['forumseparator']}-->
 					<tbody id="separatorline" class="emptb"><tr><td class="icn"></td><!--{if !$_GET['archiveid'] && $_G['forum']['ismoderator']}--><td class="o"></td><!--{/if}--><th></th><!--{if CURMODULE == 'guide'}--><td class="by"></td><!--{/if}--><td class="by"></td><td class="num"></td><td class="by"></td></tr></tbody>
+					<!--{if !empty($_G['forum']['picstyle'])}--><!--{ad/threadlist}--><!--{/if}-->
 				<!--{/if}-->
 				<!--{if $_G['forum_threadcount']}-->
 					<!--{if empty($_G['forum']['picstyle']) || $_G['cookie']['forumdefstyle']}-->
@@ -469,8 +470,8 @@
 	<!--{/if}-->
 <!--{/if}-->
 <!--{if $multipage && $filter != 'hot'}-->
-	<!--{if !($_G[forum][picstyle] && !$_G[cookie][forumdefstyle])}-->
-		<a class="bm_h" href="javascript:;" rel="$multipage_more" curpage="$page" id="autopbn" totalpage="$maxpage" picstyle="$_G[forum][picstyle]" forumdefstyle="$_G[cookie][forumdefstyle]">{lang next_page_extra}</a>
+	<!--{if !($_G['forum']['picstyle'] && !$_G['cookie']['forumdefstyle'])}-->
+		<a class="bm_h" href="javascript:;" rel="$multipage_more" curpage="$page" id="autopbn" totalpage="$maxpage" picstyle="$_G['forum']['picstyle']" forumdefstyle="$_G['cookie']['forumdefstyle']">{lang next_page_extra}</a>
 		<script type="text/javascript" src="{$_G[setting][jspath]}autoloadpage.js?{VERHASH}"></script>
 	<!--{else}-->
 		<div id="pgbtn" class="pgbtn"><a href="forum.php?mod=forumdisplay&fid={$_G[fid]}&filter={$filter}&orderby={$_GET[orderby]}{$forumdisplayadd[page]}&{$multipage_archive}&page=$nextpage" hidefocus="true">{lang next_page_extra}</a></div>
