@@ -449,6 +449,7 @@ class credit {
 					if(isset($policy[$action])) {
 						$rule = $policy[$action];
 						$rule['rulenameuni'] = $rulenameuni;
+						$rule['fids'] = implode(',', $fids);
 					}
 				}
 			}
