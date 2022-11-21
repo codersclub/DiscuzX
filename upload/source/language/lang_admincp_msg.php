@@ -186,7 +186,7 @@ $lang = array (
   'imagepreview_errorcode_-3' => '系统设置错误，无法处理图片',
   'imagepreview_errorcode_-4' => '服务器缺少处理图片所需的功能，无法处理',
   'watermarkpreview_error' => '水印功能未启用，无法预览',
-  'robots_output' => '请下载此文件，并上传至您站点的根目录下 <a href="{siteurl}robots.txt" target="_blank">{siteurl}robots.txt</a> 位置处',
+  'robots_output' => '请下载此文件，并上传至您站点的根目录下 <a href="{siteurl}robots.txt" target="_blank">{siteurl}robots.txt</a> 位置处，如已存在其他内容的同名文件请自行合并。',
 
   'cloudaddons_validator_error' => '校验失败，您无法下载此应用',
   'cloudaddons_download_write_error' => '文件无法下载，请确认 "data/download/" 目录是否可写',

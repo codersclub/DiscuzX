@@ -539,7 +539,7 @@ if($operation == 'filecheck') {
 		define('FOOTERDISABLED' , 1);
 		exit();
 	}
-	cpmsg('robots_output', 'action=checktools&operation=robots&do=output&frame=no', 'download', array('siteurl' => $_G['siteurl']));
+	cpmsg('robots_output', 'action=checktools&operation=robots&do=output&frame=no', 'download', array('siteurl' => dhtmlspecialchars($_G['scheme'].'://'.$_SERVER['HTTP_HOST'].'/')));
 
 }
 
