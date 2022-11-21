@@ -17,8 +17,8 @@ $lang = array(
 	'TC_UTF8' => '繁体中文 UTF8 版',
 
 	'title_install' => SOFT_NAME.' 安装向导',
-	'agreement_yes' => '我同意',
-	'agreement_no' => '我不同意',
+	'agreement_yes' => '同意',
+	'agreement_no' => '取消',
 	'notset' => '不限制',
 	'enable' => '开启',
 	'disable' => '关闭',
@@ -143,8 +143,9 @@ $lang = array(
 	'admininfo_password_invalid' => '管理员密码为空，请填写',
 	'admininfo_password2_invalid' => '两次密码不一致，请检查',
 
-	'install_dzfull' => '<div class="selradio"><input type="radio" id="install_ucenter_yes"'.(getgpc('install_ucenter') != 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="yes" onclick="if(this.checked)$(\'form_items_2\').style.display=\'none\';" /><label for="install_ucenter_yes">全新安装 Discuz! X (含 UCenter Server)</label></div>',
-	'install_dzonly' => '<div class="selradio"><input type="radio" id="install_ucenter_no"'.(getgpc('install_ucenter') == 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="no" onclick="if(this.checked)$(\'form_items_2\').style.display=\'\';" /><label for="install_ucenter_no">仅安装 Discuz! X (手工指定已经安装的 UCenter Server)</label></div>',
+	'install_dzstandalone' => '<div class="selradio"><input type="radio" id="install_ucenter_standalone" name="install_ucenter" value="standalone" onclick="if(this.checked)$(\'form_items_2\').style.display=\'none\';" /><label for="install_ucenter_standalone">全新安装 Discuz! X (独立模式安装)</label></div>',
+	'install_dzfull' => '<div class="selradio"><input type="radio" id="install_ucenter_yes"'.(getgpc('install_ucenter') != 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="yes" onclick="if(this.checked)$(\'form_items_2\').style.display=\'none\';" /><label for="install_ucenter_yes">全新安装 Discuz! X 与 UCenter Server</label></div>',
+	'install_dzonly' => '<div class="selradio"><input type="radio" id="install_ucenter_no"'.(getgpc('install_ucenter') == 'no' ? ' checked="checked"' : '').' name="install_ucenter" value="no" onclick="if(this.checked)$(\'form_items_2\').style.display=\'\';" /><label for="install_ucenter_no">仅安装 Discuz! X (连接到已经安装的 UCenter Server)</label></div>',
 
 	'username' => '管理员账号',
 	'email' => '管理员 Email',

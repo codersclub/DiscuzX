@@ -88,8 +88,8 @@ if($method == 'show_license') {
 	if(!defined('UC_API')) {
 		define('UC_API', '');
 	}
-	if(getgpc('install_ucenter') == 'yes') {
-		header("Location: index.php?step=3&install_ucenter=yes");
+	if(getgpc('install_ucenter') == 'yes' || getgpc('install_ucenter') == 'standalone') {
+		header("Location: index.php?step=3&install_ucenter=".getgpc('install_ucenter'));
 		die;
 	}
 	$submit = true;
@@ -203,10 +203,12 @@ if($method == 'show_license') {
 
 } elseif($method == 'db_init') {
 
-	if(getgpc('install_ucenter') == 'yes') {
+	if(getgpc('install_ucenter') == 'yes' || getgpc('install_ucenter') == 'standalone') {
 		define('DZUCFULL', true);
+		define('DZUCSTL', (getgpc('install_ucenter') == 'standalone') ? true : false);
 	} else {
 		define('DZUCFULL', false);
+		define('DZUCSTL', false);
 	}
 
 	$submit = true;
