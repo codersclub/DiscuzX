@@ -467,8 +467,17 @@ function strexists($string, $find) {
 	return !(strpos($string, $find) === FALSE);
 }
 
-function avatar($uid, $size = 'middle', $returnsrc = FALSE, $real = FALSE, $static = FALSE, $ucenterurl = '') {
+function avatar($uid, $size = 'middle', $returnsrc = 0, $real = FALSE, $static = FALSE, $ucenterurl = '', $class = '', $extra = '', $random = 0) {
 	global $_G;
+	if(is_array($returnsrc)) {
+		isset($returnsrc['random']) && $random = $returnsrc['random'];
+		isset($returnsrc['extra']) && $extra = $returnsrc['extra'];
+		isset($returnsrc['class']) && $class = $returnsrc['class'];
+		isset($returnsrc['ucenterurl']) && $ucenterurl = $returnsrc['ucenterurl'];
+		isset($returnsrc['static']) && $static = $returnsrc['static'];
+		isset($returnsrc['real']) && $real = $returnsrc['real'];
+		$returnsrc = isset($returnsrc['returnsrc']) ? $returnsrc['returnsrc'] : 0;
+	}
 	if(!empty($_G['setting']['plugins']['func'][HOOKTYPE]['avatar'])) {
 		$_G['hookavatar'] = '';
 		$param = func_get_args();
@@ -481,21 +490,64 @@ function avatar($uid, $size = 'middle', $returnsrc = FALSE, $real = FALSE, $stat
 	if($staticavatar === null) {
 		$staticavatar = $_G['setting']['avatarmethod'];
 	}
+	static $avtstatus;
+	if($avtstatus === null) {
+		$avtstatus = array();
+	}
+	$dynavt = intval($_G['setting']['dynavt']);
 
 	$ucenterurl = empty($ucenterurl) ? $_G['setting']['ucenterurl'] : $ucenterurl;
 	$avatarurl = empty($_G['setting']['avatarurl']) ? $ucenterurl.'/data/avatar' : $_G['setting']['avatarurl'];
 	$size = in_array($size, array('big', 'middle', 'small')) ? $size : 'middle';
 	$uid = abs(intval($uid));
+	$rawuid = $uid;
 	if(!$staticavatar && !$static && $ucenterurl != '.') {
-		$timestamp = $uid == $_G['uid'] ? "&ts=1" : "";
-		return $returnsrc ? $ucenterurl.'/avatar.php?uid='.$uid.'&size='.$size.($real ? '&type=real' : '').$timestamp : '<img src="'.$ucenterurl.'/avatar.php?uid='.$uid.'&size='.$size.($real ? '&type=real' : '').$timestamp.'" />';
+		if($avatarurl != $ucenterurl.'/data/avatar') {
+			$ucenterurl = $avatarurl;
+		}
+		$trandom = '';
+		if($random == 1) {
+			$trandom = '&random=1';
+		} elseif($dynavt == 2 || ($dynavt == 1 && $uid == $_G['uid']) || $random == 2) {
+			$trandom = '&ts=1';
+		}
+		return $returnsrc ? $ucenterurl.'/avatar.php?uid='.$uid.'&size='.$size.($real ? '&type=real' : '').$trandom : '<img src="'.$ucenterurl.'/avatar.php?uid='.$uid.'&size='.$size.($real ? '&type=real' : '').$trandom.'"'.($class ? ' class="'.$class.'"' : '').($extra ? ' '.$extra : '').'>';
 	} else {
 		$uid = sprintf("%09d", $uid);
 		$dir1 = substr($uid, 0, 3);
 		$dir2 = substr($uid, 3, 2);
 		$dir3 = substr($uid, 5, 2);
-		$file = $avatarurl.'/'.$dir1.'/'.$dir2.'/'.$dir3.'/'.substr($uid, -2).($real ? '_real' : '').'_avatar_'.$size.'.jpg';
-		return $returnsrc ? $file : '<img src="'.$file.'" onerror="this.onerror=null;this.src=\''.$avatarurl.'/noavatar.svg\'" />';
+		$filepath = $dir1.'/'.$dir2.'/'.$dir3.'/'.substr($uid, -2).($real ? '_real' : '').'_avatar_'.$size.'.jpg';
+		$file = $avatarurl.'/'.$filepath;
+		$noavt = $avatarurl.'/noavatar.svg';
+		$trandom = '';
+		$avtexist = -1;
+		if(!$staticavatar && !$static) {
+			$avatar_file = DISCUZ_ROOT.$_G['setting']['avatarpath'].$filepath;
+			if(isset($avtstatus[$rawuid])) {
+				$avtexist = $avtstatus[$rawuid][0];
+			} else {
+				$avtexist = file_exists($avatar_file) ? 1 : 0;
+				$avtstatus[$rawuid][0] = $avtexist;
+			}
+			if($avtexist) {
+				if($dynavt == 2 || ($dynavt == 1 && $rawuid && $rawuid == $_G['uid']) || $random == 2) {
+					if(empty($avtstatus[$rawuid][1])) {
+						$avtstatus[$rawuid][1] = filemtime($avatar_file);
+					}
+					$trandom = '?ts='.$avtstatus[$rawuid][1];
+				}
+			} else {
+				$file = $noavt;
+			}
+		}
+		if($random == 1 && $avtexist != 0) {
+			$trandom = '?random='.rand(1000, 9999);
+		}
+		if($trandom) {
+			$file = $file.$trandom;
+		}
+		return $returnsrc ? $file : '<img src="'.$file.'"'.(($avtexist == -1) ? ' onerror="this.onerror=null;this.src=\''.$noavt.'\'"' : '').($class ? ' class="'.$class.'"' : '').($extra ? ' '.$extra : '').'>';
 	}
 }
 

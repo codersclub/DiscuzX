@@ -407,13 +407,16 @@ class usercontrol extends base {
 			return '<root><message type="error" value="-1" /></root>';
 		}
 		$home = $this->get_home($uid);
-		if(!is_dir(UC_DATADIR.'./avatar/'.$home)) {
-			$this->set_home($uid, UC_DATADIR.'./avatar/');
+		if(!defined('UC_UPAVTDIR')) {
+			define('UC_UPAVTDIR', UC_DATADIR.'./avatar/');
+		}
+		if(!is_dir(UC_UPAVTDIR.$home)) {
+			$this->set_home($uid, UC_UPAVTDIR);
 		}
 		$avatartype = getgpc('avatartype', 'G') == 'real' ? 'real' : 'virtual';
-		$bigavatarfile = UC_DATADIR.'./avatar/'.$this->get_avatar($uid, 'big', $avatartype);
-		$middleavatarfile = UC_DATADIR.'./avatar/'.$this->get_avatar($uid, 'middle', $avatartype);
-		$smallavatarfile = UC_DATADIR.'./avatar/'.$this->get_avatar($uid, 'small', $avatartype);
+		$bigavatarfile = UC_UPAVTDIR.$this->get_avatar($uid, 'big', $avatartype);
+		$middleavatarfile = UC_UPAVTDIR.$this->get_avatar($uid, 'middle', $avatartype);
+		$smallavatarfile = UC_UPAVTDIR.$this->get_avatar($uid, 'small', $avatartype);
 		$bigavatar = $this->flashdata_decode(getgpc('avatar1', 'P'));
 		$middleavatar = $this->flashdata_decode(getgpc('avatar2', 'P'));
 		$smallavatar = $this->flashdata_decode(getgpc('avatar3', 'P'));
@@ -445,9 +448,6 @@ class usercontrol extends base {
 			$success = 0;
 		}
 
-		$filetype = '.jpg';
-		@unlink(UC_DATADIR.'./tmp/upload'.$uid.$filetype);
-
 		if(getgpc('base64', 'G')){
 			if($success) {
 				return "<script>window.parent.postMessage('success','*');</script>";
@@ -455,6 +455,8 @@ class usercontrol extends base {
 				return "<script>window.parent.postMessage('failure','*');</script>";
 			}
 		}else{
+			$filetype = '.jpg';
+			@unlink(UC_DATADIR.'./tmp/upload'.$uid.$filetype);
 			if($success) {
 				return '<?xml version="1.0" ?><root><face success="1"/></root>';
 			} else {

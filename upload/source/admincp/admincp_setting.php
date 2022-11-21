@@ -2320,6 +2320,11 @@ EOT;
 			array(0, $lang['setting_uc_avatarmethod_0']),
 			array(1, $lang['setting_uc_avatarmethod_1']),
 			)), $setting['avatarmethod'], 'mradio');
+		showsetting('setting_uc_dynavt', array('settingnew[dynavt]', array(
+			array(0, $lang['setting_uc_dynavt_0']),
+			array(1, $lang['setting_uc_dynavt_1']),
+			array(2, $lang['setting_uc_dynavt_2']),
+			)), $setting['dynavt'], 'mradio');
 		/*search*/
 
 	} elseif($operation == 'ec') {

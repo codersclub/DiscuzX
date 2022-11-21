@@ -110,4 +110,36 @@ class uc_note_handler {
 
 		return API_RETURN_SUCCEED;
 	}
+
+	public static function checkavatar($get, $post) {
+		global $_G;
+		$uid = $get['uid'];
+		$size = $get['size'];
+		$type = $get['type'];
+		$size = in_array($size, array('big', 'middle', 'small')) ? $size : 'middle';
+		$uid = abs(intval($uid));
+		$uid = sprintf("%09d", $uid);
+		$dir1 = substr($uid, 0, 3);
+		$dir2 = substr($uid, 3, 2);
+		$dir3 = substr($uid, 5, 2);
+		$typeadd = $type == 'real' ? '_real' : '';
+		if(!UC_AVTPATH) {
+			$avtpath = './data/avatar/';
+		} else {
+			$avtpath = str_replace('..', '', UC_AVTPATH);
+		}
+		$avatarfile = realpath(DISCUZ_ROOT.$avtpath).'./'.$dir1.'/'.$dir2.'/'.$dir3.'/'.substr($uid, -2).$typeadd."_avatar_$size.jpg";
+		if(file_exists($avatar_file)) {
+			return API_RETURN_SUCCEED;
+		} else {
+			return API_RETURN_FAILED;
+		}
+	}
+
+	public static function loadavatarpath() {
+		global $_G;
+		if(!defined('UC_DELAVTDIR')) {
+			define('UC_DELAVTDIR', DISCUZ_ROOT.$_G['setting']['avatarpath'].'/');
+		}
+	}
 }

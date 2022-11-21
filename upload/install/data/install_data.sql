@@ -304,6 +304,7 @@ INSERT INTO pre_common_setting VALUES ('domainroot','');
 INSERT INTO pre_common_setting VALUES ('domainwhitelist','');
 INSERT INTO pre_common_setting VALUES ('doublee','1');
 INSERT INTO pre_common_setting VALUES ('dupkarmarate','0');
+INSERT INTO pre_common_setting VALUES ('dynavt','1');
 INSERT INTO pre_common_setting VALUES ('ec_account','');
 INSERT INTO pre_common_setting VALUES ('ec_contract','');
 INSERT INTO pre_common_setting VALUES ('ec_credit','a:2:{s:18:\"maxcreditspermonth\";i:6;s:4:\"rank\";a:15:{i:1;i:4;i:2;i:11;i:3;i:41;i:4;i:91;i:5;i:151;i:6;i:251;i:7;i:501;i:8;i:1001;i:9;i:2001;i:10;i:5001;i:11;i:10001;i:12;i:20001;i:13;i:50001;i:14;i:100001;i:15;i:200001;}}');

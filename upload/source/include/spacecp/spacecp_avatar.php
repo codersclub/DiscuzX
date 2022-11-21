@@ -20,6 +20,9 @@ if(submitcheck('avatarsubmit')) {
 }
 
 loaducenter();
+if(UC_STANDALONE) {
+	define('UC_AVTAPI', $_G['siteurl'].'api/avatar');
+}
 $uc_avatarflash = uc_avatar($_G['uid'], 'virtual', 0);
 $uc_avatarflash[] = 'standalone';
 $uc_avatarflash[] = UC_STANDALONE;

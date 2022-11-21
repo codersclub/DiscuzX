@@ -4,6 +4,7 @@
 
 User-agent: *
 Allow: {path}data/attachment/
+Allow: {path}data/avatar/
 Allow: {path}data/cache/
 Allow: {path}uc_server/data/avatar/
 Disallow: {path}api/

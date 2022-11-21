@@ -46,11 +46,11 @@ if(!defined('IN_UC')) {
 	$code = @$_GET['code'];
 	parse_str(authcode($code, 'DECODE', UC_KEY), $get);
 
+	if(empty($get) || UC_STANDALONE) {
+		exit('Invalid Request');
+	}
 	if(time() - $get['time'] > 3600) {
 		exit('Authorization has expired');
-	}
-	if(empty($get)) {
-		exit('Invalid Request');
 	}
 
 	include_once DISCUZ_ROOT.'./uc_client/lib/xml.class.php';

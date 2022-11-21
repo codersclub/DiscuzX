@@ -1,9 +1,10 @@
 #
-# robots.txt for Discuz! X3
+# robots.txt for Discuz! X3.5
 #
 
 User-agent: *
 Allow: /data/attachment/
+Allow: /data/avatar/
 Allow: /data/cache/
 Allow: /uc_server/data/avatar/
 Disallow: /api/

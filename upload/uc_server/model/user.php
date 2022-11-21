@@ -229,14 +229,17 @@ class usermodel {
 	}
 
 	function delete_useravatar($uidsarr) {
+		if(!defined('UC_DELAVTDIR')) {
+			define('UC_DELAVTDIR', UC_DATADIR.'./avatar/');
+		}
 		$uidsarr = (array)$uidsarr;
 		foreach((array)$uidsarr as $uid) {
-			file_exists($avatar_file = UC_DATADIR.'./avatar/'.$this->base->get_avatar($uid, 'big', 'real')) && unlink($avatar_file);
-			file_exists($avatar_file = UC_DATADIR.'./avatar/'.$this->base->get_avatar($uid, 'middle', 'real')) && unlink($avatar_file);
-			file_exists($avatar_file = UC_DATADIR.'./avatar/'.$this->base->get_avatar($uid, 'small', 'real')) && unlink($avatar_file);
-			file_exists($avatar_file = UC_DATADIR.'./avatar/'.$this->base->get_avatar($uid, 'big')) && unlink($avatar_file);
-			file_exists($avatar_file = UC_DATADIR.'./avatar/'.$this->base->get_avatar($uid, 'middle')) && unlink($avatar_file);
-			file_exists($avatar_file = UC_DATADIR.'./avatar/'.$this->base->get_avatar($uid, 'small')) && unlink($avatar_file);
+			file_exists($avatar_file = UC_DELAVTDIR.$this->base->get_avatar($uid, 'big', 'real')) && unlink($avatar_file);
+			file_exists($avatar_file = UC_DELAVTDIR.$this->base->get_avatar($uid, 'middle', 'real')) && unlink($avatar_file);
+			file_exists($avatar_file = UC_DELAVTDIR.$this->base->get_avatar($uid, 'small', 'real')) && unlink($avatar_file);
+			file_exists($avatar_file = UC_DELAVTDIR.$this->base->get_avatar($uid, 'big')) && unlink($avatar_file);
+			file_exists($avatar_file = UC_DELAVTDIR.$this->base->get_avatar($uid, 'middle')) && unlink($avatar_file);
+			file_exists($avatar_file = UC_DELAVTDIR.$this->base->get_avatar($uid, 'small')) && unlink($avatar_file);
 		}
 	}
 

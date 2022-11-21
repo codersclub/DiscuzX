@@ -31,6 +31,9 @@ require UC_ROOT.'./release/release.php';
 require UC_DATADIR.'config.inc.php';
 require UC_ROOT.'model/base.php';
 require UC_ROOT.'model/admin.php';
+if(!defined('UC_KEY') || !UC_KEY) {
+	exit('This UCenter Server has been disabled.');
+}
 
 $m = getgpc('m');
 $a = getgpc('a');

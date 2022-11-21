@@ -252,7 +252,7 @@
 							<div class="album_side">
 								<div class="hm mtn mbn">
 									<!--{if ($_G['forum_thread']['author'] && $_G['forum_thread']['authorid']) || $_G['forum']['ismoderator']}-->
-									<a href="home.php?mod=space&uid=$post['authorid']" target="_blank" class="xi2 avt"><img src="$_G['setting']['ucenterurl']/avatar.php?uid=$post['authorid']&size=small" /></a>
+									<a href="home.php?mod=space&uid=$post['authorid']" target="_blank" class="xi2 avt"><!--{avatar($post['authorid'], 'small')}--></a>
 									<!--{/if}-->
 									<span class="tit_author">
 								<!--{if $_G[forum_thread][author] && $_G[forum_thread][authorid]}-->

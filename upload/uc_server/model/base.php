@@ -339,9 +339,9 @@ class base {
 		$dir1 = substr($uid, 0, 3);
 		$dir2 = substr($uid, 3, 2);
 		$dir3 = substr($uid, 5, 2);
-		!is_dir($dir.'/'.$dir1) && mkdir($dir.'/'.$dir1, 0777);
-		!is_dir($dir.'/'.$dir1.'/'.$dir2) && mkdir($dir.'/'.$dir1.'/'.$dir2, 0777);
-		!is_dir($dir.'/'.$dir1.'/'.$dir2.'/'.$dir3) && mkdir($dir.'/'.$dir1.'/'.$dir2.'/'.$dir3, 0777);
+		!is_dir($dir.'/'.$dir1) && mkdir($dir.'/'.$dir1, 0777) && @touch($dir.'/'.$dir1.'/index.htm');
+		!is_dir($dir.'/'.$dir1.'/'.$dir2) && mkdir($dir.'/'.$dir1.'/'.$dir2, 0777) && @touch($dir.'/'.$dir1.'/'.$dir2.'/index.htm');
+		!is_dir($dir.'/'.$dir1.'/'.$dir2.'/'.$dir3) && mkdir($dir.'/'.$dir1.'/'.$dir2.'/'.$dir3, 0777) && @touch($dir.'/'.$dir1.'/'.$dir2.'/'.$dir3.'/index.htm');
 	}
 
 	function get_home($uid) {

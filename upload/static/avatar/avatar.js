@@ -237,7 +237,7 @@ function saveAvatar() {
     jQuery('#avatar3').val(dataURL.substr(dataURL.indexOf(",") + 1));
 
     var src = $('avatarform').action;
-    $('avatarform').action = data[data.indexOf('src')+1].replace('images/camera.swf?inajax=1', 'index.php?m=user&a=rectavatar&base64=yes');
+    $('avatarform').action = data[data.indexOf('stl_src')+1];
     $('avatarform').target='rectframe'; 
 }
 

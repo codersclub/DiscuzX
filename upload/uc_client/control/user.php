@@ -246,6 +246,12 @@ class usercontrol extends base {
 		return $_ENV['user']->delete_user($uid);
 	}
 
+	function ondeleteavatar() {
+		$this->init_input();
+		$uid = $this->input('uid');
+		$_ENV['user']->delete_useravatar($uid);
+	}
+
 	function onaddprotected() {
 		$this->init_input();
 		$username = $this->input('username');
@@ -328,8 +334,94 @@ class usercontrol extends base {
 	}
 
 	function onrectavatar() {
+		@header("Expires: 0");
+		@header("Cache-Control: private, post-check=0, pre-check=0, max-age=0", FALSE);
+		@header("Pragma: no-cache");
+		if(getgpc('base64', 'G')){
+			header("Content-type: text/html; charset=utf-8");
+		}else{
+			header("Content-type: application/xml; charset=utf-8");
+		}
+		$this->init_input(getgpc('agent'));
+		$uid = $this->input('uid');
+		if(empty($uid)) {
+			return '<root><message type="error" value="-1" /></root>';
+		}
+		$home = $this->get_home($uid);
+		if(!defined('UC_UPAVTDIR')) {
+			define('UC_UPAVTDIR', UC_DATADIR.'./avatar/');
+		}
+		if(!is_dir(UC_UPAVTDIR.$home)) {
+			$this->set_home($uid, UC_UPAVTDIR);
+		}
+		$avatartype = getgpc('avatartype', 'G') == 'real' ? 'real' : 'virtual';
+		$bigavatarfile = UC_UPAVTDIR.$this->get_avatar($uid, 'big', $avatartype);
+		$middleavatarfile = UC_UPAVTDIR.$this->get_avatar($uid, 'middle', $avatartype);
+		$smallavatarfile = UC_UPAVTDIR.$this->get_avatar($uid, 'small', $avatartype);
+		$bigavatar = $this->flashdata_decode(getgpc('avatar1', 'P'));
+		$middleavatar = $this->flashdata_decode(getgpc('avatar2', 'P'));
+		$smallavatar = $this->flashdata_decode(getgpc('avatar3', 'P'));
+		if(!$bigavatar || !$middleavatar || !$smallavatar) {
+			return '<root><message type="error" value="-2" /></root>';
+		}
+
+		$success = 1;
+		$fp = @fopen($bigavatarfile, 'wb');
+		@fwrite($fp, $bigavatar);
+		@fclose($fp);
+
+		$fp = @fopen($middleavatarfile, 'wb');
+		@fwrite($fp, $middleavatar);
+		@fclose($fp);
+
+		$fp = @fopen($smallavatarfile, 'wb');
+		@fwrite($fp, $smallavatar);
+		@fclose($fp);
+
+		$biginfo = @getimagesize($bigavatarfile);
+		$middleinfo = @getimagesize($middleavatarfile);
+		$smallinfo = @getimagesize($smallavatarfile);
+		if(!$biginfo || !$middleinfo || !$smallinfo || $biginfo[2] == 4 || $middleinfo[2] == 4 || $smallinfo[2] == 4
+			|| $biginfo[0] > 200 || $biginfo[1] > 250 || $middleinfo[0] > 120 || $middleinfo[1] > 120 || $smallinfo[0] > 48 || $smallinfo[1] > 48) {
+			file_exists($bigavatarfile) && unlink($bigavatarfile);
+			file_exists($middleavatarfile) && unlink($middleavatarfile);
+			file_exists($smallavatarfile) && unlink($smallavatarfile);
+			$success = 0;
+		}
+
+		if(getgpc('base64', 'G')){
+			if($success) {
+				return "<script>window.parent.postMessage('success','*');</script>";
+			} else {
+				return "<script>window.parent.postMessage('failure','*');</script>";
+			}
+		}else{
+			$filetype = '.jpg';
+			@unlink(UC_DATADIR.'./tmp/upload'.$uid.$filetype);
+			if($success) {
+				return '<?xml version="1.0" ?><root><face success="1"/></root>';
+			} else {
+				return '<?xml version="1.0" ?><root><face success="0"/></root>';
+			}
+		}
 	}
+
+
 	function flashdata_decode($s) {
+		$r = '';
+		if(getgpc('base64', 'G')){
+			$r = base64_decode($s);
+		}else{
+			$l = strlen($s);
+			for($i=0; $i<$l; $i=$i+2) {
+				$k1 = ord($s[$i]) - 48;
+				$k1 -= $k1 > 9 ? 7 : 0;
+				$k2 = ord($s[$i+1]) - 48;
+				$k2 -= $k2 > 9 ? 7 : 0;
+				$r .= chr($k1 << 4 | $k2);
+			}
+		}
+		return $r;
 	}
 }
 

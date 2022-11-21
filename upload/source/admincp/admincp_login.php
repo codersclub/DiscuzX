@@ -135,7 +135,7 @@ EOT;
 		<input type="text" name="admin_username" placeholder="{$lang['login_username']}" autofocus autocomplete="off">
 EOT;
 	} else {
-		echo '<img src="'.avatar(getglobal('uid'),'middle',true).'" class="avt"><h1>'.getglobal('member/username').'</h1>';
+		echo avatar(getglobal('uid'),'middle',array('class' => 'avt')).'<h1>'.getglobal('member/username').'</h1>';
 	}
 	echo '<input type="password" name="admin_password" placeholder="'.$lang['login_password'].'" autocomplete="off"'.($isguest ? '' : 'autofocus').'>';
 	echo <<<EOT

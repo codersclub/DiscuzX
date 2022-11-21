@@ -35,8 +35,8 @@ class memory_setting_array implements ArrayAccess {
 			'mynavs', 'showfjump', 'advtype', 'navmns', 'navdms', 'navmn', 'navlogos', 'avatarmethod', 'ucenterurl',
 			'connect', 'taskstatus', 'menunavs', 'subnavs', 'search', 'blogstatus', 'albumstatus', 'srchhotkeywords',
 			'forumallowside', 'focus', 'site_qq', 'footernavs', 'siteurl', 'sitename', 'icp', 'statcode', 'debug',
-			'boardlicensed', 'followstatus', 'disableipnotice', 'rewritestatus', 'ftp', 'visitbanperiods',
-			'cacheindexlife', 'whosonline_contract', 'regname', 'reglinkname', 'autoidselect', 'avatarurl',
+			'boardlicensed', 'followstatus', 'disableipnotice', 'rewritestatus', 'ftp', 'visitbanperiods', 'dynavt',
+			'cacheindexlife', 'whosonline_contract', 'regname', 'reglinkname', 'autoidselect', 'avatarurl', 'avatarpath',
 			'uidlogin', 'secmobilelogin', 'forumstatus', 'friendstatus', 'guidestatus', 'favoritestatus', 'mps', 'mpsid'
 		),
 		'forumdisplay_fields' => array(

@@ -12,6 +12,8 @@ error_reporting(0);
 
 _get_script_url();
 define('UC_API', strtolower((is_https() ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/'))));
+// 非独立模式下若想为头像服务设置独立域名（如CDN等服务），可以在此处进行配置UC_AVTURL（结尾不可有/）
+define('UC_AVTURL', '');
 
 $uid = isset($_GET['uid']) ? $_GET['uid'] : 0;
 $size = isset($_GET['size']) ? $_GET['size'] : '';
@@ -22,8 +24,8 @@ $check = isset($_GET['check_file_exists']) ? $_GET['check_file_exists'] : '';
 // ts=1，表示不用301回复，同时整个URL后面加上图像文件的最后修改时间
 $ts = isset($_GET['ts']) ? $_GET['ts'] : '';
 
-$avatar = './data/avatar/'.get_avatar($uid, $size, $type);
-$avatar_file = dirname(__FILE__).'/'.$avatar;
+$avatar = get_avatar($uid, $size, $type);
+$avatar_file = dirname(__FILE__).'/data/avatar/'.$avatar;
 if(file_exists($avatar_file)) {
 	if($check) {
 		echo 1;
@@ -36,8 +38,8 @@ if(file_exists($avatar_file)) {
 		exit;
 	}
 	$size = in_array($size, array('big', 'middle', 'small')) ? $size : 'middle';
-	$avatar_url = 'data/avatar/noavatar.svg';
-	$avatar_file = dirname(__FILE__).'/'.$avatar_url;
+	$avatar_url = 'noavatar.svg';
+	$avatar_file = dirname(__FILE__).'/data/avatar/'.$avatar_url;
 }
 
 if(empty($random)) {
@@ -45,14 +47,14 @@ if(empty($random)) {
 		header("HTTP/1.1 301 Moved Permanently");
 		header("Last-Modified:".date('r'));
 		header("Expires: ".date('r', time() + 86400));	
-	} else { // 如果不加随机数，加最后修改时间
+	} elseif($avatar_url != 'noavatar.svg') { // 如果不加随机数，加最后修改时间
 		$avatar_url .= '?ts='.filemtime($avatar_file);
 	}
 } else { // 如果加随机数
 	$avatar_url .= '?random='.rand(1000, 9999);
 }
 
-header('Location: '.UC_API.'/'.$avatar_url);
+header('Location: '.(UC_AVTURL ?: UC_API.'/data/avatar').'/'.$avatar_url);
 exit;
 
 function get_avatar($uid, $size = 'middle', $type = '') {
