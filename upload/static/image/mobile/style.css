@@ -53,7 +53,7 @@ a.button {color:var(--dz-FC-fff)}
 .none {display:none}
 .px {width:100%;border:none;padding:0;line-height:30px;font-size:16px}
 .pn, .btn_pn, .btn_pn_blue, .button2 {width:100%;border:none;padding:0;height:44px;line-height:44px;text-align:center;font-size:16px;background-color:var(--dz-BG-color);color:var(--dz-FC-fff);border-radius:6px}
-.pns, .button {width:auto;border:none;padding:0;height:40px;line-height:40px;text-align:center;font-size:16px;padding:0 15px;background-color:var(--dz-BG-color);color:var(--dz-FC-fff);border-radius:6px}
+.pns, .button {width:auto;border:none;padding:0;height:40px;line-height:40px;text-align:center;font-size:16px;padding:0 15px;background-color:var(--dz-BG-color);color:var(--dz-FC-fff);border-radius:6px;box-sizing:border-box;}
 .pt {width:100%;border:none;padding:0;min-height:168px;line-height:24px;font-size:16px;background:none}
 .pr, .pc {vertical-align:middle;margin:0 5px 3px;padding:0}
 .btn_pn_grey {background-color:var(--dz-BG-0);color:var(--dz-FC-color)}
@@ -408,7 +408,7 @@ select {-moz-appearance:none;}
 .tip dt.mpt .pt {min-height:96px}
 .tip dt .pxbg {background-color:var(--dz-BG-5);margin-bottom:5px;padding:0 5px;border-radius:4px}
 .tip dd {padding:0 15px 15px;overflow:hidden}
-.tip dd .button {width:48%;padding:0}
+.tip dd .button {width:48%;padding:0;display:inline-block;}
 .tip .close {display:block;color:var(--dz-FC-fff)}
 
 /*----- 搜索 -----*/

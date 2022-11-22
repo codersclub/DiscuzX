@@ -58,7 +58,7 @@
 							<em class="mgl"><a href="#moption_$post['pid']" class="popup blue">{lang manage}</a></em>
 							<div id="moption_$post['pid']" popup="true" class="manage" style="display:none;">
 								<!--{if !$_G['forum_thread']['special']}-->
-								<input type="button" value="{lang edit}" class="redirect button" href="forum.php?mod=post&action=edit&fid=$_G['fid']&tid=$_G['tid']&pid=$post['pid']<!--{if $_G['forum_thread']['sortid']}--><!--{if $post['first']}-->&sortid={$_G['forum_thread']['sortid']}<!--{/if}--><!--{/if}-->{if !empty($_GET['modthreadkey'])}&modthreadkey=$_GET['modthreadkey']{/if}&page=$page">
+								<a class="button" href="forum.php?mod=post&action=edit&fid=$_G['fid']&tid=$_G['tid']&pid=$post['pid']<!--{if $_G['forum_thread']['sortid']}--><!--{if $post['first']}-->&sortid={$_G['forum_thread']['sortid']}<!--{/if}--><!--{/if}-->{if !empty($_GET['modthreadkey'])}&modthreadkey=$_GET['modthreadkey']{/if}&page=$page">{lang edit}</a>
 								<!--{/if}-->
 								<input type="button" value="{lang delete}" class="dialog button" href="forum.php?mod=topicadmin&action=moderate&fid={$_G['fid']}&moderate[]={$_G['tid']}&operation=delete&optgroup=3&from={$_G['tid']}">
 								<input type="button" value="{lang close}" class="dialog button" href="forum.php?mod=topicadmin&action=moderate&fid={$_G['fid']}&moderate[]={$_G['tid']}&from={$_G['tid']}&optgroup=4">
@@ -68,7 +68,7 @@
 						<!--{elseif !$post['first'] && $modmenu['post']}-->
 							<em class="mgl"><a href="#moption_$post['pid']" class="popup">{lang manage}</a></em>
 							<div id="moption_$post['pid']" popup="true" class="manage" style="display:none">
-								<input type="button" value="{lang edit}" class="redirect button" href="forum.php?mod=post&action=edit&fid=$_G['fid']&tid=$_G['tid']&pid=$post['pid']{if !empty($_GET['modthreadkey'])}&modthreadkey=$_GET['modthreadkey']{/if}&page=$page">
+								<a class="button" href="forum.php?mod=post&action=edit&fid=$_G['fid']&tid=$_G['tid']&pid=$post['pid']{if !empty($_GET['modthreadkey'])}&modthreadkey=$_GET['modthreadkey']{/if}&page=$page">{lang edit}</a>
 								<!--{if $_G['group']['allowdelpost']}--><input type="button" value="{lang modmenu_deletepost}" class="dialog button" href="forum.php?mod=topicadmin&action=delpost&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}"><!--{/if}-->
 								<!--{if $_G['group']['allowbanpost']}--><input type="button" value="{lang modmenu_banpost}" class="dialog button" href="forum.php?mod=topicadmin&action=banpost&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}"><!--{/if}-->
 								<!--{if $_G['group']['allowwarnpost']}--><input type="button" value="{lang modmenu_warn}" class="dialog button" href="forum.php?mod=topicadmin&action=warn&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}"><!--{/if}-->
@@ -165,7 +165,7 @@
 			<!--{/if}-->
 			<!--{if $_G['uid'] && $allowpostreply && !$post['first']}-->
 			<div id="replybtn_$post['pid']" class="replybtn" display="true">
-				<input type="button" class="redirect button" href="forum.php?mod=post&action=reply&fid={$_G['fid']}&tid={$_G['tid']}&repquote={$post['pid']}&extra={$_GET['extra']}&page={$page}" value="{lang reply}">
+				<a class="button" href="forum.php?mod=post&action=reply&fid={$_G['fid']}&tid={$_G['tid']}&repquote={$post['pid']}&extra={$_GET['extra']}&page={$page}">{lang reply}</a>
 			</div>
 			<!--{/if}-->
 			<!--{if $post['first']}-->

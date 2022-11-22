@@ -11,7 +11,7 @@
         <div class="dialogbox" id="moption" popup="true" class="manage" style="display:none">
             <!--{hook/collection_viewoptions}-->
             <!--{if $permission}-->
-                <input type="button" value="{lang edit}" class="redirect button" href="forum.php?mod=collection&action=edit&op=edit&ctid={$_G['collection']['ctid']}&formhash={FORMHASH}">
+                <a class="button" href="forum.php?mod=collection&action=edit&op=edit&ctid={$_G['collection']['ctid']}&formhash={FORMHASH}">{lang edit}</a>
                 <input type="button" value="{lang delete}" class="dialog button" href="forum.php?mod=collection&action=edit&op=remove&ctid={$_G['collection']['ctid']}&formhash={FORMHASH}">
                 <input type="button" value="{lang collection_invite_team}" class="dialog button" href="forum.php?mod=collection&action=edit&op=invite&ctid=$ctid">
             <!--{/if}-->

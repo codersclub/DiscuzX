@@ -191,7 +191,7 @@ var popup = {
 			if(type == 'alert') {
 				pop = '<div class="tip"><dt>'+ pop +'</dt><dd><input class="button2" type="button" value="确定" onclick="popup.close();"></dd></div>'
 			} else if(type == 'confirm') {
-				pop = '<div class="tip"><dt>'+ pop +'</dt><dd><input class="redirect button2" type="button" value="确定" href="'+ url +'"><a href="javascript:;" onclick="popup.close();">取消</a></dd></div>'
+				pop = '<div class="tip"><dt>'+ pop +'</dt><dd><a class="button" href="'+ url +'">确定</a> <button onclick="popup.close();" class="button">取消</a></dd></div>'
 			}
 			$('body').append('<div id="ntcmsg" style="display:none;">'+ pop +'</div>');
 			pop = $('#ntcmsg');
@@ -263,17 +263,6 @@ var formdialog = {
 				popup.open('表单提交异常，无法完成您的请求', 'alert');
 			});
 			return false;
-		});
-	}
-};
-
-var redirect = {
-	init : function() {
-		qSelA('.redirect').forEach(function (rd) {
-			rd.addEventListener('click', function () {
-				popup.close();
-				window.location.href = this.getAttribute('href');
-			});
 		});
 	}
 };
@@ -704,7 +693,6 @@ $(document).ready(function() {
 	}
 	dialog.init();
 	formdialog.init();
-	redirect.init();
 });
 
 function ajaxget(url, showid, waitid, loading, display, recall) {
