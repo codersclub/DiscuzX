@@ -174,6 +174,7 @@ if($method == 'show_license') {
 				$ucconfig_array = explode('|', $ucconfig);
 				$ucconfig_array[] = $ucapi;
 				$ucconfig_array[] = $ucip;
+				$ucconfig_array[] = 0;
 				if(empty($appauthkey) || empty($appid)) {
 					show_msg('uc_data_invalid', '', 0);
 				} elseif($succeed = save_uc_config($ucconfig_array, ROOT_PATH.CONFIG_UC)) {
