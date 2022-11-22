@@ -1183,8 +1183,12 @@ function runucquery($sql, $tablepre) {
 
 			if(substr($query, 0, 12) == 'CREATE TABLE') {
 				$name = preg_replace("/CREATE TABLE ([a-z0-9_]+) .*/is", "\\1", $query);
-				$db->query(createtable($query, $db->version()));
-				showjsmessage(lang('create_table').' '.$name.' ... '.lang('succeed') . "\n");
+				if($db->query(createtable($query, $db->version()))) {
+					showjsmessage(lang('create_table').' '.$name.' ... '.lang('succeed') . "\n");
+				} else {
+					showjsmessage(lang('create_table').' '.$name.' ... '.lang('failed') . "\n");
+					return false;
+				}
 			} else {
 				$db->query($query);
 			}
