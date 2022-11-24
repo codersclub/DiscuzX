@@ -134,7 +134,7 @@ function env_check(&$env_items) {
 		if($key == 'php') {
 			$env_items[$key]['current'] = PHP_VERSION;
 		} elseif($key == 'attachmentupload') {
-			$env_items[$key]['current'] = @ini_get('file_uploads') ? (min(min(ini_get('upload_max_filesize'), ini_get('post_max_size')), ini_get('memory_limit'))) : 'unknow';
+			$env_items[$key]['current'] = @ini_get('file_uploads') ? getmaxupload() : 'unknow';
 		} elseif($key == 'gdversion') {
 			$tmp = function_exists('gd_info') ? gd_info() : array();
 			$env_items[$key]['current'] = empty($tmp['GD Version']) ? 'noext' : $tmp['GD Version'];
@@ -147,6 +147,18 @@ function env_check(&$env_items) {
 			}
 		} elseif(isset($item['c'])) {
 			$env_items[$key]['current'] = constant($item['c']);
+		} elseif($key == 'opcache') {
+			$opcache_data = function_exists('opcache_get_configuration') ? opcache_get_configuration() : array();
+			$env_items[$key]['current'] = !empty($opcache_data['directives']['opcache.enable']) ? 'enable' : 'disable';
+		} elseif($key == 'curl') {
+			if(function_exists('curl_init') && function_exists('curl_version')){
+				$v = curl_version();
+				$env_items[$key]['current'] = 'enable'.' '.$v['version'];
+			}else{
+				$env_items[$key]['current'] = 'disable';
+			}
+		} elseif(isset($item['f'])) {
+			$env_items[$key]['current'] = function_exists($item['f']) ? 'enable' : 'disable';
 		}
 
 		$env_items[$key]['status'] = 1;
@@ -699,7 +711,7 @@ function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {
 
 function generate_key($length = 32) {
 	$random = secrandom($length);
-	$info = md5($_SERVER['SERVER_SOFTWARE'].$_SERVER['SERVER_NAME'].$_SERVER['SERVER_ADDR'].$_SERVER['SERVER_PORT'].$_SERVER['HTTP_USER_AGENT'].time());
+	$info = md5($_SERVER['SERVER_SOFTWARE'].$_SERVER['SERVER_NAME'].(isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '').(isset($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : '').$_SERVER['HTTP_USER_AGENT'].time());
 	$return = '';
 	for($i=0; $i<$length; $i++) {
 		$return .= $random[$i].$info[$i];
@@ -1166,4 +1178,32 @@ function dhtmlspecialchars($string, $flags = null) {
 
 function send_mime_type_header($type = 'application/xml') {
 	header("Content-Type: ".$type);
+}
+
+function getmaxupload() {
+	$sizeconv = array('B' => 1, 'KB' => 1024, 'MB' => 1048576, 'GB' => 1073741824);
+	$sizes = array();
+	$sizes[] = ini_get('upload_max_filesize');
+	$sizes[] = ini_get('post_max_size');
+	$sizes[] = ini_get('memory_limit');
+	if(intval($sizes[1]) === 0) {
+		unset($sizes[1]);
+	}
+	if(intval($sizes[2]) === -1) {
+		unset($sizes[2]);
+	}
+	$sizes = preg_replace_callback(
+		'/^(\-?\d+)([KMG]?)$/i',
+		function($arg) use ($sizeconv) {
+			return (intval($arg[1]) * $sizeconv[strtoupper($arg[2]).'B']).'|'.strtoupper($arg[0]);
+		},
+		$sizes
+	);
+	natsort($sizes);
+	$output = explode('|', current($sizes));
+	if(!empty($output[1])) {
+		return $output[1];
+	} else {
+		return ini_get('upload_max_filesize');
+	}
 }
