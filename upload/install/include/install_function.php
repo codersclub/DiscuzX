@@ -384,6 +384,9 @@ function show_next_step($step, $error_code) {
 		echo $GLOBALS['hidden'];
 	}
 	echo "<input type=\"hidden\" name=\"uchidden\" value=\"$uchidden\" />";
+	if($uchidden) {
+		echo "<input type=\"hidden\" name=\"install_ucenter\" value=\"no\" />";
+	}
 	if($error_code == 0) {
 		$nextstep = "<input type=\"button\" class=\"btn oldbtn\" onclick=\"history.back();\" value=\"".lang('old_step')."\"><input type=\"submit\" class=\"btn\" value=\"".lang('new_step')."\">\n";
 	} else {
@@ -404,13 +407,14 @@ function show_form(&$form_items, $error_msg) {
 	show_header();
 	show_setting('start');
 	show_setting('hidden', 'step', $step);
-	show_setting('hidden', 'install_ucenter', getgpc('install_ucenter'));
 	if($step == 2) {
 		echo '<div class="box">';
 		show_tips('install_dzstandalone');
 		show_tips('install_dzfull');
 		show_tips('install_dzonly');
 		echo '</div>';
+	} else {
+		show_setting('hidden', 'install_ucenter', getgpc('install_ucenter'));
 	}
 	$is_first = 1;
 	if(!empty($uchidden)) {
