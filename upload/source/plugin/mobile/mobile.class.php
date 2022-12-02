@@ -109,7 +109,7 @@ class mobile_core {
 		}
 		$pluginvariables = array();
 		if(!empty($_G['setting']['mobileapihook'])) {
-			$mobileapihook = unserialize($_G['setting']['mobileapihook']);
+			$mobileapihook = dunserialize($_G['setting']['mobileapihook']);
 			if(!empty($mobileapihook[$_GET['module']])) {
 				if(!empty($mobileapihook[$_GET['module']]['variables'])) {
 					mobile_core::activeHook($_GET['module'], $mobileapihook, $variables, true);

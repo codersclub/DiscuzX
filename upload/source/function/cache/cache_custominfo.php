@@ -14,10 +14,10 @@ if(!defined('IN_DISCUZ')) {
 function build_cache_custominfo() {
 
 	$data = C::t('common_setting')->fetch_all_setting(array('extcredits', 'customauthorinfo', 'postno', 'postnocustom'));
-	$data['customauthorinfo'] = unserialize($data['customauthorinfo']);
+	$data['customauthorinfo'] = dunserialize($data['customauthorinfo']);
 	$data['customauthorinfo'] = $data['customauthorinfo'][0];
 	$data['fieldsadd'] = '';
-	$data['extcredits'] = unserialize($data['extcredits']);
+	$data['extcredits'] = dunserialize($data['extcredits']);
 	$order = array();
 	if($data['customauthorinfo']) {
 		foreach($data['customauthorinfo'] as $k => $v) {
@@ -45,7 +45,7 @@ function build_cache_custominfo() {
 	$data['profile'] = $profile;
 
 	$postnocustomnew[0] = $data['postno'] != '' ? (preg_match("/^[\x01-\x7f]+$/", $data['postno']) ? '<sup>'.$data['postno'].'</sup>' : $data['postno']) : '<sup>#</sup>';
-	$data['postnocustom'] = unserialize($data['postnocustom']);
+	$data['postnocustom'] = dunserialize($data['postnocustom']);
 	if(is_array($data['postnocustom'])) {
 		foreach($data['postnocustom'] as $key => $value) {
 			$value = trim($value);

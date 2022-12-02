@@ -35,7 +35,7 @@ if(!submitcheck('modsubmit')) {
 			showmessage('admin_copy_hava_mod');
 		}
 	}
-	$toforum['threadsorts_arr'] = unserialize($toforum['threadsorts']);
+	$toforum['threadsorts_arr'] = dunserialize($toforum['threadsorts']);
 
 	if($thread['sortid'] != 0 && $toforum['threadsorts_arr']['types'][$thread['sortid']]) {
 		foreach(C::t('forum_typeoptionvar')->fetch_all_by_search($thread['sortid'], null, $thread['tid']) as $result) {

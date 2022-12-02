@@ -22,7 +22,7 @@ $discuz->cachelist = $cachelist;
 $discuz->init();
 
 $_G['siteurl'] = str_replace('api/mobile/', '', $_G['siteurl']);
-$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
+$_G['wechat']['setting'] = dunserialize($_G['setting']['mobilewechat']);
 
 require_once DISCUZ_ROOT . './source/plugin/wechat/wechat.lib.class.php';
 

@@ -21,8 +21,8 @@ if(empty($_GET['updated'])) {
 }
 
 $setting = C::t('common_setting')->fetch_all_setting(array('mobilewechat', 'mobile'));
-$mobilesetting = (array)unserialize($setting['mobile']);
-$setting = (array)unserialize($setting['mobilewechat']);
+$mobilesetting = (array)dunserialize($setting['mobile']);
+$setting = (array)dunserialize($setting['mobilewechat']);
 
 require_once DISCUZ_ROOT.'./source/plugin/wechat/wechat.lib.class.php';
 require_once DISCUZ_ROOT.'./source/plugin/wechat/wsq.class.php';

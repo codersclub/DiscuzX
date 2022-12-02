@@ -267,7 +267,7 @@ class Cloud_Service_Connect {
 				$userGroupInfo[$groupId]['forbidForumIds'][] = $fid;
 				continue;
 			}
-			$perm = unserialize($forumField['formulaperm']);
+			$perm = dunserialize($forumField['formulaperm']);
 			if(is_array($perm)) {
 				if($perm[0] || $perm[1] || $perm['users']) {
 					$userGroupInfo[$groupId]['forbidForumIds'][] = $fid;

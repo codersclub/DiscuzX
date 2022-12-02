@@ -2247,9 +2247,11 @@ function strhash($string, $operation = 'DECODE', $key = '') {
 }
 
 function dunserialize($data) {
-	// 由于 Redis 驱动侧以序列化保存 array, 因此存在参数入参为 array 的情况.
+	// 由于 Redis 驱动侧以序列化保存 array, 取出数据时会自动反序列化（导致反序列化了非Redis驱动序列化的数据），因此存在参数入参为 array 的情况.
 	// 考虑到 PHP 8 增强了类型体系, 此类数据直接送 unserialize 会导致 Fatal Error, 需要通过代码层面对此情况进行规避.
-	if(!is_array($data) && ($ret = unserialize($data)) === false) {
+	if(is_array($data)) {
+		$ret = $data;
+	} elseif(($ret = unserialize($data)) === false) {
 		$ret = unserialize(stripslashes($data));
 	}
 	return $ret;

@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 }
 
 $setting = C::t('common_setting')->fetch_all_setting(array('wechatmenu'));
-$setting = (array)unserialize($setting['wechatmenu']);
+$setting = (array)dunserialize($setting['wechatmenu']);
 
 require_once DISCUZ_ROOT . './source/plugin/wechat/wechat.lib.class.php';
 require_once DISCUZ_ROOT.'./source/plugin/wechat/setting.class.php';
@@ -175,7 +175,7 @@ EOT;
 
 		require_once DISCUZ_ROOT . './source/plugin/wechat/wechat.lib.class.php';
 
-		$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
+		$_G['wechat']['setting'] = dunserialize($_G['setting']['mobilewechat']);
 
 		$wechat_client = new WeChatClient($_G['wechat']['setting']['wechat_appId'], $_G['wechat']['setting']['wechat_appsecret']);
 

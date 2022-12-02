@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 }
 
 $setting = C::t('common_setting')->fetch_all_setting(array('mobilewechat'));
-$setting = (array)unserialize($setting['mobilewechat']);
+$setting = (array)dunserialize($setting['mobilewechat']);
 $ac = !empty($_GET['ac']) ? $_GET['ac'] : '';
 
 require_once libfile('function/forumlist');

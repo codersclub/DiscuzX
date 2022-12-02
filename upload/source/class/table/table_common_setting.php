@@ -50,7 +50,7 @@ class table_common_setting extends discuz_table
 
 	public function fetch_setting($skey, $auto_unserialize = false) {
 		$data = DB::result_first('SELECT svalue FROM '.DB::table($this->_table).' WHERE '.DB::field($this->_pk, $skey));
-		return $auto_unserialize ? (array)unserialize($data) : $data;
+		return $auto_unserialize ? (array)dunserialize($data) : $data;
 	}
 
 	public function fetch_all_setting($skeys = array(), $auto_unserialize = false){
@@ -58,7 +58,7 @@ class table_common_setting extends discuz_table
 		$where = !empty($skeys) ? ' WHERE '.DB::field($this->_pk, $skeys) : '';
 		$query = DB::query('SELECT * FROM '.DB::table($this->_table).$where);
 		while($value = DB::fetch($query)) {
-			$data[$value['skey']] = $auto_unserialize ? (array)unserialize($value['svalue']) : $value['svalue'];
+			$data[$value['skey']] = $auto_unserialize ? (array)dunserialize($value['svalue']) : $value['svalue'];
 		}
 		return $data;
 	}

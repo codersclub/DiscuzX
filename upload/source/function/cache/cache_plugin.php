@@ -16,7 +16,7 @@ function build_cache_plugin() {
 	$data = $pluginsetting = array();
 	foreach(C::t('common_plugin')->fetch_all_data(1) as $plugin) {
 		$dir = substr($plugin['directory'], 0, -1);
-		$plugin['modules'] = unserialize($plugin['modules']);
+		$plugin['modules'] = dunserialize($plugin['modules']);
 		if($plugin['modules']['extra']['langexists']) {
 			$file = DISCUZ_ROOT.'./source/plugin/'.$dir.'/discuz_plugin_'.$dir.($plugin['modules']['extra']['installtype'] ? '_'.$plugin['modules']['extra']['installtype'] : '').'.xml';
 			if(file_exists($file)) {

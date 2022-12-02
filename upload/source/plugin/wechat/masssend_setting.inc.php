@@ -15,7 +15,7 @@ require_once DISCUZ_ROOT . './source/plugin/wechat/setting.class.php';
 WeChatSetting::menu();
 
 define('PMODURL', 'action=plugins&operation&config&identifier=wechat&pmod=masssend_setting&ac=');
-$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
+$_G['wechat']['setting'] = dunserialize($_G['setting']['mobilewechat']);
 
 $wechat_client = new WeChatClient($_G['wechat']['setting']['wechat_appId'], $_G['wechat']['setting']['wechat_appsecret']);
 

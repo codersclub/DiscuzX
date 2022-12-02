@@ -49,7 +49,7 @@ if(submitcheck('reportsubmit')) {
 			$data['fid'] = $fid;
 		}
 		C::t('common_report')->insert($data);
-		$report_receive = unserialize($_G['setting']['report_receive']);
+		$report_receive = dunserialize($_G['setting']['report_receive']);
 		$moderators = array();
 		if($report_receive['adminuser']) {
 			foreach($report_receive['adminuser'] as $touid) {

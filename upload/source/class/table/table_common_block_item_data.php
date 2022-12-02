@@ -28,7 +28,7 @@ class table_common_block_item_data extends discuz_table
 			$query = DB::query('SELECT * FROM %t WHERE '.DB::field('bid', $bid).' AND isverified=%d'.$addsql.' ORDER BY stickgrade DESC, displayorder DESC, verifiedtime DESC, dataid DESC '.DB::limit($start, $limit), array($this->_table, $isverified));
 			while($value = DB::fetch($query)) {
 				if($format) {
-					$value['fields'] = unserialize($value['fields']);
+					$value['fields'] = dunserialize($value['fields']);
 					$value['fields']['timestamp'] = $value['fields']['dateline'];
 					$value['fields']['dateline'] = dgmdate($value['fields']['dateline']);
 					$value['pic'] = $value['pic'] !== STATICURL.'image/common/nophoto.gif' ? $value['pic'] : '';

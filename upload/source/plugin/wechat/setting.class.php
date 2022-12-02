@@ -39,7 +39,7 @@ EOF;
 
 	public static function menu() {
 		global $_G;
-		$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
+		$_G['wechat']['setting'] = dunserialize($_G['setting']['mobilewechat']);
 
 echo <<<EOF
 <style>

@@ -12,7 +12,7 @@ if (!defined('IN_DISCUZ')) {
 
 $dir = DISCUZ_ROOT.'./data/cache/qrcode/';
 
-$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
+$_G['wechat']['setting'] = dunserialize($_G['setting']['mobilewechat']);
 
 if($_GET['access']) {
 	dheader('Expires: '.gmdate('D, d M Y H:i:s', TIMESTAMP + 86400).' GMT');

@@ -117,7 +117,7 @@ class table_common_syscache extends discuz_table
 
 		$query = DB::query('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field('cname', $cachenames));
 		while($syscache = DB::fetch($query)) {
-			$data[$syscache['cname']] = $syscache['ctype'] ? unserialize($syscache['data']) : $syscache['data'];
+			$data[$syscache['cname']] = $syscache['ctype'] ? dunserialize($syscache['data']) : $syscache['data'];
 			if ($this->_allowmem) {
 				if ($syscache['cname'] === 'setting') {
 					memory_setting_array::save($data[$syscache['cname']]);

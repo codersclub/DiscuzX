@@ -575,7 +575,7 @@ class discuz_application extends discuz_base{
 		setglobal('groupid', getglobal('groupid', 'member'));
 		if(!empty($this->var['member']['newprompt'])) {
 			$this->var['member']['newprompt_num'] = C::t('common_member_newprompt')->fetch($this->var['member']['uid']);
-			$this->var['member']['newprompt_num'] = unserialize($this->var['member']['newprompt_num']['data']);
+			$this->var['member']['newprompt_num'] = dunserialize($this->var['member']['newprompt_num']['data']);
 			$this->var['member']['category_num'] = helper_notification::get_categorynum($this->var['member']['newprompt_num']);
 		}
 

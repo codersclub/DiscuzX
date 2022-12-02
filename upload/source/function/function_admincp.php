@@ -1118,7 +1118,7 @@ function exportarray($array, $method) {
 			if(is_array($v)) {
 				$tmp[$k] = exportarray($v, 1);
 			} else {
-				$uv = unserialize($v);
+				$uv = dunserialize($v);
 				if($uv && is_array($uv)) {
 					$tmp['__'.$k] = exportarray($uv, 1);
 					unset($tmp[$k]);

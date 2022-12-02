@@ -13,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 function mkshare($share) {
 	require_once libfile('function/discuzcode');
-	$share['body_data'] = unserialize($share['body_data']);
+	$share['body_data'] = dunserialize($share['body_data']);
 
 	$searchs = $replaces = array();
 	if($share['body_data']) {

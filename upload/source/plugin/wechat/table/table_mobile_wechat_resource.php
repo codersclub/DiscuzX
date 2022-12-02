@@ -41,7 +41,7 @@ class table_mobile_wechat_resource extends discuz_table {
 	public function fetch($id, $force_from_db = false){
 		$data = parent::fetch($id, $force_from_db);
 		if($data) {
-			$data['data'] = unserialize($data['data']);
+			$data['data'] = dunserialize($data['data']);
 			return $data;
 		} else {
 			return array();
@@ -58,7 +58,7 @@ class table_mobile_wechat_resource extends discuz_table {
 		$datas = DB::fetch_all("SELECT * FROM %t WHERE %i ORDER BY id DESC LIMIT %d,%d", array($this->_table, $typesql, $start, $limit));
 		if($datas) {
 			foreach($datas as &$data) {
-				$data['data'] = unserialize($data['data']);
+				$data['data'] = dunserialize($data['data']);
 			}
 			return $datas;
 		} else {
@@ -70,7 +70,7 @@ class table_mobile_wechat_resource extends discuz_table {
 		$datas = parent::fetch_all($ids, $force_from_db);
 		if($datas) {
 			foreach($datas as &$data) {
-				$data['data'] = unserialize($data['data']);
+				$data['data'] = dunserialize($data['data']);
 			}
 			return $datas;
 		} else {

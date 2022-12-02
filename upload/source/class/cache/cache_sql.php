@@ -24,7 +24,7 @@ class ultrax_cache {
 			if(!$cache) {
 				return false;
 			}
-			$data[$key] = unserialize($cache['cachevalue']);
+			$data[$key] = dunserialize($cache['cachevalue']);
 			if($cache['life'] && ($cache['dateline'] < time() - $data[$key]['life'])) {
 				return false;
 			}

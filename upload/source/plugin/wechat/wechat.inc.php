@@ -10,7 +10,7 @@ if (!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
+$_G['wechat']['setting'] = dunserialize($_G['setting']['mobilewechat']);
 define('IN_WECHAT', strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false);
 
 require_once DISCUZ_ROOT . './source/plugin/wechat/wechat.lib.class.php';

@@ -42,7 +42,7 @@ showtips(lang('plugin/wechat', 'wechatapi_tips'));
 showformheader('plugins&operation=config&do='.$pluginid.'&identifier=wechat&pmod=api_setting');
 
 $mobilewechatsetting = C::t('common_setting')->fetch_all(array('mobilewechat'));
-$mobilewechatsetting = (array)unserialize($mobilewechatsetting['mobilewechat']);
+$mobilewechatsetting = (array)dunserialize($mobilewechatsetting['mobilewechat']);
 
 if($mobilewechatsetting['wsq_sitetoken']) {
 
@@ -104,7 +104,7 @@ foreach($response as $k => $row) {
 }
 showtablefooter();
 
-$wechatresponseExts = unserialize($_G['setting']['wechatresponseExts']);
+$wechatresponseExts = dunserialize($_G['setting']['wechatresponseExts']);
 if($wechatresponseExts) {
 	showtableheader();
 	foreach($wechatresponseExts as $extk => $response) {
@@ -129,11 +129,11 @@ if($deleteresponseExts) {
 	}
 }
 
-$wechatappInfos = unserialize($_G['setting']['wechatappInfos']);
+$wechatappInfos = dunserialize($_G['setting']['wechatappInfos']);
 if($wechatappInfos) {
 	showtableheader();
 	echo '<tr class="header"><th width="200">'.lang('plugin/wechat', 'wechat_devids').'</th><th>'.lang('plugin/wechat', 'wechat_appId').'</th><th>'.lang('plugin/wechat', 'wechat_appsecret').'</th></tr>';
-	foreach(unserialize($_G['setting']['wechatappInfos']) as $k => $info) {
+	foreach(dunserialize($_G['setting']['wechatappInfos']) as $k => $info) {
 		echo '<tr class="hover"><td>'.$k.'</td><td>'.$info['appId'].'</td><td>'.$info['appSecret'].'</td></tr>';
 	}
 	showtablefooter();

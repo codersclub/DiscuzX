@@ -51,7 +51,7 @@ foreach($plugins as $pluginid) {
 	$pluginarray = getimportdata('Discuz! Plugin', $importtxt);
 	$plugin = C::t('common_plugin')->fetch_by_identifier($pluginid);
 	if($plugin) {
-		$modules = unserialize($plugin['modules']);
+		$modules = dunserialize($plugin['modules']);
 		if($modules['system'] > 0) {
 			if($pluginarray['plugin']['version'] != $plugin['version']) {
 				pluginupgrade($pluginarray, '');
@@ -76,7 +76,7 @@ foreach($plugins as $pluginid) {
 		$opens[] = $pluginid;
 	}
 
-	$pluginarray['plugin']['modules'] = unserialize(dstripslashes($pluginarray['plugin']['modules']));
+	$pluginarray['plugin']['modules'] = dunserialize(dstripslashes($pluginarray['plugin']['modules']));
 	$pluginarray['plugin']['modules']['system'] = $systemvalue;
 	$pluginarray['plugin']['modules'] = serialize($pluginarray['plugin']['modules']);
 	plugininstall($pluginarray, '', in_array($pluginid, $opens));

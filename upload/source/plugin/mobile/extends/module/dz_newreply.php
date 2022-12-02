@@ -22,7 +22,7 @@ class dz_newreply extends extends_data {
 		loadcache('forum_guide');
 		$dateline = 0;
 		$maxnum = 50000;
-		$_G['setting']['guide'] = unserialize($_G['setting']['guide']);
+		$_G['setting']['guide'] = dunserialize($_G['setting']['guide']);
 		if($_G['setting']['guide']['newdt']) {
 			$dateline = time() - intval($_G['setting']['guide']['newdt']);
 		}

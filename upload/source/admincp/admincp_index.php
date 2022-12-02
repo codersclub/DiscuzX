@@ -294,7 +294,7 @@ function show_filecheck() {
 
 	$filecheck = C::t('common_cache')->fetch('checktools_filecheck_result');
 	if($filecheck) {
-		list($modifiedfiles, $deletedfiles, $unknownfiles, $doubt) = unserialize($filecheck['cachevalue']);
+		list($modifiedfiles, $deletedfiles, $unknownfiles, $doubt) = dunserialize($filecheck['cachevalue']);
 		$filecheckresult = "<div><em class=\"edited\">{$lang['filecheck_modify']}<span class=\"bignum\">$modifiedfiles</span></em>".
 			"<em class=\"del\">{$lang['filecheck_delete']}<span class=\"bignum\">$deletedfiles</span></em>".
 			"<em class=\"unknown\">{$lang['filecheck_unknown']}<span class=\"bignum\">$unknownfiles</span></em>".

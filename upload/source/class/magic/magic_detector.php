@@ -62,7 +62,7 @@ class magic_detector {
 			$members = C::t('common_member')->fetch_all($uids);
 			foreach(C::t('common_member_field_home')->fetch_all($uids) as $uid => $value) {
 				$value = array_merge($members[$uid], $value);
-				$info = !empty($value['magicgift']) ? unserialize($value['magicgift']) : array();
+				$info = !empty($value['magicgift']) ? dunserialize($value['magicgift']) : array();
 				if(!empty($info['left']) && (empty($info['receiver']) || !in_array($_G['uid'], $info['receiver']))) {
 					$value['avatar'] = addcslashes(avatar($uid, 'small'), "'");
 					$list[$uid] = $value;

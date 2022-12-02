@@ -15,7 +15,7 @@ if(!$_G['uid']) {
 	showmessage('not_loggedin', NULL, array(), array('login' => 1));
 }
 
-$myrepeatsusergroups = (array)unserialize($_G['cache']['plugin']['myrepeats']['usergroups']);
+$myrepeatsusergroups = (array)dunserialize($_G['cache']['plugin']['myrepeats']['usergroups']);
 if(in_array('', $myrepeatsusergroups)) {
 	$myrepeatsusergroups = array();
 }

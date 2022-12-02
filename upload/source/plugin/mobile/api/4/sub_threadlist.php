@@ -11,7 +11,7 @@ if (!defined('IN_MOBILE_API')) {
 	exit('Access Denied');
 }
 
-$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
+$_G['wechat']['setting'] = dunserialize($_G['setting']['mobilewechat']);
 
 $tids = array();
 foreach ($_G['forum_threadlist'] as $k => $thread) {

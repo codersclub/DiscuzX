@@ -37,14 +37,14 @@ class mobile_api {
 			if(!$forum['viewperm'] || ($forum['viewperm'] && forumperm($forum['viewperm']))) {
 				$forum['name'] = strip_tags($forum['name']);
 				if($forum['threadsorts']) {
-					$forum['threadsorts'] = unserialize($forum['threadsorts']);
+					$forum['threadsorts'] = dunserialize($forum['threadsorts']);
 					foreach($forum['threadsorts']['types'] as $k => $v) {
 						$forum['threadsorts']['types'][$k] = strip_tags($v);
 					}
 					$forum['threadsorts'] = mobile_core::getvalues($forum['threadsorts'], array('required', 'types'));
 				}
 				if($forum['threadtypes']) {
-					$forum['threadtypes'] = unserialize($forum['threadtypes']);
+					$forum['threadtypes'] = dunserialize($forum['threadtypes']);
 					$unsetthreadtype = false;
 					if($_G['adminid'] == 3 && strpos($forum['moderators'], $_G['username']) === false) {
 						$unsetthreadtype = true;

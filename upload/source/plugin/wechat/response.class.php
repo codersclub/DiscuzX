@@ -237,7 +237,7 @@ class WSQResponse {
 	private static function _init() {
 		global $_G;
 		if(!$_G['wechat']['setting']) {
-			$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
+			$_G['wechat']['setting'] = dunserialize($_G['setting']['mobilewechat']);
 		}
 	}
 

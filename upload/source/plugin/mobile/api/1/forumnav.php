@@ -36,10 +36,10 @@ class mobile_api {
 			}
 			if(!$forum['viewperm'] || ($forum['viewperm'] && forumperm($forum['viewperm']))) {
 				if($forum['threadsorts']) {
-					$forum['threadsorts'] = mobile_core::getvalues(unserialize($forum['threadsorts']), array('required', 'types'));
+					$forum['threadsorts'] = mobile_core::getvalues(dunserialize($forum['threadsorts']), array('required', 'types'));
 				}
 				if($forum['threadtypes']) {
-					$forum['threadtypes'] = unserialize($forum['threadtypes']);
+					$forum['threadtypes'] = dunserialize($forum['threadtypes']);
 					$unsetthreadtype = false;
 					if($_G['adminid'] == 3 && strpos($forum['moderators'], $_G['username']) === false) {
 						$unsetthreadtype = true;

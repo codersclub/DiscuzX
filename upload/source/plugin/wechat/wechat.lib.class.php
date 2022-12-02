@@ -914,7 +914,7 @@ class WeChatHook {
 
 	public static function updateAppInfo($extId, $appId = '', $appSecret = '') {
 		global $_G;
-		$wechatappInfos = unserialize($_G['setting']['wechatappInfos']);
+		$wechatappInfos = dunserialize($_G['setting']['wechatappInfos']);
 		if ($appId) {
 			$wechatappInfos[$extId] = array('appId' => $appId, 'appSecret' => $appSecret);
 		} else {
@@ -927,7 +927,7 @@ class WeChatHook {
 
 	public static function getAppInfo($extId) {
 		global $_G;
-		$wechatappInfos = unserialize($_G['setting']['wechatappInfos']);
+		$wechatappInfos = dunserialize($_G['setting']['wechatappInfos']);
 		if (isset($wechatappInfos[$extId])) {
 			return $wechatappInfos[$extId];
 		} else {
@@ -950,7 +950,7 @@ class WeChatHook {
 			$settings = array('wechatresponse' => serialize($response));
 		} else {
 			global $_G;
-			$wechatresponseExts = unserialize($_G['setting']['wechatresponseExts']);
+			$wechatresponseExts = dunserialize($_G['setting']['wechatresponseExts']);
 			if ($data) {
 				$wechatresponseExts[$extId] = $response;
 			} else {
@@ -966,9 +966,9 @@ class WeChatHook {
 	public static function getResponse($extId = '') {
 		global $_G;
 		if (!$extId) {
-			return unserialize($_G['setting']['wechatresponse']);
+			return dunserialize($_G['setting']['wechatresponse']);
 		} else {
-			$wechatresponseExts = unserialize($_G['setting']['wechatresponseExts']);
+			$wechatresponseExts = dunserialize($_G['setting']['wechatresponseExts']);
 			return $wechatresponseExts[$extId];
 		}
 	}
@@ -983,7 +983,7 @@ class WeChatHook {
 
 	public static function getRedirect() {
 		global $_G;
-		return unserialize($_G['setting']['wechatredirect']);
+		return dunserialize($_G['setting']['wechatredirect']);
 	}
 
 	public static function getViewPluginId() {
@@ -1023,7 +1023,7 @@ class WeChatHook {
 
 	public static function getAPIHook($getplugin = '') {
 		global $_G;
-		$data = unserialize($_G['setting']['mobileapihook']);
+		$data = dunserialize($_G['setting']['mobileapihook']);
 		if (!$getplugin) {
 			return $data;
 		} else {

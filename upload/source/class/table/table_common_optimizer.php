@@ -41,7 +41,7 @@ class table_common_optimizer extends discuz_table {
 
 	public function fetch_optimizer($skey, $auto_unserialize = false) {
 		$data = DB::result_first('SELECT v FROM '.DB::table($this->_table).' WHERE '.DB::field($this->_pk, $skey));
-		return $auto_unserialize ? (array)unserialize($data) : $data;
+		return $auto_unserialize ? (array)dunserialize($data) : $data;
 	}
 
 	public function update_optimizer($skey, $svalue){

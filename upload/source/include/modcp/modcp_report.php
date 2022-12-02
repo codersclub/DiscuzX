@@ -12,7 +12,7 @@ if(!defined('IN_DISCUZ') || !defined('IN_MODCP')) {
 }
 if(!empty($_G['fid'])) {
 	$curcredits = $_G['setting']['creditstransextra'][8] ? $_G['setting']['creditstransextra'][8] : $_G['setting']['creditstrans'];
-	$report_reward = unserialize($_G['setting']['report_reward']);
+	$report_reward = dunserialize($_G['setting']['report_reward']);
 	if(submitcheck('reportsubmit')) {
 		if($_GET['reportids']) {
 			foreach($_GET['reportids'] as $reportid) {

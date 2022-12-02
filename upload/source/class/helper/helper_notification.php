@@ -112,7 +112,7 @@ class helper_notification {
 			C::t('common_member')->increase($touid, array('newprompt' => 1));
 			$newprompt = C::t('common_member_newprompt')->fetch($touid);
 			if($newprompt) {
-				$newprompt['data'] = unserialize($newprompt['data']);
+				$newprompt['data'] = dunserialize($newprompt['data']);
 				if(!empty($newprompt['data'][$categoryname])) {
 					$newprompt['data'][$categoryname] = intval($newprompt['data'][$categoryname]) + 1;
 				} else {

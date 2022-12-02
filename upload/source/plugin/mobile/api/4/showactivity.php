@@ -23,7 +23,7 @@ class mobile_api {
 			if(!$_GET['hash'] || FORMHASH != $_GET['hash'] || !$_GET['pid'] || !$_GET['tid'] || !$_G['uid']) {
 				mobile_core::result(mobile_core::variable(array('result' => -1)));
 			}
-			$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
+			$_G['wechat']['setting'] = dunserialize($_G['setting']['mobilewechat']);
 			if(!$_G['wechat']['setting']['wsq_allow'] || !in_array($_GET['tid'], (array)$_G['wechat']['setting']['showactivity']['tids'])) {
 				mobile_core::result(mobile_core::variable(array('result' => -2)));
 			}

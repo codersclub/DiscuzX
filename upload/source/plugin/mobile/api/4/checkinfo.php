@@ -19,7 +19,7 @@ $cachelist = array();
 $discuz->cachelist = $cachelist;
 $discuz->init();
 
-$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
+$_G['wechat']['setting'] = dunserialize($_G['setting']['mobilewechat']);
 
 require_once DISCUZ_ROOT.'./source/plugin/wechat/wsq.class.php';
 
@@ -27,7 +27,7 @@ $result = wsq::check($_GET);
 
 if($result) {
 	$setting = C::t('common_setting')->fetch_all_setting(array('mobilewechat'));
-	$setting = unserialize($setting['mobilewechat']);
+	$setting = dunserialize($setting['mobilewechat']);
 	$setting['wsq_status'] = 1;
 	$settings = array('mobilewechat' => serialize($setting));
 	C::t('common_setting')->update_batch($settings);

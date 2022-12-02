@@ -19,7 +19,7 @@ class mobile_api {
 
 	public static function common() {
 		global $_G;
-		$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
+		$_G['wechat']['setting'] = dunserialize($_G['setting']['mobilewechat']);
 		if (!in_array('wechat', $_G['setting']['plugins']['available']) || !$_G['wechat']['setting']['wsq_fid']) {
 			mobile_core::result(mobile_core::variable(array()));
 		}

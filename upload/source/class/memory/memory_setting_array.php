@@ -63,7 +63,7 @@ class memory_setting_array implements ArrayAccess {
 		if (!$this->can_lazy) { // 不支持lazy load的时候，直接加载整个数据
 			$this->array = memory('get', self::SETTING_KEY);
 			foreach ($this->array as $key => $value) {
-				if ($value) $this->array[$key] = unserialize($value);
+				if ($value) $this->array[$key] = dunserialize($value);
 			}			
 		}
 	}
@@ -89,7 +89,7 @@ class memory_setting_array implements ArrayAccess {
 			}
 			if ($val === null) {
 				$data = memory('hget', self::SETTING_KEY, $index);
-				$val = \unserialize($data);
+				$val = dunserialize($data);
 				$this->offsetSet($index, $val);
 			}
 		}
@@ -140,7 +140,7 @@ LUA;
 			$data = memory('eval', $array_def . $script, array(), $shakey);
 		}
 		foreach ($fields as $index => $field) {
-			$this->offsetSet($field, unserialize($data[$index]));
+			$this->offsetSet($field, dunserialize($data[$index]));
 		}
 	}
 

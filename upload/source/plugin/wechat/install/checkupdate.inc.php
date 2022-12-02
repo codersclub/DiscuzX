@@ -15,7 +15,7 @@ if(!defined('IN_DISCUZ')) {
 
 $pluginupdated = false;
 
-$setting = $_G['setting']['mobilewechat'] ? (array)unserialize($_G['setting']['mobilewechat']) : array();
+$setting = $_G['setting']['mobilewechat'] ? (array)dunserialize($_G['setting']['mobilewechat']) : array();
 
 if($setting['RELEASE'] != PLUGIN_RELEASE) {
 

@@ -20,7 +20,7 @@ class plugin_wechat {
 	function common() {
 		global $_G;
 		if(!$_G['wechat']['setting']) {
-			$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
+			$_G['wechat']['setting'] = dunserialize($_G['setting']['mobilewechat']);
 		}
 		if($_G['uid']) {
 			if($_G['wechat']['setting']['wechat_qrtype']) {
@@ -98,7 +98,7 @@ class mobileplugin_wechat {
 	function common() {
 		global $_G;
 		if(!$_G['wechat']['setting']) {
-			$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
+			$_G['wechat']['setting'] = dunserialize($_G['setting']['mobilewechat']);
 		}
 		dsetcookie('mobile', '', -1);
 		if(!isset($_GET['pluginid'])) {
@@ -221,7 +221,7 @@ class WeChat {
 	static public function getqrcode() {
 		global $_G;
 		if(!$_G['wechat']['setting']) {
-			$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
+			$_G['wechat']['setting'] = dunserialize($_G['setting']['mobilewechat']);
 		}
 		require_once DISCUZ_ROOT . './source/plugin/wechat/wechat.lib.class.php';
 		$wechat_client = new WeChatClient($_G['wechat']['setting']['wechat_appId'], $_G['wechat']['setting']['wechat_appsecret']);
@@ -270,7 +270,7 @@ class WeChat {
 
 	static public function redirect($type = '') {
 		global $_G;
-		$hook = unserialize($_G['setting']['wechatredirect']);
+		$hook = dunserialize($_G['setting']['wechatredirect']);
 		if (!$hook || !in_array($hook['plugin'], $_G['setting']['plugins']['available'])) {
 			return;
 		}
@@ -297,7 +297,7 @@ class WeChat {
 			return;
 		}
 		if(!$_G['wechat']['setting']) {
-			$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
+			$_G['wechat']['setting'] = dunserialize($_G['setting']['mobilewechat']);
 		}
 
 		loaducenter();
@@ -472,7 +472,7 @@ class WeChat {
 	static public function getnewname($openid) {
 		global $_G;
 		if(!$_G['wechat']['setting']) {
-			$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
+			$_G['wechat']['setting'] = dunserialize($_G['setting']['mobilewechat']);
 		}
 		$wechat_client = new WeChatClient($_G['wechat']['setting']['wechat_appId'], $_G['wechat']['setting']['wechat_appsecret']);
 		$userinfo = $wechat_client->getUserInfoById($openid);

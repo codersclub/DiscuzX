@@ -66,7 +66,7 @@ class wsq {
 	private static function _setting() {
 		global $_G;
 		if(!self::$SETTING) {
-			self::$SETTING = unserialize($_G['setting']['mobilewechat']);
+			self::$SETTING = dunserialize($_G['setting']['mobilewechat']);
 		}
 	}
 

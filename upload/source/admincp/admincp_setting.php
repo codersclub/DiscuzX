@@ -1331,7 +1331,7 @@ EOF;
 		/*search*/
 
 		/*search={"setting_functions":"action=setting&operation=functions","setting_functions_guide":"action=setting&operation=functions&anchor=guide"}*/
-		$setting['guide'] = unserialize($setting['guide']);
+		$setting['guide'] = dunserialize($setting['guide']);
 		showtableheader('', 'nobottom', 'id="guide"'.($_GET['anchor'] != 'guide' ? ' style="display: none"' : ''));
 		showsetting('setting_functions_heatthread_guidelimit', 'settingnew[heatthread][guidelimit]', $setting['heatthread']['guidelimit'], 'text');
 		$dtarray = array(

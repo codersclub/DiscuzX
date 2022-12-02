@@ -16,7 +16,7 @@ require_once DISCUZ_ROOT . './source/plugin/wechat/setting.class.php';
 WeChatSetting::menu();
 
 $setting = C::t('common_setting')->fetch_all(array('mobilewechat'));
-$setting = (array)unserialize($setting['mobilewechat']);
+$setting = (array)dunserialize($setting['mobilewechat']);
 if(!$setting['wsq_sitetoken']) {
     cpmsg(lang('plugin/wechat', 'wsq_api_register_close'), '', 'error');
 }

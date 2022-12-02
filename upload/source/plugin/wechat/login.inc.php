@@ -10,7 +10,7 @@ if (!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 if(!$_G['wechat']['setting']) {
-	$_G['wechat']['setting'] = unserialize($_G['setting']['mobilewechat']);
+	$_G['wechat']['setting'] = dunserialize($_G['setting']['mobilewechat']);
 }
 
 if(!$_G['wechat']['setting']['wechat_qrtype']) {

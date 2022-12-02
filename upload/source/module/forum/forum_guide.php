@@ -133,7 +133,7 @@ include template('forum/guide');
 
 function get_guide_list($view, $start = 0, $num = 50, $again = 0) {
 	global $_G;
-	$setting_guide = unserialize($_G['setting']['guide']);
+	$setting_guide = dunserialize($_G['setting']['guide']);
 	if(!in_array($view, array('hot', 'digest', 'new', 'newthread', 'sofa'))) {
 		return array();
 	}

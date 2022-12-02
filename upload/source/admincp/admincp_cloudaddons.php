@@ -61,7 +61,7 @@ if(!$operation || in_array($operation, array('plugins', 'templates'))) {
 		$end = '';
 		$md5tmp = DISCUZ_ROOT.'./data/download/'.$_GET['rid'].'.md5';
 		if($packnum) {
-			list($md5total, $md5s) = unserialize(implode('', @file($md5tmp)));
+			list($md5total, $md5s) = dunserialize(implode('', @file($md5tmp)));
 			dmkdir($tmpdir, 0777, false);
 		} else {
 			dir_clear($tmpdir);

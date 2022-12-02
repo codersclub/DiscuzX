@@ -36,7 +36,7 @@ function build_cache_advs() {
 			$advclass = 'adv_'.$adv['type'];
 		}
 		$advclass = new $advclass;
-		$adv['parameters'] = unserialize($adv['parameters']);
+		$adv['parameters'] = dunserialize($adv['parameters']);
 		unset($adv['parameters']['style'], $adv['parameters']['html'], $adv['parameters']['displayorder']);
 		$data['parameters'][$adv['type']][$adv['advid']] = $adv['parameters'];
 		if($adv['parameters']['extra']) {
