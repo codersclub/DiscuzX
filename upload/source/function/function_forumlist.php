@@ -444,30 +444,34 @@ function get_attach($list, $video = false, $audio = false){
 	foreach ($posttableids as $id) {
 		$theards = C::t('forum_post')->fetch_all_by_tid($id, $tids, true, '', 0, 0, 1, null, null, null);
 		foreach($theards as $value) {
-			if($value['message'] && ($video || $audio)){
-				$value['media'] = '';
-				$value['message'] = preg_replace(array("/\[hide=?\d*\](.*?)\[\/hide\]/is"), array(""), $value['message']);
-				$value['msglower'] = strtolower($value['message']);
-				if(strpos($value['msglower'], '[/media]') !== FALSE && $video) {
-					preg_match("/\[media=([\w,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", $value['message'], $value['video']);
-					$threadlist_data[$value['tid']]['media'] = parsemedia($value['video'][1], $value['video'][2]);
-				}elseif(strpos($value['msglower'], '[/audio]') !== FALSE && $audio) {
-					preg_match("/\[audio(=1)*\]\s*([^\[\<\r\n]+?)\s*\[\/audio\]/is", $value['message'], $value['audio']);
-					$threadlist_data[$value['tid']]['media'] = parseaudio($value['audio'][2], 400);
-				}
-			}
-			if(in_array($value['tid'], $price_tids)) {
-				preg_match_all("/\[free\](.+?)\[\/free\]/is", $value['message'], $matches);
-				$value['message'] = '';
-				if(!empty($matches[1])) {
-					foreach($matches[1] as $match) {
-						$value['message'] .= $match.' ';
+			if(!$_G['forum']['ismoderator'] && $value['status'] & 1) {
+				$threadlist_data[$value['tid']]['message'] = lang('forum/template', 'message_single_banned');
+			} else {
+				if($value['message'] && ($video || $audio)){
+					$value['media'] = '';
+					$value['message'] = preg_replace(array("/\[hide=?\d*\](.*?)\[\/hide\]/is"), array(""), $value['message']);
+					$value['msglower'] = strtolower($value['message']);
+					if(strpos($value['msglower'], '[/media]') !== FALSE && $video) {
+						preg_match("/\[media=([\w,]+)\]\s*([^\[\<\r\n]+?)\s*\[\/media\]/is", $value['message'], $value['video']);
+						$threadlist_data[$value['tid']]['media'] = parsemedia($value['video'][1], $value['video'][2]);
+					}elseif(strpos($value['msglower'], '[/audio]') !== FALSE && $audio) {
+						preg_match("/\[audio(=1)*\]\s*([^\[\<\r\n]+?)\s*\[\/audio\]/is", $value['message'], $value['audio']);
+						$threadlist_data[$value['tid']]['media'] = parseaudio($value['audio'][2], 400);
 					}
 				}
-			}
-			$threadlist_data[$value['tid']]['message'] = messagecutstr($value['message'], 90);
-			if(in_array($value['tid'], $attach_tids)) {
-				$attachtableid_array[getattachtableid($value['tid'])][] = $value['pid'];
+				if(in_array($value['tid'], $price_tids)) {
+					preg_match_all("/\[free\](.+?)\[\/free\]/is", $value['message'], $matches);
+					$value['message'] = '';
+					if(!empty($matches[1])) {
+						foreach($matches[1] as $match) {
+							$value['message'] .= $match.' ';
+						}
+					}
+				}
+				$threadlist_data[$value['tid']]['message'] = messagecutstr($value['message'], 90);
+				if(in_array($value['tid'], $attach_tids)) {
+					$attachtableid_array[getattachtableid($value['tid'])][] = $value['pid'];
+				}
 			}
 		}
 	}
