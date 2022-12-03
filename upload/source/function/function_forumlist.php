@@ -446,6 +446,8 @@ function get_attach($list, $video = false, $audio = false){
 		foreach($theards as $value) {
 			if(!$_G['forum']['ismoderator'] && $value['status'] & 1) {
 				$threadlist_data[$value['tid']]['message'] = lang('forum/template', 'message_single_banned');
+			} elseif(strpos($value['message'], '[/password]') !== FALSE) {
+				$threadlist_data[$value['tid']]['message'] = lang('forum/template', 'message_password_exists');
 			} else {
 				if($value['message'] && ($video || $audio)){
 					$value['media'] = '';
