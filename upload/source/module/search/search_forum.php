@@ -123,7 +123,11 @@ if(!submitcheck('searchsubmit', 1)) {
 		if($threadlist) {
 			foreach($posttables as $tableid => $tids) {
 				foreach(C::t('forum_post')->fetch_all_by_tid($tableid, $tids, true, '', 0, 0, 1) as $post) {
-					$threadlist[$post['tid']]['message'] = bat_highlight(messagecutstr($post['message'], 200), $keyword);
+					if($post['status'] & 1) {
+						$threadlist[$post['tid']]['message'] = lang('forum/template', 'message_single_banned');
+					} else {
+						$threadlist[$post['tid']]['message'] = bat_highlight(messagecutstr($post['message'], 200), $keyword);
+					}
 				}
 			}
 
