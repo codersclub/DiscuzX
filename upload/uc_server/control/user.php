@@ -16,7 +16,7 @@ define('UC_USER_EMAIL_FORMAT_ILLEGAL', -4);
 define('UC_USER_EMAIL_ACCESS_ILLEGAL', -5);
 define('UC_USER_EMAIL_EXISTS', -6);
 define('UC_USER_USERNAME_CHANGE_FAILED', -7);
-define('UC_USER_SECMOBILE_EXISTS', -8);
+define('UC_USER_SECMOBILE_EXISTS', -9);
 
 class usercontrol extends base {
 
@@ -89,7 +89,7 @@ class usercontrol extends base {
 			return $status;
 		}
 		if(($status = $this->_check_secmobile($secmobicc, $secmobile)) > 0) {
-			return -8;
+			return UC_USER_SECMOBILE_EXISTS;
 		}
 
 		$uid = $_ENV['user']->add_user($username, $password, $email, 0, $questionid, $answer, $regip, $secmobicc, $secmobile);
@@ -112,7 +112,7 @@ class usercontrol extends base {
 			return $status;
 		}
 		if(($status = $this->_check_secmobile($secmobicc, $secmobile, $username)) > 0) {
-			return -8;
+			return UC_USER_SECMOBILE_EXISTS;
 		}
 
 		$status = $_ENV['user']->edit_user($username, $oldpw, $newpw, $email, $ignoreoldpw, $questionid, $answer, $secmobicc, $secmobile);

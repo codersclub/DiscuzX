@@ -407,7 +407,7 @@ if(submitcheck('profilesubmit')) {
 		showmessage('profile_email_domain_illegal', '', array(), array('return' => true));
 	} elseif($ucresult == -6) {
 		showmessage('profile_email_duplicate', '', array(), array('return' => true));
-	} elseif($ucresult == -8) {
+	} elseif($ucresult == -9) {
 		showmessage('profile_secmobile_duplicate', '', array(), array('return' => true));
 	}
 
