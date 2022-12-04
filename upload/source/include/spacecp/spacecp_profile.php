@@ -424,8 +424,8 @@ if(submitcheck('profilesubmit')) {
 		sms::send($_G['uid'], 0, 1, $secmobiccnew, $secmobilenew, random($length, 1), 0);
 	}
 	// 如果保存时未输入验证码就把用户切换至未验证状态, 下次提交验证通过后才能切回正常状态
-	$setarr['secmobicc'] = $secmobiccnew;
-	$setarr['secmobile'] = $secmobilenew;
+	$setarr['secmobicc'] = $secmobiccnew == 0 ? '' : $secmobiccnew;
+	$setarr['secmobile'] = $secmobilenew == 0 ? '' : $secmobilenew;
 	$setarr['secmobilestatus'] = sms::verify($_G['uid'], 1, $secmobiccnew, $secmobilenew, $secmobseccode);
 	if($setarr) {
 		if($_G['member']['freeze'] == 1) {

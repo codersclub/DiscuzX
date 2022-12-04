@@ -2356,8 +2356,8 @@ EOF;
 		$memberupdate = array();
 		if($ucresult >= 0) {
 			$memberupdate['email'] = strtolower(trim($_GET['emailnew']));
-			$memberupdate['secmobicc'] = $secmobicc;
-			$memberupdate['secmobile'] = $secmobile;
+			$memberupdate['secmobicc'] = $secmobicc == 0 ? '' : $secmobicc;
+			$memberupdate['secmobile'] = $secmobile == 0 ? '' : $secmobile;
 		}
 		if($ucresult >= 0 && !empty($_GET['passwordnew'])) {
 			$memberupdate['password'] = md5(random(10));
