@@ -111,7 +111,7 @@ class usercontrol extends base {
 		if(!$ignoreoldpw && $email && ($status = $this->_check_email($email, $username)) < 0) {
 			return $status;
 		}
-		if(($status = $this->_check_secmobile($secmobicc, $secmobile)) > 0) {
+		if(($status = $this->_check_secmobile($secmobicc, $secmobile, $username)) > 0) {
 			return -8;
 		}
 
