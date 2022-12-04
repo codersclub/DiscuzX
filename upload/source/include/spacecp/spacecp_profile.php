@@ -318,8 +318,8 @@ if(submitcheck('profilesubmit')) {
 	$membersql = $memberfieldsql = $authstradd1 = $authstradd2 = $newpasswdadd = '';
 	$setarr = array();
 	$emailnew = dhtmlspecialchars($_GET['emailnew']);
-	$secmobiccnew = intval($_GET['secmobiccnew']);
-	$secmobilenew = intval($_GET['secmobilenew']);
+	$secmobiccnew = $_GET['secmobiccnew'];
+	$secmobilenew = $_GET['secmobilenew'];
 	$secmobseccode = $_GET['secmobseccodenew'];
 	$ignorepassword = 0;
 	if($_G['setting']['connect']['allow']) {
@@ -378,6 +378,19 @@ if(submitcheck('profilesubmit')) {
 
 	if((strcmp($secmobiccnew, $_G['member']['secmobicc']) != 0 || strcmp($secmobilenew, $_G['member']['secmobile']) != 0) && $_G['setting']['change_secmobile']) {
 		showmessage('profile_secmobile_not_change', '', array(), array('return' => true));
+	}
+
+	//空字符串代表没传递这个参数，传递0时，代表清空这个数据
+	if($secmobiccnew === '') {
+		$secmobiccnew == 0;
+	}elseif(!preg_match('#^(\d){1,3}$#', $secmobiccnew)) {
+		showmessage('profile_secmobicc_illegal', '', array(), array('return' => true));
+	}
+
+	if($secmobilenew === '') {
+		$secmobilenew == 0;
+	}elseif($secmobilenew !== '' && !preg_match('#^(\d){1,12}$#', $secmobilenew)) {
+		showmessage('profile_secmobile_illegal', '', array(), array('return' => true));
 	}
 
 	loaducenter();
