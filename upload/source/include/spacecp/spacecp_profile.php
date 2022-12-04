@@ -320,7 +320,7 @@ if(submitcheck('profilesubmit')) {
 	$emailnew = dhtmlspecialchars($_GET['emailnew']);
 	$secmobiccnew = intval($_GET['secmobiccnew']);
 	$secmobilenew = intval($_GET['secmobilenew']);
-	$secmobseccode = intval($_GET['secmobseccodenew']);
+	$secmobseccode = $_GET['secmobseccodenew'];
 	$ignorepassword = 0;
 	if($_G['setting']['connect']['allow']) {
 		$connect = C::t('#qqconnect#common_member_connect')->fetch($_G['uid']);
