@@ -2280,8 +2280,21 @@ EOF;
 		require_once libfile('function/discuzcode');
 
 		$questionid = $_GET['clearquestion'] ? 0 : '';
-		$secmobicc = intval($_GET['secmobiccnew']);
-		$secmobile = intval($_GET['secmobilenew']);
+		$secmobicc = $_GET['secmobiccnew'];
+		$secmobile = $_GET['secmobilenew'];
+		//空字符串代表没传递这个参数，传递0时，代表清空这个数据
+		if($secmobicc === '') {
+			$secmobicc == 0;
+		}elseif(!preg_match('#^(\d){1,3}$#', $secmobicc)) {
+			cpmsg('members_mobicc_illegal', '', 'error');
+		}
+
+		if($secmobile === '') {
+			$secmobile == 0;
+		}elseif($secmobile !== '' && !preg_match('#^(\d){1,12}$#', $secmobile)) {
+			cpmsg('members_mobile_illegal', '', 'error');
+		}
+
 		$ucresult = uc_user_edit(addslashes($member['username']), $_GET['passwordnew'], $_GET['passwordnew'], addslashes(strtolower(trim($_GET['emailnew']))), 1, $questionid, '', $secmobicc, $secmobile);
 		if($ucresult < 0) {
 			if($ucresult == -4) {
@@ -2290,7 +2303,7 @@ EOF;
 				cpmsg('members_email_domain_illegal', '', 'error');
 			} elseif($ucresult == -6) {
 				cpmsg('members_email_duplicate', '', 'error');
-			} elseif($ucresult == -8) {
+			} elseif($ucresult == -9) {
 				cpmsg('members_mobile_duplicate', '', 'error');
 			}
 		}
@@ -2356,8 +2369,8 @@ EOF;
 		$memberupdate = array();
 		if($ucresult >= 0) {
 			$memberupdate['email'] = strtolower(trim($_GET['emailnew']));
-			$memberupdate['secmobicc'] = $secmobicc;
-			$memberupdate['secmobile'] = $secmobile;
+			$memberupdate['secmobicc'] = $secmobicc == 0 ? '' : $secmobicc;
+			$memberupdate['secmobile'] = $secmobile == 0 ? '' : $secmobile;
 		}
 		if($ucresult >= 0 && !empty($_GET['passwordnew'])) {
 			$memberupdate['password'] = md5(random(10));

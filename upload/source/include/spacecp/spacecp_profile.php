@@ -318,9 +318,9 @@ if(submitcheck('profilesubmit')) {
 	$membersql = $memberfieldsql = $authstradd1 = $authstradd2 = $newpasswdadd = '';
 	$setarr = array();
 	$emailnew = dhtmlspecialchars($_GET['emailnew']);
-	$secmobiccnew = intval($_GET['secmobiccnew']);
-	$secmobilenew = intval($_GET['secmobilenew']);
-	$secmobseccode = intval($_GET['secmobseccodenew']);
+	$secmobiccnew = $_GET['secmobiccnew'];
+	$secmobilenew = $_GET['secmobilenew'];
+	$secmobseccode = $_GET['secmobseccodenew'];
 	$ignorepassword = 0;
 	if($_G['setting']['connect']['allow']) {
 		$connect = C::t('#qqconnect#common_member_connect')->fetch($_G['uid']);
@@ -380,6 +380,19 @@ if(submitcheck('profilesubmit')) {
 		showmessage('profile_secmobile_not_change', '', array(), array('return' => true));
 	}
 
+	//空字符串代表没传递这个参数，传递0时，代表清空这个数据
+	if($secmobiccnew === '') {
+		$secmobiccnew == 0;
+	}elseif(!preg_match('#^(\d){1,3}$#', $secmobiccnew)) {
+		showmessage('profile_secmobicc_illegal', '', array(), array('return' => true));
+	}
+
+	if($secmobilenew === '') {
+		$secmobilenew == 0;
+	}elseif($secmobilenew !== '' && !preg_match('#^(\d){1,12}$#', $secmobilenew)) {
+		showmessage('profile_secmobile_illegal', '', array(), array('return' => true));
+	}
+
 	loaducenter();
 	if($emailnew != $_G['member']['email']) {
 		include_once libfile('function/member');
@@ -394,7 +407,7 @@ if(submitcheck('profilesubmit')) {
 		showmessage('profile_email_domain_illegal', '', array(), array('return' => true));
 	} elseif($ucresult == -6) {
 		showmessage('profile_email_duplicate', '', array(), array('return' => true));
-	} elseif($ucresult == -8) {
+	} elseif($ucresult == -9) {
 		showmessage('profile_secmobile_duplicate', '', array(), array('return' => true));
 	}
 
@@ -424,8 +437,8 @@ if(submitcheck('profilesubmit')) {
 		sms::send($_G['uid'], 0, 1, $secmobiccnew, $secmobilenew, random($length, 1), 0);
 	}
 	// 如果保存时未输入验证码就把用户切换至未验证状态, 下次提交验证通过后才能切回正常状态
-	$setarr['secmobicc'] = $secmobiccnew;
-	$setarr['secmobile'] = $secmobilenew;
+	$setarr['secmobicc'] = $secmobiccnew == 0 ? '' : $secmobiccnew;
+	$setarr['secmobile'] = $secmobilenew == 0 ? '' : $secmobilenew;
 	$setarr['secmobilestatus'] = sms::verify($_G['uid'], 1, $secmobiccnew, $secmobilenew, $secmobseccode);
 	if($setarr) {
 		if($_G['member']['freeze'] == 1) {
