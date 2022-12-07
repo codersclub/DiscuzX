@@ -1564,6 +1564,17 @@ function ftpcmd($cmd, $arg1 = '') {
 
 }
 
+function ftpperm($fileext, $filesize) {
+	global $_G;
+	$return = false;
+	if($_G['setting']['ftp']['on']) {
+		if(((!$_G['setting']['ftp']['allowedexts'] && !$_G['setting']['ftp']['disallowedexts']) || ($_G['setting']['ftp']['allowedexts'] && in_array($fileext, $_G['setting']['ftp']['allowedexts'])) || ($_G['setting']['ftp']['disallowedexts'] && !in_array($fileext, $_G['setting']['ftp']['disallowedexts']) && (!$_G['setting']['ftp']['allowedexts'] || $_G['setting']['ftp']['allowedexts'] && in_array($fileext, $_G['setting']['ftp']['allowedexts'])))) && (!$_G['setting']['ftp']['minsize'] || $filesize >= $_G['setting']['ftp']['minsize'] * 1024)) {
+			$return = true;
+		}
+	}
+	return $return;
+}
+
 function diconv($str, $in_charset, $out_charset = CHARSET, $ForceTable = FALSE) {
 	global $_G;
 
