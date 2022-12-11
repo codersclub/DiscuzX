@@ -16,7 +16,8 @@ function category_remake($catid) {
 
 	$cat = $_G['cache']['portalcategory'][$catid];
 	if(empty($cat)) return array();
-
+	require_once libfile('function/portalcp');
+	$categoryperm = getallowcategory($_G['uid']);
 	foreach ($_G['cache']['portalcategory'] as $value) {
 		if($value['catid'] == $cat['upid']) {
 			$cat['ups'][$value['catid']] = $value;
@@ -32,7 +33,9 @@ function category_remake($catid) {
 		} elseif($value['upid'] == $cat['catid']) {
 			$cat['subs'][$value['catid']] = $value;
 		} elseif($value['upid'] == $cat['upid']) {
-			$cat['others'][$value['catid']] = $value;
+			if (!$value['closed'] || $_G['group']['allowdiy'] || $categoryperm[$value['catid']]['allowmanage']) {
+				$cat['others'][$value['catid']] = $value;
+			}
 		}
 	}
 	if(!empty($cat['ups'])) $cat['ups'] = array_reverse($cat['ups'], TRUE);
