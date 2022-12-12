@@ -89,8 +89,6 @@ class forum_upload {
 		$filename = censor($upload->attach['name'], NULL, TRUE);
 		if(is_array($filename)) {
 			return $this->uploadmsg(12);
-		} else {
-			$filename = dhtmlspecialchars($filename);
 		}
 
 		if(isset($_GET['type']) && $_GET['type'] == 'image' && !$upload->attach['isimage']) {
