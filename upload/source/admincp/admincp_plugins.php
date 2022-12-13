@@ -71,7 +71,7 @@ if(!$operation) {
 				$configexists = FALSE;
 				if(is_array($plugin['modules'])) {
 					foreach($plugin['modules'] as $k => $module) {
-						if ($module['type'] == 3) {
+						if (isset($module['type']) && $module['type'] == 3) {
 							if ($module['name'] == 'config') {
 								$configexists = TRUE;
 							}
@@ -85,15 +85,17 @@ if(!$operation) {
 			}
 			if(is_array($plugin['modules'])) {
 				foreach($plugin['modules'] as $k => $module) {
-					if($module['type'] == 11) {
-						$hookorder = $module['displayorder'];
-						$hookexists = $k;
-					}
-					if($module['type'] == 3) {
-						$submenuitem[] = '<a href="'.ADMINSCRIPT.'?action=plugins&operation=config&do='.$plugin['pluginid'].'&identifier='.$plugin['identifier'].'&pmod='.$module['name'].($module['param'] ? '&'.$module['param'] : '').'">'.$module['menu'].'</a>';
-					}
-					if($module['type'] == 29) {
-						$submenuitem[] = '<a href="'.$module['url'].'" target="_blank">'.$module['menu'].'</a>';
+					if (isset($module['type'])) {
+						if($module['type'] == 11) {
+							$hookorder = $module['displayorder'];
+							$hookexists = $k;
+						}
+						if($module['type'] == 3) {
+							$submenuitem[] = '<a href="'.ADMINSCRIPT.'?action=plugins&operation=config&do='.$plugin['pluginid'].'&identifier='.$plugin['identifier'].'&pmod='.$module['name'].($module['param'] ? '&'.$module['param'] : '').'">'.$module['menu'].'</a>';
+						}
+						if($module['type'] == 29) {
+							$submenuitem[] = '<a href="'.$module['url'].'" target="_blank">'.$module['menu'].'</a>';
+						}
 					}
 				}
 			}
@@ -215,7 +217,7 @@ if(!$operation) {
 				$k = array_keys($_GET['displayordernew'][$plugin['pluginid']]);
 				$v = array_values($_GET['displayordernew'][$plugin['pluginid']]);
 				foreach($plugin['modules'] as $key => $value) {
-					if(in_array($value['type'], array(11, 28))) {
+					if(isset($value['type']) && in_array($value['type'], array(11, 28))) {
 						$plugin['modules'][$key]['displayorder'] = $v[0];
 					}
 				}
@@ -694,7 +696,7 @@ if(!$operation) {
 	}
 	if(is_array($plugin['modules'])) {
 		foreach($plugin['modules'] as $module) {
-			if($module['type'] == 3) {
+			if(isset($module['type']) && $module['type'] == 3) {
 				parse_str($module['param'], $param);
 				if(!$pluginvars && empty($_GET['pmod'])) {
 					$_GET['pmod'] = $module['name'];
@@ -859,7 +861,7 @@ if(!$operation) {
 		$modfile = '';
 		if(is_array($plugin['modules'])) {
 			foreach($plugin['modules'] as $module) {
-				if($module['type'] == 3 && $module['name'] == $_GET['pmod']) {
+				if(isset($module['type']) && $module['type'] == 3 && $module['name'] == $_GET['pmod']) {
 					$plugin['directory'] .= (!empty($plugin['directory']) && substr($plugin['directory'], -1) != '/') ? '/' : '';
 					$modfile = './source/plugin/'.$plugin['directory'].$module['name'].'.inc.php';
 					break;
@@ -1001,7 +1003,7 @@ if(!$operation) {
 		$moduleids = array();
 		if(is_array($plugin['modules'])) {
 			foreach($plugin['modules'] as $moduleid => $module) {
-				if($moduleid === 'extra' || $moduleid === 'system') {
+				if($moduleid === 'extra' || $moduleid === 'system' || !isset($module['type'])) {
 					continue;
 				}
 				$module = dhtmlspecialchars($module);
@@ -1262,7 +1264,7 @@ if(!$operation) {
 			if(is_array($plugin['modules'])) {
 				foreach($plugin['modules'] as $moduleid => $module) {
 					if(!isset($_GET['delete'][$moduleid])) {
-						if($moduleid === 'extra' || $moduleid === 'system') {
+						if($moduleid === 'extra' || $moduleid === 'system' || !isset($module['type'])) {
 							continue;
 						}
 						$modulesnew[] = array(
