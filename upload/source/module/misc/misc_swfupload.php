@@ -51,6 +51,10 @@ if($_GET['operation'] == 'upload') {
 
 } elseif($_GET['operation'] == 'poll') {
 
+	if(!$_G['group']['allowpostpoll'] || !$_G['group']['allowpostimage']) {
+		exit("{\"aid\":0, \"errorcode\":4}");
+	}
+
 	$upload = new discuz_upload();
 
 	$_FILES["Filedata"]['name'] = addslashes(diconv(urldecode($_FILES["Filedata"]['name']), 'UTF-8'));

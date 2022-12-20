@@ -271,7 +271,7 @@
 		var obj = $(this);
 		$.ajax({
 			type:'GET',
-			url:'forum.php?mod=ajax&action=deleteattach&inajax=yes&aids[]=' + obj.attr('aid'),
+			url:'forum.php?mod=ajax&action=deleteattach&inajax=yes&formhash={FORMHASH}&aids[]=' + obj.attr('aid'),
 		})
 		.success(function(s) {
 			obj.parent().remove();

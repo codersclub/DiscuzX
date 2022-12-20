@@ -12,6 +12,7 @@ if(!defined('IN_DISCUZ')) {
 }
 
 $uid = empty($_GET['uid'])?0:intval($_GET['uid']);
+$_GET['fuid'] = empty($_GET['fuid']) ? 0 : intval($_GET['fuid']);
 
 if($uid == $_G['uid']) {
 	showmessage('not_to_their_own_greeted');

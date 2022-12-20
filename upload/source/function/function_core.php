@@ -1283,18 +1283,15 @@ function checkusergroup($uid = 0) {
 	$credit->checkusergroup($uid);
 }
 
-function checkformulasyntax($formula, $operators, $tokens) {
+function checkformulasyntax($formula, $operators, $tokens, $values = '') {
 	$var = implode('|', $tokens);
+	$val = $values ? '|'.$values : '';
 	$operator = implode('', $operators);
 
-	$operator = str_replace(
-		array('+', '-', '*', '/', '(', ')', '{', '}', '\''),
-		array('\+', '\-', '\*', '\/', '\(', '\)', '\{', '\}', '\\\''),
-		$operator
-	);
+	$operator = preg_quote($operator, '/');
 
 	if(!empty($formula)) {
-		if(!preg_match("/^([$operator\.\d\(\)]|(($var)([$operator\(\)]|$)+))+$/", $formula) || !is_null(eval(preg_replace("/($var)/", "\$\\1", $formula).';'))){
+		if(!preg_match("/^([$operator\.\d\(\)]|(($var$val)([$operator\(\)]|$)+))+$/", $formula) || !is_null(eval(preg_replace("/($var)/", "\$\\1", $formula).';'))){
 			return false;
 		}
 	}

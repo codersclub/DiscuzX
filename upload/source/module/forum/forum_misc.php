@@ -344,7 +344,7 @@ if($_GET['action'] == 'paysucceed') {
 
 	$message = '&nbsp;';
 	$savepost = C::t('forum_post')->fetch(0, $_GET['pid']);
-	if($savepost) {
+	if($savepost && $_G['uid'] == $savepost['authorid']) {
 		$message = $savepost['message'];
 		if($_GET['type']) {
 			require_once libfile('function/discuzcode');

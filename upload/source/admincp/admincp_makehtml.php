@@ -455,13 +455,13 @@ EOT;
 			}
 			$settingnew['makehtml']['articlehtmldir'] = trim($settingnew['makehtml']['articlehtmldir'], ' /\\');
 			$re = NULL;
-			preg_match_all('/[^\w\d\_\\]/',$settingnew['makehtml']['articlehtmldir'],$re);
+			preg_match_all('/[^\w\d\_\\\\]/',$settingnew['makehtml']['articlehtmldir'],$re);
 			if(!empty($re[0]) || !check_html_dir($settingnew['makehtml']['articlehtmldir'])) {
 				cpmsg(cplang('setting_functions_makehtml_articlehtmldir_invalid').','.cplang('return'), NULL, 'error');
 			}
 			$settingnew['makehtml']['topichtmldir'] = trim($settingnew['makehtml']['topichtmldir'], ' /\\');
 			$re = NULL;
-			preg_match_all('/[^\w\d\_\\]/',$settingnew['makehtml']['topichtmldir'],$re);
+			preg_match_all('/[^\w\d\_\\\\]/',$settingnew['makehtml']['topichtmldir'],$re);
 			if(!empty($re[0]) || !check_html_dir($settingnew['makehtml']['topichtmldir'])) {
 				cpmsg(cplang('setting_functions_makehtml_topichtmldir_invalid').','.cplang('return'), NULL, 'error');
 			}
@@ -621,7 +621,7 @@ function check_son_folder($file, $cat) {
 function check_html_dir($dir) {
 	$dir = str_replace("\\", '/', $dir);
 	list($first) = explode('/', $dir);
-	if(in_array(strtolower($first), array('template', 'source', 'config', 'api', 'archiver'), true)) {
+	if(in_array(strtolower($first), array('uc_server', 'uc_client', 'template', 'static', 'source', 'm', 'install', 'data', 'config', 'api', 'archiver'), true)) {
 		return false;
 	}
 	return true;

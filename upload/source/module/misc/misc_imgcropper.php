@@ -31,6 +31,10 @@ if(!submitcheck('imgcroppersubmit')) {
 	}
 	include_once template("common/misc_imgcropper");
 } else {
+	$pathinfos = pathinfo($_GET['cutimg']);
+	if(!in_array(strtolower($pathinfos['extension']), array('jpg', 'jpeg', 'gif', 'png', 'bmp'))) {
+		showmessage('imagepreview_errorcode_0', null, null, array('showdialog' => true, 'closetime' => true));
+	}
 	$cropfile = md5($_GET['cutimg']).'.jpg';
 	$ictype = $_GET['ictype'];
 

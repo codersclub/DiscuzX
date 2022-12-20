@@ -33,6 +33,7 @@ function mobile_discuzcode($param) {
 		}
 	}
 
+	$message = preg_replace('/\[\tDISCUZ_CODE_\d+\t\]/', '', $message);
 	if($parsetype != 1 && !$bbcodeoff && $allowbbcode && (strpos($message, '[/code]') || strpos($message, '[/CODE]')) !== FALSE) {
 		$message = preg_replace_callback("/\s?\[code\](.+?)\[\/code\]\s?/is", 'mobile_discuzcode_callback_mobile_parsecode_1', $message);
 	}
@@ -57,7 +58,7 @@ function mobile_discuzcode($param) {
 
 	if($allowbbcode) {
 		if(strpos($msglower, 'ed2k://') !== FALSE) {
-			$message = preg_replace_callback("/ed2k:\/\/(.+?)\//", 'mobile_discuzcode_callback_mobile_parseed2k_1', $message);
+			$message = preg_replace_callback("/ed2k:\/\/([^\/\s'\"]+)\//", 'mobile_discuzcode_callback_mobile_parseed2k_1', $message);
 		}
 	}
 

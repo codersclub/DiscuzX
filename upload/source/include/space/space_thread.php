@@ -195,7 +195,7 @@ if($_GET['view'] == 'me') {
 				continue;
 			} else {
 				$tids[$post['tid']][] = $pid;
-				$post['message'] = !getstatus($post['status'], 2) || $post['authorid'] == $_G['uid'] ? messagecutstr($post['message'], 100) : '';
+				$post['message'] = $post['status'] & 1 && $_G['adminid'] != 1 ? '' : (!getstatus($post['status'], 2) || $post['authorid'] == $_G['uid'] ? messagecutstr($post['message'], 100) : '');
 				$posts[$pid] = $post;
 			}
 		}

@@ -1219,10 +1219,12 @@ function set_pluginsetting($pluginvars) {
 
 function checkformulaperm($formula) {
 	$formula = preg_replace('/(\{([\d\.\-]+?)\})/', "'\\1'", $formula);
+	$formula = str_replace(array('and', 'or'), array('&&', '||'), $formula);
 	return checkformulasyntax(
 		$formula,
-		array('+', '-', '*', '/', '(', ')', '<', '=', '>', '!', 'and', 'or', ' ', '{', '}', "'"),
-		array('regdate', 'regday', 'regip', 'lastip', 'buyercredit', 'sellercredit', 'digestposts', 'posts', 'threads', 'oltime', 'extcredits[1-8]', 'field[\d]+')
+		array('+', '-', '*', '/', '(', ')', '<', '=', '>', '!', '&', '|', ' '),
+		array('regdate', 'regday', 'regip', 'lastip', 'buyercredit', 'sellercredit', 'digestposts', 'posts', 'threads', 'oltime', 'extcredits[1-8]', 'field[\d]+'),
+		'\'\{[\d\.\-]+\}\''
 	);
 }
 

@@ -107,7 +107,7 @@ if($_GET['action'] == 'checkusername') {
 } elseif($_GET['action'] == 'deleteattach') {
 
 	$count = 0;
-	if($_GET['aids']) {
+	if(isset($_GET['aids']) && isset($_GET['formhash']) && formhash() == $_GET['formhash']) {
 		foreach($_GET['aids'] as $aid) {
 			$attach = C::t('forum_attachment_n')->fetch('aid:'.$aid, $aid);
 			if($attach && ($attach['pid'] && $attach['pid'] == $_GET['pid'] && $_G['uid'] == $attach['uid'])) {
@@ -559,6 +559,9 @@ EOF;
 	$pid = intval($_GET['pid']);
 	$thread = C::t('forum_thread')->fetch($tid);
 	$post = C::t('forum_post')->fetch($thread['posttableid'], $pid);
+	if($_G['uid'] != $post['authorid']) {
+		showmessage('quickclear_noperm');
+	}
 	include template('forum/ajax_followpost');
 } elseif($_GET['action'] == 'quickclear') {
 	$uid = intval($_GET['uid']);
@@ -619,10 +622,16 @@ EOF;
 		$thread = C::t('forum_thread')->fetch($tid);
 		if($flag) {
 			$post = C::t('forum_post')->fetch($thread['posttableid'], $pid);
+			if($_G['uid'] != $post['authorid']) {
+				showmessage('quickclear_noperm');
+			}
 			require_once libfile('function/discuzcode');
 			require_once libfile('function/followcode');
 			$post['message'] = followcode($post['message'], $tid, $pid);
 		} else {
+			if($_G['uid'] != $thread['authorid']) {
+				showmessage('quickclear_noperm');
+			}
 			if(!isset($_G['cache']['forums'])) {
 				loadcache('forums');
 			}
