@@ -142,7 +142,7 @@ function insertunit(obj, text, textend) {
 	if(!isUndefined(obj.selectionStart)) {
 		var opn = obj.selectionStart + 0;
 		if(textend != '') {
-			text = text + obj.substring(obj.selectionStart, obj.selectionEnd) + textend;
+			text = text + obj.value.substring(obj.selectionStart, obj.selectionEnd) + textend;
 		}
 		obj.value = obj.value.substr(0, obj.selectionStart) + text + obj.value.substr(obj.selectionEnd);
 		obj.selectionStart = opn + strlen(text);
