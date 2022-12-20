@@ -7317,7 +7317,7 @@ url.rewrite-once = (
 	'detect_environment' => '运行环境检测',
 	'version_tips' => '关于本版本的温馨提示',
 	'version_tips_msg' => '感谢您选择 Discuz! {version} ，您可以查看 <a href="https://gitee.com/Discuz/DiscuzX/releases" target="_blank"><strong>发行注记</strong></a> 以了解本版本更新内容。我们建议您尽快进行一次 <a href="{ADMINSCRIPT}?action=optimizer&operation=security"><strong>安全检测</strong></a> 以及 <a href="{ADMINSCRIPT}?action=optimizer&operation=serversec"><strong>底层安全检测</strong></a> 以尽可能保证站点安全。<a href="{ADMINSCRIPT}?action=index&closesitereleasetips=1"><strong>我已知晓</strong></a>',
-	'contributors' => 'Discuz! 开源贡献者',
+	'contributors' => '开源贡献者',
 	'contributors_see' => '查看全部贡献者',
 	'detect_environment_error' => '你的服务器无法检测新版，请点击查看新版',
 	'refresh' => '刷新',
@@ -7327,10 +7327,10 @@ url.rewrite-once = (
 	'download_latest' => 'Discuz! X3.4 最新版本下载',
 	'org_name' => '腾讯云计算（北京）有限责任公司',
 	'dev_manager' => '戴志康 (Kevin \'Crossday\' Day)',
-	'app_discussion' => 'Discuz! 应用讨论区',
+	'app_discussion' => 'Discuz! 应用商城社区',
 	'org_site' => '公司网站',
 	'purchase_service' => '购买授权',
-	'discussion_area' => '讨论区',
+	'discussion_area' => 'Discuz! 官方网站',
 	'app_center' => 'Discuz! 应用中心',
 );
 

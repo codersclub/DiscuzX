@@ -75,6 +75,7 @@ echo '<div class="drow">';
 echo '<div class="dcol d-23">';
 show_sysinfo();
 show_news();
+show_forever_thanks();
 echo '</div>';
 
 echo '<div class="dcol d-13">';
@@ -82,9 +83,6 @@ show_widgets();
 echo '</div>';
 
 echo '</div>';
-
-show_git_thanks();
-show_forever_thanks();
 
 echo '</div>';
 
@@ -109,7 +107,7 @@ function show_user_bar() {
 		}
 	}
 
-	showsubmenu('home_welcome', array(), '</div><div class="dbox hometop">'.avatar(getglobal('uid'), 'middle', array('class' => 'avt')).'
+	showsubmenu('home_welcome', array(), '</div><div class="dbox hometop"><img src="'.avatar(getglobal('uid'), 'middle', true).'" class="avt">
 	<div class="hinfo">
 		<h4>'.cplang('home_welcome_txt').$_G['member']['username'].'</h4>
 		<p>'.$cpadmingroup.'&nbsp;|&nbsp;'.cplang('home_mods').': <span id="mod_num">0</span></p>
@@ -295,8 +293,8 @@ function show_filecheck() {
 	$filecheck = C::t('common_cache')->fetch('checktools_filecheck_result');
 	if($filecheck) {
 		list($modifiedfiles, $deletedfiles, $unknownfiles, $doubt) = dunserialize($filecheck['cachevalue']);
-		$filecheckresult = "<div><em class=\"edited\">{$lang['filecheck_modify']}<span class=\"bignum\">$modifiedfiles</span></em>".
-			"<em class=\"del\">{$lang['filecheck_delete']}<span class=\"bignum\">$deletedfiles</span></em>".
+		$filecheckresult = "<div><em class=\"".($modifiedfiles ? 'edited' : 'correct')."\">{$lang['filecheck_modify']}<span class=\"bignum\">$modifiedfiles</span></em>".
+			"<em class=\"".($deletedfiles ? 'del' : 'correct')."\">{$lang['filecheck_delete']}<span class=\"bignum\">$deletedfiles</span></em>".
 			"<em class=\"unknown\">{$lang['filecheck_unknown']}<span class=\"bignum\">$unknownfiles</span></em>".
 			"<em class=\"unknown\">{$lang['filecheck_doubt']}<span class=\"bignum\">$doubt</span></em></div><p>".
 			$lang['filecheck_last_homecheck'].': '.dgmdate($filecheck['dateline'], 'u').' <a href="'.ADMINSCRIPT.'?action=checktools&operation=filecheck&step=3">['.$lang['filecheck_view_list'].']</a></p>';
@@ -465,28 +463,6 @@ function show_widgets() {
 	}
 }
 
-function show_git_thanks() {
-	showboxheader('contributors', 'fixpadding', 'id="contributors"');
-	showboxrow('', array('class="dcol d-1 lineheight"', 'class="dcol lineheight team"'), array(
-		cplang('home_git_thanks'),
-		'
-				<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=laozhoubuluo" class="lightlink2" target="_blank">&#x8001;&#x5468;&#x90E8;&#x843D;</a>
-				<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=popcorner" class="lightlink2" target="_blank">popcorner</a>
-				<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=oldhuhu" class="lightlink2" target="_blank">oldhuhu</a>
-				<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=zoewho" class="lightlink2" target="_blank">&#x6E56;&#x4E2D;&#x6C89;</a>
-				<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=3dming" class="lightlink2" target="_blank">&#x8BF8;&#x845B;&#x6653;&#x660E;</a>
-				<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=brotherand2" class="lightlink2" target="_blank">brotherand2</a>
-				<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=contributions" class="lightlink2" target="_blank">git</a>
-				<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=nftstudio" class="lightlink2" target="_blank">&#x9006;&#x98CE;&#x5929;</a>
-				<a href="https://gitee.com/Discuz/DiscuzX/commits/master?user=ONEXIN" class="lightlink2" target="_blank">ONEXIN</a>'
-	));
-	showboxrow('', array('class="dcol d-1 lineheight"', 'class="dcol lineheight team"'), array(
-		'',
-		'<a href="https://gitee.com/Discuz/DiscuzX/contributors?ref=master" class="lightlink2" target="_blank">'.cplang('contributors_see').'</a>'
-	));
-	showboxfooter();
-}
-
 function show_forever_thanks() {
 	$copyRightMessage = array(
 		'&#x7248;&#x6743;&#x6240;&#x6709;',
@@ -494,56 +470,85 @@ function show_forever_thanks() {
 		'&#x627F;&#x63A5;&#x8FD0;&#x8425;',
 		'&#x5408;&#x80A5;&#x8D30;&#x9053;&#x7F51;&#x7EDC;&#x79D1;&#x6280;&#x6709;&#x9650;&#x516C;&#x53F8;',
 	);
+	$gitTeamStr = '';
+	$gitTeam = array(
+		'laozhoubuluo' => '&#x8001;&#x5468;&#x90E8;&#x843D;',
+		'popcorner' => 'popcorner',
+		'oldhuhu' => 'oldhuhu',
+		'zoewho' => '&#x6E56;&#x4E2D;&#x6C89;',
+		'3dming' => '&#x8BF8;&#x845B;&#x6653;&#x660E;',
+		'brotherand2' => 'brotherand2',
+		'contributions' => 'git',
+		'nftstudio' => '&#x9006;&#x98CE;&#x5929;',
+		'ONEXIN' => 'ONEXIN',
+	);
+	foreach ($gitTeam as $id => $name) {
+		$gitTeamStr .= '<a href="https://gitee.com/'.$id.'" class="lightlink2 smallfont" target="_blank">'.$name.'</a>';
+	}
+	$devTeamStr = '';
+	$devTeam = array(
+		'174393' => 'Guode \'sup\' Li',
+		'859' => 'Hypo \'Cnteacher\' Wang',
+		'263098' => 'Liming \'huangliming\' Huang',
+		'706770' => 'Jun \'Yujunhao\' Du',
+		'80629' => 'Ning \'Monkeye\' Hou',
+		'246213' => 'Lanbo Liu',
+		'322293' => 'Qingpeng \'andy888\' Zheng',
+		'401635' => 'Guosheng \'bilicen\' Zhang',
+		'2829' => 'Mengshu \'msxcms\' Chen',
+		'492114' => 'Liang \'Metthew\' Xu',
+		'1087718' => 'Yushuai \'Max\' Cong',
+		'875919' => 'Jie \'tom115701\' Zhang',
+	);
+	foreach ($devTeam as $id => $name) {
+		$devTeamStr .= '<a href="http://www.discuz.net/home.php?mod=space&uid='.$id.'" class="lightlink2 smallfont" target="_blank">'.$name.'</a>';
+	}
+	$devSkins = array(
+		'294092' => 'Fangming \'Lushnis\' Li',
+		'674006' => 'Jizhou \'Iavav\' Yuan',
+		'717854' => 'Ruitao \'Pony.M\' Ma',
+	);
+	$devSkinsStr = '';
+	foreach ($devSkins as $id => $name) {
+		$devSkinsStr .= '<a href="http://www.discuz.net/home.php?mod=space&uid='.$id.'" class="lightlink2 smallfont" target="_blank">'.$name.'</a>';
+	}
+	$devThanksStr = '';
+	$devThanks = array(
+		'122246' => 'Heyond',
+		'632268' => 'JinboWang',
+		'15104' => 'Redstone',
+		'10407' => 'Qiang Liu',
+		'210272' => 'XiaoDunFang',
+		'86282' => 'Jianxieshui',
+		'9600' => 'Theoldmemory',
+		'2629' => 'Rain5017',
+		'26926' => 'Snow Wolf',
+		'17149' => 'Hehechuan',
+		'9132' => 'Pk0909',
+		'248' => 'feixin',
+		'675' => 'Laobing Jiuba',
+		'13877' => 'Artery',
+		'233' => 'Huli Hutu',
+		'122' => 'Lao Gui',
+		'159' => 'Tyc',
+		'177' => 'Stoneage',
+		'7155' => 'Gregry',
+	);
+	foreach ($devThanks as $id => $name) {
+		$devThanksStr .= '<a href="http://www.discuz.net/home.php?mod=space&uid='.$id.'" class="lightlink2 smallfont" target="_blank">'.$name.'</a>';
+	}
+
 	showboxheader('home_dev', 'fixpadding', 'id="home_dev"');
 	showboxrow('', array('class="dcol d-1 lineheight"', 'class="dcol lineheight team"'), array($copyRightMessage[0], '<span class="bold">'.$copyRightMessage[1].'</span>'));
 	showboxrow('', array('class="dcol d-1 lineheight"', 'class="dcol lineheight team"'), array($copyRightMessage[2], '<span class="bold">'.$copyRightMessage[3].'</span>'));
-	showboxrow('', array('class="dcol d-1 lineheight"', 'class="dcol lineheight team"'), array(cplang('home_dev_manager'),
-		'<a href="http://www.discuz.net/home.php?mod=space&uid=1" class="lightlink2 smallfont" target="_blank">'.cplang('dev_manager').'</a>'
-	));
-	showboxrow('', array('class="dcol d-1 lineheight"', 'class="dcol lineheight team"'), array(cplang('home_dev_team'),
-		'<a href="http://www.discuz.net/home.php?mod=space&uid=174393" class="lightlink2 smallfont" target="_blank">Guode \'sup\' Li</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=859" class="lightlink2 smallfont" target="_blank">Hypo \'Cnteacher\' Wang</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=263098" class="lightlink2 smallfont" target="_blank">Liming \'huangliming\' Huang</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=706770" class="lightlink2 smallfont" target="_blank">Jun \'Yujunhao\' Du</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=80629" class="lightlink2 smallfont" target="_blank">Ning \'Monkeye\' Hou</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=246213" class="lightlink2 smallfont" target="_blank">Lanbo Liu</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=322293" class="lightlink2 smallfont" target="_blank">Qingpeng \'andy888\' Zheng</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=401635" class="lightlink2 smallfont" target="_blank">Guosheng \'bilicen\' Zhang</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=2829" class="lightlink2 smallfont" target="_blank">Mengshu \'msxcms\' Chen</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=492114" class="lightlink2 smallfont" target="_blank">Liang \'Metthew\' Xu</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=1087718" class="lightlink2 smallfont" target="_blank">Yushuai \'Max\' Cong</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=875919" class="lightlink2 smallfont" target="_blank">Jie \'tom115701\' Zhang</a>
-	'
-	));
-	showboxrow('', array('class="dcol d-1 lineheight"', 'class="dcol lineheight team"'), array(cplang('home_dev_skins'),
-		'<a href="http://www.discuz.net/home.php?mod=space&uid=294092" class="lightlink2 smallfont" target="_blank">Fangming \'Lushnis\' Li</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=674006" class="lightlink2 smallfont" target="_blank">Jizhou \'Iavav\' Yuan</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=717854" class="lightlink2 smallfont" target="_blank">Ruitao \'Pony.M\' Ma</a>'
-	));
-	showboxrow('', array('class="dcol d-1 lineheight"', 'class="dcol lineheight team"'), array(cplang('home_dev_thanks'),
-		'<a href="https://gitee.com/Discuz/DiscuzX/contributors?ref=master" class="lightlink2 smallfont" target="_blank">Discuz! X Git Contributors</a>
-	<a href="http://www.discuzfans.com" class="lightlink2 smallfont" target="_blank">Discuz! Fans</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=122246" class="lightlink2 smallfont" target="_blank">Heyond</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=632268" class="lightlink2 smallfont" target="_blank">JinboWang</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=15104" class="lightlink2 smallfont" target="_blank">Redstone</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=10407" class="lightlink2 smallfont" target="_blank">Qiang Liu</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=210272" class="lightlink2 smallfont" target="_blank">XiaoDunFang</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=86282" class="lightlink2 smallfont" target="_blank">Jianxieshui</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=9600" class="lightlink2 smallfont" target="_blank">Theoldmemory</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=2629" class="lightlink2 smallfont" target="_blank">Rain5017</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=26926" class="lightlink2 smallfont" target="_blank">Snow Wolf</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=17149" class="lightlink2 smallfont" target="_blank">Hehechuan</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=9132" class="lightlink2 smallfont" target="_blank">Pk0909</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=248" class="lightlink2 smallfont" target="_blank">feixin</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=675" class="lightlink2 smallfont" target="_blank">Laobing Jiuba</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=13877" class="lightlink2 smallfont" target="_blank">Artery</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=233" class="lightlink2 smallfont" target="_blank">Huli Hutu</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=122" class="lightlink2 smallfont" target="_blank">Lao Gui</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=159" class="lightlink2 smallfont" target="_blank">Tyc</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=177" class="lightlink2 smallfont" target="_blank">Stoneage</a>
-	<a href="http://www.discuz.net/home.php?mod=space&uid=7155" class="lightlink2 smallfont" target="_blank">Gregry</a>'
-	));
-	showboxrow('', array('class="dcol d-1 lineheight"', 'class="dcol lineheight team tm"'), array(cplang('home_dev_links'), '<a href="https://gitee.com/Discuz/DiscuzX" class="lightlink2" target="_blank">Discuz! X Git</a>,&nbsp;
+	showboxrow('', array('class="dcol d-1 lineheight"', 'class="dcol lineheight team"'), array(cplang('contributors'), $gitTeamStr));
+	showboxrow('', array('class="dcol d-1 lineheight"', 'class="dcol lineheight team"'), array('', '<a href="https://gitee.com/Discuz/DiscuzX/contributors?ref=master" class="lightlink2" target="_blank">'.cplang('contributors_see').'</a>'));
+	showboxrow('', array('class="dcol d-1 lineheight"', 'class="dcol lineheight team"'), array(cplang('home_dev_manager'), '<a href="http://www.discuz.net/home.php?mod=space&uid=1" class="lightlink2 smallfont" target="_blank">'.cplang('dev_manager').'</a>'));
+	showboxrow('', array('class="dcol d-1 lineheight"', 'class="dcol lineheight team"'), array(cplang('home_dev_team'), $devTeamStr));
+	showboxrow('', array('class="dcol d-1 lineheight"', 'class="dcol lineheight team"'), array(cplang('home_dev_skins'), $devSkinsStr));
+	showboxrow('', array('class="dcol d-1 lineheight"', 'class="dcol lineheight team"'), array(cplang('home_dev_thanks'), $devThanksStr));
+	showboxrow('', array('class="dcol d-1 lineheight"', 'class="dcol lineheight team tm"'), array(cplang('home_dev_links'), '
+	<a href="https://gitee.com/Discuz/DiscuzX" class="lightlink2" target="_blank">Discuz! X Git</a>,&nbsp;
 	<a href="https://www.dismall.com/" class="lightlink2" target="_blank">'.cplang('app_discussion').'</a>,&nbsp; 
 	<a href="https://www.discuz.net/" class="lightlink2" target="_blank">'.cplang('discussion_area').'</a>, &nbsp;
 	<a href="'.ADMINSCRIPT.'?action=cloudaddons" class="lightlink2" target="_blank">'.cplang('app_center').'</a>'));
