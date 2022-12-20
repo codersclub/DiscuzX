@@ -90,7 +90,7 @@ EOT;
 		showtablerow('', array('class="rowform" colspan="2" style="width:auto;"'), array($forumselect.$typeselect));
 	}
 	showsetting('threads_search_perpage', '', $_GET['perpage'], "<select name='perpage'><option value='20'>$lang[perpage_20]</option><option value='50'>$lang[perpage_50]</option><option value='100'>$lang[perpage_100]</option></select>");
-	if(!$fromumanage) {
+	if(!$fromumanage && !submitcheck('searchsubmit', 1)) {
 		empty($_GET['starttime']) && $_GET['starttime'] = date('Y-m-d', time() - 86400 * 30);
 	}
 	echo '<input type="hidden" name="fromumanage" value="'.$fromumanage.'">';
@@ -168,8 +168,8 @@ EOT;
 		$conditions['pricemore'] = $_GET['pricemore'] != '' ? $_GET['pricemore'] : '';
 		$conditions['beforedays'] = $_GET['beforedays'] != '' ? $_GET['beforedays'] : '';
 		$conditions['noreplydays'] = $_GET['noreplydays'] != '' ? $_GET['noreplydays'] : '';
-		$conditions['starttime'] = $_GET['starttime'] != '' ? $_GET['starttime'] : '';
-		$conditions['endtime'] = $_GET['endtime'] != '' ? $_GET['endtime'] : '';
+		$conditions['starttime'] = !empty($_GET['starttime']) ? $_GET['starttime'] : '';
+		$conditions['endtime'] = !empty($_GET['endtime']) ? $_GET['endtime'] : '';
 		if(!empty($_GET['savethread'])) {
 			$conditions['sticky'] = 4;
 			$conditions['displayorder'] = -4;
