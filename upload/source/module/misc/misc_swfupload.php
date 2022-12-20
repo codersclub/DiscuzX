@@ -51,6 +51,10 @@ if($_GET['operation'] == 'upload') {
 
 } elseif($_GET['operation'] == 'poll') {
 
+	if(!$_G['group']['allowpostpoll'] || !$_G['group']['allowpostimage']) {
+		exit("{\"aid\":0, \"errorcode\":4}");
+	}
+
 	$upload = new discuz_upload();
 
 	$_FILES["Filedata"]['name'] = addslashes(diconv(urldecode($_FILES["Filedata"]['name']), 'UTF-8'));
@@ -79,7 +83,7 @@ if($_GET['operation'] == 'upload') {
 			}
 		}
 
-		if(getglobal('setting/ftp/on') && ((!$_G['setting']['ftp']['allowedexts'] && !$_G['setting']['ftp']['disallowedexts']) || ($_G['setting']['ftp']['allowedexts'] && in_array($attach['ext'], $_G['setting']['ftp']['allowedexts'])) || ($_G['setting']['ftp']['disallowedexts'] && !in_array($attach['ext'], $_G['setting']['ftp']['disallowedexts']))) && (!$_G['setting']['ftp']['minsize'] || $attach['size'] >= $_G['setting']['ftp']['minsize'] * 1024)) {
+		if(ftpperm($attach['ext'], $attach['size'])) {
 			if(ftpcmd('upload', 'forum/'.$attach['attachment']) && (!$attach['thumb'] || ftpcmd('upload', 'forum/'.getimgthumbname($attach['attachment'])))) {
 				@unlink($_G['setting']['attachdir'].'/forum/'.$attach['attachment']);
 				@unlink($_G['setting']['attachdir'].'/forum/'.getimgthumbname($attach['attachment']));
@@ -200,7 +204,7 @@ if($_GET['operation'] == 'upload') {
 			$image->Watermark($attach['target'], '', 'portal');
 		}
 
-		if(getglobal('setting/ftp/on') && ((!$_G['setting']['ftp']['allowedexts'] && !$_G['setting']['ftp']['disallowedexts']) || ($_G['setting']['ftp']['allowedexts'] && in_array($attach['ext'], $_G['setting']['ftp']['allowedexts'])) || ($_G['setting']['ftp']['disallowedexts'] && !in_array($attach['ext'], $_G['setting']['ftp']['disallowedexts']))) && (!$_G['setting']['ftp']['minsize'] || $attach['size'] >= $_G['setting']['ftp']['minsize'] * 1024)) {
+		if(ftpperm($attach['ext'], $attach['size'])) {
 			if(ftpcmd('upload', 'portal/'.$attach['attachment']) && (!$attach['thumb'] || ftpcmd('upload', 'portal/'.getimgthumbname($attach['attachment'])))) {
 				@unlink($_G['setting']['attachdir'].'/portal/'.$attach['attachment']);
 				@unlink($_G['setting']['attachdir'].'/portal/'.getimgthumbname($attach['attachment']));

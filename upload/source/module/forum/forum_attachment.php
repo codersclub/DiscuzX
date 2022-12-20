@@ -19,7 +19,7 @@ $k = $_GET['k'];
 $t = $_GET['t'];
 $authk = !$requestmode ? substr(md5($aid.md5($_G['config']['security']['authkey']).$t.$_GET['uid']), 0, 8) : md5($aid.md5($_G['config']['security']['authkey']).$t);
 
-if($k != $authk) {
+if($k !== $authk || $t > TIMESTAMP + 3600) {
     if(!$requestmode) {
         showmessage('attachment_nonexistence');
     } else {

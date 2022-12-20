@@ -41,7 +41,7 @@ if (submitcheck('uploadsubmit')) {
 			$attach['thumb'] = $image->Thumb($attach['target'], '', '80', '50');
 		}
 
-		if(getglobal('setting/ftp/on')) {
+		if(ftpperm($attach['ext'], $attach['size'])) {
 			if(ftpcmd('upload', 'portal/'.$attach['attachment'])) {
 				if($attach['thumb']) {
 					ftpcmd('upload', 'portal/'.getimgthumbname($attach['attachment']));

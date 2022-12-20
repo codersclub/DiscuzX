@@ -43,7 +43,7 @@ class forum_upload {
 			return $this->uploadmsg(2);
 		}
 
-		$allowupload = !$_G['group']['maxattachnum'] || $_G['group']['maxattachnum'] && $_G['group']['maxattachnum'] > getuserprofile('todayattachs');;
+		$allowupload = ($_G['group']['allowpostattach'] || $_G['group']['allowpostimage']) ? (!$_G['group']['maxattachnum'] || $_G['group']['maxattachnum'] && $_G['group']['maxattachnum'] > getuserprofile('todayattachs')) : false;
 		if(!$allowupload) {
 			return $this->uploadmsg(6);
 		}
@@ -89,8 +89,6 @@ class forum_upload {
 		$filename = censor($upload->attach['name'], NULL, TRUE);
 		if(is_array($filename)) {
 			return $this->uploadmsg(12);
-		} else {
-			$filename = dhtmlspecialchars($filename);
 		}
 
 		if(isset($_GET['type']) && $_GET['type'] == 'image' && !$upload->attach['isimage']) {

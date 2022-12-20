@@ -64,10 +64,10 @@ function blog_post($POST, $olds=array()) {
 	$POST['tag'] = getstr($POST['tag'], 500);
 	$POST['tag'] = censor($POST['tag']);
 
+	$POST['message'] = preg_replace("/\<div\>\<\/div\>/i", '', $POST['message']);
 	$POST['message'] = checkhtml($POST['message']);
 		$POST['message'] = getstr($POST['message'], 0, 0, 0, 0, 1);
 		$POST['message'] = censor($POST['message'], NULL, FALSE, FALSE);
-		$POST['message'] = preg_replace("/\<div\>\<\/div\>/i", '', $POST['message']);
 		$POST['message'] = preg_replace_callback("/<a .*?href=\"(.*?)\".*?>/is", 'blog_post_callback_blog_check_url_1', $POST['message']);
 
 	$message = $POST['message'];

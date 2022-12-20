@@ -79,6 +79,7 @@ switch($op) {
 		if(!submitcheck('submit')) {
 			$announce['starttime'] = $announce['starttime'] ? dgmdate($announce['starttime'], 'd') : '';
 			$announce['endtime'] = $announce['endtime'] ? dgmdate($announce['endtime'], 'd') : '';
+			$announce['subject'] = strip_tags($announce['subject']);
 			$announce['message'] = $announce['type'] != 1 ? dhtmlspecialchars($announce['message']) : $announce['message'];
 			$announce['checked'] = $announce['type'] != 1 ? array('selected="selected"', '') : array('', 'selected="selected"');
 		} else {
@@ -87,6 +88,13 @@ switch($op) {
 			$announce['checked'] = $_GET['type'] != 1 ? array('selected="selected"', '') : array('', 'selected="selected"');
 			$message = $_GET['message'][$_GET['type']];
 			save_announce($id, $_GET['starttime'], $_GET['endtime'], $_GET['subject'], $_GET['type'], $message, $_GET['displayorder']);
+			$announce['subject'] = dhtmlspecialchars(trim($_GET['subject']));
+			if(intval($_GET['type']) == 1) {
+				list($message) = explode("\n", trim($message));
+				$announce['message'] = dhtmlspecialchars($message);
+			} else {
+				$announce['message'] = dhtmlspecialchars(trim($message));
+			}
 			$edit_successed = true;
 		}
 

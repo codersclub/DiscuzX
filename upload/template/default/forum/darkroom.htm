@@ -54,8 +54,9 @@
 			var x = new Ajax('JSON');
 			x.getJSON(url, function(s) {
 				if(s && s.message) {
-					if(s.message.dataexist == 1) {
-						obj.setAttribute('cid', s.message.cid);
+					var smsg = s.message.split('|');
+					if(smsg[0] == 1) {
+						obj.setAttribute('cid', smsg[1]);
 						obj.style.display = 'block';
 					}
 					var list = s.data;

@@ -139,8 +139,7 @@ function ftpupload($aids, $uid = 0) {
 	foreach($attachtables as $attachtable => $aids) {
 		$remoteaids = array();
 		foreach(C::t('forum_attachment_n')->fetch_all_attachment($attachtable, $aids, 0) as $attach) {
-			$attach['ext'] = fileext($attach['filename']);
-			if(((!$_G['setting']['ftp']['allowedexts'] && !$_G['setting']['ftp']['disallowedexts']) || ($_G['setting']['ftp']['allowedexts'] && in_array($attach['ext'], $_G['setting']['ftp']['allowedexts'])) || ($_G['setting']['ftp']['disallowedexts'] && !in_array($attach['ext'], $_G['setting']['ftp']['disallowedexts']) && (!$_G['setting']['ftp']['allowedexts'] || $_G['setting']['ftp']['allowedexts'] && in_array($attach['ext'], $_G['setting']['ftp']['allowedexts'])) )) && (!$_G['setting']['ftp']['minsize'] || $attach['filesize'] >= $_G['setting']['ftp']['minsize'] * 1024)) {
+			if(ftpperm(fileext($attach['filename']), $attach['filesize'])) {
 				if(ftpcmd('upload', 'forum/'.$attach['attachment']) && (!$attach['thumb'] || ftpcmd('upload', 'forum/'.getimgthumbname($attach['attachment'])))) {
 					dunlink($attach);
 					$remoteaids[$attach['aid']] = $attach['aid'];
@@ -659,8 +658,9 @@ function setthreadcover($pid, $tid = 0, $aid = 0, $countimg = 0, $imgurl = '') {
 		$image = new image();
 		if($image->Thumb($picsource, 'forum/'.$coverdir.$tid.'.jpg', $_G['setting']['forumpicstyle']['thumbwidth'], $_G['setting']['forumpicstyle']['thumbheight'], 2)) {
 			$remote = '';
-			if(getglobal('setting/ftp/on')) {
+			if(ftpperm('jpg', filesize($_G['setting']['attachdir'].'forum/'.$coverdir.$tid.'.jpg'))) {
 				if(ftpcmd('upload', 'forum/'.$coverdir.$tid.'.jpg')) {
+					@unlink($_G['setting']['attachdir'].'forum/'.$coverdir.$tid.'.jpg');
 					$remote = '-';
 				}
 			}

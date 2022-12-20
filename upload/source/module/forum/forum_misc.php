@@ -348,7 +348,7 @@ if($_GET['action'] == 'paysucceed') {
 
 	$message = '&nbsp;';
 	$savepost = C::t('forum_post')->fetch_post(0, $_GET['pid']);
-	if($savepost) {
+	if($savepost && $_G['uid'] == $savepost['authorid']) {
 		$message = $savepost['message'];
 		if($_GET['type']) {
 			require_once libfile('function/discuzcode');
@@ -416,7 +416,7 @@ if($_GET['action'] == 'paysucceed') {
 			}
 		}
 		if(getgpc('ajaxdata') === 'json') {
-			showmessage(array('dataexist' => $dataexist, 'cid' => $cid), '', $crimelist);
+			showmessage($dataexist.'|'.$cid, '', $crimelist);
 		} else {
 			include_once template("forum/darkroom");
 		}

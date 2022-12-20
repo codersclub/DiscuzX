@@ -1437,18 +1437,15 @@ function checkusergroup($uid = 0) {
 	$credit->checkusergroup($uid);
 }
 
-function checkformulasyntax($formula, $operators, $tokens) {
+function checkformulasyntax($formula, $operators, $tokens, $values = '') {
 	$var = implode('|', $tokens);
+	$val = $values ? '|'.$values : '';
 	$operator = implode('', $operators);
 
-	$operator = str_replace(
-		array('+', '-', '*', '/', '(', ')', '{', '}', '\''),
-		array('\+', '\-', '\*', '\/', '\(', '\)', '\{', '\}', '\\\''),
-		$operator
-	);
+	$operator = preg_quote($operator, '/');
 
 	if(!empty($formula)) {
-		if(!preg_match("/^([$operator\.\d\(\)]|(($var)([$operator\(\)]|$)+))+$/", $formula) || !is_null(eval(preg_replace("/($var)/", "\$\\1", $formula).';'))){
+		if(!preg_match("/^([$operator\.\d\(\)]|(($var$val)([$operator\(\)]|$)+))+$/", $formula) || !is_null(eval(preg_replace("/($var)/", "\$\\1", $formula).';'))){
 			return false;
 		}
 	}
@@ -1713,6 +1710,17 @@ function ftpcmd($cmd, $arg1 = '') {
 		default       : return false;
 	}
 
+}
+
+function ftpperm($fileext, $filesize) {
+	global $_G;
+	$return = false;
+	if($_G['setting']['ftp']['on']) {
+		if(((!$_G['setting']['ftp']['allowedexts'] && !$_G['setting']['ftp']['disallowedexts']) || ($_G['setting']['ftp']['allowedexts'] && in_array($fileext, $_G['setting']['ftp']['allowedexts'])) || ($_G['setting']['ftp']['disallowedexts'] && !in_array($fileext, $_G['setting']['ftp']['disallowedexts']) && (!$_G['setting']['ftp']['allowedexts'] || $_G['setting']['ftp']['allowedexts'] && in_array($fileext, $_G['setting']['ftp']['allowedexts'])))) && (!$_G['setting']['ftp']['minsize'] || $filesize >= $_G['setting']['ftp']['minsize'] * 1024)) {
+			$return = true;
+		}
+	}
+	return $return;
 }
 
 function diconv($str, $in_charset, $out_charset = CHARSET, $ForceTable = FALSE) {

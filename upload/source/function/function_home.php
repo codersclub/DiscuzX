@@ -393,7 +393,7 @@ function pic_upload($FILES, $type='album', $thumb_width=0, $thumb_height=0, $thu
 		}
 	}
 
-	if(getglobal('setting/ftp/on')) {
+	if(ftpperm($upload->attach['ext'], $upload->attach['size'])) {
 		if(ftpcmd('upload', $type.'/'.$upload->attach['attachment'])) {
 			if($result['thumb']) {
 				ftpcmd('upload', $type.'/'.getimgthumbname($upload->attach['attachment']));

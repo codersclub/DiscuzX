@@ -719,6 +719,7 @@ if($_G['forum']['status'] != 3) {
 	$seotype = 'viewthread_group';
 	$seodata['first'] = $nav['first']['name'];
 	$seodata['second'] = $nav['second']['name'];
+	$seodata['gdes'] = $_G['forum']['description'];
 }
 
 list($navtitle, $metadescription, $metakeywords) = get_seosetting($seotype, $seodata);
@@ -927,6 +928,14 @@ if($_G['forum_attachpids'] && !defined('IN_ARCHIVER')) {
 }
 
 if(empty($postlist)) {
+	if($thread['closed'] > 1 && $thread['isgroup'] != 1) {
+		if(is_array($_G['setting']['rewritestatus']) && in_array('forum_viewthread', $_G['setting']['rewritestatus'])) {
+			$canonical = rewriteoutput('forum_viewthread', 1, '', $thread['closed'], 1, '', '');
+		} else {
+			$canonical = 'forum.php?mod=viewthread&tid='.$thread['closed'];
+		}
+		dheader('Location:'.$_G['siteurl'].$canonical);
+	}
 	showmessage('post_not_found');
 } elseif(!defined('IN_MOBILE_API')) {
 	foreach($postlist as $pid => $post) {
@@ -1484,7 +1493,7 @@ function viewthread_numbercard($post) {
 function getLinkByKey($key, $post, $returnarray = 0) {
 	switch($key) {
 		case 'uid': $v = array('link' => '?'.$post['uid'], 'value' => $post['uid']);break;
-		case 'posts': $v = array('link' => 'home.php?mod=space&uid='.$post['uid'].'&do=thread&type=reply&view=me&from=space', 'value' => $post['posts']);break;
+		case 'posts': $v = array('link' => 'home.php?mod=space&uid='.$post['uid'].'&do=thread&type=reply&view=me&from=space', 'value' => $post['posts'] - $post['threads']);break;
 		case 'threads': $v = array('link' => 'home.php?mod=space&uid='.$post['uid'].'&do=thread&type=thread&view=me&from=space', 'value' => $post['threads']);break;
 		case 'digestposts': $v = array('link' => 'home.php?mod=space&uid='.$post['uid'].'&do=thread&type=thread&view=me&from=space', 'value' => $post['digestposts']);break;
 		case 'feeds': $v = array('link' => 'home.php?mod=follow&uid='.$post['uid'].'&do=view', 'value' => $post['feeds']);break;

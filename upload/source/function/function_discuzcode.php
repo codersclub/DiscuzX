@@ -94,6 +94,7 @@ function discuzcode($message, $smileyoff = false, $bbcodeoff = false, $htmlon = 
 		}
 	}
 
+	$message = preg_replace('/\[\tDISCUZ_CODE_\d+\t\]/', '', $message);
 	if($parsetype != 1 && !$bbcodeoff && $allowbbcode && (strpos($message, '[/code]') || strpos($message, '[/CODE]')) !== FALSE) {
 		$message = preg_replace_callback("/\s?\[code\](.+?)\[\/code\]\s?/is", 'discuzcode_callback_codedisp_1', $message);
 	}
@@ -124,7 +125,7 @@ function discuzcode($message, $smileyoff = false, $bbcodeoff = false, $htmlon = 
 
 	if($allowbbcode) {
 		if(strpos($msglower, 'ed2k://') !== FALSE) {
-			$message = preg_replace_callback("/ed2k:\/\/(.+?)\//", 'discuzcode_callback_parseed2k_1', $message);
+			$message = preg_replace_callback("/ed2k:\/\/([^\/\s'\"]+)\//", 'discuzcode_callback_parseed2k_1', $message);
 		}
 	}
 
@@ -411,6 +412,13 @@ function parseed2k($url) {
 function parseattachurl($aid, $ext, $ignoretid = 0) {
 	global $_G;
 	$_G['forum_skipaidlist'][] = $aid;
+	if(!empty($ext)) {
+		$attach = C::t('forum_attachment_n')->fetch('aid:'.$aid, $aid);
+		// 如果不是音视频类附件则不允许生成无条件限制的地址, 此处不支持附件收费以及阅读权限判定
+		if(!in_array(attachtype(fileext($attach['filename'])), array(9, 10))) {
+			$ext = 0;
+		}
+	}
 	return $_G['siteurl'].'forum.php?mod=attachment&aid='.aidencode($aid, $ext, $ignoretid ? '' : $_G['tid']).($ext ? '&request=yes&_f=.'.$ext : '');
 }
 
