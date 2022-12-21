@@ -4,9 +4,6 @@
 		if (!key || !$('header_' + key)) {
 			return;
 		}
-		if (prevnav == key) {
-			return;
-		}
 		if (prevnav && $('header_' + prevnav)) {
 			$('header_' + prevnav).className = '';
 			$('lm_' + prevnav).className = '';
@@ -18,7 +15,7 @@
 				doane();
 			}
 		} else {
-			if (prevnav == key && !getcookie('admincp_leftlayout')) {
+			if (prevnav == key && getcookie('admincp_leftlayout')) {
 				$('header_' + prevnav).className = '';
 				$('lm_' + prevnav).className = '';
 				prevnav = null;
@@ -72,12 +69,9 @@
 		});
 		nav.addEventListener('mouseover', function () {
 			id = this.id.substring(7);
-			navt = setTimeout(function () {
+			setTimeout(function () {
 				switchnav(id, true);
 			}, 500);
-		});
-		nav.addEventListener('mouseout', function () {
-			clearTimeout(navt)
 		});
 	});
 	document.querySelectorAll('nav ul ul a').forEach(function (tab) {
