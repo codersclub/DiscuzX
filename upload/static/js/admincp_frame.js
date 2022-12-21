@@ -48,13 +48,19 @@
 		window.open(href);
 		doane();
 	}
-	document.querySelectorAll('nav > ul > li > a').forEach(function (nav) {
+	document.querySelectorAll('#leftmenu > li > a').forEach(function (nav) {
 		nav.addEventListener('click', function () {
 			switchnav(this.id.substring(7));
 		});
 	});
+	document.querySelectorAll('#topmenu > li > a').forEach(function (nav) {
+		nav.addEventListener('click', function () {
+			switchnav(this.id.substring(7), true);
+		});
+	});
 	document.querySelectorAll('#topmenu button').forEach(function (nav) {
 		nav.addEventListener('click', function () {
+			switchnav(id, true);
 			switchnav(this.id.substring(7));
 		});
 		nav.addEventListener('mouseover', function () {
