@@ -33,7 +33,7 @@ if(isfounder()) {
 require './source/admincp/admincp_menu.php';
 $basescript = ADMINSCRIPT;
 $staticurl = STATICURL;
-$oldlayout = !empty($_G['cookie']['admincp_oldlayout']) ? ' class="oldlayout"' : '';
+$oldlayout = empty($_G['cookie']['admincp_leftlayout']) ? ' class="oldlayout"' : '';
 
 echo <<<EOT
 <!DOCTYPE html>
