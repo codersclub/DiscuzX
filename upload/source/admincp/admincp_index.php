@@ -107,7 +107,7 @@ function show_user_bar() {
 		}
 	}
 
-	showsubmenu('home_welcome', array(), '</div><div class="dbox hometop"><img src="'.avatar(getglobal('uid'), 'middle', true).'" class="avt">
+	showsubmenu('home_welcome', array(), '</div><div class="dbox hometop">'.avatar(getglobal('uid'), 'middle', array('class' => 'avt')).'
 	<div class="hinfo">
 		<h4>'.cplang('home_welcome_txt').$_G['member']['username'].'</h4>
 		<p>'.$cpadmingroup.'&nbsp;|&nbsp;'.cplang('home_mods').': <span id="mod_num">0</span></p>
