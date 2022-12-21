@@ -99,8 +99,8 @@ function formulaperm($formula) {
 					break;
 				case 'regip':
 				case 'lastip':
-					$formula = preg_replace("/\{([\d\.]+?)\}/", "'\\1'", $formula);
-					$formula = preg_replace('/(\$memberformula\[\'(regip|lastip)\'\])\s*=+\s*\'([\d\.]+?)\'/', "strpos(\\1, '\\3')===0", $formula);
+					$formula = preg_replace("/\{([0-9a-fA-F\.\:\/]+?)\}/", "'\\1'", $formula);
+					$formula = preg_replace('/(\$memberformula\[\'(regip|lastip)\'\])\s*=+\s*\'([0-9a-fA-F\.\:\/]+?)\'/', "ip::check_ip(\\1, '\\3')", $formula);
 				case 'buyercredit':
 				case 'sellercredit':
 					space_merge($_G['member'], 'status');break;
@@ -206,8 +206,8 @@ function medalformulaperm($formula, $type) {
 					break;
 				case 'regip':
 				case 'lastip':
-					$formula = preg_replace("/\{([\d\.]+?)\}/", "'\\1'", $formula);
-					$formula = preg_replace('/(\$memberformula\[\'(regip|lastip)\'\])\s*=+\s*\'([\d\.]+?)\'/', "strpos(\\1, '\\3')===0", $formula);
+					$formula = preg_replace("/\{([0-9a-fA-F\.\:\/]+?)\}/", "'\\1'", $formula);
+					$formula = preg_replace('/(\$memberformula\[\'(regip|lastip)\'\])\s*=+\s*\'([0-9a-fA-F\.\:\/]+?)\'/', "ip::check_ip(\\1, '\\3')", $formula);
 				case 'buyercredit':
 				case 'sellercredit':
 					space_merge($_G['member'], 'status');break;

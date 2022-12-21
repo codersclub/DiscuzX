@@ -1437,25 +1437,96 @@ function checkusergroup($uid = 0) {
 	$credit->checkusergroup($uid);
 }
 
-function checkformulasyntax($formula, $operators, $tokens, $values = '') {
+function checkformulasyntax($formula, $operators, $tokens, $values = '', $funcs = array()) {
 	$var = implode('|', $tokens);
-	$val = $values ? '|'.$values : '';
-	$operator = implode('', $operators);
-
-	$operator = preg_quote($operator, '/');
 
 	if(!empty($formula)) {
-		if(!preg_match("/^([$operator\.\d\(\)]|(($var$val)([$operator\(\)]|$)+))+$/", $formula) || !is_null(eval(preg_replace("/($var)/", "\$\\1", $formula).';'))){
-			return false;
-		}
+		$formula = preg_replace("/($var)/", "\$\\1", $formula);
+		return formula_tokenize($formula, $operators, $tokens, $values, $funcs);
 	}
 	return true;
+}
+
+function formula_tokenize($formula, $operators, $tokens, $values, $funcs) {
+	$fexp = token_get_all('<?php '.$formula);
+	$prevseg = 1; // 1左括号2右括号3变量4运算符5函数
+	$isclose = 0;
+	$tks = implode('|', $tokens);
+	$op1 = $op2 = array();
+	foreach($operators as $orts) {
+		if(strlen($orts) === 1) {
+			$op1[] = $orts;
+		} else {
+			$op2[] = $orts;
+		}
+	}
+	foreach($fexp as $k => $val) {
+		if(is_array($val)) {
+			if(in_array($val[0], array(T_VARIABLE, T_CONSTANT_ENCAPSED_STRING, T_LNUMBER, T_DNUMBER))) {
+				// 是变量
+				if(!in_array($prevseg, array(1, 4))) {
+					return false;
+				}
+				$prevseg = 3;
+				if($val[0] == T_VARIABLE && !preg_match('/^\$('.$tks.')$/', $val[1])) {
+					return false;
+				}
+				if($val[0] == T_CONSTANT_ENCAPSED_STRING && !($values && preg_match('/^'.$values.'$/', $val[1]))) {
+					return false;
+				}
+			} elseif($val[0] == T_STRING && in_array($val[1], $funcs)) {
+				// 是函数
+				if(!in_array($prevseg, array(1, 4))) {
+					return false;
+				}
+				$prevseg = 5;
+			} elseif($val[0] == T_WHITESPACE || ($k == 0 && $val[0] == T_OPEN_TAG)) {
+				// 空格或文件头，忽略
+			} elseif(in_array($val[1], $op2)) {
+				// 是运算符
+				if(!in_array($prevseg, array(2, 3))) {
+					return false;
+				}
+				$prevseg = 4;
+			} else {
+				return false;
+			}
+		} else {
+			if($val === '(') {
+				// 是左括号
+				if(!in_array($prevseg, array(1, 4, 5))) {
+					return false;
+				}
+				$prevseg = 1;
+				$isclose++;
+			} elseif($val === ')') {
+				// 是右括号
+				if(!in_array($prevseg, array(2, 3))) {
+					return false;
+				}
+				$prevseg = 2;
+				$isclose--;
+				if($isclose < 0) {
+					return false;
+				}
+			} elseif(in_array($val, $op1)) {
+				// 是运算符
+				if(!in_array($prevseg, array(2, 3)) && $val !== '-') {
+					return false;
+				}
+				$prevseg = 4;
+			} else {
+				return false;
+			}
+		}
+	}
+	return (in_array($prevseg, array(2, 3)) && $isclose === 0);
 }
 
 function checkformulacredits($formula) {
 	return checkformulasyntax(
 		$formula,
-		array('+', '-', '*', '/', ' '),
+		array('+', '-', '*', '/'),
 		array('extcredits[1-8]', 'digestposts', 'posts', 'threads', 'oltime', 'friends', 'doings', 'polls', 'blogs', 'albums', 'sharings')
 	);
 }
