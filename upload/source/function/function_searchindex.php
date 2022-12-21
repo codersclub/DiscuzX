@@ -102,7 +102,7 @@ function searchindex_cache() {
 		}
 	}
 
-	if($isfullindex) {
+	if(!empty($indexdata)) {
 		$cachedata = '$searchindex = '.var_export($indexdata, 1).';';
 	} else {
 		$cachedata = "lang('admincp_searchindex');\n\$searchindex = & \$_G['lang']['admincp_searchindex'];";
