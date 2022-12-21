@@ -5,7 +5,13 @@
 <!--{elseif !empty($actives[avatar])}-->
 	{lang memcp_avatar}
 <!--{elseif !empty($actives[credit])}-->
-	{lang memcp_credit}
+	<!--{if $op == 'log'}-->
+		{lang memcp_credits_log}
+	<!--{elseif $op == 'buy'}-->
+		{lang memcp_credit}{lang home_credit_buy}
+	<!--{else}-->
+		{lang memcp_credit}
+	<!--{/if}-->
 <!--{elseif !empty($actives[usergroup])}-->
 	{lang memcp_usergroup}
 <!--{elseif !empty($actives[privacy])}-->

@@ -67,7 +67,9 @@
 			<!--{if helper_access::check_module('friend')}-->
 			<li><a href="home.php?mod=space&do=friend"><i class="dm-person-fill"></i>{lang my_friends}</a></li>
 			<!--{/if}-->
+			<!--{if $_G['setting']['ec_ratio'] || $_G['setting']['card']['open']}-->
 			<li><a href="home.php?mod=spacecp&ac=credit&op=buy"><i class="dm-person-fill"></i>{lang credit_recharge}</a></li>
+			<!--{/if}-->
 		<!--{/if}-->
 		<!--{hook/space_profile_nav_extra_mobile}-->
 		</ul>
