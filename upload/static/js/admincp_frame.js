@@ -4,6 +4,9 @@
 		if (!key || !$('header_' + key)) {
 			return;
 		}
+		if (prevnav == key) {
+			return;
+		}
 		if (prevnav && $('header_' + prevnav)) {
 			$('header_' + prevnav).className = '';
 			$('lm_' + prevnav).className = '';
@@ -50,17 +53,21 @@
 	}
 	document.querySelectorAll('#leftmenu > li > a').forEach(function (nav) {
 		nav.addEventListener('click', function () {
-			switchnav(this.id.substring(7));
+			nolocation = true;
+			id = this.id.substring(7);
+			if (id == 'cloudaddons' || id == 'uc') {
+				nolocation = false;
+			}
+			switchnav(id, nolocation);
 		});
 	});
 	document.querySelectorAll('#topmenu > li > a').forEach(function (nav) {
 		nav.addEventListener('click', function () {
-			switchnav(this.id.substring(7), true);
+			switchnav(this.id.substring(7));
 		});
 	});
 	document.querySelectorAll('#topmenu button').forEach(function (nav) {
 		nav.addEventListener('click', function () {
-			switchnav(id, true);
 			switchnav(this.id.substring(7));
 		});
 		nav.addEventListener('mouseover', function () {
