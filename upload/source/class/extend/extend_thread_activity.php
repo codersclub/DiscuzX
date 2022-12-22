@@ -23,7 +23,7 @@ class extend_thread_activity extends extend_thread_base {
 			showmessage('activity_fromtime_please');
 		} elseif(@strtotime($_GET['starttimefrom'][$this->activitytime]) === -1 || @strtotime($_GET['starttimefrom'][$this->activitytime]) === FALSE) {
 			showmessage('activity_fromtime_error');
-		} elseif($this->activitytime && ((@strtotime($_GET['starttimefrom']) > @strtotime($_GET['starttimeto']) || !$_GET['starttimeto']))) {
+		} elseif($this->activitytime && ((@strtotime($_GET['starttimefrom'][$this->activitytime]) > @strtotime($_GET['starttimeto']) || !$_GET['starttimeto']))) {
 			showmessage('activity_fromtime_error');
 		} elseif(!trim($_GET['activityclass'])) {
 			showmessage('activity_sort_please');
@@ -103,7 +103,7 @@ class extend_thread_activity extends extend_thread_base {
 					showmessage('activity_fromtime_please');
 				} elseif(strtotime($_GET['starttimefrom'][$activitytime]) === -1 || @strtotime($_GET['starttimefrom'][$activitytime]) === FALSE) {
 					showmessage('activity_fromtime_error');
-				} elseif($activitytime && ((@strtotime($_GET['starttimefrom']) > @strtotime($_GET['starttimeto']) || !$_GET['starttimeto']))) {
+				} elseif($activitytime && ((@strtotime($_GET['starttimefrom'][$activitytime]) > @strtotime($_GET['starttimeto']) || !$_GET['starttimeto']))) {
 					showmessage('activity_fromtime_error');
 				} elseif(!trim($_GET['activityclass'])) {
 					showmessage('activity_sort_please');
