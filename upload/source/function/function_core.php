@@ -469,6 +469,14 @@ function strexists($string, $find) {
 
 function avatar($uid, $size = 'middle', $returnsrc = 0, $real = FALSE, $static = FALSE, $ucenterurl = '', $class = '', $extra = '', $random = 0) {
 	global $_G;
+	if(!empty($_G['setting']['plugins']['func'][HOOKTYPE]['avatar'])) {
+		$_G['hookavatar'] = '';
+		$param = func_get_args();
+		hookscript('avatar', 'global', 'funcs', array('param' => $param), 'avatar');
+		if($_G['hookavatar']) {
+			return $_G['hookavatar'];
+		}
+	}
 	if(is_array($returnsrc)) {
 		isset($returnsrc['random']) && $random = $returnsrc['random'];
 		isset($returnsrc['extra']) && $extra = $returnsrc['extra'];
@@ -477,14 +485,6 @@ function avatar($uid, $size = 'middle', $returnsrc = 0, $real = FALSE, $static =
 		isset($returnsrc['static']) && $static = $returnsrc['static'];
 		isset($returnsrc['real']) && $real = $returnsrc['real'];
 		$returnsrc = isset($returnsrc['returnsrc']) ? $returnsrc['returnsrc'] : 0;
-	}
-	if(!empty($_G['setting']['plugins']['func'][HOOKTYPE]['avatar'])) {
-		$_G['hookavatar'] = '';
-		$param = func_get_args();
-		hookscript('avatar', 'global', 'funcs', array('param' => $param), 'avatar');
-		if($_G['hookavatar']) {
-			return $_G['hookavatar'];
-		}
 	}
 	static $staticavatar;
 	if($staticavatar === null) {
