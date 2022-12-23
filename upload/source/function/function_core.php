@@ -469,7 +469,7 @@ function strexists($string, $find) {
 
 function avatar($uid, $size = 'middle', $returnsrc = 0, $real = FALSE, $static = FALSE, $ucenterurl = '', $class = '', $extra = '', $random = 0) {
 	global $_G;
-	if(!empty($_G['setting']['plugins']['func'][HOOKTYPE]['avatar'])) {
+	if(!empty($_G['setting']['plugins']['func'][HOOKTYPE]['avatar']) && !defined('IN_ADMINCP')) {
 		$_G['hookavatar'] = '';
 		$param = func_get_args();
 		hookscript('avatar', 'global', 'funcs', array('param' => $param), 'avatar');
