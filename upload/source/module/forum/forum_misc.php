@@ -1283,7 +1283,7 @@ if($_GET['action'] == 'votepoll' && submitcheck('pollsubmit', 1)) {
 			$query = C::t('forum_activityapply')->fetch_all($_GET['applyidarray']);
 			foreach($query as $row) {
 				if($row['tid'] == $_G['tid']) {
-					$tempusers[$row['uid']] = $row['verified'];
+					$tempusers[$row['uid']] = $row;
 				}
 			}
 			$query  = C::t('common_member')->fetch_all(array_keys($tempusers));
