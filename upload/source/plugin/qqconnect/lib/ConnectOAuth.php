@@ -416,7 +416,7 @@ class Cloud_Service_Client_ConnectOAuth extends Cloud_Service_Client_OAuth {
 		$utilService = new Cloud_Service_Util();
 		$response = $this->dfsockopen($this->_getUserInfoURL_V2.'?'.$utilService->httpBuildQuery($params, '', '&'));
 
-		$data = json_decode($response,true);
+		$data = json_decode($response, true);
 		$data = $this->_iconv($data, 'UTF-8', CHARSET);
 
 		if(isset($data['ret']) && $data['ret'] == 0) {
