@@ -97,9 +97,6 @@ if($view) {
 		C::t('home_notification')->ignore($_G['uid'], $type, $category, true, true);
 	}
 	helper_notification::update_newprompt($_G['uid'], ($type ? $type : $category));
-	if($_G['setting']['my_app_status']) {
-		$mynotice = C::t('common_myinvite')->count_by_touid($_G['uid']);
-	}
 	if($_G['member']['newprompt']) {
 		$recountprompt = 0;
 		foreach($_G['member']['category_num'] as $promptnum) {
