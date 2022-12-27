@@ -379,7 +379,7 @@ function parseattachurl($aid, $ext, $ignoretid = 0) {
 	if(!empty($ext)) {
 		$attach = C::t('forum_attachment_n')->fetch('aid:'.$aid, $aid);
 		// 如果不是音视频类附件则不允许生成无条件限制的地址, 此处不支持附件收费以及阅读权限判定
-		if(!in_array(attachtype(fileext($attach['filename'])), array(9, 10))) {
+		if(!in_array(attachtype(fileext($attach['filename'])."\t", 'id'), array(9, 10))) {
 			$ext = 0;
 		}
 	}
