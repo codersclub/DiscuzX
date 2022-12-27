@@ -43,6 +43,8 @@ if(empty($_GET['module']) || empty($_GET['version']) || !preg_match('/^[\w\.]+$/
 if($_GET['module'] == 'extends') {
 	require_once 'source/plugin/mobile/mobile_extends.php';
 	return;
+}else{
+	define('HOOKTYPE', 'hookscriptmobile');
 }
 
 if(!empty($_GET['_auth'])) {
