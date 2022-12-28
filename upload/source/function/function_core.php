@@ -741,7 +741,7 @@ function template($file, $templateid = 0, $tpldir = '', $gettplfile = 0, $primal
 	$templateid = $templateid ? $templateid : (defined('TEMPLATEID') ? TEMPLATEID : '');
 	$filebak = $file;
 
-	if(defined('IN_MOBILE') && !defined('TPL_DEFAULT') && strpos($file, $_G['mobiletpl'][IN_MOBILE].'/') === false || (isset($_G['forcemobilemessage']) && $_G['forcemobilemessage'])) {
+	if(constant('HOOKTYPE') == 'hookscriptmobile' && defined('IN_MOBILE') && !defined('TPL_DEFAULT') && strpos($file, $_G['mobiletpl'][IN_MOBILE].'/') === false || (isset($_G['forcemobilemessage']) && $_G['forcemobilemessage'])) {
 		if(defined('IN_MOBILE') && constant('IN_MOBILE') == 2) {
 			$oldfile .= !empty($_G['inajax']) && ($oldfile == 'common/header' || $oldfile == 'common/footer') ? '_ajax' : '';
 		}
@@ -755,7 +755,7 @@ function template($file, $templateid = 0, $tpldir = '', $gettplfile = 0, $primal
 
 	$file == 'common/header' && defined('CURMODULE') && CURMODULE && $file = 'common/header_'.$_G['basescript'].'_'.CURMODULE;
 
-	if(defined('IN_MOBILE') && !defined('TPL_DEFAULT')) {
+	if(constant('HOOKTYPE') == 'hookscriptmobile' && defined('IN_MOBILE') && !defined('TPL_DEFAULT')) {
 		if(strpos($tpldir, 'plugin')) {
 			if(!file_exists(DISCUZ_ROOT.$tpldir.'/'.$file.'.htm') && !file_exists(DISCUZ_ROOT.$tpldir.'/'.$file.'.php')) {
 				$url = $_SERVER['REQUEST_URI'].(strexists($_SERVER['REQUEST_URI'], '?') ? '&' : '?').'mobile=no';
