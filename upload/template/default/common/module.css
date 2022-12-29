@@ -207,7 +207,7 @@ Created & Modified by Alice, Monkey, Lushnis, Pony, Dfox & DragonLee.
 	.side_btn a svg { fill: {MENUBGCOLOR}; }
 	.side_btn a.btn_s_close { left:-27px; top:-11px; }
 	.side_btn a.btn_s_open { left:-21px; top:-11px; }
-
+#subjecthide { width: 585px; }
 /** end **/
 
 /**  forum::forumdisplay,forum::viewthread,group::viewthread,home::space,home::spacecp,home::invite,portal::view,portal::comment,forum::post,group::post **/
