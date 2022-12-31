@@ -1,0 +1,13 @@
+<div class="dhnavs_box">
+	<div id="dhnavs">
+		<div id="dhnavs_li">
+			<ul class="swiper-wrapper">
+				<li class="swiper-slide<!--{if empty($_GET['income'])}--> mon<!--{/if}-->"><a href="home.php?mod=spacecp&ac=credit&op=log">{lang all}</a></li>
+				<li class="swiper-slide<!--{if $_GET['income'] == 1}--> mon<!--{/if}-->"><a href="home.php?mod=spacecp&ac=credit&op=log&income=1">{lang credit_income_1}</a></li>
+				<li class="swiper-slide<!--{if $_GET['income'] == -1}--> mon<!--{/if}-->"><a href="home.php?mod=spacecp&ac=credit&op=log&income=-1">{lang credit_income_2}</a></li>
+				<!--{if $_G['setting']['ec_ratio'] || $_G['setting']['card']['open']}--><li class="swiper-slide"><a href="home.php?mod=spacecp&ac=credit&op=buy">{lang home_credit_buy}</a></li><!--{/if}-->
+			</ul>
+		</div>
+	</div>
+</div>
+<script>if($("#dhnavs_li .mon").length>0){var discuz_nav=$("#dhnavs_li .mon").offset().left+$("#dhnavs_li .mon").width()>=$(window).width()?$("#dhnavs_li .mon").index():0}else{var discuz_nav=0}new Swiper('#dhnavs_li',{freeMode:true,slidesPerView:'auto',initialSlide:discuz_nav,onTouchMove:function(swiper){Discuz_Touch_on=0},onTouchEnd:function(swiper){Discuz_Touch_on=1},});</script>

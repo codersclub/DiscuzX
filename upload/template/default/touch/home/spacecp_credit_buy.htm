@@ -1,10 +1,5 @@
 <!--{template home/spacecp_header}-->
-<div class="dhnv flex-box cl">
-	<a href="home.php?mod=spacecp&ac=credit&op=log" class="flex">{lang all}</a>
-	<a href="home.php?mod=spacecp&ac=credit&op=log&income=1" class="flex">{lang credit_income_1}</a>
-	<a href="home.php?mod=spacecp&ac=credit&op=log&income=-1" class="flex">{lang credit_income_2}</a>
-	<a href="home.php?mod=spacecp&ac=credit&op=buy" class="flex mon">{lang home_credit_buy}</a>
-</div>
+<!--{template home/spacecp_credit_header}-->
 
 <!--{if ($_G['setting']['ec_ratio'] && $is_enable_pay) && $_G['setting']['card']['open']}-->
 <div id="buy_tabs" class="dhnv flex-box mb10 cl">
@@ -80,3 +75,5 @@
         });
     })();
 </script>
+
+</div>

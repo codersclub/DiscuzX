@@ -1,5 +1,9 @@
 <!--{template common/header}-->
+
 <!--{if in_array($do, array('buy', 'exit'))}-->
+	<!--{template home/spacecp_header}-->
+	<!--{hook/spacecp_usergroup_top}-->
+	<!--{template home/spacecp_usergroup_header}-->
 	<div class="f_c">
 	<h3 class="flb">
 		<em id="return_$_GET[handlekey]"><!--{if $join}-->{lang memcp_usergroups_joinbuy}<!--{else}-->{lang memcp_usergroups_joinexit}<!--{/if}--></em>
@@ -69,13 +73,16 @@
 			<!--{/if}-->
 			</table>
 		</div>
-		<p class="o pns">
+		<p>
 			<button type="submit" name="editsubmit_btn" id="editsubmit_btn" value="true" class="pn pnc"><strong>{lang submit}</strong></button>
 		</p>
 	</form>
 	</div>
-
+</div>
 <!--{elseif $do == 'switch'}-->
+	<!--{template home/spacecp_header}-->
+	<!--{hook/spacecp_usergroup_top}-->
+	<!--{template home/spacecp_usergroup_header}-->
 	<div class="f_c">
 	<h3 class="flb">
 		<em id="return_$_GET[handlekey]">{lang memcp_usergroups_switch}</em>
@@ -98,15 +105,16 @@
 				</tr>
 			</table>
 		</div>
-		<p class="o pns">
+		<p>
 			<button type="submit" name="editsubmit_btn" id="editsubmit_btn" value="true" class="pn pnc"><strong>{lang submit}</strong></button>
 		</p>
 	</form>
 	</div>
+</div>
 <!--{elseif $do == 'forum'}-->
 	<!--{template home/spacecp_header}-->
-			<!--{hook/spacecp_usergroup_top}-->
-			<!--{template home/spacecp_usergroup_header}-->
+	<!--{hook/spacecp_usergroup_top}-->
+	<!--{template home/spacecp_usergroup_header}-->
 			<table cellpadding="0" cellspacing="0" class="tdat ftb mt10 mb10">
 				<tr class="alt">
 					<th class="xw1">{lang forum_name}</th>
@@ -142,12 +150,12 @@
 			<!--{if $_G['setting']['verify']['enabled']}-->
 				<!--{echo implode('', $verifyicon)}--> {lang usergroup_right_message3}
 			<!--{/if}-->
-		<!--{hook/spacecp_usergroup_bottom}-->
+	<!--{hook/spacecp_usergroup_bottom}-->
 </div>
 <!--{elseif $do == 'expiry' || $do == 'list'}-->
 	<!--{template home/spacecp_header}-->
-			<!--{hook/spacecp_usergroup_top}-->
-			<!--{template home/spacecp_usergroup_header}-->
+	<!--{hook/spacecp_usergroup_top}-->
+	<!--{template home/spacecp_usergroup_header}-->
 				<p class="tbmu"><span class="y">
 					{lang youhave} <span class="xi1"> $usermoney {$_G[setting][extcredits][$_G[setting][creditstrans]][unit]}{$_G[setting][extcredits][$_G[setting][creditstrans]][title]}</span></span>
 					{lang yourusergroup}: {$_G['cache']['usergroups'][$_G[groupid]]['grouptitle']}
@@ -210,12 +218,12 @@
 				<!--{else}-->
 					<p class="emp">{lang memcp_usergroup_unallow}</p>
 				<!--{/if}-->
-			<!--{hook/spacecp_usergroup_bottom}-->
-	</div>
+		<!--{hook/spacecp_usergroup_bottom}-->
+</div>
 <!--{else}-->
 	<!--{template home/spacecp_header}-->
-			<!--{hook/spacecp_usergroup_top}-->
-			<!--{template home/spacecp_usergroup_header}-->
+	<!--{hook/spacecp_usergroup_top}-->
+	<!--{template home/spacecp_usergroup_header}-->
 			<!--{eval
 				$permtype = array(0 => '{lang permission_menu_normaloptions}', 1 => '{lang permission_modoptions_name}');
 			}-->
@@ -323,7 +331,7 @@
 			<div id="guser_menu" class="p_pop" style="display:none">$usergroups[user]</div>
 			<div id="gadmin_menu" class="p_pop" style="display:none">$usergroups[admin]</div>
 		</div>
-		<!--{hook/spacecp_usergroup_bottom}-->
+	<!--{hook/spacecp_usergroup_bottom}-->
 </div>
 <!--{/if}-->
 {eval

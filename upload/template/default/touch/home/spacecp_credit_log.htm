@@ -1,11 +1,6 @@
 <!--{template common/header}-->
 <!--{template home/spacecp_header}-->
-<div class="dhnv flex-box cl">
-	<a href="home.php?mod=spacecp&ac=credit&op=log" class="flex<!--{if !$_GET['income']}--> mon<!--{/if}-->">{lang all}</a>
-	<a href="home.php?mod=spacecp&ac=credit&op=log&income=1" class="flex<!--{if $_GET['income'] == 1}--> mon<!--{/if}-->">{lang credit_income_1}</a>
-	<a href="home.php?mod=spacecp&ac=credit&op=log&income=-1" class="flex<!--{if $_GET['income'] == -1}--> mon<!--{/if}-->">{lang credit_income_2}</a>
-	<!--{if $_G['setting']['ec_ratio'] || $_G['setting']['card']['open']}--><a href="home.php?mod=spacecp&ac=credit&op=buy" class="flex">{lang home_credit_buy}</a><!--{/if}-->
-</div>
+<!--{template home/spacecp_credit_header}-->
 
 <!--{if $loglist}-->
 <div class="home_credit_log mt10 mb10 cl">
