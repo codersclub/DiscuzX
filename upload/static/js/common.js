@@ -1912,7 +1912,7 @@ function showTopLink() {
 		var scrollHeight = parseInt(document.body.getBoundingClientRect().top);
 		var basew = parseInt(ft.clientWidth);
 		var sw = scrolltop.clientWidth;
-		if (basew < 1000) {
+		if (basew < 1250) {
 			var left = parseInt(fetchOffset(ft)['left']);
 			left = left < sw ? left * 2 - sw : left;
 			scrolltop.style.left = ( basew + left ) + 'px';

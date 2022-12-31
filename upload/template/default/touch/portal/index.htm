@@ -55,6 +55,10 @@ foreach($cates as $cate){
 </div>
 <script>
 var swiper = new Swiper('.dz-swiper', {
+	autoplay: {
+		disableOnInteraction: false,
+		delay: 3000,
+	},
 	pagination: {
 		el: '.swiper-forum',
 		type: 'fraction',

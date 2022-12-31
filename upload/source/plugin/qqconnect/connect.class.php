@@ -18,9 +18,7 @@ class plugin_qqconnect_base {
 
 	function init() {
 		global $_G;
-		if(!defined('IN_MOBILE')) {
-			include_once template('qqconnect:module');
-		}
+		include_once template('qqconnect:module');
 		if(!$_G['setting']['connect']['allow'] || $_G['setting']['bbclosed']) {
 			return;
 		}

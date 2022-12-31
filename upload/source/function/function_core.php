@@ -469,6 +469,14 @@ function strexists($string, $find) {
 
 function avatar($uid, $size = 'middle', $returnsrc = 0, $real = FALSE, $static = FALSE, $ucenterurl = '', $class = '', $extra = '', $random = 0) {
 	global $_G;
+	if(!empty($_G['setting']['plugins']['func'][HOOKTYPE]['avatar']) && !defined('IN_ADMINCP')) {
+		$_G['hookavatar'] = '';
+		$param = func_get_args();
+		hookscript('avatar', 'global', 'funcs', array('param' => $param), 'avatar');
+		if($_G['hookavatar']) {
+			return $_G['hookavatar'];
+		}
+	}
 	if(is_array($returnsrc)) {
 		isset($returnsrc['random']) && $random = $returnsrc['random'];
 		isset($returnsrc['extra']) && $extra = $returnsrc['extra'];
@@ -477,14 +485,6 @@ function avatar($uid, $size = 'middle', $returnsrc = 0, $real = FALSE, $static =
 		isset($returnsrc['static']) && $static = $returnsrc['static'];
 		isset($returnsrc['real']) && $real = $returnsrc['real'];
 		$returnsrc = isset($returnsrc['returnsrc']) ? $returnsrc['returnsrc'] : 0;
-	}
-	if(!empty($_G['setting']['plugins']['func'][HOOKTYPE]['avatar'])) {
-		$_G['hookavatar'] = '';
-		$param = func_get_args();
-		hookscript('avatar', 'global', 'funcs', array('param' => $param), 'avatar');
-		if($_G['hookavatar']) {
-			return $_G['hookavatar'];
-		}
 	}
 	static $staticavatar;
 	if($staticavatar === null) {
@@ -741,7 +741,7 @@ function template($file, $templateid = 0, $tpldir = '', $gettplfile = 0, $primal
 	$templateid = $templateid ? $templateid : (defined('TEMPLATEID') ? TEMPLATEID : '');
 	$filebak = $file;
 
-	if(defined('IN_MOBILE') && !defined('TPL_DEFAULT') && strpos($file, $_G['mobiletpl'][IN_MOBILE].'/') === false || (isset($_G['forcemobilemessage']) && $_G['forcemobilemessage'])) {
+	if(constant('HOOKTYPE') == 'hookscriptmobile' && defined('IN_MOBILE') && !defined('TPL_DEFAULT') && strpos($file, $_G['mobiletpl'][IN_MOBILE].'/') === false || (isset($_G['forcemobilemessage']) && $_G['forcemobilemessage'])) {
 		if(defined('IN_MOBILE') && constant('IN_MOBILE') == 2) {
 			$oldfile .= !empty($_G['inajax']) && ($oldfile == 'common/header' || $oldfile == 'common/footer') ? '_ajax' : '';
 		}
@@ -755,7 +755,7 @@ function template($file, $templateid = 0, $tpldir = '', $gettplfile = 0, $primal
 
 	$file == 'common/header' && defined('CURMODULE') && CURMODULE && $file = 'common/header_'.$_G['basescript'].'_'.CURMODULE;
 
-	if(defined('IN_MOBILE') && !defined('TPL_DEFAULT')) {
+	if(constant('HOOKTYPE') == 'hookscriptmobile' && defined('IN_MOBILE') && !defined('TPL_DEFAULT')) {
 		if(strpos($tpldir, 'plugin')) {
 			if(!file_exists(DISCUZ_ROOT.$tpldir.'/'.$file.'.htm') && !file_exists(DISCUZ_ROOT.$tpldir.'/'.$file.'.php')) {
 				$url = $_SERVER['REQUEST_URI'].(strexists($_SERVER['REQUEST_URI'], '?') ? '&' : '?').'mobile=no';
