@@ -18,7 +18,7 @@ class uccode {
 		$this->uccode = array(
 			'pcodecount' => -1,
 			'codecount' => 0,
-			'codehtml' => ''
+			'codehtml' => array()
 		);
 	}
 
