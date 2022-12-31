@@ -602,6 +602,7 @@ Created & Modified by Alice, Monkey, Lushnis, Pony, Dfox & DragonLee.
 			.tl th, .tl td.fn { padding-right: 1.5em; zoom: 1; }
 				.tl th a:visited, .tl td.fn a:visited { color: {MIDTEXT}; }
 				.fromg { visibility: hidden; }
+				tr:hover .fromg {visibility: visible;}
 			.tl .icn { padding-left: 5px; width: 25px; text-align: left; }
 				.tl .icn a:hover { text-decoration: none; }
 				.tl .tpin { position: relative; }
