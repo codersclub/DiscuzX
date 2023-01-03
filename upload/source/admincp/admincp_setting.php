@@ -2947,6 +2947,9 @@ EOT;
 			if($creditstransi && empty($settingnew['extcredits'][$creditstransi]['available']) && $settingnew['creditstrans'][$si] != -1) {
 				cpmsg('setting_creditstrans_invalid', '', 'error');
 			}
+			if(!isset($settingnew['creditstrans'][$si])){
+				$settingnew['creditstrans'][$si] = 0;
+			}
 		}
 		ksort($settingnew['creditstrans']);
 
