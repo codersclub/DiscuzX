@@ -2529,7 +2529,7 @@ EOF;
 			showtablefooter();
 			showformfooter();
 		} else {
-			$iplist = explode("\n", $_GET['inputipbanlist']);
+			$iplist = explode("\n", str_replace("\r",'',$_GET['inputipbanlist']));
 			foreach($iplist as $banip) {
 				if(strpos($banip, ',') !== false) {
 					list($banipaddr, $expiration) = explode(',', $banip);
