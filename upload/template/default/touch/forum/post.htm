@@ -82,8 +82,8 @@
 			</div>
 			<div class="cl">
 				<ul id="attlist" class="post_attlist setbox cl">
-				<!--{loop $imgattachs['used'] $temp}-->
-					<li><span aid="$temp['aid']" class="del" up="1"><a href="javascript:;"><i class="dm-error"></i></a></span><span class="p_img"><a href="javascript:;"><img style="height:54px;width:54px;" id="aimg_$temp['aid']" title="$temp['filename']" src="{$temp['url']}/$temp['attachment']" /></a></span><input type="hidden" name="attachnew[{$temp['aid']}]['description']" /></li>	
+				<!--{loop $$attachs['used'] $temp}-->
+					<li><span aid="$temp['aid']" class="del" up="1"><a href="javascript:;" class="y"><i class="dm-error"></i></a></span><span class="p_img"><a href="javascript:;">{$temp['filetype']} {$temp['filename']}</a></span><input type="hidden" name="attachnew[{$temp['aid']}]['description']" /></li>	
 				<!--{/loop}-->
 				</ul>
 			</div>
@@ -355,10 +355,10 @@
 		var obj = $(this);
 		$.ajax({
 			type:'GET',
-			url:'forum.php?mod=ajax&action=deleteattach&inajax=yes&aids[]=' + obj.attr('aid') + (obj.attr('up') == 1 ? '&tid={$postinfo['tid']}&pid={$postinfo['pid']}' : ''),
+			url:'forum.php?mod=ajax&action=deleteattach&inajax=yes&aids[]=' + obj.attr('aid') + (obj.attr('up') == 1 ? '&tid={$postinfo['tid']}&pid={$postinfo['pid']}&formhash={FORMHASH}' : ''),
 		})
 		.success(function(s) {
-			obj.parent().parent().remove();
+			obj.parent().remove();
 		})
 		.error(function() {
 			popup.open('{lang networkerror}', 'alert');
