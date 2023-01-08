@@ -847,7 +847,8 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .post_box li.mtit {height:20px;line-height:20px;font-size:12px;padding-top:10px;color:var(--dz-FC-999)}
 .post_box li.mtext {height:auto;line-height:30px;padding:10px 15px;font-size:16px;border-bottom:1px solid var(--dz-BOR-ed);overflow:hidden}
 .post_box li.mli .input-append {position:absolute;right:15px;color:#495057;font-size:1rem;}
-.post_box li.mli .sort_sel {width:100%;background:url('touch/arrow.svg') no-repeat right center;background-size:16px 16px;padding-right:14px;height:30px;line-height:30px;font-size:16px;border:none;color:graytext;appearance:none;-moz-appearance:none;-webkit-appearance:none;overflow:hidden}
+.post_box .sort_sel {width:100%;background:url('touch/arrow.svg') no-repeat right center;background-size:16px 16px;padding-left:14px;height:30px;line-height:30px;font-size:16px;border:none;color:graytext;appearance:none;-moz-appearance:none;-webkit-appearance:none;overflow:hidden}
+.post_box .attqx .sort_sel {font-size:14px;}
 .post_btn {padding:15px}
 .post_box .sec_code {padding:5px 15px;border-bottom:1px solid var(--dz-BOR-ed)}
 .post_box li .post_attbtn { margin-left:5px;}
@@ -885,8 +886,8 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .post_imglist li .p_img img {padding:2px;border:1px solid var(--dz-BOR-ed);vertical-align:middle}
 
 .post_attlist li {padding:12px 0;overflow:hidden}
-.post_attlist li .tit {line-height:22px;font-size:13px;text-overflow:ellipsis;white-space:nowrap}
-.post_attlist li .tit img {float:left;margin:16px 6px 16px 0px;}
+.post_attlist li .tit {padding: 12px 0;line-height:22px;font-size:13px;text-overflow:ellipsis;white-space:nowrap}
+.post_attlist li .tit img {float:left;margin:0px 6px 0px 0px;}
 .post_attlist li .tit span {font-weight:400;}
 .post_attlist li .tit span.btn {color:var(--dz-FC-fff);background-color:var(--dz-BG-3)}
 .post_attlist li .tit span.btn i.dm-trash {color:var(--dz-FC-fff);}
