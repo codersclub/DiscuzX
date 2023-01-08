@@ -389,9 +389,9 @@ class Cloud_Service_Client_ConnectOAuth extends Cloud_Service_Client_OAuth {
 				'access_token' => $result['access_token']
 			);
 			$response = $this->callback($this->dfsockopen($this->_openIdURL_V2.'?'.$utilService->httpBuildQuery($params, '', '&')));
-			if($response->openid) {
+			if($response['openid']) {
 				$result = array(
-					'openid' => $response->openid,
+					'openid' => $response['openid'],
 					'access_token' => $result['access_token']
 				);
 				return $result;

@@ -39,13 +39,17 @@ class Cloud_Service_Client_OAuth {
 	}
 
 	public function callback($response) {
-		if(strpos($response, "callback") === false) {
-			return array();
+		$return = array();
+		if(strpos($response, "callback") !== false) {
+			$lpos = strpos($response, "(");
+			$rpos = strrpos($response, ")");
+			$response = substr($response, $lpos + 1, $rpos - $lpos - 1);
+			$return = json_decode($response, true);
+			if(!is_array($return)) {
+				$return = array();
+			}
 		}
-		$lpos = strpos($response, "(");
-		$rpos = strrpos($response, ")");
-		$response = substr($response, $lpos + 1, $rpos - $lpos - 1);
-		return json_decode($response);
+		return $return;
 	}
 
 	public function getRequest($requestURL, $extra = array(), $oauthMethod = 'GET', $multi = array()) {
