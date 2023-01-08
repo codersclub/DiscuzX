@@ -69,9 +69,12 @@
 		});
 		nav.addEventListener('mouseover', function () {
 			id = this.id.substring(7);
-			setTimeout(function () {
+			headerST = setTimeout(function () {
 				switchnav(id, true);
-			}, 500);
+			}, 1000);
+		});
+		nav.addEventListener('mouseout', function () {
+			clearTimeout(headerST);
 		});
 	});
 	document.querySelectorAll('nav ul ul a').forEach(function (tab) {
