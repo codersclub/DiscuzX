@@ -82,7 +82,7 @@
 			</div>
 			<div class="cl">
 				<ul id="attlist" class="post_attlist setbox cl">
-				<!--{loop $$attachs['used'] $temp}-->
+				<!--{loop $attachs['used'] $temp}-->
 					<li><span aid="$temp['aid']" class="del" up="1"><a href="javascript:;" class="y"><i class="dm-error"></i></a></span><span class="p_img"><a href="javascript:;">{$temp['filetype']} {$temp['filename']}</a></span><input type="hidden" name="attachnew[{$temp['aid']}]['description']" /></li>	
 				<!--{/loop}-->
 				</ul>
