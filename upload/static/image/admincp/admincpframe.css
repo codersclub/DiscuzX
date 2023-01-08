@@ -21,11 +21,11 @@ nav ul li.active { background-color: #163e69; }
 nav ul li.active ul { display: block; }
 nav ul ul a>em { display: block; width: 8px; height: 8px; border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 5px; margin-right: 10px; }
 nav ul ul a>em:hover { border-radius: 1px; border-width: 1.25px; border-color: #fff; transform: scale(1.6); }
-.mainhd { display: flex; flex-shrink: 0; flex-direction: row; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); z-index: 1; }
+.mainhd { display: flex; flex-shrink: 0; flex-direction: row; background-color: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); z-index: 1; }
 #main { flex-grow: 1; background-color: #f7f7f7; }
 #navbtn { display: none; align-items: center; padding-right: 20px; }
 #navbtn>div { height: 18px; width: 20px; border: 0; padding: 0; background: linear-gradient(0deg, #2b7acd 25%, transparent 25%) bottom; background-size: 8px 8px; }
-.currentloca { display: flex; height: 50px; padding: 0 20px; align-items: center; }
+.currentloca { display: flex; height: 50px; padding: 0 20px; align-items: center; color: #000; }
 .currentloca a { display: block; position: relative; width: 18px; height: 18px; border-radius: 9px; color: transparent; background-color: #2b7acd; }
 .currentloca a::before, .currentloca a::after { content: ""; background: #fff; position: absolute; }
 .currentloca a::before { width: 8px; height: 2px; top: 8px; left: 5px; }
