@@ -4,11 +4,11 @@
 	<div class="header cl">
 		<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div><h2></h2><div class="my"></div>
 	</div>
-	<div class="header_toplogo"><img src="{IMGDIR}/logo_m.svg" /><p>{$_G['setting']['navs'][2]['navname']}{lang guide}</p></div>
+	<div class="header_toplogo">{$_G['style']['touchlogo']}<p>{$_G['setting']['navs'][2]['navname']}{lang guide}</p></div>
 	<!--{else}-->
 	<div class="header cl"></div>
 	<div class="header_toplogo guide_index">
-		<img src="{IMGDIR}/logo_m.svg" />
+		{$_G['style']['touchlogo']}
 		<div class="mtop_ss"><a href="search.php?mod=forum"><i class="dm-search"></i>{lang mobsearchtxt}</a></div>
 	</div>
 	<!--{/if}-->
@@ -16,7 +16,7 @@
 	<div class="header cl">
 		<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div><h2></h2><div class="my"></div>
 	</div>
-	<div class="header_toplogo"><img src="{IMGDIR}/logo_m.svg" /><p>{$_G['setting']['navs'][2]['navname']}{lang guide}</p></div>
+	<div class="header_toplogo">{$_G['style']['touchlogo']}<p>{$_G['setting']['navs'][2]['navname']}{lang guide}</p></div>
 <!--{/if}-->
 <div class="dhnv flex-box cl">
 	<a href="forum.php?mod=guide&view=newthread" class="flex<!--{if $currentview['newthread']}--> mon<!--{/if}-->">{lang latest}</a>

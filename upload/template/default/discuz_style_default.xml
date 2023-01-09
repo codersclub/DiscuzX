@@ -44,6 +44,7 @@
 			<item id="imgdir"><![CDATA[]]></item>
 			<item id="boardimg"><![CDATA[logo.svg]]></item>
 			<item id="searchimg"><![CDATA[logo_sc.svg]]></item>
+			<item id="touchimg"><![CDATA[logo_m.svg]]></item>
 			<item id="available"><![CDATA[]]></item>
 			<item id="headertext"><![CDATA[#444]]></item>
 			<item id="footertext"><![CDATA[#666]]></item>

@@ -3371,6 +3371,7 @@ $lang = array
 	'styles_edit_logo' => '站点 Logo {BOARDIMG},{BOARDLOGO}',
 	'styles_edit_logo_comment' => '如使用 Flash 动画，请用逗号隔开 URL、宽度和高度，如“logo.swf,80,40”',
 	'styles_edit_searchlogo' => '搜索 Logo {SEARCHIMG},{SEARCHLOGO}',
+	'styles_edit_touchlogo' => '手机触屏版 Logo {TOUCHIMG},{TOUCHLOGO}',
 	'styles_edit_imgdir' => '界面基础图片目录 {IMGDIR}',
 	'styles_edit_imgdir_comment' => '风格基础图片存放的目录，留空表示使用 static/image/common/ 目录为基础图片目录',
 	'styles_edit_styleimgdir' => '扩展图片目录 {STYLEIMGDIR}',
