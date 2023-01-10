@@ -15,8 +15,6 @@ Discuz! X 官方 Git (https://gitee.com/Discuz/DiscuzX) ，简体中文 UTF8 版
 |
 [备用下载地址](https://www.dismall.com/thread-73-1-1.html)
 
-*感谢 [DiscuzFans](https://gitee.com/3dming/DiscuzL/attach_files) 提供简体GBK、简体UTF8、繁体UTF8的打包版*
-
 ### **免费协助安装** 
 
 为方便站长基于 Discuz! X 搭建网站，[Discuz! 应用中心](https://addon.dismall.com/) 为站长提供免费安装 Discuz! X  的服务，详情咨询QQ  1453650
@@ -36,17 +34,6 @@ Discuz! X 官方 Git (https://gitee.com/Discuz/DiscuzX) ，简体中文 UTF8 版
 |
 [Discuz! 开发文档](https://open.dismall.com/?ac=document&page=dev) 
 
- 
-[Discuz! Q 官方网站](https://discuz.com/) 
-|
-[Discuz! Q 官方论坛](https://discuz.chat/)
-|
-[DNSPod](https://www.dnspod.cn/)
-|
-[商标注册](https://tm.cloud.tencent.com/)
-|
-[域名注册](https://dnspod.cloud.tencent.com/)
-
 ### **感谢 Fans**
 
 [DiscuzFans](https://gitee.com/sinlody/DiscuzFans)  [DiscuzLite](https://gitee.com/3dming/DiscuzL)
@@ -58,8 +45,7 @@ Discuz! X提供3.4和3.5的每日构建，在有提交的第二天早上，可�
 [点击打开](https://www.discuz.net/daily/)
 
 ### **友情提示**
-- 本站不再发布其他编码的版本，请下载后自行通过[转码工具](https://gitee.com/Discuz/DiscuzX/attach_files)转码，或者下载本站授权的[打包版](https://gitee.com/3dming/DiscuzL/attach_files)
-- Git 版的 Release 版本号不再更新，但 DiscuzFans 的打包版会更新
+- Git 版的 Release 版本号不再更新，但[正式版](https://gitee.com/Discuz/DiscuzX/attach_files)会更新
 - 由于 X3.2、X3.3 已停更，X3.4 漏洞和相关修补同样适用于 X3.2、X3.3 版本，请随时关注[更新列表](https://gitee.com/Discuz/DiscuzX/commits/master)，您可进行手动修补，让自己的站点时刻保持最安全的状态!
 
 ### 截图
