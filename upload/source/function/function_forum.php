@@ -67,7 +67,7 @@ function formulaperm($formula) {
 			loadcache('medals');
 			foreach($medalpermc as $medal) {
 				if($_G['cache']['medals'][$medal]) {
-					$_G['forum_formulamessage'] .= '<img src="'.STATICURL.'image/common/'.$_G['cache']['medals'][$medal]['image'].'" style="vertical-align:middle;" />&nbsp;'.$_G['cache']['medals'][$medal]['name'].'&nbsp; ';
+					$_G['forum_formulamessage'] .= '<img src="'.$_G['cache']['medals'][$medal]['image'].'" style="vertical-align:middle;" />&nbsp;'.$_G['cache']['medals'][$medal]['name'].'&nbsp; ';
 				}
 			}
 			showmessage('forum_permforum_nomedal', NULL, array('forum_permforum_nomedal' => $_G['forum_formulamessage']), array('login' => 1));
