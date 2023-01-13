@@ -240,7 +240,7 @@ $_config['ipdb']['setting']['ipv6'] = 'v6wry'; // 系统使用的默认IPv6库�
  * 比如：
  * 		$_config['ipgetter']['onlinechk']['server'] = '100.64.10.24';
  */
-$_config['ipgetter']['setting'] = '';
+$_config['ipgetter']['setting'] = 'header';
 $_config['ipgetter']['header']['header'] = 'HTTP_X_FORWARDED_FOR';
 $_config['ipgetter']['iplist']['header'] = 'HTTP_X_FORWARDED_FOR';
 $_config['ipgetter']['iplist']['list']['0'] = '127.0.0.1';
