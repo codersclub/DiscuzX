@@ -3,14 +3,15 @@
 <div class="header cl">
 	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div><h2></h2><div class="my"></div>
 </div>
-<div class="header_toplogo">{$_G['style']['touchlogo']}<p>{$_G['setting']['navs'][2]['navname']}{lang login}</p></div>
+<div class="header_toplogo">{$_G['style']['touchlogo']}<p><!--{if !isset($_GET['viewlostpw'])}-->{lang login}<!--{else}-->{lang getpassword}<!--{/if}--></p></div>
 <!--{/if}-->
 <!--{hook/logging_top_mobile}-->
-{eval $loginhash = 'L'.random(4);}
+<!--{eval $loginhash = 'L'.random(4);}-->
 <div class="loginbox <!--{if $_GET['infloat']}-->login_pop<!--{/if}-->">
 <!--{if $_GET['infloat']}-->
-	<h2 class="log_tit"><a href="javascript:;" onclick="popup.close();"><span class="icon_close y">&nbsp;</span></a>{lang login}</h2>
+	<h2 class="log_tit"><a href="javascript:;" onclick="popup.close();"><span class="icon_close y">&nbsp;</span></a><!--{if !isset($_GET['viewlostpw'])}-->{lang login}<!--{else}-->{lang getpassword}<!--{/if}--></h2>
 <!--{/if}-->
+<!--{if !isset($_GET['viewlostpw'])}-->
 	<form id="loginform" method="post" action="member.php?mod=logging&action=login&loginsubmit=yes&loginhash=$loginhash&mobile=2" onsubmit="{if $_G['setting']['pwdsafety']}pwmd5('password3_$loginhash');{/if}" >
 	<input type="hidden" name="formhash" id="formhash" value='{FORMHASH}' />
 	<input type="hidden" name="referer" id="referer" value="<!--{if dreferer()}-->{echo dreferer()}<!--{else}-->forum.php?mobile=2<!--{/if}-->" />
@@ -55,8 +56,21 @@
 	<div class="btn_qqlogin"><a href="$_G['connect']['login_url']&statfrom=login_simple" class="pn">{lang qqconnect:connect_mobile_login}</a></div>
 	<!--{/if}-->
 	<!--{if $_G['setting']['regstatus']}-->
-	<div class="reg_link"><a href="member.php?mod=logging&action=login&lostpasswd=yes" class="y" style="display:none">{lang getpassword}</a><a href="member.php?mod={$_G['setting']['regname']}" class="reg_now">{lang noregister}</a></div>
+	<div class="reg_link"><a href="member.php?mod=logging&action=login&lostpasswd=yes&viewlostpw=1" class="y">{lang getpassword}</a><a href="member.php?mod={$_G['setting']['regname']}" class="reg_now">{lang noregister}</a></div>
 	<!--{/if}-->
+<!--{else}-->
+	<form id="lostpwform" method="post" action="member.php?mod=lostpasswd&lostpwsubmit=yes&infloat=yes&mobile=2" autocomplete="off">
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<input type="hidden" name="handlekey" value="lostpwform" />
+		<div class="login_from">
+			<ul>
+				<li><input type="text" tabindex="1" class="px" value="" name="email" placeholder="{lang email}" fwin="login"></li>
+				<li><input type="text" tabindex="2" class="px" value="" name="username" placeholder="{lang inputyourname}" autocomplete="off" fwin="login"></li>
+			</ul>
+		</div>
+		<div class="btn_login"><button tabindex="3" value="true" name="lostpwsubmit" type="submit" class="formdialog pn">{lang submit}</button></div>
+	</form>
+<!--{/if}-->
 	<!--{hook/logging_bottom_mobile}-->
 </div>
 <!--{if $_G['setting']['pwdsafety']}-->
