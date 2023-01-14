@@ -78,7 +78,7 @@ class payment {
 	public static function create_order($type, $subject, $description, $amount, $return_url, $params = null, $fee = 0, $expire = 3600) {
 		global $_G;
 
-		if(strpos(':', $type) !== false) {
+		if(strpos($type, ':') !== false) {
 			$type_values = explode(':', $type);
 			$type_name = lang('plugin/' . $type_values[0], $type_values[1]);
 		} else {
