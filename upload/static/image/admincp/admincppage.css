@@ -437,6 +437,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .fwin .dt th { font-weight: 700; }
 .fwin .ss em { background: #eee; width: 16px; line-height: 18px; display: block; float: left; margin: 2px; cursor: pointer; padding-left: 7px;}
 .fwin .ss em.a { background: #09f; color: #FFF;}
+#seocodes { word-break: break-word;}
 
 /* .cl --> Clear 自动闭合 */
 .cl:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
