@@ -1676,6 +1676,9 @@ function uc_write_config($config, $file, $password) {
 	$config .= "define('UC_MYKEY', '$ucmykey');\r\n";
 	$config .= "define('UC_DEBUG', false);\r\n";
 	$config .= "define('UC_PPP', 20);\r\n";
+	$config .= "define('UC_ONLYREMOTEADDR', 1);\r\n";
+	$config .= "define('UC_IPGETTER', 'header');\r\n";
+	$config .= "define('UC_IPGETTER_HEADER', array('header' => 'HTTP_X_FORWARDED_FOR'));\r\n";
 
 	file_put_contents($file, $config);
 }

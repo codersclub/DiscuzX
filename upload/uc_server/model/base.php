@@ -50,8 +50,8 @@ class base {
 		if (!defined('UC_ONLYREMOTEADDR') || (defined('UC_ONLYREMOTEADDR') && !constant('UC_ONLYREMOTEADDR'))) {
 			require_once UC_ROOT.'./lib/ucip.class.php';
 			if(defined('UC_IPGETTER') && !empty(constant('UC_IPGETTER'))) {
-				$s = defined('UC_IPGETTER_'.constant('UC_IPGETTER')) && is_array(constant('UC_IPGETTER_'.constant('UC_IPGETTER'))) ? constant('UC_IPGETTER_'.constant('UC_IPGETTER')) : array();
-				$c = 'ucip_getter_'.constant('UC_IPGETTER');
+				$s = defined('UC_IPGETTER_'.strtoupper(constant('UC_IPGETTER'))) && is_array(constant('UC_IPGETTER_'.strtoupper(constant('UC_IPGETTER')))) ? constant('UC_IPGETTER_'.strtoupper(constant('UC_IPGETTER'))) : array();
+				$c = 'ucip_getter_'.strtolower(constant('UC_IPGETTER'));
 				require_once UC_ROOT.'./lib/'.$c.'.class.php';
 				$r = $c::get($s);
 				$this->onlineip = ucip::validate_ip($r) ? $r : $this->onlineip;
