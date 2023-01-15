@@ -2,10 +2,10 @@
 	<div id="dhnavs">
 		<div id="dhnavs_li">
 			<ul class="swiper-wrapper">
-				<li class="swiper-slide<!--{if empty($_GET['income'])}--> mon<!--{/if}-->"><a href="home.php?mod=spacecp&ac=credit&op=log">{lang all}</a></li>
-				<li class="swiper-slide<!--{if $_GET['income'] == 1}--> mon<!--{/if}-->"><a href="home.php?mod=spacecp&ac=credit&op=log&income=1">{lang credit_income_1}</a></li>
-				<li class="swiper-slide<!--{if $_GET['income'] == -1}--> mon<!--{/if}-->"><a href="home.php?mod=spacecp&ac=credit&op=log&income=-1">{lang credit_income_2}</a></li>
-				<!--{if $_G['setting']['ec_ratio'] || $_G['setting']['card']['open']}--><li class="swiper-slide"><a href="home.php?mod=spacecp&ac=credit&op=buy">{lang home_credit_buy}</a></li><!--{/if}-->
+				<li class="swiper-slide<!--{if $_GET['op'] == 'log' && empty($_GET['income'])}--> mon<!--{/if}-->"><a href="home.php?mod=spacecp&ac=credit&op=log">{lang all}</a></li>
+				<li class="swiper-slide<!--{if $_GET['op'] == 'log' && $_GET['income'] == 1}--> mon<!--{/if}-->"><a href="home.php?mod=spacecp&ac=credit&op=log&income=1">{lang credit_income_1}</a></li>
+				<li class="swiper-slide<!--{if $_GET['op'] == 'log' && $_GET['income'] == -1}--> mon<!--{/if}-->"><a href="home.php?mod=spacecp&ac=credit&op=log&income=-1">{lang credit_income_2}</a></li>
+				<!--{if $_G['setting']['ec_ratio'] || $_G['setting']['card']['open']}--><li class="swiper-slide<!--{if $_GET['op'] == 'buy'}--> mon<!--{/if}-->"><a href="home.php?mod=spacecp&ac=credit&op=buy">{lang home_credit_buy}</a></li><!--{/if}-->
 			</ul>
 		</div>
 	</div>
