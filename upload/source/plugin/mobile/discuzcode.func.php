@@ -90,7 +90,7 @@ function mobile_discuzcode($param) {
 			"/\[backcolor=([#\w]+?)\]/i",
 			"/\[backcolor=((rgb|rgba)\([\d\s,]+?\))\]/i",
 			"/\[size=(\d{1,2}?)\]/i",
-			"/\[size=(\d{1,2}(\.\d{1,2}+)?(px|pt)+?)\]/i",
+			"/\[size=(\d+(\.\d+)?(px|pt)+?)\]/i",
 			"/\[font=([^\[\<]+?)\]/i",
 			"/\[align=(left|center|right)\]/i",
 			"/\[p=(\d{1,2}|null), (\d{1,2}|null), (left|center|right)\]/i",
