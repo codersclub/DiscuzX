@@ -29,7 +29,7 @@ class discuz_error
 		}
 
 		if($show) {
-			discuz_error::show_error('system', "<li>$message</li>", $showtrace, 0);
+			discuz_error::show_error('system', "<li>$message</li>", $showtrace, '', md5(discuz_error::clear($messagesave)));
 		}
 
 		if($halt) {
@@ -94,9 +94,6 @@ class discuz_error
 		$msg .= $dberrno ? '<li>['.$dberrno.'] '.$dberror.'</li>' : '';
 		$msg .= $sql ? '<li>[Query] '.$sql.'</li>' : '';
 
-		discuz_error::show_error('db', $msg, $showtrace, false);
-		unset($msg, $phperror);
-
 		$errormsg = '<b>'.$title.'</b>';
 		$errormsg .= "[$dberrno]<br /><b>ERR:</b> $dberror<br />";
 		if($sql) {
@@ -106,6 +103,7 @@ class discuz_error
 		$errormsg .= '<b>PHP:</b> '.$logtrace;
 
 		discuz_error::write_error_log($errormsg);
+		discuz_error::show_error('db', $msg, $showtrace, '', md5(discuz_error::clear($errormsg)));
 		exit();
 
 	}
@@ -183,12 +181,12 @@ class discuz_error
 		$messagesave = '<b>'.$errormsg.'</b><br><b>PHP:</b>'.$logmsg;
 		self::write_error_log($messagesave);
 
-		self::show_error($type, $errormsg, $phpmsg);
+		self::show_error($type, $errormsg, $phpmsg, '', md5(discuz_error::clear($messagesave)));
 		exit();
 
 	}
 
-	public static function show_error($type, $errormsg, $phpmsg = '', $typemsg = '') {
+	public static function show_error($type, $errormsg, $phpmsg = '', $typemsg = '', $backtraceid = '') {
 		global $_G;
 
 		ob_end_clean();
@@ -265,6 +263,9 @@ class discuz_error
 <div id="container">
 <h1>Discuz! $title Error</h1>
 EOT;
+
+		echo '<p>Time: ' . dgmdate(time(), 'Y-m-d H:i:s') .' IP: ' . getglobal('clientip') . ' BackTraceID: ' . $backtraceid . '</p>';
+
 		if(!empty($errormsg) && (!isset($_G['config']['security']['error']['showerror']) || !empty($_G['config']['security']['error']['showerror']))) {
 			echo '<div class="info">'.$errormsg.'</div>';
 		}
@@ -296,6 +297,8 @@ EOT;
 			}
 			echo '</table></div>';
 		}
+
+		echo '<div class="help">'.lang('error', 'suggestion_user').'</div>';
 
 		if (!isset($_G['config']['security']['error']['guessplugin']) || !empty($_G['config']['security']['error']['guessplugin'])) {
 			if (!empty($guess)) {
