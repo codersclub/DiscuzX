@@ -29,8 +29,15 @@ if($_GET['action'] == 'send') {
 		$length = $_G['setting']['smsdefaultlength'] ? $_G['setting']['smsdefaultlength'] : 4;
 		$secmobseccode = random($length, 1);
 
+		// 短信发送前先校验安全手机号是否正确, 避免错误安全手机号送往短信网关
+		if(empty($secmobicc) || !preg_match('#^(\d){1,3}$#', $secmobicc)) {
+			showmessage('profile_secmobicc_illegal');
+		} else if(empty($secmobile) || !preg_match('#^(\d){1,12}$#', $secmobile)) {
+			showmessage('profile_secmobile_illegal');
+		}
+
 		// 用户 UID : $_G['uid'], 短信类型: 验证类短信, 服务类型: $svctype
-		// 国家代码: $secmobicc, 手机号: $secmobile, 内容: $secmobseccode, 强制发送: false
+		// 国际电话区号: $secmobicc, 手机号: $secmobile, 内容: $secmobseccode, 强制发送: false
 		$result = sms::send($_G['uid'], 0, $svctype, $secmobicc, $secmobile, $secmobseccode, 0);
 
 		// 发送时间短于设置返回 -1, 单号码发送次数风控规则不通过返回 -2, 万号段风控规则不通过返回 -3, 全局风控规则不通过返回 -4, 无可用网关返回 -5, 网关接口文件不存在返回 -6,

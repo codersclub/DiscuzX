@@ -3576,8 +3576,11 @@ function notifymembers($operation, $variable) {
 				}
 			} elseif($_GET['notifymembers'] == 'sms') {
 				// 用户 UID : $member['uid'], 短信类型: 通知类短信, 服务类型: 系统级短消息通知业务
-				// 国家代码: $member['secmobicc'], 手机号: $member['secmobile'], 内容: "[$subject]$message$addmsg", 强制发送: true
-				sms::send($member['uid'], 1, 2, $member['secmobicc'], $member['secmobile'], "[$subject]$message$addmsg", 1);
+				// 国际电话区号: $member['secmobicc'], 手机号: $member['secmobile'], 内容: "[$subject]$message$addmsg", 强制发送: true
+				// 短信发送前先校验安全手机号是否正确, 避免错误安全手机号送往短信网关
+				if(!empty($member['secmobicc']) && !empty($member['secmobile']) && preg_match('#^(\d){1,3}$#', $member['secmobicc']) && preg_match('#^(\d){1,12}$#', $member['secmobile'])) {
+					sms::send($member['uid'], 1, 2, $member['secmobicc'], $member['secmobile'], "[$subject]$message$addmsg", 1);
+				}
 			}
 
 			$log = array();

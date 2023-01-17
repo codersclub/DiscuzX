@@ -55,7 +55,7 @@ $lang = array(
 	'note_false' => '通知失败',
 	'no_permission_for_this_module' => '没有权限管理改模块',
 	'admin_user_exists' => '该用户名已经存在，请返回尝试使用其他用户名。',
-	'admin_mobile_exists' => '该手机号已经存在，请返回尝试使用其他手机号。',
+	'admin_mobile_exists' => '该安全手机号已经存在，请返回尝试使用其他安全手机号。',
 
 	'mail_succeed' => '邮件发送成功 ',
 	'mail_false' => '邮件发送失败',

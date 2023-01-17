@@ -87,7 +87,7 @@
 						<td>
 							<input type="text" name="secmobiccnew" id="secmobiccnew" value="$space[secmobicc]" class="px" style="width: 30px;" />
 							<input type="text" name="secmobilenew" id="secmobilenew" value="$space[secmobile]" class="px" />
-							<p class="d">{lang memcp_profile_secmobile_comment}</p>
+							<p class="d">{lang memcp_profile_secmobile_comment} $_G['setting']['smsdefaultcc']</p>
 						</td>
 					</tr>
 					<!--{if $_G['setting']['smsstatus']}-->
@@ -173,6 +173,9 @@
 			<!--{if $_G['setting']['smsstatus']}-->
 			<script type="text/javascript">
 			function memcp_sendsecmobseccode() {
+				if (!document.getElementById("secmobiccnew").value) {
+					document.getElementById("secmobiccnew").value = $_G['setting']['smsdefaultcc'];
+				}
 				memcp_svctype = 1;
 				memcp_secmobicc = document.getElementById("secmobiccnew").value;
 				memcp_secmobile = document.getElementById("secmobilenew").value;

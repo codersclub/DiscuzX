@@ -222,7 +222,7 @@ if($operation == 'list') {
 	if(submitcheck('smsgwsubmit')) {
 		// 是否开启 SMS
 		$smsstatus = (int)$_GET['smsstatusnew'];
-		// 默认国际区号, 默认 86
+		// 默认国际电话区号, 默认 86
 		$smsdefaultcc = (int)$_GET['smsdefaultccnew'];
 		$smsdefaultcc = $smsdefaultcc > 0 ? $smsdefaultcc : 86;
 		// 默认短信验证码长度, 默认 4
