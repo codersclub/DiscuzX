@@ -235,6 +235,8 @@ class discuz_error
 	    margin-bottom: 1em;
 	    padding: 1em;
 	}
+	.info svg { width: 40%; min-width: 200px; display: block; margin: auto; margin-bottom: 30px; fill: #999; }
+	.info svg .xicon { fill: #d31f0d; }
 
 	.help {
 	    background: #F3F3F3;
@@ -268,6 +270,9 @@ EOT;
 
 		if(!empty($errormsg) && (!isset($_G['config']['security']['error']['showerror']) || !empty($_G['config']['security']['error']['showerror']))) {
 			echo '<div class="info">'.$errormsg.'</div>';
+		}
+		if(isset($_G['config']['security']['error']['showerror']) && empty($_G['config']['security']['error']['showerror'])) {
+			echo '<div class="info"><svg viewBox="0 0 16 16"><path d="M2.5 5a.5.5 0 100-1 .5.5 0 000 1zM4 5a.5.5 0 100-1 .5.5 0 000 1zm2-.5a.5.5 0 11-1 0 .5.5 0 011 0zM0 4a2 2 0 012-2h11a2 2 0 012 2v4a.5.5 0 01-1 0V7H1v5a1 1 0 001 1h5.5a.5.5 0 010 1H2a2 2 0 01-2-2V4zm1 2h13V4a1 1 0 00-1-1H2a1 1 0 00-1 1v2z"/><path d="M16 12.5a3.5 3.5 0 11-7 0 3.5 3.5 0 017 0zm-4.854-1.354a.5.5 0 000 .708l.647.646-.647.646a.5.5 0 00.708.708l.646-.647.646.647a.5.5 0 00.708-.708l-.647-.646.647-.646a.5.5 0 00-.708-.708l-.646.647-.646-.647a.5.5 0 00-.708 0z" class="xicon"/></svg></div>';
 		}
 
 		if(!empty($phpmsg) && (!isset($_G['config']['security']['error']['showerror']) || $_G['config']['security']['error']['showerror'] == '1')) {
