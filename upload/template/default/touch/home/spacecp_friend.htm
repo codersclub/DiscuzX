@@ -11,5 +11,351 @@
 			<dd><button type="submit" name="friendsubmit_btn" value="true" class="formdialog button z">{lang determine}</button><a href="javascript:;" onclick="popup.close();" class="button y">{lang cancel}</a></dd>
 		</div>
 	</form>
+<!--{elseif $op == 'find'}-->
+<!--{elseif $op == 'search'}-->
+<!--{elseif $op=='changenum'}-->
+	<!--{if $_G[inajax]}-->
+	<!--{else}-->
+	<div class="header cl">
+		<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+		<h2>{lang friend_hot}</h2>
+		<div class="my"><a href="index.php"><i class="dm-house"></i></a></div>
+	</div>
+	<!--{/if}-->
+			<form method="post" autocomplete="off" id="changenumform_{$uid}" name="changenumform_{$uid}" action="home.php?mod=spacecp&ac=friend&op=changenum&uid=$uid">
+				<input type="hidden" name="referer" value="{echo dreferer()}">
+				<!--{if $_G[inajax]}--><input type="hidden" name="handlekey" value="$_GET[handlekey]" /><!--{/if}-->
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<div class="tip cl">
+					<dt>{lang adjust_friend_hot}</dt>
+					<dt>{lang new_hot}:<br /><input type="text" name="num" value="$friend[num]" size="5" class="px mt5" /> ({lang num_0_999})</dt>
+					<dd><button type="submit" name="changenumsubmit" class="formdialog pn pnc" value="true"><strong>{lang determine}</strong></button></dd>
+				</div>
+			</form>
+			<script type="text/javascript" reload="1">
+				function succeedhandle_$_GET[handlekey](url, msg, values) {
+					friend_delete(values['uid']);
+					$('spannum_'+values['fid']).innerHTML = values['num'];
+					hideWindow('$_GET[handlekey]');
+				}
+			</script>
+<!--{elseif $op=='changegroup'}-->
+	<!--{if $_G[inajax]}-->
+	<!--{else}-->
+	<div class="header cl">
+		<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+		<h2>{lang set_friend_group}</h2>
+		<div class="my"><a href="index.php"><i class="dm-house"></i></a></div>
+	</div>
+	<!--{/if}-->
+			<form method="post" autocomplete="off" id="changegroupform_{$uid}" name="changegroupform_{$uid}" action="home.php?mod=spacecp&ac=friend&op=changegroup&uid=$uid">
+				<input type="hidden" name="referer" value="{echo dreferer()}">
+				<input type="hidden" name="changegroupsubmit" value="true" />
+				<!--{if $_G[inajax]}--><input type="hidden" name="handlekey" value="$_GET[handlekey]" /><!--{/if}-->
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<div class="tip cl">
+					<dt>
+					<!--{eval $i=0;}-->
+					<!--{loop $groups $key $value}-->
+					<li><label><input type="radio" name="group" value="$key"$groupselect[$key] />$value</label></li>
+					<!--{if $i%2==1}--><!--{/if}-->
+					<!--{eval $i++;}-->
+					<!--{/loop}-->
+					</dt>
+					<dd>
+						<button type="submit" name="changegroupsubmit_btn" class="formdialog pn pnc" value="true"><strong>{lang determine}</strong></button>
+					</dd>
+				</div>
+			</form>
+			<script type="text/javascript">
+				function succeedhandle_$_GET[handlekey](url, msg, values) {
+					friend_changegroup(values['gid']);
+				}
+			</script>
+<!--{elseif $op=='editnote'}-->
+	<!--{if $_G[inajax]}-->
+	<!--{else}-->
+	<div class="header cl">
+		<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+		<h2>{lang friend_note}</h2>
+		<div class="my"><a href="index.php"><i class="dm-house"></i></a></div>
+	</div>
+	<!--{/if}-->
+			<form method="post" autocomplete="off" id="editnoteform_{$uid}" name="editnoteform_{$uid}" action="home.php?mod=spacecp&ac=friend&op=editnote&uid=$uid">
+				<input type="hidden" name="referer" value="{echo dreferer()}">
+				<input type="hidden" name="editnotesubmit" value="true" />
+				<!--{if $_G[inajax]}--><input type="hidden" name="handlekey" value="$_GET[handlekey]" /><!--{/if}-->
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<div class="tip">
+					<dt>{lang friend_note_message}<br />
+						<input type="text" name="note" class="mt5" value="$friend[note]" />
+					</dt>
+					<dd>
+						<button type="submit" name="editnotesubmit_btn" class="formdialog pn pnc" value="true"><strong>{lang determine}</strong></button>
+					</dd>
+				</div>
+			</form>
+			<script type="text/javascript">
+				function succeedhandle_$_GET[handlekey](url, msg, values) {
+					var uid=values['uid'];
+					var elem = $('friend_note_'+uid);
+					if(elem) {
+						elem.innerHTML = values['note'];
+					}
+				}
+			</script>
+<!--{elseif $op=='group'}-->
+	<!--{if $_G[inajax]}-->
+	<!--{else}-->
+	<div class="header cl">
+		<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+		<h2>{lang set_friend_group}</h2>
+		<div class="my"><a href="index.php"><i class="dm-house"></i></a></div>
+	</div>
+	<div class="dhnav_box">
+		<div id="dhnav">
+			<div id="dhnav_li">
+			<ul class="swiper-wrapper">
+				<li class="swiper-slide{if !isset($_GET[group])} mon{/if}"><a href="home.php?mod=spacecp&ac=friend&op=group">{lang all_friends}</a></li>
+				<!--{loop $groups $key $value}-->
+				<li class="swiper-slide{if isset($_GET[group]) && $_GET[group]==$key} mon{/if}"><a href="home.php?mod=spacecp&ac=friend&op=group&group=$key">{$value}</a></li>
+				<!--{/loop}-->
+			</ul>
+			</div>
+		</div>
+	</div>
+<script>if($("#dhnav_li .mon").length>0){var discuz_nav=$("#dhnav_li .mon").offset().left+$("#dhnav_li .mon").width()>=$(window).width()?$("#dhnav_li .mon").index():0}else{var discuz_nav=0}new Swiper('#dhnav_li',{freeMode:true,slidesPerView:'auto',initialSlide:discuz_nav,onTouchMove:function(swiper){Discuz_Touch_on=0},onTouchEnd:function(swiper){Discuz_Touch_on=1},});</script>
+	<!--{/if}-->
+	<div class="bodybox cl">
+		<p class="notice mt0 pt10 pl5 xg1">{lang friend_group_hot_message}</p>
+			<!--{if $list}-->
+			<form method="post" autocomplete="off" action="home.php?mod=spacecp&ac=friend&op=group&ref">
+				<div id="friend_ul" class="imglist mt10 cl">
+					<ul>
+						<!--{loop $list $key $value}-->
+						<li>
+							<span class="mimg"><a href="home.php?mod=space&uid=$value['uid']"><!--{avatar($value['uid'], 'small')}--></a></span>
+							<p class="mtit">
+								<input type="checkbox" name="fuids[]" value="$value['uid']" class="mico y pc" />
+								<a href="home.php?mod=space&uid=$value['uid']"><span{eval g_color($value['groupid']);}>$value['username']</span></a>
+							</p>
+							<p class="mtxt">{lang hot}:$value['num']<em class="pipe"></em>$value['group']</p>
+						</li>
+						<!--{/loop}-->
+					</ul>
+				</div>
+				<div class="p15 mt5 cl">
+					{lang set_member_group}:
+					<select name="group" class="ps vm">
+					<!--{loop $groups $key $value}-->
+						<option value="$key">$value</option>
+					<!--{/loop}-->
+					</select>&nbsp;
+					<button type="submit" name="btnsubmit" value="true" class="button vm"><strong>{lang determine}</strong></button>
+				</div>
+				<!--{if $multi}-->$multi<!--{/if}-->
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<input type="hidden" name="groupsubmin" value="true" />
+			</form>
+			<!--{else}-->
+			<div class="empty-box"><h4>{lang no_friend_list}</h4></div>
+			<!--{/if}-->
+	</div>
+<!--{elseif $op=='groupname'}-->
+	<!--{if $_G[inajax]}-->
+	<!--{else}-->
+	<div class="header cl">
+		<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+		<h2>{lang friends_group}</h2>
+		<div class="my"><a href="index.php"><i class="dm-house"></i></a></div>
+	</div>
+	<!--{/if}-->
+	<div class="tip" id="__groupnameform_{$group}">
+		<form method="post" autocomplete="off" id="groupnameform_{$group}" name="groupnameform_{$group}" action="home.php?mod=spacecp&ac=friend&op=groupname&group=$group">
+			<input type="hidden" name="referer" value="{echo dreferer()}">
+			<input type="hidden" name="groupnamesubmit" value="true" />
+			<!--{if $_G[inajax]}--><input type="hidden" name="handlekey" value="$_GET[handlekey]" /><!--{/if}-->
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+			<dt class="mpt">{lang set_friend_group_name}</dt>
+			<dt class="mpt">{lang new_name}:<input type="text" name="groupname" value="$groups[$group]" size="15" class="px" /></dt>
+			<dd>
+				<button type="submit" name="groupnamesubmit_btn" value="true" class="dialog pn pnc"><strong>{lang determine}</strong></button>
+			</dd>
+		</form>
+		<script type="text/javascript">
+			function succeedhandle_$_GET[handlekey](url, msg, values) {
+				friend_changegroupname(values['gid']);
+			}
+		</script>
+	</div>
+<!--{elseif $op=='groupignore'}-->
+	<!--{if $_G[inajax]}-->
+	<!--{else}-->
+	<div class="header cl">
+		<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+		<h2>{lang set_member_feed}</h2>
+		<div class="my"><a href="index.php"><i class="dm-house"></i></a></div>
+	</div>
+	<!--{/if}-->
+	<div class="tip" id="$group">
+		<form method="post" autocomplete="off" id="groupignoreform" name="groupignoreform" action="home.php?mod=spacecp&ac=friend&op=groupignore&group=$group">
+			<input type="hidden" name="referer" value="{echo dreferer()}">
+			<input type="hidden" name="groupignoresubmit" value="true" />
+			<!--{if $_G[inajax]}--><input type="hidden" name="handlekey" value="$_GET[handlekey]" /><!--{/if}-->
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<!--{if !isset($space['privacy']['filter_gid'][$group])}-->
+				<dt>{lang not_show_feed_homepage}</dt>
+				<!--{else}-->
+				<dt>{lang show_feed_homepage}</dt>
+				<!--{/if}-->
+				<dd>
+					<button type="submit" name="groupignoresubmit_btn" class="dialog pn pnc" value="true"><strong>{lang determine}</strong></button>
+				</dd>
+		</form>
+	</div>
+<!--{elseif $op=='request'}-->
+	<!--{if $_G[inajax]}-->
+	<!--{else}-->
+	<div class="header cl">
+		<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+		<h2>{lang friend_request}</h2>
+		<div class="my"><a href="index.php"><i class="dm-house"></i></a></div>
+	</div>
+	<!--{/if}-->
+	<!--{if $list}-->
+	<ul id="friend_ul" class="imglist mt10 cl">
+		<!--{loop $list $key $value}-->
+		<li id="friend_tbody_{$value['fuid']}">
+			<span class="mimg"><a href="home.php?mod=space&uid=$value['uid']"><!--{avatar($value['fuid'], 'middle')}--></a></span>
+			<p class="mtit">
+				<a href="home.php?mod=spacecp&ac=friend&op=getcfriend&fuid=$value[fuid]&handlekey=cfrfriendhk_{$value[uid]}" id="a_cfriend_{$key}" class="mico dialog">{lang your_common_friends}</a>
+				<a href="home.php?mod=space&uid={$value['fuid']}"><span>{$value['fusername']}</span></a>
+			</p>
+			<p class="mtxt"><!--{date($value['dateline'], 'n-j H:i')}--></p>
+			<!--{if $value[note]}--><p class="mtxt"><i class="dm-chat-s"></i>{$value['note']}</p><!--{/if}-->
+			<p class="flex-box mt10 cl" id="friend_$value['fuid']">
+				<a href="home.php?mod=spacecp&ac=friend&op=add&uid={$value['fuid']}&handlekey=afrfriendhk_{$value['uid']}" id="afr_{$value['fuid']}" class="button dialog z flex">{lang confirm_applications}</a>
+				<em class="pipe"></em>
+				<a href="home.php?mod=spacecp&ac=friend&op=ignore&uid={$value['fuid']}&confirm=1&handlekey=afifriendhk_{$value['uid']}" id="afi_{$value['fuid']}" class="button dialog z flex">{lang ignore}</a>
+			</p>
+		</li>
+		<!--{/loop}-->
+	</ul>
+	<!--{if $multi}--><div class="pgs cl mtm">$multi</div><!--{/if}-->
+	<!--{else}-->
+		<div class="empty-box"><h4>{lang no_new_friend_application}</h4></div>
+	<!--{/if}-->
+	<script type="text/javascript">
+		function succeedhandle_$_GET[handlekey](url, msg, values) {
+			parent.location.reload();
+		}
+	</script>
+<!--{elseif $op=='getcfriend'}-->
+	<!--{if $_G[inajax]}-->
+	<!--{else}-->
+	<div class="header cl">
+		<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+		<h2>{lang common_friends}</h2>
+		<div class="my"><a href="index.php"><i class="dm-house"></i></a></div>
+	</div>
+	<!--{/if}-->
+	<div class="tip">
+		<!--{if $list}-->
+			<!--{if count($list)>14}-->
+				<p>{lang max_view_15_friends}</p>
+			<!--{else}-->
+				<p>{lang you_have_common_friends}</p>
+			<!--{/if}-->
+			<ul class="mtm ml mls cl">
+				<!--{loop $list $key $value}-->
+				<li>
+					<div class="avt"><a href="home.php?mod=space&uid=$value[uid]"><!--{avatar($value['uid'], 'small')}--></a></div>
+					<p><a href="home.php?mod=space&uid=$value[uid]" title="$value[username]">$value[username]</a></p>
+				</li>
+				<!--{/loop}-->
+			</ul>
+		<!--{else}-->
+			<div class="empty-box"><h4>{lang you_have_no_common_friends}</h4></div>
+		<!--{/if}-->
+	</div>
+<!--{elseif $op=='add'}-->
+	<!--{if $_G[inajax]}-->
+	<!--{else}-->
+	<div class="header cl">
+		<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+		<h2>{lang add_friend}</h2>
+		<div class="my"><a href="index.php"><i class="dm-house"></i></a></div>
+	</div>
+	<!--{/if}-->
+	<form method="post" autocomplete="off" id="addform_{$tospace[uid]}" name="addform_{$tospace[uid]}" action="home.php?mod=spacecp&ac=friend&op=add&uid=$tospace[uid]">
+		<input type="hidden" name="referer" value="{echo dreferer()}" />
+		<input type="hidden" name="addsubmit" value="true" />
+		<!--{if $_G[inajax]}--><input type="hidden" name="handlekey" value="$_GET[handlekey]" /><!--{/if}-->
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<div class="tip">
+			<dt><a href="home.php?mod=space&uid=$tospace[uid]"><!--{avatar($tospace['uid'], 'small')}--></a></dt>
+			<dd>
+				{lang add} <strong>{$tospace[username]}</strong> {lang add_friend_note}:<br />
+				<input type="text" name="note" value="" size="35" class="" onkeydown="ctrlEnter(event, 'addsubmit_btn', 1);" />
+				<p class="mt5 xg1">({lang view_note_message})</p>
+				<p class="mt10">
+					{lang friend_group}: <select name="gid" class="ps">
+					<!--{loop $groups $key $value}-->
+					<option value="$key" {if empty($space['privacy']['groupname']) && $key==1} selected="selected"{/if}>$value</option>
+					<!--{/loop}-->
+					</select>
+				</p>
+			</dd>
+			<dd>
+				<button type="submit" name="addsubmit_btn" id="addsubmit_btn" value="true" class="formdialog pn pnc"><strong>{lang determine}</strong></button>
+			</dd>
+		</div>
+	</form>
+<!--{elseif $op=='add2'}-->
+	<!--{if $_G[inajax]}-->
+	<!--{else}-->
+	<div class="header cl">
+		<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+		<h2>{lang approval_the_request}</h2>
+		<div class="my"><a href="index.php"><i class="dm-house"></i></a></div>
+	</div>
+	<!--{/if}-->
+	<form method="post" autocomplete="off" id="addratifyform_{$tospace[uid]}" name="addratifyform_{$tospace[uid]}" action="home.php?mod=spacecp&ac=friend&op=add&uid=$tospace[uid]">
+		<input type="hidden" name="referer" value="{echo dreferer()}" />
+		<input type="hidden" name="add2submit" value="true" />
+		<input type="hidden" name="from" value="$_GET[from]" />
+		<!--{if $_G[inajax]}--><input type="hidden" name="handlekey" value="$_GET[handlekey]" /><!--{/if}-->
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<div class="bodybox tip2 p10">
+			<table cellspacing="0" cellpadding="0">
+				<tr>
+					<th valign="top" width="60" class="avt"><a href="home.php?mod=space&uid=$tospace[uid]"><!--{avatar($tospace['uid'], 'small')}--></a></th>
+					<td valign="top">
+						<p>{lang approval_the_request_group}:</p>
+						<table><tr>
+						<!--{eval $i=0;}-->
+						<!--{loop $groups $key $value}-->
+						<td style="padding:8px 8px 0 0;"><label for="group_$key"><input type="radio" name="gid" id="group_$key" value="$key"$groupselect[$key] />$value</label></td>
+						<!--{if $i%2==1}--></tr><tr><!--{/if}-->
+						<!--{eval $i++;}-->
+						<!--{/loop}-->
+						</tr></table>
+					</td>
+				</tr>
+			</table>
+			<button type="submit" name="add2submit_btn" value="true" class="formdialog pn pnc mt10"><strong>{lang approval}</strong></button>
+		</div>
+	</form>
+	<script type="text/javascript">
+		function succeedhandle_$_GET[handlekey](url, msg, values) {
+			if(values['from'] == 'notice') {
+				deleteQueryNotice(values['uid'], 'pendingFriend');
+			} else {
+				myfriend_post(values['uid']);
+			}
+		}
+	</script>
+<!--{elseif $op=='getinviteuser'}-->
+	$jsstr
 <!--{/if}-->
 <!--{template common/footer}-->
