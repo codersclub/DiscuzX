@@ -39,9 +39,10 @@
 		</ul>
 	</div>
 	<!--{elseif in_array($_GET['subop'], array('view'))}-->
+		<!--{eval $msguser = $tousername;}-->
 		<div class="header cl">
 			<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
-			<h2>{lang viewmypm}</h2>
+			<h2>{if $chatpmmember}{lang viewmypm}{else}{lang taking_with_user}{/if}</h2>
 			<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
 		</div>
 		<div class="msgbox b_m">
@@ -57,8 +58,7 @@
 				<div id="dumppage" style="display:none">
 			<!--{/if}-->
 		</div>
-		<!--{if $list}-->
-			<form id="pmform" class="pmform" name="pmform" method="post" action="home.php?mod=spacecp&ac=pm&op=send&pmid=$pmid&daterange=$daterange&pmsubmit=yes&mobile=2" >
+		<form id="pmform" class="pmform" name="pmform" method="post" action="home.php?mod=spacecp&ac=pm&op=send&pmid=$pmid&daterange=$daterange&pmsubmit=yes&mobile=2" >
 			<input type="hidden" name="formhash" value="{FORMHASH}" />
 			<!--{if !$touid}-->
 			<input type="hidden" name="plid" value="$plid" />
@@ -70,8 +70,7 @@
 				<input type="text" value="" class="flex px" autocomplete="off" id="replymessage" name="message" placeholder="{lang mobsendpm}" />
 				<input type="button" name="pmsubmit" id="pmsubmit" class="formdialog pns" value="{lang sendpm}" />
 			</div>
-			</form>
-		<!--{/if}-->
+		</form>
 		<!--{eval $nofooter = true;}-->
 	<!--{/if}-->
 <!--{else}-->
