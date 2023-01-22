@@ -62,7 +62,6 @@ function check_db($dbhost, $dbuser, $dbpw, $dbname, $tablepre) {
 	if(!function_exists('mysqli_connect')) {
 		show_msg('undefine_func', 'mysqli_connect', 0);
 	}
-	if (strpos($dbhost, ":") === FALSE) $dbhost .= ":3306";
 
 	mysqli_report(MYSQLI_REPORT_OFF);
 
