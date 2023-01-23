@@ -86,9 +86,9 @@ function mobile_discuzcode($param) {
 			'<ul type="A" class="litype_3">', '<li>', '<li>', '</ul>', '', '', ''
 			), preg_replace(array(
 			"/\[color=([#\w]+?)\]/i",
-			"/\[color=((rgb|rgba)\([\d\s,]+?\))\]/i",
+			"/\[color=((rgb|rgba)\([\d\s\.,]+?\))\]/i",
 			"/\[backcolor=([#\w]+?)\]/i",
-			"/\[backcolor=((rgb|rgba)\([\d\s,]+?\))\]/i",
+			"/\[backcolor=((rgb|rgba)\([\d\s\.,]+?\))\]/i",
 			"/\[size=(\d{1,2}?)\]/i",
 			"/\[size=(\d+(\.\d+)?(px|pt)+?)\]/i",
 			"/\[font=([^\[\<]+?)\]/i",

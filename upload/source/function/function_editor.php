@@ -126,7 +126,7 @@ function html2bbcode($text) {
 		"/<br.*>/siU",
 		"/<span\s+?style=\"float:\s+(left|right);\">(.+?)<\/span>/is",
 		"/<font\s+?style=\"background-color:\s*([#\w]+?);?\">(.+?)<\/font>/is",
-		"/<font\s+?style=\"background-color:\s*((rgb|rgba)\([\d\s,]+?\));?\">(.+?)<\/font>/is",
+		"/<font\s+?style=\"background-color:\s*((rgb|rgba)\([\d\s\.,]+?\));?\">(.+?)<\/font>/is",
 		"/<hr\s+.*>/siU",
 	);
 	$pregreplace = array(

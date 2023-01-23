@@ -87,8 +87,8 @@ function bbcode2html(str) {
 			}
 			return addCSS;
 		});
-		str = str.replace(/\[color=([\w#\(\),\s]+?)\]/ig, '<font color="$1">');
-		str = str.replace(/\[backcolor=([\w#\(\),\s]+?)\]/ig, '<font style="background-color:$1">');
+		str = str.replace(/\[color=([\w#\(\),\.\s]+?)\]/ig, '<font color="$1">');
+		str = str.replace(/\[backcolor=([\w#\(\),\.\s]+?)\]/ig, '<font style="background-color:$1">');
 		str = str.replace(/\[size=(\d+?)\]/ig, '<font size="$1">');
 		str = str.replace(/\[size=(\d+(\.\d+)?(px|pt)+?)\]/ig, '<font style="font-size: $1">');
 		str = str.replace(/\[font=([^\[\<\=]+?)\]/ig, '<font face="$1">');

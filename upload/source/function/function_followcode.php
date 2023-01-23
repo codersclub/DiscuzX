@@ -64,9 +64,9 @@ function followcode($message, $tid = 0, $pid = 0, $length = 0, $allowimg = true)
 		'[list=A]', "\r\n[*]", '[*]', '[/list]', '[indent]', '[/indent]', '[/float]'
 		), '', preg_replace(array(
 		"/\[color=([#\w]+?)\]/i",
-		"/\[color=((rgb|rgba)\([\d\s,]+?\))\]/i",
+		"/\[color=((rgb|rgba)\([\d\s\.,]+?\))\]/i",
 		"/\[backcolor=([#\w]+?)\]/i",
-		"/\[backcolor=((rgb|rgba)\([\d\s,]+?\))\]/i",
+		"/\[backcolor=((rgb|rgba)\([\d\s\.,]+?\))\]/i",
 		"/\[size=(\d+?)\]/i",
 		"/\[size=(\d+(\.\d+)?(px|pt)+?)\]/i",
 		"/\[font=([^\[\<]+?)\]/i",
