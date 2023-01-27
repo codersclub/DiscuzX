@@ -444,7 +444,10 @@ if(submitcheck('profilesubmit')) {
 	// 如果保存时未输入验证码就把用户切换至未验证状态, 下次提交验证通过后才能切回正常状态
 	$setarr['secmobicc'] = $secmobiccnew == 0 ? '' : $secmobiccnew;
 	$setarr['secmobile'] = $secmobilenew == 0 ? '' : $secmobilenew;
-	$setarr['secmobilestatus'] = sms::verify($_G['uid'], 1, $secmobiccnew, $secmobilenew, $secmobseccode);
+	// 修改了手机号才涉及到手机号认证状态变更
+	if(strcmp($secmobiccnew, $_G['member']['secmobicc']) != 0 || strcmp($secmobilenew, $_G['member']['secmobile']) != 0) {
+		$setarr['secmobilestatus'] = sms::verify($_G['uid'], 1, $secmobiccnew, $secmobilenew, $secmobseccode);
+	}
 	if($setarr) {
 		if($_G['member']['freeze'] == 1) {
 			$setarr['freeze'] = 0;
