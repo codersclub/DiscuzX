@@ -485,6 +485,7 @@ $lang = array
 	'nav_logs_invite' => '邀请注册',
 	'nav_logs_error' => '系统错误',
 	'nav_logs_sendmail' => '邮件发送失败',
+	'nav_logs_SMTP' => 'SMTP 邮件异常',
 	'nav_logs_member' => '用户记录',
 	'nav_logs_system' => '系统记录',
 	'nav_logs_extended' => '扩展记录',
