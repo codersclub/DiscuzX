@@ -200,7 +200,7 @@ class control extends adminbase {
 		$now_ver_gd = function_exists('gd_info')? gd_info() : false;
 		$now_ver = array('PHP' => constant('PHP_VERSION'), 'MySQL' => $this->db->version(), 'XML' => function_exists('xml_parser_create'), 'JSON' => function_exists('json_encode'), 'FileSock Function' => (function_exists('fsockopen') || function_exists('pfsockopen') || function_exists('stream_socket_client') || function_exists('curl_init')), 'GD' => ($now_ver_gd ? preg_replace('/[^0-9.]+/', '', $now_ver_gd['GD Version']) : false));
 		$req_ver = array('PHP' => '5.6.0', 'MySQL' => '5.5.3', 'XML' => true, 'JSON' => true, 'FileSock Function' => true, 'GD' => '1.0');
-		$sug_ver = array('PHP' => '7.3.0', 'MySQL' => '5.7.0', 'XML' => true, 'JSON' => true, 'FileSock Function' => true, 'GD' => '2.0');
+		$sug_ver = array('PHP' => '7.4.0', 'MySQL' => '8.0.0', 'XML' => true, 'JSON' => true, 'FileSock Function' => true, 'GD' => '2.0');
 		foreach ($now_ver as $key => $value) {
 			if($req_ver[$key] === true) {
 				if (!$value) {
