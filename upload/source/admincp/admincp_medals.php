@@ -69,7 +69,7 @@ if(!$operation) {
 				"<input class=\"checkbox\" type=\"checkbox\" name=\"available[{$medal['medalid']}]\" value=\"1\" $checkavailable>",
 				"<input type=\"text\" class=\"txt\" size=\"10\" name=\"name[{$medal['medalid']}]\" value=\"{$medal['name']}\">",
 				"<input type=\"text\" class=\"txt\" size=\"30\" name=\"description[{$medal['medalid']}]\" value=\"{$medal['description']}\">",
-				"<input type=\"text\" class=\"txt\" size=\"20\" name=\"image[{$medal['medalid']}]\" value=\"{$medal['image']}\"><img style=\"vertical-align:middle\" src=\"$image\">",
+				"<input type=\"text\" class=\"txt\" size=\"20\" name=\"image[{$medal['medalid']}]\" value=\"{$medal['image']}\"><img style=\"vertical-align:middle;max-height:35px;\" src=\"$image\">",
 				$medal['type'],
 				"<a href=\"".ADMINSCRIPT."?action=medals&operation=edit&medalid={$medal['medalid']}\" class=\"act\">{$lang['detail']}</a>"
 			));
@@ -265,7 +265,8 @@ if(!$operation) {
 		showformheader("medals&operation=edit&medalid=$medalid");
 		showtableheader(cplang('medals_edit').' - '.$medal['name'], 'nobottom');
 		showsetting('medals_name1', 'namenew', $medal['name'], 'text');
-		showsetting('medals_img', '', '', '<input type="text" class="txt" size="30" name="imagenew" value="'.$medal['image'].'" ><img src="static/image/common/'.$medal['image'].'">');
+		$image = preg_match('/^https?:\/\//is', $medal['image']) ? $medal['image'] : STATICURL . 'image/common/' . $medal['image'];
+		showsetting('medals_img', '', '', '<input type="text" class="txt" size="30" name="imagenew" value="'.$medal['image'].'" ><img style="max-height:35px;" src="'.$image.'">');
 		showsetting('medals_type1', array('typenew', array(
 			array(0, $lang['medals_adminadd'], array('creditdiv' => 'none')),
 			array(1, $lang['medals_apply_auto'], array('creditdiv' => '')),
