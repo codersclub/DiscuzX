@@ -78,6 +78,25 @@ if($uid && $id && $sign === make_getpws_sign($uid, $id)) {
 		}
 		C::t('common_member')->update($uid, array('password' => $password));
 		C::t('common_member_field_forum')->update($uid, array('authstr' => ''));
+
+		// 给邮箱发送重置或修改密码的邮件
+		if(!function_exists('sendmail')) {
+			include libfile('function/mail');
+		}
+		$reset_password_subject = array(
+			'tpl' => 'password_reset',
+			'var' => array(
+				'username' => $member['username'],
+				'bbname' => $_G['setting']['bbname'],
+				'siteurl' => $_G['setting']['securesiteurl'],
+				'datetime' => dgmdate(time(), 'Y-m-d H:i:s'),
+				'clientip' => $_G['clientip']
+			)
+		);
+		if(!sendmail("{$member['username']} <{$member['email']}>", $reset_password_subject)) {
+			runlog('sendmail', "{$member['email']} sendmail failed.");
+		}
+
 		showmessage('getpasswd_succeed', 'index.php', array(), array('login' => 1));
 	}
 

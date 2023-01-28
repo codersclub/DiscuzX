@@ -47,12 +47,33 @@ if($uid && isemail($email) && $time > TIMESTAMP - 86400) {
 		$membergroup = C::t('common_usergroup')->fetch_by_credits($member['credits']);
 		$setarr['groupid'] = $membergroup['groupid'];
 	}
+	$oldemail = $member['email'];
 	updatecreditbyaction('realemail', $uid);
 	C::t('common_member')->update($uid, $setarr);
 	// 清除用户论坛字段表内保存的authstr字段
 	C::t('common_member_field_forum')->update($uid, array('authstr' => ''));
 	C::t('common_member_validate')->delete($uid);
 	dsetcookie('newemail', "", -1);
+
+	// 给原有邮箱发送修改邮箱的邮件
+	if(!function_exists('sendmail')) {
+		include libfile('function/mail');
+	}
+	$reset_email_subject = array(
+		'tpl' => 'email_reset',
+		'var' => array(
+			'username' => $member['username'],
+			'bbname' => $_G['setting']['bbname'],
+			'siteurl' => $_G['setting']['securesiteurl'],
+			'datetime' => dgmdate(time(), 'Y-m-d H:i:s'),
+			'request_datetime' => dgmdate($time, 'Y-m-d H:i:s'),
+			'email' => $email,
+			'clientip' => $_G['clientip']
+		)
+	);
+	if(!sendmail("{$member['username']} <$oldemail>", $reset_email_subject)) {
+		runlog('sendmail', "$oldemail sendmail failed.");
+	}
 
 	showmessage('email_check_sucess', 'home.php?mod=spacecp&ac=profile&op=password', array('email' => $email));
 } else {

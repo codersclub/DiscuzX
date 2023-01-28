@@ -1,0 +1,22 @@
+<!--{subtemplate email/header}-->
+<body>
+	{lang email_reset_subject}
+	<br />
+	<p>{$var['username']}{lang comma}{lang show_sender}</p>
+	<p>{lang show_reason}{lang email_reset_reason}</p>
+	<p>----------------------------------------------------------------------<br />
+	<strong>{lang important}</strong>
+	<br />----------------------------------------------------------------------</p>
+	<p>{lang email_reset_if_not}</p>
+	<p>----------------------------------------------------------------------<br />
+	<strong>{lang email_reset_subject}</strong>
+	<br />----------------------------------------------------------------------</p>
+	<p><strong>{lang email_reset_explain}</strong></p>
+	<p><strong>{lang email_reset_new_email}</strong></p>
+	<p>{lang email_reset_if_not_user_op}</p>
+	<p>{lang email_reset_if_not_user_op_help}</p>
+	<p>{lang show_ip}</p>
+	<p>{lang sincerely}<br /></p>
+	<p>{lang admin_team}. {$var['siteurl']}</p>
+</body>
+</html>

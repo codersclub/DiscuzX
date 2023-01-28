@@ -478,6 +478,49 @@ if(submitcheck('profilesubmit')) {
 		manage_addnotify('verifyuser');
 	}
 
+	// 给邮箱发送重置或修改密码的邮件
+	if(!empty($_GET['newpassword'])) {
+		if(!function_exists('sendmail')) {
+			include libfile('function/mail');
+		}
+
+		$reset_password_subject = array(
+			'tpl' => 'password_reset',
+			'var' => array(
+				'username' => $_G['member']['username'],
+				'bbname' => $_G['setting']['bbname'],
+				'siteurl' => $_G['setting']['securesiteurl'],
+				'datetime' => dgmdate(time(), 'Y-m-d H:i:s'),
+				'clientip' => $_G['clientip']
+			)
+		);
+		if(!sendmail("{$_G['member']['username']} <{$_G['member']['email']}>", $reset_password_subject)) {
+			runlog('sendmail', "{$_G['member']['email']} sendmail failed.");
+		}
+	}
+
+	// 给邮箱发送修改安全手机号的邮件
+	if((strcmp($secmobiccnew, $_G['member']['secmobicc']) != 0 || strcmp($secmobilenew, $_G['member']['secmobile']) != 0) && (!$_G['setting']['smsstatus'] || $setarr['secmobilestatus'])) {
+		if(!function_exists('sendmail')) {
+			include libfile('function/mail');
+		}
+
+		$reset_secmobile_subject = array(
+			'tpl' => 'secmobile_reset',
+			'var' => array(
+				'username' => $_G['member']['username'],
+				'bbname' => $_G['setting']['bbname'],
+				'siteurl' => $_G['setting']['securesiteurl'],
+				'datetime' => dgmdate(time(), 'Y-m-d H:i:s'),
+				'secmobile' => $_G['member']['secmobicc'].'-'.$_G['member']['secmobile'],
+				'clientip' => $_G['clientip']
+			)
+		);
+		if(!sendmail("{$_G['member']['username']} <{$_G['member']['email']}>", $reset_secmobile_subject)) {
+			runlog('sendmail', "{$_G['member']['email']} sendmail failed.");
+		}
+	}
+
 	if($authstr) {
 		showmessage('profile_email_verify', 'home.php?mod=spacecp&ac=profile&op=password');
 	} else {
