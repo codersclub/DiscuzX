@@ -86,7 +86,7 @@ function getuploadconfig($uid=0, $fid=0, $limit=true) {
 	if($limit) {
 		if($_G['group']['maxattachnum']) {
 			$todayattachs = getuserprofile('todayattachs');
-			$config['maxattachnum'] = $_G['group']['maxattachnum'] - $todayattachs;
+			$config['maxattachnum'] = (int)$_G['group']['maxattachnum'] - (int)$todayattachs;
 			$config['maxattachnum'] = $config['maxattachnum'] > 0 ? $config['maxattachnum'] : -1;
 			$config['limit'] = $config['maxattachnum'] > 0 ? $config['maxattachnum'] : 0;
 		}

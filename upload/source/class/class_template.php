@@ -28,10 +28,11 @@ class template {
 		$this->file = $file;
 
 		if($fp = @fopen(DISCUZ_ROOT.$tplfile, 'r')) {
-			$template = @fread($fp, filesize(DISCUZ_ROOT.$tplfile));
+			$template = filesize(DISCUZ_ROOT.$tplfile) ? fread($fp, filesize(DISCUZ_ROOT.$tplfile)) : '';
 			fclose($fp);
 		} elseif($fp = @fopen($filename = substr(DISCUZ_ROOT.$tplfile, 0, -(strlen($this->filetype) + 1)).'.php', 'r')) {
-			$template = $this->getphptemplate(@fread($fp, filesize($filename)));
+			$template = filesize($filename) ? fread($fp, filesize($filename)) : '';
+			$template = $this->getphptemplate($template);
 			fclose($fp);
 		} else {
 			$tpl = $tpldir.'/'.$file.'.'.$this->filetype;

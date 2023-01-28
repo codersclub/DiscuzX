@@ -180,6 +180,7 @@ function get_guide_list($view, $start = 0, $num = 50, $again = 0) {
 		$updatecache = true;
 	}
 	$query = C::t('forum_thread')->fetch_all_for_guide($view, $limittid, $tids, $_G['setting']['heatthread']['guidelimit'], $dateline);
+	$list = array();
 	$n = 0;
 	foreach($query as $thread) {
 		if(empty($tids) && ($thread['isgroup'] || !in_array($thread['fid'], $fids))) {

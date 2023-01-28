@@ -115,8 +115,8 @@ function getlocalfile($filename, $readmod = 2, $range = 0) {
 			@fseek($fp, $range);
 			if(function_exists('fpassthru') && ($readmod == 3 || $readmod == 4)) {
 				@fpassthru($fp);
-			} else {
-				echo @fread($fp, filesize($filename));
+			} else if(filesize($filename)) {
+				echo fread($fp, filesize($filename));
 			}
 		}
 		@fclose($fp);

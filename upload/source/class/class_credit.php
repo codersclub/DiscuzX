@@ -225,7 +225,7 @@ class credit {
 			if(isset($_G['setting']['extcredits'][$i])) {
 				$creditarr['extcredits'.$i] = intval($rule['extcredits'.$i]) * $this->coef;
 				if(defined('IN_MOBILE') && $creditarr['extcredits'.$i] > 0) {
-					$creditarr['extcredits'.$i] += $_G['setting']['creditspolicymobile'];
+					$creditarr['extcredits'.$i] += (int)$_G['setting']['creditspolicymobile'];
 				}
 				$updatecredit = true;
 			}

@@ -1123,10 +1123,10 @@ function writetojscache() {
 		'',
 	));
 	while(($entry = readdir($dh)) !== false) {
-		if(fileext($entry) == 'js') {
+		if(fileext($entry) == 'js' && filesize($dir.$entry)) {
 			$jsfile = $dir.$entry;
 			$fp = fopen($jsfile, 'r');
-			$jsdata = @fread($fp, filesize($jsfile));
+			$jsdata = fread($fp, filesize($jsfile));
 			fclose($fp);
 			$jsdata = preg_replace($remove[0], $remove[1], $jsdata);
 			if(file_put_contents(DISCUZ_ROOT.'./data/cache/'.$entry, $jsdata, LOCK_EX) === false) {

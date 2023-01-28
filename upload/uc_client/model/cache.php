@@ -75,7 +75,9 @@ class cachemodel {
 		$apps2 = array();
 		if(is_array($apps)) {
 			foreach($apps as $v) {
-				$v['extra'] = unserialize($v['extra']);
+				if(!empty($v['extra'])) {
+					$v['extra'] = is_array($v['extra']) ? $v['extra'] : unserialize($v['extra']);
+				}
 				$apps2[$v['appid']] = $v;
 			}
 		}

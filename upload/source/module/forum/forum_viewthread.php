@@ -543,7 +543,7 @@ if($maxposition) {
 		$postarr[$post['position']] = $post;
 		$lastposition = $post['position'];
 	}
-	$realpost = count($postarr);
+	$realpost = is_array($postarr) ? count($postarr) : 0;
 	if($realpost != $_G['ppp'] || $have_badpost) {
 		$k = 0;
 		for($i = $start; $i < $end; $i ++) {

@@ -197,7 +197,7 @@
 			<!--{loop $applylist $apply}-->
 				<tr>
 					<td>
-						<a target="_blank" href="home.php?mod=space&uid=$apply[uid]" class="ratl vm"><!--{echo avatar($apply[uid], 'small')}--></a>
+						<a target="_blank" href="home.php?mod=space&uid=$apply[uid]" class="ratl vm"><!--{echo avatar($apply['uid'], 'small')}--></a>
 						<a target="_blank" href="home.php?mod=space&uid=$apply[uid]">$apply[username]</a>
 					</td>
 					<td><!--{if $apply[message]}--><p>$apply[message]</p><!--{/if}--></td>
@@ -234,7 +234,7 @@
 			<!--{loop $applylistverified $apply}-->
 				<tr>
 					<td>
-						<a target="_blank" href="home.php?mod=space&uid=$apply[uid]" class="ratl vm"><!--{echo avatar($apply[uid], 'small')}--></a>
+						<a target="_blank" href="home.php?mod=space&uid=$apply[uid]" class="ratl vm"><!--{echo avatar($apply['uid'], 'small')}--></a>
 						<a target="_blank" href="home.php?mod=space&uid=$apply[uid]">$apply[username]</a>
 					</td>
 					<td><!--{if $_G['forum_thread']['authorid'] == $_G['uid'] && $apply[message]}-->$apply[message]<!--{/if}--></td>

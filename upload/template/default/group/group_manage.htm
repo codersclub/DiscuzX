@@ -146,7 +146,7 @@
 		<div class="xld xlda">
 		<!--{loop $checkusers $uid $user}-->
 			<dl class="bbda cl">
-				<dd class="m avt"><!--{echo avatar($user[uid], 'small')}--></dd>
+				<dd class="m avt"><!--{echo avatar($user['uid'], 'small')}--></dd>
 				<dt><a href="home.php?mod=space&uid=$user[uid]">$user[username]</a> <span class="xw0">($user['joindateline'])</span></dt>
 				<dd class="pns"><button type="submit" name="checkusertrue" class="pn pnc" value="true" onclick="location.href='forum.php?mod=group&action=manage&op=checkuser&fid=$_G[fid]&uid=$user[uid]&checktype=1'"><em>{lang pass}</em></button> &nbsp; <button type="submit" name="checkuserfalse" class="pn" value="true" onclick="location.href='forum.php?mod=group&action=manage&op=checkuser&fid=$_G[fid]&uid=$user[uid]&checktype=2'"><em>{lang ignore}</em></button></dd>
 			</dl>
@@ -192,7 +192,7 @@
 								<!--{if $user['online']}-->
 									<em class="gol"></em>
 								<!--{/if}-->
-								<!--{echo avatar($user[uid], 'small')}-->
+								<!--{echo avatar($user['uid'], 'small')}-->
 							</a>
 							<p><a href="home.php?mod=space&uid=$user[uid]">$user[username]</a></p>
 							<p><!--{if $_G['adminid'] == 1 || ($_G['uid'] != $user['uid'] && ($_G['uid'] == $_G['forum']['founderuid'] || $user['level'] > $groupuser['level']))}--><input type="checkbox" class="pc" name="muid[{$user[uid]}]" value="$user[level]" /><!--{/if}--></p>
@@ -217,7 +217,7 @@
 								<!--{if $user['online']}-->
 									<em class="gol"{if $user['level'] <= 3} style="margin-top: 15px;"{/if}></em>
 								<!--{/if}-->
-								<!--{echo avatar($user[uid], 'small')}-->
+								<!--{echo avatar($user['uid'], 'small')}-->
 							</a>
 							<p><a href="home.php?mod=space&uid=$user[uid]">$user[username]</a></p>
 							<p><!--{if $_G['adminid'] == 1 || $user['level'] > $groupuser['level']}--><input type="checkbox" class="pc" name="muid[{$user[uid]}]" value="$user[level]" /><!--{/if}--></p>
@@ -229,7 +229,7 @@
 					<ul class="ml mls cl">
 						<!--{loop $userlist $user}-->
 						<li>
-							<a href="home.php?mod=space&uid=$user[uid]" class="avt"><!--{echo avatar($user[uid], 'small')}--></a>
+							<a href="home.php?mod=space&uid=$user[uid]" class="avt"><!--{echo avatar($user['uid'], 'small')}--></a>
 							<p><a href="home.php?mod=space&uid=$user[uid]">$user[username]</a></p>
 							<p><!--{if $_G['adminid'] == 1 || $user['level'] > $groupuser['level']}--><input type="checkbox" class="pc" name="muid[{$user[uid]}]" value="$user[level]" /><!--{/if}--></p>
 						</li>
@@ -371,7 +371,7 @@
 								<!--{loop $groupmanagers $user}-->
 								<li>
 									<a href="home.php?mod=space&uid=$user[uid]" title="{if $user['level'] == 1}{lang group_moderator}{elseif $user['level'] == 2}{lang group_moderator_vice}{/if}{if $user['online']} {lang login_normal_mode}{/if}" class="avt">
-										<!--{echo avatar($user[uid], 'small')}-->
+										<!--{echo avatar($user['uid'], 'small')}-->
 									</a>
 									<p><a href="home.php?mod=space&uid=$user[uid]">$user[username]</a></p>
 									<p><!--{if $user['uid'] != $_G['uid']}--><input type="radio" class="pr" name="suid" value="$user[uid]" /><!--{/if}--></p>
