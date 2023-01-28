@@ -14,9 +14,7 @@ if (empty($_G['setting']['updatestat'])) {
 	showmessage('not_open_updatestat');
 }
 
-$stat_hash = md5($_G['setting']['siteuniqueid'] . "\t" . substr($_G['timestamp'], 0, 6));
-
-if (!checkperm('allowstatdata') && $_GET['hash'] != $stat_hash) {
+if (!checkperm('allowstatdata')) {
 	showmessage('no_privilege_statdata');
 }
 
@@ -113,10 +111,10 @@ if (!empty($_GET['xml'])) {
 
 $actives = array();
 
-if(is_array($type)) {
-	foreach ($type as $tmp) {
-        $actives[$tmp] = ' class="a"';
-	}
+if($type == 'all') {
+	$actives[$type] = ' class="a"';
+} else {
+	$type = '';
 }
 
 require_once libfile('function/home');
@@ -124,11 +122,11 @@ $siteurl = getsiteurl();
 $types = '';
 $merge = !empty($_GET['merge']) ? '&merge=1' : '';
 if (is_array(getgpc('types'))) {
-    foreach (getgpc('types') as $value) {
-        $types .= '&types[]=' . $value;
-        $actives[$value] = ' class="a"';
-    }
+	foreach (getgpc('types') as $value) {
+		$types .= '&types[]=' . $value;
+		$actives[$value] = ' class="a"';
+	}
 }
-$statuspara = "misc.php?mod=stat&op=trend&xml=1&type=$type&primarybegin=$primarybegin&primaryend=$primaryend{$types}{$merge}&hash=$stat_hash";
+$statuspara = "misc.php?mod=stat&op=trend&xml=1&type=$type&primarybegin=$primarybegin&primaryend=$primaryend{$types}{$merge}";
 
 include template('home/misc_stat');
