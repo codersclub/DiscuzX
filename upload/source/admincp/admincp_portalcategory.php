@@ -33,7 +33,7 @@ if($operation == 'list') {
 			array('list', 'portalcategory', 1)
 		));
 
-		$tdstyle = array('width="25"', 'width="60"', '', 'width="50"', 'width="65"', 'width="35"', 'width="35"', 'width="35"', 'width="215"', 'width="100"');
+		$tdstyle = array('width="25"', 'width="60"', '', 'width="50"', 'width="65"', 'width="35"', 'width="35"', 'width="35"', 'width="215"', 'width="110"');
 		showformheader('portalcategory');
 		showboxheader();
 		echo '<div style="height:60px;line-height:60px;"><a href="javascript:;" onclick="show_all()">'.cplang('show_all').'</a> | <a href="javascript:;" onclick="hide_all()">'.cplang('hide_all').'</a> <input type="text" id="srchforumipt" class="txt" /> <input type="submit" class="btn" value="'.cplang('search').'" onclick="return srchforum()" /></div>';
