@@ -65,6 +65,12 @@
 <div id="mask" style="display:none;"></div>
 <!--{hook/register_bottom_mobile}-->
 <script type="text/javascript">
+<!--{if $sendurl}-->
+	function succeedhandle_registerform(url, message, extra)
+	{
+		popup.open(message,'confirm',url)
+	}
+<!--{/if}-->
 <!--{if $bbrules && $bbrulesforce}-->
 	showBBRule();
 <!--{/if}-->
