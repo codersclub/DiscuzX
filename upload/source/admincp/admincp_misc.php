@@ -200,7 +200,7 @@ var rowtypedata = [
 		/*search={"misc_relatedlink":"action=misc&operation=relatedlink"}*/
 		showtips('misc_relatedlink_tips');
 		/*search*/
-		$tdstyle = array('width="50"', 'width="120"', 'width="330"', 'width="50"', 'width="80"', 'width="80"', '');
+		$tdstyle = array('width="80"', 'width="120"', 'width="330"', 'width="75"', 'width="105"', 'width="105"', '');
 		showformheader('misc&operation=relatedlink');
 		showtableheader();
 		showsetting('misc_relatedlink_status', 'relatedlinkstatus', $_G['setting']['relatedlinkstatus'], 'radio');
@@ -208,8 +208,7 @@ var rowtypedata = [
 		showtableheader('', '', 'id="relatedlink_header"');
 		showsubtitle(array('', 'misc_relatedlink_edit_name', 'misc_relatedlink_edit_url', 'misc_relatedlink_extent_article', 'misc_relatedlink_extent_forum', 'misc_relatedlink_extent_group', 'misc_relatedlink_extent_blog'), 'header tbm', $tdstyle);
 		showtablefooter();
-		echo '<script type="text/javascript">floatbottom(\'relatedlink_header\');</script>';
-		showtableheader();
+		showtableheader('', '', 'id="relatedlinktable"');
 		showsubtitle(array('', 'misc_relatedlink_edit_name', 'misc_relatedlink_edit_url', '<label><input class="checkbox" type="checkbox" name="articleall" onclick="checkAll(\'prefix\', this.form, \'article\', \'articleall\')">'.cplang('misc_relatedlink_extent_article').'</label>', '<label><input class="checkbox" type="checkbox" name="forumall" onclick="checkAll(\'prefix\', this.form, \'forum\', \'forumall\')">'.cplang('misc_relatedlink_extent_forum').'</label>', '<label><input class="checkbox" type="checkbox" name="groupall" onclick="checkAll(\'prefix\', this.form, \'group\', \'groupall\')">'.cplang('misc_relatedlink_extent_group').'</label>', '<label><input class="checkbox" type="checkbox" name="blogall" onclick="checkAll(\'prefix\', this.form, \'blog\', \'blogall\')">'.cplang('misc_relatedlink_extent_blog').'</label>'), 'header', $tdstyle);
 
 		$query = C::t('common_relatedlink')->range(0, 0, 'DESC');
@@ -230,6 +229,7 @@ var rowtypedata = [
 		showsubmit('linksubmit', 'submit', 'del');
 		showtablefooter();
 		showformfooter();
+		echo '<script type="text/javascript">floatbottom(\'relatedlink_header\');$(\'relatedlink_header\').style.width = $(\'relatedlinktable\').offsetWidth + \'px\';</script>';
 
 	} else {
 
@@ -592,8 +592,9 @@ var rowtypedata = [
 		showtagheader('div', 'list', $anchor == 'list');
 		showformheader("misc&operation=censor&page=$page", '', 'keywordsearch');
 		showtableheader();
-		echo '<br /><br /><form method="post">'. $lang['keywords'].': <input type="text" name="censorkeyword" value="'.$_GET['censorkeyword'].'" /> &nbsp; <select name="censor_search_type"><option value = "">'.cplang("misc_censor_wordtype_search").'</option><option value="0">'.cplang('misc_censor_word_default_typename').'</option>'.($word_type_option_search ? $word_type_option_search : $word_type_option).'</select> &nbsp;<input type="submit" name="censor_search" value="'.$lang['search'].'" class="btn" /> </form>';
+		echo '<tr><td>'. $lang['keywords'].': <input type="text" name="censorkeyword" value="'.$_GET['censorkeyword'].'" /> &nbsp; <select name="censor_search_type"><option value = "">'.cplang("misc_censor_wordtype_search").'</option><option value="0">'.cplang('misc_censor_word_default_typename').'</option>'.($word_type_option_search ? $word_type_option_search : $word_type_option).'</select> &nbsp;<input type="submit" name="censor_search" value="'.$lang['search'].'" class="btn" /></td></tr>';
 		showtablefooter();
+		showformfooter();
 
 		showformheader("misc&operation=censor&page=$page", '', 'listform');
 		showtableheader('', 'fixpadding');
@@ -1565,14 +1566,12 @@ EOT;
 			shownav('tools', 'nav_custommenu');
 			showsubmenu('nav_custommenu');
 			showformheader('misc&operation=custommenu');
-			showboxheader();
 			showtableheader();
 			showsubtitle(array('', 'display_order', 'name', 'URL'));
 			echo $optionlist;
 			echo '<tr><td></td><td colspan="3"><div><a href="###" onclick="addrow(this, 0)" class="addtr">'.$lang['custommenu_add'].'</a></div></td></tr>';
 			showsubmit('optionsubmit', 'submit', 'del', '', $multipage);
 			showtablefooter();
-			showboxfooter();
 			showformfooter();
 
 		} else {

@@ -11,7 +11,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .hover:hover { background:#F5F9FD; }
 	.hover:hover .addchildboard, .hover:hover .deleterow { color: #F5F9FD; }
 .txtnobd{ border:1px solid #FFF; background:#FFF; cursor:pointer; }
-.radio, .checkbox, .pr, .pc { border:none; background:none; vertical-align:middle;margin-right: 4px; }
+.radio, .checkbox, .pr, .pc { border:none; background:none; vertical-align:middle;margin-right: 4px; margin-left: 4px; }
 .btn{ margin:10px;border: 0;padding: 6px 14px;background: #2b7acd;color: #fff; cursor:pointer;vertical-align: middle;}
 	.btn:hover { text-decoration: none; background-color: #428ad7;}
 .btn_big { display: inline-block; width: 90px; height: 30px; line-height: 30px; text-align: center; background: url(btn_big.png) no-repeat 0 0; font-size: 18px; font-weight: 700; color: #FFF; }
@@ -58,7 +58,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .infobox h3 { font-size: 18px; font-weight: bold; margin-bottom: 10px; }
 .colorbox { background: #fff; padding: 20px; }
 .colorbox h4 { font-size: 18px; margin-bottom: 10px; }
-.drow { display: flex; margin-left: -10px; margin-right: -10px; flex-wrap: wrap; }
+.drow { display: flex; margin-left: -10px; margin-right: -10px; margin-bottom: 20px;flex-wrap: wrap; }
 .drow.clp { margin-left: 0; margin-right: 0; }
 .drow .dcol { padding-left: 10px; padding-right: 10px;/* flex-shrink: 0; */}
 .drow.clp .dcol { padding-left: 0; padding-right: 0; }
@@ -119,12 +119,13 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .dbox { display: flex; flex-direction: column; background: #fff; margin-bottom: 20px; }
 .dbox .boxheader { padding: 16px 20px; font-size: 16px; border-bottom: 1px solid #ddd; }
 .dbox .boxbody { padding: 20px; border-bottom: 1px solid #ddd; }
-.dbox .boxbody:last-child { border-bottom: 0; }
+.dbox .boxbody:last-child { border-bottom: 0px; }
+.dbox .tb:last-child { margin-bottom: 0px; }
 .boxbody .txt { margin-right: 4px; }
 .listbox .boxbody>div { border-bottom: 1px solid #eee; padding: 8px 0; }
 
 /* table */
-.tb{ clear:both; width:100%; margin-bottom: 12px;background: #fff;}
+.tb{ clear:both; width:100%; margin-bottom: 20px;background: #fff;}
 	.tb th, .tb td{ padding:5px; height:25px; }
 .tb1{}
 	.th11, .th12{ width:60px; font-weight:700; }
@@ -154,6 +155,8 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 	.tarea{ width:400px; height:75px; }
 	.sml, .sml th, .sml td { font-size: 12px !important; -webkit-text-size-adjust: none; }
 	.fixsel { padding-left: 10px; }
+	.fixsel .btn:first-child{ margin-left: 0px; }
+	.tb2 .fixsel{ padding-left: 0px; }
 
 /* tb */
 .tb2{}
@@ -163,8 +166,10 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 	.tb2 tr.hl td, .drow.hl { border-top:1px #F4E4B4 solid; border-bottom:1px #F4E4B4 solid }
 	.tb2.tdhover tr:hover td { background: none; }
 	.tb2.tdhover tr td:hover { background: #F2F9FD; }
-	.tb2 td{ padding:5px 5px 10px 20px; border-top: 1px dotted #DEEFFB; }
-	.tb2 th{ padding:5px 5px 3px 20px; line-height:1.5; }
+	.tb2 td{ padding:10px 5px 10px 0px; border-top: 1px dotted #DEEFFB; }
+	.tb2 th{ padding:10px 5px 10px 0px; line-height:1.5; }
+	.tb2 td:first-child{ padding-left:20px; }
+	.tb2 th:first-child{ padding-left:20px; }
 	.tb2 .txt, .tb2 .txtnobd{ width:100px; margin-right:10px; }
 	.tb2 .smtxt { margin-right: 5px; width: 25px; }
 	.nowrap { white-space: nowrap; }
@@ -176,7 +181,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 		.td25 .txt{ width:60px; }
 	.td26{}
 		.td26 .txt, .td26 .txtnobd{ width:90%; *width:280px; }
-	.tb2 .td27{ padding:10px; font-weight:700;padding-left: 20px; }
+	.tb2 .td27{ padding:16px 10px 10px 20px; font-weight:700;}
 		.tb2 .td27:hover { background: none; }
 	.td27m { font-weight:700; padding-bottom:5px; }
 	.td28 .txt{ width:60px; }
@@ -215,8 +220,8 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 	.correct, .fixed { padding-bottom: 1px; padding-left:18px; background:url(bg_repno.gif) no-repeat 0 -485px; *background:url(bg_repno.gif) no-repeat 0 -486px; color:#70B759; }
 	span.bignum { display: block; font-size: 36px; }
 		/* crons */
-		.crons{ width:200px; }
-		.crons .txt{ margin-bottom:3px; width:150px; }
+		.crons{ width:300px; }
+		.crons .txt{ margin-bottom:3px; width:250px; }
 
 	/* faqlist & boardlist */
 	.node, .board{ padding-left:55px; background:url(bg_repno.gif) no-repeat -240px -550px; }
@@ -226,7 +231,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 	.lastnode, .lastboard{ padding-left:55px; background:url(bg_repno.gif) no-repeat -240px -600px; }
 	.childboard{ padding-left:110px; background:url(bg_repno.gif) no-repeat -185px -550px; }
 	.lastchildboard{ padding-left:110px; background:url(bg_repno.gif) no-repeat -185px -600px; }
-	.boardattr{ position:absolute; left:420px; margin-top:-20px !important; margin-top:-19px; color:#999; }
+	.boardattr{ position:absolute; left:450px; width: 28px; margin-top:-24px !important; color:#999; }
 
 	/* pick window */
 	.colorwd{ float:left; width:40px; height:30px; border-color:#ccc #666 #666 #ccc; }
@@ -285,10 +290,10 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 
 /* pages */
 .pg{ clear:both; margin:10px 0; }
-	.pg em, .pg a, .pg strong{ text-decoration:none; margin-left:3px; padding:2px 5px; border:1px solid #E5E5E5; }
+	.pg em, .pg a, .pg strong{ text-decoration:none; margin-left:3px; padding:5.25px 10px; border:1px solid #E5E5E5; vertical-align: middle;}
 		.pg a:hover{ text-decoration:none; border:1px solid #09C; background:#09C; color:#FFF; }
 	.pg strong{ border:none; font-weight:700; }
-	.pg kbd input{ margin-left:5px; width:20px; vertical-align:middle; }
+	.pg kbd input{ margin-left:5px; width:45px; vertical-align:middle; }
 .cuspages{ margin:3px 0; line-height:200%; }
 	.cuspages .pg{ display:inline; clear:none; margin-right:10px; }
 .fixsel select{ margin:3px 5px 3px 0; }
@@ -296,7 +301,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 /* link */
 .addtr{ padding-left:17px; line-height:25px; background:url(bg_repno.gif) no-repeat 0 1px; *background:url(bg_repno.gif) no-repeat 0 0; color:#F60; }
 .act{ margin:0 5px; text-decoration:underline; }
-.addchildboard, .deleterow { margin-right: 5px; padding-left:17px; line-height:25px; *line-height: 16px; background:url(bg_repno.gif) no-repeat 0 -599px; color:#FFF; zoom: 1; }
+.addchildboard, .deleterow { margin-right: 5px; padding-left:17px; line-height:25px; *line-height: 16px; background:url(bg_repno.gif) no-repeat 0 -596px; color:#FFF; zoom: 1; }
 	.deleterow { padding-left: 12px; background: url(close.gif) no-repeat 0 50%; }
 	.addchildboard:hover, .deleterow:hover { text-decoration:none; color:#F60 !important; }
 .switch{ color:#09C; }
@@ -326,11 +331,13 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .diffcolor3{ color:#09C; }
 .nomargin{ margin:0; }
 .marginleft{ margin-left:20px; }
+.marginleft10{ margin-left:10px; }
 .marginright{ margin-right:10px; }
 .margintop{ margin-top:10px; }
 .marginbot{ margin-bottom:10px; }
 .nobg, .nobg td{ background:none; }
 	.nobg .td27{ padding-left:5px; }
+.nobottom{ margin-bottom:0px; }
 .nobdb{ border-bottom:none; }
 .nobdt{ border-top:none; }
 .noborder, .noborder td{border-bottom:0; border-top:0; }
@@ -366,8 +373,8 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .dbox.hometop .hinfo { flex-grow: 1; }
 .dbox.hometop .hinfo h4 { font-size: 18px; margin-top: 14px; margin-bottom: 10px; }
 .dbox.hometop .hinfo p { font-size: 14px; color: #666; }
-.dbox .tb2 td{ padding:5px 5px 10px 0px;}
-.dbox .tb2 th{ padding:5px 5px 3px 0px;}
+.dbox .tb2 td{ padding:10px 5px 10px 0px;}
+.dbox .tb2 th{ padding:10px 5px 10px 0px;}
 .dbox .tb3 th{ padding:10px 0 5px; }
 .dbox .tb3 td{ padding:0;}
 .tipsbody { padding: 10px 20px; background: #b9edd5; color: #1f7244; }
@@ -419,7 +426,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .m_c .o { padding: 8px 10px; height: 50px; text-align: right; border-top: 1px solid #CCC; background: #F5F5F5; }
 .m_c .o .btn { margin: 0; }
 
-.flb { padding: 10px 10px 8px; height: 20px; line-height: 20px; }
+.flb { padding: 10px 10px 8px; height: 20px; line-height: 20px; box-sizing: unset;}
 	.flb em { float: left; font-weight: 700; color: #09C; }
 		.flb em a { text-decoration: none; }
 	.flb span { float: right; color: #999; }
@@ -443,7 +450,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .cl:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 .cl { zoom: 1; }
 
-.preview { margin-bottom: 8px; width: 570px; height: 340px; border: 1px solid #09C; box-shadow: 3px 3px 3px #EEE; -moz-box-shadow: 3px 3px 3px #EEE; -webkit-box-shadow: 3px 3px 3px #EEE; -o-box-shadow: 3px 3px 3px #EEE; }
+.preview { margin-bottom: 20px; width: 100%; height: 340px; border: 1px solid #09C; box-shadow: 3px 3px 3px #EEE; -moz-box-shadow: 3px 3px 3px #EEE; -webkit-box-shadow: 3px 3px 3px #EEE; -o-box-shadow: 3px 3px 3px #EEE; }
 
 
 /*气泡信息 by dfox */

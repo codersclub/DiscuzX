@@ -54,7 +54,6 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
         );
 	showtablefooter();
 	showboxfooter();
-	showtableheader();
 
 	$title = '';
 	if(!empty($_GET['title'])) {
@@ -89,7 +88,11 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		}
 		$multipage = multi($modcount, $tpp, $page, ADMINSCRIPT."?action=moderate&operation=threads&filter=$filter&modfid=$modfid&dateline={$_GET['dateline']}&username={$_GET['username']}&title={$_GET['title']}&tpp=$tpp&showcensor=$showcensor");
 	}
-	echo '<p class="margintop marginbot"><a href="javascript:;" onclick="expandall();">'.cplang('moderate_all_expand').'</a> &nbsp;<a href="javascript:;" onclick="foldall();">'.cplang('moderate_all_fold').'</a><p>';
+	showtableheader('', 'nobottom');
+	echo '<tr><td><p class="margintop marginbot"><a href="javascript:;" onclick="expandall();">'.cplang('moderate_all_expand').'</a> &nbsp;<a href="javascript:;" onclick="foldall();">'.cplang('moderate_all_fold').'</a></p></td></tr>';
+	showtablefooter();
+
+	showtableheader();
 	loadcache('forums');
 	require_once libfile('function/misc');
 	foreach($threadlist as $thread) {
@@ -146,7 +149,7 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		}
 		$forumname = $_G['cache']['forums'][$thread['fid']]['name'];
 		showtagheader('tbody', '', true, 'hover');
-		showtablerow("id=\"mod_{$thread['tid']}_row1\"", array("id=\"mod_{$thread['tid']}_row1_op\" rowspan=\"3\" class=\"rowform threadopt\" style=\"width:80px;\"", '', 'width="120"', 'width="120"', 'width="55"'), array(
+		showtablerow("id=\"mod_{$thread['tid']}_row1\"", array("id=\"mod_{$thread['tid']}_row1_op\" rowspan=\"3\" class=\"rowform threadopt\" style=\"width:80px;\"", '', 'width="120"', 'width="120"', 'width="70"'), array(
 			"<ul class=\"nofloat\"><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$thread['tid']}]\" id=\"mod_{$thread['tid']}_1\" value=\"validate\" onclick=\"mod_setbg({$thread['tid']}, 'validate');document.getElementById('deloptions_{$thread['tid']}').style.display='none';\"><label for=\"mod_{$thread['tid']}_1\">{$lang['validate']}</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$thread['tid']}]\" id=\"mod_{$thread['tid']}_2\" value=\"delete\" onclick=\"mod_setbg({$thread['tid']}, 'delete');document.getElementById('deloptions_{$thread['tid']}').style.display='inline';\"><label for=\"mod_{$thread['tid']}_2\">{$lang['delete']}</label></li><li><input class=\"radio\" type=\"radio\" name=\"moderate[{$thread['tid']}]\" id=\"mod_{$thread['tid']}_3\" value=\"ignore\" onclick=\"mod_setbg({$thread['tid']}, 'ignore');document.getElementById('deloptions_{$thread['tid']}').style.display='none';\"><label for=\"mod_{$thread['tid']}_3\">{$lang['ignore']}</label></li></ul>",
 			"<h3><a href=\"javascript:;\" onclick=\"display_toggle('{$thread['tid']}');\">{$thread['subject']}</a> $thread_censor_text</h3><p>{$thread['useip']}</p>",
 			"<a target=\"_blank\" href=\"forum.php?mod=forumdisplay&fid={$thread['fid']}\">$forumname</a>",

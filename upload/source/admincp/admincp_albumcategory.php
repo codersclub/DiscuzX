@@ -28,7 +28,7 @@ if($operation == 'list') {
 
 		/*search={"albumcategory":"action=albumcategory"}*/
 		showformheader('albumcategory');
-		showtableheader();
+		showtableheader('', 'nobottom');
 		showsetting('system_category_stat', 'settingnew[albumcategorystat]', $_G['setting']['albumcategorystat'], 'radio', '', 1);
 		showsetting('system_category_required', 'settingnew[albumcategoryrequired]', $_G['setting']['albumcategoryrequired'], 'radio', '');
 		echo '<tr><td colspan="2">';
@@ -42,6 +42,7 @@ if($operation == 'list') {
 		echo '<tr><td class="td25">&nbsp;</td><td colspan="3"><div><a class="addtr" onclick="addrow(this, 0, 0)" href="###">'.cplang('albumcategory_addcategory').'</a></div></td></tr>';
 		showtablefooter();
 		echo '</td></tr>';
+		showtablefooter();
 		/*search*/
 
 		showtableheader('', 'notop');

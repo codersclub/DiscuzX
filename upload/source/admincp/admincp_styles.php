@@ -241,7 +241,7 @@ if($operation == 'admin') {
 		showtips('styles_home_tips');
 		showformheader('styles');
 		showhiddenfields(array('updatecsscache' => 0));
-		showboxheader();
+		showboxheader('', 'nobottom');
 		echo $stylelist;
 		showboxfooter();
 		showtableheader();
@@ -528,7 +528,7 @@ function imgpre_switch(id) {
 		}
 
 		if(!$configflag) {
-			echo '<br /><iframe class="preview" frameborder="0" src="' . ADMINSCRIPT . '?action=styles&preview=yes&styleid=' . $id . '"></iframe>';
+			echo '<iframe class="preview" frameborder="0" src="' . ADMINSCRIPT . '?action=styles&preview=yes&styleid=' . $id . '"></iframe>';
 			showtips('styles_tips');
 
 			showformheader("styles&operation=edit&id=$id");

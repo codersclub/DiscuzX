@@ -82,7 +82,7 @@ var rowtypedata = [
 		showformheader("threadtypes&", 'enctype', 'threadtypeform');
 		showboxheader();
 		showtableheader('');
-		showsubtitle(array('', 'display_order', cplang('name').' '.cplang('tiny_bbcode_support'), 'description', 'forums_relation', '', ''), 'header', array('', 'width="100"', 'width="200"', 'width="300"', '', 'width="90"', 'width="60"'));
+		showsubtitle(array('', 'display_order', cplang('name').' '.cplang('tiny_bbcode_support'), 'description', 'forums_relation', '', ''), 'header', array('', 'width="100"', 'width="200"', 'width="300"', '', 'width="100"', 'width="60"'));
 		echo $threadtypes;
 		echo '<tr><td class="td25"></td><td colspan="5"><div>'.'<span class="filebtn"><input type="hidden" name="importtype" value="file" /><input type="file" name="importfile" class="pf" size="1" onchange="uploadthreadtypexml($(\'threadtypeform\'), \''.ADMINSCRIPT.'?action=threadtypes&operation=import\');" /><a class="addtr" href="JavaScript:;">'.$lang['import'].'</a></span>'.'<a href="###" onclick="addrow(this, 0)" class="addtr">'.$lang['threadtype_infotypes_add'].'</a></div></td>';
 
@@ -560,7 +560,6 @@ EOT;
 			array('threadtype_infotypes_content', 'threadtypes&operation=content', 0),
 			array(array('menu' => ($curclassname ? $curclassname : 'threadtype_infotypes_option'), 'submenu' => $classoptionmenu), '', 0)
 		));
-		showsubmenu('forums_edit_threadsorts');
 		showtips('forums_edit_threadsorts_tips');
 
 		showformheader("threadtypes&operation=sortdetail&sortid={$_GET['sortid']}");
@@ -576,11 +575,11 @@ EOT;
 		showtableheader("{$threadtype['name']} - {$lang['threadtype_infotypes_exist_option']}", 'noborder fixpadding', 'id="sortlist"');
 		showsubtitle(array('<input type="checkbox" name="chkall" id="chkall" class="checkbox" onclick="checkAll(\'prefix\', this.form,\'delete\')" /><label for="chkall">'.cplang('del').'</label>', 'display_order', 'available', 'name', 'type', 'required', 'unchangeable', 'threadtype_infotypes_formsearch', 'threadtype_infotypes_fontsearch', 'threadtype_infotypes_show', ''));
 		echo $sortoptions;
+		showsubmit('sortdetailsubmit');
 		showtablefooter();
 
 ?>
 
-<input type="submit" class="btn" name="sortdetailsubmit" value="<?php echo $lang['submit'];?>">
 </form>
 <script type="text/JavaScript">
 	var optionids = new Array();
@@ -790,7 +789,7 @@ EOT;
 			$option['title'] = $typeoptionarr[$option['optionid']]['title'];
 			$option['type'] = $typeoptionarr[$option['optionid']]['type'];
 			$option['identifier'] = $typeoptionarr[$option['optionid']]['identifier'];
-			$showoption .= '<button onclick="settip(this, \''.$option['identifier'].'\')" type="button">'.$option['title'].'</button>&nbsp;&nbsp;';
+			$showoption .= '<button onclick="settip(this, \''.$option['identifier'].'\')" type="button" style="margin: 5px 5px 5px 0px;">'.$option['title'].'</button>&nbsp;&nbsp;';
 		}
 		unset($typevararr, $typeoptionarr);
 		showsubmenu('threadtype_infotypes', array(
@@ -798,10 +797,11 @@ EOT;
 				array('threadtype_infotypes_content', 'threadtypes&operation=content', 0),
 				array(array('menu' => ($curclassname ? $curclassname : 'threadtype_infotypes_option'), 'submenu' => $classoptionmenu), '', 0)
 			));
-
+		showtableheader();
+		echo '<tr><td>';
 		showformheader("threadtypes&operation=sorttemplate&sortid={$_GET['sortid']}");
 		echo '<script type="text/JavaScript">var currentAnchor = \'ltype\';</script>'.
-			'<div class="itemtitle" style="width:100%;margin-bottom:5px;"><ul class="tab1" id="submenu">'.
+			'<div class="itemtitle" style="width:100%;margin-bottom:5px;padding-left: 0px;"><ul class="tab1" id="submenu">'.
 			'<li id="nav_ttype" onclick="showanchor(this)" class="current"><a href="#"><span>'.$lang['threadtype_template_viewthread'].'</span></a></li>'.
 			'<li id="nav_stype" onclick="showanchor(this)"><a href="#"><span>'.$lang['threadtype_template_forumdisplay'].'</span></a></li>'.
 			'<li id="nav_ptype" onclick="showanchor(this)"><a href="#"><span>'.$lang['threadtype_template_post'].'</span></a></li>'.
@@ -811,7 +811,7 @@ EOT;
 		echo '<div id="ttype">'.
 			$showoption.
 			'<div id="ttype_tip"></div>'.
-			'<br /><textarea cols="100" rows="15" id="ttypetemplate" name="typetemplate" style="width: 95%;" onkeyup="textareasize(this)" onkeydown="textareakey(this, event)">'.dhtmlspecialchars($threadtype['template']).'</textarea>'.
+			'<textarea cols="100" rows="15" id="ttypetemplate" name="typetemplate" style="width: 95%;" onkeyup="textareasize(this)" onkeydown="textareakey(this, event)">'.dhtmlspecialchars($threadtype['template']).'</textarea>'.
 			'</div>';
 
 		echo '<div id="stype" style="display:none">'.
@@ -837,13 +837,13 @@ EOT;
 			'<br />'.
 			$showoption.
 			'<div id="stype_tip"></div>'.
-			'<br /><textarea cols="100" rows="15" id="stypetemplate" name="stypetemplate" style="width: 95%;" onkeyup="textareasize(this)" onkeydown="textareakey(this, event)">'.dhtmlspecialchars($threadtype['stemplate']).'</textarea>'.
+			'<textarea cols="100" rows="15" id="stypetemplate" name="stypetemplate" style="width: 95%;" onkeyup="textareasize(this)" onkeydown="textareakey(this, event)">'.dhtmlspecialchars($threadtype['stemplate']).'</textarea>'.
 			'</div>';
 
 		echo '<div id="ptype" style="display:none">'.
 			$showoption.
 			'<div id="ptype_tip"></div>'.
-			'<br /><textarea cols="100" rows="15" id="ptypetemplate" name="ptypetemplate" style="width: 95%;" onkeyup="textareasize(this)" onkeydown="textareakey(this, event)">'.dhtmlspecialchars($threadtype['ptemplate']).'</textarea>'.
+			'<textarea cols="100" rows="15" id="ptypetemplate" name="ptypetemplate" style="width: 95%;" onkeyup="textareasize(this)" onkeydown="textareakey(this, event)">'.dhtmlspecialchars($threadtype['ptemplate']).'</textarea>'.
 			'</div>';
 
 		echo '<div id="btype" style="display:none">'.
@@ -859,9 +859,9 @@ EOT;
 			'<br />'.
 			$showoption.
 			'<div id="btype_tip"></div>'.
-			'<br /><textarea cols="100" rows="15" id="btypetemplate" name="btypetemplate" style="width: 95%;" onkeyup="textareasize(this)" onkeydown="textareakey(this, event)">'.dhtmlspecialchars($threadtype['btemplate']).'</textarea>'.
+			'<textarea cols="100" rows="15" id="btypetemplate" name="btypetemplate" style="width: 95%;" onkeyup="textareasize(this)" onkeydown="textareakey(this, event)">'.dhtmlspecialchars($threadtype['btemplate']).'</textarea>'.
 			'</div>'.
-			'<input type="submit" class="btn" name="sorttemplatesubmit" value="'.$lang['submit'].'"></form>';
+			'<div class="fixsel"><input type="submit" class="btn" name="sorttemplatesubmit" value="'.$lang['submit'].'"></div></form>';
 
 		echo '<script>
 		function settip(obj, id, tips) {
@@ -901,13 +901,15 @@ EOT;
 				}
 			}
 			$(tipid).innerHTML = \'<table class="tb tb2">\' +
-				(s1 ? \'<tr><td class="bold" width="50">'.$lang['threadtype_template_tag'].'</td>\' + s1 + \'</tr>\' : \'\') +
-				\'<tr><td class="bold" width="50">'.$lang['threadtype_template_intro'].'</td>\' + s2 + \'</tr></table>\';
+				(s1 ? \'<tr><td class="bold" width="75">'.$lang['threadtype_template_tag'].'</td>\' + s1 + \'</tr>\' : \'\') +
+				\'<tr><td class="bold" width="75">'.$lang['threadtype_template_intro'].'</td>\' + s2 + \'</tr></table>\';
 			if(s3) {
-				$(tipid).innerHTML += \'<table class="tb tb2"><tr><td class="bold" width="50">'.$lang['threadtype_template_example'].'</td><td colspan="6"><textarea style="width: 95%;" rows="2" readonly onclick="this.select()" id="\' + obj.parentNode.id + \'_sample">\' + s3 + \'</textarea></td></tr></table>\';
+				$(tipid).innerHTML += \'<table class="tb tb2"><tr><td class="bold" width="75">'.$lang['threadtype_template_example'].'</td><td colspan="6"><textarea style="width: 95%;" rows="2" readonly onclick="this.select()" id="\' + obj.parentNode.id + \'_sample">\' + s3 + \'</textarea></td></tr></table>\';
 			}
 		}
 		</script>';
+		echo '</td></tr>';
+		showtablefooter();
 	} else {
 		C::t('forum_threadtype')->update($_GET['sortid'], array(
 			'special' => 1,

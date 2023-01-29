@@ -230,7 +230,7 @@ if(!$operation) {
 
 			/*search={"admingroup":"action=admingroup","admingroup_edit_threadperm":"action=admingroup&operation=edit&anchor=threadperm"}*/
 			showmultititle();
-			showtableheader();
+			showtableheader('', 'nobottom');
 			showtagheader('tbody', 'threadperm', $_GET['anchor'] == 'threadperm');
 			showtitle('admingroup_edit_threadperm');
 			showsetting('admingroup_edit_stick_thread', array('allowstickthreadnew', array(
@@ -326,7 +326,7 @@ if(!$operation) {
 
 			/*search={"admingroup":"action=admingroup","admingroup_edit_portalperm":"action=admingroup&operation=edit&anchor=portalperm"}*/
 			showtagheader('div', 'portalperm', $_GET['anchor'] == 'portalperm');
-			showtableheader();
+			showtableheader('', 'nobottom');
 			showtagheader('tbody', '', true);
 			showtitle('admingroup_edit_portalperm');
 			showsetting('admingroup_edit_manage_article', 'allowmanagearticlenew', $group['allowmanagearticle'], 'radio');
@@ -339,9 +339,9 @@ if(!$operation) {
 			showtablefooter();
 			showtagfooter('div');
 			/*search*/
-
+			showtableheader();
 			showsubmit('groupsubmit');
-
+			showtablefooter();
 			$_G['showsetting_multi']++;
 		}
 

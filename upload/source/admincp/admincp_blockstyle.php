@@ -50,16 +50,18 @@ if($operation=='add' || $operation=='edit') {
 		echo <<<BLOCKCLASSSEL
 <form method="get" autocomplete="off" action="$adminscript">
 	<div style="margin-top:8px;">
-		<table cellspacing="3" cellpadding="3">
+		<table class="tb tb2 nobottom nobdb" cellspacing="3" cellpadding="3">
 			<tr>
-				<th>$lang_blockclasssel</th><td>$blockclass_sel</td>
+				<th class="td27">$lang_blockclasssel</th>
 			</tr>
 			<tr>
-				<th>&nbsp;</th>
-				<td>
+				<td class="vtop rowform">$blockclass_sel</td>
+			</tr>
+			<tr>
+				<td class="vtop rowform">
 					<input type="hidden" name="action" value="blockstyle" />
 					<input type="hidden" name="operation" value="add" />
-					<input type="submit" value="$lang_submit" class="btn" />
+					<div class="fixsel"><input type="submit" value="$lang_submit" class="btn" /></div>
 				</td>
 			</tr>
 		</table>
@@ -120,7 +122,7 @@ BLOCKCLASSSEL;
 		}
 
 		showformheader('blockstyle&operation='.$operation.'&blockclass='.$_GET['blockclass'].'&styleid='.$_GET['styleid']);
-		showtableheader();
+		showtableheader('', 'nobottom');
 		if($_GET['styleid']) {
 			showtitle('blockstyle_add_editstyle');
 		} else {
@@ -149,8 +151,8 @@ BLOCKCLASSSEL;
 		$template .= '</div><br />';
 		$template .= '<textarea cols="100" rows="5" id="jstemplate" name="template" style="width: 95%;" onkeyup="textareasize(this)" onkeydown="textareakey(this, event)">'.$thestyle['template'].'</textarea>';
 		$template .= '<input type="hidden" name="preview" value="0" /><input type="hidden" name="stylesubmit" value="1" />';
-		$template .= '<br /><!--input type="button" class="btn" onclick="this.form.preview=\'1\';this.form.submit()" value="'.$lang['preview'].'">&nbsp; &nbsp;--><input type="submit" class="btn" value="'.$lang['submit'].'"></div><br /><br />';
-		echo '<div class="colorbox">';
+		$template .= '<br /><!--input type="button" class="btn" onclick="this.form.preview=\'1\';this.form.submit()" value="'.$lang['preview'].'">&nbsp; &nbsp;--><input type="submit" class="btn" style="margin-left: 0px;" value="'.$lang['submit'].'"></div>';
+		echo '<div class="colorbox" style="padding-bottom: 10px;">';
 		echo '<div class="extcredits">';
 		echo $template;
 		echo '</div>';

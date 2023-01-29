@@ -391,16 +391,16 @@ function showsubmenu($title, $menus = array(), $right = '', $replace = array()) 
 }
 
 function showsubmenusteps($title, $menus = array(), $mleft = array(), $mright = array()) {
-	$s = '<div class="itemtitle">'.($title ? '<h3>'.cplang($title).'</h3>' : '');
-	if(is_array($mleft)) {
+	$s = '<div class="itemtitle"'.(empty($title) ? ' style="margin-bottom: 12px;"' : '').'>'.($title ? '<h3>'.cplang($title).'</h3>' : '');
+	if(is_array($mleft) && !empty($mleft)) {
 		$s .= '<ul class="tab1" style="margin-right:10px">';
 		foreach($mleft as $k => $menu) {
 			$s .= '<li'.($menu[2] ? ' class="current"' : '').'><a href="'.(!$menu[4] ? ADMINSCRIPT.'?action='.$menu[1] : $menu[1]).'"'.(!empty($menu[3]) ? ' target="_blank"' : '').'><span>'.cplang($menu[0]).'</span></a></li>';
 		}
 		$s .= '</ul>';
 	}
-	if(is_array($menus)) {
-		$s .= '<ul class="stepstat">';
+	if(is_array($menus) && !empty($menus)) {
+		$s .= '<ul class="stepstat" '.(empty($title) ? ' style="padding-top:16px"' : '').'>';
 			$i = 0;
 			$ic = 1;
 		foreach($menus as $menu) {
@@ -410,7 +410,7 @@ function showsubmenusteps($title, $menus = array(), $mleft = array(), $mright = 
 		}
 		$s .= '</ul>';
 	}
-	if(is_array($mright)) {
+	if(is_array($mright) && !empty($mright)) {
 		$s .= '<ul class="tab1">';
 		foreach($mright as $k => $menu) {
 			$s .= '<li'.($menu[2] ? ' class="current"' : '').'><a href="'.(!$menu[4] ? ADMINSCRIPT.'?action='.$menu[1] : $menu[1]).'"'.(!empty($menu[3]) ? ' target="_blank"' : '').'><span>'.cplang($menu[0]).'</span></a></li>';
@@ -419,7 +419,9 @@ function showsubmenusteps($title, $menus = array(), $mleft = array(), $mright = 
 	}
 	$s .= '</div>';
 	echo $s;
-	echo '</div><div class="cpcontainer">';
+	if (!empty($title)) {
+		echo '</div><div class="cpcontainer">';
+	}
 }
 
 function showsubmenuanchors($title, $menus = array(), $right = '') {
@@ -494,7 +496,7 @@ function showhiddenfields($hiddenfields = array()) {
 
 function showtableheader($title = '', $classname = '', $extra = '', $titlespan = 15) {
 	global $_G;
-	$classname = str_replace(array('nobottom', 'notop'), array('nobdb', 'nobdt'), $classname);
+	$classname = str_replace(array('nobottom', 'notop'), array('nobottom nobdb', 'nobdt'), $classname);
 	if(isset($_G['showsetting_multi'])) {
 		if($_G['showsetting_multi'] == 0) {
 			$extra .= ' style="width:'.($_G['showsetting_multicount'] * 270 + 60).'px"';
@@ -512,7 +514,7 @@ function showtableheader($title = '', $classname = '', $extra = '', $titlespan =
 
 function showboxheader($title = '', $classname = '', $extra = '', $nobody = 0) {
 	global $_G;
-	$classname = str_replace(array('nobottom', 'notop'), array('nobdb', 'nobdt'), $classname);
+	$classname = str_replace(array('nobottom', 'notop'), array('nobottom nobdb', 'nobdt'), $classname);
 	echo "\n".'<div class="dbox'.($classname ? ' '.$classname : '').'"'.($extra ? " $extra" : '').'>';
 	if($title) {
 		echo "\n".'<div class="boxheader">'.cplang($title).'</div>';

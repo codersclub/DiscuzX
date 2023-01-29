@@ -77,7 +77,9 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 	$page = $pagetmp + 1;
 	$multipage = multi($modcount, $tpp, $page, ADMINSCRIPT."?action=moderate&operation=comments&filter=$filter&dateline={$_GET['dateline']}&username={$_GET['username']}&keyword={$_GET['keyword']}&idtype={$_GET['idtype']}&ppp=$tpp&showcensor=$showcensor");
 
-	echo '<p class="margintop marginbot"><a href="javascript:;" onclick="expandall();">'.cplang('moderate_all_expand').'</a> <a href="javascript:;" onclick="foldall();">'.cplang('moderate_all_fold').'</a></p>';
+	showtableheader('', 'nobottom');
+	echo '<tr><td><p class="margintop marginbot"><a href="javascript:;" onclick="expandall();">'.cplang('moderate_all_expand').'</a> &nbsp;<a href="javascript:;" onclick="foldall();">'.cplang('moderate_all_fold').'</a></p></td></tr>';
+	showtablefooter();
 
 	showtableheader();
 	$censor = & discuz_censor::instance();

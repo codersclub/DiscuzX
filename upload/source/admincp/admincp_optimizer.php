@@ -153,7 +153,7 @@ if($operation == 'optimize_unit') {
 
 	showboxheader();
 
-	echo '<div class="drow"><div class="dcol">';
+	echo '<div class="drow" style="margin-bottom: 0px;"><div class="dcol">';
 	echo $_GET['checking'] ? '<a href="javascript:;" id="checking" class="btn_big">'.$lang['founder_optimizer_checking'].'</a></div>' :
 		'<a href="'.ADMINSCRIPT.'?action=optimizer&checking=1&anchor='.$_GET['anchor'].'" id="checking" class="btn_big">'.$lang['founder_optimizer_start_check'].'</a></div>';
 	if($_GET['checking']) {
@@ -302,7 +302,7 @@ if($operation == 'optimize_unit') {
 				}
 			</script>
 END;
-		echo '<table class="tb tb2 tb3" style="margin-top:0;">';
+		echo '<table class="tb tb2" style="margin-top:0;">';
 		foreach($optimizer_option as $option) {
 			echo '<tr class="hover" id="progress_'.$option.'_tr">';
 			echo '<td width="200"><div id="progress_'.$option.'_unit">'.$lang['optimizer_check_unit_'.$option].'</td>';
@@ -312,14 +312,14 @@ END;
 		}
 		echo '</table>';
 
-		echo '<table id="optimizerable" class="tb tb2 tb3" style="margin-top:0;display:none;">';
-		echo '<tr><td width="200" style="color:red;font-weight:700;"><a href="javascript:;" onclick="showoptions(this, \'ooclass\')">[-]</a> '.$lang['founder_optimizer_needopti'].'(<span id="optimizerablenum"></span>)</td><td width="350"></td><td></td></tr>';
+		echo '<table id="optimizerable" class="tb tb2" style="margin-top:0;display:none;">';
+		echo '<tr><td width="300" style="color:red;font-weight:700;"><a href="javascript:;" onclick="showoptions(this, \'ooclass\')">[-]</a> '.$lang['founder_optimizer_needopti'].'(<span id="optimizerablenum"></span>)</td><td width="350"></td><td width="100"></td></tr>';
 		echo '</table>';
-		echo '<table id="securityoption" class="tb tb2 tb3" style="margin-top:0;display:none;">';
-		echo '<tr><td width="200" style="color:green;font-weight:700;"><a href="javascript:;" onclick="showoptions(this, \'soclass\')">[+]</a> '.$lang['founder_optimizer_safe'].'(<span id="securityoptionnum"></span>)</td><td width="350"></td><td></td></tr>';
+		echo '<table id="securityoption" class="tb tb2" style="margin-top:0;display:none;">';
+		echo '<tr><td width="300" style="color:green;font-weight:700;"><a href="javascript:;" onclick="showoptions(this, \'soclass\')">[+]</a> '.$lang['founder_optimizer_safe'].'(<span id="securityoptionnum"></span>)</td><td width="350"></td><td width="100"></td></tr>';
 		echo '</table>';
-		echo '<table id="tipoption" class="tb tb2 tb3" style="margin-top:0;display:none;">';
-		echo '<tr><td width="200" style="color:blue;font-weight:700;"><a href="javascript:;" onclick="showoptions(this, \'toclass\')">[+]</a> '.$lang['founder_optimizer_notice'].'(<span id="tipoptionnum"></span>)</td><td width="350"></td><td></td></tr>';
+		echo '<table id="tipoption" class="tb tb2" style="margin-top:0;display:none;">';
+		echo '<tr><td width="300" style="color:blue;font-weight:700;"><a href="javascript:;" onclick="showoptions(this, \'toclass\')">[+]</a> '.$lang['founder_optimizer_notice'].'(<span id="tipoptionnum"></span>)</td><td width="350"></td><td width="100"></td></tr>';
 		echo '</table>';
 	}
 

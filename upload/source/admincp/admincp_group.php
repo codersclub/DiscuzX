@@ -92,7 +92,6 @@ var rowtypedata = [
 </script>
 <?php
 		showformheader('group&operation=type');
-		showboxheader();
 		showtableheader();
 		showsubtitle(array('display_order', 'groups_type_name', 'groups_type_count', 'groups_type_operation'));
 
@@ -138,7 +137,6 @@ var rowtypedata = [
 
 		showsubmit('editsubmit');
 		showtablefooter();
-		showboxheader('', 'tb1');
 		showformfooter();
 
 	} else {
@@ -692,9 +690,6 @@ var rowtypedata = [
 		showtitle('group_userperm_others');
 		showsetting('', $varname, $group_userperm, 'omcheckbox');
 
-		showtablefooter();
-		echo '</td></tr>';
-		showtagfooter('tbody');
 		showsubmit('permsubmit', 'submit');
 		showtablefooter();
 		showformfooter();

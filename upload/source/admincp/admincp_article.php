@@ -47,15 +47,13 @@ if($operation == 'tag') {
 	require_once libfile('function/portalcp');
 	$tag_names = article_tagnames();
 	showformheader('article&operation=tag');
-	showboxheader('article_tag_setting');
-	showtableheader();
+	showtableheader('article_tag_setting');
 	for($i=1; $i<=8; $i++) {
 		showtablerow('', array('width=80', ''),
 			array(lang('portalcp', 'article_tag').$i, "<input type=\"text\" class=\"txt\" name=\"tag[$i]\" value=\"$tag_names[$i]\" />"));
 	}
 	showsubmit('articletagsubmit', 'submit');
 	showtablefooter();
-	showboxfooter();
 	showformfooter();
 
 } elseif($operation == 'trash') {

@@ -435,8 +435,8 @@ EOT;
 		showsetting('setting_functions_makehtml_topichtmldir', 'settingnew[makehtml][topichtmldir]', $setting['makehtml']['topichtmldir'], 'text');
 		showsetting('setting_functions_makehtml_indexname', 'settingnew[makehtml][indexname]', $setting['makehtml']['indexname'] ? $setting['makehtml']['indexname'] : 'index', 'text');
 		showtagfooter('tbody');
-		showtablefooter();
 		showsubmit('makehtmlsetting', 'submit');
+		showtablefooter();
 		showformfooter();
 		/*search*/
 	} else {
@@ -502,8 +502,8 @@ EOT;
 			showtableheader();
 			showsetting('setting_functions_makehtml_cleanhtml', array('cleandata', array(cplang('setting_functions_makehtml_cleanhtml_index'), cplang('setting_functions_makehtml_cleanhtml_category'), cplang('setting_functions_makehtml_cleanhtml_other'))), 0, 'binmcheckbox');
 			showtagfooter('tbody');
-			showtablefooter();
 			showsubmit('cleanhtml', 'submit');
+			showtablefooter();
 			showformfooter();
 			/*search*/
 		} else {
