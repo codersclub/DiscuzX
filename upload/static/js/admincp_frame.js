@@ -98,7 +98,7 @@
 		});
 	});
 	switchnav(typeof defaultNav != 'undefined' ? defaultNav : 'index', 1);
-	switchtab(document.querySelector('nav ul ul a'));
+	switchtab(document.querySelector('nav ul li.active ul a.active') != null ? document.querySelector('nav ul li.active ul a.active') : document.querySelector('nav ul ul a'));
 	$('cpsetting').addEventListener('click', function(){
 		$('bdcontainer').classList.toggle('oldlayout');
 		setcookie('admincp_leftlayout', 1, getcookie('admincp_leftlayout') ? -2592000 : 2592000);
