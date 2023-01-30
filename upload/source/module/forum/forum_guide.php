@@ -27,6 +27,9 @@ $perpage = 50;
 $start = $perpage * ($_G['page'] - 1);
 $data = array();
 if($_GET['rss'] == 1) {
+	if(!$_G['setting']['rssstatus']) {
+		exit('RSS Disabled');
+	}
 	if($view == 'index' || $view == 'my') {
 		showmessage('URL_ERROR');
 	}
