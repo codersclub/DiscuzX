@@ -15,7 +15,13 @@
             <img src="$_G['forum']['icon']" />
             <!--{/if}-->
 			<!--{if helper_access::check_module('group') && $status != 'isgroupuser'}-->
-				<!--{if $status != 2 && $status != 3 && $status != 5}--><a href="forum.php?mod=group&action=join&fid=$_G['fid']" id="a_favorite" class="dialog">{lang group_join_group}</a><!--{/if}-->
+				<!--{if $status != 2 && $status != 3 && $status != 5}-->
+				<form action="forum.php?mod=group&action=join&fid=$_G['fid']" id="groupjoinform_$_G['fid']" method="post" autocomplete="off">
+					<input type="hidden" name="formhash" value="{FORMHASH}">
+					<input type="hidden" name="groupjoin" value="1">
+					<button type="submit" id="a_favorite" class="formdialog"><em>{lang group_join_group}</em></button>
+				</form>
+				<!--{/if}-->
 			<!--{else}-->
 			<!--{if helper_access::check_module('favorite')}-->
 				<a href="home.php?mod=spacecp&ac=favorite&type=group&id={$_G['forum']['fid']}&handlekey=favoriteforum&formhash={FORMHASH}" id="a_favorite" class="dialog">{lang favorite}<span id="number_favorite" {if !$_G['forum']['favtimes']} style="display:none;"{/if}><span id="number_favorite_num"> +{$_G['forum']['favtimes']}</span></span></a>
