@@ -46,7 +46,9 @@ function getattach($pid, $posttime = 0, $aids = '') {
 	if($pid > 0) {
 		$attachmentns = C::t('forum_attachment_n')->fetch_all_by_id('tid:'.$_G['tid'], 'pid', $pid);
 		foreach(C::t('forum_attachment')->fetch_all_by_id('pid', $pid, 'aid') as $attach) {
-			$attach = array_merge($attach, $attachmentns[$attach['aid']]);
+			if( !empty($attachmentns[$attach['aid']]) ) {
+				$attach = array_merge($attach, $attachmentns[$attach['aid']]);
+			}
 			$attach['filenametitle'] = $attach['filename'];
 			$attach['ext'] = fileext($attach['filename']);
 			if($allowext && !in_array($attach['ext'], $allowext)) {
