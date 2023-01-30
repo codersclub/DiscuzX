@@ -231,7 +231,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 	.lastnode, .lastboard{ padding-left:55px; background:url(bg_repno.gif) no-repeat -240px -600px; }
 	.childboard{ padding-left:110px; background:url(bg_repno.gif) no-repeat -185px -550px; }
 	.lastchildboard{ padding-left:110px; background:url(bg_repno.gif) no-repeat -185px -600px; }
-	.boardattr{ position:absolute; left:450px; width: 28px; margin-top:-24px !important; color:#999; }
+	.boardattr{ position:absolute; left:450px; width: 45px; margin-top:-24px !important; color:#999; }
 
 	/* pick window */
 	.colorwd{ float:left; width:40px; height:30px; border-color:#ccc #666 #666 #ccc; }
