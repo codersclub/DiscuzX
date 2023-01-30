@@ -11,14 +11,14 @@ Discuz! 产品，无论在功能、稳定性、负载能力、安全保障等方
  Discuz! X 社区软件的下载
 +----------------------------------+
 您可以随时从我们的官方下载站下载到最新版本，以及各种补丁
-http://discuz.dismall.com/
+https://www.discuz.net/
 
 +----------------------------------+
  Discuz! X 软件的技术支持
 +----------------------------------+
 当您在安装、升级、日常使用当中遇到疑难，请您到以下站点获取技术支持。
 
-Discuz! 讨论区： https://discuz.dismall.com
+Discuz! 讨论区： https://www.dismall.com
 Discuz! 资料库： https://discuz.dismall.com/library/library   
 Discuz! 教程： https://www.dismall.com/forum-51-1.html
 Discuz! 应用中心： https://addon.dismall.com
