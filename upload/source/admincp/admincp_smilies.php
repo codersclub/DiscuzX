@@ -262,7 +262,7 @@ EOT;
 			$unsfast = array();
 			if(is_array($_GET['displayorder'])) {
 				foreach($_GET['displayorder'] as $key => $val) {
-					if(!empty($_GET['fast']) && is_array($_GET['fast']) && !in_array($key, $_GET['fast'])) {
+					if(empty($_GET['fast']) || (is_array($_GET['fast']) && !in_array($key, $_GET['fast']))) {
 						$unsfast[] = $key;
 					}
 					$_GET['displayorder'][$key] = intval($_GET['displayorder'][$key]);
