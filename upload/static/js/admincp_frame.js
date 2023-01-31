@@ -22,7 +22,7 @@
 				doane();
 			}
 		} else {
-			if (prevnav == key && getcookie('admincp_leftlayout')) {
+			if (prevnav == key && (getcookie('admincp_leftlayout') || parseInt(document.documentElement.clientWidth) < 1200)) {
 				$('header_' + prevnav).className = '';
 				$('lm_' + prevnav).className = '';
 				prevnav = null;
