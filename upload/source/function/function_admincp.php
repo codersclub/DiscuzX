@@ -160,10 +160,12 @@ function cpurl($type = 'parameter', $filters = array('sid', 'frames')) {
 
 
 function showheader($key, $url) {
-	list($action, $operation, $do) = explode('_', $url.'___');
-	$url = $action.($operation ? '&operation='.$operation.($do ? '&do='.$do : '') : '');
+	if(!preg_match('/^https?:\/\//is', $url)) {
+		list($action, $operation, $do) = explode('_', $url.'___');
+		$url = ADMINSCRIPT.'?action='.$action.($operation ? '&operation='.$operation.($do ? '&do='.$do : '') : '');
+	}
 	$menuname = cplang('header_'.$key) != 'header_'.$key ? cplang('header_'.$key) : $key;
-	echo '<li><button id="header_'.$key.'" class=" ">'.$menuname.'</button></li>';
+	echo '<li><button id="header_'.$key.'" draggable="true" ondragend="window.open(\''.$url.'\');" class=" ">'.$menuname.'</button></li>';
 }
 
 
