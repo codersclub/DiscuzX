@@ -621,8 +621,11 @@ function imgpre_switch(id) {
 			if(isset($_GET['templateidnew'])) {
 				$data['templateid'] = $_GET['templateidnew'];
 			}
-			if(isset($_GET['defaultextstylenew']) && isset($_GET['extstylenew'])) {
-				if (!in_array($_GET['defaultextstylenew'], is_array($_GET['extstylenew']) ? $_GET['extstylenew'] : array())) {
+			if(isset($_GET['defaultextstylenew'])) {
+				if(!isset($_GET['extstylenew']) || !is_array($_GET['extstylenew'])) {
+					$_GET['extstylenew'] = array();
+				}
+				if(!in_array($_GET['defaultextstylenew'], $_GET['extstylenew'])) {
 					$_GET['extstylenew'][] = $_GET['defaultextstylenew'];
 				}
 				$data['extstyle'] = implode("\t", $_GET['extstylenew']) . '|' . $_GET['defaultextstylenew'];
