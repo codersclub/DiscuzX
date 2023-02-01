@@ -86,49 +86,47 @@ if(submitcheck('opsubmit')) {
 	$staticurl = STATICURL;
 	echo <<<SEARCH
 	<form method="get" autocomplete="off" action="$adminscript" id="tb_search">
-		<div class="dbox"><div class="boxbody">
-			<table cellspacing="3" cellpadding="3" class="tb tb2">
-				<tr>
-					<th>{$searchlang['topic_id']}</th><td><input type="text" class="txt" name="topicid" value="{$_GET['topicid']}"></td>
-					<th>{$searchlang['topic_title']}*</th><td><input type="text" class="txt" name="title" value="{$_GET['title']}">*{$searchlang['likesupport']}</td>
-				</tr>
-				<tr>
-					<th>{$searchlang['topic_uid']}</th><td><input type="text" class="txt" name="uid" value="{$_GET['uid']}"></td>
-					<th>{$searchlang['topic_username']}*</th><td><input type="text" class="txt" name="username" value="{$_GET['username']}"></td>
-				</tr>
-				<tr>
-					<th>{$searchlang['topic_closed']}</th>
-					<td colspan="3">
-						<select name="closed">
-							<option value="">{$searchlang['nolimit']}</option>
-							<option value="0" {$statusarr[0]}>{$searchlang['no']}</option>
-							<option value="1" {$statusarr[1]}>{$searchlang['yes']}</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<th>{$searchlang['resultsort']}</th>
-					<td colspan="3">
-						<select name="orderby">
-						<option value="">{$searchlang['defaultsort']}</option>
-						<option value="dateline"{$orderby['dateline']}>{$searchlang['topic_dateline']}</option>
-						</select>
-						<select name="ordersc">
-						<option value="desc"{$ordersc['desc']}>{$searchlang['orderdesc']}</option>
-						<option value="asc"{$ordersc['asc']}>{$searchlang['orderasc']}</option>
-						</select>
-						<select name="perpage">
-						<option value="10"{$perpages[10]}>{$searchlang['perpage_10']}</option>
-						<option value="20"{$perpages[20]}>{$searchlang['perpage_20']}</option>
-						<option value="50"{$perpages[50]}>{$searchlang['perpage_50']}</option>
-						<option value="100"{$perpages[100]}>{$searchlang['perpage_100']}</option>
-						</select>
-						<input type="hidden" name="action" value="topic">
-						<input type="submit" name="searchsubmit" value="{$searchlang['search']}" class="btn">
-					</td>
-				</tr>
-			</table>
-		</div></div>
+		<table cellspacing="3" cellpadding="3" class="tb tb2">
+			<tr>
+				<th>{$searchlang['topic_id']}</th><td><input type="text" class="txt" name="topicid" value="{$_GET['topicid']}"></td>
+				<th>{$searchlang['topic_title']}*</th><td><input type="text" class="txt" name="title" value="{$_GET['title']}">*{$searchlang['likesupport']}</td>
+			</tr>
+			<tr>
+				<th>{$searchlang['topic_uid']}</th><td><input type="text" class="txt" name="uid" value="{$_GET['uid']}"></td>
+				<th>{$searchlang['topic_username']}*</th><td><input type="text" class="txt" name="username" value="{$_GET['username']}"></td>
+			</tr>
+			<tr>
+				<th>{$searchlang['topic_closed']}</th>
+				<td colspan="3">
+					<select name="closed">
+						<option value="">{$searchlang['nolimit']}</option>
+						<option value="0" {$statusarr[0]}>{$searchlang['no']}</option>
+						<option value="1" {$statusarr[1]}>{$searchlang['yes']}</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>{$searchlang['resultsort']}</th>
+				<td colspan="3">
+					<select name="orderby">
+					<option value="">{$searchlang['defaultsort']}</option>
+					<option value="dateline"{$orderby['dateline']}>{$searchlang['topic_dateline']}</option>
+					</select>
+					<select name="ordersc">
+					<option value="desc"{$ordersc['desc']}>{$searchlang['orderdesc']}</option>
+					<option value="asc"{$ordersc['asc']}>{$searchlang['orderasc']}</option>
+					</select>
+					<select name="perpage">
+					<option value="10"{$perpages[10]}>{$searchlang['perpage_10']}</option>
+					<option value="20"{$perpages[20]}>{$searchlang['perpage_20']}</option>
+					<option value="50"{$perpages[50]}>{$searchlang['perpage_50']}</option>
+					<option value="100"{$perpages[100]}>{$searchlang['perpage_100']}</option>
+					</select>
+					<input type="hidden" name="action" value="topic">
+					<input type="submit" name="searchsubmit" value="{$searchlang['search']}" class="btn">
+				</td>
+			</tr>
+		</table>
 	</form>
 	<script src="{$staticurl}js/makehtml.js?1" type="text/javascript"></script>
 SEARCH;

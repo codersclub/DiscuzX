@@ -286,11 +286,10 @@ EOT;
 		showformheader('threads&frame=no'.($operation ? '&operation='.$operation : ''), 'target="threadframe"');
 		showhiddenfields($_GET['detail'] ? array('fids' => $fids) : array('fids' => $fids, 'tids' => $tids));
 		if(!$search_tips) {
-			showboxheader(cplang('threads_new_result').' '.$threadcount);
+			showtableheader(cplang('threads_new_result').' '.$threadcount);
 		} else {
-			showboxheader(cplang('threads_result').' '.$threadcount.' <a href="###" onclick="$(\'threadlist\').style.display=\'none\';$(\'threadsearch\').style.display=\'\';$(\'threadforum\').pp.value=\'\';$(\'threadforum\').page.value=\'\';" class="act lightlink normal">'.cplang('research').'</a>');
+			showtableheader(cplang('threads_result').' '.$threadcount.' <a href="###" onclick="$(\'threadlist\').style.display=\'none\';$(\'threadsearch\').style.display=\'\';$(\'threadforum\').pp.value=\'\';$(\'threadforum\').page.value=\'\';" class="act lightlink normal">'.cplang('research').'</a>');
 		}
-		showtableheader('', 'nobottom');
 		if(!$threadcount) {
 
 			showtablerow('', 'colspan="3"', cplang('threads_thread_nonexistence'));
@@ -302,9 +301,7 @@ EOT;
 				echo $threads;
 				showtablerow('', array('class="td25" colspan="7"'), array('<input name="chkall" id="chkall" type="checkbox" class="checkbox" onclick="checkAll(\'prefix\', this.form, \'tidarray\', \'chkall\')" /><label for="chkall">'.cplang('select_all').'</label>'));
 				showtablefooter();
-				showboxfooter();
-				showboxheader('operation');
-				showtableheader('', 'notop');
+				showtableheader('operation', 'notop');
 
 			}
 			showsubtitle(array('', 'operation', 'option'));
@@ -351,7 +348,6 @@ EOT;
 
 		showsubmit('modsubmit', 'submit', '', '', $multi);
 		showtablefooter();
-		showboxfooter();
 		showformfooter();
 		echo '<script type="text/JavaScript">ajaxget(\'forum.php?mod=ajax&action=getthreadtypes&fid=\' + $("toforum").value, \'threadtypes\')</script>'; 		
 		echo '<iframe name="threadframe" style="display:none"></iframe>';

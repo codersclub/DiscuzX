@@ -723,7 +723,7 @@ function showsetting($setname, $varname, $value, $type = 'radio', $disabled = ''
 	} elseif($type == 'mradio' || $type == 'mradio2') {
 		$nocomment = $type == 'mradio2' && !isset($_G['showsetting_multi']) ? true : false;
 		$addstyle = $nocomment ? ' style="float: left; width: 18%"' : '';
-		$ulstyle = $nocomment ? ' style="width: 790px"' : '';
+		$ulstyle = $nocomment ? ' style="width: 900px"' : '';
 		if(is_array($varname)) {
 			$radiocheck = array($value => ' checked');
 			$s .= '<ul'.(empty($varname[2]) ?  ' class="nofloat"' : '').' onmouseover="altStyle(this'.$check['disabledaltstyle'].');"'.$ulstyle.'>';
@@ -747,7 +747,7 @@ function showsetting($setname, $varname, $value, $type = 'radio', $disabled = ''
 	} elseif($type == 'mcheckbox' || $type == 'mcheckbox2') {
 		$nocomment = $type != 'mcheckbox2' && count($varname[1]) > 3 && !isset($_G['showsetting_multi']) ? true : false;
 		$addstyle = $nocomment ? ' style="float: left;'.(empty($_G['showsetting_multirow']) ? ' width: 18%;overflow: hidden;' : '').'"' : '';
-		$ulstyle = $nocomment && empty($_G['showsetting_multirow']) ? ' style="width: 790px"' : '';
+		$ulstyle = $nocomment && empty($_G['showsetting_multirow']) ? ' style="width: 900px"' : '';
 		$s .= '<ul class="nofloat" onmouseover="altStyle(this'.$check['disabledaltstyle'].');"'.$ulstyle.'>';
 		foreach($varname[1] as $varary) {
 			if(is_array($varary) && !empty($varary)) {
@@ -774,7 +774,7 @@ function showsetting($setname, $varname, $value, $type = 'radio', $disabled = ''
 	} elseif($type == 'omcheckbox') {
 		$nocomment = count($varname[1]) > 3 ? true : false;
 		$addstyle = $nocomment ? 'style="float: left; width: 18%"' : '';
-		$ulstyle = $nocomment ? 'style="width: 790px"' : '';
+		$ulstyle = $nocomment ? 'style="width: 900px"' : '';
 		$s .= '<ul onmouseover="altStyle(this'.$check['disabledaltstyle'].');"'.(empty($varname[2]) ? ' class="nofloat"' : 'class="ckbox"').' '.$ulstyle.'>';
 		foreach($varname[1] as $varary) {
 			if(is_array($varary) && !empty($varary)) {

@@ -161,7 +161,6 @@ if(!$operation) {
 			$plugindir = DISCUZ_ROOT.'./source/plugin';
 			$pluginsdir = dir($plugindir);
 			$newplugins = array();
-			showboxheader('', 'psetting', '', 1);
 			$newlist = '';
 			while($entry = $pluginsdir->read()) {
 				if(!in_array($entry, array('.', '..')) && is_dir($plugindir.'/'.$entry) && !in_array($entry, $plugins)) {
@@ -196,17 +195,20 @@ if(!$operation) {
 				}
 			}
 			if($newlist) {
+				showboxheader('', 'psetting', '', 1);
 				showboxtitle('plugins_list_new');
 				echo $newlist;
+				showboxfooter(1);
 			}
-			showboxfooter(1);
 		}
 
+		showtableheader();
 		if($outputsubmit) {
 			showsubmit('submit', 'submit', '', '<a href="'.ADMINSCRIPT.'?action=cloudaddons&frame=no&operation=plugins&from=more" target="_blank">'.cplang('cloudaddons_plugin_link').'</a>');
 		} else {
 			showsubmit('', '', '', '<a href="'.ADMINSCRIPT.'?action=cloudaddons&frame=no&operation=plugins&from=more" target="_blank">'.cplang('cloudaddons_plugin_link').'</a>');
 		}
+		showtablefooter();
 		showformfooter();
 
 	} else {

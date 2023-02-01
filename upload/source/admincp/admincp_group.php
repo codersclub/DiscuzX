@@ -658,8 +658,7 @@ var rowtypedata = [
 		 	array('alloweditactivity', cplang('admingroup_edit_edit_activity'), '1'),
 		 	array('allowedittrade', cplang('admingroup_edit_edit_trade'), '1'),
 		 );
-		showtitle('admingroup_edit_threadperm');
-		showsetting('', $varname, $group_userperm, 'omcheckbox');
+		showsetting('admingroup_edit_threadperm', $varname, $group_userperm, 'omcheckbox');
 
 		showsetting('admingroup_edit_digest_thread', array('newgroup_userperm[allowdigestthread]', array(
 			array(0, cplang('admingroup_edit_digest_thread_none')),
@@ -674,21 +673,18 @@ var rowtypedata = [
 		 	array('allowbanpost', cplang('admingroup_edit_ban_post'), '1'),
 		 	array('allowdelpost', cplang('admingroup_edit_del_post'), '1'),
 		 );
-		showtitle('admingroup_edit_postperm');
-		showsetting('', $varname, $group_userperm, 'omcheckbox');
+		showsetting('admingroup_edit_postperm', $varname, $group_userperm, 'omcheckbox');
 
 		$varname[1] = array(
 		 	array('allowupbanner', cplang('group_userperm_upload_banner'), '1'),
 		 );
-		showtitle('admingroup_edit_modcpperm');
-		showsetting('', $varname, $group_userperm, 'omcheckbox');
+		showsetting('admingroup_edit_modcpperm', $varname, $group_userperm, 'omcheckbox');
 
 		$varname[1] = array(
 		 	array('disablepostctrl', cplang('admingroup_edit_disable_postctrl'), '1'),
 		 	array('allowviewip', cplang('admingroup_edit_view_ip'), '1')
 		 );
-		showtitle('group_userperm_others');
-		showsetting('', $varname, $group_userperm, 'omcheckbox');
+		showsetting('group_userperm_others', $varname, $group_userperm, 'omcheckbox');
 
 		showsubmit('permsubmit', 'submit');
 		showtablefooter();

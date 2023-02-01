@@ -36,7 +36,8 @@ nav ul ul a>em:hover { border-radius: 1px; border-width: 1.25px; border-color: #
 #topmenu button { font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 13px; padding: 8px 15px; background: none; color: #666; border: 0; border-radius: 6px; font-weight: 700; cursor: pointer; }
 #topmenu button:hover { background: #efefef; }
 #topmenu button.active { background: #d0e5fb; color: #123254; }
-#topmenu button:focus { outline: 0; box-shadow: 0 0 3px 2px rgba(43, 122, 205, 0.4); }
+#topmenu button:focus { outline: 0; box-shadow: none; }
+#topmenu button.active:focus { outline: 0; box-shadow: 0 0 3px 2px rgba(43, 122, 205, 0.4); }
 #topmenu button.active:focus:not(:hover) { box-shadow: none; }
 button::-moz-focus-inner { border: none; padding: 0; }
 #frameuinfo { display: flex; align-items: center; color: #333; }
@@ -82,11 +83,12 @@ button::-moz-focus-inner { border: none; padding: 0; }
 	.oldlayout #topmenu li { padding-right: 2px; }
 	.oldlayout #frameuinfo>p.greet { max-width: 180px; }
 	.widelayout #frameuinfo>p.greet { max-width: 160px; }
+	.oldlayout #topmenu button { padding: 8px 10px; }
 	.widelayout #topmenu button { padding: 8px 5px; }
 	.widelayout .mainhd form input.txt:focus { width: 120px; }
 }
 @media (max-width: 1399px) {
-	.oldlayout #topmenu button { padding: 8px; }
+	.oldlayout #topmenu button { padding: 6px; }
 	.widelayout #topmenu button { padding: 8px 2px; }
 }
 /* end oldlayout */

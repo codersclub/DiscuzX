@@ -144,7 +144,7 @@ EOF;
 			}
 		}
 		showformheader("members&operation=clean".$condition_str);
-		showboxheader(cplang('members_search_result', array('membernum' => $membernum)).'<a href="'.ADMINSCRIPT.'?action=members&operation=search" class="act lightlink normal">'.cplang('research').'</a>&nbsp;&nbsp;&nbsp;<a href='.ADMINSCRIPT.'?action=members&operation=export'.$condition_str.'>'.$lang['members_search_export'].'</a>');
+		showtableheader(cplang('members_search_result', array('membernum' => $membernum)).'<a href="'.ADMINSCRIPT.'?action=members&operation=search" class="act lightlink normal">'.cplang('research').'</a>&nbsp;&nbsp;&nbsp;<a href='.ADMINSCRIPT.'?action=members&operation=export'.$condition_str.'>'.$lang['members_search_export'].'</a>');
 		showtableheader();
 
 		if($membernum) {
@@ -2866,8 +2866,7 @@ EOF;
 			$tdstyle = array('class="td22"', 'class="td28" width="100"', 'class="td28" width="100"', 'class="td28" width="100"', 'class="td28" width="100"', 'class="td28"', 'class="td28"');
 			showsubtitle(array('members_profile_edit_name', 'members_profile_edit_display_order', 'members_profile_edit_available', 'members_profile_edit_profile_view', 'members_profile_edit_card_view', 'members_profile_edit_reg_view', ''), 'header tbm', $tdstyle);
 			showtablefooter();
-			showboxheader('members_profile', 'nobottom', 'id="porfiletable"');
-			showtableheader();
+			showtableheader('members_profile', 'nobottom', 'id="porfiletable"');
 			showsubtitle(array('members_profile_edit_name', 'members_profile_edit_display_order', 'members_profile_edit_available', 'members_profile_edit_profile_view', 'members_profile_edit_card_view', 'members_profile_edit_reg_view', ''), 'header', $tdstyle);
 			foreach($list as $fieldid => $value) {
 				$value['available'] = '<input type="checkbox" class="checkbox" name="available['.$fieldid.']" '.($value['available'] ? 'checked="checked" ' : '').'value="1">';
@@ -2880,7 +2879,6 @@ EOF;
 			}
 			showsubmit('ordersubmit');
 			showtablefooter();
-			showboxfooter();
 			showformfooter();
 			echo '<script type="text/javascript">floatbottom(\'profiletable_header\');$(\'profiletable_header\').style.width = $(\'porfiletable\').offsetWidth + \'px\';</script>';
 		} else {
@@ -2973,8 +2971,7 @@ EOF;
 		showtips('members_stat_tips');
 
 		showformheader('members&operation=stat&fieldid='.$_GET['fieldid']);
-		showboxheader('members_stat_options');
-		showtableheader();
+		showtableheader('members_stat_options');
 		$option_html = '<ul>';
 		foreach($options as $key=>$value) {
 			$extra_style = $_GET['fieldid'] == $key ? ' font-weight: 900;' : '';
@@ -3030,7 +3027,6 @@ EOF;
 			showsubmit('statsubmit', 'submit', $optype_html);
 		}
 		showtablefooter();
-		showboxfooter();
 		showformfooter();
 
 	} else {

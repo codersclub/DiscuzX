@@ -3292,7 +3292,7 @@ $lang = array
 	'nav_spacenav_userpanelarea1' => "{navname}区域1",
 	'nav_spacenav_userpanelarea2' => "{navname}区域2",
 	'nav_mynav_add' => '添加快捷导航',
-	'nav_spacenav_tips' => '以下导航链接在“家园展示风格”中启用“以SNS模块风格展示”时有效',
+	'nav_spacenav_tips' => '<li>以下导航链接在“家园展示风格”中启用“以SNS模块风格展示”时有效</li>',
 
 	'styles' => '模板',
 	'styles_admin' => '模板管理',

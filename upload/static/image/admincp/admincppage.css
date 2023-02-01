@@ -58,7 +58,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .infobox h3 { font-size: 18px; font-weight: bold; margin-bottom: 10px; }
 .colorbox { background: #fff; padding: 20px; }
 .colorbox h4 { font-size: 18px; margin-bottom: 10px; }
-.drow { display: flex; margin-left: -10px; margin-right: -10px; margin-bottom: 20px;flex-wrap: wrap; }
+.drow { display: flex; margin-left: -10px; margin-right: -10px; flex-wrap: wrap; }
 .drow.clp { margin-left: 0; margin-right: 0; }
 .drow .dcol { padding-left: 10px; padding-right: 10px;/* flex-shrink: 0; */}
 .drow.clp .dcol { padding-left: 0; padding-right: 0; }
@@ -112,8 +112,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 	.tips a:hover, .tips2 a:hover, .tipsblock a:hover{ color:#09C; }
 
 @media (max-width: 575px) {
-	td.tips2 { display: none; }
-	.tb { display: block; overflow: auto; }
+	.tb { overflow: auto; }
 }
 .tipbox { /* todo */ }
 .dbox { display: flex; flex-direction: column; background: #fff; margin-bottom: 20px; }
@@ -157,7 +156,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 	.fixsel { padding-left: 10px; }
 	.fixsel .btn:first-child{ margin-left: 0px; }
 	.tb2 .fixsel{ padding-left: 0px; }
-
+	.tb2 tr:first-child th, .tb2 tr:first-child td{ border-top: 0px; }
 /* tb */
 .tb2{}
 	.tb2 tr.hover:hover .tips2{ color:#333; }
@@ -167,7 +166,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 	.tb2.tdhover tr:hover td { background: none; }
 	.tb2.tdhover tr td:hover { background: #F2F9FD; }
 	.tb2 td{ padding:10px 5px 10px 0px; border-top: 1px dotted #DEEFFB; }
-	.tb2 th{ padding:10px 5px 10px 0px; line-height:1.5; }
+	.tb2 th{ padding:10px 5px 10px 0px; border-top: 1px dotted #DEEFFB; line-height:1.5; }
 	.tb2 td:first-child{ padding-left:20px; }
 	.tb2 th:first-child{ padding-left:20px; }
 	.tb2 .txt, .tb2 .txtnobd{ width:100px; margin-right:10px; }
@@ -203,8 +202,8 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 			.rowform .clear{ clear:both; float:none; margin-bottom:10px; }
 		.rowform .nofloat{ clear:both; }
 			.rowform .nofloat li{ float:none; margin:10px 0; overflow:visible; }
-		.ckbox {width:700px; }
-		.ckbox li { float: left; margin: 5px 10px 5px 0; white-space: nowrap; width: 130px; height: 20px; }
+		.ckbox {width:900px; }
+		.ckbox li { float: left; margin: 5px 10px 5px 0; white-space: nowrap; width: 162px; height: 20px; }
 	.partition, .partition2{ color: #000; }
 	.tb2 .partition { padding: 16px 20px; font-size: 16px; border-bottom: 1px solid #ddd; }
 	.dblist{}

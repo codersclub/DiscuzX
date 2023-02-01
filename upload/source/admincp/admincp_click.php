@@ -28,7 +28,6 @@ if(empty($operation)) {
 		showtips('click_edit_tips');
 		/*search*/
 		showformheader('click&idtype='.$idtype);
-		showboxheader();
 		showtableheader();
 		showtablerow('', array('class="td25"', 'class="td28"', 'class="td25"', 'class="td25"', '', '', '', 'class="td23"', 'class="td25"'), array(
 			'',
@@ -71,7 +70,6 @@ EOF;
 		echo '<tr><td></td><td colspan="8"><div><a href="###" onclick="addrow(this, 0)" class="addtr">'.$lang['click_edit_addnew'].'</a></div></td></tr>';
 		showsubmit('clicksubmit', 'submit', 'del');
 		showtablefooter();
-		showboxfooter();
 		showformfooter();
 
 	} else {

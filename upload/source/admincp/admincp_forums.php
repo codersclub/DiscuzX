@@ -37,9 +37,7 @@ var rowtypedata = [
 </script>
 <?php
 		showformheader('forums');
-		showboxheader('', 'nobottom');
-		echo '<div><a href="javascript:;" onclick="show_all()">'.cplang('show_all').'</a> | <a href="javascript:;" onclick="hide_all()">'.cplang('hide_all').'</a>&nbsp;&nbsp;&nbsp;<input type="text" id="srchforumipt" class="txt" /> <input type="submit" class="btn" value="'.cplang('search').'" onclick="return srchforum()" /></div>';
-		showboxfooter();
+		echo '<div style="padding: 0px 20px;background: #fff;height:60px;line-height:60px;"><a href="javascript:;" onclick="show_all()">'.cplang('show_all').'</a> | <a href="javascript:;" onclick="hide_all()">'.cplang('hide_all').'</a>&nbsp;&nbsp;&nbsp;<input type="text" id="srchforumipt" class="txt" /> <input type="submit" class="btn" value="'.cplang('search').'" onclick="return srchforum()" /></div>';
 		showtableheader();
 		showsubtitle(array('', 'display_order', 'forums_admin_name', '', 'forums_moderators', '<a href="javascript:;" onclick="if(getmultiids()) location.href=\''.ADMINSCRIPT.'?action=forums&operation=edit&multi=\' + getmultiids();return false;">'.$lang['multiedit'].'</a>'));
 

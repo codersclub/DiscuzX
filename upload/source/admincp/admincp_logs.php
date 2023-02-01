@@ -107,6 +107,7 @@ showsubmenu('nav_logs', array(
 		array('nav_logs_pmt', 'logs&operation=pmt'),
 	)), '', in_array($operation, array('rate', 'credit', 'magic', 'medal', 'invite', 'payment', 'pmt'))),
 	array(array('menu' => 'nav_logs_crime', 'submenu' => array(
+		array('all', 'logs&operation=crime'),
 		array('nav_logs_crime_delpost', 'logs&operation=crime&crimeactions=crime_delpost'),
 		array('nav_logs_crime_warnpost', 'logs&operation=crime&crimeactions=crime_warnpost'),
 		array('nav_logs_crime_banpost', 'logs&operation=crime&crimeactions=crime_banpost'),
@@ -313,20 +314,18 @@ if($operation == 'illegal') {
 		<script src="{$staticurl}js/calendar.js"></script>
 		<input type="hidden" name="operation" value="$operation">
 		<input type="hidden" name="action" value="$action">
-		<table cellspacing="3" cellpadding="3">
-			<tr>
-				<th>{$lang['crime_operator']}: </th><td width="160"><input type="text" class="txt" name="operator" value="$operator" /></td>
-				<th>{$lang['crime_action']}: </th><td><select name="crimeaction">$crimeactionselect</select></td>
-			</tr>
-			<tr>
-				<th>{$lang['crime_user']}: </th><td><input type="text" class="txt" name="username" value="$username" /></td>
-				<th>{$lang['startendtime']}: </th><td><input type="text" onclick="showcalendar(event, this)" style="width: 80px; margin-right: 5px;" value="$starttime" name="starttime" class="txt" /> -- <input type="text" onclick="showcalendar(event, this)" style="width: 80px; margin-left: 5px;" value="$endtime" name="endtime" class="txt" /></td>
-			</tr>
-			<tr>
-				<th>{$lang['keywords']}: </th><td><input type="text" class="txt" name="keyword" value="$keyword" /></td>
-				<th><input type="submit" name="crimesearch" value="{$lang['search']}" class="btn" /></th><td></td>
-			</tr>
-		</table>
+		<tr>
+			<th>{$lang['crime_operator']}: </th><td width="160"><input type="text" class="txt" name="operator" value="$operator" /></td>
+			<th>{$lang['crime_action']}: </th><td><select name="crimeaction">$crimeactionselect</select></td>
+		</tr>
+		<tr>
+			<th>{$lang['crime_user']}: </th><td><input type="text" class="txt" name="username" value="$username" /></td>
+			<th>{$lang['startendtime']}: </th><td><input type="text" onclick="showcalendar(event, this)" style="width: 80px; margin-right: 5px;" value="$starttime" name="starttime" class="txt" /> -- <input type="text" onclick="showcalendar(event, this)" style="width: 80px; margin-left: 5px;" value="$endtime" name="endtime" class="txt" /></td>
+		</tr>
+		<tr>
+			<th>{$lang['keywords']}: </th><td><input type="text" class="txt" name="keyword" value="$keyword" /></td>
+			<th><input type="submit" name="crimesearch" value="{$lang['search']}" class="btn" /></th><td></td>
+		</tr>
 SEARCH;
 
 	if(submitcheck('crimesearch', 1)) {
@@ -334,7 +333,7 @@ SEARCH;
 		list($count, $clist) = crime('search', $crimeaction, $username, $operator, $starttime, $endtime, $keyword, $start, $lpp);
 
 		showtablefooter();
-		showtableheader($lang['members_ban_crime_record'], 'fixpadding', '', 5);
+		showtableheader($lang['members_ban_crime_record'].(!empty($lang[$_GET['crimeactions']]) ? ' - '.$lang[$_GET['crimeactions']] : ''), 'fixpadding', '', 5);
 
 		if($clist) {
 			showtablerow('class="header"', array('class="td24"','class="td24"','class="td31"','','class="td24"'), array($lang['crime_user'], $lang['crime_action'], $lang['crime_dateline'], $lang['crime_reason'], $lang['crime_operator']));
@@ -730,7 +729,7 @@ EOD;
 
 } elseif($operation == 'error') {
 
-	showtablerow('class="header"', array('class="td23"', 'class=""'), array(
+	showtablerow('class="header"', array('class="td23" style="box-sizing: unset;"', 'style="box-sizing: unset;"'), array(
 		cplang('time'),
 		cplang('message'),
 	));
@@ -740,9 +739,9 @@ EOD;
 			continue;
 		}
 
-		showtablerow('', array('class="bold"'), array(
+		showtablerow('', array('class="bold" style="box-sizing: unset;"', 'style="box-sizing: unset;"'), array(
 			dgmdate($log[1], 'Y-m-d H:i:s'),
-			$log[2].'<br>'.$log[4].'<br>'.$log[5]
+			str_replace(' -> ', '<br>', $log[2]).'<br>'.$log[4].'<br>'.$log[5]
 		));
 
 	}

@@ -238,40 +238,38 @@ if($operation=='perm') {
 			<script type="text/javascript" src="{$_G['setting']['jspath']}portal.js?{VERHASH}"></script>
 			<div id="ajaxwaitid"></div>
 			<form method="get" autocomplete="off" action="$adminscript" id="tb_search">
-				<div class="dbox"><div class="boxbody">
-					<table cellspacing="3" cellpadding="3" class="tb tb2">
-						<tr>
-							$firstrow
-						</tr>
-						<tr>
-							<th>{$searchlang['block_id']}</th><td><input type="text" class="txt" name="bid" value="{$_GET['bid']}"></td>
-							<th>{$searchlang['block_name']}*</th><td><input type="text" class="txt" name="name" value="{$_GET['name']}">{$searchlang['lengthabove1']}&nbsp;&nbsp; *{$searchlang['likesupport']}</td>
-						</tr>
-						<tr>
-							<th>{$searchlang['resultsort']}</th>
-							<td>
-								<select name="orderby">
-								<option value="">{$searchlang['defaultsort']}</option>
-								<option value="dateline"{$orderby['dateline']}>{$searchlang['block_dateline']}</option>
-								</select>
-								<select name="ordersc">
-								<option value="desc"{$ordersc['desc']}>{$searchlang['orderdesc']}</option>
-								<option value="asc"{$ordersc['asc']}>{$searchlang['orderasc']}</option>
-								</select>
-								<select name="perpage">
-								<option value="10"{$perpages[10]}>{$searchlang['perpage_10']}</option>
-								<option value="20"{$perpages[20]}>{$searchlang['perpage_20']}</option>
-								<option value="50"{$perpages[50]}>{$searchlang['perpage_50']}</option>
-								<option value="100"{$perpages[100]}>{$searchlang['perpage_100']}</option>
-								</select>
-								<input type="hidden" name="action" value="block">
-								<input type="hidden" name="operation" value="$operation">
-							</td>
-							<th>{$searchlang['block_permname']}</th><td><input type="text" class="txt" name="permname" value="{$_GET['permname']}">{$searchlang['block_permname_tips']}
-								<input type="submit" name="searchsubmit" value="{$searchlang['search']}" class="btn"></td>
-						</tr>
-					</table>
-				</div></div>
+				<table cellspacing="3" cellpadding="3" class="tb tb2">
+					<tr>
+						$firstrow
+					</tr>
+					<tr>
+						<th>{$searchlang['block_id']}</th><td><input type="text" class="txt" name="bid" value="{$_GET['bid']}"></td>
+						<th>{$searchlang['block_name']}*</th><td><input type="text" class="txt" name="name" value="{$_GET['name']}">{$searchlang['lengthabove1']}&nbsp;&nbsp; *{$searchlang['likesupport']}</td>
+					</tr>
+					<tr>
+						<th>{$searchlang['resultsort']}</th>
+						<td>
+							<select name="orderby">
+							<option value="">{$searchlang['defaultsort']}</option>
+							<option value="dateline"{$orderby['dateline']}>{$searchlang['block_dateline']}</option>
+							</select>
+							<select name="ordersc">
+							<option value="desc"{$ordersc['desc']}>{$searchlang['orderdesc']}</option>
+							<option value="asc"{$ordersc['asc']}>{$searchlang['orderasc']}</option>
+							</select>
+							<select name="perpage">
+							<option value="10"{$perpages[10]}>{$searchlang['perpage_10']}</option>
+							<option value="20"{$perpages[20]}>{$searchlang['perpage_20']}</option>
+							<option value="50"{$perpages[50]}>{$searchlang['perpage_50']}</option>
+							<option value="100"{$perpages[100]}>{$searchlang['perpage_100']}</option>
+							</select>
+							<input type="hidden" name="action" value="block">
+							<input type="hidden" name="operation" value="$operation">
+						</td>
+						<th>{$searchlang['block_permname']}</th><td><input type="text" class="txt" name="permname" value="{$_GET['permname']}">{$searchlang['block_permname_tips']}
+							<input type="submit" name="searchsubmit" value="{$searchlang['search']}" class="btn"></td>
+					</tr>
+				</table>
 			</form>
 			<script type="text/javascript">
 			function addjscall() {
@@ -288,7 +286,6 @@ SEARCH;
 		$start = ($page-1)*$perpage;
 
 		showformheader('block&operation='.$operation);
-		showboxheader('block_list');
 		showtableheader();
 
 		$list = $diypage = array();
@@ -330,7 +327,6 @@ SEARCH;
 
 			showsubmit('', '', '', '<input type="checkbox" name="chkall" id="chkall" class="checkbox" onclick="checkAll(\'prefix\', this.form, \'ids\')" /><label for="chkall">'.cplang('select_all').'</label>&nbsp;&nbsp;<input type="submit" class="btn" name="deletesubmit" value="'.cplang('block_delete').'" />', $multipage);
 			showtablefooter();
-			showboxfooter();
 			showformfooter();
 
 		} else {
@@ -369,7 +365,6 @@ SEARCH;
 
 			showsubmit('', '', '', '<input type="submit" class="btn" name="clearsubmit" value="'.cplang('block_clear_unused').'" />', $multipage);
 			showtablefooter();
-			showboxfooter();
 			showformfooter();
 		}
 	}

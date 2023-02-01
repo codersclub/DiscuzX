@@ -356,7 +356,7 @@ if($operation == 'admin') {
 		showformheader('styles&operation=import', 'enctype');
 		showtableheader('styles_import');
 		showimportdata();
-		showtablerow('', '', '<input class="checkbox" type="checkbox" name="ignoreversion" id="ignoreversion" value="1" /><label for="ignoreversion"> '.cplang('styles_import_ignore_version').'</label>');
+		showtablerow('', 'colspan="2"', '<input class="checkbox" type="checkbox" name="ignoreversion" id="ignoreversion" value="1" /><label for="ignoreversion"> '.cplang('styles_import_ignore_version').'</label>');
 		showsubmit('importsubmit');
 		showtablefooter();
 		showformfooter();
