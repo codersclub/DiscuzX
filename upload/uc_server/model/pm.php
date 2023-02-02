@@ -743,8 +743,12 @@ class pmmodel {
 		if(!$uids) {
 			$blackls = $this->db->result_first("SELECT blacklist FROM ".UC_DBTABLEPRE."memberfields WHERE uid='$uid'");
 		} else {
-			$uids = $this->base->implode($uids);
 			$blackls = array();
+			$uids = is_array($uids) ? $uids : array($uids);
+			foreach($uids as $uid) {
+				$blackls[$uid] = array();
+			}
+			$uids = $this->base->implode($uids);
 			$query = $this->db->query("SELECT uid, blacklist FROM ".UC_DBTABLEPRE."memberfields WHERE uid IN ($uids)");
 			while($data = $this->db->fetch_array($query)) {
 				$blackls[$data['uid']] = explode(',', $data['blacklist']);
