@@ -66,8 +66,10 @@ if($_GET['searchsubmit'] && $keywords) {
 		}
 		if($totalcount) {
 			showsubmenu('search_result', array(), '<span class="right">'.cplang('search_result_find', array('number' => $totalcount)).'</span>');
+			showboxheader();
 			echo implode('<br />', $html);
 			hlkws($kws);
+			showboxfooter();
 		} else {
 			cpmsg('search_result_noexists', '', 'error');
 		}
