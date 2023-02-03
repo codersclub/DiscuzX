@@ -194,7 +194,7 @@ function replace_formhash($timestamp, $input) {
 function recommendupdate($fid, &$modrecommend, $force = '', $position = 0) {
 	global $_G;
 
-	$recommendlist = $recommendimagelist = $modedtids = array();
+	$recommendlist = $modedtids = array();
 	$num = $modrecommend['num'] ? intval($modrecommend['num']) : 10;
 	$imagenum = $modrecommend['imagenum'] = $modrecommend['imagenum'] ? intval($modrecommend['imagenum']) : 0;
 	$imgw = $modrecommend['imagewidth'] = $modrecommend['imagewidth'] ? intval($modrecommend['imagewidth']) : 200;
@@ -294,7 +294,7 @@ function recommendupdate($fid, &$modrecommend, $force = '', $position = 0) {
 		}
 	}
 
-	$recommendlists = $recommendlist = array();
+	$recommendlists = $recommendlist = $recommendimagelist = array();
 	foreach(C::t('forum_forumrecommend')->fetch_all_by_fid($fid, $position) as $recommend) {
 		if(($recommend['expiration'] && $recommend['expiration'] > TIMESTAMP) || !$recommend['expiration']) {
 			if($recommend['filename'] && strexists($recommend['filename'], "\t")) {
