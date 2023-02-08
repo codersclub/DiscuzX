@@ -1924,12 +1924,6 @@ function updatediytemplate($targettplname = '', $tpldirectory = '') {
 	return $r;
 }
 
-function space_key($uid) {
-	global $_G;
-	return substr(md5($_G['setting']['siteuniqueid'].'|'.$uid), 8, 16);
-}
-
-
 function getposttablebytid($tids, $primary = 0) {
 	return table_forum_post::getposttablebytid($tids, $primary);
 }

@@ -62,7 +62,7 @@ if($id) {
 } elseif ($uid) {
 
 	$id = 0;
-	$invite_code = space_key($uid);
+	$invite_code = helper_invite::generate_key($uid);
 	if($_GET['c'] !== $invite_code) {
 		showmessage('invite_code_error', '', array(), array('return' => true));
 	}
@@ -72,7 +72,7 @@ if($id) {
 		showmessage('invite_code_error', '', array(), array('return' => true));
 	}
 
-	$cookievar = "$uid,$invite_code";
+	$cookievar = "$uid,$invite_code,0";
 
 } else {
 	showmessage('invite_code_error', '', array(), array('return' => true));
@@ -94,6 +94,17 @@ if($acceptconfirm) {
 	require_once libfile('function/friend');
 	if(friend_check($uid)) {
 		showmessage('you_have_friends', $jumpurl);
+	}
+
+	// 允许单个用户屏蔽所有人加 Ta 为好友
+	$fields = C::t('common_member_field_home')->fetch($uid);
+	if(!$fields['allowasfriend']) {
+		showmessage('is_blacklist');
+	}
+
+	require_once libfile('function/spacecp');
+	if(isblacklist($uid)) {
+		showmessage('is_blacklist');
 	}
 
 	friend_make($space['uid'], $space['username']);

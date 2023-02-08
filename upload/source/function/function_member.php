@@ -185,7 +185,7 @@ function getinvite() {
 		$uid = intval($cookies[0]);
 		$code = trim($cookies[1]);
 
-		$invite_code = space_key($uid);
+		$invite_code = helper_invite::generate_key($uid);
 		if($code === $invite_code) {
 			$member = getuserbyuid($uid);
 			if($member) {

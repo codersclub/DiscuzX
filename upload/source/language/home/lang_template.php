@@ -1218,7 +1218,7 @@ $lang = array (
   'click_link_copy' => '点击下面的链接可直接复制 (邀请链接和邀请码作用相同，可随意选择其一。)',
   'copy_invite_code' => '邀请码复制成功',
   'copy_invite_link' => '邀请链接复制成功',
-  'copy_invite_manage' => '批量邀请链接(管理专用)',
+  'copy_invite_manage' => '批量邀请链接(修改密码重置)',
   'credit_recharge' => '积分充值',
   'delete_log_message' => '<p>确定要删除该邀请记录吗？</p>
 							<p>删除该邀请记录后,您的好友将不能通过<br/>原邀请记录链接注册成为您的好友 </p>',

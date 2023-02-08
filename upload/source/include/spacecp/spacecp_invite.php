@@ -268,7 +268,7 @@ function getinviteurl($inviteid, $invitecode) {
 	if($inviteid && $invitecode) {
 		$inviteurl = getsiteurl()."home.php?mod=invite&amp;id={$inviteid}&amp;c={$invitecode}";
 	} else {
-		$invite_code = space_key($_G['uid']);
+		$invite_code = helper_invite::generate_key($_G['uid']);
 		$inviteurl = getsiteurl()."home.php?mod=invite&amp;u={$_G['uid']}&amp;c=$invite_code";
 	}
 	return $inviteurl;
