@@ -103,6 +103,9 @@
 		</ul>
 	</div>
 	<!--{hook/space_profile_extrainfo_mobile}-->
+	<!--{if $_G['uid'] && getstatus($_G['member']['allowadmincp'], 1)}-->
+	<div class="btn_admincp"><a href="admin.php" class="pn">{lang admincp_mobile}</a></div>
+	<!--{/if}-->
 	<!--{if $space['uid'] == $_G['uid']}-->
 	<div class="btn_exit"><a href="member.php?mod=logging&action=logout&formhash={FORMHASH}" class="pn">{lang logout_mobile}</a></div>
 	<!--{/if}-->

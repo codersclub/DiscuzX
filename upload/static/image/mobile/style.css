@@ -822,8 +822,9 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .myinfo_list_ico li:nth-child(3) a i {background-color:var(--dz-BG-3)}
 .myinfo_list_ico li:nth-child(4) a i {background-color:var(--dz-BG-color)}
 .myinfo_list_ico li a em {color:var(--dz-BG-2);font-size:12px;margin-left:8px}
-.btn_exit {padding:5px 15px;overflow:hidden}
+.btn_exit, .btn_admincp {padding:5px 15px;overflow:hidden}
 .btn_exit .pn {display:block;background-color:var(--dz-BG-2);color:var(--dz-FC-fff)}
+.btn_admincp .pn {display:block;background-color:var(--dz-BG-3);color:var(--dz-FC-fff)}
 .notice_tip {background-color:var(--dz-BG-0);padding:15px;font-size:14px;color:var(--dz-BG-3);text-align:center}
 .notice_tip a {color:var(--dz-BG-3)}
 

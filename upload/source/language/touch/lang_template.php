@@ -133,6 +133,7 @@ $lang = array (
   'viewmypm' => '查看消息',
   'myprofile' => '我的资料',
   'otherprofile' => '的资料',
+  'admincp_mobile' => '管理中心',
   'logout_mobile' => '退出登录',
   'myfavorite' => '我的收藏',
   'mythread' => '我的主题',
