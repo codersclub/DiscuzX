@@ -3,7 +3,7 @@ jQuery.extend({
 		try {
 			var reader = new FileReader();
 			var canvaszoom = false;
-			if(1 || (s.maxfilesize && s.files[0].size > s.maxfilesize * 1024)) {
+			if(s.maxfilesize && s.files[0].size > s.maxfilesize * 1024) {
 				canvaszoom = true;
 			}
 
@@ -252,6 +252,7 @@ jQuery.extend({
 					var tmpcanvas = document.createElement('canvas');
 					tmpcanvas.width = tmpcanvas.height = 1;
 					var tmpctx = tmpcanvas.getContext('2d');
+					tmpctx.imageSmoothingQuality = 'high';
 					tmpctx.drawImage(img, -imgwidth + 1, 0);
 					return tmpctx.getImageData(0, 0, 1, 1).data[3] === 0;
 				} else {
@@ -263,6 +264,7 @@ jQuery.extend({
 				tmpcanvas.width = 1;
 				tmpcanvas.height = imgheight;
 				var tmpctx = tmpcanvas.getContext('2d');
+				tmpctx.imageSmoothingQuality = 'high';
 				tmpctx.drawImage(img, 0, 0);
 				var data = tmpctx.getImageData(0, 0, 1, imgheight).data;
 				var sy = 0;
@@ -326,10 +328,11 @@ jQuery.extend({
 				}
 			};
 
-			var maxheight = 500;
-			var maxwidth = 500;
+			var maxheight = s.maxfilesize > 1000 ? (s.maxfilesize > 2000 ? 2560 : 1920) : 1280;
+			var maxwidth = s.maxfilesize > 1000 ? (s.maxfilesize > 2000 ? 1440 : 1080) : 720;
 			var canvas = document.createElement('canvas');
 			var ctx = canvas.getContext('2d');
+			ctx.imageSmoothingQuality = 'high';
 
 			var img = new Image();
 			img.onload = function() {
