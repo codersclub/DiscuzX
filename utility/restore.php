@@ -504,7 +504,7 @@ function show_footer($quit = true) {
 
 	echo <<< EOT
 	</div>
-	<div id="footer">Copyright &copy; 2001-2021, Tencent Cloud.</div>
+	<div id="footer">Copyright &copy; 2001-2023, Tencent Cloud.</div>
 </div>
 </body>
 </html>

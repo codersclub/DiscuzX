@@ -255,7 +255,7 @@ $lang = array(
 
 	'license' => '
 <div class="license"><h1>中文版授权协议 适用于中文用户</h1>
-<p>版权所有 (c) 2001-2022，腾讯云计算（北京）有限责任公司 保留所有权利。</p>
+<p>版权所有 (c) 2001-2023，腾讯云计算（北京）有限责任公司 保留所有权利。</p>
 
 <p>感谢您选择腾讯云产品。希望我们的努力能为您提供一个高效快速、强大的站点解决方案，和强大的社区论坛解决方案。腾讯云公司网址为 https://www.qcloud.com，产品官方讨论社区网址为 https://www.dismall.com。产品官方应用中心网址为：https://addon.dismall.com。开源代码网址为 https://code.dismall.com。</p>
 

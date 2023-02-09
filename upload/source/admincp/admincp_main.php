@@ -122,7 +122,7 @@ echo <<<EOT
 </div>
 <div class="copyright">
 	<p>Powered by <a href="http://www.discuz.net/" target="_blank">Discuz!</a> {$_G['setting']['version']}</p>
-	<p>Copyright &copy; 2001-2021</p>
+	<p>Copyright &copy; 2001-2023</p>
 	<p>Tencent Cloud.</p>
 </div>
 
