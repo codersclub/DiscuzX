@@ -2958,6 +2958,7 @@ EOT;
 			$settingnew['initcredits'][$i] = intval($settingnew['initcredits'][$i]);
 			$initformula = str_replace('extcredits'.$i, $settingnew['initcredits'][$i], $initformula);
 		}
+		$initformula = preg_replace("/[A-Za-z]{1}\w+/", '0', $initformula);
 		eval("\$_G['setting']['initcredits'] = round($initformula);");
 
 		$settingnew['extcredits'] = $extcreditsarray;
