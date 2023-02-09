@@ -32,7 +32,7 @@ class mobile_api {
 		}
 		$thaquote = C::t('forum_post')->fetch_threadpost_by_tid_invisible($thread['tid']);
 		$quote = $thaquote['message'];
-		$quote = messagecutstr($quote, 100);
+		$quote = threadmessagecutstr($thread, $quote, 100);
 		$quote = implode("\n", array_slice(explode("\n", $quote), 0, 3));
 	}
 

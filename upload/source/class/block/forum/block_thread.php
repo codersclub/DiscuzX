@@ -494,21 +494,21 @@ class block_thread extends discuz_block {
 					$creditstransextra = $_G['settings']['creditstransextra'];
 					$rewardend = $thread['price'] < 0;
 					$rewardprice = abs($thread['price']);
-					$message = messagecutstr($var, $messagelength, '');
+					$message = threadmessagecutstr($thread, $var, $messagelength, '');
 				} elseif($thread['special'] == 4) {
-					$message = messagecutstr($var, $messagelength, '');
+					$message = threadmessagecutstr($thread, $var, $messagelength, '');
 					$activity = DB::fetch_first("SELECT aid, number, applynumber FROM ".DB::table('forum_activity')." WHERE tid='$tid'");
 					$activity['aid'] = $activity['aid'] ? getforumimg($activity['aid']) : '';
 					$activity['aboutmember'] = $activity['number'] - $activity['applynumber'];
 				} elseif($thread['special'] == 5) {
-					$message = messagecutstr($var, $messagelength, '');
+					$message = threadmessagecutstr($thread, $var, $messagelength, '');
 					$debate = C::t('forum_debate')->fetch($tid);
 					$debate['affirmvoteswidth'] = $debate['affirmvotes']  ? intval(80 * (($debate['affirmvotes'] + 1) / ($debate['affirmvotes'] + $debate['negavotes'] + 1))) : 1;
 					$debate['negavoteswidth'] = $debate['negavotes']  ? intval(80 * (($debate['negavotes'] + 1) / ($debate['affirmvotes'] + $debate['negavotes'] + 1))) : 1;
 					$debate['affirmpoint'] = discuzcode($debate['affirmpoint'], 0, 0, 0, 1, 1, 0, 0, 0, 0, 0);
 					$debate['negapoint'] = discuzcode($debate['negapoint'], 0, 0, 0, 1, 1, 0, 0, 0, 0, 0);
 				} else {
-					$message = messagecutstr($var, $messagelength, '');
+					$message = threadmessagecutstr($thread, $var, $messagelength, '');
 				}
 				include template('common/block_thread');
 				$returnarr[$tid] = $return;

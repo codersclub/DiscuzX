@@ -428,27 +428,33 @@ function get_attach($list, $video = false, $audio = false){
 	global $_G;
 	require_once libfile('function/post');
 	require_once libfile('function/discuzcode');
-	$tids = $attach_tids = $price_tids = $attachtableid_array = $threadlist_data = $posttableids = array();
+	$tids = $threads = $attachtableid_array = $threadlist_data = $posttableids = array();
 	foreach($list as $value) {
 		$tids[] = $value['tid'];
 		if(!in_array($value['posttableid'], $posttableids)){
 			$posttableids[] = $value['posttableid'];
 		}
-		if($value['attachment'] == 2) {
-			$attach_tids[] = $value['tid'];
-		}
-		if($value['price'] > 0) {
-			$price_tids[] = $value['tid'];
-		}
+		$threads[$value['tid']] = $value;
 	}
 	foreach ($posttableids as $id) {
-		$theards = C::t('forum_post')->fetch_all_by_tid($id, $tids, true, '', 0, 0, 1, null, null, null);
-		foreach($theards as $value) {
+		$posts = C::t('forum_post')->fetch_all_by_tid($id, $tids, true, '', 0, 0, 1, null, null, null);
+		foreach($posts as $value) {
 			if(!$_G['forum']['ismoderator'] && $value['status'] & 1) {
 				$threadlist_data[$value['tid']]['message'] = lang('forum/template', 'message_single_banned');
 			} elseif(strpos($value['message'], '[/password]') !== FALSE) {
 				$threadlist_data[$value['tid']]['message'] = lang('forum/template', 'message_password_exists');
+			} elseif($threads[$value['tid']]['readperm'] > 0) {
+				$value['message'] = '';
 			} else {
+				if($threads[$value['tid']]['price'] > 0) {
+					preg_match_all("/\[free\](.+?)\[\/free\]/is", $value['message'], $matches);
+					$value['message'] = '';
+					if(!empty($matches[1])) {
+						foreach($matches[1] as $match) {
+							$value['message'] .= $match.' ';
+						}
+					}
+				}
 				if($value['message'] && ($video || $audio)){
 					$value['media'] = '';
 					$value['message'] = preg_replace(array("/\[hide=?\d*\](.*?)\[\/hide\]/is"), array(""), $value['message']);
@@ -461,17 +467,8 @@ function get_attach($list, $video = false, $audio = false){
 						$threadlist_data[$value['tid']]['media'] = parseaudio($value['audio'][2], 400);
 					}
 				}
-				if(in_array($value['tid'], $price_tids)) {
-					preg_match_all("/\[free\](.+?)\[\/free\]/is", $value['message'], $matches);
-					$value['message'] = '';
-					if(!empty($matches[1])) {
-						foreach($matches[1] as $match) {
-							$value['message'] .= $match.' ';
-						}
-					}
-				}
 				$threadlist_data[$value['tid']]['message'] = messagecutstr($value['message'], 90);
-				if(in_array($value['tid'], $attach_tids)) {
+				if($threads[$value['tid']]['attachment'] == 2) {
 					$attachtableid_array[getattachtableid($value['tid'])][] = $value['pid'];
 				}
 			}

@@ -39,7 +39,7 @@ function build_cache_heats() {
 				break;
 			}
 			if($messageitems > 0) {
-				$heat['message'] = !$heat['price'] ? messagecutstr($heat['message'], $_G['setting']['indexhot']['messagecut']) : '';
+				$heat['message'] = threadmessagecutstr($heat, $heat['message'], $_G['setting']['indexhot']['messagecut']);
 				$data['message'][$heat['tid']] = $heat;
 			} else {
 				unset($heat['message']);

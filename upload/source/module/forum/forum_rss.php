@@ -140,7 +140,7 @@ function updatersscache($num) {
 				$attachdata = '';
 				$thread['message'] = $post['message'];
 				$thread['status'] = $post['status'];
-				$thread['description'] = $thread['readperm'] > 0 || $thread['price'] > 0 || $thread['status'] & 1 ? '' : addslashes(messagecutstr($thread['message'], 250 - strlen($attachdata)).$attachdata);
+				$thread['description'] = $thread['readperm'] > 0 || $thread['price'] > 0 || $thread['status'] & 1 ? '' : addslashes(threadmessagecutstr($thread, $thread['message'], 250 - strlen($attachdata)).$attachdata);
 				C::t('forum_rsscache')->insert(array(
 					'lastupdate'=>$_G['timestamp'],
 					'fid'=>$fid,

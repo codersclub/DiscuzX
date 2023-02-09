@@ -109,7 +109,7 @@ if($_GET['action'] == 'group') {
 			}
 			$post = C::t('forum_post')->fetch_threadpost_by_tid_invisible($id);
 			require_once libfile('function/post');
-			$post['message'] = messagecutstr($post['message'], 150);
+			$post['message'] = threadmessagecutstr($thread, $post['message'], 150);
 			foreach(C::t('common_member')->fetch_all($uids, false, 0) as $uid => $user) {
 				if($at) {
 					notification_add($uid, 'at', 'at_message', array('from_id' => $id, 'from_idtype' => 'at', 'buyerid' => $_G['uid'], 'buyer' => $_G['username'], 'tid' => $id, 'subject' => $thread['subject'], 'pid' => $post['pid'], 'message' => $post['message']));

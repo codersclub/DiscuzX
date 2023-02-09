@@ -601,14 +601,14 @@ function messagecutstr($str, $length = 0, $dot = ' ...') {
 			"/\[\/($bbcodes)\]/i",
 			"/\\\\u/i"
 		), array(
-			"[b]{$language['post_hidden']}[/b]",
+			$language['post_hidden'],
 			'',
 			'',
 			'\\1',
 			'',
 			'',
 			'',
-		        '%u'
+			'%u'
 		), $str));
 	if($length) {
 		$str = cutstr($str, $length, $dot);
@@ -622,6 +622,26 @@ function messagecutstr($str, $length = 0, $dot = ' ...') {
 	return trim($str);
 }
 
+function threadmessagecutstr($thread, $str, $length = 0, $dot = ' ...') {
+	global $_G;
+	if(!empty($thread)) {
+		if(!empty($thread['readperm']) && $thread['readperm'] > 0) {
+			$str = '';
+		}elseif(!empty($thread['price']) && $thread['price'] > 0) {
+			preg_match_all("/\[free\](.+?)\[\/free\]/is", $str, $matches);
+			$str = '';
+			if(!empty($matches[1])) {
+				foreach($matches[1] as $match) {
+					$str .= $match.' ';
+				}
+			} else {
+				$language = lang('forum/misc');
+				$str = $language['post_sold'];
+			}
+		}
+	}
+	return messagecutstr($str, $length, $dot);
+}
 
 function setthreadcover($pid, $tid = 0, $aid = 0, $countimg = 0, $imgurl = '') {
 	global $_G;

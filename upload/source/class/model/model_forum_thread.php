@@ -293,7 +293,7 @@ class model_forum_thread extends discuz_model
 				$this->feed['body_template'] = 'feed_thread_message';
 				$this->feed['body_data'] = array(
 					'subject' => "<a href=\"forum.php?mod=viewthread&tid={$this->tid}\">{$this->param['subject']}</a>",
-					'message' => messagecutstr($message, 150)
+					'message' => threadmessagecutstr($this->param, $message, 150)
 				);
 				if(getglobal('forum_attachexist')) {//					$firstaid = DB::result_first("SELECT aid FROM ".DB::table(getattachtablebytid($tid))." WHERE pid='$pid' AND dateline>'0' AND isimage='1' ORDER BY dateline LIMIT 1");
 					$imgattach = C::t('forum_attachment_n')->fetch_max_image('tid:'.$this->tid, 'pid', $this->pid);
