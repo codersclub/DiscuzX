@@ -19,6 +19,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .uploadbtn{ width:250px; border-color:#999; }
 .line { border-bottom: 1px solid #0F0; }
 .num{ width:40px !important; height: 28px; vertical-align:middle; }
+.highlight { color: #C00; font-weight: 700; }
 /* simulate input type="file" */
 .filebtn { position: relative; margin-right: 30px; width: 60px; overflow: hidden; zoom: 1; }
 	.filebtn .pf { position: absolute; right: 0; height: 23px; opacity: 0; filter:alpha(opacity=0); cursor: pointer; }
