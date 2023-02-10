@@ -621,6 +621,9 @@ EOF;
 		showmessage('quickclear_success', $_POST['redirect'], array(), array('showdialog'=>1, 'closetime' => true, 'msgtype' => 2, 'locationtime' => 1));
 	}
 } elseif($_GET['action'] == 'getpostfeed') {
+	if(!$_G['setting']['followstatus']) {
+		showmessage('follow_status_off');
+	}
 	$tid = intval($_GET['tid']);
 	$pid = intval($_GET['pid']);
 	$flag = intval($_GET['flag']);
