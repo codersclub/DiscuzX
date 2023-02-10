@@ -1142,7 +1142,7 @@ function safefilter(&$data) {
 			'</font>', '<b>', '</b>', '<strike>', '</strike>', '<i>', '</i>', '<u>', '</u>'
 			), preg_replace(array(
 			"/\[color=([#\w]+?)\]/i",
-			"/\[color=((rgb|rgba)\([\d\s,]+?\))\]/i",
+			"/\[color=((rgb|rgba)\([\d\s\.,]+?\))\]/i",
 			), array(
 			"<font color=\"\\1\">",
 			"<font style=\"color:\\1\">",

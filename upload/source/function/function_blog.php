@@ -147,6 +147,10 @@ function blog_post($POST, $olds=array()) {
 			$albumid = album_creat($albumarr);
 		} else {
 			$albumid = $POST['savealbumid'] < 0 ? 0 : intval($POST['savealbumid']);
+			$albuminfo = C::t('home_album')->fetch_album($albumid, $_G['uid']);
+			if(empty($albuminfo)) {
+				$albumid = 0;
+			}
 		}
 		if($albumid) {
 			C::t('home_pic')->update_for_uid($_G['uid'], $picids, array('albumid' => $albumid));

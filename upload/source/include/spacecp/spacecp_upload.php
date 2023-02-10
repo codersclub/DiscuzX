@@ -91,6 +91,10 @@ if(submitcheck('albumsubmit') && helper_access::check_module('album')) {
 
 	} else {
 		$albumid = intval($_POST['albumid']);
+		$albuminfo = C::t('home_album')->fetch_album($albumid, $_G['uid']);
+		if(empty($albuminfo)) {
+			$albumid = 0;
+		}
 	}
 	$havetitle = trim(implode('', $_POST['title']));
 	if(!empty($havetitle)) {

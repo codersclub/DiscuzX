@@ -191,6 +191,13 @@ function updateattach($modnewthreads, $tid, $pid, $attachnew, $attachupdate = ar
 					$albumattach[$aid] = $newattach[$aid];
 				}
 			}
+			if(!empty($_GET['uploadalbum'])) {
+				$_GET['uploadalbum'] = intval($_GET['uploadalbum']);
+				$albuminfo = C::t('home_album')->fetch_album($_GET['uploadalbum'], $uid);
+				if(empty($albuminfo)) {
+					$_GET['uploadalbum'] = 0;
+				}
+			}
 		}
 		foreach($attachnew as $aid => $attach) {
 			$update = array();

@@ -109,6 +109,10 @@ class appcontrol extends base {
 	}
 
 	function onucinfo() {
+		if(!$this->settings['addappbyurl']) {
+			exit('-1');
+		}
+
 		$arrapptypes = $this->db->fetch_all("SELECT DISTINCT type FROM ".UC_DBTABLEPRE."applications");
 		$apptypes = $tab = '';
 		foreach($arrapptypes as $apptype) {

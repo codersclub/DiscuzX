@@ -98,6 +98,9 @@ if(!($operation)) {
 
 		if($starttasks) {
 			C::t('common_task')->update($starttasks, array('available' => 2));
+			require_once libfile('class/task');
+			$tasklib = & task::instance();
+			$tasklib->update_available(1);
 		}
 
 		showsubmit('tasksubmit', 'submit');
@@ -119,6 +122,9 @@ if(!($operation)) {
 		}
 
 		updatecache('setting');
+		require_once libfile('class/task');
+		$tasklib = & task::instance();
+		$tasklib->update_available(1);
 
 		if($checksettingsok) {
 			cpmsg('tasks_succeed', 'action=tasks', 'succeed');
@@ -336,6 +342,9 @@ if(!($operation)) {
 				}
 			}
 		}
+		require_once libfile('class/task');
+		$tasklib = & task::instance();
+		$tasklib->update_available(1);
 
 		cpmsg('tasks_succeed', "action=tasks", 'succeed');
 
@@ -561,6 +570,9 @@ if(!($operation)) {
 	C::t('common_task')->delete($id);
 	C::t('common_taskvar')->delete_by_taskid($id);
 	C::t('common_mytask')->delete_mytask(0, $id);
+	require_once libfile('class/task');
+	$tasklib = & task::instance();
+	$tasklib->update_available(1);
 
 	cpmsg('tasks_del', 'action=tasks', 'succeed');
 
@@ -615,6 +627,9 @@ if(!($operation)) {
 
 	$custom_types[$_GET['script']] = array('name' => lang('task/'.$_GET['script'], $task->name), 'version' => $task->version);
 	C::t('common_setting')->update_setting('tasktypes', $custom_types);
+	require_once libfile('class/task');
+	$tasklib = & task::instance();
+	$tasklib->update_available(1);
 
 	cpmsg('tasks_installed', 'action=tasks&operation=type', 'succeed');
 
@@ -649,6 +664,10 @@ if(!($operation)) {
 
 	unset($custom_types[$_GET['script']]);
 	C::t('common_setting')->update_setting('tasktypes', $custom_types);
+	require_once libfile('class/task');
+	$tasklib = & task::instance();
+	$tasklib->update_available(1);
+
 	cpmsg('tasks_uninstalled', 'action=tasks&operation=type', 'succeed');
 
 } elseif($operation == 'upgrade' && $_GET['script']) {
@@ -676,6 +695,9 @@ if(!($operation)) {
 	C::t('common_task')->update_by_scriptname($_GET['script'], array('version' => $task->version));
 	$custom_types[$_GET['script']] = array('name' => $task->name, 'version' => $task->version);
 	C::t('common_setting')->update_setting('tasktypes', $custom_types);
+	require_once libfile('class/task');
+	$tasklib = & task::instance();
+	$tasklib->update_available(1);
 
 	cpmsg('tasks_updated', 'action=tasks&operation=type', 'succeed');
 

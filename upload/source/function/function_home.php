@@ -563,6 +563,15 @@ function getfollowfeed($uid, $viewtype, $archiver = false, $start = 0, $perpage 
 				}
 			}
 			$list['threads'] = C::t('forum_thread')->fetch_all_by_tid(C::t('home_follow_feed')->get_tids());
+			if (!empty($list['threads']) && is_array($list['threads'])) {
+				foreach ($list['threads'] as $key => $thread) {
+					if (empty($_G['setting']['followforumid']) || $thread['fid'] != $_G['setting']['followforumid']) {
+						if (!empty($list['content'][$key]['content'])) {
+							$list['content'][$key]['content'] = preg_replace('#onclick="changefeed\([^"]+\)"\s*style="cursor:\s*pointer;"#is', '', $list['content'][$key]['content']);
+						}
+					}
+				}
+			}
 		}
 	}
 	return $list;

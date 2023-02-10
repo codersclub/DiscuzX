@@ -32,7 +32,7 @@
 			<div class="psta vm"><a href="home.php?mod=space&uid=$comment[authorid]" c="1">$bestpost[avatar]</a> <a href="home.php?mod=space&uid=$bestpost[authorid]" class="xi2 xw1">$bestpost[author]</a></div>
 			<div class="psti">
 				<p class="xi2"><a href="javascript:;" onclick="window.open('forum.php?mod=redirect&goto=findpost&ptid=$bestpost[tid]&pid=$bestpost[pid]')">{lang view_full_content}</a></p>
-				<div class="mtn">$bestpost[message]</div>
+				<div class="mtn"><!--{if $hiddenreplies && $_G['uid'] != $bestpost['authorid'] && $_G['uid'] != $_G['forum_thread']['authorid'] && !$_G['forum']['ismoderator']}-->{lang message_ishidden_hiddenreplies}<!--{else}-->$bestpost[message]<!--{/if}--></div>
 			</div>
 		</div>
 	</div>

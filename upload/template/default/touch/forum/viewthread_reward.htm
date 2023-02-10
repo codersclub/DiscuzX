@@ -12,7 +12,7 @@
 				$bestpost['avatar']				
 				<a href="home.php?mod=space&uid=$bestpost['authorid']">$bestpost['author']</a>				
 			</div>
-			<div class="mtxt">$bestpost['message']</div>
+			<div class="mtxt"><!--{if $hiddenreplies && $_G['uid'] != $bestpost['authorid'] && $_G['uid'] != $_G['forum_thread']['authorid'] && !$_G['forum']['ismoderator']}-->{lang message_ishidden_hiddenreplies}<!--{else}-->$bestpost[message]<!--{/if}--></div>
 		</div>
 	</div>
 <!--{/if}-->

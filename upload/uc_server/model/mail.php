@@ -56,6 +56,7 @@ class mailmodel {
 			$values_arr = array();
 			foreach($mail['uids'] as $uid) {
 				if(empty($uid)) continue;
+				$uid = intval($uid);
 				$values_arr[] = "('$uid', '', '{$mail['subject']}', '{$mail['message']}', '{$mail['frommail']}', '{$mail['charset']}', '{$mail['htmlon']}', '{$mail['level']}', '{$mail['dateline']}', '0', '{$mail['appid']}')";
 			}
 			foreach($mail['emails'] as $email) {
@@ -72,7 +73,7 @@ class mailmodel {
 			$uids = 0;
 			foreach($mail['uids'] as $uid) {
 				if(empty($uid)) continue;
-				$uids .= ','.$uid;
+				$uids .= ','.intval($uid);
 			}
 			$users = $this->db->fetch_all("SELECT uid, username, email FROM ".UC_DBTABLEPRE."members WHERE uid IN ($uids)");
 			foreach($users as $v) {

@@ -630,18 +630,18 @@ EOF;
 	$feed = $thread = array();
 	if($tid) {
 		$thread = C::t('forum_thread')->fetch_thread($tid);
+		if(empty($_G['setting']['followforumid']) || $thread['fid'] != $_G['setting']['followforumid']) {
+			$flag = 0;
+		}
 		if($flag) {
 			$post = C::t('forum_post')->fetch_post($thread['posttableid'], $pid);
-			if($_G['uid'] != $post['authorid']) {
+			if($thread['tid'] != $post['tid']) {
 				showmessage('quickclear_noperm');
 			}
 			require_once libfile('function/discuzcode');
 			require_once libfile('function/followcode');
 			$post['message'] = followcode($post['message'], $tid, $pid);
 		} else {
-			if($_G['uid'] != $thread['authorid']) {
-				showmessage('quickclear_noperm');
-			}
 			if(!isset($_G['cache']['forums'])) {
 				loadcache('forums');
 			}
