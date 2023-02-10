@@ -2281,6 +2281,21 @@ EOT;
 
 		/*search={"setting_uc":"action=setting&operation=uc"}*/
 		showtips('setting_uc_tips');
+		// 新增 Discuz! 到 UCenter 的通信检测
+		if(!UC_STANDALONE) {
+			loaducenter();
+			showboxheader('setting_uc_linkstatus', '', 'id="linkstatus"');
+			$query = uc_app_ls();
+			$status = is_array($query) && count($query) >= 1 && !empty($query[UC_APPID]['type']) && $query[UC_APPID]['type'] == 'DISCUZX';
+			// 如果是数据库模式, 那么同时要测试接口是否可以正常通信
+			if($status && defined('UC_CONNECT') && UC_CONNECT == 'mysql') {
+				$query = call_user_func('uc_api_post', 'app', 'ls', array());
+				$query = uc_unserialize($query);
+				$status = is_array($query) && count($query) >= 1 && !empty($query[UC_APPID]['type']) && $query[UC_APPID]['type'] == 'DISCUZX';
+			}
+			echo '<em class="'.($status ? 'correct' : 'unfixed').'">'.lang("admincp", $status ? 'setting_uc_linkstatus_correct' : 'setting_uc_linkstatus_unfixed').'</em>';
+			showboxfooter();
+		}
 		showtableheader();
 		showsetting('setting_uc_appid', 'settingnew[uc][appid]', UC_APPID, 'text', $disable);
 		showsetting('setting_uc_key', 'settingnew[uc][key]', '********', 'text', $disable);

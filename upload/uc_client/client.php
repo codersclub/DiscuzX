@@ -103,7 +103,7 @@ function uc_api_post($module, $action, $arg = array()) {
 }
 
 function uc_api_requestdata($module, $action, $arg='', $extra='') {
-	$input = uc_api_input($arg);
+	$input = uc_api_input($arg, $module, $action);
 	$post = "m=$module&a=$action&inajax=2&release=".UC_CLIENT_RELEASE."&input=$input&appid=".UC_APPID.$extra;
 	return $post;
 }
@@ -113,7 +113,8 @@ function uc_api_url($module, $action, $arg='', $extra='') {
 	return $url;
 }
 
-function uc_api_input($data) {
+function uc_api_input($data, $module, $action) {
+	$data = $data."&m=$module&a=$action&appid=".UC_APPID;
 	$s = urlencode(uc_authcode($data.'&agent='.md5($_SERVER['HTTP_USER_AGENT'])."&time=".time(), 'ENCODE', UC_KEY));
 	return $s;
 }
@@ -516,7 +517,7 @@ function uc_user_logincheck($username, $ip) {
 }
 
 function uc_pm_location($uid, $newpm = 0) {
-	$apiurl = uc_api_url('pm_client', 'ls', "uid=$uid", ($newpm ? '&folder=newbox' : ''));
+	$apiurl = uc_api_url('pm_client', 'ls', "uid=$uid&frontend=1", ($newpm ? '&folder=newbox' : ''));
 	@header("Expires: 0");
 	@header("Cache-Control: private, post-check=0, pre-check=0, max-age=0", FALSE);
 	@header("Pragma: no-cache");
@@ -663,7 +664,7 @@ function uc_tag_get($tagname, $nums = 0) {
 
 function uc_avatar($uid, $type = 'virtual', $returnhtml = 1) {
 	$uid = intval($uid);
-	$uc_input = uc_api_input("uid=$uid");
+	$uc_input = uc_api_input("uid=$uid&frontend=1", "user", "rectavatar");
 	$avatarpath = UC_STANDALONE ? UC_AVTAPI : UC_API;
 	$uc_avatarflash = UC_API.'/images/camera.swf?inajax=1&appid='.UC_APPID.'&input='.$uc_input.'&agent='.md5($_SERVER['HTTP_USER_AGENT']).'&ucapi='.urlencode(UC_API).'&avatartype='.$type.'&uploadSize=2048';
 	$uc_avatarhtml5 = UC_API.'/index.php?m=user&a=camera&width=450&height=253&appid='.UC_APPID.'&input='.$uc_input.'&agent='.md5($_SERVER['HTTP_USER_AGENT']).'&ucapi='.urlencode(UC_API).'&avatartype='.$type.'&uploadSize=2048';

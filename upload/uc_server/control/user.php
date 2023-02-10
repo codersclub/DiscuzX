@@ -252,8 +252,7 @@ class usercontrol extends base {
 	function ondelete() {
 		$this->init_input();
 		$uid = $this->input('uid');
-		$action = $this->input('action');
-		return ($action == 'delete' || $this->settings['insecureuserdelete']) ? $_ENV['user']->delete_user($uid) : 0;
+		return $_ENV['user']->delete_user($uid);
 	}
 
 	function ondeleteavatar() {
@@ -357,7 +356,7 @@ class usercontrol extends base {
 		@header("Expires: 0");
 		@header("Cache-Control: private, post-check=0, pre-check=0, max-age=0", FALSE);
 		@header("Pragma: no-cache");
-		$this->init_input(getgpc('agent', 'G'));
+		$this->init_input(getgpc('agent', 'G'), false);
 
 		$uid = $this->input('uid');
 		if(empty($uid)) {
@@ -401,7 +400,7 @@ class usercontrol extends base {
 		}else{
 			header("Content-type: application/xml; charset=utf-8");
 		}
-		$this->init_input(getgpc('agent'));
+		$this->init_input(getgpc('agent'), false);
 		$uid = $this->input('uid');
 		if(empty($uid)) {
 			return '<root><message type="error" value="-1" /></root>';

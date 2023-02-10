@@ -16,7 +16,7 @@ class control extends adminbase {
 		'mailport', 'mailauth', 'mailfrom', 'mailauth_username', 'mailauth_password', 'maildelimiter',
 		'mailusername', 'mailsilent', 'pmcenter', 'privatepmthreadlimit', 'chatpmthreadlimit',
 		'chatpmmemberlimit', 'pmfloodctrl', 'sendpmseccode', 'pmsendregdays', 'login_failedtime',
-		'addappbyurl', 'insecureuserdelete', 'passwordalgo', 'passwordoptions');
+		'addappbyurl', 'insecureoperation', 'passwordalgo', 'passwordoptions');
 
 	function __construct() {
 		$this->control();
@@ -47,7 +47,7 @@ class control extends adminbase {
 			$sendpmseccode = getgpc('sendpmseccode', 'P');
 			$login_failedtime = getgpc('login_failedtime', 'P');
 			$addappbyurl = getgpc('addappbyurl', 'P');
-			$insecureuserdelete = getgpc('insecureuserdelete', 'P');
+			$insecureoperation = getgpc('insecureoperation', 'P');
 			$passwordalgo = getgpc('passwordalgo', 'P');
 			$passwordoptions = htmlspecialchars_decode(stripslashes(getgpc('passwordoptions', 'P')));
 			$dateformat = str_replace(array('yyyy', 'mm', 'dd'), array('y', 'n', 'j'), strtolower($dateformat));
@@ -81,7 +81,7 @@ class control extends adminbase {
 			$this->set_setting('sendpmseccode', $sendpmseccode ? 1 : 0);
 			$this->set_setting('login_failedtime', intval($login_failedtime));
 			$this->set_setting('addappbyurl', $addappbyurl);
-			$this->set_setting('insecureuserdelete', $insecureuserdelete);
+			$this->set_setting('insecureoperation', $insecureoperation);
 			$this->set_setting('passwordalgo', $passwordalgo);
 			$this->set_setting('passwordoptions', $passwordoptions);
 			$updated = true;
@@ -113,14 +113,14 @@ class control extends adminbase {
 		$pmcenterchecked['display'] = $settings['pmcenter'] ? '' : 'style="display:none"';
 		$addappbyurlchecked = array('','');
 		$addappbyurlchecked[$settings['addappbyurl']] = 'checked="checked"';
-		$insecureuserdeletechecked = array('','');
-		$insecureuserdeletechecked[$settings['insecureuserdelete']] = 'checked="checked"';
+		$insecureoperationchecked = array('','');
+		$insecureoperationchecked[$settings['insecureoperation']] = 'checked="checked"';
 		$this->view->assign('pmcenter', $pmcenterchecked);
 		$sendpmseccodechecked = array('','');
 		$sendpmseccodechecked[$settings['sendpmseccode']] = 'checked="checked"';
 		$this->view->assign('sendpmseccode', $sendpmseccodechecked);
 		$this->view->assign('addappbyurl', $addappbyurlchecked);
-		$this->view->assign('insecureuserdelete', $insecureuserdeletechecked);
+		$this->view->assign('insecureoperation', $insecureoperationchecked);
 		$this->view->assign('passwordalgo', $settings['passwordalgo']);
 		$this->view->assign('passwordoptions', htmlspecialchars($settings['passwordoptions']));
 		$timeoffset = intval($settings['timeoffset'] / 3600);

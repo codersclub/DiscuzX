@@ -2714,6 +2714,9 @@ $lang = array
 
 	'setting_uc' => 'UCenter 设置',
 	'setting_uc_tips' => '<li>本设置在站点安装时自动生成，一般情况下请不要修改，修改前请备份 config/config_ucenter.php 文件，以防止修改错误导致站点无法运行</li>',
+	'setting_uc_linkstatus' => '通信情况',
+	'setting_uc_linkstatus_correct' => '通信成功',
+	'setting_uc_linkstatus_unfixed' => '通信失败，请检查通信配置，使用 UCenter 提供的 "应用的 UCenter 配置信息" 覆盖 config/config_ucenter.php 文件内的常量或尝试设置 UCenter IP 地址',
 	'setting_uc_key' => 'UCenter 通信密钥',
 	'setting_uc_key_comment' => '通信密钥用于在 UCenter 和 Discuz! 之间传输信息的加密，可包含任何字母及数字，请在 UCenter 与 Discuz! 设置完全相同的通讯密钥，以确保两套系统能够正常通信',
 	'setting_uc_api' => 'UCenter 访问地址',
