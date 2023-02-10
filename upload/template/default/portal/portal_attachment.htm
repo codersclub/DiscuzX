@@ -9,7 +9,7 @@
 					</p>
 				</td>
 				<td class="atds">$attach[filesize]</td>
-				<td class="attc"><a href="javascript:;" class="d" onclick="deleteAttach($attach[attachid], 'portal.php?mod=attachment&id=$attach[attachid]&op=delete');;return false;" title="{lang delete}">{lang delete}</a></td>
+				<td class="attc"><a href="javascript:;" class="d" onclick="deleteAttach($attach[attachid], 'portal.php?mod=attachment&id=$attach[attachid]&op=delete&formhash={FORMHASH}');;return false;" title="{lang delete}">{lang delete}</a></td>
 			</tr>
 		</tbody>
 	</table>
@@ -25,7 +25,7 @@
 		<input type="radio" name="setconver" id="setconver$attach['attachid']" class="pr" value="1" onclick="setConver(this.getAttribute('coverstr'))" coverstr='$coverstr'>{lang portal_attachment_set_cover}
 	</label>
 	<span class="pipe">|</span>
-	<span class="cur1 xi2" onclick="deleteAttach('$attach['attachid']', 'portal.php?mod=attachment&id=$attach['attachid']&op=delete');">{lang delete}</span>
+	<span class="cur1 xi2" onclick="deleteAttach('$attach['attachid']', 'portal.php?mod=attachment&id=$attach['attachid']&op=delete&formhash={FORMHASH}');">{lang delete}</span>
 
 <!--{/if}-->
 <script type="text/javascript">

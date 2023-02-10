@@ -23,6 +23,9 @@ if($operation == 'delete') {
 	if(!$_G['group']['allowmanagearticle'] && ($_G['uid'] != $attach['uid'] || $aid != $attach['aid'])) {
 		showmessage('portal_attachment_nopermission_delete');
 	}
+	if(!isset($_GET['formhash']) || formhash() != $_GET['formhash']) {
+		showmessage('portal_attachment_nopermission_delete');
+	}
 	if($aid) {
 		C::t('portal_article_title')->update($aid, array('pic' => ''));
 	}

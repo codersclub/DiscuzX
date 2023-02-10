@@ -499,7 +499,7 @@ function uc_user_logincheck($username, $ip) {
 }
 
 function uc_pm_location($uid, $newpm = 0) {
-	$apiurl = uc_api_url('pm_client', 'ls', "uid=$uid", ($newpm ? '&folder=newbox' : ''));
+	$apiurl = uc_api_url('pm_client', 'ls', "uid=$uid&frontend=1", ($newpm ? '&folder=newbox' : ''));
 	@header("Expires: 0");
 	@header("Cache-Control: private, post-check=0, pre-check=0, max-age=0", FALSE);
 	@header("Pragma: no-cache");
@@ -646,7 +646,7 @@ function uc_tag_get($tagname, $nums = 0) {
 
 function uc_avatar($uid, $type = 'virtual', $returnhtml = 1) {
 	$uid = intval($uid);
-	$uc_input = uc_api_input("uid=$uid");
+	$uc_input = uc_api_input("uid=$uid&frontend=1");
 	$uc_avatarflash = UC_API.'/images/camera.swf?inajax=1&appid='.UC_APPID.'&input='.$uc_input.'&agent='.md5($_SERVER['HTTP_USER_AGENT']).'&ucapi='.urlencode(UC_API).'&avatartype='.$type.'&uploadSize=2048';
 	if($returnhtml) {
 		return '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="450" height="253" id="mycamera" align="middle">

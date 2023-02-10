@@ -80,7 +80,9 @@ class base {
 			$this->input = daddslashes($this->input, 1, TRUE);
 			$agent = $getagent ? $getagent : $this->input['agent'];
 
-			if(($getagent && $getagent != $this->input['agent']) || (!$getagent && md5($_SERVER['HTTP_USER_AGENT']) != $agent)) {
+			if($this->input('frontend') == 1 && !((getgpc('m') == 'user' && in_array(getgpc('a'), array('uploadavatar', 'rectavatar'))) || getgpc('m') == 'pm_client')) {
+				exit('Access denied for operation changed');
+			} elseif(($getagent && $getagent != $this->input['agent']) || (!$getagent && md5($_SERVER['HTTP_USER_AGENT']) != $agent)) {
 				exit('Access denied for agent changed');
 			} elseif($this->time - $this->input('time') > 3600) {
 				exit('Authorization has expired');

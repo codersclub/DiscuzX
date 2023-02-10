@@ -200,7 +200,7 @@ if(submitcheck('profilesubmit')) {
 			}
 		}
 	}
-	if($_FILES) {
+	if($_FILES && $field['formtype'] == 'file') {
 		$upload = new discuz_upload();
 		foreach($_FILES as $key => $file) {
 			if(!isset($_G['cache']['profilesetting'][$key])) {

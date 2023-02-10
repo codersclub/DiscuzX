@@ -264,6 +264,7 @@ $lang = array (
   'announcement_nonexistence' => '抱歉，目前没有公告供查看',
 
   'attachment_expired' => '抱歉，原附件链接已失效 <br /><a href="forum.php?mod=attachment&aid={aid}">[ 点击这里重新下载 ]</a><br /><a href="forum.php?mod=redirect&goto=findpost&pid={pid}&ptid={tid}">[ 点击这里查看原帖 ]</a>',
+  'attachment_expired_nosession' => '抱歉，原附件链接已失效<br /><a href="forum.php?mod=redirect&goto=findpost&pid={pid}&ptid={tid}">[ 点击这里查看原帖 ]</a>',
   'attachment_referer_invalid' => '请不要从外部链接下载本站附件',
   'attachment_payto' => '附件所在主题需要付费，请您付费后下载',
   'attachement_payto_attach' => '附件需要付费，请您付费后下载',

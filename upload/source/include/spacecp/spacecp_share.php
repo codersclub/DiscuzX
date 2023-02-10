@@ -370,17 +370,19 @@ if($_GET['op'] == 'delete') {
 					$_POST['portal_referer'] = $article_url ? $article_url : 'portal.php?mod=view&aid='.$id;
 				}
 
+				$_G['setting']['seccodestatus'] = 0;
+				$_G['setting']['secqaa']['status'] = 0;
 
-				$modpost = C::m('forum_post', $currentid);
+				$_POST['replysubmit'] = true;
+				$_GET['tid'] = $currentid;
+				$_GET['action'] = 'reply';
+				$_GET['message'] = $_POST['general'];
+				include_once libfile('function/forum');
+				require_once libfile('function/post');
+				loadforum();
 
-
-				$params = array(
-					'subject' => '',
-					'message' => $_POST['general'],
-				);
-
-				$modpost->newreply($params);
-				$modnewreplies = $modpost->param('modnewreplies');                
+				$inspacecpshare = 1;
+				include_once libfile('forum/post', 'module');
 
 				if($_POST['portal_referer']) {
 					$redirecturl = $_POST['portal_referer'];
