@@ -1,0 +1,39 @@
+<!--{template home/spacecp_header}-->
+<!--{template home/spacecp_credit_header}-->
+<!--{hook/spacecp_credit_top}-->
+<!--{if $_G[setting][transferstatus] && $_G['group']['allowtransfer']}-->
+<form id="transferform" name="transferform" method="post" autocomplete="off" action="home.php?mod=spacecp&ac=credit&op=transfer">
+	<input type="hidden" name="formhash" value="{FORMHASH}" />
+	<input type="hidden" name="transfersubmit" value="true" />
+	<input type="hidden" name="handlekey" value="transfercredit" />
+	<div class="post_box">
+		<ul class="cl">
+			<li class="flex-box mli">
+				<div class="tit flex">{lang memcp_credits_transfer}&nbsp;</div>
+				<div class="flex-3"><input type="text" name="transferamount" id="transferamount" class="px" size="5" value="0" /></div>
+				<span class="input-append">{$_G[setting][extcredits][$_G[setting][creditstransextra][9]][title]}</span>
+			</li>
+			<li class="flex-box mli">
+				<div class="tit flex">{lang credits_give}&nbsp;</div>
+				<div class="flex-3"><input type="text" name="to" id="to" class="px" size="15" /></div>
+			</li>
+			<li class="mli">
+				<input type="password" name="password" class="px" value="" placeholder="{lang transfer_login_password}" />
+			</li>
+			<li class="mli">
+				<input type="text" name="transfermessage" class="px" size="40" placeholder="{lang credits_transfer_message}" />
+			</li>
+		</ul>
+	</div>
+	<div class="text-muted">
+		{lang memcp_credits_transfer_min_balance} $_G[setting][transfermincredits] {$_G[setting][extcredits][$_G[setting][creditstransextra][9]][unit]}<br />
+		<!--{if intval($taxpercent) > 0}-->{lang credits_tax} $taxpercent<!--{/if}-->
+	</div>
+	<div class="post_btn">
+		<button type="submit" name="transfersubmit_btn" id="transfersubmit_btn" class="pn btn_pn" value="true"><em>{lang memcp_credits_transfer}</em></button>
+		<span style="display: none" id="return_transfercredit"></span>
+	</div>
+</form>
+<!--{/if}-->
+<!--{hook/spacecp_credit_bottom}-->
+</div>

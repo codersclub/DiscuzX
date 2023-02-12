@@ -1,42 +1,42 @@
 <!--{template common/header}-->
 <!--{template home/spacecp_header}-->
 <!--{template home/spacecp_credit_header}-->
-
+<!--{hook/spacecp_credit_top}-->
 <!--{if $loglist}-->
 <div class="home_credit_log mt10 mb10 cl">
-    <ul>
-        <!--{loop $loglist $value}-->
-        <!--{eval $value = makecreditlog($value, $otherinfo);}-->
-        <li class="cl">
-            <p class="flex-box align-items-center justify-content-between">
-                <span>
-                    <!--{if $value['operation']}-->
-                    <a href="home.php?mod=spacecp&ac=credit&op=log&optype=$value['operation']">$value['optype']</a>
-                    <!--{else}-->
-                    $value['title']
-                    <!--{/if}-->
-                </span>
-                <span>{$value['credit']}</span>
-            </p>
-            <p class="flex-box align-items-center justify-content-between mt5">
-                <span class="txt">
-                    <!--{if $value['operation']}-->
-                    $value['opinfo']
-                    <!--{else}-->
-                    $value['text']
-                    <!--{/if}-->
-                </span>
-                <span class="mtime">$value['dateline']</span>
-            </p>
-        </li>
-        <!--{/loop}-->
-    </ul>
-    <!--{if $multi}--><div class="pgs cl mtm">$multi</div><!--{/if}-->
+	<ul>
+		<!--{loop $loglist $value}-->
+		<!--{eval $value = makecreditlog($value, $otherinfo);}-->
+		<li class="cl">
+			<p class="flex-box align-items-center justify-content-between">
+				<span>
+					<!--{if $value['operation']}-->
+					<a href="home.php?mod=spacecp&ac=credit&op=log&optype=$value['operation']">$value['optype']</a>
+					<!--{else}-->
+					$value['title']
+					<!--{/if}-->
+				</span>
+				<span>{$value['credit']}</span>
+			</p>
+			<p class="flex-box align-items-center justify-content-between mt5">
+				<span class="txt">
+					<!--{if $value['operation']}-->
+					$value['opinfo']
+					<!--{else}-->
+					$value['text']
+					<!--{/if}-->
+				</span>
+				<span class="mtime">$value['dateline']</span>
+			</p>
+		</li>
+		<!--{/loop}-->
+	</ul>
+	<!--{if $multi}--><div class="pgs cl mtm">$multi</div><!--{/if}-->
 </div>
 <!--{else}-->
 <div class="empty-box mt10 cl">
-    <h4>{lang doing_no_replay}</h4>
+	<h4>{lang doing_no_replay}</h4>
 </div>
 <!--{/if}-->
-
+<!--{hook/spacecp_credit_bottom}-->
 <!--{template common/footer}-->

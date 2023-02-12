@@ -1,0 +1,47 @@
+<!--{template home/spacecp_header}-->
+<!--{template home/spacecp_credit_header}-->
+<!--{hook/spacecp_credit_top}-->
+{eval
+	$_TPL['cycletype'] = array(
+		'0' => '{lang one_time}',
+		'1' => '{lang everyday}',
+		'2' => '{lang the_time}',
+		'3' => '{lang interval_minutes}',
+		'4' => '{lang open_cycle}'
+	);
+}
+<div class="post_box setbox">
+	<ul class="c">
+		<li class="mli">
+			<select onchange="location.href='home.php?mod=spacecp&ac=credit&op=rule&fid='+this.value" class="sort_sel"><option value="">{lang credit_rule_global}</option>$select</select>
+		</li>
+	</ul>
+</div>
+<div class="text-muted">
+	<p>{lang activity_award_message}</p>
+</div>
+<table cellspacing="0" cellpadding="0" class="dt valt">
+	<tr>
+		<th class="xw1">{lang action_name}</th>
+		<th class="xw1">{lang cycle_range}</th>
+		<th class="xw1">{lang max_award_per_week}</th>
+		<!--{loop $_G['setting']['extcredits'] $key $value}-->
+		<th class="xw1">$value[title]</th>
+		<!--{/loop}-->
+	</tr>
+	<!--{eval $i = 0;}-->
+	<!--{loop $list $key $value}-->
+	<!--{eval $i++;}-->
+	<tr{if $i % 2 == 0} class="alt"{/if}>
+		<td>$value[rulename]</td>
+		<td>$_TPL[cycletype][$value[cycletype]]</td>
+		<td><!--{if $value[rewardnum]}-->$value[rewardnum]<!--{else}-->{lang unlimited_time}<!--{/if}--></td>
+		<!--{loop $_G['setting']['extcredits'] $key $credit}-->
+		<!--{eval $creditkey = 'extcredits'.$key;}-->
+		<td><!--{if $value[$creditkey] > 0}-->+$value[$creditkey]<!--{elseif $value[$creditkey] < 0}-->$value[$creditkey]<!--{else}-->0<!--{/if}--></td>
+		<!--{/loop}-->
+	</tr>
+	<!--{/loop}-->
+</table>
+<!--{hook/spacecp_credit_bottom}-->
+</div>

@@ -6,6 +6,9 @@
 				<li class="swiper-slide<!--{if $_GET['op'] == 'log' && $_GET['income'] == 1}--> mon<!--{/if}-->"><a href="home.php?mod=spacecp&ac=credit&op=log&income=1">{lang credit_income_1}</a></li>
 				<li class="swiper-slide<!--{if $_GET['op'] == 'log' && $_GET['income'] == -1}--> mon<!--{/if}-->"><a href="home.php?mod=spacecp&ac=credit&op=log&income=-1">{lang credit_income_2}</a></li>
 				<!--{if $_G['setting']['ec_ratio'] || $_G['setting']['card']['open']}--><li class="swiper-slide<!--{if $_GET['op'] == 'buy'}--> mon<!--{/if}-->"><a href="home.php?mod=spacecp&ac=credit&op=buy">{lang home_credit_buy}</a></li><!--{/if}-->
+				<!--{if $_G[setting][transferstatus] && $_G['group']['allowtransfer']}--><li class="swiper-slide<!--{if $_GET['op'] == 'transfer'}--> mon<!--{/if}-->"><a href="home.php?mod=spacecp&ac=credit&op=transfer">{lang transfer_credits}</a></li><!--{/if}-->
+				<!--{if $_G[setting][exchangestatus]}--><li class="swiper-slide<!--{if $_GET['op'] == 'exchange'}--> mon<!--{/if}-->"><a href="home.php?mod=spacecp&ac=credit&op=exchange">{lang exchange_credits}</a></li><!--{/if}-->
+				<li class="swiper-slide<!--{if $_GET['op'] == 'rule'}--> mon<!--{/if}-->"><a href="home.php?mod=spacecp&ac=credit&op=rule">{lang credit_rule}</a></li>
 			</ul>
 		</div>
 	</div>

@@ -1,0 +1,129 @@
+<!--{template home/spacecp_header}-->
+<!--{template home/spacecp_credit_header}-->
+<!--{hook/spacecp_credit_top}-->
+<!--{if $_G[setting][exchangestatus] && ($_G[setting][extcredits] || $_CACHE['creditsettings'])}-->
+<form id="exchangeform" name="exchangeform" method="post" autocomplete="off" action="home.php?mod=spacecp&ac=credit&op=exchange&handlekey=credit" onsubmit="showWindow('credit', 'exchangeform', 'post');">
+	<input type="hidden" name="formhash" value="{FORMHASH}" />
+	<input type="hidden" name="operation" value="exchange" />
+	<input type="hidden" name="exchangesubmit" value="true" />
+	<input type="hidden" name="outi" value="" />
+	<div class="post_box">
+		<ul class="cl">
+			<li class="flex-box mli">
+				<div class="tit flex">{lang memcp_credits_exchange}&nbsp;</div>
+				<div class="flex-2"><input type="text" id="exchangeamount" name="exchangeamount" class="px" size="5" value="0" onkeyup="exchangecalcredit()" /></div>
+				<div class="flex input">
+					<select name="tocredits" id="tocredits" class="sort_sel" onChange="exchangecalcredit()">
+					<!--{loop $_G[setting][extcredits] $id $ecredits}-->
+						<!--{if $ecredits[allowexchangein] && $ecredits[ratio]}-->
+							<option value="$id" unit="$ecredits['unit']" title="$ecredits['title']" ratio="$ecredits['ratio']">$ecredits['title']</option>
+						<!--{/if}-->
+					<!--{/loop}-->
+					<!--{eval $i=0;}-->
+
+					<!--{loop $_CACHE['creditsettings'] $id $data}--><!--{eval $i++;}-->
+						<!--{if $data['title']}-->
+						<option value="$id" outi="$i">{$data['title']}</option>
+						<!--{/if}-->
+					<!--{/loop}-->
+					</select>
+				</div>
+			</li>
+			<li class="flex-box mli">
+				<div class="tit flex">{lang credits_need}&nbsp;</div>
+				<div class="flex-2"><input type="text" id="exchangedesamount" class="px" size="5" value="0" disabled="disabled" /></div>
+				<div class="flex input">
+					<select name="fromcredits" id="fromcredits_0" class="sort_sel" style="display: none" onChange="exchangecalcredit();">
+					<!--{loop $_G[setting][extcredits] $id $credit}-->
+						<!--{if $credit[allowexchangeout] && $credit[ratio]}-->
+							<option value="$id" unit="$credit['unit']" title="$credit['title']" ratio="$credit['ratio']">$credit['title']</option>
+						<!--{/if}-->
+					<!--{/loop}-->
+					</select>
+					<!--{eval $i=0;}-->
+					<!--{loop $_CACHE['creditsettings'] $id $data}--><!--{eval $i++;}-->
+						<select name="fromcredits_$i" id="fromcredits_$i" class="sort_sel" style="display: none" onChange="exchangecalcredit()">
+						<!--{loop $data['creditsrc'] $id $ratio}-->
+							<option value="$id" unit="$_G['setting']['extcredits'][$id]['unit']" title="$_G['setting']['extcredits'][$id]['title']" ratiosrc="$data['ratiosrc'][$id]" ratiodesc="$data['ratiodesc'][$id]">$_G['setting']['extcredits'][$id]['title']</option>
+						<!--{/loop}-->
+						</select>
+					<!--{/loop}-->
+					<script type="text/javascript">
+						var tocredits = getID('tocredits');
+						var fromcredits = getID('fromcredits_0');
+						if(fromcredits.length > 1 && tocredits.value == fromcredits.value) {
+							fromcredits.selectedIndex = tocredits.selectedIndex + 1;
+						}
+					</script>
+				</div>
+			</li>
+			<li class="mli">
+				<input type="password" name="password" class="px" value="" placeholder="{lang transfer_login_password}" />
+			</li>
+		</ul>
+	</div>
+	<div class="text-muted">
+							<!--{if $_G[setting][exchangemincredits]}-->
+								{lang memcp_credits_exchange_min_balance} $_G[setting][exchangemincredits]<br />
+							<!--{/if}-->
+							<span id="taxpercent">
+							<!--{if intval($taxpercent) > 0}-->
+								{lang credits_tax} $taxpercent
+							<!--{/if}-->
+							</span>
+	</div>
+	<div class="post_btn">
+		<button type="submit" name="exchangesubmit_btn" id="exchangesubmit_btn" class="pn" value="true" tabindex="2"><em>{lang memcp_credits_exchange}</em></button>
+	</div>
+</form>
+
+			<script type="text/javascript">
+				function exchangecalcredit() {
+					with(getID('exchangeform')) {
+						tocredit = tocredits[tocredits.selectedIndex];
+						if(!tocredit) {
+							return;
+						}
+						
+						<!--{eval $i=0;}-->
+						<!--{loop $_CACHE['creditsettings'] $id $data}--><!--{eval $i++;}-->
+							getID('fromcredits_$i').style.display = 'none';
+						<!--{/loop}-->
+						if(tocredit.getAttribute('outi')) {
+							outi.value = tocredit.getAttribute('outi');
+							fromcredit = getID('fromcredits_' + tocredit.getAttribute('outi'));
+							getID('taxpercent').style.display = getID('fromcredits_0').style.display = 'none';
+							fromcredit.style.display = '';
+							fromcredit = fromcredit[fromcredit.selectedIndex];
+							getID('exchangeamount').value = getID('exchangeamount').value.toInt();
+							if(getID('exchangeamount').value != 0) {
+								getID('exchangedesamount').value = Math.floor( fromcredit.getAttribute('ratiosrc') / fromcredit.getAttribute('ratiodesc') * $('exchangeamount').value);
+							} else {
+								getID('exchangedesamount').value = '';
+							}
+						} else {
+							outi.value = 0;
+							getID('taxpercent').style.display = getID('fromcredits_0').style.display = '';
+							fromcredit = fromcredits[fromcredits.selectedIndex];
+							getID('exchangeamount').value = getID('exchangeamount').value.toInt();
+							if(fromcredit.getAttribute('title') != tocredit.getAttribute('title') && getID('exchangeamount').value != 0) {
+								if(tocredit.getAttribute('ratio') < fromcredit.getAttribute('ratio')) {
+									getID('exchangedesamount').value = Math.ceil( tocredit.getAttribute('ratio') / fromcredit.getAttribute('ratio') * getID('exchangeamount').value * (1 + $_G[setting][creditstax]));
+								} else {
+									getID('exchangedesamount').value = Math.floor( tocredit.getAttribute('ratio') / fromcredit.getAttribute('ratio') * getID('exchangeamount').value * (1 + $_G[setting][creditstax]));
+								}
+							} else {
+								getID('exchangedesamount').value = '';
+							}
+						}
+					}
+				}
+				String.prototype.toInt = function() {
+					var s = parseInt(this);
+					return isNaN(s) ? 0 : s;
+				}
+				exchangecalcredit();
+			</script>
+<!--{/if}-->
+<!--{hook/spacecp_credit_bottom}-->
+</div>

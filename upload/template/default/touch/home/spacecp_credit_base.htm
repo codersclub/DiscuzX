@@ -1,10 +1,15 @@
 <!--{template common/header}-->
 
 <!--{if $_GET['op'] == 'buy'}-->
-<!--{subtemplate home/spacecp_credit_buy}-->
+<!--{template home/spacecp_credit_buy}-->
+<!--{elseif $_GET['op'] == 'transfer'}-->
+<!--{template home/spacecp_credit_transfer}-->
+<!--{elseif $_GET['op'] == 'exchange'}-->
+<!--{template home/spacecp_credit_exchange}-->
+<!--{elseif $_GET['op'] == 'rule'}-->
+<!--{template home/spacecp_credit_rule}-->
 <!--{elseif $_GET['op'] == 'base'}-->
 <!--{eval dheader('Location: home.php?mod=spacecp&ac=credit&op=log');}-->
 <!--{/if}-->
-
 
 <!--{template common/footer}-->
