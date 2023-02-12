@@ -113,10 +113,10 @@
 	<!--{if $_G['setting']['magicstatus']}-->
 	<div class="mgc">
 		<!--{if !empty($_G['setting']['magics']['showip'])}-->
-			<a href="home.php?mod=magic&mid=showip&idtype=user&id=$encodeusername" id="a_showip_li_{$space[pid]}" onclick="showWindow(this.id, this.href)"><img src="{STATICURL}/image/magic/showip.small.gif" class="vm" title="$_G['setting']['magics']['showip']" /> $_G['setting']['magics']['showip']</a>
+			<a href="home.php?mod=magic&mid=showip&idtype=user&id=$encodeusername" id="a_showip_li_{$space[pid]}" onclick="showWindow(this.id, this.href)"><img src="{STATICURL}image/magic/showip.small.gif" class="vm" title="$_G['setting']['magics']['showip']" /> $_G['setting']['magics']['showip']</a>
 		<!--{/if}-->
 		<!--{if !empty($_G['setting']['magics']['checkonline']) && $space['uid'] != $_G['uid']}-->
-			<a href="home.php?mod=magic&mid=checkonline&idtype=user&id=$encodeusername" id="a_repent_{$space[pid]}" onclick="showWindow(this.id, this.href)"><img src="{STATICURL}/image/magic/checkonline.small.gif" class="vm" title="$_G['setting']['magics']['checkonline']" /> $_G['setting']['magics']['checkonline']</a>
+			<a href="home.php?mod=magic&mid=checkonline&idtype=user&id=$encodeusername" id="a_repent_{$space[pid]}" onclick="showWindow(this.id, this.href)"><img src="{STATICURL}image/magic/checkonline.small.gif" class="vm" title="$_G['setting']['magics']['checkonline']" /> $_G['setting']['magics']['checkonline']</a>
 		<!--{/if}-->
 		<!--{hook/space_card_magic_user}-->
 	</div>
