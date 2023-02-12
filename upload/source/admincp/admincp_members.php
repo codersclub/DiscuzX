@@ -106,7 +106,7 @@ EOF;
 					$freezeshow = $member['freeze'] ? '<em class="lightnum">['.cplang('freeze').']</em>' : '';
 					$members .= showtablerow('', array('class="td25"', '', 'title="'.implode("\n", $memberextcredits).'"'), array(
 						"<input type=\"checkbox\" name=\"uidarray[]\" value=\"{$member['uid']}\"".($member['adminid'] == 1 ? 'disabled' : '')." class=\"checkbox\">",
-						($_G['setting']['connect']['allow'] && $member['conisbind'] ? '<img class="vmiddle" src="'.STATICURL.'/image/common/connect_qq.gif" /> ' : '')."<a href=\"home.php?mod=space&uid={$member['uid']}\" target=\"_blank\">{$member['username']}</a>",
+						($_G['setting']['connect']['allow'] && $member['conisbind'] ? '<img class="vmiddle" src="'.STATICURL.'image/common/connect_qq.gif" /> ' : '')."<a href=\"home.php?mod=space&uid={$member['uid']}\" target=\"_blank\">{$member['username']}</a>",
 						$member['credits'],
 						$member['posts'],
 						$usergroups[$member['adminid']]['grouptitle'],
@@ -1259,7 +1259,7 @@ EOF;
 		/*search={"members_group":"action=members&operation=group"}*/
 		shownav('user', 'members_group');
 		showsubmenu('members_group_member', array(), '', array('username' => $member['username']));
-		echo '<script src="'.STATICURL.'/js/calendar.js" type="text/javascript"></script>';
+		echo '<script src="'.STATICURL.'js/calendar.js" type="text/javascript"></script>';
 		showformheader("members&operation=group&uid={$member['uid']}");
 		showtableheader('usergroup', 'nobottom');
 		showsetting('members_group_group', '', '', '<select name="groupidnew" onchange="if(in_array(this.value, ['.$radmingids.'])) {$(\'relatedadminid\').style.display = \'\';$(\'adminidnew\').name=\'adminidnew[\' + this.value + \']\';} else {$(\'relatedadminid\').style.display = \'none\';$(\'adminidnew\').name=\'adminidnew[0]\';}"><optgroup label="'.$lang['usergroups_system'].'">'.$groups['system'].'<optgroup label="'.$lang['usergroups_special'].'">'.$groups['special'].'<optgroup label="'.$lang['usergroups_specialadmin'].'">'.$groups['specialadmin'].'<optgroup label="'.$lang['usergroups_member'].'">'.$groups['member'].'</select>');

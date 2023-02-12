@@ -425,7 +425,7 @@ function threadsortshow($sortid, $tid) {
 								$_G['forum_option'][$option['identifier']]['value'] = $imgoptiondata['url'] ? "<a href=\"".$imgoptiondata['url']."\" target=\"_blank\">".lang('forum/misc', 'click_view')."</a>" : '';
 							}
 						} else {
-							$_G['forum_option'][$option['identifier']]['value'] = $imgoptiondata['url'] ? $imgoptiondata['url'] : STATICURL.'/image/common/nophoto.gif';
+							$_G['forum_option'][$option['identifier']]['value'] = $imgoptiondata['url'] ? $imgoptiondata['url'] : STATICURL.'image/common/nophoto.gif';
 						}
 					} elseif($option['type'] == 'url') {
 						$_G['forum_option'][$option['identifier']]['value'] = $optiondata[$optionid]['value'] ? "<a href=\"".$optiondata[$optionid]['value']."\" target=\"_blank\">".$optiondata[$optionid]['value']."</a>" : '';
