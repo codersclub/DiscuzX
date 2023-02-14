@@ -2308,6 +2308,8 @@ EOF;
 				cpmsg('members_email_domain_illegal', '', 'error');
 			} elseif($ucresult == -6) {
 				cpmsg('members_email_duplicate', '', 'error');
+			} elseif($ucresult == -8) {
+				cpmsg('members_edit_protectedmembers', '', 'error');
 			} elseif($ucresult == -9) {
 				cpmsg('members_mobile_duplicate', '', 'error');
 			}

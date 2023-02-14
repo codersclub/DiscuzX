@@ -63,6 +63,7 @@ $lang = array (
   'members_mobile_duplicate' => '该安全手机号已经被注册',
   'members_mobicc_illegal' => '安全手机号国际电话区号格式不正确',
   'members_mobile_illegal' => '安全手机号格式不正确',
+  'members_edit_protectedmembers' => 'UCenter受保护用户无法直接编辑',
   'members_edit_succeed' => '用户资料更新成功 ',
   'members_profile_edit_succeed' => '用户栏目更新成功 ',
   'members_stat_update_data_succeed' => '统计数据更新成功 ',
