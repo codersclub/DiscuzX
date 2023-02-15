@@ -23,7 +23,7 @@ class table_forum_medal extends discuz_table
 
 	public function fetch_all_data($available = false, $start = 0, $limit = 0) {
 		$available = $available !== false ? ' WHERE available='.intval($available) : '';
-		return DB::fetch_all('SELECT * FROM %t %i ORDER BY displayorder'.DB::limit($start, $limit), array($this->_table, $available));
+		return DB::fetch_all('SELECT * FROM %t %i ORDER BY displayorder, medalid'.DB::limit($start, $limit), array($this->_table, $available));
 	}
 	public function fetch_all_name_by_available($available = 1) {
 		$data = array();
@@ -43,7 +43,7 @@ class table_forum_medal extends discuz_table
 		if(!$id) {
 			return;
 		}
-		return DB::fetch_all("SELECT * FROM %t WHERE %i ORDER BY displayorder", array($this->_table, DB::field('medalid', $id)));
+		return DB::fetch_all("SELECT * FROM %t WHERE %i ORDER BY displayorder, medalid", array($this->_table, DB::field('medalid', $id)));
 	}
 
 
