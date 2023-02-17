@@ -163,7 +163,7 @@ class membersearch {
 			}
 
 			$selectsql = $onlyCount ? 'SELECT COUNT(DISTINCT '.$table1.'.'.$uidfield.') as cnt ' : 'SELECT DISTINCT '.$table1.'.'.$uidfield.$asuid;
-			return $selectsql.' FROM '.implode(', ', $parts).' WHERE '.implode(' AND ', $wheres)." ORDER BY uid";
+			return $selectsql.' FROM '.implode(', ', $parts).' WHERE '.implode(' AND ', $wheres)." ORDER BY ".$table1.".".$uidfield;
 		} else {
 			$selectsql = $onlyCount ? 'SELECT COUNT(uid) as cnt ' : 'SELECT uid';
 			return $selectsql.' FROM '.DB::table('common_member'.($isarchive ? '_archive' : ''))." WHERE 1 ORDER BY uid";
