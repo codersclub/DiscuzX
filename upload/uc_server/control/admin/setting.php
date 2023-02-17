@@ -96,6 +96,7 @@ class control extends adminbase {
 		$settings['dateformat'] = str_replace(array('y', 'n', 'j'), array('yyyy', 'mm', 'dd'), $settings['dateformat']);
 		$settings['timeformat'] = $settings['timeformat'] == 'H:i' ? 1 : 0;
 		$settings['pmcenter'] = $settings['pmcenter'] ? 1 : 0;
+		$settings['insecureoperation'] = $settings['insecureoperation'] ? 1 : 0;
 		$a = getgpc('a');
 		$this->view->assign('a', $a);
 
