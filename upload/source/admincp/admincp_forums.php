@@ -57,7 +57,7 @@ var rowtypedata = [
 		}
 
 		foreach ($groups as $id => $gforum) {
-			$toggle = $forumcount > 50 && count($forums[$id]) > 2;
+			$toggle = $forumcount > 50 && isset($forums[$id]) && is_array($forums[$id]) && count($forums[$id]) > 2;
 			$showed[] = showforum($gforum, 'group', '', $toggle);
 			if(!empty($forums[$id])) {
 				foreach ($forums[$id] as $forum) {
