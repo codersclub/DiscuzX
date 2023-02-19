@@ -123,7 +123,7 @@ class adv_threadlist {
 			}
 			$vt = $_G[\'adv_vtp_thread\'];
 			$adi = !empty($_G[\'adv_vtp\'][1][$_G[\'adv_vtp_count\']]) ? 1 : 0;
-			$adary = array_diff($_G[\'adv_vtp\'][$adi][$_G[\'adv_vtp_count\']], $_G[\'adv_vtp_showed\']);
+			$adary = !empty($_G[\'adv_vtp\'][$adi][$_G[\'adv_vtp_count\']]) && is_array($_G[\'adv_vtp\'][$adi][$_G[\'adv_vtp_count\']]) ? array_diff($_G[\'adv_vtp\'][$adi][$_G[\'adv_vtp_count\']], $_G[\'adv_vtp_showed\']) : array();
 			$adid = empty($adary) ? 0 : $adary[array_rand($adary)];
 			$_G[\'adv_vtp_showed\'][] = $adid;
 			$vttid = $parameters[$adid][\'tid\'];
