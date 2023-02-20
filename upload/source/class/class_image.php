@@ -395,7 +395,7 @@ class image {
 					$im->thumbnailImage($this->param['thumbwidth'], $this->param['thumbheight']);
 					$im->resizeImage($this->param['thumbwidth'], $this->param['thumbheight']);
 					$im->setGravity(imagick::GRAVITY_CENTER );
-					$im->extentImage($this->param['thumbwidth'], $this->param['thumbheight']);
+					$im->extentImage($this->param['thumbwidth'], $this->param['thumbheight'], 0, 0);
 
 					if(!$im->writeImage($this->target)) {
 						$im->destroy();
@@ -419,7 +419,7 @@ class image {
 					$im->setImageCompressionQuality($this->param['thumbquality']);
 					$im->thumbnailImage($this->param['thumbwidth'], $this->param['thumbheight']);
 					$im->setGravity(imagick::GRAVITY_CENTER );
-					$im->extentImage($this->param['thumbwidth'], $this->param['thumbheight']);
+					$im->extentImage($this->param['thumbwidth'], $this->param['thumbheight'], 0, 0);
 					if(!$im->writeImage($this->target)) {
 						$im->destroy();
 						return -3;
