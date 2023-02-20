@@ -199,7 +199,7 @@ function show_todo() {
 }
 
 function show_releasetips() {
-	global $reldisp, $_G;
+	global $_G, $reldisp, $newversion;
 
 	$siteuniqueid = C::t('common_setting')->fetch_setting('siteuniqueid');
 	if(empty($siteuniqueid) || strlen($siteuniqueid) < 16) {
@@ -226,6 +226,14 @@ function show_releasetips() {
 		C::t('common_setting')->update('siterelease', $releasehash);
 		C::t('common_setting')->update('sitereleasetips', 1);
 		$sitereleasetips = 1;
+		require_once libfile('function/cloudaddons');
+		$newversion = json_decode(cloudaddons_open('&mod=app&ac=upgrade'), true);
+		if(!empty($newversion['newversion'])) {
+			$newversion['updatetime'] = $_G['timestamp'];
+			C::t('common_setting')->update_setting('cloudaddons_newversion', ((CHARSET == 'utf-8') ? $newversion : json_encode($newversion)));
+		} else {
+			$newversion = array();
+		}
 		require_once libfile('function/cache');
 		updatecache('setting');
 	}
