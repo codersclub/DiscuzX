@@ -64,6 +64,9 @@
 								<input type="button" value="{lang close}" class="dialog button" href="forum.php?mod=topicadmin&action=moderate&fid={$_G['fid']}&moderate[]={$_G['tid']}&from={$_G['tid']}&optgroup=4">
 								<input type="button" value="{lang admin_banpost}" class="dialog button" href="forum.php?mod=topicadmin&action=banpost&fid={$_G['fid']}&tid={$_G['tid']}&topiclist[]={$_G['forum_firstpid']}">
 								<input type="button" value="{lang topicadmin_warn_add}" class="dialog button" href="forum.php?mod=topicadmin&action=warn&fid={$_G['fid']}&tid={$_G['tid']}&topiclist[]={$_G['forum_firstpid']}">
+								<!--{if !empty($post['totalrate']) && $_G['forum']['ismoderator']}-->
+								<input type="button" value="{lang removerate}" class="dialog button" href="forum.php?mod=misc&action=removerate&tid={$_G['tid']}&pid={$post['pid']}&page={$page}">
+								<!--{/if}-->
 							</div>
 						<!--{elseif !$post['first'] && $modmenu['post']}-->
 							<em class="mgl"><a href="#moption_$post['pid']" class="popup">{lang manage}</a></em>
@@ -74,6 +77,9 @@
 								<!--{if $_G['group']['allowwarnpost']}--><input type="button" value="{lang modmenu_warn}" class="dialog button" href="forum.php?mod=topicadmin&action=warn&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}"><!--{/if}-->
 								<!--{if $_G['forum']['ismoderator'] && $_G['group']['allowstickreply'] || $_G['forum_thread']['authorid'] == $_G['uid']}--><input type="button" value="{lang modmenu_stickpost}" class="dialog button" href="forum.php?mod=topicadmin&action=stickreply&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}"><!--{/if}-->
 								<!--{if $_G['forum_thread']['pushedaid'] && $allowpostarticle}--><input type="button" value="{lang modmenu_pushplus}" class="dialog button" href="portal.php?mod=portalcp&ac=article&op=pushplus&action=pushplus&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}&aid={$_G['forum_thread']['pushedaid']}"><!--{/if}-->
+								<!--{if !empty($post['totalrate']) && $_G['forum']['ismoderator']}-->
+								<input type="button" value="{lang removerate}" class="dialog button" href="forum.php?mod=misc&action=removerate&tid={$_G['tid']}&pid={$post['pid']}&page={$page}">
+								<!--{/if}-->
 							</div>
 						<!--{else}-->
 							<!--{if (($_G['forum']['ismoderator'] && $_G['group']['alloweditpost'] && (!in_array($post['adminid'], array(1, 2, 3)) || $_G['adminid'] <= $post['adminid'])) || ($_G['forum']['alloweditpost'] && $_G['uid'] && ($post['authorid'] == $_G['uid'] && $_G['forum_thread']['closed'] == 0) && !(!$alloweditpost_status && $edittimelimit && TIMESTAMP - $post['dbdateline'] > $edittimelimit)))}-->
