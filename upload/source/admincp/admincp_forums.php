@@ -484,6 +484,7 @@ var rowtypedata = [
 	require_once libfile('function/forumlist');
 	require_once libfile('function/domain');
 	$highlight = getgpc('highlight');
+	$highlight = !empty($highlight) ? dhtmlspecialchars($highlight, ENT_QUOTES) : '';
 	$anchor = getgpc('anchor');
 
 	list($pluginsetting, $pluginvalue) = get_pluginsetting('forums');
