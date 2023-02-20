@@ -23,8 +23,13 @@ if($operation == 'articlecomments') {
 }
 if(!submitcheck('modsubmit') && !$_GET['fast']) {
 
-	shownav('topic', $lang['moderate_articlecomments']);
-	showsubmenu('nav_moderate_articlecomments', $submenu);
+	if($operation == 'articlecomments') {
+		shownav('topic', $lang['moderate_articlecomments']);
+		showsubmenu('nav_moderate_articlecomments', $submenu);
+	} else {
+		shownav('topic', $lang['moderate_topiccomments']);
+		showsubmenu('nav_moderate_topiccomments', $submenu);
+	}
 
 	$select[$_GET['tpp']] = $_GET['tpp'] ? "selected='selected'" : '';
 	$tpp_options = "<option value='20' $select[20]>20</option><option value='50' $select[50]>50</option><option value='100' $select[100]>100</option>";
