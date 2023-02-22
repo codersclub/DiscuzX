@@ -467,7 +467,7 @@ if($operation == 'admin') {
 
 		$adv = !empty($_GET['adv']) ? 1 : 0;
 
-		shownav('style', 'styles_edit');
+		shownav('template', 'styles_edit');
 
 		showsubmenu(cplang('styles_admin').' - '.$style['name'], array(
 			array('admin', 'styles', 0),
@@ -529,6 +529,7 @@ function imgpre_switch(id) {
 
 		if(!$configflag) {
 			echo '<iframe class="preview" frameborder="0" src="' . ADMINSCRIPT . '?action=styles&preview=yes&styleid=' . $id . '"></iframe>';
+			/*search={"styles_admin":"action=styles&operation=edit"}*/
 			showtips('styles_tips');
 
 			showformheader("styles&operation=edit&id=$id");
@@ -585,6 +586,7 @@ function imgpre_switch(id) {
 			showsubmit('editsubmit', 'submit', 'del');
 			showtablefooter();
 			showformfooter();
+			/*search*/
 		}
 	} else {
 		$style = C::t('common_style')->fetch_by_styleid($id);

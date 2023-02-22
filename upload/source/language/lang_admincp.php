@@ -6156,7 +6156,7 @@ $lang = array
 	'tools_updatecache_data'=>'数据缓存',
 	'tools_updatecache_tpl'=>'模板缓存',
 	'tools_updatecache_blockclass'=>'DIY 模块分类缓存',
-	'tools_updatecache_searchindex'=>'搜索索引缓存',
+	'tools_updatecache_searchindex'=>'后台搜索索引缓存',
 	'tools_updatecache_waiting'=>'正在更新缓存，请稍候......',
 
 	'fileperms_check_note' => '主要检查文件及文件夹的写入权限，点击下面按钮开始进行检查',
