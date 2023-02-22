@@ -1622,7 +1622,8 @@ EOF;
 		foreach($setting['mail']['smtp'] as $id => $smtp) {
 			$checkauth = $smtp['auth'] ? 'checked' : '';
 			$smtp['auth_password'] = $smtp['auth_password'] ? $smtp['auth_password'][0].'********'.substr($smtp['auth_password'], -2) : '';
-			showtablerow('', array('class="td25"', 'class="td28"', 'class="td28"'), array(
+			$smtp['timeout'] = strlen(trim($smtp['timeout'])) ? intval($smtp['timeout']) : 30;
+			showtablerow('', array('class="td25"', 'class="td28"', 'class="td28"', 'class="td28"'), array(
 				"<input class=\"checkbox\" type=\"checkbox\" name=\"settingnew[mail][smtp][delete][]\" value=\"$id\">",
 				"<input type=\"text\" class=\"txt\" name=\"settingnew[mail][smtp][$id][server]\" value=\"{$smtp['server']}\" style=\"width: 90%;\">",
 				"<input type=\"text\" class=\"txt\" name=\"settingnew[mail][smtp][$id][port]\" value=\"{$smtp['port']}\">",
@@ -1654,6 +1655,7 @@ EOF;
 		foreach($setting['mail']['smtp'] as $id => $smtp) {
 			$checkauth = $smtp['auth'] ? 'checked' : '';
 			$smtp['auth_password'] = $smtp['auth_password'] ? $smtp['auth_password'][0].'********'.substr($smtp['auth_password'], -2) : '';
+			$smtp['timeout'] = strlen(trim($smtp['timeout'])) ? intval($smtp['timeout']) : 30;
 
 			showtablerow('', array('class="td25"', 'class="td28"', 'class="td28"', 'class="td25"'), array(
 			"<input class=\"checkbox\" type=\"checkbox\" name=\"settingnew[mail][esmtp][delete][]\" value=\"$id\">",
@@ -3229,15 +3231,17 @@ EOT;
 	if($isfounder && isset($settingnew['mail'])) {
 		$setting['mail'] = dunserialize($setting['mail']);
 		$oldsmtp = $settingnew['mail']['mailsend'] == 3 ? $settingnew['mail']['smtp'] : $settingnew['mail']['esmtp'];
+		$deletesmtp = $settingnew['mail']['mailsend'] != 1 ? $oldsmtp['delete'] : array();
 		$settingnew['mail']['smtp'] = array();
-		$deletesmtp = $settingnew['mail']['mailsend'] != 1 ? ($settingnew['mail']['mailsend'] == 3 ? $settingnew['mail']['smtp']['delete'] : $settingnew['mail']['esmtp']['delete']) : array();
 		foreach($oldsmtp as $id => $value) {
 			if((empty($deletesmtp) || !in_array($id, $deletesmtp)) && !empty($value['server']) && !empty($value['port'])) {
 				$passwordmask = $setting['mail']['smtp'][$id]['auth_password'] ? $setting['mail']['smtp'][$id]['auth_password'][0].'********'.substr($setting['mail']['smtp'][$id]['auth_password'], -2) : '';
 				$value['auth_password'] = $value['auth_password'] == $passwordmask ? $setting['mail']['smtp'][$id]['auth_password'] : $value['auth_password'];
+				$value['timeout'] = strlen(trim($value['timeout'])) ? intval($value['timeout']) : 30;
 				$settingnew['mail']['smtp'][] = $value;
 			}
 		}
+		unset($settingnew['mail']['esmtp']);
 
 		if(!empty($_GET['newsmtp'])) {
 			foreach($_GET['newsmtp']['server'] as $id => $server) {
@@ -3245,7 +3249,7 @@ EOT;
 					$settingnew['mail']['smtp'][] = array(
 							'server' => $server,
 							'port' => $_GET['newsmtp']['port'][$id] ? intval($_GET['newsmtp']['port'][$id]) : 25,
-							'timeout' => isset($_GET['newsmtp']['timeout'][$id]) ? intval($_GET['newsmtp']['timeout'][$id]) : 30,
+							'timeout' => strlen(trim($_GET['newsmtp']['timeout'][$id])) ? intval($_GET['newsmtp']['timeout'][$id]) : 30,
 							'auth' => $_GET['newsmtp']['auth'][$id] ? 1 : 0,
 							'from' => $_GET['newsmtp']['from'][$id],
 							'auth_username' => $_GET['newsmtp']['auth_username'][$id],

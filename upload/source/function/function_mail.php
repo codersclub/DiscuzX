@@ -45,7 +45,7 @@ function sendmail($toemail, $subject, $message = '', $from = '') {
 			$smtp = $_G['setting']['mail']['smtp'][$rid];
 			$_G['setting']['mail']['server'] = $smtp['server'];
 			$_G['setting']['mail']['port'] = $smtp['port'];
-			$_G['setting']['mail']['timeout'] = isset($smtp['timeout']) ? intval($smtp['timeout']) : 30;
+			$_G['setting']['mail']['timeout'] = isset($smtp['timeout']) && strlen($smtp['timeout']) ? intval($smtp['timeout']) : 30;
 			$_G['setting']['mail']['auth'] = $smtp['auth'] ? 1 : 0;
 			$_G['setting']['mail']['from'] = $smtp['from'];
 			$_G['setting']['mail']['auth_username'] = $smtp['auth_username'];

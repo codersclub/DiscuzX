@@ -32,7 +32,7 @@ $mail['email_to'] = implode(',', $tousers);
 $headers = "From: $email_from{$maildelimiter}X-Priority: 3{$maildelimiter}X-Mailer: Discuz! $version{$maildelimiter}MIME-Version: 1.0{$maildelimiter}Content-type: text/".($mail['htmlon'] ? 'html' : 'plain')."; charset={$mail['charset']}{$maildelimiter}Content-Transfer-Encoding: base64{$maildelimiter}";
 
 $mail_setting['mailport'] = $mail_setting['mailport'] ? $mail_setting['mailport'] : 25;
-$mail_setting['mailtimeout'] = isset($mail_setting['mailtimeout']) ? intval($mail_setting['mailtimeout']) : 30;
+$mail_setting['mailtimeout'] = isset($mail_setting['mailtimeout']) && strlen($mail_setting['mailtimeout']) ? intval($mail_setting['mailtimeout']) : 30;
 
 if($mail_setting['mailsend'] == 1 && function_exists('mail')) {
 

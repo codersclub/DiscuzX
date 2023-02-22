@@ -13,7 +13,7 @@ class control extends adminbase {
 
 	var $_setting_items = array('doublee', 'accessemail', 'censoremail', 'censorusername',
 		'dateformat', 'timeoffset', 'timeformat', 'extra', 'maildefault', 'mailsend', 'mailserver',
-		'mailport', 'mailauth', 'mailfrom', 'mailauth_username', 'mailauth_password', 'maildelimiter',
+		'mailport', 'mailtimeout', 'mailauth', 'mailfrom', 'mailauth_username', 'mailauth_password', 'maildelimiter',
 		'mailusername', 'mailsilent', 'pmcenter', 'privatepmthreadlimit', 'chatpmthreadlimit',
 		'chatpmmemberlimit', 'pmfloodctrl', 'sendpmseccode', 'pmsendregdays', 'login_failedtime',
 		'addappbyurl', 'insecureoperation', 'passwordalgo', 'passwordoptions');
@@ -166,11 +166,14 @@ class control extends adminbase {
 	}
 
 	function onmail() {
-		$items = array('maildefault', 'mailsend', 'mailserver', 'mailport', 'mailauth', 'mailfrom', 'mailauth_username', 'mailauth_password', 'maildelimiter', 'mailusername', 'mailsilent');
+		$items = array('maildefault', 'mailsend', 'mailserver', 'mailport', 'mailtimeout', 'mailauth', 'mailfrom', 'mailauth_username', 'mailauth_password', 'maildelimiter', 'mailusername', 'mailsilent');
 		$updated = false;
 		if($this->submitcheck()) {
 			foreach($items as $item) {
 				$value = getgpc($item, 'P');
+				if($item == 'mailtimeout') {
+					$value = strlen(trim($value)) ? intval($value) : 30;
+				}
 				$this->set_setting($item, $value);
 			}
 			$updated = true;
@@ -183,6 +186,9 @@ class control extends adminbase {
 			$this->_add_note_for_setting($settings);
 		}
 		foreach($items as $item) {
+			if($item == 'mailtimeout') {
+				$settings[$item] = strlen(trim($settings[$item])) ? intval($settings[$item]) : 30;
+			}
 			$this->view->assign($item, dhtmlspecialchars($settings[$item]));
 		}
 

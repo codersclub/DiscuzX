@@ -253,6 +253,15 @@
 						</td>
 						<td valign="top">{lang settings_mail_settings_port_comment}</td>
 					</tr>
+					<tr>
+						<td colspan="2">{lang settings_mail_settings_timeout}:</td>
+					</tr>
+					<tr>
+						<td>
+							<input name="mailtimeout" value="{$mailtimeout}" type="text">
+						</td>
+						<td valign="top">{lang settings_mail_settings_timeout_comment}</td>
+					</tr>
 					</tbody>
 					<tbody id="hidden2"{if $mailsend == 1 || $mailsend == 3} style="display:none"{/if}>
 					<tr>
