@@ -937,6 +937,7 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .plc .pi .img_list li {width:100%;text-align:center;vertical-align:middle}
 .plc .pi .img_list li a {display:block}
 .plc .pi .img_list li img {margin:7px 0;max-width:100%;border-radius:4px}
+.plc .psth {margin: 2em 0 2em -15px;padding: 5px 45px 5px 15px;width: 70%;background: var(--dz-BOR-ed);color: var(--dz-FC-666);font-size: 14px;border-radius: 0 14px 14px 0;}
 .mtime .manage, .mtime .dialogbox {width:90%;padding:10px;background-color:var(--dz-BG-0);overflow:hidden;border-radius:8px}
 .mtime .manage .button, .mtime .dialogbox .button {float:left;width:46%;margin:2%}
 .replybtn {display:none;position:absolute;right:0;top:12px}

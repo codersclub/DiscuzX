@@ -176,6 +176,71 @@
 			<!--{/if}-->
 			<!--{if $post['first']}-->
 			<!--{/if}-->
+			
+			<!--{if $_GET['from'] != 'preview' && !empty($post['ratelog'])}-->
+				<h3 class="psth xs1"><span class="icon_ring vm"></span>{lang rate}</h3>
+				<div id="ratelog_{$post['pid']}">
+					<!--{if $_G['setting']['ratelogon']}-->
+						<dd style="margin:0">
+					<!--{else}-->
+						<dd>
+					<!--{/if}-->
+						<div id="post_rate_$post[pid]"></div>
+						<!--{if $_G['setting']['ratelogon']}-->
+							<ul class="post_box cl">
+								<li class="flex-box mli p0">
+									<div class="flex-2 xs1 xg1 xw1"><span class="z"><a href="forum.php?mod=misc&action=viewratings&tid=$_G['tid']&pid=$post['pid']" class="dialog" title="{lang rate_view}"> {lang number_of_participants} <span class="xi1"><!--{echo count($postlist[$post['pid']]['totalrate']);}--></span></a></span></div>
+									<!--{loop $post['ratelogextcredits'] $id $score}-->
+										<!--{if $score > 0}-->
+										<div class="flex-2 xs1 xg1 xw1">{$_G['setting']['extcredits'][$id]['title']} <i><span class="xi1">+$score</span></i></div>
+										<!--{else}-->
+										<div class="flex-2 xs1 xg1 xw1">{$_G['setting']['extcredits'][$id]['title']} <i><span class="xi1">$score</span></i></div>
+										<!--{/if}-->
+									<!--{/loop}-->
+									<div class="flex-3 xs1 xg1 xw1">{lang reason}</div>
+								</li>
+								<!--{loop $post['ratelog'] $uid $ratelog}-->
+								<li class="flex-box mli p0">
+									<div class="flex-2 xs1 xg1 xw1"><span class="z"><a href="home.php?mod=space&uid=$uid" target="_blank">$ratelog['username']</a></span></div>
+									<!--{loop $post['ratelogextcredits'] $id $score}-->
+										<!--{if $ratelog['score'][$id] > 0}-->
+										<div class="flex-2 xs1 xi1 xw1"> + $ratelog['score'][$id]</div>
+										<!--{else}-->
+										<div class="flex-2 xs1 xg1 xw1">$ratelog['score'][$id]</div>
+										<!--{/if}-->
+									<!--{/loop}-->
+									<div class="flex-3 xs1 xg1 xw1">$ratelog['reason']</div>
+								</li>
+								<!--{/loop}-->
+								<li class="flex-box mli p0"><div class="flex xs2 xg1 xw1"><a href="forum.php?mod=misc&action=viewratings&tid=$_G['tid']&pid=$post['pid']" title="{lang rate_view}" class="dialog">{lang rate_view}</a></div></li>
+							</ul>
+						<!--{else}-->
+							<div class="forumlist">
+								<div class="sub-forum mlist4 cl">
+								<ul class="cl">
+									<!--{loop $post['ratelog'] $uid $ratelog}-->
+										<li class="b0">
+											<span class="micon"><a href="home.php?mod=space&uid=$uid" target="_blank"><!--{echo avatar($uid, 'small');}--></a></span>
+											<a href="home.php?mod=space&uid=$uid" class="murl"><p class="mtit">$ratelog['username']</p></a>
+											<!--{loop $ratelog['score'] $id $score}-->
+											<!--{if $score > 0}-->
+												<p class="mtit"><em class='xi1'>{$_G['setting']['extcredits'][$id]['title']} + $score $_G['setting']['extcredits'][$id]['unit']</em></p>
+											<!--{else}-->
+												<p class="mtit"><span>{$_G['setting']['extcredits'][$id]['title']} $score $_G['setting']['extcredits'][$id]['unit']</span></p>
+											<!--{/if}-->
+											<!--{/loop}-->
+										</li>
+									<!--{/loop}-->
+								</ul>
+								<div class="xs2 xg1 xw1"><a href="forum.php?mod=misc&action=viewratings&tid=$_G['tid']&pid=$post['pid']" title="{lang rate_view}" class="dialog">{lang rate_view}</a></div>
+								</div>
+							</div>
+						<!--{/if}-->
+					</dd>
+				</div>
+			<!--{else}-->
+				<div id="post_rate_div_{$post['pid']}"></div>
+			<!--{/if}-->
 		</div>
 		<div class="threadlist_foot cl">
 			<ul>

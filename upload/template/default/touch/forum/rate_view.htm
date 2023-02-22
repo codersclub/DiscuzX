@@ -1,0 +1,31 @@
+<!--{template common/header}-->
+<div class="tip loginbox loginpop p5" id="floatlayout_topicadmin">
+	<h2 class="log_tit" id="return_rate"><a href="javascript:;" onclick="popup.close();"><span class="icon_close y">&nbsp;</span></a>{lang rate_view}</h2>
+	<ul class="post_box cl" style="max-height:200px; overflow-y:auto;">
+		<li class="flex-box mli">
+			<div class="flex-2 xs1 xg1"><span class="z">{lang credits}</span></div>
+			<div class="flex-2 xs1 xg1"><span class="z">{lang username}</span></div>
+			<div class="flex-3 xs1 xg1"><span class="y">{lang time}</span></div>
+		</li>
+		<!--{loop $loglist $log}-->
+		<li class="flex-box mli">
+			<div class="flex-2 xs1 xg1"><span class="z">{$_G['setting']['extcredits'][$log['extcredits']]['title']} $log['score'] {$_G['setting']['extcredits'][$log['extcredits']]['unit']}</span></div>
+			<div class="flex-2 xs1 xg1"><span class="z">{$log['username']}</span></div>
+			<div class="flex-3 xs1 xg1"><span class="y">{$log['dateline']}</span></div>
+		</li>
+		<!--{if $log['reason']}-->
+		<li class="flex-box mli">
+			<div class="flex xs1 xg1"><span class="z">{$log['reason']}</span></div>
+		</li>
+		<!--{/if}-->
+		<!--{/loop}-->
+	</ul>
+
+	<div class="o pns">
+		{lang total}:
+		<!--{loop $logcount $id $count}-->
+		&nbsp;{$_G['setting']['extcredits'][$id][title]} <!--{if $count>0}-->+<!--{/if}-->$count {$_G['setting']['extcredits'][$id][unit]} &nbsp;
+		<!--{/loop}-->
+	</div>
+</div>
+<!--{template common/footer}-->
