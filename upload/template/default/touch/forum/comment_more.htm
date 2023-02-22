@@ -1,0 +1,31 @@
+<!--{template common/header}-->
+<!--{if $comments}-->
+	<h3 class="psth xs1"><span class="icon_ring vm"></span>{lang comments}</h3>
+	<!--{if $totalcomment}--><div class="pstl">$totalcomment</div><!--{/if}-->
+	<!--{loop $comments $comment}-->
+				<div class="plc p0 cl" id="commentdetail_{$comment['id']}">
+					<div class="avatar l0">$comment['avatar']</div>
+						<div class="display pi">
+						<ul class="authi">
+							<li class="mtit">
+								<span class="y"><!--{if $comment['useip'] && $_G['group']['allowviewip']}-->IP:$comment['useip']{if $comment['port']}:$comment['port']{/if}<!--{/if}--></span>
+								<span class="z">
+								<!--{if $comment['authorid']}-->
+									<a href="home.php?mod=space&uid=$comment['authorid']" class="xi2 xw1">$comment['author']</a>
+								<!--{else}-->
+									{lang guest}
+								<!--{/if}-->
+								</span>
+							</li>
+							<li class="mtime">
+								<em class="mgl"><!--{if $_G['forum']['ismoderator'] && $_G['group']['allowdelpost']}--><a href="forum.php?mod=topicadmin&action=delcomment&fid={$_G['fid']}&tid={$_G['tid']}&moderate[]={$_G['tid']}&topiclist[]={$comment['id']}&page={$_G['page']}" class="dialog">{lang delete}</a><!--{/if}--></em>
+								{lang poston} $comment['dateline']
+							</li>
+							<li class="mtxt mt5">$comment['comment']</li>
+						</ul>
+					</div>
+				</div>
+	<!--{/loop}-->
+<!--{/if}-->
+<div class="pgs page mpage mbm cl">$multi</div>
+<!--{template common/footer}-->

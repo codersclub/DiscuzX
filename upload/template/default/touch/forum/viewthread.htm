@@ -176,7 +176,37 @@
 			<!--{/if}-->
 			<!--{if $post['first']}-->
 			<!--{/if}-->
-			
+			<div id="comment_$post['pid']">
+			<!--{if $_GET['from'] != 'preview' && $_G['setting']['commentnumber'] && !empty($comments[$post['pid']])}-->
+				<h3 class="psth xs1"><span class="icon_ring vm"></span>{lang comments}</h3>
+				<!--{if $totalcomment[$post['pid']]}--><div class="pstl">$totalcomment[$post['pid']]</div><!--{/if}-->
+				<!--{loop $comments[$post['pid']] $comment}-->
+				<div class="plc p0 cl" id="commentdetail_{$comment['id']}">
+					<div class="avatar l0">$comment['avatar']</div>
+						<div class="display pi">
+						<ul class="authi">
+							<li class="mtit">
+								<span class="y"><!--{if $comment['useip'] && $_G['group']['allowviewip']}-->IP:$comment['useip']{if $comment['port']}:$comment['port']{/if}<!--{/if}--></span>
+								<span class="z">
+								<!--{if $comment['authorid']}-->
+									<a href="home.php?mod=space&uid=$comment['authorid']" class="xi2 xw1">$comment['author']</a>
+								<!--{else}-->
+									{lang guest}
+								<!--{/if}-->
+								</span>
+							</li>
+							<li class="mtime">
+								<em class="mgl"><!--{if $_G['forum']['ismoderator'] && $_G['group']['allowdelpost']}--><a href="forum.php?mod=topicadmin&action=delcomment&fid={$_G['fid']}&tid={$_G['tid']}&moderate[]={$_G['tid']}&topiclist[]={$comment['id']}&page={$_G['page']}" class="dialog">{lang delete}</a><!--{/if}--></em>
+								{lang poston} <!--{date($comment['dateline'], 'u')}-->
+							</li>
+							<li class="mtxt mt5">$comment['comment']</li>
+						</ul>
+					</div>
+				</div>
+				<!--{/loop}-->
+				<!--{if $commentcount[$post['pid']] > $_G['setting']['commentnumber']}--><div id="dumppage"></div><div class="pgs cl"><div class="page"><a href="javascript:;" class="nxt" onclick="ajaxget('forum.php?mod=misc&action=commentmore&tid=$post[tid]&pid=$post[pid]&page=2', 'comment_$post[pid]')">{lang next_page}</a></div></div><!--{/if}-->
+			<!--{/if}-->
+			</div>
 			<!--{if $_GET['from'] != 'preview' && !empty($post['ratelog'])}-->
 				<h3 class="psth xs1"><span class="icon_ring vm"></span>{lang rate}</h3>
 				<div id="ratelog_{$post['pid']}">
@@ -201,7 +231,7 @@
 								</li>
 								<!--{loop $post['ratelog'] $uid $ratelog}-->
 								<li class="flex-box mli p0">
-									<div class="flex-2 xs1 xg1 xw1"><span class="z"><a href="home.php?mod=space&uid=$uid" target="_blank">$ratelog['username']</a></span></div>
+									<div class="flex-2 xs1 xg1"><span class="z"><a href="home.php?mod=space&uid=$uid" target="_blank">$ratelog['username']</a></span></div>
 									<!--{loop $post['ratelogextcredits'] $id $score}-->
 										<!--{if $ratelog['score'][$id] > 0}-->
 										<div class="flex-2 xs1 xi1 xw1"> + $ratelog['score'][$id]</div>
@@ -209,7 +239,7 @@
 										<div class="flex-2 xs1 xg1 xw1">$ratelog['score'][$id]</div>
 										<!--{/if}-->
 									<!--{/loop}-->
-									<div class="flex-3 xs1 xg1 xw1">$ratelog['reason']</div>
+									<div class="flex-3 xs1 xg1">$ratelog['reason']</div>
 								</li>
 								<!--{/loop}-->
 								<li class="flex-box mli p0"><div class="flex xs2 xg1 xw1"><a href="forum.php?mod=misc&action=viewratings&tid=$_G['tid']&pid=$post['pid']" title="{lang rate_view}" class="dialog">{lang rate_view}</a></div></li>
