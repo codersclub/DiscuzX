@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 function searchindex_cache() {
 	global $_G;
 	include_once DISCUZ_ROOT.'./source/discuz_version.php';
-	if(is_numeric(DISCUZ_RELEASE)) {
+	if(preg_match("#\d{8}#i", DISCUZ_RELEASE)) {
 		$cachedata = "lang('admincp_searchindex');\n\$searchindex = & \$_G['lang']['admincp_searchindex'];";
 		require_once libfile('function/cache');
 		writetocache('searchindex', $cachedata);
@@ -44,6 +44,7 @@ function searchindex_cache() {
 
 	$genlangi = '|'.implode('|', array_keys($genlang)).'|';
 
+	$flag = false;
 	$dir = opendir(DISCUZ_ROOT.'./source/admincp/');
 	while($entry = readdir($dir)) {
 		if($entry != '.' && $entry != '..' && preg_match('/^admincp\_/', $entry)) {
@@ -122,6 +123,7 @@ function searchindex_cache() {
 					}
 					if (!empty($l)) {
 						$indexdata[] = array('index' => $titlesnew, 'text' => $l);
+						$flag = true;
 					}
 				}
 			}
@@ -129,7 +131,7 @@ function searchindex_cache() {
 		}
 	}
 
-	if(!empty($indexdata)) {
+	if($flag) {
 		$cachedata = '$searchindex = '.var_export($indexdata, 1).';';
 	} else {
 		$cachedata = "lang('admincp_searchindex');\n\$searchindex = & \$_G['lang']['admincp_searchindex'];";
