@@ -64,6 +64,9 @@ function blog_post($POST, $olds=array()) {
 	$POST['tag'] = getstr($POST['tag'], 500);
 	$POST['tag'] = censor($POST['tag']);
 
+	if($POST['plaintext'] == true){
+		$POST['message'] = nl2br($POST['message']);
+	}
 	$POST['message'] = preg_replace("/\<div\>\<\/div\>/i", '', $POST['message']);
 	$POST['message'] = checkhtml($POST['message']);
 		$POST['message'] = getstr($POST['message'], 0, 0, 0, 0, 1);

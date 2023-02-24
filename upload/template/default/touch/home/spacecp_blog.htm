@@ -68,9 +68,10 @@
 
 <form method="post" id="postform" autocomplete="off" action="home.php?mod=spacecp&ac=blog&blogid=$blog[blogid]{if $_GET[modblogkey]}&modblogkey=$_GET[modblogkey]{/if}" onsubmit="validate(this);" enctype="multipart/form-data">
 	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}" />
+	<input type="hidden" name="plaintext" value="true" />
 	<input type="hidden" name="blogsubmit" value="true" />
 	<div class="post_from post_box">
-		<!--{hook/spacecp_blog_top}-->
+		<!--{hook/spacecp_blog_top_mobile}-->
 		<ul class="cl">
 			<li class="mli">
 				<input type="text" tabindex="1" class="px" id="subject" autocomplete="off" value="$blog[subject]" name="subject" placeholder="{lang memcp_blog}" fwin="login">
@@ -78,7 +79,7 @@
 			<li class="mtext">
 				<textarea class="pt" id="message" name="message" tabindex="3" autocomplete="off" name="$editor['textarea']" placeholder="{lang thread_content}" fwin="reply">$blog['message']</textarea>
 			</li>
-			<!--{hook/spacecp_blog_middle}-->
+			<!--{hook/spacecp_blog_middle_mobile}-->
 			<div class="discuz_x cl"></div>
 			<!--{if $_G['setting']['blogcategorystat'] && $categoryselect}-->
 			<li class="mtit p10 cl">
@@ -170,7 +171,7 @@
 				}
 			</script>
 
-			<!--{hook/spacecp_blog_bottom}-->
+			<!--{hook/spacecp_blog_bottom_mobile}-->
 			</div>
 		</div>
 	</div>
