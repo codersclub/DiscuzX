@@ -1,0 +1,42 @@
+<!--{template common/header}-->
+<div class="tip loginbox loginpop p5" id="floatlayout_collection">
+	<h2 class="log_tit" id="return_rate"><a href="javascript:;" onclick="popup.close();"><span class="icon_close y">&nbsp;</span></a>{lang collection}</h2>
+	<form action="forum.php?mod=collection&action=edit&op=addthread" method="post" id="form_addcollectionthread" name="form_addcollectionthread">
+		<ul class="post_box cl">
+			<li id="collectionlist" class="flex-box mli" {if $reamincreatenum > 0 && count($allowcollections) <= 0}style="display:none;"{/if}>
+				<div class="flex tit xs2">{lang collection_select}</div>
+				<div class="flex-2">
+					<select name="ctid" id="selectCollection" class="sort_sel">
+					<!--{loop $collections $collection}-->
+						<!--{if !is_array($tidcollections) || !in_array($collection['ctid'], $tidcollections)}-->
+							<option value="$collection['ctid']">$collection['name']</option>
+						<!--{/if}-->
+					<!--{/loop}-->
+					</select>
+				</div>
+			</li>
+			<li class="flex-box mli" {if $reamincreatenum <= 0}style="display:none;"{/if} id="allowcreate">
+				<div class="flex-3 xs2"><!--{if !$collections}-->{lang collection_select_nocollection}<!--{/if}-->{lang collection_select_remain} <a href="forum.php?mod=collection&action=edit" target="_blank" class="xi2" id="createRemainTips">{lang collection_create}</a></div>
+			</li>
+			<dt class="mpt">
+				<textarea name="reason" id="formreason" cols="50" rows="2" class="pt" placeholder="{lang collection_addreason}"></textarea>
+			</dt>
+		</ul>
+		<!--{if $tid}-->
+			<input type="hidden" name="tids[]" value="$tid">
+		<!--{elseif is_array($_GET['tids'])}-->
+			<!--{loop $_GET['tids'] $tid}-->
+				<input type="hidden" name="tids[]" value="$tid">
+			<!--{/if}-->
+		<!--{/if}-->
+		<input type="hidden" name="inajax" value="1">
+		<input type="hidden" name="handlekey" value="$_GET['handlekey']">
+		<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}" />
+		<input type="hidden" name="addthread" id="addthread" value="1" />
+		<dd>
+		<a href="forum.php?mod=collection&op=my" target="_blank" class="button z">{lang collection_view_mine}</a>
+		<button type="submit" name="submitaddthread" id="btn_submitaddthread" class="button y formdialog"><span>{lang collection_addbtn}</span></button>
+		</dd>
+	</form>
+</div>
+<!--{template common/footer}-->

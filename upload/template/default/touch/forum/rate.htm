@@ -13,7 +13,7 @@
 		<ul class="post_box cl">
 			<!--{eval $rateselfflag = 0;}-->
 			<!--{loop $ratelist $id $options}-->
-			<li class="flex-box mli" style="padding-bottom:0;">
+			<li class="flex-box mli">
 				<div class="flex tit">{$_G['setting']['extcredits'][$id]['img']} {$_G['setting']['extcredits'][$id]['title']}</div>
 				<div class="flex"><input type="text" name="score{$id}" id="score{$id}" value="0" for="rate{$id}_change" class="input show" style="padding:4px 0;" /></div>
 				<div class="flex y">

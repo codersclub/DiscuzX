@@ -69,13 +69,13 @@
 			<div class="mtm sec"><!--{subtemplate common/seccheck}--></div>
 			<!--{/if}-->
 		</dt>
-		<dt>
+		<ul class="post_box cl">
 			<!--{if $commentcable[$type]}-->
-			<label><input type="checkbox" class="pc" name="iscomment" value="1"/><!--{if $type == 'thread'}-->{lang post_add_inonetime}<!--{else}-->{lang comment_add_inonetime}<!--{/if}--></label>
+			<label><li class="flex-box b0"><div class="flex tit"><!--{if $type == 'thread'}-->{lang post_add_inonetime}<!--{else}-->{lang comment_add_inonetime}<!--{/if}--></div><div class="flex"></div><div class="flex y"><input type="checkbox" class="pc" name="iscomment" value="1"/></div></li></label>
 			<!--{/if}-->
-		</dt>
+		</ul>
 		<dd>
-			<button type="submit" name="sharesubmit_btn" id="sharesubmit_btn" class="pn pnc" value="true"><strong>{lang determine}</strong></button>
+			<button type="submit" name="sharesubmit_btn" id="sharesubmit_btn" class="pn pnc formdialog" value="true"><strong>{lang determine}</strong></button>
 		</dd>
 	</form>
 <!--{/if}-->

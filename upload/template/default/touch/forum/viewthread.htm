@@ -332,8 +332,14 @@ $multipage
 	<!--{if helper_access::check_module('favorite')}-->
 		<a href="home.php?mod=spacecp&ac=favorite&type=thread&id={$_G['tid']}" class="dialog flex mx"><i class="dm-star"></i><!--{if $_G['forum_thread']['favtimes']}-->{$_G['forum_thread']['favtimes']}<!--{/if}-->{lang favorite}</a>
 	<!--{/if}-->
+	<!--{if helper_access::check_module('follow')}-->
+		<a href="home.php?mod=spacecp&ac=follow&op=relay&tid={$_G['tid']}&from=forum" class="dialog flex mx"><i class="fico-launch"></i><!--{if $_G['forum_thread']['relay']}-->{$_G['forum_thread']['relay']}<!--{/if}-->{lang thread_realy}</a>
+	<!--{/if}-->
 	<!--{if helper_access::check_module('share')}-->
 		<a href="home.php?mod=spacecp&ac=share&type=thread&id={$_G['tid']}" class="dialog flex mx"><i class="dm-star"></i><!--{if $_G['forum_thread']['sharetimes']}-->{$_G['forum_thread']['sharetimes']}<!--{/if}-->{lang thread_share}</a>
+	<!--{/if}-->
+	<!--{if !$_G['forum']['disablecollect'] && helper_access::check_module('collection')}-->
+		<a href="forum.php?mod=collection&action=edit&op=addthread&tid={$_G['tid']}" class="dialog flex mx"><i class="fico-collection"></i><!--{if $post['releatcollectionnum']}-->{$post['releatcollectionnum']}<!--{/if}-->{lang collection}</a>
 	<!--{/if}-->
 </div>
 <div class="foot_height_view"></div>
