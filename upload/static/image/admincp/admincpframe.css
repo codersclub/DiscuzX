@@ -26,7 +26,7 @@ nav ul ul a>em:hover { border-radius: 1px; border-width: 1.25px; border-color: #
 #navbtn { display: none; align-items: center; padding-right: 20px; }
 #navbtn>div { height: 18px; width: 20px; border: 0; padding: 0; background: linear-gradient(0deg, #2b7acd 25%, transparent 25%) bottom; background-size: 8px 8px; }
 .currentloca { display: flex; height: 50px; padding: 0 20px; align-items: center; color: #000; }
-.currentloca a { display: block; position: relative; width: 18px; height: 18px; border-radius: 9px; color: transparent; background-color: #2b7acd; }
+.currentloca a { display: block; position: relative; width: 18px; height: 18px; border-radius: 9px; color: transparent; background-color: #2b7acd; overflow: hidden; text-indent: 1000px; }
 .currentloca a::before, .currentloca a::after { content: ""; background: #fff; position: absolute; }
 .currentloca a::before { width: 8px; height: 2px; top: 8px; left: 5px; }
 .currentloca a::after { width: 2px; height: 8px; top: 5px; left: 8px; }
