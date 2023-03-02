@@ -9,6 +9,10 @@ function $(id) {
 	return !id ? null : document.getElementById(id);
 }
 
+function getID(id) {
+	return !id ? null : document.getElementById(id);
+}
+
 function $C(classname, ele, tag) {
 	var returns = [];
 	ele = ele || document;
