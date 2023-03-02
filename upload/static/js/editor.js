@@ -27,7 +27,6 @@ function newEditor(mode, initialtext) {
 		} else {
 			var iframe = document.createElement('iframe');
 			iframe.frameBorder = '0';
-			iframe.tabIndex = 2;
 			iframe.hideFocus = true;
 			iframe.style.display = 'none';
 			editbox = textobj.parentNode.appendChild(iframe);

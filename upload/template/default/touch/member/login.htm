@@ -22,8 +22,8 @@
 	<!--{/if}-->
 	<div class="login_from">
 		<ul>
-			<li><input type="text" value="" tabindex="1" class="px" autocomplete="off" value="" name="username" placeholder="{lang inputyourname}" fwin="login"></li>
-			<li><input type="password" tabindex="2" class="px" value="" name="password" placeholder="{lang login_password}" fwin="login"></li>
+			<li><input type="text" value="" class="px" autocomplete="off" value="" name="username" placeholder="{lang inputyourname}" fwin="login"></li>
+			<li><input type="password" class="px" value="" name="password" placeholder="{lang login_password}" fwin="login"></li>
 			<li class="questionli">
 				<div class="login_select">
 				<span class="login-btn-inner">
@@ -50,7 +50,7 @@
 		<!--{subtemplate common/seccheck}-->
 		<!--{/if}-->
 	</div>
-	<div class="btn_login"><button tabindex="3" value="true" name="submit" type="submit" class="formdialog pn">{lang login}</button></div>
+	<div class="btn_login"><button value="true" name="submit" type="submit" class="formdialog pn">{lang login}</button></div>
 	</form>
 	<!--{if $_G['setting']['connect']['allow'] && !$_G['setting']['bbclosed']}-->
 	<div class="btn_qqlogin"><a href="$_G['connect']['login_url']&statfrom=login_simple" class="pn">{lang qqconnect:connect_mobile_login}</a></div>
@@ -64,11 +64,11 @@
 		<input type="hidden" name="handlekey" value="lostpwform" />
 		<div class="login_from">
 			<ul>
-				<li><input type="text" tabindex="1" class="px" value="" name="email" placeholder="{lang email}" fwin="login"></li>
-				<li><input type="text" tabindex="2" class="px" value="" name="username" placeholder="{lang inputyourname}" autocomplete="off" fwin="login"></li>
+				<li><input type="text" class="px" value="" name="email" placeholder="{lang email}" fwin="login"></li>
+				<li><input type="text" class="px" value="" name="username" placeholder="{lang inputyourname}" autocomplete="off" fwin="login"></li>
 			</ul>
 		</div>
-		<div class="btn_login"><button tabindex="3" value="true" name="lostpwsubmit" type="submit" class="formdialog pn">{lang submit}</button></div>
+		<div class="btn_login"><button value="true" name="lostpwsubmit" type="submit" class="formdialog pn">{lang submit}</button></div>
 	</form>
 <!--{/if}-->
 	<!--{hook/logging_bottom_mobile}-->

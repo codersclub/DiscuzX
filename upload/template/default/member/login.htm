@@ -76,7 +76,7 @@
 									</span>
 								<!--{/if}-->
 							</th>
-							<td><input type="text" name="username" id="username_$loginhash" autocomplete="off" size="30" class="px p_fre" tabindex="1" value="$username" /></td>
+							<td><input type="text" name="username" id="username_$loginhash" autocomplete="off" size="30" class="px p_fre" value="$username" /></td>
 							<td class="tipcol"><a href="member.php?mod={$_G[setting][regname]}">$_G['setting']['reglinkname']</a></td>
 						</tr>
 					</table>
@@ -85,7 +85,7 @@
 					<table>
 						<tr>
 							<th><label for="password3_$loginhash">{lang login_password}:</label></th>
-							<td><input type="password" id="password3_$loginhash" name="password" onfocus="clearpwd()" size="30" class="px p_fre" tabindex="1" /></td>
+							<td><input type="password" id="password3_$loginhash" name="password" onfocus="clearpwd()" size="30" class="px p_fre" /></td>
 							<td class="tipcol"><a href="javascript:;" onclick="display('layer_login_$loginhash');display('layer_lostpw_$loginhash');" title="{lang getpassword}">{lang getpassword}</a></td>
 						</tr>
 					</table>
@@ -114,7 +114,7 @@
 					<table>
 						<tr>
 							<th>{lang security_a}:</th>
-							<td><input type="text" name="answer" id="loginanswer_$loginhash" autocomplete="off" size="30" class="px p_fre" tabindex="1" /></td>
+							<td><input type="text" name="answer" id="loginanswer_$loginhash" autocomplete="off" size="30" class="px p_fre" /></td>
 						</tr>
 					</table>
 				</div>
@@ -131,7 +131,7 @@
 					<table>
 						<tr>
 							<th></th>
-							<td><label for="cookietime_$loginhash"><input type="checkbox" class="pc" name="cookietime" id="cookietime_$loginhash" tabindex="1" value="2592000" $cookietimecheck />{lang login_permanent}</label></td>
+							<td><label for="cookietime_$loginhash"><input type="checkbox" class="pc" name="cookietime" id="cookietime_$loginhash" value="2592000" $cookietimecheck />{lang login_permanent}</label></td>
 						</tr>
 					</table>
 				</div>
@@ -141,7 +141,7 @@
 						<tr>
 							<th>&nbsp;</th>
 							<td>
-								<button class="pn pnc" type="submit" name="loginsubmit" value="true" tabindex="1"><strong>{lang login}</strong></button>
+								<button class="pn pnc" type="submit" name="loginsubmit" value="true"><strong>{lang login}</strong></button>
 							</td>
 							<td>
 								<!--{if $this->setting['sitemessage'][login] && empty($_GET['infloat'])}--><a href="javascript:;" id="custominfo_login_$loginhash" class="y">&nbsp;<i class="fico-info fic4 fc-p" alt="{lang faq}" class="vm"></i></a><!--{/if}-->								
@@ -177,7 +177,7 @@
 					<table>
 						<tr>
 							<th><span class="rq">*</span><label for="lostpw_email">{lang email}:</label></th>
-							<td><input type="text" name="email" id="lostpw_email" size="30" value=""  tabindex="1" class="px p_fre" /></td>
+							<td><input type="text" name="email" id="lostpw_email" size="30" value=""  class="px p_fre" /></td>
 						</tr>
 					</table>
 				</div>
@@ -185,7 +185,7 @@
 					<table>
 						<tr>
 							<th><label for="lostpw_username">{lang username}:</label></th>
-							<td><input type="text" name="username" id="lostpw_username" size="30" value=""  tabindex="1" class="px p_fre" /></td>
+							<td><input type="text" name="username" id="lostpw_username" size="30" value=""  class="px p_fre" /></td>
 						</tr>
 					</table>
 				</div>
@@ -194,7 +194,7 @@
 					<table>
 						<tr>
 							<th></th>
-							<td><button class="pn pnc" type="submit" name="lostpwsubmit" value="true" tabindex="100"><span>{lang submit}</span></button></td>
+							<td><button class="pn pnc" type="submit" name="lostpwsubmit" value="true"><span>{lang submit}</span></button></td>
 						</tr>
 					</table>
 				</div>

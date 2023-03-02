@@ -8,7 +8,7 @@
 		<input type="hidden" name="handlekey" value="$_GET['handlekey']" />
 		<span id="itemdiv"></span>
 		<dt class="mpt">
-			<textarea rows="2" cols="50" name="message" id="commentmessage" tabindex="2" class="pt" style="overflow: auto"></textarea>
+			<textarea rows="2" cols="50" name="message" id="commentmessage" class="pt" style="overflow: auto"></textarea>
 		</dt>
 		<script type="text/javascript" reload="1">
 		<!--{if $commentitem}-->
@@ -43,7 +43,7 @@
 		<!--{/if}-->
 		$('commentmessage').focus();
 		</script>
-		<button type="submit" id="commentsubmit" class="pn pnc formdialog" value="true" name="commentsubmit" tabindex="3"{if !$seccodecheck && !$secqaacheck} onmouseover="checkpostrule('seccheck_comment', 'ac=reply&infloat=yes&handlekey=$_GET[handlekey]');this.onmouseover=null"{/if}><span>{lang publish}</span></button>
+		<button type="submit" id="commentsubmit" class="pn pnc formdialog" value="true" name="commentsubmit"{if !$seccodecheck && !$secqaacheck} onmouseover="checkpostrule('seccheck_comment', 'ac=reply&infloat=yes&handlekey=$_GET[handlekey]');this.onmouseover=null"{/if}><span>{lang publish}</span></button>
 	</form>
 </div>
 <!--{if empty($_GET['infloat'])}-->

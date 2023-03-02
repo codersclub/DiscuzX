@@ -118,8 +118,8 @@ $connect_tab_2 = $_GET['ac'] == 'bind' ? ' class="a"' : '';
 			<div class="z">
 				<p class="welcome mbn cl" style="clear:both; width:100%; "><strong>Hi</strong>,<strong>$_G['member']['username']</strong>, <span class="xg2">{lang connect_member_login_tip}</span></p>
 				<ul class="tb cl z">
-					<li id="connect_tab_1"$connect_tab_1><a id="loginlist" href="javascript:;" onclick="connect_switch(1);this.blur();" tabindex="900">{lang connect_register_profile}</a></li>
-					<li id="connect_tab_2"$connect_tab_2><a id="loginlist2" href="javascript:;" onclick="connect_switch(2);this.blur();" tabindex="900">{lang connect_register_bind}</a></li>
+					<li id="connect_tab_1"$connect_tab_1><a id="loginlist" href="javascript:;" onclick="connect_switch(1);this.blur();">{lang connect_register_profile}</a></li>
+					<li id="connect_tab_2"$connect_tab_2><a id="loginlist2" href="javascript:;" onclick="connect_switch(2);this.blur();">{lang connect_register_bind}</a></li>
 				</ul>
 			</div>
 		</div>
@@ -167,7 +167,7 @@ $js2 = str_replace(array("'", "\r", "\n"), array("\'", '', ''), $js2);
 								</span>
 							<!--{/if}-->
 							</th>
-							<td><input type="text" name="username" id="username_$loginhash" autocomplete="off" size="36" class="txt" tabindex="1" value="$username" /></td>
+							<td><input type="text" name="username" id="username_$loginhash" autocomplete="off" size="36" class="txt" value="$username" /></td>
 						</tr>
 					</table>
 				</div>
@@ -176,7 +176,7 @@ $js2 = str_replace(array("'", "\r", "\n"), array("\'", '', ''), $js2);
 					<table>
 						<tr>
 							<th><label for="password3_$loginhash">{lang login_password}:</label></th>
-							<td><input type="password" id="password3_$loginhash" name="password" size="36" class="txt" tabindex="1" /></td>
+							<td><input type="password" id="password3_$loginhash" name="password" size="36" class="txt" /></td>
 						</tr>
 					</table>
 				</div>
@@ -203,7 +203,7 @@ $js2 = str_replace(array("'", "\r", "\n"), array("\'", '', ''), $js2);
 					<table>
 						<tr>
 							<th>{lang security_a}:</th>
-							<td><input type="text" name="answer" id="loginanswer_$loginhash" autocomplete="off" size="36" class="txt" tabindex="1" /></td>
+							<td><input type="text" name="answer" id="loginanswer_$loginhash" autocomplete="off" size="36" class="txt" /></td>
 						</tr>
 					</table>
 				</div>				
@@ -212,7 +212,7 @@ $js2 = str_replace(array("'", "\r", "\n"), array("\'", '', ''), $js2);
 				<table>
 					<tr>
 						<th>&nbsp;</th>
-						<td><button class="pn pnc" type="submit" name="loginsubmit" value="true" tabindex="1"><strong>{lang qqconnect:connect_register_bind_window_button}</strong></button></td>
+						<td><button class="pn pnc" type="submit" name="loginsubmit" value="true"><strong>{lang qqconnect:connect_register_bind_window_button}</strong></button></td>
 					</tr>
 				</table>
 			</div>

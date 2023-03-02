@@ -125,7 +125,7 @@
 							<!--{if $settings[$fieldid][formtype] != 'file'}-->
 									$htmls[$fieldid]
 							<!--{else}-->
-								 <input id="activitypic_$fieldid" type="text" tabindex="1" value="" class="px" name="$fieldid" onblur="if(!this.value.match(/^https?:\/\/.+\/.+\.(jpg|png|gif|jpeg|bmp)$/i)){$('showerror_$fieldid').innerHTML='{lang activity_imgurl_error}';}else{$('showerror_$fieldid').innerHTML='&nbsp;';}"><div id="showerror_$fieldid" class="rq mtn">{lang activity_enter_imgurl}</div>
+								 <input id="activitypic_$fieldid" type="text" value="" class="px" name="$fieldid" onblur="if(!this.value.match(/^https?:\/\/.+\/.+\.(jpg|png|gif|jpeg|bmp)$/i)){$('showerror_$fieldid').innerHTML='{lang activity_imgurl_error}';}else{$('showerror_$fieldid').innerHTML='&nbsp;';}"><div id="showerror_$fieldid" class="rq mtn">{lang activity_enter_imgurl}</div>
 							<!--{/if}-->
 								</td>
 							</tr>

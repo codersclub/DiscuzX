@@ -27,10 +27,10 @@ function $(id) {
 						<input type="radio" name="isfounder" value="1" class="radio" {if (isset($_POST['isfounder']) && $isfounder) || !isset($_POST['isfounder'])}checked="checked"{/if} onclick="changeuser('founder')" id="founder" /><label for="founder">{lang founder}</label>
 						<input type="radio" name="isfounder" value="0" class="radio" {if (isset($_POST['isfounder']) && !$isfounder)}checked="checked"{/if} onclick="changeuser('manager')" id="admin" /><label for="admin">{lang admin_admin}</label>
 					</p>
-					<p id="usernamediv">{lang login_username}: <input type="text" name="username" class="txt" tabindex="1" id="username" value="$username" /></p>
-					<p>{lang login_password}: <input type="password" name="password" class="txt" tabindex="2" id="password" value="$password" /></p>
-					<p>{lang login_seccode}: <input type="text" name="seccode" class="txt seccode" tabindex="2" id="seccode" value="" /><img width="70" height="21" src="{UC_ADMINSCRIPT}?m=seccode&seccodeauth=$seccodeinit&{eval echo rand();}" class="checkcode" /></p>
-					<p class="loginbtn"><input type="submit" name="submit" value="{lang login_submit}" class="btn" tabindex="3" /></p>
+					<p id="usernamediv">{lang login_username}: <input type="text" name="username" class="txt" id="username" value="$username" /></p>
+					<p>{lang login_password}: <input type="password" name="password" class="txt" id="password" value="$password" /></p>
+					<p>{lang login_seccode}: <input type="text" name="seccode" class="txt seccode" id="seccode" value="" /><img width="70" height="21" src="{UC_ADMINSCRIPT}?m=seccode&seccodeauth=$seccodeinit&{eval echo rand();}" class="checkcode" /></p>
+					<p class="loginbtn"><input type="submit" name="submit" value="{lang login_submit}" class="btn" /></p>
 				</td>
 			</tr>
 		</table>

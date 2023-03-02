@@ -8,9 +8,9 @@
 		<input type="hidden" name="submit" value="yes" />
 		<div class="loginbox registerbox">
 			<div class="login_from">
-				<li><input type="text" tabindex="1" class="px p_fre" size="30" autocomplete="off" value="$defaultusername" name="username" placeholder="{lang registerinputtip}" fwin="login"></li>
+				<li><input type="text" class="px p_fre" size="30" autocomplete="off" value="$defaultusername" name="username" placeholder="{lang registerinputtip}" fwin="login"></li>
 			</div>
-			<div class="btn_register"><button tabindex="7" value="true" name="submit" type="submit" class="formdialog pn pnc"><span>{lang wechat:quickregister}</span></button></div>
+			<div class="btn_register"><button value="true" name="submit" type="submit" class="formdialog pn pnc"><span>{lang wechat:quickregister}</span></button></div>
 		</div>
 	</form>
 <!--{/if}-->
@@ -22,8 +22,8 @@
 	<div class="loginbox">
 		<div class="login_from">
 			<ul>
-				<li><input type="text" value="" tabindex="1" class="px p_fre" size="30" autocomplete="off" value="" name="username" placeholder="{lang wechat:inputyourname}" fwin="login"></li>
-				<li><input type="password" tabindex="2" class="px p_fre" size="30" value="" name="password" placeholder="{lang login_password}" fwin="login"></li>
+				<li><input type="text" value="" class="px p_fre" size="30" autocomplete="off" value="" name="username" placeholder="{lang wechat:inputyourname}" fwin="login"></li>
+				<li><input type="password" class="px p_fre" size="30" value="" name="password" placeholder="{lang login_password}" fwin="login"></li>
 				<li class="questionli">
 					<div class="login_select">
 					<span class="login-btn-inner">
@@ -47,7 +47,7 @@
 				<li class="bl_none answerli" style="display:none;"><input type="text" name="answer" id="answer_{$loginhash}" class="px p_fre" size="30" placeholder="{lang security_a}"></li>
 			</ul>
 		</div>
-		<div class="btn_login"><button tabindex="3" value="true" name="submit" type="submit" class="formdialog pn pnc"><span>{lang mobile:qqregmode2}</span></button></div>
+		<div class="btn_login"><button value="true" name="submit" type="submit" class="formdialog pn pnc"><span>{lang mobile:qqregmode2}</span></button></div>
 		<!--{if $connecturl}-->
 			<p>{lang useqqconnectlogin}</p>
 			<div class="btn_qqlogin"><a href="$connecturl">{lang qqconnect:connect_mobile_login}</a></div>

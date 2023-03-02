@@ -15,7 +15,7 @@
 				<!--{/loop}-->
 				</select>
 			<!--{/if}-->
-			<input name="usernamenew" id="usernamenew" type="text" class="px vm" value="$username" style="width:100px" tabindex="1" />&nbsp;
+			<input name="usernamenew" id="usernamenew" type="text" class="px vm" value="$username" style="width:100px" />&nbsp;
 		<!--{else}-->
 			{lang myrepeats:username} <select name="usernamenew" id="usernamenew" class="ps vm">
 			<!--{loop $permusers $user}-->
@@ -23,8 +23,8 @@
 			<!--{/loop}-->
 			</select>
 		<!--{/if}-->
-		{lang myrepeats:password} <input type="password" name="passwordnew" class="px vm" style="width:100px" tabindex="2" />
-		<select name="questionidnew" tabindex="3" onchange="if(this.value > 0) {$('answernew').style.display='';} else {$('answernew').style.display='none';}" class="ps vm">
+		{lang myrepeats:password} <input type="password" name="passwordnew" class="px vm" style="width:100px" />
+		<select name="questionidnew" onchange="if(this.value > 0) {$('answernew').style.display='';} else {$('answernew').style.display='none';}" class="ps vm">
 			<option value="0">{lang myrepeats:security_question}</option>
 			<option value="1">{lang myrepeats:security_question_1}</option>
 			<option value="2">{lang myrepeats:security_question_2}</option>
@@ -34,10 +34,10 @@
 			<option value="6">{lang myrepeats:security_question_6}</option>
 			<option value="7">{lang myrepeats:security_question_7}</option>
 		</select>
-		<span id="answernew" style="display:none">{lang myrepeats:security_answer} <input type="text" name="answernew" class="px vm" style="width:100px" class="txt" tabindex="4" /></span>
+		<span id="answernew" style="display:none">{lang myrepeats:security_answer} <input type="text" name="answernew" class="px vm" style="width:100px" class="txt" /></span>
 		<br /><br />
 		<p>
-		{lang myrepeats:comment} <input type="text" name="commentnew" class="px vm" size="40" tabindex="5" />
+		{lang myrepeats:comment} <input type="text" name="commentnew" class="px vm" size="40" />
 		<button type="submit" name="adduser" class="pn vm" value="yes" ><span>{lang myrepeats:add}</span></button>
 		</p>
 	</td></tr>

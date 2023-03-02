@@ -23,14 +23,14 @@
 					<!--{if !empty($specialswitch['allowchangename']) && ($_G['uid'] == $_G['forum']['founderuid'] || $_G['adminid'] == 1)}-->
 					<tr>
 						<th><span class="rq">*</span>{lang group_name}:</th>
-						<td><input type="text" id="name" name="name" class="px" size="36" tabindex="1" value="$_G[forum][name]" autocomplete="off" tabindex="1" /></td>
+						<td><input type="text" id="name" name="name" class="px" size="36" value="$_G[forum][name]" autocomplete="off" /></td>
 					</tr>
 					<!--{/if}-->
 					<!--{if !empty($specialswitch['allowchangetype']) && ($_G['uid'] == $_G['forum']['founderuid'] || $_G['adminid'] == 1)}-->
 					<tr>
 						<th><span class="rq">*</span>{lang group_category}:</th>
 						<td>
-							<select name="parentid" tabindex="2" class="ps" onchange="ajaxget('forum.php?mod=ajax&action=secondgroup&fupid='+ this.value, 'secondgroup');">
+							<select name="parentid" class="ps" onchange="ajaxget('forum.php?mod=ajax&action=secondgroup&fupid='+ this.value, 'secondgroup');">
 								$groupselect[first]
 							</select>
 							<em id="secondgroup"><!--{if $groupselect['second']}--><select id="fup" name="fup" class="ps" >$groupselect[second]</select><!--{/if}--></em>

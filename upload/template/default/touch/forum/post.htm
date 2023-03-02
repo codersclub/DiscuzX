@@ -42,7 +42,7 @@
 <div class="post_from post_box">
 	<ul class="cl">
 		<!--{if $_GET['action'] != 'reply'}-->
-		<li class="mli"><input type="text" tabindex="1" class="px" id="needsubject" autocomplete="off" value="$postinfo['subject']" name="subject" placeholder="{lang posts}{lang thread_subject}" fwin="login"></li>
+		<li class="mli"><input type="text" class="px" id="needsubject" autocomplete="off" value="$postinfo['subject']" name="subject" placeholder="{lang posts}{lang thread_subject}" fwin="login"></li>
 		<!--{else}-->
 		<li class="mtext">
 			RE: $thread['subject']
@@ -68,7 +68,7 @@
 		</li>
 		<!--{/if}-->
 		<li class="mtext">
-			<textarea class="pt" id="needmessage" tabindex="3" autocomplete="off" id="{$editorid}_textarea" name="$editor['textarea']" placeholder="<!--{if $_GET['action'] != 'reply'}-->{lang posts}<!--{/if}-->{lang thread_content}" fwin="reply">$postinfo['message']</textarea>
+			<textarea class="pt" id="needmessage" autocomplete="off" id="{$editorid}_textarea" name="$editor['textarea']" placeholder="<!--{if $_GET['action'] != 'reply'}-->{lang posts}<!--{/if}-->{lang thread_content}" fwin="reply">$postinfo['message']</textarea>
 			<div class="mimg cl">
 				<a href="javascript:;" class="post_imgbtn"><i class="dm-image"></i>{lang e_img_attach}<input type="file" name="Filedata" id="filedata" multiple="multiple" accept=".jpg,.jpeg,.gif,.png,.bmp,image/jpeg,image/gif,image/png,image/bmp" /></a>
 				<a href="javascript:;" class="post_attbtn"><i class="dm-star-fill"></i>{lang upload_attach}<input type="file" name="Filedata" id="attfiledata" /></a>

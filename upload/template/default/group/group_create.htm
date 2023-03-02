@@ -24,14 +24,14 @@
 					<tr>
 						<th><strong class="rq y">*</strong>{lang group_name}:</th>
 						<td>
-							<input type="text" name="name" id="name" class="px" size="36" tabindex="1" value="" autocomplete="off" onBlur="checkgroupname()" tabindex="1" />
+							<input type="text" name="name" id="name" class="px" size="36" value="" autocomplete="off" onBlur="checkgroupname()" />
 							<span id="groupnamecheck" class="xi1"></span>
 						</td>
 					</tr>
 					<tr>
 						<th><strong class="rq y">*</strong>{lang group_category}:</th>
 						<td>
-							<select name="parentid" tabindex="2" class="ps" onchange="ajaxget('forum.php?mod=ajax&action=secondgroup&fupid='+ this.value, 'secondgroup');">
+							<select name="parentid" class="ps" onchange="ajaxget('forum.php?mod=ajax&action=secondgroup&fupid='+ this.value, 'secondgroup');">
 								<option value="0">{lang choose_please}</option>
 								$groupselect[first]
 							</select>
@@ -55,21 +55,21 @@
 									<!--{subtemplate common/seditor}-->
 								</div>
 								<div class="area">
-									<textarea id="descriptionmessage" name="descriptionnew" tabindex="3" class="pt" rows="8"></textarea>
+									<textarea id="descriptionmessage" name="descriptionnew" class="pt" rows="8"></textarea>
 								</div>
 							</div>
 					</tr>
 					<tr>
 						<th><strong class="rq y">*</strong>{lang group_perm_visit}:</th>
 						<td>
-							<label class="lb"><input type="radio" name="gviewperm" class="pr" tabindex="4" value="1" checked="checked" />{lang group_perm_all_user}</label>
+							<label class="lb"><input type="radio" name="gviewperm" class="pr" value="1" checked="checked" />{lang group_perm_all_user}</label>
 							<label class="lb"><input type="radio" name="gviewperm" class="pr" value="0" />{lang group_perm_member_only}</label>
 						</td>
 					</tr>
 					<tr>
 						<th><strong class="rq y">*</strong>{lang group_join_type}:</th>
 						<td>
-							<label class="lb"><input type="radio" name="jointype" class="pr" tabindex="5" value="0" checked="checked" />{lang group_join_type_free}</label>
+							<label class="lb"><input type="radio" name="jointype" class="pr" value="0" checked="checked" />{lang group_join_type_free}</label>
 							<label class="lb"><input type="radio" name="jointype" class="pr" value="2" />{lang group_join_type_moderate}</label>
 							<label class="lb"><input type="radio" name="jointype" class="pr" value="1" />{lang group_join_type_invite}</label>
 						</td>
@@ -77,7 +77,7 @@
 					<tr>
 						<th>&nbsp;</th>
 						<td>
-							<input type="hidden" name="createsubmit" value="true"><button type="submit" class="pn pnc" tabindex="6"><strong>{lang create}</strong></button>
+							<input type="hidden" name="createsubmit" value="true"><button type="submit" class="pn pnc"><strong>{lang create}</strong></button>
 							<!--{if $_G['group']['buildgroupcredits']}-->&nbsp;&nbsp;&nbsp;(<strong class="rq">{lang group_create_buildcredits} $_G['group']['buildgroupcredits'] $_G['setting']['extcredits'][$creditstransextra]['unit']{$_G['setting']['extcredits'][$creditstransextra]['title']}</strong>)<!--{/if}-->
 						</td>
 					</tr>

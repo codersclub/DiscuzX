@@ -17,25 +17,25 @@
 		<!--{/if}-->
 		<ul>
 			<!--{if $sendurl}-->
-				<li class="mli"><input type="email" tabindex="1" class="px" autocomplete="off" value="" name="{$_G['setting']['reginput']['email']}" placeholder="{lang registeremail}" fwin="login"></li>
+				<li class="mli"><input type="email" class="px" autocomplete="off" value="" name="{$_G['setting']['reginput']['email']}" placeholder="{lang registeremail}" fwin="login"></li>
 			<!--{else}-->
 				<!--{if empty($invite) && $_G['setting']['regstatus'] == 2 && !$invitestatus}-->
 					<li class="mli">
-						<input type="text" tabindex="1" class="px" autocomplete="off" value="" name="invitecode" placeholder="{lang invite_code}" fwin="login">
+						<input type="text" class="px" autocomplete="off" value="" name="invitecode" placeholder="{lang invite_code}" fwin="login">
 						<!--{if $this->setting['inviteconfig']['buyinvitecode'] && $this->setting['inviteconfig']['invitecodeprice'] && payment::enable()}-->
 						<a href="misc.php?mod=buyinvitecode" class="input-append">{lang register_buyinvitecode}</a>
 						<!--{/if}-->
 					</li>
 				<!--{/if}-->
-				<li class="mli"><input type="text" tabindex="2" class="px" autocomplete="off" value="" name="{$_G['setting']['reginput']['username']}" placeholder="{lang registerinputtip}" fwin="login"></li>
-				<li class="mli"><input type="password" tabindex="3" class="px" value="" name="{$_G['setting']['reginput']['password']}" placeholder="{lang login_password}" fwin="login"></li>
-				<li class="mli"><input type="password" tabindex="4" class="px" value="" name="{$_G['setting']['reginput']['password2']}" placeholder="{lang registerpassword2}" fwin="login"></li>
-				<li class="mli"><input type="email" tabindex="5" class="px" autocomplete="off" value="$hash[0]" name="{$_G['setting']['reginput']['email']}" placeholder="{lang registeremail}" fwin="login"></li>
+				<li class="mli"><input type="text" class="px" autocomplete="off" value="" name="{$_G['setting']['reginput']['username']}" placeholder="{lang registerinputtip}" fwin="login"></li>
+				<li class="mli"><input type="password" class="px" value="" name="{$_G['setting']['reginput']['password']}" placeholder="{lang login_password}" fwin="login"></li>
+				<li class="mli"><input type="password" class="px" value="" name="{$_G['setting']['reginput']['password2']}" placeholder="{lang registerpassword2}" fwin="login"></li>
+				<li class="mli"><input type="email" class="px" autocomplete="off" value="$hash[0]" name="{$_G['setting']['reginput']['email']}" placeholder="{lang registeremail}" fwin="login"></li>
 				<!--{if $_G['setting']['regverify'] == 2}-->
-					<li class="mli"><input type="text" tabindex="6" class="px" autocomplete="off" value="{lang register_message}" name="regmessage" placeholder="{lang register_message}" fwin="login"></li>
+					<li class="mli"><input type="text" class="px" autocomplete="off" value="{lang register_message}" name="regmessage" placeholder="{lang register_message}" fwin="login"></li>
 				<!--{/if}-->
 				<!--{if empty($invite) && $_G['setting']['regstatus'] == 3}-->
-					<li class="mli"><input type="text" tabindex="7" class="px" autocomplete="off" value="{lang invite_code}" name="invitecode" placeholder="{lang invite_code}" fwin="login"></li>
+					<li class="mli"><input type="text" class="px" autocomplete="off" value="{lang invite_code}" name="invitecode" placeholder="{lang invite_code}" fwin="login"></li>
 				<!--{/if}-->
 				<!--{loop $_G['cache']['fields_register'] $field}-->
 					<!--{if $htmls[$field['fieldid']]}-->
@@ -58,7 +58,7 @@
 			</div>
 		<!--{/if}-->
 	</div>
-	<div class="btn_register"><button tabindex="7" value="true" name="regsubmit" type="submit" class="formdialog pn">{lang quickregister}</button></div>
+	<div class="btn_register"><button value="true" name="regsubmit" type="submit" class="formdialog pn">{lang quickregister}</button></div>
 	<div class="reg_link"><a href="member.php?mod=logging&action=login&referer={echo rawurlencode($dreferer)}" class="login_now">{lang login_now}</a></div>
 	</form>
 </div>

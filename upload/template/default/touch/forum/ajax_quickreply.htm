@@ -3,7 +3,7 @@
 <form method="post" autocomplete="off" id="postform_{$_GET['feedid']}" action="forum.php?mod=post&action=reply&fid=$_GET['fid']&extra=$extra&tid=$_GET['tid']&replysubmit=yes" onsubmit="this.message.value = parseurl(this.message.value);{if !empty($_GET['inajax'])}ajaxpost(this.id, 'return_$_GET['handlekey']', 'return_$_GET['handlekey']', 'onerror');return false;{/if}" class="mbm">
 	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}" />
 	<input type="hidden" name="handlekey" value="$_GET['handlekey']" />
-	<span id="subjectbox" style="display: none;"><input name="subject" id="subject" class="px" value="" tabindex="21" style="width: 25em" /></span>
+	<span id="subjectbox" style="display: none;"><input name="subject" id="subject" class="px" value="" style="width: 25em" /></span>
 	<div class="moodfm">
 		<div class="moodfm_post">
 			<div class="moodfm_text flw_autopt">
@@ -17,7 +17,7 @@
 
 			<div class="moodfm_f">
 				<div class="moodfm_btn">
-					<button type="submit" id="postsubmit" class="pgsbtn button" value="true" name="{if $_GET['action'] == 'newthread'}topicsubmit{elseif $_GET['action'] == 'reply'}replysubmit{/if}" tabindex="23">{lang reply}</button>
+					<button type="submit" id="postsubmit" class="pgsbtn button" value="true" name="{if $_GET['action'] == 'newthread'}topicsubmit{elseif $_GET['action'] == 'reply'}replysubmit{/if}">{lang reply}</button>
 				</div>
 
 				<!--{if helper_access::check_module('follow')}-->

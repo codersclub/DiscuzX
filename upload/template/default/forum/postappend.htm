@@ -23,7 +23,7 @@
 					<span id="itemdiv"></span>
 				</div>
 				<div class="area">
-					<textarea rows="2" cols="50" name="postappendmessage" id="postappendmessage" onKeyUp="strLenCalc(this, 'checklen_append')" onKeyDown="seditor_ctlent(event, '$(\'postappendsubmit\').click();')" tabindex="2" class="pt" style="overflow: auto"></textarea>
+					<textarea rows="2" cols="50" name="postappendmessage" id="postappendmessage" onKeyUp="strLenCalc(this, 'checklen_append')" onKeyDown="seditor_ctlent(event, '$(\'postappendsubmit\').click();')" class="pt" style="overflow: auto"></textarea>
 				</div>
 				<script type="text/javascript" reload="1">
 					$('postappendmessage').focus();
@@ -35,7 +35,7 @@
 			<!--{/if}-->
 		</div>
 		<div class="o pns cl">
-			<button type="submit" id="postappendsubmit" class="pn pnc z" value="true" name="postappendsubmit" tabindex="3"><span>{lang publish}</span></button>
+			<button type="submit" id="postappendsubmit" class="pn pnc z" value="true" name="postappendsubmit"><span>{lang publish}</span></button>
 			<span class="y">{lang comment_message1} <strong id="checklen_append">200</strong> {lang comment_message2}</span>
 		</div>
 	</div>

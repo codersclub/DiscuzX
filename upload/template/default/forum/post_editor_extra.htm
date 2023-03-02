@@ -23,7 +23,7 @@
 			<input name="subject" type="hidden" value="" />
 		<!--{else}-->
 			<!--{if $_GET[action] != 'reply'}-->
-				<span><input type="text" name="subject" id="subject" class="px" value="$postinfo[subject]" onkeyup="dstrLenCalc(this, 'checklen', $_G['setting']['maxsubjectsize']);" style="width: 25em" tabindex="1" /></span>
+				<span><input type="text" name="subject" id="subject" class="px" value="$postinfo[subject]" onkeyup="dstrLenCalc(this, 'checklen', $_G['setting']['maxsubjectsize']);" style="width: 25em" /></span>
 			<!--{else}-->
 				<span id="subjecthide" class="z">RE: $thread[subject] [<a href="javascript:;" onclick="display('subjecthide');display('subjectchk');display('subjectbox');return false;">{lang modify}</a>]</span>
 				<span id="subjectbox" style="display:none"><input type="text" name="subject" id="subject" class="px" value="" onkeyup="dstrLenCalc(this, 'checklen', $_G['setting']['maxsubjectsize']);" style="width: 25em" /></span>

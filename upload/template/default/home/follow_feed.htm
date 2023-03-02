@@ -91,14 +91,14 @@
 						<div id="fastpostreturn" style="margin:-5px 0 5px"></div>
 						<div id="flw_post_subject" style="display:none;">
 							<span id="flw_checklen" class="y"><span id="checklen" class="xg1">{$_G['setting']['maxsubjectsize']}</span></span>
-							<input type="text" id="subject" name="subject" onkeyup="strLenCalc(this, 'checklen', $_G['setting']['maxsubjectsize']);" tabindex="11" />
+							<input type="text" id="subject" name="subject" onkeyup="strLenCalc(this, 'checklen', $_G['setting']['maxsubjectsize']);" />
 						</div>
 
 						<div id="flw_post_extra" class="mtn cl">
 							<div{if $_G[setting][fastsmilies]} class="hasfsl"{/if} id="fastposteditor">
 								<div class="tedt">
 									<div class="area">
-										<textarea rows="5" cols="80" name="message" id="fastpostmessage" onKeyDown="seditor_ctlent(event, '$(\'fastpostsubmit\').click()');" tabindex="12" class="pt xs2"></textarea>
+										<textarea rows="5" cols="80" name="message" id="fastpostmessage" onKeyDown="seditor_ctlent(event, '$(\'fastpostsubmit\').click()');" class="pt xs2"></textarea>
 									</div>
 									<div id="flw_bar" class="bar">
 										<!--{eval $seditor = array('fastpost', array('smilies', 'at'), 0, '<span id="spanButtonPlaceholder">{lang upload}</span>');}-->
@@ -207,7 +207,7 @@
 								<div class="y">
 									<p class="ptm pnpost">
 										<label><input type="checkbox" name="syncbbs" id="syncbbs" value="1" onclick="showSyncInfo(this.checked)" />{lang follow_sync_forum}</label>&nbsp;
-										<button {if $_G['uid']}type="submit" {else}type="button" onclick="showWindow('login', 'member.php?mod=logging&action=login&guestmessage=yes')" {/if}name="topicsubmit_btn" id="fastpostsubmit" value="topicsubmitbtn" tabindex="13" class="pgsbtn"><strong>{lang follow_new_thread}</strong></button>
+										<button {if $_G['uid']}type="submit" {else}type="button" onclick="showWindow('login', 'member.php?mod=logging&action=login&guestmessage=yes')" {/if}name="topicsubmit_btn" id="fastpostsubmit" value="topicsubmitbtn" class="pgsbtn"><strong>{lang follow_new_thread}</strong></button>
 									</p>
 								</div>
 							</div>

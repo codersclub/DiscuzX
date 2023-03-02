@@ -29,7 +29,7 @@
 				<!--{if $_G['group']['allowsetattachperm']}-->
 				<td class="attv">
 					<!--{if $_G['cache']['groupreadaccess']}-->
-					<select class="ps" name="attachnew[{$attach[aid]}][readperm]" id="readperm" tabindex="1" style="width:90px">
+					<select class="ps" name="attachnew[{$attach[aid]}][readperm]" id="readperm" style="width:90px">
 							<option value="">{lang unlimited}</option>
 						<!--{loop $_G['cache']['groupreadaccess'] $val}-->
 							<option value="$val[readaccess]" title="{lang readperm}: $val[readaccess]"{if $attach[readperm] == $val[readaccess]} selected{/if}>$val[grouptitle]</option>

@@ -1,12 +1,12 @@
 <form id="shareform" name="shareform" action="home.php?mod=spacecp&ac=share&type=link&view=$_GET[view]&from=$_GET[from]" method="post" autocomplete="off" class="sfm" onsubmit="if(document.getElementById('share_link').value == 'http://'){showError('{lang content_isnull}');return false;} else {ajaxpost(this.id, 'return_shareadd');}">
 	<p class="mb10 c cl"><span id="return_shareadd" class="y xi1"></span>{lang share_web_music_flash}</p>
 	<p>
-		<input type="text" name="link" id="share_link" class="px vm b_a" tabindex="1" onfocus="javascript:if('http://'==this.value)this.value='';document.getElementById('share_desc').style.display='block';" onblur="javascript:if(''==this.value)this.value='http://';" value="http://" />
-		<button type="submit" name="sharesubmit_btn" id="sharesubmit_btn" class="pn vm mt10" tabindex="3" value="true"><strong>{lang share}</strong></button>
+		<input type="text" name="link" id="share_link" class="px vm b_a" onfocus="javascript:if('http://'==this.value)this.value='';document.getElementById('share_desc').style.display='block';" onblur="javascript:if(''==this.value)this.value='http://';" value="http://" />
+		<button type="submit" name="sharesubmit_btn" id="sharesubmit_btn" class="pn vm mt10" value="true"><strong>{lang share}</strong></button>
 	</p>
 	<div id="share_desc" class="cl" style="display: none;">
 		<p class="mt10 mb10">{lang description}</p>
-		<p><textarea name="general" id="share_general" tabindex="2" rows="3" onkeydown="ctrlEnter(event, 'sharesubmit_btn')" class="pt b_a"></textarea></p>
+		<p><textarea name="general" id="share_general" rows="3" onkeydown="ctrlEnter(event, 'sharesubmit_btn')" class="pt b_a"></textarea></p>
 		<!--{if $secqaacheck || $seccodecheck}-->
 			<!--{block sectpl}--><sec> <span id="sec<hash>" onclick="showMenu(this.id)"><sec></span><div id="sec<hash>_menu" class="p_pop p_opt" style="display:none"><sec></div><!--{/block}-->
 			<div class="mt10 sec"><!--{subtemplate common/seccheck}--></div>

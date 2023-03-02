@@ -4,22 +4,22 @@
 			<dt><span class="rq">*</span>{lang post_event_time}:</dt>
 			<dd>
 				<div id="certainstarttime" {if $activity['starttimeto']}style="display: none"{/if}>
-					<input type="text" name="starttimefrom[0]" id="starttimefrom_0" class="px" onclick="showcalendar(event, this, true)" autocomplete="off" value="$activity[starttimefrom]" tabindex="1" />
+					<input type="text" name="starttimefrom[0]" id="starttimefrom_0" class="px" onclick="showcalendar(event, this, true)" autocomplete="off" value="$activity[starttimefrom]" />
 				</div>
 				<div id="uncertainstarttime" {if !$activity['starttimeto']}style="display: none"{/if}>
-					<input type="text" name="starttimefrom[1]" id="starttimefrom_1" class="px" onclick="showcalendar(event, this, true)" autocomplete="off" value="$activity[starttimefrom]" tabindex="1" /><span> ~ </span><input onclick="showcalendar(event, this, true)" type="text" autocomplete="off" id="starttimeto" name="starttimeto" class="px" value="{if $activity['starttimeto']}$activity[starttimeto]{/if}" tabindex="1" />
+					<input type="text" name="starttimefrom[1]" id="starttimefrom_1" class="px" onclick="showcalendar(event, this, true)" autocomplete="off" value="$activity[starttimefrom]" /><span> ~ </span><input onclick="showcalendar(event, this, true)" type="text" autocomplete="off" id="starttimeto" name="starttimeto" class="px" value="{if $activity['starttimeto']}$activity[starttimeto]{/if}" />
 				</div>
 				<div class="spmf cl">
-					<label for="activitytime"><input type="checkbox" id="activitytime" name="activitytime" class="pc" onclick="if(this.checked) {$('certainstarttime').style.display='none';$('uncertainstarttime').style.display='';} else {$('certainstarttime').style.display='';$('uncertainstarttime').style.display='none';}" value="1" {if $activity['starttimeto']}checked{/if} tabindex="1" />{lang activity_starttime_endtime}</label>
+					<label for="activitytime"><input type="checkbox" id="activitytime" name="activitytime" class="pc" onclick="if(this.checked) {$('certainstarttime').style.display='none';$('uncertainstarttime').style.display='';} else {$('certainstarttime').style.display='';$('uncertainstarttime').style.display='none';}" value="1" {if $activity['starttimeto']}checked{/if} />{lang activity_starttime_endtime}</label>
 				</div>
 			</dd>
 			<dt><span class="rq">*</span><label for="activityplace">{lang activity_space}:</label></dt>
 			<dd>
-				<input type="text" name="activityplace" id="activityplace" class="px oinf" value="$activity[place]" tabindex="1" />
+				<input type="text" name="activityplace" id="activityplace" class="px oinf" value="$activity[place]" />
 			</dd>
 			<!--{if $_GET[action] == 'newthread'}-->
 			<dt><label for="activitycity">{lang activity_city}:</label></dt>
-			<dd><input name="activitycity" id="activitycity" class="px" type="text" tabindex="1" /></dd>
+			<dd><input name="activitycity" id="activitycity" class="px" type="text" /></dd>
 			<!--{/if}-->
 			<dt><span class="rq">*</span><label for="activityclass">{lang activiy_sort}:</label></dt>
 			<dd class="hasd cl">
@@ -30,14 +30,14 @@
 					<!--{/loop}-->
 					</ul>
 				<!--{/if}-->
-				<span><input type="text" id="activityclass" name="activityclass" class="px" value="$activity[class]" tabindex="1" /></span>
+				<span><input type="text" id="activityclass" name="activityclass" class="px" value="$activity[class]" /></span>
 				<!--{if $activitytypelist}-->
 					<a href="javascript:;" class="dpbtn" onclick="showselect(this, 'activityclass', 'activitytypelist')">^</a>
 				<!--{/if}-->
 			</dd>
 			<dt><label for="activitynumber">{lang activity_need_member}:</label></dt>
 			<dd>
-				<input type="text" name="activitynumber" id="activitynumber" class="px z" style="width:55px;" onkeyup="checkvalue(this.value, 'activitynumbermessage')" value="$activity[number]" tabindex="1" />
+				<input type="text" name="activitynumber" id="activitynumber" class="px z" style="width:55px;" onkeyup="checkvalue(this.value, 'activitynumbermessage')" value="$activity[number]" />
 				<span class="ftid">
 					<select name="gender" id="gender" width="38" class="ps">
 						<option value="0" {if !$activity['gender']}selected="selected"{/if}>{lang unlimited}</option>
@@ -76,13 +76,13 @@
 			<!--{/if}-->
 			<dt><label for="cost">{lang activity_payment}:</label></dt>
 			<dd>
-				<input type="text" name="cost" id="cost" class="px" onkeyup="checkvalue(this.value, 'costmessage')" value="$activity[cost]" tabindex="1" />{lang payment_unit}
+				<input type="text" name="cost" id="cost" class="px" onkeyup="checkvalue(this.value, 'costmessage')" value="$activity[cost]" />{lang payment_unit}
 				<span id="costmessage"></span>
 			</dd>
 			<dt><label for="activityexpiration">{lang post_closing}:</label></dt>
 			<dd class="hasd cl">
 				<span>
-					<input type="text" name="activityexpiration" id="activityexpiration" class="px" onclick="showcalendar(event, this, true)" autocomplete="off" value="$activity[expiration]" tabindex="1" />
+					<input type="text" name="activityexpiration" id="activityexpiration" class="px" onclick="showcalendar(event, this, true)" autocomplete="off" value="$activity[expiration]" />
 				</span>
 				<a href="javascript:;" class="dpbtn" onclick="showselect(this, 'activityexpiration')">^</a>
 			</dd>

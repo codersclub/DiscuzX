@@ -58,10 +58,10 @@
 					<script type="text/javascript" reload="1">simulateSelect('typeid_float');</script>
 				<!--{/if}-->
 				<!--{if $_GET[action] != 'reply'}-->
-					<span><input name="subject" id="subject" class="px" value="$postinfo[subject]" tabindex="21" style="width: 25em" /></span>
+					<span><input name="subject" id="subject" class="px" value="$postinfo[subject]" style="width: 25em" /></span>
 				<!--{else}-->
 					<span id="subjecthide" class="z">RE: $thread[subject] [<a href="javascript:;" onclick="display('subjecthide');display('subjectbox');">{lang modify}</a>]</span>
-					<span id="subjectbox" style="display:none"><input name="subject" id="subject" class="px" value="" tabindex="21" style="width: 25em" /></span>
+					<span id="subjectbox" style="display:none"><input name="subject" id="subject" class="px" value="" style="width: 25em" /></span>
 				<!--{/if}-->
 			</div>
 			<!--{if !$isfirstpost && $thread[special] == 5 && empty($firststand)}-->
@@ -90,7 +90,7 @@
 					<!--{subtemplate common/seditor}-->
 				</div>
 				<div class="area">
-				<textarea rows="7" cols="80" name="message" id="postmessage" onKeyDown="seditor_ctlent(event, '$(\'postsubmit\').click();')" tabindex="22" class="pt">$message</textarea>
+				<textarea rows="7" cols="80" name="message" id="postmessage" onKeyDown="seditor_ctlent(event, '$(\'postsubmit\').click();')" class="pt">$message</textarea>
 				</div>
 			</div>
 			<div id="seccheck_$_GET[action]">
@@ -106,7 +106,7 @@
 			<a href="javascript:;" id="custominfo" class="y" style="margin-left:5px"><i class="fico-info fic4 fc-p" alt="{lang faq}"></i></a>
 		<!--{/if}-->
 		<a href="home.php?mod=spacecp&ac=credit&op=rule&fid=$_G[fid]" class="y" target="_blank">{lang post_credits_rule}</a>
-		<button type="submit" id="postsubmit" class="pn pnc z" value="true"{if !$seccodecheck && !$secqaacheck} onmouseover="checkpostrule('seccheck_$_GET[action]', 'ac=$_GET[action]&infloat=yes&handlekey=$_GET[handlekey]');this.onmouseover=null"{/if} name="{if $_GET[action] == 'newthread'}topicsubmit{elseif $_GET[action] == 'reply'}replysubmit{/if}" tabindex="23"><span><!--{if $_GET[action] == 'newthread'}-->{lang post_newthread}<!--{elseif $_GET[action] == 'reply'}-->{lang join_thread}<!--{/if}--></span></button>
+		<button type="submit" id="postsubmit" class="pn pnc z" value="true"{if !$seccodecheck && !$secqaacheck} onmouseover="checkpostrule('seccheck_$_GET[action]', 'ac=$_GET[action]&infloat=yes&handlekey=$_GET[handlekey]');this.onmouseover=null"{/if} name="{if $_GET[action] == 'newthread'}topicsubmit{elseif $_GET[action] == 'reply'}replysubmit{/if}"><span><!--{if $_GET[action] == 'newthread'}-->{lang post_newthread}<!--{elseif $_GET[action] == 'reply'}-->{lang join_thread}<!--{/if}--></span></button>
 		<!--{hook/post_infloat_btn_extra}-->
 	</div>
 </form>
