@@ -260,7 +260,7 @@ EOT;
 
 		showsetting('card_make_rule', '', '', '<input type="text" name="rule" class="txt" value="'.($card_log['rule']['rule'] ? $card_log['rule']['rule'] : '').'" onkeyup="javascript:checkcardrule(this);"><br /><span id="cardrule_view" class="tips2" style="display:none;"></span>');
 echo <<<EOT
-	<script type="text/javascript" charset="gbk">
+	<script type="text/javascript" charset="{$_G['charset']}">
 		function checkcardrule(obj) {
 			var chrLength = obj.value.length;
 			$('cardrule_view').style.display = "";
