@@ -285,7 +285,7 @@ if($operation == 'export') {
 							'cachevalue' => serialize(array('dateline' => $_G['timestamp'])),
 							'dateline' => $_G['timestamp'],
 						), false, true);
-						$deletetips = $_G['config']['admincp']['dbimport'] ? cplang('db_delete_tips', array('filename' => basename($zipfilename), 'FORMHASH' => formhash())) : '';
+						$deletetips = $_G['config']['admincp']['dbimport'] ? cplang('db_delete_tips', array('filename' => basename($backupfilename), 'FORMHASH' => formhash())) : '';
 						cpmsg('database_export_multivol_succeed', '', 'succeed', array('volume' => $volume, 'filelist' => $filelist, 'deletetips' => $deletetips));
 					}
 					unset($sqldump, $zip, $content);
