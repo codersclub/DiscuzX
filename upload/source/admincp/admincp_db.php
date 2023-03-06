@@ -246,7 +246,9 @@ if($operation == 'export') {
 						$zip = new zipfile();
 						$zip->addFile($content, basename($dumpfilename));
 						$fp = fopen(sprintf($backupfilename."-%s".'.zip', $volume), 'c');
-						if(!($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $zip->file()) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
+						if($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $zip->file()) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp)) {
+							@unlink($dumpfilename);
+						} else {
 							flock($fp, LOCK_UN);
 							fclose($fp);
 							cpmsg('database_export_zip_invalid', '', 'error');
@@ -274,13 +276,13 @@ if($operation == 'export') {
 						$filelist .= "<li><a href=\"$filename\">$filename</a></li>\n";
 					}
 					$fp = fopen($zipfilename, 'c');
-					if(!($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $zip->file()) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp))) {
+					if($fp && flock($fp, LOCK_EX) && ftruncate($fp, 0) && fwrite($fp, $zip->file()) && fflush($fp) && flock($fp, LOCK_UN) && fclose($fp)) {
 						foreach($unlinks as $link) {
 							@unlink($link);
 						}
+					} else {
 						flock($fp, LOCK_UN);
 						fclose($fp);
-					} else {
 						C::t('common_cache')->insert(array(
 							'cachekey' => 'db_export',
 							'cachevalue' => serialize(array('dateline' => $_G['timestamp'])),
