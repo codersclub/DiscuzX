@@ -601,6 +601,8 @@ if(!$operation) {
 
 			if(is_array($checkresult) && isset($checkresult[$addonid])) {
 				list($return, $newver, $sysver) = explode(':', $checkresult[$addonid]);
+			} else {
+				$newver = $sysver = '';
 			}
 
 			cloudaddons_installlog($pluginarray['plugin']['identifier'].'.plugin');
