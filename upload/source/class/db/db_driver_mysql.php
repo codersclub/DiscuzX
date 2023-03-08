@@ -88,10 +88,10 @@ class db_driver_mysql
 			$halt && $this->halt('notconnect', $this->errno());
 		} else {
 			$this->curlink = $link;
-			if($this->version() > '4.1') {
+			if(version_compare($this->version(), '4.1', '>')) {
 				$dbcharset = $dbcharset ? $dbcharset : $this->config[1]['dbcharset'];
 				$serverset = $dbcharset ? 'character_set_connection='.$dbcharset.', character_set_results='.$dbcharset.', character_set_client=binary' : '';
-				$serverset .= $this->version() > '5.0.1' ? ((empty($serverset) ? '' : ',').'sql_mode=\'\'') : '';
+				$serverset .= version_compare($this->version(), '5.0.1', '>') ? ((empty($serverset) ? '' : ',').'sql_mode=\'\'') : '';
 				$serverset && mysql_query("SET $serverset", $link);
 			}
 			$dbname && @mysql_select_db($dbname, $link);
