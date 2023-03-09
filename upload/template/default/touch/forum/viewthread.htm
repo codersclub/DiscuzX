@@ -57,29 +57,117 @@
 						<!--{if $post['first'] && $modmenu['thread']}-->
 							<em class="mgl"><a href="#moption_$post['pid']" class="popup blue">{lang manage}</a></em>
 							<div id="moption_$post['pid']" popup="true" class="manage" style="display:none;">
+								<div class="manage_popup pb10 cl">
 								<!--{if !$_G['forum_thread']['special']}-->
-								<a class="button" href="forum.php?mod=post&action=edit&fid=$_G['fid']&tid=$_G['tid']&pid=$post['pid']<!--{if $_G['forum_thread']['sortid']}--><!--{if $post['first']}-->&sortid={$_G['forum_thread']['sortid']}<!--{/if}--><!--{/if}-->{if !empty($_GET['modthreadkey'])}&modthreadkey=$_GET['modthreadkey']{/if}&page=$page">{lang edit}</a>
+									<a class="button" href="forum.php?mod=post&action=edit&fid=$_G['fid']&tid=$_G['tid']&pid=$post['pid']<!--{if $_G['forum_thread']['sortid']}--><!--{if $post['first']}-->&sortid={$_G['forum_thread']['sortid']}<!--{/if}--><!--{/if}-->{if !empty($_GET['modthreadkey'])}&modthreadkey=$_GET['modthreadkey']{/if}&page=$page">{lang edit}</a>
 								<!--{/if}-->
-								<input type="button" value="{lang delete}" class="dialog button" href="forum.php?mod=topicadmin&action=moderate&fid={$_G['fid']}&moderate[]={$_G['tid']}&operation=delete&optgroup=3&from={$_G['tid']}">
-								<input type="button" value="{lang close}" class="dialog button" href="forum.php?mod=topicadmin&action=moderate&fid={$_G['fid']}&moderate[]={$_G['tid']}&from={$_G['tid']}&optgroup=4">
-								<input type="button" value="{lang admin_banpost}" class="dialog button" href="forum.php?mod=topicadmin&action=banpost&fid={$_G['fid']}&tid={$_G['tid']}&topiclist[]={$_G['forum_firstpid']}">
-								<input type="button" value="{lang topicadmin_warn_add}" class="dialog button" href="forum.php?mod=topicadmin&action=warn&fid={$_G['fid']}&tid={$_G['tid']}&topiclist[]={$_G['forum_firstpid']}">
+								<!--{if $_G['forum']['ismoderator']}-->
+									<!--{if $_G['group']['allowdelpost']}-->
+										<input type="button" value="{lang modmenu_deletethread}" class="dialog button" href="forum.php?mod=topicadmin&action=moderate&fid={$_G['fid']}&moderate[]={$_G['tid']}&operation=delete&optgroup=3&from={$_G['tid']}">
+									<!--{/if}-->
+									<!--{if $_G['group']['allowbumpthread'] && !$_G['forum_thread']['is_archived']}-->
+										<input type="button" value="{lang modmenu_updown}" class="dialog button" href="forum.php?mod=topicadmin&action=moderate&fid={$_G['fid']}&moderate[]={$_G['tid']}&operation=bump&optgroup=3&from={$_G['tid']}">
+									<!--{/if}-->
+									<!--{if $_G['group']['allowstickthread'] && ($_G['forum_thread']['displayorder'] <= 3 || $_G['adminid'] == 1) && !$_G['forum_thread']['is_archived']}-->
+										<input type="button" value="{lang modmenu_stickthread}" class="dialog button" href="forum.php?mod=topicadmin&action=moderate&fid={$_G['fid']}&moderate[]={$_G['tid']}&operation=stick&optgroup=1&from={$_G['tid']}">
+									<!--{/if}-->
+									<!--{if $_G['group']['allowlivethread'] && !$_G['forum_thread']['is_archived']}-->
+										<input type="button" value="{lang modmenu_live}" class="dialog button" href="forum.php?mod=topicadmin&action=live&fid={$_G['fid']}&tid={$_G['tid']}&topiclist[]={$_G['forum_firstpid']}">
+									<!--{/if}-->
+									<!--{if $_G['group']['allowhighlightthread'] && !$_G['forum_thread']['is_archived']}-->
+										<input type="button" value="{lang modmenu_highlight}" class="dialog button" href="forum.php?mod=topicadmin&action=moderate&fid={$_G['fid']}&moderate[]={$_G['tid']}&operation=highlight&optgroup=1&from={$_G['tid']}">
+									<!--{/if}-->
+									<!--{if $_G['group']['allowdigestthread'] && !$_G['forum_thread']['is_archived']}-->
+										<input type="button" value="{lang modmenu_digestpost}" class="dialog button" href="forum.php?mod=topicadmin&action=moderate&fid={$_G['fid']}&moderate[]={$_G['tid']}&operation=digest&optgroup=1&from={$_G['tid']}">
+									<!--{/if}-->
+									<!--{if $_G['group']['allowrecommendthread'] && !empty($_G['forum']['modrecommend']['open']) && $_G['forum']['modrecommend']['sort'] != 1 && !$_G['forum_thread']['is_archived']}-->
+										<input type="button" value="{lang modmenu_recommend}" class="dialog button" href="forum.php?mod=topicadmin&action=moderate&fid={$_G['fid']}&moderate[]={$_G['tid']}&operation=recommend&optgroup=1&from={$_G['tid']}">
+									<!--{/if}-->
+									<!--{if $_G['group']['allowstampthread'] && !$_G['forum_thread']['is_archived']}-->
+										<input type="button" value="{lang modmenu_stamp}" class="dialog button" href="forum.php?mod=topicadmin&action=stamp&fid={$_G['fid']}&tid={$_G['tid']}&topiclist[]={$_G['forum_firstpid']}">
+									<!--{/if}-->
+									<!--{if $_G['group']['allowstamplist'] && !$_G['forum_thread']['is_archived']}-->
+										<input type="button" value="{lang modmenu_icon}" class="dialog button" href="forum.php?mod=topicadmin&action=stamplist&fid={$_G['fid']}&tid={$_G['tid']}&topiclist[]={$_G['forum_firstpid']}">
+									<!--{/if}-->
+									<!--{if $_G['group']['allowclosethread'] && !$_G['forum_thread']['is_archived'] && $_G['forum']['status'] != 3}-->
+										<input type="button" value="<!--{if !$_G['forum_thread']['closed']}-->{lang modmenu_switch_off}<!--{else}-->{lang modmenu_switch_on}<!--{/if}-->" class="dialog button" href="forum.php?mod=topicadmin&action=moderate&fid={$_G['fid']}&moderate[]={$_G['tid']}&from={$_G['tid']}&optgroup=4">
+									<!--{/if}-->
+									<!--{if $_G['group']['allowmovethread'] && !$_G['forum_thread']['is_archived'] && $_G['forum']['status'] != 3}-->
+										<input type="button" value="{lang modmenu_move}" class="dialog button" href="forum.php?mod=topicadmin&action=moderate&fid={$_G['fid']}&moderate[]={$_G['tid']}&operation=move&optgroup=2&from={$_G['tid']}">
+									<!--{/if}-->
+									<!--{if $_G['group']['allowedittypethread'] && !$_G['forum_thread']['is_archived']}-->
+										<input type="button" value="{lang modmenu_type}" class="dialog button" href="forum.php?mod=topicadmin&action=moderate&fid={$_G['fid']}&moderate[]={$_G['tid']}&operation=type&optgroup=2&from={$_G['tid']}">
+									<!--{/if}-->
+									<!--{if !$_G['forum_thread']['special'] && !$_G['forum_thread']['is_archived']}-->
+										<!--{if $_G['group']['allowcopythread'] && $_G['forum']['status'] != 3}-->
+											<input type="button" value="{lang modmenu_copy}" class="dialog button" href="forum.php?mod=topicadmin&action=copy&fid={$_G['fid']}&tid={$_G['tid']}&topiclist[]={$_G['forum_firstpid']}">
+										<!--{/if}-->
+										<!--{if $_G['group']['allowmergethread'] && $_G['forum']['status'] != 3}-->
+											<input type="button" value="{lang modmenu_merge}" class="dialog button" href="forum.php?mod=topicadmin&action=merge&fid={$_G['fid']}&tid={$_G['tid']}&topiclist[]={$_G['forum_firstpid']}">
+										<!--{/if}-->
+										<!--{if $_G['group']['allowrefund'] && $_G['forum_thread']['price'] > 0}-->
+											<input type="button" value="{lang modmenu_restore}" class="dialog button" href="forum.php?mod=topicadmin&action=refund&fid={$_G['fid']}&tid={$_G['tid']}&topiclist[]={$_G['forum_firstpid']}">
+										<!--{/if}-->
+									<!--{/if}-->
+									<!--{if $_G['group']['allowsplitthread'] && !$_G['forum_thread']['is_archived'] && $_G['forum']['status'] != 3}-->
+										<input type="button" value="{lang modmenu_split}" class="dialog button" href="forum.php?mod=topicadmin&action=split&fid={$_G['fid']}&tid={$_G['tid']}&topiclist[]={$_G['forum_firstpid']}">
+									<!--{/if}-->
+									<!--{if $_G['group']['allowrepairthread'] && !$_G['forum_thread']['is_archived']}-->
+										<input type="button" value="{lang modmenu_repair}" class="dialog button" href="forum.php?mod=topicadmin&action=repair&fid={$_G['fid']}&tid={$_G['tid']}&topiclist[]={$_G['forum_firstpid']}">
+									<!--{/if}-->
+									<!--{if $_G['forum_firstpid']}-->
+										<!--{if $_G['group']['allowwarnpost']}-->
+										<input type="button" value="{lang modmenu_warn}" class="dialog button" href="forum.php?mod=topicadmin&action=warn&fid={$_G['fid']}&tid={$_G['tid']}&topiclist[]={$_G['forum_firstpid']}">
+										<!--{/if}-->
+										<!--{if $_G['group']['allowbanpost']}-->
+										<input type="button" value="{lang modmenu_banthread}" class="dialog button" href="forum.php?mod=topicadmin&action=banpost&fid={$_G['fid']}&tid={$_G['tid']}&topiclist[]={$_G['forum_firstpid']}">
+										<!--{/if}-->
+									<!--{/if}-->
+									<!--{if $_G['group']['allowremovereward'] && $_G['forum_thread']['special'] == 3 && !$_G['forum_thread']['is_archived']}-->
+										<input type="button" value="{lang modmenu_removereward}" class="dialog button" href="forum.php?mod=topicadmin&action=removereward&fid={$_G['fid']}&tid={$_G['tid']}&topiclist[]={$_G['forum_firstpid']}">
+									<!--{/if}-->
+									<!--{if $_G['forum']['status'] == 3 && in_array($_G['adminid'], array('1','2')) && $_G['forum_thread']['closed'] < 1}-->
+										<input type="button" value="{lang modmenu_grouprecommend}" class="dialog button" href="forum.php?mod=topicadmin&action=moderate&fid={$_G['fid']}&moderate[]={$_G['tid']}&operation=recommend_group&optgroup=5&from={$_G['tid']}">
+									<!--{/if}-->
+									<!--{if $_G['group']['allowmanagetag']}-->
+										<a href="forum.php?mod=tag&op=manage&tid=$_G['tid']" class="dialog button">{lang post_tag}</a>
+									<!--{/if}-->
+									<!--{if $_G['group']['alloweditusertag']}-->
+										<a href="forum.php?mod=misc&action=usertag&tid=$_G['tid']" class="dialog button">{lang usertag}</a>
+									<!--{/if}-->
+								<!--{/if}-->
+								<!--{if $allowpusharticle && $allowpostarticle}-->
+									<a href="portal.php?mod=portalcp&ac=article&from_idtype=tid&from_id=$_G['tid']" class="dialog button">{lang modmenu_pusharticle}</a>
+								<!--{/if}-->
 								<!--{if !empty($post['totalrate']) && $_G['forum']['ismoderator']}-->
-								<input type="button" value="{lang removerate}" class="dialog button" href="forum.php?mod=misc&action=removerate&tid={$_G['tid']}&pid={$post['pid']}&page={$page}">
+									<input type="button" value="{lang removerate}" class="dialog button" href="forum.php?mod=misc&action=removerate&tid={$_G['tid']}&pid={$post['pid']}&page={$page}">
 								<!--{/if}-->
+								</div>
 							</div>
 						<!--{elseif !$post['first'] && $modmenu['post']}-->
 							<em class="mgl"><a href="#moption_$post['pid']" class="popup">{lang manage}</a></em>
 							<div id="moption_$post['pid']" popup="true" class="manage" style="display:none">
+								<div class="manage_popup">
 								<a class="button" href="forum.php?mod=post&action=edit&fid=$_G['fid']&tid=$_G['tid']&pid=$post['pid']{if !empty($_GET['modthreadkey'])}&modthreadkey=$_GET['modthreadkey']{/if}&page=$page">{lang edit}</a>
-								<!--{if $_G['group']['allowdelpost']}--><input type="button" value="{lang modmenu_deletepost}" class="dialog button" href="forum.php?mod=topicadmin&action=delpost&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}"><!--{/if}-->
-								<!--{if $_G['group']['allowbanpost']}--><input type="button" value="{lang modmenu_banpost}" class="dialog button" href="forum.php?mod=topicadmin&action=banpost&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}"><!--{/if}-->
-								<!--{if $_G['group']['allowwarnpost']}--><input type="button" value="{lang modmenu_warn}" class="dialog button" href="forum.php?mod=topicadmin&action=warn&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}"><!--{/if}-->
-								<!--{if $_G['forum']['ismoderator'] && $_G['group']['allowstickreply'] || $_G['forum_thread']['authorid'] == $_G['uid']}--><input type="button" value="{lang modmenu_stickpost}" class="dialog button" href="forum.php?mod=topicadmin&action=stickreply&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}"><!--{/if}-->
-								<!--{if $_G['forum_thread']['pushedaid'] && $allowpostarticle}--><input type="button" value="{lang modmenu_pushplus}" class="dialog button" href="portal.php?mod=portalcp&ac=article&op=pushplus&action=pushplus&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}&aid={$_G['forum_thread']['pushedaid']}"><!--{/if}-->
-								<!--{if !empty($post['totalrate']) && $_G['forum']['ismoderator']}-->
-								<input type="button" value="{lang removerate}" class="dialog button" href="forum.php?mod=misc&action=removerate&tid={$_G['tid']}&pid={$post['pid']}&page={$page}">
+								<!--{if $_G['group']['allowdelpost']}-->
+									<input type="button" value="{lang modmenu_deletepost}" class="dialog button" href="forum.php?mod=topicadmin&action=delpost&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}">
 								<!--{/if}-->
+								<!--{if $_G['group']['allowbanpost']}-->
+									<input type="button" value="{lang modmenu_banpost}" class="dialog button" href="forum.php?mod=topicadmin&action=banpost&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}">
+								<!--{/if}-->
+								<!--{if $_G['group']['allowwarnpost']}-->
+									<input type="button" value="{lang modmenu_warn}" class="dialog button" href="forum.php?mod=topicadmin&action=warn&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}">
+								<!--{/if}-->
+								<!--{if $_G['forum']['ismoderator'] && $_G['group']['allowstickreply'] || $_G['forum_thread']['authorid'] == $_G['uid']}-->
+									<input type="button" value="{lang modmenu_stickpost}" class="dialog button" href="forum.php?mod=topicadmin&action=stickreply&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}">
+								<!--{/if}-->
+								<!--{if $_G['forum_thread']['pushedaid'] && $allowpostarticle}-->
+									<input type="button" value="{lang modmenu_pushplus}" class="dialog button" href="portal.php?mod=portalcp&ac=article&op=pushplus&action=pushplus&fid={$_G['fid']}&tid={$_G['tid']}&operation=&optgroup=&page=&topiclist[]={$post['pid']}&aid={$_G['forum_thread']['pushedaid']}">
+								<!--{/if}-->
+								<!--{if !empty($post['totalrate']) && $_G['forum']['ismoderator']}-->
+									<input type="button" value="{lang removerate}" class="dialog button" href="forum.php?mod=misc&action=removerate&tid={$_G['tid']}&pid={$post['pid']}&page={$page}">
+								<!--{/if}-->
+								</div>
 							</div>
 						<!--{else}-->
 							<!--{if (($_G['forum']['ismoderator'] && $_G['group']['alloweditpost'] && (!in_array($post['adminid'], array(1, 2, 3)) || $_G['adminid'] <= $post['adminid'])) || ($_G['forum']['alloweditpost'] && $_G['uid'] && ($post['authorid'] == $_G['uid'] && $_G['forum_thread']['closed'] == 0) && !(!$alloweditpost_status && $edittimelimit && TIMESTAMP - $post['dbdateline'] > $edittimelimit)))}-->
@@ -90,7 +178,7 @@
 						<!--{/if}-->
 					$post['dateline']
 				</li>
-            </ul>
+			</ul>
 			<div class="message">
 				<!--{if $post['warned']}-->
 					<span class="quote">{lang warn_get}</span>
@@ -157,14 +245,14 @@
 			</div>
 			<!--{if ($_G['setting']['mobile']['mobilesimpletype'] == 0) && (!$needhiddenreply)}-->
 			<!--{if $post['attachment']}-->
-               <div class="quote">
-               {lang attachment}: <em><!--{if $_G['uid']}-->{lang attach_nopermission}<!--{else}-->{lang attach_nopermission_login}<!--{/if}--></em>
-               </div>
-            <!--{elseif $post['imagelist'] || $post['attachlist']}-->
-               	<!--{if $post['imagelist']}-->
+				<div class="quote">
+				{lang attachment}: <em><!--{if $_G['uid']}-->{lang attach_nopermission}<!--{else}-->{lang attach_nopermission_login}<!--{/if}--></em>
+				</div>
+			<!--{elseif $post['imagelist'] || $post['attachlist']}-->
+				<!--{if $post['imagelist']}-->
 				<ul class="img_one">{echo showattach($post, 1)}</ul>
 				<!--{/if}-->
-                <!--{if $post['attachlist']}-->
+				<!--{if $post['attachlist']}-->
 				<ul class="post_attlist">{echo showattach($post)}</ul>
 				<!--{/if}-->
 			<!--{/if}-->
@@ -207,6 +295,7 @@
 				<!--{if $commentcount[$post['pid']] > $_G['setting']['commentnumber']}--><div id="dumppage"></div><div class="pgs cl"><div class="page"><a href="javascript:;" class="nxt" onclick="ajaxget('forum.php?mod=misc&action=commentmore&tid=$post[tid]&pid=$post[pid]&page=2', 'comment_$post[pid]')">{lang next_page}</a></div></div><!--{/if}-->
 			<!--{/if}-->
 			</div>
+			
 			<!--{if $_GET['from'] != 'preview' && !empty($post['ratelog'])}-->
 				<h3 class="psth xs1"><span class="icon_ring vm"></span>{lang rate}</h3>
 				<div id="ratelog_{$post['pid']}">
@@ -254,9 +343,9 @@
 											<a href="home.php?mod=space&uid=$uid" class="murl"><p class="mtit">$ratelog['username']</p></a>
 											<!--{loop $ratelog['score'] $id $score}-->
 											<!--{if $score > 0}-->
-												<p class="mtit"><em class='xi1'>{$_G['setting']['extcredits'][$id]['title']} + $score $_G['setting']['extcredits'][$id]['unit']</em></p>
+												<p class="mtit mt0"><em class='xi1'>{$_G['setting']['extcredits'][$id]['title']} + $score $_G['setting']['extcredits'][$id]['unit']</em></p>
 											<!--{else}-->
-												<p class="mtit"><span>{$_G['setting']['extcredits'][$id]['title']} $score $_G['setting']['extcredits'][$id]['unit']</span></p>
+												<p class="mtit mt0"><span>{$_G['setting']['extcredits'][$id]['title']} $score $_G['setting']['extcredits'][$id]['unit']</span></p>
 											<!--{/if}-->
 											<!--{/loop}-->
 										</li>
@@ -278,7 +367,7 @@
 				<li><a href="forum.php?mod=misc&action=rate&tid={$_G['tid']}&pid={$post['pid']}" class="dialog"><i class="dm-heart"></i>{lang rate}</a></li>
 			<!--{/if}-->
 			<!--{if $post['invisible'] == 0}-->
-				<!--{if $allowpostreply && $post['allowcomment'] && (!$thread['closed'] || $_G['forum']['ismoderator'])}--><li><a href="forum.php?mod=misc&action=comment&tid={$post['tid']}&pid={$post['pid']}&extra={$_GET['extra']}&page={$page}{if $_G['forum_thread']['special'] == 127}&special={$specialextra}{/if}"><i class="dm-chat-s"></i>{lang comments}</a></li><!--{/if}-->
+				<!--{if $allowpostreply && $post['allowcomment'] && (!$thread['closed'] || $_G['forum']['ismoderator'])}--><li><a href="forum.php?mod=misc&action=comment&tid={$post['tid']}&pid={$post['pid']}&extra={$_GET['extra']}&page={$page}{if $_G['forum_thread']['special'] == 127}&special={$specialextra}{/if}" class="dialog"><i class="dm-chat-s"></i>{lang comments}</a></li><!--{/if}-->
 			<!--{/if}-->
 			<!--{if !$_G['forum_thread']['special'] && !$rushreply && !$hiddenreplies && $_G['setting']['repliesrank'] && !$post['first'] && !($post['isWater'] && $_G['setting']['filterednovote'])}-->
 				<li><a href="forum.php?mod=misc&action=postreview&do=support&tid={$_G['tid']}&pid={$post['pid']}&hash={FORMHASH}" class="dialog"><i class="dm-c-up"></i>{lang support_reply} <span id="review_support_{$post['pid']}">{$post['postreview']['support']}</span></a></li>

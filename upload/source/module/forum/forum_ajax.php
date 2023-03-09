@@ -160,7 +160,7 @@ if($_GET['action'] == 'checkusername') {
 } elseif($_GET['action'] == 'getthreadtypes') {
 	include template('common/header_ajax');
 	if(empty($_GET['selectname'])) $_GET['selectname'] = 'threadtypeid';
-	echo '<select name="'.$_GET['selectname'].'">';
+	echo '<select name="'.$_GET['selectname'].'" '.($_GET['selectclass'] ? 'class="'.$_GET['selectclass'].'"' : '').'>';
 	if(!empty($_G['forum']['threadtypes']['types'])) {
 		if(!$_G['forum']['threadtypes']['required']) {
 			echo '<option value="0"></option>';
