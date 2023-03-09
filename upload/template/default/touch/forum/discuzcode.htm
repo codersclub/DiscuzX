@@ -70,6 +70,14 @@ $is_archive = $_G['forum_thread']['is_archived'] ? "&fid=".$_G['fid']."&archivei
 			</span>
 			<p class="pl5 f_9">$attach['dateline'] {lang upload}</p>
 			<p class="pl5 f_9">$attach['attachsize']<!--{if $attach['readperm']}-->, {lang readperm}: <strong>$attach['readperm']</strong><!--{/if}--><!--{if !$_G['setting']['hideattachdown']}-->, {lang downloads}: $attach['downloads']<!--{/if}--><!--{if !$attach['attachimg'] && $_G['getattachcredits']}-->, {lang attachcredits}: $_G['getattachcredits']<!--{/if}--></p>
+			<!--{if $attach['price']}-->
+				<p class="pl5 f_9">
+				{lang price}: <strong class="xi1">$attach['price'] {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][unit]}{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][title]}</strong> &nbsp;[<a href="forum.php?mod=misc&action=viewattachpayments&aid=$attach['aid']" class="dialog">{lang pay_view}</a>]
+				<!--{if !$attach['payed']}-->
+					&nbsp;[<a href="forum.php?mod=misc&action=attachpay&aid=$attach['aid']&tid=$attach['tid']" class="dialog">{lang attachment_buy}</a>]
+				<!--{/if}-->
+				</p>
+			<!--{/if}-->
 		</div>
 	</a>
 	<div>

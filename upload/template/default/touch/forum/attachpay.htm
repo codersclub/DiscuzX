@@ -1,63 +1,58 @@
 <!--{template common/header}-->
-<header class="header">
-	<div class="nav">
-		<a href="forum.php?mod=viewthread&tid=$_G['tid']" class="z"><img src="{STATICURL}image/mobile/images/icon_back.png" /></a>
-		<span class="name">{lang pay_attachment}</span>
-	</div>
-</header>
-
-<form id="attachpayform" method="post" autocomplete="off" action="forum.php?mod=misc&action=attachpay&tid={$_G['tid']}{if !empty($_GET['infloat'])}&paysubmit=yes&infloat=yes" onsubmit="ajaxpost('attachpayform', 'return_$_GET['handlekey']', 'return_$_GET['handlekey']', 'onerror');return false;"{else}"{/if}>
-	<div class="f_c">
-		
+<div class="tip loginbox loginpop p5" id="floatlayout_attachpay">
+	<h2 class="log_tit" id="return_attachpay">{lang pay_attachment}</h2>
+	<form id="attachpayform" method="post" autocomplete="off" action="forum.php?mod=misc&action=attachpay&tid={$_G['tid']}">
 		<input type="hidden" name="formhash" value="{FORMHASH}" />
 		<input type="hidden" name="referer" value="{echo dreferer()}" />
 		<input type="hidden" name="aid" value="$aid" />
 		<input type="hidden" name="paysubmit" value="true" />
-		<!--{if !empty($_GET['infloat'])}--><input type="hidden" name="handlekey" value="$_GET['handlekey']" /><!--{/if}-->
-		<div class="clew_con c">
-			<table class="list" cellspacing="0" cellpadding="0" style="width: 400px">
-				<tr>
-					<td><h2>{lang author}</h2></td>
-					<td><a href="home.php?mod=space&uid=$attach['uid']">$attach['author']</a></td>
-				</tr>
-				<tr>
-					<td><h2>{lang attachment}</h2></td>
-					<td><div style="overflow:hidden">$attach['filename'] <!--{if $attach['description']}-->($attach['description'])<!--{/if}--></div></td>
-				</tr>
-				<tr>
-					<td><h2>{lang price}({$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['title']})</h2></td>
-					<td>$attach['price'] {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['unit']}</td>
-				</tr>
-				<!--{if $status != 1}-->
-				<tr>
-					<td><h2>{lang pay_author_income}({$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['title']})</h2></td>
-					<td>$attach['netprice'] {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['unit']}</td>
-				</tr>
-				<tr>
-					<td><h2>{lang pay_balance}({$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['title']})</h2></td>
-					<td>$balance {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['unit']}</td>
-				</tr>
-				<!--{/if}-->
-				<!--{if $status == 1}-->
-				<tr>
-					<td>&nbsp;</td>
-					<td>{lang status_insufficient}</td>
-				</tr>
-				<!--{elseif $status == 2}-->
-				<tr>
-					<td>&nbsp;</td>
-					<td>{lang status_download}, <a href="forum.php?mod=attachment&aid=$aidencode" target="_blank">{lang download}</a></td>
-				</tr>
-				<!--{/if}-->
-			</table>
-		</div>
-		<div class="clew_con">
+		<ul class="post_box cl">
+			<li class="flex-box mli">
+				<div class="flex-2 xs1"><span class="z">{lang author}</span></div>
+				<div class="flex-3 xs1"><a href="home.php?mod=space&uid=$attach['uid']">$attach['author']</a></div>
+			</li>
+			<li class="flex-box mli">
+				<div class="flex-2 xs1"><span class="z">{lang attachment}</span></div>
+				<div class="flex-3 xs1" style="line-height:20px;overflow:hidden;">$attach['filename'] <!--{if $attach['description']}-->($attach['description'])<!--{/if}--></div>
+			</li>
+			<li class="flex-box mli">
+				<div class="flex-2 xs1"><span class="z">{lang price}({$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['title']})</span></div>
+				<div class="flex-3 xs1">$attach['price'] {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['unit']}</div>
+			</li>
 			<!--{if $status != 1}-->
-				<label><input name="buyall" type="checkbox" class="pc" value="yes" />{lang buy_all_attch}</label>
-				<input class="button" type="submit" name="submit" value="<!--{if $status == 0}-->{lang pay_attachment}<!--{else}-->{lang free_buy}<!--{/if}-->" />
+			<li class="flex-box mli">
+				<div class="flex-2 xs1"><span class="z">{lang pay_author_income}({$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['title']})</span></div>
+				<div class="flex-3 xs1">$attach['netprice'] {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['unit']}</div>
+			</li>
+			<li class="flex-box mli">
+				<div class="flex-2 xs1"><span class="z">{lang pay_balance}({$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['title']})</span></div>
+				<div class="flex-3 xs1">$balance {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['unit']}</div>
+			</li>
 			<!--{/if}-->
-			<input class="button" type="button" onclick="location.href = 'forum.php?mod=viewthread&tid=$_G['tid']';"value="{lang back}" />
-		</div>
-	</div>
-</form>
+			<!--{if $status == 1}-->
+			<li class="flex-box mli">
+				<div class="flex-2 xs1"><span class="z"></span></div>
+				<div class="flex-3 xs1">{lang status_insufficient}</div>
+			</li>
+			<!--{elseif $status == 2}-->
+			<li class="flex-box mli">
+				<div class="flex-2 xs1"><span class="z"></span></div>
+				<div class="flex-3 xs1">{lang status_download}, <a href="forum.php?mod=attachment&aid=$aidencode" target="_blank">{lang download}</a></div>
+			</li>
+			<!--{/if}-->
+			<!--{if $status != 1}-->
+			<label>
+			<li class="flex-box mli">
+				<div class="flex-3 xs1"><span class="z">{lang buy_all_attch}</span></div>
+				<div class="flex-2 xs1"><input name="buyall" type="checkbox" class="pc" value="yes" /></div>
+			</li>
+			</label>
+			<!--{/if}-->
+		</ul>
+		<!--{if $status != 1}-->
+		<div class="mb10"></div>
+		<dd><input class="formdialog button" type="submit" name="submit" value="<!--{if $status == 0}-->{lang pay_attachment}<!--{else}-->{lang free_buy}<!--{/if}-->" /></dd>
+		<!--{/if}-->
+	</form>
+</div>
 <!--{template common/footer}-->

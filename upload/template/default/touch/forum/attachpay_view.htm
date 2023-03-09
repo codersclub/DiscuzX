@@ -1,0 +1,23 @@
+<!--{template common/header}-->
+<div class="tip loginbox loginpop p5" id="floatlayout_attachpay_view">
+	<h2 class="log_tit" id="return_attachpay_view">{lang pay_view}</h2>
+	<!--{if $loglist}-->
+	<ul class="post_box cl">
+		<li class="flex-box mli">
+			<div class="flex tit">{lang username}</div>
+			<div class="flex tit">{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][title]}</div>
+			<div class="flex tit">{lang time}</div>
+		</li>
+		<!--{loop $loglist $log}-->
+		<li class="flex-box mli">
+			<div class="flex xs1"><a href="home.php?mod=space&uid=$log['uid']">$log['username']</a></div>
+			<div class="flex xs1">$log['dateline']</div>
+			<div class="flex xs1 xi1">{$log[$extcreditname]} {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]]['unit']}</div>
+		</li>
+		<!--{/loop}-->
+	</ul>
+	<!--{else}-->
+		<dt>{lang attachment_buy_not}</dt>
+	<!--{/if}-->
+</div>
+<!--{template common/footer}-->
