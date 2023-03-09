@@ -57,6 +57,9 @@ a.button {color:var(--dz-FC-fff)}
 .pt {width:100%;border:none;padding:0;min-height:168px;line-height:24px;font-size:16px;background:none}
 .pr, .pc {vertical-align:middle;margin:0 5px 3px;padding:0}
 .btn_pn_grey {background-color:var(--dz-BG-0);color:var(--dz-FC-color)}
+.btn_pn_red {background-color:var(--dz-BG-2);color:var(--dz-FC-fff)}
+.btn_pn_orange {background-color:var(--dz-BG-3);color:var(--dz-FC-fff)}
+.btn_pn_green {background-color:var(--dz-BG-4);color:var(--dz-FC-fff)}
 input[type="reset"]::-moz-focus-inner,
 input[type="button"]::-moz-focus-inner,
 input[type="submit"]::-moz-focus-inner,

@@ -27,7 +27,7 @@
 			<dt><span class="mtit">{lang activity_already}:</span>
 				<em>$allapplynum</em> {lang activity_member_unit}
 				<!--{if $post['invisible'] == 0 && ($_G['forum_thread']['authorid'] == $_G['uid'] || (in_array($_G['group']['radminid'], array(1, 2)) && $_G['group']['alloweditactivity']) || ( $_G['group']['radminid'] == 3 && $_G['forum']['ismoderator'] && $_G['group']['alloweditactivity']))}-->
-					<span class="my">{lang activity_mod}</span>
+					<a href="forum.php?mod=misc&action=activityapplylist&tid=$_G['tid']&pid=$post['pid']{if $_GET['from']}&from=$_GET['from']{/if}" class="my dialog">{lang manage}</a>
 				<!--{/if}-->
 			</dt>
 			<!--{if $activity['number']}-->

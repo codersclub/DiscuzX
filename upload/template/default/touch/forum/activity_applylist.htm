@@ -1,0 +1,92 @@
+<!--{template common/header}-->
+<div class="tip loginbox loginpop p5" id="floatlayout_applylist" style="max-height:400px; overflow-y:scroll;">
+<form id="applylistform" method="post" autocomplete="off" action="forum.php?mod=misc&action=activityapplylist&tid=$_G['tid']&applylistsubmit=yes&infloat=yes{if !empty($_GET['from'])}&from=$_GET['from']{/if}">
+	<h2 class="log_tit" id="return_applylist"><!--{if $isactivitymaster}-->{lang activity_applylist_manage}<!--{else}-->{lang activity_applylist}<!--{/if}--></h2>
+	<input type="hidden" name="formhash" value="{FORMHASH}" />
+	<input type="hidden" name="operation" value="" />
+	<input type="hidden" name="handlekey" value="$_GET['handlekey']" />
+	<ul class="post_box cl">
+		<li class="flex-box mli mtit">
+			<!--{if $isactivitymaster}--><div class="flex"></div><!--{/if}-->
+			<div class="flex-2 xs1"><span class="z">{lang activity_join_members}</span></div>
+			<div class="flex-3 xs1"><span class="y">{lang activity_jointime}</span></div>
+		</li>
+		<!--{loop $applylist $apply}-->
+		<li class="flex-box mli mtext">
+			<!--{if $isactivitymaster}-->
+			<div class="flex">
+				<!--{if $apply['uid'] != $_G['uid']}-->
+					<input type="checkbox" name="applyidarray[]" class="pc" value="$apply['applyid']" />
+				<!--{else}-->
+					<input type="checkbox" class="pc" disabled="disabled" />
+				<!--{/if}-->
+			</div>
+			<!--{/if}-->
+			<div class="flex-2 xs1">
+				<span class="z"><a href="home.php?mod=space&uid=$apply['uid']" target="_blank" class="xs1">$apply['username']</a><span>
+			</div>
+			<div class="flex-3 xs1">
+				<span class="y">$apply['dateline']</span>
+			</div>
+		</li>
+		<li class="flex-box mli mtit">
+			<!--{if $isactivitymaster}-->
+			<div class="flex-3 xs1">
+				<span class="z">
+				<!--{if $apply[verified] == 1}-->
+					<i class="fico-valid fc-v vm" title="{lang activity_allow_join}"></i>{lang activity_allow_join}
+				<!--{elseif $apply[verified] == 2}-->
+					{lang activity_do_replenish}
+				<!--{else}-->
+					{lang activity_cant_audit}
+				<!--{/if}-->
+				</span>
+			</div>
+			<!--{/if}-->
+			<!--{if $activity['cost']}-->
+			<div class="flex-3 xs1">
+				<span class="y">{lang activity_payment}: <!--{if $apply['payment'] >= 0}-->$apply['payment'] {lang payment_unit}<!--{else}-->{lang activity_self}<!--{/if}--></span>
+			</div>
+			<!--{/if}-->
+		</li>
+		<!--{if $apply['message']}-->
+		<li class="flex-box mli mtext">
+			<!--{if $apply['message']}--><div class="flex-3 xs1 xg1"><span class="z">{lang leaveword}: $apply['message']</span></div><!--{/if}-->
+		</li>
+		<!--{/if}-->
+		<li class="flex-box mli mtit">
+			<div class="flex-3 xs1">
+				<!--{if $apply['ufielddata']}-->
+					{lang extension_project}
+				<!--{else}-->
+					{lang extension_project}: {lang no_informations}
+				<!--{/if}-->
+			</div>
+		</li>
+		<ul class="ufielddata">$apply['ufielddata']</ul>
+		<div class="discuz_x mb10 cl"></div>
+		<!--{/loop}-->
+	</ul>
+	<!--{if $isactivitymaster}-->
+	<ul class="post_box cl mb10">
+		<label>
+		<li class="flex-box mli">
+			<div class="flex xs1"><input name="reason" class="px vm" size="25" placeholder="{lang activity_ps}" /></div>
+		</li>
+		</label>
+	</ul>
+	<dd>
+	<button class="formdialog button z" type="submit" value="true" name="applylistsubmit" onclick="$('applylistform').operation.value='notification';"><span>{lang send_notification}</span></button>
+	<button class="formdialog button y" type="submit" value="true" name="applylistsubmit" onclick="$('applylistform').operation.value='replenish';"><span>{lang to_improve}</span></button>
+	</dd>
+	<dd>
+	<button class="formdialog button btn_pn_green z" type="submit" value="true" name="applylistsubmit"><span>{lang confirm}</span></button>
+	<button class="formdialog button btn_pn_red y" type="submit" value="true" name="applylistsubmit" onclick="$('applylistform').operation.value='delete';"><span>{lang activity_refuse}</span></button>
+	</dd>
+	<!--{/if}-->
+</form>
+</div>
+<style type="text/css">
+.ufielddata li { display:flex;-webkit-box-flex: 3;-webkit-flex: 3;-ms-flex: 3;flex: 3; font-size:12px;color: var(--dz-FC-999);height: 20px;line-height: 20px;padding: 5px 15px;}
+</style>
+<!--{template common/footer}-->
