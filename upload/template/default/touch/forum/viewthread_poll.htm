@@ -15,11 +15,14 @@
 	<!--{elseif $expiration && $expirations < TIMESTAMP}-->
 	<div class="poll_txt">{lang poll_end}</div>
 	<!--{/if}-->
+	<!--{if !$visiblepoll && ($overt || $_G['adminid'] == 1 || $thread['authorid'] == $_G['uid']) && $post['invisible'] == 0}-->
+		<div class="poll_txt"><a href="forum.php?mod=misc&action=viewvote&tid=$_G['tid']" class="dialog">{lang poll_view_voters}</a></div>
+	<!--{/if}-->
 	<div class="poll_box">
 	<!--{if $isimagepoll}-->
 			<!--{loop $polloptions $key $option}-->
-			<!--{eval $imginfo=$option['imginfo'];}-->			
-            <p>
+			<!--{eval $imginfo=$option['imginfo'];}-->
+			<p>
 			<!--{if $imginfo}-->
 				<a href="javascript:;" title="$imginfo['filename']" class="mimg vm">
 					<img src="$imginfo['small']" alt="$imginfo['filename']" />
@@ -27,28 +30,30 @@
 			<!--{else}-->
 				<a href="javascript:;" class="mimg vm"><img src="{STATICURL}image/common/nophoto.gif" alt="$imginfo['filename']" /></a>
 			<!--{/if}-->
-            <!--{if $_G['group']['allowvote']}-->
-                <input type="$optiontype" id="option_$key" name="pollanswers[]" value="$option['polloptionid']" {if $_G['forum_thread']['is_archived']}disabled="disabled"{/if}  />
-            <!--{/if}-->
-            <label for="option_$key">$key.$option['polloption']</label>
-            <!--{if !$visiblepoll}-->
-                <em style="color:#$option['color']">$option['percent']% ($option['votes'])</em>
-            <!--{/if}-->
-            </p>
+			<!--{if $_G['group']['allowvote']}-->
+				<input type="$optiontype" id="option_$key" name="pollanswers[]" value="$option['polloptionid']" {if $_G['forum_thread']['is_archived']}disabled="disabled"{/if}  />
+			<!--{/if}-->
+			<label for="option_$key">$key.$option['polloption']</label>
+			<!--{if !$visiblepoll}-->
+				<em style="color:#$option['color']" class="y">$option['percent']% ($option['votes']{lang debate_poll})</em>
+			<!--{/if}-->
+			</p>
+			<hr class="l">
 			<!--{/loop}-->
 		</tr>	
 	<!--{else}-->
-        <!--{loop $polloptions $key $option}-->
-            <p>
-            <!--{if $_G['group']['allowvote']}-->
-                <input type="$optiontype" id="option_$key" name="pollanswers[]" value="$option['polloptionid']" {if $_G['forum_thread']['is_archived']}disabled="disabled"{/if}  />
-            <!--{/if}-->
-            <label for="option_$key">$key.$option['polloption']</label>
-            <!--{if !$visiblepoll}-->
-                <em style="color:#$option['color']">$option['percent']% ($option['votes'])</em>
-            <!--{/if}-->
-            </p>
-        <!--{/loop}-->
+		<!--{loop $polloptions $key $option}-->
+			<p>
+			<!--{if $_G['group']['allowvote']}-->
+				<input type="$optiontype" id="option_$key" name="pollanswers[]" value="$option['polloptionid']" {if $_G['forum_thread']['is_archived']}disabled="disabled"{/if}  />
+			<!--{/if}-->
+			<label for="option_$key">$key.$option['polloption']</label>
+			<!--{if !$visiblepoll}-->
+				<em style="color:#$option['color']" class="y">$option['percent']% ($option['votes']{lang debate_poll})</em>
+			<!--{/if}-->
+			</p>
+			<hr class="l">
+		<!--{/loop}-->
 	<!--{/if}-->
 		<!--{if $_G['group']['allowvote'] && !$_G['forum_thread']['is_archived']}-->
 			<input type="submit" name="pollsubmit" id="pollsubmit" value="{lang submit}" class="formdialog btn_pn" />

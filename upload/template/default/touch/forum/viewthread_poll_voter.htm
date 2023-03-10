@@ -1,0 +1,49 @@
+<!--{template common/header}-->
+<div class="tip loginbox loginpop p5" id="floatlayout_viewvote" style="max-height:400px; overflow-y:scroll;">
+	<h2 class="log_tit" id="return_viewvote">{lang poll_voters}</h2>
+	<ul class="post_box cl">
+		<li class="flex-box mli">
+			<div class="flex">
+				<select id="polloptionid" class="sort_sel" onchange="changepolloptionid(this.value);">
+				<!--{loop $polloptions $options}-->
+					<option value="$options['polloptionid']"{if $options['polloptionid'] == $polloptionid} selected="selected"{/if}>$options['polloption']</option>
+				<!--{/loop}-->
+				</select>
+			</div>
+		</li>
+	</ul>
+	<!--{if !$voterlist}-->
+	<dt>{lang none}</dt>
+	<!--{else}-->
+	<ul class="post_box flex-box flex-wrap cl">
+		<!--{loop $voterlist $voter}-->
+		<li class="flex flex-half mli">
+			<div class="xs1"><a href="home.php?mod=space&uid=$voter[uid]" target="_blank">$voter['username']</a></div>
+		</li>
+		<!--{/loop}-->
+	</ul>
+	<!--{/if}-->
+</div>
+	<div class="c cl mbn">$multipage</div>
+</div>
+
+<script type="text/javascript" reload="1">
+function changepolloptionid(id) {
+	popup.open('<img src="' + IMGDIR + '/imageloading.gif">');
+	$.ajax({
+		type : 'GET',
+		url : 'forum.php?mod=misc&action=viewvote&tid=$_G[tid]&polloptionid='+ id + '&inajax=1',
+		dataType : 'xml'
+	})
+	.success(function(s) {
+		popup.open(s.lastChild.firstChild.nodeValue);
+		evalscript(s.lastChild.firstChild.nodeValue);
+	})
+	.error(function() {
+		window.location.href = 'forum.php?mod=misc&action=viewvote&tid=$_G[tid]';
+		popup.close();
+	});
+	return false;
+}
+</script>
+<!--{template common/footer}-->
