@@ -51,7 +51,7 @@ class table_common_tagitem extends discuz_table
 			return parent::delete($val, $unbuffered);
 		} else {
 			$unbuffered = $unbuffered === false ? 0 : $unbuffered;
-			return $this->delete_tagitem($val, $unbuffered);
+			return $this->delete_tagitem($val, $unbuffered, $null);
 		}
 	}
 
