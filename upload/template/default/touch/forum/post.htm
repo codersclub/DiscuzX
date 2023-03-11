@@ -40,18 +40,19 @@
 	<div class="my"></div>
 </div>
 <div class="post_from post_box">
+	<!--{hook/post_top_mobile}-->
 	<ul class="cl">
 		<!--{if $_GET['action'] != 'reply'}-->
-		<li class="mli"><input type="text" class="px" id="needsubject" autocomplete="off" value="$postinfo['subject']" name="subject" placeholder="{lang posts}{lang thread_subject}" fwin="login"></li>
+		<li class="mli"><input type="text" class="px pl5" id="needsubject" autocomplete="off" value="$postinfo['subject']" name="subject" placeholder="{lang posts}{lang thread_subject}"></li>
 		<!--{else}-->
 		<li class="mtext">
 			RE: $thread['subject']
 			<!--{if $quotemessage}-->$quotemessage<!--{/if}-->
 		</li>
-		<!--{/if}-->		
+		<!--{/if}-->
 		<!--{if $isfirstpost && !empty($_G['forum']['threadtypes']['types'])}-->
-		<li class="mli">			
-			<select id="typeid" name="typeid" class="sort_sel">	
+		<li class="mli">
+			<select id="typeid" name="typeid" class="sort_sel pl5">	
 				<i class="dm-c-down sort_jt"></i>
 				<option value="0" selected="selected">{lang threadtype}</option>
 				<!--{loop $_G['forum']['threadtypes']['types'] $typeid $name}-->
@@ -62,11 +63,9 @@
 			</select>
 		</li>
 		<!--{/if}-->
-		<!--{if $_GET['action'] == 'edit' && $isorigauthor && ($isfirstpost && $thread['replies'] < 1 || !$isfirstpost) && !$rushreply && $_G['setting']['editperdel']}-->
-		<li class="mli">
-			<input type="checkbox" name="delete" id="delete" class="pc" value="1" title="{lang post_delpost}{if $thread['special'] == 3}{lang reward_price_back}{/if}"> {lang post_delpost}?
-		</li>
-		<!--{/if}-->
+	</ul>
+	<!--{template forum/post_editor_extra}-->
+	<ul class="cl">
 		<li class="mtext">
 			<textarea class="pt" id="needmessage" autocomplete="off" id="{$editorid}_textarea" name="$editor['textarea']" placeholder="<!--{if $_GET['action'] != 'reply'}-->{lang posts}<!--{/if}-->{lang thread_content}" fwin="reply">$postinfo['message']</textarea>
 			<div class="mimg cl">
@@ -112,6 +111,14 @@
 				</ul>
 			</div>
 		</li>
+		<!--{if $_GET['action'] == 'edit' && $isorigauthor && ($isfirstpost && $thread['replies'] < 1 || !$isfirstpost) && !$rushreply && $_G['setting']['editperdel']}-->
+		<label>
+		<li class="flex-box mli">
+			<div class="flex-3 xg1"><span class="z">{lang post_delpost}</span></div>
+			<div class="flex"><span class="y"><input type="checkbox" name="delete" id="delete" class="pc" value="1" title="{lang post_delpost}{if $thread['special'] == 3}{lang reward_price_back}{/if}"></span></div>
+		</li>
+		</label>
+		<!--{/if}-->
 		<!--{hook/post_middle_mobile}-->
 		<!--{subtemplate forum/post_editor_attribute}-->
 	</ul>

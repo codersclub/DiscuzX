@@ -1,0 +1,107 @@
+<input type="hidden" name="polls" value="yes" />
+<input type="hidden" name="fid" value="$_G['fid']" />
+<div class="discuz_x cl"></div>
+<ul class="cl">
+	<label for="polldatas">
+	<li class="flex-box mli">
+		<div class="flex-2 pl5 xg1">{lang post_poll_allowmultiple}</div>
+		<div class="flex-3"><input type="text" name="maxchoices" id="maxchoices" class="px pxs" value="{if $_GET[action] == 'edit' && $poll[maxchoices]}$poll[maxchoices]{else}1{/if}" /></div>
+		<div class="flex xg1"><span class="y">{lang post_option}</span></div>
+	</li>
+	</label>
+	<label for="polldatas">
+	<li class="flex-box mli">
+		<div class="flex-2 pl5 xg1">{lang post_poll_expiration}</div>
+		<div class="flex-3"><input type="text" name="expiration" id="polldatas" class="px pxs" value="{if $_GET[action] == 'edit'}{if !$poll[expiration]}0{elseif $poll[expiration] < 0}{lang poll_close}{elseif $poll[expiration] < TIMESTAMP}{lang poll_finish}{else}{echo (round(($poll[expiration] - TIMESTAMP) / 86400))}{/if}{/if}" /></div>
+		<div class="flex xg1"><span class="y">{lang days}</span></div>
+	</li>
+	</label>
+	<label>
+	<li class="flex-box mli">
+		<div class="flex-3 pl5 xg1"><span class="z">{lang poll_after_result}</span></div>
+		<div class="flex"><span class="y"><input type="checkbox" name="visibilitypoll" id="visibilitypoll" class="pc" value="1"{if $_GET['action'] == 'edit' && !$poll['visible']} checked{/if} /></span></div>
+	</li>
+	</label>
+	<label>
+	<li class="flex-box mli">
+		<div class="flex-3 pl5 xg1"><span class="z">{lang post_poll_overt}</span></div>
+		<div class="flex"><span class="y"><input type="checkbox" name="overt" id="overt" class="pc" value="1"{if $_GET['action'] == 'edit' && $poll['overt']} checked{/if} /></span></div>
+	</li>
+	</label>
+	
+	<!--{if $_GET[action] == 'newthread'}-->
+	<input type="hidden" name="tpolloption" value="1" />
+	<li class="flex-box mli mtit">
+		<div class="flex pl5">{lang post_poll_options}: {lang post_poll_comment}</div>
+	</li>
+
+	<span id="polloption_new"></span>
+	<li class="flex-box mli" id="polloption_hidden" style="display: none">
+		<div class="flex-3"><input type="text" name="polloption[]" class="px vm" autocomplete="off" placeholder="{lang post_poll_options}" /></div>
+		<div class="flex"><span class="y"><a href="javascript:;" class="d" onclick="delpolloption(this)">{lang delete}</a></span></div>
+	</li>
+	<li class="flex-box mli"><a href="javascript:;" onclick="addpolloption()" class="flex xg1">+{lang post_poll_add}</a></li>
+	<!--{else}-->
+		<li class="flex-box mli mtit">
+			<div class="flex pl5">{lang displayorder}</div>
+			<div class="flex-3">{lang post_poll_options}</div>
+		</li>
+		<!--{loop $poll['polloption'] $key $option}-->
+			<!--{eval $ppid = $poll['polloptionid'][$key];}-->
+			<input type="hidden" name="polloptionid[{$poll[polloptionid][$key]}]" value="$poll[polloptionid][$key]" />
+			<li class="flex-box mli">
+				<div class="flex pl5"><span class="z"><input type="text" name="displayorder[{$poll[polloptionid][$key]}]" class="px pxs vm" autocomplete="off" value="$poll[displayorder][$key]" /></span></div>
+				<div class="flex-2"><input type="text" name="polloption[{$poll[polloptionid][$key]}]" class="px vm" autocomplete="off" value="$option"{if !$_G['group']['alloweditpoll']} readonly="readonly"{/if} /></div>
+				<div class="flex">
+					<span class="y">
+					<!--{if $poll['isimage']}-->
+						<img src="{if $poll['imginfo'][$ppid]['small']}$poll['imginfo'][$ppid]['small']{else}{STATICURL}image/common/nophoto.gif{/if}" height="36" />
+						<input type="hidden" name="pollimage[{$poll['polloptionid'][$key]}]" id="pollUploadProgress_{$key}_aid" value="$poll['imginfo'][$ppid]['aid']" />
+					<!--{/if}-->
+					</span>
+				</div>
+			</li>
+		<!--{/loop}-->
+			<span id="polloption_new"></span>
+			<li class="flex-box mli" id="polloption_hidden" style="display: none">
+				<div class="flex pl5"><input type="text" name="displayorder[]" class="px pxs vm" autocomplete="off" placeholder="0" /></div>
+				<div class="flex-2"><input type="text" name="polloption[]" class="px vm" autocomplete="off" placeholder="{lang post_poll_options}" /></div>
+				<div class="flex"><span class="y"><a href="javascript:;" class="d" onclick="delpolloption(this)">{lang delete}</a></span></div>
+			</li>
+			<li class="flex-box mli"><a href="javascript:;" onclick="addpolloption()" class="flex xg1">+{lang post_poll_add}</a></li>
+	<!--{/if}-->
+	<!--{hook/post_poll_extra}-->
+</ul>
+<script type="text/javascript" reload="1">
+var maxoptions = parseInt('$_G[setting][maxpolloptions]');
+<!--{if $_GET[action] == 'newthread'}-->
+	var curoptions = 0;
+	var curnumber = 1;
+	addpolloption();
+	addpolloption();
+	addpolloption();
+<!--{else}-->
+	var curnumber = curoptions = <!--{echo count($poll['polloption'])}-->;
+	for(var i=0; i < curnumber; i++) {
+		//addUploadEvent('newpoll_'+i, 'pollUploadProgress_'+i);
+	}
+<!--{/if}-->
+
+function addpolloption() {
+	if (curoptions < maxoptions) {
+		var imgid = 'newpoll_' + curnumber;
+		var proid = 'pollUploadProgress_' + curnumber;
+		var pollstr = getID('polloption_hidden').innerHTML.replace('newpoll', imgid);
+		pollstr = pollstr.replace('pollUploadProgress', proid);
+		getID('polloption_new').outerHTML = '<li class="flex-box mli">' + pollstr + '</li>' + getID('polloption_new').outerHTML;
+		curoptions++;
+		curnumber++;
+	} else {
+		popup.open('已达到最大投票数' + maxoptions, 'alert');
+	}
+}
+function delpolloption(obj) {
+	obj.parentNode.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode.parentNode);
+	curoptions--;
+}
+</script>
