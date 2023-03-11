@@ -1,0 +1,52 @@
+<div class="discuz_x cl"></div>
+<ul class="cl">
+	<label for="endtime">
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1">{lang endtime}</span></div>
+		<div class="flex-3"><input type="text" name="endtime" id="endtime" class="px" autocomplete="off" value="$debate['endtime']" /></div>
+	</li>
+	</label>
+	<li class="flex-box mli mtit"><div class="flex pl5"><span class="z xg1">{lang admin_close_expire_comment}</span></div></li>
+	<label for="umpire">
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1">{lang debate_umpire}</span></div>
+		<div class="flex-2"><input type="text" name="umpire" id="umpire" class="px" onblur="checkuserexists(this.value, 'checkuserinfo')" value="$debate['umpire']" /></div>
+		<div class="flex-2"><span id="checkuserinfo" class="y"></span></div>
+	</li>
+	</label>
+	<div class="discuz_x cl"></div>
+	<li class="flex-box mli mtit"><div class="flex pl5"><span class="z xg1">{lang debate_square_point}</span></div></li>
+	<li class="mtext"><textarea name="affirmpoint" id="affirmpoint" class="pt" placeholder="{lang debate_square_point}">$debate['affirmpoint']</textarea></li>
+	<div class="discuz_x cl"></div>
+	<li class="flex-box mli mtit"><div class="flex pl5"><span class="z xg1">{lang debate_opponent_point}</span></div></li>
+	<li class="mtext"><textarea name="negapoint" id="negapoint" class="pt" placeholder="{lang debate_opponent_point}">$debate['negapoint']</textarea></li>
+	<!--{hook/post_debate_extra}-->
+</ul>
+<div class="discuz_x cl"></div>
+<script type="text/javascript" reload="1">
+function checkuserexists(username, objname) {
+	if(!username) {
+		getID(objname).innerHTML = '';
+		return;
+	}
+	var x = new Ajax();
+	username = BROWSER.ie && document.charset == 'utf-8' ? encodeURIComponent(username) : username;
+	x.get('forum.php?mod=ajax&inajax=1&action=checkuserexists&username=' + username, function(s){
+		var obj = getID(objname);
+		popup.open(s);
+	});
+}
+
+EXTRAFUNC['validator']['special'] = 'validateextra';
+function validateextra() {
+	if(getID('postform').affirmpoint.value == '') {
+		popup.open('{lang post_debate_message_1}', 'alert');
+		return false;
+	}
+	if(getID('postform').negapoint.value == '') {
+		popup.open('{lang post_debate_message_2}', 'alert');
+		return false;
+	}
+	return true;
+}
+</script>

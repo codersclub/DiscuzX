@@ -1,0 +1,33 @@
+<!--{template common/header}-->
+<div class="tip loginbox loginpop p5" id="floatlayout_debateumpire" style="max-height:400px; overflow-y:scroll;">
+<form method="post" autocomplete="off" id="postform" action="forum.php?mod=misc&action=debateumpire&tid=$_G[tid]&umpiresubmit=yes&infloat=yes{if !empty($_GET['from'])}&from=$_GET['from']{/if}"{if !empty($_GET['infloat'])} onsubmit="ajaxpost('postform', 'return_$_GET['handlekey']', 'return_$_GET['handlekey']', 'onerror');return false;"{/if}>
+	<h2 class="log_tit" id="return_debateumpire">{lang debate_umpirecomment}</h2>
+	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}" />
+	<ul class="post_box cl">
+		<li class="flex-box mli cl">
+			<div class="flex"><span class="z">{lang debate_winner}</span></div>
+			<div class="flex"><label><span class="z"><input type="radio" name="winner" value="1" class="pr" $winnerchecked[1] id="winner1" />{lang debate_square}</span></label></div>
+			<div class="flex"><label><span class="z"><input type="radio" name="winner" value="2" class="pr" $winnerchecked[2] id="winner1" />{lang debate_opponent}</span></label></div>
+			<div class="flex"><label><span class="z"><input type="radio" name="winner" value="3" class="pr" $winnerchecked[3] id="winner1" />{lang debate_draw}</span></label></div>
+		</li>
+		<li class="flex-box mli cl">
+			<div class="flex"><span class="z">{lang debate_bestdebater}</span></div>
+			<div class="flex-3">
+						<select onchange="getID('bestdebater').value=this.options[this.options.selectedIndex].value" class="sort_sel">
+							<option value=""><strong>{lang debate_recommend_list}</strong></option>
+							<option value="">------------------------------</option>
+							<!--{loop $candidates $candidate}-->
+								<option value="$candidate[username]"{if $candidate[username] == $debate[bestdebater]} selected="selected"{/if}>$candidate[username] ( $candidate[voters] {lang debate_poll}, <!--{if $candidate[stand] == 1}-->{lang debate_square}<!--{elseif $candidate[stand] == 2}-->{lang debate_opponent}<!--{/if}-->)</option>
+							<!--{/loop}-->
+						</select>
+			</div>
+		</li>
+		<li class="flex-box mli cl">
+			<div class="flex"><input type="text" name="bestdebater" id="bestdebater" class="px" value="$debate['bestdebater']" placeholder="{lang debate_list_nonexistence}" /></div>
+		</li>
+	</ul>
+	<dt class="pt10 pb10"><textarea id="umpirepoint" name="umpirepoint" class="pt pxbg" placeholder="{lang debate_umpirepoint}">$debate['umpirepoint']</textarea></dt>
+	<button class="pn pnc" type="submit" name="umpiresubmit" value="true" class="submit"><span>{lang submit}</span></button>
+</form>
+</div>
+<!--{template common/footer}-->

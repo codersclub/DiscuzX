@@ -25,7 +25,7 @@
 	<!--{eval $needhiddenreply = ($hiddenreplies && $_G['uid'] != $post['authorid'] && $_G['uid'] != $_G['forum_thread']['authorid'] && !$post['first'] && !$_G['forum']['ismoderator']);}-->
 	<!--{hook/viewthread_posttop_mobile $postcount}-->
 	<div class="plc cl" id="pid$post['pid']">
-	   <div class="avatar"><img src="<!--{if !$post['authorid'] || $post['anonymous']}--><!--{avatar(0, 'small', true)}--><!--{else}--><!--{avatar($post['authorid'], 'small', true)}--><!--{/if}-->" /></div>
+		<div class="avatar"><img src="<!--{if !$post['authorid'] || $post['anonymous']}--><!--{avatar(0, 'small', true)}--><!--{else}--><!--{avatar($post['authorid'], 'small', true)}--><!--{/if}-->" /></div>
 		<div class="display pi<!--{if $post['first']}--> pione<!--{/if}-->" href="#replybtn_$post['pid']">
 			<ul class="authi">
 				<li class="mtit">
@@ -178,6 +178,16 @@
 						<!--{/if}-->
 					$post['dateline']
 				</li>
+				<!--{if !$post['first'] && $_G['forum_thread']['special'] == 5}-->
+				<li class="mtime">
+					<!--{if $post[stand] == 1}--><em class="f_g"><a class="f_g" href="forum.php?mod=viewthread&tid=$_G['tid']&extra=$_GET['extra']&filter=debate&stand=1">{lang debate_square}</a></em>
+					<!--{elseif $post[stand] == 2}--><em class="f_b"><a class="f_b" href="forum.php?mod=viewthread&tid=$_G['tid']&extra=$_GET['extra']&filter=debate&stand=2">{lang debate_opponent}</a></em>
+					<!--{else}--><a href="forum.php?mod=viewthread&tid=$_G[tid]&extra=$_GET[extra]&filter=debate&stand=0">{lang debate_neutral}</a><!--{/if}-->
+					<!--{if $post[stand]}-->
+						<a class="dialog" href="forum.php?mod=misc&action=debatevote&tid=$_G['tid']&pid=$post['pid']" id="voterdebate_$post['pid']">{lang debate_support} $post[voters]</a>
+					<!--{/if}-->
+				</li>
+				<!--{/if}-->
 			</ul>
 			<div class="message">
 				<!--{if $post['warned']}-->
