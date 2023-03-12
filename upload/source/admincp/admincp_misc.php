@@ -1508,7 +1508,7 @@ var rowtypedata = [
 	if($statid && $statkey) {
 		$q = "statid=$statid&statkey=$statkey";
 		$q=rawurlencode(base64_encode($q));
-		$url = 'http://stat.discuz.com/stat_ins.php?action=checkstat&q='.$q;
+		$url = 'https://stat.discuz.vip/stat_ins.php?action=checkstat&q='.$q;
 		$key = dfsockopen($url);
 		$newstatdisable = $key == $statkey ? 0 : 1;
 		if($newstatdisable != $statdisable) {

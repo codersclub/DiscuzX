@@ -16,7 +16,7 @@ class adv_text {
 	var $version = '2.0';
 	var $name = 'text_name';
 	var $description = 'text_desc';
-	var $copyright = '<a href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a>';
+	var $copyright = '<a href="https://www.discuz.vip/" target="_blank">Discuz!</a>';
 	var $targets = array('forum', 'group', 'home', 'portal');
 	var $imagesizes = array('120x60', '250x60', '100x100');
 

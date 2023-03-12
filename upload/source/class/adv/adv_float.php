@@ -16,7 +16,7 @@ class adv_float {
 	var $version = '1.1';
 	var $name = 'float_name';
 	var $description = 'float_desc';
-	var $copyright = '<a href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a>';
+	var $copyright = '<a href="https://www.discuz.vip/" target="_blank">Discuz!</a>';
 	var $targets = array('portal', 'home', 'member', 'forum', 'group', 'search', 'plugin', 'custom');
 	var $imagesizes = array('60x120', '60x250', '60x468');
 

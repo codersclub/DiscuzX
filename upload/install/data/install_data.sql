@@ -59,8 +59,8 @@ INSERT INTO pre_common_cron VALUES ('18','0','system','每日用户表优化','c
 INSERT INTO pre_common_cron VALUES ('19','1','system','统计今日热帖','cron_todayheats_daily.php','1269746623','1269792000','-1','-1','0','0');
 INSERT INTO pre_common_cron VALUES ('20','1','system','更新版块最后发表(防水墙相关)','cron_security_cleanup_lastpost.php','1269746623','1269792000','-1','-1','7','0');
 
-INSERT INTO pre_common_friendlink VALUES ('1','0','官方论坛','https://www.discuz.net','提供最新 Discuz! 产品新闻、软件下载与技术交流','static/image/common/logo_88_31.gif','2');
-INSERT INTO pre_common_friendlink VALUES ('2','4','应用商店','https://addon.dismall.com/','','','2');
+INSERT INTO pre_common_friendlink VALUES ('1','0','Discuz!官方论坛','https://www.discuz.vip/','提供最新 Discuz! 产品新闻、软件下载与技术交流','static/image/common/logo_88_31.gif','2');
+INSERT INTO pre_common_friendlink VALUES ('2','4','Discuz!应用中心','https://addon.dismall.com/','','','2');
 
 INSERT INTO pre_common_member_profile_setting VALUES('realname', 1, 0, 0, '真实姓名', '', 0, 0, 0, 0, 0, 0, 1, 'text', 0, '', '');
 INSERT INTO pre_common_member_profile_setting VALUES('gender', 1, 0, 0, '性别', '', 0, 0, 0, 0, 0, 0, 1, 'select', 0, '', '');
@@ -526,7 +526,7 @@ INSERT INTO pre_common_setting VALUES ('simplemode','0');
 INSERT INTO pre_common_setting VALUES ('sitemessage','a:5:{s:4:\"time\";s:1:\"3\";s:8:\"register\";s:0:\"\";s:5:\"login\";s:0:\"\";s:9:\"newthread\";s:0:\"\";s:5:\"reply\";s:0:\"\";}');
 INSERT INTO pre_common_setting VALUES ('sitename','DiscuzX');
 INSERT INTO pre_common_setting VALUES ('siteuniqueid','KD1Q6Vbd03ALJ34u');
-INSERT INTO pre_common_setting VALUES ('siteurl','https://www.discuz.net/');
+INSERT INTO pre_common_setting VALUES ('siteurl','https://www.discuz.vip/');
 INSERT INTO pre_common_setting VALUES ('smcols','8');
 INSERT INTO pre_common_setting VALUES ('smrows','5');
 INSERT INTO pre_common_setting VALUES ('smthumb','20');
@@ -769,7 +769,7 @@ INSERT INTO `pre_common_stylevar` (`styleid`, `variable`, `substitute`) VALUES (
 
 
 
-INSERT INTO pre_common_template VALUES ('1','默认模板套系','./template/default','腾讯云计算（北京）有限责任公司');
+INSERT INTO pre_common_template VALUES ('1','默认模板套系','./template/default','Discuz!');
 
 
 

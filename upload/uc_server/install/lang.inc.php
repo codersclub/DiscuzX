@@ -74,7 +74,7 @@ $lang = array(
 	'step_app_reg_title' => '设置运行环境',
 	'step_app_reg_desc' => '检测服务器环境以及设置 UCenter',
 	'tips_ucenter' => '请填写 UCenter 相关信息',
-	'tips_ucenter_comment' => 'UCenter 是 Comsenz 公司产品的核心服务程序，Discuz! Board 的安装和运行依赖此程序。如果您已经安装了 UCenter，请填写以下信息。否则，请到 <a href="http://www.discuz.com/" target="blank">Comsenz 产品中心</a> 下载并且安装，然后再继续。',
+	'tips_ucenter_comment' => 'UCenter 是 Comsenz 公司产品的核心服务程序，Discuz! Board 的安装和运行依赖此程序。如果您已经安装了 UCenter，请填写以下信息。否则，请到 <a href="https://www.discuz.vip/" target="blank">Comsenz 产品中心</a> 下载并且安装，然后再继续。',
 
 	'advice_mysql_connect' => '请检查 mysql 模块是否正确加载',
 	'advice_fsockopen' => '该函数需要 php.ini 中 allow_url_fopen 选项开启。请联系空间商，确定开启了此项功能',
@@ -140,7 +140,7 @@ $lang = array(
 	'tagtemplates_dateline' => '日期',
 	'tagtemplates_url' => '主题地址',
 
-	'uc_version_incorrect' => '您的 UCenter 服务端版本过低，请升级 UCenter 服务端到最新版本，并且升级，下载地址：http://www.comsenz.com/ 。',
+	'uc_version_incorrect' => '您的 UCenter 服务端版本过低，请升级 UCenter 服务端到最新版本，并且升级，下载地址：https://www.discuz.vip/ 。',
 	'config_unwriteable' => '安装向导无法写入配置文件, 请设置 config.inc.php 程序属性为可写状态(777)',
 
 	'install_in_processed' => '正在安装...',
@@ -151,7 +151,7 @@ $lang = array(
 
 <p>感谢您选择 UCenter 产品。希望我们的努力能为您提供一个高效快速和强大的站点解决方案。</p>
 
-<p>北京康盛新创科技有限责任公司为 UCenter 产品的开发商，依法独立拥有 UCenter 产品著作权。北京康盛新创科技有限责任公司网址为 http://www.comsenz.com，UCenter 官方网站网址为 http://www.discuz.com，UCenter 官方讨论区网址为 http://www.discuz.net。</p>
+<p>北京康盛新创科技有限责任公司为 UCenter 产品的开发商，依法独立拥有 UCenter 产品著作权。UCenter 官方网站网址为 https://www.discuz.vip。</p>
 
 <p>UCenter 著作权已在中华人民共和国国家版权局注册，著作权受到法律和国际公约保护。使用者：无论个人或组织、盈利与否、用途如何（包括以学习和研究为目的），均需仔细阅读本协议，在理解、同意、并遵守本协议的全部条款后，方可开始使用 UCenter 软件。</p>
 
@@ -167,9 +167,9 @@ $lang = array(
 
 <h3>II. 协议规定的约束和限制</h3>
 <ol>
-<li>未获商业授权之前，不得将本软件用于商业用途（包括但不限于企业网站、经营性网站、以营利为目或实现盈利的网站）。购买商业授权请登陆http://www.discuz.com参考相关说明，也可以致电8610-51657885了解详情。</li>
+<li>未获商业授权之前，不得将本软件用于商业用途（包括但不限于企业网站、经营性网站、以营利为目或实现盈利的网站）。购买商业授权请登陆https://www.discuz.vip参考相关说明，也可以致电8610-51657885了解详情。</li>
 <li>不得对本软件或与之关联的商业授权进行出租、出售、抵押或发放子许可证。</li>
-<li>无论如何，即无论用途如何、是否经过修改或美化、修改程度如何，只要使用 UCenter 的整体或任何部分，未经书面许可，页面页脚处的 UCenter 名称和北京康盛新创科技有限责任公司下属网站（http://www.comsenz.com、http://www.discuz.com 或 http://www.discuz.net） 的链接都必须保留，而不能清除或修改。</li>
+<li>无论如何，即无论用途如何、是否经过修改或美化、修改程度如何，只要使用 UCenter 的整体或任何部分，未经书面许可，页面页脚处的 UCenter 名称和下属网站（https://www.discuz.vip） 的链接都必须保留，而不能清除或修改。</li>
 <li>禁止在 UCenter 的整体或任何部分基础上以发展任何派生版本、修改版本或第三方版本用于重新分发。</li>
 <li>如果您未能遵守本协议的条款，您的授权将被终止，所被许可的权利将被收回，并承担相应法律责任。</li>
 </ol>

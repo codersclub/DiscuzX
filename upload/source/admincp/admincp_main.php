@@ -121,9 +121,9 @@ echo <<<EOT
 	<span onclick="menuScroll(1)"><img src="static/image/admincp/scrollu.gif" /></span><span onclick="menuScroll(2)"><img src="static/image/admincp/scrolld.gif" /></span>
 </div>
 <div class="copyright">
-	<p>Powered by <a href="http://www.discuz.net/" target="_blank">Discuz!</a> {$_G['setting']['version']}</p>
+	<p>Powered by <a href="https://www.discuz.vip/" target="_blank">Discuz!</a> {$_G['setting']['version']}</p>
 	<p>Copyright &copy; 2001-2023</p>
-	<p>Tencent Cloud.</p>
+	<p><a href="https://code.dismall.com" target="_blank">Discuz Team</a>.</p>
 </div>
 
 <div id="cpmap_menu" class="custom" style="display: none">

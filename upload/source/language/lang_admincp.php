@@ -637,7 +637,7 @@ $lang = array
 	'makehtml_createtopic' => '生成专题',
 	'makehtml_clear' => '清理HTML',
 	'makehtml_tips_all' => '<li>生成指定起始时间以后发布的文章的HTML文件</li><li>生成指定起始时间以后发布过文章的频道HTML文件</li><li>生成门户首页的HTML文件</li>',
-	'makehtml_tips_index' => '<li>生成门户首页的HTML文件，文件名可在设置里单独指定，默认为index</li><li>服务器端设置默认访问文件时，应将生成的静态文件名放在index.php之前，如：DirectoryIndex index.html index.php</li><li>使用静态文件访问时，原有的某些不带index.php的动态访问将失效，如：http://www.discuz.net/?1</li>',
+	'makehtml_tips_index' => '<li>生成门户首页的HTML文件，文件名可在设置里单独指定，默认为index</li><li>服务器端设置默认访问文件时，应将生成的静态文件名放在index.php之前，如：DirectoryIndex index.html index.php</li><li>使用静态文件访问时，原有的某些不带index.php的动态访问将失效，如：https://www.discuz.vip/?1</li>',
 	'makehtml_tips_category' => '<li>生成指定频道首页HTML文件</li><li>生成指定起始时间以后发布过文章的频道首页HTML文件</li><li>使用静态文件访问时，原有的某些不带index.php的动态访问将失效。</li>',
 	'makehtml_tips_article' => '<li>生成指定起始时间以后发布的文章的HTML文件</li><li>生成指定频道下所有文章的HTML文件</li><li>生成指定起始时间以后发布的文章的HTML文件</li>',
 	'makehtml_tips_topic' => '<li>生成指定起始时间以后发布的专题的HTML文件</li>',
@@ -1347,10 +1347,10 @@ $lang = array
 	'setting_domain_base_tips' => "<li>保留二级域名设置后所有人都无法申请或使用该域名</li><li>个人空间、群组的二级域名开启后需要到<strong>根域名设置</strong>中设置<strong>{$_G[setting][navs][3][navname]}、{$_G[setting][navs][4][navname]}</strong>的根域名</li>",
 	'setting_domain_app' => '应用域名',
 	'setting_domain_app_domain' => '域名',
-	'setting_domain_app_tips' => "<li>各自绑定的域名不能相同，域名不需要添加“<strong>http://</strong>”，也不要以“<strong>/</strong>”结尾，例如：portal.comsenz.com</li><li>任意开启一项域名，需要配置默认域名，否则会造成多入口问题</li><li>当开启多域名时，请在 config/config_global.php 中修改 cookiedomain 值来设置 cookie 作用域</li>",
+	'setting_domain_app_tips' => "<li>各自绑定的域名不能相同，域名不需要添加“<strong>http://</strong>”，也不要以“<strong>/</strong>”结尾，例如：portal.discuz.vip</li><li>任意开启一项域名，需要配置默认域名，否则会造成多入口问题</li><li>当开启多域名时，请在 config/config_global.php 中修改 cookiedomain 值来设置 cookie 作用域</li>",
 	'setting_domain_app_mobile_tips' => '当配置手机域名后，非手机浏览器访问会自动跳转至默认域名',
 	'setting_domain_root' => '根域名设置',
-	'setting_domain_root_tips' => "<li>可以为<strong>个人空间、{$_G[setting][navs][3][navname]}、版块、专题、频道</strong>设置一个二级域名的根域名。例：用户申请XXX.comsenz.com,根域名填：comsenz.com</li><li><strong>个人空间、{$_G[setting][navs][3][navname]}</strong>设置完二级域名的根后，还需要在<strong>基本设置</strong>中开启相应的二级域名开关，用户才能在相应的地方申请绑定二级域名，同时受限于用户组的二级域名长度</li><li><strong>频道</strong>启用二级域名如果是绑定目录的，需要自已在环境中配置相关的绑定操作</li><li>不建议中途将不同的根域变更为相同的根域</li>",
+	'setting_domain_root_tips' => "<li>可以为<strong>个人空间、{$_G[setting][navs][3][navname]}、版块、专题、频道</strong>设置一个二级域名的根域名。例：用户申请XXX.discuz.vip,根域名填：discuz.vip</li><li><strong>个人空间、{$_G[setting][navs][3][navname]}</strong>设置完二级域名的根后，还需要在<strong>基本设置</strong>中开启相应的二级域名开关，用户才能在相应的地方申请绑定二级域名，同时受限于用户组的二级域名长度</li><li><strong>频道</strong>启用二级域名如果是绑定目录的，需要自已在环境中配置相关的绑定操作</li><li>不建议中途将不同的根域变更为相同的根域</li>",
 	'setting_domain_allow_space' => '开启个人空间二级域名',
 	'setting_domain_allow_space_comment' => '开启后需在设置根域名、以及用户组域名长度后方能开启域名申请',
 	'setting_domain_allow_group' => '开启群组二级域名',
@@ -2786,7 +2786,7 @@ $lang = array
 	'forums_edit_basic_up' => '上级版块',
 	'forums_edit_basic_up_comment' => '本版块的上级版块或分类',
 	'forums_edit_basic_redirect' => '版块转向 URL',
-	'forums_edit_basic_redirect_comment' => '如果设置转向 URL(例如 http://www.discuz.com)，用户点击本分版块将进入转向中设置的 URL。一旦设定将无法进入版块页面，请确认是否需要使用此功能，留空为不设置转向 URL',
+	'forums_edit_basic_redirect_comment' => '如果设置转向 URL(例如 https://www.discuz.vip)，用户点击本分版块将进入转向中设置的 URL。一旦设定将无法进入版块页面，请确认是否需要使用此功能，留空为不设置转向 URL',
 	'forums_edit_basic_icon' => '版块图标',
 	'forums_edit_basic_icon_width' => '图标宽度 (单位: px)',
 	'forums_edit_basic_banner' => '顶部图片',
@@ -3341,7 +3341,7 @@ $lang = array
 	'styles_edit_visual_exit' => '退出',
 	'styles_edit_visual_menu_current' => '当前',
 	'styles_edit_visual_menu' => '导航',
-	'styles_edit_visual_text' => '<p id="sp_tabletext" style="margin: 0; line-height: 1.6em; color: #444;"><a id="sp_link" href="http://www.discuz.net" target="_blank" style="color: #09C; text-decoration: none;">Crossday Discuz! Board</a> 论坛系统<span id="sp_midtext" style="color: #666;">(简称 <strong id="sp_notice" style="color: #F60;">Discuz!</strong> 论坛)</span>是一个采用 PHP 和 MySQL 等其他多种数据库构建的高效建站解决方案。</p>',
+	'styles_edit_visual_text' => '<p id="sp_tabletext" style="margin: 0; line-height: 1.6em; color: #444;"><a id="sp_link" href="https://www.discuz.vip/" target="_blank" style="color: #09C; text-decoration: none;">Crossday Discuz! Board</a> 论坛系统<span id="sp_midtext" style="color: #666;">(简称 <strong id="sp_notice" style="color: #F60;">Discuz!</strong> 论坛)</span>是一个采用 PHP 和 MySQL 等其他多种数据库构建的高效建站解决方案。</p>',
 	'styles_edit_visual_footer' => '版权及页脚信息',
 	'styles_edit_visual_setting_commonborder' => '间隔线颜色',
 	'styles_edit_visual_setting_commonbg' => '常用背景色',
@@ -7048,7 +7048,7 @@ $lang = array
 	'setting_manyou_search_status' => '启用漫游搜索',
 	'setting_manyou_search_status_comment' => '漫游搜索是专为 Discuz! 产品量身定做的高效、全文搜索服务，无须网站的 MySQL 资源',
 	'setting_manyou_search_invite' => '漫游搜索邀请码',
-	'setting_manyou_search_invite_comment' => '目前处于测试阶段，需要输入邀请码方可开通漫游搜索，<a href="http://www.discuz.net/thread-1669366-1-1.html" target="_blank">点击这里申请邀请码</a>',
+	'setting_manyou_search_invite_comment' => '目前处于测试阶段，需要输入邀请码方可开通漫游搜索，<a href="https://discuz.dismall.com/thread-1669366-1-1.html" target="_blank">点击这里申请邀请码</a>',
 	'setting_manyou_base_status_no' => '尚未开启漫游功能，不能进行此管理',
 	'setting_manyou_base_ip' => 'MYOP/搜索的 IP',
 	'setting_manyou_base_ip_comment' => '默认为空。如果您的服务器因 DNS 解析问题无法使用MYOP/搜索服务，请填写 MYOP 的 IP 地址。<a href="http://faq.comsenz.com/viewnews-400" target="_blank">查看 MYOP 的 IP</a>',
@@ -7104,7 +7104,7 @@ $lang = array
 # 将 RewriteEngine 模式打开
 RewriteEngine On
 
-# 如 www.discuz.net/bbs/，对应的就是 RewriteBase /bbs/，如果程序放在根目录中，使用 RewriteBase /
+# 如 www.discuz.vip/bbs/，对应的就是 RewriteBase /bbs/，如果程序放在根目录中，使用 RewriteBase /
 RewriteBase {siteroot}
 
 # Rewrite 系统规则请勿修改
@@ -7162,11 +7162,12 @@ url.rewrite-once = (
 	'download_latest' => 'Discuz! X3.4 最新版本下载',
 	'org_name' => '腾讯云计算（北京）有限责任公司',
 	'dev_manager' => '戴志康 (Kevin \'Crossday\' Day)',
-	'app_discussion' => 'Discuz! 应用讨论区',
+	'app_discussion' => 'Discuz! 交流社区',
 	'org_site' => '公司网站',
 	'purchase_service' => '购买授权',
-	'discussion_area' => '讨论区',
+	'discussion_area' => 'Discuz! 官方网站',
 	'app_center' => 'Discuz! 应用中心',
+	'discuz_git' => 'Discuz! 项目地址',
 );
 
 $adminextend = array();

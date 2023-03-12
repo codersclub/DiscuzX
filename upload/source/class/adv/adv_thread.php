@@ -16,7 +16,7 @@ class adv_thread {
 	var $version = '1.0';
 	var $name = 'thread_name';
 	var $description = 'thread_desc';
-	var $copyright = '<a href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a>';
+	var $copyright = '<a href="https://www.discuz.vip/" target="_blank">Discuz!</a>';
 	var $targets = array('forum', 'group');
 	var $imagesizes = array('120x60', '120x240');
 

@@ -494,7 +494,7 @@ table { border-collapse:collapse; margin-bottom:20px; }
 <div class="bodydiv">
 	<h1>
 		Discuz! 数据恢复工具
-		<span> &nbsp; 恢复当中有任何问题请访问技术支持站点 <a href="http://www.discuz.net" target="_blank">http://www.discuz.net</a></span>
+		<span> &nbsp; 恢复当中有任何问题请访问技术支持站点 <a href="https://www.discuz.vip" target="_blank">https://www.discuz.vip</a></span>
 	</h1>
 	<div class="main">
 EOT;
@@ -686,7 +686,7 @@ function is_https() {
 		return true;
 	}
 	// 西部数码建站助手私有 HTTPS 状态头部
-	// 官网意见反馈 https://www.discuz.net/thread-3849819-1-1.html
+	// 官网意见反馈 https://discuz.dismall.com/thread-3849819-1-1.html
 	if(isset($_SERVER['HTTP_FROM_HTTPS']) && strtolower($_SERVER['HTTP_FROM_HTTPS']) != 'off') {
 		return true;
 	}

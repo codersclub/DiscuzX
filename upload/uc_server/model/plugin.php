@@ -80,7 +80,7 @@ class pluginmodel {
 		"#\n".
 		"# This file was BASE64 encoded\n".
 		"#\n".
-		"# UCenter Community: http://www.discuz.net\n".
+		"# UCenter Community: https://www.discuz.vip\n".
 		"# Please visit our website for latest news about UCenter\n".
 		"# --------------------------------------------------------\n\n\n".
 		wordwrap(base64_encode(serialize($arr)), 50, "\n", 1);

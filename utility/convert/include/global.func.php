@@ -454,7 +454,7 @@ function showfooter($halt = false) {
 	if(!$isshow) {
 		echo <<<EOT
 	</div>
-	<div id="footer">&copy; Comsenz Inc. 2001-2010 www.discuz.net</div>
+	<div id="footer">&copy; Comsenz Inc. 2001-2010 www.discuz.vip</div>
 	</div>
 </body>
 </html>

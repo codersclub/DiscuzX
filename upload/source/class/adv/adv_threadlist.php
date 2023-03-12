@@ -16,7 +16,7 @@ class adv_threadlist {
 	var $version = '1.0';
 	var $name = 'threadlist_name';
 	var $description = 'threadlist_desc';
-	var $copyright = '<a href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a>';
+	var $copyright = '<a href="https://www.discuz.vip/" target="_blank">Discuz!</a>';
 	var $targets = array('forum', 'group');
 	var $imagesizes = array('120x60', '468x40', '468x60');
 

@@ -16,7 +16,7 @@ class adv_feed {
 	var $version = '1.0';
 	var $name = 'feed_name';
 	var $description = 'feed_desc';
-	var $copyright = '<a href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a>';
+	var $copyright = '<a href="https://www.discuz.vip/" target="_blank">Discuz!</a>';
 	var $targets = array('home');
 	var $imagesizes = array('468x40', '468x60', '658x60');
 

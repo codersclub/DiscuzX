@@ -18,7 +18,7 @@ class magic_highlight {
 	var $description = 'highlight_desc';
 	var $price = '10';
 	var $weight = '10';
-	var $copyright = '<a href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a>';
+	var $copyright = '<a href="https://www.discuz.vip/" target="_blank">Discuz!</a>';
 	var $magic = array();
 	var $parameters = array();
 	var $idtypearray = array('blogid', 'tid');

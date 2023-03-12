@@ -16,7 +16,7 @@ class task_gift {
 	var $version = '1.0';
 	var $name = 'gift_name';
 	var $description = 'gift_desc';
-	var $copyright = '<a href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a>';
+	var $copyright = '<a href="https://www.discuz.vip/" target="_blank">Discuz!</a>';
 	var $icon = '';
 	var $period = '';
 	var $periodtype = 0;

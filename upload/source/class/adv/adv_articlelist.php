@@ -16,7 +16,7 @@ class adv_articlelist {
 	var $version = '1.0';
 	var $name = 'articlelist_name';
 	var $description = 'articlelist_desc';
-	var $copyright = '<a href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a>';
+	var $copyright = '<a href="https://www.discuz.vip/" target="_blank">Discuz!</a>';
 	var $targets = array('portal');
 	var $imagesizes = array('658x40', '658x60');
 

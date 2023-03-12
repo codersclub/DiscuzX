@@ -141,7 +141,7 @@ function is_https() {
 		return true;
 	}
 	// 西部数码建站助手私有 HTTPS 状态头部
-	// 官网意见反馈 https://www.discuz.net/thread-3849819-1-1.html
+	// 官网意见反馈 https://discuz.dismall.com/thread-3849819-1-1.html
 	if(isset($_SERVER['HTTP_FROM_HTTPS']) && strtolower($_SERVER['HTTP_FROM_HTTPS']) != 'off') {
 		return true;
 	}

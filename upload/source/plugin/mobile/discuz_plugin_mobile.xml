@@ -42,9 +42,9 @@
 		<item id="version"><![CDATA[X2.5,X3,X3.1,X3.2,X3.3,X3.4]]></item>
 		<item id="language">
 			<item id="scriptlang">
-				<item id="mobile_tip_ios"><![CDATA[<a href="http://www.discuz.net/mobile.php?platform=ios">用掌上论坛访问本站,拥有更好阅读体验</a>]]></item>
-				<item id="mobile_tip_android"><![CDATA[<a href="http://www.discuz.net/mobile.php?platform=android">用掌上论坛访问本站,拥有更好阅读体验</a>]]></item>
-				<item id="mobile_tip_wp7"><![CDATA[<a href="http://www.discuz.net/mobile.php?platform=windowsphone">用掌上论坛访问本站,拥有更好阅读体验</a>]]></item>
+				<item id="mobile_tip_ios"><![CDATA[<a href="https://discuz.dismall.com/mobile.php?platform=ios">用掌上论坛访问本站,拥有更好阅读体验</a>]]></item>
+				<item id="mobile_tip_android"><![CDATA[<a href="https://discuz.dismall.com/mobile.php?platform=android">用掌上论坛访问本站,拥有更好阅读体验</a>]]></item>
+				<item id="mobile_tip_wp7"><![CDATA[<a href="https://discuz.dismall.com/mobile.php?platform=windowsphone">用掌上论坛访问本站,拥有更好阅读体验</a>]]></item>
 				<item id="mobile_extend_newthread"><![CDATA[最新发表]]></item>
 				<item id="mobile_extend_newreply"><![CDATA[最新回复]]></item>
 				<item id="mobile_extend_digest"><![CDATA[最新精华]]></item>

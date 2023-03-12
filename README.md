@@ -26,7 +26,9 @@ Discuz! X 官方 Git (https://gitee.com/Discuz/DiscuzX) ，简体中文 UTF8 版
 
 ### **相关网站**
  
-[Discuz! X 官方论坛](https://www.discuz.net/) 
+[Discuz! 官方网站](https://www.discuz.vip/) 
+|
+[Discuz! 交流社区](https://www.dismall.com/) 
 |
 [Discuz! 应用中心](https://addon.dismall.com/) 
 |
@@ -42,7 +44,7 @@ Discuz! X 官方 Git (https://gitee.com/Discuz/DiscuzX) ，简体中文 UTF8 版
 
 Discuz! X提供3.4和3.5的每日构建，在有提交的第二天早上，可以下载到简体GBK（X3.4）、简体UTF8、繁体BIG5（X3.4）、繁体UTF8的打包版本。
 
-[点击打开](https://www.discuz.net/daily/)
+[点击打开](https://www.discuz.vip/daily/)
 
 ### **友情提示**
 - Git 版的 Release 版本号不再更新，但[正式版](https://gitee.com/Discuz/DiscuzX/attach_files)会更新
