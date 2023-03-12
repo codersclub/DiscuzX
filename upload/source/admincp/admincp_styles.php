@@ -408,6 +408,8 @@ if($operation == 'admin') {
 				$stylelist .= "<option value=\"$style[styleid]\">$style[name]</option>\n";
 			}
 			$stylelist .= '</select>';
+			$highlight = getgpc('highlight');
+			$highlight = !empty($highlight) ? dhtmlspecialchars($highlight, ENT_QUOTES) : '';
 			cpmsg('styles_nonexistence', 'action=styles&operation=edit'.(!empty($highlight) ? "&highlight=$highlight" : ''), 'form', array(), $stylelist);
 		}
 
