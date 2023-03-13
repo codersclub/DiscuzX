@@ -122,8 +122,7 @@ echo <<<EOT
 </div>
 <div class="copyright">
 	<p>Powered by <a href="https://www.discuz.vip/" target="_blank">Discuz!</a> {$_G['setting']['version']}</p>
-	<p>Copyright &copy; 2001-2023</p>
-	<p><a href="https://code.dismall.com" target="_blank">Discuz Team</a>.</p>
+	<p>&copy; 2001-2023, <a href="https://code.dismall.com" target="_blank">Discuz! Team</a>.</p>
 </div>
 
 <div id="cpmap_menu" class="custom" style="display: none">

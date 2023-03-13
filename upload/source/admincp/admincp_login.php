@@ -89,7 +89,7 @@ function html_login_footer($halt = true) {
 	<td colspan="2" class="footer">
 		<div class="copyright">
 			<p>Powered by <a href="https://www.discuz.vip/" target="_blank">Discuz!</a> $version </p>
-			<p>Copyright &copy; 2001-2023 <a href="https://code.dismall.com/" target="_blank">Discuz Team</a>.</p>
+			<p>&copy; 2001-2023 <a href="https://code.dismall.com/" target="_blank">Discuz! Team</a>.</p>
 		</div>
 	</td>
 </tr>
