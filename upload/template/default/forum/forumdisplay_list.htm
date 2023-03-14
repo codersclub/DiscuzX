@@ -326,7 +326,7 @@
 									imgsloaded = 0,
 									loadready = 0,
 									showready = 1,
-									nxtpgurl = 'forum.php?mod=forumdisplay&fid={$_G[fid]}&filter={$filter}&orderby={$_GET[orderby]}{$forumdisplayadd[page]}&page=',
+									nxtpgurl = 'forum.php?mod=forumdisplay&fid={$_G[fid]}&{$forumdisplayadd[page]}{eval echo ($multiadd ? '&'.implode('&', $multiadd) : '');}{$multipage_archive}&page=',
 									wfloading = "<img src=\"{IMGDIR}/loading.gif\" alt=\"\" width=\"16\" height=\"16\" class=\"vm\" /> {lang onloading}...",
 									pgbtn = $("pgbtn").getElementsByTagName("a")[0];
 
@@ -473,7 +473,7 @@
 		<a class="bm_h" href="javascript:;" rel="$multipage_more" curpage="$page" id="autopbn" totalpage="$maxpage" picstyle="$_G[forum][picstyle]" forumdefstyle="$_G[cookie][forumdefstyle]">{lang next_page_extra}</a>
 		<script type="text/javascript" src="{$_G[setting][jspath]}autoloadpage.js?{VERHASH}"></script>
 	<!--{else}-->
-		<div id="pgbtn" class="pgbtn"><a href="forum.php?mod=forumdisplay&fid={$_G[fid]}&filter={$filter}&orderby={$_GET[orderby]}{$forumdisplayadd[page]}&{$multipage_archive}&page=$nextpage" hidefocus="true">{lang next_page_extra}</a></div>
+		<div id="pgbtn" class="pgbtn"><a href="$multipage_more" hidefocus="true">{lang next_page_extra}</a></div>
 	<!--{/if}-->
 <!--{/if}-->
 <div class="bm bw0 pgs cl">
