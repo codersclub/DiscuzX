@@ -213,7 +213,7 @@ $lang = array (
   'home_credit_buy_rmb_placeholder' => '请输入充值的数量',
   'home_credit_buy_card' => '充值卡',
   
-  'mob_requied_lost' => '必填项目没有填写',
+  'mob_required_lost' => '必填项目没有填写',
   'mob_sort_selnext' => '请选择下一级',
   'mob_sort_emailerr' => '邮件地址不正确',
   'mob_sort_toolong' => '填写项目长度过长',
