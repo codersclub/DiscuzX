@@ -82,8 +82,9 @@ class payment_alipay extends payment_base {
 
 		$data = $this->alipay_make_notify_signstr($data);
 
-		$result = (openssl_verify($data, base64_decode($sign), $public_key, OPENSSL_ALGO_SHA256) === 1);
-		openssl_free_key($public_key);
+		$public_keyres = openssl_pkey_get_public($public_key);
+		$result = (openssl_verify($data, base64_decode($sign), $public_keyres, OPENSSL_ALGO_SHA256) === 1);
+		openssl_free_key($public_keyres);
 		return $result;
 	}
 
