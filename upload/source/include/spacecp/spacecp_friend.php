@@ -365,7 +365,7 @@ if($op == 'add') {
 					$ols[$value['uid']] = 1;
 				}
 			}
-		}		
+		}
 	} else {
 
 		dsetcookie('promptstate_'.$space['uid'], $space['newprompt'], 31536000);

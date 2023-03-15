@@ -53,15 +53,15 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 		)
 	);
 	showtablerow('', array('width="100"', 'width="200"', 'width="100"'),
-                array(
-                        "{$lang['perpage']}",
-                        "<select name=\"tpp\">$tpp_options</select><label><input name=\"showcensor\" type=\"checkbox\" class=\"checkbox\" value=\"yes\" ".($showcensor ? ' checked="checked"' : '')."/> {$lang['moderate_showcensor']}</label>",
-                        "{$lang['moderate_bound']}",
-                        "<select name=\"filter\">$filteroptions</select>
-                        <select name=\"dateline\">$dateline_options</select>
-                        <input class=\"btn\" type=\"submit\" value=\"{$lang['search']}\" />"
-                )
-        );
+		array(
+			"{$lang['perpage']}",
+			"<select name=\"tpp\">$tpp_options</select><label><input name=\"showcensor\" type=\"checkbox\" class=\"checkbox\" value=\"yes\" ".($showcensor ? ' checked="checked"' : '')."/> {$lang['moderate_showcensor']}</label>",
+			"{$lang['moderate_bound']}",
+			"<select name=\"filter\">$filteroptions</select>
+			<select name=\"dateline\">$dateline_options</select>
+			<input class=\"btn\" type=\"submit\" value=\"{$lang['search']}\" />"
+		)
+	);
 
 	showtablefooter();
 	showboxfooter();

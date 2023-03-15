@@ -443,7 +443,7 @@ EOT;
 					foreach($menu[0]['submenu'] as $submenu) {
 						if(empty($submenu[0])) {
 							continue;
-						}						
+						}
 						$s .= '<li '.(!$submenu[3] ? ' id="nav_'.$submenu[1].'" onclick="showanchor(this)"' : '').($submenu[2] ? ' class="current"' : '').'><a href="'.($submenu[3] ? ADMINSCRIPT.'?action='.$submenu[1] : '#').'">'.cplang($submenu[0]).'</a></li>';
 					}
 				}

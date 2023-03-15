@@ -45,7 +45,7 @@ class extend_thread_sort extends extend_thread_base {
 					$identifier = $_G['forum_optionlist'][$optionid]['identifier'];
 					$sortaids[] = intval($_GET['typeoption'][$identifier]['aid']);
 				}
-				$typeexpiration = intval($_GET['typeexpiration']);                
+				$typeexpiration = intval($_GET['typeexpiration']);
 
 				C::t('forum_typeoptionvar')->insert(array(
 					'sortid' => $sortid,

@@ -518,7 +518,7 @@ function parsemedia($params, $url) {
 	$height = defined('IN_MOBILE') ? 'auto' : $height;
 
 	$url = addslashes($url);
-        if(!in_array(strtolower(substr($url, 0, 6)), array('http:/', 'https:', 'ftp://', 'rtsp:/', 'mms://')) && !preg_match('/^static\//', $url) && !preg_match('/^data\//', $url)) {
+	if(!in_array(strtolower(substr($url, 0, 6)), array('http:/', 'https:', 'ftp://', 'rtsp:/', 'mms://')) && !preg_match('/^static\//', $url) && !preg_match('/^data\//', $url)) {
 		return dhtmlspecialchars($url);
 	}
 
@@ -577,11 +577,11 @@ function highlightword($text, $words, $prepend) {
 function parseflv($url, $width = 0, $height = 0) {
 	global $_G;
 	$lowerurl = strtolower($url);
-	$flv = $iframe = $imgurl = '';		
+	$flv = $iframe = $imgurl = '';
 	if(empty($_G['setting']['parseflv']) || !is_array($_G['setting']['parseflv'])) {
 		return FALSE;
 	}
-	
+
 	foreach($_G['setting']['parseflv'] as $script => $checkurl) {
 		$check = FALSE;
 		foreach($checkurl as $row) {
@@ -597,7 +597,7 @@ function parseflv($url, $width = 0, $height = 0) {
 			}
 			break;
 		}
-	}	    	
+	}
 	if($flv || $iframe) {
 		if(!$width && !$height) {
 			return array('flv' => $flv, 'iframe' => $iframe, 'imgurl' => $imgurl);

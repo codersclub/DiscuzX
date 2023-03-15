@@ -75,7 +75,7 @@ if(!submitcheck('searchsubmit', 1)) {
 	$orderby = in_array(getgpc('orderby'), array('dateline', 'replies', 'views')) ? $_GET['orderby'] : 'lastpost';
 	$ascdesc = isset($_GET['ascdesc']) && $_GET['ascdesc'] == 'asc' ? 'asc' : 'desc';
 	$orderbyselected = array($orderby => 'selected="selected"');
-	$ascchecked = array($ascdesc => 'checked="checked""');	
+	$ascchecked = array($ascdesc => 'checked="checked""');
 
 	if(!empty($searchid)) {
 
@@ -105,7 +105,7 @@ if(!submitcheck('searchsubmit', 1)) {
 				if(!empty($srchfid) ) {
 					$forumselect = str_replace('<option value="'.$srchfid.'">', '<option value="'.$srchfid.'" selected="selected">', $forumselect);
 				}
-			}			
+			}
 			if(count($fids) == 1 && in_array($_G['adminid'], array(1,2,3))) {
 				$modfid = $fids[0];
 				if($_G['adminid'] == 3 && !C::t('forum_moderator')->fetch_uid_by_fid_uid($modfid, $_G['uid'])) {

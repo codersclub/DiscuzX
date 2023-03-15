@@ -56,7 +56,7 @@ class table_common_diy_data extends discuz_table
 			$force_from_db = $force_from_db === false ? null : $force_from_db;
 			return $this->fetch_all_diy($ids, $force_from_db);
 		}
-	}	
+	}
 
 	public function fetch_diy($targettplname, $tpldirectory) {
 		return !empty($targettplname) ? DB::fetch_first('SELECT * FROM '.DB::table($this->_table).' WHERE '.DB::field('targettplname', $targettplname).' AND '.DB::field('tpldirectory', $tpldirectory)) : array();

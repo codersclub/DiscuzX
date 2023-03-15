@@ -301,7 +301,7 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 			if(getstatus($post['status'], 3) == 0) {
 				$post['subject'] = $threadlist[$post['tid']]['subject'];
 				$firsttime_validatepost[] = $post;
-				$uids[] = $post['authorid'];				
+				$uids[] = $post['authorid'];
 				updatepostcredits('+', $post['authorid'], 'reply', $post['fid']);
 				$attachcount = C::t('forum_attachment_n')->count_by_id('tid:'.$post['tid'], 'pid', $post['pid']);
 				updatecreditbyaction('postattach', $post['authorid'], array(), '', $attachcount, 1, $post['fid']);
@@ -358,7 +358,7 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 					feed_add($feed['icon'], $feed['title_template'], $feed['title_data'], $feed['body_template'], $feed['body_data'], '', $feed['images'], $feed['image_links'], '', '', '', 0, $feed['id'], $feed['idtype'],$post['authorid'], $post['author']);
 				}
 			}
-		}		
+		}
 
 		foreach($threads as $tid => $thread) {
 			C::t('forum_thread')->increase($tid, $thread);

@@ -186,7 +186,7 @@ if(empty($_GET['nothumb']) && $attach['isimage'] && $attach['thumb']) {
 }
 
 $filename = $_G['setting']['attachdir'].'/forum/'.$attach['attachment'];
-if(!$attach['remote'] && !is_readable($filename)) {	
+if(!$attach['remote'] && !is_readable($filename)) {
 	if(!$requestmode) {
 		showmessage('attachment_nonexistence');
 	} else {
@@ -393,18 +393,18 @@ function ext_to_mimetype($path) {
 	$ext = pathinfo($path, PATHINFO_EXTENSION);
 	$map = array(
 		'aac' => 'audio/aac',
-		'flac' => 'audio/flac', 
-		'mp3' => 'audio/mpeg', 
-		'm4a' => 'audio/mp4', 
-		'wav' => 'audio/wav', 
+		'flac' => 'audio/flac',
+		'mp3' => 'audio/mpeg',
+		'm4a' => 'audio/mp4',
+		'wav' => 'audio/wav',
 		'ogg' => 'audio/ogg',
 		'weba' => 'audio/webm',
-		'flv' => 'video/x-flv', 
-		'mp4' => 'video/mp4', 
-		'm4v' => 'video/mp4', 
+		'flv' => 'video/x-flv',
+		'mp4' => 'video/mp4',
+		'm4v' => 'video/mp4',
 		'3gp' => 'video/3gpp',
 		'ogv' => 'video/ogg',
-		'webm' => 'video/webm' 
+		'webm' => 'video/webm'
 	);
 	$mime = $map[$ext];
 	if (!$mime) $mime = "application/octet-stream";

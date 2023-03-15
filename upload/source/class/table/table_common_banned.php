@@ -98,7 +98,7 @@ class table_common_banned extends discuz_table
 
 		// _allowmem = true，并且 $banned 有值
 		return $banned === 1;
-	} 
+	}
 
 }
 

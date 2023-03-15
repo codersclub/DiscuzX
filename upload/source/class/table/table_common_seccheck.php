@@ -42,7 +42,7 @@ class table_common_seccheck extends discuz_table
 			}
 			DB::delete($this->_table, TIMESTAMP."-dateline>600");
 			DB::delete($this->_table, "verified>4");
-			DB::delete($this->_table, "succeed>1");	
+			DB::delete($this->_table, "succeed>1");
 		}
 	}
 

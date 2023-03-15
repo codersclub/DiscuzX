@@ -16,7 +16,7 @@ $op = empty($_GET['op'])?'':trim($_GET['op']);
 if($op == 'ignore') {
 
 	$type = empty($_GET['type'])?'':preg_replace("/[^0-9a-zA-Z\_\-\.]/", '', $_GET['type']);
-	$id = empty($_GET['id']) ? 0 : intval($_GET['id']);	
+	$id = empty($_GET['id']) ? 0 : intval($_GET['id']);
 	if(submitcheck('ignoresubmit')) {
 		$authorid = empty($_POST['authorid']) ? 0 : intval($_POST['authorid']);
 		if($type) {

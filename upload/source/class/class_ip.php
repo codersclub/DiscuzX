@@ -122,11 +122,11 @@ class ip {
 				}
 				$start = unpack('H*hex', join(array_map('chr', $start_array)))['hex'];
 				$end = unpack('H*hex', join(array_map('chr', $end_array)))['hex'];
-				return array($start, $end);	
+				return array($start, $end);
 			} else {
 				$start = call_user_func_array('pack', array_merge(array("C*"), $start_array));
 				$end = call_user_func_array('pack', array_merge(array("C*"), $end_array));
-				return array($start, $end);	
+				return array($start, $end);
 			}
 		}
 

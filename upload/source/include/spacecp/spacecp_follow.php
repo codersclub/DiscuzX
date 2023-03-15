@@ -27,7 +27,7 @@ if($op == 'add') {
 		showmessage('follow_not_follow_self');
 	}
 	if(!$_G['group']['allowfollow']) {
-		showmessage('follow_not_follow_others'); 
+		showmessage('follow_not_follow_others');
 	}
 	$special = intval($_GET['special']) ? intval($_GET['special']) : 0;
 	$followuser = getuserbyuid($followuid);

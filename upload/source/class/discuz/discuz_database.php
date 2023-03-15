@@ -179,7 +179,7 @@ class discuz_database {
 
 	public static function quote($str, $noarray = false) {
 
-		if (is_string($str)) 
+		if (is_string($str))
 			return '\'' . self::$db->escape_string($str) . '\'';
 
 		if (is_int($str) or is_float($str))
@@ -347,7 +347,7 @@ class discuz_database {
 	public static function begin_transaction() {
 		return self::$db->begin_transaction();
 	}
-	
+
 	public static function commit() {
 		return self::$db->commit();
 	}

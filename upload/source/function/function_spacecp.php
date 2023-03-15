@@ -581,7 +581,7 @@ function emailcheck_send($uid, $email) {
 		$hash = authcode("$uid\t$email\t$timestamp", 'ENCODE', md5(substr(md5($_G['config']['security']['authkey']), 0, 16)));
 		$verifyurl = $_G['setting']['securesiteurl'].'home.php?mod=misc&amp;ac=emailcheck&amp;hash='.urlencode($hash);
 		$mailmessage = array(
-			'tpl' => 'email_verify', 
+			'tpl' => 'email_verify',
 			'var' => array(
 				'username' => $_G['member']['username'],
 				'bbname' => $_G['setting']['bbname'],

@@ -26,7 +26,7 @@ class task_member {
 			'type' => 'mradio',
 			'value' => array(
 				array('favorite', 'member_complete_var_act_favorite'),
-				array('magic', 'member_complete_var_act_magic'),				
+				array('magic', 'member_complete_var_act_magic'),
 			),
 			'default' => 'favorite',
 			'sort' => 'complete',

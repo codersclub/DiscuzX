@@ -117,7 +117,7 @@ if($action == 'shop') {
 		$useperm = (strstr($magicperm['usergroups'], "\t{$_G['groupid']}\t") || empty($magicperm['usergroups'])) ? '1' : '0';
 		if(!$useperm) {
 			showmessage('magics_use_nopermission');
-		}        
+		}
 		$querystring = array();
 		foreach($_GET as $k => $v) {
 			$querystring[] = rawurlencode($k).'='.rawurlencode($v);
@@ -368,7 +368,7 @@ if($action == 'shop') {
 				if(discuz_process::islocked('magiclock_'.$_G['uid'].'_'.$magicid, 0, 1)) {
 					showmessage('magics_locked');
 				}
-				
+
 				$magicnum = intval($_GET['magicnum']);
 
 				if(!$magicnum || $magicnum < 0) {

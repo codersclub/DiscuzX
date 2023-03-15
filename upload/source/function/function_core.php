@@ -1952,7 +1952,7 @@ function memory($cmd, $key='', $value='', $ttl = 0, $prefix = '') {
 		'incex', /* 存在时才inc */
 		'sadd', 'srem', 'scard', 'smembers', 'sismember',
 		'hmset', 'hgetall', 'hexists', 'hget',
-		'eval', 
+		'eval',
 		'zadd', 'zcard', 'zrem', 'zscore', 'zrevrange', 'zincrby', 'zrevrangewithscore' /* 带score返回 */,
 		'pipeline', 'commit', 'discard'
 	);

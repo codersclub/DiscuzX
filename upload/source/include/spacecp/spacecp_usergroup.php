@@ -26,7 +26,7 @@ if($_G['inajax'] && $_GET['showextgroups']) {
 	exit;
 }
 
-$do = in_array(getgpc('do'), array('buy', 'exit', 'switch', 'list', 'forum', 'expiry')) ? trim($_GET['do']) : 'usergroup'; 
+$do = in_array(getgpc('do'), array('buy', 'exit', 'switch', 'list', 'forum', 'expiry')) ? trim($_GET['do']) : 'usergroup';
 
 $extgroupids = $_G['member']['extgroupids'] ? explode("\t", $_G['member']['extgroupids']) : array();
 space_merge($space, 'count');
@@ -145,7 +145,7 @@ if(in_array($do, array('buy', 'exit'))) {
 	$group = C::t('common_usergroup')->fetch($groupid);
 	if(!$group['allowvisit']) {
 		showmessage("usergroup_switch_not_allowvisit");
-	}	
+	}
 	if(submitcheck('groupsubmit')) {
 		$memberfieldforum = C::t('common_member_field_forum')->fetch($_G['uid']);
 		$groupterms = dunserialize($memberfieldforum['groupterms']);
@@ -205,7 +205,7 @@ if(in_array($do, array('buy', 'exit'))) {
 				if($_G['setting']['verify']['enabled']) {
 					for($i = 1; $i <= 6; $i++) {
 						$verifyperm[$forum['fid']][$perm] .= preg_match("/(^|\t)(v".$i.")(\t|$)/", $forum[$perm]) ? $verifyicon[$i] : '';
-						$includePerm = preg_match("/(^|\t)(v".$i.")(\t|$)/", $forum[$perm]) ? $verifyicon[$i] : '';                        
+						$includePerm = preg_match("/(^|\t)(v".$i.")(\t|$)/", $forum[$perm]) ? $verifyicon[$i] : '';
 						if(in_array($i, $myverify) && $includePerm) {
 							$myverifyperm[$forum['fid']][$perm] = 1;
 						}

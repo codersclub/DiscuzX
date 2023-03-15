@@ -14,7 +14,7 @@ if(!defined('IN_DISCUZ')) {
 class ip_tiny_init_exception extends Exception {}
 
 class ip_tiny {
-	
+
 	private static $instance = NULL;
 	private $fp = NULL;
 	private $offset = array();

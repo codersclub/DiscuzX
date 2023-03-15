@@ -32,7 +32,7 @@ if($_GET['op'] == 'delete') {
 			C::t('home_favorite')->delete($_GET['favorite'], false, $_G['uid']);
 		}
 		showmessage('favorite_delete_succeed', 'home.php?mod=space&uid='.$_G['uid'].'&do=favorite&view=me&type='.$_GET['type'].'&quickforward=1');
-	} else {		
+	} else {
 		$type = empty($_GET['type']) ? '' : $_GET['type'];
 		$id = empty($_GET['id']) ? 0 : intval($_GET['id']);
 		if($type && $id){
@@ -64,7 +64,7 @@ if($_GET['op'] == 'delete') {
 		}else{
 			$favid = intval($_GET['favid']);
 			$thevalue = C::t('home_favorite')->fetch($favid);
-		}		
+		}
 		if(empty($thevalue) || $thevalue['uid'] != $_G['uid']) {
 			showmessage('favorite_does_not_exist');
 		}
@@ -157,7 +157,7 @@ if($_GET['op'] == 'delete') {
 			'dateline' => TIMESTAMP
 		);
 		$favid = C::t('home_favorite')->insert($arr, true);
-		
+
 		switch($type) {
 			case 'thread':
 				C::t('forum_thread')->increase($id, array('favtimes'=>1));
@@ -214,7 +214,7 @@ function deletefavorite($thevalue = array()){
 		case 'aid':
 			C::t('portal_article_count')->increase($thevalue['id'], array('favtimes' => -1));
 			break;
-	}	
+	}
 }
 
 ?>

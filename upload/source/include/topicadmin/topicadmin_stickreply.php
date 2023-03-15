@@ -43,7 +43,7 @@ if(!submitcheck('modsubmit')) {
 
 	if($_GET['stickreply']) {
 		foreach($sticktopiclist as $pid => $postnum) {
-			$post = C::t('forum_post')->fetch_all_by_pid('tid:'.$_G['tid'], $pid, false);			
+			$post = C::t('forum_post')->fetch_all_by_pid('tid:'.$_G['tid'], $pid, false);
 			if($post[$pid]['tid'] != $_G['tid']) {
 				continue;
 			}

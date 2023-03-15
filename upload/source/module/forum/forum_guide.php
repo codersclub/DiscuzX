@@ -107,7 +107,7 @@ if($view != 'index') {
 			$searchbody = 1;
 		}
 		require_once libfile('function/forumlist');
-		$orderactives[$viewtype] = 'class="a"';		
+		$orderactives[$viewtype] = 'class="a"';
 		$forumlist = forumselect(FALSE, 0, intval($_GET['fid']));
 		$data['my'] = get_my_threads($viewtype, $_GET['fid'], $filter, $searchkey, $start, $perpage, $theurl);
 		$tids = $data['my']['tids'];
@@ -338,7 +338,7 @@ function get_my_threads($viewtype, $fid = 0, $filter = '', $searchkey = '', $sta
 			$closed = 0;
 		}
 		require_once libfile('function/post');
-		$followfid = getglobal('setting/followforumid');		
+		$followfid = getglobal('setting/followforumid');
 		$posts = C::t('forum_post')->fetch_all_by_authorid(0, $_G['uid'], true, 'DESC', $start, $perpage, null, $invisible, $fid, $followfid);
 		$listcount = count($posts);
 		foreach($posts as $pid => $post) {
@@ -419,7 +419,7 @@ function guide_procthread($thread) {
 	$thread['moved'] = $thread['heatlevel'] = $thread['new'] = 0;
 	$thread['icontid'] = $thread['forumstick'] || !$thread['moved'] && $thread['isgroup'] != 1 ? $thread['tid'] : $thread['closed'];
 	$thread['folder'] = 'common';
-	$thread['dbdateline'] = $thread['dateline'];	
+	$thread['dbdateline'] = $thread['dateline'];
 	$thread['weeknew'] = TIMESTAMP - 604800 <= $thread['dbdateline'];
 	if($thread['replies'] > $thread['views']) {
 		$thread['views'] = $thread['replies'];

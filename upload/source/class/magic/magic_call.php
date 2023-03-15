@@ -52,7 +52,7 @@ class magic_call {
 					'authorid' => $_G['uid'],
 					'author' => $_G['username'],
 					'note' => $note,
-					'category' => 3,					
+					'category' => 3,
 					'dateline' => $_G['timestamp']
 				);
 			}

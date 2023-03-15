@@ -56,7 +56,7 @@ class table_common_mytask extends discuz_table
 			return $this->fetch_mytask($id, $force_from_db);
 		}
 	}
-				
+
 	public function delete_mytask($uid, $taskid) {
 		$condition = array();
 		if($uid) {

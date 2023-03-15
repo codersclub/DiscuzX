@@ -413,7 +413,7 @@ if($op == 'replies') {
 				if(count($censor_words) > 3) {
 					$censor_words = array_slice($censor_words, 0, 3);
 				}
-				$post['censorwords'] = implode(', ', $censor_words);		
+				$post['censorwords'] = implode(', ', $censor_words);
 			}
 
 			if($post['attachment']) {
@@ -629,7 +629,7 @@ if($op == 'replies') {
 					if(count($censor_words) > 3) {
 						$censor_words = array_slice($censor_words, 0, 3);
 					}
-					$thread['censorwords'] = implode(', ', $censor_words);		
+					$thread['censorwords'] = implode(', ', $censor_words);
 				}
 
 				if($thread['attachment']) {

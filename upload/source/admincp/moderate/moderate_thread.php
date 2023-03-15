@@ -213,7 +213,7 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 
 	if($moderation['delete']) {
 		$deletetids = array();
-		$recyclebintids = array();		
+		$recyclebintids = array();
 		$deleteauthorids = array();
 		foreach(C::t('forum_thread')->fetch_all_by_tid_displayorder($moderation['delete'], $displayorder, '>=', $fidadd['fids']) as $thread) {
 			if($recyclebins[$thread['fid']]) {
@@ -272,20 +272,20 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 
 		$tids = $authoridarray = $moderatedthread = array();
 		$firsttime_validatethread = array();//首次审核通过帖子
-		$uids = array();				
+		$uids = array();
 		foreach(C::t('forum_thread')->fetch_all_by_tid_fid($moderation['validate'], $fidadd['fids']) as $thread) {
 			if($thread['displayorder'] != -2 && $thread['displayorder']!= -3) {
 				continue;
 			}
 			$poststatus = C::t('forum_post')->fetch_threadpost_by_tid_invisible($thread['tid']);
 			$thread['anonymous'] = $poststatus['anonymous'];
-			$thread['message'] = $poststatus['message'];			
+			$thread['message'] = $poststatus['message'];
 			$poststatus = $poststatus['status'];
 			$tids[] = $thread['tid'];
 
 			if(getstatus($poststatus, 3) == 0) {
 				$firsttime_validatethread[] = $thread;
-				$uids[] = $thread['authorid'];				
+				$uids[] = $thread['authorid'];
 				updatepostcredits('+', $thread['authorid'], 'post', $thread['fid']);
 				$attachcount = C::t('forum_attachment_n')->count_by_id('tid:'.$thread['tid'], 'tid', $thread['tid']);
 				updatecreditbyaction('postattach', $thread['authorid'], array(), '', $attachcount, 1, $thread['fid']);

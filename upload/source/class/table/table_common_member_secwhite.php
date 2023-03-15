@@ -29,7 +29,7 @@ class table_common_member_secwhite extends discuz_table
 			return $this->fetch_cache($uid);
 		} else {
 			DB::delete($this->_table, "dateline<".(TIMESTAMP-86400));
-			return DB::result_first("SELECT COUNT(*) FROM %t WHERE uid=%d", array($this->_table, $uid));	
+			return DB::result_first("SELECT COUNT(*) FROM %t WHERE uid=%d", array($this->_table, $uid));
 		}
 	}
 

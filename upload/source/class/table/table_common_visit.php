@@ -88,7 +88,7 @@ class table_common_visit extends discuz_table
 			return array(
 				'ip' => $id,
 				'view' => $rs
-			);	
+			);
 		}
 		return FALSE;
 	}

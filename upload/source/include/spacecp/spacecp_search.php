@@ -111,7 +111,7 @@ if(!empty($_GET['searchsubmit']) || !empty($_GET['searchmode'])) {
 					$ols[$value['uid']] = 1;
 				}
 			}
-		}		
+		}
 	}
 
 

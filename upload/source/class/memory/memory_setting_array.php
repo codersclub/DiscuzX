@@ -64,7 +64,7 @@ class memory_setting_array implements ArrayAccess {
 			$this->array = memory('get', self::SETTING_KEY);
 			foreach ($this->array as $key => $value) {
 				if ($value) $this->array[$key] = dunserialize($value);
-			}			
+			}
 		}
 	}
 

@@ -104,7 +104,7 @@ if(!submitcheck('modsubmit')) {
 			$stylecheck[$i] = $stylestr[$i - 1] ? 1 : 0;
 		}
 		$colorcheck = $string[1];
-		$highlight_bgcolor = $threadlist[$_G['tid']]['bgcolor'];		
+		$highlight_bgcolor = $threadlist[$_G['tid']]['bgcolor'];
 		$_G['forum']['modrecommend'] = is_array($_G['forum']['modrecommend']) ? $_G['forum']['modrecommend'] : array();
 		$expirationstick = get_expiration($_G['tid'], 'EST');
 		$expirationdigest = get_expiration($_G['tid'], 'EDI');
@@ -139,7 +139,7 @@ if(!submitcheck('modsubmit')) {
 			$selectattach = $imgattach[$keys[0]]['aid'];
 			$selectposition[0] = ' selected="selected"';
 		}
-		$expirationrecommend = get_expiration($_G['tid'], 'REC');		
+		$expirationrecommend = get_expiration($_G['tid'], 'REC');
 	}
 	include template('forum/topicadmin');
 
@@ -274,7 +274,7 @@ if(!submitcheck('modsubmit')) {
 				$modaction = $isrecommend ? 'REC' : 'URE';
 				$thread = daddslashes($thread, 1);
 				$selectattach = $_GET['selectattach'];
-				$position = $_GET['position'];				
+				$position = $_GET['position'];
 
 				C::t('forum_threadmod')->update_by_tid_action($tidsarr, array('REC'), array('status' => 0));
 				if($isrecommend) {

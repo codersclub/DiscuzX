@@ -6,7 +6,7 @@ if(!defined('IN_DISCUZ')) {
 
 $checkurl = array('youtube.com/watch?');
 
-function media_youtube($url, $width, $height) { 
+function media_youtube($url, $width, $height) {
 	if(preg_match("/^https?:\/\/(|m.|www.)youtube.com\/watch\?v=([^\/&]+)&?/i", $url, $matches)) {
 		$flv = 'https://www.youtube.com/v/'.$matches[2].'&fs=1';
 		$iframe = 'https://www.youtube.com/embed/'.$matches[2];

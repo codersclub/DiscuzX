@@ -21,7 +21,7 @@ class memory_common_session
 	for _, key in ipairs(sids) do
 	local row = redis.call("hmget", prefix..key, "sid", "ip", "uid", "username", "groupid", "invisible", "action", "lastactivity", "lastolupdate", "fid", "tid")
 	rs[#rs + 1] = row
-	end 
+	end
 	return rs
 LUA;
 
@@ -164,22 +164,22 @@ LUA;
 		local userip = ARGV[5]
 		local uid = ARGV[6]
 		local out_surfix = ARGV[7]
-		
+
 		local function getdata(key)
 		    local data = redis.call("HMGET", key, 'sid', 'ip', 'uid', 'invisible', 'fid')
-		    if (data[1]) then 
+		    if (data[1]) then
 			return data
 		    else
 			return {}
 		    end
 		end
-		
+
 		local bysid = getdata(prefix..sid);
 		if (#bysid > 0) then
 		    redis.call("del", prefix..sid)
 		    rs[#rs + 1] = bysid
 		end
-		
+
 		-- lastactivity < onlinehold
 		local byonlinehold = redis.call("ZRANGEBYSCORE", prefix.."idx_lastactivity", 0, onlinehold + 1);
 		for _, sid in ipairs(byonlinehold) do
@@ -189,7 +189,7 @@ LUA;
 			rs[#rs + 1] = data
 		    end
 		end
-		
+
 		-- uid = 0 and ip = userip
 		local out_hash = prefix..'uid0_ip_'..out_surfix
 		redis.call("ZINTERSTORE", out_hash, 2, prefix.."idx_uid_group_0", prefix.."idx_ip_"..userip, 'AGGREGATE', 'MIN')
@@ -203,7 +203,7 @@ LUA;
 		    end
 		end
 		redis.call("DEL", out_hash)
-		
+
 		local byuid = redis.call("SMEMBERS", prefix.."idx_uid_"..uid);
 		for _, sid in ipairs(byuid) do
 		    local data = getdata(prefix..sid);
@@ -212,7 +212,7 @@ LUA;
 			rs[#rs + 1] = data
 		    end
 		end
-		
+
 		for _, row in ipairs(rs) do
 		    redis.call("ZREM", prefix.."idx_ip_"..row[2], row[1])
 		    redis.call("ZREM", prefix.."idx_invisible_"..row[4], row[1])
@@ -225,7 +225,7 @@ LUA;
 		    redis.call("ZREM", prefix.."idx_lastactivity", row[1])
 		    redis.call("SREM", prefix.."idx_uid_"..row[3], row[1])
 		end
-		
+
 		return #rs
 LUA;
 		memory('eval', $script, array($session['sid'], $onlinehold, $guestspan, $session['ip'], $session['uid'] ? $session['uid'] : -1, $temp_uniq), "delete_by_session", $this->_pre_cache_key);
@@ -355,18 +355,18 @@ LUA;
 		local limit = ARGV[3]
 		local out_surfix = ARGV[4]
 		local out_hash = prefix..'uid_fid_inv_'..out_surfix
-		
+
 		-- uid > 0 and fid=fid and invisible = 0
 		redis.call("ZINTERSTORE", out_hash, 3, prefix.."idx_uid_group_1", prefix.."idx_fid_"..fid, prefix.."idx_invisible_0", 'AGGREGATE', 'MIN')
-		
+
 		local keys = redis.call("ZREVRANGE", out_hash, 0, limit - 1)
 		redis.call("DEL", out_hash)
 		local rs = {}
 		for _, key in ipairs(keys) do
 		    local row = redis.call("hmget", prefix..key, "uid", "groupid", "username", "invisible", "lastactivity")
 		    rs[#rs + 1] = row
-		end 
-		return rs			
+		end
+		return rs
 LUA;
 		$data = memory('eval', $script, array($fid, $limit, $temp_uniq), "fetch_all_by_fid", $this->_pre_cache_key);
 		$result = array();
