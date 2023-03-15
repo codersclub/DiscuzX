@@ -1,13 +1,12 @@
 <!--{template common/header}-->
-<!--{if $special != 2 && $special != 4 && !($isfirstpost && $sortid)}-->
-<!--{eval $adveditor = $isfirstpost && $special && ($_GET['action'] == 'newthread' || $_GET['action'] == 'reply' && !empty($_GET['addtrade']) || $_GET['action'] == 'edit' );}-->
+<!--{eval $adveditor = $isfirstpost && $special || $special == 2 && ($_GET['action'] == 'newthread' || $_GET['action'] == 'reply' && !empty($_GET['addtrade']) || $_GET['action'] == 'edit' && $thread['special'] == 2);}-->
 <form method="post" id="postform" 
 			{if $_GET['action'] == 'newthread'}action="forum.php?mod=post&action={if $special != 2}newthread{else}newtrade{/if}&fid=$_G['fid']&extra=$extra&topicsubmit=yes&mobile=2"
 			{elseif $_GET['action'] == 'reply'}action="forum.php?mod=post&action=reply&fid=$_G['fid']&tid=$_G['tid']&extra=$extra&replysubmit=yes&mobile=2"
 			{elseif $_GET['action'] == 'edit'}action="forum.php?mod=post&action=edit&extra=$extra&editsubmit=yes&mobile=2" $enctype
 			{/if}>
-<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}" />
-<input type="hidden" name="posttime" id="posttime" value="{TIMESTAMP}" />
+	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}" />
+	<input type="hidden" name="posttime" id="posttime" value="{TIMESTAMP}" />
 <!--{if !empty($_GET['modthreadkey'])}--><input type="hidden" name="modthreadkey" id="modthreadkey" value="$_GET['modthreadkey']" /><!--{/if}-->
 <!--{if $_GET['action'] == 'reply'}-->
 	<input type="hidden" name="noticeauthor" value="$noticeauthor" />
@@ -39,10 +38,58 @@
 	<h2><!--{if $_GET['action'] == 'edit'}-->{lang edit}<!--{else}-->{lang send_threads}<!--{/if}--></h2>
 	<div class="my"></div>
 </div>
+<!--{if $_GET[action] == 'newthread' && ($_G['group']['allowpostpoll'] || $_G['group']['allowpostreward'] || $_G['group']['allowpostdebate'] || $_G['group']['allowpostactivity'] || $_G['group']['allowposttrade'] || $_G['setting']['threadplugins'])}-->
+<div class="dhnavs_box">
+	<div id="dhnavs">
+		<div id="dhnavs_li">
+			<ul class="swiper-wrapper">
+				<!--{if empty($_G['forum']['threadsorts']['required']) && !$_G['forum']['allowspecialonly']}-->
+				<li class="swiper-slide {if $postspecialcheck[0]}mon{/if}"><a href="forum.php?mod=post&action=newthread&fid=$_G['fid']&cedit=yes<!--{if !empty($_G['tid'])}-->&tid=$_G['tid']<!--{/if}--><!--{if !empty($modelid)}-->&modelid=$modelid<!--{/if}-->&extra=$extra">{lang post_newthread}</a></li>
+				<!--{/if}-->
+				<!--{loop $_G['forum']['threadsorts'][types] $tsortid $name}-->
+					<li class="swiper-slide {if $sortid == $tsortid}mon{/if}"><a href="forum.php?mod=post&action=newthread&sortid=$tsortid&fid=$_G['fid']&cedit=yes<!--{if !empty($_G['tid'])}-->&tid=$_G['tid']<!--{/if}--><!--{if !empty($modelid)}-->&modelid=$modelid<!--{/if}-->&extra=$extra"><!--{echo strip_tags($name);}--></a></li>
+				<!--{/loop}-->
+				<!--{if $_G['group']['allowpostpoll']}--><li class="swiper-slide {if $_GET['special'] == 1}mon{/if}"><a href="forum.php?mod=post&action=newthread&special=1&fid=$_G['fid']&cedit=yes<!--{if !empty($_G['tid'])}-->&tid=$_G['tid']<!--{/if}--><!--{if !empty($modelid)}-->&modelid=$modelid<!--{/if}-->&extra=$extra">{lang post_newthreadpoll}</a></li><!--{/if}-->
+				<!--{if $_G['group']['allowpostreward']}--><li class="swiper-slide {if $_GET['special'] == 3}mon{/if}"><a href="forum.php?mod=post&action=newthread&special=3&fid=$_G['fid']&cedit=yes<!--{if !empty($_G['tid'])}-->&tid=$_G['tid']<!--{/if}--><!--{if !empty($modelid)}-->&modelid=$modelid<!--{/if}-->&extra=$extra">{lang post_newthreadreward}</a></li><!--{/if}-->
+				<!--{if $_G['group']['allowpostdebate']}--><li class="swiper-slide {if $_GET['special'] == 5}mon{/if}"><a href="forum.php?mod=post&action=newthread&special=5&fid=$_G['fid']&cedit=yes<!--{if !empty($_G['tid'])}-->&tid=$_G['tid']<!--{/if}--><!--{if !empty($modelid)}-->&modelid=$modelid<!--{/if}-->&extra=$extra">{lang post_newthreaddebate}</a></li><!--{/if}-->
+				<!--{if $_G['group']['allowpostactivity']}--><li class="swiper-slide {if $_GET['special'] == 4}mon{/if}"><a href="forum.php?mod=post&action=newthread&special=4&fid=$_G['fid']&cedit=yes<!--{if !empty($_G['tid'])}-->&tid=$_G['tid']<!--{/if}--><!--{if !empty($modelid)}-->&modelid=$modelid<!--{/if}-->&extra=$extra">{lang post_newthreadactivity}</a></li><!--{/if}-->
+				<!--{if $_G['group']['allowposttrade']}--><li class="swiper-slide {if $_GET['special'] == 2}mon{/if}"><a href="forum.php?mod=post&action=newthread&special=2&fid=$_G['fid']&cedit=yes<!--{if !empty($_G['tid'])}-->&tid=$_G['tid']<!--{/if}--><!--{if !empty($modelid)}-->&modelid=$modelid<!--{/if}-->&extra=$extra">{lang post_newthreadtrade}</a></li><!--{/if}-->
+				<!--{if $_G['setting']['threadplugins']}-->
+					<!--{loop $_G['forum']['threadplugin'] $tpid}-->
+						<!--{if array_key_exists($tpid, $_G['setting']['threadplugins']) && is_array($_G['group']['allowthreadplugin']) && in_array($tpid, $_G['group']['allowthreadplugin'])}-->
+							<li class="swiper-slide {if $specialextra==$tpid}mon{/if}"><a href="forum.php?mod=post&action=newthread&specialextra=$tpid&fid=$_G['fid']&cedit=yes<!--{if !empty($_G['tid'])}-->&tid=$_G['tid']<!--{/if}--><!--{if !empty($modelid)}-->&modelid=$modelid<!--{/if}-->&extra=$extra">{$_G[setting][threadplugins][$tpid][name]}</a></li>
+						<!--{/if}-->
+					<!--{/loop}-->
+				<!--{/if}-->
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+	if($("#dhnavs_li .mon").length > 0) {
+		var discuz_nav = $("#dhnavs_li .mon").offset().left + $("#dhnavs_li .mon").width() >= $(window).width() ? $("#dhnavs_li .mon").index() : 0;
+	}else{
+		var discuz_nav = 0;
+	}	
+	new Swiper('#dhnavs_li', {
+		freeMode : true,
+		slidesPerView : 'auto',
+		initialSlide : discuz_nav,
+		onTouchMove: function(swiper){
+			Discuz_Touch_on = 0;
+		},
+		onTouchEnd: function(swiper){
+			Discuz_Touch_on = 1;
+		},
+	});
+</script>
+<!--{/if}-->
 <div class="post_from post_box">
 	<!--{hook/post_top_mobile}-->
 	<ul class="cl">
-		<!--{if $_GET['action'] != 'reply'}-->
+		<!--{if $_GET['action'] == 'reply' && !empty($_GET['addtrade']) || $_GET['action'] == 'edit' && $thread['special'] == 2 && !$postinfo['first']}-->
+		<input name="subject" type="hidden" value="" />
+		<!--{elseif $_GET['action'] != 'reply'}-->
 		<li class="mli"><input type="text" class="px pl5" id="needsubject" autocomplete="off" value="$postinfo['subject']" name="subject" placeholder="{lang posts}{lang thread_subject}"></li>
 		<!--{else}-->
 		<li class="mtext">
@@ -129,20 +176,27 @@
 	<!--{/if}-->
 	<!--{hook/post_bottom_mobile}-->
 </div>
-<div class="post_btn"><button id="postsubmit" class="btn_pn <!--{if $_GET['action'] == 'edit'}-->btn_pn_blue" disable="false"<!--{else}-->btn_pn_grey" disable="true"<!--{/if}-->><!--{if $_GET['action'] == 'newthread'}-->{lang send_thread}<!--{elseif $_GET['action'] == 'reply'}-->{lang join_thread}<!--{elseif $_GET['action'] == 'edit'}-->{lang edit_save}<!--{/if}--></button></div>
+<div class="post_btn">
+	<button id="postsubmit" class="btn_pn <!--{if $_GET['action'] == 'edit'}-->btn_pn_blue" disable="false"<!--{else}-->btn_pn_grey" disable="true"<!--{/if}-->>
+	<!--{if $_GET['action'] == 'newthread'}-->
+		<!--{if $special == 0}-->{lang send_thread}
+		<!--{elseif $special == 1}-->{lang post_newthreadpoll}
+		<!--{elseif $special == 2}-->{lang post_newthreadtrade}
+		<!--{elseif $special == 3}-->{lang post_newthreadreward}
+		<!--{elseif $special == 4}-->{lang post_newthreadactivity}
+		<!--{elseif $special == 5}-->{lang post_newthreaddebate}
+		<!--{elseif $special == 127}-->
+			<!--{if $buttontext}-->$buttontext<!--{else}-->{lang post_newthread}<!--{/if}-->
+		<!--{/if}-->
+	<!--{elseif $_GET['action'] == 'reply' && !empty($_GET['addtrade'])}-->{lang trade_add_post}
+	<!--{elseif $_GET['action'] == 'reply'}-->{lang join_thread}
+	<!--{elseif $_GET['action'] == 'edit' && $isfirstpost && $thread['displayorder'] == -4}-->{lang post_newthread}
+	<!--{elseif $_GET['action'] == 'edit'}-->{lang edit_save}
+	<!--{/if}-->
+	</button>
+</div>
 <input type="hidden" name="{if $_GET['action'] == 'newthread'}topicsubmit{elseif $_GET['action'] == 'reply'}replysubmit{elseif $_GET['action'] == 'edit'}editsubmit{/if}" value="yes">
 </form>
-<!--{else}-->
-	<div class="box xg1">
-	<!--{if $special == '2'}-->
-	{lang send_special_trade_error}
-    <!--{elseif $special == '4'}-->
-	{lang send_special_activity_error}
-	<!--{elseif $isfirstpost && $sortid}-->
-	{lang threadsort_error}
-    <!--{/if}-->
-    </div>
-<!--{/if}-->
 <script type="text/javascript">
 	(function() {
 		var needsubject = needmessage = false;
@@ -189,33 +243,33 @@
 		}).scrollTop($(document).height());
 	 })();
 	(function($){
-        $.fn.extend({
-            insertAtCaret: function(myValue){
-                var t = $(this)[0];
-                if (document.selection) {
-                    this.focus();
-                    sel = document.selection.createRange();
-                    sel.text = myValue;
-                    this.focus();
-                }
-                else
-                if (t.selectionStart || t.selectionStart == '0') {
-                    var startPos = t.selectionStart;
-                    var endPos = t.selectionEnd;
-                    var scrollTop = t.scrollTop;
-                    t.value = t.value.substring(0, startPos) + myValue + t.value.substring(endPos, t.value.length);
-                    this.focus();
-                    t.selectionStart = startPos + myValue.length;
-                    t.selectionEnd = startPos + myValue.length;
-                    t.scrollTop = scrollTop;
-                }
-                else {
-                    this.value += myValue;
-                    this.focus();
-                }
-            }
-        })
-    })(jQuery);
+		$.fn.extend({
+			insertAtCaret: function(myValue){
+				var t = $(this)[0];
+				if (document.selection) {
+					this.focus();
+					sel = document.selection.createRange();
+					sel.text = myValue;
+					this.focus();
+				}
+				else
+				if (t.selectionStart || t.selectionStart == '0') {
+					var startPos = t.selectionStart;
+					var endPos = t.selectionEnd;
+					var scrollTop = t.scrollTop;
+					t.value = t.value.substring(0, startPos) + myValue + t.value.substring(endPos, t.value.length);
+					this.focus();
+					t.selectionStart = startPos + myValue.length;
+					t.selectionEnd = startPos + myValue.length;
+					t.scrollTop = scrollTop;
+				}
+				else {
+					this.value += myValue;
+					this.focus();
+				}
+			}
+		})
+	})(jQuery);
 	function addsmilies(a){
 		$('#needmessage').insertAtCaret(a);
 	}

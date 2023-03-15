@@ -1,0 +1,472 @@
+<input type="hidden" name="selectsortid" size="45" value="$_G['forum_selectsortid']" />
+<!--{if $isfirstpost && $sortid}-->
+	<script type="text/javascript">
+		var forum_optionlist = <!--{if $forum_optionlist}-->'$forum_optionlist'<!--{else}-->''<!--{/if}-->;
+	</script>
+<!--{/if}-->
+<!--{if $_G['forum_typetemplate']}-->
+	<!--{if $_G['forum']['threadsorts']['description'][$_G['forum_selectsortid']] || $_G['forum']['threadsorts']['expiration'][$_G['forum_selectsortid']]}-->
+		<ul class="post_box cl">
+			<!--{if $_G['forum']['threadsorts']['description'][$_G['forum_selectsortid']]}-->
+			<li class="flex-box mli">
+				<div class="flex xg1">{lang threadtype_description}</div>
+				<div class="flex-3">$_G['forum']['threadsorts']['description'][$_G['forum_selectsortid']]</div>
+			</li>
+			<!--{/if}-->
+			<!--{if $_G['forum']['threadsorts']['expiration'][$_G['forum_selectsortid']]}-->
+			<li class="flex-box mli">
+				<div class="flex xg1">{lang threadtype_expiration}</div>
+				<div class="flex-3">
+					<select name="typeexpiration" id="typeexpiration" class="sort_sel">
+						<option value="259200">{lang three_days}</option>
+						<option value="432000">{lang five_days}</option>
+						<option value="604800">{lang seven_days}</option>
+						<option value="2592000">{lang one_month}</option>
+						<option value="7776000">{lang three_months}</option>
+						<option value="15552000">{lang half_year}</option>
+						<option value="31536000">{lang one_year}</option>
+					</select>
+				</div>
+			</li>
+			<!--{if $_G['forum_optiondata']['expiration']}--><li class="flex-box mli mtit">{lang valid_before}: $_G['forum_optiondata']['expiration']</li><!--{/if}-->
+			<!--{/if}-->
+		</ul>
+	<!--{/if}-->
+	$_G['forum_typetemplate']
+<!--{else}-->
+	<ul class="post_box cl">
+		<!--{if $_G['forum']['threadsorts']['description'][$_G['forum_selectsortid']]}-->
+		<li class="flex-box mli mtext">
+			<div class="flex xg1">{lang threadtype_description}</div>
+			<div class="flex-3 xg1">$_G['forum']['threadsorts']['description'][$_G['forum_selectsortid']]</div>
+		</li>
+		<!--{/if}-->
+		<!--{if $_G['forum']['threadsorts']['expiration'][$_G['forum_selectsortid']]}-->
+		<li class="flex-box mli mtext">
+			<div class="flex xg1">{lang threadtype_expiration}</div>
+			<div class="flex-3 xg1">
+				<select name="typeexpiration" id="typeexpiration" class="sort_sel">
+					<option value="259200">{lang three_days}</option>
+					<option value="432000">{lang five_days}</option>
+					<option value="604800">{lang seven_days}</option>
+					<option value="2592000">{lang one_month}</option>
+					<option value="7776000">{lang three_months}</option>
+					<option value="15552000">{lang half_year}</option>
+					<option value="31536000">{lang one_year}</option>
+				</select>
+			</div>
+		</li>
+		<!--{if $_G['forum_optiondata']['expiration']}--><li class="flex-box mli mtit">{lang valid_before}: $_G['forum_optiondata']['expiration']</li><!--{/if}-->
+		<!--{/if}-->
+		
+		<!--{loop $_G['forum_optionlist'] $optionid $option}-->
+		<li class="flex-box mli mtext">
+			<div class="flex xg1">$option['title']</div>
+			<div class="<!--{if $option['unit']}-->flex-2<!--{else}-->flex-3<!--{/if}--> xg1<!--{if $option['type'] == 'image'}--> group_upico<!--{/if}-->" id="select_$option['identifier']">
+				<!--{if in_array($option['type'], array('number', 'text', 'email', 'calendar', 'image', 'url', 'range', 'upload', 'range'))}-->
+					<!--{if $option['type'] == 'calendar'}-->
+						<input type="text" name="typeoption[{$option['identifier']}]" id="typeoption_$option['identifier']" size="$option['inputsize']" onchange="checkoption('$option['identifier']', '$option['required']', '$option['type']')" value="$option['value']" $option['unchangeable'] class="px"/>
+					<!--{elseif $option['type'] == 'image'}-->
+						<em class="bg_e" id="sortattach_image_{$option['identifier']}_img"><a href="$option['value']['url']" target="_blank"><img src="{if $option['value']['url']}$option['value']['url']{else}{STATICURL}image/common/nophoto.gif{/if}"></a></em>
+					</div>
+					<div class="editpic" style="margin:0;">
+						<!--{if !($option['unchangeable'] && $option['value'])}-->
+						<ul>
+							<li class="up_btn flex">
+								<a class="" href="javascript:;"><!--{if $option['value']}-->{lang update}<!--{else}-->{lang upload}<!--{/if}--><input type="file" id="sortattach_image_{$option['identifier']}" name="sortattach_image_{$option['identifier']}" class="sortattach_button" accept="image/*"></a>
+							</li>
+						</ul>
+						<input type="hidden" name="typeoption[{$option['identifier']}][aid]" value="$option['value']['aid']" id="sortattach_image_{$option['identifier']}_aid" />
+						<input type="hidden" name="sortaid_{$option['identifier']}_url" id="sortattach_image_{$option['identifier']}_url" />
+						<!--{if $option['value']}--><input type="hidden" name="oldsortaid[{$option['identifier']}]" value="$option['value']['aid']" /><!--{/if}-->
+						<input type="hidden" name="typeoption[{$option['identifier']}][url]" id="sortattach_image_{$option['identifier']}_oldurl" {if $option['value']['url']}value="$option['value']['url']"{/if} />
+						<!--{/if}-->
+					<!--{else}-->
+						<input type="text" name="typeoption[{$option['identifier']}]" id="typeoption_$option['identifier']" class="px" size="$option['inputsize']" onBlur="checkoption('$option['identifier']', '$option['required']', '$option['type']'{if $option[maxnum]}, '$option[maxnum]'{else}, '0'{/if}{if $option['minnum']}, '$option['minnum']'{else}, '0'{/if}{if $option['maxlength']}, '$option['maxlength']'{/if})" value="{if $_G['tid']}$option['value']{else}{if $member_profile[$option['profile']]}$member_profile[$option['profile']]{else}$option['defaultvalue']{/if}{/if}" $option['unchangeable'] />
+					<!--{/if}-->
+				<!--{elseif in_array($option['type'], array('radio', 'checkbox', 'select'))}-->
+					<!--{if $option['type'] == 'select'}-->
+						<!--{loop $option['value'] $selectedkey $selectedvalue}-->
+							<!--{if $selectedkey}-->
+								<script type="text/javascript">
+									changeselectthreadsort('$selectedkey', $optionid, 'update');
+								</script>
+							<!--{else}-->
+								<select onchange="changeselectthreadsort(this.value, '$optionid');checkoption('$option['identifier']', '$option['required']', '$option['type']')" $option['unchangeable'] class="sort_sel">
+									<option value="0">{lang please_select}</option>
+									<!--{loop $option['choices'] $id $value}-->
+										<!--{if !$value['foptionid']}-->
+										<option value="$id">$value['content'] <!--{if $value['level'] != 1}-->&raquo;<!--{/if}--></option>
+										<!--{/if}-->
+									<!--{/loop}-->
+								</select>
+							<!--{/if}-->
+						<!--{/loop}-->
+						<!--{if !is_array($option['value'])}-->
+							<select id="$optionid" onchange="changeselectthreadsort(this.value, '$optionid');" $option['unchangeable'] class="sort_sel">
+								<option value="0">{lang please_select}</option>
+								<!--{loop $option['choices'] $id $value}-->
+									<!--{if !$value['foptionid']}-->
+									<option value="$id">$value['content'] <!--{if $value['level'] != 1}-->&raquo;<!--{/if}--></option>
+									<!--{/if}-->
+								<!--{/loop}-->
+							</select>
+						<!--{/if}-->
+					<!--{elseif $option['type'] == 'radio'}-->
+						<ul class="flex-box flex-wrap cl">
+						<!--{loop $option['choices'] $id $value}-->
+							<li class="flex flex-half"><label><input type="radio" name="typeoption[{$option['identifier']}]" id="typeoption_$option['identifier']" onclick="checkoption('$option['identifier']', '$option['required']', '$option['type']')" value="$id" $option['value'][$id] $option['unchangeable'] class="pr"> $value</label></li>
+						<!--{/loop}-->
+						</ul>
+					<!--{elseif $option['type'] == 'checkbox'}-->
+						<ul class="flex-box flex-wrap cl">
+						<!--{loop $option['choices'] $id $value}-->
+							<li class="flex flex-half"><label><input type="checkbox" name="typeoption[{$option['identifier']}][]" id="typeoption_$option['identifier']" onclick="checkoption('$option['identifier']', '$option['required']', '$option['type']')" value="$id" $option['value'][$id][$id] $option['unchangeable'] class="pc"> $value</label></li>
+						<!--{/loop}-->
+						</ul>
+					<!--{/if}-->
+				<!--{elseif in_array($option['type'], array('textarea'))}-->
+					<textarea name="typeoption[{$option['identifier']}]" id="typeoption_$option['identifier']" rows="$option['rowsize']" cols="$option['colsize']" onBlur="checkoption('$option['identifier']', '$option['required']', '$option['type']', 0, 0{if $option[maxlength]}, '$option['maxlength']'{/if})" $option['unchangeable'] class="pt flw_replybox p0 pl5 pt10" placeholder="{$option['title']}">$option['value']</textarea>
+				<!--{/if}-->
+			</div>
+			<!--{if $option['unit']}--><div class="flex xg1"><span class="y">$option['unit']</span></div><!--{/if}-->
+		</li>
+		<li class="mli mtit none" id="check{$option['identifier']}"></li>
+		<!--{if $option['maxnum'] || $option['minnum'] || $option['maxlength'] || $option['unchangeable'] || $option[description]}-->
+		<li class="flex-box mli mtit">
+			<!--{if $option['maxnum']}-->
+				{lang maxnum} $option[maxnum]
+			<!--{/if}-->
+			<!--{if $option['minnum']}-->
+				{lang minnum} $option[minnum]
+			<!--{/if}-->
+			<!--{if $option['maxlength']}-->
+				{lang maxlength} $option[maxlength]
+			<!--{/if}-->
+			<!--{if $option['unchangeable']}-->
+				{lang unchangeable}
+			<!--{/if}-->
+			<!--{if $option[description]}-->
+				$option[description]
+			<!--{/if}-->
+		</li>
+		<!--{/if}-->
+		<!--{if $option['type'] == 'calendar'}--><li class="flex-box mli mtit"><div class="flex pl5"><span class="z xg1">{lang admin_close_expire_comment}</span></div></li><!--{/if}-->
+		<!--{/loop}-->
+	</ul>
+	<div class="discuz_x cl"></div>
+<!--{/if}-->
+
+<script type="text/javascript" reload="1">
+var CHECKALLSORT = false;
+
+function warning(obj, msg) {
+	obj.style.display = '';
+	obj.innerHTML = '<i class="fico-error fic4 fc-l vm"></i> ' + msg;
+	obj.className = "mli mtit warning";
+	if(CHECKALLSORT) {
+		popup.open(msg, 'alert');
+	}
+}
+
+$(document).on('change', '.sortattach_button', function() {
+		//alert(this.id);
+		var id = this.id;
+		popup.open('<img src="' + IMGDIR + '/imageloading.gif">');
+		uploadsuccess = function(data) {
+			if(data == '') {
+				popup.open('{lang uploadpicfailed}', 'alert');
+			}
+			var dataarr = data.split('|');
+			if(dataarr[0] == 'DISCUZUPLOAD' && dataarr[2] == 0) {
+				popup.close();
+				$('#'+id+'_img').html('<a href="{$_G['setting']['attachurl']}forum/'+dataarr[5]+'" target="_blank"><img id="aimg_'+dataarr[3]+'" title="'+dataarr[6]+'" src="{$_G['setting']['attachurl']}forum/'+dataarr[5]+'" /></a>');
+				getID(id + '_aid').value = dataarr[3];
+				getID(id + '_url').value = '{$_G['setting']['attachurl']}forum/'+dataarr[5];
+				getID(id + '_oldurl').value = '{$_G['setting']['attachurl']}forum/'+dataarr[5];
+			} else {
+				var sizelimit = '';
+				if(dataarr[7] == 'ban') {
+					sizelimit = '{lang uploadpicatttypeban}';
+				} else if(dataarr[7] == 'perday') {
+					sizelimit = '{lang donotcross}'+Math.ceil(dataarr[8]/1024)+'K)';
+				} else if(dataarr[7] > 0) {
+					sizelimit = '{lang donotcross}'+Math.ceil(dataarr[7]/1024)+'K)';
+				}
+				popup.open(STATUSMSG[dataarr[2]] + sizelimit, 'alert');
+			}
+		};
+		if(typeof FileReader != 'undefined' && this.files[0]) {//note 支持html5上传新特性
+			
+			$.buildfileupload({
+				uploadurl:'misc.php?mod=swfupload&operation=upload&type=image&inajax=yes&infloat=yes&simple=2',
+				files:this.files,
+				uploadformdata:{uid:"$_G['uid']", hash:"<!--{eval echo md5(substr(md5($_G['config']['security']['authkey']), 8).$_G['uid'])}-->"},
+				uploadinputname:'Filedata',
+				maxfilesize:"$swfconfig['max']",
+				success:uploadsuccess,
+				error:function() {
+					popup.open('{lang uploadpicfailed}', 'alert');
+				}
+			});
+		} else {
+			$.ajaxfileupload({
+				url:'misc.php?mod=swfupload&operation=upload&type=image&inajax=yes&infloat=yes&simple=2',
+				data:{uid:"$_G['uid']", hash:"<!--{eval echo md5(substr(md5($_G['config']['security']['authkey']), 8).$_G['uid'])}-->"},
+				dataType:'text',
+				fileElementId:'filedata',
+				success:uploadsuccess,
+				error: function() {
+					popup.open('{lang uploadpicfailed}', 'alert');
+				}
+			});
+		}
+});
+
+$(document).on('click', '#postsubmit', function() {
+	CHECKALLSORT = true;
+	<!--{loop $_G['forum_optionlist'] $optionid $option}-->
+		if(!checkoption('$option[identifier]', '$option[required]', '$option[type]')) {
+			return false;
+		}
+	<!--{/loop}-->
+	return true;
+});
+
+function xmlobj() {
+	var obj = new Object();
+	obj.createXMLDoc = function (xmlstring) {
+		var xmlobj = false;
+		if (window.DOMParser && document.implementation && document.implementation.createDocument) {
+			try {
+				var domparser = new DOMParser();
+				xmlobj = domparser.parseFromString(xmlstring, 'text/xml');
+			} catch (e) {}
+		} else if (window.ActiveXObject) {
+			var versions = ["MSXML2.DOMDocument.5.0", "MSXML2.DOMDocument.4.0", "MSXML2.DOMDocument.3.0",
+				"MSXML2.DOMDocument", "Microsoft.XmlDom"];
+			for (var i = 0; i < versions.length; i++) {
+				try {
+					xmlobj = new ActiveXObject(versions[i]);
+					if (xmlobj) {
+						xmlobj.async = false;
+						xmlobj.loadXML(xmlstring);
+					}
+				} catch (e) {}
+			}
+		}
+		return xmlobj;
+	};
+	obj.xml2json = function (xmlobj, node) {
+		var nodeattr = node.attributes;
+		if (nodeattr != null) {
+			if (nodeattr.length && xmlobj == null) {
+				xmlobj = new Object();
+			}
+			for (var i = 0; i < nodeattr.length; i++) {
+				xmlobj[nodeattr[i].name] = nodeattr[i].value;
+			}
+		}
+		var nodetext = "text";
+		if (node.text == null) {
+			nodetext = "textContent";
+		}
+		var nodechilds = node.childNodes;
+		if (nodechilds != null) {
+			if (nodechilds.length && xmlobj == null) {
+				xmlobj = new Object();
+			}
+			for (var i = 0; i < nodechilds.length; i++) {
+				if (nodechilds[i].tagName != null) {
+					if (nodechilds[i].childNodes[0] != null && nodechilds[i].childNodes.length <= 1 && (nodechilds[
+							i].childNodes[0].nodeType == 3 || nodechilds[i].childNodes[0].nodeType == 4)) {
+						if (xmlobj[nodechilds[i].tagName] == null) {
+							xmlobj[nodechilds[i].tagName] = nodechilds[i][nodetext];
+						} else {
+							if (typeof (xmlobj[nodechilds[i].tagName]) == "object" && xmlobj[nodechilds[i].tagName]
+								.length) {
+								xmlobj[nodechilds[i].tagName][xmlobj[nodechilds[i].tagName].length] = nodechilds[i]
+									[nodetext];
+							} else {
+								xmlobj[nodechilds[i].tagName] = [xmlobj[nodechilds[i].tagName]];
+								xmlobj[nodechilds[i].tagName][1] = nodechilds[i][nodetext];
+							}
+						}
+					} else {
+						if (nodechilds[i].childNodes.length) {
+							if (xmlobj[nodechilds[i].tagName] == null) {
+								xmlobj[nodechilds[i].tagName] = new Object();
+								this.xml2json(xmlobj[nodechilds[i].tagName], nodechilds[i]);
+							} else {
+								if (xmlobj[nodechilds[i].tagName].length) {
+									xmlobj[nodechilds[i].tagName][xmlobj[nodechilds[i].tagName].length] = new Object();
+									this.xml2json(xmlobj[nodechilds[i].tagName][xmlobj[nodechilds[i].tagName].length -
+										1], nodechilds[i]);
+								} else {
+									xmlobj[nodechilds[i].tagName] = [xmlobj[nodechilds[i].tagName]];
+									xmlobj[nodechilds[i].tagName][1] = new Object();
+									this.xml2json(xmlobj[nodechilds[i].tagName][1], nodechilds[i]);
+								}
+							}
+						} else {
+							xmlobj[nodechilds[i].tagName] = nodechilds[i][nodetext];
+						}
+					}
+				}
+			}
+		}
+	};
+	return obj;
+}
+var xml = new xmlobj();
+var xmlpar = xml.createXMLDoc(forum_optionlist);
+var forum_optionlist_obj = new Object();
+xml.xml2json(forum_optionlist_obj, xmlpar);
+
+function changeselectthreadsort(selectchoiceoptionid, optionid, type) {
+	if (selectchoiceoptionid == '0') {
+		return;
+	}
+	var soptionid = 's' + optionid;
+	var sselectchoiceoptionid = 's' + selectchoiceoptionid;
+	forum_optionlist = forum_optionlist_obj['forum_optionlist'];
+	var choicesarr = forum_optionlist[soptionid]['schoices'];
+	var lastcount = 1;
+	var name = issearch = id = nameid = '';
+	if (type == 'search') {
+		issearch = ', \'search\'';
+		name = ' name="searchoption[' + optionid + '][value]"';
+		id = 'id="' + forum_optionlist[soptionid]['sidentifier'] + '"';
+	} else {
+		name = ' name="typeoption[' + forum_optionlist[soptionid]['sidentifier'] + ']"';
+		id = 'id="typeoption_' + forum_optionlist[soptionid]['sidentifier'] + '"';
+	}
+	if ((choicesarr[sselectchoiceoptionid]['slevel'] == 1 || type == 'search') && choicesarr[sselectchoiceoptionid][
+			'scount'] == 1) {
+		nameid = name + ' ' + id;
+	}
+	var selectoption = '<select' + nameid + ' class="sort_sel" onchange="changeselectthreadsort(this.value, \'' + optionid +
+		'\'' + issearch + ');checkoption(\'' + forum_optionlist[soptionid]['sidentifier'] + '\', \'' + forum_optionlist[
+			soptionid]['srequired'] + '\', \'' + forum_optionlist[soptionid]['stype'] + '\')" ' + ((forum_optionlist[
+			soptionid]['sunchangeable'] == 1 && type == 'update') ? 'disabled' : '') +
+		'><option value="0">{lang please_select}</option>';
+	for (var i in choicesarr) {
+		nameid = '';
+		if ((choicesarr[sselectchoiceoptionid]['slevel'] == 1 || type == 'search') && choicesarr[i]['scount'] ==
+			choicesarr[sselectchoiceoptionid]['scount']) {
+			nameid = name + ' ' + id;
+		}
+		if (choicesarr[i]['sfoptionid'] != '0') {
+			var patrn1 = new RegExp("^" + choicesarr[i]['sfoptionid'] + "\\.", 'i');
+			var patrn2 = new RegExp("^" + choicesarr[i]['sfoptionid'] + "$", 'i');
+			if (selectchoiceoptionid.match(patrn1) == null && selectchoiceoptionid.match(patrn2) == null) {
+				continue;
+			}
+		}
+		if (choicesarr[i]['scount'] != lastcount) {
+			if (parseInt(choicesarr[i]['scount']) >= (parseInt(choicesarr[sselectchoiceoptionid]['scount']) + parseInt(
+					choicesarr[sselectchoiceoptionid]['slevel']))) {
+				break;
+			}
+			selectoption += '</select>' + "\r\n" + '<select' + nameid +
+				' class="sort_sel" onchange="changeselectthreadsort(this.value, \'' + optionid + '\'' + issearch +
+				');checkoption(\'' + forum_optionlist[soptionid]['sidentifier'] + '\', \'' + forum_optionlist[soptionid]
+				['srequired'] + '\', \'' + forum_optionlist[soptionid]['stype'] + '\')" ' + ((forum_optionlist[
+					soptionid]['sunchangeable'] == 1 && type == 'update') ? 'disabled' : '') +
+				'><option value="0">{lang please_select}</option>';
+			lastcount = parseInt(choicesarr[i]['scount']);
+		}
+		var patrn1 = new RegExp("^" + choicesarr[i]['soptionid'] + "\\.", 'i');
+		var patrn2 = new RegExp("^" + choicesarr[i]['soptionid'] + "$", 'i');
+		var isnext = '';
+		if (parseInt(choicesarr[i]['slevel']) != 1) {
+			isnext = '&raquo;';
+		}
+		if (selectchoiceoptionid.match(patrn1) != null || selectchoiceoptionid.match(patrn2) != null) {
+			selectoption += "\r\n" + '<option value="' + choicesarr[i]['soptionid'] + '" selected="selected">' +
+				choicesarr[i]['scontent'] + isnext + '</option>';
+		} else {
+			selectoption += "\r\n" + '<option value="' + choicesarr[i]['soptionid'] + '">' + choicesarr[i]['scontent'] +
+				isnext + '</option>';
+		}
+	}
+	selectoption += '</select>';
+	if (type == 'search') {
+		selectoption += "\r\n" + '<input type="hidden" name="searchoption[' + optionid + '][type]" value="select">';
+	}
+	getID('select_' + forum_optionlist[soptionid]['sidentifier']).innerHTML = selectoption;
+}
+
+function checkoption(identifier, required, checktype, checkmaxnum, checkminnum, checkmaxlength) {
+	if (checktype != 'image' && checktype != 'select' && !getID('typeoption_' + identifier) || !getID('check' + identifier)) {
+		return true;
+	}
+	var ce = getID('check' + identifier);
+	ce.innerHTML = '';
+	if (checktype == 'select') {
+		if (required != '0' && (getID('typeoption_' + identifier) == null || getID('typeoption_' + identifier).value == '0')) {
+			warning(ce, '{lang mob_required_lost}');
+			return false;
+		} else if (required == '0' && (getID('typeoption_' + identifier) == null || getID('typeoption_' + identifier).value ==
+				'0')) {
+			ce.innerHTML = '<i class="fico-error fic4 fc-l vm"></i> {lang mob_sort_selnext}';
+			ce.className = "mli mtit warning";
+			return true;
+		}
+	}
+	if (checktype == 'radio' || checktype == 'checkbox') {
+		var nodes = getID('typeoption_' + identifier).parentNode.parentNode.parentNode.getElementsByTagName('INPUT');
+		var nodechecked = false;
+		for (var i = 0; i < nodes.length; i++) {
+			if (nodes[i].id == 'typeoption_' + identifier) {
+				if (nodes[i].checked) {
+					nodechecked = true;
+				}
+			}
+		}
+		if (!nodechecked && required != '0') {
+			warning(ce, '{lang mob_required_lost}');
+			return false;
+		}
+	}
+	if (checktype == 'image') {
+		var checkvalue = getID('sortaid_' + identifier).value;
+	} else {
+		var checkvalue = getID('typeoption_' + identifier).value.trim();
+	}
+	if (required != '0') {
+		if (checkvalue == '') {
+			warning(ce, '{lang mob_required_lost}');
+			return false;
+		} else {
+			ce.innerHTML = '<i class="fico-check_right fic4 fc-v vm"></i>';
+		}
+	}
+	if (checkvalue) {
+		if (checktype == 'email' && !(/^[\-\.\w]+@[\.\-\w]+(\.\w+)+$/.test(checkvalue))) {
+			warning(ce, '{lang mob_sort_emailerr}');
+			return false;
+		} else if ((checktype == 'text' || checktype == 'textarea') && checkmaxlength != '0' && mb_strlen(checkvalue) >
+			checkmaxlength) {
+			warning(ce, '{lang mob_sort_toolong}');
+			return false;
+		} else if ((checktype == 'number' || checktype == 'range')) {
+			if (isNaN(checkvalue)) {
+				warning(ce, '{lang mob_sort_numerr}');
+				return false;
+			} else if (checkmaxnum != '0' && parseInt(checkvalue) > parseInt(checkmaxnum)) {
+				warning(ce, '{lang mob_sort_max}');
+				return false;
+			} else if (checkminnum != '0' && parseInt(checkvalue) < parseInt(checkminnum)) {
+				warning(ce, '{lang mob_sort_min}');
+				return false;
+			}
+		} else if (checktype == 'url' && !(/(http[s]?|ftp):\/\/[^\/\.]+?\..+\w[\/]?$/i.test(checkvalue))) {
+			warning(ce, '{lang mob_sort_urlerr}');
+			return false;
+		}
+		ce.innerHTML = '<i class="fico-check_right fic4 fc-v vm"></i>';
+	}
+	return true;
+}
+</script>

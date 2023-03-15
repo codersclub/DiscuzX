@@ -20,7 +20,7 @@
 	</div>
 <!--{elseif $adveditor}-->
 	<!--{if $special == 1}--><!--{template forum/post_poll}-->
-	<!--{elseif $special == 2 && ($_GET[action] != 'edit' || ($_GET[action] == 'edit' && ($thread['authorid'] == $_G['uid'] && $_G['group']['allowposttrade'] || $_G['group']['allowedittrade'])))}--><p class="xg1">{lang post_message1}</p><!--{template forum/post_trade}-->
+	<!--{elseif $special == 2 && ($_GET['action'] != 'edit' || ($_GET['action'] == 'edit' && ($thread['authorid'] == $_G['uid'] && $_G['group']['allowposttrade'] || $_G['group']['allowedittrade'])))}--><!--{template forum/post_trade}-->
 	<!--{elseif $special == 3}--><!--{template forum/post_reward}-->
 	<!--{elseif $special == 4}--><!--{template forum/post_activity}-->
 	<!--{elseif $special == 5}--><!--{template forum/post_debate}-->

@@ -1,0 +1,151 @@
+{eval
+	$space_uid = $space['uid'];
+	$filter = array( 'common' => '{lang have_posted}', 'save' => '{lang draft}', 'close' => '{lang closed}', 'aduit' => '{lang pending}', 'recyclebin' => '{lang recyclebin}');
+	$_G['home_tpl_spacemenus'][] = "<a href=\"home.php?mod=space&uid=$space_uid&do=thread&view=me\">{lang credit_rating}</a>";
+}
+<!--{template common/header}-->
+
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2><a href="home.php?mod=space&uid=$space['uid']&do=trade&view=me">{lang trade}{lang credit_rating}</a></h2>
+	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+<!--{if $space['self']}-->
+<div class="dhnav_box">
+	<div id="dhnav">
+		<div id="dhnav_li">
+			<ul class="swiper-wrapper">
+				<li class="swiper-slide"><a href="home.php?mod=space&do=trade&view=we">{lang friend_trade}</a></li>
+				<li class="swiper-slide"><a href="home.php?mod=space&do=trade&view=me">{lang my_trade}</a></li>
+				<li class="swiper-slide"><a href="home.php?mod=space&do=trade&view=tradelog">{lang trade_log}</a></li>
+				<li class="swiper-slide mon"><a href="home.php?mod=space&do=trade&view=eccredit">{lang credit_rating}</a></li>
+				<!--{if $_G['group']['allowposttrade']}-->
+					<!--{if $_G['setting']['tradeforumid']}-->
+					<li class="swiper-slide"><a href="forum.php?mod=post&action=newthread&fid=$_G['setting']['tradeforumid']&special=2">{lang create_new_trade}</a></li>
+					<!--{else}-->
+					<li class="swiper-slide"><a href="forum.php?mod=misc&action=nav&special=2">{lang create_new_trade}</a></li>
+					<!--{/if}-->
+				<!--{/if}-->
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+	if($("#dhnav_li .mon").length > 0) {
+		var discuz_nav = $("#dhnav_li .mon").offset().left + $("#dhnav_li .mon").width() >= $(window).width() ? $("#dhnav_li .mon").index() : 0;
+	}else{
+		var discuz_nav = 0;
+	}	
+	new Swiper('#dhnav_li', {
+		freeMode : true,
+		slidesPerView : 'auto',
+		initialSlide : discuz_nav,
+		onTouchMove: function(swiper){
+			Discuz_Touch_on = 0;
+		},
+		onTouchEnd: function(swiper){
+			Discuz_Touch_on = 1;
+		},
+	});
+</script>
+<!--{else}-->
+<!--{if $_GET['view']=='me'}-->
+	<!--{eval $actives['onlyuser'] = true;}-->
+<!--{/if}-->
+<div class="dhnavs_box">
+	<div id="dhnavs">
+		<div id="dhnavs_li">
+			<ul class="swiper-wrapper">
+			<!--{if $space['uid'] > 0}-->
+				<li class="swiper-slide"><a href="home.php?mod=space&do=trade&view=onlyuser">{lang sale_of_goods}</a></li>
+				<li class="swiper-slide"><a href="home.php?mod=space&do=trade&view=eccredit">{lang credit_rating}</a></li>
+			<!--{/if}-->
+			</ul>
+		</div>
+	</div>
+</div>
+<!--{/if}-->
+<div class="bodybox cl">
+	<div class="flex-box p10 cl">
+		<div class="flex">{lang eccredit_buyerpercent}: $sellerpercent%;</div>
+		<div class="flex">{lang eccredit_sellerpercent}: $buyerpercent%;</div>
+		<div class="flex">{lang regdate}: $member['regdate']</div>
+	</div>
+	<div class="discuz_x cl"></div>
+	<div class="cl">
+		<ul class="post_box cl">
+			<li class="flex-box mli mtit cl">{lang eccredit_sellerinfo} $member[sellercredit] <img src="{STATICURL}image/traderank/seller/$member['sellerrank'].gif" class="vm" /></li>
+			<li class="flex-box mli mtit cl">
+				<div class="flex"></div>
+				<div class="flex-2"><span class="y">{lang eccredit_1month}</span></div>
+				<div class="flex-2"><span class="y">{lang eccredit_6month}</span></div>
+				<div class="flex-2"><span class="y">{lang eccredit_total}</span></div>
+			</li>
+			<li class="flex-box mli cl">
+				<div class="flex xs1"><img src="{STATICURL}image/traderank/good.gif" width="14" height="16" class="vm" /> <span style="color:red">{lang eccredit_good}</span></div>
+				<div class="flex-2"><span class="y">$caches['sellercredit']['thismonth']['good']</span></div>
+				<div class="flex-2"><span class="y">$caches['sellercredit']['halfyear']['good']</span></div>
+				<div class="flex-2"><span class="y">$caches['sellercredit']['all']['good']</span></div>
+			</li>
+			<li class="flex-box mli cl">
+				<div class="flex xs1"><img src="{STATICURL}image/traderank/soso.gif" width="14" height="16" class="vm" /> <span style="color:green">{lang eccredit_soso}</span></div>
+				<div class="flex-2"><span class="y">$caches['sellercredit']['thismonth']['soso']</span></div>
+				<div class="flex-2"><span class="y">$caches['sellercredit']['halfyear']['soso']</span></div>
+				<div class="flex-2"><span class="y">$caches['sellercredit']['all']['soso']</span></div>
+			</li>
+			<li class="flex-box mli cl">
+				<div class="flex xs1"><img src="{STATICURL}image/traderank/bad.gif" width="14" height="16" class="vm" /> {lang eccredit_bad}</div>
+				<div class="flex-2"><span class="y">$caches['sellercredit']['thismonth']['bad']</span></div>
+				<div class="flex-2"><span class="y">$caches['sellercredit']['halfyear']['bad']</span></div>
+				<div class="flex-2"><span class="y">$caches['sellercredit']['all']['bad']</span></div>
+			</li>
+			<li class="flex-box mli cl">
+				<div class="flex xs1">{lang eccredit_total}</div>
+				<div class="flex-2"><span class="y">$caches['sellercredit']['thismonth']['total']</span></div>
+				<div class="flex-2"><span class="y">$caches['sellercredit']['halfyear']['total']</span></div>
+				<div class="flex-2"><span class="y">$caches['sellercredit']['all']['total']</span></div>
+			</li>
+		</ul>
+		<div class="discuz_x cl"></div>
+		<ul class="post_box cl">
+			<li class="flex-box mli mtit cl">{lang eccredit_buyerinfo} $member['buyercredit'] <img src="{STATICURL}image/traderank/buyer/$member['buyerrank'].gif" class="vm" /></li>
+			<li class="flex-box mli mtit cl">
+				<div class="flex"></div>
+				<div class="flex-2"><span class="y">{lang eccredit_1month}</span></div>
+				<div class="flex-2"><span class="y">{lang eccredit_6month}</span></div>
+				<div class="flex-2"><span class="y">{lang eccredit_total}</span></div>
+			</li>
+			<li class="flex-box mli cl">
+				<div class="flex xs1"><img src="{STATICURL}image/traderank/good.gif" width="14" height="16" class="vm" /> <span style="color:red">{lang eccredit_good}</span></div>
+				<div class="flex-2"><span class="y">$caches['buyercredit']['thismonth']['good']</span></div>
+				<div class="flex-2"><span class="y">$caches['buyercredit']['halfyear']['good']</span></div>
+				<div class="flex-2"><span class="y">$caches['buyercredit']['all']['good']</span></div>
+			</li>
+			<li class="flex-box mli cl">
+				<div class="flex xs1"><img src="{STATICURL}image/traderank/soso.gif" width="14" height="16" class="vm" /> <span style="color:green">{lang eccredit_soso}</span></div>
+				<div class="flex-2"><span class="y">$caches['buyercredit']['thismonth']['soso']</span></div>
+				<div class="flex-2"><span class="y">$caches['buyercredit']['halfyear']['soso']</span></div>
+				<div class="flex-2"><span class="y">$caches['buyercredit']['all']['soso']</span></div>
+			</li>
+			<li class="flex-box mli cl">
+				<div class="flex xs1"><img src="{STATICURL}image/traderank/bad.gif" width="14" height="16" class="vm" /> {lang eccredit_bad}</div>
+				<div class="flex-2"><span class="y">$caches['buyercredit']['thismonth']['bad']</span></div>
+				<div class="flex-2"><span class="y">$caches['buyercredit']['halfyear']['bad']</span></div>
+				<div class="flex-2"><span class="y">$caches['buyercredit']['all']['bad']</span></div>
+			</li>
+			<li class="flex-box mli cl">
+				<div class="flex xs1">{lang eccredit_total}</div>
+				<div class="flex-2"><span class="y">$caches['buyercredit']['thismonth']['total']</span></div>
+				<div class="flex-2"><span class="y">$caches['buyercredit']['halfyear']['total']</span></div>
+				<div class="flex-2"><span class="y">$caches['buyercredit']['all']['total']</span></div>
+			</li>
+		</ul>
+		<div class="discuz_x cl"></div>
+		<div id="ajaxrate"></div>
+		<!--{if $_G['uid']}-->
+			<script type="text/javascript">ajaxget('home.php?mod=spacecp&ac=eccredit&op=list&uid=$uid', 'ajaxrate');var explainmenu='ajax_explain_menu';</script>
+		<!--{/if}-->
+	</div>
+</div>
+
+<!--{template common/footer}-->

@@ -43,14 +43,14 @@
 					<!--{if $applied && $isverified < 2}-->
 						<p class="quote"><!--{if !$isverified}-->{lang activity_wait}<!--{else}-->{lang activity_join_audit}<!--{/if}--></p>
 						<!--{if !$activityclose}-->
-                        <!--{/if}-->
+						<!--{/if}-->
 					<!--{elseif !$activityclose}-->
-                        <!--{if $isverified != 2}-->
-                        <!--{else}-->
-                        <p>
-                            <input value="{lang complete_data}" name="ijoin" id="ijoin" />
-                        </p>
-                        <!--{/if}-->
+						<!--{if $isverified != 2}-->
+						<!--{else}-->
+						<p>
+							<input value="{lang complete_data}" name="ijoin" id="ijoin" />
+						</p>
+						<!--{/if}-->
 					<!--{/if}-->
 				<!--{/if}-->
 			</dt>
@@ -59,35 +59,35 @@
 </div>
 <!--{if $_G['uid'] && !$activityclose && (!$applied || $isverified == 2)}-->
 <div id="activityjoin" class="activity cl">
-        <dt>{lang activity_join}</dt>
+		<dt>{lang activity_join}</dt>
 	<!--{if $_G['forum']['status'] == 3 && helper_access::check_module('group') && $isgroupuser != 'isgroupuser'}-->
-        <dt>{lang activity_no_member}<a href="forum.php?mod=group&action=join&fid=$_G['fid']">{lang activity_join_group}</a></dt>
+		<dt>{lang activity_no_member}<a href="forum.php?mod=group&action=join&fid=$_G['fid']">{lang activity_join_group}</a></dt>
 	<!--{else}-->
 		<form name="activity" id="activity" method="post" autocomplete="off" action="forum.php?mod=misc&action=activityapplies&fid=$_G['fid']&tid=$_G['tid']&pid=$post['pid']{if $_GET['from']}&from=$_GET['from']{/if}&mobile=2" >
 			<input type="hidden" name="formhash" value="{FORMHASH}" />			
 				<!--{if $_G['setting']['activitycredit'] && $activity['credit'] && !$applied}--><dt class="mtxt">{lang activity_need_credit} $activity['credit'] {$_G['setting']['extcredits'][$_G['setting']['activitycredit']]['title']}</dt><!--{/if}-->
-                <!--{if $activity['cost']}-->
+				<!--{if $activity['cost']}-->
 					<p class="quote">{lang activity_paytype} <label><input class="pr" type="radio" value="0" name="payment" id="payment_0" checked="checked" />{lang activity_pay_myself}</label> <label><input class="pr" type="radio" value="1" name="payment" id="payment_1" />{lang activity_would_payment} <input name="payvalue" size="3" /> {lang payment_unit}</label></p>
-                <!--{/if}-->            
-                <!--{if !empty($activity['ufield']['userfield'])}-->
-                    <!--{loop $activity['ufield']['userfield'] $fieldid}-->
-                    <!--{if $settings[$fieldid]['available']}-->
-                    <dt>
-                        <span class="mtxt">$settings[$fieldid]['title']<span class="mx">*</span></span>
-                        $htmls[$fieldid]
-                    </dt>
-                    <!--{/if}-->
-                    <!--{/loop}-->
-                <!--{/if}-->
-                <!--{if !empty($activity['ufield']['extfield'])}-->
-                    <!--{loop $activity['ufield']['extfield'] $extname}-->
-                        $extname<input type="text" name="$extname" maxlength="200" class="txt" value="{if !empty($ufielddata)}$ufielddata['extfield'][$extname]{/if}" />
-                    <!--{/loop}-->
-                <!--{/if}-->
+				<!--{/if}-->
+				<!--{if !empty($activity['ufield']['userfield'])}-->
+					<!--{loop $activity['ufield']['userfield'] $fieldid}-->
+					<!--{if $settings[$fieldid]['available']}-->
+					<dt>
+						<span class="mtxt">$settings[$fieldid]['title']<span class="mx">*</span></span>
+						$htmls[$fieldid]
+					</dt>
+					<!--{/if}-->
+					<!--{/loop}-->
+				<!--{/if}-->
+				<!--{if !empty($activity['ufield']['extfield'])}-->
+					<!--{loop $activity['ufield']['extfield'] $extname}-->
+						$extname<input type="text" name="$extname" maxlength="200" class="txt" value="{if !empty($ufielddata)}$ufielddata['extfield'][$extname]{/if}" />
+					<!--{/loop}-->
+				<!--{/if}-->
 				<dt>
 					<span class="mtxt">{lang leaveword}</span>
 					<textarea name="message" maxlength="200" class="px">$applyinfo['message']</textarea>
-				</dt>                
+				</dt>
 			<div class="join_btn cl">
 				<!--{if $_G['setting']['activitycredit'] && $activity['credit'] && checklowerlimit(array('extcredits'.$_G['setting']['activitycredit'] => '-'.$activity['credit']), $_G['uid'], 1, 0, 1) !== true}-->
 					<dt class="mtxt">{$_G['setting']['extcredits'][$_G['setting']['activitycredit']]['title']} {lang not_enough}$activity['credit']</dt>
@@ -122,24 +122,24 @@
 <!--{/if}-->
 <!--{if $applylist}-->
 <div class="activity cl">
-    <dt>{lang activity_new_join} ($applynumbers {lang activity_member_unit})</dt>
-    <table class="mbox" cellpadding="5" cellspacing="5">
-        <tr>
-            <th class="ma">{lang mod_option_moduser}</th>
-            <!--{if $activity['cost']}-->
-            <th class="mb">{lang activity_payment}</th>
-            <!--{/if}-->
-            <th class="mc">{lang activity_jointime}</th>
-        </tr>
-        <!--{loop $applylist $apply}-->
-            <tr>
-                <td class="ma"><a href="home.php?mod=space&uid=$apply['uid']">$apply['username']</a></td>
-                <!--{if $activity['cost']}-->
-                <td class="mb"><!--{if $apply['payment'] >= 0}-->$apply['payment'] {lang payment_unit}<!--{else}-->{lang activity_self}<!--{/if}--></td>
-                <!--{/if}-->
-                <td class="mc">$apply['dateline']</td>
-            </tr>
-        <!--{/loop}-->
-    </table>
+	<dt>{lang activity_new_join} ($applynumbers {lang activity_member_unit})</dt>
+	<table class="mbox" cellpadding="5" cellspacing="5">
+		<tr>
+			<th class="ma">{lang mod_option_moduser}</th>
+			<!--{if $activity['cost']}-->
+			<th class="mb">{lang activity_payment}</th>
+			<!--{/if}-->
+			<th class="mc">{lang activity_jointime}</th>
+		</tr>
+		<!--{loop $applylist $apply}-->
+			<tr>
+				<td class="ma"><a href="home.php?mod=space&uid=$apply['uid']">$apply['username']</a></td>
+				<!--{if $activity['cost']}-->
+				<td class="mb"><!--{if $apply['payment'] >= 0}-->$apply['payment'] {lang payment_unit}<!--{else}-->{lang activity_self}<!--{/if}--></td>
+				<!--{/if}-->
+				<td class="mc">$apply['dateline']</td>
+			</tr>
+		<!--{/loop}-->
+	</table>
 </div>
 <!--{/if}-->

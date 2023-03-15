@@ -1,0 +1,186 @@
+<!--{template common/header}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2><a href="forum.php?mod=viewthread&tid=$_G['tid']{if $_GET['from']}&from=$_GET['from']{/if}">{lang trade_confirm_buy}</a></h2>
+	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
+</div>
+
+<div class="viewthread">
+	<div class="discuz_x cl"></div>
+	<div class="txtlist cl"><div class="mtit cl">{lang trade_confirm_buy}</div></div>
+	<div class="plc p15 cl">
+		<form method="post" autocomplete="off" id="tradepost" name="tradepost" action="forum.php?mod=trade&action=trade&tid=$_G['tid']&pid=$pid">
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<div class="xld cl">
+			<dl class="cl">
+				<dd class="m">
+					<!--{if $trade['aid']}-->
+						<a href="forum.php?mod=viewthread&do=tradeinfo&tid=$trade['tid']&pid=$trade['pid']"><img src="{echo getforumimg($trade['aid'])}" width="90" /></a>
+					<!--{else}-->
+						<a href="forum.php?mod=viewthread&do=tradeinfo&tid=$trade['tid']&pid=$trade['pid']"><div class="nophoto"></div></a>
+					<!--{/if}-->
+				</dd>
+				<dt><a href="forum.php?mod=viewthread&tid=$trade['tid']&do=tradeinfo&pid=$trade['pid']{if !empty($_GET['modthreadkey'])}&modthreadkey=$_GET['modthreadkey']{/if}">$trade['subject']</a></dt>
+				<dd>
+					<!--{if $trade[price] > 0}-->
+					<p class="p">&yen; <em class="xi1">$trade['price']</em></p>
+					<!--{/if}-->
+					<!--{if $_G['setting']['creditstransextra'][5] != -1 && $trade['credit']}-->
+					<p class="{if $trade['price'] > 0}xg1{else}p{/if}"><!--{if $trade['price'] > 0}-->{lang trade_additional} <!--{/if}--><em class="xi1">$trade['credit']</em>&nbsp;{$_G[setting]['extcredits'][$_G['setting']['creditstransextra'][5]]['unit']}{$_G[setting]['extcredits'][$_G['setting']['creditstransextra'][5]]['title']}</p>
+					<!--{/if}-->
+					<!--{if $trade['locus']}--><p class="xg1">{lang post_trade_locus}: $trade['locus']</p><!--{/if}-->
+					<p class="xg1">{lang trade_seller}: <a href="home.php?mod=space&uid=$trade[sellerid]" target="_blank">$trade['seller']</a></p>
+				</dd>
+			</dl>
+		</div>
+		<ul class="post_box cl">
+			<li class="flex-box mli">
+				<div class="flex">{lang trade_credits_total}</div>
+				<div class="flex-2">
+					<!--{if $trade['price'] > 0}--><strong id="caculate"></strong>&nbsp;{lang trade_units}&nbsp;&nbsp;<!--{/if}-->
+					<!--{if $_G['setting']['creditstransextra'][5] != -1 && $trade['credit']}-->{$_G[setting][extcredits][$_G['setting']['creditstransextra'][5]][title]}&nbsp;<strong id="caculatecredit"></strong>&nbsp;{$_G[setting][extcredits][$_G['setting']['creditstransextra'][5]][unit]}&nbsp;<span id="crediterror"></span><!--{/if}-->
+				</div>
+			</li>
+			<li class="flex-box mli">
+				<div class="flex">{lang trade_nums}</div>
+				<div class="flex-2">
+					<input type="text" id="number" name="number" onkeyup="calcsum()" value="1" class="pt" />
+				</div>
+			</li>
+			<li class="flex-box mli">
+				<div class="flex">{lang post_trade_transport}</div>
+				<div class="flex-2">
+					<!--{if $trade['transport'] == 1}--><input type="hidden" name="transport" value="1">{lang post_trade_transport_seller}<!--{/if}-->
+					<!--{if $trade['transport'] == 2}--><input type="hidden" name="transport" value="2">{lang post_trade_transport_buyer}<!--{/if}-->
+					<!--{if $trade['transport'] == 3}--><input type="hidden" name="transport" value="3">{lang post_trade_transport_virtual}<!--{/if}-->
+					<!--{if $trade['transport'] == 4}--><input type="hidden" name="transport" value="4">{lang post_trade_transport_physical}<!--{/if}-->
+				</div>
+			</li>
+			<!--{if $trade['transport'] == 1 or $trade['transport'] == 2 or $trade['transport'] == 4}-->
+			<li class="flex-box mli mtext">
+				<!--{if !empty($trade['ordinaryfee'])}-->
+				<div class="flex-2 xs1">
+					<label class="pl5"><input class="pr" type="radio" name="fee" value="1" checked="checked" {if $trade['transport'] == 2}onclick="feevalue = $trade['ordinaryfee'];calcsum()"{/if} />{lang post_trade_transport_mail} $trade['ordinaryfee'] {lang payment_unit}</label><!--{if $trade['transport'] == 2}--><script type="text/javascript">feevalue = $trade['ordinaryfee']</script><!--{/if}-->
+				</div>
+				<!--{/if}-->
+				<!--{if !empty($trade['expressfee'])}-->
+				<div class="flex-2 xs1">
+					<label class="pl5"><input class="pr" type="radio" name="fee" value="3" checked="checked" {if $trade['transport'] == 2}onclick="feevalue = $trade['expressfee'];calcsum()"{/if} />{lang post_trade_transport_express} $trade['expressfee'] {lang payment_unit}</label><!--{if $trade['transport'] == 2}--><script type="text/javascript">feevalue = $trade['expressfee']</script><!--{/if}-->
+				</div>
+				<!--{/if}-->
+				<!--{if !empty($trade['emsfee'])}-->
+				<div class="flex-2 xs1">
+					<label class="pl5"><input class="pr" type="radio" name="fee" value="2" checked="checked" {if $trade['transport'] == 2}onclick="feevalue = $trade['emsfee'];calcsum()"{/if} /> EMS $trade['emsfee'] {lang payment_unit}</label><!--{if $trade['transport'] == 2}--><script type="text/javascript">feevalue = $trade['emsfee']</script><!--{/if}-->
+				</div>
+				<!--{/if}-->
+			</li>
+			<!--{/if}-->
+			<li class="flex-box mli">
+				<div class="flex">{lang trade_paymethod}</div>
+				<div class="flex-2">
+				<!--{if !$_G['uid']}-->
+					<label><input type="hidden" name="offline" value="0" checked="checked" />{lang trade_pay_alipay}</label>
+				<!--{elseif !$trade['account'] && !$trade['tenpayaccount']}-->
+					<input type="hidden" name="offline" value="1" checked="checked" />{lang trade_pay_offline}
+				<!--{else}-->
+					<label><input type="radio" class="pr" name="offline" value="0" checked="checked" />{lang trade_pay_alipay}</label>
+					<label class="pl5"><input type="radio" class="pr" name="offline" value="1" />{lang trade_pay_offline}</label>
+				<!--{/if}-->
+				</div>
+			</li>
+			<!--{if $trade['transport'] != 3}-->
+			<li class="flex-box mli">
+				<div class="flex">{lang trade_buyername}</div>
+				<div class="flex-2">
+					<input type="text" id="buyername" name="buyername" maxlength="50" value="$lastbuyerinfo['buyername']" class="pt" />
+				</div>
+			</li>
+			<li class="flex-box mli">
+				<div class="flex">{lang trade_buyercontact}</div>
+				<div class="flex-2">
+					<input type="text" id="buyercontact" name="buyercontact" maxlength="100" value="$lastbuyerinfo['buyercontact']" class="pt" />
+				</div>
+			</li>
+			<li class="flex-box mli">
+				<div class="flex">{lang trade_buyerzip}</div>
+				<div class="flex-2">
+					<input type="text" id="buyerzip" name="buyerzip" maxlength="10" value="$lastbuyerinfo['buyerzip']" class="pt" />
+				</div>
+			</li>
+			<li class="flex-box mli">
+				<div class="flex">{lang trade_buyerphone}</div>
+				<div class="flex-2">
+					<input type="text" id="buyerphone" name="buyerphone" maxlength="20" value="$lastbuyerinfo['buyerphone']" class="pt" />
+				</div>
+			</li>
+			<li class="flex-box mli">
+				<div class="flex">{lang trade_buyermobile}</div>
+				<div class="flex-2">
+					<input type="text" id="buyermobile" name="buyermobile" maxlength="20" value="$lastbuyerinfo['buyermobile']" class="pt" />
+				</div>
+			</li>
+			<!--{else}-->
+			<input type="hidden" name="buyername" value="" />
+			<input type="hidden" name="buyercontact" value="" />
+			<input type="hidden" name="buyerzip" value="" />
+			<input type="hidden" name="buyerphone" value="" />
+			<input type="hidden" name="buyermobile" value="" />
+			<!--{/if}-->
+		</ul>
+		<div class="tip b0"><dt class="mpt"><textarea id="buyermsg" name="buyermsg" class="px pxbg" placeholder="{lang trade_seller_remark}"></textarea></dt></div>
+		<dd><button class="pn pnc formdialog" type="submit" id="tradesubmit" name="tradesubmit" value="true"><span>{lang trade_buy_confirm}</span></button></dd>
+		<!--{if !$_G['uid']}-->
+		<ul class="post_box cl">
+			<li class="flex-box mli mtit">{lang trade_guest_alarm}</li>
+		</ul>
+		<!--{/if}-->
+	</form>
+	</div>
+	<script type="text/javascript">
+	zoomstatus = parseInt($_G['setting']['zoomstatus']);
+	var feevalue = 0;
+	<!--{if $trade['price'] > 0}-->var price = $trade['price'];<!--{/if}-->
+	<!--{if $_G['setting']['creditstransextra'][5] != -1 && $trade['credit']}-->var credit = $trade['credit'];var currentcredit = <!--{echo getuserprofile('extcredits'.$_G['setting']['creditstransextra'][5])}-->;<!--{/if}-->
+	function calcsum() {
+		<!--{if $trade['price'] > 0}-->getID('caculate').innerHTML = (price * getID('tradepost').number.value + feevalue);<!--{/if}-->
+		<!--{if $_G['setting']['creditstransextra'][5] != -1 && $trade['credit']}-->
+			v = (credit * getID('tradepost').number.value + feevalue);
+			if(v > currentcredit) {
+				getID('crediterror').innerHTML = '{lang trade_buy_crediterror}';
+				getID('tradesubmit').disabled = true;
+			} else {
+				getID('crediterror').innerHTML = '';
+			}
+			getID('caculatecredit').innerHTML = v;
+		<!--{/if}-->
+	}
+	calcsum();
+	</script>
+	<!--{if $usertrades}-->
+	<div class="discuz_x cl"></div>
+	<div class="txtlist cl"><div class="mtit cl">$trade['seller'] {lang trade_recommended_goods}</div></div>
+	<div class="plc p15 cl">
+		<div class="xld cl">
+			<!--{loop $usertrades $usertrade}-->
+			<dl class="cl">
+				<dd class="m">
+					<a href="forum.php?mod=viewthread&tid=$usertrade['tid']&do=tradeinfo&pid=$usertrade['pid']{if !empty($_GET['modthreadkey'])}&modthreadkey=$_GET['modthreadkey']{/if}" class="tn" style="text-decoration:none !important;">
+						<!--{if $usertrade['aid']}--><img src="{echo getforumimg($usertrade['aid'])}" width="60" /><!--{else}--><div class="nophoto" style="width:60px;height:60px;line-height:60px;border:1px solid #EEE;"></div><!--{/if}-->
+					</a>
+				</dd>
+				<dt><a href="forum.php?mod=viewthread&tid=$usertrade['tid']&do=tradeinfo&pid=$usertrade['pid']{if !empty($_GET['modthreadkey'])}&modthreadkey=$_GET['modthreadkey']{/if}">$usertrade['subject']</a></dt>
+				<dd>
+					<!--{if $usertrade[price] > 0}-->
+					<p class="p">&yen; <em class="xi1">$usertrade['price']</em></p>
+					<!--{/if}-->
+					<!--{if $_G['setting']['creditstransextra'][5] != -1 && $usertrade['credit']}-->
+					<p class="{if $usertrade['price'] > 0}xg1{else}p{/if}"><!--{if $usertrade['price'] > 0}-->{lang trade_additional} <!--{/if}--><em class="xi1">$usertrade['credit']</em>&nbsp;{$_G[setting]['extcredits'][$_G['setting']['creditstransextra'][5]]['unit']}{$_G[setting]['extcredits'][$_G['setting']['creditstransextra'][5]]['title']}</p>
+					<!--{/if}-->
+				</dd>
+			</dl>
+			<!--{/loop}-->
+		</div>
+	</div>
+	<!--{/if}-->
+</div>
+<!--{template common/footer}-->

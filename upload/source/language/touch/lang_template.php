@@ -212,6 +212,16 @@ $lang = array (
   'home_credit_buy_rmb' => '人民币',
   'home_credit_buy_rmb_placeholder' => '请输入充值的数量',
   'home_credit_buy_card' => '充值卡',
+  
+  'mob_requied_lost' => '必填项目没有填写',
+  'mob_sort_selnext' => '请选择下一级',
+  'mob_sort_emailerr' => '邮件地址不正确',
+  'mob_sort_toolong' => '填写项目长度过长',
+  'mob_sort_numerr' => '数字填写不正确',
+  'mob_sort_max' => '大于设置最大值',
+  'mob_sort_min' => '小于设置最小值',
+  'mob_sort_urlerr' => '请正确填写以http或https开头的URL地址',
+  'mob_sort_uploaderr' => '暂不支持上传图片',
 
 );
 ?>

@@ -1,0 +1,89 @@
+<!--{template common/header}-->
+<div class="dhnav_box">
+	<div id="dhnav">
+		<div id="dhnav_li">
+			<ul class="swiper-wrapper">
+				<!--{if in_array($filter, array('thisweek', 'thismonth', 'halfyear', 'before')) && in_array($from, array('buyer', 'seller'))}-->
+					<li class="swiper-slide mon"><a href="home.php?mod=space&do=trade&view=we"><!--{if $filter == 'thisweek'}-->{lang eccredit_1week}<!--{elseif $filter == 'thismonth'}-->{lang eccredit_1month}<!--{elseif $filter == 'halfyear'}-->{lang eccredit_6month}<!--{else}-->{lang eccredit_6monthbefore}<!--{/if}--> {lang from}<!--{if $from == 'buyer'}-->{lang trade_buyer}<!--{else}-->{lang trade_seller}<!--{/if}-->{lang eccredit_s}<!--{if $level == 'good'}-->{lang eccredit_good}<!--{elseif $level == 'soso'}-->{lang eccredit_soso}<!--{elseif $level == 'bad'}-->{lang eccredit_bad}<!--{else}-->{lang eccredit1}<!--{/if}--></a></li>
+				<!--{/if}-->
+				<li class="swiper-slide <!--{if !$from}-->mon<!--{/if}-->"><a href="javascript:;" onclick="ajaxget('home.php?mod=spacecp&ac=eccredit&op=list&uid=$uid', 'ajaxrate', 'specialposts');">{lang eccredit_list_all}</a></li>
+				<li class="swiper-slide <!--{if $from == 'buyer' && !$filter}-->mon<!--{/if}-->"><a href="javascript:;" hidefocus="true" onclick="ajaxget('home.php?mod=spacecp&ac=eccredit&op=list&uid=$uid&from=buyer', 'ajaxrate', 'specialposts');">{lang eccredit_list_buyer}</a></li>
+				<li class="swiper-slide <!--{if $from == 'seller' && !$filter}-->mon<!--{/if}-->"><a href="javascript:;" hidefocus="true" onclick="ajaxget('home.php?mod=spacecp&ac=eccredit&op=list&uid=$uid&from=seller', 'ajaxrate', 'specialposts');">{lang eccredit_list_seller}</a></li>
+				<li class="swiper-slide <!--{if $from == 'myself'}-->mon<!--{/if}-->"><a href="javascript:;" hidefocus="true" onclick="ajaxget('home.php?mod=spacecp&ac=eccredit&op=list&uid=$uid&from=myself', 'ajaxrate', 'specialposts');">{lang eccredit_list_other}</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+	if($("#dhnav_li .mon").length > 0) {
+		var discuz_nav = $("#dhnav_li .mon").offset().left + $("#dhnav_li .mon").width() >= $(window).width() ? $("#dhnav_li .mon").index() : 0;
+	}else{
+		var discuz_nav = 0;
+	}	
+	new Swiper('#dhnav_li', {
+		freeMode : true,
+		slidesPerView : 'auto',
+		initialSlide : discuz_nav,
+		onTouchMove: function(swiper){
+			Discuz_Touch_on = 0;
+		},
+		onTouchEnd: function(swiper){
+			Discuz_Touch_on = 1;
+		},
+	});
+</script>
+<!--{if $comments}-->
+<ul class="post_box cl">
+	<!--{loop $comments $comment}-->
+	<li class="flex-box mli">
+		<div class="flex-2 xs1">
+		<!--{if $comment['score'] == 1}-->
+			<img src="{STATICURL}image/traderank/good.gif" width="14" height="16" class="vm" /> <span style="color:red">{lang eccredit_good}</span>
+		<!--{elseif $comment['score'] == 0}-->
+			<img src="{STATICURL}image/traderank/soso.gif" width="14" height="16" class="vm" /> <span style="color:green">{lang eccredit_soso}</span>
+		<!--{else}-->
+			<img src="{STATICURL}image/traderank/bad.gif" width="14" height="16" class="vm" /> {lang eccredit_bad}
+		<!--{/if}-->
+		</div>
+		<div class="flex-3 xs1"><span class="y xg1">$comment['dateline']</span></div>
+	</li>
+	<li class="flex-box mli">
+		<div class="flex-2 xs1 xg1"><a href="forum.php?mod=redirect&goto=findpost&pid=$comment['pid']" target="_blank">$comment['subject']</a></div>
+		<div class="flex-3 xs1">
+			<span class="y xg1">
+			<!--{if $from == 'myself'}-->
+				<!--{if $comment['type']}-->{lang trade_buyer}: <!--{else}-->{lang trade_seller}: <!--{/if}--><a href="home.php?mod=space&uid=$comment['rateeid']" target="_blank">$comment['ratee']</a>
+			<!--{else}-->
+				<!--{if $comment['type']}-->{lang trade_seller}: <!--{else}-->{lang trade_buyer}: <!--{/if}--><a href="home.php?mod=space&uid=$comment['raterid']" target="_blank">$comment['rater']</a>
+			<!--{/if}-->
+			</span>
+		</div>
+	</li>
+	<li class="flex-box mli">
+		<div class="flex xs1 xg1">
+		{lang eccredit_tradeprice}:
+		<!--{if $comment['price'] > 0}-->
+			<em class="pl5">$comment['price'] {lang trade_units}</em>
+		<!--{/if}-->
+		<!--{if $_G['setting']['creditstransextra'][5] != -1 && $comment['credit'] > 0}-->
+			<!--{if $comment['price'] > 0}--><em class="pl5"><!--{/if}-->{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][5]]['title']} $comment['credit'] {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][5]]['unit']}<!--{if $comment['price'] > 0}--></em><!--{/if}-->
+		<!--{/if}-->
+		</div>
+	</li>
+	<li class="flex-box mli mtext">
+		<div class="flex-2 pl5">$comment['message']<!--{if $_G['uid'] && $_G['uid'] == $comment['rateeid'] && $comment['dbdateline'] >= TIMESTAMP - 30 * 86400}--><br /><a href="home.php?mod=spacecp&ac=eccredit&op=explain&id=$comment['id']&ajaxmenuid=ajax_$comment['id']_explain_menu" class="dialog xi1 xs1">[ <span class="xi1">{lang eccredit_needexplanation}</span> ]</a><span class="xg1 xs1 pl5">({lang eccredit_explanationexpiration})</span><!--{/if}--></div>
+	</li>
+	<!--{if $comment['explanation']}-->
+	<li class="flex-box mli mtext">
+		<div class="flex-2 xs1 pl5">
+		{lang eccredit_explanation}: $comment['explanation']
+		</div>
+	</li>
+	<!--{/if}-->
+	<!--{/loop}-->
+</ul>
+<!--{else}-->
+<div class="empty-box"><h4>{lang eccredit_nofound}</h4></div>
+<!--{/if}-->
+<!--{if $multipage}--><div class="pgs cl mtm">$multipage</div><!--{/if}-->
+<!--{template common/footer}-->

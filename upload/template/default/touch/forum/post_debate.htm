@@ -37,8 +37,7 @@ function checkuserexists(username, objname) {
 	});
 }
 
-EXTRAFUNC['validator']['special'] = 'validateextra';
-function validateextra() {
+$(document).on('click', '#postsubmit', function() {
 	if(getID('postform').affirmpoint.value == '') {
 		popup.open('{lang post_debate_message_1}', 'alert');
 		return false;
@@ -48,5 +47,5 @@ function validateextra() {
 		return false;
 	}
 	return true;
-}
+});
 </script>

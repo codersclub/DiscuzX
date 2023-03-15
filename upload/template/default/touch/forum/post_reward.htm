@@ -81,12 +81,11 @@ if(getID('rewardprice')) {
 	getrealprice(getID('rewardprice').value)
 }
 
-EXTRAFUNC['validator']['special'] = 'validateextra';
-function validateextra() {
-	if(getID('postform').rewardprice && $('postform').rewardprice.value == '') {
-		showDialog('{lang post_reward_error_message}', 'alert', '', function () { getID('postform').rewardprice.focus() });
+$(document).on('click', '#postsubmit', function() {
+	if(getID('postform').rewardprice && getID('postform').rewardprice.value == '') {
+		popup.open('{lang post_reward_error_message}', 'alert');
 		return false;
 	}
 	return true;
-}
+});
 </script>

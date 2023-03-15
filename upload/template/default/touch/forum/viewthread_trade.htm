@@ -1,62 +1,80 @@
 <!--{if count($trades) > 1 || ($_G['uid'] == $_G['forum_thread']['authorid'] || $_G['group']['allowedittrade'])}-->
+	<!--{if !$post['message'] && (($_G['forum']['ismoderator'] && $_G['group']['alloweditpost'] && (!in_array($post['adminid'], array(1, 2, 3)) || $_G['adminid'] <= $post['adminid'])) || ($_G['forum']['alloweditpost'] && $_G['uid'] && ($post['authorid'] == $_G['uid'] && $_G['forum_thread']['closed'] == 0)))}-->
+		<div class="trade_box">
+			<a href="forum.php?mod=post&action=reply&fid=$_G['fid']&tid=$_G['tid']&firstpid=$post['pid']&addtrade=yes{if !empty($_GET['from'])}&from=$_GET['from']{/if}">{lang viewthread_trade_message2}</a>
+		</div>
+	<!--{else}-->
+		$post['message']
+	<!--{/if}-->
 	<div class="trade_box">
 		<em>{lang post_trade_totalnumber}: $tradenum</em>
-		<!--{if !$_G['forum_thread']['is_archived'] && ($_G['uid'] == $_G['forum_thread']['authorid'] || $_G['group']['allowedittrade'])}-->
-			<span class="my">{lang trade_mod}</span>
+		<!--{if !$post['message'] && (($_G['forum']['ismoderator'] && $_G['group']['alloweditpost'] && (!in_array($post['adminid'], array(1, 2, 3)) || $_G['adminid'] <= $post['adminid'])) || ($_G['forum']['alloweditpost'] && $_G['uid'] && ($post['authorid'] == $_G['uid'] && $_G['forum_thread']['closed'] == 0)))}-->
+			<span class="my"><a href="forum.php?mod=post&action=edit&fid=$_G['fid']&tid=$_G['tid']&pid=$post['pid']{if !empty($_GET['modthreadkey'])}&modthreadkey=$_GET['modthreadkey']{/if}&page=$page" class="my">{lang post_add_aboutcounter}</a></span>
+		<!--{/if}-->
+		<a href="forum.php?mod=misc&action=tradeorder&tid=$_G['tid']{if !empty($_GET['from'])}&from=$_GET['from']{/if}" class="my pl5 dialog">{lang trade_displayorder}</a>
+		<!--{if $_G['uid'] == $_G['forum_thread']['authorid']}-->
+			<!--{if $_G['group']['allowposttrade']}-->
+				<span class="y pipe">|</span><a href="forum.php?mod=post&action=reply&fid=$_G['fid']&tid=$_G['tid']&firstpid=$post['pid']&addtrade=yes{if !empty($_GET['from'])}&from=$_GET['from']{/if}" class="my pl5">+ {lang trade_add_post}</a>
+			<!--{/if}-->
 		<!--{/if}-->
 	</div>
+	<!--{if $_G['uid'] == $_G['forum_thread']['authorid']}-->
+		<a href="home.php?mod=space&uid=$_G['uid']&do=trade&view=tradelog" class="button media_tips btn_pn_orange">{lang my_trade_stat}</a>
+	<!--{/if}-->
 <!--{/if}-->
 <!--{if $tradenum}-->
 	<!--{if $trades}-->
-        <!--{loop $trades $key $trade}-->
-            <div id="trade$trade['pid']" class="trade_box">
-                <div>
-                    <!--{if $trade['displayorder'] > 0}--><em class="hot">{lang post_trade_sticklist}</em><!--{/if}-->
-                    <!--{if $trade['thumb']}-->
-                        <img src="$trade['thumb']" alt="$trade['subject']" />
-                    <!--{else}-->
-                        <img src="{IMGDIR}/nophotosmall.gif" width="90" height="90" alt="$trade['subject']" />
-                    <!--{/if}-->
-                </div>
-                <div>
-                    <h4>$trade['subject']</h4>
-                    <dl>
-                        <dt>{lang trade_type_viewthread}:
-                            <!--{if $trade['quality'] == 1}-->{lang trade_new}<!--{/if}-->
-                            <!--{if $trade['quality'] == 2}-->{lang trade_old}<!--{/if}-->
-                            {lang trade_type_buy}
-                        </dt>
-                        <dt>{lang trade_remaindays}:
-                        <!--{if $trade['closed']}-->
-                            <em>{lang trade_timeout}</em>
-                        <!--{elseif $trade['expiration'] > 0}-->
-                            {$trade['expiration']}{lang days}{$trade['expirationhour']}{lang trade_hour}
-                        <!--{elseif $trade['expiration'] == -1}-->
-                            <em>{lang trade_timeout}</em>
-                        <!--{else}-->
-                            &nbsp;
-                        <!--{/if}-->
-                        </dt>
-                    </dl>
-                    <div>
-                        <!--{if $trade['price'] > 0}-->
-                            <strong>$trade['price']</strong>&nbsp;{lang payment_unit}&nbsp;&nbsp;
-                        <!--{/if}-->
-                        <!--{if $_G['setting']['creditstransextra'][5] != -1 && $trade['credit']}-->
-                            <!--{if $trade['price'] > 0}-->{lang trade_additional} <!--{/if}--><strong>$trade['credit']</strong>&nbsp;{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][5]]['unit']}{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][5]]['title']}
-                        <!--{/if}-->
-                        <p class="xg1">
-                            <!--{if $trade['costprice'] > 0}-->
-                                <del>$trade['costprice'] {lang payment_unit}</del>
-                            <!--{/if}-->
-                            <!--{if $_G['setting']['creditstransextra'][5] != -1 && $trade['costcredit'] > 0}-->
-                                <del><!--{if $trade['costprice'] > 0}-->{lang trade_additional} <!--{/if}-->$trade['costcredit'] {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][5]]['unit']}{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][5]]['title']}</del>
-                            <!--{/if}-->
-                        </p>
-                    </div>
-                </div>
-            </div>
-        <!--{/loop}-->
+		<!--{loop $trades $key $trade}-->
+			<div id="trade$trade['pid']" class="trade_box">
+				<div class="media_tips xs3">
+					<a href="forum.php?mod=viewthread&do=tradeinfo&tid=$_G['tid']&pid=$trade['pid']{if !empty($_GET['modthreadkey'])}&modthreadkey=$_GET['modthreadkey']{/if}">
+					<!--{if $trade['displayorder'] > 0}--><em class="hot">{lang post_trade_sticklist}</em><!--{/if}-->
+					<!--{if $trade['thumb']}-->
+						<img src="$trade['thumb']" alt="$trade['subject']" />
+					<!--{else}-->
+						<img src="{IMGDIR}/nophotosmall.gif" width="90" height="90" />
+					<!--{/if}-->
+					</a>
+				</div>
+				<div>
+					<a href="forum.php?mod=viewthread&do=tradeinfo&tid=$_G['tid']&pid=$trade['pid']{if !empty($_GET['modthreadkey'])}&modthreadkey=$_GET['modthreadkey']{/if}"><h4 class="media_tips xs3">$trade['subject']</h4></a>
+					<dl>
+						<dt>{lang trade_type_viewthread}:
+							<!--{if $trade['quality'] == 1}-->{lang trade_new}<!--{/if}-->
+							<!--{if $trade['quality'] == 2}-->{lang trade_old}<!--{/if}-->
+							{lang trade_type_buy}
+						</dt>
+						<dt>{lang trade_remaindays}:
+						<!--{if $trade['closed']}-->
+							<em>{lang trade_timeout}</em>
+						<!--{elseif $trade['expiration'] > 0}-->
+							{$trade['expiration']}{lang days}{$trade['expirationhour']}{lang trade_hour}
+						<!--{elseif $trade['expiration'] == -1}-->
+							<em>{lang trade_timeout}</em>
+						<!--{else}-->
+							&nbsp;
+						<!--{/if}-->
+						</dt>
+					</dl>
+					<div>
+						<!--{if $trade['price'] > 0}-->
+							<strong>$trade['price']</strong>&nbsp;{lang payment_unit}&nbsp;&nbsp;
+						<!--{/if}-->
+						<!--{if $_G['setting']['creditstransextra'][5] != -1 && $trade['credit']}-->
+							<!--{if $trade['price'] > 0}-->{lang trade_additional} <!--{/if}--><strong>$trade['credit']</strong>&nbsp;{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][5]]['unit']}{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][5]]['title']}
+						<!--{/if}-->
+						<p class="xg1">
+							<!--{if $trade['costprice'] > 0}-->
+								<del>$trade['costprice'] {lang payment_unit}</del>
+							<!--{/if}-->
+							<!--{if $_G['setting']['creditstransextra'][5] != -1 && $trade['costcredit'] > 0}-->
+								<del><!--{if $trade['costprice'] > 0}-->{lang trade_additional} <!--{/if}-->$trade['costcredit'] {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][5]]['unit']}{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][5]]['title']}</del>
+							<!--{/if}-->
+						</p>
+					</div>
+				</div>
+			</div>
+		<!--{/loop}-->
 	<!--{/if}-->
 	<div id="postmessage_$post['pid']">$post['counterdesc']</div>
 <!--{else}-->

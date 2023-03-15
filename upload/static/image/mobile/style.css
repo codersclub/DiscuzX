@@ -406,7 +406,7 @@ select {-moz-appearance:none;}
 .jump_c {padding:100px 15px;background-color:var(--dz-BG-0);border-top:1px solid var(--dz-BOR-ed);border-bottom:1px solid var(--dz-BOR-ed);margin-top:10px;font-size:15px}
 .jump_c p {line-height:26px}
 .jump_c p .grey {color:var(--dz-FC-999)}
-.tip {width:300px;text-align:center;background-color:var(--dz-BG-0);border:1px solid var(--dz-BOR-ed);border-radius:6px}
+.tip {min-width:300px;text-align:center;background-color:var(--dz-BG-0);border:1px solid var(--dz-BOR-ed);border-radius:6px}
 .tip dt {padding:25px 20px;line-height:30px;font-size:14px}
 .tip dt.mpt {margin:15px;padding:10px;background-color:var(--dz-BG-5);border-radius:4px}
 .tip dt.mpt .pt {min-height:96px}
@@ -619,8 +619,7 @@ a.flw_readfull {color: var(--dz-BG-2);}
 
 /*----- 通用资讯类列表 -----*/
 .wzlist {background-color:var(--dz-BG-0);border-top:1px solid var(--dz-BOR-ed)}
-.wzlist li {overflow:hidden;border-bottom:1px solid var(--dz-BOR-ed)}
-.wzlist li a {display:block;padding:15px;overflow:hidden}
+.wzlist li {overflow:hidden;border-bottom:1px solid var(--dz-BOR-ed);padding:15px;}
 .wzlist li .mimg {float:left;width:30%;height:80px;margin-right:10px;overflow:hidden;border-radius:4px}
 .wzlist li .mimg img {width:100%;height:100%;object-fit:cover;overflow:hidden}
 .wzlist li .minfo {overflow:hidden}

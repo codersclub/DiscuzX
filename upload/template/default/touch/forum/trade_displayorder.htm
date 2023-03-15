@@ -1,0 +1,81 @@
+<!--{template common/header}-->
+<script type="text/javascript" reload="1">
+	var max_obj = {$_G['group']['tradestick']};
+	var p = $stickcount;
+	function checkbox(obj) {
+		if(obj.checked) {
+			p++;
+			for (var i = 0; i < getID('tradeform').elements.length; i++) {
+				var e = tradeform.elements[i];
+				if(p == max_obj) {
+					if(e.name.match('stick') && !e.checked) {
+						e.disabled = true;
+					}
+				}
+			}
+		} else {
+			p--;
+			for (var i = 0; i < getID('tradeform').elements.length; i++) {
+				var e = tradeform.elements[i];
+				if(e.name.match('stick') && e.disabled) {
+					e.disabled = false;
+				}
+			}
+		}
+	}
+</script>
+<div class="tip loginbox loginpop p5" id="floatlayout_tradeorder" style="max-height:400px; overflow-y:scroll;">
+	<h2 class="log_tit" id="return_tradeorder">{lang trade_displayorder}</h2>
+	<form id="tradeform" method="post" autocomplete="off" action="forum.php?mod=misc&action=tradeorder&tid=$_G['tid']&tradesubmit=yes&infloat=yes{if !empty($_GET['from'])}&from=$_GET['from']{/if}">
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<ul class="post_box cl">
+			<li class="flex-box mli mtit cl">
+				<div class="flex">{lang trade_update_stick}</div>
+				<div class="flex">{lang trade_show_order}</div>
+				<div class="flex-2">{lang post_trade_name}</div>
+			</li>
+			<!--{loop $trades $trade}-->
+			<li class="flex-box mli cl">
+				<div class="flex"><input class="pc" type="checkbox" onclick="checkbox(this)" name="stick[{$trade[pid]}]" value="yes" {if $trade['displayorder'] > 0}checked="checked"{elseif $_G['group']['tradestick'] <= $stickcount}disabled="disabled"{/if} /></div>
+				<div class="flex"><input size="1" name="displayorder[{$trade['pid']}]" value="$trade['displayorderview']" class="px pxs" /></div>
+				<div class="flex-2"><a href="forum.php?mod=post&action=edit&fid=$thread['fid']&tid=$_G['tid']&pid=$trade['pid']" target="_blank">$trade['subject']</a></div>
+			</li>
+			<li class="flex-box mli mtit cl">
+				<div class="flex pl5">
+				<span class="z">
+						{lang post_trade_price}: 
+						<!--{if $trade[price] > 0}-->
+							$trade['price'] {lang payment_unit}
+						<!--{/if}-->
+						<!--{if $trade[credit] > 0}-->
+							{$_G[setting]['extcredits'][$_G['setting']['creditstransextra'][5]]['title']} $trade['credit'] {$_G[setting]['extcredits'][$_G['setting']['creditstransextra'][5]]['unit']}
+						<!--{/if}-->
+				</span>
+				</div>
+			</li>
+			<li class="flex-box mli mtit cl">
+				<div class="flex pl5">
+				<span class="z">
+					{lang trade_remaindays}: 
+					<!--{if $trade['closed']}-->
+						{lang trade_timeout}
+					<!--{elseif $trade['expiration'] > 0}-->
+						{$trade['expiration']}{lang days}{$trade['expirationhour']}{lang trade_hour}
+					<!--{elseif $trade['expiration'] == -1}-->
+						{lang trade_timeout}
+					<!--{/if}-->
+				</span>
+				</div>
+			</li>
+			<!--{/loop}-->
+			<li class="flex-box mli mtit cl">{lang trade_update_stickmax} {$_G['group']['tradestick']}</li>
+		</ul>
+		<dd class="mt10"><button class="pn pnc formdialog" type="submit" name="tradesubmit" value="true"><span>{lang save}</span></button></dd>
+</form>
+</div>
+<script type="text/javascript" reload="1">
+function succeedhandle_$_GET['handlekey'](locationhref) {
+	location.href = locationhref;
+}
+</script>
+<!--{template common/footer}-->

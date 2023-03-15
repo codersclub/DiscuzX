@@ -1,0 +1,189 @@
+<div class="discuz_x cl"></div>
+<ul class="cl">
+	<li class="flex-box mli" id="certainstarttime" {if $activity['starttimeto']}style="display: none"{/if}>
+		<div class="flex pl5"><span class="z xg1">{lang post_event_time}</span></div>
+		<div class="flex-3"><input type="text" name="starttimefrom[0]" id="starttimefrom_0" class="px" autocomplete="off" value="$activity['starttimefrom']" placeholder="{lang post_event_time}" /></div>
+	</li>
+	<li class="flex-box mli" id="uncertainstarttime" {if !$activity['starttimeto']}style="display: none"{/if}>
+		<div class="flex-2 pl5"><span class="z xg1">{lang post_event_time}</span></div>
+		<div class="flex-3"><input type="text" name="starttimefrom[1]" id="starttimefrom_1" class="px" autocomplete="off" value="$activity['starttimefrom']" placeholder="{lang activity_starttime}" /></div>
+		<div class="flex"><span class="z xg1"> ~ </span></div>
+		<div class="flex-3"><input type="text" autocomplete="off" id="starttimeto" name="starttimeto" class="px" value="{if $activity['starttimeto']}$activity['starttimeto']{/if}" placeholder="{lang endtime}" /></div>
+	</li>
+	<li class="flex-box mli mtit"><div class="flex pl5"><span class="z xg1">{lang admin_close_expire_comment}</span></div></li>
+	<label for="activitytime">
+	<li class="flex-box mli">
+		<div class="flex-3 pl5"><span class="z xg1">{lang activity_starttime_endtime}</span></div>
+		<div class="flex"><span class="y"><input type="checkbox" id="activitytime" name="activitytime" class="pc" onclick="if(this.checked) {getID('certainstarttime').style.display='none';getID('uncertainstarttime').style.display='';} else {getID('certainstarttime').style.display='';getID('uncertainstarttime').style.display='none';}" value="1" {if $activity['starttimeto']}checked{/if} /></span></div>
+	</li>
+	</label>
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1">{lang activity_space}</span></div>
+		<div class="flex-3"><input type="text" name="activityplace" id="activityplace" class="px oinf" value="$activity['place']" /></div>
+	</li>
+	<!--{if $_GET[action] == 'newthread'}-->
+	<label>
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1">{lang activity_city}</span></div>
+		<div class="flex-3"><input name="activitycity" id="activitycity" class="px" type="text" /></div>
+	</li>
+	</label>
+	<!--{/if}-->
+	<label>
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1">{lang activiy_sort}</span></div>
+		<div class="flex-3"><input type="text" id="activityclass" name="activityclass" class="px" value="$activity['class']" /></div>
+	</li>
+	</label>
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1">{lang activity_need_member}</span></div>
+		<div class="flex-3"><input type="text" name="activitynumber" id="activitynumber" class="px" onkeyup="checkvalue(this.value)" value="$activity['number']" /></div>
+		<div class="flex">
+					<select name="gender" id="gender" class="sort_sel">
+						<option value="0" {if !$activity['gender']}selected="selected"{/if}>{lang unlimited}</option>
+						<option value="1" {if $activity['gender'] == 1}selected="selected"{/if}>{lang male}</option>
+						<option value="2" {if $activity['gender'] == 2}selected="selected"{/if}>{lang female}</option>
+					</select>
+		</div>
+	</li>
+	<!--{if $_G['setting']['activityfield']}-->
+	<div class="discuz_x cl"></div>
+	<li class="flex-box mli mtit"><div class="flex pl5"><span class="z xg1">{lang optional_data}</span></div></li>
+</ul>
+<ul class="post-box flex-box flex-wrap m15 mt0 mb0 cl">
+	<!--{loop $_G['setting']['activityfield'] $key $val}-->
+	<li class="flex flex-half mli">
+		<label for="userfield_$key">
+		<dd class="flex-box">
+			<div class="flex"><input type="checkbox" name="userfield[]" id="userfield_$key" class="pc" value="$key"{if $activity['ufield']['userfield'] && in_array($key, $activity['ufield']['userfield'])} checked="checked"{/if} /></div>
+			<div class="flex-3"><span class="z xg1">$val</span></div>
+		</dd>
+		</label>
+	</li>
+	<!--{/loop}-->
+</ul>
+<ul class="cl">
+	<!--{/if}-->
+	<!--{if $_G['setting']['activityextnum']}-->
+	<div class="discuz_x cl"></div>
+	<li class="flex-box mli mtit"><div class="flex pl5"><span class="z xg1">{lang other_data}</span></div></li>
+	<li class="flex-box mli mtext"><textarea name="extfield" id="extfield" class="pt" cols="50" placeholder="{lang other_data}"><!--{if $activity['ufield']['extfield']}-->$activity['ufield']['extfield']<!--{/if}--></textarea></li>
+	<li class="flex-box mli mtit"><div class="flex pl5"><span class="z xg1">{lang post_activity_message} $_G['setting']['activityextnum'] {lang post_option}</span></div></li>
+	<div class="discuz_x cl"></div>
+	<!--{/if}-->
+	<!--{if $_G['setting']['activitycredit']}-->
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1">{lang consumption_credit}</span></div>
+		<div class="flex-3"><input type="text" name="activitycredit" id="activitycredit" class="px" value="$activity['credit']" /></div>
+		<div class="flex"><span class="y xg1">{$_G['setting']['extcredits'][$_G['setting']['activitycredit']][title]}</span></div>
+	</li>
+	<li class="flex-box mli mtit"><div class="flex pl5"><span class="z xg1">{lang user_consumption_money}</span></div></li>
+	<!--{/if}-->
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1">{lang activity_payment}</span></div>
+		<div class="flex-3"><input type="text" name="cost" id="cost" class="px" onkeyup="checkvalue(this.value)" value="$activity['cost']" /></div>
+		<div class="flex"><span class="y xg1">{lang payment_unit}</span></div>
+	</li>
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1">{lang post_closing}</span></div>
+		<div class="flex-3"><input type="text" name="activityexpiration" id="activityexpiration" class="px" autocomplete="off" value="$activity['expiration']" /></div>
+	</li>
+	<li class="flex-box mli mtit"><div class="flex pl5"><span class="z xg1">{lang admin_close_expire_comment}</span></div></li>
+	<!--{if $allowpostimg}-->
+	<li class="flex-box mli">
+		<div class="flex group_upico">
+			<em class="bg_e" id="activityattach_image"><img src="{if $activityattach['attachment']}$activityattach['url']/{if $activityattach['thumb']}{eval echo getimgthumbname($activityattach['attachment']);}{else}$activityattach['attachment']{/if}{else}{STATICURL}image/common/nophoto.gif{/if}"></em>
+			<span>{lang post_topic_image}</span>
+		</div>
+		<div class="editpic" style="margin:0;">
+			<ul>
+				<li class="up_btn flex">
+					<a class="" href="javascript:;"><!--{if $activityattach['attachment']}-->{lang update}<!--{else}-->{lang upload}<!--{/if}--><input type="file" id="activityimg" name="activityimg" class="" accept="image/*"></a>
+				</li>
+			</ul>
+		</div>
+	</li>
+	<li class="flex-box mli mtit"><div class="flex pl5"><span class="z xg1"><!--{if $activityattach['attachment']}-->{lang post_click_message_1}<!--{else}-->{lang post_click_message_2}<!--{/if}--></span></div></li>
+	<input type="hidden" name="activityaid" id="activityaid" {if $activityattach['attachment']}value="$activityattach['aid']" {/if}/>
+	<input type="hidden" name="activityaid_url" id="activityaid_url" />
+	<!--{/if}-->
+	<!--{hook/post_activity_extra}-->
+</ul>
+<div class="discuz_x cl"></div>
+<script type="text/javascript" reload="1">
+function checkvalue(value){
+	if(!value.search(/^\d+$/)) {
+		//getID(message).innerHTML = '';
+	} else {
+		popup.open('<b>{lang input_invalid}</b>', 'alert');
+	}
+}
+
+//EXTRAFUNC['validator']['special'] = 'validateextra';
+$(document).on('click', '#postsubmit', function() {
+	if(getID('postform').starttimefrom_0.value == '' && getID('postform').starttimefrom_1.value == '') {
+		popup.open('{lang post_error_message_1}', 'alert');
+		return false;
+	}
+	if(getID('postform').activityplace.value == '') {
+		popup.open('{lang post_error_message_2}', 'alert');
+		return false;
+	}
+	if(getID('postform').activityclass.value == '') {
+		popup.open('{lang post_error_message_3}', 'alert');
+		return false;
+	}
+	return true;
+});
+
+$(document).on('change', '#activityimg', function() {
+		popup.open('<img src="' + IMGDIR + '/imageloading.gif">');
+		uploadsuccess = function(data) {
+			if(data == '') {
+				popup.open('{lang uploadpicfailed}', 'alert');
+			}
+			var dataarr = data.split('|');
+			if(dataarr[0] == 'DISCUZUPLOAD' && dataarr[2] == 0) {
+				popup.close();
+				$('#activityattach_image').html('<img id="aimg_'+dataarr[3]+'" title="'+dataarr[6]+'" src="{$_G['setting']['attachurl']}forum/'+dataarr[5]+'" />');
+				getID('activityaid').value = dataarr[3];
+				getID('activityaid_url').value = dataarr[5];
+			} else {
+				var sizelimit = '';
+				if(dataarr[7] == 'ban') {
+					sizelimit = '{lang uploadpicatttypeban}';
+				} else if(dataarr[7] == 'perday') {
+					sizelimit = '{lang donotcross}'+Math.ceil(dataarr[8]/1024)+'K)';
+				} else if(dataarr[7] > 0) {
+					sizelimit = '{lang donotcross}'+Math.ceil(dataarr[7]/1024)+'K)';
+				}
+				popup.open(STATUSMSG[dataarr[2]] + sizelimit, 'alert');
+			}
+		};
+		if(typeof FileReader != 'undefined' && this.files[0]) {//note 支持html5上传新特性
+			
+			$.buildfileupload({
+				uploadurl:'misc.php?mod=swfupload&operation=upload&type=image&inajax=yes&infloat=yes&simple=2',
+				files:this.files,
+				uploadformdata:{uid:"$_G['uid']", hash:"<!--{eval echo md5(substr(md5($_G['config']['security']['authkey']), 8).$_G['uid'])}-->"},
+				uploadinputname:'Filedata',
+				maxfilesize:"$swfconfig['max']",
+				success:uploadsuccess,
+				error:function() {
+					popup.open('{lang uploadpicfailed}', 'alert');
+				}
+			});
+		} else {
+			$.ajaxfileupload({
+				url:'misc.php?mod=swfupload&operation=upload&type=image&inajax=yes&infloat=yes&simple=2',
+				data:{uid:"$_G['uid']", hash:"<!--{eval echo md5(substr(md5($_G['config']['security']['authkey']), 8).$_G['uid'])}-->"},
+				dataType:'text',
+				fileElementId:'filedata',
+				success:uploadsuccess,
+				error: function() {
+					popup.open('{lang uploadpicfailed}', 'alert');
+				}
+			});
+		}
+});
+</script>

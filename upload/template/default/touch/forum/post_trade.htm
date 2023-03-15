@@ -1,0 +1,167 @@
+<input type="hidden" name="trade" value="yes" />
+<input type="hidden" name="item_type" value="1" />
+<div class="discuz_x cl"></div>
+<ul class="cl">
+	<li class="flex-box mli mtit"><div class="flex pl5">{lang post_message1}</div></li>
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1">{lang post_trade_name}</span></div>
+		<div class="flex-3"><input type="text" name="item_name" id="item_name" class="px oinf" value="$trade['subject']" /></div>
+	</li>
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1">{lang post_trade_number}</span></div>
+		<div class="flex-3"><input type="text" name="item_number" id="item_number" class="px" value="$trade['amount']" /></div>
+	</li>
+	<li class="flex-box mli">
+		<div class="flex">
+			<select id="item_quality" class="sort_sel pl5" name="item_quality">
+				<option value="1" {if $trade['quality'] == 1}selected="selected"{/if}>{lang trade_new}</option>
+				<option value="2" {if $trade['quality'] == 2}selected="selected"{/if}>{lang trade_old}</option>
+			</select>
+		</div>
+	</li>
+	<label for="transport">
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1">{lang post_trade_transport}</span></div>
+		<div class="flex-3">
+			<select name="transport" id="transport" onchange="getID('logisticssetting').style.display = getID('transport').value == 'virtual' ? 'none' : 'flex'" class="sort_sel">
+				<option value="virtual" {if $trade['transport'] == 3}selected="selected"{/if}>{lang post_trade_transport_virtual}</option>
+				<option value="seller" {if $trade['transport'] == 1}selected="selected"{/if}>{lang post_trade_transport_seller}</option>
+				<option value="buyer" {if $trade['transport'] == 2}selected="selected"{/if}>{lang post_trade_transport_buyer}</option>
+				<option value="logistics" {if $trade['transport'] == 4}selected="selected"{/if}>{lang trade_type_transport_physical}</option>
+				<option value="offline" {if $trade['transport'] == 0}selected="selected"{/if}>{lang post_trade_transport_offline}</option>
+			</select>
+		</div>
+	</li>
+	</label>
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1">{lang post_trade_price}</span></div>
+		<div class="flex-3"><input type="text" name="item_price" id="item_price" class="px" value="$trade['price']" placeholder="{lang post_current_price}" /></div>
+	</li>
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1"></span></div>
+		<div class="flex-3"><input type="text" name="item_costprice" id="item_costprice" class="px" value="$trade['costprice']" placeholder="{lang post_original_price}" /></div>
+	</li>
+	<!--{if $_G['setting']['creditstransextra'][5] != -1}-->
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1"></span></div>
+		<div class="flex-3"><input type="text" name="item_credit" id="item_credit" class="px" value="$trade['credit']" placeholder="{lang post_current_credit}({$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][5]][title]})" /></div>
+	</li>
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1"></span></div>
+		<div class="flex-3"><input type="text" name="item_costcredit" id="item_costcredit" class="px" value="$trade['costcredit']" placeholder="{lang post_original_credit}({$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][5]][title]})" /></div>
+	</li>
+	<li class="flex-box mli" id="logisticssetting" style="display:{if !$trade['transport'] || $trade['transport'] == 3}none{/if}">
+		<div class="flex"><input type="text" name="postage_mail" id="postage_mail" class="px" value="$trade['ordinaryfee']" placeholder="{lang post_trade_transport_mail}" /></div>
+		<div class="flex"><input type="text" name="postage_express" id="postage_express" class="px" value="$trade['expressfee']" placeholder="{lang post_trade_transport_express}" /></div>
+		<div class="flex"><input type="text" name="postage_ems" id="postage_ems" class="px" value="$trade['emsfee']" placeholder="EMS" /></div>
+	</li>
+	<!--{/if}-->
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1">{lang post_trade_paymethod}</span></div>
+		<div class="flex-3">
+			<select name="paymethod" id="paymethod" onchange="display('tenpayseller')" class="sort_sel">
+				<!--{if $_G['setting']['ec_tenpay_opentrans_chnid']}--><option value="0" {if $trade['tenpayaccount']}selected{/if}>{lang post_trade_paymethod_online}</option><!--{/if}-->
+				<option value="1" {if !$trade['tenpayaccount']}selected{/if}>{lang post_trade_paymethod_offline}</option>
+			</select>
+		</div>
+	</li>
+	<li class="flex-box mli" id="tenpayseller" style="{if !$trade['tenpayaccount']}display:none{/if}">
+		<div class="flex pl5"><span class="z xg1">{lang post_trade_tenpay_seller}</span></div>
+		<div class="flex-3"><input type="text" name="tenpay_account" id="tenpay_account" class="px" value="$trade['tenpayaccount']" /></div>
+	</li>
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1">{lang post_trade_locus}</span></div>
+		<div class="flex-3"><input type="text" name="item_locus" id="item_locus" class="px" value="$trade['locus']" /></div>
+	</li>
+	<li class="flex-box mli">
+		<div class="flex pl5"><span class="z xg1">{lang valid_before}</span></div>
+		<div class="flex-3"><input type="text" name="item_expiration" id="item_expiration" class="px" autocomplete="off" value="$trade['expiration']" /></div>
+	</li>
+	<li class="flex-box mli mtit"><div class="flex pl5">{lang threadsort_calendar}</div></li>
+	<!--{if $allowpostimg}-->
+	<li class="flex-box mli mt10 mb10 b0">
+		<div class="flex group_upico">
+			<em class="bg_e" id="tradeattach_image"><img src="{if $tradeattach['attachment']}$tradeattach['url']/{if $tradeattach['thumb']}{eval echo getimgthumbname($tradeattach['attachment']);}{else}$tradeattach['attachment']{/if}{else}{STATICURL}image/common/nophoto.gif{/if}"></em>
+			<span>{lang post_trade_picture}</span>
+		</div>
+		<div class="editpic" style="margin:0;">
+			<ul>
+				<li class="up_btn flex">
+					<a class="" href="javascript:;"><!--{if $tradeattach['attachment']}-->{lang update}<!--{else}-->{lang upload}<!--{/if}--><input type="file" id="tradeimg" name="tradeimg" class="" accept="image/*"></a>
+				</li>
+			</ul>
+		</div>
+	</li>
+	<input type="hidden" name="tradeaid" id="tradeaid" {if $tradeattach['attachment']}value="$tradeattach['aid']" {/if}/>
+	<input type="hidden" name="tradeaid_url" id="tradeaid_url" />
+	<!--{/if}-->
+	<!--{hook/post_trade_extra}-->
+</ul>
+<div class="discuz_x cl"></div>
+<script type="text/javascript" reload="1">
+$(document).on('click', '#postsubmit', function() {
+	if(getID('postform').item_name.value == '') {
+		showDialog('{lang post_goods_error_message_1}', 'alert', '', function () { getID('postform').item_name.focus() });
+		return false;
+	}
+	if(getID('postform').item_number.value == '') {
+		showDialog('{lang post_goods_error_message_2}', 'alert', '', function () { getID('postform').item_number.focus() });
+		return false;
+	}
+	if(getID('postform').item_price.value == '' && getID('postform').item_credit.value == '') {
+		showDialog('{lang post_goods_error_message_3}', 'alert', '', function () { getID('postform').item_price.focus() });
+		return false;
+	}
+	return true;
+});
+$(document).on('change', '#tradeimg', function() {
+		popup.open('<img src="' + IMGDIR + '/imageloading.gif">');
+		uploadsuccess = function(data) {
+			if(data == '') {
+				popup.open('{lang uploadpicfailed}', 'alert');
+			}
+			var dataarr = data.split('|');
+			if(dataarr[0] == 'DISCUZUPLOAD' && dataarr[2] == 0) {
+				popup.close();
+				$('#tradeattach_image').html('<img id="aimg_'+dataarr[3]+'" title="'+dataarr[6]+'" src="{$_G['setting']['attachurl']}forum/'+dataarr[5]+'" />');
+				getID('tradeaid').value = dataarr[3];
+				getID('tradeaid_url').value = dataarr[5];
+			} else {
+				var sizelimit = '';
+				if(dataarr[7] == 'ban') {
+					sizelimit = '{lang uploadpicatttypeban}';
+				} else if(dataarr[7] == 'perday') {
+					sizelimit = '{lang donotcross}'+Math.ceil(dataarr[8]/1024)+'K)';
+				} else if(dataarr[7] > 0) {
+					sizelimit = '{lang donotcross}'+Math.ceil(dataarr[7]/1024)+'K)';
+				}
+				popup.open(STATUSMSG[dataarr[2]] + sizelimit, 'alert');
+			}
+		};
+		if(typeof FileReader != 'undefined' && this.files[0]) {//note 支持html5上传新特性
+			
+			$.buildfileupload({
+				uploadurl:'misc.php?mod=swfupload&operation=upload&type=image&inajax=yes&infloat=yes&simple=2',
+				files:this.files,
+				uploadformdata:{uid:"$_G['uid']", hash:"<!--{eval echo md5(substr(md5($_G['config']['security']['authkey']), 8).$_G['uid'])}-->"},
+				uploadinputname:'Filedata',
+				maxfilesize:"$swfconfig['max']",
+				success:uploadsuccess,
+				error:function() {
+					popup.open('{lang uploadpicfailed}', 'alert');
+				}
+			});
+		} else {
+			$.ajaxfileupload({
+				url:'misc.php?mod=swfupload&operation=upload&type=image&inajax=yes&infloat=yes&simple=2',
+				data:{uid:"$_G['uid']", hash:"<!--{eval echo md5(substr(md5($_G['config']['security']['authkey']), 8).$_G['uid'])}-->"},
+				dataType:'text',
+				fileElementId:'filedata',
+				success:uploadsuccess,
+				error: function() {
+					popup.open('{lang uploadpicfailed}', 'alert');
+				}
+			});
+		}
+});
+</script>
