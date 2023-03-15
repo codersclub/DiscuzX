@@ -83,7 +83,7 @@ $lang = array(
 	'step_app_reg_title' => '设置运行环境',
 	'step_app_reg_desc' => '检测服务器环境以及设置 UCenter',
 	'tips_ucenter' => '请填写 UCenter 相关信息',
-	'tips_ucenter_comment' => 'UCenter 是 Comsenz 公司产品的核心服务程序，Discuz! Board 的安装和运行依赖此程序。如果您已经安装了 UCenter，请填写以下信息。否则，请到 <a href="http://www.discuz.com/" target="blank">Comsenz 产品中心</a> 下载并且安装，然后再继续。',
+	'tips_ucenter_comment' => 'UCenter 是 Comsenz 公司产品的核心服务程序，Discuz! Board 的安装和运行依赖此程序。如果您已经安装了 UCenter，请填写以下信息。否则，请到 <a href="https://www.discuz.vip/" target="blank">Comsenz 产品中心</a> 下载并且安装，然后再继续。',
 
 	'advice_mysqli_connect' => '请检查 mysqli 模块是否正确加载',
 	'advice_xml_parser_create' => '该函数需要 PHP 支持 XML 。请联系服务商，确定开启了此项功能',
@@ -169,7 +169,7 @@ $lang = array(
 	'tagtemplates_dateline' => '日期',
 	'tagtemplates_url' => '主题地址',
 
-	'uc_version_incorrect' => '您的 UCenter 服务端版本过低，请升级 UCenter 服务端到最新版本，并且升级，下载地址：http://www.comsenz.com/ 。',
+	'uc_version_incorrect' => '您的 UCenter 服务端版本过低，请升级 UCenter 服务端到最新版本，并且升级，下载地址：https://www.discuz.vip/ 。',
 	'config_unwriteable' => '安装向导无法写入配置文件, 请设置 config.inc.php 程序属性为可写状态(777)',
 
 	'install_in_processed' => '正在安装...',
@@ -235,7 +235,7 @@ $lang = array(
 	'init_default_style' => '默认风格',
 	'init_default_forum' => '默认版块',
 	'init_default_template' => '默认模板套系',
-	'init_default_template_copyright' => '腾讯云计算（北京）有限责任公司',
+	'init_default_template_copyright' => 'Discuz!',
 
 	'init_dataformat' => 'Y-n-j',
 	'init_modreasons' => '广告/SPAM\r\n恶意灌水\r\n违规内容\r\n文不对题\r\n重复发帖\r\n\r\n我很赞同\r\n精品文章\r\n原创内容',
@@ -253,7 +253,7 @@ $lang = array(
 <div class="license"><h1>中文版授权协议 适用于中文用户</h1>
 <p>版权所有 (c) 2001-'.date('Y').'，腾讯云计算（北京）有限责任公司 保留所有权利。</p>
 
-<p>感谢您选择腾讯云产品。希望我们的努力能为您提供一个高效快速、强大的站点解决方案，和强大的社区论坛解决方案。腾讯云公司网址为 https://www.qcloud.com，产品官方讨论社区网址为 https://www.dismall.com。产品官方应用中心网址为：https://addon.dismall.com。开源代码网址为 https://code.dismall.com。</p>
+<p>感谢您选择腾讯云产品。希望我们的努力能为您提供一个高效快速、强大的站点解决方案，和强大的社区论坛解决方案。产品官方讨论社区网址为 https://www.dismall.com。产品官方应用中心网址为：https://addon.dismall.com。开源代码网址为 https://code.dismall.com。</p>
 
 <p>腾讯云产品的 Discuz! X 项目内所包含的官方应用中心由合肥贰道网络科技有限公司承接运营。Discuz! X 开源项目由合肥贰道网络科技有限公司承接维护，Discuz! X 开源代码由项目开源管理委员会及社区开发者共同维护。除以上服务外，均由腾讯云提供服务。</p>
 
@@ -268,14 +268,14 @@ $lang = array(
    <li>您可以在完全遵守本许可协议的基础上，将本软件应用于非商业用途或商业用途使用（局限于本协议所适配许可的情况下），而不必支付软件版权许可费用。</li>
    <li>您可以在协议规定的约束和限制范围内修改腾讯云产品源代码（如果被提供的话）或界面风格以适应您的网站要求。</li>
    <li>您拥有使用本软件构建的网站中全部会员资料、文章及相关信息的所有权，并独立承担与使用本软件构建的网站内容的审核、注意义务，确保其不侵犯任何人的合法权益，独立承担因使用腾讯云软件和服务带来的全部责任，若造成腾讯云公司或用户损失的，您应予以全部赔偿。</li>
-   <li>若您需将腾讯云软件或服务用户商业用途，必须遵守中国人民共和国相关法律。若需提供技术支持方式或技术支持内容，请向官方（https://www.discuz.net/）提供技术支持服务。</li>
+   <li>若您需将腾讯云软件或服务用户商业用途，必须遵守中国人民共和国相关法律。若需提供技术支持方式或技术支持内容，请向官方（https://www.discuz.vip/）获取技术支持服务。</li>
    <li>您可以从腾讯云提供的应用中心服务中下载适合您网站的应用程序，但应向应用程序开发者/所有者支付相应的费用。</li>
 </ol>
 
 <h3>II. 协议规定的约束和限制</h3>
 <ol>
    <li>不得对本软件或与之关联的商业授权进行出租、出售、抵押或发放子许可证。</li>
-   <li>无论如何，即无论用途如何、是否经过修改或美化、修改程度如何，只要使用腾讯云产品的整体或任何部分，未经书面许可，页面页脚处的腾讯云产品名称和腾讯云公司下属网站（http://cloud.tencent.com 或 https://www.discuz.net） 及程序后台官方应用中心的链接（https://addon.dismall.com）都必须保留，而不能清除或修改、替换。</li>
+   <li>无论如何，即无论用途如何、是否经过修改或美化、修改程度如何，只要使用腾讯云产品的整体或任何部分，未经书面许可，页面页脚处的 Powered by Discuz! 及链接（https://www.discuz.vip/）和程序后台官方应用中心的链接（https://addon.dismall.com）都必须保留，而不能清除或修改、替换。</li>
    <li>禁止在腾讯云产品的整体或任何部分基础上以发展任何派生版本、修改版本或第三方版本用于重新分发。</li>
    <li>您从应用中心下载的应用程序，未经应用程序开发者/所有者的书面许可，不得对其进行反向工程、反向汇编、反向编译等，不得擅自复制、修改、链接、转载、汇编、发表、出版、发展与之有关的衍生产品、作品等。</li>
    <li>如果您未能遵守本协议的条款，您的授权将被终止，所许可的权利将被收回，同时您应承担相应法律责任。</li>
@@ -301,7 +301,7 @@ $lang = array(
 
 <p>（正文完）</p>
 
-<p align="right">腾讯云公司</p>
+<p align="right">Discuz!</p>
 
 </div>',
 

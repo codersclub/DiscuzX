@@ -951,6 +951,8 @@ if(!$operation) {
 			$pluginlist .= '<option value="'.$plugin['pluginid'].'">'.$plugin['name'].'</option>';
 		}
 		$pluginlist .= '</select>';
+		$highlight = getgpc('highlight');
+		$highlight = !empty($highlight) ? dhtmlspecialchars($highlight, ENT_QUOTES) : '';
 		cpmsg('plugins_nonexistence', 'action=plugins&operation=edit'.(!empty($highlight) ? "&highlight=$highlight" : ''), 'form', $pluginlist);
 	} else {
 		$condition = !empty($uid) ? "uid='$uid'" : "username='$username'";

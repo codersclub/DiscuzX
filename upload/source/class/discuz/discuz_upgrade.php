@@ -13,7 +13,7 @@ if(!defined('IN_DISCUZ')) {
 
 class discuz_upgrade {
 
-	var $upgradeurl = 'http://upgrade.discuz.com/DiscuzX/';
+	var $upgradeurl = 'https://upgrade.discuz.vip/DiscuzX/';
 	var $locale = 'SC';
 	var $charset = 'GBK';
 

@@ -20,7 +20,7 @@ class magic_chgusername {
 	var $weight = '10';
 	var $useevent = 1;
 	var $targetgroupperm = true;
-	var $copyright = '<a href="http://www.discuz.net" target="_blank">Discuz! Community Team</a>';
+	var $copyright = '<a href="https://www.discuz.vip" target="_blank">Discuz! Community Team</a>';
 	var $magic = array();
 	var $parameters = array();
 

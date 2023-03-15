@@ -16,7 +16,7 @@ class adv_cornerbanner {
 	var $version = '1.1';
 	var $name = 'cornerbanner_name';
 	var $description = 'cornerbanner_desc';
-	var $copyright = '<a href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a>';
+	var $copyright = '<a href="https://www.discuz.vip/" target="_blank">Discuz!</a>';
 	var $targets = array('portal', 'home', 'member', 'forum', 'group', 'plugin', 'custom');
 	var $imagesizes = array('300x250', '290x200', '250x180');
 

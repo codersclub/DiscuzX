@@ -35,9 +35,9 @@ $lang = array
 	'security_question_6' => '您最喜欢的餐馆名称',
 	'security_question_7' => '驾驶执照最后四位数字',
 
-	'login_tips' => 'Discuz! 是 <a href="http://cloud.tencent.com" target="_blank">腾讯云</a> 推出的以社区为基础的专业建站平台，帮助网站实现一站式服务。',
+	'login_tips' => 'Discuz! 是一款以社区为基础的专业建站平台，帮助网站实现一站式服务。',
 	'login_nosecques' => '您还没有使用安全登录，请在个人中心设置您的安全提问后，再访问管理中心。您可以 <a href="forum.php?mod=memcp&action=profile&typeid=1" target="_blank">点击这里</a> 进入安全提问的设置。',
-	'copyright' => 'Copyright &copy; 2001-'.date('Y').' Tencent Cloud.',
+	'copyright' => 'Copyright &copy; 2001-'.date('Y').' <a href="https://code.dismall.com/" target="_blank">Discuz! Team</a>.',
 
 	'login_cp_guest' => '<h1>您尚未登录网站</h1><a href="member.php?mod=logging&action=login" class="btn">登录</a><p>站长需要强制登录时，修改 config/config_global.php 可关闭此功能。</p>',
 	'login_cplock' => '您的管理面板已经锁定！<br>请在<b> {ltime} </b>秒以后重新访问管理中心。',

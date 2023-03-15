@@ -129,7 +129,7 @@ if(!empty($url)) {
 		$url .= sprintf('%sfromuser=%s', $delimiter, rawurlencode($_GET['fromuser']));
 	}
 	$parse = parse_url($url);
-	if(!isset($parse['host']) && file_exists($parse['path'])) {
+	if(!isset($parse['host']) && file_exists($parse['path']) && preg_match("/^[\w-]+\.php$/i", $parse['path'])) {
 		if(!empty($parse['query'])) {
 			parse_str($parse['query'], $_GET);
 		}
@@ -138,7 +138,11 @@ if(!empty($url)) {
 		header("location: $url");
 	}
 } else {
-	require './'.$_ENV['curapp'].'.php';
+	if(preg_match("/^[\w-]+$/i", $_ENV['curapp'])) {
+		require './'.$_ENV['curapp'].'.php';
+	} else {
+		header('location: ./'.$_ENV['curapp'].'.php');
+	}
 }
 
 function checkholddomain($domain) {
@@ -180,7 +184,7 @@ function is_https() {
 		return true;
 	}
 	// 西部数码建站助手私有 HTTPS 状态头部
-	// 官网意见反馈 https://www.discuz.net/thread-3849819-1-1.html
+	// 官网意见反馈 https://discuz.dismall.com/thread-3849819-1-1.html
 	if(isset($_SERVER['HTTP_FROM_HTTPS']) && strtolower($_SERVER['HTTP_FROM_HTTPS']) != 'off') {
 		return true;
 	}

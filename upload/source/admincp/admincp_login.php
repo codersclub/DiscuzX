@@ -103,7 +103,7 @@ function html_login_footer($halt = true) {
 	$copy = lang('admincp_login', 'copyright');
 	echo <<<EOT
 </div>
-<footer><span>Powered by <a href="http://www.discuz.net/" target="_blank">Discuz!</a> $version </span><span>$copy</span></footer>
+<footer><span>Powered by <a href="https://www.discuz.vip/" target="_blank">Discuz!</a> $version </span><span>$copy</span></footer>
 <script>
 	var cookiepre = '{$cookiepre}';
 	if(self.parent.frames.length != 0) {

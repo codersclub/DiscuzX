@@ -583,7 +583,7 @@ UCenter  升级程序( $version_old &gt;&gt; $version_new)</td>
 <tr>
 <td align="center">
 <b>本升级程序只能从 $version_old 升级到 $version_new ，运行之前，请确认已经上传所有文件，并做好数据备份<br />
-升级当中有任何问题请访问技术支持站点 <a href="http://www.discuz.net" target="_blank">http://www.discuz.net</a></b>
+升级当中有任何问题请访问技术支持站点 <a href="https://www.discuz.vip/" target="_blank">https://www.discuz.vip</a></b>
 </td>
 </tr>
 <tr>
