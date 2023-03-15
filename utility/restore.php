@@ -21,6 +21,8 @@ define('ROOT_PATH', dirname(__FILE__).'/../');
 define('CHARSET', $_config['output']['charset']);
 define('DBCHARSET', $_config['db']['1']['dbcharset']);
 
+header('Content-Type: text/html; charset='.CHARSET);
+
 $lock_file = ROOT_PATH.'./data/restore.lock';
 if(file_exists($lock_file)) {
 	show_msg('restored_error');
