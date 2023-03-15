@@ -115,7 +115,8 @@ $lang = array(
 	'dbpw_comment' => '您的数据库密码',
 	'tablepre_comment' => '同一数据库运行多个论坛时，请修改前缀',
 	'forceinstall_check_label' => '我要删除数据，强制安装 !!!',
-	'initdbresult_succ' => '数据库安装完成',
+	'initdbresult_succ' => '数据库表创建完成',
+	'initdbdataresult_succ' => '数据库数据初始化完成',
 	'initsys' => '正在系统初始化',
 
 	'uc_url_empty' => '您没有填写 UCenter 的 URL，请返回填写',

@@ -25,7 +25,7 @@ $view_off = getgpc('view_off');
 
 define('VIEW_OFF', $view_off ? TRUE : FALSE);
 
-$allow_method = array('show_license', 'env_check', 'app_reg', 'db_init', 'ext_info', 'install_check', 'tablepre_check', 'do_db_init', 'check_db_init_progress');
+$allow_method = array('show_license', 'env_check', 'app_reg', 'db_init', 'ext_info', 'install_check', 'tablepre_check', 'do_db_init', 'do_db_data_init', 'check_db_init_progress');
 
 $step = intval(getgpc('step', 'R')) ? intval(getgpc('step', 'R')) : 0;
 $method = getgpc('method');
@@ -413,6 +413,20 @@ if($method == 'show_license') {
 	if (!runquery($sql)) {
 		exit();
 	}
+	
+	!VIEW_OFF && showjsmessage(lang('initdbresult_succ'));
+} elseif($method == 'do_db_data_init') {
+	$allinfo = getgpc('allinfo');
+	$allinfo_arr = unserialize(base64_decode($allinfo));
+	extract($allinfo_arr);
+
+	@set_time_limit(0);
+	@ignore_user_abort(TRUE);
+	ini_set('max_execution_time', 0);
+	ini_set('mysql.connect_timeout', 0);
+
+	$db = new dbstuff;
+	$db->connect($dbhost, $dbuser, $dbpw, $dbname, DBCHARSET);
 
 	$sql = file_get_contents(ROOT_PATH.'./install/data/install_data.sql');
 	if (file_exists(ROOT_PATH.'./install/data/install_data_appendage.sql')) {
@@ -509,7 +523,7 @@ if($method == 'show_license') {
 		@unlink(ROOT_PATH.'./install/data/install_data_appendage.sql');
 	}
 
-	!VIEW_OFF && showjsmessage(lang('initdbresult_succ'));
+	!VIEW_OFF && showjsmessage(lang('initdbdataresult_succ'));
 } elseif($method == 'check_db_init_progress') {
 	@set_time_limit(5);
 	send_mime_type_header("text/plain");
