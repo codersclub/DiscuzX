@@ -90,7 +90,7 @@ $now = date('Y');
 echo <<<EOT
 <div class="copyright">
 <p>Powered by <a href="https://www.discuz.vip/" target="_blank" class="lightlink2">Discuz!</a> {$_G['setting']['version']}</p>
-<p>&copy; 2001-$now Discuz! Team.</p>
+<p>&copy; 2001-$now <a href="https://code.dismall.com/" target="_blank">Discuz! Team</a>.</p>
 </div>
 EOT;
 
