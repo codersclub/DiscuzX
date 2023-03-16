@@ -20,7 +20,7 @@ $languages = array(
 	'to' => '到',
 	'menu' => '菜单',
 
-	'copyright' => 'Copyright &copy; 2001-'.date('Y').' Tencent Cloud.',
+	'copyright' => '&copy; 2001-'.date('Y').' <a href="https://code.dismall.com/" target="_blank">Discuz! Team</a>.',
 
 	'founder'=>'UCenter创始人',
 	'login_username'=>'用户名',

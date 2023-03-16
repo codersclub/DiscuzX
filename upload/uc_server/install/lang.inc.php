@@ -146,7 +146,7 @@ $lang = array(
 
 	'install_in_processed' => '正在安装...',
 	'install_succeed' => '安装用户中心成功，点击进入下一步',
-	'copyright' => 'Copyright &copy; 2001-'.date('Y').' Tencent Cloud.',
+	'copyright' => '&copy; 2001-'.date('Y').' <a href="https://code.dismall.com/" target="_blank">Discuz! Team</a>.',
 	'license' => '<div class="license"><h1>中文版授权协议 适用于中文用户</h1>
 
 <p>版权所有 (c) 2001-'.date('Y').'，腾讯云计算（北京）有限责任公司(原北京康盛新创科技有限责任公司)保留所有权利。</p>

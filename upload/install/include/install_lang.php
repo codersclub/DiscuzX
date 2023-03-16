@@ -247,7 +247,7 @@ $lang = array(
 	'init_gift_task' => '红包类任务',
 	'init_avatar_task' => '头像类任务',
 
-	'copyright' => 'Copyright &copy; 2001-'.date('Y').' Tencent Cloud.',
+	'copyright' => '&copy; 2001-'.date('Y').' <a href="https://code.dismall.com/" target="_blank">Discuz! Team</a>.',
 
 	'license' => '
 <div class="license"><h1>中文版授权协议 适用于中文用户</h1>
