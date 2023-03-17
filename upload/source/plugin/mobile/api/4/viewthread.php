@@ -49,17 +49,17 @@ class mobile_api {
 			$GLOBALS['comments'][$pid] = $comments;
 		}
 		$variable = array(
-		    'thread' => $_G['thread'],
-		    'fid' => $_G['fid'],
-		    'postlist' => array_values(mobile_core::getvalues($postlist, array('/^\d+$/'), array('pid', 'tid', 'author', 'first', 'dbdateline', 'dateline', 'username', 'adminid', 'memberstatus', 'authorid', 'username', 'groupid', 'memberstatus', 'status', 'message', 'number', 'memberstatus', 'groupid', 'attachment', 'attachments', 'attachlist', 'imagelist', 'anonymous', 'position', 'rewardfloor', 'replycredit'))),
-		    'allowpostcomment' => $_G['setting']['allowpostcomment'],
-		    'comments' => $GLOBALS['comments'],
-		    'commentcount' => $GLOBALS['commentcount'],
-		    'ppp' => $_G['ppp'],
-		    'setting_rewriterule' => $_G['setting']['rewriterule'],
-		    'setting_rewritestatus' => $_G['setting']['rewritestatus'],
-		    'forum_threadpay' => $_G['forum_threadpay'],
-		    'cache_custominfo_postno' => $_G['cache']['custominfo']['postno'],
+			'thread' => $_G['thread'],
+			'fid' => $_G['fid'],
+			'postlist' => array_values(mobile_core::getvalues($postlist, array('/^\d+$/'), array('pid', 'tid', 'author', 'first', 'dbdateline', 'dateline', 'username', 'adminid', 'memberstatus', 'authorid', 'username', 'groupid', 'memberstatus', 'status', 'message', 'number', 'memberstatus', 'groupid', 'attachment', 'attachments', 'attachlist', 'imagelist', 'anonymous', 'position', 'rewardfloor', 'replycredit'))),
+			'allowpostcomment' => $_G['setting']['allowpostcomment'],
+			'comments' => $GLOBALS['comments'],
+			'commentcount' => $GLOBALS['commentcount'],
+			'ppp' => $_G['ppp'],
+			'setting_rewriterule' => $_G['setting']['rewriterule'],
+			'setting_rewritestatus' => $_G['setting']['rewritestatus'],
+			'forum_threadpay' => $_G['forum_threadpay'],
+			'cache_custominfo_postno' => $_G['cache']['custominfo']['postno'],
 		);
 
 		if (!empty($threadsortshow)) {
