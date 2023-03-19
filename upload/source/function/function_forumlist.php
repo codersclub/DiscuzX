@@ -36,7 +36,7 @@ function forum(&$forum) {
 
 	if($forum['icon']) {
 		$forum['icon'] = get_forumimg($forum['icon']);
-		$forum['icon'] = '<a href="forum.php?mod=forumdisplay&fid='.$forum['fid'].'"><img src="'.$forum['icon'].'" '.(!empty($forum['extra']['iconwidth']) ? 'style="width: '.$forum['extra']['iconwidth'].'px;"' : '').' align="left" alt="'.$forum['name'].'" /></a>';
+		$forum['icon'] = '<a href="forum.php?mod=forumdisplay&fid='.$forum['fid'].'"><img src="'.$forum['icon'].'" '.(!empty($forum['extra']['iconwidth']) && !defined('IN_MOBILE') ? 'style="width: '.$forum['extra']['iconwidth'].'px;"' : '').' align="left" alt="'.$forum['name'].'" /></a>';
 	}
 
 	$lastpost = array(0, 0, '', '');
