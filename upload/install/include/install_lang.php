@@ -121,7 +121,7 @@ $lang = array(
 
 	'uc_url_empty' => '您没有填写 UCenter 的 URL，请返回填写',
 	'uc_url_invalid' => 'URL 格式错误',
-	'uc_url_unreachable' => 'UCenter 的 URL 地址可能填写错误，可能原因有:<br />1. UCenter 路径不正确或状态异常<br />2. 应用查询 UCenter 状态请求无法发起或被拦截<br />2. UCenter 后台 “ 通过 URL 添加应用功能 ” 未开启',
+	'uc_url_unreachable' => 'UCenter 的 URL 地址可能填写错误，可能原因有:<br />1. UCenter 路径不正确或状态异常<br />2. 应用查询 UCenter 状态请求无法发起或被拦截<br />3. UCenter 后台 “ 通过 URL 添加应用功能 ” 未开启',
 	'uc_ip_invalid' => '无法解析该域名，请填写站点的 IP',
 	'uc_admin_invalid' => 'UCenter 创始人密码校验未通过, 可能原因有:<br />1. UCenter 创始人密码不正确<br />2. 多次错误输入密码导致创始人用户和 IP 地址被锁定<br />3. UCenter 后台 “ 通过 URL 添加应用功能 ” 未开启',
 	'uc_data_invalid' => '通信失败，请检查 UCenter 的URL 地址是否正确 ',
