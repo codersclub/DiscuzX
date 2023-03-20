@@ -59,15 +59,14 @@ global $_G;
 $attach['refcheck'] = (!$attach['remote'] && $_G['setting']['attachrefcheck']) || ($attach['remote'] && ($_G['setting']['ftp']['hideurl'] || ($attach['isimage'] && $_G['setting']['attachimgpost'] && strtolower(substr($_G['setting']['ftp']['attachurl'], 0, 3)) == 'ftp')));
 $aidencode = packaids($attach);
 $is_archive = $_G['forum_thread']['is_archived'] ? "&fid=".$_G['fid']."&archiveid=".$_G['forum_thread']['archiveid'] : '';
+$pluginhook = !empty($_G['setting']['pluginhooks']['viewthread_attach_extra'][$attach['aid']]) ? $_G['setting']['pluginhooks']['viewthread_attach_extra'][$attach['aid']] : '';
 }
 <!--{block return}-->
 <li class="b_t p5">
-	<!--{if !$attach['price'] || $attach['payed']}--><a href="forum.php?mod=attachment{$is_archive}&aid=$aidencode" id="aid$attach['aid']" target="_blank"><!--{else}--><a href="forum.php?mod=misc&action=attachpay&aid=$attach['aid']&tid=$attach['tid']"><!--{/if}-->
+	<!--{if !$attach['price'] || $attach['payed']}--><a href="forum.php?mod=attachment{$is_archive}&aid=$aidencode" id="aid$attach['aid']" target="_blank"><!--{else}--><a href="forum.php?mod=misc&action=attachpay&aid=$attach['aid']&tid=$attach['tid']" class="dialog"><!--{/if}-->
 		<div class="tit">
 			<!--{if $_G['setting']['mobile']['mobilesimpletype'] == 0}-->$attach['attachicon']<!--{/if}-->
-			<span class="link f_b">
-				$attach['filename']
-			</span>
+			<span class="link f_b">$attach['filename']</span>
 			<p class="pl5 f_9">$attach['dateline'] {lang upload}</p>
 			<p class="pl5 f_9">$attach['attachsize']<!--{if $attach['readperm']}-->, {lang readperm}: <strong>$attach['readperm']</strong><!--{/if}--><!--{if !$_G['setting']['hideattachdown']}-->, {lang downloads}: $attach['downloads']<!--{/if}--><!--{if !$attach['attachimg'] && $_G['getattachcredits']}-->, {lang attachcredits}: $_G['getattachcredits']<!--{/if}--></p>
 			<!--{if $attach['price']}-->
@@ -80,9 +79,7 @@ $is_archive = $_G['forum_thread']['is_archived'] ? "&fid=".$_G['fid']."&archivei
 			<!--{/if}-->
 		</div>
 	</a>
-	<div>
-		<!--{if $attach['description']}--><p class="f_9">{$attach['description']}</p><!--{/if}-->
-	</div>
+	<div><!--{if $attach['description']}--><p class="f_9">{$attach['description']}</p><!--{/if}--></div>
 	$pluginhook
 </li>
 <!--{/block}-->
@@ -98,12 +95,14 @@ $attach['refcheck'] = (!$attach['remote'] && $_G['setting']['attachrefcheck']) |
 $mobilethumburl = $attach['attachimg'] && $_G['setting']['showimages'] && (!$attach['price'] || $attach['payed']) && ($_G['group']['allowgetimage'] || $_G['uid'] == $attach['uid']) ? getforumimg($attach['aid'], 0, $fix, 99999, 1) : '' ;
 $aidencode = packaids($attach);
 $is_archive = $_G['forum_thread']['is_archived'] ? "&fid=".$_G['fid']."&archiveid=".$_G['forum_thread']['archiveid'] : '';
+$pluginhook = !empty($_G['setting']['pluginhooks']['viewthread_attach_extra'][$attach['aid']]) ? $_G['setting']['pluginhooks']['viewthread_attach_extra'][$attach['aid']] : '';
 }
 <!--{block return}-->
 	<!--{if $attach['attachimg'] && $_G['setting']['showimages'] && ($_G['group']['allowgetimage'] || $_G['uid'] == $attach['uid']) && (!$attach['price'] || $attach['payed'])}-->
 			<!--{if !$attach['price'] || $attach['payed']}-->
 				<!--{if $_G['setting']['mobile']['mobilesimpletype'] == 0}-->
 				<li><a href="forum.php?mod=viewthread&tid=$attach['tid']&aid=$attach['aid']&from=album&page=$_G['page']" class="orange"><img id="aimg_$attach['aid']" src="{if $attach['refcheck']}forum.php?mod=attachment{$is_archive}&aid=$aidencode&noupdate=yes&nothumb=yes{else}{$attach['url']}{$attach['attachment']}{/if}" alt="$attach['imgalt']" title="$attach['imgalt']" /></a>
+				$pluginhook
 				</li>
 				<!--{/if}-->
 			<!--{/if}-->
@@ -128,20 +127,32 @@ $mobileguestviewthumburl = $guestviewthumb ? ($attach['attachimg'] && $_G['setti
 		<a href="forum.php?mod=viewthread&tid=$attach['tid']&aid=$attach['aid']&from=album&page=$_G['page']" class="orange"><img id="aimg_$attach['aid']" src="{if $guestviewthumb}$mobileguestviewthumburl{elseif $attach['refcheck']}forum.php?mod=attachment{$is_archive}&aid=$aidencode&noupdate=yes&nothumb=yes{else}{$attach['url']}{$attach['attachment']}{/if}" alt="$attach['imgalt']" title="$attach['imgalt']" /></a>
 		<!--{/if}-->
 	<!--{else}-->
-		<div id="attach_$attach['aid']" class="box attach mbn" >
-			<!--{if $_G['setting']['mobile']['mobilesimpletype'] == 0}-->
-			$attach['attachicon']
-			<!--{/if}-->
+	<ul id="attach_$attach['aid']" class="quote post_attlist cl" >
+		<li class="p5">
 			<!--{if !$attach['price'] || $attach['payed']}-->
-				<a href="forum.php?mod=attachment{$is_archive}&aid=$aidencode" target="_blank">$attach['filename']</a>
+				<a href="forum.php?mod=attachment{$is_archive}&aid=$aidencode" target="_blank">
 			<!--{else}-->
-				<a href="forum.php?mod=misc&action=attachpay&aid=$attach['aid']&tid=$attach['tid']" target="_blank">$attach['filename']</a>
+				<a href="forum.php?mod=misc&action=attachpay&aid=$attach['aid']&tid=$attach['tid']" class="dialog">
 			<!--{/if}-->
-			<em class="xg1">($attach['attachsize'])</em>
-			<em class="xg1"><br />(<!--{if !$_G['setting']['hideattachdown']}-->{lang downloads}: $attach['downloads']<!--{/if}-->, $attach['dateline'] {lang upload})
-			</em>
-			<!--{if !$attach['attachimg'] && $_G['getattachcredits']}--><p>{lang attachcredits}: $_G['getattachcredits']</p><!--{/if}-->
-		</div>
+			<div class="tit">
+				<!--{if $_G['setting']['mobile']['mobilesimpletype'] == 0}--><span class="z mr5 cl">$attach['attachicon']</span><!--{/if}-->
+				<span class="link f_b">$attach['filename']</span>
+				<p class="pl5 f_9">$attach['dateline'] {lang upload}</p>
+				<p class="pl5 f_9">$attach['attachsize']<!--{if !$_G['setting']['hideattachdown']}-->, {lang downloads}: $attach['downloads']<!--{/if}--><!--{if !$attach['attachimg'] && $_G['getattachcredits']}-->, {lang attachcredits}: $_G['getattachcredits']<!--{/if}--></p>
+				<!--{if $attach['readperm']}--><p class="pl5 f_9">{lang readperm}: <strong>$attach['readperm']</strong></p><!--{/if}-->
+				<!--{if $attach['price']}-->
+					<p class="pl5 f_9 xg1">
+					{lang price}: <strong class="xi1">$attach['price'] {$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][unit]}{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][title]}</strong> &nbsp;[<a href="forum.php?mod=misc&action=viewattachpayments&aid=$attach['aid']" class="dialog">{lang pay_view}</a>]
+					<!--{if !$attach['payed']}-->
+						&nbsp;[<a href="forum.php?mod=misc&action=attachpay&aid=$attach['aid']&tid=$attach['tid']" class="dialog">{lang attachment_buy}</a>]
+					<!--{/if}-->
+					</p>
+				<!--{/if}-->
+			</div>
+			</a>
+			<div><!--{if $attach['description']}--><p class="f_9 xg1">{$attach['description']}</p><!--{/if}--></div>
+		</li>
+	</ul>
 	<!--{/if}-->
 <!--{/block}-->
 <!--{eval return $return;}-->
