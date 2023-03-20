@@ -38,7 +38,7 @@
 	<h2><!--{if $_GET['action'] == 'edit'}-->{lang edit}<!--{else}-->{lang send_threads}<!--{/if}--></h2>
 	<div class="my"></div>
 </div>
-<!--{if $_GET[action] == 'newthread' && ($_G['group']['allowpostpoll'] || $_G['group']['allowpostreward'] || $_G['group']['allowpostdebate'] || $_G['group']['allowpostactivity'] || $_G['group']['allowposttrade'] || $_G['setting']['threadplugins'])}-->
+<!--{if $_GET['action'] == 'newthread' && ($_G['group']['allowpostpoll'] || $_G['group']['allowpostreward'] || $_G['group']['allowpostdebate'] || $_G['group']['allowpostactivity'] || $_G['group']['allowposttrade'] || $_G['setting']['threadplugins'] || $_G['forum']['threadsorts']['types'])}-->
 <div class="dhnavs_box">
 	<div id="dhnavs">
 		<div id="dhnavs_li">
@@ -46,7 +46,7 @@
 				<!--{if empty($_G['forum']['threadsorts']['required']) && !$_G['forum']['allowspecialonly']}-->
 				<li class="swiper-slide {if $postspecialcheck[0]}mon{/if}"><a href="forum.php?mod=post&action=newthread&fid=$_G['fid']&cedit=yes<!--{if !empty($_G['tid'])}-->&tid=$_G['tid']<!--{/if}--><!--{if !empty($modelid)}-->&modelid=$modelid<!--{/if}-->&extra=$extra">{lang post_newthread}</a></li>
 				<!--{/if}-->
-				<!--{loop $_G['forum']['threadsorts'][types] $tsortid $name}-->
+				<!--{loop $_G['forum']['threadsorts']['types'] $tsortid $name}-->
 					<li class="swiper-slide {if $sortid == $tsortid}mon{/if}"><a href="forum.php?mod=post&action=newthread&sortid=$tsortid&fid=$_G['fid']&cedit=yes<!--{if !empty($_G['tid'])}-->&tid=$_G['tid']<!--{/if}--><!--{if !empty($modelid)}-->&modelid=$modelid<!--{/if}-->&extra=$extra"><!--{echo strip_tags($name);}--></a></li>
 				<!--{/loop}-->
 				<!--{if $_G['group']['allowpostpoll']}--><li class="swiper-slide {if $_GET['special'] == 1}mon{/if}"><a href="forum.php?mod=post&action=newthread&special=1&fid=$_G['fid']&cedit=yes<!--{if !empty($_G['tid'])}-->&tid=$_G['tid']<!--{/if}--><!--{if !empty($modelid)}-->&modelid=$modelid<!--{/if}-->&extra=$extra">{lang post_newthreadpoll}</a></li><!--{/if}-->
@@ -57,7 +57,7 @@
 				<!--{if $_G['setting']['threadplugins']}-->
 					<!--{loop $_G['forum']['threadplugin'] $tpid}-->
 						<!--{if array_key_exists($tpid, $_G['setting']['threadplugins']) && is_array($_G['group']['allowthreadplugin']) && in_array($tpid, $_G['group']['allowthreadplugin'])}-->
-							<li class="swiper-slide {if $specialextra==$tpid}mon{/if}"><a href="forum.php?mod=post&action=newthread&specialextra=$tpid&fid=$_G['fid']&cedit=yes<!--{if !empty($_G['tid'])}-->&tid=$_G['tid']<!--{/if}--><!--{if !empty($modelid)}-->&modelid=$modelid<!--{/if}-->&extra=$extra">{$_G[setting][threadplugins][$tpid][name]}</a></li>
+							<li class="swiper-slide {if $specialextra==$tpid}mon{/if}"><a href="forum.php?mod=post&action=newthread&specialextra=$tpid&fid=$_G['fid']&cedit=yes<!--{if !empty($_G['tid'])}-->&tid=$_G['tid']<!--{/if}--><!--{if !empty($modelid)}-->&modelid=$modelid<!--{/if}-->&extra=$extra">{$_G['setting']['threadplugins'][$tpid]['name']}</a></li>
 						<!--{/if}-->
 					<!--{/loop}-->
 				<!--{/if}-->
@@ -145,9 +145,9 @@
 							<select name="attachnew[{$temp['aid']}][readperm]" id="readperm{$temp['aid']}" class="sort_sel">
 								<option value="" selected="selected">{lang unlimited}</option>
 								<!--{loop $_G['cache']['groupreadaccess'] $val}-->
-								<option value="$val[readaccess]" title="{lang readperm}: $val[readaccess]"{if $temp['readperm'] == $val[readaccess]} selected="selected"{/if}>$val[grouptitle]</option>
+								<option value="$val['readaccess']" title="{lang readperm}: $val['readaccess']"{if $temp['readperm'] == $val['readaccess']} selected="selected"{/if}>$val['grouptitle']</option>
 								<!--{/loop}-->
-								<option value="255"{if $temp[readperm] == 255} selected{/if}>{lang highest_right}</option>
+								<option value="255"{if $temp['readperm'] == 255} selected{/if}>{lang highest_right}</option>
 							</select>
 						</div>
 					</div>
@@ -389,7 +389,7 @@
 						video_file = '<span class="btn" onclick="addsmilies(\'[media=x,500,375]attach://' + dataarr[3] + '.mp4[/media]\')">{lang forum_post_insert}{lang e_video}</span>';
 					}
 					<!--{/if}-->
-					$('#attlist').append('<li class="b_t"><div class="tit"><span aid="'+dataarr[3]+'" up="1" class="del btn f_f"><a href="javascript:;"><i class="dm-trash z"></i></a></span>'+video_file+'<span class="btn" onclick="addsmilies(\'[attach]'+dataarr[3]+'[/attach]\')">{lang forum_post_insert}</span><img src="static/image/filetype/'+file_ex+'" border="0" class="vm mimg" alt=""><span class="link">'+dataarr[6]+'</span></div><!--{if $_GET['result'] != 'simple'}--><div class="minput"><div class="attms flex-box"><span class="f_c">{lang description}</span><input type="text" name="attachnew['+dataarr[3]+'][description]" value="" class="input flex"></div></div><div class="minput"><!--{if $_G['group']['allowsetattachperm']}--><!--{if $_G['cache']['groupreadaccess']}--><div class="attqx flex-box"><span>{lang forum_post_perm}</span><div class="flex"><select name="attachnew['+dataarr[3]+'][readperm]" id="readperm'+dataarr[3]+'" class="sort_sel"><option value="" selected="selected">{lang unlimited}</option><!--{loop $_G['cache']['groupreadaccess'] $val}--><option value="$val[readaccess]" title="{lang readperm}: $val[readaccess]">$val[grouptitle]</option><!--{/loop}--><option value="255"{if $temp[readperm] == 255} selected{/if}>{lang highest_right}</option></select></div></div><!--{/if}--><!--{/if}--><!--{if $_G['group']['maxprice']}--><div class="attjg flex-box"><span>{lang price}</span><input type="text" name="attachnew['+dataarr[3]+'][price]" value="0" class="input price flex"><em>{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][title]}</em></div><!--{/if}--></div><!--{/if}--></li>');
+					$('#attlist').append('<li class="b_t"><div class="tit"><span aid="'+dataarr[3]+'" up="1" class="del btn f_f"><a href="javascript:;"><i class="dm-trash z"></i></a></span>'+video_file+'<span class="btn" onclick="addsmilies(\'[attach]'+dataarr[3]+'[/attach]\')">{lang forum_post_insert}</span><img src="static/image/filetype/'+file_ex+'" border="0" class="vm mimg" alt=""><span class="link">'+dataarr[6]+'</span></div><!--{if $_GET['result'] != 'simple'}--><div class="minput"><div class="attms flex-box"><span class="f_c">{lang description}</span><input type="text" name="attachnew['+dataarr[3]+'][description]" value="" class="input flex"></div></div><div class="minput"><!--{if $_G['group']['allowsetattachperm']}--><!--{if $_G['cache']['groupreadaccess']}--><div class="attqx flex-box"><span>{lang forum_post_perm}</span><div class="flex"><select name="attachnew['+dataarr[3]+'][readperm]" id="readperm'+dataarr[3]+'" class="sort_sel"><option value="" selected="selected">{lang unlimited}</option><!--{loop $_G['cache']['groupreadaccess'] $val}--><option value="$val['readaccess']">$val['grouptitle']({lang readperm}: $val['readaccess'])</option><!--{/loop}--><option value="255"{if $temp['readperm'] == 255} selected{/if}>{lang highest_right}</option></select></div></div><!--{/if}--><!--{/if}--><!--{if $_G['group']['maxprice']}--><div class="attjg flex-box"><span>{lang price}</span><input type="text" name="attachnew['+dataarr[3]+'][price]" value="0" class="input price flex"><em>{$_G['setting']['extcredits'][$_G['setting']['creditstransextra'][1]][title]}</em></div><!--{/if}--></div><!--{/if}--></li>');
 				} else {
 					var sizelimit = '';
 					if(dataarr[7] == 'ban') {
