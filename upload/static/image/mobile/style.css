@@ -219,6 +219,7 @@ select {-moz-appearance:none;}
 .pl15 {padding-left: 15px !important;}
 .b0 {border:0 !important;}
 .l0 {left:0px !important;}
+.autowidth {width:auto !important;}
 .f_g, .f_g a {color: var(--dz-BG-2);}
 .f_f, .f_f a {color: var(--dz-FC-fff);}
 .f_b, .f_b a {color: var(--dz-FC-color);}
@@ -402,6 +403,7 @@ select {-moz-appearance:none;}
 .forumlist .sub-forum li .micon {float:left;height:44px;margin-right:10px}
 .forumlist .sub-forum li .micon img,.forumlist .sub-forum li .micon svg {height:44px;border-radius:4px;float:none}
 .forumlist .sub-forum li .micon img {width:48px;}
+.forumlist .sub-forum li .autowidth img {width:auto;}
 .forumlist .sub-forum li .mtit {height:24px;line-height:24px;font-size:16px;overflow:hidden;}
 .forumlist .sub-forum li .mnum {padding-left:6px;font-size:12px;color:var(--dz-BG-2)}
 .forumlist .sub-forum li .mtxt {display:block;height:20px;line-height:20px;font-size:13px;color:var(--dz-FC-999);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}

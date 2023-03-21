@@ -2683,6 +2683,7 @@ $lang = array
 	'setting_mobile_forum_postperpage_comment' => '主题内每页显示的帖子数目，为空时和界面设置保持一致<br />当此处和界面设置数值不同时会导致手机端和电脑端分页不一致，请谨慎配置',
 	'setting_mobile_forum_forumview' => '首页分区展示方式',
 	'setting_mobile_forum_forumview_comment' => '如“收起”，论坛首页将默认只展示分区标题<br />用户需点击分区展开该分区下的版块列表',
+	'setting_mobile_forum_iconautowidth_comment' => '选“是”将不限制手机版版块图标的宽度',
 	'pack' => '收起',
 	'unwind' => '展开',
 

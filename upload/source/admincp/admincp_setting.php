@@ -2557,6 +2557,7 @@ EOT;
 				array(1, $lang['pack']),
 				array(0, $lang['unwind'])
 			)), $setting['mobile']['forum']['forumview'] ? $setting['mobile']['forum']['forumview'] : 0, 'mradio');
+		showsetting('setting_mobile_forum_iconautowidth', 'settingnew[mobile][forum][iconautowidth]', $setting['mobile']['forum']['iconautowidth'], 'radio');
 		showsubmit('settingsubmit');
 		showformfooter();
 		showtablefooter();
@@ -3448,7 +3449,8 @@ EOT;
 		$settingnew['mobile_arr']['forum']['topicperpage'] = intval($settingnew['mobile']['forum']['topicperpage']) > 0 ? intval($settingnew['mobile']['forum']['topicperpage']) : 1 ;
 		$settingnew['mobile_arr']['forum']['postperpage'] = intval($settingnew['mobile']['forum']['postperpage']) > 0 ? intval($settingnew['mobile']['forum']['postperpage']) : 1 ;
 		$settingnew['mobile_arr']['forum']['forumview'] = intval($settingnew['mobile']['forum']['forumview']);
-		
+		$settingnew['mobile_arr']['forum']['iconautowidth'] = intval($settingnew['mobile']['forum']['iconautowidth']);
+
 		$settingnew['mobile'] = $settingnew['mobile_arr'];
 		unset($settingnew['mobile_arr']);
 	}
