@@ -7,9 +7,7 @@ foreach($cates as $cate){
 	}
 }
 {/eval}
-<!--{eval $list = array();}-->
 <!--{eval $page = isset($_GET['page']) ? intval($_GET['page']) : 1;}-->
-<!--{eval $list = portal_get_list($page);}-->
 <div class="header cl">
 	<div class="mzlogo"><a title="$_G['setting']['bbname']" href="javascript:;">{$_G['style']['touchlogo']}</a></div>
 	<div class="myss"><a href="search.php?mod=portal"><i class="dm-search"></i>{lang mobsearchtxt}</a></div>
@@ -41,7 +39,8 @@ foreach($cates as $cate){
 	});
 </script>
 <!--{/if}-->
-<!--{if $page == 1}-->
+<!--{hook/portal_index_top_mobile}-->
+<!--{if $page == 1 && $_G['setting']['mobile']['portal']['wzpicture']}-->
 <!--{eval $imglist = portal_get_list(1, 5, "at.pic != ''");}-->
 <!--{if count($imglist['list'])}-->
 <div class="dz-swiper_box dz-swiper">
@@ -67,6 +66,10 @@ var swiper = new Swiper('.dz-swiper', {
 </script>
 <!--{/if}-->
 <!--{/if}-->
+<!--{hook/portal_index_middle_mobile}-->
+<!--{if $_G['setting']['mobile']['portal']['wzlist']}-->
+<!--{eval $list = array();}-->
+<!--{eval $list = portal_get_list($page);}-->
 <!--{if count($list['list'])}-->
 <div class="wzlist mt10 cl">
 <!--{loop $list['list'] $value}-->
@@ -98,4 +101,6 @@ var flowpage = $page;
 var mobnodata = '{lang mobnodata}';
 portal_flowlazyload();
 </script>
+<!--{/if}-->
+<!--{hook/portal_index_bottom_mobile}-->
 <!--{template common/footer}-->
