@@ -773,6 +773,7 @@ $lang = array (
   'post_poll_expiration' => '记票天数',
   'post_poll_options' => '选项',
   'post_poll_overt' => '公开投票参与人',
+  'post_poll_exceed' => '已达到最大投票数',  
   'post_single_frame_mode' => '单框模式',
   'post_reward_error_message' => '抱歉，请输入悬赏价格',
   'post_reward_message' => '天后如果您仍未设置最佳答案，版主有权代为您选择',

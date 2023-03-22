@@ -97,7 +97,7 @@ function addpolloption() {
 		curoptions++;
 		curnumber++;
 	} else {
-		popup.open('已达到最大投票数' + maxoptions, 'alert');
+		popup.open('{lang post_poll_exceed}' + maxoptions, 'alert');
 	}
 }
 function delpolloption(obj) {
