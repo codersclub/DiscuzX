@@ -791,7 +791,7 @@ function get_cachedata_mainnav() {
 				continue;
 			}
 		}
-		if($nav['identifier'] == 8 && $nav['type'] == 0 && !$_G['setting']['ranklist']['status']) {
+		if($nav['identifier'] == 8 && $nav['type'] == 0 && !helper_access::check_module('ranklist')) {
 			$nav['available'] = 0;
 		}
 		$nav['style'] = parsehighlight($nav['highlight']);
