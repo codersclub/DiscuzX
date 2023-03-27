@@ -1,51 +1,57 @@
 <!--{template common/header}-->
-<!--{if empty($_GET['infloat'])}-->
-<!--{/if}-->
-<div class="tip loginbox loginpop p5" id="floatlayout_topicadmin">
+<div class="tip loginbox loginpop p5" id="floatlayout_comment">
 	<form method="post" autocomplete="off" id="commentform" action="forum.php?mod=post&action=reply&comment=yes&tid=$post['tid']&pid=$_GET['pid']&extra=$extra{if !empty($_GET['page'])}&page=$_GET['page']{/if}&commentsubmit=yes&infloat=yes&inajax=1">
 		<h2 class="log_tit" id="return_comment"><a href="javascript:;" onclick="popup.close();"><span class="icon_close y">&nbsp;</span></a>{lang comments}</h2>
 		<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}" />
 		<input type="hidden" name="handlekey" value="$_GET['handlekey']" />
-		<span id="itemdiv"></span>
+		<!--{if $commentitem}-->
+		<ul class="post-box cl">
+			<!--{eval $items = range(0, 5);$itemlang = array('{lang comment_1}', '{lang comment_2}', '{lang comment_3}', '{lang comment_4}', '{lang comment_5}', '{lang comment_6}');$i = $cmm = 0;}-->
+			<!--{loop $commentitem $item}-->
+			<!--{eval $item = trim($item);}-->
+			<!--{if $item}-->
+			<li class="flex-box">
+				<div class="flex">$item</div>
+				<div class="flex-2">
+				<span id="clct_$i" class="clct_star z">
+					<a href="javascript:;" onclick="rateStarSet('clct_$i',1,'itemc_$i')"><i class="dm-star-fill"></i></a>
+					<a href="javascript:;" onclick="rateStarSet('clct_$i',2,'itemc_$i')"><i class="dm-star-fill"></i></a>
+					<a href="javascript:;" onclick="rateStarSet('clct_$i',3,'itemc_$i')"><i class="dm-star-fill"></i></a>
+					<a href="javascript:;" onclick="rateStarSet('clct_$i',4,'itemc_$i')"><i class="dm-star-fill"></i></a>
+					<a href="javascript:;" onclick="rateStarSet('clct_$i',5,'itemc_$i')"><i class="dm-star-fill"></i></a>
+				</span>
+				</div>
+				<input type="hidden" id="itemc_$i" name="commentitem[$item]" value="" />
+			</li>
+			<!--{eval $i++;}-->
+			<!--{/if}-->
+			<!--{/loop}-->
+		</ul>
+		<!--{/if}-->
 		<dt class="mpt">
 			<textarea rows="2" cols="50" name="message" id="commentmessage" class="pt" style="overflow: auto"></textarea>
 		</dt>
-		<script type="text/javascript" reload="1">
-		<!--{if $commentitem}-->
-			var items = itemrow = itemcmm = '';
-			<!--{eval $items = range(0, 5);$itemlang = array('{lang comment_1}', '{lang comment_2}', '{lang comment_3}', '{lang comment_4}', '{lang comment_5}', '{lang comment_6}');$i = $cmm = 0;}-->
-			<!--{loop $commentitem $item}-->
-				<!--{eval $item = trim($item);}-->
-				<!--{if $item}-->
-					items += '<input type="hidden" id="itemc_$i" name="commentitem[$item]" value="" />';
-					itemrow = '<span id="itemt_$i" class="z xg1 cur1" title="{lang comment_give_ip}" onclick="itemdisable($i)">&nbsp;$item</span>';
-					itemstar = '';
-					<!--{loop $items $j}-->
-					itemstar += '<em class="itms_$j" onclick="itemclk($i, $j)" onmouseover="itemop($i, $j)" onmouseout="itemset($i)" title="$itemlang[$j]($j)"></em>';
-					<!--{/loop}-->
-					itemrow += '<span id="item_$i" class="z cmstar">' + itemstar + '</span>';
-					<!--{eval $i++;}-->
-					<!--{if !$cmm}-->items += itemrow;<!--{else}-->itemcmm += '<div class="cl cmm" style="margin:5px">' + itemrow + '</div>';<!--{/if}-->
-				<!--{elseif !$cmm}-->
-					items += '<span class="z" id="itemmore" onmouseover="showMenu({\'ctrlid\':this.id,\'pos\':\'13\'})">&nbsp;&raquo; {lang more}</span>';
-					<!--{eval $cmm = 1;}-->
-				<!--{/if}-->
-			<!--{/loop}-->
-			$('itemdiv').innerHTML = items;
-			if(itemcmm) {
-				cmmdiv = document.createElement('div');
-				cmmdiv.id = 'itemmore_menu';
-				cmmdiv.style.display = 'none';
-				cmmdiv.className = 'p_pop';
-				cmmdiv.innerHTML = itemcmm;
-				$('append_parent').appendChild(cmmdiv);
-			}
+		<!--{if $secqaacheck || $seccodecheck}-->
+		<ul class="post-box p5 cl">
+			<!--{subtemplate common/seccheck}-->
+		</ul>
 		<!--{/if}-->
-		$('commentmessage').focus();
-		</script>
 		<button type="submit" id="commentsubmit" class="pn pnc formdialog" value="true" name="commentsubmit"{if !$seccodecheck && !$secqaacheck} onmouseover="checkpostrule('seccheck_comment', 'ac=reply&infloat=yes&handlekey=$_GET[handlekey]');this.onmouseover=null"{/if}><span>{lang publish}</span></button>
 	</form>
 </div>
-<!--{if empty($_GET['infloat'])}-->
-<!--{/if}-->
+<script type="text/javascript" reload="1">
+getID('commentmessage').focus();
+function rateStarSet(target, level, input) {
+	if(input) getID(input).value = level;
+	var stars = getID(target).children;
+	for(var i = 0; i < stars.length; i++) {
+		getID(target).children[i].style.color = (i < level) ? "var(--dz-BG-color)" : "#ccc";
+	}
+}
+</script>
+<style>
+	.clct_star a {
+		color: #ccc;
+	}
+</style>
 <!--{template common/footer}-->
