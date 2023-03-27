@@ -106,4 +106,7 @@ class memory_driver_file {
 		return $this->set($key, $old - $step);
 	}
 
+	public function exists($key) {
+		return $this->get($key) !== false;
+	}
 }
