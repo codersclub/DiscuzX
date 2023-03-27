@@ -1302,7 +1302,7 @@ i.pstatus { display: block; margin-bottom: -30px; font-size: 12px; text-align: c
 		.t_attachinsert p img{ margin-bottom: -4px; }
 	.t_table{ border: 1px solid #E3EDF5; empty-cells: show; border-collapse: collapse; }
 		.pl table.t_table { table-layout: auto; }
-		.t_table td { padding: 4px; border: 1px solid #E3EDF5; overflow: hidden; }
+		.t_table td { padding: 4px; border: 1px solid #E3EDF5; overflow: hidden; overflow-wrap: anywhere; }
 	.tattl { float: left; overflow: hidden; padding: 10px 10px 10px 0; width: 45%; height: 64px; }
 		.tattl a { color: {HIGHLIGHTLINK}; text-decoration: underline; }
 		.tattl dt { float: left; width: 40px; font-weight: 700; }
