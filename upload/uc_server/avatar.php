@@ -11,7 +11,7 @@
 error_reporting(0);
 
 _get_script_url();
-define('UC_API', strtolower((is_https() ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/'))));
+define('UC_API', (is_https() ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/')));
 
 $uid = isset($_GET['uid']) ? $_GET['uid'] : 0;
 $size = isset($_GET['size']) ? $_GET['size'] : '';
