@@ -266,7 +266,7 @@ class discuz_error
 <h1>Discuz! $title Error</h1>
 EOT;
 
-		echo '<p>Time: ' . dgmdate(time(), 'Y-m-d H:i:s') .' IP: ' . getglobal('clientip') . ' BackTraceID: ' . $backtraceid . '</p>';
+		echo '<p>Time: ' . date('Y-m-d H:i:s O') .' IP: ' . getglobal('clientip') . ' BackTraceID: ' . $backtraceid . '</p>';
 
 		if(!empty($errormsg) && (!isset($_G['config']['security']['error']['showerror']) || !empty($_G['config']['security']['error']['showerror']))) {
 			echo '<div class="info">'.$errormsg.'</div>';
