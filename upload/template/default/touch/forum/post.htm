@@ -421,7 +421,7 @@
 		obj.attr('disable', 'true').removeClass('btn_pn_blue').addClass('btn_pn_grey');
 		popup.open('<img src="' + IMGDIR + '/imageloading.gif">');
 		var postlocation = '';
-		if(geo.errmsg === '' && geo.loc) {
+		if(typeof geo !== 'undefined' && geo.errmsg === '' && geo.loc) {
 			postlocation = geo.longitude + '|' + geo.latitude + '|' + geo.loc;
 		}
 		$.ajax({
