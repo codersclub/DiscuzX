@@ -12,7 +12,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 define('IN_DISCUZ', TRUE);
 define('IN_COMSENZ', TRUE);
-define('ROOT_PATH', dirname(__FILE__).'/../');
+define('ROOT_PATH', dirname(__DIR__).'/');
 define('INST_LOG_PATH', realpath(ROOT_PATH.'data/log/').'/install.log');
 
 require ROOT_PATH.'./source/discuz_version.php';
