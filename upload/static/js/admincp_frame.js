@@ -1,3 +1,96 @@
+function init_darkmode() {
+	var dmcookie = getcookie('darkmode');
+	var dmdark = 0, dmauto = 1;
+	document.querySelector('.darkmode').addEventListener('click', toggledarkmode);
+	if (dmcookie && dmcookie.indexOf('a') == -1) {
+		dmauto = 0;
+		if (dmcookie.indexOf('d') != -1) {
+			dmdark = 1;
+		}
+		switchdmvalue(dmdark, dmauto);
+	} else {
+		var colormedia = window.matchMedia('(prefers-color-scheme: dark)');
+		switchdmvalue(colormedia.matches, dmauto);
+		colormedia.addEventListener('change', function () {
+			var dmlcookie = getcookie('darkmode');
+			if (dmlcookie && dmlcookie.indexOf('a') != -1) {
+				switchdmvalue(this.matches, 1);
+			}
+		});
+	}
+}
+function toggledarkmode() {
+	var dmcookie = getcookie('darkmode');
+	var dmdark = 0, dmauto = 1;
+	var colormedia = window.matchMedia('(prefers-color-scheme: dark)');
+	if (dmcookie && dmcookie.indexOf('a') == -1) {
+		dmauto = 0;
+		if (dmcookie.indexOf('d') != -1) {
+			dmdark = 1;
+		}
+	} else {
+		dmdark = colormedia.matches ? 1 : 0;
+	}
+	if (dmauto) {
+		dmauto = dmauto ? 0 : 1;
+		dmdark = dmdark ? 0 : 1;
+	} else if (colormedia.matches == dmdark) {
+		dmauto = 1;
+	} else {
+		dmdark = dmdark ? 0 : 1;
+	}
+	switchdmvalue(dmdark, dmauto);
+}
+function switchdmvalue(ifdark, ifauto) {
+	var dmcookie = '';
+	var dmmeta = '';
+	if (ifdark) {
+		document.body.classList.add('st-d');
+		document.body.classList.remove('st-l');
+		dmcookie = 'd';
+		dmmeta = 'dark';
+	} else {
+		document.body.classList.add('st-l');
+		document.body.classList.remove('st-d');
+		dmcookie = 'l';
+		dmmeta = 'light';
+	}
+	if (ifauto) {
+		document.body.classList.add('st-a');
+		dmcookie += 'a';
+		dmmeta = 'light dark';
+	} else {
+		document.body.classList.remove('st-a');
+	}
+	let iframe = document.getElementById('main');
+	iframe.onload = function(){
+		switchframedmvalue(ifdark, ifauto)
+	}
+	switchframedmvalue(ifdark, ifauto)
+	console.log(dmcookie);
+	if (getcookie('darkmode') != dmcookie) {
+		setcookie('darkmode', dmcookie);
+	}
+	if (document.querySelector('meta[name="color-scheme"]').content != dmmeta) {
+		document.querySelector('meta[name="color-scheme"]').content = dmmeta;
+	}
+}
+function switchframedmvalue(ifdark, ifauto) {
+		let iframe = document.getElementById('main');
+		if (ifdark) {
+			iframe.contentWindow.document.body.classList.add('st-d');
+			iframe.contentWindow.document.body.classList.remove('st-l');
+		} else {
+			iframe.contentWindow.document.body.classList.add('st-l');
+			iframe.contentWindow.document.body.classList.remove('st-d');
+		}
+		if (ifauto) {
+			iframe.contentWindow.document.body.classList.add('st-a');
+		} else {
+			iframe.contentWindow.document.body.classList.remove('st-a');
+		}
+}
+
 (function () {
 	var prevnav = prevtab = menunav = navt = navkey = headerST = null;
 	function switchnav(key, nolocation = false, switchheader = true) {

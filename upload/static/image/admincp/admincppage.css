@@ -1,19 +1,25 @@
 body { background: #f0f0f0; font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;min-width: 1000px; }
+body.st-d { background: #282828; }
 a{ color:#2366A8; text-decoration:none; }
+.st-d a { color:#999;}
 	a:hover { text-decoration:underline; }
 	a img{ border:none; }
 em, cite, th{ font-style:normal; font-weight:normal; }
 
 textarea, input, select, .html { padding: 6px 10px; font-size: 100%; border: 1px solid; border-color: #ccc; background: #F9F9F9; color: #333; resize: none; border-radius: 3px; }
+.st-d textarea, .st-d input, .st-d select, .st-d .html {border-color: #999; background: #181818; color: #fff;}
 textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;}
 .txt, select, .vmiddle { vertical-align:middle; }
 .txt:hover, .txt:focus, textarea:hover, textarea:focus{ border-color:#2b7acd; background:#F5F9FD; outline: 0;box-shadow: 0 0 3px 2px rgba(43, 122, 205, 0.4);}
+.st-d .txt:hover, .st-d .txt:focus, .st-d textarea:hover, .st-d textarea:focus{ border-color:#eaeaea; background:#181818;}
 .hover:hover { background:#F5F9FD; }
 	.hover:hover .addchildboard, .hover:hover .deleterow { color: #F5F9FD; }
 .txtnobd{ border:1px solid #FFF; background:#FFF; cursor:pointer; }
 .radio, .checkbox, .pr, .pc { border:none; background:none; vertical-align:middle;margin-right: 4px; margin-left: 4px; }
 .btn{ margin:10px;border: 0;padding: 6px 14px;background: #2b7acd;color: #fff; cursor:pointer;vertical-align: middle;}
+.st-d .btn {background: #181818;color: #fff;}
 	.btn:hover { text-decoration: none; background-color: #428ad7;}
+	.st-d .btn:hover {background-color: #282828;}
 .btn_big { display: inline-block; width: 90px; height: 30px; line-height: 30px; text-align: center; background: url(btn_big.png) no-repeat 0 0; font-size: 18px; font-weight: 700; color: #FFF; }
 	.btn_big:hover { text-decoration: none; }
 .uploadbtn{ width:250px; border-color:#999; }
@@ -36,6 +42,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .spectitle{ border-bottom:1px dashed #F66; }
 .extcredits, .threadprofilenode { margin:-5px 0 10px; }
 .extcredits a, .threadprofilenode a { margin-right:5px; padding:2px 5px; line-height:220%; border:1px solid #B6CFD9; background:#FFF; white-space:nowrap; }
+.st-d .extcredits a, .threadprofilenode a { border:1px solid #181818; background:#000;}
 .popupmenu_popup { width:400px; overflow:hidden; padding:10px; border:1px solid #A6C9D7; background:#FFF; font-size:12px; font-weight:400; text-align:left; }
 	li.popupmenu_popup { list-style: none; }
 	#fselect_menu { width:300px; }
@@ -53,11 +60,13 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 		.popupmenu_dropmenu em { margin-left:3px; background:url(bg_repno.gif) no-repeat 0 -145px; }
 
 .infobox { background: #fff; padding: 40px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.st-d .infobox { background: #000;}
 .infotitle1 { margin-bottom: 10px; color: #09C; font-size: 14px; font-weight: 700; }
 .infotitle2 { margin-bottom: 10px; color: #090; font-size: 14px; font-weight: 700; }
 .infotitle3 { margin-bottom: 10px; color: #C00; font-size: 14px; font-weight: 700; }
 .infobox h3 { font-size: 18px; font-weight: bold; margin-bottom: 10px; }
 .colorbox { background: #fff; padding: 20px; }
+.st-d .colorbox { background: #000;}
 .colorbox h4 { font-size: 18px; margin-bottom: 10px; }
 .drow { display: flex; margin-left: -10px; margin-right: -10px; flex-wrap: wrap; }
 .drow.clp { margin-left: 0; margin-right: 0; }
@@ -76,15 +85,21 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 	.dcol { flex-basis: 100% !important; }
 }
 .cpcontainer { background: #f0f0f0; padding: 20px; color: #333; font-size: 14px; }
+.st-d .cpcontainer { background: #282828;color: #666;}
 .copyright { width: 100%; background: #fff; color: #999; padding: 16px; font-size: 12px; text-align: center; }
+.st-d .copyright { background: #000;}
 .itemtitle { padding: 0 20px; background: #fff; display: flex; align-items: flex-start; flex-direction: column; border-bottom: 1px solid #ddd; }
+.st-d .itemtitle { background: #000; border-bottom: 1px solid #999; }
 .itemtitle .titlerow { display: flex; width: 100%; flex-direction: row; justify-content: space-between; }
 .itemtitle .titlerow>span, .itemtitle .titlerow>a { margin: 16px 0; }
 .itemtitle h3 { font-weight: bold; font-size: 20px; margin: 16px 20px 16px 0; }
+.st-l .itemtitle h3 { color:#000;}
 .itemtitle ul { display: flex; flex-wrap: wrap; }
 .itemtitle ul li>a { display: block; text-decoration: none; padding: 15px 5px; margin-right: 15px; color: #333; border-bottom: 2px solid transparent; }
 .itemtitle ul li.current>a { color: #2b7acd; border-bottom-color: #2b7acd; }
+.st-d .itemtitle ul li.current>a { color: #999; border-bottom-color: #999; }
 .itemtitle ul li a:hover { color: #2b7acd; background: #f7f7f7; }
+.st-d .itemtitle ul li a:hover { color: #eaeaea; background: #282828;}
 .itemtitle ul li.current>a span, .itemtitle ul li.hasdropmenu>a span { display: flex; flex-direction: row; align-items: center; }
 .itemtitle ul li.current>a span em, .itemtitle ul li.hasdropmenu>a span em { display: block; width: 0; height: 0; margin-left: 8px; border-top: 5px solid; border-bottom: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; }
 .itemtitle ul.stepstat { font-size: 14px; color: #666; width: 100%; justify-content: center; margin-bottom: 16px; }
@@ -99,10 +114,14 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 	.itemtitle ul.stepstat li:not(:first-child)::before { display: none; }
 }
 .dropmenu { background: #fff; display: flex; flex-direction: column; border-radius: 5px; margin-top: 5px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); overflow: hidden; }
+.st-d .dropmenu { background: #181818;}
 .dropmenu>ul { display: flex; flex-direction: column; }
 .dropmenu>a, .dropmenu>ul>li>a { padding: 8px 15px; text-decoration: none; color: #333; margin-right: 0; }
+.st-d .dropmenu>a, .dropmenu>ul>li>a { color:#999;}
 .dropmenu a:focus { outline: 0; background: #f7f7f7; }
+.st-d .dropmenu a:focus { background: #282828; }
 .dropmenu a.current { background: #2b7acd; color: #fff; }
+.st-d .dropmenu a.current {background: #282828;}
 
 .tips{ margin-left:15px; color:#999; }
 .tips2{ line-height:180%; color:#999; word-break:break-all; }
@@ -117,15 +136,20 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 .tipbox { /* todo */ }
 .dbox { display: flex; flex-direction: column; background: #fff; margin-bottom: 20px; }
+.st-d .dbox {background: #000;}
 .dbox .boxheader { padding: 16px 20px; font-size: 16px; border-bottom: 1px solid #ddd; }
+.st-d .dbox .boxheader { border-bottom: 1px solid #383838; }
 .dbox .boxbody { padding: 20px; border-bottom: 1px solid #ddd; }
+.st-d .dbox .boxbody { border-bottom: 1px solid #383838; }
 .dbox .boxbody:last-child { border-bottom: 0px; }
 .dbox .tb:last-child { margin-bottom: 0px; }
 .boxbody .txt { margin-right: 4px; }
 .listbox .boxbody>div { border-bottom: 1px solid #eee; padding: 8px 0; }
+.st-d .listbox .boxbody>div { border-bottom: 1px solid #484848; }
 
 /* table */
 .tb{ clear:both; width:100%; margin-bottom: 20px;background: #fff;}
+.st-d .tb{background: #000;}
 	.tb th, .tb td{ padding:5px; height:25px; }
 .tb1{}
 	.th11, .th12{ width:60px; font-weight:700; }
@@ -162,12 +186,15 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .tb2{}
 	.tb2 tr.hover:hover .tips2{ color:#333; }
 	.tb2 tr.hover:hover td { background: #F2F9FD; }
+	.st-d .tb2 tr.hover:hover td { background: #282828; }
 	.tb2 tr.hl, .drow.hl { background: #FFFAF3; }
 	.tb2 tr.hl td, .drow.hl { border-top:1px #F4E4B4 solid; border-bottom:1px #F4E4B4 solid }
 	.tb2.tdhover tr:hover td { background: none; }
 	.tb2.tdhover tr td:hover { background: #F2F9FD; }
 	.tb2 td{ padding:10px 5px 10px 0px; border-top: 1px dotted #DEEFFB; }
+	.st-d .tb2 td{ border-top: 1px dotted #282828; }
 	.tb2 th{ padding:10px 5px 10px 0px; border-top: 1px dotted #DEEFFB; line-height:1.5; }
+	.st-d .tb2 th{ border-top: 1px dotted #282828; }
 	.tb2 td:first-child{ padding-left:20px; }
 	.tb2 th:first-child{ padding-left:20px; }
 	.tb2 .txt, .tb2 .txtnobd{ width:100px; margin-right:10px; }
@@ -191,6 +218,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 	.td32 { width:100px; }
 		.td32 .txt{ width:80px; }
 	.tbm { padding:5px !important; padding-left: 20px !important; background: #F2F9FD !important; font-weight: 700; border-top:0 !important; }
+	.st-d .tbm {background: #181818 !important;}
 	.multicol { float:left; width: 270px !important; }
 	.staton{ text-indent:-9999px; width:20px; height:17px; background:url(bg_repno.gif) no-repeat -280px -250px; }
 	.statoff{ text-indent:-9999px; background:url(bg_repno.gif) no-repeat -250px -347px; }
@@ -206,6 +234,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 		.ckbox {width:900px; }
 		.ckbox li { float: left; margin: 5px 10px 5px 0; white-space: nowrap; width: 162px; height: 20px; }
 	.partition, .partition2{ color: #000; }
+	.st-d .partition, .partition2{ color:#fff;}
 	.tb2 .partition { padding: 16px 20px; font-size: 16px; border-bottom: 1px solid #ddd; }
 	.dblist{}
 		.dblist li{ float:left; margin-bottom:5px; width:33%; height:20px; white-space:nowrap; cursor:pointer; }
@@ -326,6 +355,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .lightfont{ color:#CCC; }
 .light, .light a{ color:#AAA; }
 .lightnum{ color:#F60; }
+.st-d .lightnum{ color:#fff; }
 .error{ color:#F00; }
 .diffcolor2{ color:#090; }
 .diffcolor3{ color:#09C; }
@@ -342,6 +372,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .nobdt{ border-top:none; }
 .noborder, .noborder td{border-bottom:0; border-top:0; }
 	.noborder td:hover, .normalfont { color: #000; }
+	.st-d .noborder td:hover, .normalfont { color: #fff; }
 .vtop{ vertical-align:top; }
 .lineheight{ line-height:150%; }
 .left{ float:left; }
@@ -372,14 +403,18 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .dbox.hometop .avt { width: 80px; height: 80px; margin-right: 24px; border: 2px solid #fff; border-radius: 3px; box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2); }
 .dbox.hometop .hinfo { flex-grow: 1; }
 .dbox.hometop .hinfo h4 { font-size: 18px; margin-top: 14px; margin-bottom: 10px; }
+.st-l .dbox.hometop .hinfo h4{color:#000;}
 .dbox.hometop .hinfo p { font-size: 14px; color: #666; }
 .dbox .tb2 td{ padding:10px 5px 10px 0px;}
 .dbox .tb2 th{ padding:10px 5px 10px 0px;}
 .dbox .tb3 th{ padding:10px 0 5px; }
 .dbox .tb3 td{ padding:0;}
 .tipsbody { padding: 10px 20px; background: #b9edd5; color: #1f7244; }
+.st-d .tipsbody { background: #0d7377; color: #323232; }
 .tipsbody .difflink a { color: #1f7244; }
+.st-d .tipsbody .difflink a { color: #323232; }
 .tipsbody .tipicon { background: #fff; width: 32px; height: 32px; border-radius: 27px; margin-top: 3px; margin-right: 14px; padding: 6px; }
+.st-d .tipsbody .tipicon { background: #000;}
 #filecheck_div>div { display: flex; width: 100%; justify-content: space-between; margin-bottom: 10px; text-align: center; flex-wrap: wrap; }
 #filecheck_div>div>em { padding: 0 18px 10px 18px; }
 @media (max-width: 1660px) {
@@ -408,6 +443,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .mt10{margin-top: 10px;}
 .mt0{margin-top:0}
 .header, .header td, .header th{ border-top: 1px dotted #DEEFFB; font-weight: 700; }
+.st-d .header, .st-d .header td, .st-d.header th{ border-top: 1px dotted #282828;}
 .smallefont{font-size: 14px}
 
 /* 弹窗 */
