@@ -237,10 +237,12 @@ if($operation == 'filecheck') {
 		$diffnum = 0;
 		foreach($discuzhookdata as $file => $hook) {
 			$dir = dirname($file);
-                        $filen = str_replace('template/default/', substr($style['directory'], 2).'/', $file);
+			$filen = str_replace('template/default/', substr($style['directory'], 2).'/', $file);
 			if(isset($hookdata[$filen])) {
 				foreach($hook as $k => $hookarr) {
-					if(($diff = count($hookarr) - count($hookdata[$filen][$k])) > 0) {
+					$hooknum = empty($hookarr) ? 0 : count($hookarr);
+					$hookdatanum = empty($hookdata[$filen][$k]) ? 0 : count($hookdata[$filen][$k]);
+					if(($diff = $hooknum - $hookdatanum) > 0) {
 						for($i = 0; $i < $diff; $i++) {
 							$diffhooklist[$file][] = $k;
 						}
@@ -254,7 +256,7 @@ if($operation == 'filecheck') {
 		}
 
 		foreach($difffilelist as $dir => $files) {
-                        $dir = str_replace('template/default/', substr($style['directory'], 2).'/', $dir);
+			$dir = str_replace('template/default/', substr($style['directory'], 2).'/', $dir);
 			$result .= '<tbody><tr><td class="td30"><a href="javascript:;" onclick="toggle_group(\'dir_'.$dir.'\')" id="a_dir_'.$dir.'">[-]</a></td><td colspan="3"><div class="ofolder">'.$dir.'</div></td></tr></tbody>';
 			$result .= '<tbody id="dir_'.$dir.'">';
 			foreach($files as $file) {
