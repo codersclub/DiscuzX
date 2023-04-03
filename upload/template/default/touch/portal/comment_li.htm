@@ -1,0 +1,35 @@
+<a name="comment_anchor_$comment['cid']"></a>
+<li id="comment_{$comment['cid']}_li" class="doing_list_li list cl">
+	<div class="threadlist_top cl">
+		<!--{if $comment['uid']}-->
+			<a href="home.php?mod=space&uid=$comment['uid']&do=profile" class="avatar mimg z">
+				<!--{avatar($comment['uid'], 'small')}-->
+			</a>
+		<!--{else}-->
+			<a href="javascript:;" class="avatar mimg z">
+				<img src="{STATICURL}image/magic/hidden.gif" alt="hidden" />
+			</a>
+		<!--{/if}-->
+		<div class="muser cl">
+			<h3>
+				<!--{if $comment['uid']}-->
+				<a href="home.php?mod=space&uid=$comment['uid']" id="author_$comment['cid']" class="mmc">{$comment['username']}</a>
+				<!--{else}-->
+				{lang guest}
+				<!--{/if}-->
+			</h3>
+			<div class="mtime">
+				<span><!--{date($comment['dateline'])}--><!--{if $comment['status'] == 1}--><b>({lang moderate_need})</b><!--{/if}--></span>
+				<div class="doing_listgl y">
+					<!--{if ($_G['group']['allowmanagearticle'] || $_G['uid'] == $comment['uid']) && $_G['groupid'] != 7 && !$article['idtype']}-->
+						<a href="portal.php?mod=portalcp&ac=comment&op=edit&cid=$comment['cid']" id="c_$comment['cid']_edit" class="y doing_gl dialog">{lang edit}</a>
+						<a href="portal.php?mod=portalcp&ac=comment&op=delete&cid=$comment['cid']" id="c_$comment['cid']_delete" class="y doing_gl dialog">{lang delete}</a>
+					<!--{/if}-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="comment_$comment['cid']" class="do_comment{if $comment['magicflicker']} magicflicker{/if}">
+	<!--{if $_G['adminid'] == 1 || $comment['uid'] == $_G['uid'] || $comment['status'] != 1}-->$comment['message']<!--{else}--> {lang moderate_not_validate}<!--{/if}-->
+	</div>
+</li>

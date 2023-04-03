@@ -1,0 +1,50 @@
+<!--{template common/header}-->
+<div class="header cl">
+	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
+	<h2>{lang comment_view}</h2>
+	<div class="my"></div>
+</div>
+
+<div class="wzview cl">
+	<div class="wzview_top cl">
+		<h2><a href="portal.php?mod=view&aid={$csubject['aid']}">$csubject['title']</a></h2>
+		<p>{lang comment} ($csubject['commentnum'])</p>
+	</div>
+</div>
+
+<div class="doing_list_box threadlist cl">
+	<ul>
+	<!--{loop $commentlist $comment}-->
+		<!--{template portal/comment_li}-->
+	<!--{/loop}-->
+	</ul>
+	<!--{if !empty($pricount)}-->
+		<span class="mt10 mb 10 xs1 xg1 y">{lang hide_portal_comment}</span>
+	<!--{/if}-->
+	
+	<div class="pgs cl mtm mbm">$multi</div>
+	<!--{if $csubject['allowcomment'] == 1}-->
+	<form id="cform" name="cform" action="portal.php?mod=portalcp&ac=comment" method="post" autocomplete="off">
+		<div class="mt10 post_from post_box cl">
+			<input type="hidden" name="formhash" value="{FORMHASH}">
+			<!--{if $idtype == 'topicid' }-->
+				<input type="hidden" name="topicid" value="$id">
+			<!--{else}-->
+				<input type="hidden" name="aid" value="$id">
+			<!--{/if}-->
+			<ul class="mb10 cl">
+				<li class="mtext">
+					<textarea name="message" cols="60" rows="3" class="pt" id="message" placeholder="{lang comment}"></textarea>
+				</li>
+				<!--{if $secqaacheck || $seccodecheck}-->
+					<!--{subtemplate common/seccheck}-->
+				<!--{/if}-->
+			</ul>
+		</div>
+		<div class="post_btn cl">
+			<button type="submit" name="commentsubmit" value="true" class="pn"><strong>{lang comment}</strong></button>
+		</div>
+	</form>
+	<!--{/if}-->
+</div>
+<!--{template common/footer}-->

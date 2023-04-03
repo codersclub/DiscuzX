@@ -1,0 +1,31 @@
+<!--{template common/header}-->
+
+<!--{if $_GET['op'] == 'requote'}-->
+	[quote]{$comment[username]}: {$comment[message]}[/quote]
+<!--{elseif $_GET['op'] == 'edit'}-->
+<div class="tip loginbox loginpop p5" id="floatlayout_comment_edit">
+	<h2 class="log_tit" id="return_delpost">{lang comment_edit_content}</h2>
+	<form id="editcommentform_{$cid}" name="editcommentform_{$cid}" method="post" autocomplete="off" action="portal.php?mod=portalcp&ac=comment&op=edit&cid=$cid{if $_GET[modarticlecommentkey]}&modarticlecommentkey=$_GET[modarticlecommentkey]{/if}">
+		<input type="hidden" name="referer" value="{echo dreferer()}" />
+		<input type="hidden" name="editsubmit" value="true" />
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<dt>
+			<textarea id="message_{$cid}" name="message" class="pt pxbg">$comment[message]</textarea>
+		</dt>
+		<dd><input type="submit" name="editsubmit_btn" id="editsubmit_btn" value="{lang submit}" class="formdialog button z"><a href="javascript:;" onclick="popup.close();" class="button y">{lang cancel}</a></dd>
+	</form>
+
+<!--{elseif $_GET['op'] == 'delete'}-->
+<div class="tip loginbox loginpop p5" id="floatlayout_comment_delete">
+	<h2 class="log_tit" id="return_delpost">{lang comment_delete}</h2>
+	<form id="deletecommentform_{$cid}" name="deletecommentform_{$cid}" method="post" autocomplete="off" action="portal.php?mod=portalcp&ac=comment&op=delete&cid=$cid">
+		<input type="hidden" name="referer" value="{echo dreferer()}" />
+		<input type="hidden" name="deletesubmit" value="true" />
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<dt>{lang comment_delete_confirm}</dt>
+		<dd><input type="submit" name="deletesubmitbtn" id="deletesubmitbtn" value="{lang confirms}" class="formdialog button z"><a href="javascript:;" onclick="popup.close();" class="button y">{lang cancel}</a></dd>
+	</form>
+</div>
+<!--{/if}-->
+
+<!--{template common/footer}-->

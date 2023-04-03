@@ -37,4 +37,9 @@
 	</ul>
 </div>
 <!--{/if}-->
+
+<!--{if $article['allowcomment'] == 1}-->
+	<!--{eval $data = &$article}-->
+	<!--{subtemplate portal/portal_comment}-->
+<!--{/if}-->
 <!--{template common/footer}-->

@@ -1,0 +1,49 @@
+<div class="discuz_x cl"></div>
+<div class="doing_list_box threadlist cl">
+	<div class="txtlist">
+		<div class="mtit cl">
+			<!--{if !empty($pricount)}-->
+				<span class="xs1 xg1 y">{lang hide_portal_comment}</span>
+			<!--{/if}-->
+			{lang latest_comment}
+		</div>
+		<!--{if $data['htmlmade']}--><div class="p10 cl"><a href="$common_url#cform" class="button2 z"><span class="f_f">{lang post_comment}</span></a></div><!--{/if}-->
+	</div>
+	<ul>
+		<!--{loop $commentlist $comment}-->
+			<!--{template portal/comment_li}-->
+		<!--{/loop}-->
+	</ul>
+	<!--{if $data['commentnum']}--><div class="p10 cl"><a href="$common_url" class="button2 z"><span class="f_f">{lang view_all_comments}(<em id="_commentnum">$data['commentnum']</em>)</span></a></div><!--{/if}-->
+	
+	<!--{if !$data['htmlmade']}-->
+	<form id="cform" name="cform" action="$form_url" method="post" autocomplete="off">
+		<div class="post_from post_box cl">
+		<!--{if !empty($topicid) }-->
+			<input type="hidden" name="referer" value="$topicurl#comment" />
+					<input type="hidden" name="topicid" value="$topicid">
+		<!--{else}-->
+			<input type="hidden" name="portal_referer" value="$viewurl#comment">
+			<input type="hidden" name="referer" value="$viewurl#comment" />
+			<input type="hidden" name="id" value="$data[id]" />
+			<input type="hidden" name="idtype" value="$data[idtype]" />
+			<input type="hidden" name="aid" value="$aid">
+		<!--{/if}-->
+			<input type="hidden" name="formhash" value="{FORMHASH}">
+			<input type="hidden" name="replysubmit" value="true">
+			<input type="hidden" name="commentsubmit" value="true" />
+			<ul class="mb10 cl">
+				<li class="mtext">
+					<textarea name="message" rows="3" class="pt" id="message" placeholder="{lang comment}" ></textarea>
+				</li>
+				<!--{if $secqaacheck || $seccodecheck}-->
+					<!--{subtemplate common/seccheck}-->
+				<!--{/if}-->
+			</ul>
+		</div>
+		<div class="post_btn cl">
+			<button type="submit" name="commentsubmit_btn" id="commentsubmit_btn" value="true" class="pn"><strong>{lang comment}</strong></button>
+		</div>
+	</form>
+	<!--{/if}-->
+</div>
