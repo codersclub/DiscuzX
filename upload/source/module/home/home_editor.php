@@ -288,6 +288,9 @@ if (empty($_GET['op'])) {
 										if(! inihtml && !window.Event) {
 											inihtml = '<div></div>';
 										}
+										if(!inihtml) {
+											inihtml = '&nbsp;';
+										}
 										window.frames['HtmlEditor'].document.body.innerHTML = inihtml;
 									}
 									document.write('<div id="divEditor" style="padding-left:4px;height:100%;background-color:#fff"><IFRAME class="HtmlEditor" ID="HtmlEditor" name="HtmlEditor" style="height:100%;width:100%;" frameBorder="0" marginHeight=0 marginWidth=0 src="home.php?mod=editor&op=blank&charset=<?php echo $_GET['charset']; ?>" onload="blank_load();"></IFRAME></div>');
