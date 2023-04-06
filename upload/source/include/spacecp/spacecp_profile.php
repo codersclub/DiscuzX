@@ -197,13 +197,17 @@ if(submitcheck('profilesubmit')) {
 		foreach($_GET['deletefile'] as $key => $value) {
 			if(isset($_G['cache']['profilesetting'][$key]) && $_G['cache']['profilesetting'][$key]['formtype'] == 'file') {
 				$verifyarr[$key] = $setarr[$key] = '';
+				@unlink(getglobal('setting/attachdir').'./profile/'.$space[$key]);
 			}
 		}
 	}
-	if($_FILES && $field['formtype'] == 'file') {
+	if($_FILES) {
 		$upload = new discuz_upload();
 		foreach($_FILES as $key => $file) {
 			if(!isset($_G['cache']['profilesetting'][$key])) {
+				continue;
+			}
+			if($_G['cache']['profilesetting'][$key]['formtype'] != 'file'){
 				continue;
 			}
 			$field = $_G['cache']['profilesetting'][$key];
@@ -241,6 +245,7 @@ if(submitcheck('profilesubmit')) {
 					$verifyarr[$key] = $attach['attachment'];
 					continue;
 				}
+				@unlink(getglobal('setting/attachdir').'./profile/'.$space[$key]);
 				$setarr[$key] = $attach['attachment'];
 			}
 
@@ -641,7 +646,6 @@ if($operation == 'password') {
 			}
 		}
 	}
-
 }
 
 include template("home/spacecp_profile");
