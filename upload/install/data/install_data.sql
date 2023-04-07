@@ -901,7 +901,12 @@ INSERT INTO pre_forum_onlinelist VALUES ('2','2','超级版主','online_supermod
 INSERT INTO pre_forum_onlinelist VALUES ('3','3','版主','online_moderator.gif');
 INSERT INTO pre_forum_onlinelist VALUES ('0','4','会员','online_member.gif');
 
-INSERT INTO pre_forum_typeoption SET `optionid`=1, `title`='默认分类';
+INSERT INTO pre_forum_typeoption SET `optionid`=1, `title`='分类A';
+INSERT INTO pre_forum_typeoption SET `optionid`=2, `title`='分类B';
+INSERT INTO pre_forum_typeoption SET `optionid`=3, `title`='分类C';
+INSERT INTO pre_forum_typeoption SET `optionid`=4, `title`='分类D';
+INSERT INTO pre_forum_typeoption SET `optionid`=5, `title`='分类E';
+INSERT INTO pre_forum_typeoption SET `optionid`=6, `title`='分类F';
 
 INSERT INTO pre_home_click VALUES ('1','路过','luguo.gif','blogid','1','0');
 INSERT INTO pre_home_click VALUES ('2','雷人','leiren.gif','blogid','1','0');
