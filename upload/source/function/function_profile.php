@@ -468,4 +468,8 @@ function get_zodiac($birthyear) {
 	$idx = (($birthyear - 1900) % 12) + 1;
 	return $idx > 0 && $idx <= 12 ? lang('space', 'zodiac_'. $idx) : '';
 }
+
+function isprofileimage($file) {
+	return is_file(getglobal('setting/attachdir').'./profile/'.$file) && strpos(realpath(getglobal('setting/attachdir').'./profile/'.$file), realpath(getglobal('setting/attachdir').'./profile/').DIRECTORY_SEPARATOR) === 0 && in_array(fileext($file), array('jpg', 'jpeg', 'gif', 'png', 'bmp', 'webp'));
+}
 ?>

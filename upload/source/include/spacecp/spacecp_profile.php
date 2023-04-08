@@ -197,7 +197,12 @@ if(submitcheck('profilesubmit')) {
 		foreach($_GET['deletefile'] as $key => $value) {
 			if(isset($_G['cache']['profilesetting'][$key]) && $_G['cache']['profilesetting'][$key]['formtype'] == 'file') {
 				$verifyarr[$key] = $setarr[$key] = '';
-				@unlink(getglobal('setting/attachdir').'./profile/'.$space[$key]);
+				if(isprofileimage($space[$key])) {
+					@unlink(getglobal('setting/attachdir').'./profile/'.$space[$key]);
+				}
+				if(isprofileimage($verifyinfo['field'][$key])) {
+					@unlink(getglobal('setting/attachdir').'./profile/'.$verifyinfo['field'][$key]);
+				}
 			}
 		}
 	}
@@ -207,10 +212,10 @@ if(submitcheck('profilesubmit')) {
 			if(!isset($_G['cache']['profilesetting'][$key])) {
 				continue;
 			}
-			if($_G['cache']['profilesetting'][$key]['formtype'] != 'file'){
+			$field = $_G['cache']['profilesetting'][$key];
+			if($field['formtype'] != 'file'){
 				continue;
 			}
-			$field = $_G['cache']['profilesetting'][$key];
 			if((!empty($file) && $file['error'] == 0) || (!empty($space[$key]) && empty($_GET['deletefile'][$key]))) {
 				$value = '1';
 			} else {
@@ -234,18 +239,26 @@ if(submitcheck('profilesubmit')) {
 					continue;
 				}
 				$setarr[$key] = '';
+				if(isprofileimage($space[$key])) {
+					@unlink(getglobal('setting/attachdir').'./profile/'.$space[$key]);
+				}
 				$attach['attachment'] = dhtmlspecialchars(trim($attach['attachment']));
 				if($vid && $verifyconfig['available'] && isset($verifyconfig['field'][$key])) {
 					if(isset($verifyinfo['field'][$key])) {
 						$verifyarr[$key] = $attach['attachment'];
+						if(isprofileimage($verifyinfo['field'][$key])) {
+							@unlink(getglobal('setting/attachdir').'./profile/'.$verifyinfo['field'][$key]);
+						}
 					}
 					continue;
 				}
 				if(isset($setarr[$key]) && $_G['cache']['profilesetting'][$key]['needverify']) {
 					$verifyarr[$key] = $attach['attachment'];
+					if(isprofileimage($verifyinfo['field'][$key])) {
+						@unlink(getglobal('setting/attachdir').'./profile/'.$verifyinfo['field'][$key]);
+					}
 					continue;
 				}
-				@unlink(getglobal('setting/attachdir').'./profile/'.$space[$key]);
 				$setarr[$key] = $attach['attachment'];
 			}
 
