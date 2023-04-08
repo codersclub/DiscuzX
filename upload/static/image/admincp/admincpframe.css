@@ -26,8 +26,9 @@ nav ul ul { display: none; }
 nav ul li.active { background-color: #163e69; }
 .st-d nav ul li.active { background-color: #0a0a0a; }
 nav ul li.active ul { display: block; }
-nav ul ul a>em { display: block; width: 8px; height: 8px; border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 5px; margin-right: 10px; }
+nav ul ul a>em { display: block; width: 8px; height: 8px; border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 5px; margin-right: 10px; flex: 0 0 8px; }
 nav ul ul a>em:hover { border-radius: 1px; border-width: 1.25px; border-color: #fff; transform: scale(1.6); }
+nav ul ul a>div { flex: 0 1 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .st-d nav ul ul a>em:hover { border-color: #999;}
 .mainhd { display: flex; flex-shrink: 0; flex-direction: row; background-color: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); z-index: 1; }
 .st-d .mainhd {background-color: #000; }
