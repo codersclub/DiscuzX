@@ -88,7 +88,7 @@ if(!$op || $op == 'related') {
 		$commentlist = C::t('forum_collectioncomment')->fetch_all_by_ctid($_G['collection']['ctid'], 0, 5);
 		foreach($commentlist as &$curvalue) {
 			$curvalue['dateline'] = dgmdate($curvalue['dateline'], 'u', '9999', getglobal('setting/dateformat'));
-			$curvalue['message'] = cutstr($curvalue['message'], 50);
+			$curvalue['message'] = cutstr($curvalue['message'], 150);
 			$curvalue['rateimg'] = imgdisplayrate($curvalue['rate']);
 		}
 
