@@ -201,6 +201,7 @@ if($operation == 'admin') {
 				C::t('common_stylevar')->insert(array('styleid' => $styleid, 'variable' => $variable, 'substitute' => $substitute));
 			}
 		}
+		dmkdir(DISCUZ_ROOT.'./template/'.$identifiernew.'/');
 		updatecache(array('setting', 'styles'));
 		loadcache('style_default', true);
 		updatecache('updatediytemplate');
