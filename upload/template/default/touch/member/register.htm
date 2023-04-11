@@ -35,11 +35,17 @@
 					<li class="mli"><input type="text" class="px" autocomplete="off" value="{lang register_message}" name="regmessage" placeholder="{lang register_message}" fwin="login"></li>
 				<!--{/if}-->
 				<!--{if empty($invite) && $_G['setting']['regstatus'] == 3}-->
-					<li class="mli"><input type="text" class="px" autocomplete="off" value="{lang invite_code}" name="invitecode" placeholder="{lang invite_code}" fwin="login"></li>
+					<li class="mli"><input type="text" class="px" autocomplete="off" value="" name="invitecode" placeholder="{lang invite_code}" fwin="login"></li>
 				<!--{/if}-->
 				<!--{loop $_G['cache']['fields_register'] $field}-->
 					<!--{if $htmls[$field['fieldid']]}-->
-						<li class="mli"><strong>$field['title']</strong><br />$htmls[$field['fieldid']]</li>
+						<!--{if $field['fieldid'] == 'gender'}-->
+						<li class="flex-box mli"><div class="flex xg1">{$field['title']}</div><div class="flex-3">$htmls[$field['fieldid']]</div></li>
+						<!--{elseif $field['fieldid'] == 'birthday'}-->
+						<li class="flex-box mli"><div class="flex xg1">{$field['title']}</div><div class="flex-3 multisel">$htmls[$field['fieldid']]</div></li>
+						<!--{else}-->
+						<li class="mli">$htmls[$field['fieldid']]</li>
+						<!--{/if}-->
 					<!--{/if}-->
 				<!--{/loop}-->
 			<!--{/if}-->

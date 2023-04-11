@@ -871,6 +871,7 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .post_box li.mli .input-append {position:absolute;right:15px;color:#495057;font-size:1rem;}
 .post_box .sort_sel {width:100%;background:url('touch/arrow.svg') no-repeat right center;background-size:16px 16px;padding-left:14px;height:30px;line-height:30px;font-size:16px;border:none;color:graytext;appearance:none;-moz-appearance:none;-webkit-appearance:none;overflow:hidden}
 .post_box .attqx .sort_sel {font-size:14px;}
+.post_box .multisel .sort_sel {background: url('touch/arrow.svg') no-repeat right center;background-size: 14px 14px;padding-right: 16px;font-size: 14px;border: none;color: graytext;appearance: none;-moz-appearance: none;-webkit-appearance: none;overflow: hidden;width:auto;}
 .post_btn {padding:15px}
 .post_box .sec_code {padding:5px 15px;border-bottom:1px solid var(--dz-BOR-ed)}
 .post_box li .post_attbtn { margin-left:5px;}
@@ -982,6 +983,13 @@ body.pg_logging, body.pg_register {background-color:var(--dz-BG-0)}
 .plc .pi .message .rate ul li {display:inline-block;height:32px;margin:0 2px;overflow:hidden}
 .plc .pi .message .rate ul li img {width:32px;height:32px;border-radius:50%;overflow:hidden}
 .plc .pi .message .rate ul li a span {display:inline-block;text-align:center;font-size:14px;width:32px;height:32px;line-height:26px;overflow:hidden;border-radius:50%}
+
+.plc .pi .message table {border: 1px solid var(--dz-BOR-ed);}
+.plc .pi .message table td {overflow-wrap: anywhere;}
+
+.plc .pi .message .blockcode { overflow: hidden; margin: 10px 0; padding: 5px 10px 5px 43px; font-size:12px; border-radius:4px; background: var(--dz-BG-5) repeat-y 0 0;background-image: linear-gradient(90deg,#EDEDED,#EDEDED);background-size: 43px; color: var(--dz-FC-666); }
+.plc .pi .message .blockcode code { font-family: Monaco, Consolas, 'Lucida Console', 'Courier New', serif; font-size: 12px; line-height: 1.8em; }
+.plc .pi .message .blockcode ol li {padding-left: 10px;list-style-type: decimal-leading-zero;line-height: 1.8em;}
 
 /*----- 特殊主题-投票 -----*/
 .poll {margin:10px auto;padding:10px 15px;background-color:var(--dz-BG-5);font-size:14px;border-radius:6px}
