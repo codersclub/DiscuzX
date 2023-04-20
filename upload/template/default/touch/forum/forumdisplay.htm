@@ -83,7 +83,6 @@
 			<li class="list_top"><!--{if empty($announcement['type'])}--><a href="forum.php?mod=announcement&id=$announcement['id']#$announcement['id']"><!--{else}--><a href="$announcement['message']"><!--{/if}--><span class="micon gonggao">{lang announcement}</span>$announcement['subject']</a></li>
 		<!--{/if}-->
 		<!--{if $_G['forum_threadcount']}-->
-			<!--{eval $threadlist_data = get_attach($_G['forum_threadlist']);}-->
 			<!--{loop $_G['forum_threadlist'] $key $thread}-->
 			<!--{if !$_G['setting']['mobile']['forum']['displayorder3'] && $thread['displayorder'] > 0}-->
 				{eval continue;}
