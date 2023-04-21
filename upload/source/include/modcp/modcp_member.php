@@ -202,12 +202,6 @@ if($op == 'edit') {
 				}
 			}
 		}
-
-		if($deletecheck || $addcheck || $updatecheck) {
-			require_once(libfile('function/cache'));
-			updatecache('ipbanned');
-		}
-
 	}
 
 	$iplist = array();
