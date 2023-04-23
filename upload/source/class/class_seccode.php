@@ -306,7 +306,7 @@ class seccode {
 					$font[$i]['width'] = mt_rand($font[$i]['width'] - $this->width / 20, $font[$i]['width'] + $this->width / 20);
 					$font[$i]['height'] = mt_rand($font[$i]['height'] - $this->width / 20, $font[$i]['height'] + $this->width / 20);
 				}
-				$y = mt_rand(0, $this->height - $font[$i]['height']);
+				$y = mt_rand(0, max(0, $this->height - $font[$i]['height']));
 				if($this->shadow) {
 					$this->imcodeshadow = $this->imcode;
 					imagecolorset($this->imcodeshadow, 0, 0, 0, 0);
