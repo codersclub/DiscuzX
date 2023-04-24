@@ -166,6 +166,8 @@ if(!$operation || in_array($operation, array('plugins', 'templates'))) {
 		$unwriteabledirs = cloudaddons_dirwriteable($descdir, $subdir, $tmpdir);
 		if($unwriteabledirs) {
 			if(!submitcheck('settingsubmit')) {
+				shownav('cloudaddons', 'cloudaddons_ftp_setting');
+				showsubmenu('cloudaddons_ftp_setting');
 				showtips(cplang('cloudaddons_unwriteabledirs', array('basedir' => $typedir[$_GET['type']] != '.' ? $typedir[$_GET['type']] : '/', 'unwriteabledirs' => implode(', ', $unwriteabledirs))));
 				siteftp_form("cloudaddons&operation=download&addonids={$_GET['addonids']}&i=$addoni&end=".rawurlencode($_GET['end'])."&step=2&md5hash=".$_GET['md5hash'].'&timestamp='.$_GET['timestamp']);
 				exit;

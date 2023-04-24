@@ -7260,7 +7260,7 @@ $lang = array
 	'import_data_typeinvalid' => '数据类型错误，请返回',
 
 	'cloudaddons_ftp_setting' => '站点 FTP 设置',
-	'cloudaddons_unwriteabledirs' => '站点 {basedir} 目录下的以下目录不可写，无法在线安装此应用，请填写本站点的 FTP 连接参数(本设置不会被保存):<br />{unwriteabledirs}',
+	'cloudaddons_unwriteabledirs' => '<li>站点 {basedir} 目录下的以下目录不可写，无法在线安装此应用，请将目录设置为可写或填写本站点的 FTP 连接参数(本设置不会被保存):<br />{unwriteabledirs}</li>',
 	'cloudaddons_plugin_link' => '获取更多插件',
 	'cloudaddons_style_link' => '获取更多模板',
 	'cloudaddons_linkto' => '在应用中心查看',
