@@ -327,6 +327,9 @@ class block_article extends discuz_block {
 	function getmaxid() {
 		loadcache('databasemaxid');
 		$data = getglobal('cache/databasemaxid');
+		if(!is_array($data)) {
+			$data = array();
+		}
 		if(!isset($data['article']) || TIMESTAMP - $data['article']['dateline'] >= 86400) {
 			$data['article']['dateline'] = TIMESTAMP;
 			$data['article']['id'] = DB::result_first('SELECT MAX(aid) FROM '.DB::table('portal_article_title'));

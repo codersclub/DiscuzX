@@ -560,6 +560,9 @@ class block_thread extends discuz_block {
 	function getmaxid() {
 		loadcache('databasemaxid');
 		$data = getglobal('cache/databasemaxid');
+		if(!is_array($data)) {
+			$data = array();
+		}
 		if(!isset($data['thread']) || TIMESTAMP - $data['thread']['dateline'] >= 86400) {
 			$data['thread']['dateline'] = TIMESTAMP;
 			$data['thread']['id'] = DB::result_first('SELECT MAX(tid) FROM '.DB::table('forum_thread'));

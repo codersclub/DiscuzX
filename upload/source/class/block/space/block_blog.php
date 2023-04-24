@@ -255,6 +255,9 @@ class block_blog extends discuz_block {
 	function getmaxid() {
 		loadcache('databasemaxid');
 		$data = getglobal('cache/databasemaxid');
+		if(!is_array($data)) {
+			$data = array();
+		}
 		if(!isset($data['blog']) || TIMESTAMP - $data['blog']['dateline'] >= 86400) {
 			$data['blog']['dateline'] = TIMESTAMP;
 			$data['blog']['id'] = DB::result_first('SELECT MAX(blogid) FROM '.DB::table('home_blog'));
