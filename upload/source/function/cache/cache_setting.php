@@ -338,7 +338,7 @@ function build_cache_setting() {
 
 	list($data['plugins'], $data['pluginlinks'], $data['hookscript'], $data['hookscriptmobile'], $data['threadplugins'], $data['specialicon']) = get_cachedata_setting_plugin();
 
-	if(empty($data['defaultindex'])) $data['defaultindex'] = array();
+	if(empty($data['defaultindex'])) $data['defaultindex'] = '';
 	list($data['navs'], $data['subnavs'], $data['menunavs'], $data['navmns'], $data['navmn'], $data['navdms'], $data['navlogos']) = get_cachedata_mainnav();
 
 	$data['footernavs'] = get_cachedata_footernav();
