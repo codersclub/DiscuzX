@@ -111,7 +111,7 @@ if(!submitcheck('topicsubmit', 0, $seccodecheck, $secqaacheck)) {
 					$pluginlang = lang('plugin/'.$specialextra);
 					$buttontext = property_exists($threadpluginclass, 'buttontext') ? (isset($pluginlang[$threadpluginclass->buttontext]) ? $pluginlang[$threadpluginclass->buttontext] : $threadpluginclass->buttontext) : '';
 					$iconfile = $threadpluginclass->iconfile;
-					$iconsflip = array_flip($_G['cache']['icons']);
+					$iconsflip = $_G['cache']['icons'] ? array_flip($_G['cache']['icons']) : array();
 					$thread['iconid'] = $iconsflip[$iconfile];
 				}
 			}

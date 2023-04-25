@@ -932,7 +932,7 @@ function dgmdate($timestamp, $format = 'dt', $timeoffset = 9999, $uformat = '') 
 function dmktime($date) {
 	if(strpos($date, '-')) {
 		$time = explode('-', $date);
-		return mktime(0, 0, 0, $time[1], $time[2], $time[0]);
+		return mktime(0, 0, 0, intval($time[1]), intval($time[2]), intval($time[0]));
 	}
 	return 0;
 }
