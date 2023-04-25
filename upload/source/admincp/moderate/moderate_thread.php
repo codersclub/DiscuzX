@@ -96,6 +96,11 @@ if(!submitcheck('modsubmit') && !$_GET['fast']) {
 	loadcache('forums');
 	require_once libfile('function/misc');
 	foreach($threadlist as $thread) {
+		//修正数据：帖子已经通过，却仍然显示在待审核列表
+		if($thread['displayorder'] >= 0) {
+			updatemoderate('tid', $thread['tid'], 2);
+			continue;
+		}
 		$threadsortinfo = '';
 		$thread['useip'] = $thread['useip'] . '-' . convertip($thread['useip']);
 		if($thread['authorid'] && $thread['author']) {
