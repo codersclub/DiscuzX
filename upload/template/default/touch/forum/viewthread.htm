@@ -170,20 +170,20 @@
 							</div>
 						<!--{else}-->
 							<!--{if (($_G['forum']['ismoderator'] && $_G['group']['alloweditpost'] && (!in_array($post['adminid'], array(1, 2, 3)) || $_G['adminid'] <= $post['adminid'])) || ($_G['forum']['alloweditpost'] && $_G['uid'] && ($post['authorid'] == $_G['uid'] && $_G['forum_thread']['closed'] == 0) && !(!$alloweditpost_status && $edittimelimit && TIMESTAMP - $post['dbdateline'] > $edittimelimit)))}-->
-								<em class="mgl"><a href="forum.php?mod=post&action=edit&fid={$_G['fid']}&tid={$_G['tid']}&pid={$post['pid']}{if !empty($_GET['modthreadkey'])}&modthreadkey={$_GET['modthreadkey']}{/if}&page={$page}" class="popup"><!--{if $_G['forum_thread']['special'] == 2 && !$post['message']}-->{lang post_add_aboutcounter}<!--{else}-->{lang edit}<!--{/if}--></a></em>
+								<em class="mgl"><a href="forum.php?mod=post&action=edit&fid={$_G['fid']}&tid={$_G['tid']}&pid={$post['pid']}{if !empty($_GET['modthreadkey'])}&modthreadkey={$_GET['modthreadkey']}{/if}&page={$page}"><!--{if $_G['forum_thread']['special'] == 2 && !$post['message']}-->{lang post_add_aboutcounter}<!--{else}-->{lang edit}<!--{/if}--></a></em>
 							<!--{elseif $_G['uid'] && $post['authorid'] == $_G['uid'] && $_G['setting']['postappend']}-->
-								<em class="mgl"><a href="forum.php?mod=misc&action=postappend&tid={$post['tid']}&pid={$post['pid']}&extra={$_GET['extra']}&page={$page}" class="popup">{lang postappend}</a></em>
+								<em class="mgl"><a href="forum.php?mod=misc&action=postappend&tid={$post['tid']}&pid={$post['pid']}&extra={$_GET['extra']}&page={$page}">{lang postappend}</a></em>
 							<!--{/if}-->
 						<!--{/if}-->
 					$post['dateline']
 				</li>
 				<!--{if !$post['first'] && $_G['forum_thread']['special'] == 5}-->
 				<li class="mtime">
-					<!--{if $post[stand] == 1}--><em class="f_g"><a class="f_g" href="forum.php?mod=viewthread&tid=$_G['tid']&extra=$_GET['extra']&filter=debate&stand=1">{lang debate_square}</a></em>
-					<!--{elseif $post[stand] == 2}--><em class="f_b"><a class="f_b" href="forum.php?mod=viewthread&tid=$_G['tid']&extra=$_GET['extra']&filter=debate&stand=2">{lang debate_opponent}</a></em>
-					<!--{else}--><a href="forum.php?mod=viewthread&tid=$_G[tid]&extra=$_GET[extra]&filter=debate&stand=0">{lang debate_neutral}</a><!--{/if}-->
-					<!--{if $post[stand]}-->
-						<a class="dialog" href="forum.php?mod=misc&action=debatevote&tid=$_G['tid']&pid=$post['pid']" id="voterdebate_$post['pid']">{lang debate_support} $post[voters]</a>
+					<!--{if $post['stand'] == 1}--><em class="f_g"><a class="f_g" href="forum.php?mod=viewthread&tid=$_G['tid']&extra=$_GET['extra']&filter=debate&stand=1">{lang debate_square}</a></em>
+					<!--{elseif $post['stand'] == 2}--><em class="f_b"><a class="f_b" href="forum.php?mod=viewthread&tid=$_G['tid']&extra=$_GET['extra']&filter=debate&stand=2">{lang debate_opponent}</a></em>
+					<!--{else}--><a href="forum.php?mod=viewthread&tid=$_G['tid']&extra=$_GET['extra']&filter=debate&stand=0">{lang debate_neutral}</a><!--{/if}-->
+					<!--{if $post['stand']}-->
+						<a class="dialog" href="forum.php?mod=misc&action=debatevote&tid=$_G['tid']&pid=$post['pid']" id="voterdebate_$post['pid']">{lang debate_support} $post['voters']</a>
 					<!--{/if}-->
 				</li>
 				<!--{/if}-->
@@ -217,11 +217,11 @@
 							<!--{if $threadsortshow['optionlist'] == 'expire'}-->
 								{lang has_expired}
 							<!--{else}-->
-								<div class="box_ex2 viewsort">
+								<div class="box_ex2 viewsort b_b mb10">
 									<h4>$_G['forum']['threadsorts']['types'][$_G['forum_thread']['sortid']]</h4>
 								<!--{loop $threadsortshow['optionlist'] $option}-->
 									<!--{if $option['type'] != 'info'}-->
-										$option['title']: <!--{if $option['value']}-->$option['value'] $option['unit']<!--{else}--><span class="grey">--</span><!--{/if}--><br />
+										$option['title']: <!--{if $option['value']}-->$option['value'] $option['unit']<!--{else}--><span class="fc-s">--</span><!--{/if}--><br />
 									<!--{/if}-->
 								<!--{/loop}-->
 								</div>

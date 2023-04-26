@@ -4,15 +4,15 @@
 	<h2><!--{if in_array($do, array('following'))}-->{lang follow_add}<!--{elseif in_array($do, array('follower'))}-->{lang follow_follower}<!--{else}-->{lang follow}<!--{/if}--></h2>
 </div>
 
+<!--{if in_array($do, array('feed', 'view'))}-->
+<div class="dhnv flex-box cl">
+	<a href="home.php?mod=follow&view=follow" class="flex{if $_GET['view'] == 'follow' || $_GET['view'] == ''} mon{/if}">{lang follow_following}</a>
+	<a href="home.php?mod=follow&view=special" class="flex{if $_GET['view'] == 'special'} mon{/if}">{lang follow_special_following}</a>
+	<a href="home.php?mod=follow&view=other" class="flex{if $_GET['view'] == 'other'} mon{/if}">{lang follow_hall}</a>
+</div>
+<!--{/if}-->
 <div class="bodybox threadlist_box p10 cl">
 	<!--{if in_array($do, array('feed', 'view'))}-->
-		<div class="dhnv flex-box cl">
-			<a href="home.php?mod=follow&view=follow" class="flex{if $_GET['view'] == 'follow' || $_GET['view'] == ''} mon{/if}">{lang follow_following}</a>
-			<a href="home.php?mod=follow&view=special" class="flex{if $_GET['view'] == 'special'} mon{/if}">{lang follow_special_following}</a>
-			<a href="home.php?mod=follow&view=other" class="flex{if $_GET['view'] == 'other'} mon{/if}">{lang follow_hall}</a>
-		</div>
-
-		<div class="discuz_x cl"></div>
 		<!--{if helper_access::check_module('follow') && ( $do == 'feed' || ( $do == 'view' && $viewself))}-->
 			<!--{if $do == 'feed'}-->
 			<div class="stat cl">
