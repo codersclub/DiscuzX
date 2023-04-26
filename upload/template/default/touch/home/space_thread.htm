@@ -1,15 +1,22 @@
 <!--{template common/header}-->
 <div class="header cl">
 	<div class="mz"><a href="javascript:history.back();"><i class="dm-c-left"></i></a></div>
-	<h2><!--{if $_G['uid'] == $space['uid']}-->{lang mythread}<!--{else}-->{$space['username']}{lang mobta}{lang mobthread}<!--{/if}--></h2>
+	<h2>
+		<!--{if $_G['uid'] == $space['uid']}-->
+			<!--{if $_GET['type'] == 'reply'}-->{lang my}{lang reply}<!--{elseif $_GET['type'] == 'postcomment'}-->{lang my}{lang post_comment}<!--{else}-->{lang mythread}<!--{/if}-->
+		<!--{else}-->
+			{$space['username']} - <!--{if $_GET['type'] == 'reply'}-->{lang mobta}{lang reply}<!--{elseif $_GET['type'] == 'postcomment'}-->{lang mobta}{lang post_comment}<!--{else}-->{lang mobta}{lang mobthread}<!--{/if}-->
+		<!--{/if}-->
+	</h2>
 	<div class="my"><a href="<!--{if $_G['setting']['mobile']['mobilehotthread']}--><!--{if !empty($_G['setting']['grid']['showgrid'])}-->forum.php<!--{else}-->forum.php?mod=guide&view=newthread<!--{/if}--><!--{else}-->forum.php?forumlist=1<!--{/if}-->"><i class="dm-house"></i></a></div>
 </div>
 <!--{if $list}-->
 	<!--{eval $threadlist_data = get_attach($list);}-->
 	<div class="threadlist cl">
 		<ul>
-			<!--{loop $list $thread}-->
+			<!--{loop $list $stid $thread}-->
 			<li class="list">
+				<!--{if $viewtype == 'thread'}-->
 				<div class="threadlist_top cl">
 					<a href="home.php?mod=space&uid={$thread['authorid']}" class="mimg"><img src="<!--{avatar($thread['authorid'], 'middle', true)}-->"></a>
 					<div class="muser">
@@ -17,7 +24,12 @@
 						<span class="mtime">{$thread['dateline']}</span>
 					</div>
 				</div>
+				<!--{/if}-->
+				<!--{if $viewtype == 'reply' || $viewtype == 'postcomment'}-->
+				<a href="forum.php?mod=redirect&goto=findpost&ptid=$thread['tid']&pid=$thread['pid']" target="_blank" class="mt10">
+				<!--{else}-->
 				<a href="forum.php?mod=viewthread&tid=$thread['tid']&extra=$extra">
+				<!--{/if}-->
 				<div class="threadlist_tit cl">
 					<!--{if $thread['folder'] == 'lock'}-->
 						<span class="micon lock">{lang closed_thread}</span>
@@ -41,30 +53,39 @@
 					<!--{if $thread['digest'] > 0}-->
 						<span class="micon digest">{lang thread_digest}</span>
 					<!--{/if}-->
-					<em $thread['highlight']>{$thread['subject']}</em>					
+					<em $thread['highlight']>{$thread['subject']}</em>
 				</div>
 				</a>
-				<!--{if $threadlist_data[$thread['tid']]['attachment']}-->
-				<!--{eval $attach_on = 0;}-->
-				<a href="forum.php?mod=viewthread&tid=$thread['tid']&extra=$extra">
-					<div class="{if count($threadlist_data[$thread['tid']]['attachment']) == 1}threadlist_imgs1 {elseif count($threadlist_data[$thread['tid']]['attachment']) == 2} threadlist_imgs threadlist_imgs2{else} threadlist_imgs{/if} cl">
+				<!--{if $actives['me'] && $viewtype == 'reply'}-->
+					<!--{loop $tids[$stid] $pid}-->
+					<!--{eval $post = $posts[$pid];}-->
+					<a href="forum.php?mod=redirect&goto=findpost&ptid=$thread[tid]&pid=$pid" target="_blank"><div class="quote"><blockquote><!--{if $post['message'] || is_numeric($post['message'])}-->{$post[message]}<!--{else}-->......<!--{/if}--></blockquote></div></a>
+					<!--{/loop}-->
+				<!--{elseif $actives['me'] && $viewtype=='postcomment'}-->
+					<div class="quote">$thread['comment']</div>
+				<!--{else}-->
+					<!--{if $threadlist_data[$thread['tid']]['attachment']}-->
+					<!--{eval $attach_on = 0;}-->
+					<a href="forum.php?mod=viewthread&tid=$thread['tid']&extra=$extra">
+						<div class="{if count($threadlist_data[$thread['tid']]['attachment']) == 1}threadlist_imgs1 {elseif count($threadlist_data[$thread['tid']]['attachment']) == 2} threadlist_imgs threadlist_imgs2{else} threadlist_imgs{/if} cl">
+							<ul>
+								<!--{loop $threadlist_data[$thread['tid']]['attachment'] $value}-->
+								<!--{eval $attach_on++; if($attach_on > 9) break;}-->
+								<li><!--{if count($threadlist_data[$thread['tid']]['attachment']) > 9 && $attach_on == 9}--><em>{echo count($threadlist_data[$thread['tid']]['attachment'])}{lang mobtu}</em><!--{/if}--><img src="$value" class="vm"></li>
+								<!--{/loop}-->
+							</ul>
+						</div>
+					</a>
+					<!--{/if}-->
+					<a href="forum.php?mod=viewthread&tid=$thread['tid']&extra=$extra"><div class="threadlist_mes cl">{$threadlist_data[$thread['tid']]['message']}</div></a>
+					<div class="threadlist_foot cl">
 						<ul>
-							<!--{loop $threadlist_data[$thread['tid']]['attachment'] $value}-->
-							<!--{eval $attach_on++; if($attach_on > 9) break;}-->
-							<li><!--{if count($threadlist_data[$thread['tid']]['attachment']) > 9 && $attach_on == 9}--><em>{echo count($threadlist_data[$thread['tid']]['attachment'])}{lang mobtu}</em><!--{/if}--><img src="$value" class="vm"></li>
-							<!--{/loop}-->
+							<li class="mr"><a href="forum.php?mod=forumdisplay&fid=$thread['fid']">#{$_G['cache']['forums'][$thread['fid']]['name']}</a></li>
+							<li><i class="dm-eye-fill"></i>{$thread['views']}</li>
+							<li><i class="dm-chat-s-fill"></i>{$thread['replies']}</li>
 						</ul>
 					</div>
-				</a>
 				<!--{/if}-->
-				<a href="forum.php?mod=viewthread&tid=$thread['tid']&extra=$extra"><div class="threadlist_mes cl">{$threadlist_data[$thread['tid']]['message']}</div></a>
-				<div class="threadlist_foot cl">
-					<ul>
-						<li class="mr"><a href="forum.php?mod=forumdisplay&fid=$thread['fid']">#{$_G['cache']['forums'][$thread['fid']]['name']}</a></li>
-						<li><i class="dm-eye-fill"></i>{$thread['views']}</li>
-						<li><i class="dm-chat-s-fill"></i>{$thread['replies']}</li>
-					</ul>
-				</div>
 			</li>
 			<!--{/loop}-->
 		</ul>
