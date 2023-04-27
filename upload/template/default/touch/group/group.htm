@@ -9,27 +9,33 @@
 	<!--{if $_G['page'] == 1}-->
 	<div class="forumdisplay-top cl">
 		<h2>
-            <!--{if strstr($_G['forum']['icon'],'groupicon.gif')}-->
-            <svg width="48" height="50"><path fill="#{if $val['folder']}fdc910{else}c9c9c9{/if}" d="M48 20C48 9 37.3 0 24 0S0 8.9 0 20s10.7 20 24 20c2.4 0 4.7-.3 6.8-.8L42 44l-2.8-8.5C44.6 31.8 48 26.2 48 20z"/></svg>
-            <!--{else}-->
-            <img src="$_G['forum']['icon']" />
-            <!--{/if}-->
+			<!--{if strstr($_G['forum']['icon'],'groupicon.gif')}-->
+			<svg width="48" height="50"><path fill="#{if $val['folder']}fdc910{else}c9c9c9{/if}" d="M48 20C48 9 37.3 0 24 0S0 8.9 0 20s10.7 20 24 20c2.4 0 4.7-.3 6.8-.8L42 44l-2.8-8.5C44.6 31.8 48 26.2 48 20z"/></svg>
+			<!--{else}-->
+			<img src="$_G['forum']['icon']" />
+			<!--{/if}-->
 			<!--{if helper_access::check_module('group') && $status != 'isgroupuser'}-->
 				<!--{if $status != 2 && $status != 3 && $status != 5}-->
 				<form action="forum.php?mod=group&action=join&fid=$_G['fid']" id="groupjoinform_$_G['fid']" method="post" autocomplete="off">
 					<input type="hidden" name="formhash" value="{FORMHASH}">
 					<input type="hidden" name="groupjoin" value="1">
-					<button type="submit" id="a_favorite" class="formdialog"><em>{lang group_join_group}</em></button>
+					<button type="submit" class="formdialog button"><em>{lang group_join_group}</em></button>
 				</form>
 				<!--{/if}-->
 			<!--{else}-->
+				<form action="forum.php?mod=group&action=out&fid=$_G['fid']" id="groupoutform_$_G['fid']" method="post" autocomplete="off">
+					<input type="hidden" name="formhash" value="{FORMHASH}">
+					<input type="hidden" name="groupexit" value="1">
+					<button type="submit" class="formdialog button"><em>{lang group_exit}</em></button>
+				</form>
 			<!--{if helper_access::check_module('favorite')}-->
-				<a href="home.php?mod=spacecp&ac=favorite&type=group&id={$_G['forum']['fid']}&handlekey=favoriteforum&formhash={FORMHASH}" id="a_favorite" class="dialog">{lang favorite}<span id="number_favorite" {if !$_G['forum']['favtimes']} style="display:none;"{/if}><span id="number_favorite_num"> +{$_G['forum']['favtimes']}</span></span></a>
+				<span class="pipe y">&nbsp;</span>
+				<a href="home.php?mod=spacecp&ac=favorite&type=group&id={$_G['forum']['fid']}&handlekey=favoriteforum&formhash={FORMHASH}" id="a_favorite" class="dialog">{lang favorite}<span id="number_favorite" {if !$_G['forum']['favtimes']} style="display:none;"{/if}> +{$_G['forum']['favtimes']}</span></a>
 			<!--{/if}-->
 			<!--{/if}-->
 			$_G['forum']['name']
 		</h2>
-		<p><a href="javascript:;">{lang threads}</a><span>{$_G['forum']['threads']}</span><a href="forum.php?mod=group&action=memberlist&fid=$_G['fid']">{lang member}<span>{$_G['forum']['membernum']}</span></a></p>
+		<p><a href="javascript:;">{lang threads}</a><span> {$_G['forum']['threads']}</span><a href="forum.php?mod=group&action=memberlist&fid=$_G['fid']">{lang member}<span> {$_G['forum']['membernum']}</span></a></p>
 		<!--{if $_G['forum']['description']}--><p class="mt5">{$_G['forum']['description']}</p><!--{/if}-->
 	</div>
 	<!--{/if}-->

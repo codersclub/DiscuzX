@@ -53,7 +53,19 @@
 	});
 </script>
 <!--{/if}-->
-
+<form class="searchform" method="post" autocomplete="off" action="search.php?mod=group&srchfid=$_G['fid']">
+	<input type="hidden" name="formhash" value="{FORMHASH}" />
+	<div class="search flex-box">
+		<input value="$keyword" autocomplete="off" class="mtxt flex" name="srchtxt" id="scform_srchtxt" value="" placeholder="{lang mobsearchtxt}">
+		<input type="hidden" name="searchsubmit" value="yes"><input type="submit" value="{lang search}" class="mbtn" id="scform_submit">
+	</div>
+	<!--{eval $policymsgs = $p = '';}-->
+	<!--{loop $_G['setting']['creditspolicy']['search'] $id $policy}-->
+	<!--{block policymsg}--><!--{if $_G['setting']['extcredits'][$id]['img']}-->$_G['setting']['extcredits'][$id]['img'] <!--{/if}-->$_G['setting']['extcredits'][$id]['title'] $policy $_G['setting']['extcredits'][$id]['unit']<!--{/block}-->
+	<!--{eval $policymsgs .= $p.$policymsg;$p = ', ';}-->
+	<!--{/loop}-->
+	<!--{if $policymsgs}--><p>{lang search_credit_msg}</p><!--{/if}-->
+</form>
 <div class="threadlist_box<!--{if ((in_array($thread['displayorder'], array(1, 2, 3, 4)))) && $_G['page'] == 1}--> mt10<!--{/if}--> cl">
 	<div class="threadlist cl">
 		<ul>
@@ -112,7 +124,7 @@
 					<!--{if $thread['digest'] > 0}-->
 						<span class="micon digest">{lang thread_digest}</span>
 					<!--{/if}-->
-					<em $thread['highlight']>{$thread['subject']}</em>					
+					<em $thread['highlight']>{$thread['subject']}</em>
 				</div>
 				</a>
 				<a href="forum.php?mod=viewthread&tid=$thread['tid']&extra=$extra"><div class="threadlist_mes cl">{$threadlist_data[$thread['tid']]['message']}</div></a>
@@ -128,7 +140,7 @@
 						</ul>
 					</div>
 				</a>
-				<!--{/if}-->				
+				<!--{/if}-->
 				
 				<div class="threadlist_foot cl">
 					<ul>
