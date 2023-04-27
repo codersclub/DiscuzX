@@ -1974,7 +1974,7 @@ $lang = array
 	'setting_credits_policy_lowerlimit' => '积分策略下限',
 	'setting_credits_policy_lowerlimit_comment' => '当用户该项积分低于此下限时，将禁止用户执行积分策略中涉及扣减此项积分的操作。例如设置为 -100，而“搜索”扣减该积分 10 个单位，则当用户该项积分小于 -100 时，将不能再执行“搜索”操作',
 	'setting_credits_policy' => '积分策略',
-	'setting_credits_policy_comment' => '各项积分增减允许的范围为 -99～+99。如果为更多的操作设置积分策略，系统就需要更频繁的更新用户积分，同时意味着消耗更多的系统资源，因此请根据实际情况酌情设置。<a href="home.php?mod=spacecp&ac=credit&op=rule" target="_blank">查看积分规则</a>',
+	'setting_credits_policy_comment' => '<li>各项积分增减允许的范围为 -99～+99。如果为更多的操作设置积分策略，系统就需要更频繁的更新用户积分，同时意味着消耗更多的系统资源，因此请根据实际情况酌情设置。<a href="home.php?mod=spacecp&ac=credit&op=rule" target="_blank">查看积分规则</a></li>',
 	'setting_credits_policy_post' => '发主题(+)',
 	'setting_credits_policy_post_comment' => '作者发新主题增加的积分数，如果该主题被删除，作者积分也会按此标准相应减少',
 	'setting_credits_policy_reply' => '回复(+)',
