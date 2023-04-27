@@ -8,7 +8,10 @@
 <div class="wzview cl">
 	<div class="wzview_top cl">
 		<h2>$article['title']<!--{if $article['status'] == 1}--><span>({lang moderate_need})</span><!--{elseif $article['status'] == 2}--><span>({lang ignored})</span><!--{/if}--></h2>
-		<p><span>$article['dateline']</span><span>{lang view_views}<!--{if $article['viewnum'] > 0}-->$article['viewnum']<!--{else}-->0<!--{/if}--></span><span>{lang view_comments}<!--{if $article['commentnum'] > 0}-->$article['commentnum']<!--{else}-->0<!--{/if}--></span><!--{if $article['from']}--><span><!--{if $article['fromurl']}--><a href="$article['fromurl']">$article['from']</a><!--{else}-->$article['from']<!--{/if}--></span><!--{/if}--></p>
+		<p>
+			<span>$article['dateline']</span><span>{lang view_views}<!--{if $article['viewnum'] > 0}-->$article['viewnum']<!--{else}-->0<!--{/if}--></span><span>{lang view_comments}<!--{if $article['commentnum'] > 0}-->$article['commentnum']<!--{else}-->0<!--{/if}--></span><!--{if $article['from']}--><span><!--{if $article['fromurl']}--><a href="$article['fromurl']">$article['from']</a><!--{else}-->$article['from']<!--{/if}--></span><!--{/if}-->
+			<!--{hook/view_article_subtitle_mobile}-->
+		</p>
 	</div>
 	<!--{if $article['summary'] && empty($cat['notshowarticlesummay'])}-->
 		<div class="wzview_desc cl"><span>{lang article_description}:</span>$article['summary']</div>
