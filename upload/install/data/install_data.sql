@@ -13,8 +13,8 @@ INSERT INTO pre_common_credit_rule VALUES ('4','上传附件','postattach','4','
 INSERT INTO pre_common_credit_rule VALUES ('5','下载附件','getattach','4','0','0','0','0','0','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('6','发短消息','sendpm','4','0','0','0','0','0','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('7','搜索','search','4','0','0','0','0','0','0','0','0','0','0','0','');
-INSERT INTO pre_common_credit_rule VALUES ('8','访问推广','promotion_visit','4','0','0','0','0','1','0','0','0','0','0','0','');
-INSERT INTO pre_common_credit_rule VALUES ('9','注册推广','promotion_register','4','0','0','0','0','2','0','0','0','0','0','0','');
+INSERT INTO pre_common_credit_rule VALUES ('8','访问推广','promotion_visit','1','0','1','0','0','0','0','0','0','0','0','0','');
+INSERT INTO pre_common_credit_rule VALUES ('9','注册推广','promotion_register','1','0','1','0','0','0','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('10','成功交易','tradefinished','4','0','0','0','0','0','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('11','邮箱认证','realemail','0','0','1','0','0','10','0','0','0','0','0','0','');
 INSERT INTO pre_common_credit_rule VALUES ('12','设置头像','setavatar','0','0','1','0','0','5','0','0','0','0','0','0','');
