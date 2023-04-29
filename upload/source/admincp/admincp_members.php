@@ -401,7 +401,7 @@ EOF;
 		$urladd = '';
 		if(!empty($_GET['username'])) {
 			$uid = C::t('common_member')->fetch_uid_by_username($_GET['username']);
-			$searchmember = $uid ? C::t('common_member_status')->fetch($uid) : '';
+			$searchmember = $uid ? C::t('common_member_status')->fetch($uid) : array();
 			$searchmember['username'] = $_GET['username'];
 			$urladd .= '&username='.$_GET['username'];
 		} elseif(!empty($_GET['uid'])) {
