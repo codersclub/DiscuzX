@@ -5,7 +5,7 @@
 			<div id="dhnavs_li">
 				<ul class="swiper-wrapper" id="post_extra_tb" onselectstart="return false">
 					<li class="swiper-slide" id="extra_additional_b" onclick="showExtra('extra_additional')"><a>{lang post_additional_options}</a></li>
-					<!--{if $_GET[action] == 'newthread' || $_GET[action] == 'edit' && $isfirstpost}-->
+					<!--{if $_GET['action'] == 'newthread' || $_GET['action'] == 'edit' && $isfirstpost}-->
 						<!--{if $_G['group']['allowsetreadperm']}-->
 							<li class="swiper-slide" id="extra_readperm_b" onclick="showExtra('extra_readperm')"><a>{lang readperm}</a></li>
 						<!--{/if}-->
@@ -16,11 +16,11 @@
 								<!--{eval $extcreditstype = !empty($replycredit_rule['extcreditstype']) ? $replycredit_rule['extcreditstype'] : $_G['setting']['creditstransextra'][10];}-->
 							<!--{/if}-->
 							<!--{eval $userextcredit = getuserprofile('extcredits'.$extcreditstype);}-->
-							<!--{if ($_GET[action] == 'newthread' && $userextcredit > 0) || ($_GET[action] == 'edit' && $isorigauthor && $isfirstpost)}-->
+							<!--{if ($_GET['action'] == 'newthread' && $userextcredit > 0) || ($_GET['action'] == 'edit' && $isorigauthor && $isfirstpost)}-->
 								<li class="swiper-slide" id="extra_replycredit_b" onclick="showExtra('extra_replycredit')"><a>{lang replycredit}</a></li>
 							<!--{/if}-->
 						<!--{/if}-->
-						<!--{if ($_GET[action] == 'newthread' && $_G['group']['allowpostrushreply'] && $special != 2) || ($_GET[action] == 'edit' && getstatus($thread['status'], 3))}-->
+						<!--{if ($_GET['action'] == 'newthread' && $_G['group']['allowpostrushreply'] && $special != 2) || ($_GET['action'] == 'edit' && getstatus($thread['status'], 3))}-->
 							<li class="swiper-slide" id="extra_rushreplyset_b" onclick="showExtra('extra_rushreplyset')"><a>{lang rushreply_thread}</a></li>
 						<!--{/if}-->
 						<!--{if $_G['group']['maxprice'] && !$special}-->
@@ -29,10 +29,11 @@
 						<!--{if $_G['group']['allowposttag']}-->
 							<li class="swiper-slide" id="extra_tag_b" onclick="showExtra('extra_tag')"><a>{lang posttag}</a></li>
 						<!--{/if}-->
-						<!--{if $_G['group']['allowsetpublishdate'] && ($_GET[action] == 'newthread' || ($_GET[action] == 'edit' && $isfirstpost && $thread['displayorder'] == -4))}-->
+						<!--{if $_G['group']['allowsetpublishdate'] && ($_GET['action'] == 'newthread' || ($_GET['action'] == 'edit' && $isfirstpost && $thread['displayorder'] == -4))}-->
 							<li class="swiper-slide" id="extra_pubdate_b" onclick="showExtra('extra_pubdate')"><a>{lang post_timer}</a></li>
 						<!--{/if}-->
 					<!--{/if}-->
+					<!--{hook/post_attribute_extra_mobile}-->
 				</ul>
 			</div>
 		</div>
@@ -40,7 +41,7 @@
 </li>
 
 <div class="setbox" id="post_extra_c">
-	<!--{if $_GET[action] == 'newthread' || $_GET[action] == 'edit' && $isfirstpost}-->
+	<!--{if $_GET['action'] == 'newthread' || $_GET[action] == 'edit' && $isfirstpost}-->
 		<!--{if !empty($userextcredit)}-->
 			<div id="extra_replycredit_c" class="exfm cl" style="display: none;">
 				<ul class="cl">
@@ -87,7 +88,7 @@
 					<li class="flex-box mli">
 						<div class="tit">{lang readperm}:</div>
 						<div class="flex input">
-						<select name="readperm" id="readperm" class="sort_sel" onchange="extraCheck(1)">
+						<select name="readperm" id="readperm" class="sort_sel">
 							<option value="">{lang unlimited}</option>
 							<!--{loop $_G['cache']['groupreadaccess'] $val}-->
 								<option value="$val[readaccess]" title="{lang readperm}: $val[readaccess]"{if $thread['readperm'] == $val[readaccess]} selected="selected"{/if}>$val[grouptitle]</option>
@@ -136,17 +137,17 @@
 			</div>
 		<!--{/if}-->
 
-		<!--{if ($_GET[action] == 'newthread' && $_G['group']['allowpostrushreply'] && $special != 2) || ($_GET[action] == 'edit' && getstatus($thread['status'], 3))}-->
+		<!--{if ($_GET['action'] == 'newthread' && $_G['group']['allowpostrushreply'] && $special != 2) || ($_GET[action] == 'edit' && getstatus($thread['status'], 3))}-->
 			<div id="extra_rushreplyset_c" class="exfm cl" style="display: none;">
 				<ul class="cl">
-					<li class="mli"><label for="rushreply"><input type="checkbox" name="rushreply" id="rushreply" class="pc vm" value="1" {if $_GET[action] == 'edit' && getstatus($thread['status'], 3)}disabled="disabled" checked="checked"{/if} onclick="extraCheck(3)" /> {lang rushreply_change}</label></li>
+					<li class="mli"><label for="rushreply"><input type="checkbox" name="rushreply" id="rushreply" class="pc vm" value="1" {if $_GET['action'] == 'edit' && getstatus($thread['status'], 3)}disabled="disabled" checked="checked"{/if} /> {lang rushreply_change}</label></li>
 					<li class="flex-box mli">
 						<div class="tit">{lang thread_rushreply_start}</div>
-						<div class=""><input type="text" name="rushreplyfrom" id="rushreplyfrom" class="px" onclick="showcalendar(event, this, true)" autocomplete="off" value="{$postinfo[rush][starttimefrom] or ''}" onkeyup="$('rushreply').checked = true;" /></div>
+						<div class=""><input type="text" name="rushreplyfrom" id="rushreplyfrom" class="px" autocomplete="off" value="{$postinfo['rush']['starttimefrom'] or ''}" onkeyup="getID('rushreply').checked = true;" /></div>
 					</li>
 					<li class="flex-box mli">
 						<div class="tit">{lang thread_rushreply_over}</div>
-						<div class=""><input type="text" onclick="showcalendar(event, this, true)" autocomplete="off" id="rushreplyto" name="rushreplyto" class="px" value="{$postinfo[rush][starttimeto] or ''}" onkeyup="$('rushreply').checked = true;" /></div>
+						<div class=""><input type="text" autocomplete="off" id="rushreplyto" name="rushreplyto" class="px" value="{$postinfo['rush']['starttimeto'] or ''}" onkeyup="getID('rushreply').checked = true;" /></div>
 					</li>
 					<li class="flex-box mli">
 						<div class="tit">{lang rushreply_rewardfloor} </div>
@@ -170,10 +171,10 @@
 				</ul>
 			</div>
 		<!--{/if}-->
-		<!--{if $_G['group']['allowsetpublishdate'] && ($_GET[action] == 'newthread' || ($_GET[action] == 'edit' && $isfirstpost && $thread['displayorder'] == -4))}-->
+		<!--{if $_G['group']['allowsetpublishdate'] && ($_GET['action'] == 'newthread' || ($_GET['action'] == 'edit' && $isfirstpost && $thread['displayorder'] == -4))}-->
 			<div id="extra_pubdate_c" class="exfm cl" style="display: none;">
-				<label><input type="checkbox" name="cronpublish" onclick="if(this.checked) {$('cronpublishdate').click();doane(event,false);};extraCheck(5);hidenFollowBtn(this.checked);" id="cronpublish" value="true" class="pc"{if $cronpublish} checked="checked"{/if} />{lang post_timer}</label>
-				<input type="text" name="cronpublishdate" id="cronpublishdate" class="px" onclick="showcalendar(event, this, true, false, false, true);" autocomplete="off" value="{$cronpublishdate}" onchange="if(this.value) $('cronpublish').checked = true;">
+				<label><input type="checkbox" name="cronpublish" onclick="if(this.checked) {getID('cronpublishdate').click();doane(event,false);};hidenFollowBtn(this.checked);" id="cronpublish" value="true" class="pc"{if $cronpublish} checked="checked"{/if} />{lang post_timer}</label>
+				<input type="text" name="cronpublishdate" id="cronpublishdate" class="px" autocomplete="off" value="{$cronpublishdate}" onchange="if(this.value) getID('cronpublish').checked = true;">
 			</div>
 		<!--{/if}-->
 	<!--{/if}-->
@@ -188,16 +189,16 @@
 					<!--{if $_G['group']['allowanonymous'] || (!$_G['group']['allowanonymous'] && $orig['anonymous'])}--><label for="isanonymous"><input type="checkbox" name="isanonymous" id="isanonymous" class="pc" value="1" {if $orig['anonymous']}checked="checked"{/if} />{lang post_anonymous}</label><!--{/if}-->
 				<!--{/if}-->
 			</li>
-			<!--{if $_GET[action] == 'newthread' || $_GET[action] == 'edit' && $isfirstpost}-->
+			<!--{if $_GET['action'] == 'newthread' || $_GET['action'] == 'edit' && $isfirstpost}-->
 			<li class="mli flex-half"><label for="hiddenreplies"><input type="checkbox" name="hiddenreplies" id="hiddenreplies" class="pc"{if $thread['hiddenreplies']} checked="checked"{/if} value="1">{lang hiddenreplies}</label></li>
 			<!--{/if}-->
-			<!--{if $_G['uid'] && ($_GET[action] == 'newthread' || $_GET[action] == 'edit' && $isfirstpost) && $special != 3}-->
+			<!--{if $_G['uid'] && ($_GET['action'] == 'newthread' || $_GET[action] == 'edit' && $isfirstpost) && $special != 3}-->
 			<li class="mli flex-half"><label for="ordertype"><input type="checkbox" name="ordertype" id="ordertype" class="pc" value="1" $ordertypecheck />{lang post_descviewdefault}</label></li>
 			<!--{/if}-->
-			<!--{if ($_GET[action] == 'newthread' || $_GET[action] == 'edit' && $isfirstpost)}-->
+			<!--{if ($_GET['action'] == 'newthread' || $_GET['action'] == 'edit' && $isfirstpost)}-->
 			<li class="mli flex-half"><label for="allownoticeauthor"><input type="checkbox" name="allownoticeauthor" id="allownoticeauthor" class="pc" value="1"{if $allownoticeauthor} checked="checked"{/if} />{lang post_noticeauthor}</label></li>
 			<!--{/if}-->
-			<!--{if $_GET[action] != 'edit' && helper_access::check_module('feed') && $_G['forum']['allowfeed']}-->
+			<!--{if $_GET['action'] != 'edit' && helper_access::check_module('feed') && $_G['forum']['allowfeed']}-->
 			<li class="mli flex-half"><label for="addfeed"><input type="checkbox" name="addfeed" id="addfeed" class="pc" value="1" $addfeedcheck>{lang addfeed}</label></li>
 			<!--{/if}-->
 			<li class="mli flex-half"><label for="usesig"><input type="checkbox" name="usesig" id="usesig" class="pc" value="1" {if !$_G['group']['maxsigsize']}disabled {else}$usesigcheck {/if}/>{lang post_show_sig}</label></li>
@@ -205,7 +206,7 @@
 		<li class="mtit">{lang text_feature}</li>
 		<ul class="flex-box flex-wrap p10 cl">
 			<li class="mli flex-half">
-			<!--{if ($_G['forum']['allowhtml'] || ($_GET[action] == 'edit' && ($orig['htmlon'] & 1))) && $_G['group']['allowhtml']}-->
+			<!--{if ($_G['forum']['allowhtml'] || ($_GET['action'] == 'edit' && ($orig['htmlon'] & 1))) && $_G['group']['allowhtml']}-->
 				<label for="htmlon"><input type="checkbox" name="htmlon" id="htmlon" class="pc" value="1" $htmloncheck />{lang post_html}</label>
 			<!--{else}-->
 				<label for="htmlon"><input type="checkbox" name="htmlon" id="htmlon" class="pc" value="0" $htmloncheck disabled="disabled" />{lang post_html}</label>
@@ -236,8 +237,8 @@
 			<!--{/if}-->
 			</li>
 		</ul>
-			<!--{if $_GET[action] == 'newthread' && $_G['forum']['ismoderator'] && ($_G['group']['allowdirectpost'] || !$_G['forum']['modnewposts'])}-->
-				<!--{if $_GET[action] == 'newthread' && $_G['forum']['ismoderator'] && ($_G['group']['allowdirectpost'] || !$_G['forum']['modnewposts']) && ($_G['group']['allowstickthread'] || $_G['group']['allowdigestthread'])}-->
+			<!--{if $_GET['action'] == 'newthread' && $_G['forum']['ismoderator'] && ($_G['group']['allowdirectpost'] || !$_G['forum']['modnewposts'])}-->
+				<!--{if $_GET['action'] == 'newthread' && $_G['forum']['ismoderator'] && ($_G['group']['allowdirectpost'] || !$_G['forum']['modnewposts']) && ($_G['group']['allowstickthread'] || $_G['group']['allowdigestthread'])}-->
 				<li class="mtit">{lang manage_operation}</li>
 				<ul class="flex-box flex-wrap p10 cl">
 							<!--{if $_G['group']['allowstickthread']}-->
@@ -255,7 +256,7 @@
 				</ul>
 			<!--{/if}-->
 	</div>
-	<!--{hook/post_attribute_extra_body}-->
+	<!--{hook/post_attribute_extra_body_mobile}-->
 </div>
 <script type="text/javascript">
 	if($("#dhnavs_li .mon").length > 0) {
