@@ -72,9 +72,8 @@
 <!--{hook/register_bottom_mobile}-->
 <script type="text/javascript">
 <!--{if $sendurl}-->
-	function succeedhandle_registerform(url, message, extra)
-	{
-		popup.open(message,'confirm',url)
+	function succeedhandle_registerform(url, message, extra) {
+		popup.open(message, 'confirm', url)
 	}
 <!--{/if}-->
 <!--{if $bbrules && $bbrulesforce}-->
@@ -82,8 +81,8 @@
 <!--{/if}-->
 <!--{if $this->showregisterform}-->
 	function showBBRule() {
-		var bbruletxt = $("#layer_bbruletxt").html();
-		popup.open(bbruletxt,'alert');
+		var bbruletxt = getID("layer_bbruletxt").innerHTML;
+		popup.open(bbruletxt, 'alert');
 	}
 <!--{/if}-->
 </script>

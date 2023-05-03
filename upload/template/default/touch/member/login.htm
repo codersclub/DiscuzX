@@ -79,17 +79,21 @@
 <!--{eval updatesession();}-->
 <script type="text/javascript">
 	(function() {
-		$(document).on('change', '.sel_list', function() {
-			var obj = $(this);
-			$('.span_question').text(obj.find('option:selected').text());
-			if(obj.val() == 0) {
-				$('.answerli').css('display', 'none');
-				$('.questionli').addClass('bl_none');
+		document.addEventListener("change", function(event) {
+			if (!event.target.matches(".sel_list")) return;
+			var obj = event.target;
+			var span_question = qSel(".span_question");
+			span_question.textContent = obj.options[obj.selectedIndex].text;
+			var answerli = qSel(".answerli");
+			var questionli = qSel(".questionli");
+			if (obj.value == 0) {
+				answerli.style.display = "none";
+				questionli.classList.add("bl_none");
 			} else {
-				$('.answerli').css('display', 'block');
-				$('.questionli').removeClass('bl_none');
+				answerli.style.display = "block";
+				questionli.classList.remove("bl_none");
 			}
 		});
-	 })();
+	})();
 </script>
 <!--{template common/footer}-->

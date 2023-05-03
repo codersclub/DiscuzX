@@ -33,7 +33,7 @@
 			<!--{/loop}-->
 		<!--{/if}-->
 		var pwlength = <!--{if $_G['setting']['pwlength']}-->$_G['setting']['pwlength']<!--{else}-->0<!--{/if}-->;
-		checkPwdComplexity($('newpasswd1'), $('newpasswd2'));
+		checkPwdComplexity(getID('newpasswd1'), getID('newpasswd2'));
 	</script>
 </div>
 <!--{template common/footer}-->
