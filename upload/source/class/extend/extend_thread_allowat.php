@@ -61,7 +61,7 @@ class extend_thread_allowat extends extend_thread_base {
 
 	public function before_newreply($parameters) {
 		if($this->group['allowat']) {
-			$atlist_tmp = $ateduids = array();
+			$this->atlist = $atlist_tmp = $ateduids = array();
 			preg_match_all("/@([^\r\n]*?)\s/i", $parameters['message'].' ', $atlist_tmp);
 			$atlist_tmp = array_slice(array_unique($atlist_tmp[1]), 0, $this->group['allowat']);
 			$atnum = $maxselect = 0;
