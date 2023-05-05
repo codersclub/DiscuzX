@@ -443,7 +443,7 @@ function countprofileprogress($uid = 0) {
 				$complete++;
 			}
 		}
-		$progress = floor($complete / count($fields) * 100);
+		$progress = empty($fields) ? 0 : floor($complete / count($fields) * 100);
 		C::t('common_member_status')->update($uid, array('profileprogress' => $progress > 100 ? 100 : $progress), 'UNBUFFERED');
 		return $progress;
 	}
