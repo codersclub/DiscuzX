@@ -76,6 +76,7 @@ var rowtypedata = [
 		showsubmenu('threadtype_infotypes', array(
 			array('threadtype_infotypes_type', 'threadtypes', 1),
 			array('threadtype_infotypes_content', 'threadtypes&operation=content', 0),
+			array('threadtype_infotypes_class', 'threadtypes&operation=class', 0),
 			array(array('menu' => ($curclassname ? $curclassname : 'threadtype_infotypes_option'), 'submenu' => $classoptionmenu), '', 0)
 		));
 
@@ -198,7 +199,66 @@ var rowtypedata = [
 		cpmsg('forums_threadtypes_succeed', 'action=threadtypes', 'succeed');
 
 	}
+} elseif($operation == 'class') {
+	$classlists = C::t('forum_typeoption')->fetch_all_by_classid(0);
+	if(!submitcheck('classsubmit')) {
+?>
+<script type="text/JavaScript">
+var rowtypedata = [
+	[
+		[1, '<input type="text" class="txt" name="newdisplayorder[]" size="2" value="">', 'td25'],
+		[1, '<input type="text" class="txt" name="newtitle[]" size="15">', 'td29'],
+	],
+];
+</script>
+<?php
+		foreach($classlists as $class) {
+			$classlist .= showtablerow('', array('class="td25"', 'class="td29"'), array(
+				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"displayordernew[{$class['optionid']}]\" value=\"{$class['displayorder']}\">",
+				"<input type=\"text\" class=\"txt\" size=\"15\" name=\"titlenew[{$class['optionid']}]\" value=\"".dhtmlspecialchars($class['title'])."\">",
+			), TRUE);
+		}
+		
+		shownav('forum', 'threadtype_infotypes');
+		showsubmenu('threadtype_infotypes', array(
+			array('threadtype_infotypes_type', 'threadtypes', 0),
+			array('threadtype_infotypes_content', 'threadtypes&operation=content', 0),
+			array('threadtype_infotypes_class', 'threadtypes&operation=class', 1),
+			array(array('menu' => ($curclassname ? $curclassname : 'threadtype_infotypes_option'), 'submenu' => $classoptionmenu), 0)
+		));
+		showformheader("threadtypes&operation=class", 'enctype', 'threadtypeform');
+		showtableheader('');
+		showsubtitle(array('display_order', cplang('name')), 'header');
+		echo $classlist;
+		echo '<tr><td colspan="5"><div><a href="###" onclick="addrow(this, 0)" class="addtr">'.$lang['threadtype_infotypes_add'].'</a></div></td>';
 
+		showsubmit('classsubmit', 'submit');
+		showtablefooter();
+		showformfooter();
+	} else {
+		if(is_array($_GET['titlenew']) && $_GET['titlenew']) {
+			foreach($_GET['titlenew'] as $optionid => $val) {
+				$data = array(
+					'title' => trim($_GET['titlenew'][$optionid]),
+					'displayorder' => intval($_GET['displayordernew'][$optionid]),
+				);
+				$affected_rows = C::t('forum_typeoption')->update($optionid, $data);
+			}
+		}
+		if(is_array($_GET['newtitle'])) {
+			foreach($_GET['newtitle'] as $key => $value) {
+				if($newtitle1 = trim(strip_tags($value))) {
+					$data = array(
+						'title' => $newtitle1,
+						'displayorder' => $_GET['newdisplayorder'][$key],
+					);
+					C::t('forum_typeoption')->insert($data);
+				}
+			}
+		}
+
+		cpmsg('forums_threadtypes_succeed', 'action=threadtypes&operation=class', 'succeed');
+	}
 } elseif($operation == 'typeoption') {
 
 	if(!submitcheck('typeoptionsubmit')) {
@@ -242,6 +302,7 @@ EOT;
 		showsubmenu('threadtype_infotypes', array(
 			array('threadtype_infotypes_type', 'threadtypes', 0),
 			array('threadtype_infotypes_content', 'threadtypes&operation=content', 0),
+			array('threadtype_infotypes_class', 'threadtypes&operation=class', 0),
 			array(array('menu' => ($curclassname ? $curclassname : 'threadtype_infotypes_option'), 'submenu' => $classoptionmenu), 1)
 		));
 		showformheader("threadtypes&operation=typeoption&typeid={$_GET['typeid']}");
@@ -927,6 +988,7 @@ EOT;
 		showsubmenu('threadtype_infotypes', array(
 			array('threadtype_infotypes_type', 'threadtypes', 0),
 			array('threadtype_infotypes_content', 'threadtypes&operation=content', 1),
+			array('threadtype_infotypes_class', 'threadtypes&operation=class', 0),
 			array(array('menu' => ($curclassname ? $curclassname : 'threadtype_infotypes_option'), 'submenu' => $classoptionmenu))
 		));
 
@@ -1017,6 +1079,7 @@ EOT;
 			showsubmenu('threadtype_infotypes', array(
 				array('threadtype_infotypes_type', 'threadtypes', 0),
 				array('threadtype_infotypes_content', 'threadtypes&operation=content', 1),
+				array('threadtype_infotypes_class', 'threadtypes&operation=class', 0),
 				array(array('menu' => ($curclassname ? $curclassname : 'threadtype_infotypes_option'), 'submenu' => $classoptionmenu))
 			));
 
@@ -1351,5 +1414,3 @@ EOT;
 
 	exportdata('Discuz! Threadtypes', $typevarlist[0]['typeid'], $typevarlist);
 }
-
-?>

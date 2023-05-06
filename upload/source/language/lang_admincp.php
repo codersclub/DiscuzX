@@ -3127,6 +3127,7 @@ $lang = array
 	'threadtype_infotypes_type' => '分类管理',
 	'threadtype_infotypes_option' => '字段管理',
 	'threadtype_infotypes_content' => '内容管理',
+	'threadtype_infotypes_class' => '字段分类管理',
 	'threadtype_infotypes_add' => '添加分类',
 	'threadtype_infotypes_option_config' => '分类选项基本设置',
 	'threadtype_infotypes_add_option' => '添加分类信息字段',
