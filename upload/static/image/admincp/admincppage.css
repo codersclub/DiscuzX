@@ -83,6 +83,13 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .d-34 { flex-basis: 75%; }
 @media (max-width: 900px) {
 	.dcol { flex-basis: 100% !important; }
+	.pluginlist .dcol { flex-basis: unset !important; }
+}
+@media (max-width: 1000px) {
+	.pluginlist .w1000hide { display: none; }
+}
+@media (max-width: 1300px) {
+	.pluginlist .w1300hide { display: none; }
 }
 .cpcontainer { background: #f0f0f0; padding: 20px; color: #333; font-size: 14px; }
 .st-d .cpcontainer { background: #282828;color: #666;}
