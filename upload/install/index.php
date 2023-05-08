@@ -369,7 +369,7 @@ if($method == 'show_license') {
 	} else {
 		show_header();
 		echo '</div><div class="main inst_success"><div class="success_icon"></div><h2>'.$lang['install_finish'].'</h2><p>'.$lang['install_finish_next'].'</p>';
-		echo '<a href="'.$default_appurl.'/admin.php" class="btn">'.$lang['finish_btn_admin'].'</a>';
+		echo '<a href="'.$default_appurl.'/admin.php?frames=yes&action=styles" class="btn">'.$lang['finish_btn_admin'].'</a>';
 		echo '<a href="'.$default_appurl.'/admin.php?action=cloudaddons&frame=no&from=newinstall" class="btn">'.$lang['finish_btn_cloudaddon'].'</a>';
 		echo '<a href="'.$default_appurl.'" class="btn finish">'.$lang['finish_btn_direct'].'</a>';
 		show_footer();
@@ -522,6 +522,14 @@ if($method == 'show_license') {
 	if (file_exists(ROOT_PATH.'./install/data/install_data_appendage.sql')) {
 		@unlink(ROOT_PATH.'./install/data/install_data_appendage.sql');
 	}
+
+	//自动登录前台和后台
+	$saltkey = random(8);
+	$authkey = md5($_config['security']['authkey'].$saltkey);
+	$cookiepre = $_config['cookie']['cookiepre'].substr(md5($_config['cookie']['cookiepath'].'|'.$_config['cookie']['cookiedomain']), 0, 4).'_';
+	setcookie($cookiepre.'saltkey', $saltkey, time() + 84600, $_config['cookie']['cookiepath'], $_config['cookie']['cookiedomain'], is_https(), true);
+	setcookie($cookiepre.'auth', authcode("{$password}\t{$uid}", 'ENCODE', $authkey), time() + 84600, $_config['cookie']['cookiepath'], $_config['cookie']['cookiedomain'], is_https(), true);
+	$db->query("insert into {$tablepre}common_admincp_session SET uid='$uid', adminid=1, panel=1, dateline='$timestamp', ip='".addslashes($_SERVER['REMOTE_ADDR'])."', errorcount='-1'");
 
 	!VIEW_OFF && showjsmessage(lang('initdbdataresult_succ'));
 } elseif($method == 'check_db_init_progress') {

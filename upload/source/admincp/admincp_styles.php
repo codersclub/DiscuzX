@@ -161,6 +161,38 @@ if($operation == 'admin') {
 		}
 
 		uasort($narray, 'filemtimesort');
+		$recommendaddon = dunserialize($_G['setting']['cloudaddons_recommendaddon']);
+		if(empty($recommendaddon['updatetime']) || abs($_G['timestamp'] - $recommendaddon['updatetime']) > 7200 || (isset($_GET['checknew']) && $_G['formhash'] == $_GET['formhash'])) {
+			$recommendaddon = json_decode(cloudaddons_recommendaddon($addonids), true);
+			if(empty($recommendaddon) || !is_array($recommendaddon)){
+				$recommendaddon = array();
+			}
+			$recommendaddon['updatetime'] = $_G['timestamp'];
+			C::t('common_setting')->update('cloudaddons_recommendaddon', $recommendaddon);
+			updatecache('setting');
+		}
+		if(!empty($recommendaddon['templates']) && is_array($recommendaddon['templates'])){
+			$count = 0;
+			foreach ($recommendaddon['templates'] as $key => $value) {
+				if (!empty($value['identifier']) && !is_dir($dir.'/'.$value['identifier'])) {
+					$narray[$i] = array(
+						'styleid' => '',
+						'available' => '',
+						'name' => diconv($value['name'], 'utf-8', CHARSET),
+						'directory' => './template/'.$value['identifier'],
+						'tplname' => diconv($value['tplname'], 'utf-8', CHARSET),
+						'filemtime' => $value['updatetime'],
+						'stylecount' => $value['stylecount'],
+						'down' => 1,
+					);
+					$i--;
+					$count++;
+					if (!empty($recommendaddon['templateshownum']) && $count >= $recommendaddon['templateshownum']) {
+						break;
+					}
+				}
+			}
+		}
 		$sarray += $narray;
 
 		$stylelist = '';
@@ -174,8 +206,9 @@ if($operation == 'admin') {
 			$isdefault3 = $id == $defaultid3 ? 'checked' : '';
 			$d2exists = file_exists($style['directory'].'/touch');
 			$available = $style['available'] ? 'checked' : NULL;
-			$preview = file_exists($style['directory'].'/preview.jpg') ? $style['directory'].'/preview.jpg' : STATICURL.'image/admincp/stylepreview.gif';
-			$previewlarge = file_exists($style['directory'].'/preview_large.jpg') ? $style['directory'].'/preview_large.jpg' : '';
+			$identifier = end(explode('/', $style['directory']));
+			$preview = file_exists($style['directory'].'/preview.jpg') ? $style['directory'].'/preview.jpg' : cloudaddons_pluginlogo_url($identifier, 'template');
+			$previewlarge = file_exists($style['directory'].'/preview_large.jpg') ? $style['directory'].'/preview_large.jpg' : cloudaddons_pluginlogo_url($identifier, 'template');
 			$styleicons = isset($styleicons[$id]) ? $styleicons[$id] : '';
 			if($addonids[$style['styleid']]) {
 				if(!isset($updatestring[$addonids[$style['styleid']]])) {
@@ -186,7 +219,7 @@ if($operation == 'admin') {
 			}
 			$stylelist .=
 				'<table cellspacing="0" cellpadding="0" style="margin-left: 10px; width: 250px;height: 200px;" class="left"><tr><th class="partition" colspan="2">'.($addonids[$id] ? "<a href=\"".ADMINSCRIPT."?action=cloudaddons&frame=no&id=".basename($style['directory']).".template\" target=\"_blank\" title=\"$lang[cloudaddons_linkto]\">$style[tplname]</a>" : $style['tplname']).'</th></tr><tr><td style="width: 130px;height:150px" valign="top">'.
-				($id > 0 ? "<p style=\"margin-bottom: 12px;\"><img width=\"110\" height=\"120\" ".($previewlarge ? 'style="cursor:pointer" title="'.$lang['preview_large'].'" onclick="zoom(this, \''.$previewlarge.'\', 1)" ' : '')."src=\"$preview\" alt=\"{$lang['preview']}\"/></p>
+				($id > 0 ? "<p style=\"margin-bottom: 12px;\"><img width=\"110\" height=\"120\" ".($previewlarge ? 'style="cursor:pointer" title="'.$lang['preview_large'].'" onclick="zoom(this, \''.$previewlarge.'\', 1)" ' : '')."src=\"$preview\" alt=\"{$lang['preview']}\" onerror=\"this.onerror=null;this.src='./static/image/admincp/stylepreview.gif'\"/></p>
 				<p style=\"margin: 2px 0\"><input type=\"text\" class=\"txt\" name=\"namenew[$id]\" value=\"{$style['name']}\" style=\"margin:0; width: 104px;\"></p></td><td valign=\"top\">
 				<p> {$lang['styles_default']}</p>
 				<p style=\"margin: 1px 0\"><label><input type=\"radio\" class=\"radio\" name=\"defaultnew\" value=\"$id\" $isdefault /> {$lang['styles_default0']}</label></p>
@@ -198,9 +231,9 @@ if($operation == 'admin') {
 					".($isfounder && $addonids[$id] ? " &nbsp; <a href=\"".ADMINSCRIPT."?action=cloudaddons&frame=no&id=".basename($style['directory']).".template&from=comment\" target=\"_blank\" title=\"{$lang['cloudaddons_linkto']}\">{$lang['plugins_visit']}</a>" : '')."
 				</p>"
 				:
-				"<img src=\"$preview\" /></td><td valign=\"top\">
-				<p style=\"margin: 2px 0\"><a href=\"".ADMINSCRIPT."?action=styles&operation=import&dir={$style['name']}\">{$lang['styles_install']}</a></p>
-				<p style=\"margin: 2px 0\">{$lang['styles_stylecount']}: {$style['stylecount']}</p>".
+				"<img width=\"110\" height=\"120\" src=\"$preview\" ".($previewlarge ? 'style="cursor:pointer" title="'.$lang['preview_large'].'" onclick="zoom(this, \''.$previewlarge.'\', 1)" ' : '')." onerror=\"this.onerror=null;this.src='./static/image/admincp/stylepreview.gif'\" /></td><td valign=\"top\">
+				<p style=\"margin: 2px 0\"><a href=\"".ADMINSCRIPT."?action=styles&operation=import&dir=$identifier\">{$lang['styles_install']}</a></p>".
+				($style['stylecount'] > 0 ? "<p style=\"margin: 2px 0\">{$lang['styles_stylecount']}: {$style['stylecount']}</p>" : '').
 				($style['filemtime'] > $timestamp - 86400 ? '<p style=\"margin-bottom: 2px;\"><font color="red">New!</font></p>' : '')).
 				"</td></tr><tr><td colspan=\"2\">".$updatestring[$addonids[$style['styleid']]]."</td></tr></table>\n".($i == 3 ? '</tr>' : '');
 			$i++;
@@ -344,8 +377,8 @@ if($operation == 'admin') {
 	}
 
 } elseif($operation == 'import') {
-
-	if(!submitcheck('importsubmit') && !isset($_GET['dir'])) {
+	$_GET['dir'] = isset($_GET['dir']) ? preg_replace('#([^\w]+)#is', '', $_GET['dir']) : '';
+	if(!submitcheck('importsubmit') && empty($_GET['dir'])) {
 
 		shownav('template', 'styles_import');
 		showsubmenu('styles_admin', array(
@@ -362,7 +395,10 @@ if($operation == 'admin') {
 		showformfooter();
 
 	} else {
-
+		if (!is_dir(DISCUZ_ROOT.'./template/'.$_GET['dir'])) {
+			echo '<script type="text/javascript">top.location.href=\''.ADMINSCRIPT.'?action=cloudaddons&frame=no&id='.$_GET['dir'].'.template&from=recommendaddon\';</script>';
+			exit;
+		}
 		require_once libfile('function/importdata');
 		$restore = !empty($_GET['restore']) ? $_GET['restore'] : 0;
 		if($restore) {

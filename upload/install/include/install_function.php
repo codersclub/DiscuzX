@@ -695,9 +695,6 @@ EOT;
 function showjsmessage($message) {
 	if(VIEW_OFF) return;
 	append_to_install_log_file($message);
-	echo ' ';
-	flush();
-	ob_flush();
 }
 
 function random($length, $numeric = 0) {
