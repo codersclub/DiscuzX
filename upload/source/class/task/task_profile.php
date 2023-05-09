@@ -52,7 +52,7 @@ class task_profile {
 			space_merge($_G['member'], 'profile');
 			$none = array();
 			foreach($_G['member'] as $k => $v) {
-				if(in_array($k, $fields, true) && !trim($v)) {
+				if(in_array($k, $fields, true) && !trim($v) && !empty($fieldsnew[$k])) {
 					$none[] = $fieldsnew[$k];
 				}
 			}
