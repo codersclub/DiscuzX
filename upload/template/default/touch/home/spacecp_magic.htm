@@ -1,0 +1,27 @@
+<!--{template common/header}-->
+<div class="tip loginbox loginpop p5" id="floatlayout_magic">
+<!--{if in_array($op, array('cancelflicker', 'cancelcolor'))}-->
+	<h2 class="log_tit" id="return_magic">{lang cancel_magics_effects}</h2>
+	<form method="post" autocomplete="off" id="cancelform" name="cancelform" action="home.php?mod=spacecp&ac=magic&op=$op&id=$_GET['id']&idtype=$_GET['idtype']">
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<input type="hidden" name="referer" value="{echo dreferer()}">
+		<input type="hidden" name="cancelsubmit" value="1" />
+		<dt>
+			<p>{lang cancel_effects_message}</p>
+		</dt>
+		<dd><button type="submit" class="pn pnc formdialog"><strong>{lang determine}</strong></button></dd>
+	</form>
+<!--{elseif $op == 'retiregift'}-->
+	<h2 class="log_tit" id="return_magic">{lang return_redbag}</h2>
+	<form method="post" autocomplete="off" id="cancelform" name="cancelform" action="home.php?mod=spacecp&ac=magic&op=$op">
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<input type="hidden" name="referer" value="{echo dreferer()}">
+		<input type="hidden" name="cancelsubmit" value="1" />
+		<dt>
+			<p>{lang spacecp_magic_message1}({lang spacecp_magic_message2} {$leftcredit} {$credittype})</p>
+		</dt>
+		<dd><button type="submit" class="pn pnc formdialog"><strong>{lang determine}</strong></button></dd>
+	</form>
+<!--{/if}-->
+</div>
+<!--{template common/footer}-->

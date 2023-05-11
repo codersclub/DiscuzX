@@ -51,10 +51,37 @@
 			</ul>
 			<div class="pgs cl mtm">$multi</div>
 		</div>
-
+		<script type="text/javascript">
+			var elems = qSelA('div.magicflicker');
+			for(var i=0; i<elems.length; i++){
+				magicColor(elems[i]);
+			}
+			function magicColor(elem, t) {
+				t = t || 10;
+				elem = (elem && elem.constructor == String) ? $(elem) : elem;
+				if (!elem) {
+					setTimeout(function() {
+						magicColor(elem, t - 1);
+					}, 400);
+					return;
+				}
+				if (window.mcHandler == undefined) {
+					window.mcHandler = {
+						elements: []
+					};
+					window.mcHandler.colorIndex = 0;
+					window.mcHandler.run = function() {
+						var color = ["#CC0000", "#CC6D00", "#CCCC00", "#00CC00", "#0000CC", "#00CCCC", "#CC00CC"][(window.mcHandler.colorIndex++) % 7];
+						for (var i = 0, L = window.mcHandler.elements.length; i < L; i++)
+							window.mcHandler.elements[i].style.color = color;
+					}
+				}
+				window.mcHandler.elements.push(elem);
+				if (window.mcHandler.timer == undefined) {
+					window.mcHandler.timer = setInterval(window.mcHandler.run, 500);
+				}
+			}
+		</script>
 	</div>
 </div>
-
-
-
 <!--{template common/footer}-->

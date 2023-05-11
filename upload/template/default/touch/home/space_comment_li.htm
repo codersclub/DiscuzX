@@ -37,15 +37,23 @@
 	</div>
 
 	<div id="comment_$value['cid']" class="do_comment{if $value['magicflicker']} magicflicker{/if}"><!--{if $value['status'] == 0 || $value['authorid'] == $_G['uid'] || $_G[adminid] == 1}-->$value['message']<!--{else}--> {lang moderate_not_validate} <!--{/if}--></div>
-
+	
 	<div class="wall_magic_list cl">
 		<div class="y xw0">
 		<!--{if $value['authorid'] != $_G['uid'] && $value['author'] == "" && $_G['magic']['reveal']}-->
 			<a id="a_magic_reveal_{$value['cid']}" href="home.php?mod=magic&mid=reveal&idtype=cid&id=$value['cid']" class="y magic_doodle dialog"><img src="{STATICURL}image/magic/reveal.small.gif" alt="reveal" />{$_G['magic']['reveal']}</a>
 		<!--{/if}-->
-
+		<!--{hook/global_space_comment_op_mobile $k}-->
 		<!--{if $_G['setting']['magicstatus'] && $do != 'share'}-->
-			<!--{if $value['authorid']==$_G['uid'] && !empty($_G['setting']['magics']['anonymouspost']) && $value['author']}-->
+			<!--{if $value['authorid'] == $_G['uid'] && !empty($_G['setting']['magics']['flicker'])}-->
+				<!--{if $value['magicflicker']}-->
+				<a id="a_magic_flicker_{$value['cid']}" href="home.php?mod=spacecp&ac=magic&op=cancelflicker&idtype=cid&id=$value['cid']&handlekey=cfhk_{$value['cid']}" class="y magic_doodle dialog"><img src="{STATICURL}image/magic/flicker.small.gif" alt="flicker" class="vm" />{lang cancel}{$_G['setting']['magics']['flicker']}</a>
+				<!--{else}-->
+				<a id="a_magic_flicker_{$value['cid']}" href="home.php?mod=magic&mid=flicker&idtype=cid&id=$value['cid']" class="y magic_doodle dialog"><img src="{STATICURL}image/magic/flicker.small.gif" alt="flicker" class="vm" />{$_G['setting']['magics']['flicker']}</a>
+				<!--{/if}-->
+			<!--{/if}-->
+			
+			<!--{if $value['authorid'] == $_G['uid'] && !empty($_G['setting']['magics']['anonymouspost']) && $value['author']}-->
 				<a id="a_magic_anonymouspost_{$value['cid']}" href="home.php?mod=magic&mid=anonymouspost&idtype=cid&id=$value['cid']" class="y magic_doodle dialog"><img src="{STATICURL}image/magic/anonymouspost.small.gif" alt="flicker" class="vm" />{$_G['setting']['magics']['anonymouspost']}</a>
 			<!--{/if}-->
 			<!--{if !empty($_G['setting']['magics']['namepost']) && !$value['author']}-->
@@ -54,4 +62,6 @@
 		<!--{/if}-->
 		</div>
 	</div>
+	
+	<!--{hook/global_comment_bottom_mobile}-->
 </li>
