@@ -165,8 +165,8 @@ class usermodel {
 		$password = $this->generate_password($password);
 		$sqladd = $uid ? "uid='".intval($uid)."'," : '';
 		$sqladd .= $questionid > 0 ? " secques='".$this->quescrypt($questionid, $answer)."'," : " secques='',";
-		$sqladd = $secmobicc ? "secmobicc='".$secmobicc."'," : '';
-		$sqladd = $secmobile ? "secmobile='".$secmobile."'," : '';
+		$sqladd .= $secmobicc ? "secmobicc='".$secmobicc."'," : '';
+		$sqladd .= $secmobile ? "secmobile='".$secmobile."'," : '';
 		$this->db->query("INSERT INTO ".UC_DBTABLEPRE."members SET $sqladd username='$username', password='$password', email='$email', regip='$regip', regdate='".$this->base->time."', salt='$salt'");
 		$uid = $this->db->insert_id();
 		$this->db->query("INSERT INTO ".UC_DBTABLEPRE."memberfields SET uid='$uid'");
