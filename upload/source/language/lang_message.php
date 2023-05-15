@@ -842,7 +842,7 @@ $lang = array (
   'profile_email_verify' => '确认 Email 已发送，请用邮件中提供的方法激活您的账号。如果您尚未收到我们发送的系统邮件，请点击密码安全中的“重新接收验证邮件”，或尝试更换另外一个地址',
   'profile_succeed' => '个人资料保存成功 ',
   'send_activate_mail_succeed' => '邮件已发送，可能需要几分钟后才能收到邮件',
-  'send_activate_mail_error' => '抱歉，邮件发送失败，请稍等 {interval} 秒后重试发送验证激活邮件',
+  'send_activate_mail_error' => '抱歉，邮件已发送过了，若确实未收到，请在 {interval} 秒后重试',
 
   'no_privilege_sendmailday' => '抱歉，本站尚未开启邮件提醒功能',
   'email_input' => '抱歉，您尚未设置邮箱，请在<a href="home.php?mod=spacecp&ac=profile&op=password">联系方式</a>中准确填写您的邮箱',
