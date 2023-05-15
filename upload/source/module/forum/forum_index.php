@@ -212,6 +212,7 @@ if($_G['setting']['grid']['showgrid']) {
 						'subject' => addslashes($ithread['subject'])
 					);
 			}
+			$grids['slide'] = array_reverse($grids['slide'], true);
 		}
 		$grids['cachetime'] = TIMESTAMP;
 		savecache('grids', $grids);
