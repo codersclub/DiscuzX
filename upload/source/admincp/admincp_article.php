@@ -429,7 +429,7 @@ function showcategoryrow($key, $type = '', $last = '') {
 			$boardattr .= '</div>';
 		}
 
-		$return .= '<input type="text" class="txt" name="name['.$forum['fid'].']}" value="'.dhtmlspecialchars($forum['name']).'" class="txt" />'.
+		$return .= '<input type="text" class="txt" name="name['.$forum['fid'].']" value="'.dhtmlspecialchars($forum['name']).'" class="txt" />'.
 			($type == '' ? '<a href="###" onclick="addrowdirect = 1;addrow(this, 2, '.$forum['fid'].')" class="addchildboard">'.$lang['forums_admin_add_sub'].'</a>' : '').
 			'</div>'.$boardattr.
 			'</td><td>'.showforum_moderators($forum).'</td>
