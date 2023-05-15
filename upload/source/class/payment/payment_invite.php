@@ -35,7 +35,7 @@ class payment_invite {
 		for($i=0; $i<$data['num']; $i++) {
 			$code = strtolower(random(6));
 			$codetext[] = $code;
-			$codes[] = "('0', '$code', '$dateline', '".($_G['group']['maxinviteday']?($_G['timestamp']+$_G['group']['maxinviteday']*24*3600):$_G['timestamp']+86400*10)."', '{$order['email']}', '{$data['ip']}', '{$order['out_biz_no']}')";
+			$codes[] = "('0', '$code', '$dateline', '".($_G['group']['maxinviteday']?($_G['timestamp']+$_G['group']['maxinviteday']*24*3600):$_G['timestamp']+86400*10)."', '{$data['email']}', '{$data['ip']}', '{$order['out_biz_no']}')";
 			$invitedata = array(
 				'uid' => 0,
 				'code' => $code,
@@ -58,7 +58,7 @@ class payment_invite {
 			'siteurl' => $_G['siteurl'],
 			'bbname' => $_G['setting']['bbname'],
 		));
-		if(!sendmail($order['email'], $add_member_subject, $add_member_message)) {
+		if(!sendmail($data['email'], $add_member_subject, $add_member_message)) {
 			runlog('sendmail', "{$data['email']} sendmail failed.");
 		}
 	}
