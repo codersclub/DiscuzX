@@ -587,9 +587,9 @@ function messagesafeclear($message) {
 	return $message;
 }
 
-function messagecutstr($str, $length = 0, $dot = ' ...') {
+function messagecutstr($message, $length = 0, $dot = ' ...') {
 	global $_G;
-	$str = messagesafeclear($str);
+	$str = messagesafeclear($message);
 	$sppos = strpos($str, chr(0).chr(0).chr(0));
 	if($sppos !== false) {
 		$str = substr($str, 0, $sppos);
@@ -603,8 +603,8 @@ function messagecutstr($str, $length = 0, $dot = ' ...') {
 			"/\[quote](.*?)\[\/quote]/si",
 			$language['post_edit_regexp'],
 			"/\[url=?.*?\](.+?)\[\/url\]/si",
-			"/\[($bbcodesclear)=?.*?\].+?\[\/\\1\]/si",
-			"/\[($bbcodes)=?.*?\]/i",
+			"/\[($bbcodesclear)(=.*?)?\].+?\[\/\\1\]/si",
+			"/\[($bbcodes)(=.*?)?\]/i",
 			"/\[\/($bbcodes)\]/i",
 			"/\\\\u/i"
 		), array(
@@ -617,14 +617,14 @@ function messagecutstr($str, $length = 0, $dot = ' ...') {
 			'',
 			'%u'
 		), $str));
-	if($length) {
-		$str = cutstr($str, $length, $dot);
-	}
 	$str = preg_replace($_G['cache']['smilies']['searcharray'], '', $str);
 	if($_G['setting']['plugins']['func'][HOOKTYPE]['discuzcode']) {
 		$_G['discuzcodemessage'] = & $str;
 		$param = func_get_args();
 		hookscript('discuzcode', 'global', 'funcs', array('param' => $param, 'caller' => 'messagecutstr'), 'discuzcode');
+	}
+	if($length) {
+		$str = cutstr($str, $length, $dot);
 	}
 	return trim($str);
 }
