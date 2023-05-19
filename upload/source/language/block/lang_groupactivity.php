@@ -13,10 +13,10 @@ if(!defined('IN_DISCUZ')) {
 
 $lang = array
 (
-	'groupactivity_fids' => '制定群组',
-	'groupactivity_fids_comment' => '指定群组，多个ID之间请用半角逗号“,”隔开。',
-	'groupactivity_gtids' => '群组分类',
-	'groupactivity_gtids_comment' => '设置群组所在分类，可以按住 CTRL 多选，全选或全不选均为不做限制',
+	'groupactivity_fids' => '制定圈子',
+	'groupactivity_fids_comment' => '指定圈子，多个ID之间请用半角逗号“,”隔开。',
+	'groupactivity_gtids' => '圈子分类',
+	'groupactivity_gtids_comment' => '设置圈子所在分类，可以按住 CTRL 多选，全选或全不选均为不做限制',
 	'groupactivity_uids' => '发起者UID',
 	'groupactivity_uids_comment' => '设置活动发起人UID ，多个 UID 请用半角逗号“,”隔开。',
 	'groupactivity_startrow' => '起始数据行数',
@@ -95,7 +95,7 @@ $lang = array
 	'groupactivity_orderby_monthstart' => '按一月内活动开始时间排序',
 	'groupactivity_orderby_weekexp' => '按一周内报名截止时间排序',
 	'groupactivity_orderby_monthexp' => '按一月内报名截止时间排序',
-	'groupactivity_gviewperm' => '群组浏览权限',
+	'groupactivity_gviewperm' => '圈子浏览权限',
 	'groupactivity_gviewperm_nolimit' => '不限制',
 	'groupactivity_gviewperm_only_member' => '仅成员',
 	'groupactivity_gviewperm_all_member' => '所有人',

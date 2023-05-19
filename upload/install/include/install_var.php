@@ -264,7 +264,7 @@ $serialize_sql_setting = array (
   array (
     'portal' => '门户',
     'forum' => '论坛',
-    'group' => '群组',
+    'group' => '圈子',
     'home' => '家园',
   ),
   'activityfield' =>

@@ -459,7 +459,7 @@
 								</item>
 								<item id="style"><![CDATA[]]></item>
 								<item id="first">
-									<item id="text"><![CDATA[群组]]></item>
+									<item id="text"><![CDATA[圈子]]></item>
 									<item id="href"><![CDATA[]]></item>
 									<item id="color"><![CDATA[]]></item>
 									<item id="float"><![CDATA[]]></item>
@@ -523,7 +523,7 @@
 										</item>
 										<item id="style"><![CDATA[]]></item>
 										<item id="first">
-											<item id="text"><![CDATA[今日活跃群组]]></item>
+											<item id="text"><![CDATA[今日活跃圈子]]></item>
 											<item id="href"><![CDATA[]]></item>
 											<item id="color"><![CDATA[]]></item>
 											<item id="float"><![CDATA[]]></item>
@@ -1967,7 +1967,7 @@
 				<item id="blockclass"><![CDATA[group_group]]></item>
 				<item id="blocktype"><![CDATA[0]]></item>
 				<item id="name"><![CDATA[]]></item>
-				<item id="title"><![CDATA[<div class="blocktitle title"><span style="" class="titletext">群组</span></div>]]></item>
+				<item id="title"><![CDATA[<div class="blocktitle title"><span style="" class="titletext">圈子</span></div>]]></item>
 				<item id="classname"><![CDATA[]]></item>
 				<item id="summary"><![CDATA[]]></item>
 				<item id="uid"><![CDATA[1]]></item>
@@ -2033,7 +2033,7 @@
 				<item id="blockclass"><![CDATA[group_group]]></item>
 				<item id="blocktype"><![CDATA[0]]></item>
 				<item id="name"><![CDATA[]]></item>
-				<item id="title"><![CDATA[<div class="blocktitle title"><span style="" class="titletext">今日活跃群组</span></div>]]></item>
+				<item id="title"><![CDATA[<div class="blocktitle title"><span style="" class="titletext">今日活跃圈子</span></div>]]></item>
 				<item id="classname"><![CDATA[]]></item>
 				<item id="summary"><![CDATA[]]></item>
 				<item id="uid"><![CDATA[1]]></item>
@@ -3218,7 +3218,7 @@
 				<item id="name"><![CDATA[]]></item>
 				<item id="title"><![CDATA[]]></item>
 				<item id="classname"><![CDATA[]]></item>
-				<item id="summary"><![CDATA[<div class="tns"><table cellspacing="0" cellpadding="4" border="0"><tbody><tr><th><p>0</p>帖子</th><th><p>0</p>群组</th><th class="bbn"><p>1</p>会员</th></tr></tbody></table></div>]]></item>
+				<item id="summary"><![CDATA[<div class="tns"><table cellspacing="0" cellpadding="4" border="0"><tbody><tr><th><p>0</p>帖子</th><th><p>0</p>圈子</th><th class="bbn"><p>1</p>会员</th></tr></tbody></table></div>]]></item>
 				<item id="uid"><![CDATA[1]]></item>
 				<item id="username"><![CDATA[admin]]></item>
 				<item id="styleid"><![CDATA[0]]></item>
@@ -3525,7 +3525,7 @@
 			<item id="45">
 				<item id="styleid"><![CDATA[45]]></item>
 				<item id="blockclass"><![CDATA[group_group]]></item>
-				<item id="name"><![CDATA[[X1.5]群组图标列表]]></item>
+				<item id="name"><![CDATA[[X1.5]圈子图标列表]]></item>
 				<item id="template">
 					<item id="raw"><![CDATA[<div class="module cl ml mls">
 <ul>
@@ -3562,7 +3562,7 @@
 			<item id="46">
 				<item id="styleid"><![CDATA[46]]></item>
 				<item id="blockclass"><![CDATA[group_group]]></item>
-				<item id="name"><![CDATA[[X1.5]群组名称（两列）]]></item>
+				<item id="name"><![CDATA[[X1.5]圈子名称（两列）]]></item>
 				<item id="template">
 					<item id="raw"><![CDATA[<div class="module cl xl xl2">
 <ul>
@@ -4122,7 +4122,7 @@ runslideshow();
 			<item id="89">
 				<item id="styleid"><![CDATA[89]]></item>
 				<item id="blockclass"><![CDATA[group_thread]]></item>
-				<item id="name"><![CDATA[[X1.5]首页热议-群组帖子]]></item>
+				<item id="name"><![CDATA[[X1.5]首页热议-圈子帖子]]></item>
 				<item id="template">
 					<item id="raw"><![CDATA[<div class="module cl xld">
 [loop]
@@ -4292,7 +4292,7 @@ runslideshow();
 			<item id="93">
 				<item id="styleid"><![CDATA[93]]></item>
 				<item id="blockclass"><![CDATA[group_activity]]></item>
-				<item id="name"><![CDATA[[X1.5]群组活动:大图＋摘要]]></item>
+				<item id="name"><![CDATA[[X1.5]圈子活动:大图＋摘要]]></item>
 				<item id="template">
 					<item id="raw"><![CDATA[<div class="module cl xld">
 [loop]
@@ -4350,7 +4350,7 @@ runslideshow();
 			<item id="94">
 				<item id="styleid"><![CDATA[94]]></item>
 				<item id="blockclass"><![CDATA[group_activity]]></item>
-				<item id="name"><![CDATA[[X1.5]群组活动:小图＋标题]]></item>
+				<item id="name"><![CDATA[[X1.5]圈子活动:小图＋标题]]></item>
 				<item id="template">
 					<item id="raw"><![CDATA[<div class="module cl xld">
 [loop]

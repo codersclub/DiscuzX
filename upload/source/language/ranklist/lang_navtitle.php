@@ -62,12 +62,12 @@ $lang = array(
   'ranklist_title_forum_post_30' => '版块 30 天发帖排行',
   'ranklist_title_forum_post_24' => '版块最近 24 小时发帖排行',
 
-  'ranklist_title_group_credit' => '群组积分排行',
-  'ranklist_title_group_member' => '群组成员数排行',
-  'ranklist_title_group_thread' => '群组发帖排行',
-  'ranklist_title_group_post' => '群组回复排行',
-  'ranklist_title_group_post_30' => '群组最近 30 天发帖排行',
-  'ranklist_title_group_post_24' => '群组最近 24 小时发帖排行',
+  'ranklist_title_group_credit' => '圈子积分排行',
+  'ranklist_title_group_member' => '圈子成员数排行',
+  'ranklist_title_group_thread' => '圈子发帖排行',
+  'ranklist_title_group_post' => '圈子回复排行',
+  'ranklist_title_group_post_30' => '圈子最近 30 天发帖排行',
+  'ranklist_title_group_post_24' => '圈子最近 24 小时发帖排行',
 
   'ranklist_title_app_today' => '今日应用活跃排行',
   'ranklist_title_app_all' => '最流行应用',

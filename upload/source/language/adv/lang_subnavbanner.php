@@ -18,8 +18,8 @@ $lang = array
 	'subnavbanner_index' => '首页',
 	'subnavbanner_fids' => '投放版块',
 	'subnavbanner_fids_comment' => '设置广告投放的论坛版块，当广告投放范围中包含“论坛”时有效',
-	'subnavbanner_groups' => '投放群组分类',
-	'subnavbanner_groups_comment' => '设置广告投放的群组分类，当广告投放范围中包含“群组”时有效',
+	'subnavbanner_groups' => '投放圈子分类',
+	'subnavbanner_groups_comment' => '设置广告投放的圈子分类，当广告投放范围中包含“圈子”时有效',
 	'subnavbanner_category' => '投放门户频道',
 	'subnavbanner_category_comment' => '设置广告投放的频道分类，当广告投放范围中包含“门户”时有效',
 );

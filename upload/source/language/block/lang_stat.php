@@ -15,9 +15,9 @@ $lang = array
 (
 	'stat_option' => '统计选项',
 	'stat_option_posts' => '发帖总数',
-	'stat_option_groups' => '群组总数',
+	'stat_option_groups' => '圈子总数',
 	'stat_option_members' => '会员总数',
-	'stat_option_groupnewposts' => '群组今日发帖',
+	'stat_option_groupnewposts' => '圈子今日发帖',
 	'stat_option_bbsnewposts' => '论坛今日发帖数',
 	'stat_option_bbslastposts' => '论坛昨日发帖数',
 	'stat_option_onlinemembers' => '当前在线会员数',
@@ -32,9 +32,9 @@ $lang = array
 	'stat_edit_showtitle_detail' => '您可以编辑以下对应项来自定义各统计项的显示名称',
 
 	'stat_posts' => '帖子',
-	'stat_groups' => '群组',
+	'stat_groups' => '圈子',
 	'stat_members' => '会员',
-	'stat_groupnewposts' => '群组今日发帖',
+	'stat_groupnewposts' => '圈子今日发帖',
 	'stat_bbsnewposts' => '论坛今日发帖',
 	'stat_bbslastposts' => '论坛昨日发帖',
 	'stat_onlinemembers' => '当前在线会员',

@@ -1685,7 +1685,7 @@ a.progressCancel { display: block; float: right; width: 14px; height: 14px; line
 /* 推荐商品 by dfox */
 em.hot { position: absolute; left: -2px; top: -2px; text-indent: -9999px; overflow: hidden; background: url({IMGDIR}/hot.png) no-repeat 0 0; }
 
-/* 板块、群组、空间主区域/侧边搜索 by dfox */
+/* 板块、圈子、空间主区域/侧边搜索 by dfox */
 .gsh { text-align: center; }
 	.gsh h1 { margin: 1em 0 0.5em -60px; font-size: 16px; font-weight: 100; }
 	.gsh .px { width: 272px; }

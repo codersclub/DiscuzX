@@ -421,33 +421,33 @@ $lang = array (
 	array (
 		'index' => 
 		array (
-			'群组主题管理' => 'action=threads&operation=group',
+			'圈子主题管理' => 'action=threads&operation=group',
 		),
 		'text' => 
 		array (
-			0 => '群组主题管理',
+			0 => '圈子主题管理',
 		),
 	),
 	38 => 
 	array (
 		'index' => 
 		array (
-			'群组批量删帖' => 'action=prune&operation=group',
+			'圈子批量删帖' => 'action=prune&operation=group',
 		),
 		'text' => 
 		array (
-			0 => '群组批量删帖',
+			0 => '圈子批量删帖',
 		),
 	),
 	39 => 
 	array (
 		'index' => 
 		array (
-			'群组附件管理' => 'action=attach&operation=group',
+			'圈子附件管理' => 'action=attach&operation=group',
 		),
 		'text' => 
 		array (
-			0 => '群组附件管理',
+			0 => '圈子附件管理',
 		),
 	),
 	40 => 
@@ -476,11 +476,11 @@ $lang = array (
 	array (
 		'index' => 
 		array (
-			'版块/群组置顶' => 'action=threads&operation=forumstick',
+			'版块/圈子置顶' => 'action=threads&operation=forumstick',
 		),
 		'text' => 
 		array (
-			0 => '版块/群组置顶',
+			0 => '版块/圈子置顶',
 		),
 	),
 	43 => 
@@ -949,33 +949,33 @@ $lang = array (
 	array (
 		'index' => 
 		array (
-			'群组设置' => 'action=group&operation=setting',
+			'圈子设置' => 'action=group&operation=setting',
 		),
 		'text' => 
 		array (
-			0 => '群组设置',
+			0 => '圈子设置',
 		),
 	),
 	86 => 
 	array (
 		'index' => 
 		array (
-			'群组分类' => 'action=group&operation=type',
+			'圈子分类' => 'action=group&operation=type',
 		),
 		'text' => 
 		array (
-			0 => '群组分类',
+			0 => '圈子分类',
 		),
 	),
 	87 => 
 	array (
 		'index' => 
 		array (
-			'群组管理' => 'action=group&operation=manage',
+			'圈子管理' => 'action=group&operation=manage',
 		),
 		'text' => 
 		array (
-			0 => '群组管理',
+			0 => '圈子管理',
 		),
 	),
 	88 => 
@@ -993,22 +993,22 @@ $lang = array (
 	array (
 		'index' => 
 		array (
-			'群组等级' => 'action=group&operation=level',
+			'圈子等级' => 'action=group&operation=level',
 		),
 		'text' => 
 		array (
-			0 => '群组等级',
+			0 => '圈子等级',
 		),
 	),
 	90 => 
 	array (
 		'index' => 
 		array (
-			'审核群组' => 'action=group&operation=mod',
+			'审核圈子' => 'action=group&operation=mod',
 		),
 		'text' => 
 		array (
-			0 => '审核群组',
+			0 => '审核圈子',
 		),
 	),
 	91 => 
@@ -2322,7 +2322,7 @@ $lang = array (
 		array (
 			0 => '域名设置 &raquo; 根域名设置',
 			1 => 'setting_domain_root_tips',
-			2 => '可以为个人空间、群组、版块、专题、频道设置一个二级域名的根域名。例：用户申请XXX.discuz.vip,根域名填：discuz.vip个人空间、群组设置完二级域名的根后，还需要在基本设置中开启相应的二级域名开关，用户才能在相应的地方申请绑定二级域名，同时受限于用户组的二级域名长度频道启用二级域名如果是绑定目录的，需要自已在环境中配置相关的绑定操作不建议中途将不同的根域变更为相同的根域',
+			2 => '可以为个人空间、圈子、版块、专题、频道设置一个二级域名的根域名。例：用户申请XXX.discuz.vip,根域名填：discuz.vip个人空间、圈子设置完二级域名的根后，还需要在基本设置中开启相应的二级域名开关，用户才能在相应的地方申请绑定二级域名，同时受限于用户组的二级域名长度频道启用二级域名如果是绑定目录的，需要自已在环境中配置相关的绑定操作不建议中途将不同的根域变更为相同的根域',
 		),
 	),
 	161 => 
@@ -2336,12 +2336,12 @@ $lang = array (
 		array (
 			0 => '域名设置 &raquo; 基本设置',
 			1 => 'setting_domain_base_tips',
-			2 => '保留二级域名设置后所有人都无法申请或使用该域名个人空间、群组的二级域名开启后需要到根域名设置中设置群组、动态的根域名',
+			2 => '保留二级域名设置后所有人都无法申请或使用该域名个人空间、圈子的二级域名开启后需要到根域名设置中设置圈子、动态的根域名',
 			3 => 'setting_domain_allow_space',
 			4 => '开启个人空间二级域名',
 			5 => '开启后需在设置根域名、以及用户组域名长度后方能开启域名申请',
 			6 => 'setting_domain_allow_group',
-			7 => '开启群组二级域名',
+			7 => '开启圈子二级域名',
 			8 => '开启后需在设置根域名、以及用户组域名长度后方能开启域名申请',
 			9 => 'setting_domain_hold_domain',
 			10 => '保留二级域名',
@@ -2743,8 +2743,8 @@ $lang = array (
 			39 => '页面缓存系数',
 			40 => '此功能可以将游客经常访问的主题临时缓存起来，缓解大型服务器压力。系数范围 0～100，建议数值 20 ～ 40，0 为关闭缓存。在磁盘空间允许的情况下，适当调高缓存系数，可以提高缓存效果注：版块设置完毕后请到 全局 -> 优化设置 -> 站点页面缓存设置，调整其缓存时间',
 			41 => 'forums_edit_extend_relatedgroup',
-			42 => '关联群组/版块',
-			43 => '填写被关联群组/版块的fid，以半角逗号 "," 隔开。版块的主题列表页将显示被关联群组/版块的主题',
+			42 => '关联圈子/版块',
+			43 => '填写被关联圈子/版块的fid，以半角逗号 "," 隔开。版块的主题列表页将显示被关联圈子/版块的主题',
 			44 => 'forums_edit_extend_edit_rules',
 			45 => '允许版主修改本版块规则',
 			46 => '设置是否允许超级版主和版主修改本版规则',
@@ -3012,24 +3012,24 @@ $lang = array (
 	array (
 		'index' => 
 		array (
-			'群组设置' => 'action=group&operation=setting',
+			'圈子设置' => 'action=group&operation=setting',
 		),
 		'text' => 
 		array (
-			0 => '群组设置',
+			0 => '圈子设置',
 			1 => 'groups_setting_basic',
 			2 => '基本设置',
 			3 => 'groups_setting_basic_mod',
-			4 => '审核新群组',
-			5 => '管理员建立群组时不需要审核',
+			4 => '审核新圈子',
+			5 => '管理员建立圈子时不需要审核',
 			6 => 'groups_setting_basic_iconsize',
-			7 => '群组图标文件大小(单位：KB)',
-			8 => '设置群组图标文件的最大尺寸，0 或留空为不限制',
+			7 => '圈子图标文件大小(单位：KB)',
+			8 => '设置圈子图标文件的最大尺寸，0 或留空为不限制',
 			9 => 'groups_setting_basic_recommend',
-			10 => '推荐群组',
-			11 => '填写要推荐到群组首页的群组 ID，以半角逗号 "," 隔开，最多显示 8 个，如不足8个会自动补充积分最高的群组。例：“23,56,983”',
+			10 => '推荐圈子',
+			11 => '填写要推荐到圈子首页的圈子 ID，以半角逗号 "," 隔开，最多显示 8 个，如不足8个会自动补充积分最高的圈子。例：“23,56,983”',
 			12 => 'groups_setting_admingroup',
-			13 => '选择管理用户组(在群组中具有与论坛中相对应的管理权限)',
+			13 => '选择管理用户组(在圈子中具有与论坛中相对应的管理权限)',
 			14 => 'forums_edit_posts_allowfeed',
 			15 => '允许发送广播和动态',
 			16 => '开启后默认允许用户发送广播和动态，同时用户也可以选择不发送，隐私版块建议设为否。如果关闭广播功能，该设置将无效。',
@@ -3061,30 +3061,30 @@ $lang = array (
 	array (
 		'index' => 
 		array (
-			'群组等级' => 'action=group&operation=level',
+			'圈子等级' => 'action=group&operation=level',
 		),
 		'text' => 
 		array (
-			0 => '群组等级',
+			0 => '圈子等级',
 			1 => 'group_level_tips',
-			2 => '群组等级不宜设置过多。当允许群组内发帖等操作影响用户积分时应谨慎，用户有可能通过群组刷积分。默认等级图标大小是25 X 25像素。',
+			2 => '圈子等级不宜设置过多。当允许圈子内发帖等操作影响用户积分时应谨慎，用户有可能通过圈子刷积分。默认等级图标大小是25 X 25像素。',
 		),
 	),
 	181 => 
 	array (
 		'index' => 
 		array (
-			'群组管理' => 'action=group&operation=manage',
+			'圈子管理' => 'action=group&operation=manage',
 		),
 		'text' => 
 		array (
-			0 => '群组管理',
+			0 => '圈子管理',
 			1 => 'groups_manage_name',
-			2 => '群组名称',
+			2 => '圈子名称',
 			3 => 'groups_manage_id',
-			4 => '群组 ID',
+			4 => '圈子 ID',
 			5 => 'groups_editgroup_category',
-			6 => '群组分类',
+			6 => '圈子分类',
 			7 => '可以按住 CTRL 多选',
 			8 => 'groups_manage_membercount',
 			9 => '成员数',
@@ -3495,7 +3495,7 @@ $lang = array (
 			51 => 'members_search_lastpostrange',
 			52 => '最后发帖时间介于',
 			53 => 'members_search_group_fid',
-			54 => '群组 ID(多个群组逗号分隔)',
+			54 => '圈子 ID(多个圈子逗号分隔)',
 			55 => 'members_search_verify',
 			56 => '认证',
 			57 => 'members_search_birthday',
@@ -4985,7 +4985,7 @@ $lang = array (
 			11 => 'setting_functions_curscript_portal_intro',
 			12 => '通过门户，网站可以将最热门的帖子、文章、活动等信息展现给用户',
 			13 => 'setting_functions_curscript_group',
-			14 => '群组',
+			14 => '圈子',
 			15 => 'setting_functions_curscript_group_intro',
 			16 => '志同道合者的聚集地，更加专业更加隐秘的交流乐园',
 			17 => 'setting_functions_curscript_follow',
@@ -5494,8 +5494,8 @@ $lang = array (
 			34 => '抢楼帖积分限制',
 			35 => '参与抢楼帖积分限制时使用的积分',
 			36 => 'setting_credits_trans12',
-			37 => '创建群组消耗积分',
-			38 => '创建群组时要消耗的积分',
+			37 => '创建圈子消耗积分',
+			38 => '创建圈子时要消耗的积分',
 			39 => 'setting_credits_tax',
 			40 => '积分交易税',
 			41 => '积分交易税(损失率)为用户在利用积分进行转让、兑换、买卖时扣除的税率，范围为 0～1 之间的浮点数，例如设置为 0.2，则用户在转换 100 个单位积分时，损失掉的积分为 20 个单位，0 为不损失',
@@ -6494,8 +6494,8 @@ $lang = array (
 			4 => 'setting_ranklist_index_select',
 			5 => '排行榜首页排行时间类型',
 			6 => 'setting_ranklist_ignorefid',
-			7 => '不参与排行的版块/群组',
-			8 => '填入版块ID或群组ID，对应版块及下面的主题将不进入排行榜，多个版块ID间请用半角逗号 "," 隔开',
+			7 => '不参与排行的版块/圈子',
+			8 => '填入版块ID或圈子ID，对应版块及下面的主题将不进入排行榜，多个版块ID间请用半角逗号 "," 隔开',
 			9 => 'setting_ranklist_member_show',
 			10 => '竞价排名功能开启',
 			11 => '开启用户模块下竞价排名功能',
@@ -7488,19 +7488,19 @@ $lang = array (
 		'index' => 
 		array (
 			'用户组' => 'action=usergroups',
-			'群组相关' => 'action=usergroups&operation=edit&anchor=group',
+			'圈子相关' => 'action=usergroups&operation=edit&anchor=group',
 		),
 		'text' => 
 		array (
-			0 => '用户组 &raquo; 群组相关',
+			0 => '用户组 &raquo; 圈子相关',
 			1 => 'usergroups_edit_group',
-			2 => '群组相关',
+			2 => '圈子相关',
 			3 => 'usergroups_edit_group_build',
-			4 => '允许建立群组的数量',
-			5 => '范围1-255，0为不允许建立群组',
+			4 => '允许建立圈子的数量',
+			5 => '范围1-255，0为不允许建立圈子',
 			6 => 'usergroups_edit_group_buildcredits',
-			7 => '创建群组消耗积分',
-			8 => '创建群组需要消耗和积分数量，0为不需要积分',
+			7 => '创建圈子消耗积分',
+			8 => '创建圈子需要消耗和积分数量，0为不需要积分',
 			9 => 'usergroups_edit_post_direct_group',
 			10 => '允许直接发帖',
 			11 => 'usergroups_edit_post_url_group',

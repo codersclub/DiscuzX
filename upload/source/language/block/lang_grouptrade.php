@@ -13,10 +13,10 @@ if(!defined('IN_DISCUZ')) {
 
 $lang = array
 (
-	'grouptrade_fids' => '指定群组',
-	'grouptrade_fids_comment' => '设置允许参与新帖调用的群组，可以按住 CTRL 多选，全选或全不选均为不做限制',
-	'grouptrade_gtids' => '群组分类',
-	'grouptrade_gtids_comment' => '设置群组所在分类，可以按住 CTRL 多选，全选或全不选均为不做限制',
+	'grouptrade_fids' => '指定圈子',
+	'grouptrade_fids_comment' => '设置允许参与新帖调用的圈子，可以按住 CTRL 多选，全选或全不选均为不做限制',
+	'grouptrade_gtids' => '圈子分类',
+	'grouptrade_gtids_comment' => '设置圈子所在分类，可以按住 CTRL 多选，全选或全不选均为不做限制',
 	'grouptrade_uids' => '用户UID',
 	'grouptrade_uids_comment' => '设置要指定显示的用户UID，多个UID请用半角逗号“,”隔开。',
 	'grouptrade_startrow' => '起始数据行数',
@@ -94,7 +94,7 @@ $lang = array
 	'grouptrade_orderby_monthstart' => '按一月内活动开始时间排序',
 	'grouptrade_orderby_weekexp' => '按一周内报名截止时间排序',
 	'grouptrade_orderby_monthexp' => '按一月内报名截止时间排序',
-	'grouptrade_gviewperm' => '群组浏览权限',
+	'grouptrade_gviewperm' => '圈子浏览权限',
 	'grouptrade_gviewperm_nolimit' => '不限制',
 	'grouptrade_gviewperm_only_member' => '仅成员',
 	'grouptrade_gviewperm_all_member' => '所有人',

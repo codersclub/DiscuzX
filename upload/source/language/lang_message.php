@@ -26,7 +26,7 @@ $lang = array (
   'friend_status_off'  => '抱歉，好友功能尚未开启',
   'forum_status_off'  => '抱歉，论坛功能尚未开启',
   'follow_status_off'  => '抱歉，广播功能尚未开启',
-  'group_module_status_off'  => '抱歉，群组功能尚未开启',
+  'group_module_status_off'  => '抱歉，圈子功能尚未开启',
   'guide_status_off'  => '抱歉，导读功能尚未开启',
   'medal_status_off'  => '抱歉，勋章功能尚未开启',
   'share_status_off'  => '抱歉，分享功能尚未开启',
@@ -270,8 +270,8 @@ $lang = array (
   'magicuse_has_no_valid_friend' => '抱歉，此道具仅对您的好友有效',
   'mobile_template_no_found' => '您访问的页面无手机页面，是否进一步访问电脑版？<br /><br /><a href="{url}">继续访问</a><br /><br />',
   'medals_existence' => '目前系统内有可用的勋章，请到“勋章中心”取消所有可用勋章后再进行此操作',
-  'close_ggcf_before_close_forum' => '请先关闭群组、导读、淘帖、广播功能后再关闭论坛功能',
-  'open_forum_before_open_ggcf' => '请先开启论坛功能后再开启群组、导读、淘帖、广播功能',
+  'close_ggcf_before_close_forum' => '请先关闭圈子、导读、淘帖、广播功能后再关闭论坛功能',
+  'open_forum_before_open_ggcf' => '请先开启论坛功能后再开启圈子、导读、淘帖、广播功能',
   'portal_status_off' => '抱歉，门户功能尚未开启',
 
   'register_check_found' => '该用户名已注册，请更换用户名或<a href="member.php?mod=logging&action=login" onclick="showWindow(\'login\', this.href);return false;" class="xi2">登录</a>',
@@ -851,7 +851,7 @@ $lang = array (
   'pm_ignore_error_nopm' => '抱歉，您指定的用户不存在或被冻结',
   'pm_kickmember_error_nopm' => '抱歉，您要踢除的用户不存在或被冻结',
   'pm_appendkmember_error_nopm' => '抱歉，您要添加的用户不存在或被冻结',
-  'message_can_not_append_reason' => '抱歉，以下用户列表加入群组失败 {cannotappend}',
+  'message_can_not_append_reason' => '抱歉，以下用户列表加入圈子失败 {cannotappend}',
   'pm_export_touser_not_exists' => '抱歉，您尚未指定导出短消息对象',
   'pm_emport_banned_export' => '抱歉，没有用于导出的短消息记录',
 

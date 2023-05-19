@@ -28,7 +28,7 @@ $lang = array
 	'type_system' => '系统',
 	'type_thread' => '主题',
 	'type_task' => '任务',
-	'type_group' => '群组',
+	'type_group' => '圈子',
 
 	'mail_to_user' => '有新的通知',
 	'showcredit' => '{actor} 赠送给您 {credit} 个竞价积分，帮助提升您在 <a href="misc.php?mod=ranklist&type=member" target="_blank">竞价排行榜</a> 中的名次',
@@ -56,11 +56,11 @@ $lang = array
 	'show_out' => '{actor} 访问了您的主页后，您在竞价排名榜中的最后一个积分也被消费掉了',
 	'puse_article' => '恭喜您，您的<a href="{url}" target="_blank">{subject}</a>已被添加到文章列表， <a href="{newurl}" target="_blank">点击查看</a>',
 
-	'group_member_join' => '{actor} 加入您的 <a href="forum.php?mod=group&fid={fid}" target="_blank">{groupname}</a> 群组需要审核，请到群组<a href="{url}" target="_blank">管理中心</a> 进行审核',
-	'group_member_invite' => '{actor} 邀请您加入 <a href="forum.php?mod=group&fid={fid}" target="_blank">{groupname}</a> 群组，<a href="{url}" target="_blank">点此马上加入</a>',
-	'group_member_check' => '您已通过了 <a href="{url}" target="_blank">{groupname}</a> 群组的审核，请 <a href="{url}" target="_blank">点击这里访问</a>',
-	'group_member_check_failed' => '您没有通过 <a href="{url}" target="_blank">{groupname}</a> 群组的审核。',
-	'group_mod_check' => '您的创建的群组 <a href="{url}" target="_blank">{groupname}</a> 审核通过了，请 <a href="{url}" target="_blank">点击这里访问</a>',
+	'group_member_join' => '{actor} 加入您的 <a href="forum.php?mod=group&fid={fid}" target="_blank">{groupname}</a> 圈子需要审核，请到圈子<a href="{url}" target="_blank">管理中心</a> 进行审核',
+	'group_member_invite' => '{actor} 邀请您加入 <a href="forum.php?mod=group&fid={fid}" target="_blank">{groupname}</a> 圈子，<a href="{url}" target="_blank">点此马上加入</a>',
+	'group_member_check' => '您已通过了 <a href="{url}" target="_blank">{groupname}</a> 圈子的审核，请 <a href="{url}" target="_blank">点击这里访问</a>',
+	'group_member_check_failed' => '您没有通过 <a href="{url}" target="_blank">{groupname}</a> 圈子的审核。',
+	'group_mod_check' => '您的创建的圈子 <a href="{url}" target="_blank">{groupname}</a> 审核通过了，请 <a href="{url}" target="_blank">点击这里访问</a>',
 
 	'reason_moderate' => '您的主题 <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> 被 {actor} {modaction} <div class="quote"><blockquote>{reason}</blockquote></div>',
 
@@ -172,7 +172,7 @@ $lang = array
 
 	'user_usergroup' => '您的用户组升级为 {usergroup} &nbsp; <a href="home.php?mod=spacecp&ac=usergroup" target="_blank" class="lit">看看我能做什么 &rsaquo;</a>',
 
-	'grouplevel_update' => '恭喜您，您的群组 {groupname} 已升级到 {newlevel}。',
+	'grouplevel_update' => '恭喜您，您的圈子 {groupname} 已升级到 {newlevel}。',
 
 	'thread_invite' => '{actor} 邀请您{invitename} <a href="forum.php?mod=viewthread&tid={tid}" target="_blank">{subject}</a> &nbsp; <a href="forum.php?mod=viewthread&tid={tid}" target="_blank" class="lit">查看 &rsaquo;</a>',
 	'blog_invite' => '{actor} 邀请您查看日志 <a href="home.php?mod=space&uid={uid}&do=blog&id={blogid}" target="_blank">{subject}</a> &nbsp; <a href="home.php?mod=space&uid={uid}&do=blog&id={blogid}" target="_blank" class="lit">查看 &rsaquo;</a>',
