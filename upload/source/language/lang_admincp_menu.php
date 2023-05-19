@@ -201,7 +201,7 @@ $lang = array
 	'menu_group_setting' => '圈子设置',
 	'menu_group_type' => '圈子分类',
 	'menu_group_manage' => '圈子管理',
-	'menu_group_userperm' => '群主权限',
+	'menu_group_userperm' => '圈主权限',
 	'menu_group_level' => '圈子等级',
 	'menu_group_mod' => '审核圈子',
 

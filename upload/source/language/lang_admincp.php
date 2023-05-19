@@ -295,7 +295,7 @@ $lang = array
 	'nav_group_setting' => '圈子设置',
 	'nav_group_type' => '圈子分类',
 	'nav_group_manage' => '圈子管理',
-	'nav_group_userperm' => '群主权限',
+	'nav_group_userperm' => '圈主权限',
 	'nav_group_level' => '圈子等级',
 	'nav_group_mod' => '审核圈子',
 	'nav_group_level_editor' => '圈子等级 -- 编辑',
@@ -7100,7 +7100,7 @@ $lang = array
 	'group_level_special_allowthreadtype' => '允许设置主题分类',
 	'group_level_special_membermax' => '圈子最大成员数',
 
-	'group_userperm_moderator' => '群主',
+	'group_userperm_moderator' => '圈主',
 	'group_userperm_upload_banner' => '上传圈子顶部图片',
 	'group_userperm_others' => '其它权限',
 

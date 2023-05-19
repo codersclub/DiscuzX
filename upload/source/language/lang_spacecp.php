@@ -129,7 +129,7 @@ $lang = array(
 
 
 
-	'apply_mtag_manager' => '想申请成为 <a href="\\1" target="_blank">\\2</a> 的群主，理由如下:\\3。<a href="\\1" target="_blank">(点击这里进入管理)</a>',
+	'apply_mtag_manager' => '想申请成为 <a href="\\1" target="_blank">\\2</a> 的圈主，理由如下:\\3。<a href="\\1" target="_blank">(点击这里进入管理)</a>',
 
 
 	'magicunit' => '个',

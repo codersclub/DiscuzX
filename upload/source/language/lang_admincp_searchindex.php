@@ -982,11 +982,11 @@ $lang = array (
 	array (
 		'index' => 
 		array (
-			'群主权限' => 'action=group&operation=userperm',
+			'圈主权限' => 'action=group&operation=userperm',
 		),
 		'text' => 
 		array (
-			0 => '群主权限',
+			0 => '圈主权限',
 		),
 	),
 	89 => 
