@@ -10,12 +10,12 @@ function media_bilibili($url, $width, $height) {
 	if(preg_match("/https?:\/\/(m.|www.|)bilibili.(com|tv)\/video\/(a|b)v([A-Za-z0-9]+)(\/?.*?&p=|\/?\?p=)?(\d+)?/i", $url, $matches)) {
 		$vid = (is_numeric($matches[4]) ? 'aid='.$matches[4] : 'bvid='.$matches[4]) . (empty($matches[6]) ? '' : '&page='.intval($matches[6]));
 		$flv = '';
-		$iframe = 'https://player.bilibili.com/player.html?'.$vid;
+		$iframe = 'https://player.bilibili.com/player.html?'.$vid.'&autoplay=0';
 		$imgurl = '';
 	} else if(preg_match("/https?:\/\/(www.|)(acg|b23).tv\/(a|b)v([A-Za-z0-9]+)(\/?.*?&p=|\/?\?p=)?(\d+)?/i", $url, $matches)) {
 		$vid = (is_numeric($matches[4]) ? 'aid='.$matches[4] : 'bvid='.$matches[4]) . (empty($matches[6]) ? '' : '&page='.intval($matches[6]));
 		$flv = '';
-		$iframe = 'https://player.bilibili.com/player.html?'.$vid;
+		$iframe = 'https://player.bilibili.com/player.html?'.$vid.'&autoplay=0';
 		$imgurl = '';
 	}
 	return array($flv, $iframe, $url, $imgurl);
