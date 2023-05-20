@@ -2949,7 +2949,7 @@ EOT;
 			}
 		}
 
-		for($si = 0; $si < 12; $si++) {
+		for($si = 0; $si < 13; $si++) {
 			$creditstransi = $si > 0 && !$settingnew['creditstrans'][$si] ? $settingnew['creditstrans'][0] : $settingnew['creditstrans'][$si];
 			if($creditstransi && empty($settingnew['extcredits'][$creditstransi]['available']) && $settingnew['creditstrans'][$si] != -1) {
 				cpmsg('setting_creditstrans_invalid', '', 'error');

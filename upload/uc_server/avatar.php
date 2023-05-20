@@ -11,7 +11,7 @@
 error_reporting(0);
 
 _get_script_url();
-define('UC_API', strtolower((is_https() ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/'))));
+define('UC_API', (is_https() ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/')));
 // 非独立模式下若想为头像服务设置独立域名（如CDN等服务），可以在此处进行配置UC_AVTURL（结尾不可有/）
 define('UC_AVTURL', '');
 

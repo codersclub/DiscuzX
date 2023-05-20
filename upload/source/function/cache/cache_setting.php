@@ -303,7 +303,7 @@ function build_cache_setting() {
 	$data['creditstrans'] = $creditstranssi[0];
 	unset($creditstranssi[0]);
 	$data['creditstransextra'] = $creditstranssi;
-	for($i = 1;$i < 11;$i++) {
+	for($i = 1; $i < 13; $i++) {
 		$data['creditstransextra'][$i] = $data['creditstrans'] ? (!$data['creditstransextra'][$i] ? $data['creditstrans'] : $data['creditstransextra'][$i]) : 0;
 	}
 	$data['exchangestatus'] = $allowexchangein && $allowexchangeout;
