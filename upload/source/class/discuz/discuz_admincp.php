@@ -101,6 +101,7 @@ class discuz_admincp
 
 			} elseif ($this->cpsetting['checkip'] && ($session['ip'] != $this->core->var['clientip'])) {
 				$this->cpaccess = 1;
+				$_G['admincp_checkip_noaccess'] = 1;
 
 			} elseif ($session['errorcount'] >= 0 && $session['errorcount'] <= 3) {
 				$this->cpaccess = 2;

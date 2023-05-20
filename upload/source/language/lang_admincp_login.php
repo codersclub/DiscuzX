@@ -43,6 +43,7 @@ $lang = array
 	'login_cplock' => '您的管理面板已经锁定！<br>请在<b> {ltime} </b>秒以后重新访问管理中心。',
 	'login_user_lock' => '由于您的登录密码错误次数过多，本次登录请求已经被拒绝。请 15 分钟后重新尝试。',
 	'login_cp_noaccess' => '<b>管理中心(或此项操作)尚未对您开放</b><br><br>您的此次操作已经记录，请勿非法尝试',
+	'login_ip_noaccess' => '<a href="https://www.dismall.com/thread-17514-1-1.html" target="_blank">IP变动可能导致登录失败，查看解决办法</a>',
 	'noaccess' => '后台管理权限(或此项操作)尚未对您开放，请联系站点管理员',
 
 

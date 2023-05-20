@@ -156,6 +156,11 @@ EOT;
 		</select>
 		<input type="text" name="admin_answer" class="loginqa" placeholder="{$lang['security_answer']}" autocomplete="off">
 		<button type="submit">{$lang['submit']}</button>
+EOT;
+	if (!empty($_G['admincp_checkip_noaccess'])) {
+		echo  '<br><span>'.lang('admincp_login', 'login_ip_noaccess').'</span>';
+	}
+	echo <<<EOT
 		</form>
 EOT;
 }
