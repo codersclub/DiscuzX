@@ -42,7 +42,7 @@ Discuz! X 官方 Git (https://gitee.com/Discuz/DiscuzX) ，简体中文 UTF8 版
 
 ### **每日构建下载**
 
-Discuz! X提供3.4和3.5的每日构建，在有提交的第二天早上，可以下载到简体GBK（X3.4）、简体UTF8、繁体BIG5（X3.4）、繁体UTF8的打包版本。
+Discuz! X提供3.5的每日构建，在有提交的第二天早上，可以下载到简体UTF8、繁体UTF8的打包版本。
 
 [点击打开](https://www.discuz.vip/daily/)
 
