@@ -195,7 +195,7 @@ if($_G['setting']['grid']['showgrid']) {
 		}
 		if(!$_G['setting']['grid']['gridtype']) {
 
-			$focuspic = $focusurl = $focustext = array();
+			$grids['slide'] = $focuspic = $focusurl = $focustext = array();
 			$grids['focus'] = 'config=5|0xffffff|0x0099ff|50|0xffffff|0x0099ff|0x000000';
 			foreach($grids['image'] as $ithread) {
 				if($ithread['displayorder'] < 0) {
