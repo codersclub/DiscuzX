@@ -48,7 +48,7 @@ Discuz! X提供3.4和3.5的每日构建，在有提交的第二天早上，可�
 
 ### **友情提示**
 - Git 版的 Release 版本号不再更新，但[正式版](https://gitee.com/Discuz/DiscuzX/attach_files)会更新
-- 由于 X3.2、X3.3 已停更，X3.4 漏洞和相关修补同样适用于 X3.2、X3.3 版本，请随时关注[更新列表](https://gitee.com/Discuz/DiscuzX/commits/master)，您可进行手动修补，让自己的站点时刻保持最安全的状态!
+- X3.2、X3.3、X3.4 已停更，无重大漏洞的情况下，将不再更新 X3.4 版本。请随时关注[更新列表](https://gitee.com/Discuz/DiscuzX/commits/master)，您可进行手动修补，让自己的站点时刻保持最安全的状态!
 
 ### 截图
 ![系统信息](./readme/screenshot.png "系统信息截图")
