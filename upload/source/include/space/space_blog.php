@@ -353,20 +353,22 @@ if($id) {
 }
 
 function blog_get_stick($uid, $stickblogs, $summarylen) {
-	$list = array();
+	$list = $stickids = array();
 	if($stickblogs) {
 		$data_blog = C::t('home_blog')->fetch_all_blog($stickblogs);
 		$data_blogfield = C::t('home_blogfield')->fetch_all($stickblogs);
 		foreach ($stickblogs as $blogid) {
 			if(!empty($data_blog[$blogid]) && !empty($data_blogfield[$blogid])) {
 				$value = array_merge($data_blog[$blogid], $data_blogfield[$blogid]);
-				$value['message'] = getstr($value['message'], $summarylen, 0, 0, 0, -1);
-				$value['message'] = preg_replace("/&[a-z]+\;/i", '', $value['message']);
-				if($value['pic']) $value['pic'] = pic_cover_get($value['pic'], $value['picflag']);
-				$value['dateline'] = dgmdate($value['dateline']);
-				$value['stickflag'] = true;
-				$list[$value['blogid']] = $value;
-				$stickids[] = $value['blogid'];
+				if(ckfriend($value['uid'], $value['friend'], $value['target_ids']) && ($value['status'] == 0 || $value['uid'] == $_G['uid'] || $_G['adminid'] == 1)) {
+					$value['message'] = getstr($value['message'], $summarylen, 0, 0, 0, -1);
+					$value['message'] = preg_replace("/&[a-z]+\;/i", '', $value['message']);
+					if($value['pic']) $value['pic'] = pic_cover_get($value['pic'], $value['picflag']);
+					$value['dateline'] = dgmdate($value['dateline']);
+					$value['stickflag'] = true;
+					$list[$value['blogid']] = $value;
+					$stickids[] = $value['blogid'];
+				}
 			}
 		}
 		if(count($stickids) != count($stickblogs)) {
