@@ -962,19 +962,26 @@ function remakecategoryfile($categorys) {
 }
 
 function showportalprimaltemplate($pritplname, $type) {
+	global $_G;
 	include_once libfile('function/portalcp');
-	$tpls = array('./template/default:portal/'.$type=>getprimaltplname('portal/'.$type.'.htm'));
+	$default_tpls = array();
+	$tpls = array('./template/default:portal/'.$type=>getprimaltplname('./template/default:portal/'.$type.'.htm'));
 	foreach($alltemplate = C::t('common_template')->range() as $template) {
 		if(($dir = dir(DISCUZ_ROOT.$template['directory'].'/portal/'))) {
 			while(false !== ($file = $dir->read())) {
 				$file = strtolower($file);
-				if (fileext($file) == 'htm' && substr($file, 0, strlen($type)+1) == $type.'_') {
-					$key = $template['directory'].':portal/'.str_replace('.htm','',$file);
-					$tpls[$key] = getprimaltplname($template['directory'].':portal/'.$file);
+				if (in_array(fileext($file), array('htm', 'php')) && (substr($file, 0, strlen($type)+1) == $type.'_') || (substr($file, 0, -4) == $type && $template['directory'] != './template/default')) {
+					$key = $template['directory'].':portal/'.substr($file, 0, -4);
+					if ($_G['cache']['style_default']['tpldir'] && $_G['cache']['style_default']['tpldir'] == $template['directory']) {
+						$default_tpls[$key] = getprimaltplname($template['directory'].':portal/'.$file);
+					}else{
+						$tpls[$key] = getprimaltplname($template['directory'].':portal/'.$file);
+					}
 				}
 			}
 		}
 	}
+	$tpls = array_merge($default_tpls, $tpls);
 
 	foreach($tpls as $key => $value) {
 		echo "<input name=signs[$type][".dsign($key)."] value='1' type='hidden' />";

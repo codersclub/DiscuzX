@@ -1095,16 +1095,25 @@ function getprimaltplname($filename) {
 	if(empty($tpldirectory)) {
 		$tpldirectory = ($_G['cache']['style_default']['tpldir'] ? $_G['cache']['style_default']['tpldir'] : './template/default');
 	}
-	$content = @file_get_contents(DISCUZ_ROOT.$tpldirectory.'/'.$filename);
+	if(file_exists(DISCUZ_ROOT.$tpldirectory.'/'.$filename)) {
+		$file = DISCUZ_ROOT.$tpldirectory.'/'.$filename;
+	} elseif(file_exists(DISCUZ_ROOT.$tpldirectory.'/'.substr(DISCUZ_ROOT.$filename, 0, -4).'.php')) {
+		$file = DISCUZ_ROOT.$tpldirectory.'/'.substr($filename, 0, -4).'.php';
+	} else {
+		$file = DISCUZ_ROOT.'./template/default/'.$filename;
+	}
 	$name = $tpldirectory.'/'.$filename;
-	if($content) {
-		preg_match("/\<\!\-\-\[name\](.+?)\[\/name\]\-\-\>/i", trim($content), $mathes);
-		if(!empty($mathes[1])) {
-			preg_match("/^\{lang (.+?)\}$/", $mathes[1], $langs);
-			if(!empty($langs[1])) {
-				$name = !$lang[$langs[1]] ? $langs[1] : $lang[$langs[1]];
-			} else {
-				$name = dhtmlspecialchars($mathes[1]);
+	if(file_exists($file)) {
+		$content = @file_get_contents($file);
+		if($content) {
+			preg_match("/\<\!\-\-\[name\](.+?)\[\/name\]\-\-\>/i", trim($content), $mathes);
+			if(!empty($mathes[1])) {
+				preg_match("/^\{lang (.+?)\}$/", $mathes[1], $langs);
+				if(!empty($langs[1])) {
+					$name = !$lang[$langs[1]] ? $langs[1] : $lang[$langs[1]];
+				} else {
+					$name = dhtmlspecialchars($mathes[1]);
+				}
 			}
 		}
 	}
