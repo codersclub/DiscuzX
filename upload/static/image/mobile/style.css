@@ -215,11 +215,11 @@ select {-moz-appearance:none;}
 .mb5 {margin-bottom:5px !important;}
 .mb10 {margin-bottom:10px !important;}
 .mb15 {margin-bottom:15px !important;}
-.ml0 {margin-left:5px !important;}
+.ml0 {margin-left:0px !important;}
 .ml5 {margin-left:5px !important;}
 .ml10 {margin-left:10px !important;}
 .ml15 {margin-left:15px !important;}
-.mr0 {margin-right:5px !important;}
+.mr0 {margin-right:0px !important;}
 .mr5 {margin-right:5px !important;}
 .mr10 {margin-right:10px !important;}
 .mr15 {margin-right:15px !important;}
