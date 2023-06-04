@@ -202,4 +202,9 @@ function switchframedmvalue(ifdark, ifauto) {
 	$('navbtn').addEventListener('click', function(){
 		$('navcontainer').classList.add('show');
 	});
+	$('navcontainer').addEventListener('click', function(e){
+		if(e.target === this){
+			this.classList.remove('show')
+		}
+	})
 })()
