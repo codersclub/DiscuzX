@@ -141,7 +141,7 @@ class db_driver_mysqli
 		if(!($query = $this->curlink->query($sql, $resultmode))) {
 			if(in_array($this->errno(), array(2006, 2013)) && substr($silent, 0, 5) != 'RETRY') {
 				$this->connect();
-				return $this->curlink->query($sql, 'RETRY'.$silent);
+				return $this->query($sql, 'RETRY'.$silent);
 			}
 			if(!$silent) {
 				$this->halt($this->error(), $this->errno(), $sql);
