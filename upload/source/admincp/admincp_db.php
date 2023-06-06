@@ -1147,11 +1147,7 @@ function syntablestruct($sql, $version, $dbcharset) {
 }
 
 function sqldumptablestruct($table) {
-	global $_G, $db, $excepttables, $dumpcharset;
-
-	if(in_array($table, $excepttables)) {
-		return;
-	}
+	global $_G, $db, $dumpcharset;
 
 	$createtable = DB::query("SHOW CREATE TABLE $table", 'SILENT');
 
@@ -1214,7 +1210,7 @@ function sqldumptable($table, $startfrom = 0, $currsize = 0) {
 
 		if($_GET['extendins'] == '0') {
 			while($currsize + strlen($tabledump) + 500 < $_GET['sizelimit'] * 1000 && $numrows == $offset) {
-				if($firstfield['Extra'] == 'auto_increment') {
+				if($firstfield['Extra'] == 'auto_increment' || preg_match("/^".DB::table('forum_post')."(_(\\d+))?$/i", $table)) {
 					$selectsql = "SELECT * FROM $table WHERE {$firstfield['Field']} > $startfrom ORDER BY {$firstfield['Field']} LIMIT $offset";
 				} else {
 					$selectsql = "SELECT * FROM $table LIMIT $startfrom, $offset";
