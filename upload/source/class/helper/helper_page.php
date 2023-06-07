@@ -20,7 +20,7 @@ class helper_page {
 
 		$a_name = '';
 
-                $mpurl = str_replace(array("'", '"', "\\"), array('%27', '%22', '%5c'), $mpurl);
+		$mpurl = str_replace(array("'", '"', "\\"), array('%27', '%22', '%5c'), $mpurl);
 
 		if(strpos($mpurl, '#') !== FALSE) {
 			$a_strs = explode('#', $mpurl);
@@ -115,6 +115,21 @@ class helper_page {
 			($curpage < $pages && !$simple ? '<a href="'.(self::mpurl($mpurl, $pagevar, $curpage + 1)).$a_name.'" class="nxt"'.$ajaxtarget.'>'.$lang['next'].'</a>' : '').
 			($showkbd && !$simple && $pages > $page && !$ajaxtarget && !$wml ? '<kbd><input type="text" name="custompage" size="3" onkeydown="if(event.keyCode==13) {window.location=\''.$jsurl.'}" /></kbd>' : '');
 
+			if(defined('IN_MOBILE') && !defined('TPL_DEFAULT') && $multipage) {
+				$multipage_url = '';
+				parse_str(preg_replace('#^\w+\.php\?#i', '', str_replace('&amp;', '&', $mpurl)), $query);
+				if(!empty($query['mod']) && $query['mod'] == 'viewthread' && !empty($query['tid']) && $query['tid'] == $_G['tid']) {
+					$multipage_url = rewriteoutput('forum_viewthread', 1, $_G['siteurl'], $_G['tid'], '{page}', '', '');
+				} elseif(!empty($query['mod']) && $query['mod'] == 'forumdisplay' && !empty($query['fid']) && $query['fid'] == $_G['fid']) {
+					$multipage_url = rewriteoutput('forum_forumdisplay', 1, $_G['siteurl'], $_G['fid'], '{page}', '', '');
+				} else {
+					$multipage_url = self::mpurl($mpurl, $pagevar, '{page}');
+					$multipage_url = (stripos($multipage_url, $_G['siteurl']) === false && !preg_match('/^https?:\/\//is', $multipage_url) ? $_G['siteurl'] : '').$multipage_url;
+				}
+				if(!empty($multipage_url)) {
+					$multipage .= '<input type="hidden" name="multipage_url" id="multipage_url" value="'.$multipage_url.'" />';
+				}
+			}
 			$multipage = $multipage ? '<div class="pg">'.($shownum && !$simple ? '<em>&nbsp;'.$num.'&nbsp;</em>' : '').$multipage.'</div>' : '';
 		}
 		$maxpage = $realpages;

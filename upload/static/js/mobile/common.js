@@ -27,6 +27,7 @@ var page = {
 		var nextpage = qSel('div.pg .nxt') ? qSel('div.pg .nxt').href : undefined;
 		var lastpage = qSel('div.pg label span') ? (qSel('div.pg label span').innerText.replace(/[^\d]/g, '') || 0) : 0;
 		var curpage = qSel('div.pg input') ? qSel('div.pg input').value : 1;
+		var multipage_url = getID('multipage_url') ? getID('multipage_url').value : undefined;
 
 		if(!lastpage) {
 			prevpage = qSel('div.pg .pgb a') ? qSel('div.pg .pgb a').href : undefined;
@@ -61,7 +62,14 @@ var page = {
 		pgobj.innerHTML = '<a href="'+ prevpagehref +'">上一页</a>'+ selector +'<a href="'+ nextpagehref +'">下一页</a>';
 		qSel('#dumppage').addEventListener('change', function() {
 			var href = (prevpage || nextpage);
-			window.location.href = href.replace(/page=\d+/, 'page=' + this.value);
+			var newhref = href.replace(/page=\d+/, 'page=' + this.value);
+			if (newhref == href) {
+				newhref = href.replace(/(forum|thread|article|group|blog)-(\d+)-(\d+)(-(\d+))?\.html/i, '$1-$2-' + this.value + '$4.html');
+				if (newhref == href && multipage_url != undefined) {
+					newhref = multipage_url.replace(/{page}/i, this.value);
+				}
+			}
+			window.location.href = newhref;
 		});
 	},
 };
