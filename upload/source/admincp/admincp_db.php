@@ -1207,10 +1207,14 @@ function sqldumptable($table, $startfrom = 0, $currsize = 0) {
 		$tabledumped = 0;
 		$numrows = $offset;
 		$firstfield = $tablefields[0];
+		$unique = false;
+		if($firstfield['Extra'] == 'auto_increment' || preg_match("/^".DB::table('forum_post')."(_(\\d+))?$/i", $table)) {
+			$unique = true;
+		}
 
 		if($_GET['extendins'] == '0') {
 			while($currsize + strlen($tabledump) + 500 < $_GET['sizelimit'] * 1000 && $numrows == $offset) {
-				if($firstfield['Extra'] == 'auto_increment' || preg_match("/^".DB::table('forum_post')."(_(\\d+))?$/i", $table)) {
+				if($unique) {
 					$selectsql = "SELECT * FROM $table WHERE {$firstfield['Field']} > $startfrom ORDER BY {$firstfield['Field']} LIMIT $offset";
 				} else {
 					$selectsql = "SELECT * FROM $table LIMIT $startfrom, $offset";
@@ -1227,7 +1231,7 @@ function sqldumptable($table, $startfrom = 0, $currsize = 0) {
 						$comma = ',';
 					}
 					if(strlen($t) + $currsize + strlen($tabledump) + 500 < $_GET['sizelimit'] * 1000) {
-						if($firstfield['Extra'] == 'auto_increment') {
+						if($unique) {
 							$startfrom = $row[0];
 						} else {
 							$startfrom++;
@@ -1241,7 +1245,7 @@ function sqldumptable($table, $startfrom = 0, $currsize = 0) {
 			}
 		} else {
 			while($currsize + strlen($tabledump) + 500 < $_GET['sizelimit'] * 1000 && $numrows == $offset) {
-				if($firstfield['Extra'] == 'auto_increment') {
+				if($unique) {
 					$selectsql = "SELECT * FROM $table WHERE {$firstfield['Field']} > $startfrom LIMIT $offset";
 				} else {
 					$selectsql = "SELECT * FROM $table LIMIT $startfrom, $offset";
@@ -1259,7 +1263,7 @@ function sqldumptable($table, $startfrom = 0, $currsize = 0) {
 							$comma2 = ',';
 						}
 						if(strlen($t1) + $currsize + strlen($tabledump) + 500 < $_GET['sizelimit'] * 1000) {
-							if($firstfield['Extra'] == 'auto_increment') {
+							if($unique) {
 								$startfrom = $row[0];
 							} else {
 								$startfrom++;
