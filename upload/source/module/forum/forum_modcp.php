@@ -60,7 +60,7 @@ if($modforums === null) {
 			}
 		}
 		foreach($query as $tforum) {
-			$tforum['allowview'] = !isset($tforum['allowview']) ? '' : $tforum['allowview'];
+			$tforum['allowview'] = !isset($tforum['allowview']) ? 0 : $tforum['allowview'];
 			if($tforum['allowview'] == 1 || ($tforum['allowview'] == 0 && ((!$tforum['viewperm'] && $_G['group']['readaccess']) || ($tforum['viewperm'] && forumperm($tforum['viewperm']))))) {
 				$modforums['fids'] .= $comma.$tforum['fid']; $comma = ',';
 				$modforums['recyclebins'][$tforum['fid']] = $tforum['recyclebin'];
