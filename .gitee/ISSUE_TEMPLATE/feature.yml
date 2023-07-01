@@ -1,0 +1,61 @@
+name: 需求建议
+description: 想要某种新功能，或者想要改进某个已有的功能。
+body:
+  - type: markdown
+    attributes:
+      value: 请在上方标题位置，简要陈述您要提出的需求，记得包含重要关键词以便其他人能搜索到。
+  - type: markdown
+    attributes:
+      value: |
+        ----
+
+        ## **Issue 提交须知**
+        - **无论您询问的问题如何简单，也请严格按照 Issue 模板填写信息，未正确套用模板或信息不全的问题反馈将不做处理。**
+        - 本 Issue 不承诺解决任何问题，对此对您带来的不便我们深感歉意，也感谢您的理解和支持。
+        - Issue 提交者承诺在 Issue 中文明用语，并在问题解决后主动更改 Issue 状态为已完成，问题拒绝后主动更改 Issue 状态为已拒绝，维护环境从每个人的小小行动做起.
+        - 强烈建议阅读 [https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/master/README-zh_CN.md](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/master/README-zh_CN.md) 指南后继续填写，指南不提供此项目的实际支持服务。
+
+        ----
+  - type: checkboxes
+    attributes:
+      label: 是否有人提出过此需求？
+      options:
+        - label: 我已经搜索过了，确认此需求没有其他人提过。
+          required: true
+  - type: textarea
+    attributes:
+      label: 新需求描述
+      description: 清晰并简洁地描述这个需求
+      placeholder: |
+        1. 请在提交前善用搜索功能，如果已经存在同类 Issue，请在原有 Issue 下以评论的形式按照此模板补充相关信息，重复发布 Issue 是一种不文明行为。
+        2. 请说明程序在何种状态应该作出何种期望行为以及实际行为和期望行为的差距，如之前版本存在期望行为，请填写符合期望行为的最高 Discuz! 版本和 Release 版本。
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 新需求操作步骤
+      description: 清晰并简洁地描述新功能具体流程
+      placeholder: |
+        1. 请完整说明需要实现何种功能，新功能具体流程。
+        2. 请完整说明新功能在系统内处于何种角色定位。
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 为解决问题做过哪些尝试
+      description: 清晰并简洁地描述你为解决问题做过哪些尝试
+      placeholder: |
+        1. 请证明系统内不存在解决此场景问题的功能，且此功能不能或不适宜通过第三方插件实现。
+        2. 请说明此新增功能在通用场景下的必要性、先进性、关联性。
+  - type: textarea
+    attributes:
+      label: 其他信息
+      description: 在此处添加其他相关的信息
+      placeholder: |
+        1. 其他与此问题相关的信息均可在此提供。
+        2. 欢迎您尽可能多的填写相关信息。
+  - type: checkboxes
+    attributes:
+      label: 参与开源项目
+      options:
+        - label: 我愿意开发实现这个需求，并将代码开源贡献给本项目。
