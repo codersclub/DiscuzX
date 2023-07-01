@@ -1,0 +1,104 @@
+name: 问题反馈
+description: 在使用或开发中遇到了问题，并经过测试确信这个问题是 Discuz! 本体的代码产生的。
+body:
+  - type: markdown
+    attributes:
+      value: 请在上方标题位置，简要陈述您要反馈的问题，记得包含重要关键词以便其他人能搜索到。
+  - type: markdown
+    attributes:
+      value: |
+        ----
+
+        ## **Issue 提交须知**
+        - **无论您询问的问题如何简单，也请严格按照 Issue 模板填写信息，未正确套用模板或信息不全的问题反馈将不做处理。**
+        - 本 Issue 不承诺解决任何问题，对此对您带来的不便我们深感歉意，也感谢您的理解和支持。
+        - Issue 提交者承诺在 Issue 中文明用语，并在问题解决后主动更改 Issue 状态为已完成，问题拒绝后主动更改 Issue 状态为已拒绝，维护环境从每个人的小小行动做起.
+        - 强烈建议阅读 [https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/master/README-zh_CN.md](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/master/README-zh_CN.md) 指南后继续填写，指南不提供此项目的实际支持服务。
+
+        ----
+  - type: checkboxes
+    attributes:
+      label: 是否有人反馈过此问题？
+      options:
+        - label: 我已经搜索过了，确认此问题没有其他人反馈过。
+          required: true
+  - type: textarea
+    attributes:
+      label: 问题描述
+      description: 请大致说一下这是个什么问题
+      placeholder: |
+        1. 请在提交前善用搜索功能，如果已经存在同类 Issue，请在原有 Issue 下以评论的形式按照此模板补充相关信息，重复发布 Issue 是一种不文明行为。
+        2. 请说明程序在何种状态应该作出何种期望行为以及实际行为和期望行为的差距，如之前版本存在期望行为，请填写符合期望行为的最高 Discuz! 版本和 Release 版本。
+        3. 如果要粘贴代码，请先点击编辑器中的 </> 代码按钮，再粘贴，否则格式会乱，无法正常阅读。
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 问题重现步骤
+      description: 请详细描述如何复现这个问题
+      placeholder: |
+        1. 请在提交报告前尝试通过更新缓存、关闭所有插件并恢复默认模板、使用最新 Release 版本覆盖程序文件解决问题，如问题解决并不再发生，无需提交问题。
+        2. 如出现 Discuz! Error，请提供有 PHP Debug 信息的图片，如报错包含 source/plugin/xxx，请先尝试关闭 xxx 插件后再试，如关闭插件后问题解决则无需提交问题，解决方案请向插件开发者咨询。
+        3. 在描述重现步骤时，有条件的情况下请使用新安装站点，从安装完成开始描述如何复现此问题，请尽可能给出准确的复现流程，无法复现的问题无法被处理，难以复现的问题可能需要很长时间才能由开发者复现。
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 报错信息
+      description: 请将收集到的报错信息在这里提供
+      placeholder: |
+        1. 请尽可能提供前后端所有报错信息，文本内容和截图均需尽可能多的提供。无法复现的问题无法被处理。
+        2. 特定的请求参数以及报错信息如为文本类型，请先点击编辑器中的 </> 代码按钮，再粘贴对应的文字内容。
+        3. 易忽略的报错信息位置：管理中心 - 工具 - 运行记录 - 系统记录 - 系统错误页面的错误日志，浏览器按 F12 弹出的控制台中的错误提示，PHP 错误日志(尤其是白屏类问题)，Web Server 或浏览器给出的错误代码等。
+  - type: textarea
+    attributes:
+      label: 为解决问题做过哪些尝试
+      description: 请描述一下解决问题的过程中所尝试过的那些事情
+      placeholder: |
+        1. 请详细说明问题发生前做过的任何变更(如安装插件/模板，修改文件，站点搬家，更换域名等)。
+        2. 请详细说明在问题发生之后对站点的任何修复尝试。
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 后台系统信息
+      description: 请直接将网站后台首页里显示的系统信息复制过来，如果已经进不了后台了，就请手动输入一下
+      placeholder: |
+        Discuz! 程序版本
+        UCenter 客户端版本
+        服务器系统及 PHP
+        服务器软件
+        服务器 MySQL 版本
+        上传许可
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 其他版本信息
+      description: 请提供除上述内容以外，其他服务器软件版本信息和本地浏览器等其他信息
+      placeholder: |
+        请尽量提供充足的信息，提供的信息多，更有利于问题的排查。
+        例如：
+        内存缓存类型和版本 (如redis或memcache等)
+        浏览器类型和版本
+  - type: checkboxes
+    attributes:
+      label: 是否自行修改过
+      options:
+        - label: 如果站点有自行修改或二次开发的情况，请选择此项。
+  - type: textarea
+    attributes:
+      label: 其他信息
+      description: 其他与此问题相关的信息均可在此提供
+      placeholder: |
+        1. 其他与此问题相关的信息均可在此提供。
+        2. 欢迎您尽可能多的填写相关信息。
+  - type: dropdown
+    attributes:
+      label: 相关版本
+      description: 请在填写时注意产品版本维护策略，不在产品版本维护期限内的产品不对任何问题(含高危安全问题)做处理。
+      options:
+        - X3.5
+        - X3.4 (仅安全问题)
+    validations:
+      required: true
