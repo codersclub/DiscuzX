@@ -328,7 +328,7 @@ var rowtypedata = [
 			}
 			$availablenew = $_GET['availablenew'];
 			foreach($tagnew as $id => $val) {
-				if(in_array($id, $custom_ids) && !preg_match("/^[0-9a-z]+$/i", $tagnew[$id]) && strlen($tagnew[$id]) < 20) {
+				if(in_array($id, $custom_ids) && (!preg_match("/^[0-9a-z]+$/i", $tagnew[$id]) || strlen($tagnew[$id]) > 20)) {
 					cpmsg('dzcode_edit_tag_invalid', '', 'error');
 				}
 				$availablenew[$id] = in_array($id, $custom_ids) ? $availablenew[$id] : 1;
@@ -347,7 +347,7 @@ var rowtypedata = [
 
 		$newtag = $_GET['newtag'];
 		if($newtag != '') {
-			if(!preg_match("/^[0-9a-z]+$/i", $newtag && strlen($newtag) < 20)) {
+			if(!preg_match("/^[0-9a-z]+$/i", $newtag) || strlen($newtag) > 20) {
 				cpmsg('dzcode_edit_tag_invalid', '', 'error');
 			}
 			$data = array(
