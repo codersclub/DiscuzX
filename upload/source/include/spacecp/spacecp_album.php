@@ -318,7 +318,7 @@ if($_GET['op'] == 'edit') {
 			showmessage('parameters_error');
 		}
 		$attach = C::t('forum_attachment_n')->fetch_attachment('aid:'.$aid, $aid);
-		if(empty($attach) || $attach['uid'] != $_G['uid'] || !$attach['isimage']) {
+		if(empty($attach) || !$attach['isimage']) {
 			showmessage('parameters_error');
 		}
 		if($albumid) {
