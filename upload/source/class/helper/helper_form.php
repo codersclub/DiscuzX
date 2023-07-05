@@ -54,33 +54,21 @@ class helper_form {
 				cpmsg(lang('message', 'word_banned'), '', 'error', array('wordbanned' => $wordbanned));
 			}
 		}
-		if($_G['group']['allowposturl'] == 0 || $_G['group']['allowposturl'] == 2) {
+		if($_G['group']['allowposturl'] == 0) {
 			$urllist = self::get_url_list($message);
-			if(is_array($urllist[1])) foreach($urllist[1] as $key => $val) {
-				if(!$val = trim($val)) continue;
-				if(!iswhitelist($val)) {
-					if($_G['group']['allowposturl'] == 0) {
+			if(is_array($urllist[1])) {
+				foreach($urllist[1] as $key => $val) {
+					if(!$val = trim($val)) continue;
+					if(!iswhitelist($val)) {
 						if($return) {
 							return array('message' => 'post_url_nopermission');
 						}
 						showmessage('post_url_nopermission');
-					} elseif($_G['group']['allowposturl'] == 2) {
-						$message = str_replace('[url]'.$urllist[0][$key].'[/url]', $urllist[0][$key], $message);
-						$message = preg_replace(
-							array(
-								"@\[url=[^\]]*?".preg_quote($urllist[0][$key],'@')."[^\]]*?\](.*?)\[/url\]@is",
-								"@href=('|\")".preg_quote($urllist[0][$key],'@')."\\1@is",
-								"@\[url\]([^\]]*?".preg_quote($urllist[0][$key],'@')."[^\]]*?)\[/url\]@is",
-							),
-							array(
-								'\\1',
-								'',
-								'\\1',
-							),
-							$message);
 					}
 				}
 			}
+		} elseif($_G['group']['allowposturl'] == 2) {
+			$message = preg_replace("/\[url(=((https?|ftp|gopher|news|telnet|rtsp|mms|callto|bctp|thunder|qqdl|synacast){1}:\/\/|www\.|mailto:|tel:|magnet:)?([^\r\n\[\"']+?))?\](.+?)\[\/url\]/is", '\\5', $message);
 		}
 		return $message;
 	}
