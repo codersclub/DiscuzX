@@ -18,12 +18,6 @@ class model_forum_post extends discuz_model {
 
 	public $post;
 
-
-
-
-
-
-
 	public $pid = 0;
 
 	public $feed = array();
@@ -221,7 +215,7 @@ class model_forum_post extends discuz_model {
 
 		if($this->param['modnewreplies']) {
 			updatemoderate('pid', $this->pid);
-			unset($this->param['showmsgparam']['pid']);
+			$this->param['showmsgparam']['reply_mod'] = 1;
 			if($this->param['updatethreaddata']) {
 				C::t('forum_thread')->update($this->thread['tid'], $this->param['updatethreaddata'], false, false, 0, true);
 			}

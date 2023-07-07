@@ -83,7 +83,8 @@
 	function succeedhandle_fastpost(locationhref, message, param) {
 		var pid = param['pid'];
 		var tid = param['tid'];
-		if(pid) {
+		var reply_mod = param['reply_mod'];
+		if(!reply_mod) {
 			$.ajax({
 				type:'POST',
 				url:'forum.php?mod=viewthread&tid=' + tid + '&viewpid=' + pid + '&mobile=2',

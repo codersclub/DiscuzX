@@ -233,7 +233,8 @@ function succeedhandle_fastpost(locationhref, message, param) {
 	var pid = param['pid'];
 	var tid = param['tid'];
 	var from = param['from'];
-	if(pid) {
+	var reply_mod = param['reply_mod'];
+	if(!reply_mod) {
 		ajaxget('forum.php?mod=viewthread&tid=' + tid + '&viewpid=' + pid + '&from=' + from, 'post_new', 'ajaxwaitid', '', null, 'fastpostappendreply()');
 		if(replyreload) {
 			var reloadpids = replyreload.split(',');
