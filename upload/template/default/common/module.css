@@ -1959,7 +1959,7 @@ body { background: none !important; }
 		.pbw strong { font-weight: 400; }
 			.pbw p { color: #000; }
 		.p_pop span { display: none; }
-#nv_search .w { margin: 20px; text-align: center; }
+#nv_search #ft.w { margin: 20px; text-align: center; }
 .pg { float: none; }
 #myspace_menu li a, #navs_menu li a { background-repeat: no-repeat; background-position: -200px 0; }
 /** end **/
