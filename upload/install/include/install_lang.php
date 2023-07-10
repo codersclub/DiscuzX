@@ -53,6 +53,7 @@ $lang = array(
 	'database_errno_1044' => '无法创建新的数据库，请检查数据库名称填写是否正确',
 	'database_errno_1045' => '无法连接数据库，请检查数据库用户名或者密码是否正确',
 	'database_connect_error' => '数据库连接错误',
+	'run_sql_error' => 'Discuz! Database Error',
 
 	'step_title_1' => '检查安装环境',
 	'step_title_2' => '设置运行环境',
@@ -79,6 +80,7 @@ $lang = array(
 	'install_locked' => '安装锁定，已经安装过了，如果您确定要重新安装，请到服务器上删除<br /> '.str_replace(ROOT_PATH, '', $lockfile),
 	'error_stuck_msg' => '安装进程已经很久没有进展了，可能相关请求已经因网络超时或服务器严重错误而异常退出',
 	'error_quit_msg' => '您必须解决以上问题，安装才可以继续',
+	'error_reinstall_msg' => '您的数据库可能InnoDB性能不佳，请调高PHP超时时间，刷新页面尝试重新安装',
 
 	'step_app_reg_title' => '设置运行环境',
 	'step_app_reg_desc' => '检测服务器环境以及设置 UCenter',
@@ -105,6 +107,7 @@ $lang = array(
 
 	'forceinstall' => '强制安装',
 	'dbinfo_forceinstall_invalid' => '当前数据库当中已经含有同样表前缀的数据表，您可以修改“表名前缀”来避免删除旧的数据，或者选择强制安装。强制安装会删除旧数据，且无法恢复',
+	'dbinfo_myisam2innodb_invalid' => 'InnoDB性能不佳，安装超时失败的，可以尝试这种方式强制安装',
 
 	'click_to_back' => '点击返回上一步',
 	'adminemail' => '系统信箱 Email',
@@ -115,8 +118,10 @@ $lang = array(
 	'dbpw_comment' => '您的数据库密码',
 	'tablepre_comment' => '同一数据库运行多个论坛时，请修改前缀',
 	'forceinstall_check_label' => '我要删除数据，强制安装 !!!',
+	'myisam2innodb_check_label' => '以MyISAM方式安装，再转换为InnoDB',
 	'initdbresult_succ' => '数据库表创建完成',
 	'initdbdataresult_succ' => '数据库数据初始化完成',
+	'initdbinnodbresult_succ' => 'InnoDB数据表转换完成',
 	'initsys' => '正在系统初始化',
 
 	'uc_url_empty' => '您没有填写 UCenter 的 URL，请返回填写',
@@ -354,6 +359,7 @@ $lang = array(
 	'ucfounderpw2' => '重复创始人密码',
 
 	'clear_dir' => '清空目录',
+	'innodb' => 'InnoDB数据表转换',
 	'select_db' => '选择数据库',
 	'create_table' => '建立数据表',
 	'succeed' => '成功',

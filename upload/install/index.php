@@ -25,7 +25,7 @@ $view_off = getgpc('view_off');
 
 define('VIEW_OFF', $view_off ? TRUE : FALSE);
 
-$allow_method = array('show_license', 'env_check', 'app_reg', 'db_init', 'ext_info', 'install_check', 'tablepre_check', 'do_db_init', 'do_db_data_init', 'check_db_init_progress');
+$allow_method = array('show_license', 'env_check', 'app_reg', 'db_init', 'ext_info', 'install_check', 'tablepre_check', 'do_db_init', 'do_db_data_init', 'do_db_innodb', 'check_db_init_progress');
 
 $step = intval(getgpc('step', 'R')) ? intval(getgpc('step', 'R')) : 0;
 $method = getgpc('method');
@@ -261,7 +261,8 @@ if($method == 'show_license') {
 	} else {
 		$submit = false;
 	}
-
+	// 以MyISAM方式安装，再转换为InnoDB
+	$myisam2innodb = isset($_POST['dbinfo']['myisam2innodb']) ? $_POST['dbinfo']['myisam2innodb'] : '';
 	if($submit && !VIEW_OFF && $_SERVER['REQUEST_METHOD'] == 'POST') {
 		if($password != $password2) {
 			$error_msg['admininfo']['password2'] = 1;
@@ -274,6 +275,8 @@ if($method == 'show_license') {
 			if(!$dbname_not_exists) {
 				$form_db_init_items['dbinfo']['forceinstall'] = array('type' => 'checkbox', 'required' => 0, 'reg' => '/^.*+/');
 				$error_msg['dbinfo']['forceinstall'] = 1;
+				$form_db_init_items['dbinfo']['myisam2innodb'] = array('type' => 'checkbox', 'required' => 0, 'reg' => '/^.*+/');
+				$error_msg['dbinfo']['myisam2innodb'] = $_POST['dbinfo']['myisam2innodb'] = 1;
 				$submit = false;
 				$dbname_not_exists = false;
 			}
@@ -410,11 +413,14 @@ if($method == 'show_license') {
 
 	$sql = file_get_contents($sqlfile);
 	$sql = str_replace("\r\n", "\n", $sql);
+	if($myisam2innodb) {
+		$sql = str_replace('ENGINE=InnoDB', 'ENGINE=MyISAM', $sql);
+	}
 	if (!runquery($sql)) {
 		exit();
 	}
-	
-	!VIEW_OFF && showjsmessage(lang('initdbresult_succ'));
+
+	!VIEW_OFF && showjsmessage(lang('initdbresult_succ') . "\n");
 } elseif($method == 'do_db_data_init') {
 	$allinfo = getgpc('allinfo');
 	$allinfo_arr = unserialize(base64_decode($allinfo));
@@ -519,7 +525,7 @@ if($method == 'show_license') {
 	$data = addslashes(serialize($userstats));
 	$db->query("REPLACE INTO {$tablepre}common_syscache (cname, ctype, dateline, data) VALUES ('userstats', '$ctype', '".time()."', '$data')");
 
-	if (file_exists(ROOT_PATH.'./install/data/install_data_appendage.sql')) {
+	if(file_exists(ROOT_PATH.'./install/data/install_data_appendage.sql')) {
 		@unlink(ROOT_PATH.'./install/data/install_data_appendage.sql');
 	}
 
@@ -531,7 +537,34 @@ if($method == 'show_license') {
 	setcookie($cookiepre.'auth', authcode("{$password}\t{$uid}", 'ENCODE', $authkey), time() + 84600, $_config['cookie']['cookiepath'], $_config['cookie']['cookiedomain'], is_https(), true);
 	$db->query("insert into {$tablepre}common_admincp_session SET uid='$uid', adminid=1, panel=1, dateline='$timestamp', ip='".addslashes($_SERVER['REMOTE_ADDR'])."', errorcount='-1'");
 
-	!VIEW_OFF && showjsmessage(lang('initdbdataresult_succ'));
+	!VIEW_OFF && showjsmessage(lang('initdbdataresult_succ') . "\n");
+} elseif($method == 'do_db_innodb') {
+	$allinfo = getgpc('allinfo');
+	$allinfo_arr = unserialize(base64_decode($allinfo));
+	extract($allinfo_arr);
+
+	if($myisam2innodb) {
+		@set_time_limit(0);
+		@ignore_user_abort(TRUE);
+		ini_set('max_execution_time', 0);
+		ini_set('mysql.connect_timeout', 0);
+
+		$db = new dbstuff;
+		$db->connect($dbhost, $dbuser, $dbpw, $dbname, DBCHARSET);
+
+		$db_result = array();
+		$db->fetch_all('SHOW TABLE STATUS WHERE `Name` LIKE \''.$tablepre.'%\';', $db_result);
+		$i = intval($_GET['i']);
+		if (isset($db_result[$i])) {
+			$tb = $db_result[$i];
+			if($tb['Engine'] == 'MyISAM') {
+				showjsmessage($lang['innodb'] . ' ' . $tb['Name'] . "\n");
+				$db->query("ALTER TABLE {$tb['Name']} ENGINE=InnoDB;");
+			}
+			exit($tb['Name']);
+		}
+		!VIEW_OFF && showjsmessage(lang('initdbinnodbresult_succ') . "\n");
+	}
 } elseif($method == 'check_db_init_progress') {
 	@set_time_limit(5);
 	send_mime_type_header("text/plain");

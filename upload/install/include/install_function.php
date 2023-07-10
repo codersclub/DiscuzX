@@ -896,10 +896,11 @@ function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {
 
 function show_db_install() {
 	if(VIEW_OFF) return;
-	global $dbhost, $dbuser, $dbpw, $dbname, $tablepre, $username, $password, $email, $uid;
+	global $dbhost, $dbuser, $dbpw, $dbname, $tablepre, $username, $password, $email, $uid, $myisam2innodb;
 	$dzucfull = DZUCFULL;
 	$dzucstl = DZUCSTL ? 1 : 0;
-	$allinfo = base64_encode(serialize(compact('dbhost', 'dbuser', 'dbpw', 'dbname', 'tablepre', 'username', 'password', 'email', 'dzucfull', 'dzucstl', 'uid')));
+	$succlang = $myisam2innodb ? 'initdbinnodbresult_succ' : 'initdbdataresult_succ';
+	$allinfo = base64_encode(serialize(compact('dbhost', 'dbuser', 'dbpw', 'dbname', 'tablepre', 'username', 'password', 'email', 'dzucfull', 'dzucstl', 'uid', 'myisam2innodb')));
 	init_install_log_file();
 ?>
 		<script type="text/javascript">
@@ -988,15 +989,20 @@ function show_db_install() {
 				ajax.get('index.php?<?= http_build_query(array('method' => 'do_db_init', 'allinfo' => $allinfo)) ?>', function(data) {
 					if(data.indexOf('Discuz! Database Error') !== -1 || data.indexOf('Discuz! System Error') !== -1 || data.indexOf('Fatal error') !== -1) {
 						var p = document.createElement('p');
-						p.innerText = '<?= lang('failed') ?> ' + data;
+						p.innerHTML = '<?= lang('failed') ?> ' + data;
 						p.className = 'red';
 						append_notice(p.outerHTML);
 						append_notice('<p class="red"><?= lang('error_quit_msg') ?></p>');
+						document.getElementById('laststep').value = '<?= lang('error_reinstall_msg') ?>';
 						add_instfail();
 						return;
 					}
-					// 数据库表创建请求完成拉起数据库数据初始化
-					request_do_db_data_init();
+					// 失败时不继续请求后续操作
+					var resultDiv = document.getElementById('notice');
+					if(resultDiv.innerHTML.indexOf('<?= lang('failed') ?>') === -1) {
+						// 数据库表创建请求完成拉起数据库数据初始化
+						request_do_db_data_init();
+					}
 				});
 			}
 
@@ -1004,15 +1010,42 @@ function show_db_install() {
 				ajax.get('index.php?<?= http_build_query(array('method' => 'do_db_data_init', 'allinfo' => $allinfo)) ?>', function(data) {
 					if(data.indexOf('Discuz! Database Error') !== -1 || data.indexOf('Discuz! System Error') !== -1 || data.indexOf('Fatal error') !== -1) {
 						var p = document.createElement('p');
-						p.innerText = '<?= lang('failed') ?> ' + data;
+						p.innerHTML = '<?= lang('failed') ?> ' + data;
+						p.className = 'red';
+						append_notice(p.outerHTML);
+						append_notice('<p class="red"><?= lang('error_quit_msg') ?></p>');
+						document.getElementById('laststep').value = '<?= lang('error_reinstall_msg') ?>';
+						add_instfail();
+						return;
+					}
+					var resultDiv = document.getElementById('notice');
+					if(resultDiv.innerHTML.indexOf('<?= lang('failed') ?>') === -1) {
+						<?php echo $myisam2innodb ? 'request_do_db_innodb(0);' : 'request_do_initsys();';?>
+					}
+				});
+			}
+
+			function request_do_db_innodb(i) {
+				ajax.get('index.php?<?= http_build_query(array('method' => 'do_db_innodb', 'allinfo' => $allinfo)) ?>&i=' + i, function(data) {
+					if(data.indexOf('Discuz! Database Error') !== -1 || data.indexOf('Discuz! System Error') !== -1 || data.indexOf('Fatal error') !== -1) {
+						var p = document.createElement('p');
+						p.innerHTML = '<?= lang('failed') ?> ' + data;
 						p.className = 'red';
 						append_notice(p.outerHTML);
 						append_notice('<p class="red"><?= lang('error_quit_msg') ?></p>');
 						add_instfail();
 						return;
 					}
-					// 数据库数据初始化请求完成拉起系统初始化
-					request_do_initsys();
+					var resultDiv = document.getElementById('notice');
+					if(resultDiv.innerHTML.indexOf('<?= lang('failed') ?>') === -1) {
+						if(resultDiv.innerHTML.indexOf('<?= lang('initdbinnodbresult_succ') ?>') !== -1) {
+							// 拉起系统初始化
+							request_do_initsys();
+						} else if(document.getElementById('laststep').value.indexOf('<?= lang('install_in_processed') ?>') !== -1) {
+							// 循环完成InnoDB转换
+							request_do_db_innodb(Number(i)+1);
+						}
+					}
 				});
 			}
 
@@ -1060,7 +1093,7 @@ function show_db_install() {
 						add_instfail();
 						return;
 					}
-					if(data.indexOf('<?= lang('initdbdataresult_succ') ?>') === -1) {
+					if(data.indexOf('<?= lang($succlang) ?>') === -1) {
 						setTimeout(request_log, 200);
 					}
 				});
@@ -1070,10 +1103,12 @@ function show_db_install() {
 				var resultDiv = document.getElementById('notice');
 				// 数据库初始化失败不进行系统初始化
 				if(resultDiv.innerHTML.indexOf('<?= lang('failed') ?>') !== -1) {
-					document.getElementById('laststep').value = '<?= lang('error_quit_msg') ?>';
+					if(document.getElementById('laststep').value.indexOf('<?= lang('error_reinstall_msg') ?>') === -1) {
+						document.getElementById('laststep').value = '<?= lang('error_quit_msg') ?>';
+					}
 					return;
 				}
-				if(resultDiv.innerHTML.indexOf('<?= lang('initdbdataresult_succ') ?>') !== -1) {
+				if(resultDiv.innerHTML.indexOf('<?= lang($succlang) ?>') !== -1) {
 					// 数据库初始化成功就进行系统初始化
 					append_notice("<p><?= lang('initsys') ?> ... </p>");
 					refresh_lastmsg();
@@ -1196,7 +1231,6 @@ function runucquery($sql, $tablepre) {
 	foreach($ret as $query) {
 		$query = trim($query);
 		if($query) {
-
 			if(substr($query, 0, 12) == 'CREATE TABLE') {
 				$name = preg_replace("/CREATE TABLE ([a-z0-9_]+) .*/is", "\\1", $query);
 				if($db->query(createtable($query, $db->version()))) {
@@ -1206,12 +1240,15 @@ function runucquery($sql, $tablepre) {
 					return false;
 				}
 			} else {
-				$db->query($query);
+				if (!$db->query($query)) {
+					showjsmessage(lang('failed') . "\n");
+					return false;
+				}
 			}
 
 		}
 	}
-
+	return true;
 }
 
 
@@ -1458,7 +1495,7 @@ function show_error($type, $errors = '', $quit = false) {
 	if($step > 0) {
 		echo "<div class=\"desc\"><b>$title</b><ul>$comment</ul>";
 	} else {
-		echo "</div><div class=\"main\"><b>$title</b><ul style=\"line-height: 200%; margin-left: 30px;\">$comment</ul>";
+		echo "<div><b>$title</b><ul style=\"line-height: 200%; margin-left: 30px;\">$comment</ul>";
 	}
 
 	if($quit) {
@@ -1696,12 +1733,19 @@ function uc_write_config($config, $file, $password) {
 }
 
 function install_uc_server() {
-	global $db, $dbhost, $dbuser, $dbpw, $dbname, $tablepre, $username, $password, $email, $dzucstl;
+	global $db, $dbhost, $dbuser, $dbpw, $dbname, $tablepre, $username, $password, $email, $dzucstl, $myisam2innodb;
 
 	$ucsql = file_get_contents(ROOT_PATH.'./uc_server/install/uc.sql');
 	$uctablepre = $tablepre.'ucenter_';
 	$ucsql = str_replace(' uc_', ' '.$uctablepre, $ucsql);
-	$ucsql && runucquery($ucsql, $uctablepre);
+	if ($ucsql) {
+		if($myisam2innodb) {
+			$ucsql = str_replace('ENGINE=InnoDB', 'ENGINE=MyISAM', $ucsql);
+		}
+		if (!runucquery($ucsql, $uctablepre)) {
+			exit();
+		}
+	}
 	$appauthkey = _generate_key();
 	$ucdbhost = $dbhost;
 	$ucdbname = $dbname;
