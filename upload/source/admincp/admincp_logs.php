@@ -129,7 +129,7 @@ if($operation == 'crime') {
 } else {
 	showformheader("logs&operation=$operation");
 }
-showtableheader('', 'fixpadding" style="table-layout: fixed');
+showtableheader('', 'fixpadding');
 $filters = '';
 if($operation == 'illegal') {
 
@@ -232,7 +232,7 @@ if($operation == 'illegal') {
 
 } elseif($operation == 'rate') {
 
-	showtablerow('class="header"', array('class="td23"','class="td23"','class="td23"','class="td23"','class="td23"','class="td24"'), array(
+	showtablerow('class="header"', array('class="td23"','class="td23"','class="td23"','class="td23"','class="td23"',''), array(
 		cplang('username'),
 		cplang('usergroup'),
 		cplang('time'),
@@ -255,7 +255,7 @@ if($operation == 'illegal') {
 		}
 		$log[4] = "<a href=\"home.php?mod=space&username=".rawurlencode($log[4])."\" target=\"_blank\">$log[4]</a>";
 		$log[6] = $_G['setting']['extcredits'][$log[5]]['title'].' '.($log[6] < 0 ? "<b>$log[6]</b>" : "+$log[6]").' '.$_G['setting']['extcredits'][$log[5]]['unit'];
-		$log[7] = $log[7] ? "<a href=\"./forum.php?mod=viewthread&tid=$log[7]\" target=\"_blank\" title=\"$log[8]\">".cutstr($log[8], 20)."</a>" : "<i>{$lang['logs_rating_manual']}</i>";
+		$log[7] = $log[7] ? "<a href=\"./forum.php?mod=viewthread&tid=$log[7]\" target=\"_blank\" title=\"$log[8]\">".cutstr($log[8], 40)."</a>" : "<i>{$lang['logs_rating_manual']}</i>";
 
 		showtablerow('', array('class="bold"'), array(
 			$log[2],
@@ -315,16 +315,16 @@ if($operation == 'illegal') {
 		<input type="hidden" name="operation" value="$operation">
 		<input type="hidden" name="action" value="$action">
 		<tr>
-			<th>{$lang['crime_operator']}: </th><td width="160"><input type="text" class="txt" name="operator" value="$operator" /></td>
-			<th>{$lang['crime_action']}: </th><td><select name="crimeaction">$crimeactionselect</select></td>
+			<td class="td23">{$lang['crime_operator']}: </td><td width="160"><input type="text" class="txt" name="operator" value="$operator" /></td>
+			<td class="td23">{$lang['crime_action']}: </td><td><select name="crimeaction">$crimeactionselect</select></td>
 		</tr>
 		<tr>
-			<th>{$lang['crime_user']}: </th><td><input type="text" class="txt" name="username" value="$username" /></td>
-			<th>{$lang['startendtime']}: </th><td><input type="text" onclick="showcalendar(event, this)" style="width: 80px; margin-right: 5px;" value="$starttime" name="starttime" class="txt" /> -- <input type="text" onclick="showcalendar(event, this)" style="width: 80px; margin-left: 5px;" value="$endtime" name="endtime" class="txt" /></td>
+			<td class="td23">{$lang['crime_user']}: </td><td><input type="text" class="txt" name="username" value="$username" /></td>
+			<td class="td23">{$lang['startendtime']}: </td><td><input type="text" onclick="showcalendar(event, this)" style="width: 80px; margin-right: 5px;" value="$starttime" name="starttime" class="txt" /> -- <input type="text" onclick="showcalendar(event, this)" style="width: 80px; margin-left: 5px;" value="$endtime" name="endtime" class="txt" /></td>
 		</tr>
 		<tr>
-			<th>{$lang['keywords']}: </th><td><input type="text" class="txt" name="keyword" value="$keyword" /></td>
-			<th><input type="submit" name="crimesearch" value="{$lang['search']}" class="btn" /></th><td></td>
+			<td class="td23">{$lang['keywords']}: </td><td><input type="text" class="txt" name="keyword" value="$keyword" /></td>
+			<td class="td23"><input type="submit" name="crimesearch" value="{$lang['search']}" class="btn" /></td><td></td>
 		</tr>
 SEARCH;
 
