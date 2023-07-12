@@ -144,7 +144,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .tipbox { /* todo */ }
 .dbox { display: flex; flex-direction: column; background: #fff; margin-bottom: 20px; }
 .st-d .dbox {background: #000;}
-.dbox .boxheader { padding: 16px 20px; font-size: 16px; border-bottom: 1px solid #ddd; }
+.dbox .boxheader { padding: 16px 20px; font-size: 16px; border-bottom: 1px solid #ddd; background: #F9F9F9; }
 .st-d .dbox .boxheader { border-bottom: 1px solid #383838; }
 .dbox .boxbody { padding: 20px; border-bottom: 1px solid #ddd; }
 .st-d .dbox .boxbody { border-bottom: 1px solid #383838; }
