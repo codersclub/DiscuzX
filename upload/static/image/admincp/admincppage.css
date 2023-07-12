@@ -91,7 +91,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 @media (max-width: 1300px) {
 	.pluginlist .w1300hide { display: none; }
 }
-.cpcontainer { background: #f0f0f0; padding: 20px; color: #333; font-size: 14px; }
+.cpcontainer { background: #f0f0f0; padding: 20px; color: #333; font-size: 12px; }
 .st-d .cpcontainer { background: #282828;color: #666;}
 .copyright { width: 100%; background: #fff; color: #999; padding: 16px; font-size: 12px; text-align: center; }
 .st-d .copyright { background: #000;}
@@ -285,7 +285,7 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .mod_delete td { background: #F99 !important; }
 
 /* custom menu */
-.custom{ overflow:hidden; position:relative; border:6px solid #A6C9D7; background:#FFF; }
+.custom{ overflow:hidden; position:relative; border:6px solid #ccc; background:#FFF; }
 	.cmain{ padding:0; text-align: left; padding: 10px; }
 		.cnote{ line-height:20px; }
 			.cnote li{ float:left; margin-right:15px; }
@@ -454,19 +454,15 @@ textarea {font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 .smallefont{font-size: 14px}
 
 /* 弹窗 */
-.fwin { text-align: left; background: #FFF; }
-.t_l, .t_c, .t_r, .m_l, .m_r, .b_l, .b_c, .b_r { overflow: hidden; background: #000; opacity: 0.2; filter: alpha(opacity=20); }
-.t_l, .t_r, .b_l, .b_r { width: 10px; height: 10px; line-height: 10px; font-size: 0; }
-.t_c, .b_c { height: 10px; }
-.m_l, .m_r { width: 10px; }
-.t_l { border-radius: 10px 0 0 0; -moz-border-radius: 10px 0 0 0; -webkit-border-radius: 10px 0 0 0; -o-border-radius: 10px 0 0 0; }
-.t_r { border-radius: 0 10px 0 0; -moz-border-radius: 0 10px 0 0; -webkit-border-radius: 0 10px 0 0; -o-border-radius: 0 10px 0 0; }
-.b_l { border-radius: 0 0 0 10px; -moz-border-radius: 0 0 0 10px; -webkit-border-radius: 0 0 0 10px; -o-border-radius: 0 0 0 10px; }
-.b_r { border-radius: 0 0 10px 0; -moz-border-radius: 0 0 10px 0; -webkit-border-radius: 0 0 10px 0; -o-border-radius: 0 0 10px 0; }
+.fwin { text-align: left; background: #FFF; font-size: 12px; }
+.t_l, .t_c, .t_r, .m_l, .m_r, .b_l, .b_c, .b_r { overflow: hidden; background: #ccc; }
+.t_l, .t_r, .b_l, .b_r { width: 6px; height: 6px; line-height: 6px; font-size: 0; }
+.t_c, .b_c { height: 6px; }
+.m_l, .m_r { width: 6px; font-size: 1px; }
 .m_c { background: #FFF; }
-.m_c .tb { margin: 0 0 10px; padding: 0 10px; }
-.m_c .c { padding: 0 10px 10px; }
-.m_c .o { padding: 8px 10px; height: 50px; text-align: right; border-top: 1px solid #CCC; background: #F5F5F5; }
+.m_c .tb { margin: 0 0 6px; padding: 0 6px; }
+.m_c .c { padding: 0 6px 6px; }
+.m_c .o { padding: 8px 6px; height: 50px; text-align: right; border-top: 1px solid #CCC; background: #F5F5F5; }
 .m_c .o .btn { margin: 0; }
 
 .flb { padding: 10px 10px 8px; height: 20px; line-height: 20px; box-sizing: unset;}
