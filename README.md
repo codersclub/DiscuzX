@@ -2,7 +2,7 @@
 ![Discuz! X5 内核](https://img.shields.io/badge/Discuz!-X5-%23F4A62F?style=plastic)
 ![23 年产品历史](https://img.shields.io/badge/Years-23-red?style=plastic)
 ![支持 PHP 8.0](https://img.shields.io/badge/PHP-8-%237A86B8?style=plastic)
-![支持 MySQL 8.0](https://img.shields.io/badge/MySQL-8-blue?style=plastic)
+![支持 MySQL 8.0](https://img.shields.io/badge/MySQL-8-%233E6E93?style=plastic)
 
 ### 简介
 Discuz! X5.0 官方 Git (https://gitee.com/Discuz/DiscuzX/tree/MitFrame)，简体中文 UTF8 版本
