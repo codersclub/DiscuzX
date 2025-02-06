@@ -4,6 +4,9 @@
 ![支持 PHP 8.0](https://img.shields.io/badge/PHP-8-%237A86B8?style=plastic)
 ![支持 MySQL 8.0](https://img.shields.io/badge/MySQL-8-%233E6E93?style=plastic)
 
+![Star](https://gitee.com/Discuz/DiscuzX/badge/star.svg?theme=dark)
+![Fork](https://gitee.com/Discuz/DiscuzX/badge/fork.svg?theme=dark)
+
 ### 简介
 Discuz! X5.0 官方 Git (https://gitee.com/Discuz/DiscuzX/tree/MitFrame)，简体中文 UTF8 版本
 
