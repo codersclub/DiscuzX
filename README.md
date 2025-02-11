@@ -22,7 +22,7 @@ Discuz! X5.0 官方 Git (https://gitee.com/Discuz/DiscuzX/tree/MitFrame)，简�
 - [点击了解更多...](https://www.dismall.com/thread-18472-1-1.html)
 
 ### 关于即将发布开发者预览版
-- **本预览版仅限开发者提前为站长开发适配 X5.0 和 W1.5 版应用而设计，正常运营的 X3.5 社区请勿安装、升级，可供普通站长使用的版本尚未发布，请勿随意尝鲜。在开发者们未跟进 X5.0 应用前，盲目升级会导致无法安装任何应用，还会产生未知问题**
+**重要提示：本预览版仅限开发者提前为站长开发适配 X5.0 和 W1.5 版应用而设计，正常运营的 X3.5 社区请勿安装、升级，可供普通站长使用的版本尚未发布，请勿随意尝鲜。在开发者们未跟进 X5.0 应用前，盲目升级会导致无法安装任何应用，还会产生未知问题，但是如果您想体验 X5.0 版 Discuz! 可开通 [Discuz!ᵂ](https://w.discuz.vip) SaaS 版 Discuz! 试用**
 - X5.0 起 Discuz! 默认不再包含 UCenter 服务端，如需站群方式部署请自行下载 [UCenter](https://gitee.com/Discuz/UCenter)
 - X5.0 起安装程序默认内置升级程序
 - X5.0 将不再兼容 PHP 7，安装、升级前请自行准备 PHP 8 环境
@@ -37,9 +37,9 @@ Discuz! X5.0 官方 Git (https://gitee.com/Discuz/DiscuzX/tree/MitFrame)，简�
 ### X5 系产品版本号更新对照表
 | 产品名称 | 产品介绍 | 完整版本号    |
 |----------|--------|--------|
-| Discuz! 企飞版 | 为企业用户提供的定制化版本 | X5.0.9_Business |
-| Discuz!ᵂ | 为无服务器的用户提供快速建站的 SaaS 版本 | X5.0.9_SaaS |
-| Discuz! 开发者预览版 | 为有服务器的用户提供的私有化部署版本 | X5.0.0_Open |
+| Discuz! 企飞版 | 为企业用户提供的定制化版本 | X5.0.14.Business |
+| Discuz!ᵂ | 为无服务器的用户提供快速建站的 SaaS 版本 | X5.0.14.SaaS |
+| Discuz! 开发者预览版 | 为有服务器的用户提供的私有化部署版本 | X5.0.0.Open |
 
 ### DxGit Forker 交流群
 参与本项目 PR 的小伙伴，可以私信 [@zoewho](https://gitee.com/zoewho) 、[@DiscuzX](https://gitee.com/3dming) 并提供 QQ 号码进行审核，在审核通过后加入 DxGit Forker QQ 群与开发者团队共同交流。
