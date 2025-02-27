@@ -1,3 +1,6 @@
+ **【你竟然发现了本分支？ 那就告诉你一个好消息吧】** 
+- Discuz! X5.0 开发者预览版（完整版本号 X5.0.0_Open）将于  **2025年5月1日**  正式开源，敬请期待
+
 ![MitFrame! 1.0 框架体系](https://img.shields.io/badge/MitFrame-1.0-%23155BD5?style=plastic)
 ![Discuz! X5 内核](https://img.shields.io/badge/Discuz!-X5-%23F4A62F?style=plastic)
 ![23 年产品历史](https://img.shields.io/badge/Years-23-red?style=plastic)
