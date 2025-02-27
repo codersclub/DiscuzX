@@ -1,5 +1,5 @@
  **【你竟然发现了本分支？ 那就告诉你一个好消息吧】** 
-- Discuz! X5.0 开发者预览版（完整版本号 X5.0.0_Open）将于  **2025年5月1日**  正式开源，敬请期待
+- Discuz! X5.0 开发者预览版（完整版本号 X5.0.0.Open）将于  **2025年5月1日**  正式开源，敬请期待
 
 ![MitFrame! 1.0 框架体系](https://img.shields.io/badge/MitFrame-1.0-%23155BD5?style=plastic)
 ![Discuz! X5 内核](https://img.shields.io/badge/Discuz!-X5-%23F4A62F?style=plastic)
@@ -40,9 +40,9 @@ Discuz! X5.0 官方 Git (https://gitee.com/Discuz/DiscuzX/tree/MitFrame)，简�
 ### X5 系产品版本号更新对照表
 | 产品名称 | 产品介绍 | 完整版本号    |
 |----------|--------|--------|
-| Discuz! 企飞版 | 为企业用户提供的定制化版本 | X5.0.14_Business |
-| Discuz!ᵂ | 为无服务器的用户提供快速建站的 SaaS 版本 | X5.0.14_SaaS |
-| Discuz! 开发者预览版 | 为有服务器的用户提供的私有化部署版本 | X5.0.0_Open |
+| Discuz! 企飞版 | 为企业用户提供的定制化版本 | X5.0.18.Business |
+| Discuz!ᵂ | 为无服务器的用户提供快速建站的 SaaS 版本 | X5.0.18.SaaS |
+| Discuz! 开发者预览版 | 为有服务器的用户提供的私有化部署版本 | X5.0.0.Open |
 
 ### DxGit Forker 交流群
 参与本项目 PR 的小伙伴，可以私信 [@zoewho](https://gitee.com/zoewho) 、[@DiscuzX](https://gitee.com/3dming) 并提供 QQ 号码进行审核，在审核通过后加入 DxGit Forker QQ 群与开发者团队共同交流。
