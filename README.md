@@ -40,8 +40,8 @@ Discuz! X5.0 官方 Git (https://gitee.com/Discuz/DiscuzX/tree/MitFrame)，简�
 ### X5 系产品版本号更新对照表
 | 产品名称 | 产品介绍 | 完整版本号    |
 |----------|--------|--------|
-| Discuz! 企飞版 | 为企业用户提供的定制化版本 | X5.0.18.Business |
-| Discuz!ᵂ | 为无服务器的用户提供快速建站的 SaaS 版本 | X5.0.18.SaaS |
+| Discuz!ᵂ | 为无服务器的用户提供快速建站的 SaaS 版本 | X5.0.19.SaaS |
+| Discuz! 企飞版 | 为企业用户提供的定制化版本 | X5.0.10.Business |
 | Discuz! 开发者预览版 | 为有服务器的用户提供的私有化部署版本 | X5.0.0.Open |
 
 ### DxGit Forker 交流群
